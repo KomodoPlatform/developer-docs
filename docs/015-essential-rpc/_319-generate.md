@@ -4,19 +4,6 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## generate
 
-```
-command:
-
-komodo-cli generate 2
-
-response:
-
-[
-  "0475316d63fe48bb9d58373595cb334fc2553f65496edfb2fb17b9ed06f4c480",
-  "00d29a2b7dec52baa9ab8e4264363f32b4989eef7dbb0a9932fbc11274195b5a"
-]
-```
-
 **generate numblocks**
 
 <aside class="notice">
@@ -40,7 +27,46 @@ blockhashes                                  |(array)                      |hash
 ,...                                         |                             |
 ]                                            |                             |
 
+### Examples:
+
+```
+command:
+
+komodo-cli generate 2
+
+response:
+
+[
+  "0475316d63fe48bb9d58373595cb334fc2553f65496edfb2fb17b9ed06f4c480",
+  "00d29a2b7dec52baa9ab8e4264363f32b4989eef7dbb0a9932fbc11274195b5a"
+]
+```
+
 ## getgenerate
+
+**getgenerate**
+
+The `getgenerate` method returns a boolean value indicating the server's mining status.
+
+The default value is false.
+
+<aside class="notice">
+  See also <b>gen</b>.
+</aside>
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+(none)                                       |(none)                       |
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+true/false                                   |(boolean)                    |indicates whether the server is set to generate coins
+
+### Examples:
 
 ```
 command:
@@ -68,31 +94,34 @@ response:
 }
 ```
 
-**getgenerate**
+## setgenerate
 
-The `getgenerate` method returns a boolean value indicating the server's mining status.
+> Turn on generation with unlimited processors:
 
-The default value is false.
+**setgenerate generate ( genproclimit )**
+
+The `setgenerate` method allows the user to set the `generate` property in the coin daemon to `true` or `false`, thus turning generation (mining) on or off.
+
+Generation is limited to [`genproclimit`](#genproclimit) processors. Set `genproclimit` to `-1` for unlimited.
 
 <aside class="notice">
-  See also <b>gen</b>.
+  See also the <b>getgenerate</b> method to query the current setting, and <b>genproclimit</b> for setting processor default parameters.
 </aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |(none)                       |
+generate                                     |(boolean, required)          |set to true to turn on generation; set to off to turn off generation
+genproclimit                                 |(numeric, optional)          |set the processor limit for when generation is on; use value "-1" for unlimited
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-true/false                                   |(boolean)                    |indicates whether the server is set to generate coins
+(none)                                       |(none)                       |
 
-## setgenerate
-
-> Turn on generation with unlimited processors:
+### Examples:
 
 ```
 command:
@@ -143,26 +172,3 @@ response:
   "id": "curltest"
 }
 ```
-
-**setgenerate generate ( genproclimit )**
-
-The `setgenerate` method allows the user to set the `generate` property in the coin daemon to `true` or `false`, thus turning generation (mining) on or off.
-
-Generation is limited to [`genproclimit`](#genproclimit) processors. Set `genproclimit` to `-1` for unlimited.
-
-<aside class="notice">
-  See also the <b>getgenerate</b> method to query the current setting, and <b>genproclimit</b> for setting processor default parameters.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-generate                                     |(boolean, required)          |set to true to turn on generation; set to off to turn off generation
-genproclimit                                 |(numeric, optional)          |set the processor limit for when generation is on; use value "-1" for unlimited
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |(none)                       |

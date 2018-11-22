@@ -4,6 +4,33 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## createmultisig
 
+**createmultisig nrequired [ "key", ... ]**
+
+The `createmultisig` method creates a multi-signature address with `n` signature(s) of `m` key(s) required. The method returns a json object with the address and redeemScript.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+number_required                              |(numeric, required)          |the number of required signatures out of the `n` key(s) or address(es)
+"keys"                                       |(string, required)           |a json array of keys which are addresses or hex-encoded public keys
+                                             |                             |
+[                                            |                             |
+"key"                                        |(string)                     |an address or hex-encoded public key
+,                                            |                             |
+]                                            |                             |
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+{                                            |                             |
+"address"                                    |(string)                     |the value of the new multisig address
+"redeemScript"                               |(string)                     |the string value of the hex-encoded redemption script
+}                                            |                             |
+
+### Examples:
+
 ```
 command:
 
@@ -34,42 +61,7 @@ response:
   }
 ```
 
-**createmultisig nrequired [ "key", ... ]**
-
-The `createmultisig` method creates a multi-signature address with `n` signature(s) of `m` key(s) required. The method returns a json object with the address and redeemScript.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-number_required                              |(numeric, required)          |the number of required signatures out of the `n` key(s) or address(es)
-"keys"                                       |(string, required)           |a json array of keys which are addresses or hex-encoded public keys
-                                             |                             |
-[                                            |                             |
-"key"                                        |(string)                     |an address or hex-encoded public key
-,                                            |                             |
-]                                            |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-{                                            |                             |
-"address"                                    |(string)                     |the value of the new multisig address
-"redeemScript"                               |(string)                     |the string value of the hex-encoded redemption script
-}                                            |                             |
-
 ## estimatefee
-
-```
-  command:
-
-	komodo-cli estimatefee 6
-
-  response:
-
-  0.00019376
-```
 
 **estimatefee nblocks**
 
@@ -89,16 +81,19 @@ Structure|Type|Description
 ---------|----|-----------
 n                                            |                             |
 
-## estimatepriority
+### Examples:
 
 ```
   command:
 
-	komodo-cli estimatepriority 6
+	komodo-cli estimatefee 6
 
   response:
 
+  0.00019376
 ```
+
+## estimatepriority
 
 **estimatepriority nblocks**
 
@@ -118,7 +113,36 @@ Structure|Type|Description
 ---------|----|-----------
 n                                            |(numeric)                    |estimated priority
 
+### Examples:
+
+```
+  command:
+
+	komodo-cli estimatepriority 6
+
+  response:
+
+```
+
 ## invalidateblock
+
+**invalidateblock "hash"**
+
+The `invalidateblock` method permanently marks a block as invalid, as if it violated a consensus rule.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+hash                                         |(string, required)           |the hash of the block to mark as invalid
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+(none)                                       |                             |
+
+### Examples:
 
 ```
 command:
@@ -144,33 +168,7 @@ response:
 }
 ```
 
-**invalidateblock "hash"**
-
-The `invalidateblock` method permanently marks a block as invalid, as if it violated a consensus rule.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-hash                                         |(string, required)           |the hash of the block to mark as invalid
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
 ## reconsiderblock
-
-```
-  command:
-
-	komodo-cli reconsiderblock "02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"
-
-  response:
-
-  (none)
-```
 
 **reconsiderblock "hash"**
 
@@ -188,28 +186,19 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
+### Examples:
+
+```
+  command:
+
+	komodo-cli reconsiderblock "02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"
+
+  response:
+
+  (none)
+```
+
 ## validateaddress
-
-```
-command:
-
-komodo-cli validateaddress "RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7"
-
-response:
-
-{
-  "isvalid": true,
-  "address": "RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7",
-  "scriptPubKey": "76a9142cd2a4e3d1c2738ee4fce61e73ea822dcaacb9b488ac",
-  "segid": 9,
-  "ismine": true,
-  "iswatchonly": false,
-  "isscript": false,
-  "pubkey": "03c376b00b3a2ae43b8bf103a6c6962b241de684383301fe628a460b68a79ac1d8",
-  "iscompressed": true,
-  "account": ""
-}
-```
 
 **validateaddress "komodoaddress"**
 
@@ -236,31 +225,32 @@ Structure|Type|Description
 "account"                                    |(string)                     |DEPRECATED the account associated with the address; "" is the default account
 }                                            |                             |
 
-## verifymessage
-
-> Create the signature:
+### Examples:
 
 ```
 command:
 
-komodo-cli signmessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "my message"
+komodo-cli validateaddress "RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7"
 
 response:
 
-H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=
+{
+  "isvalid": true,
+  "address": "RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7",
+  "scriptPubKey": "76a9142cd2a4e3d1c2738ee4fce61e73ea822dcaacb9b488ac",
+  "segid": 9,
+  "ismine": true,
+  "iswatchonly": false,
+  "isscript": false,
+  "pubkey": "03c376b00b3a2ae43b8bf103a6c6962b241de684383301fe628a460b68a79ac1d8",
+  "iscompressed": true,
+  "account": ""
+}
 ```
 
-> Verify the signature:
+## verifymessage
 
-```
-  command:
-
-	komodo-cli verifymessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=" "my message"
-
-  response:
-
-  true
-```
+> Create the signature:
 
 **verifymessage "address" "signature" "message"**
 
@@ -284,21 +274,31 @@ Structure|Type|Description
 ---------|----|-----------
 true/false                                   |(boolean)                    |indicates whether the signature is verified
 
-## z_validateaddress
+### Examples:
 
 ```
 command:
 
-komodo-cli z_validateaddress "zcWsmqT4X2V4jgxbgiCzyrAfRT1vi1F4sn7M5Pkh66izzw8Uk7LBGAH3DtcSMJeUb2pi3W4SQF8LMKkU2cUuVP68yAGcomL"
+komodo-cli signmessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "my message"
 
-{
-  "isvalid": true,
-  "address": "ztdChvxs2Z97X7qeBwsnRLbxva1ZVgWhFWZxZTA5bC8XLt9RHF8uXn16MWCU8DhKEt4gTtKqQwzsrk85f5tThWMNoYds2oX",
-  "payingkey": "d9c09cb974fbe0bf7e36a2318b46396c5112511f90749531428936867d83bd92",
-  "transmissionkey": "5ce3250912758cbb591e3d585ef110992f25ed7694b88f55315b060698b75404",
-  "ismine": true
-}
+response:
+
+H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=
 ```
+
+> Verify the signature:
+
+```
+  command:
+
+	komodo-cli verifymessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=" "my message"
+
+  response:
+
+  true
+```
+
+## z_validateaddress
 
 **z_validateaddress "zaddr"**
 
@@ -321,3 +321,19 @@ Structure|Type|Description
 "payingkey"                                  |(string)                     |the hex value of the paying key, a_pk
 "transmissionkey"                            |(string)                     |the hex value of the transmission key, pk_enc
 }                                            |                             |
+
+### Examples:
+
+```
+command:
+
+komodo-cli z_validateaddress "zcWsmqT4X2V4jgxbgiCzyrAfRT1vi1F4sn7M5Pkh66izzw8Uk7LBGAH3DtcSMJeUb2pi3W4SQF8LMKkU2cUuVP68yAGcomL"
+
+{
+  "isvalid": true,
+  "address": "ztdChvxs2Z97X7qeBwsnRLbxva1ZVgWhFWZxZTA5bC8XLt9RHF8uXn16MWCU8DhKEt4gTtKqQwzsrk85f5tThWMNoYds2oX",
+  "payingkey": "d9c09cb974fbe0bf7e36a2318b46396c5112511f90749531428936867d83bd92",
+  "transmissionkey": "5ce3250912758cbb591e3d585ef110992f25ed7694b88f55315b060698b75404",
+  "ismine": true
+}
+```

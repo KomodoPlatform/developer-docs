@@ -4,30 +4,6 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## createrawtransaction
 
-```
-command:
-
-komodo-cli createrawtransaction '[{"txid":"9f44dc664882198b14e9a8c466d466efcdd070ccb6f57be8e2884aa11e7b2a30","vout":0}]' '{"RHCXHfXCZQpbUbihNHh5gTwfr7NXmJXmHi":0.01}'
-
-response:
-
-0100000001302a7b1ea14a88e2e87bf5b6cc70d0cdef66d466c4a8e9148b19824866dc449f0000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": [[{"txid":"9f44dc664882198b14e9a8c466d466efcdd070ccb6f57be8e2884aa11e7b2a30","vout":0}], {"RHCXHfXCZQpbUbihNHh5gTwfr7NXmJXmHi":0.01} ]}' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-{
-  "result": "0100000001302a7b1ea14a88e2e87bf5b6cc70d0cdef66d466c4a8e9148b19824866dc449f0000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000",
-  "error": null,
-  "id": "curltest"
-}
-```
-
 **createrawtransaction '[{ "txid": "id_string", "vout": number }, ... ]' '{ "address": amount, ... }'**
 
 The `createrawtransaction` method creates a transaction, spending the given inputs and sending to the given addresses. The method returns a hex-encoded raw transaction.
@@ -60,7 +36,114 @@ Structure|Type|Description
 ---------|----|-----------
 "transaction"                                |(string)                     |a hex string of the transaction
 
+### Examples:
+
+```
+command:
+
+komodo-cli createrawtransaction '[{"txid":"9f44dc664882198b14e9a8c466d466efcdd070ccb6f57be8e2884aa11e7b2a30","vout":0}]' '{"RHCXHfXCZQpbUbihNHh5gTwfr7NXmJXmHi":0.01}'
+
+response:
+
+0100000001302a7b1ea14a88e2e87bf5b6cc70d0cdef66d466c4a8e9148b19824866dc449f0000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000
+```
+
+> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+
+```
+command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": [[{"txid":"9f44dc664882198b14e9a8c466d466efcdd070ccb6f57be8e2884aa11e7b2a30","vout":0}], {"RHCXHfXCZQpbUbihNHh5gTwfr7NXmJXmHi":0.01} ]}' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+{
+  "result": "0100000001302a7b1ea14a88e2e87bf5b6cc70d0cdef66d466c4a8e9148b19824866dc449f0000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000",
+  "error": null,
+  "id": "curltest"
+}
+```
+
 ## decoderawtransaction
+
+**decoderawtransaction "hexstring"**
+
+The `decoderawtransaction` method returns a json object representing the serialized, hex-encoded transaction.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"hex"                                        |(string, required)           |the transaction hex string
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+{                                            |                             |
+"txid"                                       |(string)                     |the transaction id
+"overwintered"                               |(boolean)                    |the overwintered flag
+"version"                                    |(numeric)                    |the version
+"versiongroupid"                             |(string, optional)           |the version group id (overwintered txs)
+"locktime"                                   |(numeric)                    |the lock time
+"expiryheight"                               |(numeric, optional)          |last valid block height for mining transaction (overwintered txs)
+"vin"                                        |                             |
+{                                            |                             |
+"txid"                                       |(string)                     |the transaction id
+"vout"                                       |(numeric)                    |the output number
+"scriptSig"                                  |(json object)                |the script
+"asm"                                        |(string)                     |asm
+"hex"                                        |(string)                     |hex
+},                                           |                             |
+"sequence"                                   |(numeric)                    |the script sequence number
+}                                            |                             |
+,                                            |                             |
+],                                           |                             |
+"vout"                                       |                             |
+{                                            |                             |
+"value"                                      |(numeric)                    |the value
+"number"                                     |(numeric)                    |index
+"scriptPubKey"                               |                             |
+"asm"                                        |(string)                     |the asm
+"hex"                                        |(string)                     |the hex
+"reqSigs"                                    |(numeric)                    |the required sigs
+"type"                                       |(string)                     |the type, eg 'pubkeyhash'
+"addresses"                                  |                             |
+"address"                                    |(string)                     |the address
+,                                            |                             |
+]                                            |                             |
+}                                            |                             |
+}                                            |                             |
+,                                            |                             |
+],                                           |                             |
+"vjoinsplit"                                 |                             |
+{                                            |                             |
+"vpub_old"                                   |(numeric)                    |public input value
+"vpub_new"                                   |(numeric)                    |public output value
+"anchor"                                     |(string)                     |the anchor
+"nullifiers"                                 |                             |
+"hex"                                        |(string)                     |input note nullifier
+,                                            |                             |
+],                                           |                             |
+"commitments"                                |                             |
+"hex"                                        |(string)                     |output note commitment
+,                                            |                             |
+],                                           |                             |
+"onetimePubKey"                              |(string)                     |the onetime public key used to encrypt the ciphertexts
+"randomSeed"                                 |(string)                     |the random seed
+"macs"                                       |                             |
+"hex"                                        |(string)                     |input note MAC
+,                                            |                             |
+],                                           |                             |
+"proof"                                      |(string)                     |the zero-knowledge proof
+"ciphertexts"                                |                             |
+"hex"                                        |(string)                     |output note ciphertext
+,                                            |                             |
+]                                            |                             |
+}                                            |                             |
+,                                            |                             |
+],                                           |                             |
+}                                            |                             |
+
+### Examples:
 
 ```
   command:
@@ -153,86 +236,35 @@ Structure|Type|Description
   }
 ```
 
-**decoderawtransaction "hexstring"**
+## decodescript
 
-The `decoderawtransaction` method returns a json object representing the serialized, hex-encoded transaction.
+**decodescript "hex"**
+
+The `decodescript` method decodes a hex-encoded script.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"hex"                                        |(string, required)           |the transaction hex string
+"hex"                                        |(string)                     |the hex encoded script
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
 {                                            |                             |
-"txid"                                       |(string)                     |the transaction id
-"overwintered"                               |(boolean)                    |the overwintered flag
-"version"                                    |(numeric)                    |the version
-"versiongroupid"                             |(string, optional)           |the version group id (overwintered txs)
-"locktime"                                   |(numeric)                    |the lock time
-"expiryheight"                               |(numeric, optional)          |last valid block height for mining transaction (overwintered txs)
-"vin"                                        |                             |
-{                                            |                             |
-"txid"                                       |(string)                     |the transaction id
-"vout"                                       |(numeric)                    |the output number
-"scriptSig"                                  |(json object)                |the script
-"asm"                                        |(string)                     |asm
-"hex"                                        |(string)                     |hex
-},                                           |                             |
-"sequence"                                   |(numeric)                    |the script sequence number
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
-"vout"                                       |                             |
-{                                            |                             |
-"value"                                      |(numeric)                    |the value
-"number"                                     |(numeric)                    |index
-"scriptPubKey"                               |                             |
-"asm"                                        |(string)                     |the asm
-"hex"                                        |(string)                     |the hex
-"reqSigs"                                    |(numeric)                    |the required sigs
-"type"                                       |(string)                     |the type, eg 'pubkeyhash'
-"addresses"                                  |                             |
+"asm"                                        |(string)                     |script public key
+"hex"                                        |(string)                     |hex encoded public key
+"type"                                       |(string)                     |the output type
+"reqSigs"                                    |(numeric)                    |the required signatures
+"addresses": [                               |                             |
 "address"                                    |(string)                     |the address
 ,                                            |                             |
-]                                            |                             |
-}                                            |                             |
-}                                            |                             |
-,                                            |                             |
 ],                                           |                             |
-"vjoinsplit"                                 |                             |
-{                                            |                             |
-"vpub_old"                                   |(numeric)                    |public input value
-"vpub_new"                                   |(numeric)                    |public output value
-"anchor"                                     |(string)                     |the anchor
-"nullifiers"                                 |                             |
-"hex"                                        |(string)                     |input note nullifier
-,                                            |                             |
-],                                           |                             |
-"commitments"                                |                             |
-"hex"                                        |(string)                     |output note commitment
-,                                            |                             |
-],                                           |                             |
-"onetimePubKey"                              |(string)                     |the onetime public key used to encrypt the ciphertexts
-"randomSeed"                                 |(string)                     |the random seed
-"macs"                                       |                             |
-"hex"                                        |(string)                     |input note MAC
-,                                            |                             |
-],                                           |                             |
-"proof"                                      |(string)                     |the zero-knowledge proof
-"ciphertexts"                                |                             |
-"hex"                                        |(string)                     |output note ciphertext
-,                                            |                             |
-]                                            |                             |
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
+"p2sh"                                       |(string)                     |script address
 }                                            |                             |
 
-## decodescript
+### Examples:
 
 ```
   command:
@@ -266,35 +298,40 @@ Structure|Type|Description
   }
 ```
 
-**decodescript "hex"**
+## fundrawtransaction
 
-The `decodescript` method decodes a hex-encoded script.
+> Create a transaction with no inputs:
+
+**fundrawtransaction "hexstring"**
+
+The `fundrawtransaction` method adds inputs to a transaction until it has enough `in` value to meet its `out` value. This will not modify existing inputs, and will add one `change` output to the outputs.
+
+<aside class="notice>
+  Inputs which were signed may need to be resigned after completion since in/outputs have been added. To sign the inputs added, use <b>signrawtransaction</b>.
+</aside>
+
+<aside class="notice">
+  This method comes from the BTC codebase, of which KMD is ultimately a fork (via Zcash). For full details, please see <a href="https://bitcoin.org/en/developer-reference#fundrawtransaction">the linked documentation</a>.
+</aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"hex"                                        |(string)                     |the hex encoded script
+"hexstring"                                  |(string, required)           |the hex string of the raw transaction
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
 {                                            |                             |
-"asm"                                        |(string)                     |script public key
-"hex"                                        |(string)                     |hex encoded public key
-"type"                                       |(string)                     |the output type
-"reqSigs"                                    |(numeric)                    |the required signatures
-"addresses": [                               |                             |
-"address"                                    |(string)                     |the address
-,                                            |                             |
-],                                           |                             |
-"p2sh"                                       |(string)                     |script address
+"hex"                                        |(string)                     |the resulting raw transaction (hex-encoded string)
+"fee"                                        |(numeric)                    |the fee added to the transaction
+"changepos":                                 |(numeric)                    |the position of the added change output, or -1
 }                                            |                             |
+"hex"                                        |                             |
 
-## fundrawtransaction
-
-> Create a transaction with no inputs:
+### Examples:
 
 ```
 command:
@@ -349,36 +386,103 @@ response:
 a44feb2e788d0332e283d8ca69c6a20999944dccac93246cbf9b36d841b08c95
 ```
 
-**fundrawtransaction "hexstring"**
+## getrawtransaction
 
-The `fundrawtransaction` method adds inputs to a transaction until it has enough `in` value to meet its `out` value. This will not modify existing inputs, and will add one `change` output to the outputs.
+**getrawtransaction "transaction_id" ( verbose )**
 
-<aside class="notice>
-  Inputs which were signed may need to be resigned after completion since in/outputs have been added. To sign the inputs added, use <b>signrawtransaction</b>.
-</aside>
+The `getrawtransaction` method returns the raw transaction data.
+
+If `verbose=0`, the method returns a string that is serialized, hex-encoded data for `transaction_id`. If `verbose` is non-zero, the method returns an object with information about `transaction_id`.
 
 <aside class="notice">
-  This method comes from the BTC codebase, of which KMD is ultimately a fork (via Zcash). For full details, please see <a href="https://bitcoin.org/en/developer-reference#fundrawtransaction">the linked documentation</a>.
+  This method relies on the <b>txindex</b> runtime parameter, which is enabled by default on all KMD-based chains. Disabling <b>txindex</b> will cause this method to malfunction.
 </aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"hexstring"                                  |(string, required)           |the hex string of the raw transaction
+"txid"                                       |(string, required)           |the transaction id
+verbose                                      |(numeric, optional, default=0)|if 0, the method returns a string; otherwise, it returns a json object
 
-### Response:
+### Response (if `verbose` is not set, or set to `0`):
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
-"hex"                                        |(string)                     |the resulting raw transaction (hex-encoded string)
-"fee"                                        |(numeric)                    |the fee added to the transaction
-"changepos":                                 |(numeric)                    |the position of the added change output, or -1
-}                                            |                             |
-"hex"                                        |                             |
+"data"                                       |(string)                     |the serialized, hex-encoded data for 'txid'
 
-## getrawtransaction
+### Response (if `verbose` > `0`):
+Structure|Type|Description
+---------|----|-----------
+{                                            |                             |
+"hex"                                        |(string)                     |the serialized, hex-encoded data for 'txid'
+"txid"                                       |(string)                     |the transaction id (same as provided)
+"version"                                    |(numeric)                    |the version
+"locktime"                                   |(numeric)                    |the lock time
+"expiryheight"                               |(numeric, optional)          |the block height after which the transaction expires
+"vin"                                        |                             |
+{                                            |                             |
+"txid"                                       |(string)                     |the transaction id
+"vout"                                       |(numeric)                    |
+"scriptSig":                                 |                             |
+"asm"                                        |(string)                     |asm
+"hex"                                        |(string)                     |hex
+},                                           |                             |
+"sequence"                                   |(numeric)                    |the script sequence number
+}                                            |                             |
+,                                            |                             |
+],                                           |                             |
+"vout"                                       |                             |
+{                                            |                             |
+"value"                                      |(numeric)                    |the value
+"number"                                     |(numeric)                    |index
+"scriptPubKey"                               |                             |
+"asm"                                        |(string)                     |the asm
+"hex"                                        |(string)                     |the hex
+"reqSigs"                                    |(numeric)                    |the required sigs
+"type"                                       |(string)                     |the type, eg 'pubkeyhash'
+"addresses"                                  |                             |
+"address"                                    |(string)                     |the address
+,                                            |                             |
+]                                            |                             |
+}                                            |                             |
+}                                            |                             |
+,                                            |                             |
+],                                           |                             |
+"vjoinsplit"                                 |                             |
+{                                            |                             |
+"vpub_old"                                   |(numeric)                    |public input value
+"vpub_new"                                   |(numeric)                    |public output value
+"anchor"                                     |(string)                     |the anchor
+"nullifiers"                                 |                             |
+"hex"                                        |(string)                     |input note nullifier
+,                                            |                             |
+],                                           |                             |
+"commitments"                                |                             |
+"hex"                                        |(string)                     |output note commitment
+,                                            |                             |
+],                                           |                             |
+"onetimePubKey"                              |(string)                     |the onetime public key used to encrypt the ciphertexts
+"randomSeed"                                 |(string)                     |the random seed
+"macs"                                       |                             |
+"hex"                                        |(string)                     |input note MAC
+,                                            |                             |
+],                                           |                             |
+"proof"                                      |(string)                     |the zero-knowledge proof
+"ciphertexts"                                |                             |
+"hex"                                        |(string)                     |output note ciphertext
+,                                            |                             |
+]                                            |                             |
+}                                            |                             |
+,                                            |                             |
+],                                           |                             |
+"blockhash"                                  |(string)                     |the block hash
+"confirmations"                              |(numeric)                    |the confirmations
+"time"                                       |(numeric)                    |the transaction time in seconds since epoch (Jan 1 1970 GMT)
+"blocktime"                                  |(numeric)                    |the block time in seconds since epoch (Jan 1 1970 GMT)
+}                                            |                             |
+
+### Examples:
 
 ```
 command:
@@ -489,103 +593,30 @@ response:
 }
 ```
 
-**getrawtransaction "transaction_id" ( verbose )**
+## sendrawtransaction
 
-The `getrawtransaction` method returns the raw transaction data.
+> Create a transaction:
 
-If `verbose=0`, the method returns a string that is serialized, hex-encoded data for `transaction_id`. If `verbose` is non-zero, the method returns an object with information about `transaction_id`.
+**sendrawtransaction "hexstring" ( allowhighfees )**
 
-<aside class="notice">
-  This method relies on the <b>txindex</b> runtime parameter, which is enabled by default on all KMD-based chains. Disabling <b>txindex</b> will cause this method to malfunction.
-</aside>
+The `sendrawtransction` method submits raw transaction (serialized, hex-encoded) to local nodes and the network.
+
+Also see [`createrawtransaction`](#createrawtransaction) and [`signrawtransaction`](#signrawtransaction) calls.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"txid"                                       |(string, required)           |the transaction id
-verbose                                      |(numeric, optional, default=0)|if 0, the method returns a string; otherwise, it returns a json object
+"hexstring"                                  |(string, required)           |the hex string of the raw transaction
+allowhighfees                                |(boolean, optional, default=false)|allow high fees
 
-### Response (if `verbose` is not set, or set to `0`):
+### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"data"                                       |(string)                     |the serialized, hex-encoded data for 'txid'
+"hex"                                        |(string)                     |the transaction hash in hex
 
-### Response (if `verbose` > `0`):
-Structure|Type|Description
----------|----|-----------
-{                                            |                             |
-"hex"                                        |(string)                     |the serialized, hex-encoded data for 'txid'
-"txid"                                       |(string)                     |the transaction id (same as provided)
-"version"                                    |(numeric)                    |the version
-"locktime"                                   |(numeric)                    |the lock time
-"expiryheight"                               |(numeric, optional)          |the block height after which the transaction expires
-"vin"                                        |                             |
-{                                            |                             |
-"txid"                                       |(string)                     |the transaction id
-"vout"                                       |(numeric)                    |
-"scriptSig":                                 |                             |
-"asm"                                        |(string)                     |asm
-"hex"                                        |(string)                     |hex
-},                                           |                             |
-"sequence"                                   |(numeric)                    |the script sequence number
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
-"vout"                                       |                             |
-{                                            |                             |
-"value"                                      |(numeric)                    |the value
-"number"                                     |(numeric)                    |index
-"scriptPubKey"                               |                             |
-"asm"                                        |(string)                     |the asm
-"hex"                                        |(string)                     |the hex
-"reqSigs"                                    |(numeric)                    |the required sigs
-"type"                                       |(string)                     |the type, eg 'pubkeyhash'
-"addresses"                                  |                             |
-"address"                                    |(string)                     |the address
-,                                            |                             |
-]                                            |                             |
-}                                            |                             |
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
-"vjoinsplit"                                 |                             |
-{                                            |                             |
-"vpub_old"                                   |(numeric)                    |public input value
-"vpub_new"                                   |(numeric)                    |public output value
-"anchor"                                     |(string)                     |the anchor
-"nullifiers"                                 |                             |
-"hex"                                        |(string)                     |input note nullifier
-,                                            |                             |
-],                                           |                             |
-"commitments"                                |                             |
-"hex"                                        |(string)                     |output note commitment
-,                                            |                             |
-],                                           |                             |
-"onetimePubKey"                              |(string)                     |the onetime public key used to encrypt the ciphertexts
-"randomSeed"                                 |(string)                     |the random seed
-"macs"                                       |                             |
-"hex"                                        |(string)                     |input note MAC
-,                                            |                             |
-],                                           |                             |
-"proof"                                      |(string)                     |the zero-knowledge proof
-"ciphertexts"                                |                             |
-"hex"                                        |(string)                     |output note ciphertext
-,                                            |                             |
-]                                            |                             |
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
-"blockhash"                                  |(string)                     |the block hash
-"confirmations"                              |(numeric)                    |the confirmations
-"time"                                       |(numeric)                    |the transaction time in seconds since epoch (Jan 1 1970 GMT)
-"blocktime"                                  |(numeric)                    |the block time in seconds since epoch (Jan 1 1970 GMT)
-}                                            |                             |
-
-## sendrawtransaction
-
-> Create a transaction:
+### Examples:
 
 ```
 command:
@@ -640,58 +671,7 @@ response:
 }
 ```
 
-**sendrawtransaction "hexstring" ( allowhighfees )**
-
-The `sendrawtransction` method submits raw transaction (serialized, hex-encoded) to local nodes and the network.
-
-Also see [`createrawtransaction`](#createrawtransaction) and [`signrawtransaction`](#signrawtransaction) calls.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"hexstring"                                  |(string, required)           |the hex string of the raw transaction
-allowhighfees                                |(boolean, optional, default=false)|allow high fees
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"hex"                                        |(string)                     |the transaction hash in hex
-
 ## signrawtransaction
-
-```
-command:
-
-komodo-cli signrawtransaction "0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa40000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000"
-
-response:
-
-{
-  "hex": "0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa4000000006a4730440220242c38740261799f9b6ccbde8f941e2567e86c84108c508d108d062ab9677b6e02206fea089b28c6d66d1c8f2343e1de7960dadafa3cf268c00f7dbe391cd8b9365f01210384c0db4f1eaa142a2745742b942f989375dbec32c55310a793225bb5c43cdc98ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000",
-  "complete": true
-}
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransaction", "params": ["0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa40000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": {
-    "hex": "0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa4000000006a4730440220242c38740261799f9b6ccbde8f941e2567e86c84108c508d108d062ab9677b6e02206fea089b28c6d66d1c8f2343e1de7960dadafa3cf268c00f7dbe391cd8b9365f01210384c0db4f1eaa142a2745742b942f989375dbec32c55310a793225bb5c43cdc98ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000",
-    "complete": true
-  },
-  "error": null,
-  "id": "curltest"
-}
-```
 
 **signrawtransaction "hexstring" ( [{ "txid": "id", "vout": n, "scriptPubKey": "hex", "redeemScript": "hex" }, ... ] [ "privatekey1", ... ] sighashtype )**
 
@@ -742,3 +722,37 @@ Structure|Type|Description
 ,                                            |                             |
 ]                                            |                             |
 }                                            |                             |
+
+### Examples:
+
+```
+command:
+
+komodo-cli signrawtransaction "0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa40000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000"
+
+response:
+
+{
+  "hex": "0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa4000000006a4730440220242c38740261799f9b6ccbde8f941e2567e86c84108c508d108d062ab9677b6e02206fea089b28c6d66d1c8f2343e1de7960dadafa3cf268c00f7dbe391cd8b9365f01210384c0db4f1eaa142a2745742b942f989375dbec32c55310a793225bb5c43cdc98ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000",
+  "complete": true
+}
+```
+
+> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+
+```
+command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransaction", "params": ["0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa40000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  "result": {
+    "hex": "0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa4000000006a4730440220242c38740261799f9b6ccbde8f941e2567e86c84108c508d108d062ab9677b6e02206fea089b28c6d66d1c8f2343e1de7960dadafa3cf268c00f7dbe391cd8b9365f01210384c0db4f1eaa142a2745742b942f989375dbec32c55310a793225bb5c43cdc98ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000",
+    "complete": true
+  },
+  "error": null,
+  "id": "curltest"
+}
+```

@@ -4,34 +4,6 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## sigaddress
 
-> Add a multisig address from 2 addresses:
-
-```
-command:
-
-komodo-cli addmultisigaddress 2 '["RSWwtqsNr9mW21UXRm6Lz4AzQnj4pVzzkp","RW8d8EChHTooVbwF3reqHYgkzWCnJFLXgh"]'
-
-response:
-
-bLz2YZ7Mm8MgPc9mPNiFqhjFPbFZU4WUD5
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addmultisigaddress", "params": [2, ["RL4CuA2MSAbBiqJKQEr2TKnKT2fSwK99mG","RBYVFCxpJdLgvUixhguxzuH1TJpoNLYCJ6"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": "bNdB9fAt9HmQD8CmBjkY6QwmrNSBrbzsgA",
-  "error": null,
-  "id": "curltest"
-}
-```
-
 **sigaddress nrequired [ "key", ... ] \( "account" )**
 
 The `addmultisigaddress` method adds a multi-signature address to the wallet, where `nrequired` indicates the number of keys (out of the total provided) required to execute a transaction.
@@ -61,7 +33,59 @@ Structure|Type|Description
 ---------|----|-----------
 "address"                                    |(string)                     |an address associated with the keys
 
+### Examples:
+
+> Add a multisig address from 2 addresses:
+
+```
+command:
+
+komodo-cli addmultisigaddress 2 '["RSWwtqsNr9mW21UXRm6Lz4AzQnj4pVzzkp","RW8d8EChHTooVbwF3reqHYgkzWCnJFLXgh"]'
+
+response:
+
+bLz2YZ7Mm8MgPc9mPNiFqhjFPbFZU4WUD5
+```
+
+> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+
+```
+command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addmultisigaddress", "params": [2, ["RL4CuA2MSAbBiqJKQEr2TKnKT2fSwK99mG","RBYVFCxpJdLgvUixhguxzuH1TJpoNLYCJ6"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  "result": "bNdB9fAt9HmQD8CmBjkY6QwmrNSBrbzsgA",
+  "error": null,
+  "id": "curltest"
+}
+```
+
 ## backupwallet
+
+**backupwallet "destination"**
+
+The `backupwallet` method safely copies the `wallet.dat` file to the indicated destination. The `destination` input accepts only alphanumeric characters.
+
+<aside class="notice">
+  This method requires that the coin daemon have the <b>exportdir</b> runtime parameter enabled.
+</aside>
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"destination"                                |(string, required)           |the destination filename, saved in the directory set by the [`exportdir`](#exportdir) runtime parameter
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+"path"                                       |(string)                     |the full path of the destination file
+
+### Examples:
 
 ```
 komodo-cli backupwallet "mybackupdata"
@@ -85,27 +109,29 @@ response:
 }
 ```
 
-**backupwallet "destination"**
+## dumpprivkey
 
-The `backupwallet` method safely copies the `wallet.dat` file to the indicated destination. The `destination` input accepts only alphanumeric characters.
+**dumpprivkey "address"**
+
+The `dumpprivkey` method reveals the private key corresponding to the indicated `address`.
 
 <aside class="notice">
-  This method requires that the coin daemon have the <b>exportdir</b> runtime parameter enabled.
+  See also <b>importprivkey</b>.
 </aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"destination"                                |(string, required)           |the destination filename, saved in the directory set by the [`exportdir`](#exportdir) runtime parameter
+"address"                                    |(string, required)           |the address for the private key
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"path"                                       |(string)                     |the full path of the destination file
+"data"                                       |(string)                     |the private key
 
-## dumpprivkey
+### Examples:
 
 ```
 command:
@@ -133,49 +159,7 @@ response:
 }
 ```
 
-**dumpprivkey "address"**
-
-The `dumpprivkey` method reveals the private key corresponding to the indicated `address`.
-
-<aside class="notice">
-  See also <b>importprivkey</b>.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address for the private key
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"data"                                       |(string)                     |the private key
-
 ## dumpwallet
-
-```
-command:
-
-komodo-cli dumpwallet "test"
-
-response:
-
-/home/myusername/myexportdir/test
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumpwallet", "params": ["test"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-{
-  "result": "/home/myusername/myexportdir/test",
-  "error": null,
-  "id": "curltest"
-}
-```
 
 **dumpwallet "filename"**
 
@@ -200,7 +184,59 @@ Structure|Type|Description
 ---------|----|-----------
 "path"                                       |(string)                     |the full path of the destination file
 
+### Examples:
+
+```
+command:
+
+komodo-cli dumpwallet "test"
+
+response:
+
+/home/myusername/myexportdir/test
+```
+
+> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+
+```
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumpwallet", "params": ["test"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+{
+  "result": "/home/myusername/myexportdir/test",
+  "error": null,
+  "id": "curltest"
+}
+```
+
 ## encryptwallet
+
+**encryptwallet "passphrase"**
+
+<aside class="warning">
+  Wallet encryption is DISABLED. This call always fails.
+</aside>
+
+The `encryptwallet` method encrypts the wallet with the indicated `passphrase`.
+
+This method is for first-time encryption only. After this, any calls that interact with private keys, such as sending or signing, will require the passphrase to be set prior to making these calls. Use the [`walletpassphrase`](#walletpassphrase) call for this, and then [`walletlock`](#walletlock). If the wallet is already encrypted, use the [`walletpassphrasechange`](#walletpassphrasechange) call.
+
+<aside class="notice">
+  Using the <b>encryptwallet</b> method will shutdown the server.
+</aside>
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"passphrase"                                 |(string)                     |the passphrase with which to encrypt the wallet; it must be at least 1 character, but should be long
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+(none)                                       |                             |
+
+### Examples:
 
 > Encrypt your wallet:
 
@@ -262,33 +298,27 @@ response:
 (disabled)
 ```
 
-**encryptwallet "passphrase"**
+## getaccount
 
-<aside class="warning">
-  Wallet encryption is DISABLED. This call always fails.
-</aside>
-
-The `encryptwallet` method encrypts the wallet with the indicated `passphrase`.
-
-This method is for first-time encryption only. After this, any calls that interact with private keys, such as sending or signing, will require the passphrase to be set prior to making these calls. Use the [`walletpassphrase`](#walletpassphrase) call for this, and then [`walletlock`](#walletlock). If the wallet is already encrypted, use the [`walletpassphrasechange`](#walletpassphrasechange) call.
+**getaccount "address"**
 
 <aside class="notice">
-  Using the <b>encryptwallet</b> method will shutdown the server.
+  The <b>getaccount</b> method returns the account associated with the given address.
 </aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"passphrase"                                 |(string)                     |the passphrase with which to encrypt the wallet; it must be at least 1 character, but should be long
+"address"                                    |(string, required)           |the address
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+"accountname"                                |(string)                     |the account address
 
-## getaccount
+### Examples:
 
 ```
 command:
@@ -314,26 +344,29 @@ response:
 (deprecated)
 ```
 
-**getaccount "address"**
+## getaccountaddress
+
+**getaccountaddress "account"**
 
 <aside class="notice">
-  The <b>getaccount</b> method returns the account associated with the given address.
+DEPRECATED
 </aside>
+
+The `getaccountaddress` method returns the current address for receiving payments to this account.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"address"                                    |(string, required)           |the address
+"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"accountname"                                |(string)                     |the account address
+"address"                                    |(string)                     |the account address
 
-## getaccountaddress
-
+### Examples:
 
 ```
 command:
@@ -356,50 +389,7 @@ response:
 
 (deprecated)
 ```
-
-**getaccountaddress "account"**
-
-<aside class="notice">
-DEPRECATED
-</aside>
-
-The `getaccountaddress` method returns the current address for receiving payments to this account.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the account address
-
-## getaddressesbyaccount
-
-```
-command:
-
-komodo-cli getaddressesbyaccount "tabby"
-
-response:
-
-(deprecated)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbyaccount", "params": ["tabby"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(deprecated)
-```
+getaddressesbyaccount
 
 **getaddressesbyaccount "account"**
 
@@ -424,7 +414,55 @@ Structure|Type|Description
 ,                                            |                             |
 ]                                            |                             |
 
+### Examples:
+
+```
+command:
+
+komodo-cli getaddressesbyaccount "tabby"
+
+response:
+
+(deprecated)
+```
+
+> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+
+```
+command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbyaccount", "params": ["tabby"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(deprecated)
+```
+
 ## getbalance
+
+**getbalance ( "account" minconf includeWatchonly )**
+
+The `getbalance` method returns the server's total available balance.
+
+<aside class="notice">
+  The <b>account</b> input is deprecated.
+</aside>
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"account"                                    |(string, optional)           |DEPRECATED if provided, it MUST be set to the empty string `""` or to the string `"*"`
+minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
+includeWatchonly                             |(bool, optional, default=false)|also include balance in watchonly addresses (see `importaddress`)
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+amount                                       |(numeric)                    |the total amount
+
+### Examples:
 
 > The total amount in the wallet:
 
@@ -432,6 +470,7 @@ Structure|Type|Description
 command:
 
 komodo-cli getbalance
+
 
 response:
 
@@ -466,28 +505,6 @@ response:
 }
 ```
 
-**getbalance ( "account" minconf includeWatchonly )**
-
-The `getbalance` method returns the server's total available balance.
-
-<aside class="notice">
-  The <b>account</b> input is deprecated.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, optional)           |DEPRECATED if provided, it MUST be set to the empty string `""` or to the string `"*"`
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
-includeWatchonly                             |(bool, optional, default=false)|also include balance in watchonly addresses (see `importaddress`)
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-amount                                       |(numeric)                    |the total amount
-
 ## getbalance64
 
 **getbalance64**
@@ -499,6 +516,24 @@ amount                                       |(numeric)                    |the 
 The `getbalance64` method is used only on asset chains that are utilizing the `ac_staked` functionality. On KMD-based Proof-of-Stake (PoS) asset chains, all staked coins are placed into one of 64 segments (`segid`'s'). The `getbalance64` method returns the balance of coins in each `segid`. For further information, please reach out to our support team.
 
 ## getnewaddress
+
+**getnewaddress ( "account" )**
+
+The `getnewaddress` method returns a new address for receiving payments.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"account"                                    |(string, optional)           |DEPRECATED: If provided, the account MUST be set to the empty string `""` to represent the default account; passing any other string will result in an error
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+"address"                                    |(string)                     |the new address
+
+### Examples:
 
 ```
 command:
@@ -526,23 +561,29 @@ response:
 }
 ```
 
-**getnewaddress ( "account" )**
+## getrawchangeaddress
 
-The `getnewaddress` method returns a new address for receiving payments.
+**getrawchangeaddress**
+
+The `getrawchangeaddress` returns a new address that can be used to receive change.
+
+<aside class="notice">
+  This is for use with raw transactions, NOT normal use.
+</aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"account"                                    |(string, optional)           |DEPRECATED: If provided, the account MUST be set to the empty string `""` to represent the default account; passing any other string will result in an error
+(none)                                       |                             |
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"address"                                    |(string)                     |the new address
+"address"                                    |(string)                     |the address
 
-## getrawchangeaddress
+### Examples:
 
 ```
 command:
@@ -570,37 +611,7 @@ response:
 }
 ```
 
-**getrawchangeaddress**
-
-The `getrawchangeaddress` returns a new address that can be used to receive change.
-
-<aside class="notice">
-  This is for use with raw transactions, NOT normal use.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
-
 ## getreceivedbyaccount
-
-```
-command:
-
-komodo-cli getreceivedbyaccount ""
-
-response:
-
-(deprecated)
-```
 
 **getreceivedbyaccount "account" ( minconf )**
 
@@ -623,7 +634,38 @@ Structure|Type|Description
 ---------|----|-----------
 amount                                       |(numeric)                    |the total amount received for this account
 
+### Examples:
+
+```
+command:
+
+komodo-cli getreceivedbyaccount ""
+
+response:
+
+(deprecated)
+```
+
 ## getreceivedbyaddress
+
+**getreceivedbyaddress "address" ( minconf )**
+
+The `getreceivedbyaddress` method returns the total amount received by the given `address` in transactions with at least `minconf` confirmations.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"address"                                    |(string, required)           |the address for transactions
+minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+amount                                       |(numeric)                    |the total amount of the relevant coin received at this address
+
+### Examples:
 
 ```
 command:
@@ -670,24 +712,57 @@ response:
 }
 ```
 
-**getreceivedbyaddress "address" ( minconf )**
+## gettransaction
 
-The `getreceivedbyaddress` method returns the total amount received by the given `address` in transactions with at least `minconf` confirmations.
+**gettransaction "txid" ( includeWatchonly )**
+
+The `gettransaction` method queries detailed information about transaction `txid`. This command applies only to `txid`'s that are in the user's local wallet.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"address"                                    |(string, required)           |the address for transactions
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
+"txid"                                       |(string, required)           |the transaction id
+"includeWatchonly"                           |(bool, optional, default=false)|whether to include watchonly addresses in the returned balance calculation and in the `details[]` returned values
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-amount                                       |(numeric)                    |the total amount of the relevant coin received at this address
+{                                            |                             |
+"amount"                                     |(numeric)                    |the transaction amount
+"confirmations"                              |(numeric)                    |the number of confirmations
+"blockhash"                                  |(string)                     |the block hash
+"blockindex"                                 |(numeric)                    |the block index
+"blocktime"                                  |(numeric)                    |the time in seconds since epoch (1 Jan 1970 GMT)
+"txid"                                       |(string)                     |the transaction id
+"time"                                       |(numeric)                    |the transaction time in seconds since epoch (1 Jan 1970 GMT)
+"timereceived"                               |(numeric)                    |the time received in seconds since epoch (1 Jan 1970 GMT)
+"details"                                    |                             |
+{                                            |                             |
+"account"                                    |(string)                     |DEPRECATED the account name involved in the transaction; can be "" for the default account
+"address"                                    |(string)                     |the address involved in the transaction
+"category"                                   |(string)                     |the category - either `send` or `receive`
+"amount"                                     |(numeric)                    |the amount
+"vout"                                       |(numeric)                    |the vout value
+}                                            |                             |
+,                                            |                             |
+],                                           |                             |
+"vjoinsplit"                                 |                             |
+{                                            |                             |
+"anchor"                                     |(string)                     |merkle root of note commitment tree
+"nullifiers"                                 |                             |
+"commitments"                                |                             |
+"macs"                                       |                             |
+"vpub_old"                                   |(numeric)                    |the amount removed from the transparent value pool
+"vpub_new"                                   |(numeric)                    |the amount added to the transparent value pool
+}                                            |                             |
+,                                            |                             |
+],                                           |                             |
+"hex"                                        |(string)                     |raw data for transaction
+}                                            |                             |
 
-## gettransaction
+### Examples:
 
 ```
 command:
@@ -764,55 +839,25 @@ response:
 }
 ```
 
-**gettransaction "txid" ( includeWatchonly )**
+## getunconfirmedbalance
 
-The `gettransaction` method queries detailed information about transaction `txid`. This command applies only to `txid`'s that are in the user's local wallet.
+**getunconfirmedbalance**
+
+The `getunconfirmedbalance` method returns the server's total unconfirmed balance.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"txid"                                       |(string, required)           |the transaction id
-"includeWatchonly"                           |(bool, optional, default=false)|whether to include watchonly addresses in the returned balance calculation and in the `details[]` returned values
+(none)                                       |                             |
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
-"amount"                                     |(numeric)                    |the transaction amount
-"confirmations"                              |(numeric)                    |the number of confirmations
-"blockhash"                                  |(string)                     |the block hash
-"blockindex"                                 |(numeric)                    |the block index
-"blocktime"                                  |(numeric)                    |the time in seconds since epoch (1 Jan 1970 GMT)
-"txid"                                       |(string)                     |the transaction id
-"time"                                       |(numeric)                    |the transaction time in seconds since epoch (1 Jan 1970 GMT)
-"timereceived"                               |(numeric)                    |the time received in seconds since epoch (1 Jan 1970 GMT)
-"details"                                    |                             |
-{                                            |                             |
-"account"                                    |(string)                     |DEPRECATED the account name involved in the transaction; can be "" for the default account
-"address"                                    |(string)                     |the address involved in the transaction
-"category"                                   |(string)                     |the category - either `send` or `receive`
-"amount"                                     |(numeric)                    |the amount
-"vout"                                       |(numeric)                    |the vout value
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
-"vjoinsplit"                                 |                             |
-{                                            |                             |
-"anchor"                                     |(string)                     |merkle root of note commitment tree
-"nullifiers"                                 |                             |
-"commitments"                                |                             |
-"macs"                                       |                             |
-"vpub_old"                                   |(numeric)                    |the amount removed from the transparent value pool
-"vpub_new"                                   |(numeric)                    |the amount added to the transparent value pool
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
-"hex"                                        |(string)                     |raw data for transaction
-}                                            |                             |
+(none)                                       |                             |
 
-## getunconfirmedbalance
+### Examples:
 
 ```
 command:
@@ -840,9 +885,11 @@ response:
 }
 ```
 
-**getunconfirmedbalance**
+## getwalletinfo
 
-The `getunconfirmedbalance` method returns the server's total unconfirmed balance.
+**getwalletinfo**
+
+The `getwalletinfo` method returns an object containing various information about the wallet state.
 
 ### Arguments:
 
@@ -854,9 +901,19 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+{                                            |                             |
+"walletversion"                              |(numeric)                    |the wallet version
+"balance"                                    |(numeric)                    |the total confirmed balance of the wallet
+"unconfirmed_balance"                        |(numeric)                    |the total unconfirmed balance of the wallet
+"immature_balance"                           |(numeric)                    |the total immature balance of the wallet
+"txcount"                                    |(numeric)                    |the total number of transactions in the wallet
+"keypoololdest"                              |(numeric)                    |the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool
+"keypoolsize"                                |(numeric)                    |how many new keys are pre-generated
+"unlocked_until"                             |(numeric)                    |the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked
+"paytxfee"                                   |(numeric)                    |the transaction fee configuration, denotated as the relevant COIN per KB
+}                                            |                             |
 
-## getwalletinfo
+### Examples:
 
 ```
 command:
@@ -902,33 +959,31 @@ response:
 }
 ```
 
-**getwalletinfo**
+## importaddress
 
-The `getwalletinfo` method returns an object containing various information about the wallet state.
+**importaddress "address" ( "label" rescan )**
+
+The `importaddress` method adds an address or script (in hex) that can be watched as if it were in your wallet, although it cannot be used to spend.
+
+<aside class="notice">
+  This call can take an increased amount of time to complete if rescan is true.
+</aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+"address"                                    |(string, required)           |the address to watch
+"label"                                      |(string, optional, default="")|an optional label
+rescan                                       |(boolean, optional, default=true)|rescan the wallet for transactions
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
-"walletversion"                              |(numeric)                    |the wallet version
-"balance"                                    |(numeric)                    |the total confirmed balance of the wallet
-"unconfirmed_balance"                        |(numeric)                    |the total unconfirmed balance of the wallet
-"immature_balance"                           |(numeric)                    |the total immature balance of the wallet
-"txcount"                                    |(numeric)                    |the total number of transactions in the wallet
-"keypoololdest"                              |(numeric)                    |the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool
-"keypoolsize"                                |(numeric)                    |how many new keys are pre-generated
-"unlocked_until"                             |(numeric)                    |the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked
-"paytxfee"                                   |(numeric)                    |the transaction fee configuration, denotated as the relevant COIN per KB
-}                                            |                             |
+(none)                                       |                             |
 
-## importaddress
+### Examples:
 
 > Import an address with rescan:
 
@@ -968,19 +1023,25 @@ response:
 }
 ```
 
-**importaddress "address" ( "label" rescan )**
+## key
 
-The `importaddress` method adds an address or script (in hex) that can be watched as if it were in your wallet, although it cannot be used to spend.
+**key "komodoprivkey" ( "label" rescan )**
+
+The `importprivkey` method adds a private key to your wallet.
 
 <aside class="notice">
-  This call can take an increased amount of time to complete if rescan is true.
+  This call can take minutes to complete if <b>rescan</b> is true.
+</aside>
+
+<aside class="notice">
+  See also <b>dumpprivkey</b>.
 </aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"address"                                    |(string, required)           |the address to watch
+"privkey"                                    |(string, required)           |the private key (see [`dumpprivkey`](#dumpprivkey))
 "label"                                      |(string, optional, default="")|an optional label
 rescan                                       |(boolean, optional, default=true)|rescan the wallet for transactions
 
@@ -988,9 +1049,9 @@ rescan                                       |(boolean, optional, default=true)|
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+addresses                                    |(string)                     |the public address
 
-## key
+### Examples:
 
 ```
 command:
@@ -1028,33 +1089,25 @@ response:
 }
 ```
 
-**key "komodoprivkey" ( "label" rescan )**
+## importwallet
 
-The `importprivkey` method adds a private key to your wallet.
+**importwallet "filename"**
 
-<aside class="notice">
-  This call can take minutes to complete if <b>rescan</b> is true.
-</aside>
-
-<aside class="notice">
-  See also <b>dumpprivkey</b>.
-</aside>
+The `importwallet` method imports transparent-address keys from a wallet-dump file (see [`dumpwallet`](#dumpwallet)).
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"privkey"                                    |(string, required)           |the private key (see [`dumpprivkey`](#dumpprivkey))
-"label"                                      |(string, optional, default="")|an optional label
-rescan                                       |(boolean, optional, default=true)|rescan the wallet for transactions
+"filename"                                   |(string, required)           |the wallet file
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-addresses                                    |(string)                     |the public address
+(none)                                       |                             |
 
-## importwallet
+### Examples:
 
 ```
 command:
@@ -1082,15 +1135,17 @@ response:
 }
 ```
 
-**importwallet "filename"**
+## keypoolrefill
 
-The `importwallet` method imports transparent-address keys from a wallet-dump file (see [`dumpwallet`](#dumpwallet)).
+**keypoolrefill ( newsize )**
+
+The `keypoolrefill` method refills the keypool.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"filename"                                   |(string, required)           |the wallet file
+newsize                                      |(numeric, optional, default=100)|the new keypool size
 
 ### Response:
 
@@ -1098,7 +1153,7 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-## keypoolrefill
+### Examples:
 
 ```
 command:
@@ -1136,45 +1191,7 @@ response:
 }
 ```
 
-**keypoolrefill ( newsize )**
-
-The `keypoolrefill` method refills the keypool.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-newsize                                      |(numeric, optional, default=100)|the new keypool size
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
 ## listaccounts
-
-```
-command:
-
-komodo-cli listaccounts 6
-
-response:
-
-(deprecated)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listaccounts", "params": [6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(deprecated)
-```
 
 **listaccounts ( minconf includeWatchonly)**
 
@@ -1200,7 +1217,59 @@ Structure|Type|Description
 ...                                          |                             |
 }                                            |                             |
 
+### Examples:
+
+```
+command:
+
+komodo-cli listaccounts 6
+
+response:
+
+(deprecated)
+```
+
+> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+
+```
+command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listaccounts", "params": [6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(deprecated)
+```
+
 ## listaddressgroupings
+
+**listaddressgroupings**
+
+The `listaddressgroupings` method lists groups of addresses which have had their common ownership made public by common use as inputs or as the resulting change in past transactions.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+(none)                                       |                             |
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+[                                            |                             |
+[                                            |(array)                      |each array at this indentation level is a unique grouping of addresses
+[                                            |                             |
+"address",                                   |(string)                     |the address
+amount,                                      |(numeric)                    |the amount
+"account"                                    |(string, optional)           |(DEPRECATED) the account
+]                                            |                             |
+,                                            |                             |
+]                                            |                             |
+,                                            |                             |
+]                                            |                             |
+
+### Examples:
 
 ```
 command:
@@ -1274,9 +1343,15 @@ response:
 }
 ```
 
-**listaddressgroupings**
+## listlockunspent
 
-The `listaddressgroupings` method lists groups of addresses which have had their common ownership made public by common use as inputs or as the resulting change in past transactions.
+**listlockunspent**
+
+The `listlockunspent` method returns a list of temporarily non-spendable outputs.
+
+<aside class="notice">
+See the <b>lockunspent</b> call to lock and unlock transactions for spending.
+</aside>
 
 ### Arguments:
 
@@ -1289,18 +1364,14 @@ Structure|Type|Description
 Structure|Type|Description
 ---------|----|-----------
 [                                            |                             |
-[                                            |(array)                      |each array at this indentation level is a unique grouping of addresses
-[                                            |                             |
-"address",                                   |(string)                     |the address
-amount,                                      |(numeric)                    |the amount
-"account"                                    |(string, optional)           |(DEPRECATED) the account
-]                                            |                             |
-,                                            |                             |
-]                                            |                             |
+{                                            |                             |
+"txid"                                       |(string)                     |the transaction id locked
+"vout"                                       |(numeric)                    |the vout value
+}                                            |                             |
 ,                                            |                             |
 ]                                            |                             |
 
-## listlockunspent
+### Examples:
 
 ```
 command:
@@ -1338,19 +1409,23 @@ response:
 }
 ```
 
-**listlockunspent**
+## listreceivedbyaccount
 
-The `listlockunspent` method returns a list of temporarily non-spendable outputs.
+**listreceivedbyaccount ( minconf includeempty includeWatchonly)**
 
 <aside class="notice">
-See the <b>lockunspent</b> call to lock and unlock transactions for spending.
+  DEPRECATED
 </aside>
+
+The `listreceivedbyaccount` method lists balances by account.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+minconf                                      |(numeric, optional, default=1)|the minimum number of confirmations before payments are included
+includeempty                                 |(boolean, optional, default=false)|whether to include accounts that haven't received any payments
+includeWatchonly                             |(bool, optional, default=false)|whether to include watchonly addresses (see 'importaddress')
 
 ### Response:
 
@@ -1358,13 +1433,15 @@ Structure|Type|Description
 ---------|----|-----------
 [                                            |                             |
 {                                            |                             |
-"txid"                                       |(string)                     |the transaction id locked
-"vout"                                       |(numeric)                    |the vout value
+"involvesWatchonly"                          |(bool)                       |only returned if imported addresses were involved in transaction
+"account"                                    |(string)                     |the account name of the receiving account
+"amount"                                     |(numeric)                    |the total amount received by addresses with this account
+"confirmations"                              |(numeric)                    |the number of confirmations of the most recent transaction included
 }                                            |                             |
 ,                                            |                             |
 ]                                            |                             |
 
-## listreceivedbyaccount
+### Examples:
 
 ```
 command:
@@ -1398,20 +1475,18 @@ response:
 (deprecated)
 ```
 
-**listreceivedbyaccount ( minconf includeempty includeWatchonly)**
+## listreceivedbyaddress
 
-<aside class="notice">
-  DEPRECATED
-</aside>
+**listreceivedbyaddress ( minconf includeempty includeWatchonly)**
 
-The `listreceivedbyaccount` method lists balances by account.
+The `listreceivedbyaddress` method lists balances by receiving address.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
 minconf                                      |(numeric, optional, default=1)|the minimum number of confirmations before payments are included
-includeempty                                 |(boolean, optional, default=false)|whether to include accounts that haven't received any payments
+includeempty                                 |(numeric, optional, default=false)|whether to include addresses that haven't received any payments
 includeWatchonly                             |(bool, optional, default=false)|whether to include watchonly addresses (see 'importaddress')
 
 ### Response:
@@ -1421,14 +1496,15 @@ Structure|Type|Description
 [                                            |                             |
 {                                            |                             |
 "involvesWatchonly"                          |(bool)                       |only returned if imported addresses were involved in transaction
-"account"                                    |(string)                     |the account name of the receiving account
-"amount"                                     |(numeric)                    |the total amount received by addresses with this account
+"address"                                    |(string)                     |the receiving address
+"account"                                    |(string)                     |DEPRECATED the account of the receiving address; the default account is ""
+"amount"                                     |(numeric)                    |the total amount received by the address
 "confirmations"                              |(numeric)                    |the number of confirmations of the most recent transaction included
 }                                            |                             |
 ,                                            |                             |
 ]                                            |                             |
 
-## listreceivedbyaddress
+### Examples:
 
 ```
 command:
@@ -1509,34 +1585,46 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 }
 ```
 
-**listreceivedbyaddress ( minconf includeempty includeWatchonly)**
+## listsinceblock
 
-The `listreceivedbyaddress` method lists balances by receiving address.
+**listsinceblock ( "blockhash" target-confirmations includeWatchonly )**
+
+The `listsinceblock` method queries all transactions in blocks since block `blockhash`, or all transactions if `blockhash` is omitted.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-minconf                                      |(numeric, optional, default=1)|the minimum number of confirmations before payments are included
-includeempty                                 |(numeric, optional, default=false)|whether to include addresses that haven't received any payments
-includeWatchonly                             |(bool, optional, default=false)|whether to include watchonly addresses (see 'importaddress')
+"blockhash"                                  |(string, optional)           |the block hash from which to list transactions
+target-confirmations                         |(numeric, optional)          |the confirmations required (must be 1 or more)
+includeWatchonly                             |(bool, optional, default=false)|include transactions to watchonly addresses (see also 'importaddress')
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
 {                                            |                             |
-"involvesWatchonly"                          |(bool)                       |only returned if imported addresses were involved in transaction
-"address"                                    |(string)                     |the receiving address
-"account"                                    |(string)                     |DEPRECATED the account of the receiving address; the default account is ""
-"amount"                                     |(numeric)                    |the total amount received by the address
-"confirmations"                              |(numeric)                    |the number of confirmations of the most recent transaction included
+"transactions":                              |                             |
+"account"                                    |(string)                     |DEPRECATED the account name associated with the transaction; will be "" for the default account
+"address"                                    |(string)                     |the address of the transaction (not present for move transactions -- category = move)
+"category"                                   |(string)                     |the transaction category; `send` has negative amounts, `receive` has positive amounts
+"amount"                                     |(numeric)                    |the amount of the relevant currency -- negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category, and for the `move` category for inbound funds.
+"vout"                                       |(numeric)                    |the vout value
+"fee"                                        |(numeric)                    |the amount of the fee; this value is negative and only available for the `send` category of transactions
+"confirmations"                              |(numeric)                    |the number of confirmations for the transaction; available for `send` and `receive` category of transactions
+"blockhash"                                  |(string)                     |the block hash containing the transaction; available for the `send` and `receive` categories of transactions
+"blockindex"                                 |(numeric)                    |the block index containing the transaction; available for the `send` and `receive` categories of transactions
+"blocktime"                                  |(numeric)                    |the block time in seconds since epoch (1 Jan 1970 GMT)
+"txid"                                       |(string)                     |the transaction id; available for `send` and `receive` categories of transactions
+"time"                                       |(numeric)                    |the transaction time in seconds since epoch (Jan 1 1970 GMT)
+"timereceived"                               |(numeric)                    |the time received in seconds since epoch (Jan 1 1970 GMT); available for `send` and `receive` category of transactions
+"comment"                                    |(string)                     |whether a comment is associated with the transaction
+"to"                                         |(string)                     |whether a 'to' comment is associated with the transaction
+],                                           |                             |
+"lastblock"                                  |(string)                     |the hash of the last block
 }                                            |                             |
-,                                            |                             |
-]                                            |                             |
 
-## listsinceblock
+### Examples:
 
 ```
 command:
@@ -1648,44 +1736,46 @@ response:
 }
 ```
 
-**listsinceblock ( "blockhash" target-confirmations includeWatchonly )**
+## listtransactions
 
-The `listsinceblock` method queries all transactions in blocks since block `blockhash`, or all transactions if `blockhash` is omitted.
+**listtransactions ( "account" count from includeWatchonly )**
+
+The `listtransactions` method returns up to `count` most recent transactions skipping the first `from` transactions for `account`.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"blockhash"                                  |(string, optional)           |the block hash from which to list transactions
-target-confirmations                         |(numeric, optional)          |the confirmations required (must be 1 or more)
-includeWatchonly                             |(bool, optional, default=false)|include transactions to watchonly addresses (see also 'importaddress')
+"account"                                    |(string, optional)           |DEPRECATED the account name; should be `"*"`
+count                                        |(numeric, optional, default=10)|the number of transactions to return
+from                                         |(numeric, optional, default=0)|the number of transactions to skip
+includeWatchonly                             |(bool, optional, default=false)|include transactions to watchonly addresses (see `importaddress`)
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
+[                                            |                             |
 {                                            |                             |
-"transactions":                              |                             |
-"account"                                    |(string)                     |DEPRECATED the account name associated with the transaction; will be "" for the default account
-"address"                                    |(string)                     |the address of the transaction (not present for move transactions -- category = move)
-"category"                                   |(string)                     |the transaction category; `send` has negative amounts, `receive` has positive amounts
-"amount"                                     |(numeric)                    |the amount of the relevant currency -- negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category, and for the `move` category for inbound funds.
+"account"                                    |(string)                     |DEPRECATED the account name associated with the transaction; it will be "" for the default account
+"address"                                    |(string)                     |the address of the transaction; not present for move transactions (category = move)
+"category"                                   |(string)                     |The transaction category. This property can be `send` | `receive` | `move`. `move` is a local (off blockchain) transaction between accounts -- not associated with an address, transaction id, or block. `send` and `receive` transactions are associated with an address, transaction id, and block details.
+"amount"                                     |(numeric)                    |The amount. This value is negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category and for the `move` category for inbound funds.
 "vout"                                       |(numeric)                    |the vout value
-"fee"                                        |(numeric)                    |the amount of the fee; this value is negative and only available for the `send` category of transactions
-"confirmations"                              |(numeric)                    |the number of confirmations for the transaction; available for `send` and `receive` category of transactions
+"fee"                                        |(numeric)                    |the amount of the fee; this is negative and only available for the `send` category of transactions
+"confirmations"                              |(numeric)                    |the number of confirmations for the transaction; available for the `send` and `receive` categories of transactions
 "blockhash"                                  |(string)                     |the block hash containing the transaction; available for the `send` and `receive` categories of transactions
 "blockindex"                                 |(numeric)                    |the block index containing the transaction; available for the `send` and `receive` categories of transactions
-"blocktime"                                  |(numeric)                    |the block time in seconds since epoch (1 Jan 1970 GMT)
-"txid"                                       |(string)                     |the transaction id; available for `send` and `receive` categories of transactions
-"time"                                       |(numeric)                    |the transaction time in seconds since epoch (Jan 1 1970 GMT)
-"timereceived"                               |(numeric)                    |the time received in seconds since epoch (Jan 1 1970 GMT); available for `send` and `receive` category of transactions
+"txid"                                       |(string)                     |the transaction id; available for the `send` and `receive` categories of transactions
+"time"                                       |(numeric)                    |the transaction time in seconds since epoch (midnight Jan 1 1970 GMT)
+"timereceived"                               |(numeric)                    |the time received in seconds since epoch (midnight Jan 1 1970 GMT); available for the `send` and `receive` categories of transactions
 "comment"                                    |(string)                     |whether a comment is associated with the transaction
-"to"                                         |(string)                     |whether a 'to' comment is associated with the transaction
-],                                           |                             |
-"lastblock"                                  |(string)                     |the hash of the last block
+"otheraccount"                               |(string)                     |for the `move` category of transactions; indicates the account which sent the funds (for receiving funds, positive amounts), or went to (for sending funds, negative amounts)
+"size"                                       |(numeric)                    |transaction size in bytes
 }                                            |                             |
+]                                            |                             |
 
-## listtransactions
+### Examples:
 
 ```
 command:
@@ -1789,18 +1879,22 @@ response:
 }
 ```
 
-**listtransactions ( "account" count from includeWatchonly )**
+## listunspent
 
-The `listtransactions` method returns up to `count` most recent transactions skipping the first `from` transactions for `account`.
+**listunspent ( minconf maxconf  ["address", ... ] )**
+
+The `listunspent` method returns an array of unspent transaction outputs, with a range between `minconf` and `maxconf` (inclusive) confirmations. The method can, optionally, filter to only include `txouts` paid to specified addresses.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"account"                                    |(string, optional)           |DEPRECATED the account name; should be `"*"`
-count                                        |(numeric, optional, default=10)|the number of transactions to return
-from                                         |(numeric, optional, default=0)|the number of transactions to skip
-includeWatchonly                             |(bool, optional, default=false)|include transactions to watchonly addresses (see `importaddress`)
+minconf                                      |(numeric, optional, default=1)|the minimum confirmations to filter
+maxconf                                      |(numeric, optional, default=9999999)|the maximum confirmations to filter
+[                                            |                             |
+"address"                                    |(string)                     |a series of addresses
+,                                            |                             |
+]                                            |                             |
 
 ### Response:
 
@@ -1808,25 +1902,19 @@ Structure|Type|Description
 ---------|----|-----------
 [                                            |                             |
 {                                            |                             |
-"account"                                    |(string)                     |DEPRECATED the account name associated with the transaction; it will be "" for the default account
-"address"                                    |(string)                     |the address of the transaction; not present for move transactions (category = move)
-"category"                                   |(string)                     |The transaction category. This property can be `send` | `receive` | `move`. `move` is a local (off blockchain) transaction between accounts -- not associated with an address, transaction id, or block. `send` and `receive` transactions are associated with an address, transaction id, and block details.
-"amount"                                     |(numeric)                    |The amount. This value is negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category and for the `move` category for inbound funds.
+"txid"                                       |(string)                     |the transaction id
 "vout"                                       |(numeric)                    |the vout value
-"fee"                                        |(numeric)                    |the amount of the fee; this is negative and only available for the `send` category of transactions
-"confirmations"                              |(numeric)                    |the number of confirmations for the transaction; available for the `send` and `receive` categories of transactions
-"blockhash"                                  |(string)                     |the block hash containing the transaction; available for the `send` and `receive` categories of transactions
-"blockindex"                                 |(numeric)                    |the block index containing the transaction; available for the `send` and `receive` categories of transactions
-"txid"                                       |(string)                     |the transaction id; available for the `send` and `receive` categories of transactions
-"time"                                       |(numeric)                    |the transaction time in seconds since epoch (midnight Jan 1 1970 GMT)
-"timereceived"                               |(numeric)                    |the time received in seconds since epoch (midnight Jan 1 1970 GMT); available for the `send` and `receive` categories of transactions
-"comment"                                    |(string)                     |whether a comment is associated with the transaction
-"otheraccount"                               |(string)                     |for the `move` category of transactions; indicates the account which sent the funds (for receiving funds, positive amounts), or went to (for sending funds, negative amounts)
-"size"                                       |(numeric)                    |transaction size in bytes
+"generated"                                  |(boolean)                    |true if txout is a coinbase transaction output
+"address"                                    |(string)                     |the address
+"account"                                    |(string)                     |DEPRECATED the associated account, or "" for the default account
+"scriptPubKey"                               |(string)                     |the script key
+"amount"                                     |(numeric)                    |the transaction amount
+"confirmations"                              |(numeric)                    |the number of confirmations
 }                                            |                             |
+,                                            |                             |
 ]                                            |                             |
 
-## listunspent
+### Examples:
 
 ```
 command:
@@ -1923,66 +2011,7 @@ response:
 }
 ```
 
-**listunspent ( minconf maxconf  ["address", ... ] )**
-
-The `listunspent` method returns an array of unspent transaction outputs, with a range between `minconf` and `maxconf` (inclusive) confirmations. The method can, optionally, filter to only include `txouts` paid to specified addresses.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-minconf                                      |(numeric, optional, default=1)|the minimum confirmations to filter
-maxconf                                      |(numeric, optional, default=9999999)|the maximum confirmations to filter
-[                                            |                             |
-"address"                                    |(string)                     |a series of addresses
-,                                            |                             |
-]                                            |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-{                                            |                             |
-"txid"                                       |(string)                     |the transaction id
-"vout"                                       |(numeric)                    |the vout value
-"generated"                                  |(boolean)                    |true if txout is a coinbase transaction output
-"address"                                    |(string)                     |the address
-"account"                                    |(string)                     |DEPRECATED the associated account, or "" for the default account
-"scriptPubKey"                               |(string)                     |the script key
-"amount"                                     |(numeric)                    |the transaction amount
-"confirmations"                              |(numeric)                    |the number of confirmations
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
-
 ## lockunspent
-
-```
-command:
-
-komodo-cli lockunspent false '[{"txid":"d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd","vout":0}]'
-
-response:
-
-true
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "lockunspent", "params": [false, [{"txid":"d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd","vout":0}]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": true,
-  "error": null,
-  "id": "curltest"
-}
-```
 
 **lockunspent unlock [{ "txid": "txid", "vout": n }, ... ]**
 
@@ -2011,7 +2040,61 @@ Structure|Type|Description
 ---------|----|-----------
 true/false                                   |(boolean)                    |whether the command was successful
 
+### Examples:
+
+```
+command:
+
+komodo-cli lockunspent false '[{"txid":"d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd","vout":0}]'
+
+response:
+
+true
+```
+
+> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+
+```
+command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "lockunspent", "params": [false, [{"txid":"d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd","vout":0}]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  "result": true,
+  "error": null,
+  "id": "curltest"
+}
+```
+
 ## move
+
+**move "fromaccount" "toaccount" amount ( minconf "comment" )**
+
+<aside class="notice">
+  DEPRECATED
+</aside>
+
+The `move` method moves a specified amount from one account in your wallet to another.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"fromaccount"                                |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
+"toaccount"                                  |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
+amount                                       |(numeric)                    |quantity to move between accounts
+minconf                                      |(numeric, optional, default=1)|only use funds with at least this many confirmations
+"comment"                                    |(string, optional)           |an optional comment, stored in the wallet only
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+true/false                                   |(boolean)                    |true if successful
+
+### Examples:
 
 ```
 command:
@@ -2045,31 +2128,27 @@ response:
 (deprecated)
 ```
 
-**move "fromaccount" "toaccount" amount ( minconf "comment" )**
+## resendwallettransactions
 
-<aside class="notice">
-  DEPRECATED
-</aside>
+**resendwallettransactions**
 
-The `move` method moves a specified amount from one account in your wallet to another.
+The `resendwallettransactions` method immediately re-broadcasts unconfirmed wallet transactions to all peers. This method is intended only for testing; the wallet code periodically re-broadcasts automatically.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"fromaccount"                                |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-"toaccount"                                  |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-amount                                       |(numeric)                    |quantity to move between accounts
-minconf                                      |(numeric, optional, default=1)|only use funds with at least this many confirmations
-"comment"                                    |(string, optional)           |an optional comment, stored in the wallet only
+(none)                                       |                             |
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-true/false                                   |(boolean)                    |true if successful
+[                                            |                             |
+"transaction_id"                             |(string)                     |an array of the rebroadcasted transaction id's
+]                                            |                             |
 
-## resendwallettransactions
+### Examples:
 
 ```
 command:
@@ -2101,25 +2180,34 @@ response:
 }
 ```
 
-**resendwallettransactions**
+## sendfrom
 
-The `resendwallettransactions` method immediately re-broadcasts unconfirmed wallet transactions to all peers. This method is intended only for testing; the wallet code periodically re-broadcasts automatically.
+**sendfrom "account" "address" amount ( minconf "comment" "comment-to" )**
+
+<aside class="notice">
+  DEPRECATED: Use <b>sendtoaddress</b> instead.
+</aside>
+
+The `sendfrom` method sends an amount from `account` to `address`.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
+"address"                                    |(string, required)           |the address to receive funds
+amount                                       |(numeric, required)          |the amount (transaction fee not included)
+minconf                                      |(numeric, optional, default=1)|only use funds with at least this many confirmations
+"comment"                                    |(string, optional)           |a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet
+"comment-to"                                 |(string, optional)           |an optional comment to store the name of the person or organization to which you're sending the transaction; this is not part of the transaction, it is only kept in your wallet
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-"transaction_id"                             |(string)                     |an array of the rebroadcasted transaction id's
-]                                            |                             |
+"transaction_id"                             |(string)                     |the transaction id
 
-## sendfrom
+### Examples:
 
 ```
 command:
@@ -2153,32 +2241,37 @@ response:
 (deprecated)
 ```
 
-**sendfrom "account" "address" amount ( minconf "comment" "comment-to" )**
+## sendmany
 
-<aside class="notice">
-  DEPRECATED: Use <b>sendtoaddress</b> instead.
-</aside>
+**sendmany "account" { "address": amount, ... } ( minconf "comment" [ "address", ... ] )**
 
-The `sendfrom` method sends an amount from `account` to `address`.
+The `sendmany` method can send multiple transactions at once. Amounts are double-precision floating point numbers.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
 "account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-"address"                                    |(string, required)           |the address to receive funds
-amount                                       |(numeric, required)          |the amount (transaction fee not included)
-minconf                                      |(numeric, optional, default=1)|only use funds with at least this many confirmations
-"comment"                                    |(string, optional)           |a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet
-"comment-to"                                 |(string, optional)           |an optional comment to store the name of the person or organization to which you're sending the transaction; this is not part of the transaction, it is only kept in your wallet
+"amounts"                                    |                             |
+{                                            |                             |
+"address":amount                             |("string":numeric)           |the address (string) and the value (double-precision floating numeric)
+,                                            |                             |
+}                                            |                             |
+minconf                                      |(numeric, optional, default=1)|only use the balance confirmed at least this many times
+"comment"                                    |(string, optional)           |a comment
+subtractfeefromamount                        |(string, optional)           |a json array with addresses. The fee will be equally deducted from the amount of each selected address; the recipients will receive less than you enter in their corresponding amount field. If no addresses are specified here, the sender pays the fee.
+[                                            |                             |
+"address"                                    |(string)                     |subtract fee from this address
+,                                            |                             |
+]                                            |                             |
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"transaction_id"                             |(string)                     |the transaction id
+"transaction_id"                             |(string)                     |the transaction id for the send; only 1 transaction is created regardless of the number of addresses
 
-## sendmany
+### Examples:
 
 ```
 command:
@@ -2226,35 +2319,29 @@ response:
 }
 ```
 
-**sendmany "account" { "address": amount, ... } ( minconf "comment" [ "address", ... ] )**
+## sendtoaddress
 
-The `sendmany` method can send multiple transactions at once. Amounts are double-precision floating point numbers.
+**sendtoaddress "address" amount ( "comment" "comment-to" subtractfeefromamount )**
+
+The `sendtoaddress` method sends an amount to a given address. The amount is real and is rounded to the nearest 0.00000001.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-"amounts"                                    |                             |
-{                                            |                             |
-"address":amount                             |("string":numeric)           |the address (string) and the value (double-precision floating numeric)
-,                                            |                             |
-}                                            |                             |
-minconf                                      |(numeric, optional, default=1)|only use the balance confirmed at least this many times
-"comment"                                    |(string, optional)           |a comment
-subtractfeefromamount                        |(string, optional)           |a json array with addresses. The fee will be equally deducted from the amount of each selected address; the recipients will receive less than you enter in their corresponding amount field. If no addresses are specified here, the sender pays the fee.
-[                                            |                             |
-"address"                                    |(string)                     |subtract fee from this address
-,                                            |                             |
-]                                            |                             |
+"komodoaddress"                              |(string, required)           |the receiving address
+"amount"                                     |(numeric, required)          |the amount to send (json requires all decimals values less than 1 begin with the characters '0.')
+"comment"                                    |(string, optional)           |a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet
+"comment-to"                                 |(string, optional)           |a comment to store the name of the person or organization to which you're sending the transaction; this is stored in your local wallet file only
+subtractfeefromamount                        |(boolean, optional, default=false)|when `true`, the fee will be deducted from the amount being sent
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"transaction_id"                             |(string)                     |the transaction id for the send; only 1 transaction is created regardless of the number of addresses
+"transaction_id"                             |(string)                     |the transaction id
 
-## sendtoaddress
+### Examples:
 
 ```
 command:
@@ -2302,27 +2389,24 @@ response:
 }
 ```
 
-**sendtoaddress "address" amount ( "comment" "comment-to" subtractfeefromamount )**
+## setaccount
 
-The `sendtoaddress` method sends an amount to a given address. The amount is real and is rounded to the nearest 0.00000001.
+**setaccount "address" "account"**
+
+<aside class="notice">
+  DEPRECATED
+</aside>
+
+The `setaccount` method sets the account associated with the given address.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"komodoaddress"                              |(string, required)           |the receiving address
-"amount"                                     |(numeric, required)          |the amount to send (json requires all decimals values less than 1 begin with the characters '0.')
-"comment"                                    |(string, optional)           |a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet
-"comment-to"                                 |(string, optional)           |a comment to store the name of the person or organization to which you're sending the transaction; this is stored in your local wallet file only
-subtractfeefromamount                        |(boolean, optional, default=false)|when `true`, the fee will be deducted from the amount being sent
+"address"                                    |(string, required)           |the address to be associated with an account
+"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
 
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"transaction_id"                             |(string)                     |the transaction id
-
-## setaccount
+### Examples:
 
 ```
 command:
@@ -2346,22 +2430,25 @@ response:
 (deprecated)
 ```
 
-**setaccount "address" "account"**
+## settxfee
 
-<aside class="notice">
-  DEPRECATED
-</aside>
+**settxfee amount**
 
-The `setaccount` method sets the account associated with the given address.
+The `settxfee` method sets the transaction fee per kB.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"address"                                    |(string, required)           |the address to be associated with an account
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
+amount                                       |(numeric, required)          |the transaction fee in COIN/kB rounded to the nearest 0.00000001
 
-## settxfee
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+true/false                                   |(boolean)                    |returns true if successful
+
+### Examples:
 
 ```
 command:
@@ -2389,23 +2476,26 @@ response:
 }
 ```
 
-**settxfee amount**
+## signmessage
 
-The `settxfee` method sets the transaction fee per kB.
+**signmessage "address" "message"**
+
+The `signmessage` method signs a message via the private key of an address.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-amount                                       |(numeric, required)          |the transaction fee in COIN/kB rounded to the nearest 0.00000001
+"address"                                    |(string, required)           |the address to use for the private key
+"message"                                    |(string, required)           |the message
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-true/false                                   |(boolean)                    |returns true if successful
+"signature"                                  |(string)                     |the signature of the message encoded in base 64
 
-## signmessage
+### Examples:
 
 > Create the signature:
 
@@ -2447,24 +2537,29 @@ response:
 }
 ```
 
-**signmessage "address" "message"**
+## z_exportkey
 
-The `signmessage` method signs a message via the private key of an address.
+**z_exportkey "z_address"**
+
+The `z_exportkey` method reveals the private z_key corresponding to `z_address`.
+
+<aside class="notice">
+  See also <b>z_importkey</b>.
+</aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"address"                                    |(string, required)           |the address to use for the private key
-"message"                                    |(string, required)           |the message
+"z_address"                                  |(string, required)           |the z_address for the private key
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"signature"                                  |(string)                     |the signature of the message encoded in base 64
+"key"                                        |(string)                     |the private key
 
-## z_exportkey
+### Examples:
 
 ```
 command:
@@ -2492,27 +2587,29 @@ response:
 }
 ```
 
-**z_exportkey "z_address"**
+## z_exportviewingkey
 
-The `z_exportkey` method reveals the private z_key corresponding to `z_address`.
+**z_exportviewingkey "z_address"**
+
+The `z_exportviewingkey` method reveals the viewing key corresponding to `z_address`.
 
 <aside class="notice">
-  See also <b>z_importkey</b>.
+  See also <b>z_importviewingkey</b>.
 </aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"z_address"                                  |(string, required)           |the z_address for the private key
+"z_address"                                  |(string, required)           |the z_address for the viewing key
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"key"                                        |(string)                     |the private key
+"vkey"                                       |(string)                     |the viewing key
 
-## z_exportviewingkey
+### Examples:
 
 ```
 command:
@@ -2540,27 +2637,25 @@ response:
 }
 ```
 
-**z_exportviewingkey "z_address"**
+## z_exportwallet
 
-The `z_exportviewingkey` method reveals the viewing key corresponding to `z_address`.
+**z_exportwallet "filename"**
 
-<aside class="notice">
-  See also <b>z_importviewingkey</b>.
-</aside>
+The `z_exportwallet` method exports all wallet keys, including both t address and z address types, in a human-readable format.  Overwriting an existing file is not permitted.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"z_address"                                  |(string, required)           |the z_address for the viewing key
+"filename"                                   |(string, required)           |the filename, saved to the directory indicated by the [`exportdir`](#exportdir) parameter at daemon runtime (required)
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"vkey"                                       |(string)                     |the viewing key
+"path"                                       |(string)                     |the full path of the destination file
 
-## z_exportwallet
+### Examples:
 
 ```
 command:
@@ -2588,23 +2683,31 @@ response:
 }
 ```
 
-**z_exportwallet "filename"**
+## z_getbalance
 
-The `z_exportwallet` method exports all wallet keys, including both t address and z address types, in a human-readable format.  Overwriting an existing file is not permitted.
+**z_getbalance "address" ( minconf )**
+
+The `z_getbalance` method returns the balance of a t address or z address belonging to the node’s wallet.
+
+<aside class="warning">
+  CAUTION: If <b>address</b> is a watch-only z address, the returned balance may be larger than the actual balance,
+  as spends cannot be detected with incoming viewing keys.
+</aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"filename"                                   |(string, required)           |the filename, saved to the directory indicated by the [`exportdir`](#exportdir) parameter at daemon runtime (required)
+"address"                                    |(string)                     |the selected z or t address
+minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"path"                                       |(string)                     |the full path of the destination file
+amount                                       |(numeric)                    |the total amount received at this address (in the relevant COIN value)
 
-## z_getbalance
+### Examples:
 
 > The total amount received by address "myaddress" at least 5 blocks confirmed
 
@@ -2644,29 +2747,25 @@ response:
 }
 ```
 
-**z_getbalance "address" ( minconf )**
+## z_getnewaddress
 
-The `z_getbalance` method returns the balance of a t address or z address belonging to the node’s wallet.
+**z_getnewaddress**
 
-<aside class="warning">
-  CAUTION: If <b>address</b> is a watch-only z address, the returned balance may be larger than the actual balance,
-  as spends cannot be detected with incoming viewing keys.
-</aside>
+The `z_getnewaddress` method returns a new z_address for receiving payments.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"address"                                    |(string)                     |the selected z or t address
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
+(none)                                       |                             |
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-amount                                       |(numeric)                    |the total amount received at this address (in the relevant COIN value)
+"z_address"                                  |(string)                     |the new z_address
 
-## z_getnewaddress
+### Examples:
 
 ```
 command:
@@ -2694,23 +2793,55 @@ response:
 }
 ```
 
-**z_getnewaddress**
+## z_getoperationresult
 
-The `z_getnewaddress` method returns a new z_address for receiving payments.
+**z_getoperationresult ([ "operationid", ... ])**
+
+The `z_getoperationresult` method retrieves the result and status of an operation which has finished, and then removes the operation from memory.
+
+<aside class="notice">
+  See also <b>z_getoperationstatus</b>.
+</aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+[                                            |                             |
+"operationid"                                |(string, optional)           |a list of operation ids to query; if not provided, the method examines all operations known to the node
+,                                            |                             |
+]                                            |                             |
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"z_address"                                  |(string)                     |the new z_address
+[                                            |                             |
+{                                            |                             |
+"id"                                         |(string)                     |the operation id
+"status"                                     |(string)                     |the result of the operation; can be `success` | `failed` | `executing`
+"creation_time"                              |(numeric)                    |the creation time, in seconds since epoch (Jan 1 1970 GMT)
+"result":                                    |                             |
+"txid":                                      |(string)                     |the transaction id
+},                                           |                             |
+"execution_secs"                             |(numeric)                    |the length of time to calculate the transaction
+"method"                                     |(string)                     |the name of the method used in the operation
+"params":                                    |                             |
+"fromaddress"                                |(string)                     |the address from which funds are drawn
+"amounts":                                   |                             |
+{                                            |                             |
+"address"                                    |(string)                     |the receiving address
+"amount"                                     |(numeric)                    |the amount to receive
+}                                            |                             |
+,                                            |                             |
+],                                           |                             |
+"minconf"                                    |(numeric)                    |the minimum number of confirmations required
+"fee"                                        |(numeric)                    |the transaction fee
+}                                            |                             |
+}                                            |                             |
+]                                            |                             |
 
-## z_getoperationresult
+### Examples:
 
 ```
 command:
@@ -2782,22 +2913,17 @@ response:
 }
 ```
 
-**z_getoperationresult ([ "operationid", ... ])**
+## z_getoperationstatus
 
-The `z_getoperationresult` method retrieves the result and status of an operation which has finished, and then removes the operation from memory.
+**z_getoperationstatus ([ "operationid", ... ])**
 
-<aside class="notice">
-  See also <b>z_getoperationstatus</b>.
-</aside>
+The `z_getoperationstatus` message queries the operation status and any associated result or error data of any `operationid` stored in local memory. The operation will remain in memory (unlike `z_getoperationresult`, which removes the data from the local memory).
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-"operationid"                                |(string, optional)           |a list of operation ids to query; if not provided, the method examines all operations known to the node
-,                                            |                             |
-]                                            |                             |
+"operationid"                                |(array, optional)            |a list of operation ids we are interested in; if an array is not provided, the method examines all operations known to the node
 
 ### Response:
 
@@ -2806,13 +2932,13 @@ Structure|Type|Description
 [                                            |                             |
 {                                            |                             |
 "id"                                         |(string)                     |the operation id
-"status"                                     |(string)                     |the result of the operation; can be `success` | `failed` | `executing`
+"status"                                     |(string)                     |the status of the operation; can be `success` | `executing` | `failed`
 "creation_time"                              |(numeric)                    |the creation time, in seconds since epoch (Jan 1 1970 GMT)
-"result":                                    |                             |
-"txid":                                      |(string)                     |the transaction id
+"error":                                     |                             |
+"code"                                       |(numeric)                    |the associated error code
+"message"                                    |(string)                     |a message to indicate the nature of the error, if such a message is available
 },                                           |                             |
-"execution_secs"                             |(numeric)                    |the length of time to calculate the transaction
-"method"                                     |(string)                     |the name of the method used in the operation
+"method"                                     |(string)                     |name of the method used in the operation
 "params":                                    |                             |
 "fromaddress"                                |(string)                     |the address from which funds are drawn
 "amounts":                                   |                             |
@@ -2820,15 +2946,14 @@ Structure|Type|Description
 "address"                                    |(string)                     |the receiving address
 "amount"                                     |(numeric)                    |the amount to receive
 }                                            |                             |
-,                                            |                             |
 ],                                           |                             |
-"minconf"                                    |(numeric)                    |the minimum number of confirmations required
-"fee"                                        |(numeric)                    |the transaction fee
+"minconf"                                    |(numeric)                    |indicates the required number of mining confirmations
+"fee"                                        |(numeric)                    |the fee
 }                                            |                             |
 }                                            |                             |
 ]                                            |                             |
 
-## z_getoperationstatus
+### Examples:
 
 ```
 command:
@@ -2928,45 +3053,39 @@ response:
 }
 ```
 
-**z_getoperationstatus ([ "operationid", ... ])**
+## z_gettotalbalance
 
-The `z_getoperationstatus` message queries the operation status and any associated result or error data of any `operationid` stored in local memory. The operation will remain in memory (unlike `z_getoperationresult`, which removes the data from the local memory).
+**z_gettotalbalance ( minconf includeWatchonly )**
+
+The `z_gettotalbalance` method returns the total value of funds, including both transparent and private, stored in the node’s wallet.
+
+<aside class="warning">
+  CAUTION: If the wallet contains watch-only z addresses the returned private balance may be larger than the actual balance, as spends cannot be detected with incoming viewing keys.
+</aside>
+
+<aside class="notice">
+  While the <b>interest</b> property is returned for all KMD-based coin daemons, only the main KMD chain utilizes the interest feature. KMD-based asset chains will always return a <b>0.00</b> interest value.
+</aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"operationid"                                |(array, optional)            |a list of operation ids we are interested in; if an array is not provided, the method examines all operations known to the node
+minconf                                      |(numeric, optional, default=1)|only include private and transparent transactions confirmed at least this many times
+includeWatchonly                             |(bool, optional, default=false)|also include balance in watchonly addresses (see 'importaddress' and 'z_importviewingkey')
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
 {                                            |                             |
-"id"                                         |(string)                     |the operation id
-"status"                                     |(string)                     |the status of the operation; can be `success` | `executing` | `failed`
-"creation_time"                              |(numeric)                    |the creation time, in seconds since epoch (Jan 1 1970 GMT)
-"error":                                     |                             |
-"code"                                       |(numeric)                    |the associated error code
-"message"                                    |(string)                     |a message to indicate the nature of the error, if such a message is available
-},                                           |                             |
-"method"                                     |(string)                     |name of the method used in the operation
-"params":                                    |                             |
-"fromaddress"                                |(string)                     |the address from which funds are drawn
-"amounts":                                   |                             |
-{                                            |                             |
-"address"                                    |(string)                     |the receiving address
-"amount"                                     |(numeric)                    |the amount to receive
+"transparent"                                |(numeric)                    |the total balance of transparent funds
+"interest"                                   |(numeric)                    |the total balance of unclaimed interest earned
+"private"                                    |(numeric)                    |the total balance of private funds
+"total"                                      |(numeric)                    |the total balance of both transparent and private funds
 }                                            |                             |
-],                                           |                             |
-"minconf"                                    |(numeric)                    |indicates the required number of mining confirmations
-"fee"                                        |(numeric)                    |the fee
-}                                            |                             |
-}                                            |                             |
-]                                            |                             |
 
-## z_gettotalbalance
+### Examples:
 
 ```
 command:
@@ -3019,37 +3138,39 @@ response:
 }
 ```
 
-**z_gettotalbalance ( minconf includeWatchonly )**
+## z_importkey
 
-The `z_gettotalbalance` method returns the total value of funds, including both transparent and private, stored in the node’s wallet.
+**z_importkey "z_privatekey" ( rescan startHeight )**
 
-<aside class="warning">
-  CAUTION: If the wallet contains watch-only z addresses the returned private balance may be larger than the actual balance, as spends cannot be detected with incoming viewing keys.
+The `z_importkey` method imports `z_privatekey` to your wallet.
+
+<aside class="notice">
+  This call can take minutes to complete if <b>rescan</b> is true.
 </aside>
 
 <aside class="notice">
-  While the <b>interest</b> property is returned for all KMD-based coin daemons, only the main KMD chain utilizes the interest feature. KMD-based asset chains will always return a <b>0.00</b> interest value.
+  The optional parameters are currently not functional with KMD-based blockchains.
+</aside>
+
+<aside class="notice">
+  See also <b>z_exportkey</b>.
 </aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-minconf                                      |(numeric, optional, default=1)|only include private and transparent transactions confirmed at least this many times
-includeWatchonly                             |(bool, optional, default=false)|also include balance in watchonly addresses (see 'importaddress' and 'z_importviewingkey')
+"z_privatekey"                               |(string, required)           |the z_privatekey (see [`z_exportkey`](#z_exportkey))
+rescan                                       |(string, optional, default=`"whenkeyisnew"`)|rescan the wallet for transactions; can be `yes` | `no` | `whenkeyisnew`
+startHeight                                  |(numeric, optional, default=0)|block height to start rescan
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
-"transparent"                                |(numeric)                    |the total balance of transparent funds
-"interest"                                   |(numeric)                    |the total balance of unclaimed interest earned
-"private"                                    |(numeric)                    |the total balance of private funds
-"total"                                      |(numeric)                    |the total balance of both transparent and private funds
-}                                            |                             |
+(none)                                       |                             |
 
-## z_importkey
+### Examples:
 
 ```
 command:
@@ -3097,28 +3218,30 @@ response:
 }
 ```
 
-**z_importkey "z_privatekey" ( rescan startHeight )**
+## z_importviewingkey
 
-The `z_importkey` method imports `z_privatekey` to your wallet.
+**z_importviewingkey "viewing_key" ( rescan startHeight )**
+
+The `z_importviewingkey` adds a viewing key to your wallet. This method allows you to view the balance in a z address that otherwise does not belong to your wallet.
+
+<aside class="notice">
+  See also <b>z_exportviewingkey</b>.
+</aside>
 
 <aside class="notice">
   This call can take minutes to complete if <b>rescan</b> is true.
 </aside>
 
 <aside class="notice">
-  The optional parameters are currently not functional with KMD-based blockchains.
-</aside>
-
-<aside class="notice">
-  See also <b>z_exportkey</b>.
+  The optional parameters are currently not functional for KMD-based blockchains.
 </aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"z_privatekey"                               |(string, required)           |the z_privatekey (see [`z_exportkey`](#z_exportkey))
-rescan                                       |(string, optional, default=`"whenkeyisnew"`)|rescan the wallet for transactions; can be `yes` | `no` | `whenkeyisnew`
+"viewing_key"                                |(string, required)           |the viewing key
+rescan                                       |(string, optional, default="whenkeyisnew")|rescan the wallet for transactions; can be `"yes"` | `"no"` | `"whenkeyisnew"`
 startHeight                                  |(numeric, optional, default=0)|block height to start rescan
 
 ### Response:
@@ -3127,7 +3250,7 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-## z_importviewingkey
+### Examples:
 
 ```
 command:
@@ -3182,29 +3305,21 @@ response:
 (none)
 ```
 
-**z_importviewingkey "viewing_key" ( rescan startHeight )**
+## z_importwallet
 
-The `z_importviewingkey` adds a viewing key to your wallet. This method allows you to view the balance in a z address that otherwise does not belong to your wallet.
+**z_importwallet "filename"**
 
-<aside class="notice">
-  See also <b>z_exportviewingkey</b>.
-</aside>
+The `z_importwallet` method imports t address and z address keys from a wallet export file.
 
 <aside class="notice">
-  This call can take minutes to complete if <b>rescan</b> is true.
-</aside>
-
-<aside class="notice">
-  The optional parameters are currently not functional for KMD-based blockchains.
+  See also <b>z_exportwallet</b>.
 </aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"viewing_key"                                |(string, required)           |the viewing key
-rescan                                       |(string, optional, default="whenkeyisnew")|rescan the wallet for transactions; can be `"yes"` | `"no"` | `"whenkeyisnew"`
-startHeight                                  |(numeric, optional, default=0)|block height to start rescan
+"filename"                                   |(string, required)           |the wallet file
 
 ### Response:
 
@@ -3212,7 +3327,7 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-## z_importwallet
+### Examples:
 
 ```
 command:
@@ -3240,27 +3355,32 @@ response:
 }
 ```
 
-**z_importwallet "filename"**
+## z_listaddresses
 
-The `z_importwallet` method imports t address and z address keys from a wallet export file.
+**z_listaddresses ( includeWatchonly )**
+
+The `z_listaddresses` method returns the list of z addresses belonging to the wallet.
 
 <aside class="notice">
-  See also <b>z_exportwallet</b>.
+  See also <b>z_importviewingkey</b>.
 </aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"filename"                                   |(string, required)           |the wallet file
+includeWatchonly                             |(bool, optional, default=false)|also include watchonly addresses
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+[                                            |                             |
+"z_address"                                  |(string)                     |a z address belonging to the wallet
+,                                            |                             |
+]                                            |                             |
 
-## z_listaddresses
+### Examples:
 
 ```
 command:
@@ -3294,31 +3414,28 @@ response:
 }
 ```
 
-**z_listaddresses ( includeWatchonly )**
+## z_listoperationids
 
-The `z_listaddresses` method returns the list of z addresses belonging to the wallet.
+**z_listoperationids**
 
-<aside class="notice">
-  See also <b>z_importviewingkey</b>.
-</aside>
+The `z_listoperationids` method returns the list of operation ids currently known to the wallet.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-includeWatchonly                             |(bool, optional, default=false)|also include watchonly addresses
+"status"                                     |(string, optional)           |filter result by the operation's state e.g. "success"
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
 [                                            |                             |
-"z_address"                                  |(string)                     |a z address belonging to the wallet
+"operationid"                                |(string)                     |an operation id belonging to the wallet
 ,                                            |                             |
 ]                                            |                             |
 
-## z_listoperationids
-
+### Examples:
 
 ```
 command:
@@ -3364,26 +3481,30 @@ response:
 }
 ```
 
-**z_listoperationids**
+## z_listreceivedbyaddress
 
-The `z_listoperationids` method returns the list of operation ids currently known to the wallet.
+**z_listreceivedbyaddress "z_address" ( minconf )**
+
+The `z_listreceivedbyaddress` method returns a list of amounts received by a z address belonging to the node’s wallet.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"status"                                     |(string, optional)           |filter result by the operation's state e.g. "success"
+"z_address"                                  |(string)                     |the private address
+minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-"operationid"                                |(string)                     |an operation id belonging to the wallet
-,                                            |                             |
-]                                            |                             |
+{                                            |                             |
+"txid"                                       |(string)                     |the transaction id
+"amount"                                     |(numeric)                    |the amount of value in the note
+"memo"                                       |(string)                     |hexademical string representation of memo field
+}                                            |                             |
 
-## z_listreceivedbyaddress
+### Examples:
 
 ```
 command:
@@ -3439,50 +3560,7 @@ response:
 }
 ```
 
-**z_listreceivedbyaddress "z_address" ( minconf )**
-
-The `z_listreceivedbyaddress` method returns a list of amounts received by a z address belonging to the node’s wallet.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"z_address"                                  |(string)                     |the private address
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-{                                            |                             |
-"txid"                                       |(string)                     |the transaction id
-"amount"                                     |(numeric)                    |the amount of value in the note
-"memo"                                       |(string)                     |hexademical string representation of memo field
-}                                            |                             |
-
 ## z_mergetoaddress
-
-```
-command:
-
-komodo-cli z_mergetoaddress '["t1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd"]' ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf
-
-response:
-
-(disabled)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_mergetoaddress", "params": [["t1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd"], "ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(disabled)
-```
 
 **z_mergetoaddress [ "fromaddress", ... ] "toaddress" ( fee ) ( transparent_limit ) ( shielded_limit ) ( memo )**
 
@@ -3539,7 +3617,62 @@ Structure|Type|Description
 "opid"                                       |(string)                     |an operationid to pass to `z_getoperationstatus` to get the result of the operation
 }                                            |                             |
 
+### Examples:
+
+```
+command:
+
+komodo-cli z_mergetoaddress '["t1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd"]' ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf
+
+response:
+
+(disabled)
+```
+
+> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+
+```
+command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_mergetoaddress", "params": [["t1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd"], "ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(disabled)
+```
+
 ## z_sendmany
+
+**z_sendmany "fromaddress" [ { "address": ..., "amount": ... }, ... ] \( minconf ) ( fee )**
+
+The `z_sendmany` method sends one or more transactions at once, and allows for sending transactions of types `t --> z`, `z --> z`, `z --> t`. It is the principle method for dealing with shielded `z` transactions in the Komodo ecosystem.
+
+The `amount` values are double-precision floating point numbers. Change from a t address flows to a new t address address, while change from z address returns to itself. When sending coinbase utxos to a z address, change is not allowed. The entire value of the utxo(s) must be consumed. Currently, the maximum number of z address outputs is 54 due to transaction-size limits.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"fromaddress"                                |(string, required)           |the sending t address or z address
+"amounts"                                    |                             |
+[                                            |                             |
+{                                            |                             |
+"address"                                    |(string, required)           |the receiving address; can be a t address or z address
+"amount"                                     |(numeric, required)          |the numeric amount
+"memo"                                       |(string, optional)           |if the address is a z address, this property accepts raw data represented in hexadecimal string format
+}                                            |                             |
+,                                            |                             |
+]                                            |                             |
+minconf                                      |(numeric, optional, default=1)|only use funds confirmed at least this many times
+fee                                          |(numeric, optional, default=0.0001)|the fee amount to attach to this transaction
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+"operationid"                                |(string)                     |an operationid to pass to z_getoperationstatus to get the result of the operation
+
+### Examples:
 
 ```
 command:
@@ -3587,36 +3720,36 @@ response:
 }
 ```
 
-**z_sendmany "fromaddress" [ { "address": ..., "amount": ... }, ... ] \( minconf ) ( fee )**
+## z_shieldcoinbase
 
-The `z_sendmany` method sends one or more transactions at once, and allows for sending transactions of types `t --> z`, `z --> z`, `z --> t`. It is the principle method for dealing with shielded `z` transactions in the Komodo ecosystem.
+**z_shieldcoinbase "fromaddress" "tozaddress" ( fee ) ( limit )**
 
-The `amount` values are double-precision floating point numbers. Change from a t address flows to a new t address address, while change from z address returns to itself. When sending coinbase utxos to a z address, change is not allowed. The entire value of the utxo(s) must be consumed. Currently, the maximum number of z address outputs is 54 due to transaction-size limits.
+The `z_shieldcoinbase` method shields transparent coinbase funds by sending the funds to a shielded z address.  This is an asynchronous operation and utxos selected for shielding will be locked. If there is an error, they are unlocked.
+
+The RPC call `listlockunspent` can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the [`mempooltxinputlimit`](#mempooltxinputlimit) option will determine the number of uxtos.  Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"fromaddress"                                |(string, required)           |the sending t address or z address
-"amounts"                                    |                             |
-[                                            |                             |
-{                                            |                             |
-"address"                                    |(string, required)           |the receiving address; can be a t address or z address
-"amount"                                     |(numeric, required)          |the numeric amount
-"memo"                                       |(string, optional)           |if the address is a z address, this property accepts raw data represented in hexadecimal string format
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
-minconf                                      |(numeric, optional, default=1)|only use funds confirmed at least this many times
+"fromaddress"                                |(string, required)           |the address is a t address or `"*"` for all t address belonging to the wallet
+"toaddress"                                  |(string, required)           |the address is a z address
 fee                                          |(numeric, optional, default=0.0001)|the fee amount to attach to this transaction
+limit                                        |(numeric, optional, default=50)|limit on the maximum number of utxos to shield; set to `0` to use node option `mempooltxinputlimit`
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"operationid"                                |(string)                     |an operationid to pass to z_getoperationstatus to get the result of the operation
+{                                            |                             |
+"remainingUTXOs"                             |(numeric)                    |number of coinbase utxos still available for shielding
+"remainingValue"                             |(numeric)                    |value of coinbase utxos still available for shielding
+"shieldingUTXOs"                             |(numeric)                    |number of coinbase utxos being shielded
+"shieldingValue"                             |(numeric)                    |value of coinbase utxos being shielded
+"opid"                                       |(string)                     |an operationid to pass to z_getoperationstatus to get the result of the operation
+}                                            |                             |
 
-## z_shieldcoinbase
+### Examples:
 
 ```
 command:
@@ -3671,30 +3804,3 @@ response:
   "id": "curltest"
 }
 ```
-
-**z_shieldcoinbase "fromaddress" "tozaddress" ( fee ) ( limit )**
-
-The `z_shieldcoinbase` method shields transparent coinbase funds by sending the funds to a shielded z address.  This is an asynchronous operation and utxos selected for shielding will be locked. If there is an error, they are unlocked.  
-
-The RPC call `listlockunspent` can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the [`mempooltxinputlimit`](#mempooltxinputlimit) option will determine the number of uxtos.  Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"fromaddress"                                |(string, required)           |the address is a t address or `"*"` for all t address belonging to the wallet
-"toaddress"                                  |(string, required)           |the address is a z address
-fee                                          |(numeric, optional, default=0.0001)|the fee amount to attach to this transaction
-limit                                        |(numeric, optional, default=50)|limit on the maximum number of utxos to shield; set to `0` to use node option `mempooltxinputlimit`
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-{                                            |                             |
-"remainingUTXOs"                             |(numeric)                    |number of coinbase utxos still available for shielding
-"remainingValue"                             |(numeric)                    |value of coinbase utxos still available for shielding
-"shieldingUTXOs"                             |(numeric)                    |number of coinbase utxos being shielded
-"shieldingValue"                             |(numeric)                    |value of coinbase utxos being shielded
-"opid"                                       |(string)                     |an operationid to pass to z_getoperationstatus to get the result of the operation
-}                                            |                             |

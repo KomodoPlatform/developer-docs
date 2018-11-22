@@ -4,6 +4,33 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## getaddressbalance
 
+**getaddressbalance '{ "addresses" : [ "address" ( , ... ) ] }'**
+
+The ``getaddressbalance`` method returns the confirmed balance for an address, or addresses. It requires [`addressindex`](#addressindex) to be enabled.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+{                                            |                             |
+"addresses"                                  |                             |
+[                                            |                             |
+"address"                                    |(string)                     |the address
+,                                            |                             |
+]                                            |                             |
+}                                            |                             |
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+{                                            |                             |
+"balance"                                    |(number)                     |the current confirmed balance of satoshis
+"received"                                   |(number)                     |the total confirmed number of satoshis received (including change)
+}                                            |                             |
+
+### Examples:
+
 ```
 command:
 
@@ -36,32 +63,44 @@ response:
 }
 ```
 
-**getaddressbalance '{ "addresses" : [ "address" ( , ... ) ] }'**
-
-The ``getaddressbalance`` method returns the confirmed balance for an address, or addresses. It requires [`addressindex`](#addressindex) to be enabled.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-{ | |
-  "addresses"| |
-    [ | |
-      "address"|(string)|the address
-      , ...| |accepts multiple entries
-    ] | |
-} | |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-{ | |
-  "balance" |(number)|the current confirmed balance of satoshis
-  "received"|(number)|the total confirmed number of satoshis received (including change)
-}| |
-
 ## getaddressdeltas
+
+**getaddressdeltas '{ "addresses" : [ "address" (, ... ) ] }'**
+
+**getaddressdeltas '{ "addresses" : [ "address" (, ... ) ] , "start": start, "end": end, "chainInfo": boolean }'**
+
+The ``getaddressdeltas`` method returns all confirmed balance changes of an address. The user can optionally limit the response to a given interval of blocks. The method requires [`addressindex`](#addressindex) to be enabled.
+
+### Arguments
+
+Structure|Type|Description
+---------|----|-----------
+{                                            |                             |
+"addresses"                                  |                             |
+[                                            |                             |
+"address"                                    |(string)                     |the address
+,                                            |                             |
+]                                            |                             |
+"start"                                      |(number)                     |the start block height
+"end"                                        |(number)                     |the end block height
+"chainInfo"                                  |(boolean)                    |include chain info in results (only applies if start and end specified)
+}                                            |                             |
+
+### Response
+
+Structure|Type|Description
+---------|----|-----------
+[                                            |                             |
+{                                            |                             |
+"satoshis"                                   |(number)                     |the difference of satoshis
+"txid"                                       |(string)                     |the related transaction id
+"index"                                      |(number)                     |the related input or output index
+"height"                                     |(number)                     |the block height
+"address"                                    |(string)                     |the address
+}                                            |                             |
+]                                            |                             |
+
+### Examples:
 
 ```
 command:
@@ -171,42 +210,41 @@ response:
 }
 ```
 
-**getaddressdeltas '{ "addresses" : [ "address" (, ... ) ] }'**
+## getaddressmempool
 
-**getaddressdeltas '{ "addresses" : [ "address" (, ... ) ] , "start": start, "end": end, "chainInfo": boolean }'**
+**getaddressmempool '{ "addresses" : [ "address" (, ... ) ] }'**
 
-The ``getaddressdeltas`` method returns all confirmed balance changes of an address. The user can optionally limit the response to a given interval of blocks. The method requires [`addressindex`](#addressindex) to be enabled.
+The `getaddressmempool` method returns all mempool deltas for an address, or addresses. It requires [`addressindex`](#addressindex) to be enabled.
 
 ### Arguments
 
 Structure|Type|Description
 ---------|----|-----------
-{| |
-  "addresses"| |
-    [| |
-      "address"|(string)|the address
-      , ...| |accepts multiple entries
-    ] | |
-  "start"|(number)|the start block height
-  "end"|(number)|the end block height
-  "chainInfo"|(boolean)|include chain info in results (only applies if start and end specified)
-}| |
+{                                            |                             |
+"addresses"                                  |                             |
+[                                            |                             |
+"address"                                    |(string)                     |the address
+,                                            |                             |
+]                                            |                             |
+}                                            |                             |
 
 ### Response
 
 Structure|Type|Description
 ---------|----|-----------
-[| |
-  {| |
-    "satoshis"|(number)|the difference of satoshis
-    "txid"|(string)|the related transaction id
-    "index"|(number)|the related input or output index
-    "height"|(number)|the block height
-    "address"|(string)|the address
-  }| |
-]| |
+[                                            |                             |
+{                                            |                             |
+"address"                                    |(string)                     |the address
+"txid"                                       |(string)                     |the related txid
+"index"                                      |(number)                     |the related input or output index
+"satoshis"                                   |(number)                     |the difference of satoshis
+"timestamp"                                  |(number)                     |the time the transaction entered the mempool (seconds)
+"prevtxid"                                   |(string)                     |the previous txid (if spending)
+"prevout"                                    |(string)                     |the previous transaction output index (if spending)
+}                                            |                             |
+]                                            |                             |
 
-## getaddressmempool
+### Examples:
 
 ```
 command:
@@ -252,41 +290,38 @@ response:
 }
 ```
 
-**getaddressmempool '{ "addresses" : [ "address" (, ... ) ] }'**
+## getaddresstxids
 
-The `getaddressmempool` method returns all mempool deltas for an address, or addresses. It requires [`addressindex`](#addressindex) to be enabled.
+**getaddresstxids '{ "addresses" : [ "address" (, ... ) ] }'**
+
+The `getaddresstxids` method returns the txids for an address, or addresses. It requires [`addressindex`](#addressindex) to be enabled.
 
 ### Arguments
 
 Structure|Type|Description
 ---------|----|-----------
-{| |
-  "addresses"| |
-    [| |
-      "address"|(string)|the address
-      , ...| |accepts multiple entries
-    ]| |
-}| |
+{                                            |                             |
+"addresses"                                  |                             |
+[                                            |                             |
+"address"                                    |(string)                     |the address
+,                                            |                             |
+],                                           |                             |
+"start"                                      |(number)                     |the start block height
+"end"                                        |(number)                     |the end block height
+}                                            |                             |
 
 ### Response
 
 Structure|Type|Description
 ---------|----|-----------
-[| |
-  {| |
-    "address"|(string)|the address
-    "txid"|(string)|the related txid
-    "index"|(number)|the related input or output index
-    "satoshis"|(number)|the difference of satoshis
-    "timestamp"|(number)|the time the transaction entered the mempool (seconds)
-    "prevtxid"|(string)|the previous txid (if spending)
-    "prevout"|(string)|the previous transaction output index (if spending)
-  }| |
-]| |
+[                                            |                             |
+"transaction_id"                             |(string)                     |the transaction id
+,                                            |                             |
+]                                            |                             |
 
-## getaddresstxids
+### Examples:
 
-```  
+```
 command:
 
 	komodo-cli getaddresstxids '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb","RQUAkqRiRMqxcNrB29B4duTK4qkqfV9HVJ"]}'
@@ -322,36 +357,43 @@ response:
 
 ```
 
-**getaddresstxids '{ "addresses" : [ "address" (, ... ) ] }'**
+## getaddressutxos
 
-The `getaddresstxids` method returns the txids for an address, or addresses. It requires [`addressindex`](#addressindex) to be enabled.
+**getaddressutxos '{ "addresses" : [ "address" (, ... ) ] }'**
+
+The `getaddressutxos` method returns all unspent outputs for an address. It requires [`addressindex`](#addressindex) to be enabled.
 
 ### Arguments
 
 Structure|Type|Description
 ---------|----|-----------
-{| |
-  "addresses"| |
-    [| |
-      "address"|(string)|the address
-      , ...| |accepts multiple entries
-    ],| |
-  "start"|(number)|the start block height
-  "end"|(number)|the end block height
-}| |
+{                                            |                             |
+"addresses"                                  |                             |
+[                                            |                             |
+"address"                                    |(string)                     |the address
+,                                            |                             |
+],                                           |                             |
+"chainInfo"                                  |(boolean)                    |include chain info with results
+}                                            |                             |
 
 ### Response
 
 Structure|Type|Description
 ---------|----|-----------
-[| |
-  "transaction_id"|(string)|the transaction id
-  , ...| |
-]| |
+[                                            |                             |
+{                                            |                             |
+"address"                                    |(string)                     |the address
+"txid"                                       |(string)                     |the output txid
+"height"                                     |(number)                     |the block height
+"outputIndex"                                |(number)                     |the output index
+"script"                                     |(string)                     |the script hex encoded
+"satoshis"                                   |(number)                     |the number of satoshis of the output
+}                                            |                             |
+]                                            |                             |
 
-## getaddressutxos
+### Examples:
 
-```  
+```
 command:
 
 komodo-cli getaddressutxos '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
@@ -370,7 +412,7 @@ response:
 ]
 ```
 
-```  
+```
 command:
 
 komodo-cli getaddressutxos '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"], "chainInfo": true}'
@@ -392,7 +434,7 @@ response:
   "hash": "0dd66ee1f151c38f73843378c08715ee3f4d3cf2888783e2846b81c057987084",
   "height": 398
 }
-```  
+```
 
 > You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
 
@@ -447,35 +489,3 @@ response:
   "id": "curltest"
 }
 ```
-
-**getaddressutxos '{ "addresses" : [ "address" (, ... ) ] }'**
-
-The `getaddressutxos` method returns all unspent outputs for an address. It requires [`addressindex`](#addressindex) to be enabled.
-
-### Arguments
-
-Structure|Type|Description
----------|----|-----------
-	{| |
-	  "addresses"| |
-	    [| |
-	      "address"|(string)|the address
-	      , ...| |accepts multiple entries
-	    ],| |
-	  "chainInfo"|(boolean)|include chain info with results
-	}| |
-
-### Response
-
-Structure|Type|Description
----------|----|-----------
-	[| |
-	  {| |
-	    "address"|(string)|the address
-	    "txid"|(string)|the output txid
-	    "height"|(number)|the block height
-	    "outputIndex"|(number)|the output index
-	    "script"|(string)|the script hex encoded
-	    "satoshis"|(number)|the number of satoshis of the output
-	  }| |
-	]| |

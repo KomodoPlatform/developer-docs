@@ -6,6 +6,10 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 > Designate your deposit address.
 
+
+
+### Examples:
+
 ```
 komodo-cli jumblr_deposit RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb
 ```
@@ -40,16 +44,6 @@ For a more detailed description of Jumblr, please read Section IV of our [whitep
 
 ## jumblr_deposit
 
-```
-command:
-
-komodo-cli "RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb"
-
-response:
-
-(none)
-```
-
 **jumblr_deposit "depositaddress"**
 
 The `jubmlr_deposit` method indicates the address from which Jumblr should withdraw funds. There should be at least 10.024 KMD in this address. Jumblr will withdraw funds in increments of 10, 100, or 7770 KMD.
@@ -71,17 +65,19 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-## jumblr_pause
+### Examples:
 
 ```
 command:
 
-komodo-cli jumblr_pause
+komodo-cli "RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb"
 
 response:
 
 (none)
 ```
+
+## jumblr_pause
 
 **jumblr_pause**
 
@@ -104,17 +100,19 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-## jumblr_resume
+### Examples:
 
 ```
 command:
 
-komodo-cli jumblr_resume
+komodo-cli jumblr_pause
 
 response:
 
 (none)
 ```
+
+## jumblr_resume
 
 **jumblr_resume**
 
@@ -137,11 +135,19 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-## jumblr_secret
+### Examples:
 
 ```
-komodo-cli jumbr_secret "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns"
+command:
+
+komodo-cli jumblr_resume
+
+response:
+
+(none)
 ```
+
+## jumblr_secret
 
 **jumblr_secret "secretaddress"**
 
@@ -158,3 +164,9 @@ Structure|Type|Description
 Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
+
+### Examples:
+
+```
+komodo-cli jumbr_secret "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns"
+```

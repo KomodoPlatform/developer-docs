@@ -4,7 +4,26 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## addnode
 
-```  
+**addnode "node" "add|remove|onetry"**
+
+The `addnode` method attempts to add or remove a node from the addnode list, or to make a single attempt to connect to a node.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"node"                                       |(string, required)           |the node (see [`getpeerinfo`](#getpeerinfo) for nodes)
+"command"                                    |(string, required)           |'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+(none)                                       |                             |
+
+### Examples:
+
+```
 command:
 
 komodo-cli addnode "192.168.0.6:8233" "onetry"
@@ -26,16 +45,17 @@ response:
 (none)
 ```
 
-**addnode "node" "add|remove|onetry"**
+## clearbanned
 
-The `addnode` method attempts to add or remove a node from the addnode list, or to make a single attempt to connect to a node.
+**clearbanned**
+
+The `clearbanned` method clears all banned IPs.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"node"                                       |(string, required)           |the node (see [`getpeerinfo`](#getpeerinfo) for nodes)
-"command"                                    |(string, required)           |'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once
+(none)                                       |                             |
 
 ### Response:
 
@@ -43,9 +63,9 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-## clearbanned
+### Examples:
 
-```  
+```
 command:
 
 komodo-cli clearbanned
@@ -67,15 +87,19 @@ response:
 (none)
 ```
 
-**clearbanned**
+## disconnectnode
 
-The `clearbanned` method clears all banned IPs.
+**disconnectnode "node"**
+
+The `disconnectnode` method instructs the daemon to immediately disconnect from the specified node.
+
+Use `getpeerinfo` to determine the result.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+"node"                                       |(string, required)           |the node's address (see [`getpeerinfo`](#getpeerinfo) for nodes)
 
 ### Response:
 
@@ -83,7 +107,7 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-## disconnectnode
+### Examples:
 
 ```
 command:
@@ -107,28 +131,48 @@ response:
 (none)
 ```
 
-**disconnectnode "node"**
+## getaddednodeinfo
 
-The `disconnectnode` method instructs the daemon to immediately disconnect from the specified node.
 
-Use `getpeerinfo` to determine the result.
+**getaddednodeinfo dns ( "node" )**
+
+The `getaddednodeinfo` method returns information about the given added node, or all added nodes.
+
+If `dns` is set to `false`, only a list of added nodes is returned. Otherwise, connection information is also provided.
+
+<aside class="notice">
+  Nodes added via <b>onetry</b> are not listed here.
+</aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"node"                                       |(string, required)           |the node's address (see [`getpeerinfo`](#getpeerinfo) for nodes)
+dns                                          |(boolean, required)          |if false, only a list of added nodes will be provided; otherwise, connection information is also provided
+"node"                                       |(string, optional)           |if provided, the method returns information about this specific node; otherwise, all nodes are returned
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+[                                            |                             |
+{                                            |                             |
+"addednode"                                  |(string)                     |the node ip address
+"connected"                                  |(boolean)                    |if connected
+"addresses"                                  |                             |
+{                                            |                             |
+"address"                                    |(string)                     |the server host and port
+"connected"                                  |(string)                     |"connected" accepts two possible values: "inbound" or "outbound"
+}                                            |                             |
+,                                            |                             |
+]                                            |                             |
+}                                            |                             |
+,                                            |                             |
+]                                            |                             |
 
-## getaddednodeinfo
+### Examples:
 
-
-```  
+```
 command:
 
 komodo-cli getaddednodeinfo true
@@ -197,45 +241,27 @@ response:
 }
 ```
 
-**getaddednodeinfo dns ( "node" )**
+## getconnectioncount
 
-The `getaddednodeinfo` method returns information about the given added node, or all added nodes.
+**getconnectioncount**
 
-If `dns` is set to `false`, only a list of added nodes is returned. Otherwise, connection information is also provided.
-
-<aside class="notice">
-  Nodes added via <b>onetry</b> are not listed here.
-</aside>
+The `getconnectioncount` method returns the number of connections to other nodes.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-dns                                          |(boolean, required)          |if false, only a list of added nodes will be provided; otherwise, connection information is also provided
-"node"                                       |(string, optional)           |if provided, the method returns information about this specific node; otherwise, all nodes are returned
+(none)                                       |                             |
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-{                                            |                             |
-"addednode"                                  |(string)                     |the node ip address
-"connected"                                  |(boolean)                    |if connected
-"addresses"                                  |                             |
-{                                            |                             |
-"address"                                    |(string)                     |the server host and port
-"connected"                                  |(string)                     |"connected" accepts two possible values: "inbound" or "outbound"
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
+n                                            |(numeric)                    |the connection count
 
-## getconnectioncount
+### Examples:
 
-```  
+```
 command:
 
 komodo-cli getconnectioncount
@@ -261,9 +287,15 @@ response:
 }
 ```
 
-**getconnectioncount**
+## getdeprecationinfo
 
-The `getconnectioncount` method returns the number of connections to other nodes.
+**getdeprecationinfo**
+
+The `getdeprecationinfo` method returns an object containing current version and deprecation block height.
+
+<aside class="notice">
+  This method is applicable only to the KMD mainnet.
+</aside>
 
 ### Arguments:
 
@@ -275,11 +307,15 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-n                                            |(numeric)                    |the connection count
+{                                            |                             |
+"version"                                    |(numeric)                    |the server version
+"subversion"                                 |(string)                     |the server sub-version string (i.e. "/MagicBean:x.y.z[-v]/")
+"deprecationheight"                          |(numeric)                    |the block height at which this version will deprecate and shut down (unless [`disabledeprecation`](https://z.cash/blog/new-release-1-1-2/) is set)
+}                                            |                             |
 
-## getdeprecationinfo
+### Examples:
 
-```  
+```
 command:
 
 komodo-cli getdeprecationinfo
@@ -313,13 +349,11 @@ response:
 }
 ```
 
-**getdeprecationinfo**
+## getnettotals
 
-The `getdeprecationinfo` method returns an object containing current version and deprecation block height.
+**getnettotals**
 
-<aside class="notice">
-  This method is applicable only to the KMD mainnet.
-</aside>
+The `getnettotals` method returns information about network traffic, including bytes in, bytes out, and current time.
 
 ### Arguments:
 
@@ -332,14 +366,14 @@ Structure|Type|Description
 Structure|Type|Description
 ---------|----|-----------
 {                                            |                             |
-"version"                                    |(numeric)                    |the server version
-"subversion"                                 |(string)                     |the server sub-version string (i.e. "/MagicBean:x.y.z[-v]/")
-"deprecationheight"                          |(numeric)                    |the block height at which this version will deprecate and shut down (unless [`disabledeprecation`](https://z.cash/blog/new-release-1-1-2/) is set)
+"totalbytesrecv"                             |(numeric)                    |total bytes received
+"totalbytessent"                             |(numeric)                    |total bytes sent
+"timemillis"                                 |(numeric)                    |total cpu time
 }                                            |                             |
 
-## getnettotals
+### Examples:
 
-```  
+```
 command:
 
 komodo-cli getnettotals
@@ -373,9 +407,11 @@ response:
 }
 ```
 
-**getnettotals**
+## getnetworkinfo
 
-The `getnettotals` method returns information about network traffic, including bytes in, bytes out, and current time.
+**getnetworkinfo**
+
+The `getnetworkinfo` method returns an object containing various state info regarding P2P networking.
 
 ### Arguments:
 
@@ -388,14 +424,36 @@ Structure|Type|Description
 Structure|Type|Description
 ---------|----|-----------
 {                                            |                             |
-"totalbytesrecv"                             |(numeric)                    |total bytes received
-"totalbytessent"                             |(numeric)                    |total bytes sent
-"timemillis"                                 |(numeric)                    |total cpu time
+"version"                                    |(numeric)                    |the server version
+"subversion"                                 |(string)                     |the server subversion string (i.e. "/MagicBean:x.y.z[-v]/")
+"protocolversion"                            |(numeric)                    |the protocol version
+"localservices"                              |(string)                     |the services we offer to the network
+"timeoffset"                                 |(numeric)                    |the time offset
+"connections"                                |(numeric)                    |the number of connections
+"networks":                                  |                             |
+{                                            |                             |
+"name"                                       |(string)                     |network (ipv4, ipv6 or onion)
+"limited"                                    |(boolean)                    |whether the network is limited using -onlynet
+"reachable"                                  |(boolean)                    |whether the network is reachable
+"proxy"                                      |(string)                     |(submitted as "host:port") the proxy that is used for this network, or empty if none
+}                                            |                             |
+,                                            |                             |
+],                                           |                             |
+"relayfee"                                   |(numeric)                    |minimum relay fee for non-free transactions in COIN/kB
+"localaddresses":                            |                             |
+{                                            |                             |
+"address"                                    |(string)                     |network address
+"port"                                       |(numeric)                    |network port
+"score"                                      |(numeric)                    |relative score
+}                                            |                             |
+,                                            |                             |
+]                                            |                             |
+"warnings"                                   |(string)                     |any network warnings (such as alert messages)
 }                                            |                             |
 
-## getnetworkinfo
+### Examples:
 
-```  
+```
 command:
 
 komodo-cli getnetworkinfo
@@ -488,9 +546,11 @@ response:
 }
 ```
 
-**getnetworkinfo**
+## getpeerinfo
 
-The `getnetworkinfo` method returns an object containing various state info regarding P2P networking.
+**getpeerinfo**
+
+The `getpeerinfo` method returns data about each connected network node as a json array of objects.
 
 ### Arguments:
 
@@ -502,37 +562,38 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
+[                                            |                             |
 {                                            |                             |
-"version"                                    |(numeric)                    |the server version
-"subversion"                                 |(string)                     |the server subversion string (i.e. "/MagicBean:x.y.z[-v]/")
-"protocolversion"                            |(numeric)                    |the protocol version
-"localservices"                              |(string)                     |the services we offer to the network
-"timeoffset"                                 |(numeric)                    |the time offset
-"connections"                                |(numeric)                    |the number of connections
-"networks":                                  |                             |
-{                                            |                             |
-"name"                                       |(string)                     |network (ipv4, ipv6 or onion)
-"limited"                                    |(boolean)                    |whether the network is limited using -onlynet
-"reachable"                                  |(boolean)                    |whether the network is reachable
-"proxy"                                      |(string)                     |(submitted as "host:port") the proxy that is used for this network, or empty if none
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
-"relayfee"                                   |(numeric)                    |minimum relay fee for non-free transactions in COIN/kB
-"localaddresses":                            |                             |
-{                                            |                             |
-"address"                                    |(string)                     |network address
-"port"                                       |(numeric)                    |network port
-"score"                                      |(numeric)                    |relative score
+"id"                                         |(numeric)                    |peer index
+"addr":,                                     |(string)                     |the ip address and port of the peer ("host:port")
+"addrlocal"                                  |(string)                     |local address ("ip:port")
+"services"                                   |(string)                     |the services offered
+"lastsend"                                   |(numeric)                    |the time in seconds since epoch (Jan 1 1970 GMT) of the last send
+"lastrecv"                                   |(numeric)                    |the time in seconds since epoch (Jan 1 1970 GMT) of the last receive
+"bytessent"                                  |(numeric)                    |the total bytes sent
+"bytesrecv"                                  |(numeric)                    |the total bytes received
+"conntime"                                   |(numeric)                    |the connection time in seconds since epoch (Jan 1 1970 GMT)
+"timeoffset"                                 |(numeric)                    |the time offset in seconds
+"pingtime"                                   |(numeric)                    |ping time
+"pingwait"                                   |(numeric)                    |ping wait
+"version"                                    |(numeric)                    |the peer version, such as 170002
+"subver"                                     |(string)                     |the string version (i.e. "/MagicBean:x.y.z[-v]/")
+"inbound"                                    |(boolean)                    |inbound (true) or outbound (false)
+"startingheight"                             |(numeric)                    |the starting height (block) of the peer
+"banscore"                                   |(numeric)                    |the ban score
+"synced_headers"                             |(numeric)                    |the last header we have in common with this peer
+"synced_blocks"                              |(numeric)                    |the last block we have in common with this peer
+"inflight":                                  |                             |
+number,                                      |(numeric)                    |the heights of blocks we're currently asking from this peer
+...                                          |                             |
+]                                            |                             |
 }                                            |                             |
 ,                                            |                             |
 ]                                            |                             |
-"warnings"                                   |(string)                     |any network warnings (such as alert messages)
-}                                            |                             |
 
-## getpeerinfo
+### Examples:
 
-```  
+```
 command:
 
 komodo-cli getpeerinfo
@@ -605,9 +666,11 @@ response:
 }
 ```
 
-**getpeerinfo**
+## listbanned
 
-The `getpeerinfo` method returns data about each connected network node as a json array of objects.
+**listbanned**
+
+The `listbanned` method lists all banned IP addresses and subnets.
 
 ### Arguments:
 
@@ -621,36 +684,15 @@ Structure|Type|Description
 ---------|----|-----------
 [                                            |                             |
 {                                            |                             |
-"id"                                         |(numeric)                    |peer index
-"addr":,                                     |(string)                     |the ip address and port of the peer ("host:port")
-"addrlocal"                                  |(string)                     |local address ("ip:port")
-"services"                                   |(string)                     |the services offered
-"lastsend"                                   |(numeric)                    |the time in seconds since epoch (Jan 1 1970 GMT) of the last send
-"lastrecv"                                   |(numeric)                    |the time in seconds since epoch (Jan 1 1970 GMT) of the last receive
-"bytessent"                                  |(numeric)                    |the total bytes sent
-"bytesrecv"                                  |(numeric)                    |the total bytes received
-"conntime"                                   |(numeric)                    |the connection time in seconds since epoch (Jan 1 1970 GMT)
-"timeoffset"                                 |(numeric)                    |the time offset in seconds
-"pingtime"                                   |(numeric)                    |ping time
-"pingwait"                                   |(numeric)                    |ping wait
-"version"                                    |(numeric)                    |the peer version, such as 170002
-"subver"                                     |(string)                     |the string version (i.e. "/MagicBean:x.y.z[-v]/")
-"inbound"                                    |(boolean)                    |inbound (true) or outbound (false)
-"startingheight"                             |(numeric)                    |the starting height (block) of the peer
-"banscore"                                   |(numeric)                    |the ban score
-"synced_headers"                             |(numeric)                    |the last header we have in common with this peer
-"synced_blocks"                              |(numeric)                    |the last block we have in common with this peer
-"inflight":                                  |                             |
-number,                                      |(numeric)                    |the heights of blocks we're currently asking from this peer
+"address"                                    |(string)                     |the address/subnet that is banned
+"banned_until"                               |(numeric)                    |the timestamp, at which point the ban will be removed
+},                                           |                             |
 ...                                          |                             |
 ]                                            |                             |
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
 
-## listbanned
+### Examples:
 
-```  
+```
 command:
 
 komodo-cli listbanned
@@ -686,55 +728,7 @@ response:
 }
 ```
 
-**listbanned**
-
-The `listbanned` method lists all banned IP addresses and subnets.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-{                                            |                             |
-"address"                                    |(string)                     |the address/subnet that is banned
-"banned_until"                               |(numeric)                    |the timestamp, at which point the ban will be removed
-},                                           |                             |
-...                                          |                             |
-]                                            |                             |
-
 ## ping
-
-```  
-command:
-
-komodo-cli ping
-
-response:
-
-(none)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "ping", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": null,
-  "error": null,
-  "id": "curltest"
-}
-```
 
 **ping**
 
@@ -760,9 +754,62 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
+### Examples:
+
+```
+command:
+
+komodo-cli ping
+
+response:
+
+(none)
+```
+
+> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+
+```
+command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "ping", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  "result": null,
+  "error": null,
+  "id": "curltest"
+}
+```
+
 ## setban
 
-```  
+**setban "ip(/netmask)" "add|remove" (bantime) (absolute)**
+
+The `setban` method attempts to add or remove an IP address (and subnet, if indicated) from the banned list.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"ip(/netmask)"                               |(string, ip required)        |the IP/subnet (see `getpeerinfo` for nodes ip) with an optional netmask (default is /32 = single ip)
+"command"                                    |(string, required)           |use "add" to add an IP/subnet to the list, or "remove" to remove an IP/subnet from the list
+bantime                                      |(numeric, optional)          |indicates how long (in seconds) the ip is banned (or until when, if [absolute] is set). 0 or empty means the ban is using the default time of 24h, which can also be overwritten using the -bantime runtime parameter.
+absolute                                     |(boolean, optional)          |if set to true, the bantime must be an absolute timestamp (in seconds) since epoch (Jan 1 1970 GMT)
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+(none)                                       |                             |
+
+<aside class="notice">
+  Use <b>listbanned</b> to view results.
+</aside>
+
+### Examples:
+
+```
 command:
 
 komodo-cli setban "192.168.0.6" "add" 86400
@@ -793,26 +840,3 @@ response:
 
 (none)
 ```
-
-**setban "ip(/netmask)" "add|remove" (bantime) (absolute)**
-
-The `setban` method attempts to add or remove an IP address (and subnet, if indicated) from the banned list.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"ip(/netmask)"                               |(string, ip required)        |the IP/subnet (see `getpeerinfo` for nodes ip) with an optional netmask (default is /32 = single ip)
-"command"                                    |(string, required)           |use "add" to add an IP/subnet to the list, or "remove" to remove an IP/subnet from the list
-bantime                                      |(numeric, optional)          |indicates how long (in seconds) the ip is banned (or until when, if [absolute] is set). 0 or empty means the ban is using the default time of 24h, which can also be overwritten using the -bantime runtime parameter.
-absolute                                     |(boolean, optional)          |if set to true, the bantime must be an absolute timestamp (in seconds) since epoch (Jan 1 1970 GMT)
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-<aside class="notice">
-  Use <b>listbanned</b> to view results.
-</aside>

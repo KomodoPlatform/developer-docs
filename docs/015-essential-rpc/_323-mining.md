@@ -4,6 +4,26 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## getblocksubsidy
 
+**getblocksubsidy height_number**
+
+The `getblocksubsidy` method returns the block-subsidy reward. The resulting calculation takes into account the mining slow start. This method can be used in conjunction with custom mining rewards designed by the developers of a KMD-based asset chain.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+true/false                                   |(boolean)                    |indicates whether the server is set to generate coins
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+{                                            |                             |
+"miner"                                      |(numeric)                    |the mining reward amount
+}                                            |                             |
+
+### Examples:
+
 ```
 command:
 
@@ -26,25 +46,70 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 response:
 ```
 
-**getblocksubsidy height_number**
+## getblocktemplate
 
-The `getblocksubsidy` method returns the block-subsidy reward. The resulting calculation takes into account the mining slow start. This method can be used in conjunction with custom mining rewards designed by the developers of a KMD-based asset chain.
+**getblocktemplate ( "jsonrequestobject" )**
+
+The `getblocktemplate` method returns data that is necessary to construct a block.
+
+<aside class="notice">
+  See <a href="https://en.bitcoin.it/wiki/BIP_0022">the Bitcoin wiki</a> for full specification.
+</aside>
+
+If the request parameters include a `mode` key, it is used to explicitly select between the default 'template' request or a 'proposal'.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-true/false                                   |(boolean)                    |indicates whether the server is set to generate coins
+"jsonrequestobject"                          |(string, optional)           |a json object in the following spec
+{                                            |                             |
+"mode"                                       |(string, optional)           |can be: "template" | "omitted"
+"capabilities":                              |                             |
+"support"                                    |(string)                     |client side supported features: "longpoll", "coinbasetxn", "coinbasevalue", "proposal", "serverlist", "workid"
+,                                            |                             |
+]                                            |                             |
+}                                            |                             |
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
 {                                            |                             |
-"miner"                                      |(numeric)                    |the mining reward amount
+"version"                                    |(numeric)                    |the block version
+"previousblockhash"                          |(string)                     |the hash of current highest block
+"transactions"                               |                             |
+{                                            |                             |
+"data"                                       |(string)                     |transaction data encoded in hexadecimal (byte-for-byte)
+"hash"                                       |(string)                     |hash/id encoded in little-endian hexadecimal
+"depends"                                    |                             |
+number                                       |(numeric)                    |transactions before this one (by 1-based index in "transactions" list) that must be present in the final block, if this one is
+,                                            |                             |
+],                                           |                             |
+"fee"                                        |(numeric)                    |the difference in value between transaction inputs and outputs (in Satoshis). For coinbase transactions, this is a negative number of the total collected block fees (ie, not including the block subsidy). If a key is not present, the fee is unknown and clients MUST NOT assume it is not present.
+"sigops"                                     |(numeric)                    |total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.
+"required"                                   |(boolean)                    |if provided and true, this transaction must be in the final block
+}                                            |                             |
+,                                            |                             |
+],                                           |                             |
+"coinbasetxn"                                |                             |
+...                                          |(json object)                |information for coinbase transaction
+},                                           |                             |
+"target"                                     |(string)                     |the hash target
+"mintime"                                    |(numeric)                    |the minimum timestamp appropriate for next block time in seconds since epoch (Jan 1 1970 GMT)
+"mutable"                                    |                             |
+"value"                                      |(string)                     |a way the block template may be changed, e.g. "time", "transactions", "prevblock"
+,                                            |                             |
+],                                           |                             |
+"noncerange"                                 |(string)                     |a range of valid nonces
+"sigoplimit"                                 |(numeric)                    |limit of sigops in blocks
+"sizelimit"                                  |(numeric)                    |limit of block size
+"curtime"                                    |(numeric)                    |current timestamp in seconds since epoch (Jan 1 1970 GMT)
+"bits"                                       |(string)                     |compressed target of next block
+"height"                                     |(numeric)                    |the height of the next block
 }                                            |                             |
 
-## getblocktemplate
+### Examples:
 
 ```
 command:
@@ -142,68 +207,28 @@ response:
 }
 ```
 
-**getblocktemplate ( "jsonrequestobject" )**
+## getlocalsolps
 
-The `getblocktemplate` method returns data that is necessary to construct a block.
+**getlocalsolps**
+
+The `getlocalsolps` method returns the average local solutions per second since this node was started.
 
 <aside class="notice">
-  See <a href="https://en.bitcoin.it/wiki/BIP_0022">the Bitcoin wiki</a> for full specification.
+  This is the same information shown on the metrics screen (if enabled).
 </aside>
-
-If the request parameters include a `mode` key, it is used to explicitly select between the default 'template' request or a 'proposal'.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"jsonrequestobject"                          |(string, optional)           |a json object in the following spec
-{                                            |                             |
-"mode"                                       |(string, optional)           |can be: "template" | "omitted"
-"capabilities":                              |                             |
-"support"                                    |(string)                     |client side supported features: "longpoll", "coinbasetxn", "coinbasevalue", "proposal", "serverlist", "workid"
-,                                            |                             |
-]                                            |                             |
-}                                            |                             |
+(none)                                       |(none)                       |
 
 ### Response:
-
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
-"version"                                    |(numeric)                    |the block version
-"previousblockhash"                          |(string)                     |the hash of current highest block
-"transactions"                               |                             |
-{                                            |                             |
-"data"                                       |(string)                     |transaction data encoded in hexadecimal (byte-for-byte)
-"hash"                                       |(string)                     |hash/id encoded in little-endian hexadecimal
-"depends"                                    |                             |
-number                                       |(numeric)                    |transactions before this one (by 1-based index in "transactions" list) that must be present in the final block, if this one is
-,                                            |                             |
-],                                           |                             |
-"fee"                                        |(numeric)                    |the difference in value between transaction inputs and outputs (in Satoshis). For coinbase transactions, this is a negative number of the total collected block fees (ie, not including the block subsidy). If a key is not present, the fee is unknown and clients MUST NOT assume it is not present.
-"sigops"                                     |(numeric)                    |total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.
-"required"                                   |(boolean)                    |if provided and true, this transaction must be in the final block
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
-"coinbasetxn"                                |                             |
-...                                          |(json object)                |information for coinbase transaction
-},                                           |                             |
-"target"                                     |(string)                     |the hash target
-"mintime"                                    |(numeric)                    |the minimum timestamp appropriate for next block time in seconds since epoch (Jan 1 1970 GMT)
-"mutable"                                    |                             |
-"value"                                      |(string)                     |a way the block template may be changed, e.g. "time", "transactions", "prevblock"
-,                                            |                             |
-],                                           |                             |
-"noncerange"                                 |(string)                     |a range of valid nonces
-"sigoplimit"                                 |(numeric)                    |limit of sigops in blocks
-"sizelimit"                                  |(numeric)                    |limit of block size
-"curtime"                                    |(numeric)                    |current timestamp in seconds since epoch (Jan 1 1970 GMT)
-"bits"                                       |(string)                     |compressed target of next block
-"height"                                     |(numeric)                    |the height of the next block
-}                                            |                             |
+"data"                                       |(numeric)                    |solutions per second average
 
-## getlocalsolps
+### Examples:
 
 ```
 command:
@@ -231,13 +256,11 @@ response:
 }
 ```
 
-**getlocalsolps**
+## getmininginfo
 
-The `getlocalsolps` method returns the average local solutions per second since this node was started.
+**getmininginfo**
 
-<aside class="notice">
-  This is the same information shown on the metrics screen (if enabled).
-</aside>
+The `getmininginfo` method returns a json object containing mining-related information.
 
 ### Arguments:
 
@@ -246,11 +269,25 @@ Structure|Type|Description
 (none)                                       |(none)                       |
 
 ### Response:
+
 Structure|Type|Description
 ---------|----|-----------
-"data"                                       |(numeric)                    |solutions per second average
+{                                            |                             |
+"blocks"                                     |(numeric)                    |the current block
+"currentblocksize"                           |(numeric)                    |the last block size
+"currentblocktx"                             |(numeric)                    |the last block transaction
+"difficulty"                                 |(numeric)                    |the current difficulty
+"errors":                                    |                             |
+"generate"                                   |(boolean)                    |if the generation is on or off (see [getgenerate](#getgenerate) or [setgenerate](#setgenerate) calls)
+"genproclimit"                               |(numeric)                    |the processor limit for generation; -1 if no generation (see[getgenerate](#getgenerate) or [setgenerate](#setgenerate) calls)
+"localsolps"                                 |(numeric)                    |the average local solution rate (solutions per second) since this node was started
+"networksolps"                               |(numeric)                    |the estimated network solution rate (solutions per second)
+"pooledtx":                                  |                             |
+"testnet"                                    |(boolean)                    |if using testnet or not
+"chain"                                      |(string)                     |current network name as defined in BIP70 (main, test, regtest)
+}                                            |                             |
 
-## getmininginfo
+### Examples:
 
 ```
 command:
@@ -308,36 +345,30 @@ response:
 }
 ```
 
-**getmininginfo**
+## getnetworkhashps
 
-The `getmininginfo` method returns a json object containing mining-related information.
+**getnetworkhashps ( blocks height )**
+
+The `getnetworkhashps` method returns the estimated network solutions per second based on the last `n` blocks.
+
+Pass in `blocks` value to override the default number of blocks. Passing in `-1` will return a value based on the average hashps of the relevant difficulty window.
+
+Pass in `height` to estimate the network speed at the time when a certain block was found.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |(none)                       |
+blocks                                       |(numeric, optional, default=120)|the number of blocks (use -1 to calculate over the relevant difficulty averaging window)
+height                                       |(numeric, optional, default=-1)|to estimate at the time of the given height
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
-"blocks"                                     |(numeric)                    |the current block
-"currentblocksize"                           |(numeric)                    |the last block size
-"currentblocktx"                             |(numeric)                    |the last block transaction
-"difficulty"                                 |(numeric)                    |the current difficulty
-"errors":                                    |                             |
-"generate"                                   |(boolean)                    |if the generation is on or off (see [getgenerate](#getgenerate) or [setgenerate](#setgenerate) calls)
-"genproclimit"                               |(numeric)                    |the processor limit for generation; -1 if no generation (see[getgenerate](#getgenerate) or [setgenerate](#setgenerate) calls)
-"localsolps"                                 |(numeric)                    |the average local solution rate (solutions per second) since this node was started
-"networksolps"                               |(numeric)                    |the estimated network solution rate (solutions per second)
-"pooledtx":                                  |                             |
-"testnet"                                    |(boolean)                    |if using testnet or not
-"chain"                                      |(string)                     |current network name as defined in BIP70 (main, test, regtest)
-}                                            |                             |
+data                                         |(numeric)                    |solutions per second estimated
 
-## getnetworkhashps
+### Examples:
 
 ```
 command:
@@ -369,48 +400,7 @@ response:
   DEPRECATED: Use <b>getnetworksolps</b> instead.
 </aside>
 
-**getnetworkhashps ( blocks height )**
-
-The `getnetworkhashps` method returns the estimated network solutions per second based on the last `n` blocks.
-
-Pass in `blocks` value to override the default number of blocks. Passing in `-1` will return a value based on the average hashps of the relevant difficulty window.
-
-Pass in `height` to estimate the network speed at the time when a certain block was found.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-blocks                                       |(numeric, optional, default=120)|the number of blocks (use -1 to calculate over the relevant difficulty averaging window)
-height                                       |(numeric, optional, default=-1)|to estimate at the time of the given height
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-data                                         |(numeric)                    |solutions per second estimated
-
 ## getnetworksolps
-
-```
-command:
-
-komodo-cli getnetworksolps
-
-response:
-
-9954190
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworksolps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-```
 
 **getnetworksolps ( blocks height )**
 
@@ -433,7 +423,53 @@ Structure|Type|Description
 ---------|----|-----------
 data                                         |(numeric)                    |solutions per second, estimated
 
+### Examples:
+
+```
+command:
+
+komodo-cli getnetworksolps
+
+response:
+
+9954190
+```
+
+> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+
+```
+command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworksolps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+```
+
 ## prioritisetransaction
+
+**prioritisetransaction "transaction_id" priority_delta fee_delta**
+
+The `prioritisetransaction` method instructs the daemon to accept the indicated transaction into mined blocks at a higher (or lower) priority. The transaction selection algorithm considers the transaction as it would have a higher priority.
+
+<aside class="notice">
+  This method is inherited from the original Bitcoin protocol, of which KMD is a fork (via Zcash). For more examples regarding this method, please see <a href="https://bitcoincore.org/en/doc/0.16.1/rpc/mining/prioritisetransaction/">the linked documentation</a>.
+</aside>
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"transaction_id"                             |(string, required)           |the transaction id
+priority                                     |                             |
+fee                                          |                             |
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+true                                         |(boolean)                    |returns true
+
+### Examples:
 
 ```
 command:
@@ -461,48 +497,7 @@ result:
 }
 ```
 
-**prioritisetransaction "transaction_id" priority_delta fee_delta**
-
-The `prioritisetransaction` method instructs the daemon to accept the indicated transaction into mined blocks at a higher (or lower) priority. The transaction selection algorithm considers the transaction as it would have a higher priority.
-
-<aside class="notice">
-  This method is inherited from the original Bitcoin protocol, of which KMD is a fork (via Zcash). For more examples regarding this method, please see <a href="https://bitcoincore.org/en/doc/0.16.1/rpc/mining/prioritisetransaction/">the linked documentation</a>.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"transaction_id"                             |(string, required)           |the transaction id
-priority                                     |                             |
-fee                                          |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-true                                         |(boolean)                    |returns true
-
 ## submitblock
-
-```
-command:
-
-komodo-cli submitblock "mydata"
-
-response:
-
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "submitblock", "params": ["mydata"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-```
 
 **submitblock "hexdata" ( "jsonparametersobject" )**
 
@@ -535,3 +530,24 @@ Structure|Type|Description
 	"duplicate-inconclusive"                   |                             |node already has block but has not validated it
 	"inconclusive"                             |                             |node has not validated the block, it may not be on the node's current best chain
 	"rejected"                                 |                             |block was rejected as invalid
+
+### Examples:
+
+```
+command:
+
+komodo-cli submitblock "mydata"
+
+response:
+
+```
+
+> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+
+```
+command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "submitblock", "params": ["mydata"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+```

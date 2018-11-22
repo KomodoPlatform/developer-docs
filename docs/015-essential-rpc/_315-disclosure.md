@@ -4,6 +4,27 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## z_getpaymentdisclosure
 
+**z_getpaymentdisclosure transaction js_index output_index ("message")**
+
+The `z_getpaymentdisclosure` method generates a payment disclosure for a given joinsplit output.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"txid"                                       |(string, required)           |
+"js_index"                                   |(string, required)           |
+"output_index"                               |(string, required)           |
+"message"                                    |(string, optional)           |
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+"paymentdisclosure"                          |(string)                     |hex data string, with "zpd:" prefix
+
+### Examples:
+
 ```
 command:
 
@@ -30,26 +51,29 @@ response:
   EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always fails.
 </aside>
 
-**z_getpaymentdisclosure transaction js_index output_index ("message")**
+## z_validatepaymentdisclosure
 
-The `z_getpaymentdisclosure` method generates a payment disclosure for a given joinsplit output.
+**z_validatepaymentdisclosure "paymentdisclosure"**
+
+The `z_validatepaymentdisclosure` method validates a payment disclosure.
+
+<aside class="warning">
+  EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always fails.
+</aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"txid"                                       |(string, required)           |
-"js_index"                                   |(string, required)           |
-"output_index"                               |(string, required)           |
-"message"                                    |(string, optional)           |
+"paymentdisclosure"                          |(string, required)           |hex data string, with "zpd:" prefix
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"paymentdisclosure"                          |(string)                     |hex data string, with "zpd:" prefix
+(currently disabled)                         |                             |
 
-## z_validatepaymentdisclosure
+### Examples:
 
 ```
 command:
@@ -72,23 +96,3 @@ response:
 
 (currently disabled)
 ```
-
-**z_validatepaymentdisclosure "paymentdisclosure"**
-
-The `z_validatepaymentdisclosure` method validates a payment disclosure.
-
-<aside class="warning">
-  EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always fails.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"paymentdisclosure"                          |(string, required)           |hex data string, with "zpd:" prefix
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-(currently disabled)                         |                             |
