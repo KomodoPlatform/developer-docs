@@ -17,6 +17,31 @@ The flow of a `channels` contract is as follows:
 
 ## channelsclose
 
+**channelsclose open_txid**
+
+The `channelsclose` method marks a specific channel as closed, meaning that no additional payments will be added to the channel.
+
+The owner of the `channel` may still execute [`channelspayment`](#channelspayment) for any remaining payments in the channel, until all payments are used or withdrawn.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+The `sendrawtransaction` method then returns a `txid` which is used in the [`channelsrefund`](#channelsrefund) method to reclaim funds.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+open_txid                                    |(string)                     |the unique identifying txid that is created when a channel is first opened
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
 > Step 1: Close a channel
 
 ```
@@ -45,15 +70,13 @@ The flow of a `channels` contract is as follows:
 2079c46cd9f3970f9fd73d8022bf6f30aaf5031bf877d2c541c4c0df1dea1be5
 ```
 
-**channelsclose open_txid**
+## channelsinfo
 
-The `channelsclose` method marks a specific channel as closed, meaning that no additional payments will be added to the channel.
+**channelsinfo (open_tx_id)**
 
-The owner of the `channel` may still execute [`channelspayment`](#channelspayment) for any remaining payments in the channel, until all payments are used or withdrawn.
+The `channelsinfo` method fetches info about channels that are relevant to the user, either as sender or receiver.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
-
-The `sendrawtransaction` method then returns a `txid` which is used in the [`channelsrefund`](#channelsrefund) method to reclaim funds.
+If no `open_tx_id` argument is included, the method returns a list of all channels available to this user.
 
 ### Arguments:
 
@@ -65,10 +88,13 @@ open_txid                                    |(string)                     |the 
 
 Structure|Type|Description
 ---------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+{                                            |                             |
+result                                       |(string)                     |whether the command executed successfully
+name                                         |(string)                     |name of the channel
+Open:                                     |(string)                     | a channel and its relevant information: address of the destination pubkey, number of payments, denomination per payment, and the channel open_tx_id
+}                                            |                             |
 
-## channelsinfo
+### Examples:
 
 > Command
 
@@ -104,29 +130,32 @@ hex:                                         |(string)                     |a ra
 }
 ```
 
-**channelsinfo (open_tx_id)**
+## channelsopen
 
-The `channelsinfo` method fetches info about channels that are relevant to the user, either as sender or receiver.
+**channelsopen destination_pubkey total_number_of_payments payment_size**
 
-If no `open_tx_id` argument is included, the method returns a list of all channels available to this user.
+The `channelsopen` method opens a channel between two public keys (sender and receiver).
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+The `sendrawtransaction` method then returns a `txid` which is the unique identifying `channels_tx_id`.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-open_txid                                    |(string)                     |the unique identifying txid that is created when a channel is first opened
+destination_pubkey                           |(string)                     |the public key of the intended recipient of the channel
+total_number_of_payments                     |(number)                     |the total number of payments to allocate in the channel
+payment_size                                 |(number)                     |the amount per payment, given in satoshis
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
-result                                       |(string)                     |whether the command executed successfully
-name                                         |(string)                     |name of the channel
-Open:                                     |(string)                     | a channel and its relevant information: address of the destination pubkey, number of payments, denomination per payment, and the channel open_tx_id
-}                                            |                             |
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
-## channelsopen
+### Examples:
 
 > Step 1: Create the raw hex
 
@@ -155,9 +184,17 @@ Open:                                     |(string)                     | a chan
 2f95b0f4e3dbe7f5ebc0f9479800c9ff3f44e76f5378313c9406ab5a92ff4631
 ```
 
-**channelsopen destination_pubkey total_number_of_payments payment_size**
+## channelspayment
 
-The `channelsopen` method opens a channel between two public keys (sender and receiver).
+**channelspayment open_tx_id payment_amount (secret)**
+
+The `channelspayment` method sends a payment in a channel to the receiver.
+
+The method requires that the channel `open_tx_id` has either one notarization or 60 confirmations.
+
+The owner of a channel reveals the password of a unique payment `txid` as a part of the payment. This password is intentionally visible to anyone watching the chain at the time of payment, although the password does not persist in the database.
+
+If the receiver is monitoring the chain at the time of payment and saves the password, and there is a chain reorganization that nullifies the payment, the receiver now has the password to resend the payment. This option is available so long as the channel remains open and the payment has not been refunded.
 
 The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
 
@@ -178,7 +215,7 @@ Structure|Type|Description
 result:                                      |(string)                     |whether the command succeeded
 hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
-## channelspayment
+### Examples:
 
 >  Command:
 
@@ -215,57 +252,7 @@ sendrawtransaction output:
 ./komodo-cli -ac_name=HELLOWORLD getrawmempool
 ```
 
-**channelspayment open_tx_id payment_amount (secret)**
-
-The `channelspayment` method sends a payment in a channel to the receiver.
-
-The method requires that the channel `open_tx_id` has either one notarization or 60 confirmations.
-
-The owner of a channel reveals the password of a unique payment `txid` as a part of the payment. This password is intentionally visible to anyone watching the chain at the time of payment, although the password does not persist in the database.
-
-If the receiver is monitoring the chain at the time of payment and saves the password, and there is a chain reorganization that nullifies the payment, the receiver now has the password to resend the payment. This option is available so long as the channel remains open and the payment has not been refunded.
-
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
-
-The `sendrawtransaction` method then returns a `txid` which is the unique identifying `channels_tx_id`.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-destination_pubkey                           |(string)                     |the public key of the intended recipient of the channel
-total_number_of_payments                     |(number)                     |the total number of payments to allocate in the channel
-payment_size                                 |(number)                     |the amount per payment, given in satoshis
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
-
 ## channelsrefund
-
-> Step 1: Command
-
-```
-"./komodo-cli -ac_name=HELLOWORLD channelsrefund 2f95b0f4e3dbe7f5ebc0f9479800c9ff3f44e76f5378313c9406ab5a92ff4631 2079c46cd9f3970f9fd73d8022bf6f30aaf5031bf877d2c541c4c0df1dea1be5
-```
-
-> Response from Step 1:
-
-```
-{
-  "result": "success",
-  "hex": "0100000003e51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc479200300000049483045022100bbed947e3c33b21b8519a7d78dc08cb70d3fe3e6c788119db95a459448caa64c02200a1c73431d118a7fad4f58b760b025f399747e127a46da5c421add2e599b897f01ffffffffe51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc4792000000000a74ca5a281a1a0819ca28194a067a56580210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127281403fe5789a3f0e25f46a000f381fc2e7f7b759855184532a6e1e0c5e84d1dc284b4d37422735aa93175ea74d6829ac3b68a7c8c928c22b870ab4b9507bc872dbd6a129a5278020e73e4b0745bdf31657ac09e3cf99fd65cb262d8498f86c977ece01b551925f028103020000af038001eba10001ffffffffe51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc47920010000007b4c79a276a072a26ba067a56580210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127281400b4d6aaeb127417839b76dc78d78379147cfff760f03824e5565aae1c371bbd34559d951cdd2e8622bd5f5aa5528d2a20ee95174c3fea09ef48824ecd647c0b2a100af038001eba10001ffffffff051027000000000000302ea22c8020c9ada2adfc6c6dec0bd9dd29f4e48c86f84c016abc3552b8815ca3c4a44c561b8103120c008203000401cc1027000000000000302ea22c802019be575785c322e9c7d2ae4b5f3df78c9a38ff7357e9e689f26de8e224cb186c8103120c008203000401cc008793030000000023210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba01272ac805f96a60100000023210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba01272ac0000000000000000956a4c92eb523146ff925aab06943c3178536fe7443fffc9009847f9c0ebf5e7dbe3f4b0952f210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127221027166e21e9579307a1ae4f8c223516e70aae3cbfab4bd6ac7cebfa625dcc0a2a4060000008096980000000000e51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc4792000000000"
-}
-```
-
-> Step 2: Broadcast the hex using sendrawtransaction
-
-```
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0100000003e51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc479200300000049483045022100bbed947e3c33b21b8519a7d78dc08cb70d3fe3e6c788119db95a459448caa64c02200a1c73431d118a7fad4f58b760b025f399747e127a46da5c421add2e599b897f01ffffffffe51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc4792000000000a74ca5a281a1a0819ca28194a067a56580210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127281403fe5789a3f0e25f46a000f381fc2e7f7b759855184532a6e1e0c5e84d1dc284b4d37422735aa93175ea74d6829ac3b68a7c8c928c22b870ab4b9507bc872dbd6a129a5278020e73e4b0745bdf31657ac09e3cf99fd65cb262d8498f86c977ece01b551925f028103020000af038001eba10001ffffffffe51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc47920010000007b4c79a276a072a26ba067a56580210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127281400b4d6aaeb127417839b76dc78d78379147cfff760f03824e5565aae1c371bbd34559d951cdd2e8622bd5f5aa5528d2a20ee95174c3fea09ef48824ecd647c0b2a100af038001eba10001ffffffff051027000000000000302ea22c8020c9ada2adfc6c6dec0bd9dd29f4e48c86f84c016abc3552b8815ca3c4a44c561b8103120c008203000401cc1027000000000000302ea22c802019be575785c322e9c7d2ae4b5f3df78c9a38ff7357e9e689f26de8e224cb186c8103120c008203000401cc008793030000000023210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba01272ac805f96a60100000023210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba01272ac0000000000000000956a4c92eb523146ff925aab06943c3178536fe7443fffc9009847f9c0ebf5e7dbe3f4b0952f210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127221027166e21e9579307a1ae4f8c223516e70aae3cbfab4bd6ac7cebfa625dcc0a2a4060000008096980000000000e51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc4792000000000
-```
 
 **channelsrefund open_tx_id close_tx_id**
 
@@ -289,3 +276,26 @@ Structure|Type|Description
 ---------|----|-----------
 result:                                      |(string)                     |whether the command succeeded
 hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
+> Step 1: Command
+
+```
+"./komodo-cli -ac_name=HELLOWORLD channelsrefund 2f95b0f4e3dbe7f5ebc0f9479800c9ff3f44e76f5378313c9406ab5a92ff4631 2079c46cd9f3970f9fd73d8022bf6f30aaf5031bf877d2c541c4c0df1dea1be5
+```
+
+> Response from Step 1:
+
+```
+{
+  "result": "success",
+  "hex": "0100000003e51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc479200300000049483045022100bbed947e3c33b21b8519a7d78dc08cb70d3fe3e6c788119db95a459448caa64c02200a1c73431d118a7fad4f58b760b025f399747e127a46da5c421add2e599b897f01ffffffffe51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc4792000000000a74ca5a281a1a0819ca28194a067a56580210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127281403fe5789a3f0e25f46a000f381fc2e7f7b759855184532a6e1e0c5e84d1dc284b4d37422735aa93175ea74d6829ac3b68a7c8c928c22b870ab4b9507bc872dbd6a129a5278020e73e4b0745bdf31657ac09e3cf99fd65cb262d8498f86c977ece01b551925f028103020000af038001eba10001ffffffffe51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc47920010000007b4c79a276a072a26ba067a56580210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127281400b4d6aaeb127417839b76dc78d78379147cfff760f03824e5565aae1c371bbd34559d951cdd2e8622bd5f5aa5528d2a20ee95174c3fea09ef48824ecd647c0b2a100af038001eba10001ffffffff051027000000000000302ea22c8020c9ada2adfc6c6dec0bd9dd29f4e48c86f84c016abc3552b8815ca3c4a44c561b8103120c008203000401cc1027000000000000302ea22c802019be575785c322e9c7d2ae4b5f3df78c9a38ff7357e9e689f26de8e224cb186c8103120c008203000401cc008793030000000023210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba01272ac805f96a60100000023210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba01272ac0000000000000000956a4c92eb523146ff925aab06943c3178536fe7443fffc9009847f9c0ebf5e7dbe3f4b0952f210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127221027166e21e9579307a1ae4f8c223516e70aae3cbfab4bd6ac7cebfa625dcc0a2a4060000008096980000000000e51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc4792000000000"
+}
+```
+
+> Step 2: Broadcast the hex using sendrawtransaction
+
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0100000003e51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc479200300000049483045022100bbed947e3c33b21b8519a7d78dc08cb70d3fe3e6c788119db95a459448caa64c02200a1c73431d118a7fad4f58b760b025f399747e127a46da5c421add2e599b897f01ffffffffe51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc4792000000000a74ca5a281a1a0819ca28194a067a56580210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127281403fe5789a3f0e25f46a000f381fc2e7f7b759855184532a6e1e0c5e84d1dc284b4d37422735aa93175ea74d6829ac3b68a7c8c928c22b870ab4b9507bc872dbd6a129a5278020e73e4b0745bdf31657ac09e3cf99fd65cb262d8498f86c977ece01b551925f028103020000af038001eba10001ffffffffe51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc47920010000007b4c79a276a072a26ba067a56580210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127281400b4d6aaeb127417839b76dc78d78379147cfff760f03824e5565aae1c371bbd34559d951cdd2e8622bd5f5aa5528d2a20ee95174c3fea09ef48824ecd647c0b2a100af038001eba10001ffffffff051027000000000000302ea22c8020c9ada2adfc6c6dec0bd9dd29f4e48c86f84c016abc3552b8815ca3c4a44c561b8103120c008203000401cc1027000000000000302ea22c802019be575785c322e9c7d2ae4b5f3df78c9a38ff7357e9e689f26de8e224cb186c8103120c008203000401cc008793030000000023210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba01272ac805f96a60100000023210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba01272ac0000000000000000956a4c92eb523146ff925aab06943c3178536fe7443fffc9009847f9c0ebf5e7dbe3f4b0952f210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127221027166e21e9579307a1ae4f8c223516e70aae3cbfab4bd6ac7cebfa625dcc0a2a4060000008096980000000000e51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc4792000000000
+```

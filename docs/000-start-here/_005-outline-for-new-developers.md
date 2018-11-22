@@ -142,9 +142,9 @@ Over time, as the library of secure smart-contract templates increases, it is po
 
 Simply creating and developing the asset chain for testing purposes does not require contact with or payment to the Komodo team.
 
-<aside class="warning">
-  However, in nearly all circumstances, an asset chain is only secure once it receives our dPoW connection to the Bitcoin hash rate (dPoW).
-</aside>
+::: warning
+However, in nearly all circumstances, an asset chain is only secure once it receives our dPoW connection to the Bitcoin hash rate (dPoW).
+:::
 
 You can read more about how the security and payment are structured in [the section on Komodo's dPoW security services](#secure-this-asset-chain-with-delayed-proof-of-work).
 
@@ -152,9 +152,9 @@ In general, the cost for Komodo's security services is competitive. While the in
 
 Please reach out to our team whenever you are ready to purchase dPoW. We will direct you to one of our service providers, and they can give you a direct quote for the annual cost.
 
-<aside class="success">
-  We have a limited supply of early-bird discounts. Please inquire while supply last.
-</aside>
+::: tip
+We have a limited supply of early-bird discounts. Please inquire while supply last.
+:::
 
 ### A Brief Note About Languages
 
@@ -180,9 +180,9 @@ Now that you have `komodod` and `komodo-cli` installed, [skim briefly through th
 
 You'll come back to this section later, once you're ready to execute rpc calls, API commands, and runtime parameters.
 
-<aside class="notice">
-  You do not need to launch or sync the main Komodo chain (KMD), and you do not need to own any KMD to test an asset chain.
-</aside>
+::: tip
+You do not need to launch or sync the main Komodo chain (KMD), and you do not need to own any KMD to test an asset chain.
+:::
 
 ## Create Your First Asset Chain
 

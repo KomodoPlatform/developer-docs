@@ -10,9 +10,9 @@ The `addmultisigaddress` method adds a multi-signature address to the wallet, wh
 
 The keys function as signatures, allowing multiple parties or entities to manage an account. Each key in the array can be an address or a hex-encoded public key.
 
-<aside class="notice">
-  DEPRECATED: If <b>account</b> is specified, the method assigns the multi-signature address to that account.
-</aside>
+::: tip
+DEPRECATED: If <b>account</b> is specified, the method assigns the multi-signature address to that account.
+:::
 
 ### Arguments:
 
@@ -69,9 +69,9 @@ response:
 
 The `backupwallet` method safely copies the `wallet.dat` file to the indicated destination. The `destination` input accepts only alphanumeric characters.
 
-<aside class="notice">
-  This method requires that the coin daemon have the <b>exportdir</b> runtime parameter enabled.
-</aside>
+::: tip
+This method requires that the coin daemon have the <b>exportdir</b> runtime parameter enabled.
+:::
 
 ### Arguments:
 
@@ -115,9 +115,9 @@ response:
 
 The `dumpprivkey` method reveals the private key corresponding to the indicated `address`.
 
-<aside class="notice">
-  See also <b>importprivkey</b>.
-</aside>
+::: tip
+See also <b>importprivkey</b>.
+:::
 
 ### Arguments:
 
@@ -167,9 +167,9 @@ The `dumpwallet` method dumps all transparent-address wallet keys into a file, u
 
 Overwriting an existing file is not permitted. The `destination` parameter accepts only alphanumeric characters.
 
-<aside class="notice">
-  This method requires that the coin daemon have the <b>exportdir</b> runtime parameter enabled.
-</aside>
+::: tip
+This method requires that the coin daemon have the <b>exportdir</b> runtime parameter enabled.
+:::
 
 ### Arguments:
 
@@ -212,17 +212,17 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **encryptwallet "passphrase"**
 
-<aside class="warning">
-  Wallet encryption is DISABLED. This call always fails.
-</aside>
+::: warning
+Wallet encryption is DISABLED. This call always fails.
+:::
 
 The `encryptwallet` method encrypts the wallet with the indicated `passphrase`.
 
 This method is for first-time encryption only. After this, any calls that interact with private keys, such as sending or signing, will require the passphrase to be set prior to making these calls. Use the [`walletpassphrase`](#walletpassphrase) call for this, and then [`walletlock`](#walletlock). If the wallet is already encrypted, use the [`walletpassphrasechange`](#walletpassphrasechange) call.
 
-<aside class="notice">
-  Using the <b>encryptwallet</b> method will shutdown the server.
-</aside>
+::: tip
+Using the <b>encryptwallet</b> method will shutdown the server.
+:::
 
 ### Arguments:
 
@@ -302,9 +302,9 @@ response:
 
 **getaccount "address"**
 
-<aside class="notice">
-  The <b>getaccount</b> method returns the account associated with the given address.
-</aside>
+::: tip
+The <b>getaccount</b> method returns the account associated with the given address.
+:::
 
 ### Arguments:
 
@@ -348,9 +348,9 @@ response:
 
 **getaccountaddress "account"**
 
-<aside class="notice">
+::: tip
 DEPRECATED
-</aside>
+:::
 
 The `getaccountaddress` method returns the current address for receiving payments to this account.
 
@@ -393,9 +393,9 @@ getaddressesbyaccount
 
 **getaddressesbyaccount "account"**
 
-<aside class="notice">
+::: tip
 DEPRECATED
-</aside>
+:::
 
 The `getaddressesbyaccount` method returns the list of addresses for the given `account`.
 
@@ -444,9 +444,9 @@ response:
 
 The `getbalance` method returns the server's total available balance.
 
-<aside class="notice">
-  The <b>account</b> input is deprecated.
-</aside>
+::: tip
+The <b>account</b> input is deprecated.
+:::
 
 ### Arguments:
 
@@ -509,9 +509,9 @@ response:
 
 **getbalance64**
 
-<aside class="notice">
-  This method is part of the new <b>ac_staked</b> functionality.
-</aside>
+::: tip
+This method is part of the new <b>ac_staked</b> functionality.
+:::
 
 The `getbalance64` method is used only on asset chains that are utilizing the `ac_staked` functionality. On KMD-based Proof-of-Stake (PoS) asset chains, all staked coins are placed into one of 64 segments (`segid`'s'). The `getbalance64` method returns the balance of coins in each `segid`. For further information, please reach out to our support team.
 
@@ -567,9 +567,9 @@ response:
 
 The `getrawchangeaddress` returns a new address that can be used to receive change.
 
-<aside class="notice">
-  This is for use with raw transactions, NOT normal use.
-</aside>
+::: tip
+This is for use with raw transactions, NOT normal use.
+:::
 
 ### Arguments:
 
@@ -615,9 +615,9 @@ response:
 
 **getreceivedbyaccount "account" ( minconf )**
 
-<aside class="notice">
-  DEPRECATED
-</aside>
+::: tip
+DEPRECATED
+:::
 
 The <b>getreceivedbyaccount</b> method returns the total amount received by <b>account</b> in transactions with at least <b>minconf</b> confirmations.
 
@@ -965,9 +965,9 @@ response:
 
 The `importaddress` method adds an address or script (in hex) that can be watched as if it were in your wallet, although it cannot be used to spend.
 
-<aside class="notice">
-  This call can take an increased amount of time to complete if rescan is true.
-</aside>
+::: tip
+This call can take an increased amount of time to complete if rescan is true.
+:::
 
 ### Arguments:
 
@@ -1029,13 +1029,13 @@ response:
 
 The `importprivkey` method adds a private key to your wallet.
 
-<aside class="notice">
-  This call can take minutes to complete if <b>rescan</b> is true.
-</aside>
+::: tip
+This call can take minutes to complete if <b>rescan</b> is true.
+:::
 
-<aside class="notice">
-  See also <b>dumpprivkey</b>.
-</aside>
+::: tip
+See also <b>dumpprivkey</b>.
+:::
 
 ### Arguments:
 
@@ -1195,9 +1195,9 @@ response:
 
 **listaccounts ( minconf includeWatchonly)**
 
-<aside class="notice">
-  DEPRECATED
-</aside>
+::: tip
+DEPRECATED
+:::
 
 The <b>listaccounts</b> method returns an object that has account names as keys and account balances as values.
 
@@ -1349,9 +1349,9 @@ response:
 
 The `listlockunspent` method returns a list of temporarily non-spendable outputs.
 
-<aside class="notice">
+::: tip
 See the <b>lockunspent</b> call to lock and unlock transactions for spending.
-</aside>
+:::
 
 ### Arguments:
 
@@ -1413,9 +1413,9 @@ response:
 
 **listreceivedbyaccount ( minconf includeempty includeWatchonly)**
 
-<aside class="notice">
-  DEPRECATED
-</aside>
+::: tip
+DEPRECATED
+:::
 
 The `listreceivedbyaccount` method lists balances by account.
 
@@ -2017,9 +2017,9 @@ response:
 
 The `lockunspent` method locks (unlock = `false`) or unlocks (unlock = `true`) specified transaction outputs. A locked transaction output will not be chosen by automatic coin selection, when spending the relevant coin. The locks are stored in memory only; at runtime a node always starts with zero locked outputs, and the locked output list is always cleared when a node stops or fails.
 
-<aside class="notice">
-  See the <b>listunspent</b> and <b>listlockunspent</b> calls to determine local transaction state and info.
-</aside>
+::: tip
+See the <b>listunspent</b> and <b>listlockunspent</b> calls to determine local transaction state and info.
+:::
 
 ### Arguments:
 
@@ -2072,9 +2072,9 @@ response:
 
 **move "fromaccount" "toaccount" amount ( minconf "comment" )**
 
-<aside class="notice">
-  DEPRECATED
-</aside>
+::: tip
+DEPRECATED
+:::
 
 The `move` method moves a specified amount from one account in your wallet to another.
 
@@ -2184,9 +2184,9 @@ response:
 
 **sendfrom "account" "address" amount ( minconf "comment" "comment-to" )**
 
-<aside class="notice">
-  DEPRECATED: Use <b>sendtoaddress</b> instead.
-</aside>
+::: tip
+DEPRECATED: Use <b>sendtoaddress</b> instead.
+:::
 
 The `sendfrom` method sends an amount from `account` to `address`.
 
@@ -2393,9 +2393,9 @@ response:
 
 **setaccount "address" "account"**
 
-<aside class="notice">
-  DEPRECATED
-</aside>
+::: tip
+DEPRECATED
+:::
 
 The `setaccount` method sets the account associated with the given address.
 
@@ -2543,9 +2543,9 @@ response:
 
 The `z_exportkey` method reveals the private z_key corresponding to `z_address`.
 
-<aside class="notice">
-  See also <b>z_importkey</b>.
-</aside>
+::: tip
+See also <b>z_importkey</b>.
+:::
 
 ### Arguments:
 
@@ -2593,9 +2593,9 @@ response:
 
 The `z_exportviewingkey` method reveals the viewing key corresponding to `z_address`.
 
-<aside class="notice">
-  See also <b>z_importviewingkey</b>.
-</aside>
+::: tip
+See also <b>z_importviewingkey</b>.
+:::
 
 ### Arguments:
 
@@ -2689,10 +2689,10 @@ response:
 
 The `z_getbalance` method returns the balance of a t address or z address belonging to the node’s wallet.
 
-<aside class="warning">
-  CAUTION: If <b>address</b> is a watch-only z address, the returned balance may be larger than the actual balance,
+::: warning
+CAUTION: If <b>address</b> is a watch-only z address, the returned balance may be larger than the actual balance,
   as spends cannot be detected with incoming viewing keys.
-</aside>
+:::
 
 ### Arguments:
 
@@ -2799,9 +2799,9 @@ response:
 
 The `z_getoperationresult` method retrieves the result and status of an operation which has finished, and then removes the operation from memory.
 
-<aside class="notice">
-  See also <b>z_getoperationstatus</b>.
-</aside>
+::: tip
+See also <b>z_getoperationstatus</b>.
+:::
 
 ### Arguments:
 
@@ -3059,13 +3059,13 @@ response:
 
 The `z_gettotalbalance` method returns the total value of funds, including both transparent and private, stored in the node’s wallet.
 
-<aside class="warning">
-  CAUTION: If the wallet contains watch-only z addresses the returned private balance may be larger than the actual balance, as spends cannot be detected with incoming viewing keys.
-</aside>
+::: warning
+CAUTION: If the wallet contains watch-only z addresses the returned private balance may be larger than the actual balance, as spends cannot be detected with incoming viewing keys.
+:::
 
-<aside class="notice">
-  While the <b>interest</b> property is returned for all KMD-based coin daemons, only the main KMD chain utilizes the interest feature. KMD-based asset chains will always return a <b>0.00</b> interest value.
-</aside>
+::: tip
+While the <b>interest</b> property is returned for all KMD-based coin daemons, only the main KMD chain utilizes the interest feature. KMD-based asset chains will always return a <b>0.00</b> interest value.
+:::
 
 ### Arguments:
 
@@ -3144,17 +3144,17 @@ response:
 
 The `z_importkey` method imports `z_privatekey` to your wallet.
 
-<aside class="notice">
-  This call can take minutes to complete if <b>rescan</b> is true.
-</aside>
+::: tip
+This call can take minutes to complete if <b>rescan</b> is true.
+:::
 
-<aside class="notice">
-  The optional parameters are currently not functional with KMD-based blockchains.
-</aside>
+::: tip
+The optional parameters are currently not functional with KMD-based blockchains.
+:::
 
-<aside class="notice">
-  See also <b>z_exportkey</b>.
-</aside>
+::: tip
+See also <b>z_exportkey</b>.
+:::
 
 ### Arguments:
 
@@ -3224,17 +3224,17 @@ response:
 
 The `z_importviewingkey` adds a viewing key to your wallet. This method allows you to view the balance in a z address that otherwise does not belong to your wallet.
 
-<aside class="notice">
-  See also <b>z_exportviewingkey</b>.
-</aside>
+::: tip
+See also <b>z_exportviewingkey</b>.
+:::
 
-<aside class="notice">
-  This call can take minutes to complete if <b>rescan</b> is true.
-</aside>
+::: tip
+This call can take minutes to complete if <b>rescan</b> is true.
+:::
 
-<aside class="notice">
-  The optional parameters are currently not functional for KMD-based blockchains.
-</aside>
+::: tip
+The optional parameters are currently not functional for KMD-based blockchains.
+:::
 
 ### Arguments:
 
@@ -3311,9 +3311,9 @@ response:
 
 The `z_importwallet` method imports t address and z address keys from a wallet export file.
 
-<aside class="notice">
-  See also <b>z_exportwallet</b>.
-</aside>
+::: tip
+See also <b>z_exportwallet</b>.
+:::
 
 ### Arguments:
 
@@ -3361,9 +3361,9 @@ response:
 
 The `z_listaddresses` method returns the list of z addresses belonging to the wallet.
 
-<aside class="notice">
-  See also <b>z_importviewingkey</b>.
-</aside>
+::: tip
+See also <b>z_importviewingkey</b>.
+:::
 
 ### Arguments:
 
@@ -3564,9 +3564,9 @@ response:
 
 **z_mergetoaddress [ "fromaddress", ... ] "toaddress" ( fee ) ( transparent_limit ) ( shielded_limit ) ( memo )**
 
-<aside class="warning">
+::: warning
 CAUTION: <b>z_mergetoaddress</b> is DISABLED but can be enabled as an experimental feature.
-</aside>
+:::
 
 The `z_mergetoaddress` method merges multiple utxos and notes into a single utxo or note. The method works for both t addresses and z addresses, both separately and in combination.  Coinbase utxos are ignored; use `z_shieldcoinbase` to combine those into a single note.
 

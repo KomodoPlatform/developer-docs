@@ -1,3808 +1,1472 @@
-# Wallet
+# Smart Contract: Tokens
 
-The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
+The `tokens` CryptoConditions smart contract enables core-asset support for the on-chain creation of colored coins, also called tokens. The functionality is facilitated by utxo technology. Tokens can be generated on any chain where the [`ac_cc`](#ac_cc) is enabled.
 
-## sigaddress
+The `tokens` smart contract requires locking a proportional amount of satoshis of the native coins. These satoshis create the supply for the token.
 
-> Add a multisig address from 2 addresses:
+For example, if you desire to create a one-of-a-kind token, use 1 satoshi in its creation.
 
-**sigaddress nrequired [ "key", ... ] \( "account" )**
+## tokenaddress
 
-The `addmultisigaddress` method adds a multi-signature address to the wallet, where `nrequired` indicates the number of keys (out of the total provided) required to execute a transaction.
+**tokenaddress (pubkey)**
 
-The keys function as signatures, allowing multiple parties or entities to manage an account. Each key in the array can be an address or a hex-encoded public key.
-
-<aside class="notice">
-  DEPRECATED: If <b>account</b> is specified, the method assigns the multi-signature address to that account.
-</aside>
+The `tokenaddress` method returns information about a token address according to a specific `pubkey`. If no `pubkey` is provided, the `pubkey` used to the launch the daemon is the default.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-nrequired                                    |(numeric, required)          |the number of required keys (out of the `n` submitted)
-"keysobject"                                 |(string, required)           |a json array of addresses or hex-encoded public keys
-[                                            |                             |
-"address"                                    |(string)                     |address or hex-encoded public key
-...,                                         |                             |
-]                                            |                             |
-"account"                                    |(string, optional)           |DEPRECATED: if provided, "account" MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-
+pubkey                                       |(string, optional)           |the pubkey of the desired address
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"address"                                    |(string)                     |an address associated with the keys
+result                                       |(string)                     |whether the command executed successfully
+AssetsCCaddress                              |(string)                     |taking the token contract's EVAL code as a modifyer, this is the public address that corresponds to the token contract's privkey
+Assetsmarker                                 |(string)                     |the unmodified public address generated from the token contract's privkey
+CCaddress                                    |(string)                     |taking the token contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
+myCCaddress                                  |(string)                     |taking the token contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
+myaddress                                    |(string)                     |the public address of the pubkey used to launch the chain
 
 ### Examples:
 
+**tokenaddress (pubkey)**
+
+The `tokenaddress` method returns information about a token address according to a specific `pubkey`. If no `pubkey` is provided, the `pubkey` used to the launch the daemon is the default.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+pubkey                                       |(string, optional)           |the pubkey of the desired address
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result                                       |(string)                     |whether the command executed successfully
+AssetsCCaddress                              |(string)                     |taking the token contract's EVAL code as a modifyer, this is the public address that corresponds to the token contract's privkey
+Assetsmarker                                 |(string)                     |the unmodified public address generated from the token contract's privkey
+CCaddress                                    |(string)                     |taking the token contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
+myCCaddress                                  |(string)                     |taking the token contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
+myaddress                                    |(string)                     |the public address of the pubkey used to launch the chain
+
+### Examples:
+
+> Command:
+
 ```
-command:
-
-komodo-cli addmultisigaddress 2 '["RSWwtqsNr9mW21UXRm6Lz4AzQnj4pVzzkp","RW8d8EChHTooVbwF3reqHYgkzWCnJFLXgh"]'
-
-response:
-
-bLz2YZ7Mm8MgPc9mPNiFqhjFPbFZU4WUD5
+./komodo-cli -ac_name=HELLOWORLD tokenaddress 028702e30d8465d6aa85f35d2f58c06a6ee17f23f376b56044dadf7b793f2c12b9
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+> Response:
 
 ```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addmultisigaddress", "params": [2, ["RL4CuA2MSAbBiqJKQEr2TKnKT2fSwK99mG","RBYVFCxpJdLgvUixhguxzuH1TJpoNLYCJ6"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
 {
-  "result": "bNdB9fAt9HmQD8CmBjkY6QwmrNSBrbzsgA",
-  "error": null,
-  "id": "curltest"
+    "result": "success",
+    "AssetsCCaddress": "RGKRjeTBw4LYFotSDLT6RWzMHbhXri6BG6",
+    "Assetsmarker": "RFYE2yL3KknWdHK6uNhvWacYsCUtwzjY3u",
+    "CCaddress": "RG6mr23tQ9nUhmi5GEnYqjfkqZt9x2MRXz",
+    "myCCaddress": "RG6mr23tQ9nUhmi5GEnYqjfkqZt9x2MRXz",
+    "myaddress": "RDjG4sM1y4udiJSszF6BLotqUnZX79Rom9"
 }
 ```
 
-## backupwallet
+### Examples:
 
-**backupwallet "destination"**
+## tokenask
 
-The `backupwallet` method safely copies the `wallet.dat` file to the indicated destination. The `destination` input accepts only alphanumeric characters.
 
-<aside class="notice">
-  This method requires that the coin daemon have the <b>exportdir</b> runtime parameter enabled.
-</aside>
+**tokenask numtokens tokenid price**
+
+The `tokenask` method posts a public ask order.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"destination"                                |(string, required)           |the destination filename, saved in the directory set by the [`exportdir`](#exportdir) runtime parameter
+numtokens                                    |(number)                     |the number of tokens to request in the order
+tokenid                                      |(string)                     |the txid that identifies the token
+price                                        |(number)                     |the price to pay for each token (units are in coins of the parent asset chain)
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"path"                                       |(string)                     |the full path of the destination file
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
 ### Examples:
 
+**tokenask numtokens tokenid price**
+
+The `tokenask` method posts a public ask order.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+numtokens                                    |(number)                     |the number of tokens to request in the order
+tokenid                                      |(string)                     |the txid that identifies the token
+price                                        |(number)                     |the price to pay for each token (units are in coins of the parent asset chain)
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
+> Step 1:
+
 ```
-komodo-cli backupwallet "mybackupdata"
-
-/home/myusername/myexportdir/mybackupdata
+./komodo-cli -ac_name=HELLOWORLD tokenask 1000 c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59 1
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+> Response from Step 1:
 
 ```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "backupwallet", "params": ["backupdata"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
 {
-  "result": "/home/siddhartha/Desktop/backupdata",
-  "error": null,
-  "id": "curltest"
+    "result": "success",
+    "hex": "010000000248403cd63777a2086206592c096ddfa1d4ba2647673b330610968eace2cf7b540200000049483045022100bde9eaf43a43fe252530bcf346be3e336e86f0171b817977d38d6ebd4bb0756e0220735f3292ef012fd56f7476700f5649b23aacf2387f4fa5a537e1b6c6daa6c1d101ffffffff4f2016d356282fca9d8278aa04fbdbed98ac6af0bf7a479959c5bb91f95e8ef5020000007b4c79a276a072a26ba067a5658021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e278140fe6a2cd6fdb5a359d5d6eea9bcf34e5b7d8e2def612afe9c01af1129b006e68344d8f9905ea5f226cdb1556659df0c8741e8e3def1238761721b66718dabe92ca100af038001e3a10001ffffffff03e803000000000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc5087b00e000000002321028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27ac00000000000000004f6a4c4ce373c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b5900e876481700000021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e2700000000"
 }
 ```
 
-## dumpprivkey
+> Step 2: Use sendrawtransaction to broadcast the order
 
-**dumpprivkey "address"**
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000248403cd63777a2086206592c096ddfa1d4ba2647673b330610968eace2cf7b540200000049483045022100bde9eaf43a43fe252530bcf346be3e336e86f0171b817977d38d6ebd4bb0756e0220735f3292ef012fd56f7476700f5649b23aacf2387f4fa5a537e1b6c6daa6c1d101ffffffff4f2016d356282fca9d8278aa04fbdbed98ac6af0bf7a479959c5bb91f95e8ef5020000007b4c79a276a072a26ba067a5658021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e278140fe6a2cd6fdb5a359d5d6eea9bcf34e5b7d8e2def612afe9c01af1129b006e68344d8f9905ea5f226cdb1556659df0c8741e8e3def1238761721b66718dabe92ca100af038001e3a10001ffffffff03e803000000000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc5087b00e000000002321028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27ac00000000000000004f6a4c4ce373c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b5900e876481700000021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e2700000000
+```
 
-The `dumpprivkey` method reveals the private key corresponding to the indicated `address`.
+> Response from Step 2:
 
-<aside class="notice">
-  See also <b>importprivkey</b>.
-</aside>
+```
+8d5bb0ae5cc8406b8b12fff04437c748495f4f8852ae124e6a137bc130d3be64
+```
+
+### Examples:
+
+## tokenbalance
+
+**tokenbalance tokenid (pubkey)**
+
+The `tokenbalanced` method checks the token balance according to a provided `pubkey`. If no `pubkey` is provided, the `pubkey` used the launch the daemon is the default.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"address"                                    |(string, required)           |the address for the private key
+tokenid                                      |(string)                     |the txid that identifies the token
+pubkey                                       |(string)                     |the pubkey for which to examine the balance; if no pubkey is provided, the pubkey used to launch the daemon is the default
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"data"                                       |(string)                     |the private key
+result                                       |(string)                     |whether the command executed succesfully
+CCaddress                                    |(string)                     |taking the token contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
+tokenid                                      |(string)                     |the txid that identifies the token
+balance                                      |(number)                     |the balance of the address that corresponds to the pubkey
 
 ### Examples:
 
+**tokenbalance tokenid (pubkey)**
+
+The `tokenbalanced` method checks the token balance according to a provided `pubkey`. If no `pubkey` is provided, the `pubkey` used the launch the daemon is the default.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+tokenid                                      |(string)                     |the txid that identifies the token
+pubkey                                       |(string)                     |the pubkey for which to examine the balance; if no pubkey is provided, the pubkey used to launch the daemon is the default
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result                                       |(string)                     |whether the command executed succesfully
+CCaddress                                    |(string)                     |taking the token contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
+tokenid                                      |(string)                     |the txid that identifies the token
+balance                                      |(number)                     |the balance of the address that corresponds to the pubkey
+
+### Examples:
+
+> Command:
+
 ```
-command:
-
-komodo-cli dumpprivkey "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs"
-
-response:
-
-DONOTUSExxxxxxxxxxxxxxxxxxxx4KkCmRnnSg7iXvAUjoYivC8K
+./komodo-cli -ac_name=HELLOWORLD tokenbalance c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+> Response:
 
 ```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumpprivkey", "params": ["RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
 {
-  "result": "DONOTUSExxxxxxxxxxxxxxxxxxxx4KkCmRnnSg7iXvAUjoYivC8K",
-  "error": null,
-  "id": "curltest"
+    "result": "success",
+    "CCaddress": "RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti",
+    "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
+    "balance": 99989
 }
 ```
 
-## dumpwallet
-
-**dumpwallet "filename"**
-
-The `dumpwallet` method dumps all transparent-address wallet keys into a file, using a human-readable format.
-
-Overwriting an existing file is not permitted. The `destination` parameter accepts only alphanumeric characters.
-
-<aside class="notice">
-  This method requires that the coin daemon have the <b>exportdir</b> runtime parameter enabled.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"filename"                                   |(string, required)           |the filename, saved in folder set by the [`exportdir`](#exportdir) runtime parameter
-
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"path"                                       |(string)                     |the full path of the destination file
-
-### Examples:
+> Check the token balance of a specific pubkey
 
 ```
-command:
-
-komodo-cli dumpwallet "test"
-
-response:
-
-/home/myusername/myexportdir/test
+./komodo-cli -ac_name=HELLOWORLD tokenbalance c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59 028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+> Response:
 
 ```
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumpwallet", "params": ["test"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
 {
-  "result": "/home/myusername/myexportdir/test",
-  "error": null,
-  "id": "curltest"
+    "result": "success",
+    "CCaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
+    "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
+    "balance": 999900011
 }
 ```
 
-## encryptwallet
+### Examples:
 
-> Encrypt your wallet:
+## tokenbid
 
-**encryptwallet "passphrase"**
+**tokenbid numtokens tokenid price**
 
-<aside class="warning">
-  Wallet encryption is DISABLED. This call always fails.
-</aside>
+The `tokenbid` method posts a public bid order.
 
-The `encryptwallet` method encrypts the wallet with the indicated `passphrase`.
+To fill the order, the parent chain's coin must be used.
 
-This method is for first-time encryption only. After this, any calls that interact with private keys, such as sending or signing, will require the passphrase to be set prior to making these calls. Use the [`walletpassphrase`](#walletpassphrase) call for this, and then [`walletlock`](#walletlock). If the wallet is already encrypted, use the [`walletpassphrasechange`](#walletpassphrasechange) call.
+The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](#sendrawtransaction) to complete the command.
 
-<aside class="notice">
-  Using the <b>encryptwallet</b> method will shutdown the server.
-</aside>
+The `sendrawtransaction` method then returns a `txid`, which is the identification method of the bid order, and should be saved for future use.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"passphrase"                                 |(string)                     |the passphrase with which to encrypt the wallet; it must be at least 1 character, but should be long
+numtokens                                    |(number)                     |the number of tokens to request in the order
+tokenid                                      |(string)                     |the txid that identifies the token
+price                                        |(number)                     |the price to pay for each token (units are in coins of the parent asset chain)
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
 ### Examples:
 
-```
-command:
+**tokenbid numtokens tokenid price**
 
-komodo-cli encryptwallet "mypassphrase"
+The `tokenbid` method posts a public bid order.
 
-response:
+To fill the order, the parent chain's coin must be used.
 
-(disabled)
-```
+The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](#sendrawtransaction) to complete the command.
 
-> Set the passphrase to use the wallet, such as for signing or sending coins:
-
-```
-command:
-
-komodo-cli walletpassphrase "mypassphrase"
-
-response:
-
-(disabled)
-```
-
-> Enter a test command like `signmessage`:
-
-```
-command:
-
-komodo-cli signmessage "address" "test message"
-
-response:
-
-(disabled)
-```
-
-> Lock the wallet again by removing the passphrase:
-
-```
-command:
-
-komodo-cli walletlock
-
-response:
-
-(disabled)
-```
-
-> As a json rpc call:
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "encryptwallet", "params": ["mypassphrase"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(disabled)
-```
-
-## getaccount
-
-**getaccount "address"**
-
-<aside class="notice">
-  The <b>getaccount</b> method returns the account associated with the given address.
-</aside>
+The `sendrawtransaction` method then returns a `txid`, which is the identification method of the bid order, and should be saved for future use.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"address"                                    |(string, required)           |the address
+numtokens                                    |(number)                     |the number of tokens to request in the order
+tokenid                                      |(string)                     |the txid that identifies the token
+price                                        |(number)                     |the price to pay for each token (units are in coins of the parent asset chain)
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"accountname"                                |(string)                     |the account address
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
 ### Examples:
 
-```
-command:
-
-komodo-cli getaccount "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"
-
-response:
-
-(deprecated)
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+> Command:
 
 ```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaccount", "params": ["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(deprecated)
+./komodo-cli -ac_name=HELLOWORLD tokenbid 1000 c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59 1
 ```
 
-## getaccountaddress
+> Response:
 
+```
+0100000001484256677a6417030dd99716a47b8c9cb06fba6e57ff4617e9932a6cde2972830100000049483045022100fc1926401b27ba044bbf17c36f36030adae52a188594efc75fe42861ab0b997802205e729d6f5587e5a5296b5649a154ce1fe3c581078fac7ae4e2b4577978c05c8901ffffffff0300e8764817000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc10d262684a0300002321028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27ac00000000000000004f6a4c4ce362c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59e80300000000000021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e2700000000`
+```
 
-**getaccountaddress "account"**
+> Use sendrawtransaction to publish order
 
-<aside class="notice">
-DEPRECATED
-</aside>
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0100000001484256677a6417030dd99716a47b8c9cb06fba6e57ff4617e9932a6cde2972830100000049483045022100fc1926401b27ba044bbf17c36f36030adae52a188594efc75fe42861ab0b997802205e729d6f5587e5a5296b5649a154ce1fe3c581078fac7ae4e2b4577978c05c8901ffffffff0300e8764817000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc10d262684a0300002321028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27ac00000000000000004f6a4c4ce362c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59e80300000000000021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e2700000000
+```
 
-The `getaccountaddress` method returns the current address for receiving payments to this account.
+> Response:
+
+```
+5fc8c472bc0e5f994b5a9a3fda23af1a3e1cfd746b902d7216352732e6adba05
+```
+
+### Examples:
+
+## tokencancelask
+
+**tokencancelask tokenid asktxid**
+
+The `tokencancelask` method cancels a specific `ask`/`sell` order that you created.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
+tokenid                                      |(string)                     |the txid that identifies the token
+asktxid                                      |(string)                     |the txid that identifies the original ask request
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-"address"                                    |(string)                     |the account address
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
 ### Examples:
 
-```
-command:
+**tokencancelask tokenid asktxid**
 
-komodo-cli getaccountaddress
+The `tokencancelask` method cancels a specific `ask`/`sell` order that you created.
 
-response:
-
-(deprecated)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaccountaddress", "params": ["myaccount"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(deprecated)
-```
-
-## getaddressesbyaccount
-
-**getaddressesbyaccount "account"**
-
-<aside class="notice">
-DEPRECATED
-</aside>
-
-The `getaddressesbyaccount` method returns the list of addresses for the given `account`.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
+tokenid                                      |(string)                     |the txid that identifies the token
+asktxid                                      |(string)                     |the txid that identifies the original ask request
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-"address"                                    |(string)                     |an address associated with the given account
-,                                            |                             |
-]                                            |                             |
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
 ### Examples:
 
-```
-command:
-
-komodo-cli getaddressesbyaccount "tabby"
-
-response:
-
-(deprecated)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+> Step 1: Issue the call and get your raw transaction HEX value
 
 ```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbyaccount", "params": ["tabby"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(deprecated)
+./komodo-cli -ac_name=HELLOWORLD tokencancelask 9217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e 7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c
 ```
 
-## getbalance
-
-> The total amount in the wallet:
-
-**getbalance ( "account" minconf includeWatchonly )**
-
-The `getbalance` method returns the server's total available balance.
-
-<aside class="notice">
-  The <b>account</b> input is deprecated.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, optional)           |DEPRECATED if provided, it MUST be set to the empty string `""` or to the string `"*"`
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
-includeWatchonly                             |(bool, optional, default=false)|also include balance in watchonly addresses (see `importaddress`)
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-amount                                       |(numeric)                    |the total amount
-
-### Examples:
+> Response:
 
 ```
-command:
-
-komodo-cli getbalance
-
-response:
-
-10.05000000
-
-The total amount in the wallet where at least five blocks are confirmed:
-```
-
-```
-command:
-
-komodo-cli getbalance "*" 5
-
-response:
-
-10.05000000
-```
-
-> As a json rpc call:
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getbalance", "params": ["", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
 {
-  "result": 10.09234883,
-  "error": null,
-  "id": "curltest"
+    "result": "success",
+    "hex": "010000000234c335a46dadea8e42420b0e284f5577cfbcb7764a8d5c3b61312b71c5b14d0800000000494830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601ffffffff5ca636731b8c28889248a0b434e3124f19518b2c4b4bbefd80af303329ae9471000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001ffffffff030a00000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401ccf078724e18090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000"
 }
 ```
 
-**getbalance64**
-
-<aside class="notice">
-  This method is part of the new <b>ac_staked</b> functionality.
-</aside>
-
-The `getbalance64` method is used only on asset chains that are utilizing the `ac_staked` functionality. On KMD-based Proof-of-Stake (PoS) asset chains, all staked coins are placed into one of 64 segments (`segid`'s'). The `getbalance64` method returns the balance of coins in each `segid`. For further information, please reach out to our support team.
-
-### Examples:
-
-## getnewaddress
-
-**getnewaddress ( "account" )**
-
-The `getnewaddress` method returns a new address for receiving payments.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, optional)           |DEPRECATED: If provided, the account MUST be set to the empty string `""` to represent the default account; passing any other string will result in an error
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the new address
-
-### Examples:
+> Step 2: Send raw transaction / broadcast the HEX value from above
 
 ```
-command:
-
-komodo-cli getnewaddress
-
-response:
-
-"RYDuQ2oQCCz1PQNxUQTDAaRinWKiCoT2E6"
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000234c335a46dadea8e42420b0e284f5577cfbcb7764a8d5c3b61312b71c5b14d0800000000494830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601ffffffff5ca636731b8c28889248a0b434e3124f19518b2c4b4bbefd80af303329ae9471000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001ffffffff030a00000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401ccf078724e18090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+> Response:
 
 ```
-command:
+AssetValidate (x)
+vin1 10, vout0 10, AssetValidateSellvin
+Got 0.00000010 to origaddr.(RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ)
+21d152480275568e3f82a5049d8b30308e3739ebd98171e075a75fea504364cd
+```
 
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnewaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+> Step 3 (optional): Decode the raw transaction (check if the values are sane)
 
-response:
+```
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000234c335a46dadea8e42420b0e284f5577cfbcb7764a8d5c3b61312b71c5b14d0800000000494830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601ffffffff5ca636731b8c28889248a0b434e3124f19518b2c4b4bbefd80af303329ae9471000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001ffffffff030a00000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401ccf078724e18090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000
+```
 
+> Response:
+
+```
 {
-  "result": "R9iQRG6J9eY8SwaCcYZ65QJxg5UhgLC5Rx",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## getrawchangeaddress
-
-**getrawchangeaddress**
-
-The `getrawchangeaddress` returns a new address that can be used to receive change.
-
-<aside class="notice">
-  This is for use with raw transactions, NOT normal use.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
-
-### Examples:
-
-```
-command:
-
-komodo-cli getrawchangeaddress
-
-response:
-
-RS8oqzbjShKhftmuk2RpRmHH2hTAukp6yP
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## getreceivedbyaccount
-
-**getreceivedbyaccount "account" ( minconf )**
-
-<aside class="notice">
-  DEPRECATED
-</aside>
-
-The <b>getreceivedbyaccount</b> method returns the total amount received by <b>account</b> in transactions with at least <b>minconf</b> confirmations.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-amount                                       |(numeric)                    |the total amount received for this account
-
-### Examples:
-
-```
-command:
-
-komodo-cli getreceivedbyaccount ""
-
-response:
-
-(deprecated)
-```
-
-## getreceivedbyaddress
-
-**getreceivedbyaddress "address" ( minconf )**
-
-The `getreceivedbyaddress` method returns the total amount received by the given `address` in transactions with at least `minconf` confirmations.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address for transactions
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-amount                                       |(numeric)                    |the total amount of the relevant coin received at this address
-
-### Examples:
-
-```
-command:
-
-komodo-cli getreceivedbyaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN"
-
-response:
-10.0500000
-```
-
-```
-command:
-
-komodo-cli getreceivedbyaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN" 0
-
-response:
-
-10.0500000
-```
-
-```
-command:
-
-komodo-cli getreceivedbyaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN" 6
-
-response:
-
-10.0500000
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getreceivedbyaddress", "params": ["RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": 0,
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## gettransaction
-
-**gettransaction "txid" ( includeWatchonly )**
-
-The `gettransaction` method queries detailed information about transaction `txid`. This command applies only to `txid`'s that are in the user's local wallet.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"txid"                                       |(string, required)           |the transaction id
-"includeWatchonly"                           |(bool, optional, default=false)|whether to include watchonly addresses in the returned balance calculation and in the `details[]` returned values
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-{                                            |                             |
-"amount"                                     |(numeric)                    |the transaction amount
-"confirmations"                              |(numeric)                    |the number of confirmations
-"blockhash"                                  |(string)                     |the block hash
-"blockindex"                                 |(numeric)                    |the block index
-"blocktime"                                  |(numeric)                    |the time in seconds since epoch (1 Jan 1970 GMT)
-"txid"                                       |(string)                     |the transaction id
-"time"                                       |(numeric)                    |the transaction time in seconds since epoch (1 Jan 1970 GMT)
-"timereceived"                               |(numeric)                    |the time received in seconds since epoch (1 Jan 1970 GMT)
-"details"                                    |                             |
-{                                            |                             |
-"account"                                    |(string)                     |DEPRECATED the account name involved in the transaction; can be "" for the default account
-"address"                                    |(string)                     |the address involved in the transaction
-"category"                                   |(string)                     |the category - either `send` or `receive`
-"amount"                                     |(numeric)                    |the amount
-"vout"                                       |(numeric)                    |the vout value
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
-"vjoinsplit"                                 |                             |
-{                                            |                             |
-"anchor"                                     |(string)                     |merkle root of note commitment tree
-"nullifiers"                                 |                             |
-"commitments"                                |                             |
-"macs"                                       |                             |
-"vpub_old"                                   |(numeric)                    |the amount removed from the transparent value pool
-"vpub_new"                                   |(numeric)                    |the amount added to the transparent value pool
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
-"hex"                                        |(string)                     |raw data for transaction
-}                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli gettransaction "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa"
-
-response:
-
-{
-  "amount": 0.00000000,
-  "fee": -0.00005000,
-  "confirmations": 0,
-  "txid": "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa",
-  "walletconflicts": [
-  ],
-  "time": 1536993107,
-  "timereceived": 1536993107,
-  "vjoinsplit": [
-  ],
-  "details": [
-  ],
-  "hex": "0100000001d69a6c4b9aa1991bd72ab86086db91a4c709c4b954c15d1622f2e1fb2deeb262000000004847304402205927908c985e09f6d9888e37e23b82770ca906b145c74a388ea9359afba63fff02204bd49a9b158ecfb7c12737579a31dd9e44dc63214813f70617f9a24a1e4d987801feffffff02302d903b000000001976a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac40420f00000000001976a914646e1ddd9b6415e0209e5bbe3861309353301eec88aca2659c5b"
-}
-```
-
-```
-command:
-
-komodo-cli gettransaction "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa" true
-
-response:
-
-{
-  "amount": 0.00000000,
-  "fee": -0.00005000,
-  "confirmations": 0,
-  "txid": "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa",
-  "walletconflicts": [
-  ],
-  "time": 1536993107,
-  "timereceived": 1536993107,
-  "vjoinsplit": [
-  ],
-  "details": [
-  ],
-  "hex": "0100000001d69a6c4b9aa1991bd72ab86086db91a4c709c4b954c15d1622f2e1fb2deeb262000000004847304402205927908c985e09f6d9888e37e23b82770ca906b145c74a388ea9359afba63fff02204bd49a9b158ecfb7c12737579a31dd9e44dc63214813f70617f9a24a1e4d987801feffffff02302d903b000000001976a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac40420f00000000001976a914646e1ddd9b6415e0209e5bbe3861309353301eec88aca2659c5b"
-}
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettransaction", "params": ["7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": {
-    "amount": 0,
-    "fee": -5e-05,
-    "confirmations": 0,
-    "txid": "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa",
-    "walletconflicts": [],
-    "time": 1536993107,
-    "timereceived": 1536993107,
-    "vjoinsplit": [],
-    "details": [],
-    "hex": "0100000001d69a6c4b9aa1991bd72ab86086db91a4c709c4b954c15d1622f2e1fb2deeb262000000004847304402205927908c985e09f6d9888e37e23b82770ca906b145c74a388ea9359afba63fff02204bd49a9b158ecfb7c12737579a31dd9e44dc63214813f70617f9a24a1e4d987801feffffff02302d903b000000001976a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac40420f00000000001976a914646e1ddd9b6415e0209e5bbe3861309353301eec88aca2659c5b"
-  },
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## getunconfirmedbalance
-
-**getunconfirmedbalance**
-
-The `getunconfirmedbalance` method returns the server's total unconfirmed balance.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli getunconfirmedbalance
-
-response:
-
-10.05000000
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getunconfirmedbalance", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": 10.05000000,
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## getwalletinfo
-
-**getwalletinfo**
-
-The `getwalletinfo` method returns an object containing various information about the wallet state.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-{                                            |                             |
-"walletversion"                              |(numeric)                    |the wallet version
-"balance"                                    |(numeric)                    |the total confirmed balance of the wallet
-"unconfirmed_balance"                        |(numeric)                    |the total unconfirmed balance of the wallet
-"immature_balance"                           |(numeric)                    |the total immature balance of the wallet
-"txcount"                                    |(numeric)                    |the total number of transactions in the wallet
-"keypoololdest"                              |(numeric)                    |the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool
-"keypoolsize"                                |(numeric)                    |how many new keys are pre-generated
-"unlocked_until"                             |(numeric)                    |the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked
-"paytxfee"                                   |(numeric)                    |the transaction fee configuration, denotated as the relevant COIN per KB
-}                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli getwalletinfo
-
-response:
-
-{
-  "walletversion": 60000,
-  "balance": 10.01334496,
-  "unconfirmed_balance": 0.00000000,
-  "immature_balance": 0.00010000,
-  "txcount": 106,
-  "keypoololdest": 1536889653,
-  "keypoolsize": 101,
-  "paytxfee": 0.00000000
-}
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getwalletinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": {
-    "walletversion": 60000,
-    "balance": 10.01334496,
-    "unconfirmed_balance": 0,
-    "immature_balance": 0.0001,
-    "txcount": 106,
-    "keypoololdest": 1536889653,
-    "keypoolsize": 101,
-    "paytxfee": 0
-  },
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## importaddress
-
-> Import an address with rescan:
-
-**importaddress "address" ( "label" rescan )**
-
-The `importaddress` method adds an address or script (in hex) that can be watched as if it were in your wallet, although it cannot be used to spend.
-
-<aside class="notice">
-  This call can take an increased amount of time to complete if rescan is true.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address to watch
-"label"                                      |(string, optional, default="")|an optional label
-rescan                                       |(boolean, optional, default=true)|rescan the wallet for transactions
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli importaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN"
-
-response:
-
-(none)
-```
-
-```
-command:
-
-komodo-cli importaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN" "testing" false
-
-response:
-
-(none)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importaddress", "params": ["R9z796AehK5b6NCPeVkGUHSpJnawerf8oP", "testing", false] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": null,
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## key
-
-**key "komodoprivkey" ( "label" rescan )**
-
-The `importprivkey` method adds a private key to your wallet.
-
-<aside class="notice">
-  This call can take minutes to complete if <b>rescan</b> is true.
-</aside>
-
-<aside class="notice">
-  See also <b>dumpprivkey</b>.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"privkey"                                    |(string, required)           |the private key (see [`dumpprivkey`](#dumpprivkey))
-"label"                                      |(string, optional, default="")|an optional label
-rescan                                       |(boolean, optional, default=true)|rescan the wallet for transactions
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-addresses                                    |(string)                     |the public address
-
-### Examples:
-
-```
-command:
-
-komodo-cli importprivkey "DONOTUSExxxxxxxxxxxxxxxxxxxxj4Xu9jjinhLpffhdtoKg5gar2"
-
-response:
-
-R9z796AehK5b6NCPeVkGUHSpJnawerf8oP
-```
-
-```
-command:
-
-komodo-cli importprivkey "DONOTUSExxxxxxxxxxxxxxxxxxxxj4Xu9jjinhLpffhdtoKg5gar2" "testing" false
-
-response:
-
-RFtA32tttJm89VWRWPCQtV8bkQ1FvE1MBG
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importprivkey", "params": ["UwibHKsYfiM19BXQmcUwAfw331GzGQK8aoPqqYEbyoPrzc2965nE", "testing", false] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": "RC5qhqgYRzf3dUXGAst9ah5LcuLjmMgT64",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## importwallet
-
-**importwallet "filename"**
-
-The `importwallet` method imports transparent-address keys from a wallet-dump file (see [`dumpwallet`](#dumpwallet)).
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"filename"                                   |(string, required)           |the wallet file
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli importwallet "path/to/exportdir/nameofbackup"
-
-response:
-
-(none)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importwallet", "params": ["path/to/exportdir/nameofbackup"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": null,
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## keypoolrefill
-
-**keypoolrefill ( newsize )**
-
-The `keypoolrefill` method refills the keypool.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-newsize                                      |(numeric, optional, default=100)|the new keypool size
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli keypoolrefill
-
-response:
-
-(none)
-```
-
-```
-command:
-
-komodo-cli keypoolrefill 100
-
-response:
-
-(none)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "keypoolrefill", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": null,
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## listaccounts
-
-**listaccounts ( minconf includeWatchonly)**
-
-<aside class="notice">
-  DEPRECATED
-</aside>
-
-The <b>listaccounts</b> method returns an object that has account names as keys and account balances as values.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-minconf                                      |(numeric, optional, default=1)|only include transactions with at least this many confirmations
-includeWatchonly                             |(bool, optional, default=false)|include balances in watchonly addresses (see 'importaddress')
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-{                                            |                             |
-"account_number"                             |(numeric)                    |the property name is the account name, and the value is the total balance for the account
-...                                          |                             |
-}                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli listaccounts 6
-
-response:
-
-(deprecated)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listaccounts", "params": [6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(deprecated)
-```
-
-## listaddressgroupings
-
-**listaddressgroupings**
-
-The `listaddressgroupings` method lists groups of addresses which have had their common ownership made public by common use as inputs or as the resulting change in past transactions.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-[                                            |(array)                      |each array at this indentation level is a unique grouping of addresses
-[                                            |                             |
-"address",                                   |(string)                     |the address
-amount,                                      |(numeric)                    |the amount
-"account"                                    |(string, optional)           |(DEPRECATED) the account
-]                                            |                             |
-,                                            |                             |
-]                                            |                             |
-,                                            |                             |
-]                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli listaddressgroupings
-
-response (note how there are two separate, unique groupings of addresses):
-
-[
-  [
-    [
-      "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ",
-      9.99304496
-    ],
-    [
-      "RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7",
-      0.00040000,
-      ""
-    ],
-    [
-      "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN",
-      0.01000000
-    ]
-  ],
-  [
-    [
-      "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
-      0.00990000,
-      ""
-    ]
-  ]
-]
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listaddressgroupings", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": [
-    [
-      [
-        "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ",
-        9.99304496
-      ],
-      [
-        "RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7",
-        0.0004,
-        ""
-      ],
-      [
-        "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN",
-        0.01
-      ]
-    ],
-    [
-      [
-        "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
-        0.0099,
-        ""
-      ]
-    ]
-  ],
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## listlockunspent
-
-**listlockunspent**
-
-The `listlockunspent` method returns a list of temporarily non-spendable outputs.
-
-<aside class="notice">
-See the <b>lockunspent</b> call to lock and unlock transactions for spending.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-{                                            |                             |
-"txid"                                       |(string)                     |the transaction id locked
-"vout"                                       |(numeric)                    |the vout value
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli listlockunspent
-
-response:
-
-[
-  {
-    "txid": "d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd",
-    "vout": 0
-  }
-]
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listlockunspent", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": [
-    {
-      "txid": "d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd",
-      "vout": 0
-    }
-  ],
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## listreceivedbyaccount
-
-**listreceivedbyaccount ( minconf includeempty includeWatchonly)**
-
-<aside class="notice">
-  DEPRECATED
-</aside>
-
-The `listreceivedbyaccount` method lists balances by account.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-minconf                                      |(numeric, optional, default=1)|the minimum number of confirmations before payments are included
-includeempty                                 |(boolean, optional, default=false)|whether to include accounts that haven't received any payments
-includeWatchonly                             |(bool, optional, default=false)|whether to include watchonly addresses (see 'importaddress')
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-{                                            |                             |
-"involvesWatchonly"                          |(bool)                       |only returned if imported addresses were involved in transaction
-"account"                                    |(string)                     |the account name of the receiving account
-"amount"                                     |(numeric)                    |the total amount received by addresses with this account
-"confirmations"                              |(numeric)                    |the number of confirmations of the most recent transaction included
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli listreceivedbyaccount
-
-response:
-
-(deprecated)
-```
-
-```
-command:
-
-komodo-cli listreceivedbyaccount 6 true
-
-response:
-
-(deprecated)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbyaccount", "params": [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(deprecated)
-```
-
-## listreceivedbyaddress
-
-**listreceivedbyaddress ( minconf includeempty includeWatchonly)**
-
-The `listreceivedbyaddress` method lists balances by receiving address.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-minconf                                      |(numeric, optional, default=1)|the minimum number of confirmations before payments are included
-includeempty                                 |(numeric, optional, default=false)|whether to include addresses that haven't received any payments
-includeWatchonly                             |(bool, optional, default=false)|whether to include watchonly addresses (see 'importaddress')
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-{                                            |                             |
-"involvesWatchonly"                          |(bool)                       |only returned if imported addresses were involved in transaction
-"address"                                    |(string)                     |the receiving address
-"account"                                    |(string)                     |DEPRECATED the account of the receiving address; the default account is ""
-"amount"                                     |(numeric)                    |the total amount received by the address
-"confirmations"                              |(numeric)                    |the number of confirmations of the most recent transaction included
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli listreceivedbyaddress
-
-response:
-
-[
-  {
-    "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
-    "account": "",
-    "amount": 0.01000000,
-    "confirmations": 10,
-    "txids": [
-      "5e6349567c893bab51a525219e5d2264532f1e73277fa1179449343cf2864211"
-    ]
-  }
-]
-```
-
-```
-command:
-
-komodo-cli listreceivedbyaddress 6 true
-
-response:
-
-[
-  {
-    "address": "RSWwtqsNr9mW21UXRm6Lz4AzQnj4pVzzkp",
-    "account": "",
-    "amount": 0.00000000,
-    "confirmations": 0,
-    "txids": [
-    ]
-  },
-  {
-    "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
-    "account": "",
-    "amount": 0.01000000,
-    "confirmations": 10,
-    "txids": [
-      "5e6349567c893bab51a525219e5d2264532f1e73277fa1179449343cf2864211"
-    ]
-  }
-]
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbyaddress", "params": [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-{
-  "result": [
-    {
-      "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
-      "account": "",
-      "amount": 0.01,
-      "confirmations": 10,
-      "txids": [
-        "5e6349567c893bab51a525219e5d2264532f1e73277fa1179449343cf2864211"
-      ]
-    },
-    {
-      "address": "RV3vVf5wPHwtToNzHqMomieLoqyF1VodB1",
-      "account": "",
-      "amount": 0,
-      "confirmations": 0,
-      "txids": []
-    }
-  ],
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## listsinceblock
-
-**listsinceblock ( "blockhash" target-confirmations includeWatchonly )**
-
-The `listsinceblock` method queries all transactions in blocks since block `blockhash`, or all transactions if `blockhash` is omitted.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"blockhash"                                  |(string, optional)           |the block hash from which to list transactions
-target-confirmations                         |(numeric, optional)          |the confirmations required (must be 1 or more)
-includeWatchonly                             |(bool, optional, default=false)|include transactions to watchonly addresses (see also 'importaddress')
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-{                                            |                             |
-"transactions":                              |                             |
-"account"                                    |(string)                     |DEPRECATED the account name associated with the transaction; will be "" for the default account
-"address"                                    |(string)                     |the address of the transaction (not present for move transactions -- category = move)
-"category"                                   |(string)                     |the transaction category; `send` has negative amounts, `receive` has positive amounts
-"amount"                                     |(numeric)                    |the amount of the relevant currency -- negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category, and for the `move` category for inbound funds.
-"vout"                                       |(numeric)                    |the vout value
-"fee"                                        |(numeric)                    |the amount of the fee; this value is negative and only available for the `send` category of transactions
-"confirmations"                              |(numeric)                    |the number of confirmations for the transaction; available for `send` and `receive` category of transactions
-"blockhash"                                  |(string)                     |the block hash containing the transaction; available for the `send` and `receive` categories of transactions
-"blockindex"                                 |(numeric)                    |the block index containing the transaction; available for the `send` and `receive` categories of transactions
-"blocktime"                                  |(numeric)                    |the block time in seconds since epoch (1 Jan 1970 GMT)
-"txid"                                       |(string)                     |the transaction id; available for `send` and `receive` categories of transactions
-"time"                                       |(numeric)                    |the transaction time in seconds since epoch (Jan 1 1970 GMT)
-"timereceived"                               |(numeric)                    |the time received in seconds since epoch (Jan 1 1970 GMT); available for `send` and `receive` category of transactions
-"comment"                                    |(string)                     |whether a comment is associated with the transaction
-"to"                                         |(string)                     |whether a 'to' comment is associated with the transaction
-],                                           |                             |
-"lastblock"                                  |(string)                     |the hash of the last block
-}                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli listsinceblock
-
-response:
-
-{
-  "transactions": [
-    {
-      "account": "",
-      "address": "RSqt98kgCcXEKLSoMjBkwnMoYpVvHjxqaf",
-      "category": "generate",
-      "amount": 0.00010000,
-      "vout": 0,
-      "confirmations": 19,
-      "generated": true,
-      "blockhash": "02738f05d6e13f4be0ed2c04d472d42112ec03d5f35bd797b8ef0e0fc61dd472",
-      "blockindex": 0,
-      "blocktime": 1537220864,
-      "expiryheight": 0,
-      "txid": "a4a589a5c5397ae8a72ee6819ce18703418d21b6ab7370a8f58a8a48dca7cd01",
-      "walletconflicts": [
-      ],
-      "time": 1537220863,
-      "timereceived": 1537220863,
-      "vjoinsplit": [
-      ],
-      "size": 99
-    },
-      ...
-  ],
-  "lastblock": "003852ef655d7577492ffed079894a66788a8679b4c291f08850b9cea7b20ad0"
-}
-```
-
-```
-command:
-
-komodo-cli listsinceblock "029f11d80ef9765602235e1bc9727e3eb6ba20839319f761fee920d63401e327" 6
-
-response:
-
-{
-  "transactions": [
-    {
-      "account": "",
-      "address": "RSqt98kgCcXEKLSoMjBkwnMoYpVvHjxqaf",
-      "category": "generate",
-      "amount": 0.00010000,
-      "vout": 0,
-      "confirmations": 19,
-      "generated": true,
-      "blockhash": "02738f05d6e13f4be0ed2c04d472d42112ec03d5f35bd797b8ef0e0fc61dd472",
-      "blockindex": 0,
-      "blocktime": 1537220864,
-      "expiryheight": 0,
-      "txid": "a4a589a5c5397ae8a72ee6819ce18703418d21b6ab7370a8f58a8a48dca7cd01",
-      "walletconflicts": [
-      ],
-      "time": 1537220863,
-      "timereceived": 1537220863,
-      "vjoinsplit": [
-      ],
-      "size": 99
-    },
-      ...
-  ],
-  "lastblock": "0542c8f7c718e062af872b08a8a4469ed1b2f48ecb023533e57997b074a4430f"
-}
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listsinceblock", "params": ["029f11d80ef9765602235e1bc9727e3eb6ba20839319f761fee920d63401e327", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-{
-  "transactions": [
-    {
-       "account": "",
-       "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
-       "category": "generate",
-       "amount": 0.0001,
-       "vout": 0,
-       "confirmations": 86,
-       "generated": true,
-       "blockhash": "006b9064941f7b04c5f8c36e6456f30a592b46fc6b256d15e3a9fa36a319b52f",
-       "blockindex": 0,
-       "blocktime": 1536976225,
-       "expiryheight": 0,
-       "txid": "0a47e3965b76cd0593fa37dabb8fc1a3fbb0660cd0d9c1ac3fc5ae8c83e3bcd5",
-       "walletconflicts": [],
-       "time": 1536976224,
-       "timereceived": 1536976224,
-       "vjoinsplit": [],
-       "size": 99
-     },
-      ...
-   ],
-   "lastblock": "0542c8f7c718e062af872b08a8a4469ed1b2f48ecb023533e57997b074a4430f"
- },
- "error": null,
- "id": "curltest"
-}
-```
-
-## listtransactions
-
-**listtransactions ( "account" count from includeWatchonly )**
-
-The `listtransactions` method returns up to `count` most recent transactions skipping the first `from` transactions for `account`.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, optional)           |DEPRECATED the account name; should be `"*"`
-count                                        |(numeric, optional, default=10)|the number of transactions to return
-from                                         |(numeric, optional, default=0)|the number of transactions to skip
-includeWatchonly                             |(bool, optional, default=false)|include transactions to watchonly addresses (see `importaddress`)
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-{                                            |                             |
-"account"                                    |(string)                     |DEPRECATED the account name associated with the transaction; it will be "" for the default account
-"address"                                    |(string)                     |the address of the transaction; not present for move transactions (category = move)
-"category"                                   |(string)                     |The transaction category. This property can be `send` | `receive` | `move`. `move` is a local (off blockchain) transaction between accounts -- not associated with an address, transaction id, or block. `send` and `receive` transactions are associated with an address, transaction id, and block details.
-"amount"                                     |(numeric)                    |The amount. This value is negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category and for the `move` category for inbound funds.
-"vout"                                       |(numeric)                    |the vout value
-"fee"                                        |(numeric)                    |the amount of the fee; this is negative and only available for the `send` category of transactions
-"confirmations"                              |(numeric)                    |the number of confirmations for the transaction; available for the `send` and `receive` categories of transactions
-"blockhash"                                  |(string)                     |the block hash containing the transaction; available for the `send` and `receive` categories of transactions
-"blockindex"                                 |(numeric)                    |the block index containing the transaction; available for the `send` and `receive` categories of transactions
-"txid"                                       |(string)                     |the transaction id; available for the `send` and `receive` categories of transactions
-"time"                                       |(numeric)                    |the transaction time in seconds since epoch (midnight Jan 1 1970 GMT)
-"timereceived"                               |(numeric)                    |the time received in seconds since epoch (midnight Jan 1 1970 GMT); available for the `send` and `receive` categories of transactions
-"comment"                                    |(string)                     |whether a comment is associated with the transaction
-"otheraccount"                               |(string)                     |for the `move` category of transactions; indicates the account which sent the funds (for receiving funds, positive amounts), or went to (for sending funds, negative amounts)
-"size"                                       |(numeric)                    |transaction size in bytes
-}                                            |                             |
-]                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli listtransactions
-
-response:
-
-[
-  {
-    "account": "",
-    "address": "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu",
-    "category": "generate",
-    "amount": 0.00021689,
-    "vout": 0,
-    "confirmations": 10,
-    "generated": true,
-    "blockhash": "038a888c0a6e6c8103684f3a7b53dcab71186c7cb2136fd298f7900b3da05d94",
-    "blockindex": 0,
-    "blocktime": 1537223045,
-    "expiryheight": 0,
-    "txid": "760788836335913068a66d3e4279233214b96a7dfc7757b899ea5d700aa4bc57",
-    "walletconflicts": [
-    ],
-    "time": 1537223044,
-    "timereceived": 1537223044,
-    "vjoinsplit": [
-    ],
-    "size": 99
-  }
-  , ... (9 responses ommitted from documentation for brevity)
-]
-```
-
-```
-command:
-
-komodo-cli listtransactions "*" 20 100
-
-result:
-
-[
-  {
-    "account": "",
-    "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
-    "category": "generate",
-    "amount": 0.00010000,
-    "vout": 0,
-    "confirmations": 99,
-    "generated": true,
-    "blockhash": "0eb4edeb5141a7670ef8be413873e1bef4f6f321867a2b8d67a616cdc7df1e77",
-    "blockindex": 0,
-    "blocktime": 1536976212,
-    "expiryheight": 0,
-    "txid": "3041aa7374e530d4d28e14620dd2bb9d2ff0bf71dd1106f08bc9f02fce44598e",
-    "walletconflicts": [
-    ],
-    "time": 1536976211,
-    "timereceived": 1536976211,
-    "vjoinsplit": [
-    ],
-    "size": 99
-  }
-  , ... (9 responses ommitted from documentation for brevity)
-]
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listtransactions", "params": ["*", 20, 100] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-{
-  [
-    {
-      "account": "",
-      "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
-      "category": "generate",
-      "amount": 0.0001,
-      "vout": 0,
-      "confirmations": 99,
-      "generated": true,
-      "blockhash": "0eb4edeb5141a7670ef8be413873e1bef4f6f321867a2b8d67a616cdc7df1e77",
-      "blockindex": 0,
-      "blocktime": 1536976212,
-      "expiryheight": 0,
-      "txid": "3041aa7374e530d4d28e14620dd2bb9d2ff0bf71dd1106f08bc9f02fce44598e",
-      "walletconflicts": [],
-      "time": 1536976211,
-      "timereceived": 1536976211,
-      "vjoinsplit": [],
-      "size": 99
-    }
-    , ... (9 responses ommitted from documentation for brevity)
-  ],
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## listunspent
-
-**listunspent ( minconf maxconf  ["address", ... ] )**
-
-The `listunspent` method returns an array of unspent transaction outputs, with a range between `minconf` and `maxconf` (inclusive) confirmations. The method can, optionally, filter to only include `txouts` paid to specified addresses.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-minconf                                      |(numeric, optional, default=1)|the minimum confirmations to filter
-maxconf                                      |(numeric, optional, default=9999999)|the maximum confirmations to filter
-[                                            |                             |
-"address"                                    |(string)                     |a series of addresses
-,                                            |                             |
-]                                            |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-{                                            |                             |
-"txid"                                       |(string)                     |the transaction id
-"vout"                                       |(numeric)                    |the vout value
-"generated"                                  |(boolean)                    |true if txout is a coinbase transaction output
-"address"                                    |(string)                     |the address
-"account"                                    |(string)                     |DEPRECATED the associated account, or "" for the default account
-"scriptPubKey"                               |(string)                     |the script key
-"amount"                                     |(numeric)                    |the transaction amount
-"confirmations"                              |(numeric)                    |the number of confirmations
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli listunspent
-
-response:
-
-[
-  {
-    "txid": "269b658b9a52e9142c96f3a49c0ad917e5d0c08126baa96713827267137d150f",
-    "vout": 0,
-    "generated": true,
-    "address": "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu",
-    "scriptPubKey": "21037e631c6a03d028e48aecfd93b2d2737d5d7e2852a426b940ff301f78aa31690cac",
-    "amount": 0.00010000,
-    "interest": 0.00000000,
-    "confirmations": 6,
-    "spendable": true
-  },
-    ...
-]
-```
-
-```
-command:
-
-komodo-cli listunspent 6 9999999 '["RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu","RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"]'
-
-response:
-
-[
-  {
-    "txid": "0ca752c996c4074ca62071cdbf848ccd33864894151f982024006b3d69d021ac",
-    "vout": 0,
-    "generated": true,
-    "address": "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu",
-    "scriptPubKey": "21037e631c6a03d028e48aecfd93b2d2737d5d7e2852a426b940ff301f78aa31690cac",
-    "amount": 0.00010000,
-    "interest": 0.00000000,
-    "confirmations": 7,
-    "spendable": true
-  },
-  {
-    "txid": "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa",
-    "vout": 0,
-    "generated": false,
-    "address": "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ",
-    "scriptPubKey": "76a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac",
-    "amount": 9.99304496,
-    "interest": 0.00000000,
-    "confirmations": 21,
-    "spendable": true
-  }
-]
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [6, 9999999, ["RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu","RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": [
-    {
-      "txid": "0ca752c996c4074ca62071cdbf848ccd33864894151f982024006b3d69d021ac",
-      "vout": 0,
-      "generated": true,
-      "address": "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu",
-      "scriptPubKey": "21037e631c6a03d028e48aecfd93b2d2737d5d7e2852a426b940ff301f78aa31690cac",
-      "amount": 0.00010000,
-      "interest": 0.00000000,
-      "confirmations": 7,
-      "spendable": true
-    },
-    {
-      "txid": "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa",
-      "vout": 0,
-      "generated": false,
-      "address": "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ",
-      "scriptPubKey": "76a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac",
-      "amount": 9.99304496,
-      "interest": 0.00000000,
-      "confirmations": 21,
-      "spendable": true
-    }
-  ],
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## lockunspent
-
-**lockunspent unlock [{ "txid": "txid", "vout": n }, ... ]**
-
-The `lockunspent` method locks (unlock = `false`) or unlocks (unlock = `true`) specified transaction outputs. A locked transaction output will not be chosen by automatic coin selection, when spending the relevant coin. The locks are stored in memory only; at runtime a node always starts with zero locked outputs, and the locked output list is always cleared when a node stops or fails.
-
-<aside class="notice">
-  See the <b>listunspent</b> and <b>listlockunspent</b> calls to determine local transaction state and info.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-unlock                                       |(boolean, required)          |whether to unlock (true) or lock (false) the specified transactions
-[                                            |                             |
-{                                            |                             |
-"txid"                                       |(string)                     |the transaction id
-"vout"                                       |(numeric)                    |the output number
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-true/false                                   |(boolean)                    |whether the command was successful
-
-### Examples:
-
-```
-command:
-
-komodo-cli lockunspent false '[{"txid":"d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd","vout":0}]'
-
-response:
-
-true
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "lockunspent", "params": [false, [{"txid":"d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd","vout":0}]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": true,
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## move
-
-**move "fromaccount" "toaccount" amount ( minconf "comment" )**
-
-<aside class="notice">
-  DEPRECATED
-</aside>
-
-The `move` method moves a specified amount from one account in your wallet to another.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"fromaccount"                                |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-"toaccount"                                  |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-amount                                       |(numeric)                    |quantity to move between accounts
-minconf                                      |(numeric, optional, default=1)|only use funds with at least this many confirmations
-"comment"                                    |(string, optional)           |an optional comment, stored in the wallet only
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-true/false                                   |(boolean)                    |true if successful
-
-### Examples:
-
-```
-command:
-
-komodo-cli move "" "tabby" 0.01
-
-response:
-
-(deprecated)
-```
-
-```
-command:
-
-komodo-cli move "timotei" "akiko" 0.01 6 "happy birthday!"
-
-response:
-
-(deprecated)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "move", "params": ["timotei", "akiko", 0.01, 6, "happy birthday!"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(deprecated)
-```
-
-## resendwallettransactions
-
-**resendwallettransactions**
-
-The `resendwallettransactions` method immediately re-broadcasts unconfirmed wallet transactions to all peers. This method is intended only for testing; the wallet code periodically re-broadcasts automatically.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-"transaction_id"                             |(string)                     |an array of the rebroadcasted transaction id's
-]                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli resendwallettransactions
-
-response:
-
-[
-  "4e847051279ead30fb2d8d53cc0d4649f62c85a44b23f90152d2ef4ed6af2006"
-]
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "resendwallettransactions", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": [
-    "4e847051279ead30fb2d8d53cc0d4649f62c85a44b23f90152d2ef4ed6af2006"
-  ],
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## sendfrom
-
-**sendfrom "account" "address" amount ( minconf "comment" "comment-to" )**
-
-<aside class="notice">
-  DEPRECATED: Use <b>sendtoaddress</b> instead.
-</aside>
-
-The `sendfrom` method sends an amount from `account` to `address`.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-"address"                                    |(string, required)           |the address to receive funds
-amount                                       |(numeric, required)          |the amount (transaction fee not included)
-minconf                                      |(numeric, optional, default=1)|only use funds with at least this many confirmations
-"comment"                                    |(string, optional)           |a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet
-"comment-to"                                 |(string, optional)           |an optional comment to store the name of the person or organization to which you're sending the transaction; this is not part of the transaction, it is only kept in your wallet
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"transaction_id"                             |(string)                     |the transaction id
-
-### Examples:
-
-```
-command:
-
-komodo-cli sendfrom "" "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu" 0.01
-
-response:
-
-(deprecated)
-```
-
-```
-command:
-
-komodo-cli sendfrom "tabby" "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu" 0.01 6 "donation" "seans outpost"
-
-response:
-
-(deprecated)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendfrom", "params": ["tabby", "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu", 0.01, 6, "donation", "seans outpost"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(deprecated)
-```
-
-## sendmany
-
-**sendmany "account" { "address": amount, ... } ( minconf "comment" [ "address", ... ] )**
-
-The `sendmany` method can send multiple transactions at once. Amounts are double-precision floating point numbers.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-"amounts"                                    |                             |
-{                                            |                             |
-"address":amount                             |("string":numeric)           |the address (string) and the value (double-precision floating numeric)
-,                                            |                             |
-}                                            |                             |
-minconf                                      |(numeric, optional, default=1)|only use the balance confirmed at least this many times
-"comment"                                    |(string, optional)           |a comment
-subtractfeefromamount                        |(string, optional)           |a json array with addresses. The fee will be equally deducted from the amount of each selected address; the recipients will receive less than you enter in their corresponding amount field. If no addresses are specified here, the sender pays the fee.
-[                                            |                             |
-"address"                                    |(string)                     |subtract fee from this address
-,                                            |                             |
-]                                            |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"transaction_id"                             |(string)                     |the transaction id for the send; only 1 transaction is created regardless of the number of addresses
-
-### Examples:
-
-```
-command:
-
-komodo-cli sendmany "" '{"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}'
-
-response:
-
-e39b046f0e30bd2a80c64ec78d902107858c8f0d55097d7f2293df1c9a4496ae
-```
-
-```
-command:
-
-komodo-cli sendmany "" '{"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}' 6 "testing"
-
-response:
-
-3829164d8a68d9b7c2c89efe419eca77e37883318b7187b7e000e80e8138a370
-```
-
-```
-command:
-
-komodo-cli sendmany "" '{"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}' 1 "" '["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ","RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu"]'
-
-response:
-
-1813a39247913abf73af10ed51537234fe4e58eb5cfc4f49ac4fbcdecb42b4b4
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendmany", "params": ["", {"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}, 6, "testing"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": "fe7db27ed66b9d999c21d3cc9c8c687bd68721d711da6573a0a0ccf75c1cace5",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## sendtoaddress
-
-**sendtoaddress "address" amount ( "comment" "comment-to" subtractfeefromamount )**
-
-The `sendtoaddress` method sends an amount to a given address. The amount is real and is rounded to the nearest 0.00000001.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"komodoaddress"                              |(string, required)           |the receiving address
-"amount"                                     |(numeric, required)          |the amount to send (json requires all decimals values less than 1 begin with the characters '0.')
-"comment"                                    |(string, optional)           |a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet
-"comment-to"                                 |(string, optional)           |a comment to store the name of the person or organization to which you're sending the transaction; this is stored in your local wallet file only
-subtractfeefromamount                        |(boolean, optional, default=false)|when `true`, the fee will be deducted from the amount being sent
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"transaction_id"                             |(string)                     |the transaction id
-
-### Examples:
-
-```
-command:
-
-komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1
-
-response:
-
-cc23924c007adc98b8ea5b9b8b47638e080aa469eb9738b976def487a44f467b
-```
-
-```
-command:
-
-komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1 "donation" "seans outpost"
-
-response:
-
-86948c27dc63be415b235c5b3ed807c1e07d9a2cac252f58734add700c55fe18
-```
-
-```
-command:
-
-komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1 "" "" true
-
-response:
-
-c5727cafd7d6dfc888d4a0596dc58bfafb24859e29f827e1bf1443037d8461fc
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendtoaddress", "params": ["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ", 0.1, "donation", "seans outpost"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": "6e411f3534af8847d705d87934f6061046e2034abad96b7a1fb1d3996129cb1e",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## setaccount
-
-**setaccount "address" "account"**
-
-<aside class="notice">
-  DEPRECATED
-</aside>
-
-The `setaccount` method sets the account associated with the given address.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address to be associated with an account
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-
-### Examples:
-
-```
-command:
-
-komodo-cli setaccount "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "tabby"
-
-response:
-
-(deprecated)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setaccount", "params": ["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ", "tabby"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(deprecated)
-```
-
-## settxfee
-
-**settxfee amount**
-
-The `settxfee` method sets the transaction fee per kB.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-amount                                       |(numeric, required)          |the transaction fee in COIN/kB rounded to the nearest 0.00000001
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-true/false                                   |(boolean)                    |returns true if successful
-
-### Examples:
-
-```
-command:
-
-komodo-cli settxfee 0.00001
-
-response:
-
-true
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "settxfee", "params": [0.00001] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": true,
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## signmessage
-
-> Create the signature:
-
-**signmessage "address" "message"**
-
-The `signmessage` method signs a message via the private key of an address.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address to use for the private key
-"message"                                    |(string, required)           |the message
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"signature"                                  |(string)                     |the signature of the message encoded in base 64
-
-### Examples:
-
-```
-command:
-
-komodo-cli signmessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "my message"
-
-response:
-
-H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=
-```
-
-> Verify the signature:
-
-```
-command:
-
-komodo-cli verifymessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=" "my message"
-
-response:
-
-true
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signmessage", "params": ["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ", "my message"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": "H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_exportkey
-
-**z_exportkey "z_address"**
-
-The `z_exportkey` method reveals the private z_key corresponding to `z_address`.
-
-<aside class="notice">
-  See also <b>z_importkey</b>.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"z_address"                                  |(string, required)           |the z_address for the private key
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"key"                                        |(string)                     |the private key
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_exportkey "ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH"
-
-response:
-
-DONOTUSExxxxxxxxxxxxxxxxV6EyPpaZFVDsqeNB6k8eoLFERdag
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_exportkey", "params": ["ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": "DONOTUSExxxxxxxxxxxxxxxxV6EyPpaZFVDsqeNB6k8eoLFERdag",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_exportviewingkey
-
-**z_exportviewingkey "z_address"**
-
-The `z_exportviewingkey` method reveals the viewing key corresponding to `z_address`.
-
-<aside class="notice">
-  See also <b>z_importviewingkey</b>.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"z_address"                                  |(string, required)           |the z_address for the viewing key
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"vkey"                                       |(string)                     |the viewing key
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_exportviewingkey "ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH"
-
-response:
-
-ZiVtf1yjjR9DeDNNgd4kvRgS1oovQwfK6xt2csfhTwpbUVjnC9RrEeuVkAfJrxN1jDR3d7vR6XmLne4vC9SCYR5F9XMzW19VJ
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_exportviewingkey", "params": ["ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": "ZiVtf1yjjR9DeDNNgd4kvRgS1oovQwfK6xt2csfhTwpbUVjnC9RrEeuVkAfJrxN1jDR3d7vR6XmLne4vC9SCYR5F9XMzW19VJ",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_exportwallet
-
-**z_exportwallet "filename"**
-
-The `z_exportwallet` method exports all wallet keys, including both t address and z address types, in a human-readable format.  Overwriting an existing file is not permitted.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"filename"                                   |(string, required)           |the filename, saved to the directory indicated by the [`exportdir`](#exportdir) parameter at daemon runtime (required)
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"path"                                       |(string)                     |the full path of the destination file
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_exportwallet "test"
-
-response:
-
-/home/myusername/mydirector/test
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_exportwallet", "params": ["test"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": "/home/myusername/mydirector/test",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_getbalance
-
-> The total amount received by address "myaddress" at least 5 blocks confirmed
-
-**z_getbalance "address" ( minconf )**
-
-The `z_getbalance` method returns the balance of a t address or z address belonging to the node’s wallet.
-
-<aside class="warning">
-  CAUTION: If <b>address</b> is a watch-only z address, the returned balance may be larger than the actual balance,
-  as spends cannot be detected with incoming viewing keys.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the selected z or t address
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-amount                                       |(numeric)                    |the total amount received at this address (in the relevant COIN value)
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_getbalance "ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn"
-
-response:
-
-0.01980000
-```
-
-```
-command:
-
-komodo-cli z_getbalance "ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn" 5
-
-response:
-
-0.01980000
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_getbalance", "params": ["ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn", 5] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": 0.0198,
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_getnewaddress
-
-**z_getnewaddress**
-
-The `z_getnewaddress` method returns a new z_address for receiving payments.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"z_address"                                  |(string)                     |the new z_address
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_getnewaddress
-
-response:
-
-ztbUD83kXgHt3A1M282wFvT9Ms6SiBCd6GSbQbPa2C7UtPojVZjPENytFqu7JxgnsgL9EN42xWnyhhzniHYSRJDnEPTgo3Y
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_getnewaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": "ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_getoperationresult
-
-**z_getoperationresult ([ "operationid", ... ])**
-
-The `z_getoperationresult` method retrieves the result and status of an operation which has finished, and then removes the operation from memory.
-
-<aside class="notice">
-  See also <b>z_getoperationstatus</b>.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-"operationid"                                |(string, optional)           |a list of operation ids to query; if not provided, the method examines all operations known to the node
-,                                            |                             |
-]                                            |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-{                                            |                             |
-"id"                                         |(string)                     |the operation id
-"status"                                     |(string)                     |the result of the operation; can be `success` | `failed` | `executing`
-"creation_time"                              |(numeric)                    |the creation time, in seconds since epoch (Jan 1 1970 GMT)
-"result":                                    |                             |
-"txid":                                      |(string)                     |the transaction id
-},                                           |                             |
-"execution_secs"                             |(numeric)                    |the length of time to calculate the transaction
-"method"                                     |(string)                     |the name of the method used in the operation
-"params":                                    |                             |
-"fromaddress"                                |(string)                     |the address from which funds are drawn
-"amounts":                                   |                             |
-{                                            |                             |
-"address"                                    |(string)                     |the receiving address
-"amount"                                     |(numeric)                    |the amount to receive
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
-"minconf"                                    |(numeric)                    |the minimum number of confirmations required
-"fee"                                        |(numeric)                    |the transaction fee
-}                                            |                             |
-}                                            |                             |
-]                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_getoperationresult '["opid-6e581ee5-4e90-4e70-8961-f95d8d28748c"]'
-
-response:
-
-[
-  {
-    "id": "opid-6e581ee5-4e90-4e70-8961-f95d8d28748c",
-    "status": "success",
-    "creation_time": 1537287690,
-    "result": {
-      "txid": "65e01c8485f6a85fbf7093d8233864eed0f31e6e2eff22a7e468e92c37dc864c"
-    },
-    "execution_secs": 44.606282288,
-    "method": "z_sendmany",
-    "params": {
-      "fromaddress": "RWUwHqRUYgxfYNNSHWkQuY5sh93VGiiPoX",
-      "amounts": [
+    "txid": "21d152480275568e3f82a5049d8b30308e3739ebd98171e075a75fea504364cd",
+    "size": 434,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
         {
-          "address": "ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3",
-          "amount": 0.01
+            "txid": "084db1c5712b31613b5c8d4a76b7bccf77554f280e0b42428eeaad6da435c334",
+            "vout": 0,
+            "scriptSig": {
+                "asm": "30450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601",
+                "hex": "4830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601"
+            },
+            "sequence": 4294967295
+        },
+        {
+            "txid": "7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c",
+            "vout": 0,
+            "scriptSig": {
+                "asm": "a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001",
+                "hex": "4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001"
+            },
+            "sequence": 4294967295
         }
-      ],
-      "minconf": 1,
-      "fee": 0.0001
-    }
-  }
-]
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_getoperationresult", "params": [["opid-6a9da0dd-a950-4d95-848c-d3c18e44be03"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": [
-    {
-      "id": "opid-6a9da0dd-a950-4d95-848c-d3c18e44be03",
-      "status": "success",
-      "creation_time": 1537288235,
-      "result": {
-        "txid": "f0309f8dc2e33e108dec39285bc8755058375cf6e51bdb452fb45f3d14909fef"
-      },
-      "execution_secs": 44.978749064,
-      "method": "z_sendmany",
-      "params": {
-        "fromaddress": "RWUwHqRUYgxfYNNSHWkQuY5sh93VGiiPoX",
-        "amounts": [
-          {
-            "address": "ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3",
-            "amount": 0.01
-          }
-        ],
-        "minconf": 1,
-        "fee": 0.0001
-      }
-    }
-  ],
-  "error": null,
-  "id": "curltest"
+    ],
+    "vout": [
+        {
+            "value": 0.00000010,
+            "valueSat": 10,
+            "n": 0,
+            "scriptPubKey": {
+                "asm": "a22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401 OP_CHECKCRYPTOCONDITION",
+                "hex": "2ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc",
+                "reqSigs": 1,
+                "type": "cryptocondition",
+                "addresses": [
+                    "RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti"
+                ]
+            }
+        },
+        {
+            "value": 99999.99990000,
+            "valueSat": 9999999990000,
+            "n": 1,
+            "scriptPubKey": {
+                "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
+                "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
+                "reqSigs": 1,
+                "type": "pubkey",
+                "addresses": [
+                    "RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"
+                ]
+            }
+        },
+        {
+            "value": 0.00000000,
+            "valueSat": 0,
+            "n": 2,
+            "scriptPubKey": {
+                "asm": "OP_RETURN e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
+                "hex": "6a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
+                "type": "nulldata"
+            }
+        }
+    ]
 }
 ```
 
-## z_getoperationstatus
+### Examples:
 
-**z_getoperationstatus ([ "operationid", ... ])**
+## tokencancelbid
 
-The `z_getoperationstatus` message queries the operation status and any associated result or error data of any `operationid` stored in local memory. The operation will remain in memory (unlike `z_getoperationresult`, which removes the data from the local memory).
+
+**tokencancelbid tokenid bidtxid**
+
+The `tokencancelbid` method cancels a specific `bid`/`buy` order that you created.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"operationid"                                |(array, optional)            |a list of operation ids we are interested in; if an array is not provided, the method examines all operations known to the node
+tokenid                                      |(string)                     |the txid that identifies the token
+bidtxid                                      |(string)                     |the txid that identifies the original bid request
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
+**tokencancelbid tokenid bidtxid**
+
+The `tokencancelbid` method cancels a specific `bid`/`buy` order that you created.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+tokenid                                      |(string)                     |the txid that identifies the token
+bidtxid                                      |(string)                     |the txid that identifies the original bid request
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
+> Step 1: Issue the call and get your raw transaction HEX value
+
+```
+./komodo-cli -ac_name=HELLOWORLD tokencancelbid 9217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e 7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c
+```
+
+> Response:
+
+```
+{
+    "result": "success",
+    "hex": "010000000234c335a46dadea8e42420b0e284f5577cfbcb7764a8d5c3b61312b71c5b14d0800000000494830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601ffffffff5ca636731b8c28889248a0b434e3124f19518b2c4b4bbefd80af303329ae9471000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001ffffffff030a00000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401ccf078724e18090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000"
+}
+```
+
+> Step 2: Send raw transaction / broadcast the HEX value from above
+
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000234c335a46dadea8e42420b0e284f5577cfbcb7764a8d5c3b61312b71c5b14d0800000000494830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601ffffffff5ca636731b8c28889248a0b434e3124f19518b2c4b4bbefd80af303329ae9471000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001ffffffff030a00000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401ccf078724e18090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000
+```
+
+> Response from Step 2:
+
+```
+AssetValidate (x)
+vin1 10, vout0 10, AssetValidateBuyvin
+Got 0.00000010 to origaddr.(RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ)
+21d152480275568e3f82a5049d8b30308e3739ebd98171e075a75fea504364cd
+```
+
+> Step 3: Decode the raw transaction (optional to check if the values are sane)
+
+```
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000234c335a46dadea8e42420b0e284f5577cfbcb7764a8d5c3b61312b71c5b14d0800000000494830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601ffffffff5ca636731b8c28889248a0b434e3124f19518b2c4b4bbefd80af303329ae9471000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001ffffffff030a00000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401ccf078724e18090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000
+```
+
+> Response from Step 3:
+
+```
+{
+    "txid": "21d152480275568e3f82a5049d8b30308e3739ebd98171e075a75fea504364cd",
+    "size": 434,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+        {
+            "txid": "084db1c5712b31613b5c8d4a76b7bccf77554f280e0b42428eeaad6da435c334",
+            "vout": 0,
+            "scriptSig": {
+                "asm": "30450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601",
+                "hex": "4830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601"
+            },
+            "sequence": 4294967295
+        },
+        {
+            "txid": "7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c",
+            "vout": 0,
+            "scriptSig": {
+                "asm": "a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001",
+                "hex": "4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001"
+            },
+            "sequence": 4294967295
+        }
+    ],
+    "vout": [
+        {
+            "value": 0.00000010,
+            "valueSat": 10,
+            "n": 0,
+            "scriptPubKey": {
+                "asm": "a22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401 OP_CHECKCRYPTOCONDITION",
+                "hex": "2ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc",
+                "reqSigs": 1,
+                "type": "cryptocondition",
+                "addresses": [
+                    "RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti"
+                ]
+            }
+        },
+        {
+            "value": 99999.99990000,
+            "valueSat": 9999999990000,
+            "n": 1,
+            "scriptPubKey": {
+                "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
+                "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
+                "reqSigs": 1,
+                "type": "pubkey",
+                "addresses": [
+                    "RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"
+                ]
+            }
+        },
+        {
+            "value": 0.00000000,
+            "valueSat": 0,
+            "n": 2,
+            "scriptPubKey": {
+                "asm": "OP_RETURN e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
+                "hex": "6a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
+                "type": "nulldata"
+            }
+        }
+    ]
+}
+```
+
+### Examples:
+
+## tokencreate
+
+**tokencreate name supply description**
+
+The `tokencreate` method creates a new token.
+
+For every token created, the method requires one satoshi of the parent blockchain's coins. For example, one of the blockchain COINS provides 100000000 tokens.
+
+The method returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
+
+`sendrawtransaction` then returns a `txid`, which is your `tokenid`.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+name                                         |(string)                     |the proposed name of the token
+supply                                       |(number)                     |the intended supply of the token, given in coins
+"description"                                |(string)                     |description of the token
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
+**tokencreate name supply description**
+
+The `tokencreate` method creates a new token.
+
+For every token created, the method requires one satoshi of the parent blockchain's coins. For example, one of the blockchain COINS provides 100000000 tokens.
+
+The method returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
+
+`sendrawtransaction` then returns a `txid`, which is your `tokenid`.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+name                                         |(string)                     |the proposed name of the token
+supply                                       |(number)                     |the intended supply of the token, given in coins
+"description"                                |(string)                     |description of the token
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD tokencreate TAK 10 "Testing phase."
+```
+
+> Response:
+
+```
+{
+  "result": "success",
+  "hex": "01000000022c223cfc9c3349aed24ca89e44af6fcdb030150443bd6ac55e2080ce4b097c3002000000484730440220316605c400c47e2d5aa6104ac5c5229e71683b8db9482efa1655d257690d338802202344f254b208a6d724f52f4503531cf005a8ca68119bde4b6cb281ab9fccaf1101ffffffff80e66c0c47311449c5effc2782134006f05fd31e79659bc4b0608d7e247e280c0000000049483045022100ec494d3fa5c76fe0382e83980affdfd091509fb4e18b20fff8c095374e6b6bee022015ddaf95dc8b03e8cbba00ff7a377b80a7bd2200a68669718c329c617549757701ffffffff0400a0724e18090000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc1027000000000000232102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702acc01f66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000396a37e3632103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc0354414b0e54657374696e672070686173652e00000000"
+}
+```
+
+> Step 2: Broadcast the raw transaction hex
+
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000012c223cfc9c3349aed24ca89e44af6fcdb030150443bd6ac55e2080ce4b097c300200000049483045022100dc83b88f5ed1f01aab7dee8bd8f2b3c0bf83537c9b3cbb0c6ea78ebafdf4c6f60220518440e7f43d24c5733531a8d5a825dbb90e716f7ba20c0d469e7004c1fcc5aa01ffffffff0400ca9a3b00000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc1027000000000000232102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702acc055cbbe15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000396a37e3632103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc0354414b0e54657374696e672070686173652e00000000
+```
+
+> Response from Step 2: (This is your token ID)
+
+```
+e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66
+```
+
+> Step 3 (Optional): Use decoderawtransaction to verify the output is sane
+
+```
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 01000000012c223cfc9c3349aed24ca89e44af6fcdb030150443bd6ac55e2080ce4b097c300200000049483045022100dc83b88f5ed1f01aab7dee8bd8f2b3c0bf83537c9b3cbb0c6ea78ebafdf4c6f60220518440e7f43d24c5733531a8d5a825dbb90e716f7ba20c0d469e7004c1fcc5aa01ffffffff0400ca9a3b00000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc1027000000000000232102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702acc055cbbe15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000396a37e3632103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc0354414b0e54657374696e672070686173652e00000000
+```
+
+> Response:
+
+```
+{
+    "txid": "e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66",
+    "size": 335,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+        {
+            "txid": "307c094bce80205ec56abd43041530b0cd6faf449ea84cd2ae49339cfc3c222c",
+            "vout": 2,
+            "scriptSig": {
+                "asm": "3045022100dc83b88f5ed1f01aab7dee8bd8f2b3c0bf83537c9b3cbb0c6ea78ebafdf4c6f60220518440e7f43d24c5733531a8d5a825dbb90e716f7ba20c0d469e7004c1fcc5aa01",
+                "hex": "483045022100dc83b88f5ed1f01aab7dee8bd8f2b3c0bf83537c9b3cbb0c6ea78ebafdf4c6f60220518440e7f43d24c5733531a8d5a825dbb90e716f7ba20c0d469e7004c1fcc5aa01"
+            },
+            "sequence": 4294967295
+        }
+    ],
+    "vout": [
+        {
+            "value": 10.00000000,
+            "valueSat": 1000000000,
+            "n": 0,
+            "scriptPubKey": {
+                "asm": "a22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401 OP_CHECKCRYPTOCONDITION",
+                "hex": "2ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc",
+                "reqSigs": 1,
+                "type": "cryptocondition",
+                "addresses": [
+                    "RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti"
+                ]
+            }
+        },
+        {
+            "value": 0.00010000,
+            "valueSat": 10000,
+            "n": 1,
+            "scriptPubKey": {
+                "asm": "02adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702 OP_CHECKSIG",
+                "hex": "2102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702ac",
+                "reqSigs": 1,
+                "type": "pubkey",
+                "addresses": [
+                    "RFYE2yL3KknWdHK6uNhvWacYsCUtwzjY3u"
+                ]
+            }
+        },
+        {
+            "value": 99889.99960000,
+            "valueSat": 9988999960000,
+            "n": 2,
+            "scriptPubKey": {
+                "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
+                "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
+                "reqSigs": 1,
+                "type": "pubkey",
+                "addresses": [
+                    "RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"
+                ]
+            }
+        },
+        {
+            "value": 0.00000000,
+            "valueSat": 0,
+            "n": 3,
+            "scriptPubKey": {
+                "asm": "OP_RETURN e3632103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc0354414b0e54657374696e672070686173652e",
+                "hex": "6a37e3632103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc0354414b0e54657374696e672070686173652e",
+                "type": "nulldata"
+            }
+        }
+    ]
+}
+```
+
+### Examples:
+
+## tokenfillask
+
+**tokenfillask tokenid asktxid fillamount**
+
+The `tokenfillask` method fills an existing ask.
+
+It returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+tokenid                                      |(string)                     |the txid that identifies the token
+asktxid                                      |(string)                     |the txid that identifies the ask order
+fillamount                                   |(number)                     |the amount to fill
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
+**tokenfillask tokenid asktxid fillamount**
+
+The `tokenfillask` method fills an existing ask.
+
+It returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+tokenid                                      |(string)                     |the txid that identifies the token
+asktxid                                      |(string)                     |the txid that identifies the ask order
+fillamount                                   |(number)                     |the amount to fill
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
+> Step 1: Create the raw transaction
+
+```
+./komodo-cli -ac_name=HELLOWORLD tokenfillask 9217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e d1b2676bb118d7bb8604dc5bb0a320a2ffb6f7ee118bfd20ed33be3fbd0b9b62 50
+```
+
+> Response from Step 1:
+
+```
+totally filled!
+{
+    "result": "success",
+    "hex": "01000000031a47a2fa94f27f7e98645a6827f9382991d76fcfd2d84b96065763d1cfed78fc02000000494830450221008be941e56b10fb51459f66288bb68936c55fd17ecbebd12b142f4575b0fe4bf702205f048ad69269ba81530230496fea42983aad88882b1ef7d08304e1230040fb0001ffffffff629b0bbd3fbe33ed20fd8b11eef7b6ffa220a3b05bdc0486bbd718b16b67b2d1000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa27028140da534b773f52c77ebbd590330468ba49333acc0971da444de512b85d039f59f778c8bab7cb1be909b6473789b237966a0f137a9b24c93ebebe0d83ae34a6bd6fa100af038001e3a10001ffffffff2bf671abc3bdfb673c0103a3bd59282c1aee473c6ccc4b591cdb42dc469d68c4000000004847304402204fa686dfdc7c0b7d42e538751aee0534b54747df4f335fb4d3b0d1a86c68e96d02202083fa811dd4506ad83f6d58a420d31ff7ccbae84ea05399b616e3d6f373682401ffffffff050000000000000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc3200000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc0065cd1d00000000232103fcc4b37ee767a67b75503832764b559d764d71c13785482b73609159aa6ae9efacf01710252d090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000000000004f6a4c4ce3539217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000000000002103fcc4b37ee767a67b75503832764b559d764d71c13785482b73609159aa6ae9ef00000000"
+}
+```
+
+> Step 2: Broadcast the hex using sendrawtransaction
+
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000031a47a2fa94f27f7e98645a6827f9382991d76fcfd2d84b96065763d1cfed78fc02000000494830450221008be941e56b10fb51459f66288bb68936c55fd17ecbebd12b142f4575b0fe4bf702205f048ad69269ba81530230496fea42983aad88882b1ef7d08304e1230040fb0001ffffffff629b0bbd3fbe33ed20fd8b11eef7b6ffa220a3b05bdc0486bbd718b16b67b2d1000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa27028140da534b773f52c77ebbd590330468ba49333acc0971da444de512b85d039f59f778c8bab7cb1be909b6473789b237966a0f137a9b24c93ebebe0d83ae34a6bd6fa100af038001e3a10001ffffffff2bf671abc3bdfb673c0103a3bd59282c1aee473c6ccc4b591cdb42dc469d68c4000000004847304402204fa686dfdc7c0b7d42e538751aee0534b54747df4f335fb4d3b0d1a86c68e96d02202083fa811dd4506ad83f6d58a420d31ff7ccbae84ea05399b616e3d6f373682401ffffffff050000000000000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc3200000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc0065cd1d00000000232103fcc4b37ee767a67b75503832764b559d764d71c13785482b73609159aa6ae9efacf01710252d090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000000000004f6a4c4ce3539217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000000000002103fcc4b37ee767a67b75503832764b559d764d71c13785482b73609159aa6ae9ef00000000
+```
+
+> Response from Step 2:
+
+```
+AssetValidate (S)
+vin1 50, vout1 50, AssetValidateSellvin
+Got 0.00000050 to origaddr.(RVCVaEHdH1gp1aPfu9MkgGBfdVNuW824PY)
+  0 0 50 50 500000000 500000000
+got recvunitprice 0.10000000 >= 0.10000000 unitprice, new unitprice 0.00000000
+fill validated
+b6ebeaafced887fd63deb9207e0484570d49abe8fe4fcbaa026666d4ea3f902e
+```
+
+> Step 3: Wait for the transaction to be confirmed
+
+### Examples:
+
+## tokenfillbid
+
+**tokenfillbid tokenid bidtxid fillamount**
+
+The `tokenfillbid` method fills an existing ask.
+
+It returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+tokenid                                      |(string)                     |the txid that identifies the token
+bidtxid                                      |(string)                     |the txid that identifies the bid order
+fillamount                                   |(number)                     |the amount to fill
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
+**tokenfillbid tokenid bidtxid fillamount**
+
+The `tokenfillbid` method fills an existing ask.
+
+It returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+tokenid                                      |(string)                     |the txid that identifies the token
+bidtxid                                      |(string)                     |the txid that identifies the bid order
+fillamount                                   |(number)                     |the amount to fill
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
+> Step 1: Create raw transaction
+
+```
+./komodo-cli -ac_name=HELLOWORLD tokenfillbid 9217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e d1b2676bb118d7bb8604dc5bb0a320a2ffb6f7ee118bfd20ed33be3fbd0b9b62 50
+```
+
+> Response from Step 1:
+
+```
+totally filled!
+{
+  "result": "success",
+  "hex": "01000000031a47a2fa94f27f7e98645a6827f9382991d76fcfd2d84b96065763d1cfed78fc02000000494830450221008be941e56b10fb51459f66288bb68936c55fd17ecbebd12b142f4575b0fe4bf702205f048ad69269ba81530230496fea42983aad88882b1ef7d08304e1230040fb0001ffffffff629b0bbd3fbe33ed20fd8b11eef7b6ffa220a3b05bdc0486bbd718b16b67b2d1000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa27028140da534b773f52c77ebbd590330468ba49333acc0971da444de512b85d039f59f778c8bab7cb1be909b6473789b237966a0f137a9b24c93ebebe0d83ae34a6bd6fa100af038001e3a10001ffffffff2bf671abc3bdfb673c0103a3bd59282c1aee473c6ccc4b591cdb42dc469d68c4000000004847304402204fa686dfdc7c0b7d42e538751aee0534b54747df4f335fb4d3b0d1a86c68e96d02202083fa811dd4506ad83f6d58a420d31ff7ccbae84ea05399b616e3d6f373682401ffffffff050000000000000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc3200000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc0065cd1d00000000232103fcc4b37ee767a67b75503832764b559d764d71c13785482b73609159aa6ae9efacf01710252d090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000000000004f6a4c4ce3539217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000000000002103fcc4b37ee767a67b75503832764b559d764d71c13785482b73609159aa6ae9ef00000000"
+}
+```
+
+> Step 2: Broadcast the hex or sendrawtransaction
+
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000031a47a2fa94f27f7e98645a6827f9382991d76fcfd2d84b96065763d1cfed78fc02000000494830450221008be941e56b10fb51459f66288bb68936c55fd17ecbebd12b142f4575b0fe4bf702205f048ad69269ba81530230496fea42983aad88882b1ef7d08304e1230040fb0001ffffffff629b0bbd3fbe33ed20fd8b11eef7b6ffa220a3b05bdc0486bbd718b16b67b2d1000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa27028140da534b773f52c77ebbd590330468ba49333acc0971da444de512b85d039f59f778c8bab7cb1be909b6473789b237966a0f137a9b24c93ebebe0d83ae34a6bd6fa100af038001e3a10001ffffffff2bf671abc3bdfb673c0103a3bd59282c1aee473c6ccc4b591cdb42dc469d68c4000000004847304402204fa686dfdc7c0b7d42e538751aee0534b54747df4f335fb4d3b0d1a86c68e96d02202083fa811dd4506ad83f6d58a420d31ff7ccbae84ea05399b616e3d6f373682401ffffffff050000000000000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc3200000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc0065cd1d00000000232103fcc4b37ee767a67b75503832764b559d764d71c13785482b73609159aa6ae9efacf01710252d090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000000000004f6a4c4ce3539217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000000000002103fcc4b37ee767a67b75503832764b559d764d71c13785482b73609159aa6ae9ef00000000
+```
+
+> Response from Step 2:
+
+```
+AssetValidate (S)
+vin1 50, vout1 50, AssetValidateBidvin
+Got 0.00000050 to origaddr.(RVCVaEHdH1gp1aPfu9MkgGBfdVNuW824PY)
+0 0 50 50 500000000 500000000
+got recvunitprice 0.10000000 >= 0.10000000 unitprice, new unitprice 0.00000000
+fill validated
+b6ebeaafced887fd63deb9207e0484570d49abe8fe4fcbaa026666d4ea3f902e
+```
+
+> Step 3: Wait for the transaction to be confirmed
+
+### Examples:
+
+## tokeninfo
+
+**tokeninfo tokenid**
+
+The `tokeninfo` method reveals information about any token.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+tokenid                                      |(string)                     |the txid that identifies the token
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result                                       |(string)                     |whether the command executed successfully
+tokenid                                      |(string)                     |the identifying txid for the token id
+owner                                        |(string)                     |the identifying pubkey of the token creator
+name                                         |(string)                     |name of the token
+supply                                       |(number)                     |the total supply of the token
+description                                  |(string)                     |the token description provided by the owner at token creation
+
+### Examples:
+
+**tokeninfo tokenid**
+
+The `tokeninfo` method reveals information about any token.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+tokenid                                      |(string)                     |the txid that identifies the token
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result                                       |(string)                     |whether the command executed successfully
+tokenid                                      |(string)                     |the identifying txid for the token id
+owner                                        |(string)                     |the identifying pubkey of the token creator
+name                                         |(string)                     |name of the token
+supply                                       |(number)                     |the total supply of the token
+description                                  |(string)                     |the token description provided by the owner at token creation
+
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD tokeninfo 43850dfce744581ef44775086625745adecd628993c5ff4c1c786cfd21009add
+```
+
+> Response:
+
+```
+{
+  "result": "success",
+  "tokenid":    "43850dfce744581ef44775086625745adecd628993c5ff4c1c786cfd21009add",
+  "owner": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc",
+  "name": "TAKA",
+  "supply": "100000.00000000",
+  "description": "Testing phase 3."
+}
+```
+
+### Examples:
+
+## tokenlist
+
+**tokenlist**
+
+The `tokenlist` method lists all available tokens on the asset chain.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+(none)                                       |                             |
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
 [                                            |                             |
-{                                            |                             |
-"id"                                         |(string)                     |the operation id
-"status"                                     |(string)                     |the status of the operation; can be `success` | `executing` | `failed`
-"creation_time"                              |(numeric)                    |the creation time, in seconds since epoch (Jan 1 1970 GMT)
-"error":                                     |                             |
-"code"                                       |(numeric)                    |the associated error code
-"message"                                    |(string)                     |a message to indicate the nature of the error, if such a message is available
-},                                           |                             |
-"method"                                     |(string)                     |name of the method used in the operation
-"params":                                    |                             |
-"fromaddress"                                |(string)                     |the address from which funds are drawn
-"amounts":                                   |                             |
-{                                            |                             |
-"address"                                    |(string)                     |the receiving address
-"amount"                                     |(numeric)                    |the amount to receive
-}                                            |                             |
-],                                           |                             |
-"minconf"                                    |(numeric)                    |indicates the required number of mining confirmations
-"fee"                                        |(numeric)                    |the fee
-}                                            |                             |
-}                                            |                             |
+tokenid                                      |(string)                     |the identifying txid for the token id
 ]                                            |                             |
 
 ### Examples:
 
+**tokenlist**
+
+The `tokenlist` method lists all available tokens on the asset chain.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+(none)                                       |                             |
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+[                                            |                             |
+tokenid                                      |(string)                     |the identifying txid for the token id
+]                                            |                             |
+
+### Examples:
+
+> Command:
+
 ```
-command:
+./komodo-cli -ac_name=HELLOWORLD tokenlist
+```
 
-komodo-cli z_getoperationstatus
+> Response:
 
-response:
-
+```
 [
-  {
-    "id": "opid-b650b582-c2f5-43e0-9a65-9fe23f65c1a5",
-    "status": "failed",
-    "creation_time": 1537288268,
-    "error": {
-      "code": -6,
-      "message": "Insufficient funds, no UTXOs found for taddr from address."
+  "307c094bce80205ec56abd43041530b0cd6faf449ea84cd2ae49339cfc3c222c",
+  "e7d034fb7dbad561c9a86dcbcc64aa89e1d311891b4e7c744280b7de13b1186f",
+  "21020a609c162fa2d0bc223acfff14bb0b886743303f5e4a661dade7a69b24a5",
+  "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
+  "e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66",
+  "045a31b7e38b1538d111ea87ad9ec53952a70e9a5e8d076f7ed7923d8723f02d",
+  "f4131ee56a47273195a899f60a187862aa8e39a974b5a19d860e2fe69f60242f",
+  "9217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
+  "9eec77a3e02dec0ca60ead7e8cfb6cb6809c40fe54b804e51d5c6c2a445ffbf3",
+  "43850dfce744581ef44775086625745adecd628993c5ff4c1c786cfd21009add"
+]
+```
+
+### Examples:
+
+## tokenorders
+
+**tokenorders (tokenid)**
+
+The `tokenorders` method displays the public on-chain orderbook for a specific token. If no `tokenid` is provided, it displays the on-chain orderbook for all available tokens.
+
+Information about the `funcid` property:
+
+A lowercase `b`' describes an bid offer.
+
+An uppercase `B` describes a bid fill.
+
+A lowercase `s` describes an ask offer.
+
+An uppercase `S` describes the ask fill.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+tokenid                                      |(string, optional)           |the identifying txid for the token id
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+funcid                                       |(string)                     |describes either a bid ask `b`, a bid fill `B`, an ask `s`, or an ask fill `S`
+txid                                         |(string)                     |the txid of the identifying order or fill
+vout                                         |(number)                     |the vout value
+amount                                       |(number)                     |the amount remaining in the bid/ask request
+bidamount/askamount                          |(number)                     |the total amount of the relevant bid or ask request
+origaddress                                  |(string)                     |the address that made the original bid `b` or ask `s`
+tokenid                                      |(string)                     |the tokenid for the relevant bid/ask request/fill
+totalrequired                                |(number, `b` and `s` only)   |the total amount available in the original big/ask request/fill
+price                                        |(number, `b` and `s` only)   |the price per token, units are in the parent asset chain's coin
+
+### Examples:
+
+**tokenorders (tokenid)**
+
+The `tokenorders` method displays the public on-chain orderbook for a specific token. If no `tokenid` is provided, it displays the on-chain orderbook for all available tokens.
+
+Information about the `funcid` property:
+
+A lowercase `b`' describes an bid offer.
+
+An uppercase `B` describes a bid fill.
+
+A lowercase `s` describes an ask offer.
+
+An uppercase `S` describes the ask fill.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+tokenid                                      |(string, optional)           |the identifying txid for the token id
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+funcid                                       |(string)                     |describes either a bid ask `b`, a bid fill `B`, an ask `s`, or an ask fill `S`
+txid                                         |(string)                     |the txid of the identifying order or fill
+vout                                         |(number)                     |the vout value
+amount                                       |(number)                     |the amount remaining in the bid/ask request
+bidamount/askamount                          |(number)                     |the total amount of the relevant bid or ask request
+origaddress                                  |(string)                     |the address that made the original bid `b` or ask `s`
+tokenid                                      |(string)                     |the tokenid for the relevant bid/ask request/fill
+totalrequired                                |(number, `b` and `s` only)   |the total amount available in the original big/ask request/fill
+price                                        |(number, `b` and `s` only)   |the price per token, units are in the parent asset chain's coin
+
+### Examples:
+
+> Show all available orders
+
+```
+./komodo-cli -ac_name=HELLOWORLD tokenorders
+```
+
+> Response:
+
+```
+[
+    {
+        "funcid": "B",
+        "txid": "b9d305e9b6a82e715efce9b6244cc15fef131baf1893a7eb45b199c23b3fb806",
+        "vout": 0,
+        "amount": 0,
+        "bidamount": 0,
+        "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
+        "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59"
     },
-    "method": "z_sendmany",
-    "params": {
-      "fromaddress": "RWUwHqRUYgxfYNNSHWkQuY5sh93VGiiPoX",
-      "amounts": [
-        {
-          "address": "ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3",
-          "amount": 0.01
-        }
-      ],
-      "minconf": 1,
-      "fee": 0.0001
-    }
-  }
-]
-```
-
-```
-command:
-
-komodo-cli z_getoperationstatus '["opid-47e12224-8477-4cd4-852d-d8c3ddbc6375"]'
-
-response:
-
-[
-  {
-    "id": "opid-47e12224-8477-4cd4-852d-d8c3ddbc6375",
-    "status": "executing",
-    "creation_time": 1537289777,
-    "method": "z_sendmany",
-    "params": {
-      "fromaddress": "RWUwHqRUYgxfYNNSHWkQuY5sh93VGiiPoX",
-      "amounts": [
-        {
-          "address": "ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3",
-          "amount": 0.01
-        }
-      ],
-      "minconf": 1,
-      "fee": 0.0001
-    }
-  }
-]
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_getoperationstatus", "params": [["opid-47e12224-8477-4cd4-852d-d8c3ddbc6375"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": [
     {
-      "id": "opid-47e12224-8477-4cd4-852d-d8c3ddbc6375",
-      "status": "success",
-      "creation_time": 1537289777,
-      "result": {
-        "txid": "2b988a708db2b8d99a92bbff65a57d0d73fdb22c30fc3f3e4f81ab15cfeafc45"
-      },
-      "execution_secs": 45.200043917,
-      "method": "z_sendmany",
-      "params": {
-        "fromaddress": "RWUwHqRUYgxfYNNSHWkQuY5sh93VGiiPoX",
-        "amounts": [
-          {
-            "address": "ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3",
-            "amount": 0.01
-          }
-        ],
-        "minconf": 1,
-        "fee": 0.0001
-      }
-    }
-  ],
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_gettotalbalance
-
-**z_gettotalbalance ( minconf includeWatchonly )**
-
-The `z_gettotalbalance` method returns the total value of funds, including both transparent and private, stored in the node’s wallet.
-
-<aside class="warning">
-  CAUTION: If the wallet contains watch-only z addresses the returned private balance may be larger than the actual balance, as spends cannot be detected with incoming viewing keys.
-</aside>
-
-<aside class="notice">
-  While the <b>interest</b> property is returned for all KMD-based coin daemons, only the main KMD chain utilizes the interest feature. KMD-based asset chains will always return a <b>0.00</b> interest value.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-minconf                                      |(numeric, optional, default=1)|only include private and transparent transactions confirmed at least this many times
-includeWatchonly                             |(bool, optional, default=false)|also include balance in watchonly addresses (see 'importaddress' and 'z_importviewingkey')
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-{                                            |                             |
-"transparent"                                |(numeric)                    |the total balance of transparent funds
-"interest"                                   |(numeric)                    |the total balance of unclaimed interest earned
-"private"                                    |(numeric)                    |the total balance of private funds
-"total"                                      |(numeric)                    |the total balance of both transparent and private funds
-}                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_gettotalbalance
-
-response:
-
-{
-  "transparent": "9.98794883",
-  "interest": "0.00",
-  "private": "0.08205",
-  "total": "10.06999883"
-}
-```
-
-```
-command:
-
-komodo-cli z_gettotalbalance 5
-
-response:
-
-{
-  "transparent": "9.98794883",
-  "interest": "0.00",
-  "private": "0.08205",
-  "total": "10.06999883"
-}
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_gettotalbalance", "params": [5] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": {
-    "transparent": "0.00615",
-    "interest": "0.00",
-    "private": "0.06205",
-    "total": "0.0682"
-  },
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_importkey
-
-**z_importkey "z_privatekey" ( rescan startHeight )**
-
-The `z_importkey` method imports `z_privatekey` to your wallet.
-
-<aside class="notice">
-  This call can take minutes to complete if <b>rescan</b> is true.
-</aside>
-
-<aside class="notice">
-  The optional parameters are currently not functional with KMD-based blockchains.
-</aside>
-
-<aside class="notice">
-  See also <b>z_exportkey</b>.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"z_privatekey"                               |(string, required)           |the z_privatekey (see [`z_exportkey`](#z_exportkey))
-rescan                                       |(string, optional, default=`"whenkeyisnew"`)|rescan the wallet for transactions; can be `yes` | `no` | `whenkeyisnew`
-startHeight                                  |(numeric, optional, default=0)|block height to start rescan
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_importkey "DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK"
-
-response:
-
-(none)
-```
-
-```
-command:
-
-komodo-cli z_importkey "DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK" whenkeyisnew 30000
-
-response:
-
-(none)
-```
-
-```
-command:
-
-komodo-cli z_importkey "DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK" yes 20000
-
-response:
-
-(none)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_importkey", "params": ["DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK", "no"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": null,
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_importviewingkey
-
-**z_importviewingkey "viewing_key" ( rescan startHeight )**
-
-The `z_importviewingkey` adds a viewing key to your wallet. This method allows you to view the balance in a z address that otherwise does not belong to your wallet.
-
-<aside class="notice">
-  See also <b>z_exportviewingkey</b>.
-</aside>
-
-<aside class="notice">
-  This call can take minutes to complete if <b>rescan</b> is true.
-</aside>
-
-<aside class="notice">
-  The optional parameters are currently not functional for KMD-based blockchains.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"viewing_key"                                |(string, required)           |the viewing key
-rescan                                       |(string, optional, default="whenkeyisnew")|rescan the wallet for transactions; can be `"yes"` | `"no"` | `"whenkeyisnew"`
-startHeight                                  |(numeric, optional, default=0)|block height to start rescan
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja"
-
-response:
-
-(none)
-
-```
-
-```
-command:
-
-komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja" no
-
-response:
-
-(none)
-```
-
-```
-command:
-
-komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja" whenkeyisnew 30000
-
-response:
-
-(none)
-```
-
-```
-command:
-
-komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja" yes 20000
-
-response:
-
-(none)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_importviewingkey", "params": ["ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja", "no"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(none)
-```
-
-## z_importwallet
-
-**z_importwallet "filename"**
-
-The `z_importwallet` method imports t address and z address keys from a wallet export file.
-
-<aside class="notice">
-  See also <b>z_exportwallet</b>.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"filename"                                   |(string, required)           |the wallet file
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_importwallet "/mydirectory/nameofbackup"
-
-response:
-
-(none)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_importwallet", "params": ["/mydirectory/nameofbackup"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": null,
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_listaddresses
-
-**z_listaddresses ( includeWatchonly )**
-
-The `z_listaddresses` method returns the list of z addresses belonging to the wallet.
-
-<aside class="notice">
-  See also <b>z_importviewingkey</b>.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-includeWatchonly                             |(bool, optional, default=false)|also include watchonly addresses
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-"z_address"                                  |(string)                     |a z address belonging to the wallet
-,                                            |                             |
-]                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_listaddresses
-
-response:
-
-[
-  "ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP",
-  "ztbUD83kXgHt3A1M282wFvT9Ms6SiBCd6GSbQbPa2C7UtPojVZjPENytFqu7JxgnsgL9EN42xWnyhhzniHYSRJDnEPTgo3Y"
-]
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_listaddresses", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": [
-    "ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP",
-    "ztbUD83kXgHt3A1M282wFvT9Ms6SiBCd6GSbQbPa2C7UtPojVZjPENytFqu7JxgnsgL9EN42xWnyhhzniHYSRJDnEPTgo3Y"
-  ],
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_listoperationids
-
-
-**z_listoperationids**
-
-The `z_listoperationids` method returns the list of operation ids currently known to the wallet.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"status"                                     |(string, optional)           |filter result by the operation's state e.g. "success"
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-[                                            |                             |
-"operationid"                                |(string)                     |an operation id belonging to the wallet
-,                                            |                             |
-]                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_listoperationids
-
-response:
-
-[
-  "opid-47e12224-8477-4cd4-852d-d8c3ddbc6375",
-  "opid-b650b582-c2f5-43e0-9a65-9fe23f65c1a5"
-]
-```
-
-```
-command:
-
-komodo-cli z_listoperationids "success"
-
-response:
-
-[
-  "opid-47e12224-8477-4cd4-852d-d8c3ddbc6375"
-]
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_listoperationids", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": [
-    "opid-47e12224-8477-4cd4-852d-d8c3ddbc6375",
-    "opid-b650b582-c2f5-43e0-9a65-9fe23f65c1a5"
-  ],
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_listreceivedbyaddress
-
-**z_listreceivedbyaddress "z_address" ( minconf )**
-
-The `z_listreceivedbyaddress` method returns a list of amounts received by a z address belonging to the node’s wallet.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"z_address"                                  |(string)                     |the private address
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-{                                            |                             |
-"txid"                                       |(string)                     |the transaction id
-"amount"                                     |(numeric)                    |the amount of value in the note
-"memo"                                       |(string)                     |hexademical string representation of memo field
-}                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_listreceivedbyaddress "ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf"
-
-response:
-
-[
-  {
-    "txid": "8f68178ad521c8cc0f22d9589d07dbe52a1c775fae1840c0a129955d13928704",
-    "amount": 0.01000000,
-    "memo": "f600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-  }
-]
-```
-
-```
-command:
-
-komodo-cli z_listreceivedbyaddress "ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf" 2
-
-response:
-
-[
-  {
-    "txid": "8f68178ad521c8cc0f22d9589d07dbe52a1c775fae1840c0a129955d13928704",
-    "amount": 0.01000000,
-    "memo": "f600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-  }
-]
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_listreceivedbyaddress", "params": ["ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": [
+        "funcid": "b",
+        "txid": "45b3f7874fc4a2699729a9792bc7679f6b5f11035a29ad9f661425b19534dd1d",
+        "vout": 0,
+        "amount": 1000,
+        "bidamount": 1000,
+        "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
+        "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
+        "totalrequired": 1000,
+        "price": 1
+    },
     {
-      "txid": "8f68178ad521c8cc0f22d9589d07dbe52a1c775fae1840c0a129955d13928704",
-      "amount": 0.01,
-      "memo": "f600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        "funcid": "B",
+        "txid": "d4643ce47e9799681a4549468d47c85337367f0ef2733afe1d79c50175e6ae32",
+        "vout": 0,
+        "amount": 0,
+        "bidamount": 0,
+        "origaddress": "R9sDyKt2kW5uJaoZT6GF9e3WRbGioBuhoZ",
+        "tokenid": "e7d034fb7dbad561c9a86dcbcc64aa89e1d311891b4e7c744280b7de13b1186f"
+    },
+    {
+        "funcid": "B",
+        "txid": "0909df82ade3193c9a630dd80947141f34489732e9a2f8346790304ebbdcc251",
+        "vout": 0,
+        "amount": 0,
+        "bidamount": 0,
+        "origaddress": "R9sDyKt2kW5uJaoZT6GF9e3WRbGioBuhoZ",
+        "tokenid": "e7d034fb7dbad561c9a86dcbcc64aa89e1d311891b4e7c744280b7de13b1186f"
+    },
+    {
+        "funcid": "b",
+        "txid": "a8d60a3ce429ccb885ad445e7a4534130a35d2424d1883c6513d0f4da2fe9a92",
+        "vout": 0,
+        "amount": 150,
+        "bidamount": 150,
+        "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
+        "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
+        "totalrequired": 100,
+        "price": 1.5
+    },
+    {
+        "funcid": "B",
+        "txid": "03e118fc442a223df4dd87add64f142e1bfd99baee94c8be26bc77ed809d50a4",
+        "vout": 0,
+        "amount": 0,
+        "bidamount": 0,
+        "origaddress": "R9sDyKt2kW5uJaoZT6GF9e3WRbGioBuhoZ",
+        "tokenid": "e7d034fb7dbad561c9a86dcbcc64aa89e1d311891b4e7c744280b7de13b1186f"
     }
-  ],
-  "error": null,
-  "id": "curltest"
-}
+]
 ```
 
-## z_mergetoaddress
+> Show orders for specific token
 
-**z_mergetoaddress [ "fromaddress", ... ] "toaddress" ( fee ) ( transparent_limit ) ( shielded_limit ) ( memo )**
+```
+./komodo-cli -ac_name=HELLOWORLD tokenorders c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59
+```
 
-<aside class="warning">
-CAUTION: <b>z_mergetoaddress</b> is DISABLED but can be enabled as an experimental feature.
+> Response:
+
+```
+[
+    {
+        "funcid": "B",
+        "txid": "b9d305e9b6a82e715efce9b6244cc15fef131baf1893a7eb45b199c23b3fb806",
+        "vout": 0,
+        "amount": 0,
+        "bidamount": 0,
+        "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
+        "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59"
+    },
+    {
+        "funcid": "b",
+        "txid": "9dabd8c01bb7d59455b64fe100617149c20cb4520d266183686aa4986fd3021d",
+        "vout": 0,
+        "amount": 100,
+        "bidamount": 100,
+        "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
+        "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
+        "totalrequired": 100,
+        "price": 1
+    },
+    {
+        "funcid": "b",
+        "txid": "45b3f7874fc4a2699729a9792bc7679f6b5f11035a29ad9f661425b19534dd1d",
+        "vout": 0,
+        "amount": 1000,
+        "bidamount": 1000,
+        "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
+        "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
+        "totalrequired": 1000,
+        "price": 1
+    },
+    {
+        "funcid": "b",
+        "txid": "a8d60a3ce429ccb885ad445e7a4534130a35d2424d1883c6513d0f4da2fe9a92",
+        "vout": 0,
+        "amount": 150,
+        "bidamount": 150,
+        "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
+        "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
+        "totalrequired": 100,
+        "price": 1.5
+    }
+]
+```
+
+### Examples:
+
+## tokentransfer
+
+**tokentransfer tokenid destpubkey amount**
+
+The `tokentransfer` method transfers tokens from one cc address to another.
+
+It is similar to the [`sendmany`](#sendmany) method used to send coins on the parent chain.
+
+The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](#sendrawtransaction) to complete the command.
+
+<aside class="notice"**tokentransfer tokenid destpubkey amount**
+
+The `tokentransfer` method transfers tokens from one cc address to another.
+
+It is similar to the [`sendmany`](#sendmany) method used to send coins on the parent chain.
+
+The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](#sendrawtransaction) to complete the command.
+
+<aside class="notice">
+  The source `txid/vout` needs to be specified as it is critical to match outputs with inputs.
 </aside>
 
-The `z_mergetoaddress` method merges multiple utxos and notes into a single utxo or note. The method works for both t addresses and z addresses, both separately and in combination.  Coinbase utxos are ignored; use `z_shieldcoinbase` to combine those into a single note.
-
-This is an asynchronous operation, and utxos selected for merging will be locked.  If there is an error, they are unlocked.  The RPC call `listlockunspent` can be used to return a list of locked utxos.
-
-The number of utxos and notes selected for merging can be limited by the caller.  If the transparent limit parameter is set to `0`, the `mempooltxinputlimit` option will determine the number of utxos. Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
-
-### The fromaddresses array
-
-The following special strings are accepted inside the `fromaddresses` array:
-
- - `"*"`: Merge both utxos and notes from all addresses belonging to the wallet
-
- - `"ANY_TADDR"`: Merge utxos from all t addresses belonging to the wallet
-
- - `"ANY_ZADDR"`: Merge notes from all z addresses belonging to the wallet
-
-If a special string is given, any given addresses of that type will be ignored
+<aside class="notice">
+  A token may be burned by using `tokentransfer` to send to a burn address.
+</aside>
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-fromaddresses                                |(string, required)           |
-[                                            |                             |
-"address"                                    |(string)                     |can be a t address or a z address
-,                                            |                             |
-]                                            |                             |
-"toaddress"                                  |(string, required)           |the t address or z address to receive the combined utxo
-fee                                          |(numeric, optional, default=0.0001)|the fee amount to attach to this transaction
-transparent_limit                            |(numeric, optional, default=50)|limit on the maximum number of transparent UTXOs to merge; you may set this value to 0 to use the node option [`mempooltxinputlimit`](#mempooltxinputlimit)
-shielded_limit                               |(numeric, optional, default=10)|limit on the maximum number of hidden notes to merge; you may set this value to 0 to merge as many as will fit in the transaction
-"memo"                                       |(string, optional)           |encoded as hex; when ``toaddress`` is a z address, this value will be stored in the memo field of the new note
+tokenid                                      |(string, optional)           |the identifying txid for the token id
+destpubkey                                   |(string)                     |the pubkey where the tokens should be sent
+amount                                       |(number)                     |the number of tokens to send
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
-"remainingUTXOs"                             |(numeric)                    |number of utxos still available for merging
-"remainingTransparentValue"                  |(numeric)                    |value of utxos still available for merging
-"remainingNotes"                             |(numeric)                    |number of notes still available for merging
-"remainingShieldedValue"                     |(numeric)                    |value of notes still available for merging
-"mergingUTXOs"                               |(numeric)                    |number of utxos being merged
-"mergingTransparentValue"                    |(numeric)                    |value of utxos being merged
-"mergingNotes"                               |(numeric)                    |number of notes being merged
-"mergingShieldedValue"                       |(numeric)                    |value of notes being merged
-"opid"                                       |(string)                     |an operationid to pass to `z_getoperationstatus` to get the result of the operation
-}                                            |                             |
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
 ### Examples:
 
-```
-command:
-
-komodo-cli z_mergetoaddress '["t1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd"]' ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf
-
-response:
-
-(disabled)
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+> Step 1. Create the rawtransaction
 
 ```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_mergetoaddress", "params": [["t1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd"], "ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-(disabled)
+./komodo-cli -ac_name=HELLOWORLD tokentransfer e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66 02ebc786cb83de8dc3922ab83c21f3f8a2f3216940c3bf9da43ce39e2a3a882c92 500000
 ```
 
-## z_sendmany
+> Response:
 
-**z_sendmany "fromaddress" [ { "address": ..., "amount": ... }, ... ] \( minconf ) ( fee )**
+```
+{
+  "result": "success",
+  "hex": "01000000023b61e44ce3cedf536b52d8da11faacd041494a078e971551ed4e2bd496bc8da1000000006a4730440220111c67172740c0c2556979fdf84639ba299ff22586ebd220f25aa301f029003f02203da97a2575c0ed1b309774309f5dc952ee305a46cd83e95eae99e3564a1772f6012103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcffffffff66cc65f38d7e878d312386777c4f049f738b8894353c30108f7fe4ca515489e4000000007b4c79a276a072a26ba067a565802103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc8140c875a14edcbece61a6c18721398c927dc1e4509863e075b3922a8e3a2da6848e037142436e9102b529ee93a9ec618a4c67b63c52790d71812bb94179056913bba100af038001e3a10001ffffffff0420a1070000000000302ea22c8020541be9f843b476373fc18d8c8fab59c98c2c009f49c07fa66b7b431e4142feae8103120c008203000401cce028933b00000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc28b9486cb2430000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e374e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc6600000000"
+}
+```
 
-The `z_sendmany` method sends one or more transactions at once, and allows for sending transactions of types `t --> z`, `z --> z`, `z --> t`. It is the principle method for dealing with shielded `z` transactions in the Komodo ecosystem.
+> Step 2. Send/broadcast the raw transaction hex
 
-The `amount` values are double-precision floating point numbers. Change from a t address flows to a new t address address, while change from z address returns to itself. When sending coinbase utxos to a z address, change is not allowed. The entire value of the utxo(s) must be consumed. Currently, the maximum number of z address outputs is 54 due to transaction-size limits.
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000023b61e44ce3cedf536b52d8da11faacd041494a078e971551ed4e2bd496bc8da1000000006a4730440220111c67172740c0c2556979fdf84639ba299ff22586ebd220f25aa301f029003f02203da97a2575c0ed1b309774309f5dc952ee305a46cd83e95eae99e3564a1772f6012103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcffffffff66cc65f38d7e878d312386777c4f049f738b8894353c30108f7fe4ca515489e4000000007b4c79a276a072a26ba067a565802103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc8140c875a14edcbece61a6c18721398c927dc1e4509863e075b3922a8e3a2da6848e037142436e9102b529ee93a9ec618a4c67b63c52790d71812bb94179056913bba100af038001e3a10001ffffffff0420a1070000000000302ea22c8020541be9f843b476373fc18d8c8fab59c98c2c009f49c07fa66b7b431e4142feae8103120c008203000401cce028933b00000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc28b9486cb2430000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e374e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc6600000000
+```
 
-### Arguments:
+> Response:
 
-Structure|Type|Description
----------|----|-----------
-"fromaddress"                                |(string, required)           |the sending t address or z address
-"amounts"                                    |                             |
-[                                            |                             |
-{                                            |                             |
-"address"                                    |(string, required)           |the receiving address; can be a t address or z address
-"amount"                                     |(numeric, required)          |the numeric amount
-"memo"                                       |(string, optional)           |if the address is a z address, this property accepts raw data represented in hexadecimal string format
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
-minconf                                      |(numeric, optional, default=1)|only use funds confirmed at least this many times
-fee                                          |(numeric, optional, default=0.0001)|the fee amount to attach to this transaction
+```
+ProcessAssets
+AssetValidate (t)
+vin1 1000000000, vout0 500000, vout1 999500000, transfer validated 10.00000000 -> 10.00000000
+AssetValidate.(t) passed
+88ac2d4d27654e9d8ac195d5ab482ee9895303902eaacfbb687b1e736bb06fb4
+```
+> Step 3. Decode the raw transaction and check against the following if the data is sane
 
-### Response:
+```
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 01000000023b61e44ce3cedf536b52d8da11faacd041494a078e971551ed4e2bd496bc8da1000000006a4730440220111c67172740c0c2556979fdf84639ba299ff22586ebd220f25aa301f029003f02203da97a2575c0ed1b309774309f5dc952ee305a46cd83e95eae99e3564a1772f6012103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcffffffff66cc65f38d7e878d312386777c4f049f738b8894353c30108f7fe4ca515489e4000000007b4c79a276a072a26ba067a565802103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc8140c875a14edcbece61a6c18721398c927dc1e4509863e075b3922a8e3a2da6848e037142436e9102b529ee93a9ec618a4c67b63c52790d71812bb94179056913bba100af038001e3a10001ffffffff0420a1070000000000302ea22c8020541be9f843b476373fc18d8c8fab59c98c2c009f49c07fa66b7b431e4142feae8103120c008203000401cce028933b00000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc28b9486cb2430000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e374e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc6600000000
+```
 
-Structure|Type|Description
----------|----|-----------
-"operationid"                                |(string)                     |an operationid to pass to z_getoperationstatus to get the result of the operation
+> Response:
+
+```
+{
+    "txid": "88ac2d4d27654e9d8ac195d5ab482ee9895303902eaacfbb687b1e736bb06fb4",
+    "size": 524,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+        {
+            "txid": "a18dbc96d42b4eed5115978e074a4941d0acfa11dad8526b53dfcee34ce4613b",
+            "vout": 0,
+            "scriptSig": {
+                "asm": "30440220111c67172740c0c2556979fdf84639ba299ff22586ebd220f25aa301f029003f02203da97a2575c0ed1b309774309f5dc952ee305a46cd83e95eae99e3564a1772f601 03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc",
+                "hex": "4730440220111c67172740c0c2556979fdf84639ba299ff22586ebd220f25aa301f029003f02203da97a2575c0ed1b309774309f5dc952ee305a46cd83e95eae99e3564a1772f6012103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc"
+            },
+            "sequence": 4294967295
+        },
+        {
+            "txid": "e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66",
+            "vout": 0,
+            "scriptSig": {
+                "asm": "a276a072a26ba067a565802103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc8140c875a14edcbece61a6c18721398c927dc1e4509863e075b3922a8e3a2da6848e037142436e9102b529ee93a9ec618a4c67b63c52790d71812bb94179056913bba100af038001e3a10001",
+                "hex": "4c79a276a072a26ba067a565802103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc8140c875a14edcbece61a6c18721398c927dc1e4509863e075b3922a8e3a2da6848e037142436e9102b529ee93a9ec618a4c67b63c52790d71812bb94179056913bba100af038001e3a10001"
+            },
+            "sequence": 4294967295
+        }
+    ],
+    "vout": [
+        {
+            "value": 0.00500000,
+            "valueSat": 500000,
+            "n": 0,
+            "scriptPubKey": {
+                "asm": "a22c8020541be9f843b476373fc18d8c8fab59c98c2c009f49c07fa66b7b431e4142feae8103120c008203000401 OP_CHECKCRYPTOCONDITION",
+                "hex": "2ea22c8020541be9f843b476373fc18d8c8fab59c98c2c009f49c07fa66b7b431e4142feae8103120c008203000401cc",
+                "reqSigs": 1,
+                "type": "cryptocondition",
+                "addresses": [
+                    "RLB1YWh4N115NFh8tbArCBGaTQ3F43Yg1F"
+                ]
+            }
+        },
+        {
+            "value": 9.99500000,
+            "valueSat": 999500000,
+            "n": 1,
+            "scriptPubKey": {
+                "asm": "a22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401 OP_CHECKCRYPTOCONDITION",
+                "hex": "2ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc",
+                "reqSigs": 1,
+                "type": "cryptocondition",
+                "addresses": [
+                    "RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti"
+                ]
+            }
+        },
+        {
+            "value": 744335.99945000,
+            "valueSat": 74433599945000,
+            "n": 2,
+            "scriptPubKey": {
+                "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
+                "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
+                "reqSigs": 1,
+                "type": "pubkey",
+                "addresses": [
+                    "RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"
+                ]
+            }
+        },
+        {
+            "value": 0.00000000,
+            "valueSat": 0,
+            "n": 3,
+            "scriptPubKey": {
+                "asm": "OP_RETURN e374e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66",
+                "hex": "6a22e374e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66",
+                "type": "nulldata"
+            }
+        }
+    ]
+}
+```
 
 ### Examples:
-
-```
-command:
-
-komodo-cli z_sendmany "RUX5vGkxJCKBPGm8b97VUumt2aHkuCjp8e" '[{"address":"RVEsww91UBdUNGyCC1GjDVuvJShEei2kj4","amount":0.01}]'
-
-response:
-
-opid-ad947755-b348-4842-90ca-0f0c71d13d34
-```
-
-```
-command:
-
-komodo-cli z_sendmany "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns" '[{"address":"ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3","amount":0.01}]'
-
-response:
-
-opid-cdd6af37-88a2-44d7-9630-d54d21f8b1c4
-```
-
-```
-command:
-
-komodo-cli z_sendmany "ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3" '[{"address":"ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP","amount":0.0099}]'
-
-response:
-
-opid-3c3d6f25-f333-4898-8a50-06f4012cf975
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_sendmany", "params": ["RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns", [{"address": "ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf" ,"amount": 0.01}]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": "opid-73306924-3466-4944-a8f7-c45c14be0438",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-## z_shieldcoinbase
-
-**z_shieldcoinbase "fromaddress" "tozaddress" ( fee ) ( limit )**
-
-The `z_shieldcoinbase` method shields transparent coinbase funds by sending the funds to a shielded z address.  This is an asynchronous operation and utxos selected for shielding will be locked. If there is an error, they are unlocked.
-
-The RPC call `listlockunspent` can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the [`mempooltxinputlimit`](#mempooltxinputlimit) option will determine the number of uxtos.  Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-"fromaddress"                                |(string, required)           |the address is a t address or `"*"` for all t address belonging to the wallet
-"toaddress"                                  |(string, required)           |the address is a z address
-fee                                          |(numeric, optional, default=0.0001)|the fee amount to attach to this transaction
-limit                                        |(numeric, optional, default=50)|limit on the maximum number of utxos to shield; set to `0` to use node option `mempooltxinputlimit`
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-{                                            |                             |
-"remainingUTXOs"                             |(numeric)                    |number of coinbase utxos still available for shielding
-"remainingValue"                             |(numeric)                    |value of coinbase utxos still available for shielding
-"shieldingUTXOs"                             |(numeric)                    |number of coinbase utxos being shielded
-"shieldingValue"                             |(numeric)                    |value of coinbase utxos being shielded
-"opid"                                       |(string)                     |an operationid to pass to z_getoperationstatus to get the result of the operation
-}                                            |                             |
-
-### Examples:
-
-```
-command:
-
-komodo-cli z_shieldcoinbase "RXN2rxidK4cwzRL44UTnWvQjjvLdoMmCpU" "ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP"
-
-response:
-
-{
-  "remainingUTXOs": 0,
-  "remainingValue": 0.00000000,
-  "shieldingUTXOs": 2,
-  "shieldingValue": 0.00030000,
-  "opid": "opid-c0a7875c-aaa0-4bdc-8f17-b34ab99e8bab"
-}
-```
-
-```
-command:
-
-komodo-cli z_shieldcoinbase "REyaj53EB2nwUnsmVyn8JHCcquKf1zYkEP" "ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP" 0.0001 50
-
-response:
-
-{
-  "remainingUTXOs": 0,
-  "remainingValue": 0.00000000,
-  "shieldingUTXOs": 14,
-  "shieldingValue": 0.00160000,
-  "opid": "opid-08ce931d-876c-45d5-9aea-15cf4c695e72"
-}
-```
-
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
-
-```
-command:
-
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_shieldcoinbase", "params": ["RWRSfEYcfLv3yy9mhAuKHQTMCs9fArpPiH", "ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
-
-response:
-
-{
-  "result": {
-    "remainingUTXOs": 0,
-    "remainingValue": 0,
-    "shieldingUTXOs": 1,
-    "shieldingValue": 0.00025,
-    "opid": "opid-53018a85-cf68-4e7d-a065-0defea6bf061"
-  },
-  "error": null,
-  "id": "curltest"
-}
-```

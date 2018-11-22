@@ -19,7 +19,7 @@ const processChunks = function(array) {
 
     let currStr = ''
 
-    let firstMarker = array[i].indexOf('```')
+    let firstMarker = array[i].indexOf('>')
 
     let secondMarker = array[i].indexOf('**')
 

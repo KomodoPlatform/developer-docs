@@ -154,9 +154,9 @@ The `stop` method instructs the coin daemon to shut down.
 
 The amount of time it takes to shut down the chain will vary depending on the chain's current state.
 
-<aside class="warning">
-  Forcefully stopping the chain should be avoided, as it may cause a corruption in the local database. In the event of a corrupted database, the user will need to <b>resync</b>.
-</aside>
+::: warning
+Forcefully stopping the chain should be avoided, as it may cause a corruption in the local database. In the event of a corrupted database, the user will need to <b>resync</b>.
+:::
 
 ### Arguments:
 

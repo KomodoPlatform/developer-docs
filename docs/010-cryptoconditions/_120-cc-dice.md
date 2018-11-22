@@ -16,6 +16,31 @@ Anyone can execute a [`dicefinish`](#dicefinish) rpc call after the contract's t
 
 ## diceaddfunds
 
+**diceaddfunds name fundingtxid amount**
+
+The `diceaddfunds` method adds funds to the desired `dice` contract.
+
+Only the owner of the `dice` contract is able to add funds.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+name                                         |(string)                     |name of your dice contract
+fundingtxid                                  |(string)                     |the txid of the transaction that created and funded this contract
+amount                                       |(number)                     |the amount of funds you want to add to your dice from your wallet
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
 > Step 1: Create a raw transaction hex value for adding funds
 
 ```
@@ -125,49 +150,7 @@ Anyone can execute a [`dicefinish`](#dicefinish) rpc call after the contract's t
 }
 ```
 
-**diceaddfunds name fundingtxid amount**
-
-The `diceaddfunds` method adds funds to the desired `dice` contract.
-
-Only the owner of the `dice` contract is able to add funds.
-
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-name                                         |(string)                     |name of your dice contract
-fundingtxid                                  |(string)                     |the txid of the transaction that created and funded this contract
-amount                                       |(number)                     |the amount of funds you want to add to your dice from your wallet
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
-
 ## diceaddress
-
-> For the non-default pubkey.
-
-```
-./komodo-cli -ac_name=HELLOWORLD diceaddress 03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc
-```
-
-> Response:
-
-```
-    {
-      "result": "success",
-      "DiceCCaddress": "REabWB7KjFN5C3LFMZ5odExHPenYzHLtVw",
-      "Dicemarker": "RLEe8f7Eg3TDuXii9BmNiiiaVGraHUt25c",
-      "CCaddress": "RNZBxcH9ntcB8cJMTtbWZJrjzJNQ4ADLkz",
-      "myCCaddress": "RNZBxcH9ntcB8cJMTtbWZJrjzJNQ4ADLkz",
-      "myaddress": "RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"
-    }
-```
 
 **diceaddress (pubkey)**
 
@@ -190,7 +173,52 @@ CCaddress                                    |(string)                     |taki
 myCCaddress                                  |(string)                     |taking the dice contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
 myaddress                                    |(string)                     |the public address of the pubkey used to launch the chain
 
+### Examples:
+
+> For the non-default pubkey.
+
+```
+./komodo-cli -ac_name=HELLOWORLD diceaddress 03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc
+```
+
+> Response:
+
+```
+    {
+      "result": "success",
+      "DiceCCaddress": "REabWB7KjFN5C3LFMZ5odExHPenYzHLtVw",
+      "Dicemarker": "RLEe8f7Eg3TDuXii9BmNiiiaVGraHUt25c",
+      "CCaddress": "RNZBxcH9ntcB8cJMTtbWZJrjzJNQ4ADLkz",
+      "myCCaddress": "RNZBxcH9ntcB8cJMTtbWZJrjzJNQ4ADLkz",
+      "myaddress": "RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"
+    }
+```
+
 ## dicebet
+
+**dicebet name fundingtxid amount odds**
+
+The `dicebet` method places a bet on the indicated `dice` contract.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+name                                         |(string)                     |name of the dice contract you want to place your bet
+fundingtxid                                  |(string)                     |the txid of the transaction that created and funded this contract
+amount                                       |(number)                     |amount you want to place bet
+odds                                         |(number)                     |specify your odds
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+"result"                                     |(string)                     |whether the dicebet command executed successfully
+"hex"                                        |(string)                     |the data of your transaction, in a raw hex-encoded format; you must now broadcast this raw transaction
+
+### Examples:
 
 > Step 1: Set your parameters to create a raw transaction and get the hex value
 
@@ -333,44 +361,7 @@ myaddress                                    |(string)                     |the 
 }
 ```
 
-**dicebet name fundingtxid amount odds**
-
-The `dicebet` method places a bet on the indicated `dice` contract.
-
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-name                                         |(string)                     |name of the dice contract you want to place your bet
-fundingtxid                                  |(string)                     |the txid of the transaction that created and funded this contract
-amount                                       |(number)                     |amount you want to place bet
-odds                                         |(number)                     |specify your odds
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-"result"                                     |(string)                     |whether the dicebet command executed successfully
-"hex"                                        |(string)                     |the data of your transaction, in a raw hex-encoded format; you must now broadcast this raw transaction
-
 ## dicefinish
-
-> Command
-
-```
-./komodo-cli -ac_name=HELLOWORLD dicefinish DICE3 4132ca8e8d46df9f8a8cbe83c99794497e06bbd190bd71f4abcdedf84e90952e d54335073e549cd75a050fd4d6ba5939307cda7096ba0f3da779fb7d07e46343
-```
-
-> Response:
-
-```
-{
-  "result": "success",
-  "hex": "0"
-}
-```
 
 **dicefinish name fundingtxid bettxid**
 
@@ -395,7 +386,58 @@ Structure|Type|Description
 result                                       |(string)                     |whether the command executed successfully
 hex                                          |(string)                     |if the contract is already finished, the resulting hex is 0; if the contract is not finished, the value of hex will be a rawtransaction that the user can broadcast to let the blockchain automatically declare a winner and close the bet
 
+### Examples:
+
+> Command
+
+```
+./komodo-cli -ac_name=HELLOWORLD dicefinish DICE3 4132ca8e8d46df9f8a8cbe83c99794497e06bbd190bd71f4abcdedf84e90952e d54335073e549cd75a050fd4d6ba5939307cda7096ba0f3da779fb7d07e46343
+```
+
+> Response:
+
+```
+{
+  "result": "success",
+  "hex": "0"
+}
+```
+
 ## dicefund
+
+**dicefund name funds minbet maxbet maxodds timeoutblocks**
+
+The `dicefund` method creates and funds a dice contract.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+Ideally, the dice creator node should be online throughout the contract's life, to determine `winning bid` or `losing bid`.
+
+If the dice creator node is offline after the `timeoutblocks` period completes, the system will automatically declare the bet's winner and payout winning funds.
+
+Typically, the creator should set the `timeoutblocks` property to a longer period. This prevents the house from losing funds if the house's node unexpectedly experiences downtime.
+
+The `maxodds` property must be between 1 and 9999.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+name                                         |(string)                     |name of your dice contract
+funds                                        |(number)                     |the amount of funds you want to start with
+minbet                                       |(number)                     |minimum amount allowed for bet
+maxbet                                       |(number)                     |maximum amount allowed for bet
+maxodds                                      |(number)                     |the largest odds an end-user can use for betting
+timeoutblocks                                |(number)                     |the many blocks before the contract times out and pays the automatically declared winner
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result                                       |(string)                     |whether the command executed successfully
+hex                                          |(string)                     |the data of the transaction in raw hex-encoded format; you should broadcast this hex with the sendrawtransaction command
+
+### Examples:
 
 > Step 1: Create your customized Dice contract and get the hex value
 
@@ -587,61 +629,7 @@ ebfcff20fa5ab7bebf14b778e74bd6b34b02f100ff75e4cb611190f160ae4cf7
 }
 ```
 
-**dicefund name funds minbet maxbet maxodds timeoutblocks**
-
-The `dicefund` method creates and funds a dice contract.
-
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
-
-Ideally, the dice creator node should be online throughout the contract's life, to determine `winning bid` or `losing bid`.
-
-If the dice creator node is offline after the `timeoutblocks` period completes, the system will automatically declare the bet's winner and payout winning funds.
-
-Typically, the creator should set the `timeoutblocks` property to a longer period. This prevents the house from losing funds if the house's node unexpectedly experiences downtime.
-
-The `maxodds` property must be between 1 and 9999.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-name                                         |(string)                     |name of your dice contract
-funds                                        |(number)                     |the amount of funds you want to start with
-minbet                                       |(number)                     |minimum amount allowed for bet
-maxbet                                       |(number)                     |maximum amount allowed for bet
-maxodds                                      |(number)                     |the largest odds an end-user can use for betting
-timeoutblocks                                |(number)                     |the many blocks before the contract times out and pays the automatically declared winner
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result                                       |(string)                     |whether the command executed successfully
-hex                                          |(string)                     |the data of the transaction in raw hex-encoded format; you should broadcast this hex with the sendrawtransaction command
-
 ## diceinfo
-
-> Command:
-
-```
-./komodo-cli -ac_name=HELLOWORLD diceinfo 0d6e82af9959caec14d7af42fd67db68a45bcd23c755457ebf192a52d62c599c
-```
-
-> Response:
-
-```
-{
-  "result": "success",
-  "fundingtxid": "0d6e82af9959caec14d7af42fd67db68a45bcd23c755457ebf192a52d62c599c",
-  "name": "dice",
-  "sbits": 1701013860,
-  "minbet": "1.00000000",
-  "maxbet": "100.00000000",
-  "maxodds": 10,
-  "timeoutblocks": 5,
-  "funding": "1000.00000000"
-}
-```
 
 **diceinfo fundingtxid**
 
@@ -672,21 +660,31 @@ Structure|Type|Description
 "timeoutblocks"                              |(number)                     |the number of blocks before the contract allows an automatically declared winner and the bet closes
 "funding"                                    |(nubmer)                     |the current amount of funds in the contract
 
-## dicelist
+### Examples:
 
 > Command:
 
 ```
-./komodo-cli -ac_name=HELLOWORLD dicelist
+./komodo-cli -ac_name=HELLOWORLD diceinfo 0d6e82af9959caec14d7af42fd67db68a45bcd23c755457ebf192a52d62c599c
 ```
 
 > Response:
 
 ```
-[
-  "0d6e82af9959caec14d7af42fd67db68a45bcd23c755457ebf192a52d62c599c"
-]
+{
+  "result": "success",
+  "fundingtxid": "0d6e82af9959caec14d7af42fd67db68a45bcd23c755457ebf192a52d62c599c",
+  "name": "dice",
+  "sbits": 1701013860,
+  "minbet": "1.00000000",
+  "maxbet": "100.00000000",
+  "maxodds": 10,
+  "timeoutblocks": 5,
+  "funding": "1000.00000000"
+}
 ```
+
+## dicelist
 
 **dicelist**
 
@@ -708,22 +706,23 @@ Structure|Type|Description
 fundingtxid                                  |(string)                     |the txid of the transaction that created and funded the relevant contract
 ]                                            |                             |
 
-## dicestatus
+### Examples:
 
 > Command:
 
 ```
-./komodo-cli -ac_name=AT1 dicestatus DICE3 4132ca8e8d46df9f8a8cbe83c99794497e06bbd190bd71f4abcdedf84e90952e d54335073e549cd75a050fd4d6ba5939307cda7096ba0f3da779fb7d07e46343
+./komodo-cli -ac_name=HELLOWORLD dicelist
 ```
 
 > Response:
 
 ```
-{
-  "result": "success",
-  "status": "loss"
-}
+[
+  "0d6e82af9959caec14d7af42fd67db68a45bcd23c755457ebf192a52d62c599c"
+]
 ```
+
+## dicestatus
 
 **dicestatus name fundingtxid bettxid**
 
@@ -743,3 +742,20 @@ Structure|Type|Description
 ---------|----|-----------
 result                                       |(string)                     |whether the command executed successfully
 status                                       |(string)                     |the result of the bet for the relevant bettxid
+
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=AT1 dicestatus DICE3 4132ca8e8d46df9f8a8cbe83c99794497e06bbd190bd71f4abcdedf84e90952e d54335073e549cd75a050fd4d6ba5939307cda7096ba0f3da779fb7d07e46343
+```
+
+> Response:
+
+```
+{
+  "result": "success",
+  "status": "loss"
+}
+```

@@ -8,25 +8,6 @@ For example, if you desire to create a one-of-a-kind token, use 1 satoshi in its
 
 ## tokenaddress
 
-> Command:
-
-```
-./komodo-cli -ac_name=HELLOWORLD tokenaddress 028702e30d8465d6aa85f35d2f58c06a6ee17f23f376b56044dadf7b793f2c12b9
-```
-
-> Response:
-
-```
-{
-    "result": "success",
-    "AssetsCCaddress": "RGKRjeTBw4LYFotSDLT6RWzMHbhXri6BG6",
-    "Assetsmarker": "RFYE2yL3KknWdHK6uNhvWacYsCUtwzjY3u",
-    "CCaddress": "RG6mr23tQ9nUhmi5GEnYqjfkqZt9x2MRXz",
-    "myCCaddress": "RG6mr23tQ9nUhmi5GEnYqjfkqZt9x2MRXz",
-    "myaddress": "RDjG4sM1y4udiJSszF6BLotqUnZX79Rom9"
-}
-```
-
 **tokenaddress (pubkey)**
 
 The `tokenaddress` method returns information about a token address according to a specific `pubkey`. If no `pubkey` is provided, the `pubkey` used to the launch the daemon is the default.
@@ -48,8 +29,52 @@ CCaddress                                    |(string)                     |taki
 myCCaddress                                  |(string)                     |taking the token contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
 myaddress                                    |(string)                     |the public address of the pubkey used to launch the chain
 
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD tokenaddress 028702e30d8465d6aa85f35d2f58c06a6ee17f23f376b56044dadf7b793f2c12b9
+```
+
+> Response:
+
+```
+{
+    "result": "success",
+    "AssetsCCaddress": "RGKRjeTBw4LYFotSDLT6RWzMHbhXri6BG6",
+    "Assetsmarker": "RFYE2yL3KknWdHK6uNhvWacYsCUtwzjY3u",
+    "CCaddress": "RG6mr23tQ9nUhmi5GEnYqjfkqZt9x2MRXz",
+    "myCCaddress": "RG6mr23tQ9nUhmi5GEnYqjfkqZt9x2MRXz",
+    "myaddress": "RDjG4sM1y4udiJSszF6BLotqUnZX79Rom9"
+}
+```
+
 ## tokenask
 
+
+**tokenask numtokens tokenid price**
+
+The `tokenask` method posts a public ask order.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+numtokens                                    |(number)                     |the number of tokens to request in the order
+tokenid                                      |(string)                     |the txid that identifies the token
+price                                        |(number)                     |the price to pay for each token (units are in coins of the parent asset chain)
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
 
 > Step 1:
 
@@ -78,28 +103,29 @@ myaddress                                    |(string)                     |the 
 8d5bb0ae5cc8406b8b12fff04437c748495f4f8852ae124e6a137bc130d3be64
 ```
 
-**tokenask numtokens tokenid price**
+## tokenbalance
 
-The `tokenask` method posts a public ask order.
+**tokenbalance tokenid (pubkey)**
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+The `tokenbalanced` method checks the token balance according to a provided `pubkey`. If no `pubkey` is provided, the `pubkey` used the launch the daemon is the default.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-numtokens                                    |(number)                     |the number of tokens to request in the order
 tokenid                                      |(string)                     |the txid that identifies the token
-price                                        |(number)                     |the price to pay for each token (units are in coins of the parent asset chain)
+pubkey                                       |(string)                     |the pubkey for which to examine the balance; if no pubkey is provided, the pubkey used to launch the daemon is the default
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+result                                       |(string)                     |whether the command executed succesfully
+CCaddress                                    |(string)                     |taking the token contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
+tokenid                                      |(string)                     |the txid that identifies the token
+balance                                      |(number)                     |the balance of the address that corresponds to the pubkey
 
-## tokenbalance
+### Examples:
 
 > Command:
 
@@ -135,51 +161,7 @@ hex:                                         |(string)                     |a ra
 }
 ```
 
-**tokenbalance tokenid (pubkey)**
-
-The `tokenbalanced` method checks the token balance according to a provided `pubkey`. If no `pubkey` is provided, the `pubkey` used the launch the daemon is the default.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-tokenid                                      |(string)                     |the txid that identifies the token
-pubkey                                       |(string)                     |the pubkey for which to examine the balance; if no pubkey is provided, the pubkey used to launch the daemon is the default
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result                                       |(string)                     |whether the command executed succesfully
-CCaddress                                    |(string)                     |taking the token contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
-tokenid                                      |(string)                     |the txid that identifies the token
-balance                                      |(number)                     |the balance of the address that corresponds to the pubkey
-
 ## tokenbid
-
-> Command:
-
-```
-./komodo-cli -ac_name=HELLOWORLD tokenbid 1000 c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59 1
-```
-
-> Response:
-
-```
-0100000001484256677a6417030dd99716a47b8c9cb06fba6e57ff4617e9932a6cde2972830100000049483045022100fc1926401b27ba044bbf17c36f36030adae52a188594efc75fe42861ab0b997802205e729d6f5587e5a5296b5649a154ce1fe3c581078fac7ae4e2b4577978c05c8901ffffffff0300e8764817000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc10d262684a0300002321028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27ac00000000000000004f6a4c4ce362c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59e80300000000000021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e2700000000`
-```
-
-> Use sendrawtransaction to publish order
-
-```
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0100000001484256677a6417030dd99716a47b8c9cb06fba6e57ff4617e9932a6cde2972830100000049483045022100fc1926401b27ba044bbf17c36f36030adae52a188594efc75fe42861ab0b997802205e729d6f5587e5a5296b5649a154ce1fe3c581078fac7ae4e2b4577978c05c8901ffffffff0300e8764817000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc10d262684a0300002321028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27ac00000000000000004f6a4c4ce362c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59e80300000000000021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e2700000000
-```
-
-> Response:
-
-```
-5fc8c472bc0e5f994b5a9a3fda23af1a3e1cfd746b902d7216352732e6adba05
-```
 
 **tokenbid numtokens tokenid price**
 
@@ -206,7 +188,55 @@ Structure|Type|Description
 result:                                      |(string)                     |whether the command succeeded
 hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD tokenbid 1000 c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59 1
+```
+
+> Response:
+
+```
+0100000001484256677a6417030dd99716a47b8c9cb06fba6e57ff4617e9932a6cde2972830100000049483045022100fc1926401b27ba044bbf17c36f36030adae52a188594efc75fe42861ab0b997802205e729d6f5587e5a5296b5649a154ce1fe3c581078fac7ae4e2b4577978c05c8901ffffffff0300e8764817000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc10d262684a0300002321028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27ac00000000000000004f6a4c4ce362c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59e80300000000000021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e2700000000`
+```
+
+> Use sendrawtransaction to publish order
+
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0100000001484256677a6417030dd99716a47b8c9cb06fba6e57ff4617e9932a6cde2972830100000049483045022100fc1926401b27ba044bbf17c36f36030adae52a188594efc75fe42861ab0b997802205e729d6f5587e5a5296b5649a154ce1fe3c581078fac7ae4e2b4577978c05c8901ffffffff0300e8764817000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc10d262684a0300002321028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27ac00000000000000004f6a4c4ce362c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59e80300000000000021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e2700000000
+```
+
+> Response:
+
+```
+5fc8c472bc0e5f994b5a9a3fda23af1a3e1cfd746b902d7216352732e6adba05
+```
+
 ## tokencancelask
+
+**tokencancelask tokenid asktxid**
+
+The `tokencancelask` method cancels a specific `ask`/`sell` order that you created.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+tokenid                                      |(string)                     |the txid that identifies the token
+asktxid                                      |(string)                     |the txid that identifies the original ask request
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
 
 > Step 1: Issue the call and get your raw transaction HEX value
 
@@ -315,9 +345,12 @@ Got 0.00000010 to origaddr.(RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ)
 }
 ```
 
-**tokencancelask tokenid asktxid**
+## tokencancelbid
 
-The `tokencancelask` method cancels a specific `ask`/`sell` order that you created.
+
+**tokencancelbid tokenid bidtxid**
+
+The `tokencancelbid` method cancels a specific `bid`/`buy` order that you created.
 
 The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
 
@@ -326,7 +359,7 @@ The method returns a hex value which must then be broadcast using the [`sendrawt
 Structure|Type|Description
 ---------|----|-----------
 tokenid                                      |(string)                     |the txid that identifies the token
-asktxid                                      |(string)                     |the txid that identifies the original ask request
+bidtxid                                      |(string)                     |the txid that identifies the original bid request
 
 ### Response:
 
@@ -335,8 +368,7 @@ Structure|Type|Description
 result:                                      |(string)                     |whether the command succeeded
 hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
-## tokencancelbid
-
+### Examples:
 
 > Step 1: Issue the call and get your raw transaction HEX value
 
@@ -445,18 +477,25 @@ Got 0.00000010 to origaddr.(RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ)
 }
 ```
 
-**tokencancelbid tokenid bidtxid**
+## tokencreate
 
-The `tokencancelbid` method cancels a specific `bid`/`buy` order that you created.
+**tokencreate name supply description**
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+The `tokencreate` method creates a new token.
+
+For every token created, the method requires one satoshi of the parent blockchain's coins. For example, one of the blockchain COINS provides 100000000 tokens.
+
+The method returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
+
+`sendrawtransaction` then returns a `txid`, which is your `tokenid`.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-tokenid                                      |(string)                     |the txid that identifies the token
-bidtxid                                      |(string)                     |the txid that identifies the original bid request
+name                                         |(string)                     |the proposed name of the token
+supply                                       |(number)                     |the intended supply of the token, given in coins
+"description"                                |(string)                     |description of the token
 
 ### Response:
 
@@ -465,7 +504,7 @@ Structure|Type|Description
 result:                                      |(string)                     |whether the command succeeded
 hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
-## tokencreate
+### Examples:
 
 > Command:
 
@@ -576,23 +615,21 @@ e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66
 }
 ```
 
-**tokencreate name supply description**
+## tokenfillask
 
-The `tokencreate` method creates a new token.
+**tokenfillask tokenid asktxid fillamount**
 
-For every token created, the method requires one satoshi of the parent blockchain's coins. For example, one of the blockchain COINS provides 100000000 tokens.
+The `tokenfillask` method fills an existing ask.
 
-The method returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
-
-`sendrawtransaction` then returns a `txid`, which is your `tokenid`.
+It returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-name                                         |(string)                     |the proposed name of the token
-supply                                       |(number)                     |the intended supply of the token, given in coins
-"description"                                |(string)                     |description of the token
+tokenid                                      |(string)                     |the txid that identifies the token
+asktxid                                      |(string)                     |the txid that identifies the ask order
+fillamount                                   |(number)                     |the amount to fill
 
 ### Response:
 
@@ -601,7 +638,7 @@ Structure|Type|Description
 result:                                      |(string)                     |whether the command succeeded
 hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
-## tokenfillask
+### Examples:
 
 > Step 1: Create the raw transaction
 
@@ -639,9 +676,11 @@ b6ebeaafced887fd63deb9207e0484570d49abe8fe4fcbaa026666d4ea3f902e
 
 > Step 3: Wait for the transaction to be confirmed
 
-**tokenfillask tokenid asktxid fillamount**
+## tokenfillbid
 
-The `tokenfillask` method fills an existing ask.
+**tokenfillbid tokenid bidtxid fillamount**
+
+The `tokenfillbid` method fills an existing ask.
 
 It returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
 
@@ -650,7 +689,7 @@ It returns a hex-encoded transaction which should then be broadcast using `sendr
 Structure|Type|Description
 ---------|----|-----------
 tokenid                                      |(string)                     |the txid that identifies the token
-asktxid                                      |(string)                     |the txid that identifies the ask order
+bidtxid                                      |(string)                     |the txid that identifies the bid order
 fillamount                                   |(number)                     |the amount to fill
 
 ### Response:
@@ -660,7 +699,7 @@ Structure|Type|Description
 result:                                      |(string)                     |whether the command succeeded
 hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
-## tokenfillbid
+### Examples:
 
 > Step 1: Create raw transaction
 
@@ -698,47 +737,7 @@ b6ebeaafced887fd63deb9207e0484570d49abe8fe4fcbaa026666d4ea3f902e
 
 > Step 3: Wait for the transaction to be confirmed
 
-**tokenfillbid tokenid bidtxid fillamount**
-
-The `tokenfillbid` method fills an existing ask.
-
-It returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-tokenid                                      |(string)                     |the txid that identifies the token
-bidtxid                                      |(string)                     |the txid that identifies the bid order
-fillamount                                   |(number)                     |the amount to fill
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
-
 ## tokeninfo
-
-> Command:
-
-```
-./komodo-cli -ac_name=HELLOWORLD tokeninfo 43850dfce744581ef44775086625745adecd628993c5ff4c1c786cfd21009add
-```
-
-> Response:
-
-```
-{
-  "result": "success",
-  "tokenid":    "43850dfce744581ef44775086625745adecd628993c5ff4c1c786cfd21009add",
-  "owner": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc",
-  "name": "TAKA",
-  "supply": "100000.00000000",
-  "description": "Testing phase 3."
-}
-```
 
 **tokeninfo tokenid**
 
@@ -761,7 +760,48 @@ name                                         |(string)                     |name
 supply                                       |(number)                     |the total supply of the token
 description                                  |(string)                     |the token description provided by the owner at token creation
 
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD tokeninfo 43850dfce744581ef44775086625745adecd628993c5ff4c1c786cfd21009add
+```
+
+> Response:
+
+```
+{
+  "result": "success",
+  "tokenid":    "43850dfce744581ef44775086625745adecd628993c5ff4c1c786cfd21009add",
+  "owner": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc",
+  "name": "TAKA",
+  "supply": "100000.00000000",
+  "description": "Testing phase 3."
+}
+```
+
 ## tokenlist
+
+**tokenlist**
+
+The `tokenlist` method lists all available tokens on the asset chain.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+(none)                                       |                             |
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+[                                            |                             |
+tokenid                                      |(string)                     |the identifying txid for the token id
+]                                            |                             |
+
+### Examples:
 
 > Command:
 
@@ -786,25 +826,43 @@ description                                  |(string)                     |the 
 ]
 ```
 
-**tokenlist**
+## tokenorders
 
-The `tokenlist` method lists all available tokens on the asset chain.
+**tokenorders (tokenid)**
+
+The `tokenorders` method displays the public on-chain orderbook for a specific token. If no `tokenid` is provided, it displays the on-chain orderbook for all available tokens.
+
+Information about the `funcid` property:
+
+A lowercase `b`' describes an bid offer.
+
+An uppercase `B` describes a bid fill.
+
+A lowercase `s` describes an ask offer.
+
+An uppercase `S` describes the ask fill.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+tokenid                                      |(string, optional)           |the identifying txid for the token id
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-tokenid                                      |(string)                     |the identifying txid for the token id
-]                                            |                             |
+funcid                                       |(string)                     |describes either a bid ask `b`, a bid fill `B`, an ask `s`, or an ask fill `S`
+txid                                         |(string)                     |the txid of the identifying order or fill
+vout                                         |(number)                     |the vout value
+amount                                       |(number)                     |the amount remaining in the bid/ask request
+bidamount/askamount                          |(number)                     |the total amount of the relevant bid or ask request
+origaddress                                  |(string)                     |the address that made the original bid `b` or ask `s`
+tokenid                                      |(string)                     |the tokenid for the relevant bid/ask request/fill
+totalrequired                                |(number, `b` and `s` only)   |the total amount available in the original big/ask request/fill
+price                                        |(number, `b` and `s` only)   |the price per token, units are in the parent asset chain's coin
 
-## tokenorders
+### Examples:
 
 > Show all available orders
 
@@ -932,41 +990,40 @@ tokenid                                      |(string)                     |the 
 ]
 ```
 
-**tokenorders (tokenid)**
+## tokentransfer
 
-The `tokenorders` method displays the public on-chain orderbook for a specific token. If no `tokenid` is provided, it displays the on-chain orderbook for all available tokens.
+**tokentransfer tokenid destpubkey amount**
 
-Information about the `funcid` property:
+The `tokentransfer` method transfers tokens from one cc address to another.
 
-A lowercase `b`' describes an bid offer.
+It is similar to the [`sendmany`](#sendmany) method used to send coins on the parent chain.
 
-An uppercase `B` describes a bid fill.
+The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](#sendrawtransaction) to complete the command.
 
-A lowercase `s` describes an ask offer.
+::: tip
+The source `txid/vout` needs to be specified as it is critical to match outputs with inputs.
+:::
 
-An uppercase `S` describes the ask fill.
+::: tip
+A token may be burned by using `tokentransfer` to send to a burn address.
+:::
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
 tokenid                                      |(string, optional)           |the identifying txid for the token id
+destpubkey                                   |(string)                     |the pubkey where the tokens should be sent
+amount                                       |(number)                     |the number of tokens to send
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-funcid                                       |(string)                     |describes either a bid ask `b`, a bid fill `B`, an ask `s`, or an ask fill `S`
-txid                                         |(string)                     |the txid of the identifying order or fill
-vout                                         |(number)                     |the vout value
-amount                                       |(number)                     |the amount remaining in the bid/ask request
-bidamount/askamount                          |(number)                     |the total amount of the relevant bid or ask request
-origaddress                                  |(string)                     |the address that made the original bid `b` or ask `s`
-tokenid                                      |(string)                     |the tokenid for the relevant bid/ask request/fill
-totalrequired                                |(number, `b` and `s` only)   |the total amount available in the original big/ask request/fill
-price                                        |(number, `b` and `s` only)   |the price per token, units are in the parent asset chain's coin
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
-## tokentransfer
+### Examples:
 
 > Step 1. Create the rawtransaction
 
@@ -1088,34 +1145,3 @@ AssetValidate.(t) passed
     ]
 }
 ```
-
-**tokentransfer tokenid destpubkey amount**
-
-The `tokentransfer` method transfers tokens from one cc address to another.
-
-It is similar to the [`sendmany`](#sendmany) method used to send coins on the parent chain.
-
-The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](#sendrawtransaction) to complete the command.
-
-<aside class="notice">
-  The source `txid/vout` needs to be specified as it is critical to match outputs with inputs.
-</aside>
-
-<aside class="notice">
-  A token may be burned by using `tokentransfer` to send to a burn address.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-tokenid                                      |(string, optional)           |the identifying txid for the token id
-destpubkey                                   |(string)                     |the pubkey where the tokens should be sent
-amount                                       |(number)                     |the number of tokens to send
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command

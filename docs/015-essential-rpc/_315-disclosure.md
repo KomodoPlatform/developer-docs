@@ -47,9 +47,9 @@ response:
 (currently disabled)
 ```
 
-<aside class="warning">
-  EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always fails.
-</aside>
+::: warning
+EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always fails.
+:::
 
 ## z_validatepaymentdisclosure
 
@@ -57,9 +57,9 @@ response:
 
 The `z_validatepaymentdisclosure` method validates a payment disclosure.
 
-<aside class="warning">
-  EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always fails.
-</aside>
+::: warning
+EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always fails.
+:::
 
 ### Arguments:
 

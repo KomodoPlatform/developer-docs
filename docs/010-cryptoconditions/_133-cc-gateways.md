@@ -8,31 +8,9 @@ This allows the `gateways`-enabled asset chain to feature secure, on-chain, high
 
 Using an established `gateways` smart contract is not considered difficult. However, setting up the `gateways` requires the user to closely follow several detailed steps.
 
-## Brief Gateways Tutorial
+### Examples:
 
-The flow of the `gateways` contract is as follows:
-
-* Anyone can deposit a foreign asset, such as BTC, into a special address.
-* This person then receives tokens on the `gateways`-enabled asset chain that represent the deposited BTC
-* The user is able to trade, spend, or utilize the tokens in whatever further capacities the asset-chain developers enable
-* Anyone who obtains the tokens can redeem the BTC to a BTC address, finishing the process
-
-By bringing operations on-chain, we avoid the need for complex cross-chain swaps for each trade. The cross-chain transfers do still have to happen on the deposit and withdraw, but that is all.
-
-### A Caveat: Gateways is Not Fully Decentralized
-
-`gateways` relies on a special type of multisignature wallet address to function. It is called an `MofN` multisig address. In the name, `N` stands for the number of total signatories for the address and `M` stands for the number of signatories that are required to have their nodes online at the time of withdrawal.
-
-With `N` trusted community members present, and a reasonable `M` value, this aspect of centralization is easy to overcome. Since all operations are automated -- including both deposit and withdrawal -- the only trust needed is that `M` of the `N` signatories are running their nodes with the `gateways` dApp active, and also that `M` of them will not collude to steal the funds locked in the address.
-
-As anyone is able to create a `gateways`, users are free to work together as a community to discover and manage their signatories. The signatories are ultimately responsible for all `gateways` activity.
-
-## Creating a Gateway
-
-In this guide, we will
-
-* Create tokens which will represent KMD on a `gateways`-enabled asset chain
-* Convert these tokens for **GatewaysCC** usage
+**GatewaysCC** usage
 * Prepare a special oracle, having the data type `Ihh`; this oracle will retrieve information regarding Komodo's chainstate using the **oraclefeed dApp**
 * Bind the tokens and the oracle to our gateway
 * Deposit KMD
@@ -43,37 +21,11 @@ Please ensure that you have the KMD main chain downloaded and synced before cont
 
 Also, please open an empty text file and save all output transaction ids and hex-encoded data from each step. You will need the information at various stages.
 
-## Create a new Blockchain
+### Examples:
 
-With the KMD main chain installed, you should have all you need to start your own asset chain.
+### Examples:
 
-If you are unfamiliar with how to start an asset chain, [please read the relevant documentation](#building-a-komodo-asset-chain).
-
-For this project, we suggest using the following launch parameters:
-
-`./komodod -ac_name=HELLOWORLD -ac_supply=7777777 &`
-
-Once your chain is up and running, you will need to create a pubkey.
-
-[Follow the instructions in this documentation.](#creating-and-launching-with-a-pubkey)
-
-Once you have restarted the asset chain with your pubkey enabled, you are prepared to create on-chain tokens.
-
-## Create a token for on-chain representation of an external cryptocurrency
-
-Use the [tokencreate](#tokencreate) method to create the token.
-
-You should set the supply of tokens equal to the maximum supply of KMD satoshis you expect users to have in the multi-signature wallet at any one point in time.
-
-`./komodo-cli -ac_name=HELLOWORLD tokencreate KMD 1000 "A KMD-equivalent token for gatewaysCC"`
-
-This sets the name of the asset-chain token to `KMD`, the maximum supply equal to `1000` satoshis of actual KMD, and gives the description in the final string
-
-The method returns a `hex` value in the response. Use the `sendrawtransaction` method to braodcast this value.
-
-`./komodo-cli -ac_name=HELLOWORLD sendrawtransaction HEX_DATA_HERE`
-
-This returns a transaction id, which is now our **tokenid**.
+**tokenid**.
 
 Wait to ensure that the `tokenid` transaction is successfully notarized.
 
@@ -97,13 +49,9 @@ You may also check the balance for a specific pubkey:
 
 `./komodo-cli -ac_name=HELLOWORLD tokenbalance TOKEN_ID PUBKEY`
 
-## Convert the tokens to use with GatewaysCC
+### Examples:
 
-Before you may use these tokens as representatives of real KMD for spending and trading, the tokens need to be converted.
-
-The conversion process will change the rules that constrain the token's CC `vouts`. Constraining is important because it prevents the token from being transferred or spent, except under the agreed upon definitions of the `gateways` contract. Initially, the TokensCC smart contract itself constrains the `vouts`. Now we use `tokenconvert` to render the token `vouts` constrained for use only by the GatewaysCC smart contract.
-
-First, find the **GatewaysPubkey**:
+**GatewaysPubkey**:
 
 `./komodo-cli -ac_name=HELLOWORLD gatewaysaddress`
 
@@ -120,6 +68,8 @@ The above command will output a **hex** value, which you now broadcast using `se
 
 `./komodo-cli -ac_name=HELLOWORLD sendrawtransaction HEX_DATA_HERE`
 
+### Examples:
+
 ## Create an Oracle for Storing "Blockheader Data" on the Blockchain
 
 To add external data to the blockchain, we use the [`oracles`](#smart-contract-oracles) smart contract.
@@ -134,6 +84,22 @@ Broadcast the returned HEX data:
 `./komodo-cli -ac_name=HELLOWORLD sendrawtransaction HEX_DATA_HERE`
 
 This returns a transaction id, which is the **oracleid**.
+
+Register as a publisher for the oracle using [`oraclesregister`](#oraclesregister):
+
+`./komodo-cli -ac_name=HELLOWORLD oraclesregister ORACLE_ID DATA_FEE_IN_SATOSHIS`
+
+Broadcast the returned HEX value:
+
+`./komodo-cli -ac_name=HELLOWORLD sendrawtransaction HEX_DATA_HERE`
+
+Then you have to subscribe to it for getting the UTXOs for data publishing. The number of data publishing transactions you can perform in a block is equal to the number of active subscriptions there are.
+
+Get the **data-publisher's pubkey** from the `oracesinfo` call:
+
+`./komodo-cli -ac_name=HELLOWORLD oraclesinfo ORACLE_ID`
+
+**oracleid**.
 
 Register as a publisher for the oracle using [`oraclesregister`](#oraclesregister):
 
@@ -184,9 +150,9 @@ Broadcast the HEX using `sendrawtransaction`:
 
 `./komodo-cli -ac_name=HELLOWORLD sendrawtransaction HEX_DATA_HERE`
 
-<aside class="notice">
-  It may be useful to execute the <b>oraclessubscribe</b> and <b>sendrawtransaction</b> methods with a few different values, in case you need to broadcast more than one sample of data in each block. In our example, you want to publish data for more than one KMD-height per block.
-</aside>
+::: tip
+It may be useful to execute the <b>oraclessubscribe</b> and <b>sendrawtransaction</b> methods with a few different values, in case you need to broadcast more than one sample of data in each block. In our example, you want to publish data for more than one KMD-height per block.
+:::
 
 Check the information about the oracle:
 
@@ -198,31 +164,17 @@ Please keep in mind the flow of the oracle data fees :
 * Anyone can subscribe to this publisher on this oracle, committing their desired amount to the publisher
 * The publisher may withdraw their fee from the total amount each time the publisher uses `oraclesdata` to publish data
 
-## Bind the Tokens and Oracle as a Gateway
+### Examples:
 
-If you followed the previous steps you should already have:
-
-* A supply of converted tokens, which represent the foreign coin
-* A prepared oracle contract with the data-type `Ihh`
-* An established publisher and subscriber account
-
-With these in place, we may now create the exchange gateway.
-
-We use the simpliest case, where both `M` and `N` values are equal to `1` in this guide. For more complicated multisignature wallets, see [`createmultisig`](#createmultisig).
-
-`./komodo-cli -ac_name=HELLOWORLD gatewaysbind TOKEN_ID ORACLE_ID KMD 100000000000 1 1 MYPUBKEY`
-
-Broadcast the returned HEX value:
-
-`./komodo-cli -ac_name=HELLOWORLD sendrawtransaction HEX_DATA_HERE`
-
-This returns a transaction id, and this value is called the **bindtxid**. This is the id of the gateway at `MYPUBKEY`.
+**bindtxid**. This is the id of the gateway at `MYPUBKEY`.
 
 If the command is successful, you may review your new gateway using [`gatewaysinfo`](#gatewaysinfo):
 
 `./komodo-cli -ac_name=HELLOWORLD gatewaysinfo BINDTXID`
 
 Verify that the returned **tokenid** and **oracleid** match those provided earlier.
+
+### Examples:
 
 ## Assemble the dApp
 
@@ -250,6 +202,8 @@ Run the dApp:
 
 `$BINDTXID`: The ID of the gateway bind, **bindtxid**
 
+**bindtxid**
+
 > Sample Response:
 
 ```
@@ -264,11 +218,37 @@ broadcast HELLOWORLD txid.(f33d5ffaec7d13f14605556cee86262299db8fad0337d1baefadc
 
 If the oracle is working as expected, a response similar to the one in the right column of the web browser following should occur:
 
+### Examples:
+
 ## Using the Gateway
 
 ### `gatewaysdeposit`
 
 You will need the **gatewaysDepositAddress**. This is the address where you should deposit your KMD on the main KMD chain.
+
+`./komodo-cli -ac_name=HELLOWORLD gatewaysinfo BINDTXID`
+
+Save the returned transaction id for later use.
+
+To make a deposit to the gateway, thereby locking external coins in exchange for on-chain tokens, use the `z_sendmany` call to send funds both to the gatewaysDepositAddress on the KMD chain, and also a small amount of funds to the address corresponding to the `pubkey` where you want to receive the tokenized KMD to appear on the `HELLOWORLD` chain:
+
+`./komodo-cli z_sendmany "SENDINGADDRESS" '[{"address":"addressOfPubkeyYouWantTokenizedKmdAppearIn","amount":0.0001},{"address":"gatewaysDepositAddress","amount":0.1}]'`
+
+The returned transaction id is our **cointxid**.
+
+This transaction should have two `vouts` (i.e. two addresses declared as recepients), and change.
+
+Now you should have enough data to proceed with the [`gatewaysdeposit`](#gatewaysdeposit) call. This method broadcasts data about the KMD deposit on the asset chain, allowing for the nodes to validate the actions:
+
+`./komodo-cli gatewaysdeposit BINDTXID HEIGHT COIN COINTXID CLAIMVOUT DEPOSITHEX PROOF DESTPUB AMOUNT`
+
+`BINDTXID`: the bindtxid from earlier
+`HEIGHT`: the block height of the `txid` returned from the `z_sendmany` command
+`COIN`: the KMD desired for this example
+`COINTXID`: the txid returned from `z_sendmany`
+`CLAIMVOUT`: the `vout` of the claim (on the first use, this value should be 0)
+`DEPOSITHEX`: returned from the txid of `z_sendmany`
+`PROOF`: can be found using, `./komodo-cli gettxoutproof '["<txid of z_sendmany**gatewaysDepositAddress**. This is the address where you should deposit your KMD on the main KMD chain.
 
 `./komodo-cli -ac_name=HELLOWORLD gatewaysinfo BINDTXID`
 
@@ -360,3 +340,5 @@ Execute the following commands on the node running the oracle dApp:
 `AMOUNT`: the amount for the deposit (in this case 0.1)
 
 This should complete the withdrawal process, and therefore the cycle for the `gateways` contract.
+
+### Examples:

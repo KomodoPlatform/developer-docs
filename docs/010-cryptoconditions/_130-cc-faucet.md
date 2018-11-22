@@ -4,7 +4,7 @@ The `faucet` CryptoConditions smart contract enables anyone to set up and operat
 
 There may only be one `faucet` contract per asset chain.
 
-For any faucet, there is a public address to which anyone can send their funds to support the faucet.  
+For any faucet, there is a public address to which anyone can send their funds to support the faucet.
 
 A `faucet` rpc call can be executed by anyone on the asset chain, as long as their public address satisfies a few constraints: the user's pubkey and address must have no history of funds or transactions, and an address can claim faucet funds only once.
 
@@ -14,24 +14,6 @@ When called, `faucet` sends 0.1 coins to the indicated address, and requires abo
 
 ## faucetaddress
 
-
-> Command:
-
-```
-./komodo-cli -ac_name=HELLOWORLD faucetaddress 03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc
-```
-
-> Response:
-
-```
-{
-  "result": "success",
-  "FaucetCCaddress": "RSxACZQhskPjQyxp7TUPG1oP1wm4agFycJ",
-  "CCaddress": "RSxACZQhskPjQyxp7TUPG1oP1wm4agFycJ",
-  "myCCaddress": "RSxACZQhskPjQyxp7TUPG1oP1wm4agFycJ",
-  "myaddress": "RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"
-}
-```
 
 **faucetaddress [pubkey]**
 
@@ -52,7 +34,48 @@ CCaddress                                    |(string)                     |taki
 myCCaddress                                  |(string)                     |taking the dice contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
 myaddress                                    |(string)                     |the unmodified public address of the pubkey used to launch the chain
 
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD faucetaddress 03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc
+```
+
+> Response:
+
+```
+{
+  "result": "success",
+  "FaucetCCaddress": "RSxACZQhskPjQyxp7TUPG1oP1wm4agFycJ",
+  "CCaddress": "RSxACZQhskPjQyxp7TUPG1oP1wm4agFycJ",
+  "myCCaddress": "RSxACZQhskPjQyxp7TUPG1oP1wm4agFycJ",
+  "myaddress": "RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"
+}
+```
+
 ## faucetfund
+
+**faucetfund amount**
+
+The `faucetfund` method creates and funds a faucet contract.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+amount                                       |(number)                     |the amount to add to the faucet, taken from the user's available funds
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result                                       |(string)                     |whether the command executed successfully
+hex                                          |(string)                     |the data in hex-encoded format; you must broadcast this hex using sendrawtransaction for the command to complete
+
+### Examples:
 
 > Step 1: Specify faucet amount and get the raw transaction HEX value
 
@@ -139,17 +162,21 @@ myaddress                                    |(string)                     |the 
 }
 ```
 
-**faucetfund amount**
+## faucetget
 
-The `faucetfund` method creates and funds a faucet contract.
+**faucetget**
+
+The `faucetget` method requests the `faucet` contract to send coins.
 
 The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+A `faucet` command yields 0.1 coins and requires about 30 seconds of CPU time.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-amount                                       |(number)                     |the amount to add to the faucet, taken from the user's available funds
+(none)                                       |                             |
 
 ### Response:
 
@@ -158,7 +185,7 @@ Structure|Type|Description
 result                                       |(string)                     |whether the command executed successfully
 hex                                          |(string)                     |the data in hex-encoded format; you must broadcast this hex using sendrawtransaction for the command to complete
 
-## faucetget
+### Examples:
 
 > Step 1: Use faucetget and get the raw HEX value
 
@@ -246,44 +273,7 @@ faucetget validated
 }
 ```
 
-**faucetget**
-
-The `faucetget` method requests the `faucet` contract to send coins.
-
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
-
-A `faucet` command yields 0.1 coins and requires about 30 seconds of CPU time.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result                                       |(string)                     |whether the command executed successfully
-hex                                          |(string)                     |the data in hex-encoded format; you must broadcast this hex using sendrawtransaction for the command to complete
-
 ## faucetinfo
-
-> Command:
-
-```
-./komodo-cli -ac_name=HELLOWORLD faucetinfo
-```
-
-> Response:
-
-```
-    {
-      "result": "success",
-      "name": "Faucet",
-      "funding": "200207.99860023"
-    }
-```
 
 **faucetinfo**
 
@@ -302,3 +292,21 @@ Structure|Type|Description
 result                                       |(string)                     |whether the command executed successfully
 name                                         |(string)                     |the name of the faucet contract
 funding                                      |(number)                     |the amount of funds available in the faucet
+
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD faucetinfo
+```
+
+> Response:
+
+```
+{
+  "result": "success",
+  "name": "Faucet",
+  "funding": "200207.99860023"
+}
+```

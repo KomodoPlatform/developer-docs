@@ -17,6 +17,29 @@ The flow of a plan is as follows:
 
 ## rewardsaddfunding
 
+**rewardsaddfunding name fundingtxid amount**
+
+The `rewardsaddfunding` method adds funds to a rewards plan.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+name                                         |(string)                     |the desired name of your rewards plan
+fundingtxid                                  |(string)                     |the txid of the transaction that created and funded this contract
+amount                                       |(number)                     |the amount of funds to add to the contract
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
+
 > Step 1: Create a raw transaction and get the HEX value
 
 ```
@@ -113,49 +136,7 @@ The flow of a plan is as follows:
 }
 ```
 
-**rewardsaddfunding name fundingtxid amount**
-
-The `rewardsaddfunding` method adds funds to a rewards plan.
-
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-name                                         |(string)                     |the desired name of your rewards plan
-fundingtxid                                  |(string)                     |the txid of the transaction that created and funded this contract
-amount                                       |(number)                     |the amount of funds to add to the contract
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
-
 ## rewardsaddress
-
-> Command:
-
-```
-./komodo-cli -ac_name=HELLOWORLD rewardsaddress 03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5
-```
-
-> Response:
-
-```
-{
-    "result": "success",
-    "RewardsCCaddress": "RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK",
-    "Rewardsmarker": "RMgye9jeczNjQx9Uzq8no8pTLiCSwuHwkz",
-    "GatewaysPubkey": "03ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb40",
-    "RewardsCCassets": "RLh5sgvh3scCyM4aq1fhYhwgfbmb5SpCkT",
-    "CCaddress": "RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3",
-    "myCCaddress": "RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3",
-    "myaddress": "RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"
-}
-```
 
 **rewardsaddress (pubkey)**
 
@@ -180,8 +161,63 @@ CCaddress                                    |(string)                     |taki
 myCCaddress                                  |(string)                     |taking the contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
 myaddress                                    |(string)                     |the public address of the pubkey used to launch the chain
 
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD rewardsaddress 03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5
+```
+
+> Response:
+
+```
+{
+    "result": "success",
+    "RewardsCCaddress": "RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK",
+    "Rewardsmarker": "RMgye9jeczNjQx9Uzq8no8pTLiCSwuHwkz",
+    "GatewaysPubkey": "03ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb40",
+    "RewardsCCassets": "RLh5sgvh3scCyM4aq1fhYhwgfbmb5SpCkT",
+    "CCaddress": "RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3",
+    "myCCaddress": "RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3",
+    "myaddress": "RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"
+}
+```
+
 ## rewardscreatefunding
 
+
+**rewardscreatefunding name amount APR mindays maxdays mindeposit**
+
+The `rewardscreatefunding` method creates a new `rewards` plan.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+The `sendrawtransaction` method will then return a `txid`. This `txid` is the `fundingtxid` that serves to identify the `rewards` plan.
+
+::: tip
+If you create a plan with <b>mindeposit: 10000</b>, make sure to also add 10000 of your coin and the transaction fees using the <b>rewardsaddfunding</b> call after creating the plan. The rewards contract won't allow locking of funds greater than the amount already locked in a single transaction as it needs to assure that it will have the required funds to pay.
+:::
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+name                                         |(string)                     |the desired name of your rewards plan
+amount                                       |(number)                     |the amount of seed funds to withdraw from your wallet
+APR                                          |(number)                     |annual percentage of rewards, given in percentage units
+mindays                                      |(number)                     |minimum number of days the funds will be locked
+maxdays                                      |(number)                     |maximum number of days the funds will be locked
+mindeposit                                   |(number)                     |the minimum deposit amount for a user to participate
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
 
 > Step 1: Create raw transaction HEX using your own parameter
 
@@ -195,7 +231,7 @@ myaddress                                    |(string)                     |the 
 {
     "result": "success",
     "hex": "010000000104f2435046f3ad452e76e53ec01429ae4f49d3322e8cc96da96b9e35d6ada70e0000000049483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ace069fb0501090000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000"
-}    
+}
 ```
 > Step 2: Broadcast/send the raw hex/transaction. This will output the txid which is the fundingtxid, also called the rewards plan id.
 
@@ -292,60 +328,7 @@ e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd
 }
 ```
 
-**rewardscreatefunding name amount APR mindays maxdays mindeposit**
-
-The `rewardscreatefunding` method creates a new `rewards` plan.
-
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
-
-The `sendrawtransaction` method will then return a `txid`. This `txid` is the `fundingtxid` that serves to identify the `rewards` plan.
-
-<aside class="notice">
-  If you create a plan with <b>mindeposit: 10000</b>, make sure to also add 10000 of your coin and the transaction fees using the <b>rewardsaddfunding</b> call after creating the plan. The rewards contract won't allow locking of funds greater than the amount already locked in a single transaction as it needs to assure that it will have the required funds to pay.
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-name                                         |(string)                     |the desired name of your rewards plan
-amount                                       |(number)                     |the amount of seed funds to withdraw from your wallet
-APR                                          |(number)                     |annual percentage of rewards, given in percentage units
-mindays                                      |(number)                     |minimum number of days the funds will be locked
-maxdays                                      |(number)                     |maximum number of days the funds will be locked
-mindeposit                                   |(number)                     |the minimum deposit amount for a user to participate
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
-
 ## rewardsinfo
-
-> Command:
-
-```
-./komodo-cli -ac_name=HELLOWORLD rewardsinfo e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd
-```
-
-> Response:
-
-```
-{
-    "result": "success",
-    "fundingtxid": "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd",
-    "name": "FREE",
-    "sbits": 1162170950,
-    "APR": "5.00000000",
-    "minseconds": 86400,
-    "maxseconds": 864000,
-    "mindeposit": "10.00000000",
-    "funding": "1100.00000000",
-    "locked": "200.00000000"
-}
-```
 
 **rewardsinfo fundingtxid**
 
@@ -371,22 +354,32 @@ maxseconds                                   |(number)                     |mini
 mindeposit                                   |(number)                     |minimum deposit amount
 funding                                      |(number)                     |total available funds in the rewards plan
 
-## rewardslist
+### Examples:
 
 > Command:
 
 ```
-./komodo-cli -ac_name=HELLOWORLD rewardslist
-
+./komodo-cli -ac_name=HELLOWORLD rewardsinfo e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd
 ```
 
 > Response:
 
 ```
-[
-  "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd"
-]
+{
+    "result": "success",
+    "fundingtxid": "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd",
+    "name": "FREE",
+    "sbits": 1162170950,
+    "APR": "5.00000000",
+    "minseconds": 86400,
+    "maxseconds": 864000,
+    "mindeposit": "10.00000000",
+    "funding": "1100.00000000",
+    "locked": "200.00000000"
+}
 ```
+
+## rewardslist
 
 **rewardslist**
 
@@ -406,8 +399,52 @@ Structure|Type|Description
 fundingtxid                                  |(string)                     |the txid of the transaction that created and funded the relevant contract
 ]                                            |                             |
 
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD rewardslist
+
+```
+
+> Response:
+
+```
+[
+  "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd"
+]
+```
+
 ## rewardslock
 
+
+**rewardslock name fundingtxid amount**
+
+The `rewardslock` method commits your desired amount of funds into the specified rewards plan. They remain locked until the minimum number of seconds/days passes.
+
+The method returns a `hex` value that must be broadcast using [`sendrawtransaction`](#sendrawtransaction).
+
+The `sendrawtransaction` method will then return a `txid`, which is later used in the [`rewardsunlock`](#rewardsunlock) method. In general, it is best to save this `txid` in a secure location.
+
+If the final `txid` is lost, it is possible to find it again. See [`rewardsunlock`](#rewardsunlock) for more information.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+name                                         |(string)                     |the name of the rewards plan
+fundingtxid                                  |(string)                     |the txid that identifies the desired rewards plan
+amount                                       |(number)                     |the amount of funds to commit to the plan (must be over the plan's minimum)
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the `diceaddfunds` command
+
+### Examples:
 
 > Step 1: Create raw transaction
 
@@ -519,15 +556,37 @@ fundingtxid                                  |(string)                     |the 
 }
 ```
 
-**rewardslock name fundingtxid amount**
+## rewardsunlock
 
-The `rewardslock` method commits your desired amount of funds into the specified rewards plan. They remain locked until the minimum number of seconds/days passes.
 
-The method returns a `hex` value that must be broadcast using [`sendrawtransaction`](#sendrawtransaction).
+**rewardsunlock name fundingtxid (txid)**
 
-The `sendrawtransaction` method will then return a `txid`, which is later used in the [`rewardsunlock`](#rewardsunlock) method. In general, it is best to save this `txid` in a secure location.
+The `rewardsunlock` method unlocks your funds from a specific rewards plan after the minimum lock time is met. If `txid` is not provided, `rewardsunlock` unlocks all funds in the `fundingtxid` plan.
 
-If the final `txid` is lost, it is possible to find it again. See [`rewardsunlock`](#rewardsunlock) for more information.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method to complete the command.
+
+If you attempt to unlock your funds before the minimum period is met, the daemon returns this error:
+
+The method requires the `txid` that was returned as a result of the original [`rewardslock`](#rewardslock) method.
+
+If the original `txid` is lost, it is possible to find it again by either rebroadcasting the original `hex` (if it is available), or by scanning through available utxos using the [`getaddressutxos`](#getaddressutxos) method.
+
+::: tip
+{
+  "result": "error",
+  "error": "reward 0 is <= the transaction fee"
+}
+:::
+
+An error similar to the one below prints in the console:
+
+`APR 5.00000000 minseconds.86400 maxseconds.864000 mindeposit 10.00000000`
+
+`duration 74628 < minseconds 86400`
+
+`reward 0 is <= the transaction fee`
+
+`amount 200.00000000 -> reward 0.00000000`
 
 ### Arguments:
 
@@ -535,7 +594,7 @@ Structure|Type|Description
 ---------|----|-----------
 name                                         |(string)                     |the name of the rewards plan
 fundingtxid                                  |(string)                     |the txid that identifies the desired rewards plan
-amount                                       |(number)                     |the amount of funds to commit to the plan (must be over the plan's minimum)
+txid                                         |(string, optional)           |the txid that was returned as a result of the original rewardslock command; if `txid` is not provided, `rewardsunlock` unlocks all funds in the `fundingtxid` plan
 
 ### Response:
 
@@ -544,8 +603,7 @@ Structure|Type|Description
 result:                                      |(string)                     |whether the command succeeded
 hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the `diceaddfunds` command
 
-## rewardsunlock
-
+### Examples:
 
 > Step 1: Create raw transaction
 
@@ -651,47 +709,3 @@ hex:                                         |(string)                     |a ra
     "vjoinsplit": []
 }
 ```
-
-**rewardsunlock name fundingtxid (txid)**
-
-The `rewardsunlock` method unlocks your funds from a specific rewards plan after the minimum lock time is met. If `txid` is not provided, `rewardsunlock` unlocks all funds in the `fundingtxid` plan.
-
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method to complete the command.
-
-If you attempt to unlock your funds before the minimum period is met, the daemon returns this error:
-
-The method requires the `txid` that was returned as a result of the original [`rewardslock`](#rewardslock) method.
-
-If the original `txid` is lost, it is possible to find it again by either rebroadcasting the original `hex` (if it is available), or by scanning through available utxos using the [`getaddressutxos`](#getaddressutxos) method.
-
-<aside class="notice">
-{
-  "result": "error",
-  "error": "reward 0 is <= the transaction fee"
-}
-</aside>
-
-An error similar to the one below prints in the console:
-
-`APR 5.00000000 minseconds.86400 maxseconds.864000 mindeposit 10.00000000`
-
-`duration 74628 < minseconds 86400`
-
-`reward 0 is <= the transaction fee`
-
-`amount 200.00000000 -> reward 0.00000000`
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-name                                         |(string)                     |the name of the rewards plan
-fundingtxid                                  |(string)                     |the txid that identifies the desired rewards plan
-txid                                         |(string, optional)           |the txid that was returned as a result of the original rewardslock command; if `txid` is not provided, `rewardsunlock` unlocks all funds in the `fundingtxid` plan
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the `diceaddfunds` command

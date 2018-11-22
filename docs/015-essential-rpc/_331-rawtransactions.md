@@ -8,9 +8,9 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 The `createrawtransaction` method creates a transaction, spending the given inputs and sending to the given addresses. The method returns a hex-encoded raw transaction.
 
-<aside class="notice">
-  This is a raw transaction, and therefore the inputs are not signed and the transaction is not stored in the wallet nor transmitted to the network.
-</aside>
+::: tip
+This is a raw transaction, and therefore the inputs are not signed and the transaction is not stored in the wallet nor transmitted to the network.
+:::
 
 ### Arguments:
 
@@ -300,19 +300,17 @@ Structure|Type|Description
 
 ## fundrawtransaction
 
-> Create a transaction with no inputs:
-
 **fundrawtransaction "hexstring"**
 
 The `fundrawtransaction` method adds inputs to a transaction until it has enough `in` value to meet its `out` value. This will not modify existing inputs, and will add one `change` output to the outputs.
 
-<aside class="notice>
-  Inputs which were signed may need to be resigned after completion since in/outputs have been added. To sign the inputs added, use <b>signrawtransaction</b>.
-</aside>
+::: tip
+Inputs which were signed may need to be resigned after completion since in/outputs have been added. To sign the inputs added, use <b>signrawtransaction</b>.
+:::
 
-<aside class="notice">
-  This method comes from the BTC codebase, of which KMD is ultimately a fork (via Zcash). For full details, please see <a href="https://bitcoin.org/en/developer-reference#fundrawtransaction">the linked documentation</a>.
-</aside>
+::: tip
+This method comes from the BTC codebase, of which KMD is ultimately a fork (via Zcash). For full details, please see <a href="https://bitcoin.org/en/developer-reference#fundrawtransaction">the linked documentation</a>.
+:::
 
 ### Arguments:
 
@@ -332,6 +330,8 @@ Structure|Type|Description
 "hex"                                        |                             |
 
 ### Examples:
+
+> Create a transaction with no inputs:
 
 ```
 command:
@@ -394,9 +394,9 @@ The `getrawtransaction` method returns the raw transaction data.
 
 If `verbose=0`, the method returns a string that is serialized, hex-encoded data for `transaction_id`. If `verbose` is non-zero, the method returns an object with information about `transaction_id`.
 
-<aside class="notice">
-  This method relies on the <b>txindex</b> runtime parameter, which is enabled by default on all KMD-based chains. Disabling <b>txindex</b> will cause this method to malfunction.
-</aside>
+::: tip
+This method relies on the <b>txindex</b> runtime parameter, which is enabled by default on all KMD-based chains. Disabling <b>txindex</b> will cause this method to malfunction.
+:::
 
 ### Arguments:
 
@@ -595,8 +595,6 @@ response:
 
 ## sendrawtransaction
 
-> Create a transaction:
-
 **sendrawtransaction "hexstring" ( allowhighfees )**
 
 The `sendrawtransction` method submits raw transaction (serialized, hex-encoded) to local nodes and the network.
@@ -617,6 +615,8 @@ Structure|Type|Description
 "hex"                                        |(string)                     |the transaction hash in hex
 
 ### Examples:
+
+> Create a transaction:
 
 ```
 command:
@@ -677,9 +677,9 @@ response:
 
 The `signrawtransaction` method signs inputs for a raw transaction (serialized, hex-encoded). The second optional argument (may be `null`) is an array of previous transaction outputs that this transaction depends on, but may not yet be in the block chain. The third optional argument (may be `null`) is an array of base58-encoded private keys that, if given, will be the only keys used to sign the transaction.
 
-<aside class="notice">
-  For full details, please see <a href="https://bitcoin.org/en/developer-reference#signrawtransaction">the linked documentation</a>.
-</aside>
+::: tip
+For full details, please see <a href="https://bitcoin.org/en/developer-reference#signrawtransaction">the linked documentation</a>.
+:::
 
 ### Arguments:
 

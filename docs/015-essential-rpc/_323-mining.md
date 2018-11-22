@@ -52,9 +52,9 @@ response:
 
 The `getblocktemplate` method returns data that is necessary to construct a block.
 
-<aside class="notice">
-  See <a href="https://en.bitcoin.it/wiki/BIP_0022">the Bitcoin wiki</a> for full specification.
-</aside>
+::: tip
+See <a href="https://en.bitcoin.it/wiki/BIP_0022">the Bitcoin wiki</a> for full specification.
+:::
 
 If the request parameters include a `mode` key, it is used to explicitly select between the default 'template' request or a 'proposal'.
 
@@ -213,9 +213,9 @@ response:
 
 The `getlocalsolps` method returns the average local solutions per second since this node was started.
 
-<aside class="notice">
-  This is the same information shown on the metrics screen (if enabled).
-</aside>
+::: tip
+This is the same information shown on the metrics screen (if enabled).
+:::
 
 ### Arguments:
 
@@ -396,9 +396,9 @@ response:
 }
 ```
 
-<aside class="warning">
-  DEPRECATED: Use <b>getnetworksolps</b> instead.
-</aside>
+::: warning
+DEPRECATED: Use <b>getnetworksolps</b> instead.
+:::
 
 ## getnetworksolps
 
@@ -451,9 +451,9 @@ response:
 
 The `prioritisetransaction` method instructs the daemon to accept the indicated transaction into mined blocks at a higher (or lower) priority. The transaction selection algorithm considers the transaction as it would have a higher priority.
 
-<aside class="notice">
-  This method is inherited from the original Bitcoin protocol, of which KMD is a fork (via Zcash). For more examples regarding this method, please see <a href="https://bitcoincore.org/en/doc/0.16.1/rpc/mining/prioritisetransaction/">the linked documentation</a>.
-</aside>
+::: tip
+This method is inherited from the original Bitcoin protocol, of which KMD is a fork (via Zcash). For more examples regarding this method, please see <a href="https://bitcoincore.org/en/doc/0.16.1/rpc/mining/prioritisetransaction/">the linked documentation</a>.
+:::
 
 ### Arguments:
 
@@ -503,13 +503,13 @@ result:
 
 The `submitblock` method instructs the daemon to propose a new block to the network.
 
-<aside class="notice">
-  The <b>jsonparametersobject</b> parameter is currently ignored. See <a href="https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki">the linked documentation</a> for full specification details.
-</aside>
+::: tip
+The <b>jsonparametersobject</b> parameter is currently ignored. See <a href="https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki">the linked documentation</a> for full specification details.
+:::
 
-<aside class="notice">
-  Note: for more information on <b>submitblock</b> parameters and results, see <a href="https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki#block-submission">the linked documentation</a>.
-</aside>
+::: tip
+Note: for more information on <b>submitblock</b> parameters and results, see <a href="https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki#block-submission">the linked documentation</a>.
+:::
 
 ### Arguments:
 
@@ -525,11 +525,11 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-	"duplicate"                                |                             |node already has valid copy of block
-	"duplicate-invalid"                        |                             |node already has block, but it is invalid
-	"duplicate-inconclusive"                   |                             |node already has block but has not validated it
-	"inconclusive"                             |                             |node has not validated the block, it may not be on the node's current best chain
-	"rejected"                                 |                             |block was rejected as invalid
+"duplicate"                                |                             |node already has valid copy of block
+"duplicate-invalid"                        |                             |node already has block, but it is invalid
+"duplicate-inconclusive"                   |                             |node already has block but has not validated it
+"inconclusive"                             |                             |node has not validated the block, it may not be on the node's current best chain
+"rejected"                                 |                             |block was rejected as invalid
 
 ### Examples:
 

@@ -250,15 +250,13 @@ response:
 
 ## verifymessage
 
-> Create the signature:
-
 **verifymessage "address" "signature" "message"**
 
 The `verifymessage` method verifies a signed message.
 
-<aside class="notice">
-  See also <b>signmessage</b>.
-</aside>
+::: tip
+See also <b>signmessage</b>.
+:::
 
 ### Arguments:
 
@@ -275,6 +273,8 @@ Structure|Type|Description
 true/false                                   |(boolean)                    |indicates whether the signature is verified
 
 ### Examples:
+
+> Create the signature:
 
 ```
 command:

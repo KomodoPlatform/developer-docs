@@ -1,60 +1,8 @@
 # Smart Contract: Oracles
 
-## Introduction
-
-The `oracles` contract allows users to make off-chain data available on-chain.
-
-The flow of an oracles plan is as follows:
-
-* Anyone can create an oracle contract using `oraclescreate`
-* Anyone can register as a publisher of data for this oracle using `oraclesregister`
-  * A publisher must have at least one subscriber at the time of creation (this can be a publisher-owned alternative account)
-* A publisher can publish data using `oraclesdata`, and they will collect the `datafee`
-* `oracleslist` , `oraclesinfo` , `oraclessamples` can be used in that specific order to find the available oracles, and their publishers and data samples
-* Anyone can subscribe to a publisher using `oraclessubscribe` and by paying the publisher's desired fees
-
-### A Notes About Batons
-
-The `oracles` contract employs a functionality called a `baton`. You can see the `baton` property in the response from the [`oraclesinfo`](#oraclesinfo) method. To understand the baton property, one must first understand the problem that it solves.
-
-In an oracle, a publisher publishes data to a specific `oracle` contract. He does this by creating a transaction, using the [`oraclesdata`](#oraclesdata) method. This method returns hex-encoded data, which must then be broadcast using [`sendrawtransaction`](#sendrawtransaction). The latter method then returns a `txid` and this is used for recalling the published data.
-
-If there was only one such `txid`, it would not be difficult to track it. However, each publisher is likely publishing lots of data -- thus creating lots of `txid`'s. There are also many publishers. With this many `txid`'s, the data could quickly fall into a state of disorder.
-
-To solve this problem without using centralized and/or external databases, it is easiest for each publisher to have an automatically managed [linked list](https://en.wikipedia.org/wiki/Linked_list).
-
-This linked list keeps track of the `txid`'s submitted by a publisher to an `oracle` contract, and keeps them in order.
-
-When a publisher first registers for an `oracles` contract, the returned `txid` of the [`oraclesregister`](#oraclesregister) command (after `sendrawtransaction`) is the first baton.
-
-When the publisher uploads their first data publication to the chain, using [`oraclesdata`](#oraclesdata), the baton property for this publisher in the master oracles contract updates to the `txid` returned from the data publication. This also occurs each time they upload data to the chain.
-
-By the nature of blockchain data structure, each utxo `txid` is already a linked list leading back in time. This functionality is found in the way the blockchain protocol handles `vin` and `vout` properties.
-
-The baton, therefore, points to the `txid` of the most recently created utxo for this publisher. By finding that utxo, you can find the previous utxo created by this publisher, and so on.
+### Examples:
 
 ## oraclesaddress
-
-> Command:
-
-```
-./komodo-cli -ac_name=HELLOWORLD oraclesaddress 03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5
-```
-
-> Response:
-
-```
-{
-    "result": "success",
-    "OraclesCCaddress": "REt2C4ZMnX8YYX1DRpffNA4hECZTFm39e3",
-    "Oraclesmarker": "RHkFKzn1csxA3fWzAsxsLWohoCgBbirXb5",
-    "GatewaysPubkey": "03ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb40",
-    "OraclesCCassets": "RLh5sgvh3scCyM4aq1fhYhwgfbmb5SpCkT",
-    "CCaddress": "RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8",
-    "myCCaddress": "RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8",
-    "myaddress": "RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"
-}
-```
 
 **oraclesaddress (pubkey)**
 
@@ -79,12 +27,70 @@ CCaddress                                    |(string)                     |taki
 myCCaddress                                  |(string)                     |taking the contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
 myaddress                                    |(string)                     |the public address of the pubkey used to launch the chain
 
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD oraclesaddress 03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5
+```
+
+> Response:
+
+```
+{
+    "result": "success",
+    "OraclesCCaddress": "REt2C4ZMnX8YYX1DRpffNA4hECZTFm39e3",
+    "Oraclesmarker": "RHkFKzn1csxA3fWzAsxsLWohoCgBbirXb5",
+    "GatewaysPubkey": "03ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb40",
+    "OraclesCCassets": "RLh5sgvh3scCyM4aq1fhYhwgfbmb5SpCkT",
+    "CCaddress": "RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8",
+    "myCCaddress": "RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8",
+    "myaddress": "RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"
+}
+```
+
 ## oraclescreate
+
+**oraclescreate name description format**
+
+The `oraclescreate` method creates a new oracle.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+name                                         |(string)                     |the desired name of the oracle contract
+description                                  |(string)                     |description of the oracle
+format                                       |(string)                     |an indication of what format of data is accepted into this contract; use the list of characters provided below for this property
+
+The various formats of data that can be registered for an oracle and their symbols are as follows:
+
+`s` -> ` < 256 char string`
+`S` -> ` < 65536 char string`
+`d` -> ` < 256 binary data`
+`D` -> ` < 65536 binary data`
+`c` -> `1 byte signed little endian number, 'C' if unsigned`
+`t` -> `2 byte signed little endian number, 'T' if unsigned`
+`i` -> `4 byte signed little endian number, 'I' if unsigned`
+`l` -> `8 byte signed little endian number, 'L' if unsigned`
+`h` -> `32 byte hash`
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result                                       |(string)                     |whether the command succeeded
+hex                                          |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
 
 > Step 1: Create a customized oracle contract and get the hex value
 
  ```
-./komodo-cli -ac_name=HELLOWORLD oraclescreate "NYWTHR" "Weather in NYC" "L"                                                              
+./komodo-cli -ac_name=HELLOWORLD oraclescreate "NYWTHR" "Weather in NYC" "L"
 ```
 
 > Response from Step 1:
@@ -182,31 +188,26 @@ myaddress                                    |(string)                     |the 
 }
 ```
 
-**oraclescreate name description format**
+## oraclesdata
 
-The `oraclescreate` method creates a new oracle.
+**oraclesdata oracletxid hexstr**
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+The `oraclesdata` method publishes data to an oracle.
+
+A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [`oraclessubscribe`](#oraclessubscribe).
+
+Data is submitted using the `hexstr` property. The first portion of the `hexstr` property must include ===; this sets the string length for the rest of the data. The second portion of the `hexstr` property is the data itself.
+
+The `oraclesdata` method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+The `sendrawtransaction` method outputs a unique `txid`, called `oraclesdatatxid`, which is the unique identifier for this data sample.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-name                                         |(string)                     |the desired name of the oracle contract
-description                                  |(string)                     |description of the oracle
-format                                       |(string)                     |an indication of what format of data is accepted into this contract; use the list of characters provided below for this property
-
-The various formats of data that can be registered for an oracle and their symbols are as follows:
-
-`s` -> ` < 256 char string`
-`S` -> ` < 65536 char string`
-`d` -> ` < 256 binary data`
-`D` -> ` < 65536 binary data`
-`c` -> `1 byte signed little endian number, 'C' if unsigned`
-`t` -> `2 byte signed little endian number, 'T' if unsigned`
-`i` -> `4 byte signed little endian number, 'I' if unsigned`
-`l` -> `8 byte signed little endian number, 'L' if unsigned`
-`h` -> `32 byte hash`
+oracletxid                                   |(string)                     |the unique identifying transaction id of the oracle
+hexstring                                    |(string)                     |the first half of the string indicates the length of the string in bytes, the second half of the string is the data, typically provided in hex-encoded format
 
 ### Response:
 
@@ -215,7 +216,7 @@ Structure|Type|Description
 result                                       |(string)                     |whether the command succeeded
 hex                                          |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
-## oraclesdata
+### Examples:
 
 > Step 1: Subscribe to a oracle plan and get the hex value
 
@@ -363,62 +364,7 @@ hex                                          |(string)                     |a ra
 }
 ```
 
-**oraclesdata oracletxid hexstr**
-
-The `oraclesdata` method publishes data to an oracle.
-
-A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [`oraclessubscribe`](#oraclessubscribe).
-
-Data is submitted using the `hexstr` property. The first portion of the `hexstr` property must include ===; this sets the string length for the rest of the data. The second portion of the `hexstr` property is the data itself.
-
-The `oraclesdata` method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
-
-The `sendrawtransaction` method outputs a unique `txid`, called `oraclesdatatxid`, which is the unique identifier for this data sample.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-oracletxid                                   |(string)                     |the unique identifying transaction id of the oracle
-hexstring                                    |(string)                     |the first half of the string indicates the length of the string in bytes, the second half of the string is the data, typically provided in hex-encoded format
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result                                       |(string)                     |whether the command succeeded
-hex                                          |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
-
 ## oraclesinfo
-
-> Command:
-
-```
-./komodo-cli -ac_name=HELLOWORLD oraclesinfo 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203                                   
-```
-
-> Response:
-
-```
-{
-    "result": "success",
-    "txid": "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203",
-    "name": "NYWTHR",
-    "description": "Weather in NYC",
-    "format": "L",
-    "marker": "RGEug5JPPkERBpqsGSgw6GQPYTB9v9i4Fj",
-    "registered": [
-        {
-            "publisher": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5",
-            "baton": "RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9",
-            "batontxid": "8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575",
-            "lifetime": "0.00000000",
-            "funds": "0.00000000",
-            "datafee": "0.01000000"
-        }
-    ]
-}
-```
 
 **oraclesinfo oracletxid**
 
@@ -454,7 +400,58 @@ datafee                                      |(number)                     |the 
 }                                            |                             |
 
 
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD oraclesinfo 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203
+```
+
+> Response:
+
+```
+{
+    "result": "success",
+    "txid": "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203",
+    "name": "NYWTHR",
+    "description": "Weather in NYC",
+    "format": "L",
+    "marker": "RGEug5JPPkERBpqsGSgw6GQPYTB9v9i4Fj",
+    "registered": [
+        {
+            "publisher": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5",
+            "baton": "RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9",
+            "batontxid": "8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575",
+            "lifetime": "0.00000000",
+            "funds": "0.00000000",
+            "datafee": "0.01000000"
+        }
+    ]
+}
+```
+
 ## oraclelist
+
+**oracleslist**
+
+The `oraclelist` method lists all available oracle contracts on the asset chain.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+(none)                                       |                             |
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+[                                            |                             |
+oracletxid,                                  |(string)                     |a unique identifying oracletxid
+]                                            |                             |
+
+### Examples:
 
 > Command:
 
@@ -496,25 +493,39 @@ datafee                                      |(number)                     |the 
 ]
 ```
 
-**oracleslist**
+## oraclesregister
 
-The `oraclelist` method lists all available oracle contracts on the asset chain.
+**oraclesregister oracletxid datafee**
+
+A user executes the `oraclesregister` method to register to become a data publisher for an existing oracle contract.
+
+The `datafee` property is set in satoshis, and should be `>=` the chain's default transaction fee.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+::: tip
+Use `./komodo-cli -ac_name=YOURNAME getrawmempool` to verify the transaction is confirmed.
+:::
+
+::: tip
+After the transaction confirms, use `oraclesinfo` to output registration information about your oracles plan
+:::
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+oracletxid                                   |(string)                     |the unique identifying transaction id of the oracle
+datafee (numbers) the fee required of a subscriber for each data point the publisher publishes in this oracle
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-oracletxid,                                  |(string)                     |a unique identifying oracletxid
-]                                            |                             |
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
-## oraclesregister
+### Examples:
 
 > Step 1: Set your parameters to create a raw transaction and get the hex value
 
@@ -626,59 +637,7 @@ oracletxid,                                  |(string)                     |a un
 }
 ```
 
-**oraclesregister oracletxid datafee**
-
-A user executes the `oraclesregister` method to register to become a data publisher for an existing oracle contract.
-
-The `datafee` property is set in satoshis, and should be `>=` the chain's default transaction fee.
-
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
-
-<aside class="notice">
-  Use `./komodo-cli -ac_name=YOURNAME getrawmempool` to verify the transaction is confirmed.
-</aside>
-
-<aside class="notice">
-  After the transaction confirms, use `oraclesinfo` to output registration information about your oracles plan
-</aside>
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-oracletxid                                   |(string)                     |the unique identifying transaction id of the oracle
-datafee (numbers) the fee required of a subscriber for each data point the publisher publishes in this oracle
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
-
 ## oraclessamples
-
-> Command:
-
-```
-./komodo-cli -ac_name=HELLOWORLD oraclessamples 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203 abb4fc6d7fbff88c09b35fc40d96e3a04a891fbf3a2f21e8b8536acbd95d75d7 2
-```
-
-> Response:
-
-```
-{
-    "result": "success",
-    "samples": [
-        [
-            "4982091690320855040"
-        ],
-        [
-            "18446744069414584320"
-        ]
-    ]
-}
-```
 
 **oraclessamples oracletxid batonutxo num**
 
@@ -707,7 +666,58 @@ samples:                                     |                             |
 ]                                            |                             |
 }                                            |                             |
 
+### Examples:
+
+> Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD oraclessamples 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203 abb4fc6d7fbff88c09b35fc40d96e3a04a891fbf3a2f21e8b8536acbd95d75d7 2
+```
+
+> Response:
+
+```
+{
+    "result": "success",
+    "samples": [
+        [
+            "4982091690320855040"
+        ],
+        [
+            "18446744069414584320"
+        ]
+    ]
+}
+```
+
 ## oraclessubscribe
+
+**oraclessubscribe oracletxid publisher datafee**
+
+The user executes `oraclessubscribe` to subscribe to a publisher of an oracle plan.
+
+Every publisher must have at least one subscriber before the [`oraclesdata`](#oraclesdata) can succesfully execute.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+
+The `sendrawtransaction` method then returns a unique txid, also called the `oraclesubscribtiontxid`, or the id of the oracle subscription transaction. This can be used for further development purposes.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+oracletxid                                   |(string)                     |the unique identifying transaction id of the oracle
+publisher                                    |(string)                     |the unique publisher id, which can be found using the oraclesinfo method
+datafee                                      |(number)                     |the amount of funds the subscriber commits to paying for each data upload from the publisher; this amount is immediately withdrawn from the user's wallet
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result                                       |(string)                     |whether the command succeeded
+hex                                          |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+
+### Examples:
 
 > Step 1: Subscribe to an oracle plan and get the hex value:
 
@@ -818,28 +828,3 @@ samples:                                     |                             |
     "vjoinsplit": []
 }
 ```
-
-**oraclessubscribe oracletxid publisher datafee**
-
-The user executes `oraclessubscribe` to subscribe to a publisher of an oracle plan.
-
-Every publisher must have at least one subscriber before the [`oraclesdata`](#oraclesdata) can succesfully execute.
-
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
-
-The `sendrawtransaction` method then returns a unique txid, also called the `oraclesubscribtiontxid`, or the id of the oracle subscription transaction. This can be used for further development purposes.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-oracletxid                                   |(string)                     |the unique identifying transaction id of the oracle
-publisher                                    |(string)                     |the unique publisher id, which can be found using the oraclesinfo method
-datafee                                      |(number)                     |the amount of funds the subscriber commits to paying for each data upload from the publisher; this amount is immediately withdrawn from the user's wallet
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result                                       |(string)                     |whether the command succeeded
-hex                                          |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command

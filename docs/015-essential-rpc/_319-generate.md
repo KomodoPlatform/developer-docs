@@ -6,9 +6,9 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 **generate numblocks**
 
-<aside class="notice">
-  This function can only be used on a <b>regtest</b> network (for testing purposes).
-</aside>
+::: tip
+This function can only be used on a <b>regtest</b> network (for testing purposes).
+:::
 
 The `generate` method instructs the coin daemon to immediately mine the indicated number of blocks.
 
@@ -50,9 +50,9 @@ The `getgenerate` method returns a boolean value indicating the server's mining 
 
 The default value is false.
 
-<aside class="notice">
-  See also <b>gen</b>.
-</aside>
+::: tip
+See also <b>gen</b>.
+:::
 
 ### Arguments:
 
@@ -96,17 +96,15 @@ response:
 
 ## setgenerate
 
-> Turn on generation with unlimited processors:
-
 **setgenerate generate ( genproclimit )**
 
 The `setgenerate` method allows the user to set the `generate` property in the coin daemon to `true` or `false`, thus turning generation (mining) on or off.
 
 Generation is limited to [`genproclimit`](#genproclimit) processors. Set `genproclimit` to `-1` for unlimited.
 
-<aside class="notice">
-  See also the <b>getgenerate</b> method to query the current setting, and <b>genproclimit</b> for setting processor default parameters.
-</aside>
+::: tip
+See also the <b>getgenerate</b> method to query the current setting, and <b>genproclimit</b> for setting processor default parameters.
+:::
 
 ### Arguments:
 
@@ -122,6 +120,8 @@ Structure|Type|Description
 (none)                                       |(none)                       |
 
 ### Examples:
+
+> Turn on generation with unlimited processors:
 
 ```
 command:

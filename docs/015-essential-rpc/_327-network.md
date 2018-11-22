@@ -140,9 +140,9 @@ The `getaddednodeinfo` method returns information about the given added node, or
 
 If `dns` is set to `false`, only a list of added nodes is returned. Otherwise, connection information is also provided.
 
-<aside class="notice">
-  Nodes added via <b>onetry</b> are not listed here.
-</aside>
+::: tip
+Nodes added via <b>onetry</b> are not listed here.
+:::
 
 ### Arguments:
 
@@ -293,9 +293,9 @@ response:
 
 The `getdeprecationinfo` method returns an object containing current version and deprecation block height.
 
-<aside class="notice">
-  This method is applicable only to the KMD mainnet.
-</aside>
+::: tip
+This method is applicable only to the KMD mainnet.
+:::
 
 ### Arguments:
 
@@ -738,9 +738,9 @@ Results provided in `getpeerinfo`, `pingtime` and `pingwait` fields are decimal 
 
 The `ping` command is handled in queue with all other commands, so it measures processing backlog, not just network ping.
 
-<aside class="notice">
-  Use <b>getpeerinfo</b> to see <b>ping</b> results.
-</aside>
+::: tip
+Use <b>getpeerinfo</b> to see <b>ping</b> results.
+:::
 
 ### Arguments:
 
@@ -803,9 +803,9 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-<aside class="notice">
-  Use <b>listbanned</b> to view results.
-</aside>
+::: tip
+Use <b>listbanned</b> to view results.
+:::
 
 ### Examples:
 

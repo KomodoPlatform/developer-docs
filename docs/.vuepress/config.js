@@ -1,5 +1,6 @@
 module.exports = {
   title: 'Komodo Developer Documentation',
+  base: '/komodo-docs-vuepress/',
   description: 'Documentation for developers building on Komodo',
   themeConfig: {
     nav: [

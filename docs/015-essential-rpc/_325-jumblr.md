@@ -4,22 +4,6 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## Basic Instructions
 
-> Designate your deposit address.
-
-
-
-### Examples:
-
-```
-komodo-cli jumblr_deposit RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb
-```
-
-> Designate your secret destination address.
-
-```
-komodo-cli jumblr_secret RS46GZ5iTkt2exdauQG3JJ8fdnZNJUvAc1
-```
-
 Install Komodo following the [installation guides](#installing-basic-komodo-software) and change into the `komodod` subdirectory.
 
 `cd komodo/src`
@@ -36,11 +20,25 @@ Designate a destination address for your funds. This should be a transparent add
 
 Leave your node running until the balance in your first address reaches below 10.024 KMD and the destination address receives the correct amount.
 
-<aside class="warning">
-  Jumblr is created to be resistant against time-based analysis. Because of this, Jumblr is purposefully designed not to be fast. You will need to leave your computer or node running for several hours for the process to finish.
-</aside>
+::: warning
+Jumblr is created to be resistant against time-based analysis. Because of this, Jumblr is purposefully designed not to be fast. You will need to leave your computer or node running for several hours for the process to finish.
+:::
 
 For a more detailed description of Jumblr, please read Section IV of our [whitepaper](https://komodoplatform.com/whitepaper).
+
+### Examples:
+
+> Designate your deposit address.
+
+```
+komodo-cli jumblr_deposit RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb
+```
+
+> Designate your secret destination address.
+
+```
+komodo-cli jumblr_secret RS46GZ5iTkt2exdauQG3JJ8fdnZNJUvAc1
+```
 
 ## jumblr_deposit
 
@@ -48,9 +46,9 @@ For a more detailed description of Jumblr, please read Section IV of our [whitep
 
 The `jubmlr_deposit` method indicates the address from which Jumblr should withdraw funds. There should be at least 10.024 KMD in this address. Jumblr will withdraw funds in increments of 10, 100, or 7770 KMD.
 
-<aside class="notice">
-  While shielded z_address technology is available on all KMD-based asset chains, the Jumblr engine and methods are only available on the KMD mainnet.
-</aside>
+::: tip
+While shielded z_address technology is available on all KMD-based asset chains, the Jumblr engine and methods are only available on the KMD mainnet.
+:::
 
 ### Arguments:
 
@@ -83,9 +81,9 @@ response:
 
 The `jumblr_pause` method instructs Jumblr to temporarily pause the privacy-shielding process.
 
-<aside class="notice">
-  See also <b>jumblr_resume</b>.
-</aside>
+::: tip
+See also <b>jumblr_resume</b>.
+:::
 
 ### Arguments:
 
@@ -118,9 +116,9 @@ response:
 
 The `jumblr_resume` method instructs Jumblr to resume the privacy-shielding process.
 
-<aside class="notice">
-  See also <b>jumblr_pause</b>.
-</aside>
+::: tip
+See also <b>jumblr_pause</b>.
+:::
 
 ### Arguments:
 
