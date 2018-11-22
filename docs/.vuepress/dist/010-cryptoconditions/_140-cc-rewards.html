@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Smart Contract: Rewards | Komodo Developer Documentation</title>
+    <meta name="description" content="Documentation for developers building on Komodo">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.cc2a2ebf.css" as="style"><link rel="preload" href="/assets/js/app.862d0335.js" as="script"><link rel="preload" href="/assets/js/17.beb5a28e.js" as="script"><link rel="prefetch" href="/assets/js/10.cd2e2482.js"><link rel="prefetch" href="/assets/js/11.e90ee4c1.js"><link rel="prefetch" href="/assets/js/12.1b546010.js"><link rel="prefetch" href="/assets/js/13.ac3dcbfc.js"><link rel="prefetch" href="/assets/js/14.ec4096aa.js"><link rel="prefetch" href="/assets/js/15.8d500de2.js"><link rel="prefetch" href="/assets/js/16.44a07109.js"><link rel="prefetch" href="/assets/js/18.114dcde0.js"><link rel="prefetch" href="/assets/js/19.4366be09.js"><link rel="prefetch" href="/assets/js/2.290a92c7.js"><link rel="prefetch" href="/assets/js/20.0514c9e5.js"><link rel="prefetch" href="/assets/js/21.0a140a4d.js"><link rel="prefetch" href="/assets/js/22.16973f02.js"><link rel="prefetch" href="/assets/js/23.3ee32209.js"><link rel="prefetch" href="/assets/js/24.a6839530.js"><link rel="prefetch" href="/assets/js/25.5886ae37.js"><link rel="prefetch" href="/assets/js/26.10787ccd.js"><link rel="prefetch" href="/assets/js/27.cb7ad0e4.js"><link rel="prefetch" href="/assets/js/28.fcc81b2b.js"><link rel="prefetch" href="/assets/js/29.f4eee8f9.js"><link rel="prefetch" href="/assets/js/3.d88214c3.js"><link rel="prefetch" href="/assets/js/30.b8cacd71.js"><link rel="prefetch" href="/assets/js/31.ee0ba48e.js"><link rel="prefetch" href="/assets/js/4.534973a5.js"><link rel="prefetch" href="/assets/js/5.a841ca52.js"><link rel="prefetch" href="/assets/js/6.b8a552c5.js"><link rel="prefetch" href="/assets/js/7.b146d4d2.js"><link rel="prefetch" href="/assets/js/8.5b4be31f.js"><link rel="prefetch" href="/assets/js/9.435a88d4.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.cc2a2ebf.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Komodo Developer Documentation</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/000-start-here/_001-introduction.html" class="nav-link">Start Here</a></div><div class="nav-item"><a href="https://komodoplatform.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  KomodoPlatform.com
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/000-start-here/_001-introduction.html" class="nav-link">Start Here</a></div><div class="nav-item"><a href="https://komodoplatform.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  KomodoPlatform.com
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><div class="sidebar-group first collapsable"><p class="sidebar-heading"><span>Start Here</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>Installation and Setup</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading open"><span>CryptoConditions (Smart Contract Templates)</span> <span class="arrow down"></span></p> <ul class="sidebar-group-items"><li><a href="/010-cryptoconditions/_101-cryptoconditions-instructions.html" class="sidebar-link">Instructions for CryptoConditions</a></li><li><a href="/010-cryptoconditions/_110-cc-channels.html" class="sidebar-link">Channels</a></li><li><a href="/010-cryptoconditions/_120-cc-dice.html" class="sidebar-link">Dice</a></li><li><a href="/010-cryptoconditions/_130-cc-faucet.html" class="sidebar-link">Faucet</a></li><li><a href="/010-cryptoconditions/_133-cc-gateways.html" class="sidebar-link">Gateways</a></li><li><a href="/010-cryptoconditions/_135-cc-oracles.html" class="sidebar-link">Oracles</a></li><li><a href="/010-cryptoconditions/_140-cc-rewards.html" class="active sidebar-link">Rewards</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/010-cryptoconditions/_140-cc-rewards.html#rewardsaddfunding" class="sidebar-link">rewardsaddfunding</a></li><li class="sidebar-sub-header"><a href="/010-cryptoconditions/_140-cc-rewards.html#rewardsaddress" class="sidebar-link">rewardsaddress</a></li><li class="sidebar-sub-header"><a href="/010-cryptoconditions/_140-cc-rewards.html#rewardscreatefunding" class="sidebar-link">rewardscreatefunding</a></li><li class="sidebar-sub-header"><a href="/010-cryptoconditions/_140-cc-rewards.html#rewardsinfo" class="sidebar-link">rewardsinfo</a></li><li class="sidebar-sub-header"><a href="/010-cryptoconditions/_140-cc-rewards.html#rewardslist" class="sidebar-link">rewardslist</a></li><li class="sidebar-sub-header"><a href="/010-cryptoconditions/_140-cc-rewards.html#rewardslock" class="sidebar-link">rewardslock</a></li><li class="sidebar-sub-header"><a href="/010-cryptoconditions/_140-cc-rewards.html#rewardsunlock" class="sidebar-link">rewardsunlock</a></li></ul></li><li><a href="/010-cryptoconditions/_150-cc-tokens.html" class="sidebar-link">Tokens</a></li></ul></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>Essential RPC Calls</span> <span class="arrow right"></span></p> <!----></div></li></ul> </div> <div class="page"> <div class="content"><h1 id="smart-contract-rewards"><a href="#smart-contract-rewards" aria-hidden="true" class="header-anchor">#</a> Smart Contract: Rewards</h1> <p>The <code>rewards</code> contract creates a master-node like rewards program, giving a user the ability to earn rewards by locking coins.</p> <p>It features configurable parameters, such as a customizable APR, minimum deposit, a required holding period,etc.</p> <p>There can be many <code>rewards</code> plans active at any given time.</p> <p>The flow of a plan is as follows:</p> <ul><li>Anyone can create a new plan using <a href="#rewardscreatefunding"><code>rewardscreatefunding</code></a></li> <li>Anyone can add funding to the plan using <a href="#rewardsaddfunding"><code>rewardsaddfunding</code></a></li> <li>Anyone can query the list of all active plans using <a href="#rewardslist"><code>rewardslist</code></a></li> <li>To get the details of a particular plan, use <a href="#rewardsinfo"><code>rewardsinfo</code></a></li> <li>After finding a suitable plan, any user can lock funds using <a href="#rewardsinfo"><code>rewardslock</code></a></li> <li>After the minimum lock time is met, the user can use <a href="#rewardsunlock"><code>rewardsunlock</code></a> to unlock their funds and receive their rewards</li></ul> <h2 id="rewardsaddfunding"><a href="#rewardsaddfunding" aria-hidden="true" class="header-anchor">#</a> rewardsaddfunding</h2> <blockquote><p>Step 1: Create a raw transaction and get the HEX value</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=HELLOWORLD rewardsaddfunding FREE e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd 100
+</code></pre></div><blockquote><p>Response from Step 1:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;result&quot;: &quot;success&quot;,
+  &quot;hex&quot;: &quot;0100000001bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e00200000048473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401ffffffff0300e40b5402000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401ccd05eefb1fe080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000&quot;
+}
+</code></pre></div><blockquote><p>Step 2: Broadcast raw transaction</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0100000001bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e00200000048473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401ffffffff0300e40b5402000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401ccd05eefb1fe080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
+</code></pre></div><blockquote><p>Response from Step 2:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>008ca94eebce8dbfa91491028c8861016ad4c25240f9ddc5616f2fb0853da580
+</code></pre></div><blockquote><p>Step 3: Decode raw transaction (optional to check if the values are sane)</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=ATEST decoderawtransaction 0100000001bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e00200000048473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401ffffffff0300e40b5402000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401ccd05eefb1fe080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
+</code></pre></div><blockquote><p>Response:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;txid&quot;: &quot;008ca94eebce8dbfa91491028c8861016ad4c25240f9ddc5616f2fb0853da580&quot;,
+    &quot;size&quot;: 277,
+    &quot;version&quot;: 1,
+    &quot;locktime&quot;: 0,
+    &quot;vin&quot;: [
+        {
+            &quot;txid&quot;: &quot;e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd&quot;,
+            &quot;vout&quot;: 2,
+            &quot;scriptSig&quot;: {
+                &quot;asm&quot;: &quot;3044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401&quot;,
+                &quot;hex&quot;: &quot;473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401&quot;
+            },
+            &quot;sequence&quot;: 4294967295
+        }
+    ],
+    &quot;vout&quot;: [
+        {
+            &quot;value&quot;: 100.00000000,
+            &quot;valueSat&quot;: 10000000000,
+            &quot;n&quot;: 0,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;a22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401 OP_CHECKCRYPTOCONDITION&quot;,
+                &quot;hex&quot;: &quot;2ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc&quot;,
+                &quot;reqSigs&quot;: 1,
+                &quot;type&quot;: &quot;cryptocondition&quot;,
+                &quot;addresses&quot;: [
+                    &quot;RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK&quot;
+                ]
+            }
+        },
+        {
+            &quot;value&quot;: 98899.99970000,
+            &quot;valueSat&quot;: 9889999970000,
+            &quot;n&quot;: 1,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG&quot;,
+                &quot;hex&quot;: &quot;2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac&quot;,
+                &quot;reqSigs&quot;: 1,
+                &quot;type&quot;: &quot;pubkey&quot;,
+                &quot;addresses&quot;: [
+                    &quot;RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He&quot;
+                ]
+            }
+        },
+        {
+            &quot;value&quot;: 0.00000000,
+            &quot;valueSat&quot;: 0,
+            &quot;n&quot;: 2,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;OP_RETURN e5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e0&quot;,
+                &quot;hex&quot;: &quot;6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e0&quot;,
+                &quot;type&quot;: &quot;nulldata&quot;
+            }
+        }
+    ],
+    &quot;vjoinsplit&quot;: []
+}
+</code></pre></div><p><strong>rewardsaddfunding name fundingtxid amount</strong></p> <p>The <code>rewardsaddfunding</code> method adds funds to a rewards plan.</p> <p>The method returns a hex value which must then be broadcast using the <a href="#sendrawtransaction"><code>sendrawtransaction</code></a> method.</p> <h3 id="arguments"><a href="#arguments" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>name</td> <td>(string)</td> <td>the desired name of your rewards plan</td></tr> <tr><td>fundingtxid</td> <td>(string)</td> <td>the txid of the transaction that created and funded this contract</td></tr> <tr><td>amount</td> <td>(number)</td> <td>the amount of funds to add to the contract</td></tr></tbody></table> <h3 id="response"><a href="#response" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>result:</td> <td>(string)</td> <td>whether the command succeeded</td></tr> <tr><td>hex:</td> <td>(string)</td> <td>a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command</td></tr></tbody></table> <h2 id="rewardsaddress"><a href="#rewardsaddress" aria-hidden="true" class="header-anchor">#</a> rewardsaddress</h2> <blockquote><p>Command:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=HELLOWORLD rewardsaddress 03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5
+</code></pre></div><blockquote><p>Response:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;result&quot;: &quot;success&quot;,
+    &quot;RewardsCCaddress&quot;: &quot;RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK&quot;,
+    &quot;Rewardsmarker&quot;: &quot;RMgye9jeczNjQx9Uzq8no8pTLiCSwuHwkz&quot;,
+    &quot;GatewaysPubkey&quot;: &quot;03ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb40&quot;,
+    &quot;RewardsCCassets&quot;: &quot;RLh5sgvh3scCyM4aq1fhYhwgfbmb5SpCkT&quot;,
+    &quot;CCaddress&quot;: &quot;RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3&quot;,
+    &quot;myCCaddress&quot;: &quot;RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3&quot;,
+    &quot;myaddress&quot;: &quot;RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He&quot;
+}
+</code></pre></div><p><strong>rewardsaddress (pubkey)</strong></p> <p>The <code>rewardsaddress</code> method returns info about the a <code>rewards</code> plan associated with the given <code>pubkey</code>. If no <code>pubkey</code> is provided, the <code>pubkey</code> used to launch the daemon is used.</p> <h3 id="arguments-2"><a href="#arguments-2" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>pubkey</td> <td>(string, optional)</td> <td>the pubkey of the requested info; by default it is the pubkey used to launch the chain</td></tr></tbody></table> <h3 id="response-2"><a href="#response-2" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>result</td> <td>(string)</td> <td>whether the method executed successfully</td></tr> <tr><td>RewardsCCaddress</td> <td>(string)</td> <td>taking the contract's EVAL code as a modifyer, this is the public address that corresponds to the contract's privkey</td></tr> <tr><td>Rewardsmarker</td> <td>(string)</td> <td>the unmodified public address generated from the contract's privkey</td></tr> <tr><td>GatewaysPubkey</td> <td>(string)</td> <td>the pubkey for the gateways cc</td></tr> <tr><td>RewardsCCassets</td> <td>(string)</td> <td>this property is used for development purposes only and can otherwise be ignored</td></tr> <tr><td>CCaddress</td> <td>(string)</td> <td>taking the contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user</td></tr> <tr><td>myCCaddress</td> <td>(string)</td> <td>taking the contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user</td></tr> <tr><td>myaddress</td> <td>(string)</td> <td>the public address of the pubkey used to launch the chain</td></tr></tbody></table> <h2 id="rewardscreatefunding"><a href="#rewardscreatefunding" aria-hidden="true" class="header-anchor">#</a> rewardscreatefunding</h2> <blockquote><p>Step 1: Create raw transaction HEX using your own parameter</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=HELLOWORLD rewardscreatefunding FREE 1000 5 1 10 10
+</code></pre></div><blockquote><p>Response:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;result&quot;: &quot;success&quot;,
+    &quot;hex&quot;: &quot;010000000104f2435046f3ad452e76e53ec01429ae4f49d3322e8cc96da96b9e35d6ada70e0000000049483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ace069fb0501090000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000&quot;
+}    
+</code></pre></div><blockquote><p>Step 2: Broadcast/send the raw hex/transaction. This will output the txid which is the fundingtxid, also called the rewards plan id.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=ATEST sendrawtransaction 010000000104f2435046f3ad452e76e53ec01429ae4f49d3322e8cc96da96b9e35d6ada70e0000000049483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ace069fb0501090000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000
+</code></pre></div><blockquote><p>Response from Step 2:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd
+</code></pre></div><blockquote><p>Step 3: Decode the raw transaction (optional to check if the values are sane)</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=ATEST decoderawtransaction 010000000104f2435046f3ad452e76e53ec01429ae4f49d3322e8cc96da96b9e35d6ada70e0000000049483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ace069fb0501090000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000
+</code></pre></div><blockquote><p>Response from Step 3:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;txid&quot;: &quot;e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd&quot;,
+    &quot;size&quot;: 322,
+    &quot;version&quot;: 1,
+    &quot;locktime&quot;: 0,
+    &quot;vin&quot;: [
+        {
+            &quot;txid&quot;: &quot;0ea7add6359e6ba96dc98c2e32d3494fae2914c03ee5762e45adf3465043f204&quot;,
+            &quot;vout&quot;: 0,
+            &quot;scriptSig&quot;: {
+                &quot;asm&quot;: &quot;3045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01&quot;,
+                &quot;hex&quot;: &quot;483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01&quot;
+            },
+            &quot;sequence&quot;: 4294967295
+        }
+    ],
+    &quot;vout&quot;: [
+        {
+            &quot;value&quot;: 1000.00000000,
+            &quot;valueSat&quot;: 100000000000,
+            &quot;n&quot;: 0,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;a22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401 OP_CHECKCRYPTOCONDITION&quot;,
+                &quot;hex&quot;: &quot;2ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc&quot;,
+                &quot;reqSigs&quot;: 1,
+                &quot;type&quot;: &quot;cryptocondition&quot;,
+                &quot;addresses&quot;: [
+                    &quot;RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK&quot;
+                ]
+            }
+        },
+        {
+            &quot;value&quot;: 0.00010000,
+            &quot;valueSat&quot;: 10000,
+            &quot;n&quot;: 1,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;03da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9 OP_CHECKSIG&quot;,
+                &quot;hex&quot;: &quot;2103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ac&quot;,
+                &quot;reqSigs&quot;: 1,
+                &quot;type&quot;: &quot;pubkey&quot;,
+                &quot;addresses&quot;: [
+                    &quot;RMgye9jeczNjQx9Uzq8no8pTLiCSwuHwkz&quot;
+                ]
+            }
+        },
+        {
+            &quot;value&quot;: 98999.99980000,
+            &quot;valueSat&quot;: 9899999980000,
+            &quot;n&quot;: 2,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG&quot;,
+                &quot;hex&quot;: &quot;2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac&quot;,
+                &quot;reqSigs&quot;: 1,
+                &quot;type&quot;: &quot;pubkey&quot;,
+                &quot;addresses&quot;: [
+                    &quot;RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He&quot;
+                ]
+            }
+        },
+        {
+            &quot;value&quot;: 0.00000000,
+            &quot;valueSat&quot;: 0,
+            &quot;n&quot;: 3,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;OP_RETURN e54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b00000000&quot;,
+                &quot;hex&quot;: &quot;6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b00000000&quot;,
+                &quot;type&quot;: &quot;nulldata&quot;
+            }
+        }
+    ],
+    &quot;vjoinsplit&quot;: []
+}
+</code></pre></div><p><strong>rewardscreatefunding name amount APR mindays maxdays mindeposit</strong></p> <p>The <code>rewardscreatefunding</code> method creates a new <code>rewards</code> plan.</p> <p>The method returns a hex value which must then be broadcast using the <a href="#sendrawtransaction"><code>sendrawtransaction</code></a> method.</p> <p>The <code>sendrawtransaction</code> method will then return a <code>txid</code>. This <code>txid</code> is the <code>fundingtxid</code> that serves to identify the <code>rewards</code> plan.</p> <aside class="notice">
+  If you create a plan with <b>mindeposit: 10000</b>, make sure to also add 10000 of your coin and the transaction fees using the <b>rewardsaddfunding</b> call after creating the plan. The rewards contract won't allow locking of funds greater than the amount already locked in a single transaction as it needs to assure that it will have the required funds to pay.
+</aside> <h3 id="arguments-3"><a href="#arguments-3" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>name</td> <td>(string)</td> <td>the desired name of your rewards plan</td></tr> <tr><td>amount</td> <td>(number)</td> <td>the amount of seed funds to withdraw from your wallet</td></tr> <tr><td>APR</td> <td>(number)</td> <td>annual percentage of rewards, given in percentage units</td></tr> <tr><td>mindays</td> <td>(number)</td> <td>minimum number of days the funds will be locked</td></tr> <tr><td>maxdays</td> <td>(number)</td> <td>maximum number of days the funds will be locked</td></tr> <tr><td>mindeposit</td> <td>(number)</td> <td>the minimum deposit amount for a user to participate</td></tr></tbody></table> <h3 id="response-3"><a href="#response-3" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>result:</td> <td>(string)</td> <td>whether the command succeeded</td></tr> <tr><td>hex:</td> <td>(string)</td> <td>a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command</td></tr></tbody></table> <h2 id="rewardsinfo"><a href="#rewardsinfo" aria-hidden="true" class="header-anchor">#</a> rewardsinfo</h2> <blockquote><p>Command:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=HELLOWORLD rewardsinfo e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd
+</code></pre></div><blockquote><p>Response:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;result&quot;: &quot;success&quot;,
+    &quot;fundingtxid&quot;: &quot;e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd&quot;,
+    &quot;name&quot;: &quot;FREE&quot;,
+    &quot;sbits&quot;: 1162170950,
+    &quot;APR&quot;: &quot;5.00000000&quot;,
+    &quot;minseconds&quot;: 86400,
+    &quot;maxseconds&quot;: 864000,
+    &quot;mindeposit&quot;: &quot;10.00000000&quot;,
+    &quot;funding&quot;: &quot;1100.00000000&quot;,
+    &quot;locked&quot;: &quot;200.00000000&quot;
+}
+</code></pre></div><p><strong>rewardsinfo fundingtxid</strong></p> <p>The <code>rewardsinfo</code> method returns information about specific <code>rewards</code> plan.</p> <p>Use <a href="#rewardslist"><code>rewardslist</code></a> to see a list of all available <code>fundingtxid</code>'s.</p> <h3 id="arguments-4"><a href="#arguments-4" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>fundingtxid</td> <td>(string)</td> <td>the txid given on the creation of the rewards plan</td></tr></tbody></table> <h3 id="response-4"><a href="#response-4" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>name</td> <td>(string)</td> <td>name of the rewards plan</td></tr> <tr><td>sbits</td> <td>(number)</td> <td>a 64-bit int binary encoding of the first 8 characters of the name property</td></tr> <tr><td>APR</td> <td>(number)</td> <td>annual percentage of rewards, given in percentage units</td></tr> <tr><td>minseconds</td> <td>(number)</td> <td>minimum number of seconds the funds will be locked</td></tr> <tr><td>maxseconds</td> <td>(number)</td> <td>minimum number of seconds the funds will be locked</td></tr> <tr><td>mindeposit</td> <td>(number)</td> <td>minimum deposit amount</td></tr> <tr><td>funding</td> <td>(number)</td> <td>total available funds in the rewards plan</td></tr></tbody></table> <h2 id="rewardslist"><a href="#rewardslist" aria-hidden="true" class="header-anchor">#</a> rewardslist</h2> <blockquote><p>Command:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=HELLOWORLD rewardslist
+
+</code></pre></div><blockquote><p>Response:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>[
+  &quot;e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd&quot;
+]
+</code></pre></div><p><strong>rewardslist</strong></p> <p>The <code>rewardslist</code> method lists the <code>fundingtxid</code>'s of all the rewards contracts available on the asset chain.</p> <h3 id="arguments-5"><a href="#arguments-5" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-5"><a href="#response-5" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>fundingtxid</td> <td>(string)</td> <td>the txid of the transaction that created and funded the relevant contract</td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="rewardslock"><a href="#rewardslock" aria-hidden="true" class="header-anchor">#</a> rewardslock</h2> <blockquote><p>Step 1: Create raw transaction</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=HELLOWORLD rewardslock FREE e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd 200
+</code></pre></div><blockquote><p>Response from Step 1:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;result&quot;: &quot;success&quot;,
+    &quot;hex&quot;: &quot;010000000180a53d85b02f6f61c5ddf94052c2d46a0161888c029114a9bf8dceeb4ea98c000100000049483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701ffffffff0400c817a804000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acb048d709fa080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000&quot;
+}
+</code></pre></div><blockquote><p>Step 2: Broadcast raw transaction</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=ATEST sendrawtransaction 010000000180a53d85b02f6f61c5ddf94052c2d46a0161888c029114a9bf8dceeb4ea98c000100000049483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701ffffffff0400c817a804000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acb048d709fa080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
+</code></pre></div><blockquote><p>Response from Step 2:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263
+</code></pre></div><blockquote><p>Step 3: Decode raw transaction (optional to check if the values are sane)</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=ATEST decoderawtransaction 010000000180a53d85b02f6f61c5ddf94052c2d46a0161888c029114a9bf8dceeb4ea98c000100000049483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701ffffffff0400c817a804000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acb048d709fa080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
+</code></pre></div><blockquote><p>Response from Step 3:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;txid&quot;: &quot;494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263&quot;,
+    &quot;size&quot;: 322,
+    &quot;version&quot;: 1,
+    &quot;locktime&quot;: 0,
+    &quot;vin&quot;: [
+        {
+            &quot;txid&quot;: &quot;008ca94eebce8dbfa91491028c8861016ad4c25240f9ddc5616f2fb0853da580&quot;,
+            &quot;vout&quot;: 1,
+            &quot;scriptSig&quot;: {
+                &quot;asm&quot;: &quot;3045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701&quot;,
+                &quot;hex&quot;: &quot;483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701&quot;
+            },
+            &quot;sequence&quot;: 4294967295
+        }
+    ],
+    &quot;vout&quot;: [
+        {
+            &quot;value&quot;: 200.00000000,
+            &quot;valueSat&quot;: 20000000000,
+            &quot;n&quot;: 0,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;a22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401 OP_CHECKCRYPTOCONDITION&quot;,
+                &quot;hex&quot;: &quot;2ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc&quot;,
+                &quot;reqSigs&quot;: 1,
+                &quot;type&quot;: &quot;cryptocondition&quot;,
+                &quot;addresses&quot;: [
+                    &quot;RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK&quot;
+                ]
+            }
+        },
+        {
+            &quot;value&quot;: 0.00010000,
+            &quot;valueSat&quot;: 10000,
+            &quot;n&quot;: 1,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG&quot;,
+                &quot;hex&quot;: &quot;2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac&quot;,
+                &quot;reqSigs&quot;: 1,
+                &quot;type&quot;: &quot;pubkey&quot;,
+                &quot;addresses&quot;: [
+                    &quot;RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He&quot;
+                ]
+            }
+        },
+        {
+            &quot;value&quot;: 98699.99950000,
+            &quot;valueSat&quot;: 9869999950000,
+            &quot;n&quot;: 2,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG&quot;,
+                &quot;hex&quot;: &quot;2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac&quot;,
+                &quot;reqSigs&quot;: 1,
+                &quot;type&quot;: &quot;pubkey&quot;,
+                &quot;addresses&quot;: [
+                    &quot;RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He&quot;
+                ]
+            }
+        },
+        {
+            &quot;value&quot;: 0.00000000,
+            &quot;valueSat&quot;: 0,
+            &quot;n&quot;: 3,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;OP_RETURN e54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e0&quot;,
+                &quot;hex&quot;: &quot;6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e0&quot;,
+                &quot;type&quot;: &quot;nulldata&quot;
+            }
+        }
+    ],
+    &quot;vjoinsplit&quot;: []
+}
+</code></pre></div><p><strong>rewardslock name fundingtxid amount</strong></p> <p>The <code>rewardslock</code> method commits your desired amount of funds into the specified rewards plan. They remain locked until the minimum number of seconds/days passes.</p> <p>The method returns a <code>hex</code> value that must be broadcast using <a href="#sendrawtransaction"><code>sendrawtransaction</code></a>.</p> <p>The <code>sendrawtransaction</code> method will then return a <code>txid</code>, which is later used in the <a href="#rewardsunlock"><code>rewardsunlock</code></a> method. In general, it is best to save this <code>txid</code> in a secure location.</p> <p>If the final <code>txid</code> is lost, it is possible to find it again. See <a href="#rewardsunlock"><code>rewardsunlock</code></a> for more information.</p> <h3 id="arguments-6"><a href="#arguments-6" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>name</td> <td>(string)</td> <td>the name of the rewards plan</td></tr> <tr><td>fundingtxid</td> <td>(string)</td> <td>the txid that identifies the desired rewards plan</td></tr> <tr><td>amount</td> <td>(number)</td> <td>the amount of funds to commit to the plan (must be over the plan's minimum)</td></tr></tbody></table> <h3 id="response-6"><a href="#response-6" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>result:</td> <td>(string)</td> <td>whether the command succeeded</td></tr> <tr><td>hex:</td> <td>(string)</td> <td>a raw transaction in hex-encoded format; you must broadcast this transaction to complete the <code>diceaddfunds</code> command</td></tr></tbody></table> <h2 id="rewardsunlock"><a href="#rewardsunlock" aria-hidden="true" class="header-anchor">#</a> rewardsunlock</h2> <blockquote><p>Step 1: Create raw transaction</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=HELLOWORLD rewardsunlock FREE e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd 494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263
+</code></pre></div><blockquote><p>Response from Step 1:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;result&quot;: &quot;success&quot;,
+    &quot;hex&quot;: &quot;01000000026302ec1859929dea83001708971d62f30fe5624745e0fdb93db79ab18a4e4c49000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001ffffffff45fc2d61dd7bf709409c3e5b9021ebd6191901a2a43fa7ed2704c03aa0d3a682000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001ffffffff0349f04c4817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cca79841a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000&quot;
+}
+</code></pre></div><blockquote><p>Step 2: Broadcast raw transaction</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000026302ec1859929dea83001708971d62f30fe5624745e0fdb93db79ab18a4e4c49000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001ffffffff45fc2d61dd7bf709409c3e5b9021ebd6191901a2a43fa7ed2704c03aa0d3a682000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001ffffffff0349f04c4817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cca79841a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
+</code></pre></div><blockquote><p>Response from Step 2:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>7a69605f5ecfeb0613c8573cbc4ae2471698a65b60c983ec21fb41f09975c000
+</code></pre></div><blockquote><p>Step 3: Decode raw transaction (optional to check if the values are sane)</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 01000000026302ec1859929dea83001708971d62f30fe5624745e0fdb93db79ab18a4e4c49000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001ffffffff45fc2d61dd7bf709409c3e5b9021ebd6191901a2a43fa7ed2704c03aa0d3a682000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001ffffffff0349f04c4817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cca79841a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
+</code></pre></div><blockquote><p>Response from Step 3:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;txid&quot;: &quot;7a69605f5ecfeb0613c8573cbc4ae2471698a65b60c983ec21fb41f09975c000&quot;,
+    &quot;size&quot;: 492,
+    &quot;version&quot;: 1,
+    &quot;locktime&quot;: 0,
+    &quot;vin&quot;: [
+        {
+            &quot;txid&quot;: &quot;494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263&quot;,
+            &quot;vout&quot;: 0,
+            &quot;scriptSig&quot;: {
+                &quot;asm&quot;: &quot;a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001&quot;,
+    &quot;hex&quot;: &quot;4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001&quot;
+            },
+            &quot;sequence&quot;: 4294967295
+        },
+        {
+            &quot;txid&quot;: &quot;82a6d3a03ac00427eda73fa4a2011919d6eb21905b3e9c4009f77bdd612dfc45&quot;,
+            &quot;vout&quot;: 0,
+            &quot;scriptSig&quot;: {
+                &quot;asm&quot;: &quot;a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001&quot;,
+    &quot;hex&quot;: &quot;4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001&quot;
+            },
+            &quot;sequence&quot;: 4294967295
+        }
+    ],
+    &quot;vout&quot;: [
+        {
+            &quot;value&quot;: 999.97249609,
+            &quot;valueSat&quot;: 99997249609,
+            &quot;n&quot;: 0,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;a22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401 OP_CHECKCRYPTOCONDITION&quot;,
+                &quot;hex&quot;: &quot;2ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc&quot;,
+                &quot;reqSigs&quot;: 1,
+                &quot;type&quot;: &quot;cryptocondition&quot;,
+                &quot;addresses&quot;: [
+                    &quot;RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK&quot;
+                ]
+            }
+        },
+        {
+            &quot;value&quot;: 200.02740391,
+            &quot;valueSat&quot;: 20002740391,
+            &quot;n&quot;: 1,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG&quot;,
+                &quot;hex&quot;: &quot;2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac&quot;,
+                &quot;reqSigs&quot;: 1,
+                &quot;type&quot;: &quot;pubkey&quot;,
+                &quot;addresses&quot;: [
+                    &quot;RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He&quot;
+                ]
+            }
+        },
+        {
+            &quot;value&quot;: 0.00000000,
+            &quot;valueSat&quot;: 0,
+            &quot;n&quot;: 2,
+            &quot;scriptPubKey&quot;: {
+                &quot;asm&quot;: &quot;OP_RETURN e5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e0&quot;,
+                &quot;hex&quot;: &quot;6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e0&quot;,
+                &quot;type&quot;: &quot;nulldata&quot;
+            }
+        }
+    ],
+    &quot;vjoinsplit&quot;: []
+}
+</code></pre></div><p><strong>rewardsunlock name fundingtxid (txid)</strong></p> <p>The <code>rewardsunlock</code> method unlocks your funds from a specific rewards plan after the minimum lock time is met. If <code>txid</code> is not provided, <code>rewardsunlock</code> unlocks all funds in the <code>fundingtxid</code> plan.</p> <p>The method returns a hex value which must then be broadcast using the <a href="#sendrawtransaction"><code>sendrawtransaction</code></a> method to complete the command.</p> <p>If you attempt to unlock your funds before the minimum period is met, the daemon returns this error:</p> <p>The method requires the <code>txid</code> that was returned as a result of the original <a href="#rewardslock"><code>rewardslock</code></a> method.</p> <p>If the original <code>txid</code> is lost, it is possible to find it again by either rebroadcasting the original <code>hex</code> (if it is available), or by scanning through available utxos using the <a href="#getaddressutxos"><code>getaddressutxos</code></a> method.</p> <aside class="notice">
+{
+  &quot;result&quot;: &quot;error&quot;,
+  &quot;error&quot;: &quot;reward 0 is &lt;= the transaction fee&quot;
+}
+</aside> <p>An error similar to the one below prints in the console:</p> <p><code>APR 5.00000000 minseconds.86400 maxseconds.864000 mindeposit 10.00000000</code></p> <p><code>duration 74628 &lt; minseconds 86400</code></p> <p><code>reward 0 is &lt;= the transaction fee</code></p> <p><code>amount 200.00000000 -&gt; reward 0.00000000</code></p> <h3 id="arguments-7"><a href="#arguments-7" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>name</td> <td>(string)</td> <td>the name of the rewards plan</td></tr> <tr><td>fundingtxid</td> <td>(string)</td> <td>the txid that identifies the desired rewards plan</td></tr> <tr><td>txid</td> <td>(string, optional)</td> <td>the txid that was returned as a result of the original rewardslock command; if <code>txid</code> is not provided, <code>rewardsunlock</code> unlocks all funds in the <code>fundingtxid</code> plan</td></tr></tbody></table> <h3 id="response-7"><a href="#response-7" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>result:</td> <td>(string)</td> <td>whether the command succeeded</td></tr> <tr><td>hex:</td> <td>(string)</td> <td>a raw transaction in hex-encoded format; you must broadcast this transaction to complete the <code>diceaddfunds</code> command</td></tr></tbody></table></div> <div class="page-edit"><!----> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/010-cryptoconditions/_135-cc-oracles.html" class="prev">
+          Oracles
+        </a></span> <span class="next"><a href="/010-cryptoconditions/_150-cc-tokens.html">
+          Tokens
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/assets/js/17.beb5a28e.js" defer></script><script src="/assets/js/app.862d0335.js" defer></script>
+  </body>
+</html>

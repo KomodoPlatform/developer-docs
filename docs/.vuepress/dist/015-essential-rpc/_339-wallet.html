@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Wallet | Komodo Developer Documentation</title>
+    <meta name="description" content="Documentation for developers building on Komodo">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.cc2a2ebf.css" as="style"><link rel="preload" href="/assets/js/app.862d0335.js" as="script"><link rel="preload" href="/assets/js/29.f4eee8f9.js" as="script"><link rel="prefetch" href="/assets/js/10.cd2e2482.js"><link rel="prefetch" href="/assets/js/11.e90ee4c1.js"><link rel="prefetch" href="/assets/js/12.1b546010.js"><link rel="prefetch" href="/assets/js/13.ac3dcbfc.js"><link rel="prefetch" href="/assets/js/14.ec4096aa.js"><link rel="prefetch" href="/assets/js/15.8d500de2.js"><link rel="prefetch" href="/assets/js/16.44a07109.js"><link rel="prefetch" href="/assets/js/17.beb5a28e.js"><link rel="prefetch" href="/assets/js/18.114dcde0.js"><link rel="prefetch" href="/assets/js/19.4366be09.js"><link rel="prefetch" href="/assets/js/2.290a92c7.js"><link rel="prefetch" href="/assets/js/20.0514c9e5.js"><link rel="prefetch" href="/assets/js/21.0a140a4d.js"><link rel="prefetch" href="/assets/js/22.16973f02.js"><link rel="prefetch" href="/assets/js/23.3ee32209.js"><link rel="prefetch" href="/assets/js/24.a6839530.js"><link rel="prefetch" href="/assets/js/25.5886ae37.js"><link rel="prefetch" href="/assets/js/26.10787ccd.js"><link rel="prefetch" href="/assets/js/27.cb7ad0e4.js"><link rel="prefetch" href="/assets/js/28.fcc81b2b.js"><link rel="prefetch" href="/assets/js/3.d88214c3.js"><link rel="prefetch" href="/assets/js/30.b8cacd71.js"><link rel="prefetch" href="/assets/js/31.ee0ba48e.js"><link rel="prefetch" href="/assets/js/4.534973a5.js"><link rel="prefetch" href="/assets/js/5.a841ca52.js"><link rel="prefetch" href="/assets/js/6.b8a552c5.js"><link rel="prefetch" href="/assets/js/7.b146d4d2.js"><link rel="prefetch" href="/assets/js/8.5b4be31f.js"><link rel="prefetch" href="/assets/js/9.435a88d4.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.cc2a2ebf.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Komodo Developer Documentation</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/000-start-here/_001-introduction.html" class="nav-link">Start Here</a></div><div class="nav-item"><a href="https://komodoplatform.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  KomodoPlatform.com
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/000-start-here/_001-introduction.html" class="nav-link">Start Here</a></div><div class="nav-item"><a href="https://komodoplatform.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  KomodoPlatform.com
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><div class="sidebar-group first collapsable"><p class="sidebar-heading"><span>Start Here</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>Installation and Setup</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>CryptoConditions (Smart Contract Templates)</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading open"><span>Essential RPC Calls</span> <span class="arrow down"></span></p> <ul class="sidebar-group-items"><li><a href="/015-essential-rpc/_303-address-index.html" class="sidebar-link">Address</a></li><li><a href="/015-essential-rpc/_307-blockchain.html" class="sidebar-link">Blockchain</a></li><li><a href="/015-essential-rpc/_311-control.html" class="sidebar-link">Control</a></li><li><a href="/015-essential-rpc/_315-disclosure.html" class="sidebar-link">Disclosure</a></li><li><a href="/015-essential-rpc/_319-generate.html" class="sidebar-link">Generate</a></li><li><a href="/015-essential-rpc/_323-mining.html" class="sidebar-link">Mining</a></li><li><a href="/015-essential-rpc/_325-jumblr.html" class="sidebar-link">Jumblr</a></li><li><a href="/015-essential-rpc/_327-network.html" class="sidebar-link">Network</a></li><li><a href="/015-essential-rpc/_331-rawtransactions.html" class="sidebar-link">Raw Transactions</a></li><li><a href="/015-essential-rpc/_335-util.html" class="sidebar-link">Util</a></li><li><a href="/015-essential-rpc/_339-wallet.html" class="active sidebar-link">Wallet</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#sigaddress" class="sidebar-link">sigaddress</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#backupwallet" class="sidebar-link">backupwallet</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#dumpprivkey" class="sidebar-link">dumpprivkey</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#dumpwallet" class="sidebar-link">dumpwallet</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#encryptwallet" class="sidebar-link">encryptwallet</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#getaccount" class="sidebar-link">getaccount</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#getaccountaddress" class="sidebar-link">getaccountaddress</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#getaddressesbyaccount" class="sidebar-link">getaddressesbyaccount</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#getbalance" class="sidebar-link">getbalance</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#getbalance64" class="sidebar-link">getbalance64</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#getnewaddress" class="sidebar-link">getnewaddress</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#getrawchangeaddress" class="sidebar-link">getrawchangeaddress</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#getreceivedbyaccount" class="sidebar-link">getreceivedbyaccount</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#getreceivedbyaddress" class="sidebar-link">getreceivedbyaddress</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#gettransaction" class="sidebar-link">gettransaction</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#getunconfirmedbalance" class="sidebar-link">getunconfirmedbalance</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#getwalletinfo" class="sidebar-link">getwalletinfo</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#importaddress" class="sidebar-link">importaddress</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#key" class="sidebar-link">key</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#importwallet" class="sidebar-link">importwallet</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#keypoolrefill" class="sidebar-link">keypoolrefill</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#listaccounts" class="sidebar-link">listaccounts</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#listaddressgroupings" class="sidebar-link">listaddressgroupings</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#listlockunspent" class="sidebar-link">listlockunspent</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#listreceivedbyaccount" class="sidebar-link">listreceivedbyaccount</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#listreceivedbyaddress" class="sidebar-link">listreceivedbyaddress</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#listsinceblock" class="sidebar-link">listsinceblock</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#listtransactions" class="sidebar-link">listtransactions</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#listunspent" class="sidebar-link">listunspent</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#lockunspent" class="sidebar-link">lockunspent</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#move" class="sidebar-link">move</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#resendwallettransactions" class="sidebar-link">resendwallettransactions</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#sendfrom" class="sidebar-link">sendfrom</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#sendmany" class="sidebar-link">sendmany</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#sendtoaddress" class="sidebar-link">sendtoaddress</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#setaccount" class="sidebar-link">setaccount</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#settxfee" class="sidebar-link">settxfee</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#signmessage" class="sidebar-link">signmessage</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-exportkey" class="sidebar-link">z_exportkey</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-exportviewingkey" class="sidebar-link">z_exportviewingkey</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-exportwallet" class="sidebar-link">z_exportwallet</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-getbalance" class="sidebar-link">z_getbalance</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-getnewaddress" class="sidebar-link">z_getnewaddress</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-getoperationresult" class="sidebar-link">z_getoperationresult</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-getoperationstatus" class="sidebar-link">z_getoperationstatus</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-gettotalbalance" class="sidebar-link">z_gettotalbalance</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-importkey" class="sidebar-link">z_importkey</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-importviewingkey" class="sidebar-link">z_importviewingkey</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-importwallet" class="sidebar-link">z_importwallet</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-listaddresses" class="sidebar-link">z_listaddresses</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-listoperationids" class="sidebar-link">z_listoperationids</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-listreceivedbyaddress" class="sidebar-link">z_listreceivedbyaddress</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-mergetoaddress" class="sidebar-link">z_mergetoaddress</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-sendmany" class="sidebar-link">z_sendmany</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_339-wallet.html#z-shieldcoinbase" class="sidebar-link">z_shieldcoinbase</a></li></ul></li></ul></div></li></ul> </div> <div class="page"> <div class="content"><h1 id="wallet"><a href="#wallet" aria-hidden="true" class="header-anchor">#</a> Wallet</h1> <p>The following RPC calls interact with the <code>komodod</code> software, and are made available through the <code>komodo-cli</code> software.</p> <h2 id="sigaddress"><a href="#sigaddress" aria-hidden="true" class="header-anchor">#</a> sigaddress</h2> <blockquote><p>Add a multisig address from 2 addresses:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli addmultisigaddress 2 '[&quot;RSWwtqsNr9mW21UXRm6Lz4AzQnj4pVzzkp&quot;,&quot;RW8d8EChHTooVbwF3reqHYgkzWCnJFLXgh&quot;]'
+
+response:
+
+bLz2YZ7Mm8MgPc9mPNiFqhjFPbFZU4WUD5
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;addmultisigaddress&quot;, &quot;params&quot;: [2, [&quot;RL4CuA2MSAbBiqJKQEr2TKnKT2fSwK99mG&quot;,&quot;RBYVFCxpJdLgvUixhguxzuH1TJpoNLYCJ6&quot;]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;bNdB9fAt9HmQD8CmBjkY6QwmrNSBrbzsgA&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>sigaddress nrequired [ &quot;key&quot;, ... ] ( &quot;account&quot; )</strong></p> <p>The <code>addmultisigaddress</code> method adds a multi-signature address to the wallet, where <code>nrequired</code> indicates the number of keys (out of the total provided) required to execute a transaction.</p> <p>The keys function as signatures, allowing multiple parties or entities to manage an account. Each key in the array can be an address or a hex-encoded public key.</p> <aside class="notice">
+  DEPRECATED: If <b>account</b> is specified, the method assigns the multi-signature address to that account.
+</aside> <h3 id="arguments"><a href="#arguments" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>nrequired</td> <td>(numeric, required)</td> <td>the number of required keys (out of the <code>n</code> submitted)</td></tr> <tr><td>&quot;keysobject&quot;</td> <td>(string, required)</td> <td>a json array of addresses or hex-encoded public keys</td></tr> <tr><td>[</td> <td></td> <td></td></tr> <tr><td>&quot;address&quot;</td> <td>(string)</td> <td>address or hex-encoded public key</td></tr> <tr><td>...,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr> <tr><td>&quot;account&quot;</td> <td>(string, optional)</td> <td>DEPRECATED: if provided, &quot;account&quot; MUST be set to the empty string &quot;&quot; to represent the default account; passing any other string will result in an error</td></tr></tbody></table> <h3 id="response"><a href="#response" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;address&quot;</td> <td>(string)</td> <td>an address associated with the keys</td></tr></tbody></table> <h2 id="backupwallet"><a href="#backupwallet" aria-hidden="true" class="header-anchor">#</a> backupwallet</h2> <div class="language- extra-class"><pre class="language-text"><code>komodo-cli backupwallet &quot;mybackupdata&quot;
+
+/home/myusername/myexportdir/mybackupdata
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;backupwallet&quot;, &quot;params&quot;: [&quot;backupdata&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;/home/siddhartha/Desktop/backupdata&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>backupwallet &quot;destination&quot;</strong></p> <p>The <code>backupwallet</code> method safely copies the <code>wallet.dat</code> file to the indicated destination. The <code>destination</code> input accepts only alphanumeric characters.</p> <aside class="notice">
+  This method requires that the coin daemon have the <b>exportdir</b> runtime parameter enabled.
+</aside> <h3 id="arguments-2"><a href="#arguments-2" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;destination&quot;</td> <td>(string, required)</td> <td>the destination filename, saved in the directory set by the <a href="#exportdir"><code>exportdir</code></a> runtime parameter</td></tr></tbody></table> <h3 id="response-2"><a href="#response-2" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;path&quot;</td> <td>(string)</td> <td>the full path of the destination file</td></tr></tbody></table> <h2 id="dumpprivkey"><a href="#dumpprivkey" aria-hidden="true" class="header-anchor">#</a> dumpprivkey</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli dumpprivkey &quot;RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs&quot;
+
+response:
+
+DONOTUSExxxxxxxxxxxxxxxxxxxx4KkCmRnnSg7iXvAUjoYivC8K
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;dumpprivkey&quot;, &quot;params&quot;: [&quot;RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;DONOTUSExxxxxxxxxxxxxxxxxxxx4KkCmRnnSg7iXvAUjoYivC8K&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>dumpprivkey &quot;address&quot;</strong></p> <p>The <code>dumpprivkey</code> method reveals the private key corresponding to the indicated <code>address</code>.</p> <aside class="notice">
+  See also <b>importprivkey</b>.
+</aside> <h3 id="arguments-3"><a href="#arguments-3" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;address&quot;</td> <td>(string, required)</td> <td>the address for the private key</td></tr></tbody></table> <h3 id="response-3"><a href="#response-3" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;data&quot;</td> <td>(string)</td> <td>the private key</td></tr></tbody></table> <h2 id="dumpwallet"><a href="#dumpwallet" aria-hidden="true" class="header-anchor">#</a> dumpwallet</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli dumpwallet &quot;test&quot;
+
+response:
+
+/home/myusername/myexportdir/test
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;dumpwallet&quot;, &quot;params&quot;: [&quot;test&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+{
+  &quot;result&quot;: &quot;/home/myusername/myexportdir/test&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>dumpwallet &quot;filename&quot;</strong></p> <p>The <code>dumpwallet</code> method dumps all transparent-address wallet keys into a file, using a human-readable format.</p> <p>Overwriting an existing file is not permitted. The <code>destination</code> parameter accepts only alphanumeric characters.</p> <aside class="notice">
+  This method requires that the coin daemon have the <b>exportdir</b> runtime parameter enabled.
+</aside> <h3 id="arguments-4"><a href="#arguments-4" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;filename&quot;</td> <td>(string, required)</td> <td>the filename, saved in folder set by the <a href="#exportdir"><code>exportdir</code></a> runtime parameter</td></tr></tbody></table> <h3 id="response-4"><a href="#response-4" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;path&quot;</td> <td>(string)</td> <td>the full path of the destination file</td></tr></tbody></table> <h2 id="encryptwallet"><a href="#encryptwallet" aria-hidden="true" class="header-anchor">#</a> encryptwallet</h2> <blockquote><p>Encrypt your wallet:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli encryptwallet &quot;mypassphrase&quot;
+
+response:
+
+(disabled)
+</code></pre></div><blockquote><p>Set the passphrase to use the wallet, such as for signing or sending coins:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli walletpassphrase &quot;mypassphrase&quot;
+
+response:
+
+(disabled)
+</code></pre></div><blockquote><p>Enter a test command like <code>signmessage</code>:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli signmessage &quot;address&quot; &quot;test message&quot;
+
+response:
+
+(disabled)
+</code></pre></div><blockquote><p>Lock the wallet again by removing the passphrase:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli walletlock
+
+response:
+
+(disabled)
+</code></pre></div><blockquote><p>As a json rpc call:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;encryptwallet&quot;, &quot;params&quot;: [&quot;mypassphrase&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(disabled)
+</code></pre></div><p><strong>encryptwallet &quot;passphrase&quot;</strong></p> <aside class="warning">
+  Wallet encryption is DISABLED. This call always fails.
+</aside> <p>The <code>encryptwallet</code> method encrypts the wallet with the indicated <code>passphrase</code>.</p> <p>This method is for first-time encryption only. After this, any calls that interact with private keys, such as sending or signing, will require the passphrase to be set prior to making these calls. Use the <a href="#walletpassphrase"><code>walletpassphrase</code></a> call for this, and then <a href="#walletlock"><code>walletlock</code></a>. If the wallet is already encrypted, use the <a href="#walletpassphrasechange"><code>walletpassphrasechange</code></a> call.</p> <aside class="notice">
+  Using the <b>encryptwallet</b> method will shutdown the server.
+</aside> <h3 id="arguments-5"><a href="#arguments-5" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;passphrase&quot;</td> <td>(string)</td> <td>the passphrase with which to encrypt the wallet; it must be at least 1 character, but should be long</td></tr></tbody></table> <h3 id="response-5"><a href="#response-5" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h2 id="getaccount"><a href="#getaccount" aria-hidden="true" class="header-anchor">#</a> getaccount</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getaccount &quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;
+
+response:
+
+(deprecated)
+
+&gt; You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getaccount&quot;, &quot;params&quot;: [&quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(deprecated)
+</code></pre></div><p><strong>getaccount &quot;address&quot;</strong></p> <aside class="notice">
+  The <b>getaccount</b> method returns the account associated with the given address.
+</aside> <h3 id="arguments-6"><a href="#arguments-6" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;address&quot;</td> <td>(string, required)</td> <td>the address</td></tr></tbody></table> <h3 id="response-6"><a href="#response-6" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;accountname&quot;</td> <td>(string)</td> <td>the account address</td></tr></tbody></table> <h2 id="getaccountaddress"><a href="#getaccountaddress" aria-hidden="true" class="header-anchor">#</a> getaccountaddress</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getaccountaddress
+
+response:
+
+(deprecated)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getaccountaddress&quot;, &quot;params&quot;: [&quot;myaccount&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(deprecated)
+</code></pre></div><p><strong>getaccountaddress &quot;account&quot;</strong></p> <aside class="notice">
+DEPRECATED
+</aside> <p>The <code>getaccountaddress</code> method returns the current address for receiving payments to this account.</p> <h3 id="arguments-7"><a href="#arguments-7" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;account&quot;</td> <td>(string, required)</td> <td>MUST be set to the empty string &quot;&quot; to represent the default account; passing any other string will result in an error</td></tr></tbody></table> <h3 id="response-7"><a href="#response-7" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;address&quot;</td> <td>(string)</td> <td>the account address</td></tr></tbody></table> <h2 id="getaddressesbyaccount"><a href="#getaddressesbyaccount" aria-hidden="true" class="header-anchor">#</a> getaddressesbyaccount</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getaddressesbyaccount &quot;tabby&quot;
+
+response:
+
+(deprecated)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getaddressesbyaccount&quot;, &quot;params&quot;: [&quot;tabby&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(deprecated)
+</code></pre></div><p><strong>getaddressesbyaccount &quot;account&quot;</strong></p> <aside class="notice">
+DEPRECATED
+</aside> <p>The <code>getaddressesbyaccount</code> method returns the list of addresses for the given <code>account</code>.</p> <h3 id="arguments-8"><a href="#arguments-8" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;account&quot;</td> <td>(string, required)</td> <td>MUST be set to the empty string &quot;&quot; to represent the default account; passing any other string will result in an error</td></tr></tbody></table> <h3 id="response-8"><a href="#response-8" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>&quot;address&quot;</td> <td>(string)</td> <td>an address associated with the given account</td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="getbalance"><a href="#getbalance" aria-hidden="true" class="header-anchor">#</a> getbalance</h2> <blockquote><p>The total amount in the wallet:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getbalance
+
+response:
+
+10.05000000
+
+The total amount in the wallet where at least five blocks are confirmed:
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getbalance &quot;*&quot; 5
+
+response:
+
+10.05000000
+</code></pre></div><blockquote><p>As a json rpc call:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getbalance&quot;, &quot;params&quot;: [&quot;&quot;, 6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: 10.09234883,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>getbalance ( &quot;account&quot; minconf includeWatchonly )</strong></p> <p>The <code>getbalance</code> method returns the server's total available balance.</p> <aside class="notice">
+  The <b>account</b> input is deprecated.
+</aside> <h3 id="arguments-9"><a href="#arguments-9" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;account&quot;</td> <td>(string, optional)</td> <td>DEPRECATED if provided, it MUST be set to the empty string <code>&quot;&quot;</code> or to the string <code>&quot;*&quot;</code></td></tr> <tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>only include transactions confirmed at least this many times</td></tr> <tr><td>includeWatchonly</td> <td>(bool, optional, default=false)</td> <td>also include balance in watchonly addresses (see <code>importaddress</code>)</td></tr></tbody></table> <h3 id="response-9"><a href="#response-9" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>amount</td> <td>(numeric)</td> <td>the total amount</td></tr></tbody></table> <h2 id="getbalance64"><a href="#getbalance64" aria-hidden="true" class="header-anchor">#</a> getbalance64</h2> <p><strong>getbalance64</strong></p> <aside class="notice">
+  This method is part of the new <b>ac_staked</b> functionality.
+</aside> <p>The <code>getbalance64</code> method is used only on asset chains that are utilizing the <code>ac_staked</code> functionality. On KMD-based Proof-of-Stake (PoS) asset chains, all staked coins are placed into one of 64 segments (<code>segid</code>'s'). The <code>getbalance64</code> method returns the balance of coins in each <code>segid</code>. For further information, please reach out to our support team.</p> <h2 id="getnewaddress"><a href="#getnewaddress" aria-hidden="true" class="header-anchor">#</a> getnewaddress</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getnewaddress
+
+response:
+
+&quot;RYDuQ2oQCCz1PQNxUQTDAaRinWKiCoT2E6&quot;
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getnewaddress&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;R9iQRG6J9eY8SwaCcYZ65QJxg5UhgLC5Rx&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>getnewaddress ( &quot;account&quot; )</strong></p> <p>The <code>getnewaddress</code> method returns a new address for receiving payments.</p> <h3 id="arguments-10"><a href="#arguments-10" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;account&quot;</td> <td>(string, optional)</td> <td>DEPRECATED: If provided, the account MUST be set to the empty string <code>&quot;&quot;</code> to represent the default account; passing any other string will result in an error</td></tr></tbody></table> <h3 id="response-10"><a href="#response-10" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;address&quot;</td> <td>(string)</td> <td>the new address</td></tr></tbody></table> <h2 id="getrawchangeaddress"><a href="#getrawchangeaddress" aria-hidden="true" class="header-anchor">#</a> getrawchangeaddress</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getrawchangeaddress
+
+response:
+
+RS8oqzbjShKhftmuk2RpRmHH2hTAukp6yP
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getrawchangeaddress&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>getrawchangeaddress</strong></p> <p>The <code>getrawchangeaddress</code> returns a new address that can be used to receive change.</p> <aside class="notice">
+  This is for use with raw transactions, NOT normal use.
+</aside> <h3 id="arguments-11"><a href="#arguments-11" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-11"><a href="#response-11" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;address&quot;</td> <td>(string)</td> <td>the address</td></tr></tbody></table> <h2 id="getreceivedbyaccount"><a href="#getreceivedbyaccount" aria-hidden="true" class="header-anchor">#</a> getreceivedbyaccount</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getreceivedbyaccount &quot;&quot;
+
+response:
+
+(deprecated)
+</code></pre></div><p><strong>getreceivedbyaccount &quot;account&quot; ( minconf )</strong></p> <aside class="notice">
+  DEPRECATED
+</aside> <p>The <b>getreceivedbyaccount</b> method returns the total amount received by <b>account</b> in transactions with at least <b>minconf</b> confirmations.</p> <h3 id="arguments-12"><a href="#arguments-12" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;account&quot;</td> <td>(string, required)</td> <td>MUST be set to the empty string &quot;&quot; to represent the default account; passing any other string will result in an error</td></tr> <tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>only include transactions confirmed at least this many times</td></tr></tbody></table> <h3 id="response-12"><a href="#response-12" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>amount</td> <td>(numeric)</td> <td>the total amount received for this account</td></tr></tbody></table> <h2 id="getreceivedbyaddress"><a href="#getreceivedbyaddress" aria-hidden="true" class="header-anchor">#</a> getreceivedbyaddress</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getreceivedbyaddress &quot;RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN&quot;
+
+response:
+10.0500000
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getreceivedbyaddress &quot;RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN&quot; 0
+
+response:
+
+10.0500000
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getreceivedbyaddress &quot;RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN&quot; 6
+
+response:
+
+10.0500000
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getreceivedbyaddress&quot;, &quot;params&quot;: [&quot;RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN&quot;, 6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: 0,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>getreceivedbyaddress &quot;address&quot; ( minconf )</strong></p> <p>The <code>getreceivedbyaddress</code> method returns the total amount received by the given <code>address</code> in transactions with at least <code>minconf</code> confirmations.</p> <h3 id="arguments-13"><a href="#arguments-13" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;address&quot;</td> <td>(string, required)</td> <td>the address for transactions</td></tr> <tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>only include transactions confirmed at least this many times</td></tr></tbody></table> <h3 id="response-13"><a href="#response-13" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>amount</td> <td>(numeric)</td> <td>the total amount of the relevant coin received at this address</td></tr></tbody></table> <h2 id="gettransaction"><a href="#gettransaction" aria-hidden="true" class="header-anchor">#</a> gettransaction</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli gettransaction &quot;7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa&quot;
+
+response:
+
+{
+  &quot;amount&quot;: 0.00000000,
+  &quot;fee&quot;: -0.00005000,
+  &quot;confirmations&quot;: 0,
+  &quot;txid&quot;: &quot;7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa&quot;,
+  &quot;walletconflicts&quot;: [
+  ],
+  &quot;time&quot;: 1536993107,
+  &quot;timereceived&quot;: 1536993107,
+  &quot;vjoinsplit&quot;: [
+  ],
+  &quot;details&quot;: [
+  ],
+  &quot;hex&quot;: &quot;0100000001d69a6c4b9aa1991bd72ab86086db91a4c709c4b954c15d1622f2e1fb2deeb262000000004847304402205927908c985e09f6d9888e37e23b82770ca906b145c74a388ea9359afba63fff02204bd49a9b158ecfb7c12737579a31dd9e44dc63214813f70617f9a24a1e4d987801feffffff02302d903b000000001976a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac40420f00000000001976a914646e1ddd9b6415e0209e5bbe3861309353301eec88aca2659c5b&quot;
+}
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli gettransaction &quot;7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa&quot; true
+
+response:
+
+{
+  &quot;amount&quot;: 0.00000000,
+  &quot;fee&quot;: -0.00005000,
+  &quot;confirmations&quot;: 0,
+  &quot;txid&quot;: &quot;7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa&quot;,
+  &quot;walletconflicts&quot;: [
+  ],
+  &quot;time&quot;: 1536993107,
+  &quot;timereceived&quot;: 1536993107,
+  &quot;vjoinsplit&quot;: [
+  ],
+  &quot;details&quot;: [
+  ],
+  &quot;hex&quot;: &quot;0100000001d69a6c4b9aa1991bd72ab86086db91a4c709c4b954c15d1622f2e1fb2deeb262000000004847304402205927908c985e09f6d9888e37e23b82770ca906b145c74a388ea9359afba63fff02204bd49a9b158ecfb7c12737579a31dd9e44dc63214813f70617f9a24a1e4d987801feffffff02302d903b000000001976a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac40420f00000000001976a914646e1ddd9b6415e0209e5bbe3861309353301eec88aca2659c5b&quot;
+}
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;gettransaction&quot;, &quot;params&quot;: [&quot;7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: {
+    &quot;amount&quot;: 0,
+    &quot;fee&quot;: -5e-05,
+    &quot;confirmations&quot;: 0,
+    &quot;txid&quot;: &quot;7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa&quot;,
+    &quot;walletconflicts&quot;: [],
+    &quot;time&quot;: 1536993107,
+    &quot;timereceived&quot;: 1536993107,
+    &quot;vjoinsplit&quot;: [],
+    &quot;details&quot;: [],
+    &quot;hex&quot;: &quot;0100000001d69a6c4b9aa1991bd72ab86086db91a4c709c4b954c15d1622f2e1fb2deeb262000000004847304402205927908c985e09f6d9888e37e23b82770ca906b145c74a388ea9359afba63fff02204bd49a9b158ecfb7c12737579a31dd9e44dc63214813f70617f9a24a1e4d987801feffffff02302d903b000000001976a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac40420f00000000001976a914646e1ddd9b6415e0209e5bbe3861309353301eec88aca2659c5b&quot;
+  },
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>gettransaction &quot;txid&quot; ( includeWatchonly )</strong></p> <p>The <code>gettransaction</code> method queries detailed information about transaction <code>txid</code>. This command applies only to <code>txid</code>'s that are in the user's local wallet.</p> <h3 id="arguments-14"><a href="#arguments-14" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;txid&quot;</td> <td>(string, required)</td> <td>the transaction id</td></tr> <tr><td>&quot;includeWatchonly&quot;</td> <td>(bool, optional, default=false)</td> <td>whether to include watchonly addresses in the returned balance calculation and in the <code>details[]</code> returned values</td></tr></tbody></table> <h3 id="response-14"><a href="#response-14" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;amount&quot;</td> <td>(numeric)</td> <td>the transaction amount</td></tr> <tr><td>&quot;confirmations&quot;</td> <td>(numeric)</td> <td>the number of confirmations</td></tr> <tr><td>&quot;blockhash&quot;</td> <td>(string)</td> <td>the block hash</td></tr> <tr><td>&quot;blockindex&quot;</td> <td>(numeric)</td> <td>the block index</td></tr> <tr><td>&quot;blocktime&quot;</td> <td>(numeric)</td> <td>the time in seconds since epoch (1 Jan 1970 GMT)</td></tr> <tr><td>&quot;txid&quot;</td> <td>(string)</td> <td>the transaction id</td></tr> <tr><td>&quot;time&quot;</td> <td>(numeric)</td> <td>the transaction time in seconds since epoch (1 Jan 1970 GMT)</td></tr> <tr><td>&quot;timereceived&quot;</td> <td>(numeric)</td> <td>the time received in seconds since epoch (1 Jan 1970 GMT)</td></tr> <tr><td>&quot;details&quot;</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;account&quot;</td> <td>(string)</td> <td>DEPRECATED the account name involved in the transaction; can be &quot;&quot; for the default account</td></tr> <tr><td>&quot;address&quot;</td> <td>(string)</td> <td>the address involved in the transaction</td></tr> <tr><td>&quot;category&quot;</td> <td>(string)</td> <td>the category - either <code>send</code> or <code>receive</code></td></tr> <tr><td>&quot;amount&quot;</td> <td>(numeric)</td> <td>the amount</td></tr> <tr><td>&quot;vout&quot;</td> <td>(numeric)</td> <td>the vout value</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>],</td> <td></td> <td></td></tr> <tr><td>&quot;vjoinsplit&quot;</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;anchor&quot;</td> <td>(string)</td> <td>merkle root of note commitment tree</td></tr> <tr><td>&quot;nullifiers&quot;</td> <td></td> <td></td></tr> <tr><td>&quot;commitments&quot;</td> <td></td> <td></td></tr> <tr><td>&quot;macs&quot;</td> <td></td> <td></td></tr> <tr><td>&quot;vpub_old&quot;</td> <td>(numeric)</td> <td>the amount removed from the transparent value pool</td></tr> <tr><td>&quot;vpub_new&quot;</td> <td>(numeric)</td> <td>the amount added to the transparent value pool</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>],</td> <td></td> <td></td></tr> <tr><td>&quot;hex&quot;</td> <td>(string)</td> <td>raw data for transaction</td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table> <h2 id="getunconfirmedbalance"><a href="#getunconfirmedbalance" aria-hidden="true" class="header-anchor">#</a> getunconfirmedbalance</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getunconfirmedbalance
+
+response:
+
+10.05000000
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getunconfirmedbalance&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: 10.05000000,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>getunconfirmedbalance</strong></p> <p>The <code>getunconfirmedbalance</code> method returns the server's total unconfirmed balance.</p> <h3 id="arguments-15"><a href="#arguments-15" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-15"><a href="#response-15" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h2 id="getwalletinfo"><a href="#getwalletinfo" aria-hidden="true" class="header-anchor">#</a> getwalletinfo</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getwalletinfo
+
+response:
+
+{
+  &quot;walletversion&quot;: 60000,
+  &quot;balance&quot;: 10.01334496,
+  &quot;unconfirmed_balance&quot;: 0.00000000,
+  &quot;immature_balance&quot;: 0.00010000,
+  &quot;txcount&quot;: 106,
+  &quot;keypoololdest&quot;: 1536889653,
+  &quot;keypoolsize&quot;: 101,
+  &quot;paytxfee&quot;: 0.00000000
+}
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getwalletinfo&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: {
+    &quot;walletversion&quot;: 60000,
+    &quot;balance&quot;: 10.01334496,
+    &quot;unconfirmed_balance&quot;: 0,
+    &quot;immature_balance&quot;: 0.0001,
+    &quot;txcount&quot;: 106,
+    &quot;keypoololdest&quot;: 1536889653,
+    &quot;keypoolsize&quot;: 101,
+    &quot;paytxfee&quot;: 0
+  },
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>getwalletinfo</strong></p> <p>The <code>getwalletinfo</code> method returns an object containing various information about the wallet state.</p> <h3 id="arguments-16"><a href="#arguments-16" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-16"><a href="#response-16" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;walletversion&quot;</td> <td>(numeric)</td> <td>the wallet version</td></tr> <tr><td>&quot;balance&quot;</td> <td>(numeric)</td> <td>the total confirmed balance of the wallet</td></tr> <tr><td>&quot;unconfirmed_balance&quot;</td> <td>(numeric)</td> <td>the total unconfirmed balance of the wallet</td></tr> <tr><td>&quot;immature_balance&quot;</td> <td>(numeric)</td> <td>the total immature balance of the wallet</td></tr> <tr><td>&quot;txcount&quot;</td> <td>(numeric)</td> <td>the total number of transactions in the wallet</td></tr> <tr><td>&quot;keypoololdest&quot;</td> <td>(numeric)</td> <td>the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool</td></tr> <tr><td>&quot;keypoolsize&quot;</td> <td>(numeric)</td> <td>how many new keys are pre-generated</td></tr> <tr><td>&quot;unlocked_until&quot;</td> <td>(numeric)</td> <td>the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked</td></tr> <tr><td>&quot;paytxfee&quot;</td> <td>(numeric)</td> <td>the transaction fee configuration, denotated as the relevant COIN per KB</td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table> <h2 id="importaddress"><a href="#importaddress" aria-hidden="true" class="header-anchor">#</a> importaddress</h2> <blockquote><p>Import an address with rescan:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli importaddress &quot;RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN&quot;
+
+response:
+
+(none)
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli importaddress &quot;RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN&quot; &quot;testing&quot; false
+
+response:
+
+(none)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;importaddress&quot;, &quot;params&quot;: [&quot;R9z796AehK5b6NCPeVkGUHSpJnawerf8oP&quot;, &quot;testing&quot;, false] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: null,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>importaddress &quot;address&quot; ( &quot;label&quot; rescan )</strong></p> <p>The <code>importaddress</code> method adds an address or script (in hex) that can be watched as if it were in your wallet, although it cannot be used to spend.</p> <aside class="notice">
+  This call can take an increased amount of time to complete if rescan is true.
+</aside> <h3 id="arguments-17"><a href="#arguments-17" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;address&quot;</td> <td>(string, required)</td> <td>the address to watch</td></tr> <tr><td>&quot;label&quot;</td> <td>(string, optional, default=&quot;&quot;)</td> <td>an optional label</td></tr> <tr><td>rescan</td> <td>(boolean, optional, default=true)</td> <td>rescan the wallet for transactions</td></tr></tbody></table> <h3 id="response-17"><a href="#response-17" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h2 id="key"><a href="#key" aria-hidden="true" class="header-anchor">#</a> key</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli importprivkey &quot;DONOTUSExxxxxxxxxxxxxxxxxxxxj4Xu9jjinhLpffhdtoKg5gar2&quot;
+
+response:
+
+R9z796AehK5b6NCPeVkGUHSpJnawerf8oP
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli importprivkey &quot;DONOTUSExxxxxxxxxxxxxxxxxxxxj4Xu9jjinhLpffhdtoKg5gar2&quot; &quot;testing&quot; false
+
+response:
+
+RFtA32tttJm89VWRWPCQtV8bkQ1FvE1MBG
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;importprivkey&quot;, &quot;params&quot;: [&quot;UwibHKsYfiM19BXQmcUwAfw331GzGQK8aoPqqYEbyoPrzc2965nE&quot;, &quot;testing&quot;, false] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;RC5qhqgYRzf3dUXGAst9ah5LcuLjmMgT64&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>key &quot;komodoprivkey&quot; ( &quot;label&quot; rescan )</strong></p> <p>The <code>importprivkey</code> method adds a private key to your wallet.</p> <aside class="notice">
+  This call can take minutes to complete if <b>rescan</b> is true.
+</aside> <aside class="notice">
+  See also <b>dumpprivkey</b>.
+</aside> <h3 id="arguments-18"><a href="#arguments-18" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;privkey&quot;</td> <td>(string, required)</td> <td>the private key (see <a href="#dumpprivkey"><code>dumpprivkey</code></a>)</td></tr> <tr><td>&quot;label&quot;</td> <td>(string, optional, default=&quot;&quot;)</td> <td>an optional label</td></tr> <tr><td>rescan</td> <td>(boolean, optional, default=true)</td> <td>rescan the wallet for transactions</td></tr></tbody></table> <h3 id="response-18"><a href="#response-18" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>addresses</td> <td>(string)</td> <td>the public address</td></tr></tbody></table> <h2 id="importwallet"><a href="#importwallet" aria-hidden="true" class="header-anchor">#</a> importwallet</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli importwallet &quot;path/to/exportdir/nameofbackup&quot;
+
+response:
+
+(none)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;importwallet&quot;, &quot;params&quot;: [&quot;path/to/exportdir/nameofbackup&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: null,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>importwallet &quot;filename&quot;</strong></p> <p>The <code>importwallet</code> method imports transparent-address keys from a wallet-dump file (see <a href="#dumpwallet"><code>dumpwallet</code></a>).</p> <h3 id="arguments-19"><a href="#arguments-19" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;filename&quot;</td> <td>(string, required)</td> <td>the wallet file</td></tr></tbody></table> <h3 id="response-19"><a href="#response-19" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h2 id="keypoolrefill"><a href="#keypoolrefill" aria-hidden="true" class="header-anchor">#</a> keypoolrefill</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli keypoolrefill
+
+response:
+
+(none)
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli keypoolrefill 100
+
+response:
+
+(none)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;keypoolrefill&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: null,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>keypoolrefill ( newsize )</strong></p> <p>The <code>keypoolrefill</code> method refills the keypool.</p> <h3 id="arguments-20"><a href="#arguments-20" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>newsize</td> <td>(numeric, optional, default=100)</td> <td>the new keypool size</td></tr></tbody></table> <h3 id="response-20"><a href="#response-20" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h2 id="listaccounts"><a href="#listaccounts" aria-hidden="true" class="header-anchor">#</a> listaccounts</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listaccounts 6
+
+response:
+
+(deprecated)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;listaccounts&quot;, &quot;params&quot;: [6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(deprecated)
+</code></pre></div><p><strong>listaccounts ( minconf includeWatchonly)</strong></p> <aside class="notice">
+  DEPRECATED
+</aside> <p>The <b>listaccounts</b> method returns an object that has account names as keys and account balances as values.</p> <h3 id="arguments-21"><a href="#arguments-21" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>only include transactions with at least this many confirmations</td></tr> <tr><td>includeWatchonly</td> <td>(bool, optional, default=false)</td> <td>include balances in watchonly addresses (see 'importaddress')</td></tr></tbody></table> <h3 id="response-21"><a href="#response-21" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;account_number&quot;</td> <td>(numeric)</td> <td>the property name is the account name, and the value is the total balance for the account</td></tr> <tr><td>...</td> <td></td> <td></td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table> <h2 id="listaddressgroupings"><a href="#listaddressgroupings" aria-hidden="true" class="header-anchor">#</a> listaddressgroupings</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listaddressgroupings
+
+response (note how there are two separate, unique groupings of addresses):
+
+[
+  [
+    [
+      &quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;,
+      9.99304496
+    ],
+    [
+      &quot;RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7&quot;,
+      0.00040000,
+      &quot;&quot;
+    ],
+    [
+      &quot;RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN&quot;,
+      0.01000000
+    ]
+  ],
+  [
+    [
+      &quot;RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs&quot;,
+      0.00990000,
+      &quot;&quot;
+    ]
+  ]
+]
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;listaddressgroupings&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: [
+    [
+      [
+        &quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;,
+        9.99304496
+      ],
+      [
+        &quot;RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7&quot;,
+        0.0004,
+        &quot;&quot;
+      ],
+      [
+        &quot;RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN&quot;,
+        0.01
+      ]
+    ],
+    [
+      [
+        &quot;RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs&quot;,
+        0.0099,
+        &quot;&quot;
+      ]
+    ]
+  ],
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>listaddressgroupings</strong></p> <p>The <code>listaddressgroupings</code> method lists groups of addresses which have had their common ownership made public by common use as inputs or as the resulting change in past transactions.</p> <h3 id="arguments-22"><a href="#arguments-22" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-22"><a href="#response-22" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>[</td> <td>(array)</td> <td>each array at this indentation level is a unique grouping of addresses</td></tr> <tr><td>[</td> <td></td> <td></td></tr> <tr><td>&quot;address&quot;,</td> <td>(string)</td> <td>the address</td></tr> <tr><td>amount,</td> <td>(numeric)</td> <td>the amount</td></tr> <tr><td>&quot;account&quot;</td> <td>(string, optional)</td> <td>(DEPRECATED) the account</td></tr> <tr><td>]</td> <td></td> <td></td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="listlockunspent"><a href="#listlockunspent" aria-hidden="true" class="header-anchor">#</a> listlockunspent</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listlockunspent
+
+response:
+
+[
+  {
+    &quot;txid&quot;: &quot;d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd&quot;,
+    &quot;vout&quot;: 0
+  }
+]
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;listlockunspent&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: [
+    {
+      &quot;txid&quot;: &quot;d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd&quot;,
+      &quot;vout&quot;: 0
+    }
+  ],
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>listlockunspent</strong></p> <p>The <code>listlockunspent</code> method returns a list of temporarily non-spendable outputs.</p> <aside class="notice">
+See the <b>lockunspent</b> call to lock and unlock transactions for spending.
+</aside> <h3 id="arguments-23"><a href="#arguments-23" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-23"><a href="#response-23" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;txid&quot;</td> <td>(string)</td> <td>the transaction id locked</td></tr> <tr><td>&quot;vout&quot;</td> <td>(numeric)</td> <td>the vout value</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="listreceivedbyaccount"><a href="#listreceivedbyaccount" aria-hidden="true" class="header-anchor">#</a> listreceivedbyaccount</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listreceivedbyaccount
+
+response:
+
+(deprecated)
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listreceivedbyaccount 6 true
+
+response:
+
+(deprecated)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;listreceivedbyaccount&quot;, &quot;params&quot;: [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(deprecated)
+</code></pre></div><p><strong>listreceivedbyaccount ( minconf includeempty includeWatchonly)</strong></p> <aside class="notice">
+  DEPRECATED
+</aside> <p>The <code>listreceivedbyaccount</code> method lists balances by account.</p> <h3 id="arguments-24"><a href="#arguments-24" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>the minimum number of confirmations before payments are included</td></tr> <tr><td>includeempty</td> <td>(boolean, optional, default=false)</td> <td>whether to include accounts that haven't received any payments</td></tr> <tr><td>includeWatchonly</td> <td>(bool, optional, default=false)</td> <td>whether to include watchonly addresses (see 'importaddress')</td></tr></tbody></table> <h3 id="response-24"><a href="#response-24" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;involvesWatchonly&quot;</td> <td>(bool)</td> <td>only returned if imported addresses were involved in transaction</td></tr> <tr><td>&quot;account&quot;</td> <td>(string)</td> <td>the account name of the receiving account</td></tr> <tr><td>&quot;amount&quot;</td> <td>(numeric)</td> <td>the total amount received by addresses with this account</td></tr> <tr><td>&quot;confirmations&quot;</td> <td>(numeric)</td> <td>the number of confirmations of the most recent transaction included</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="listreceivedbyaddress"><a href="#listreceivedbyaddress" aria-hidden="true" class="header-anchor">#</a> listreceivedbyaddress</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listreceivedbyaddress
+
+response:
+
+[
+  {
+    &quot;address&quot;: &quot;RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs&quot;,
+    &quot;account&quot;: &quot;&quot;,
+    &quot;amount&quot;: 0.01000000,
+    &quot;confirmations&quot;: 10,
+    &quot;txids&quot;: [
+      &quot;5e6349567c893bab51a525219e5d2264532f1e73277fa1179449343cf2864211&quot;
+    ]
+  }
+]
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listreceivedbyaddress 6 true
+
+response:
+
+[
+  {
+    &quot;address&quot;: &quot;RSWwtqsNr9mW21UXRm6Lz4AzQnj4pVzzkp&quot;,
+    &quot;account&quot;: &quot;&quot;,
+    &quot;amount&quot;: 0.00000000,
+    &quot;confirmations&quot;: 0,
+    &quot;txids&quot;: [
+    ]
+  },
+  {
+    &quot;address&quot;: &quot;RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs&quot;,
+    &quot;account&quot;: &quot;&quot;,
+    &quot;amount&quot;: 0.01000000,
+    &quot;confirmations&quot;: 10,
+    &quot;txids&quot;: [
+      &quot;5e6349567c893bab51a525219e5d2264532f1e73277fa1179449343cf2864211&quot;
+    ]
+  }
+]
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;listreceivedbyaddress&quot;, &quot;params&quot;: [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+{
+  &quot;result&quot;: [
+    {
+      &quot;address&quot;: &quot;RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs&quot;,
+      &quot;account&quot;: &quot;&quot;,
+      &quot;amount&quot;: 0.01,
+      &quot;confirmations&quot;: 10,
+      &quot;txids&quot;: [
+        &quot;5e6349567c893bab51a525219e5d2264532f1e73277fa1179449343cf2864211&quot;
+      ]
+    },
+    {
+      &quot;address&quot;: &quot;RV3vVf5wPHwtToNzHqMomieLoqyF1VodB1&quot;,
+      &quot;account&quot;: &quot;&quot;,
+      &quot;amount&quot;: 0,
+      &quot;confirmations&quot;: 0,
+      &quot;txids&quot;: []
+    }
+  ],
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>listreceivedbyaddress ( minconf includeempty includeWatchonly)</strong></p> <p>The <code>listreceivedbyaddress</code> method lists balances by receiving address.</p> <h3 id="arguments-25"><a href="#arguments-25" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>the minimum number of confirmations before payments are included</td></tr> <tr><td>includeempty</td> <td>(numeric, optional, default=false)</td> <td>whether to include addresses that haven't received any payments</td></tr> <tr><td>includeWatchonly</td> <td>(bool, optional, default=false)</td> <td>whether to include watchonly addresses (see 'importaddress')</td></tr></tbody></table> <h3 id="response-25"><a href="#response-25" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;involvesWatchonly&quot;</td> <td>(bool)</td> <td>only returned if imported addresses were involved in transaction</td></tr> <tr><td>&quot;address&quot;</td> <td>(string)</td> <td>the receiving address</td></tr> <tr><td>&quot;account&quot;</td> <td>(string)</td> <td>DEPRECATED the account of the receiving address; the default account is &quot;&quot;</td></tr> <tr><td>&quot;amount&quot;</td> <td>(numeric)</td> <td>the total amount received by the address</td></tr> <tr><td>&quot;confirmations&quot;</td> <td>(numeric)</td> <td>the number of confirmations of the most recent transaction included</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="listsinceblock"><a href="#listsinceblock" aria-hidden="true" class="header-anchor">#</a> listsinceblock</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listsinceblock
+
+response:
+
+{
+  &quot;transactions&quot;: [
+    {
+      &quot;account&quot;: &quot;&quot;,
+      &quot;address&quot;: &quot;RSqt98kgCcXEKLSoMjBkwnMoYpVvHjxqaf&quot;,
+      &quot;category&quot;: &quot;generate&quot;,
+      &quot;amount&quot;: 0.00010000,
+      &quot;vout&quot;: 0,
+      &quot;confirmations&quot;: 19,
+      &quot;generated&quot;: true,
+      &quot;blockhash&quot;: &quot;02738f05d6e13f4be0ed2c04d472d42112ec03d5f35bd797b8ef0e0fc61dd472&quot;,
+      &quot;blockindex&quot;: 0,
+      &quot;blocktime&quot;: 1537220864,
+      &quot;expiryheight&quot;: 0,
+      &quot;txid&quot;: &quot;a4a589a5c5397ae8a72ee6819ce18703418d21b6ab7370a8f58a8a48dca7cd01&quot;,
+      &quot;walletconflicts&quot;: [
+      ],
+      &quot;time&quot;: 1537220863,
+      &quot;timereceived&quot;: 1537220863,
+      &quot;vjoinsplit&quot;: [
+      ],
+      &quot;size&quot;: 99
+    },
+      ...
+  ],
+  &quot;lastblock&quot;: &quot;003852ef655d7577492ffed079894a66788a8679b4c291f08850b9cea7b20ad0&quot;
+}
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listsinceblock &quot;029f11d80ef9765602235e1bc9727e3eb6ba20839319f761fee920d63401e327&quot; 6
+
+response:
+
+{
+  &quot;transactions&quot;: [
+    {
+      &quot;account&quot;: &quot;&quot;,
+      &quot;address&quot;: &quot;RSqt98kgCcXEKLSoMjBkwnMoYpVvHjxqaf&quot;,
+      &quot;category&quot;: &quot;generate&quot;,
+      &quot;amount&quot;: 0.00010000,
+      &quot;vout&quot;: 0,
+      &quot;confirmations&quot;: 19,
+      &quot;generated&quot;: true,
+      &quot;blockhash&quot;: &quot;02738f05d6e13f4be0ed2c04d472d42112ec03d5f35bd797b8ef0e0fc61dd472&quot;,
+      &quot;blockindex&quot;: 0,
+      &quot;blocktime&quot;: 1537220864,
+      &quot;expiryheight&quot;: 0,
+      &quot;txid&quot;: &quot;a4a589a5c5397ae8a72ee6819ce18703418d21b6ab7370a8f58a8a48dca7cd01&quot;,
+      &quot;walletconflicts&quot;: [
+      ],
+      &quot;time&quot;: 1537220863,
+      &quot;timereceived&quot;: 1537220863,
+      &quot;vjoinsplit&quot;: [
+      ],
+      &quot;size&quot;: 99
+    },
+      ...
+  ],
+  &quot;lastblock&quot;: &quot;0542c8f7c718e062af872b08a8a4469ed1b2f48ecb023533e57997b074a4430f&quot;
+}
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;listsinceblock&quot;, &quot;params&quot;: [&quot;029f11d80ef9765602235e1bc9727e3eb6ba20839319f761fee920d63401e327&quot;, 6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+{
+  &quot;transactions&quot;: [
+    {
+       &quot;account&quot;: &quot;&quot;,
+       &quot;address&quot;: &quot;RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs&quot;,
+       &quot;category&quot;: &quot;generate&quot;,
+       &quot;amount&quot;: 0.0001,
+       &quot;vout&quot;: 0,
+       &quot;confirmations&quot;: 86,
+       &quot;generated&quot;: true,
+       &quot;blockhash&quot;: &quot;006b9064941f7b04c5f8c36e6456f30a592b46fc6b256d15e3a9fa36a319b52f&quot;,
+       &quot;blockindex&quot;: 0,
+       &quot;blocktime&quot;: 1536976225,
+       &quot;expiryheight&quot;: 0,
+       &quot;txid&quot;: &quot;0a47e3965b76cd0593fa37dabb8fc1a3fbb0660cd0d9c1ac3fc5ae8c83e3bcd5&quot;,
+       &quot;walletconflicts&quot;: [],
+       &quot;time&quot;: 1536976224,
+       &quot;timereceived&quot;: 1536976224,
+       &quot;vjoinsplit&quot;: [],
+       &quot;size&quot;: 99
+     },
+      ...
+   ],
+   &quot;lastblock&quot;: &quot;0542c8f7c718e062af872b08a8a4469ed1b2f48ecb023533e57997b074a4430f&quot;
+ },
+ &quot;error&quot;: null,
+ &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>listsinceblock ( &quot;blockhash&quot; target-confirmations includeWatchonly )</strong></p> <p>The <code>listsinceblock</code> method queries all transactions in blocks since block <code>blockhash</code>, or all transactions if <code>blockhash</code> is omitted.</p> <h3 id="arguments-26"><a href="#arguments-26" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;blockhash&quot;</td> <td>(string, optional)</td> <td>the block hash from which to list transactions</td></tr> <tr><td>target-confirmations</td> <td>(numeric, optional)</td> <td>the confirmations required (must be 1 or more)</td></tr> <tr><td>includeWatchonly</td> <td>(bool, optional, default=false)</td> <td>include transactions to watchonly addresses (see also 'importaddress')</td></tr></tbody></table> <h3 id="response-26"><a href="#response-26" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;transactions&quot;:</td> <td></td> <td></td></tr> <tr><td>&quot;account&quot;</td> <td>(string)</td> <td>DEPRECATED the account name associated with the transaction; will be &quot;&quot; for the default account</td></tr> <tr><td>&quot;address&quot;</td> <td>(string)</td> <td>the address of the transaction (not present for move transactions -- category = move)</td></tr> <tr><td>&quot;category&quot;</td> <td>(string)</td> <td>the transaction category; <code>send</code> has negative amounts, <code>receive</code> has positive amounts</td></tr> <tr><td>&quot;amount&quot;</td> <td>(numeric)</td> <td>the amount of the relevant currency -- negative for the <code>send</code> category, and for the <code>move</code> category for moves outbound. It is positive for the <code>receive</code> category, and for the <code>move</code> category for inbound funds.</td></tr> <tr><td>&quot;vout&quot;</td> <td>(numeric)</td> <td>the vout value</td></tr> <tr><td>&quot;fee&quot;</td> <td>(numeric)</td> <td>the amount of the fee; this value is negative and only available for the <code>send</code> category of transactions</td></tr> <tr><td>&quot;confirmations&quot;</td> <td>(numeric)</td> <td>the number of confirmations for the transaction; available for <code>send</code> and <code>receive</code> category of transactions</td></tr> <tr><td>&quot;blockhash&quot;</td> <td>(string)</td> <td>the block hash containing the transaction; available for the <code>send</code> and <code>receive</code> categories of transactions</td></tr> <tr><td>&quot;blockindex&quot;</td> <td>(numeric)</td> <td>the block index containing the transaction; available for the <code>send</code> and <code>receive</code> categories of transactions</td></tr> <tr><td>&quot;blocktime&quot;</td> <td>(numeric)</td> <td>the block time in seconds since epoch (1 Jan 1970 GMT)</td></tr> <tr><td>&quot;txid&quot;</td> <td>(string)</td> <td>the transaction id; available for <code>send</code> and <code>receive</code> categories of transactions</td></tr> <tr><td>&quot;time&quot;</td> <td>(numeric)</td> <td>the transaction time in seconds since epoch (Jan 1 1970 GMT)</td></tr> <tr><td>&quot;timereceived&quot;</td> <td>(numeric)</td> <td>the time received in seconds since epoch (Jan 1 1970 GMT); available for <code>send</code> and <code>receive</code> category of transactions</td></tr> <tr><td>&quot;comment&quot;</td> <td>(string)</td> <td>whether a comment is associated with the transaction</td></tr> <tr><td>&quot;to&quot;</td> <td>(string)</td> <td>whether a 'to' comment is associated with the transaction</td></tr> <tr><td>],</td> <td></td> <td></td></tr> <tr><td>&quot;lastblock&quot;</td> <td>(string)</td> <td>the hash of the last block</td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table> <h2 id="listtransactions"><a href="#listtransactions" aria-hidden="true" class="header-anchor">#</a> listtransactions</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listtransactions
+
+response:
+
+[
+  {
+    &quot;account&quot;: &quot;&quot;,
+    &quot;address&quot;: &quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot;,
+    &quot;category&quot;: &quot;generate&quot;,
+    &quot;amount&quot;: 0.00021689,
+    &quot;vout&quot;: 0,
+    &quot;confirmations&quot;: 10,
+    &quot;generated&quot;: true,
+    &quot;blockhash&quot;: &quot;038a888c0a6e6c8103684f3a7b53dcab71186c7cb2136fd298f7900b3da05d94&quot;,
+    &quot;blockindex&quot;: 0,
+    &quot;blocktime&quot;: 1537223045,
+    &quot;expiryheight&quot;: 0,
+    &quot;txid&quot;: &quot;760788836335913068a66d3e4279233214b96a7dfc7757b899ea5d700aa4bc57&quot;,
+    &quot;walletconflicts&quot;: [
+    ],
+    &quot;time&quot;: 1537223044,
+    &quot;timereceived&quot;: 1537223044,
+    &quot;vjoinsplit&quot;: [
+    ],
+    &quot;size&quot;: 99
+  }
+  , ... (9 responses ommitted from documentation for brevity)
+]
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listtransactions &quot;*&quot; 20 100
+
+result:
+
+[
+  {
+    &quot;account&quot;: &quot;&quot;,
+    &quot;address&quot;: &quot;RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs&quot;,
+    &quot;category&quot;: &quot;generate&quot;,
+    &quot;amount&quot;: 0.00010000,
+    &quot;vout&quot;: 0,
+    &quot;confirmations&quot;: 99,
+    &quot;generated&quot;: true,
+    &quot;blockhash&quot;: &quot;0eb4edeb5141a7670ef8be413873e1bef4f6f321867a2b8d67a616cdc7df1e77&quot;,
+    &quot;blockindex&quot;: 0,
+    &quot;blocktime&quot;: 1536976212,
+    &quot;expiryheight&quot;: 0,
+    &quot;txid&quot;: &quot;3041aa7374e530d4d28e14620dd2bb9d2ff0bf71dd1106f08bc9f02fce44598e&quot;,
+    &quot;walletconflicts&quot;: [
+    ],
+    &quot;time&quot;: 1536976211,
+    &quot;timereceived&quot;: 1536976211,
+    &quot;vjoinsplit&quot;: [
+    ],
+    &quot;size&quot;: 99
+  }
+  , ... (9 responses ommitted from documentation for brevity)
+]
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;listtransactions&quot;, &quot;params&quot;: [&quot;*&quot;, 20, 100] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+{
+  [
+    {
+      &quot;account&quot;: &quot;&quot;,
+      &quot;address&quot;: &quot;RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs&quot;,
+      &quot;category&quot;: &quot;generate&quot;,
+      &quot;amount&quot;: 0.0001,
+      &quot;vout&quot;: 0,
+      &quot;confirmations&quot;: 99,
+      &quot;generated&quot;: true,
+      &quot;blockhash&quot;: &quot;0eb4edeb5141a7670ef8be413873e1bef4f6f321867a2b8d67a616cdc7df1e77&quot;,
+      &quot;blockindex&quot;: 0,
+      &quot;blocktime&quot;: 1536976212,
+      &quot;expiryheight&quot;: 0,
+      &quot;txid&quot;: &quot;3041aa7374e530d4d28e14620dd2bb9d2ff0bf71dd1106f08bc9f02fce44598e&quot;,
+      &quot;walletconflicts&quot;: [],
+      &quot;time&quot;: 1536976211,
+      &quot;timereceived&quot;: 1536976211,
+      &quot;vjoinsplit&quot;: [],
+      &quot;size&quot;: 99
+    }
+    , ... (9 responses ommitted from documentation for brevity)
+  ],
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>listtransactions ( &quot;account&quot; count from includeWatchonly )</strong></p> <p>The <code>listtransactions</code> method returns up to <code>count</code> most recent transactions skipping the first <code>from</code> transactions for <code>account</code>.</p> <h3 id="arguments-27"><a href="#arguments-27" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;account&quot;</td> <td>(string, optional)</td> <td>DEPRECATED the account name; should be <code>&quot;*&quot;</code></td></tr> <tr><td>count</td> <td>(numeric, optional, default=10)</td> <td>the number of transactions to return</td></tr> <tr><td>from</td> <td>(numeric, optional, default=0)</td> <td>the number of transactions to skip</td></tr> <tr><td>includeWatchonly</td> <td>(bool, optional, default=false)</td> <td>include transactions to watchonly addresses (see <code>importaddress</code>)</td></tr></tbody></table> <h3 id="response-27"><a href="#response-27" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;account&quot;</td> <td>(string)</td> <td>DEPRECATED the account name associated with the transaction; it will be &quot;&quot; for the default account</td></tr> <tr><td>&quot;address&quot;</td> <td>(string)</td> <td>the address of the transaction; not present for move transactions (category = move)</td></tr> <tr><td>&quot;category&quot;</td> <td>(string)</td> <td>The transaction category. This property can be <code>send</code></td></tr> <tr><td>&quot;amount&quot;</td> <td>(numeric)</td> <td>The amount. This value is negative for the <code>send</code> category, and for the <code>move</code> category for moves outbound. It is positive for the <code>receive</code> category and for the <code>move</code> category for inbound funds.</td></tr> <tr><td>&quot;vout&quot;</td> <td>(numeric)</td> <td>the vout value</td></tr> <tr><td>&quot;fee&quot;</td> <td>(numeric)</td> <td>the amount of the fee; this is negative and only available for the <code>send</code> category of transactions</td></tr> <tr><td>&quot;confirmations&quot;</td> <td>(numeric)</td> <td>the number of confirmations for the transaction; available for the <code>send</code> and <code>receive</code> categories of transactions</td></tr> <tr><td>&quot;blockhash&quot;</td> <td>(string)</td> <td>the block hash containing the transaction; available for the <code>send</code> and <code>receive</code> categories of transactions</td></tr> <tr><td>&quot;blockindex&quot;</td> <td>(numeric)</td> <td>the block index containing the transaction; available for the <code>send</code> and <code>receive</code> categories of transactions</td></tr> <tr><td>&quot;txid&quot;</td> <td>(string)</td> <td>the transaction id; available for the <code>send</code> and <code>receive</code> categories of transactions</td></tr> <tr><td>&quot;time&quot;</td> <td>(numeric)</td> <td>the transaction time in seconds since epoch (midnight Jan 1 1970 GMT)</td></tr> <tr><td>&quot;timereceived&quot;</td> <td>(numeric)</td> <td>the time received in seconds since epoch (midnight Jan 1 1970 GMT); available for the <code>send</code> and <code>receive</code> categories of transactions</td></tr> <tr><td>&quot;comment&quot;</td> <td>(string)</td> <td>whether a comment is associated with the transaction</td></tr> <tr><td>&quot;otheraccount&quot;</td> <td>(string)</td> <td>for the <code>move</code> category of transactions; indicates the account which sent the funds (for receiving funds, positive amounts), or went to (for sending funds, negative amounts)</td></tr> <tr><td>&quot;size&quot;</td> <td>(numeric)</td> <td>transaction size in bytes</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="listunspent"><a href="#listunspent" aria-hidden="true" class="header-anchor">#</a> listunspent</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listunspent
+
+response:
+
+[
+  {
+    &quot;txid&quot;: &quot;269b658b9a52e9142c96f3a49c0ad917e5d0c08126baa96713827267137d150f&quot;,
+    &quot;vout&quot;: 0,
+    &quot;generated&quot;: true,
+    &quot;address&quot;: &quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot;,
+    &quot;scriptPubKey&quot;: &quot;21037e631c6a03d028e48aecfd93b2d2737d5d7e2852a426b940ff301f78aa31690cac&quot;,
+    &quot;amount&quot;: 0.00010000,
+    &quot;interest&quot;: 0.00000000,
+    &quot;confirmations&quot;: 6,
+    &quot;spendable&quot;: true
+  },
+    ...
+]
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli listunspent 6 9999999 '[&quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot;,&quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;]'
+
+response:
+
+[
+  {
+    &quot;txid&quot;: &quot;0ca752c996c4074ca62071cdbf848ccd33864894151f982024006b3d69d021ac&quot;,
+    &quot;vout&quot;: 0,
+    &quot;generated&quot;: true,
+    &quot;address&quot;: &quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot;,
+    &quot;scriptPubKey&quot;: &quot;21037e631c6a03d028e48aecfd93b2d2737d5d7e2852a426b940ff301f78aa31690cac&quot;,
+    &quot;amount&quot;: 0.00010000,
+    &quot;interest&quot;: 0.00000000,
+    &quot;confirmations&quot;: 7,
+    &quot;spendable&quot;: true
+  },
+  {
+    &quot;txid&quot;: &quot;7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa&quot;,
+    &quot;vout&quot;: 0,
+    &quot;generated&quot;: false,
+    &quot;address&quot;: &quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;,
+    &quot;scriptPubKey&quot;: &quot;76a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac&quot;,
+    &quot;amount&quot;: 9.99304496,
+    &quot;interest&quot;: 0.00000000,
+    &quot;confirmations&quot;: 21,
+    &quot;spendable&quot;: true
+  }
+]
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;listunspent&quot;, &quot;params&quot;: [6, 9999999, [&quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot;,&quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: [
+    {
+      &quot;txid&quot;: &quot;0ca752c996c4074ca62071cdbf848ccd33864894151f982024006b3d69d021ac&quot;,
+      &quot;vout&quot;: 0,
+      &quot;generated&quot;: true,
+      &quot;address&quot;: &quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot;,
+      &quot;scriptPubKey&quot;: &quot;21037e631c6a03d028e48aecfd93b2d2737d5d7e2852a426b940ff301f78aa31690cac&quot;,
+      &quot;amount&quot;: 0.00010000,
+      &quot;interest&quot;: 0.00000000,
+      &quot;confirmations&quot;: 7,
+      &quot;spendable&quot;: true
+    },
+    {
+      &quot;txid&quot;: &quot;7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa&quot;,
+      &quot;vout&quot;: 0,
+      &quot;generated&quot;: false,
+      &quot;address&quot;: &quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;,
+      &quot;scriptPubKey&quot;: &quot;76a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac&quot;,
+      &quot;amount&quot;: 9.99304496,
+      &quot;interest&quot;: 0.00000000,
+      &quot;confirmations&quot;: 21,
+      &quot;spendable&quot;: true
+    }
+  ],
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>listunspent ( minconf maxconf  [&quot;address&quot;, ... ] )</strong></p> <p>The <code>listunspent</code> method returns an array of unspent transaction outputs, with a range between <code>minconf</code> and <code>maxconf</code> (inclusive) confirmations. The method can, optionally, filter to only include <code>txouts</code> paid to specified addresses.</p> <h3 id="arguments-28"><a href="#arguments-28" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>the minimum confirmations to filter</td></tr> <tr><td>maxconf</td> <td>(numeric, optional, default=9999999)</td> <td>the maximum confirmations to filter</td></tr> <tr><td>[</td> <td></td> <td></td></tr> <tr><td>&quot;address&quot;</td> <td>(string)</td> <td>a series of addresses</td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-28"><a href="#response-28" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;txid&quot;</td> <td>(string)</td> <td>the transaction id</td></tr> <tr><td>&quot;vout&quot;</td> <td>(numeric)</td> <td>the vout value</td></tr> <tr><td>&quot;generated&quot;</td> <td>(boolean)</td> <td>true if txout is a coinbase transaction output</td></tr> <tr><td>&quot;address&quot;</td> <td>(string)</td> <td>the address</td></tr> <tr><td>&quot;account&quot;</td> <td>(string)</td> <td>DEPRECATED the associated account, or &quot;&quot; for the default account</td></tr> <tr><td>&quot;scriptPubKey&quot;</td> <td>(string)</td> <td>the script key</td></tr> <tr><td>&quot;amount&quot;</td> <td>(numeric)</td> <td>the transaction amount</td></tr> <tr><td>&quot;confirmations&quot;</td> <td>(numeric)</td> <td>the number of confirmations</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="lockunspent"><a href="#lockunspent" aria-hidden="true" class="header-anchor">#</a> lockunspent</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli lockunspent false '[{&quot;txid&quot;:&quot;d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd&quot;,&quot;vout&quot;:0}]'
+
+response:
+
+true
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;lockunspent&quot;, &quot;params&quot;: [false, [{&quot;txid&quot;:&quot;d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd&quot;,&quot;vout&quot;:0}]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: true,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>lockunspent unlock [{ &quot;txid&quot;: &quot;txid&quot;, &quot;vout&quot;: n }, ... ]</strong></p> <p>The <code>lockunspent</code> method locks (unlock = <code>false</code>) or unlocks (unlock = <code>true</code>) specified transaction outputs. A locked transaction output will not be chosen by automatic coin selection, when spending the relevant coin. The locks are stored in memory only; at runtime a node always starts with zero locked outputs, and the locked output list is always cleared when a node stops or fails.</p> <aside class="notice">
+  See the <b>listunspent</b> and <b>listlockunspent</b> calls to determine local transaction state and info.
+</aside> <h3 id="arguments-29"><a href="#arguments-29" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>unlock</td> <td>(boolean, required)</td> <td>whether to unlock (true) or lock (false) the specified transactions</td></tr> <tr><td>[</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;txid&quot;</td> <td>(string)</td> <td>the transaction id</td></tr> <tr><td>&quot;vout&quot;</td> <td>(numeric)</td> <td>the output number</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-29"><a href="#response-29" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>true/false</td> <td>(boolean)</td> <td>whether the command was successful</td></tr></tbody></table> <h2 id="move"><a href="#move" aria-hidden="true" class="header-anchor">#</a> move</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli move &quot;&quot; &quot;tabby&quot; 0.01
+
+response:
+
+(deprecated)
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli move &quot;timotei&quot; &quot;akiko&quot; 0.01 6 &quot;happy birthday!&quot;
+
+response:
+
+(deprecated)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;move&quot;, &quot;params&quot;: [&quot;timotei&quot;, &quot;akiko&quot;, 0.01, 6, &quot;happy birthday!&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(deprecated)
+</code></pre></div><p><strong>move &quot;fromaccount&quot; &quot;toaccount&quot; amount ( minconf &quot;comment&quot; )</strong></p> <aside class="notice">
+  DEPRECATED
+</aside> <p>The <code>move</code> method moves a specified amount from one account in your wallet to another.</p> <h3 id="arguments-30"><a href="#arguments-30" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;fromaccount&quot;</td> <td>(string, required)</td> <td>MUST be set to the empty string &quot;&quot; to represent the default account; passing any other string will result in an error</td></tr> <tr><td>&quot;toaccount&quot;</td> <td>(string, required)</td> <td>MUST be set to the empty string &quot;&quot; to represent the default account; passing any other string will result in an error</td></tr> <tr><td>amount</td> <td>(numeric)</td> <td>quantity to move between accounts</td></tr> <tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>only use funds with at least this many confirmations</td></tr> <tr><td>&quot;comment&quot;</td> <td>(string, optional)</td> <td>an optional comment, stored in the wallet only</td></tr></tbody></table> <h3 id="response-30"><a href="#response-30" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>true/false</td> <td>(boolean)</td> <td>true if successful</td></tr></tbody></table> <h2 id="resendwallettransactions"><a href="#resendwallettransactions" aria-hidden="true" class="header-anchor">#</a> resendwallettransactions</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli resendwallettransactions
+
+response:
+
+[
+  &quot;4e847051279ead30fb2d8d53cc0d4649f62c85a44b23f90152d2ef4ed6af2006&quot;
+]
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;resendwallettransactions&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: [
+    &quot;4e847051279ead30fb2d8d53cc0d4649f62c85a44b23f90152d2ef4ed6af2006&quot;
+  ],
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>resendwallettransactions</strong></p> <p>The <code>resendwallettransactions</code> method immediately re-broadcasts unconfirmed wallet transactions to all peers. This method is intended only for testing; the wallet code periodically re-broadcasts automatically.</p> <h3 id="arguments-31"><a href="#arguments-31" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-31"><a href="#response-31" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>&quot;transaction_id&quot;</td> <td>(string)</td> <td>an array of the rebroadcasted transaction id's</td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="sendfrom"><a href="#sendfrom" aria-hidden="true" class="header-anchor">#</a> sendfrom</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli sendfrom &quot;&quot; &quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot; 0.01
+
+response:
+
+(deprecated)
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli sendfrom &quot;tabby&quot; &quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot; 0.01 6 &quot;donation&quot; &quot;seans outpost&quot;
+
+response:
+
+(deprecated)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;sendfrom&quot;, &quot;params&quot;: [&quot;tabby&quot;, &quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot;, 0.01, 6, &quot;donation&quot;, &quot;seans outpost&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(deprecated)
+</code></pre></div><p><strong>sendfrom &quot;account&quot; &quot;address&quot; amount ( minconf &quot;comment&quot; &quot;comment-to&quot; )</strong></p> <aside class="notice">
+  DEPRECATED: Use <b>sendtoaddress</b> instead.
+</aside> <p>The <code>sendfrom</code> method sends an amount from <code>account</code> to <code>address</code>.</p> <h3 id="arguments-32"><a href="#arguments-32" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;account&quot;</td> <td>(string, required)</td> <td>MUST be set to the empty string &quot;&quot; to represent the default account; passing any other string will result in an error</td></tr> <tr><td>&quot;address&quot;</td> <td>(string, required)</td> <td>the address to receive funds</td></tr> <tr><td>amount</td> <td>(numeric, required)</td> <td>the amount (transaction fee not included)</td></tr> <tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>only use funds with at least this many confirmations</td></tr> <tr><td>&quot;comment&quot;</td> <td>(string, optional)</td> <td>a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet</td></tr> <tr><td>&quot;comment-to&quot;</td> <td>(string, optional)</td> <td>an optional comment to store the name of the person or organization to which you're sending the transaction; this is not part of the transaction, it is only kept in your wallet</td></tr></tbody></table> <h3 id="response-32"><a href="#response-32" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;transaction_id&quot;</td> <td>(string)</td> <td>the transaction id</td></tr></tbody></table> <h2 id="sendmany"><a href="#sendmany" aria-hidden="true" class="header-anchor">#</a> sendmany</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli sendmany &quot;&quot; '{&quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;:0.01,&quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot;:0.02}'
+
+response:
+
+e39b046f0e30bd2a80c64ec78d902107858c8f0d55097d7f2293df1c9a4496ae
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli sendmany &quot;&quot; '{&quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;:0.01,&quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot;:0.02}' 6 &quot;testing&quot;
+
+response:
+
+3829164d8a68d9b7c2c89efe419eca77e37883318b7187b7e000e80e8138a370
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli sendmany &quot;&quot; '{&quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;:0.01,&quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot;:0.02}' 1 &quot;&quot; '[&quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;,&quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot;]'
+
+response:
+
+1813a39247913abf73af10ed51537234fe4e58eb5cfc4f49ac4fbcdecb42b4b4
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;sendmany&quot;, &quot;params&quot;: [&quot;&quot;, {&quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;:0.01,&quot;RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu&quot;:0.02}, 6, &quot;testing&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;fe7db27ed66b9d999c21d3cc9c8c687bd68721d711da6573a0a0ccf75c1cace5&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>sendmany &quot;account&quot; { &quot;address&quot;: amount, ... } ( minconf &quot;comment&quot; [ &quot;address&quot;, ... ] )</strong></p> <p>The <code>sendmany</code> method can send multiple transactions at once. Amounts are double-precision floating point numbers.</p> <h3 id="arguments-33"><a href="#arguments-33" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;account&quot;</td> <td>(string, required)</td> <td>MUST be set to the empty string &quot;&quot; to represent the default account; passing any other string will result in an error</td></tr> <tr><td>&quot;amounts&quot;</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;address&quot;:amount</td> <td>(&quot;string&quot;:numeric)</td> <td>the address (string) and the value (double-precision floating numeric)</td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>only use the balance confirmed at least this many times</td></tr> <tr><td>&quot;comment&quot;</td> <td>(string, optional)</td> <td>a comment</td></tr> <tr><td>subtractfeefromamount</td> <td>(string, optional)</td> <td>a json array with addresses. The fee will be equally deducted from the amount of each selected address; the recipients will receive less than you enter in their corresponding amount field. If no addresses are specified here, the sender pays the fee.</td></tr> <tr><td>[</td> <td></td> <td></td></tr> <tr><td>&quot;address&quot;</td> <td>(string)</td> <td>subtract fee from this address</td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-33"><a href="#response-33" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;transaction_id&quot;</td> <td>(string)</td> <td>the transaction id for the send; only 1 transaction is created regardless of the number of addresses</td></tr></tbody></table> <h2 id="sendtoaddress"><a href="#sendtoaddress" aria-hidden="true" class="header-anchor">#</a> sendtoaddress</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli sendtoaddress &quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot; 0.1
+
+response:
+
+cc23924c007adc98b8ea5b9b8b47638e080aa469eb9738b976def487a44f467b
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli sendtoaddress &quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot; 0.1 &quot;donation&quot; &quot;seans outpost&quot;
+
+response:
+
+86948c27dc63be415b235c5b3ed807c1e07d9a2cac252f58734add700c55fe18
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli sendtoaddress &quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot; 0.1 &quot;&quot; &quot;&quot; true
+
+response:
+
+c5727cafd7d6dfc888d4a0596dc58bfafb24859e29f827e1bf1443037d8461fc
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;sendtoaddress&quot;, &quot;params&quot;: [&quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;, 0.1, &quot;donation&quot;, &quot;seans outpost&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;6e411f3534af8847d705d87934f6061046e2034abad96b7a1fb1d3996129cb1e&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>sendtoaddress &quot;address&quot; amount ( &quot;comment&quot; &quot;comment-to&quot; subtractfeefromamount )</strong></p> <p>The <code>sendtoaddress</code> method sends an amount to a given address. The amount is real and is rounded to the nearest 0.00000001.</p> <h3 id="arguments-34"><a href="#arguments-34" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;komodoaddress&quot;</td> <td>(string, required)</td> <td>the receiving address</td></tr> <tr><td>&quot;amount&quot;</td> <td>(numeric, required)</td> <td>the amount to send (json requires all decimals values less than 1 begin with the characters '0.')</td></tr> <tr><td>&quot;comment&quot;</td> <td>(string, optional)</td> <td>a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet</td></tr> <tr><td>&quot;comment-to&quot;</td> <td>(string, optional)</td> <td>a comment to store the name of the person or organization to which you're sending the transaction; this is stored in your local wallet file only</td></tr> <tr><td>subtractfeefromamount</td> <td>(boolean, optional, default=false)</td> <td>when <code>true</code>, the fee will be deducted from the amount being sent</td></tr></tbody></table> <h3 id="response-34"><a href="#response-34" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;transaction_id&quot;</td> <td>(string)</td> <td>the transaction id</td></tr></tbody></table> <h2 id="setaccount"><a href="#setaccount" aria-hidden="true" class="header-anchor">#</a> setaccount</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli setaccount &quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot; &quot;tabby&quot;
+
+response:
+
+(deprecated)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;setaccount&quot;, &quot;params&quot;: [&quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;, &quot;tabby&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(deprecated)
+</code></pre></div><p><strong>setaccount &quot;address&quot; &quot;account&quot;</strong></p> <aside class="notice">
+  DEPRECATED
+</aside> <p>The <code>setaccount</code> method sets the account associated with the given address.</p> <h3 id="arguments-35"><a href="#arguments-35" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;address&quot;</td> <td>(string, required)</td> <td>the address to be associated with an account</td></tr> <tr><td>&quot;account&quot;</td> <td>(string, required)</td> <td>MUST be set to the empty string &quot;&quot; to represent the default account; passing any other string will result in an error</td></tr></tbody></table> <h2 id="settxfee"><a href="#settxfee" aria-hidden="true" class="header-anchor">#</a> settxfee</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli settxfee 0.00001
+
+response:
+
+true
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;settxfee&quot;, &quot;params&quot;: [0.00001] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: true,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>settxfee amount</strong></p> <p>The <code>settxfee</code> method sets the transaction fee per kB.</p> <h3 id="arguments-36"><a href="#arguments-36" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>amount</td> <td>(numeric, required)</td> <td>the transaction fee in COIN/kB rounded to the nearest 0.00000001</td></tr></tbody></table> <h3 id="response-35"><a href="#response-35" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>true/false</td> <td>(boolean)</td> <td>returns true if successful</td></tr></tbody></table> <h2 id="signmessage"><a href="#signmessage" aria-hidden="true" class="header-anchor">#</a> signmessage</h2> <blockquote><p>Create the signature:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli signmessage &quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot; &quot;my message&quot;
+
+response:
+
+H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=
+</code></pre></div><blockquote><p>Verify the signature:</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli verifymessage &quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot; &quot;H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=&quot; &quot;my message&quot;
+
+response:
+
+true
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;signmessage&quot;, &quot;params&quot;: [&quot;RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ&quot;, &quot;my message&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>signmessage &quot;address&quot; &quot;message&quot;</strong></p> <p>The <code>signmessage</code> method signs a message via the private key of an address.</p> <h3 id="arguments-37"><a href="#arguments-37" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;address&quot;</td> <td>(string, required)</td> <td>the address to use for the private key</td></tr> <tr><td>&quot;message&quot;</td> <td>(string, required)</td> <td>the message</td></tr></tbody></table> <h3 id="response-36"><a href="#response-36" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;signature&quot;</td> <td>(string)</td> <td>the signature of the message encoded in base 64</td></tr></tbody></table> <h2 id="z-exportkey"><a href="#z-exportkey" aria-hidden="true" class="header-anchor">#</a> z_exportkey</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_exportkey &quot;ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH&quot;
+
+response:
+
+DONOTUSExxxxxxxxxxxxxxxxV6EyPpaZFVDsqeNB6k8eoLFERdag
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_exportkey&quot;, &quot;params&quot;: [&quot;ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;DONOTUSExxxxxxxxxxxxxxxxV6EyPpaZFVDsqeNB6k8eoLFERdag&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_exportkey &quot;z_address&quot;</strong></p> <p>The <code>z_exportkey</code> method reveals the private z_key corresponding to <code>z_address</code>.</p> <aside class="notice">
+  See also <b>z_importkey</b>.
+</aside> <h3 id="arguments-38"><a href="#arguments-38" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;z_address&quot;</td> <td>(string, required)</td> <td>the z_address for the private key</td></tr></tbody></table> <h3 id="response-37"><a href="#response-37" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;key&quot;</td> <td>(string)</td> <td>the private key</td></tr></tbody></table> <h2 id="z-exportviewingkey"><a href="#z-exportviewingkey" aria-hidden="true" class="header-anchor">#</a> z_exportviewingkey</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_exportviewingkey &quot;ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH&quot;
+
+response:
+
+ZiVtf1yjjR9DeDNNgd4kvRgS1oovQwfK6xt2csfhTwpbUVjnC9RrEeuVkAfJrxN1jDR3d7vR6XmLne4vC9SCYR5F9XMzW19VJ
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_exportviewingkey&quot;, &quot;params&quot;: [&quot;ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;ZiVtf1yjjR9DeDNNgd4kvRgS1oovQwfK6xt2csfhTwpbUVjnC9RrEeuVkAfJrxN1jDR3d7vR6XmLne4vC9SCYR5F9XMzW19VJ&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_exportviewingkey &quot;z_address&quot;</strong></p> <p>The <code>z_exportviewingkey</code> method reveals the viewing key corresponding to <code>z_address</code>.</p> <aside class="notice">
+  See also <b>z_importviewingkey</b>.
+</aside> <h3 id="arguments-39"><a href="#arguments-39" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;z_address&quot;</td> <td>(string, required)</td> <td>the z_address for the viewing key</td></tr></tbody></table> <h3 id="response-38"><a href="#response-38" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;vkey&quot;</td> <td>(string)</td> <td>the viewing key</td></tr></tbody></table> <h2 id="z-exportwallet"><a href="#z-exportwallet" aria-hidden="true" class="header-anchor">#</a> z_exportwallet</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_exportwallet &quot;test&quot;
+
+response:
+
+/home/myusername/mydirector/test
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_exportwallet&quot;, &quot;params&quot;: [&quot;test&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;/home/myusername/mydirector/test&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_exportwallet &quot;filename&quot;</strong></p> <p>The <code>z_exportwallet</code> method exports all wallet keys, including both t address and z address types, in a human-readable format.  Overwriting an existing file is not permitted.</p> <h3 id="arguments-40"><a href="#arguments-40" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;filename&quot;</td> <td>(string, required)</td> <td>the filename, saved to the directory indicated by the <a href="#exportdir"><code>exportdir</code></a> parameter at daemon runtime (required)</td></tr></tbody></table> <h3 id="response-39"><a href="#response-39" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;path&quot;</td> <td>(string)</td> <td>the full path of the destination file</td></tr></tbody></table> <h2 id="z-getbalance"><a href="#z-getbalance" aria-hidden="true" class="header-anchor">#</a> z_getbalance</h2> <blockquote><p>The total amount received by address &quot;myaddress&quot; at least 5 blocks confirmed</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_getbalance &quot;ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn&quot;
+
+response:
+
+0.01980000
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_getbalance &quot;ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn&quot; 5
+
+response:
+
+0.01980000
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_getbalance&quot;, &quot;params&quot;: [&quot;ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn&quot;, 5] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: 0.0198,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_getbalance &quot;address&quot; ( minconf )</strong></p> <p>The <code>z_getbalance</code> method returns the balance of a t address or z address belonging to the node’s wallet.</p> <aside class="warning">
+  CAUTION: If <b>address</b> is a watch-only z address, the returned balance may be larger than the actual balance,
+  as spends cannot be detected with incoming viewing keys.
+</aside> <h3 id="arguments-41"><a href="#arguments-41" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;address&quot;</td> <td>(string)</td> <td>the selected z or t address</td></tr> <tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>only include transactions confirmed at least this many times</td></tr></tbody></table> <h3 id="response-40"><a href="#response-40" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>amount</td> <td>(numeric)</td> <td>the total amount received at this address (in the relevant COIN value)</td></tr></tbody></table> <h2 id="z-getnewaddress"><a href="#z-getnewaddress" aria-hidden="true" class="header-anchor">#</a> z_getnewaddress</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_getnewaddress
+
+response:
+
+ztbUD83kXgHt3A1M282wFvT9Ms6SiBCd6GSbQbPa2C7UtPojVZjPENytFqu7JxgnsgL9EN42xWnyhhzniHYSRJDnEPTgo3Y
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_getnewaddress&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_getnewaddress</strong></p> <p>The <code>z_getnewaddress</code> method returns a new z_address for receiving payments.</p> <h3 id="arguments-42"><a href="#arguments-42" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-41"><a href="#response-41" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;z_address&quot;</td> <td>(string)</td> <td>the new z_address</td></tr></tbody></table> <h2 id="z-getoperationresult"><a href="#z-getoperationresult" aria-hidden="true" class="header-anchor">#</a> z_getoperationresult</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_getoperationresult '[&quot;opid-6e581ee5-4e90-4e70-8961-f95d8d28748c&quot;]'
+
+response:
+
+[
+  {
+    &quot;id&quot;: &quot;opid-6e581ee5-4e90-4e70-8961-f95d8d28748c&quot;,
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;creation_time&quot;: 1537287690,
+    &quot;result&quot;: {
+      &quot;txid&quot;: &quot;65e01c8485f6a85fbf7093d8233864eed0f31e6e2eff22a7e468e92c37dc864c&quot;
+    },
+    &quot;execution_secs&quot;: 44.606282288,
+    &quot;method&quot;: &quot;z_sendmany&quot;,
+    &quot;params&quot;: {
+      &quot;fromaddress&quot;: &quot;RWUwHqRUYgxfYNNSHWkQuY5sh93VGiiPoX&quot;,
+      &quot;amounts&quot;: [
+        {
+          &quot;address&quot;: &quot;ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3&quot;,
+          &quot;amount&quot;: 0.01
+        }
+      ],
+      &quot;minconf&quot;: 1,
+      &quot;fee&quot;: 0.0001
+    }
+  }
+]
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_getoperationresult&quot;, &quot;params&quot;: [[&quot;opid-6a9da0dd-a950-4d95-848c-d3c18e44be03&quot;]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: [
+    {
+      &quot;id&quot;: &quot;opid-6a9da0dd-a950-4d95-848c-d3c18e44be03&quot;,
+      &quot;status&quot;: &quot;success&quot;,
+      &quot;creation_time&quot;: 1537288235,
+      &quot;result&quot;: {
+        &quot;txid&quot;: &quot;f0309f8dc2e33e108dec39285bc8755058375cf6e51bdb452fb45f3d14909fef&quot;
+      },
+      &quot;execution_secs&quot;: 44.978749064,
+      &quot;method&quot;: &quot;z_sendmany&quot;,
+      &quot;params&quot;: {
+        &quot;fromaddress&quot;: &quot;RWUwHqRUYgxfYNNSHWkQuY5sh93VGiiPoX&quot;,
+        &quot;amounts&quot;: [
+          {
+            &quot;address&quot;: &quot;ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3&quot;,
+            &quot;amount&quot;: 0.01
+          }
+        ],
+        &quot;minconf&quot;: 1,
+        &quot;fee&quot;: 0.0001
+      }
+    }
+  ],
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_getoperationresult ([ &quot;operationid&quot;, ... ])</strong></p> <p>The <code>z_getoperationresult</code> method retrieves the result and status of an operation which has finished, and then removes the operation from memory.</p> <aside class="notice">
+  See also <b>z_getoperationstatus</b>.
+</aside> <h3 id="arguments-43"><a href="#arguments-43" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>&quot;operationid&quot;</td> <td>(string, optional)</td> <td>a list of operation ids to query; if not provided, the method examines all operations known to the node</td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-42"><a href="#response-42" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;id&quot;</td> <td>(string)</td> <td>the operation id</td></tr> <tr><td>&quot;status&quot;</td> <td>(string)</td> <td>the result of the operation; can be <code>success</code></td></tr> <tr><td>&quot;creation_time&quot;</td> <td>(numeric)</td> <td>the creation time, in seconds since epoch (Jan 1 1970 GMT)</td></tr> <tr><td>&quot;result&quot;:</td> <td></td> <td></td></tr> <tr><td>&quot;txid&quot;:</td> <td>(string)</td> <td>the transaction id</td></tr> <tr><td>},</td> <td></td> <td></td></tr> <tr><td>&quot;execution_secs&quot;</td> <td>(numeric)</td> <td>the length of time to calculate the transaction</td></tr> <tr><td>&quot;method&quot;</td> <td>(string)</td> <td>the name of the method used in the operation</td></tr> <tr><td>&quot;params&quot;:</td> <td></td> <td></td></tr> <tr><td>&quot;fromaddress&quot;</td> <td>(string)</td> <td>the address from which funds are drawn</td></tr> <tr><td>&quot;amounts&quot;:</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;address&quot;</td> <td>(string)</td> <td>the receiving address</td></tr> <tr><td>&quot;amount&quot;</td> <td>(numeric)</td> <td>the amount to receive</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>],</td> <td></td> <td></td></tr> <tr><td>&quot;minconf&quot;</td> <td>(numeric)</td> <td>the minimum number of confirmations required</td></tr> <tr><td>&quot;fee&quot;</td> <td>(numeric)</td> <td>the transaction fee</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="z-getoperationstatus"><a href="#z-getoperationstatus" aria-hidden="true" class="header-anchor">#</a> z_getoperationstatus</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_getoperationstatus
+
+response:
+
+[
+  {
+    &quot;id&quot;: &quot;opid-b650b582-c2f5-43e0-9a65-9fe23f65c1a5&quot;,
+    &quot;status&quot;: &quot;failed&quot;,
+    &quot;creation_time&quot;: 1537288268,
+    &quot;error&quot;: {
+      &quot;code&quot;: -6,
+      &quot;message&quot;: &quot;Insufficient funds, no UTXOs found for taddr from address.&quot;
+    },
+    &quot;method&quot;: &quot;z_sendmany&quot;,
+    &quot;params&quot;: {
+      &quot;fromaddress&quot;: &quot;RWUwHqRUYgxfYNNSHWkQuY5sh93VGiiPoX&quot;,
+      &quot;amounts&quot;: [
+        {
+          &quot;address&quot;: &quot;ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3&quot;,
+          &quot;amount&quot;: 0.01
+        }
+      ],
+      &quot;minconf&quot;: 1,
+      &quot;fee&quot;: 0.0001
+    }
+  }
+]
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_getoperationstatus '[&quot;opid-47e12224-8477-4cd4-852d-d8c3ddbc6375&quot;]'
+
+response:
+
+[
+  {
+    &quot;id&quot;: &quot;opid-47e12224-8477-4cd4-852d-d8c3ddbc6375&quot;,
+    &quot;status&quot;: &quot;executing&quot;,
+    &quot;creation_time&quot;: 1537289777,
+    &quot;method&quot;: &quot;z_sendmany&quot;,
+    &quot;params&quot;: {
+      &quot;fromaddress&quot;: &quot;RWUwHqRUYgxfYNNSHWkQuY5sh93VGiiPoX&quot;,
+      &quot;amounts&quot;: [
+        {
+          &quot;address&quot;: &quot;ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3&quot;,
+          &quot;amount&quot;: 0.01
+        }
+      ],
+      &quot;minconf&quot;: 1,
+      &quot;fee&quot;: 0.0001
+    }
+  }
+]
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_getoperationstatus&quot;, &quot;params&quot;: [[&quot;opid-47e12224-8477-4cd4-852d-d8c3ddbc6375&quot;]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: [
+    {
+      &quot;id&quot;: &quot;opid-47e12224-8477-4cd4-852d-d8c3ddbc6375&quot;,
+      &quot;status&quot;: &quot;success&quot;,
+      &quot;creation_time&quot;: 1537289777,
+      &quot;result&quot;: {
+        &quot;txid&quot;: &quot;2b988a708db2b8d99a92bbff65a57d0d73fdb22c30fc3f3e4f81ab15cfeafc45&quot;
+      },
+      &quot;execution_secs&quot;: 45.200043917,
+      &quot;method&quot;: &quot;z_sendmany&quot;,
+      &quot;params&quot;: {
+        &quot;fromaddress&quot;: &quot;RWUwHqRUYgxfYNNSHWkQuY5sh93VGiiPoX&quot;,
+        &quot;amounts&quot;: [
+          {
+            &quot;address&quot;: &quot;ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3&quot;,
+            &quot;amount&quot;: 0.01
+          }
+        ],
+        &quot;minconf&quot;: 1,
+        &quot;fee&quot;: 0.0001
+      }
+    }
+  ],
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_getoperationstatus ([ &quot;operationid&quot;, ... ])</strong></p> <p>The <code>z_getoperationstatus</code> message queries the operation status and any associated result or error data of any <code>operationid</code> stored in local memory. The operation will remain in memory (unlike <code>z_getoperationresult</code>, which removes the data from the local memory).</p> <h3 id="arguments-44"><a href="#arguments-44" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;operationid&quot;</td> <td>(array, optional)</td> <td>a list of operation ids we are interested in; if an array is not provided, the method examines all operations known to the node</td></tr></tbody></table> <h3 id="response-43"><a href="#response-43" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;id&quot;</td> <td>(string)</td> <td>the operation id</td></tr> <tr><td>&quot;status&quot;</td> <td>(string)</td> <td>the status of the operation; can be <code>success</code></td></tr> <tr><td>&quot;creation_time&quot;</td> <td>(numeric)</td> <td>the creation time, in seconds since epoch (Jan 1 1970 GMT)</td></tr> <tr><td>&quot;error&quot;:</td> <td></td> <td></td></tr> <tr><td>&quot;code&quot;</td> <td>(numeric)</td> <td>the associated error code</td></tr> <tr><td>&quot;message&quot;</td> <td>(string)</td> <td>a message to indicate the nature of the error, if such a message is available</td></tr> <tr><td>},</td> <td></td> <td></td></tr> <tr><td>&quot;method&quot;</td> <td>(string)</td> <td>name of the method used in the operation</td></tr> <tr><td>&quot;params&quot;:</td> <td></td> <td></td></tr> <tr><td>&quot;fromaddress&quot;</td> <td>(string)</td> <td>the address from which funds are drawn</td></tr> <tr><td>&quot;amounts&quot;:</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;address&quot;</td> <td>(string)</td> <td>the receiving address</td></tr> <tr><td>&quot;amount&quot;</td> <td>(numeric)</td> <td>the amount to receive</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>],</td> <td></td> <td></td></tr> <tr><td>&quot;minconf&quot;</td> <td>(numeric)</td> <td>indicates the required number of mining confirmations</td></tr> <tr><td>&quot;fee&quot;</td> <td>(numeric)</td> <td>the fee</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="z-gettotalbalance"><a href="#z-gettotalbalance" aria-hidden="true" class="header-anchor">#</a> z_gettotalbalance</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_gettotalbalance
+
+response:
+
+{
+  &quot;transparent&quot;: &quot;9.98794883&quot;,
+  &quot;interest&quot;: &quot;0.00&quot;,
+  &quot;private&quot;: &quot;0.08205&quot;,
+  &quot;total&quot;: &quot;10.06999883&quot;
+}
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_gettotalbalance 5
+
+response:
+
+{
+  &quot;transparent&quot;: &quot;9.98794883&quot;,
+  &quot;interest&quot;: &quot;0.00&quot;,
+  &quot;private&quot;: &quot;0.08205&quot;,
+  &quot;total&quot;: &quot;10.06999883&quot;
+}
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_gettotalbalance&quot;, &quot;params&quot;: [5] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: {
+    &quot;transparent&quot;: &quot;0.00615&quot;,
+    &quot;interest&quot;: &quot;0.00&quot;,
+    &quot;private&quot;: &quot;0.06205&quot;,
+    &quot;total&quot;: &quot;0.0682&quot;
+  },
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_gettotalbalance ( minconf includeWatchonly )</strong></p> <p>The <code>z_gettotalbalance</code> method returns the total value of funds, including both transparent and private, stored in the node’s wallet.</p> <aside class="warning">
+  CAUTION: If the wallet contains watch-only z addresses the returned private balance may be larger than the actual balance, as spends cannot be detected with incoming viewing keys.
+</aside> <aside class="notice">
+  While the <b>interest</b> property is returned for all KMD-based coin daemons, only the main KMD chain utilizes the interest feature. KMD-based asset chains will always return a <b>0.00</b> interest value.
+</aside> <h3 id="arguments-45"><a href="#arguments-45" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>only include private and transparent transactions confirmed at least this many times</td></tr> <tr><td>includeWatchonly</td> <td>(bool, optional, default=false)</td> <td>also include balance in watchonly addresses (see 'importaddress' and 'z_importviewingkey')</td></tr></tbody></table> <h3 id="response-44"><a href="#response-44" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;transparent&quot;</td> <td>(numeric)</td> <td>the total balance of transparent funds</td></tr> <tr><td>&quot;interest&quot;</td> <td>(numeric)</td> <td>the total balance of unclaimed interest earned</td></tr> <tr><td>&quot;private&quot;</td> <td>(numeric)</td> <td>the total balance of private funds</td></tr> <tr><td>&quot;total&quot;</td> <td>(numeric)</td> <td>the total balance of both transparent and private funds</td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table> <h2 id="z-importkey"><a href="#z-importkey" aria-hidden="true" class="header-anchor">#</a> z_importkey</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_importkey &quot;DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK&quot;
+
+response:
+
+(none)
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_importkey &quot;DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK&quot; whenkeyisnew 30000
+
+response:
+
+(none)
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_importkey &quot;DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK&quot; yes 20000
+
+response:
+
+(none)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_importkey&quot;, &quot;params&quot;: [&quot;DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK&quot;, &quot;no&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: null,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_importkey &quot;z_privatekey&quot; ( rescan startHeight )</strong></p> <p>The <code>z_importkey</code> method imports <code>z_privatekey</code> to your wallet.</p> <aside class="notice">
+  This call can take minutes to complete if <b>rescan</b> is true.
+</aside> <aside class="notice">
+  The optional parameters are currently not functional with KMD-based blockchains.
+</aside> <aside class="notice">
+  See also <b>z_exportkey</b>.
+</aside> <h3 id="arguments-46"><a href="#arguments-46" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;z_privatekey&quot;</td> <td>(string, required)</td> <td>the z_privatekey (see <a href="#z_exportkey"><code>z_exportkey</code></a>)</td></tr> <tr><td>rescan</td> <td>(string, optional, default=<code>&quot;whenkeyisnew&quot;</code>)</td> <td>rescan the wallet for transactions; can be <code>yes</code></td></tr> <tr><td>startHeight</td> <td>(numeric, optional, default=0)</td> <td>block height to start rescan</td></tr></tbody></table> <h3 id="response-45"><a href="#response-45" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h2 id="z-importviewingkey"><a href="#z-importviewingkey" aria-hidden="true" class="header-anchor">#</a> z_importviewingkey</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_importviewingkey &quot;ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja&quot;
+
+response:
+
+(none)
+
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_importviewingkey &quot;ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja&quot; no
+
+response:
+
+(none)
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_importviewingkey &quot;ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja&quot; whenkeyisnew 30000
+
+response:
+
+(none)
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_importviewingkey &quot;ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja&quot; yes 20000
+
+response:
+
+(none)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_importviewingkey&quot;, &quot;params&quot;: [&quot;ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja&quot;, &quot;no&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(none)
+</code></pre></div><p><strong>z_importviewingkey &quot;viewing_key&quot; ( rescan startHeight )</strong></p> <p>The <code>z_importviewingkey</code> adds a viewing key to your wallet. This method allows you to view the balance in a z address that otherwise does not belong to your wallet.</p> <aside class="notice">
+  See also <b>z_exportviewingkey</b>.
+</aside> <aside class="notice">
+  This call can take minutes to complete if <b>rescan</b> is true.
+</aside> <aside class="notice">
+  The optional parameters are currently not functional for KMD-based blockchains.
+</aside> <h3 id="arguments-47"><a href="#arguments-47" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;viewing_key&quot;</td> <td>(string, required)</td> <td>the viewing key</td></tr> <tr><td>rescan</td> <td>(string, optional, default=&quot;whenkeyisnew&quot;)</td> <td>rescan the wallet for transactions; can be <code>&quot;yes&quot;</code></td></tr> <tr><td>startHeight</td> <td>(numeric, optional, default=0)</td> <td>block height to start rescan</td></tr></tbody></table> <h3 id="response-46"><a href="#response-46" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h2 id="z-importwallet"><a href="#z-importwallet" aria-hidden="true" class="header-anchor">#</a> z_importwallet</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_importwallet &quot;/mydirectory/nameofbackup&quot;
+
+response:
+
+(none)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_importwallet&quot;, &quot;params&quot;: [&quot;/mydirectory/nameofbackup&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: null,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_importwallet &quot;filename&quot;</strong></p> <p>The <code>z_importwallet</code> method imports t address and z address keys from a wallet export file.</p> <aside class="notice">
+  See also <b>z_exportwallet</b>.
+</aside> <h3 id="arguments-48"><a href="#arguments-48" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;filename&quot;</td> <td>(string, required)</td> <td>the wallet file</td></tr></tbody></table> <h3 id="response-47"><a href="#response-47" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td></td> <td></td></tr></tbody></table> <h2 id="z-listaddresses"><a href="#z-listaddresses" aria-hidden="true" class="header-anchor">#</a> z_listaddresses</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_listaddresses
+
+response:
+
+[
+  &quot;ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP&quot;,
+  &quot;ztbUD83kXgHt3A1M282wFvT9Ms6SiBCd6GSbQbPa2C7UtPojVZjPENytFqu7JxgnsgL9EN42xWnyhhzniHYSRJDnEPTgo3Y&quot;
+]
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_listaddresses&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: [
+    &quot;ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP&quot;,
+    &quot;ztbUD83kXgHt3A1M282wFvT9Ms6SiBCd6GSbQbPa2C7UtPojVZjPENytFqu7JxgnsgL9EN42xWnyhhzniHYSRJDnEPTgo3Y&quot;
+  ],
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_listaddresses ( includeWatchonly )</strong></p> <p>The <code>z_listaddresses</code> method returns the list of z addresses belonging to the wallet.</p> <aside class="notice">
+  See also <b>z_importviewingkey</b>.
+</aside> <h3 id="arguments-49"><a href="#arguments-49" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>includeWatchonly</td> <td>(bool, optional, default=false)</td> <td>also include watchonly addresses</td></tr></tbody></table> <h3 id="response-48"><a href="#response-48" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>&quot;z_address&quot;</td> <td>(string)</td> <td>a z address belonging to the wallet</td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="z-listoperationids"><a href="#z-listoperationids" aria-hidden="true" class="header-anchor">#</a> z_listoperationids</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_listoperationids
+
+response:
+
+[
+  &quot;opid-47e12224-8477-4cd4-852d-d8c3ddbc6375&quot;,
+  &quot;opid-b650b582-c2f5-43e0-9a65-9fe23f65c1a5&quot;
+]
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_listoperationids &quot;success&quot;
+
+response:
+
+[
+  &quot;opid-47e12224-8477-4cd4-852d-d8c3ddbc6375&quot;
+]
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_listoperationids&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: [
+    &quot;opid-47e12224-8477-4cd4-852d-d8c3ddbc6375&quot;,
+    &quot;opid-b650b582-c2f5-43e0-9a65-9fe23f65c1a5&quot;
+  ],
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_listoperationids</strong></p> <p>The <code>z_listoperationids</code> method returns the list of operation ids currently known to the wallet.</p> <h3 id="arguments-50"><a href="#arguments-50" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;status&quot;</td> <td>(string, optional)</td> <td>filter result by the operation's state e.g. &quot;success&quot;</td></tr></tbody></table> <h3 id="response-49"><a href="#response-49" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>[</td> <td></td> <td></td></tr> <tr><td>&quot;operationid&quot;</td> <td>(string)</td> <td>an operation id belonging to the wallet</td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr></tbody></table> <h2 id="z-listreceivedbyaddress"><a href="#z-listreceivedbyaddress" aria-hidden="true" class="header-anchor">#</a> z_listreceivedbyaddress</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_listreceivedbyaddress &quot;ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf&quot;
+
+response:
+
+[
+  {
+    &quot;txid&quot;: &quot;8f68178ad521c8cc0f22d9589d07dbe52a1c775fae1840c0a129955d13928704&quot;,
+    &quot;amount&quot;: 0.01000000,
+    &quot;memo&quot;: &quot;f600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;
+  }
+]
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_listreceivedbyaddress &quot;ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf&quot; 2
+
+response:
+
+[
+  {
+    &quot;txid&quot;: &quot;8f68178ad521c8cc0f22d9589d07dbe52a1c775fae1840c0a129955d13928704&quot;,
+    &quot;amount&quot;: 0.01000000,
+    &quot;memo&quot;: &quot;f600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;
+  }
+]
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_listreceivedbyaddress&quot;, &quot;params&quot;: [&quot;ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: [
+    {
+      &quot;txid&quot;: &quot;8f68178ad521c8cc0f22d9589d07dbe52a1c775fae1840c0a129955d13928704&quot;,
+      &quot;amount&quot;: 0.01,
+      &quot;memo&quot;: &quot;f600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;
+    }
+  ],
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_listreceivedbyaddress &quot;z_address&quot; ( minconf )</strong></p> <p>The <code>z_listreceivedbyaddress</code> method returns a list of amounts received by a z address belonging to the node’s wallet.</p> <h3 id="arguments-51"><a href="#arguments-51" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;z_address&quot;</td> <td>(string)</td> <td>the private address</td></tr> <tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>only include transactions confirmed at least this many times</td></tr></tbody></table> <h3 id="response-50"><a href="#response-50" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;txid&quot;</td> <td>(string)</td> <td>the transaction id</td></tr> <tr><td>&quot;amount&quot;</td> <td>(numeric)</td> <td>the amount of value in the note</td></tr> <tr><td>&quot;memo&quot;</td> <td>(string)</td> <td>hexademical string representation of memo field</td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table> <h2 id="z-mergetoaddress"><a href="#z-mergetoaddress" aria-hidden="true" class="header-anchor">#</a> z_mergetoaddress</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_mergetoaddress '[&quot;t1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd&quot;]' ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf
+
+response:
+
+(disabled)
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_mergetoaddress&quot;, &quot;params&quot;: [[&quot;t1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd&quot;], &quot;ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+(disabled)
+</code></pre></div><p><strong>z_mergetoaddress [ &quot;fromaddress&quot;, ... ] &quot;toaddress&quot; ( fee ) ( transparent_limit ) ( shielded_limit ) ( memo )</strong></p> <aside class="warning">
+CAUTION: <b>z_mergetoaddress</b> is DISABLED but can be enabled as an experimental feature.
+</aside> <p>The <code>z_mergetoaddress</code> method merges multiple utxos and notes into a single utxo or note. The method works for both t addresses and z addresses, both separately and in combination.  Coinbase utxos are ignored; use <code>z_shieldcoinbase</code> to combine those into a single note.</p> <p>This is an asynchronous operation, and utxos selected for merging will be locked.  If there is an error, they are unlocked.  The RPC call <code>listlockunspent</code> can be used to return a list of locked utxos.</p> <p>The number of utxos and notes selected for merging can be limited by the caller.  If the transparent limit parameter is set to <code>0</code>, the <code>mempooltxinputlimit</code> option will determine the number of utxos. Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.</p> <h3 id="the-fromaddresses-array"><a href="#the-fromaddresses-array" aria-hidden="true" class="header-anchor">#</a> The fromaddresses array</h3> <p>The following special strings are accepted inside the <code>fromaddresses</code> array:</p> <ul><li><p><code>&quot;*&quot;</code>: Merge both utxos and notes from all addresses belonging to the wallet</p></li> <li><p><code>&quot;ANY_TADDR&quot;</code>: Merge utxos from all t addresses belonging to the wallet</p></li> <li><p><code>&quot;ANY_ZADDR&quot;</code>: Merge notes from all z addresses belonging to the wallet</p></li></ul> <p>If a special string is given, any given addresses of that type will be ignored</p> <h3 id="arguments-52"><a href="#arguments-52" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>fromaddresses</td> <td>(string, required)</td> <td></td></tr> <tr><td>[</td> <td></td> <td></td></tr> <tr><td>&quot;address&quot;</td> <td>(string)</td> <td>can be a t address or a z address</td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr> <tr><td>&quot;toaddress&quot;</td> <td>(string, required)</td> <td>the t address or z address to receive the combined utxo</td></tr> <tr><td>fee</td> <td>(numeric, optional, default=0.0001)</td> <td>the fee amount to attach to this transaction</td></tr> <tr><td>transparent_limit</td> <td>(numeric, optional, default=50)</td> <td>limit on the maximum number of transparent UTXOs to merge; you may set this value to 0 to use the node option <a href="#mempooltxinputlimit"><code>mempooltxinputlimit</code></a></td></tr> <tr><td>shielded_limit</td> <td>(numeric, optional, default=10)</td> <td>limit on the maximum number of hidden notes to merge; you may set this value to 0 to merge as many as will fit in the transaction</td></tr> <tr><td>&quot;memo&quot;</td> <td>(string, optional)</td> <td>encoded as hex; when <code>toaddress</code> is a z address, this value will be stored in the memo field of the new note</td></tr></tbody></table> <h3 id="response-51"><a href="#response-51" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;remainingUTXOs&quot;</td> <td>(numeric)</td> <td>number of utxos still available for merging</td></tr> <tr><td>&quot;remainingTransparentValue&quot;</td> <td>(numeric)</td> <td>value of utxos still available for merging</td></tr> <tr><td>&quot;remainingNotes&quot;</td> <td>(numeric)</td> <td>number of notes still available for merging</td></tr> <tr><td>&quot;remainingShieldedValue&quot;</td> <td>(numeric)</td> <td>value of notes still available for merging</td></tr> <tr><td>&quot;mergingUTXOs&quot;</td> <td>(numeric)</td> <td>number of utxos being merged</td></tr> <tr><td>&quot;mergingTransparentValue&quot;</td> <td>(numeric)</td> <td>value of utxos being merged</td></tr> <tr><td>&quot;mergingNotes&quot;</td> <td>(numeric)</td> <td>number of notes being merged</td></tr> <tr><td>&quot;mergingShieldedValue&quot;</td> <td>(numeric)</td> <td>value of notes being merged</td></tr> <tr><td>&quot;opid&quot;</td> <td>(string)</td> <td>an operationid to pass to <code>z_getoperationstatus</code> to get the result of the operation</td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table> <h2 id="z-sendmany"><a href="#z-sendmany" aria-hidden="true" class="header-anchor">#</a> z_sendmany</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_sendmany &quot;RUX5vGkxJCKBPGm8b97VUumt2aHkuCjp8e&quot; '[{&quot;address&quot;:&quot;RVEsww91UBdUNGyCC1GjDVuvJShEei2kj4&quot;,&quot;amount&quot;:0.01}]'
+
+response:
+
+opid-ad947755-b348-4842-90ca-0f0c71d13d34
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_sendmany &quot;RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns&quot; '[{&quot;address&quot;:&quot;ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3&quot;,&quot;amount&quot;:0.01}]'
+
+response:
+
+opid-cdd6af37-88a2-44d7-9630-d54d21f8b1c4
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_sendmany &quot;ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3&quot; '[{&quot;address&quot;:&quot;ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP&quot;,&quot;amount&quot;:0.0099}]'
+
+response:
+
+opid-3c3d6f25-f333-4898-8a50-06f4012cf975
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_sendmany&quot;, &quot;params&quot;: [&quot;RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns&quot;, [{&quot;address&quot;: &quot;ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf&quot; ,&quot;amount&quot;: 0.01}]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: &quot;opid-73306924-3466-4944-a8f7-c45c14be0438&quot;,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_sendmany &quot;fromaddress&quot; [ { &quot;address&quot;: ..., &quot;amount&quot;: ... }, ... ] ( minconf ) ( fee )</strong></p> <p>The <code>z_sendmany</code> method sends one or more transactions at once, and allows for sending transactions of types <code>t --&gt; z</code>, <code>z --&gt; z</code>, <code>z --&gt; t</code>. It is the principle method for dealing with shielded <code>z</code> transactions in the Komodo ecosystem.</p> <p>The <code>amount</code> values are double-precision floating point numbers. Change from a t address flows to a new t address address, while change from z address returns to itself. When sending coinbase utxos to a z address, change is not allowed. The entire value of the utxo(s) must be consumed. Currently, the maximum number of z address outputs is 54 due to transaction-size limits.</p> <h3 id="arguments-53"><a href="#arguments-53" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;fromaddress&quot;</td> <td>(string, required)</td> <td>the sending t address or z address</td></tr> <tr><td>&quot;amounts&quot;</td> <td></td> <td></td></tr> <tr><td>[</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;address&quot;</td> <td>(string, required)</td> <td>the receiving address; can be a t address or z address</td></tr> <tr><td>&quot;amount&quot;</td> <td>(numeric, required)</td> <td>the numeric amount</td></tr> <tr><td>&quot;memo&quot;</td> <td>(string, optional)</td> <td>if the address is a z address, this property accepts raw data represented in hexadecimal string format</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr> <tr><td>minconf</td> <td>(numeric, optional, default=1)</td> <td>only use funds confirmed at least this many times</td></tr> <tr><td>fee</td> <td>(numeric, optional, default=0.0001)</td> <td>the fee amount to attach to this transaction</td></tr></tbody></table> <h3 id="response-52"><a href="#response-52" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;operationid&quot;</td> <td>(string)</td> <td>an operationid to pass to z_getoperationstatus to get the result of the operation</td></tr></tbody></table> <h2 id="z-shieldcoinbase"><a href="#z-shieldcoinbase" aria-hidden="true" class="header-anchor">#</a> z_shieldcoinbase</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_shieldcoinbase &quot;RXN2rxidK4cwzRL44UTnWvQjjvLdoMmCpU&quot; &quot;ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP&quot;
+
+response:
+
+{
+  &quot;remainingUTXOs&quot;: 0,
+  &quot;remainingValue&quot;: 0.00000000,
+  &quot;shieldingUTXOs&quot;: 2,
+  &quot;shieldingValue&quot;: 0.00030000,
+  &quot;opid&quot;: &quot;opid-c0a7875c-aaa0-4bdc-8f17-b34ab99e8bab&quot;
+}
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli z_shieldcoinbase &quot;REyaj53EB2nwUnsmVyn8JHCcquKf1zYkEP&quot; &quot;ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP&quot; 0.0001 50
+
+response:
+
+{
+  &quot;remainingUTXOs&quot;: 0,
+  &quot;remainingValue&quot;: 0.00000000,
+  &quot;shieldingUTXOs&quot;: 14,
+  &quot;shieldingValue&quot;: 0.00160000,
+  &quot;opid&quot;: &quot;opid-08ce931d-876c-45d5-9aea-15cf4c695e72&quot;
+}
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;z_shieldcoinbase&quot;, &quot;params&quot;: [&quot;RWRSfEYcfLv3yy9mhAuKHQTMCs9fArpPiH&quot;, &quot;ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: {
+    &quot;remainingUTXOs&quot;: 0,
+    &quot;remainingValue&quot;: 0,
+    &quot;shieldingUTXOs&quot;: 1,
+    &quot;shieldingValue&quot;: 0.00025,
+    &quot;opid&quot;: &quot;opid-53018a85-cf68-4e7d-a065-0defea6bf061&quot;
+  },
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>z_shieldcoinbase &quot;fromaddress&quot; &quot;tozaddress&quot; ( fee ) ( limit )</strong></p> <p>The <code>z_shieldcoinbase</code> method shields transparent coinbase funds by sending the funds to a shielded z address.  This is an asynchronous operation and utxos selected for shielding will be locked. If there is an error, they are unlocked.</p> <p>The RPC call <code>listlockunspent</code> can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the <a href="#mempooltxinputlimit"><code>mempooltxinputlimit</code></a> option will determine the number of uxtos.  Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.</p> <h3 id="arguments-54"><a href="#arguments-54" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;fromaddress&quot;</td> <td>(string, required)</td> <td>the address is a t address or <code>&quot;*&quot;</code> for all t address belonging to the wallet</td></tr> <tr><td>&quot;toaddress&quot;</td> <td>(string, required)</td> <td>the address is a z address</td></tr> <tr><td>fee</td> <td>(numeric, optional, default=0.0001)</td> <td>the fee amount to attach to this transaction</td></tr> <tr><td>limit</td> <td>(numeric, optional, default=50)</td> <td>limit on the maximum number of utxos to shield; set to <code>0</code> to use node option <code>mempooltxinputlimit</code></td></tr></tbody></table> <h3 id="response-53"><a href="#response-53" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;remainingUTXOs&quot;</td> <td>(numeric)</td> <td>number of coinbase utxos still available for shielding</td></tr> <tr><td>&quot;remainingValue&quot;</td> <td>(numeric)</td> <td>value of coinbase utxos still available for shielding</td></tr> <tr><td>&quot;shieldingUTXOs&quot;</td> <td>(numeric)</td> <td>number of coinbase utxos being shielded</td></tr> <tr><td>&quot;shieldingValue&quot;</td> <td>(numeric)</td> <td>value of coinbase utxos being shielded</td></tr> <tr><td>&quot;opid&quot;</td> <td>(string)</td> <td>an operationid to pass to z_getoperationstatus to get the result of the operation</td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table></div> <div class="page-edit"><!----> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/015-essential-rpc/_335-util.html" class="prev">
+          Util
+        </a></span> <!----></p></div> </div> <!----></div></div>
+    <script src="/assets/js/29.f4eee8f9.js" defer></script><script src="/assets/js/app.862d0335.js" defer></script>
+  </body>
+</html>

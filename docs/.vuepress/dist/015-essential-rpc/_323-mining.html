@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Mining | Komodo Developer Documentation</title>
+    <meta name="description" content="Documentation for developers building on Komodo">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.cc2a2ebf.css" as="style"><link rel="preload" href="/assets/js/app.862d0335.js" as="script"><link rel="preload" href="/assets/js/24.a6839530.js" as="script"><link rel="prefetch" href="/assets/js/10.cd2e2482.js"><link rel="prefetch" href="/assets/js/11.e90ee4c1.js"><link rel="prefetch" href="/assets/js/12.1b546010.js"><link rel="prefetch" href="/assets/js/13.ac3dcbfc.js"><link rel="prefetch" href="/assets/js/14.ec4096aa.js"><link rel="prefetch" href="/assets/js/15.8d500de2.js"><link rel="prefetch" href="/assets/js/16.44a07109.js"><link rel="prefetch" href="/assets/js/17.beb5a28e.js"><link rel="prefetch" href="/assets/js/18.114dcde0.js"><link rel="prefetch" href="/assets/js/19.4366be09.js"><link rel="prefetch" href="/assets/js/2.290a92c7.js"><link rel="prefetch" href="/assets/js/20.0514c9e5.js"><link rel="prefetch" href="/assets/js/21.0a140a4d.js"><link rel="prefetch" href="/assets/js/22.16973f02.js"><link rel="prefetch" href="/assets/js/23.3ee32209.js"><link rel="prefetch" href="/assets/js/25.5886ae37.js"><link rel="prefetch" href="/assets/js/26.10787ccd.js"><link rel="prefetch" href="/assets/js/27.cb7ad0e4.js"><link rel="prefetch" href="/assets/js/28.fcc81b2b.js"><link rel="prefetch" href="/assets/js/29.f4eee8f9.js"><link rel="prefetch" href="/assets/js/3.d88214c3.js"><link rel="prefetch" href="/assets/js/30.b8cacd71.js"><link rel="prefetch" href="/assets/js/31.ee0ba48e.js"><link rel="prefetch" href="/assets/js/4.534973a5.js"><link rel="prefetch" href="/assets/js/5.a841ca52.js"><link rel="prefetch" href="/assets/js/6.b8a552c5.js"><link rel="prefetch" href="/assets/js/7.b146d4d2.js"><link rel="prefetch" href="/assets/js/8.5b4be31f.js"><link rel="prefetch" href="/assets/js/9.435a88d4.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.cc2a2ebf.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Komodo Developer Documentation</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/000-start-here/_001-introduction.html" class="nav-link">Start Here</a></div><div class="nav-item"><a href="https://komodoplatform.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  KomodoPlatform.com
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/000-start-here/_001-introduction.html" class="nav-link">Start Here</a></div><div class="nav-item"><a href="https://komodoplatform.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  KomodoPlatform.com
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><div class="sidebar-group first collapsable"><p class="sidebar-heading"><span>Start Here</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>Installation and Setup</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>CryptoConditions (Smart Contract Templates)</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading open"><span>Essential RPC Calls</span> <span class="arrow down"></span></p> <ul class="sidebar-group-items"><li><a href="/015-essential-rpc/_303-address-index.html" class="sidebar-link">Address</a></li><li><a href="/015-essential-rpc/_307-blockchain.html" class="sidebar-link">Blockchain</a></li><li><a href="/015-essential-rpc/_311-control.html" class="sidebar-link">Control</a></li><li><a href="/015-essential-rpc/_315-disclosure.html" class="sidebar-link">Disclosure</a></li><li><a href="/015-essential-rpc/_319-generate.html" class="sidebar-link">Generate</a></li><li><a href="/015-essential-rpc/_323-mining.html" class="active sidebar-link">Mining</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/015-essential-rpc/_323-mining.html#getblocksubsidy" class="sidebar-link">getblocksubsidy</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_323-mining.html#getblocktemplate" class="sidebar-link">getblocktemplate</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_323-mining.html#getlocalsolps" class="sidebar-link">getlocalsolps</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_323-mining.html#getmininginfo" class="sidebar-link">getmininginfo</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_323-mining.html#getnetworkhashps" class="sidebar-link">getnetworkhashps</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_323-mining.html#getnetworksolps" class="sidebar-link">getnetworksolps</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_323-mining.html#prioritisetransaction" class="sidebar-link">prioritisetransaction</a></li><li class="sidebar-sub-header"><a href="/015-essential-rpc/_323-mining.html#submitblock" class="sidebar-link">submitblock</a></li></ul></li><li><a href="/015-essential-rpc/_325-jumblr.html" class="sidebar-link">Jumblr</a></li><li><a href="/015-essential-rpc/_327-network.html" class="sidebar-link">Network</a></li><li><a href="/015-essential-rpc/_331-rawtransactions.html" class="sidebar-link">Raw Transactions</a></li><li><a href="/015-essential-rpc/_335-util.html" class="sidebar-link">Util</a></li><li><a href="/015-essential-rpc/_339-wallet.html" class="sidebar-link">Wallet</a></li></ul></div></li></ul> </div> <div class="page"> <div class="content"><h1 id="mining"><a href="#mining" aria-hidden="true" class="header-anchor">#</a> Mining</h1> <p>The following RPC calls interact with the <code>komodod</code> software, and are made available through the <code>komodo-cli</code> software.</p> <h2 id="getblocksubsidy"><a href="#getblocksubsidy" aria-hidden="true" class="header-anchor">#</a> getblocksubsidy</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getblocksubsidy 100
+
+response:
+
+{
+  &quot;miner&quot;: 0.00010000
+}
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getblockubsidy&quot;, &quot;params&quot;: [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+</code></pre></div><p><strong>getblocksubsidy height_number</strong></p> <p>The <code>getblocksubsidy</code> method returns the block-subsidy reward. The resulting calculation takes into account the mining slow start. This method can be used in conjunction with custom mining rewards designed by the developers of a KMD-based asset chain.</p> <h3 id="arguments"><a href="#arguments" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>true/false</td> <td>(boolean)</td> <td>indicates whether the server is set to generate coins</td></tr></tbody></table> <h3 id="response"><a href="#response" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;miner&quot;</td> <td>(numeric)</td> <td>the mining reward amount</td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table> <h2 id="getblocktemplate"><a href="#getblocktemplate" aria-hidden="true" class="header-anchor">#</a> getblocktemplate</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getblocktemplate '{&quot;mode&quot;:&quot;template&quot;,&quot;capabilities&quot;:[&quot;workid&quot;]}'
+
+response:
+
+{
+  &quot;capabilities&quot;: [
+    &quot;proposal&quot;
+  ],
+  &quot;version&quot;: 4,
+  &quot;previousblockhash&quot;: &quot;0ec57dbbaa7fdb290b847981e38908482b1be05f375f021c4d1f6f6315fd5c7e&quot;,
+  &quot;transactions&quot;: [
+  ],
+  &quot;coinbasetxn&quot;: {
+    &quot;data&quot;: &quot;01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff0503d7590f00ffffffff0100a3e111000000002321029400ae04d9c0e3e49b114fc5e0a7e250ece5f5b5b8f1614075ddfd62c67319aeac1ba2985b&quot;,
+    &quot;hash&quot;: &quot;6af34ca0711ff5c7d3b4d2334ec55f4995014261f3c537446537169f9b96b0d6&quot;,
+    &quot;depends&quot;: [
+    ],
+    &quot;fee&quot;: 0,
+    &quot;sigops&quot;: 1,
+    &quot;coinbasevalue&quot;: 300000000,
+    &quot;required&quot;: true
+  },
+  &quot;longpollid&quot;: &quot;0ec57dbbaa7fdb290b847981e38908482b1be05f375f021c4d1f6f6315fd5c7e39&quot;,
+  &quot;target&quot;: &quot;000000070be50000000000000000000000000000000000000000000000000000&quot;,
+  &quot;mintime&quot;: 1536729153,
+  &quot;mutable&quot;: [
+    &quot;time&quot;,
+    &quot;transactions&quot;,
+    &quot;prevblock&quot;
+  ],
+  &quot;noncerange&quot;: &quot;00000000ffffffff&quot;,
+  &quot;sigoplimit&quot;: 20000,
+  &quot;sizelimit&quot;: 2000000,
+  &quot;curtime&quot;: 1536729628,
+  &quot;bits&quot;: &quot;1d070be5&quot;,
+  &quot;height&quot;: 1006039
+}
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getblocktemplate&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: {
+    &quot;capabilities&quot;: [
+      &quot;proposal&quot;
+    ],
+    &quot;version&quot;: 4,
+    &quot;previousblockhash&quot;: &quot;0c77fb62dcabffd39c0b4ad79da9a51ecc4265158b01ae09d7fd70f93ab7d499&quot;,
+    &quot;transactions&quot;: [
+      {
+        &quot;data&quot;: &quot;010000000d0bf48c25bbb9e5c9cf2959c39ea62266784932a17a8fe1ad190197c398e341870200000048473044022071db2fad2d5bab5f6cf8e2d415fe9cfbc146fc561ce55c379044d5eab7206e1b0220296970cf0265e28a49ac525faef6114386d2ed5c8ea2ced9ccfcd37ca4563bf401ffffffff50aca334345c7b4e7285d883d58efeb74c43e58d4fa61bac21f922a014f292aa1700000048473044022038f17fe42006a3f30ff658f0c8b1495567ffd0dbbe4ba36229df4bcabce201740220516ed6fca4a453f3305b47315d5efd2b230b3a575cb506cb04c89a730a62eade01ffffffff73e2bd82aa10c0bf751d7eabff50209e46827294c2b77932a096f89f7a4aa631210000004847304402200d7f4c2b8a537c98e19f0044d97c0d5ee6afb598d9b4523d586ec39b5be68ed0022071c5587f347bf56b0d1a340e6326c1ec612ee6a77abf5a24e93a446eeaee31af01ffffffffc335b0a285d04766b560bec88c191ed4494bb7e6e964eba1f5ccde3a89ad2e5a0100000049483045022100dce3c8e92b1487bb39681e58634f6414df14bf848b4a0de3ce11e2ddd4b5836202201e8ce810a67fb84350c62e3c5ed28bc1350d754f3a61a3c1a85e824c946fb30801ffffffff2ed2a51a1f8fe7feb456fa21c4ae172733d921c933e0ddc1368cfd9e09a746e5030000004847304402204f2c0eee23e34937b624e8ec4f0221ad3a43787fdbaa5b936ac39d2a3d30d7fe02200fd6e39b0eac4cbd80601f9625b40152e3bad6115f4d1e158b8709aa215778fb01ffffffff31b2c613750303538593437354af923637ee972932d1997fc93bf8d9199ebe905c000000494830450221008c760aef6b34d79e7076b6c249506c91070931f641039f44243e6abf798c731d02203c9a44d0adb04e64956720b4a97b49944825fa704679c21b18679a63c98e99ec01ffffffff0a81b4834feaa5f1044540928290e6d19667ede024923836d94bac13c7c9237914000000494830450221009d8ceb46e48dc0e86e13b0a549efbedc95ca199e1068f8e5e1f31cf4460dee3f022005079476092ac474c42ffae9fcf49fba82f68c94637ea97add61a5b1a147badb01ffffffffd81465cb221c3374a0a69bffc9f2bc225249328c50badd8683c351b2c30fdb171700000048473044022039da2916a77777c77b1a97840d1a888f2b12f0994ad134c8075a0b659884211a022006cbb6c807d1814b88f280e0036306e6d73cc79c0b6ff60966f47161feaccb3e01ffffffff59128ea85b2240d8b781a00b1ad0ebcdd8502d8d3f5722878f963b7f601e1d69020000004847304402203374d06656f35edf5d1b0d16455da2d6f22520a00c948a9c1d6bf51dba7a70ef0220529ec3146e080a637118b891a6b739f58e6f57d2aa3a24759a39eb6696af36ac01ffffffffc7d79714f379e9de8d752861f27d7e4685137dc6db5ad2cd50ec7b36429826d7050000004847304402207a426bb189ac657a9e8b699c67091de8df28306ce67b14653aea561800dfcb1502207e00216a6ff84e3f5b6d82c0683d8ea72a9fd6f636f9b3102b657e09a5f7481501ffffffffd872945ebfef211230ad8147f994892ab45c6cb4710ac29950e40354e1861d78e300000049483045022100af153b219376ffcbef42bd900e678d2504a6acd7c2bf945dcae895a9f07da79702201615016f196ad9452755d9c303fa151c242ed963b5373d148db733482487e8af01ffffffff671edc29af69a848081dd3790afb3fb113377d995e34ea9f219331d5c18c6885ad000000484730440220572ad6110ca5bafd749cfb77740f1aaac35e18c4a814cfb771c5286dd8b1249802207f4a27b90ff91663ee8ec6fc14dae64d16274fd2e35069ac6891de0385740a9801ffffffffba4dc1b3ef20747310640e4e0337c8db570ec63fa62eeffc492098502eaa9a2e5700000049483045022100f3ac3b80a66b6f1e6f96faf15a6535b104fbba987b357732e5b45830841a0a0a02202fee1f97494b2232a32517272d49992612729f4d9f762ede8d9b06ddf294293001ffffffff02f0810100000000002321020e46e79a2a8d12b9b5d12c7a91adb4e454edfae43c0a0cb805427d2ac7613fd9ac0000000000000000506a4c4da83be8f6e61cb9837708c1a847bdd80b8b8c1e1b9067b338433ca6c663869d004c6e01004345414c00e76cb540d63746c82676637b51e4f9f894c444822844224dd840975c7652dd760e00000000000000&quot;,
+        &quot;hash&quot;: &quot;14473b8754bf69cc365784633e1a80787d4f9f950c95c48af0c6a28983c31098&quot;,
+        &quot;depends&quot;: [],
+        &quot;fee&quot;: 31200,
+        &quot;sigops&quot;: 1
+      }
+    ],
+    &quot;coinbasetxn&quot;: {
+      &quot;data&quot;: &quot;01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff0503e6590f00ffffffff01a010e311000000002321029400ae04d9c0e3e49b114fc5e0a7e250ece5f5b5b8f1614075ddfd62c67319aeac57a4985b&quot;,
+      &quot;hash&quot;: &quot;334b02c0c2fa087862f845fefbd8f6ac4b72e4aed6d024f22b7fa0aa84759006&quot;,
+      &quot;depends&quot;: [],
+      &quot;fee&quot;: -93600,
+      &quot;sigops&quot;: 1,
+      &quot;coinbasevalue&quot;: 300000000,
+      &quot;required&quot;: true
+    },
+    &quot;longpollid&quot;: &quot;0c77fb62dcabffd39c0b4ad79da9a51ecc4265158b01ae09d7fd70f93ab7d499147&quot;,
+    &quot;target&quot;: &quot;0000000670be0000000000000000000000000000000000000000000000000000&quot;,
+    &quot;mintime&quot;: 1536729888,
+    &quot;mutable&quot;: [
+      &quot;time&quot;,
+      &quot;transactions&quot;,
+      &quot;prevblock&quot;
+    ],
+    &quot;noncerange&quot;: &quot;00000000ffffffff&quot;,
+    &quot;sigoplimit&quot;: 20000,
+    &quot;sizelimit&quot;: 2000000,
+    &quot;curtime&quot;: 1536730200,
+    &quot;bits&quot;: &quot;1d0670be&quot;,
+    &quot;height&quot;: 1006054
+  },
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>getblocktemplate ( &quot;jsonrequestobject&quot; )</strong></p> <p>The <code>getblocktemplate</code> method returns data that is necessary to construct a block.</p> <aside class="notice">
+  See <a href="https://en.bitcoin.it/wiki/BIP_0022">the Bitcoin wiki</a> for full specification.
+</aside> <p>If the request parameters include a <code>mode</code> key, it is used to explicitly select between the default 'template' request or a 'proposal'.</p> <h3 id="arguments-2"><a href="#arguments-2" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;jsonrequestobject&quot;</td> <td>(string, optional)</td> <td>a json object in the following spec</td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;mode&quot;</td> <td>(string, optional)</td> <td>can be: &quot;template&quot;</td></tr> <tr><td>&quot;capabilities&quot;:</td> <td></td> <td></td></tr> <tr><td>&quot;support&quot;</td> <td>(string)</td> <td>client side supported features: &quot;longpoll&quot;, &quot;coinbasetxn&quot;, &quot;coinbasevalue&quot;, &quot;proposal&quot;, &quot;serverlist&quot;, &quot;workid&quot;</td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>]</td> <td></td> <td></td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-2"><a href="#response-2" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;version&quot;</td> <td>(numeric)</td> <td>the block version</td></tr> <tr><td>&quot;previousblockhash&quot;</td> <td>(string)</td> <td>the hash of current highest block</td></tr> <tr><td>&quot;transactions&quot;</td> <td></td> <td></td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;data&quot;</td> <td>(string)</td> <td>transaction data encoded in hexadecimal (byte-for-byte)</td></tr> <tr><td>&quot;hash&quot;</td> <td>(string)</td> <td>hash/id encoded in little-endian hexadecimal</td></tr> <tr><td>&quot;depends&quot;</td> <td></td> <td></td></tr> <tr><td>number</td> <td>(numeric)</td> <td>transactions before this one (by 1-based index in &quot;transactions&quot; list) that must be present in the final block, if this one is</td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>],</td> <td></td> <td></td></tr> <tr><td>&quot;fee&quot;</td> <td>(numeric)</td> <td>the difference in value between transaction inputs and outputs (in Satoshis). For coinbase transactions, this is a negative number of the total collected block fees (ie, not including the block subsidy). If a key is not present, the fee is unknown and clients MUST NOT assume it is not present.</td></tr> <tr><td>&quot;sigops&quot;</td> <td>(numeric)</td> <td>total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.</td></tr> <tr><td>&quot;required&quot;</td> <td>(boolean)</td> <td>if provided and true, this transaction must be in the final block</td></tr> <tr><td>}</td> <td></td> <td></td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>],</td> <td></td> <td></td></tr> <tr><td>&quot;coinbasetxn&quot;</td> <td></td> <td></td></tr> <tr><td>...</td> <td>(json object)</td> <td>information for coinbase transaction</td></tr> <tr><td>},</td> <td></td> <td></td></tr> <tr><td>&quot;target&quot;</td> <td>(string)</td> <td>the hash target</td></tr> <tr><td>&quot;mintime&quot;</td> <td>(numeric)</td> <td>the minimum timestamp appropriate for next block time in seconds since epoch (Jan 1 1970 GMT)</td></tr> <tr><td>&quot;mutable&quot;</td> <td></td> <td></td></tr> <tr><td>&quot;value&quot;</td> <td>(string)</td> <td>a way the block template may be changed, e.g. &quot;time&quot;, &quot;transactions&quot;, &quot;prevblock&quot;</td></tr> <tr><td>,</td> <td></td> <td></td></tr> <tr><td>],</td> <td></td> <td></td></tr> <tr><td>&quot;noncerange&quot;</td> <td>(string)</td> <td>a range of valid nonces</td></tr> <tr><td>&quot;sigoplimit&quot;</td> <td>(numeric)</td> <td>limit of sigops in blocks</td></tr> <tr><td>&quot;sizelimit&quot;</td> <td>(numeric)</td> <td>limit of block size</td></tr> <tr><td>&quot;curtime&quot;</td> <td>(numeric)</td> <td>current timestamp in seconds since epoch (Jan 1 1970 GMT)</td></tr> <tr><td>&quot;bits&quot;</td> <td>(string)</td> <td>compressed target of next block</td></tr> <tr><td>&quot;height&quot;</td> <td>(numeric)</td> <td>the height of the next block</td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table> <h2 id="getlocalsolps"><a href="#getlocalsolps" aria-hidden="true" class="header-anchor">#</a> getlocalsolps</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getlocalsolps
+
+response:
+
+0.4141607577247555
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getlocalsolps&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: 0.4141607577247555,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>getlocalsolps</strong></p> <p>The <code>getlocalsolps</code> method returns the average local solutions per second since this node was started.</p> <aside class="notice">
+  This is the same information shown on the metrics screen (if enabled).
+</aside> <h3 id="arguments-3"><a href="#arguments-3" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td>(none)</td> <td></td></tr></tbody></table> <h3 id="response-3"><a href="#response-3" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;data&quot;</td> <td>(numeric)</td> <td>solutions per second average</td></tr></tbody></table> <h2 id="getmininginfo"><a href="#getmininginfo" aria-hidden="true" class="header-anchor">#</a> getmininginfo</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getmininginfo
+
+response:
+
+{
+  &quot;blocks&quot;: 1007341,
+  &quot;currentblocksize&quot;: 0,
+  &quot;currentblocktx&quot;: 0,
+  &quot;difficulty&quot;: 42918151.0730477,
+  &quot;errors&quot;: &quot;&quot;,
+  &quot;genproclimit&quot;: -1,
+  &quot;localsolps&quot;: 0,
+  &quot;networksolps&quot;: 11414148,
+  &quot;networkhashps&quot;: 11414148,
+  &quot;pooledtx&quot;: 5,
+  &quot;testnet&quot;: false,
+  &quot;chain&quot;: &quot;main&quot;,
+  &quot;generate&quot;: false,
+  &quot;numthreads&quot;: -1
+}
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getmininginfo&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: {
+    &quot;blocks&quot;: 1007341,
+    &quot;currentblocksize&quot;: 0,
+    &quot;currentblocktx&quot;: 0,
+    &quot;difficulty&quot;: 42918151.0730477,
+    &quot;errors&quot;: &quot;&quot;,
+    &quot;genproclimit&quot;: -1,
+    &quot;localsolps&quot;: 0,
+    &quot;networksolps&quot;: 11414148,
+    &quot;networkhashps&quot;: 11414148,
+    &quot;pooledtx&quot;: 11,
+    &quot;testnet&quot;: false,
+    &quot;chain&quot;: &quot;main&quot;,
+    &quot;generate&quot;: false,
+    &quot;numthreads&quot;: -1
+  },
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>getmininginfo</strong></p> <p>The <code>getmininginfo</code> method returns a json object containing mining-related information.</p> <h3 id="arguments-4"><a href="#arguments-4" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>(none)</td> <td>(none)</td> <td></td></tr></tbody></table> <h3 id="response-4"><a href="#response-4" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;blocks&quot;</td> <td>(numeric)</td> <td>the current block</td></tr> <tr><td>&quot;currentblocksize&quot;</td> <td>(numeric)</td> <td>the last block size</td></tr> <tr><td>&quot;currentblocktx&quot;</td> <td>(numeric)</td> <td>the last block transaction</td></tr> <tr><td>&quot;difficulty&quot;</td> <td>(numeric)</td> <td>the current difficulty</td></tr> <tr><td>&quot;errors&quot;:</td> <td></td> <td></td></tr> <tr><td>&quot;generate&quot;</td> <td>(boolean)</td> <td>if the generation is on or off (see <a href="#getgenerate">getgenerate</a> or <a href="#setgenerate">setgenerate</a> calls)</td></tr> <tr><td>&quot;genproclimit&quot;</td> <td>(numeric)</td> <td>the processor limit for generation; -1 if no generation (see<a href="#getgenerate">getgenerate</a> or <a href="#setgenerate">setgenerate</a> calls)</td></tr> <tr><td>&quot;localsolps&quot;</td> <td>(numeric)</td> <td>the average local solution rate (solutions per second) since this node was started</td></tr> <tr><td>&quot;networksolps&quot;</td> <td>(numeric)</td> <td>the estimated network solution rate (solutions per second)</td></tr> <tr><td>&quot;pooledtx&quot;:</td> <td></td> <td></td></tr> <tr><td>&quot;testnet&quot;</td> <td>(boolean)</td> <td>if using testnet or not</td></tr> <tr><td>&quot;chain&quot;</td> <td>(string)</td> <td>current network name as defined in BIP70 (main, test, regtest)</td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table> <h2 id="getnetworkhashps"><a href="#getnetworkhashps" aria-hidden="true" class="header-anchor">#</a> getnetworkhashps</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getnetworkhashps
+
+response:
+
+10724120
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getnetworkhashps&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+
+{
+  &quot;result&quot;: 10449287,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><aside class="warning">
+  DEPRECATED: Use <b>getnetworksolps</b> instead.
+</aside> <p><strong>getnetworkhashps ( blocks height )</strong></p> <p>The <code>getnetworkhashps</code> method returns the estimated network solutions per second based on the last <code>n</code> blocks.</p> <p>Pass in <code>blocks</code> value to override the default number of blocks. Passing in <code>-1</code> will return a value based on the average hashps of the relevant difficulty window.</p> <p>Pass in <code>height</code> to estimate the network speed at the time when a certain block was found.</p> <h3 id="arguments-5"><a href="#arguments-5" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>blocks</td> <td>(numeric, optional, default=120)</td> <td>the number of blocks (use -1 to calculate over the relevant difficulty averaging window)</td></tr> <tr><td>height</td> <td>(numeric, optional, default=-1)</td> <td>to estimate at the time of the given height</td></tr></tbody></table> <h3 id="response-5"><a href="#response-5" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>data</td> <td>(numeric)</td> <td>solutions per second estimated</td></tr></tbody></table> <h2 id="getnetworksolps"><a href="#getnetworksolps" aria-hidden="true" class="header-anchor">#</a> getnetworksolps</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli getnetworksolps
+
+response:
+
+9954190
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getnetworksolps&quot;, &quot;params&quot;: [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+</code></pre></div><p><strong>getnetworksolps ( blocks height )</strong></p> <p>The <code>getnetworksolps</code> method returns the estimated network solutions per second based on the last <code>n</code> blocks.</p> <p>Pass in <code>blocks</code> to override the default number of blocks. Use -1 to calculate according to the relevant difficulty averaging window.
+Pass in <code>height</code> to estimate the network speed at the time when a certain block was found.</p> <h3 id="arguments-6"><a href="#arguments-6" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>blocks</td> <td>(numeric, optional, default=120)</td> <td>the number of blocks; use -1 to calculate according to the relevant difficulty averaging window</td></tr> <tr><td>height</td> <td>(numeric, optional, default=-1)</td> <td>to estimate at the time of the given height</td></tr></tbody></table> <h3 id="response-6"><a href="#response-6" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>data</td> <td>(numeric)</td> <td>solutions per second, estimated</td></tr></tbody></table> <h2 id="prioritisetransaction"><a href="#prioritisetransaction" aria-hidden="true" class="header-anchor">#</a> prioritisetransaction</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli prioritisetransaction &quot;7dc902b280da27cf2dabe41ed6f4d04c828714f289435db193a49341005607eb&quot; 0.0 10000
+
+result:
+
+true
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;prioritisetransaction&quot;, &quot;params&quot;: [&quot;txid&quot;, 0.0, 10000] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+result:
+
+{
+  &quot;result&quot;: true,
+  &quot;error&quot;: null,
+  &quot;id&quot;: &quot;curltest&quot;
+}
+</code></pre></div><p><strong>prioritisetransaction &quot;transaction_id&quot; priority_delta fee_delta</strong></p> <p>The <code>prioritisetransaction</code> method instructs the daemon to accept the indicated transaction into mined blocks at a higher (or lower) priority. The transaction selection algorithm considers the transaction as it would have a higher priority.</p> <aside class="notice">
+  This method is inherited from the original Bitcoin protocol, of which KMD is a fork (via Zcash). For more examples regarding this method, please see <a href="https://bitcoincore.org/en/doc/0.16.1/rpc/mining/prioritisetransaction/">the linked documentation</a>.
+</aside> <h3 id="arguments-7"><a href="#arguments-7" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;transaction_id&quot;</td> <td>(string, required)</td> <td>the transaction id</td></tr> <tr><td>priority</td> <td></td> <td></td></tr> <tr><td>fee</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-7"><a href="#response-7" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>true</td> <td>(boolean)</td> <td>returns true</td></tr></tbody></table> <h2 id="submitblock"><a href="#submitblock" aria-hidden="true" class="header-anchor">#</a> submitblock</h2> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+komodo-cli submitblock &quot;mydata&quot;
+
+response:
+
+</code></pre></div><blockquote><p>You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>command:
+
+curl --user myrpcuser:myrpcpassword --data-binary '{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;submitblock&quot;, &quot;params&quot;: [&quot;mydata&quot;] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+
+response:
+</code></pre></div><p><strong>submitblock &quot;hexdata&quot; ( &quot;jsonparametersobject&quot; )</strong></p> <p>The <code>submitblock</code> method instructs the daemon to propose a new block to the network.</p> <aside class="notice">
+  The <b>jsonparametersobject</b> parameter is currently ignored. See <a href="https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki">the linked documentation</a> for full specification details.
+</aside> <aside class="notice">
+  Note: for more information on <b>submitblock</b> parameters and results, see <a href="https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki#block-submission">the linked documentation</a>.
+</aside> <h3 id="arguments-8"><a href="#arguments-8" aria-hidden="true" class="header-anchor">#</a> Arguments:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody><tr><td>&quot;hexdata&quot;</td> <td>(string, required)</td> <td>the hex-encoded block data to submit</td></tr> <tr><td>&quot;jsonparametersobject&quot;</td> <td>(string, optional)</td> <td>object of optional parameters</td></tr> <tr><td>{</td> <td></td> <td></td></tr> <tr><td>&quot;workid&quot;</td> <td>(string, sometimes optional)</td> <td>if the server provides a workid, it MUST be included with submissions</td></tr> <tr><td>}</td> <td></td> <td></td></tr></tbody></table> <h3 id="response-8"><a href="#response-8" aria-hidden="true" class="header-anchor">#</a> Response:</h3> <table><thead><tr><th>Structure</th> <th>Type</th> <th>Description</th></tr></thead> <tbody></tbody></table> <pre><code>&quot;duplicate&quot;                                |                             |node already has valid copy of block
+&quot;duplicate-invalid&quot;                        |                             |node already has block, but it is invalid
+&quot;duplicate-inconclusive&quot;                   |                             |node already has block but has not validated it
+&quot;inconclusive&quot;                             |                             |node has not validated the block, it may not be on the node's current best chain
+&quot;rejected&quot;                                 |                             |block was rejected as invalid
+</code></pre></div> <div class="page-edit"><!----> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/015-essential-rpc/_319-generate.html" class="prev">
+          Generate
+        </a></span> <span class="next"><a href="/015-essential-rpc/_325-jumblr.html">
+          Jumblr
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/assets/js/24.a6839530.js" defer></script><script src="/assets/js/app.862d0335.js" defer></script>
+  </body>
+</html>
