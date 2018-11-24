@@ -73,3 +73,5 @@ You can use Docker to reliably produce a developer environment that won't confli
 * Use `CTRL + C` in the terminal `docker-compose up` has been done to stop the container.
 * To deploy using docker, use the command `./deploy_docker.sh`
 
+* When used for the first time, Docker might take some time to download the required data and build an image. Subsequent usage will be faster.
+
