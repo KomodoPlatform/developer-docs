@@ -8,39 +8,39 @@ module.exports = {
       { text: 'KomodoPlatform.com', link: 'https://komodoplatform.com' },
     ],
     sidebar: [
-      // {
-      //   title: 'Start Here',
-      //   collapsable: true,
-      //   children: [
-      //     [ '/000-start-here/_001-introduction.md', 'Introduction'],
-      //     [ '/000-start-here/_005-outline-for-new-developers.md', 'Outline for New Developers'],
-      //     [ '/000-start-here/_017-cc-overview.md', 'Overview of CryptoConditions (Smart Contracts)']
-      //   ]
-      // },
-      // {
-      //   title: 'Installation and Setup',
-      //   collapsable: true,
-      //   children: [
-      //     [ '/005-installations/_010-basic-instructions.md', 'Basic Installation Instructions'],
-      //     [ '/005-installations/_015-creating-asset-chains.md', 'Asset Chain Creation'],
-      //     [ '/005-installations/_019-common-runtime-parameters.md', 'Basic Runtime Parameters'],
-      //     [ '/005-installations/_023-asset-chain-parameters.md', 'Runtime Tools for Asset Chains']
-      //   ]
-      // },
-      // {
-      //   title: 'CryptoConditions (Smart Contract Templates)',
-      //   collapsable: true,
-      //   children: [
-      //     [ '/010-cryptoconditions/_101-cryptoconditions-instructions.md', 'Instructions for CryptoConditions'],
-      //     [ '/010-cryptoconditions/_110-cc-channels.md', 'Channels'],
-      //     [ '/010-cryptoconditions/_120-cc-dice.md', 'Dice'],
-      //     [ '/010-cryptoconditions/_130-cc-faucet.md', 'Faucet'],
-      //     [ '/010-cryptoconditions/_133-cc-gateways.md', 'Gateways'],
-      //     [ '/010-cryptoconditions/_135-cc-oracles.md', 'Oracles'],
-      //     [ '/010-cryptoconditions/_140-cc-rewards.md', 'Rewards'],
-      //     [ '/010-cryptoconditions/_150-cc-tokens.md', 'Tokens']
-      //   ]
-      // },
+      {
+        title: 'Start Here',
+        collapsable: true,
+        children: [
+          [ '/000-start-here/_001-introduction.md', 'Introduction'],
+          [ '/000-start-here/_005-outline-for-new-developers.md', 'Outline for New Developers'],
+          [ '/000-start-here/_017-cc-overview.md', 'Overview of CryptoConditions (Smart Contracts)']
+        ]
+      },
+      {
+        title: 'Installation and Setup',
+        collapsable: true,
+        children: [
+          [ '/005-installations/_010-basic-instructions.md', 'Basic Installation Instructions'],
+          [ '/005-installations/_015-creating-asset-chains.md', 'Asset Chain Creation'],
+          [ '/005-installations/_019-common-runtime-parameters.md', 'Basic Runtime Parameters'],
+          [ '/005-installations/_023-asset-chain-parameters.md', 'Runtime Tools for Asset Chains']
+        ]
+      },
+      {
+        title: 'CryptoConditions (Smart Contract Templates)',
+        collapsable: true,
+        children: [
+          [ '/010-cryptoconditions/_101-cryptoconditions-instructions.md', 'Instructions for CryptoConditions'],
+          [ '/010-cryptoconditions/_110-cc-channels.md', 'Channels'],
+          [ '/010-cryptoconditions/_120-cc-dice.md', 'Dice'],
+          [ '/010-cryptoconditions/_130-cc-faucet.md', 'Faucet'],
+          [ '/010-cryptoconditions/_133-cc-gateways.md', 'Gateways'],
+          [ '/010-cryptoconditions/_135-cc-oracles.md', 'Oracles'],
+          [ '/010-cryptoconditions/_140-cc-rewards.md', 'Rewards'],
+          [ '/010-cryptoconditions/_150-cc-tokens.md', 'Tokens']
+        ]
+      },
       {
         title: 'Essential RPC Calls',
         collapsable: true,
