@@ -8,7 +8,7 @@ This allows the `gateways`-enabled asset chain to feature secure, on-chain, high
 
 Using an established `gateways` smart contract is not considered difficult. However, setting up the `gateways` requires the user to closely follow several detailed steps.
 
-### Examples:
+#### :pushpin: Examples:
 
 **GatewaysCC** usage
 * Prepare a special oracle, having the data type `Ihh`; this oracle will retrieve information regarding Komodo's chainstate using the **oraclefeed dApp**
@@ -21,9 +21,9 @@ Please ensure that you have the KMD main chain downloaded and synced before cont
 
 Also, please open an empty text file and save all output transaction ids and hex-encoded data from each step. You will need the information at various stages.
 
-### Examples:
+#### :pushpin: Examples:
 
-### Examples:
+#### :pushpin: Examples:
 
 **tokenid**.
 
@@ -49,13 +49,13 @@ You may also check the balance for a specific pubkey:
 
 `./komodo-cli -ac_name=HELLOWORLD tokenbalance TOKEN_ID PUBKEY`
 
-### Examples:
+#### :pushpin: Examples:
 
 **GatewaysPubkey**:
 
 `./komodo-cli -ac_name=HELLOWORLD gatewaysaddress`
 
-This will return the gateways pubkey. ===?===
+This will return the gateways pubkey.
 
 Then convert 100% of your KMD-token supply to the GatewayCC using the special `tokenconvert` call. Use the unique evalcode for `GatewaysCC` as the first parameter: `241`
 
@@ -68,7 +68,7 @@ The above command will output a **hex** value, which you now broadcast using `se
 
 `./komodo-cli -ac_name=HELLOWORLD sendrawtransaction HEX_DATA_HERE`
 
-### Examples:
+#### :pushpin: Examples:
 
 ## Create an Oracle for Storing "Blockheader Data" on the Blockchain
 
@@ -115,7 +115,7 @@ Get the **data-publisher's pubkey** from the `oracesinfo` call:
 
 `./komodo-cli -ac_name=HELLOWORLD oraclesinfo ORACLE_ID`
 
-> Sample output:
+#### :pushpin: Sample output:
 
 ```
     {
@@ -137,8 +137,6 @@ Get the **data-publisher's pubkey** from the `oracesinfo` call:
         ]
     }
 ```
-
-Sample output for the above call can be seen on the right:
 
 The property, `"publisher"`, in the entry, `"registered"`, of the json object is the data-publisher's `pubkey`, also called the `publisherpubkey`.
 
@@ -164,7 +162,7 @@ Please keep in mind the flow of the oracle data fees :
 * Anyone can subscribe to this publisher on this oracle, committing their desired amount to the publisher
 * The publisher may withdraw their fee from the total amount each time the publisher uses `oraclesdata` to publish data
 
-### Examples:
+#### :pushpin: Examples:
 
 **bindtxid**. This is the id of the gateway at `MYPUBKEY`.
 
@@ -174,7 +172,7 @@ If the command is successful, you may review your new gateway using [`gatewaysin
 
 Verify that the returned **tokenid** and **oracleid** match those provided earlier.
 
-### Examples:
+#### :pushpin: Examples:
 
 ## Assemble the dApp
 
@@ -204,7 +202,7 @@ Run the dApp:
 
 **bindtxid**
 
-> Sample Response:
+#### :pushpin: Sample Response:
 
 ```
 (succesfull oraclization of KMD heights):
@@ -217,8 +215,6 @@ broadcast HELLOWORLD txid.(f33d5ffaec7d13f14605556cee86262299db8fad0337d1baefadc
 ```
 
 If the oracle is working as expected, a response similar to the one in the right column of the web browser following should occur:
-
-### Examples:
 
 ## Using the Gateway
 
@@ -340,5 +336,3 @@ Execute the following commands on the node running the oracle dApp:
 `AMOUNT`: the amount for the deposit (in this case 0.1)
 
 This should complete the withdrawal process, and therefore the cycle for the `gateways` contract.
-
-### Examples:
