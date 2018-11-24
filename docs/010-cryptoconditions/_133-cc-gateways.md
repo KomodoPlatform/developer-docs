@@ -8,8 +8,6 @@ This allows the `gateways`-enabled asset chain to feature secure, on-chain, high
 
 Using an established `gateways` smart contract is not considered difficult. However, setting up the `gateways` requires the user to closely follow several detailed steps.
 
-#### :pushpin: Examples:
-
 **GatewaysCC** usage
 * Prepare a special oracle, having the data type `Ihh`; this oracle will retrieve information regarding Komodo's chainstate using the **oraclefeed dApp**
 * Bind the tokens and the oracle to our gateway
@@ -20,10 +18,6 @@ Using an established `gateways` smart contract is not considered difficult. Howe
 Please ensure that you have the KMD main chain downloaded and synced before continuing further in the guide.
 
 Also, please open an empty text file and save all output transaction ids and hex-encoded data from each step. You will need the information at various stages.
-
-#### :pushpin: Examples:
-
-#### :pushpin: Examples:
 
 **tokenid**.
 
@@ -49,13 +43,11 @@ You may also check the balance for a specific pubkey:
 
 `./komodo-cli -ac_name=HELLOWORLD tokenbalance TOKEN_ID PUBKEY`
 
-#### :pushpin: Examples:
-
 **GatewaysPubkey**:
 
 `./komodo-cli -ac_name=HELLOWORLD gatewaysaddress`
 
-This will return the gateways pubkey.
+This will return the gateways pubkey. ===?===
 
 Then convert 100% of your KMD-token supply to the GatewayCC using the special `tokenconvert` call. Use the unique evalcode for `GatewaysCC` as the first parameter: `241`
 
@@ -65,17 +57,13 @@ You must set the supply in the number of tokens for this command. For example, i
 
 The above command will output a **hex** value, which you now broadcast using `sendrawtransaction`:
 
-
 `./komodo-cli -ac_name=HELLOWORLD sendrawtransaction HEX_DATA_HERE`
-
-#### :pushpin: Examples:
 
 ## Create an Oracle for Storing "Blockheader Data" on the Blockchain
 
 To add external data to the blockchain, we use the [`oracles`](#smart-contract-oracles) smart contract.
 
 We have to create an oracle with an identical name, ie. `KMD`, and the data format must start with `Ihh` (height, blockhash, merkleroot):
-
 
 `./komodo-cli -ac_name=HELLOWORLD oraclescreate KMD blockheaders Ihh`
 
@@ -162,8 +150,6 @@ Please keep in mind the flow of the oracle data fees :
 * Anyone can subscribe to this publisher on this oracle, committing their desired amount to the publisher
 * The publisher may withdraw their fee from the total amount each time the publisher uses `oraclesdata` to publish data
 
-#### :pushpin: Examples:
-
 **bindtxid**. This is the id of the gateway at `MYPUBKEY`.
 
 If the command is successful, you may review your new gateway using [`gatewaysinfo`](#gatewaysinfo):
@@ -171,8 +157,6 @@ If the command is successful, you may review your new gateway using [`gatewaysin
 `./komodo-cli -ac_name=HELLOWORLD gatewaysinfo BINDTXID`
 
 Verify that the returned **tokenid** and **oracleid** match those provided earlier.
-
-#### :pushpin: Examples:
 
 ## Assemble the dApp
 

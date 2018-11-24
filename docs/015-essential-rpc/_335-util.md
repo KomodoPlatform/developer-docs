@@ -29,36 +29,40 @@ Structure|Type|Description
 "redeemScript"                               |(string)                     |the string value of the hex-encoded redemption script
 }                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli createmultisig 2 "[\"RJnVEQgucK1iwiRjfTZmreXkF49KgTErDn\",\"RCVyjn9MQ8Tw6YRJnDcsx67kfsmfUgLdfw\"]"
+```
 
-response:
+Response:
 
+```
 {
   "address": "bZjsy6bt2ZdyHV5hfCNL2HsuA4eV63s5u6",
   "redeemScript": "52210384c0db4f1eaa142a2745742b942f989375dbec32c55310a793225bb5c43cdc9821021f527b7269ab18da85a50b7f45f572e8b017fce476de06cb80a2550ee7d4b11652ae"
 }
 ```
 
+Command:
+
 ```
-  command:
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createmultisig", "params": [2, ["RJnVEQgucK1iwiRjfTZmreXkF49KgTErDn","RCVyjn9MQ8Tw6YRJnDcsx67kfsmfUgLdfw"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-	curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createmultisig", "params": [2, ["RJnVEQgucK1iwiRjfTZmreXkF49KgTErDn","RCVyjn9MQ8Tw6YRJnDcsx67kfsmfUgLdfw"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+Response:
 
-  response:
-
-  {
-    "result": {
-      "address": "bNnKtDC6UuSt5kGJewCQ5b2BhzFK3HTQUV",
-      "redeemScript": "522103ae084021ff011b527c34914d2c40148080c09254dd3c7d1f31f32549b53ccd232103bee23783f726ba81b5977473b172497260d9c261b9ef9f5a9dd51c545c8db0ac52ae"
-    },
-    "error": null,
-    "id": "curltest"
-  }
+```
+{
+  "result": {
+    "address": "bNnKtDC6UuSt5kGJewCQ5b2BhzFK3HTQUV",
+    "redeemScript": "522103ae084021ff011b527c34914d2c40148080c09254dd3c7d1f31f32549b53ccd232103bee23783f726ba81b5977473b172497260d9c261b9ef9f5a9dd51c545c8db0ac52ae"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 ## estimatefee
@@ -81,16 +85,18 @@ Structure|Type|Description
 ---------|----|-----------
 n                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-  command:
+komodo-cli estimatefee 6
+```
 
-	komodo-cli estimatefee 6
+Response:
 
-  response:
-
-  0.00019376
+```
+0.00019376
 ```
 
 ## estimatepriority
@@ -113,15 +119,18 @@ Structure|Type|Description
 ---------|----|-----------
 n                                            |(numeric)                    |estimated priority
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-  command:
+komodo-cli estimatepriority 6
+```
 
-	komodo-cli estimatepriority 6
+Response:
 
-  response:
-
+```
+===
 ```
 
 ## invalidateblock
@@ -142,25 +151,29 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli invalidateblock "02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"
+```
 
-response:
+Response:
 
+```
 (none)
 ```
 
+Command:
+
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "invalidateblock", "params": ["02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": null,
   "error": null,
@@ -186,16 +199,18 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-  command:
+komodo-cli reconsiderblock "02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"
+```
 
-	komodo-cli reconsiderblock "02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"
+Response:
 
-  response:
-
-  (none)
+```
+(none)
 ```
 
 ## validateaddress
@@ -225,15 +240,17 @@ Structure|Type|Description
 "account"                                    |(string)                     |DEPRECATED the account associated with the address; "" is the default account
 }                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli validateaddress "RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7"
+```
 
-response:
+Response:
 
+```
 {
   "isvalid": true,
   "address": "RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7",
@@ -272,30 +289,34 @@ Structure|Type|Description
 ---------|----|-----------
 true/false                                   |(boolean)                    |indicates whether the signature is verified
 
-### Examples:
+#### :pushpin: Examples:
 
-> Create the signature:
+Create the signature:
+
+Command:
 
 ```
-command:
-
 komodo-cli signmessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "my message"
+```
 
-response:
+Response:
 
+```
 H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=
 ```
 
-> Verify the signature:
+Verify the signature:
+
+Command:
 
 ```
-  command:
+komodo-cli verifymessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=" "my message"
+```
 
-	komodo-cli verifymessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=" "my message"
+Response:
 
-  response:
-
-  true
+```
+true
 ```
 
 ## z_validateaddress
@@ -322,11 +343,11 @@ Structure|Type|Description
 "transmissionkey"                            |(string)                     |the hex value of the transmission key, pk_enc
 }                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli z_validateaddress "zcWsmqT4X2V4jgxbgiCzyrAfRT1vi1F4sn7M5Pkh66izzw8Uk7LBGAH3DtcSMJeUb2pi3W4SQF8LMKkU2cUuVP68yAGcomL"
 
 {

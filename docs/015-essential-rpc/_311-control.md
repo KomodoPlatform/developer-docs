@@ -37,15 +37,17 @@ Structure|Type|Description
 "errors"                                     |(string)                     |any error messages
 }                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli getinfo
+```
 
-response:
+Response:
 
+```
 {
   "version": 1001550,
   "protocolversion": 170003,
@@ -80,15 +82,17 @@ response:
 }
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": {
     "version": 1001550,
@@ -144,7 +148,7 @@ Structure|Type|Description
 ---------|----|-----------
 "command"                                    |(string, optional)           |the command requiring assistance
 
-### Examples:
+#### :pushpin: Examples:
 
 ## stop
 
@@ -171,14 +175,16 @@ Structure|Type|Description
 Komodo server stopping                       |                             |
 [COIN] Komodo server stopping                |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli stop
+```
 
-result:
+Response:
 
+```
 "Komodo server stopping"
 ```

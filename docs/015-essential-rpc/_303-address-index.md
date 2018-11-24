@@ -29,30 +29,34 @@ Structure|Type|Description
 "received"                                   |(number)                     |the total confirmed number of satoshis received (including change)
 }                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli getaddressbalance '{"addresses":["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
+```
 
-response:
+Response:
 
+```
 {
   "balance": 40000,
   "received": 1011916229
 }
 ```
 
-> You can find the rpcuser, rpcpassword, and rpcport in the coin's .conf file
+You can find the rpcuser, rpcpassword, and rpcport in the coin's .conf file
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": {
     "balance": 450010000,
@@ -100,15 +104,17 @@ Structure|Type|Description
 }                                            |                             |
 ]                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command
 
 ```
-command:
-
 komodo-cli getaddressdeltas '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
+```
 
-response:
+Response:
 
+```
 [
   {
     "satoshis": 1011876229,
@@ -121,13 +127,15 @@ response:
 ]
 ```
 
+Command:
+
 ```
-command:
-
 komodo-cli getaddressdeltas '{"addresses":["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"],"start":1,"end":200,"chainInfo":true}'
+```
 
-response:
+Response:
 
+```
 {
   "deltas": [
     {
@@ -150,15 +158,17 @@ response:
 }
 ```
 
-> You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": [
     {
@@ -175,15 +185,17 @@ response:
 }
 ```
 
-> You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"],"start":1,"end":200,"chainInfo":true}]}' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": {
     "deltas": [
@@ -244,15 +256,17 @@ Structure|Type|Description
 }                                            |                             |
 ]                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli getaddressmempool '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
+```
 
-response:
+Response:
 
+```
 [
   {
     "address": "RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb",
@@ -264,15 +278,17 @@ response:
 ]
 ```
 
-> You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressmempool", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": [
     {
@@ -319,11 +335,11 @@ Structure|Type|Description
 ,                                            |                             |
 ]                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 	komodo-cli getaddresstxids '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb","RQUAkqRiRMqxcNrB29B4duTK4qkqfV9HVJ"]}'
 
   response:
@@ -336,15 +352,17 @@ command:
 
 ```
 
-> You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddresstxids", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": [
     "39c61e8ea769ba1fc971cb7dadc531f25a2528d01a4244f379043248b6c51cc1",
@@ -391,15 +409,17 @@ Structure|Type|Description
 }                                            |                             |
 ]                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli getaddressutxos '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
+```
 
-response:
+Response:
 
+```
 [
   {
     "address": "RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb",
@@ -412,14 +432,16 @@ response:
 ]
 ```
 
-```
-command:
+Command:
 
+```
 komodo-cli getaddressutxos '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"], "chainInfo": true}'
 
+```
 
-response:
+Response:
 
+```
 {
   "utxos": [
     {
@@ -436,15 +458,17 @@ response:
 }
 ```
 
-> You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": [
     {
@@ -461,15 +485,17 @@ response:
 }
 ```
 
-> You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"], "chainInfo": true}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": {
     "utxos": [

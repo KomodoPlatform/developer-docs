@@ -27,11 +27,11 @@ blockhashes                                  |(array)                      |hash
 ,...                                         |                             |
 ]                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli generate 2
 
 response:
@@ -66,27 +66,31 @@ Structure|Type|Description
 ---------|----|-----------
 true/false                                   |(boolean)                    |indicates whether the server is set to generate coins
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli getgenerate
+```
 
-response:
+Response:
 
+```
 false
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getgenerate", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": false,
   "error": null,
@@ -119,53 +123,63 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |(none)                       |
 
-### Examples:
+#### :pushpin: Examples:
 
-> Turn on generation with unlimited processors:
+Turn on generation with unlimited processors:
+
+
+Command:
 
 ```
-command:
-
 komodo-cli setgenerate true -1
+```
 
-response:
 
+Response:
+
+```
 (none)
 ```
 
-> Check the setting:
+Check the setting:
+
+Command:
 
 ```
-command:
-
 komodo-cli getgenerate
+```
 
-response:
+Response:
 
+```
 true
 ```
 
-> Turn off generation:
+Turn off generation:
+
+Command:
 
 ```
-command:
-
 komodo-cli setgenerate false
+```
 
-response:
+Response:
 
+```
 (none)
 ```
 
-> Turning the setting on via json rpc:
+Turning the setting on via json rpc:
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setgenerate", "params": [true, 1] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": null,
   "error": null,

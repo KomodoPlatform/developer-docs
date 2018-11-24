@@ -22,28 +22,34 @@ Structure|Type|Description
 "miner"                                      |(numeric)                    |the mining reward amount
 }                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli getblocksubsidy 100
+```
 
-response:
+Response:
 
+```
 {
   "miner": 0.00010000
 }
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockubsidy", "params": [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
+
+```
+===
 ```
 
 ## getblocktemplate
@@ -109,15 +115,17 @@ number                                       |(numeric)                    |tran
 "height"                                     |(numeric)                    |the height of the next block
 }                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli getblocktemplate '{"mode":"template","capabilities":["workid"]}'
+```
 
-response:
+Response:
 
+```
 {
   "capabilities": [
     "proposal"
@@ -153,15 +161,17 @@ response:
 }
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblocktemplate", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": {
     "capabilities": [
@@ -228,27 +238,31 @@ Structure|Type|Description
 ---------|----|-----------
 "data"                                       |(numeric)                    |solutions per second average
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli getlocalsolps
+```
 
-response:
+Response:
 
+```
 0.4141607577247555
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getlocalsolps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": 0.4141607577247555,
   "error": null,
@@ -287,15 +301,17 @@ Structure|Type|Description
 "chain"                                      |(string)                     |current network name as defined in BIP70 (main, test, regtest)
 }                                            |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli getmininginfo
+```
 
-response:
+Response:
 
+```
 {
   "blocks": 1007341,
   "currentblocksize": 0,
@@ -314,15 +330,17 @@ response:
 }
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": {
     "blocks": 1007341,
@@ -368,27 +386,31 @@ Structure|Type|Description
 ---------|----|-----------
 data                                         |(numeric)                    |solutions per second estimated
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli getnetworkhashps
+```
 
-response:
+Response:
 
+```
 10724120
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworkhashps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
 
+```
 {
   "result": 10449287,
   "error": null,
@@ -423,26 +445,32 @@ Structure|Type|Description
 ---------|----|-----------
 data                                         |(numeric)                    |solutions per second, estimated
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli getnetworksolps
+```
 
-response:
+Response:
 
+```
 9954190
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworksolps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
+
+```
+===
 ```
 
 ## prioritisetransaction
@@ -469,27 +497,31 @@ Structure|Type|Description
 ---------|----|-----------
 true                                         |(boolean)                    |returns true
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli prioritisetransaction "7dc902b280da27cf2dabe41ed6f4d04c828714f289435db193a49341005607eb" 0.0 10000
+```
 
-result:
+Response:
 
+```
 true
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
 
 ```
-command:
-
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "prioritisetransaction", "params": ["txid", 0.0, 10000] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-result:
+Response:
 
+```
 {
   "result": true,
   "error": null,
@@ -531,23 +563,30 @@ Structure|Type|Description
 "inconclusive"                             |                             |node has not validated the block, it may not be on the node's current best chain
 "rejected"                                 |                             |block was rejected as invalid
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli submitblock "mydata"
-
-response:
-
 ```
 
-> You can find your rpcuser, rpcpassword, and rpcport in the coin's .conf file.
+Response:
 
 ```
-command:
+===
+```
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "submitblock", "params": ["mydata"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
-response:
+Response:
+
+```
+===
 ```

@@ -26,15 +26,15 @@ Jumblr is created to be resistant against time-based analysis. Because of this, 
 
 For a more detailed description of Jumblr, please read Section IV of our [whitepaper](https://komodoplatform.com/whitepaper).
 
-### Examples:
+#### :pushpin: Examples:
 
-> Designate your deposit address.
+Designate your deposit address.
 
 ```
 komodo-cli jumblr_deposit RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb
 ```
 
-> Designate your secret destination address.
+Designate your secret destination address.
 
 ```
 komodo-cli jumblr_secret RS46GZ5iTkt2exdauQG3JJ8fdnZNJUvAc1
@@ -63,15 +63,17 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli "RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb"
+```
 
-response:
+Response:
 
+```
 (none)
 ```
 
@@ -98,15 +100,17 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli jumblr_pause
+```
 
-response:
+Response:
 
+```
 (none)
 ```
 
@@ -133,15 +137,17 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-### Examples:
+#### :pushpin: Examples:
+
+Command:
 
 ```
-command:
-
 komodo-cli jumblr_resume
+```
 
-response:
+Response:
 
+```
 (none)
 ```
 
@@ -163,7 +169,7 @@ Structure|Type|Description
 ---------|----|-----------
 (none)                                       |                             |
 
-### Examples:
+#### :pushpin: Examples:
 
 ```
 komodo-cli jumbr_secret "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns"
