@@ -12,7 +12,8 @@ module.exports = {
         title: 'Start Here',
         collapsable: true,
         children: [
-          [ '/000-start-here/001-introduction.md', 'Introduction']
+          [ '/000-start-here/001-introduction.md', 'Introduction'],
+          [ '/000-start-here/005-outline-for-new-developers.md', 'Outline for New Developers']
         ]
       }
     ]
