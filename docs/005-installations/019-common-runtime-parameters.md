@@ -59,7 +59,7 @@ To erase all synced blockchain data, the following files should be deleted from 
 
 ## Intro to Parameters and Settings
 
-The following is an abbreviated list of runtime parameters and settings that can be initiated in a [coin daemon's .conf file](#accessing-the-coin-daemon-remotely).
+The following is an abbreviated list of runtime parameters and settings that can be initiated in a [coin daemon's .conf file](/005-installations/019-common-runtime-parameters.html#accessing-the-coin-daemon-remotely).
 
 These commands largely derive from the upstream Bitcoin software, `bitcoind`. (Komodo is a fork of Zcash, and Zcash is a privacy-centric fork of Bitcoin. Therefore essentially all commands available in both Bitcoin and Zcash are available in Komodo.)
 
@@ -69,7 +69,7 @@ To see additional runtime parameters not included here, please visit [the releva
 
 `addressindex` instructs a KMD-based coin daemon to maintain an index of all addresses and balances.
 
-The user should [manually delete the blockchain data](#manually-deleting-blockchain-data) before initiating this parameter.
+The user should [manually delete the blockchain data](/005-installations/019-common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 `addressindex` is enabled by default on any asset chain that utilizes the CryptoConditions (CC) smart-contract protocol.
 
@@ -121,7 +121,7 @@ Using reindex as a runtime parameter:
 
 `timestampindex` instructs a KMD-based coin daemon to maintain a timestamp index for all blockhashes.
 
-The user should [manually delete the blockchain data](#manually-deleting-blockchain-data) before initiating this parameter.
+The user should [manually delete the blockchain data](/005-installations/019-common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
@@ -145,7 +145,7 @@ Using timestampindex as a default value in the coin's .conf file:
 
 `spentindex` instructs a KMD-based coin daemon to maintain a full index of all spent transactions (txids).
 
-The user should [manually delete the blockchain data](#manually-deleting-blockchain-data) before initiating this parameter.
+The user should [manually delete the blockchain data](/005-installations/019-common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 `spentindex` is enabled by default on any asset chain that utilizes the CryptoConditions (CC) smart contract protocol.
 
@@ -273,9 +273,9 @@ Using whitebind as a default value in the coin's `.conf` file:
 
 ## addnode
 
-`addnode` tells the daemon which nodes are trusted to act as seed nodes. After connecting to a node via `addnode`, the trusted node will send your node the list of all nodes that it is connected to, and your node will then connect to these additional nodes until [the max limit](#maxconnections) is reached.
+`addnode` tells the daemon which nodes are trusted to act as seed nodes. After connecting to a node via `addnode`, the trusted node will send your node the list of all nodes that it is connected to, and your node will then connect to these additional nodes until [the max limit](/005-installations/019-common-runtime-parameters.html#maxconnections) is reached.
 
-This contrasts from the [`connect`](#connect) runtime parameter, as the latter does not attempt to connect your node to additional nodes.
+This contrasts from the [`connect`](/005-installations/019-common-runtime-parameters.html#connect) runtime parameter, as the latter does not attempt to connect your node to additional nodes.
 
 If you are behind a firewall or are having issues connecting to the network, `addnode` is a stronger option.
 
@@ -299,7 +299,7 @@ Using addnode as a default value in the coin's .conf file:
 
 `connect` connects the `komodod` server to a trusted peer node, but not to request or add any additional nodes.
 
-Please refer to the [`addnode`](#addnode) parameter entry for more information.
+Please refer to the [`addnode`](/005-installations/019-common-runtime-parameters.html#addnode) parameter entry for more information.
 
 #### :pushpin: Examples:
 
@@ -313,7 +313,7 @@ connect=69.164.218.197
 
 `gen` instructs the daemon to attempt to generate new blocks, and thereby mine new coins.
 
-See also [`setgenerate`](#setgenerate).
+See also [`setgenerate`](/015-essential-rpc/319-generate.html#setgenerate).
 
 #### :pushpin: Examples:
 
