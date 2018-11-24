@@ -3,9 +3,10 @@
 # abort on errors
 set -e
 
+
 # build
 docker build -t komodo_docs_image .
-docker run --rm -v $(pwd):/app/ -w /app/ --entrypoint "yarn" komodo_docs_image "docs:build"
+docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) --entrypoint "yarn" komodo_docs_image "docs:build"
 
 
 
