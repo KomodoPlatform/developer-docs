@@ -4,7 +4,7 @@ Built using [Vuepress](https://vuepress.vuejs.org/)
 
 ## Setup:
 
-> Pre-requisites: nodejs and yarn.
+> Prerequisites: nodejs and yarn.
 
 * Clone the repository
 * `cd` into the directory `cd komodo-docs-vuepress/`
