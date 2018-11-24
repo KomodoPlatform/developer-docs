@@ -1,5 +1,10 @@
 module.exports = {
   title: 'Komodo Developer Documentation',
+  head: [
+    ['link', { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css` }],
+    ['script', { src: `https://cdn.jsdelivr.net/npm/vue/dist/vue.js` }],
+    ['script', { src: `https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js` }],
+  ]
   base: '/komodo-docs-vuepress/',
   description: 'Documentation for developers building on Komodo',
   themeConfig: {

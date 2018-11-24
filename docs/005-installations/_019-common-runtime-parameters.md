@@ -16,7 +16,7 @@ Assuming the default installation location, the `.conf` file can be found by exp
 
 Within that directory there are also subdirectories containing all KMD-compatible coin daemon `.conf` files.
 
-> Contents of a KMD .conf file:
+Contents of a KMD .conf file:
 
 ```
 rpcuser=myusername
@@ -71,29 +71,35 @@ To see additional runtime parameters not included here, please visit [the releva
 
 The user should [manually delete the blockchain data](#manually-deleting-blockchain-data) before initiating this parameter.
 
+`addressindex` is enabled by default on any asset chain that utilizes the CryptoConditions (CC) smart-contract protocol.
+
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
 :::
 
-`addressindex` is enabled by default on any asset chain that utilizes the CryptoConditions (CC) smart-contract protocol.
+#### :pushpin: Examples:
 
-> Using addressindex as a runtime parameter:
+Using `addressindex` as a runtime parameter:
 
 ```
 komodod -addressindex=1
 ```
 
-> Using addressindex as a default value in the coin's .conf file:
+Using `addressindex` as a default value in the coin's .conf file:
 
 ```
-  addressindex=1
+addressindex=1
 ```
 
 ## txindex
 
 `txindex` instructs a KMD-based coin daemon to track every transaction made on the relevant blockchain.
 
-`txindex` is enabled by default on all KMD-based coin daemons, and is utilized in delayed Proof of Work (dPoW), JUMBLR, and the CryptoConditions (CC) smart-contract protocol. Disabling the feature will cause a normal KMD-based coin daemon to malfunction.
+`txindex` is enabled by default on all KMD-based coin daemons, and is utilized in delayed Proof of Work (dPoW), JUMBLR, and the CryptoConditions (CC) smart-contract protocol.
+
+::: danger Warning!
+Disabling `txindex` will cause the default KMD-based daemon to malfunction.
+:::
 
 ## reindex
 
@@ -103,7 +109,9 @@ komodod -addressindex=1
 Depending on the size and state of the chain you are re-indexing, this parameter may prolong the daemon launch time.
 :::
 
-> Using reindex as a runtime parameter:
+#### :pushpin: Examples:
+
+Using reindex as a runtime parameter:
 
 ```
   komodod -reindex
@@ -119,13 +127,15 @@ The user should [manually delete the blockchain data](#manually-deleting-blockch
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
 :::
 
-> Using timestampindex as a runtime parameter:
+#### :pushpin: Examples:
+
+Using timestampindex as a runtime parameter:
 
 ```
   ./komodod -timestampindex=1
 ```
 
-> Using timestampindex as a default value in the coin's .conf file:
+Using timestampindex as a default value in the coin's .conf file:
 
 ```
   timestampindex=1
@@ -143,13 +153,15 @@ The user should [manually delete the blockchain data](#manually-deleting-blockch
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
 :::
 
-> Using spentindex as a runtime parameter:
+#### :pushpin: Examples:
+
+Using spentindex as a runtime parameter:
 
 ```
   komodod -spentindex=1
 ```
 
-> Using spentindex as a default value in the coin's `.conf` file:
+Using spentindex as a default value in the coin's `.conf` file:
 
 ```
   spentindex=1
@@ -161,13 +173,15 @@ The <b>reindex</b> parameter is not a viable alternative method for re-syncing t
 
 (A regression-test network is a useful tool for rapid trial and testing. Please reach out to our team if you are curious to implement this tool in your workflow and are unfamiliar with how it is done.)
 
-> Using regtest as a runtime parameter:
+#### :pushpin: Examples:
+
+Using regtest as a runtime parameter:
 
 ```
 komodod -ac_name=TEST -regtest
 ```
 
-> Using regtest as a default value in the coin's .conf file:
+Using regtest as a default value in the coin's .conf file:
 
 ```
 regtest=0
@@ -177,13 +191,15 @@ regtest=0
 
 `bantime` sets the default number of seconds for a ban initiated during the daemon's session. The default is 86400.
 
-> Using bantime as a runtime parameter:
+#### :pushpin: Examples:
+
+Using bantime as a runtime parameter:
 
 ```
   komodod -bantime=100000
 ```
 
-> Using bantime as a default value in the coin's .conf file:
+Using bantime as a default value in the coin's .conf file:
 
 ```
   bantime=100000
@@ -201,13 +217,15 @@ DEPRECATED
 
 `proxy` allows the user to connect via a `SOCKS5` proxy.
 
-> Using proxy as a runtime parameter:
+#### :pushpin: Examples:
+
+Using proxy as a runtime parameter:
 
 ```
 komodod -proxy=127.0.0.1:9050
 ```
 
-> Using proxy as a default value in the coin's .conf file:
+Using proxy as a default value in the coin's .conf file:
 
 ```
 proxy=127.0.0.1:9050
@@ -219,13 +237,15 @@ proxy=127.0.0.1:9050
 
 Use `[host]:port` notation for IPv6.
 
-> Using bind as a runtime parameter:
+#### :pushpin: Examples:
+
+Using bind as a runtime parameter:
 
 ```
   komodod -bind=127.0.0.1:9050
 ```
 
-> Using bind as a default value in the coin's `.conf` file:
+Using bind as a default value in the coin's `.conf` file:
 
 ```
   bind=127.0.0.1:9050
@@ -237,13 +257,15 @@ Use `[host]:port` notation for IPv6.
 
 Use [host]:port notation for IPv6
 
-> Using whitebind as a runtime parameter:
+#### :pushpin: Examples:
+
+Using whitebind as a runtime parameter:
 
 ```
   komodod -whitebind=127.0.0.1:9050
 ```
 
-> Using whitebind as a default value in the coin's `.conf` file:
+Using whitebind as a default value in the coin's `.conf` file:
 
 ```
   whitebind=127.0.0.1:9050
@@ -263,11 +285,11 @@ If you run multiple nodes that are connected via a LAN, it is not necessary for 
 
 The p2p port must not be blocked by a firewall. If the computers do not have public IP addresses, you will need to port-forward the p2p port on both computers and append the forwarded port to the IP.
 
-For example:
+#### :pushpin: Examples:
 
 `./komodod -ac_name=EXAMPLECHAIN -ac_supply=1000000 -addnode=<IP of the second node>:8096`
 
-> Using addnode as a default value in the coin's .conf file:
+Using addnode as a default value in the coin's .conf file:
 
 ```
   addnode=69.164.218.197
@@ -279,7 +301,9 @@ For example:
 
 Please refer to the [`addnode`](#addnode) parameter entry for more information.
 
-> Using connect as a default value in the coin's .conf file:
+#### :pushpin: Examples:
+
+Using connect as a default value in the coin's .conf file:
 
 ```
 connect=69.164.218.197
@@ -291,13 +315,15 @@ connect=69.164.218.197
 
 See also [`setgenerate`](#setgenerate).
 
-> Using gen as a runtime parameter:
+#### :pushpin: Examples:
+
+Using gen as a runtime parameter:
 
 ```
 komodod -gen
 ```
 
-> Using gen as a default value in the coin's .conf file:
+Using gen as a default value in the coin's .conf file:
 
 ```
 gen=0
@@ -307,13 +333,15 @@ gen=0
 
 `listen` instructs the daemon to listen for RPC calls on the network. It is enabled by default, except when `connect` is used.
 
-> Using listen as a runtime parameter:
+#### :pushpin: Examples:
+
+Using listen as a runtime parameter:
 
 ```
 komodod -listen=1
 ```
 
-> Using listen as a default value in the coin's `.conf` file:
+Using listen as a default value in the coin's `.conf` file:
 
 ```
 listen=1
@@ -323,13 +351,15 @@ listen=1
 
 `maxconnections` sets the maximum number of inbound and outbound connections.
 
-> Using maxconnections as a runtime parameter:
+#### :pushpin: Examples:
+
+Using maxconnections as a runtime parameter:
 
 ```
 komodod -maxconnections=NUMBER
 ```
 
-> Using maxconnections as a default value in the coin's .conf file:
+Using maxconnections as a default value in the coin's .conf file:
 
 ```
 maxconnections=NUMBER
@@ -339,13 +369,15 @@ maxconnections=NUMBER
 
 `server` instructs the daemon to accept json-rpc commands. It is enabled by default.
 
-> Using server as a runtime parameter:
+#### :pushpin: Examples:
+
+Using server as a runtime parameter:
 
 ```
   komodod -server=1
 ```
 
-> Using server as a default value in the coin's .conf file:
+Using server as a default value in the coin's .conf file:
 
 ```
   server=1
@@ -362,13 +394,15 @@ This option can be specified multiple times.
 The default setting is to bind to all interfaces.
 
 
-> Using rpcbind as a runtime parameter:
+#### :pushpin: Examples:
+
+Using rpcbind as a runtime parameter:
 
 ```
 komodod -rpcbind=127.0.0.1:9704
 ```
 
-> Using rpcbind as a default value in the coin's .conf file:
+Using rpcbind as a default value in the coin's .conf file:
 
 ```
   rpcbind=127.0.0.1:9704
@@ -378,13 +412,15 @@ komodod -rpcbind=127.0.0.1:9704
 
 `rpcclienttimeout` indicates the number of seconds to wait for an rpc command to complete before killing the process.
 
-> Using rpcclienttimeout as a runtime parameter:
+#### :pushpin: Examples:
+
+Using rpcclienttimeout as a runtime parameter:
 
 ```
 komodod -rpcclienttimeout=SECONDS
 ```
 
-> Using rpcclienttimeout as a default value in the coin's .conf file:
+Using rpcclienttimeout as a default value in the coin's .conf file:
 
 ```
 rpcclientttimeout=SECONDS
@@ -404,7 +440,9 @@ Opening up the RPC port to hosts outside your local trusted network is NOT RECOM
 
 [For more information click here](https://github.com/zcash/zcash/issues/1497).
 
-> Using rpcallowip as a default value in the coin's .conf file:
+#### :pushpin: Examples:
+
+Using rpcallowip as a default value in the coin's .conf file:
 
 ```
   rpcallowip=10.1.1.34/255.255.255.0
@@ -416,7 +454,9 @@ Opening up the RPC port to hosts outside your local trusted network is NOT RECOM
 
 `rpcport` tells the daemon to listen for RPC connections on the indicated TCP port.
 
-> Using rpcport as a default value in the coin's `.conf` file:
+#### :pushpin: Examples:
+
+Using rpcport as a default value in the coin's `.conf` file:
 
 ```
   rpcport=8232
@@ -430,7 +470,9 @@ Opening up the RPC port to hosts outside your local trusted network is NOT RECOM
 We DO NOT RECOMMEND that the average user set this value to anything other than the localhost, as it can grant access to a foreign party, who are then able to take control over komodod and all funds in your wallet.dat file.
 :::
 
-> Using rpcconnect as a default value in the coin's `.conf` file:
+#### :pushpin: Examples:
+
+Using rpcconnect as a default value in the coin's `.conf` file:
 
 ```
 rpcconnect=127.0.0.1
@@ -440,7 +482,9 @@ rpcconnect=127.0.0.1
 
 `sendfreetransactions` instructs the daemon to send transactions as zero-fee transactions if possible. The default value is 0.
 
-> Using sendfreetransactions as a default value in the coin's .conf file:
+#### :pushpin: Examples:
+
+Using sendfreetransactions as a default value in the coin's .conf file:
 
 ```
   sendfreetransactions=0
@@ -450,7 +494,9 @@ rpcconnect=127.0.0.1
 
 `genproclimit` sets the number of threads to be used for mining. To initiate all cores, use the value `-1`.
 
-> Using genproclimit as a default value in the coin's .conf file:
+#### :pushpin: Examples:
+
+Using genproclimit as a default value in the coin's .conf file:
 
 ```
   genproclimit=1
@@ -460,7 +506,9 @@ rpcconnect=127.0.0.1
 
 `keypool` instructs the daemon to pre-generate a certain number of public/private key pairs. This can facilitate `wallet.dat` backups being valid for both prior transactions and several dozen future transactions.
 
-> Using keypool as a default value in the coin's .conf file:
+#### :pushpin: Examples:
+
+Using keypool as a default value in the coin's .conf file:
 
 ```
 keypool=100
@@ -470,7 +518,9 @@ keypool=100
 
 `rewind` rewinds the chain to specific block height. This is useful for creating snapshots at a given block height.
 
-> Using rewind as a runtime parameter:
+#### :pushpin: Examples:
+
+Using rewind as a runtime parameter:
 
 ```
 komodod -rewind=777777
@@ -480,7 +530,9 @@ komodod -rewind=777777
 
 `stopat` stops the chain at a specific block height. This is useful for creating snapshots at a given block height.
 
-> Using stopat as a runtime parameter:
+#### :pushpin: Examples:
+
+Using stopat as a runtime parameter:
 
 ```
   komodod -stopat=1000000
@@ -492,13 +544,15 @@ komodod -rewind=777777
 
 The `pubkey` parameter is required for all CryptoConditions (CC) smart-contract enabled chains. All smart-contract transactions will utilize the `pubkey` as an integral property.
 
-> Using pubkey as a default value in the coin's `.conf` file:
+#### :pushpin: Examples:
+
+Using pubkey as a default value in the coin's `.conf` file:
 
 ```
 pubkey=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 ```
 
-> Using pubkey as a startup parameter:
+Using pubkey as a startup parameter:
 
 ```
 -pubkey=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
@@ -508,7 +562,9 @@ pubkey=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 
 `exchange` forfeits all user rewards to miners. Set this to explicitly not claim user rewards.
 
-> Using exchange as a default value in the coin's .conf file:
+#### :pushpin: Examples:
+
+Using exchange as a default value in the coin's .conf file:
 
 ```
 exchange=1
@@ -518,7 +574,9 @@ exchange=1
 
 `donation` donates all user rewards to a specific address. This value must be set to a 33 byte pubkey.
 
-> Using donation as a default value in the coin's .conf file:
+#### :pushpin: Examples:
+
+Using donation as a default value in the coin's .conf file:
 
 ```
 donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
@@ -528,7 +586,9 @@ donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 
 `exportdir` tells the coin daemon where to store your export directory.
 
-> Using exportdir as a default value in the coin's `.conf` file:
+#### :pushpin: Examples:
+
+Using exportdir as a default value in the coin's `.conf` file:
 
 ```
   exportdir=/home/myusername/mydirectory
