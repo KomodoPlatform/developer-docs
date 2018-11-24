@@ -13,8 +13,8 @@ module.exports = {
         collapsable: true,
         children: [
           [ '/000-start-here/_001-introduction.md', 'Introduction'],
-          [ '/000-start-here/_005-outline-for-new-developers.md', 'Outline for New Developers'],
-          [ '/000-start-here/_017-cc-overview.md', 'Overview of CryptoConditions (Smart Contracts)']
+          // [ '/000-start-here/_005-outline-for-new-developers.md', 'Outline for New Developers'],
+          // [ '/000-start-here/_017-cc-overview.md', 'Overview of CryptoConditions (Smart Contracts)']
         ]
       },
       // {
