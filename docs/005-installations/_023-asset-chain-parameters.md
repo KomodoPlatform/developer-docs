@@ -12,11 +12,12 @@ All asset chains are required to set ac_name.
 
 This is the ticker symbol for the coin you wish to create. We recommended it consist only of numbers and uppercase letters.
 
-> A simple asset chain
+#### :pushpin: Examples:
+
+A simple asset chain
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
-
 ```
 
 ## ac_supply
@@ -37,11 +38,12 @@ The `ac_supply` parameter should be set to a whole number without any decimals p
 An additional fraction of a coin will be added to this based on the asset chain's parameters. This is used by nodes to verify the genesis block. For example, the DEX chain's `ac_supply` parameter is set to `999999`, but in reality the genesis block was `999999.13521376`.
 :::
 
-> A simple asset chain
+#### :pushpin: Examples:
+
+A simple asset chain
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
-
 ```
 
 ## ac_reward
@@ -50,13 +52,15 @@ This is the block reward for each mined block, given in satoshis.
 
 If this is not set, the block reward will be `10000` satoshis and blocks will be [on-demand](#a-note-about-low-activity-blockchains) after block 127.
 
-> A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Recall that ac_supply is given in coins, while ac_reward is given in satoshis.)
+#### :pushpin: Examples:
+
+A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Recall that ac_supply is given in coins, while ac_reward is given in satoshis.)
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 &
 ```
 
-> A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
+A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
@@ -66,19 +70,21 @@ If this is not set, the block reward will be `10000` satoshis and blocks will be
 
 This is the block height in which block rewards will end. Every block after this height will have 0 block reward, and by default the only incentive to mine a new block will be transaction fees.
 
-> A 777777-coin pre-mine, with a default block reward of 0.0001 coin, and on-demand blocks after block 128. The block reward ends at block 25000.
+#### :pushpin: Examples:
+
+A 777777-coin pre-mine, with a default block reward of 0.0001 coin, and on-demand blocks after block 128. The block reward ends at block 25000.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_end=25000 &
 ```
 
-> A 777777-coin pre-mine, with a 5-coin block reward, and the block reward ends at block 200.
+A 777777-coin pre-mine, with a 5-coin block reward, and the block reward ends at block 200.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_end=200 &
 ```
 
-> A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases by 50% every 2000 blocks, and the block reward ends at block 10000.
+A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases by 50% every 2000 blocks, and the block reward ends at block 10000.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_halving=2000 -ac_end=10000 &
@@ -88,19 +94,21 @@ This is the block height in which block rewards will end. Every block after this
 
 This is the number of blocks between each block reward halving. This parameter will have no effect if [`ac_reward`](##ac_reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [`ac_decay`](#ac_decay) is not, the reward will decrease by 50% each halving.
 
-> A 777777-coin pre-mine, with a 5-coin block reward, and the block reward decreases by 50% every 2000 blocks.
+#### :pushpin: Examples:
+
+A 777777-coin pre-mine, with a 5-coin block reward, and the block reward decreases by 50% every 2000 blocks.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_halving=2000 &
 ```
 
-> A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
+A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
 ```
 
-> A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
+A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
@@ -120,13 +128,15 @@ This is the formula that `ac_decay` follows:
 
 For example, if this is set to `750000000`, at each halving the block reward will drop to 75% of its previous value.
 
-> A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
+#### :pushpin: Examples:
+
+A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
 ```
 
-> A 777777-coin pre-mine, a 1000-coin block reward, the block reward decreases by 25% every 100000 blocks, the block reward ends at block 1000000, and the chain adjusts difficulty so 1% of blocks are mined via PoS, 99% via PoW. The pubkey address receives an additional 0.5% above the block reward for each mined block. For example, before the first halving, the pubkey address will receive 5 coins (0.5% of 1000 coin block reward) for every mined block. After the first halving, the pubkey address will receive 3.75 coins for every mined block (0.5% of 750-block reward). The pubkey address receives an additional 0.5% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 0.5 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
+A 777777-coin pre-mine, a 1000-coin block reward, the block reward decreases by 25% every 100000 blocks, the block reward ends at block 1000000, and the chain adjusts difficulty so 1% of blocks are mined via PoS, 99% via PoW. The pubkey address receives an additional 0.5% above the block reward for each mined block. For example, before the first halving, the pubkey address will receive 5 coins (0.5% of 1000 coin block reward) for every mined block. After the first halving, the pubkey address will receive 3.75 coins for every mined block (0.5% of 750-block reward). The pubkey address receives an additional 0.5% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 0.5 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000000 -ac_halving=100000 -ac_decay=75000000 -ac_end=1000000 -ac_perc=500000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=1 &
@@ -142,7 +152,9 @@ For example, if `ac_reward=100000000` and `ac_perc=10000000`, for each block min
 Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding `pubkey`. The `vout` type for all coinbase vouts must be `pubkey` as opposed to `pubkeyhash`. This only affects a miner trying to use a stratum. Z-nomp is currently incompatible.
 :::
 
-> A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 5 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
+#### :pushpin: Examples:
+
+A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 5 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50 &
@@ -158,7 +170,9 @@ If `ac_pubkey` is set, but `ac_perc` is not, this simply means the genesis block
 
 `pubkey` must be set to a 33 byte hex string. You can get the pubkey of an address by using the [`validateaddress`](#validateaddress) command in `komodod`, and searching for the returned `pubkey` property. The address must be imported to the wallet before using `validateaddress`.
 
-> A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 5 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
+#### :pushpin: Examples:
+
+A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 5 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50
@@ -166,7 +180,7 @@ If `ac_pubkey` is set, but `ac_perc` is not, this simply means the genesis block
 
 ## ac_cc
 
-::: tip
+::: warning Notice
 This parameter is still in testing.
 :::
 
@@ -197,28 +211,30 @@ However, coins may not be transferred between blockchains.
 Setting the value of `ac_cc` to any value greater than or equal to `101` will permit cross-chain interaction with any asset chain that has the same `ac_cc` value and is secured by notary nodes with the same `pubkey`. For example, an asset chain set to `ac_cc=2` in its parameters can interact with other asset chains with `ac_cc=2`, on the same notary-node network, but cannot interact with an asset chain set to `ac_cc=3`.
 
 
-> A 777777 pre-mined chain with no smart contracts enabled.
+#### :pushpin: Examples:
+
+A 777777 pre-mined chain with no smart contracts enabled.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=0 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 &
 
 ```
 
-> A 777777 pre-mined chain with smart contracts on-chain only; no cross-chain smart contracts.
+A 777777 pre-mined chain with smart contracts on-chain only; no cross-chain smart contracts.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=1 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 &
 
 ```
 
-> A 777777 pre-mined chain where smart-contracts are allowed between all fellow asset chains that have -ac_cc=2 in their launch parameters. However, the cross-chain burn protocol is not active, and therefore coins cannot be transferred between chains.
+A 777777 pre-mined chain where smart-contracts are allowed between all fellow asset chains that have -ac_cc=2 in their launch parameters. However, the cross-chain burn protocol is not active, and therefore coins cannot be transferred between chains.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=2 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 &
 
 ```
 
-> A 777777 pre-mined chain. Smart-contracts are allowed between all fellow asset chains that have -ac_cc=102 in their launch parameters. Also, all -ac_cc=102 chains can use the cross-chain burn protocol to transfer coins from one chain to another.
+A 777777 pre-mined chain. Smart-contracts are allowed between all fellow asset chains that have -ac_cc=102 in their launch parameters. Also, all -ac_cc=102 chains can use the cross-chain burn protocol to transfer coins from one chain to another.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=102 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 &
@@ -277,26 +293,27 @@ The following are the (current) rules for staking a block:
 
 * By internal design, a utxo is more likely to win a block within a `segid` based on age of the utxo and amount of coins.
 
-> A 777777-coin pre-mine with a 1-coin block reward. The chain adjusts difficulty to keep 90% of blocks mined via PoS, and 10% mined via PoW.
+#### :pushpin: Examples:
+A 777777-coin pre-mine with a 1-coin block reward. The chain adjusts difficulty to keep 90% of blocks mined via PoS, and 10% mined via PoW.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 -ac_staked=90 &
 ```
 
-> A 777777 coin pre-mine with a 10-coin block reward. The chain adjusts difficulty so 2% of blocks are mined via PoS, 98% via PoW.
+A 777777 coin pre-mine with a 10-coin block reward. The chain adjusts difficulty so 2% of blocks are mined via PoS, 98% via PoW.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_staked=2 &
 ```
 
-> A 777777-coin pre-mine, with a 1-coin block reward, block reward decreases by 50% every 2000 blocks, and the chain adjusts difficulty so 10% of blocks are mined via PoS, 90% via PoW.
+A 777777-coin pre-mine, with a 1-coin block reward, block reward decreases by 50% every 2000 blocks, and the chain adjusts difficulty so 10% of blocks are mined via PoS, 90% via PoW.
 
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 -ac_havling=2000 -ac_staked=10 &
 ```
 
-> A 777777-coin pre-mine, a 10000-coin block reward, the block reward decreases by 40% every 2000 blocks, and the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW.
+A 777777-coin pre-mine, a 10000-coin block reward, the block reward decreases by 40% every 2000 blocks, and the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW.
 
 
 ```
@@ -305,13 +322,15 @@ The following are the (current) rules for staking a block:
 
 ## ac_public
 
-::: tip
+::: tip Notice
 This feature is currently only available in the <a href="https://github.com/jl777/komodo/tree/jl777">jl777 branch</a>.
 :::
 
 If `ac_public` is set to `1`, zk-SNARKs are disabled, and all z address functionalilty is disabled. Therefore, all transactions on the blockchain are public.
 
-> A public-only asset chain.
+#### :pushpin: Examples:
+
+A public-only asset chain.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_public=1 &
@@ -325,7 +344,9 @@ This feature is currently only available in the <a href="https://github.com/jl77
 
 If `ac_private` is set to `1`, all transactions other than coinbase transactions (block rewards) must use zk-SNARKs. Beyond sending mined coins from a transparent addresses to a z address, all other transparent activity is disabled.
 
-> A private-only asset chain.
+#### :pushpin: Examples:
+
+A private-only asset chain.
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_private=1 &

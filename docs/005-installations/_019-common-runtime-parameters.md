@@ -255,7 +255,7 @@ Using bind as a default value in the coin's `.conf` file:
 
 `whitelist` binds the daemon to a given address and whitelists peers connecting to it.
 
-Use [host]:port notation for IPv6
+Use `[host]:port` notation for IPv6
 
 #### :pushpin: Examples:
 

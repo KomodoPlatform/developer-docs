@@ -44,6 +44,7 @@ The daemon will now use the pubkey as the basis for all CryptoConditions smart c
 
 To see your CC address, you will typically use an `address` related rpc call from the list of available rpc calls of your chosen smart contract. For example, `rewardsaddress` could return a response like this:
 
+```
 {
   "result": "success",
   "FaucetCCaddress": "RSxACZQhskPjQyxp7TUPG1oP1wm4agFycJ",
@@ -51,6 +52,7 @@ To see your CC address, you will typically use an `address` related rpc call fro
   "myCCaddress": "RSxACZQhskPjQyxp7TUPG1oP1wm4agFycJ",
   "myaddress": "RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"
 }
+```
 
 In this list, `myCCaddress` is the CryptoConditions address used for transactions related to the `rewards` contract; it is based on the pubkey combined with the contract's unique EVAL code.
 
