@@ -20,6 +20,7 @@ git commit -m 'deploy'
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:siddhartha-komodo/komodo-docs-vuepress.git master:gh-pages
+GIT_USER=$(git config --global user.name)
+git push -f git@github.com:$GIT_USER/komodo-docs-vuepress.git master:gh-pages
 
 cd -

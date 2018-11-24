@@ -1,4 +1,13 @@
 {
+  "name": "docs",
+  "description": "dev docs for Komodo Platform",
+  "keywords": [
+    "documentation",
+    "komodo",
+    "developer"
+  ],
+  "author": "Contributors from Komodo Platform",
+  "license": "MIT",
   "devDependencies": {
     "vuepress": "^0.14.5"
   },
