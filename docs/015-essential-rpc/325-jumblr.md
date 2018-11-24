@@ -4,7 +4,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## Basic Instructions
 
-Install Komodo following the [installation guides](#installing-basic-komodo-software) and change into the `komodod` subdirectory.
+Install Komodo following the [installation guides](/005-installations/010-basic-instructions.html#installing-basic-komodo-software) and change into the `komodod` subdirectory.
 
 `cd komodo/src`
 

@@ -61,7 +61,7 @@ The above command will output a **hex** value, which you now broadcast using `se
 
 ## Create an Oracle for Storing "Blockheader Data" on the Blockchain
 
-To add external data to the blockchain, we use the [`oracles`](#smart-contract-oracles) smart contract.
+To add external data to the blockchain, we use the [`oracles`](/010-cryptoconditions/135-cc-oracles.html) smart contract.
 
 We have to create an oracle with an identical name, ie. `KMD`, and the data format must start with `Ihh` (height, blockhash, merkleroot):
 
@@ -73,7 +73,7 @@ Broadcast the returned HEX data:
 
 This returns a transaction id, which is the **oracleid**.
 
-Register as a publisher for the oracle using [`oraclesregister`](#oraclesregister):
+Register as a publisher for the oracle using [`oraclesregister`](/010-cryptoconditions/135-cc-oracles.html#oraclesregister):
 
 `./komodo-cli -ac_name=HELLOWORLD oraclesregister ORACLE_ID DATA_FEE_IN_SATOSHIS`
 
@@ -89,7 +89,7 @@ Get the **data-publisher's pubkey** from the `oracesinfo` call:
 
 **oracleid**.
 
-Register as a publisher for the oracle using [`oraclesregister`](#oraclesregister):
+Register as a publisher for the oracle using [`oraclesregister`](/010-cryptoconditions/135-cc-oracles.html#oraclesregister):
 
 `./komodo-cli -ac_name=HELLOWORLD oraclesregister ORACLE_ID DATA_FEE_IN_SATOSHIS`
 
@@ -152,7 +152,7 @@ Please keep in mind the flow of the oracle data fees :
 
 **bindtxid**. This is the id of the gateway at `MYPUBKEY`.
 
-If the command is successful, you may review your new gateway using [`gatewaysinfo`](#gatewaysinfo):
+If the command is successful, you may review your new gateway using [`gatewaysinfo`](===):
 
 `./komodo-cli -ac_name=HELLOWORLD gatewaysinfo BINDTXID`
 
@@ -218,7 +218,7 @@ The returned transaction id is our **cointxid**.
 
 This transaction should have two `vouts` (i.e. two addresses declared as recepients), and change.
 
-Now you should have enough data to proceed with the [`gatewaysdeposit`](#gatewaysdeposit) call. This method broadcasts data about the KMD deposit on the asset chain, allowing for the nodes to validate the actions:
+Now you should have enough data to proceed with the [`gatewaysdeposit`](===) call. This method broadcasts data about the KMD deposit on the asset chain, allowing for the nodes to validate the actions:
 
 `./komodo-cli gatewaysdeposit BINDTXID HEIGHT COIN COINTXID CLAIMVOUT DEPOSITHEX PROOF DESTPUB AMOUNT`
 
@@ -242,7 +242,7 @@ The returned transaction id is our **cointxid**.
 
 This transaction should have two `vouts` (i.e. two addresses declared as recepients), and change.
 
-Now you should have enough data to proceed with the [`gatewaysdeposit`](#gatewaysdeposit) call. This method broadcasts data about the KMD deposit on the asset chain, allowing for the nodes to validate the actions:
+Now you should have enough data to proceed with the [`gatewaysdeposit`](===) call. This method broadcasts data about the KMD deposit on the asset chain, allowing for the nodes to validate the actions:
 
 `./komodo-cli gatewaysdeposit BINDTXID HEIGHT COIN COINTXID CLAIMVOUT DEPOSITHEX PROOF DESTPUB AMOUNT`
 
