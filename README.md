@@ -4,7 +4,7 @@ Built using [Vuepress](https://vuepress.vuejs.org/)
 
 ## Setup:
 
-Pre-requisites: nodejs and yarn.
+> Pre-requisites: nodejs and yarn.
 
 * Clone the repository
 * `cd` into the directory `cd komodo-docs-vuepress/`
@@ -58,6 +58,8 @@ To deploy to gh-pages at `https://<USERNAME>.github.io/<REPO>`
 ```shell
 ./deploy.sh
 ```
+
+The above script uses your `git <USERNAME>` from the Global git configuration.
 
 ## Using Docker:
 
