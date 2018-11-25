@@ -13,7 +13,7 @@ module.exports = {
         link: "/bsk/"
       },
       {
-        text: "Write a dAPP",
+        text: "Create a dAPP",
         link: "/intro/"
       },
       {
