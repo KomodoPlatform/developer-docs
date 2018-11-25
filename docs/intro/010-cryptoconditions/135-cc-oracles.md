@@ -56,7 +56,7 @@ Response:
 
 The `oraclescreate` method creates a new oracle.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -194,11 +194,11 @@ Response from Step 3:
 
 The `oraclesdata` method publishes data to an oracle.
 
-A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [`oraclessubscribe`](/010-cryptoconditions/135-cc-oracles.html#oraclessubscribe).
+A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [`oraclessubscribe`](../010-cryptoconditions/135-cc-oracles.html#oraclessubscribe).
 
 Data is submitted using the `hexstr` property. The first portion of the `hexstr` property must include ===; this sets the string length for the rest of the data. The second portion of the `hexstr` property is the data itself.
 
-The `oraclesdata` method returns a hex value which must then be broadcast using the [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
+The `oraclesdata` method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method outputs a unique `txid`, called `oraclesdatatxid`, which is the unique identifier for this data sample.
 
@@ -501,7 +501,7 @@ A user executes the `oraclesregister` method to register to become a data publis
 
 The `datafee` property is set in satoshis, and should be `>=` the chain's default transaction fee.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
 
 ::: tip
 Use `./komodo-cli -ac_name=YOURNAME getrawmempool` to verify the transaction is confirmed.
@@ -643,7 +643,7 @@ Response from Step 3:
 
 The `oraclessample` method fetches data samples from a publisher.
 
-The user indicates the desired publisher by inserting the `batonutxo` by the publisher. Use [`oraclesinfo`](/010-cryptoconditions/135-cc-oracles.html#oraclesinfo) to find a list of publishers and their current `batonutxo`'s.
+The user indicates the desired publisher by inserting the `batonutxo` by the publisher. Use [`oraclesinfo`](../010-cryptoconditions/135-cc-oracles.html#oraclesinfo) to find a list of publishers and their current `batonutxo`'s.
 
 ### Arguments:
 
@@ -696,9 +696,9 @@ Response:
 
 The user executes `oraclessubscribe` to subscribe to a publisher of an oracle plan.
 
-Every publisher must have at least one subscriber before the [`oraclesdata`](/010-cryptoconditions/135-cc-oracles.html#oraclesdata) can succesfully execute.
+Every publisher must have at least one subscriber before the [`oraclesdata`](../010-cryptoconditions/135-cc-oracles.html#oraclesdata) can succesfully execute.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method then returns a unique txid, also called the `oraclesubscribtiontxid`, or the id of the oracle subscription transaction. This can be used for further development purposes.
 
