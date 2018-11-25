@@ -3,8 +3,12 @@
 # abort on errors
 set -e
 
+
 # build
-yarn docs:build
+docker build -t komodo_docs_image .
+docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) --entrypoint "yarn" komodo_docs_image "docs:build"
+
+
 
 # navigate into the build output directory
 cd docs/.vuepress/dist

@@ -1,0 +1,9 @@
+app:
+  build: .
+  ports:
+    - 8080:8080
+  volumes:
+    - ./:/app/
+  container_name: komodo_docs
+  stdin_open: true
+  user: "1000:1000"
