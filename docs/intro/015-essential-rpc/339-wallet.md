@@ -1124,7 +1124,7 @@ See also <b>dumpprivkey</b>.
 
 Structure|Type|Description
 ---------|----|-----------
-"privkey"                                    |(string, required)           |the private key (see [`dumpprivkey`](/015-essential-rpc/339-wallet.html#dumpprivkey))
+"privkey"                                    |(string, required)           |the private key (see [`dumpprivkey`](../015-essential-rpc/339-wallet.html#dumpprivkey))
 "label"                                      |(string, optional, default="")|an optional label
 rescan                                       |(boolean, optional, default=true)|rescan the wallet for transactions
 
@@ -1182,7 +1182,7 @@ Response:
 
 **importwallet "filename"**
 
-The `importwallet` method imports transparent-address keys from a wallet-dump file (see [`dumpwallet`](/015-essential-rpc/339-wallet.html#dumpwallet)).
+The `importwallet` method imports transparent-address keys from a wallet-dump file (see [`dumpwallet`](../015-essential-rpc/339-wallet.html#dumpwallet)).
 
 ### Arguments:
 
