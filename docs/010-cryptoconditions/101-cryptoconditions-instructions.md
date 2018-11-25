@@ -8,13 +8,13 @@ When making a transaction on the main blockchain of your asset chain, you typica
 
 In CryptoConditions, you may see several addresses involved with a transaction. It is not necessary to fully understand all of them, but basic knowledge about a few addresses will be necessary.
 
-Also, each smart contract will move coins or tokens differently, depending on the nature of the contract. For example, if you are dealing with tokens (also called "colored coins"), you may use the [`tokentransfer`](#tokentransfer) method.
+Also, each smart contract will move coins or tokens differently, depending on the nature of the contract. For example, if you are dealing with tokens (also called "colored coins"), you may use the [`tokentransfer`](/010-cryptoconditions/150-cc-tokens.html#tokentransfer) method.
 
 The first address you must understand is the pubkey. Any user using a CryptoConditions smart contract must have a pubkey indicated in their daemon. The pubkey forms the basis for many other CryptoConditions addresses. Typically, each CryptoConditions smart contract  will take the pubkey, combine it with a unique and contract-specific EVAL code, and create a new base-58 encoded address from it. This base-58 encoded address will be the address you use to hold and manage CryptoConditions-related assets.
 
 ## Creating and Launching with a Pubkey
 
-To get a pubkey, launch the chain with the normal launch parameters and execute the [`getnewaddress`](#getnewaddress) rpc call.
+To get a pubkey, launch the chain with the normal launch parameters and execute the [`getnewaddress`](/015-essential-rpc/339-wallet.html#getnewaddress) rpc call.
 
 `./komodo-cli -ac_name=HELLOWORLD getnewaddress`
 
@@ -22,7 +22,7 @@ This will return a new address:
 
 `DO_NOT_USE_ADDRESSgg2ionaes1J5L786`
 
-Now, execute the [`validateaddress`](#validateaddress) rpc call.
+Now, execute the [`validateaddress`](/015-essential-rpc/335-util.html#validateaddress) rpc call.
 
 `./komodo-cli -ac_name=HELLOWORLD validateaddress DO_NOT_USE_ADDRESSgg2ionaes1J5L786`
 

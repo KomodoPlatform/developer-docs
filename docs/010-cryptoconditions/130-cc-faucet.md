@@ -8,7 +8,7 @@ For any faucet, there is a public address to which anyone can send their funds t
 
 A `faucet` rpc call can be executed by anyone on the asset chain, as long as their public address satisfies a few constraints: the user's pubkey and address must have no history of funds or transactions, and an address can claim faucet funds only once.
 
-The [`faucetget`](#faucetget) is the rpc call that executes the `faucet` contract, and the rpc call requires the user to perform a small PoW calculation. This deters leechers.
+The [`faucetget`](/010-cryptoconditions/130-cc-faucet.html#faucetget) is the rpc call that executes the `faucet` contract, and the rpc call requires the user to perform a small PoW calculation. This deters leechers.
 
 When called, `faucet` sends 0.1 coins to the indicated address, and requires about 30 seconds of CPU time.
 
@@ -60,7 +60,7 @@ Response:
 
 The `faucetfund` method creates and funds a faucet contract.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -168,7 +168,7 @@ Response from Step 3
 
 The `faucetget` method requests the `faucet` contract to send coins.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
 
 A `faucet` command yields 0.1 coins and requires about 30 seconds of CPU time.
 

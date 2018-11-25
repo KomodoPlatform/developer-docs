@@ -4,7 +4,7 @@ module.exports = {
   description: 'Documentation for developers building on Komodo',
   themeConfig: {
     nav: [
-      { text: 'Start Here', link: '/000-start-here/_001-introduction.md' },
+      { text: 'Start Here', link: '/000-start-here/001-introduction.md' },
       { text: 'KomodoPlatform.com', link: 'https://komodoplatform.com' },
     ],
     sidebar: [
@@ -12,50 +12,50 @@ module.exports = {
         title: 'Start Here',
         collapsable: true,
         children: [
-          [ '/000-start-here/_001-introduction.md', 'Introduction'],
-          [ '/000-start-here/_005-outline-for-new-developers.md', 'Outline for New Developers'],
-          [ '/000-start-here/_017-cc-overview.md', 'Overview of CryptoConditions (Smart Contracts)']
+          [ '/000-start-here/001-introduction.md', 'Introduction'],
+          [ '/000-start-here/005-outline-for-new-developers.md', 'Outline for New Developers'],
+          [ '/000-start-here/017-cc-overview.md', 'Overview of CryptoConditions (Smart Contracts)']
         ]
       },
       {
         title: 'Installation and Setup',
         collapsable: true,
         children: [
-          [ '/005-installations/_010-basic-instructions.md', 'Basic Installation Instructions'],
-          [ '/005-installations/_015-creating-asset-chains.md', 'Asset Chain Creation'],
-          [ '/005-installations/_019-common-runtime-parameters.md', 'Basic Runtime Parameters'],
-          [ '/005-installations/_023-asset-chain-parameters.md', 'Runtime Tools for Asset Chains']
+          [ '/005-installations/010-basic-instructions.md', 'Basic Installation Instructions'],
+          [ '/005-installations/015-creating-asset-chains.md', 'Asset Chain Creation'],
+          [ '/005-installations/019-common-runtime-parameters.md', 'Basic Runtime Parameters'],
+          [ '/005-installations/023-asset-chain-parameters.md', 'Runtime Tools for Asset Chains']
         ]
       },
       {
-        title: 'CryptoConditions (Smart Contract Templates)',
+        title: 'CryptoConditions (Smart Contracts)',
         collapsable: true,
         children: [
-          [ '/010-cryptoconditions/_101-cryptoconditions-instructions.md', 'Instructions for CryptoConditions'],
-          [ '/010-cryptoconditions/_110-cc-channels.md', 'Channels'],
-          [ '/010-cryptoconditions/_120-cc-dice.md', 'Dice'],
-          [ '/010-cryptoconditions/_130-cc-faucet.md', 'Faucet'],
-          [ '/010-cryptoconditions/_133-cc-gateways.md', 'Gateways'],
-          [ '/010-cryptoconditions/_135-cc-oracles.md', 'Oracles'],
-          [ '/010-cryptoconditions/_140-cc-rewards.md', 'Rewards'],
-          [ '/010-cryptoconditions/_150-cc-tokens.md', 'Tokens']
+          [ '/010-cryptoconditions/101-cryptoconditions-instructions.md', 'Instructions for CryptoConditions'],
+          [ '/010-cryptoconditions/110-cc-channels.md', 'Channels'],
+          [ '/010-cryptoconditions/120-cc-dice.md', 'Dice'],
+          [ '/010-cryptoconditions/130-cc-faucet.md', 'Faucet'],
+          [ '/010-cryptoconditions/133-cc-gateways.md', 'Gateways'],
+          [ '/010-cryptoconditions/135-cc-oracles.md', 'Oracles'],
+          [ '/010-cryptoconditions/140-cc-rewards.md', 'Rewards'],
+          [ '/010-cryptoconditions/150-cc-tokens.md', 'Tokens']
         ]
       },
       {
         title: 'Essential RPC Calls',
         collapsable: true,
         children: [
-          [ '/015-essential-rpc/_303-address-index.md', 'Address'],
-          [ '/015-essential-rpc/_307-blockchain.md', 'Blockchain'],
-          [ '/015-essential-rpc/_311-control.md', 'Control'],
-          [ '/015-essential-rpc/_315-disclosure.md', 'Disclosure'],
-          [ '/015-essential-rpc/_319-generate.md', 'Generate'],
-          [ '/015-essential-rpc/_323-mining.md', 'Mining'],
-          [ '/015-essential-rpc/_325-jumblr.md', 'Jumblr'],
-          [ '/015-essential-rpc/_327-network.md', 'Network'],
-          [ '/015-essential-rpc/_331-rawtransactions.md', 'Raw Transactions'],
-          [ '/015-essential-rpc/_335-util.md', 'Util'],
-          [ '/015-essential-rpc/_339-wallet.md', 'Wallet']
+          [ '/015-essential-rpc/303-address-index.md', 'Address'],
+          [ '/015-essential-rpc/307-blockchain.md', 'Blockchain'],
+          [ '/015-essential-rpc/311-control.md', 'Control'],
+          [ '/015-essential-rpc/315-disclosure.md', 'Disclosure'],
+          [ '/015-essential-rpc/319-generate.md', 'Generate'],
+          [ '/015-essential-rpc/323-mining.md', 'Mining'],
+          [ '/015-essential-rpc/325-jumblr.md', 'Jumblr'],
+          [ '/015-essential-rpc/327-network.md', 'Network'],
+          [ '/015-essential-rpc/331-rawtransactions.md', 'Raw Transactions'],
+          [ '/015-essential-rpc/335-util.md', 'Util'],
+          [ '/015-essential-rpc/339-wallet.md', 'Wallet']
         ]
       }
     ]
