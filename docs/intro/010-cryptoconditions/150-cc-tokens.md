@@ -1,6 +1,6 @@
 # Smart Contract: Tokens
 
-The `tokens` CryptoConditions smart contract enables core-asset support for the on-chain creation of colored coins, also called tokens. The functionality is facilitated by utxo technology. Tokens can be generated on any chain where the [`ac_cc`](/005-installations/023-asset-chain-parameters.html#ac-cc) is enabled.
+The `tokens` CryptoConditions smart contract enables core-asset support for the on-chain creation of colored coins, also called tokens. The functionality is facilitated by utxo technology. Tokens can be generated on any chain where the [`ac_cc`](../005-installations/023-asset-chain-parameters.html#ac-cc) is enabled.
 
 The `tokens` smart contract requires locking a proportional amount of satoshis of the native coins. These satoshis create the supply for the token.
 
@@ -57,7 +57,7 @@ Response:
 
 The `tokenask` method posts a public ask order.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -169,7 +169,7 @@ The `tokenbid` method posts a public bid order.
 
 To fill the order, the parent chain's coin must be used.
 
-The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) to complete the command.
+The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) to complete the command.
 
 The `sendrawtransaction` method then returns a `txid`, which is the identification method of the bid order, and should be saved for future use.
 
@@ -220,7 +220,7 @@ Response:
 
 The `tokencancelask` method cancels a specific `ask`/`sell` order that you created.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -351,7 +351,7 @@ Response:
 
 The `tokencancelbid` method cancels a specific `bid`/`buy` order that you created.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -995,9 +995,9 @@ Response:
 
 The `tokentransfer` method transfers tokens from one cc address to another.
 
-It is similar to the [`sendmany`](/015-essential-rpc/339-wallet.html#sendmany) method used to send coins on the parent chain.
+It is similar to the [`sendmany`](../015-essential-rpc/339-wallet.html#sendmany) method used to send coins on the parent chain.
 
-The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) to complete the command.
+The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) to complete the command.
 
 ::: tip
 The source `txid/vout` needs to be specified as it is critical to match outputs with inputs.
