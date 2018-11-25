@@ -630,7 +630,7 @@ Response:
 
 The `sendrawtransction` method submits raw transaction (serialized, hex-encoded) to local nodes and the network.
 
-Also see [`createrawtransaction`](/015-essential-rpc/331-rawtransactions.html#createrawtransaction) and [`signrawtransaction`](/015-essential-rpc/331-rawtransactions.html#signrawtransaction) calls.
+Also see [`createrawtransaction`](../015-essential-rpc/331-rawtransactions.html#createrawtransaction) and [`signrawtransaction`](../015-essential-rpc/331-rawtransactions.html#signrawtransaction) calls.
 
 ### Arguments:
 

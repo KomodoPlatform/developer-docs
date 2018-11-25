@@ -7,7 +7,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 **generate numblocks**
 
 ::: tip
-This function can only be used on a <b>regtest</b> network (for testing purposes).
+This function can only be used in the <b>regtest</b> mode (for testing purposes).
 :::
 
 The `generate` method instructs the coin daemon to immediately mine the indicated number of blocks.
@@ -104,7 +104,7 @@ Response:
 
 The `setgenerate` method allows the user to set the `generate` property in the coin daemon to `true` or `false`, thus turning generation (mining) on or off.
 
-Generation is limited to [`genproclimit`](/005-installations/019-common-runtime-parameters.html#genproclimit) processors. Set `genproclimit` to `-1` for unlimited.
+Generation is limited to [`genproclimit`](../005-installations/019-common-runtime-parameters.html#genproclimit) processors. Set `genproclimit` to `-1` for unlimited.
 
 ::: tip
 See also the <b>getgenerate</b> method to query the current setting, and <b>genproclimit</b> for setting processor default parameters.
