@@ -164,7 +164,7 @@ It’s also worth pointing out that one of the conditions of a CryptoConditions 
 
 With these rules in place, a CryptoConditions smart contract becomes like a mini-consensus mechanism. It forces consensus for the participants in the smart contract, while riding on the master consensus mechanism of the blockchain.
 
-If you'd like to try writing your own CryptoConditions smart contract, [read this documentation by Komodo’s lead developer, JL777](https://github.com/jl777/komodo/blob/FSM/src/cc/CC%20made%20easy).
+If you'd like to try writing your own CryptoConditions smart contract, [read this documentation by Komodo’s lead developer, JL777](https://docs.komodoplatform.com/cc/index-book-jl.html).
 
 Rest assured if you find this documentation too challenging. As the library of finished smart-contract templates increases over time, a normal developer will not need to write a full smart contract to utilize Komodo. Rather, you'll just pull a series of pre-written templates that function like building blocks, as you create your dApps.
 

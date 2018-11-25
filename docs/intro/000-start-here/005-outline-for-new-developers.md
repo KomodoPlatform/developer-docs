@@ -240,7 +240,7 @@ With this activated, you can try a few existing templates:
 
 ## Write Your Own Smart-Contract Templates
 
-If you're ready to try out your own customized smart contract, please read the detailed technical documentation written by our lead developer, JL777: [Mastering CryptoConditions](https://github.com/jl777/komodo/blob/FSM/src/cc/CC%20made%20easy).
+If you're ready to try out your own customized smart contract, please read the detailed technical documentation written by our lead developer, JL777: [Mastering CryptoConditions](https://docs.komodoplatform.com/cc/index-book-jl.html).
 
 Most developers don't need to design smart contracts on Komodo, but rather, only need to implement existing smart-contracts templates while developing a dApp. So don't be discouraged if the technical documentation appears too thick for your level of experience. Come to Discord when you have questions.
 

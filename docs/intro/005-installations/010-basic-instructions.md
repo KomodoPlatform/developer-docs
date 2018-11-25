@@ -28,7 +28,7 @@ After the daemon launches, you may interact with it using `komodo-cli` like so:
 
 `./komodo-cli API_COMMAND`
 
-To launch another Komodo-based blockchain, include the necessary parameters. The list of launch parameters for each Komodod-based blockchain [is found here](https://github.com/VerusCoin/VerusCoin/blob/master/src/assetchains.old).
+To launch another Komodo-based blockchain, include the necessary parameters. The list of launch parameters for each Komodod-based blockchain that is already live [is found here](https://github.com/jl777/komodo/blob/master/src/assetchains.old).
 
 For example, to launch the DEX asset chain, execute:
 
@@ -56,9 +56,9 @@ To learn more via the terminal about a specific API command, execute:
 ./komodo-cli help getnewaddress
 ```
 
-For more information about creating and interacting with asset chains, please visit our [asset-chain creation documentation](/005-installations/015-creating-asset-chains.html).
+For more information about creating and interacting with asset chains, please visit our [asset-chain creation documentation](../005-installations/015-creating-asset-chains.html).
 
-Follow this link to find information on [accessing the coin daemon remotely](/005-installations/019-common-runtime-parameters.html#accessing-the-coin-daemon-remotely).
+Follow this link to find information on [accessing the coin daemon remotely](../005-installations/019-common-runtime-parameters.html#accessing-the-coin-daemon-remotely).
 
 <aside class="notice">
   In nearly all circumstances, a Komodo-based blockchain is only secure once it receives our dPoW security service. Please reach out to us when you are ready to purchase.

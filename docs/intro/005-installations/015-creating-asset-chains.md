@@ -75,14 +75,14 @@ After issuing this command in the terminal, you will find the p2p port in the te
 
 In this case, the p2p port is `8096`.
 
-This completes the first half of the asset-chain creation process. Scroll down to [Part II](/005-installations/015-creating-asset-chains.html#part-ii-connecting-the-second-node).
+This completes the first half of the asset-chain creation process. Scroll down to [Part II](../005-installations/015-creating-asset-chains.html#part-ii-connecting-the-second-node).
 
 ::: tip
-Please refer to [Asset Chain Parameters](/005-installations/023-asset-chain-parameters.html) for a full list of parameters to customize your initial blockchain state.
+Please refer to [Asset Chain Parameters](../005-installations/023-asset-chain-parameters.html) for a full list of parameters to customize your initial blockchain state.
 :::
 
 ::: tip
-Please note the requirements for [`ac_supply`](/005-installations/023-asset-chain-parameters.html#ac-supply), and instructions for using [`addnode`](/005-installations/019-common-runtime-parameters.html#addnode) under various network conditions, including firewalls and LANs.*
+Please note the requirements for [`ac_supply`](../005-installations/023-asset-chain-parameters.html#ac-supply), and instructions for using [`addnode`](/005-installations/019-common-runtime-parameters.html#addnode) under various network conditions, including firewalls and LANs.*
 :::
 
 ## Part II: Connecting the Second Node
@@ -95,7 +95,7 @@ Once the second node connects it will automatically mine blocks.
 
 On a Komodo-based blockchain, all of the pre-mined coins are mined in the first block. Therefore, whichever machine executes the mining command will receive the entirety of the blockchain supply.
 
-These are the coins you will later sell to your customers, using either our native DEX, [BarterDEX](/005-installations/010-basic-instructions.html#komodo-s-native-dex-barterdex), or our decentralized-ICO software (coming soon), or on any other third-party exchange.
+These are the coins you will later distribute to your community, using either our native DEX, [BarterDEX](../005-installations/010-basic-instructions.html#komodo-s-native-dex-barterdex), or our decentralized-ICO software (coming soon), or on any other third-party exchange.
 
 You can check the contents of the wallet by executing the following command in the terminal:
 
@@ -119,7 +119,7 @@ Since the Komodo software began as a fork of Zcash and BTC, essentially all comm
 
 Furthermore, a key purpose of the Komodo blockchain is to create features and functions that facilitate and enhance your development experience. Information regarding these many enhancements is available throughout this documentation.
 
-In addition, since you are building on a Komodo-based blockchain, you have easy access to our multi-coin wallet, [Agama](https://komodoplatform.com/komodo-wallets/#desktopsection), our atomic-swap powered decentralized exchange, [BarterDEX](/005-installations/010-basic-instructions.html#komodo-s-native-dex-barterdex), our decentralized-ICO software (coming soon), and our future upgrades.
+In addition, since you are building on a Komodo-based blockchain, you have easy access to our multi-coin wallet, [Agama](https://komodoplatform.com/komodo-wallets/#desktopsection), our atomic-swap powered decentralized exchange, [BarterDEX](../005-installations/010-basic-instructions.html#komodo-s-native-dex-barterdex), our decentralized-ICO software (coming soon), and our future upgrades.
 
 ## Example commands
 
@@ -147,7 +147,7 @@ Notarizations are performed as transactions on your blockchain and on the main K
 
 Every ten to twenty minutes, our notary nodes will hash the history of your asset chain and insert it as a record into the KMD main chain. This provides an initial layer of security, but it is not the final layer.
 
-In another ten to twenty minutes, all of the information in the KMD chain (including your asset chain's hashed data) is hashed and inserted into the BTC blockchain. Once your information is pushed into BTC, your asset chain will consider all notarized information effectively settled and immutable; only the recent, un-notarized transactions are still relying on your asset chain's raw consensus mechanism. [Click here to learn more about the types of consensus mechanisms you can choose on a KMD asset chain](/005-installations/023-asset-chain-parameters.html#ac-staked).
+In another ten to twenty minutes, all of the information in the KMD chain (including your asset chain's hashed data) is hashed and inserted into the BTC blockchain. Once your information is pushed into BTC, your asset chain will consider all notarized information effectively settled and immutable; only the recent, un-notarized transactions are still relying on your asset chain's raw consensus mechanism. [Click here to learn more about the types of consensus mechanisms you can choose on a KMD asset chain](../005-installations/023-asset-chain-parameters.html#ac-staked).
 
 Thus, your asset chain will have all the power of Bitcoin securing your blockchain's history, with the zero-knowledge privacy of the Zcash parameters pre-installed, and all of the interoperability, scalability, and more that Komodo adds to your development experience.
 
