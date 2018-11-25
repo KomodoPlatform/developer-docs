@@ -1,6 +1,6 @@
 # Start Here
 
-For the developer wishing to build your own blockchain using the Komodo software, we recommend the following approach.
+If you are a developer wishing to build your own blockchain using Komodo's software, we recommend the following approach.
 
 ### Assumptions for this Documentation
 
@@ -10,7 +10,7 @@ We're going to start by assuming that you have a general idea of what a blockcha
 
 If you're not familiar, we recommend that you [read Part I of our white paper](https://www.komodoplatform.com/whitepaper). It explains what a blockchain is, why blockchain technology is significant, the basic idea of how it works, and why you should care.
 
-We're also going to assume that you are comfortable programming in at least one mainstream language. Technically, Komodo can work with any language, but there are some things to keep in mind before you get too excited. [Find out more about languages on Komodo here](/000-start-here/005-outline-for-new-developers.html#a-brief-note-about-languages).
+We're also going to assume that you are comfortable programming in at least one mainstream language. Technically, Komodo can work with any language, but there are some things to keep in mind before you get too excited. [Find out more about languages on Komodo here](005-outline-for-new-developers.html#a-brief-note-about-languages).
 
 If you're not yet a programmer, but you're interested to make a career in the blockchain revolution, welcome! The open-source nature of Komodo and our enthusiastic community make this a perfect place to begin your journey. We recommend that you come [to our Discord channel](https://komodoplatform.com/discord) and discuss your goals with our community members. We look forward to meeting you!
 
@@ -26,7 +26,7 @@ Ask questions in our Discord channels, such as `#developer`, `#cryptoconditions`
 
 ### The Basic Concept of Komodo
 
-A Komodo-based blockchain, called an "asset chain", is a fully independent blockchain that is forked from Komodo technology and has the option of using Komodo's many services, including Komodo's [security](/005-installations/015-creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work) and scalability.
+A Komodo-based blockchain, called an "asset chain", is a fully independent blockchain that is forked from Komodo technology and has the option of using Komodo's many services, including Komodo's [security](../005-installations/015-creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work) and scalability.
 
 We use the term, "asset chain," because the coins in the blockchain are assets owned by you and your blockchain's users.
 
@@ -44,7 +44,7 @@ Lets compare a blockchain platform to a vehicle. With those other blockchain pla
 
 In Komodo, you get the whole car all to yourself. Add any features you want, change whatever you like, and even import the open-source designs from other blockchain ecosystems.
 
-All that is required is that you keep the basic Komodo blockchain framework in place, as it facilitates your connection to [the security of the Bitcoin hash rate](/005-installations/015-creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work) that we provide, and also your connection to other Komodo asset chains and features.
+All that is required is that you keep the basic Komodo blockchain framework in place, as it facilitates your connection to [the security of the Bitcoin hash rate](../005-installations/015-creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work) that we provide, and also your connection to other Komodo asset chains and features.
 
 ### No Gas/Transaction Fees
 
@@ -146,7 +146,7 @@ Simply creating and developing the asset chain for testing purposes does not req
 However, in nearly all circumstances, an asset chain is only secure once it receives our dPoW connection to the Bitcoin hash rate (dPoW).
 :::
 
-You can read more about how the security and payment are structured in [the section on Komodo's dPoW security services](/005-installations/015-creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work).
+You can read more about how the security and payment are structured in [the section on Komodo's dPoW security services](../005-installations/015-creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work).
 
 In general, the cost for Komodo's security services is competitive. While the initial setup cost may or may not be higher than other blockchain platforms, the benefits that come from owning your own full blockchain, not having to pay KMD gas/transaction fees, and in being able to deploy unlimited smart contracts and ERC20-like tokens on your chain; can become a cost-saving advantage over time for both you and your end-users.
 
@@ -172,11 +172,11 @@ So you've decide you want to take Komodo for a free test drive. Alright!
 
 The next step is to install the software on your machine.
 
-[Follow through the instructions here,](/005-installations/010-basic-instructions.html#installing-basic-komodo-software) and return to this spot in the outline when you are finished.
+[Follow through the instructions here,](../005-installations/010-basic-instructions.html#installing-basic-komodo-software) and return to this spot in the outline when you are finished.
 
 ## Get Familiarized With komodod and komodo-cli
 
-Now that you have `komodod` and `komodo-cli` installed, [skim briefly through the instructions on how to interact with a Komodo-based daemon, linked here](/005-installations/010-basic-instructions.html#interacting-with-komodo-chains).
+Now that you have `komodod` and `komodo-cli` installed, [skim briefly through the instructions on how to interact with a Komodo-based daemon, linked here](../005-installations/010-basic-instructions.html#interacting-with-komodo-chains).
 
 You'll come back to this section later, once you're ready to execute rpc calls, API commands, and runtime parameters.
 
@@ -188,7 +188,7 @@ You do not need to launch or sync the main Komodo chain (KMD), and you do not ne
 
 With `komodod` and `komodo-cli` installed you're ready to spin up an asset chain.
 
-[Follow the instructions in this linked guide to build your first asset chain.](/005-installations/015-creating-asset-chains.html#creating-a-new-asset-chain)
+[Follow the instructions in this linked guide to build your first asset chain.](../005-installations/015-creating-asset-chains.html#creating-a-new-asset-chain)
 
 We recommend that you use the simplest of settings for now.
 
@@ -197,15 +197,16 @@ For example:
 `./komodod -ac_name=HELLOWORLD -ac_supply=777777 &`
 
 ## Execute Elementary RPC Calls
+
 After you have your asset chain running on both nodes, we recommend executing some basic rpc calls in the terminal.
 
 Here are links to some simple and common rpc examples:
 
-[`getnewaddress`](/015-essential-rpc/339-wallet.html#getnewaddress)
+[`getnewaddress`](../015-essential-rpc/339-wallet.html#getnewaddress)
 
-[`sendtoaddress`](/015-essential-rpc/339-wallet.html#sendtoaddress)
+[`sendtoaddress`](../015-essential-rpc/339-wallet.html#sendtoaddress)
 
-[`getinfo`](/015-essential-rpc/311-control.html#getinfo)
+[`getinfo`](../015-essential-rpc/311-control.html#getinfo)
 
 As Komodo is downstream from both [Bitcoin](https://bitcoin.org) and [Zcash](https://z.cash), essentially all of the commands that are available on those two upstream blockchains are also available here.
 
@@ -215,25 +216,25 @@ We create many features, functionalities, and commands that are specifically des
 
 For example, you can learn how to make asset chains that are more complicated in nature.
 
-[Read this documentation first to get the basic idea](/005-installations/023-asset-chain-parameters.html).
+[Read this documentation first to get the basic idea](../005-installations/023-asset-chain-parameters.html).
 
-Once you understand the concept, you can test a few asset-chain tricks -- like making your asset chain's consensus mechanism [a mix between Proof of Work and Proof of Stake](/005-installations/023-asset-chain-parameters.html#ac-staked).
+Once you understand the concept, you can test a few asset-chain tricks -- like making your asset chain's consensus mechanism [a mix between Proof of Work and Proof of Stake](../005-installations/023-asset-chain-parameters.html#ac-staked).
 
-Or, you could make your asset chain suitable for a rapid mining period, followed by complete blockchain disposal. Use parameters such as [`ac_end`](/005-installations/023-asset-chain-parameters.html#ac-end), [`ac_reward`](/005-installations/023-asset-chain-parameters.html#ac-reward), [`ac_decay`](/005-installations/023-asset-chain-parameters.html#ac-decay), and [`ac_perc`](/005-installations/023-asset-chain-parameters.html#ac-perc) for this effect.
+Or, you could make your asset chain suitable for a rapid mining period, followed by complete blockchain disposal. Use parameters such as [`ac_end`](../005-installations/023-asset-chain-parameters.html#ac-end), [`ac_reward`](../005-installations/023-asset-chain-parameters.html#ac-reward), [`ac_decay`](../005-installations/023-asset-chain-parameters.html#ac-decay), and [`ac_perc`](../005-installations/023-asset-chain-parameters.html#ac-perc) for this effect.
 
 ## Discover CC Smart Contracts
 
 Now you should be ready to head into smart contract territory.
 
-Smart contracts on Komodo are a bit different (and we think a bit better, too, but we're admittedly biased). If you need to catch the general idea, read the section, [Smart Contract Overview](/000-start-here/017-cc-overview.html).
+Smart contracts on Komodo are a bit different (and if you ask us, a bit better too, but we're admittedly biased). If you need to catch the general idea, read the section, [Smart Contract Overview](017-cc-overview.html).
 
-First, you must create an asset chain that has the [ac_cc runtime parameter properly enabled](/005-installations/023-asset-chain-parameters.html#ac-cc).
+First, you must create an asset chain that has the [ac_cc runtime parameter properly enabled](../005-installations/023-asset-chain-parameters.html#ac-cc).
 
 With this activated, you can try a few existing templates:
 
-* [Create ERC20 tokens on your new asset chain](/010-cryptoconditions/150-cc-tokens.html)
-* Try using your [built-in on-chain DEX](/010-cryptoconditions/110-cc-channels.html)
-* Use [the oracles smart-contract template](/010-cryptoconditions/135-cc-oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
+- [Create ERC20 tokens on your new asset chain](../010-cryptoconditions/150-cc-tokens.html)
+- Try using your [built-in on-chain DEX](../010-cryptoconditions/110-cc-channels.html)
+- Use [the oracles smart-contract template](../010-cryptoconditions/135-cc-oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
 
 ...and more!
 
@@ -245,7 +246,7 @@ Most developers don't need to design smart contracts on Komodo, but rather, only
 
 ## Learn About BarterDEX and Agama
 
-Once you purchase our [dPoW security services and scalability solutions](/005-installations/015-creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work), you are eligible to add your asset chain to our native atomic-swap powered DEX, [BarterDEX](/005-installations/010-basic-instructions.html#komodo-s-native-dex-barterdex), and our multi-coin wallet, [Agama](https://komodoplatform.com/komodo-wallets/).
+Once you purchase our [dPoW security services and scalability solutions](../005-installations/015-creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work), you are eligible to add your asset chain to our native atomic-swap powered DEX, [BarterDEX](../005-installations/010-basic-instructions.html#komodo-s-native-dex-barterdex), and our multi-coin wallet, [Agama](https://komodoplatform.com/komodo-wallets/).
 
 You can learn more about both on [docs.komodoplatform.com](https://docs.komodoplatform.com).
 

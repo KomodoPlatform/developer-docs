@@ -1,8 +1,8 @@
 # Introduction
 
-Welcome to the Komodo API Reference Guide.
+Welcome to Komodo's Developer Documentation.
 
-Komodo's blockchain technology enables developers to run fully independent blockchains in a secure and highly competitive environment.
+Komodo's blockchain technology enables developers to create and run fully independent blockchains in a secure and highly competitive environment.
 
 Each independent blockchain built on the Komodo framework has a wide range of capabilities, including:
 

@@ -3,6 +3,7 @@ module.exports = {
   base: "/komodo-docs-vuepress/",
   description: "Documentation for developers building on Komodo",
   themeConfig: {
+    lastUpdated: 'Last Updated',
     nav: [{
         text: "Start Here",
         link: "/intro/"
