@@ -8,12 +8,12 @@ There can be many `rewards` plans active at any given time.
 
 The flow of a plan is as follows:
 
-* Anyone can create a new plan using [`rewardscreatefunding`](/010-cryptoconditions/140-cc-rewards.html#rewardscreatefunding)
-* Anyone can add funding to the plan using [`rewardsaddfunding`](/010-cryptoconditions/140-cc-rewards.html#rewardsaddfunding)
-* Anyone can query the list of all active plans using [`rewardslist`](/010-cryptoconditions/140-cc-rewards.html#rewardslist)
-* To get the details of a particular plan, use [`rewardsinfo`](/010-cryptoconditions/140-cc-rewards.html#rewardsinfo)
-* After finding a suitable plan, any user can lock funds using [`rewardslock`](/010-cryptoconditions/140-cc-rewards.html#rewardslock)
-* After the minimum lock time is met, the user can use [`rewardsunlock`](/010-cryptoconditions/140-cc-rewards.html#rewardsunlock) to unlock their funds and receive their rewards
+* Anyone can create a new plan using [`rewardscreatefunding`](../010-cryptoconditions/140-cc-rewards.html#rewardscreatefunding)
+* Anyone can add funding to the plan using [`rewardsaddfunding`](../010-cryptoconditions/140-cc-rewards.html#rewardsaddfunding)
+* Anyone can query the list of all active plans using [`rewardslist`](../010-cryptoconditions/140-cc-rewards.html#rewardslist)
+* To get the details of a particular plan, use [`rewardsinfo`](../010-cryptoconditions/140-cc-rewards.html#rewardsinfo)
+* After finding a suitable plan, any user can lock funds using [`rewardslock`](../010-cryptoconditions/140-cc-rewards.html#rewardslock)
+* After the minimum lock time is met, the user can use [`rewardsunlock`](../010-cryptoconditions/140-cc-rewards.html#rewardsunlock) to unlock their funds and receive their rewards
 
 ## rewardsaddfunding
 
@@ -21,7 +21,7 @@ The flow of a plan is as follows:
 
 The `rewardsaddfunding` method adds funds to a rewards plan.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -191,7 +191,7 @@ Response:
 
 The `rewardscreatefunding` method creates a new `rewards` plan.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method will then return a `txid`. This `txid` is the `fundingtxid` that serves to identify the `rewards` plan.
 
@@ -335,7 +335,7 @@ Response from Step 3:
 
 The `rewardsinfo` method returns information about specific `rewards` plan.
 
-Use [`rewardslist`](/010-cryptoconditions/140-cc-rewards.html#rewardslist) to see a list of all available `fundingtxid`'s.
+Use [`rewardslist`](../010-cryptoconditions/140-cc-rewards.html#rewardslist) to see a list of all available `fundingtxid`'s.
 
 ### Arguments:
 
@@ -424,11 +424,11 @@ Response:
 
 The `rewardslock` method commits your desired amount of funds into the specified rewards plan. They remain locked until the minimum number of seconds/days passes.
 
-The method returns a `hex` value that must be broadcast using [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction).
+The method returns a `hex` value that must be broadcast using [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction).
 
-The `sendrawtransaction` method will then return a `txid`, which is later used in the [`rewardsunlock`](/010-cryptoconditions/140-cc-rewards.html#rewardsunlock) method. In general, it is best to save this `txid` in a secure location.
+The `sendrawtransaction` method will then return a `txid`, which is later used in the [`rewardsunlock`](../010-cryptoconditions/140-cc-rewards.html#rewardsunlock) method. In general, it is best to save this `txid` in a secure location.
 
-If the final `txid` is lost, it is possible to find it again. See [`rewardsunlock`](/010-cryptoconditions/140-cc-rewards.html#rewardsunlock) for more information.
+If the final `txid` is lost, it is possible to find it again. See [`rewardsunlock`](../010-cryptoconditions/140-cc-rewards.html#rewardsunlock) for more information.
 
 ### Arguments:
 
@@ -563,13 +563,13 @@ Response from Step 3:
 
 The `rewardsunlock` method unlocks your funds from a specific rewards plan after the minimum lock time is met. If `txid` is not provided, `rewardsunlock` unlocks all funds in the `fundingtxid` plan.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](/015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method to complete the command.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method to complete the command.
 
 If you attempt to unlock your funds before the minimum period is met, the daemon returns this error:
 
-The method requires the `txid` that was returned as a result of the original [`rewardslock`](/010-cryptoconditions/140-cc-rewards.html#rewardslock) method.
+The method requires the `txid` that was returned as a result of the original [`rewardslock`](../010-cryptoconditions/140-cc-rewards.html#rewardslock) method.
 
-If the original `txid` is lost, it is possible to find it again by either rebroadcasting the original `hex` (if it is available), or by scanning through available utxos using the [`getaddressutxos`](/015-essential-rpc/303-address-index.html#getaddressutxos) method.
+If the original `txid` is lost, it is possible to find it again by either rebroadcasting the original `hex` (if it is available), or by scanning through available utxos using the [`getaddressutxos`](../015-essential-rpc/303-address-index.html#getaddressutxos) method.
 
 ::: tip
 {
