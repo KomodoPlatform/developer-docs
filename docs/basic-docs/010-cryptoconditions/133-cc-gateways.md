@@ -47,7 +47,7 @@ You may also check the balance for a specific pubkey:
 
 `./komodo-cli -ac_name=HELLOWORLD gatewaysaddress`
 
-This will return the gateways pubkey. ===?===
+This call returns the **GatewaysPubkey**.
 
 Then convert 100% of your KMD-token supply to the GatewayCC using the special `tokenconvert` call. Use the unique evalcode for `GatewaysCC` as the first parameter: `241`
 
@@ -178,7 +178,7 @@ Run the dApp:
 
 `$ACNAME`: The name of our asset chain; in our example it is HELLOWORLD
 
-`$ORACLETXID`: The ID of the oracle
+`$ORACLETXID`: The ID of the oracle that is bound to the gateway
 
 `$MYPUBKEY`: Your desired pubkey
 
