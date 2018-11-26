@@ -1,6 +1,6 @@
 # Start Here
 
-If you are a developer wishing to build your own blockchain using Komodo's software, we recommend the following approach.
+For the developer wishing to build your own blockchain using Komodo's software we recommend the following approach.
 
 ### Assumptions for this Documentation
 
@@ -10,7 +10,7 @@ We're going to start by assuming that you have a general idea of what a blockcha
 
 If you're not familiar, we recommend that you [read Part I of our white paper](https://www.komodoplatform.com/whitepaper). It explains what a blockchain is, why blockchain technology is significant, the basic idea of how it works, and why you should care.
 
-We're also going to assume that you are comfortable programming in at least one mainstream language. Technically, Komodo can work with any language, but there are some things to keep in mind before you get too excited. [Find out more about languages on Komodo here](005-outline-for-new-developers.html#a-brief-note-about-languages).
+We're also going to assume that you are comfortable programming in at least one mainstream language. Technically, Komodo can work with any language, but there are some things to keep in mind before you get too excited. [Find out more about languages on Komodo here](../000-start-here/005-outline-for-new-developers.html#a-brief-note-about-languages).
 
 If you're not yet a programmer, but you're interested to make a career in the blockchain revolution, welcome! The open-source nature of Komodo and our enthusiastic community make this a perfect place to begin your journey. We recommend that you come [to our Discord channel](https://komodoplatform.com/discord) and discuss your goals with our community members. We look forward to meeting you!
 
