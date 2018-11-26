@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
-// const fd = fs.openSync(path.join(__dirname + '/FILE.md'), 'r+')
+const inputFile = '../../../docs/.vuepress/config.js'
+const fd = fs.openSync(path.join(__dirname + '/output.txt'), 'r+')
 
 const renames = [
   {
@@ -89,8 +90,41 @@ const renames = [
   }
 ]
 
-const currFile = fs.readFile(path.join(__dirname + '/FILE.ext'), 'utf8', (err, data) => {
-  for (let i = 0; i < renames.length; i++) {
-    
+const cut = function(str, cutStart, cutEnd, value) {
+  return str.substr(0, cutStart) + value + str.substr(cutEnd)
+}
+
+fs.ftruncate(fd, 0, (err) => {
+
+  if (err) {
+    console.error(err)
+    process.exit()
   }
+
+  fs.readFile(path.join(__dirname + inputFile), 'utf8', (err, data) => {
+
+    console.log(`successfully retrieved file`, data.substr(0,15))
+
+    if (err) {
+      console.error(err)
+      process.exit()
+    }
+
+    let wip = data
+
+    for (let i = 0; i < renames.length; i++) {
+      console.log(`\nChecking item: `, renames[i].before)
+      while (wip.includes(renames[i].before)) {
+        let marker = wip.indexOf(renames[i].before)
+        console.log(`\nInstance found: `, marker)
+        wip = cut(wip, marker, marker + renames[i].before.length, renames[i].after)
+        }
+    }
+
+    console.log(`All done: `, wip.substr(0, 25))
+
+    fs.appendFileSync(path.join(__dirname + `/output.txt`), wip)
+
+  })
+
 })
