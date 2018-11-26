@@ -6,7 +6,7 @@ module.exports = {
     lastUpdated: 'Last Updated',
     nav: [{
         text: "Start Here",
-        link: "/basic-docs/start-here/introduction.html"
+        link: "/basic-docs/start-here/introduction.md"
       },
       {
         text: "KomodoPlatform.com",
@@ -20,12 +20,12 @@ module.exports = {
           children: [
             ["/basic-docs/start-here/introduction.md", "Introduction"],
             [
-              "/basic-docs/start-here/005-outline-for-new-developers.md",
+              "/basic-docs/start-here/outline-for-new-developers.md",
               "Outline for New Developers"
             ],
             [
-              "/basic-docs/start-here/017-cc-overview.md",
-              "Overview of CryptoConditions (Smart Contracts)"
+              "/basic-docs/start-here/cc-overview.md",
+              "Overview of Crypto Conditions (Smart Contracts)"
             ]
           ]
         },
@@ -34,55 +34,55 @@ module.exports = {
           collapsable: true,
           children: [
             [
-              "/basic-docs/005-installations/010-basic-instructions.md",
+              "/basic-docs/installations/basic-instructions.md",
               "Basic Installation Instructions"
             ],
             [
-              "/basic-docs/005-installations/015-creating-asset-chains.md",
+              "/basic-docs/installations/creating-asset-chains.md",
               "Asset Chain Creation"
             ],
             [
-              "/basic-docs/005-installations/019-common-runtime-parameters.md",
+              "/basic-docs/installations/common-runtime-parameters.md",
               "Basic Runtime Parameters"
             ],
             [
-              "/basic-docs/005-installations/023-asset-chain-parameters.md",
+              "/basic-docs/installations/asset-chain-parameters.md",
               "Runtime Tools for Asset Chains"
             ]
           ]
         },
         {
-          title: "CryptoConditions (Smart Contracts)",
+          title: "Crypto Conditions (Smart Contracts)",
           collapsable: true,
           children: [
             [
-              "/basic-docs/010-cryptoconditions/101-cryptoconditions-instructions.md",
-              "Instructions for CryptoConditions"
+              "/basic-docs/cryptoconditions/cryptoconditions-instructions.md",
+              "Instructions for Crypto Conditions"
             ],
-            ["/basic-docs/010-cryptoconditions/110-cc-channels.md", "Channels"],
-            ["/basic-docs/010-cryptoconditions/120-cc-dice.md", "Dice"],
-            ["/basic-docs/010-cryptoconditions/130-cc-faucet.md", "Faucet"],
-            ["/basic-docs/010-cryptoconditions/133-cc-gateways.md", "Gateways"],
-            ["/basic-docs/010-cryptoconditions/135-cc-oracles.md", "Oracles"],
-            ["/basic-docs/010-cryptoconditions/140-cc-rewards.md", "Rewards"],
-            ["/basic-docs/010-cryptoconditions/150-cc-tokens.md", "Tokens"]
+            ["/basic-docs/cryptoconditions/cc-dice.md", "Channels"],
+            ["/basic-docs/cryptoconditions/cc-dice.md", "Dice"],
+            ["/basic-docs/cryptoconditions/cc-faucet.md", "Faucet"],
+            ["/basic-docs/cryptoconditions/cc-gateways.md", "Gateways"],
+            ["/basic-docs/cryptoconditions/cc-oracles.md", "Oracles"],
+            ["/basic-docs/cryptoconditions/cc-rewards.md", "Rewards"],
+            ["/basic-docs/cryptoconditions/cc-tokens.md", "Tokens"]
           ]
         },
         {
           title: "Essential RPC Calls",
           collapsable: true,
           children: [
-            ["/basic-docs/015-essential-rpc/303-address-index.md", "Address"],
-            ["/basic-docs/015-essential-rpc/307-blockchain.md", "Blockchain"],
-            ["/basic-docs/015-essential-rpc/311-control.md", "Control"],
-            ["/basic-docs/015-essential-rpc/315-disclosure.md", "Disclosure"],
-            ["/basic-docs/015-essential-rpc/319-generate.md", "Generate"],
-            ["/basic-docs/015-essential-rpc/323-mining.md", "Mining"],
-            ["/basic-docs/015-essential-rpc/325-jumblr.md", "Jumblr"],
-            ["/basic-docs/015-essential-rpc/327-network.md", "Network"],
-            ["/basic-docs/015-essential-rpc/331-rawtransactions.md", "Raw Transactions"],
-            ["/basic-docs/015-essential-rpc/335-util.md", "Util"],
-            ["/basic-docs/015-essential-rpc/339-wallet.md", "Wallet"]
+            ["/basic-docs/essential-rpc/address-index.md", "Address"],
+            ["/basic-docs/essential-rpc/blockchain.md", "Blockchain"],
+            ["/basic-docs/essential-rpc/control.md", "Control"],
+            ["/basic-docs/essential-rpc/disclosure.md", "Disclosure"],
+            ["/basic-docs/essential-rpc/generate.md", "Generate"],
+            ["/basic-docs/essential-rpc/mining.md", "Mining"],
+            ["/basic-docs/essential-rpc/jumblr.md", "Jumblr"],
+            ["/basic-docs/essential-rpc/network.md", "Network"],
+            ["/basic-docs/essential-rpc/rawtransactions.md", "Raw Transactions"],
+            ["/basic-docs/essential-rpc/util.md", "Util"],
+            ["/basic-docs/essential-rpc/wallet.md", "Wallet"]
           ]
         }
       ],

@@ -57,7 +57,7 @@ const organizeExamples = function(wip) {
 
 fs.ftruncate(fd, 0, (err) => {
   if (err) {
-    console.err(err)
+    console.error(err)
     process.exit()
   }
 

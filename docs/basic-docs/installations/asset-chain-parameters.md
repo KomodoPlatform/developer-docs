@@ -168,7 +168,7 @@ It is used in combination with [`ac_perc`](../installations/asset-chain-paramete
 
 If `ac_pubkey` is set, but `ac_perc` is not, this simply means the genesis block will be mined to the set `pubkey`'s address, and no blocks or transactions thereafter will mine payments to the `pubkey`.
 
-`pubkey` must be set to a 33 byte hex string. You can get the pubkey of an address by using the [`validateaddress`](../015-essential-rpc/335-util.html#validateaddress) command in `komodod`, and searching for the returned `pubkey` property. The address must be imported to the wallet before using `validateaddress`.
+`pubkey` must be set to a 33 byte hex string. You can get the pubkey of an address by using the [`validateaddress`](../essential-rpc/util.html#validateaddress) command in `komodod`, and searching for the returned `pubkey` property. The address must be imported to the wallet before using `validateaddress`.
 
 #### :pushpin: Examples:
 
@@ -277,7 +277,7 @@ Once staking is active, utxos available in the `wallet.dat` file will begin stak
 
 On an `ac_staked` asset chain there are 64 global segments (`segid`'s) to which all utxos belong, and these 64 `segid`'s will automatically take turns staking blocks. The method of determining which segment a utxo belongs to is determined automatically, according to the hash of the address in which the utxo resides and the height of the blockchain.
 
-You can see which segment an address belongs to by using the [`validateaddress`](../015-essential-rpc/335-util.html#validateaddress) rpc call. You can find out the amount of rewards your staked coins have earned via the [`getbalance64`](../015-essential-rpc/339-wallet.html#getbalance64) rpc call.
+You can see which segment an address belongs to by using the [`validateaddress`](../essential-rpc/util.html#validateaddress) rpc call. You can find out the amount of rewards your staked coins have earned via the [`getbalance64`](../essential-rpc/wallet.html#getbalance64) rpc call.
 
 Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure. If `ac_staked` is used in conjunction with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction.
 

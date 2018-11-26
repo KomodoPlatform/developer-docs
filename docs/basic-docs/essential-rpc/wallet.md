@@ -1124,7 +1124,7 @@ See also <b>dumpprivkey</b>.
 
 Structure|Type|Description
 ---------|----|-----------
-"privkey"                                    |(string, required)           |the private key (see [`dumpprivkey`](../015-essential-rpc/339-wallet.html#dumpprivkey))
+"privkey"                                    |(string, required)           |the private key (see [`dumpprivkey`](../essential-rpc/wallet.html#dumpprivkey))
 "label"                                      |(string, optional, default="")|an optional label
 rescan                                       |(boolean, optional, default=true)|rescan the wallet for transactions
 
@@ -1182,7 +1182,7 @@ Response:
 
 **importwallet "filename"**
 
-The `importwallet` method imports transparent-address keys from a wallet-dump file (see [`dumpwallet`](../015-essential-rpc/339-wallet.html#dumpwallet)).
+The `importwallet` method imports transparent-address keys from a wallet-dump file (see [`dumpwallet`](../essential-rpc/wallet.html#dumpwallet)).
 
 ### Arguments:
 
@@ -3391,7 +3391,7 @@ See also <b>z_exportkey</b>.
 
 Structure|Type|Description
 ---------|----|-----------
-"z_privatekey"                               |(string, required)           |the z_privatekey (see [`z_exportkey`](../015-essential-rpc/339-wallet.html#z-exportkey))
+"z_privatekey"                               |(string, required)           |the z_privatekey (see [`z_exportkey`](../essential-rpc/wallet.html#z-exportkey))
 rescan                                       |(string, optional, default=`"whenkeyisnew"`)|rescan the wallet for transactions; can be `yes` | `no` | `whenkeyisnew`
 startHeight                                  |(numeric, optional, default=0)|block height to start rescan
 

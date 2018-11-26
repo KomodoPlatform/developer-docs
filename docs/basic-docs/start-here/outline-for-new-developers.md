@@ -88,7 +88,7 @@ Every asset chain has zero-knowledge privacy pre-installed, giving you the tools
 
 Having a blockchain all to yourself grants a competitive level of freedom to your creative endeavors.
 
-The highly advanced developer that wishes to engineer your own consensus mechanism can move forward rapidly with your ideas, backed up with the hash rate of Bitcoin. You also have our consensus-level smart contract technology, CryptoConditions, at your disposal, which can allow you to make adjustments to your consensus mechanism far more quickly.
+The highly advanced developer that wishes to engineer your own consensus mechanism can move forward rapidly with your ideas, backed up with the hash rate of Bitcoin. You also have our consensus-level smart contract technology, Crypto Conditions, at your disposal, which can allow you to make adjustments to your consensus mechanism far more quickly.
 
 Unlike other platforms, there is no need to wait for the Komodo team to update either the default daemon's functionality, or to update the main Komodo blockchain (KMD).
 
@@ -202,11 +202,11 @@ After you have your asset chain running on both nodes, we recommend executing so
 
 Here are links to some simple and common rpc examples:
 
-[`getnewaddress`](../015-essential-rpc/339-wallet.html#getnewaddress)
+[`getnewaddress`](../essential-rpc/wallet.html#getnewaddress)
 
-[`sendtoaddress`](../015-essential-rpc/339-wallet.html#sendtoaddress)
+[`sendtoaddress`](../essential-rpc/wallet.html#sendtoaddress)
 
-[`getinfo`](../015-essential-rpc/311-control.html#getinfo)
+[`getinfo`](../essential-rpc/control.html#getinfo)
 
 As Komodo is downstream from both [Bitcoin](https://bitcoin.org) and [Zcash](https://z.cash), essentially all of the commands that are available on those two upstream blockchains are also available here.
 
@@ -232,15 +232,15 @@ First, you must create an asset chain that has the [ac_cc runtime parameter prop
 
 With this activated, you can try a few existing templates:
 
-- [Create ERC20 tokens on your new asset chain](../010-cryptoconditions/150-cc-tokens.html)
-- Try using your [built-in on-chain DEX](../010-cryptoconditions/110-cc-channels.html)
-- Use [the oracles smart-contract template](../010-cryptoconditions/135-cc-oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
+- [Create ERC20 tokens on your new asset chain](../cryptoconditions/cc-tokens.html)
+- Try using your [built-in on-chain DEX](../cryptoconditions/cc-dice.html)
+- Use [the oracles smart-contract template](../cryptoconditions/cc-oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
 
 ...and more!
 
 ## Write Your Own Smart-Contract Templates
 
-If you're ready to try out your own customized smart contract, please read the detailed technical documentation written by our lead developer, JL777: [Mastering CryptoConditions](https://docs.komodoplatform.com/cc/index-book-jl.html).
+If you're ready to try out your own customized smart contract, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Crypto Conditions](https://docs.komodoplatform.com/cc/index-book-jl.html).
 
 Most developers don't need to design smart contracts on Komodo, but rather, only need to implement existing smart-contracts templates while developing a dApp. So don't be discouraged if the technical documentation appears too thick for your level of experience. Come to Discord when you have questions.
 

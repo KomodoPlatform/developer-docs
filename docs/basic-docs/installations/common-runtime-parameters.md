@@ -71,7 +71,7 @@ To see additional runtime parameters not included here, please visit [the releva
 
 The user should [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
-`addressindex` is enabled by default on any asset chain that utilizes the CryptoConditions (CC) smart-contract protocol.
+`addressindex` is enabled by default on any asset chain that utilizes the Crypto Conditions (CC) smart-contract protocol.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
@@ -95,7 +95,7 @@ addressindex=1
 
 `txindex` instructs a KMD-based coin daemon to track every transaction made on the relevant blockchain.
 
-`txindex` is enabled by default on all KMD-based coin daemons, and is utilized in delayed Proof of Work (dPoW), JUMBLR, and the CryptoConditions (CC) smart-contract protocol.
+`txindex` is enabled by default on all KMD-based coin daemons, and is utilized in delayed Proof of Work (dPoW), JUMBLR, and the Crypto Conditions (CC) smart-contract protocol.
 
 ::: danger Warning!
 Disabling `txindex` will cause the default KMD-based daemon to malfunction.
@@ -147,7 +147,7 @@ Using timestampindex as a default value in the coin's .conf file:
 
 The user should [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
-`spentindex` is enabled by default on any asset chain that utilizes the CryptoConditions (CC) smart contract protocol.
+`spentindex` is enabled by default on any asset chain that utilizes the Crypto Conditions (CC) smart contract protocol.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
@@ -313,7 +313,7 @@ connect=69.164.218.197
 
 `gen` instructs the daemon to attempt to generate new blocks, and thereby mine new coins.
 
-See also [`setgenerate`](../015-essential-rpc/319-generate.html#setgenerate).
+See also [`setgenerate`](../essential-rpc/generate.html#setgenerate).
 
 #### :pushpin: Examples:
 
@@ -542,7 +542,7 @@ Using stopat as a runtime parameter:
 
 `pubkey` sets an address to use as a change address for all transactions. This value must be set to a 33 byte pubkey. All mined coins will also be sent to this address. We recommend that the user ensure they own the relevant `privkey` of their chosen `pubkey`, lest their funds be sent to a `pubkey` they do not own or control.
 
-The `pubkey` parameter is required for all CryptoConditions (CC) smart-contract enabled chains. All smart-contract transactions will utilize the `pubkey` as an integral property.
+The `pubkey` parameter is required for all Crypto Conditions (CC) smart-contract enabled chains. All smart-contract transactions will utilize the `pubkey` as an integral property.
 
 #### :pushpin: Examples:
 

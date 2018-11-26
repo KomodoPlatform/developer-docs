@@ -2,17 +2,17 @@
 
 The `dice` smart contract allows for a decentralized `dice` game on a blockchain. The `dice` smart contract is essentially a simple, but fully functional decentralized application (dApp).
 
-It also useful as a demonstration chain, as it shows how CryptoConditions allows the combination of real-time gameplay with blockchain-enforced provably random entropy.
+It also useful as a demonstration chain, as it shows how Crypto Conditions allows the combination of real-time gameplay with blockchain-enforced provably random entropy.
 
 `dice` is a simple gambling game, where one node creates a "house" contract, with seed funds and other parameters, and other users place bets within the indicated parameters. Winners and losers are determined by blockchain-supported random entropy.
 
-The "house" node should be running the [`dicestatus`](../010-cryptoconditions/120-cc-dice.html#dicestatus) method at a regular frequency. This method finishes unfinished bets and facilitates entropy.
+The "house" node should be running the [`dicestatus`](../cryptoconditions/cc-dice.html#dicestatus) method at a regular frequency. This method finishes unfinished bets and facilitates entropy.
 
-To create a "house" contract, use [`dicefund`](../010-cryptoconditions/120-cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [`diceaddfunds`](../010-cryptoconditions/120-cc-dice.html#diceaddfunds).
+To create a "house" contract, use [`dicefund`](../cryptoconditions/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [`diceaddfunds`](../cryptoconditions/cc-dice.html#diceaddfunds).
 
-Once the contract is created and funded, users can place a bet using [`dicebet`](../010-cryptoconditions/120-cc-dice.html#dicebet).
+Once the contract is created and funded, users can place a bet using [`dicebet`](../cryptoconditions/cc-dice.html#dicebet).
 
-Anyone can execute a [`dicefinish`](../010-cryptoconditions/120-cc-dice.html#dicefinish) rpc call after the contract's time expires. This prevents the "house" node from cheating by going offline.
+Anyone can execute a [`dicefinish`](../cryptoconditions/cc-dice.html#dicefinish) rpc call after the contract's time expires. This prevents the "house" node from cheating by going offline.
 
 ## diceaddfunds
 
@@ -22,7 +22,7 @@ The `diceaddfunds` method adds funds to the desired `dice` contract.
 
 Only the owner of the `dice` contract is able to add funds.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -200,7 +200,7 @@ Response:
 
 The `dicebet` method places a bet on the indicated `dice` contract.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -369,7 +369,7 @@ The `dicefinish` method rebroadcasts a bet that has already been broadcasted.
 
 If the returned `hex` value is `0`, the bet is finished.
 
-If the returned `hex` value is not `0`, then the `hex` value should be broadcast with [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction).
+If the returned `hex` value is not `0`, then the `hex` value should be broadcast with [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction).
 
 ### Arguments:
 
@@ -409,7 +409,7 @@ Response:
 
 The `dicefund` method creates and funds a dice contract.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../015-essential-rpc/331-rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
 
 Ideally, the dice creator node should be online throughout the contract's life, to determine `winning bid` or `losing bid`.
 
@@ -637,7 +637,7 @@ The `diceinfo` method looks up information about the specific `dice` contract ac
 
 A `fundingtxid` is the txid of the transaction that created and funded the relevant contract.
 
-Use the [`dicelist`](../010-cryptoconditions/120-cc-dice.html#dicelist) method to discover a list of available `fundingtxid` hashes on the asset chain.
+Use the [`dicelist`](../cryptoconditions/cc-dice.html#dicelist) method to discover a list of available `fundingtxid` hashes on the asset chain.
 
 
 ### Arguments:
