@@ -475,7 +475,7 @@ name                                         |(string)                     |the 
 cointxid                                     |(string)                     |the `txid` returned when the foreign assets were sent to the gateway pubkey
 claimvout                                    |(string)                     |the `vout` of the claim (on the first use, this value should be 0)
 deposithex                                   |(string)                     |returned from the `txid` wherein the funds were sent to the foreign-asset gateway pubkey
-proof                                        |(string)                     |the proof for the `txid`; can be found using the [`gettxoutproof`](/015-essential-rpc/307-blockchain.html#gettxoutproof) method
+proof                                        |(string)                     |the proof for the `txid`; can be found using the [`gettxoutproof`](../015-essential-rpc/307-blockchain.html#gettxoutproof) method
 destpub                                      |(string)                     |the public key where the tokens should be received on the asset chain
 amount                                       |(number)                     |the amount of the deposit
 

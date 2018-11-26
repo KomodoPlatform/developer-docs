@@ -82,7 +82,7 @@ Please refer to [Asset Chain Parameters](../005-installations/023-asset-chain-pa
 :::
 
 ::: tip
-Please note the requirements for [`ac_supply`](../005-installations/023-asset-chain-parameters.html#ac-supply), and instructions for using [`addnode`](/005-installations/019-common-runtime-parameters.html#addnode) under various network conditions, including firewalls and LANs.*
+Please note the requirements for [`ac_supply`](../005-installations/023-asset-chain-parameters.html#ac-supply), and instructions for using [`addnode`](../005-installations/019-common-runtime-parameters.html#addnode) under various network conditions, including firewalls and LANs.*
 :::
 
 ## Part II: Connecting the Second Node

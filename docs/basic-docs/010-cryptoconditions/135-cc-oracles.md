@@ -385,11 +385,11 @@ result                                       |(string)                     |whet
 txid                                         |(string)                     |the unique txid, or oracletxid, that identifies the oracle
 name                                         |(string)                     |the name of the oracle contract
 description                                  |(string)                     |the description of the oracle contract
-format                                       |(string)                     |a string that identifies the data type accepted for the oracle contract (see [`oraclescreate`](/010-cryptoconditions/135-cc-oracles.html#oraclescreate))
+format                                       |(string)                     |a string that identifies the data type accepted for the oracle contract (see [`oraclescreate`](../010-cryptoconditions/135-cc-oracles.html#oraclescreate))
 marker                                       |(string)                     |the unmodified public address generated from the oracle contract's privkey
 registered:                                  |                             |
 {                                            |                             |
-publisher                                    |(string)                     |the unique identifier for the publisher (see [`oraclesregister`](/010-cryptoconditions/135-cc-oracles.html#oraclesregister))
+publisher                                    |(string)                     |the unique identifier for the publisher (see [`oraclesregister`](../010-cryptoconditions/135-cc-oracles.html#oraclesregister))
 baton                                        |(string)                     |the baton address of the publisher, which is a cryptoconditions address (based on the pubkey of the publisher and the EVAL code of the oracle contract)
 batontxid                                    |(string)                     |the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher
 lifetime                                     |(number)                     |length of time since publisher's inception
