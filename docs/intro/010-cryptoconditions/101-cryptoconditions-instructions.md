@@ -1,6 +1,6 @@
-# Smart Contract Instructions
+# CryptoConditions Instructions
 
-## Understanding the different Addresses used in CryptoConditions based contracts
+## Understanding the Types of Addresses Used in CryptoConditions-Based Contracts
 
 The method of transferring contract-related assets is often slightly different from transferring the main coins of an asset chain.
 
