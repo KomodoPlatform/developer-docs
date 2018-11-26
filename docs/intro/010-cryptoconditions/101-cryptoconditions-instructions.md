@@ -54,7 +54,7 @@ To see your CC address, you will typically use an `address` related rpc call fro
 }
 ```
 
-In this list, `myCCaddress` is the contract-address used for transactions related to the `rewards` contract; it is based on the pubkey combined with the contract's unique EVAL code.
+In this list, `myCCaddress` is the contract address used for transactions related to the `rewards` contract; it is based on the pubkey combined with the contract's unique EVAL code.
 
 The `myaddress` property is the unmodified address that corresponds to the pubkey.
 
