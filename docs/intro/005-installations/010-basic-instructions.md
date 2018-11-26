@@ -28,7 +28,7 @@ After the daemon launches, you may interact with it using `komodo-cli` like so:
 
 `./komodo-cli API_COMMAND`
 
-To launch another Komodo-based blockchain, include the necessary parameters. The list of launch parameters for each Komodod-based blockchain that is already live [is found here](https://github.com/jl777/komodo/blob/master/src/assetchains.old).
+To launch another Komodo-based blockchain, include the necessary parameters. The list of launch parameters for each Komodod-based blockchain in our ecosystem [is found here](https://github.com/jl777/komodo/blob/master/src/assetchains.old).
 
 For example, to launch the DEX asset chain, execute:
 
