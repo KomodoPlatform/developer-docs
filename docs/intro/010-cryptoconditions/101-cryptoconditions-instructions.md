@@ -30,7 +30,7 @@ This will return a json object with many properties. In the properties you will 
 
 `"pubkey": "DO_NOT_USE_ADDRESS019a79b0921a1be6d3ca6f9e8a050feb14eb845fe46b9d756"`
 
-This is will be your contract-pubkey; you must now indicate it in the daemon.
+This is will be your contract pubkey; you must now indicate it in the daemon.
 
 To do this, first stop the daemon.
 
