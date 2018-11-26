@@ -1,6 +1,6 @@
 # Smart Contract: Tokens
 
-The `tokens` CryptoConditions smart contract enables core-asset support for the on-chain creation of colored coins, also called tokens. The functionality is facilitated by utxo technology. Tokens can be generated on any chain where the [`ac_cc`](../005-installations/023-asset-chain-parameters.html#ac-cc) is enabled.
+The `tokens` CryptoConditions smart contract enables core-asset support for the on-chain creation of colored coins, also called tokens. The functionality is facilitated by utxo technology. Tokens can be generated on any chain where the [`ac_cc`](../installations/asset-chain-parameters.html#ac-cc) is enabled.
 
 The `tokens` smart contract requires locking a proportional amount of satoshis of the native coins. These satoshis create the supply for the token.
 

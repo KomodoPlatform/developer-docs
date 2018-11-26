@@ -81,7 +81,7 @@ This method requires that the coin daemon have the <b>exportdir</b> runtime para
 
 Structure|Type|Description
 ---------|----|-----------
-"destination"                                |(string, required)           |the destination filename, saved in the directory set by the [`exportdir`](../005-installations/019-common-runtime-parameters.html#exportdir) runtime parameter
+"destination"                                |(string, required)           |the destination filename, saved in the directory set by the [`exportdir`](../installations/common-runtime-parameters.html#exportdir) runtime parameter
 
 ### Response:
 
@@ -185,7 +185,7 @@ This method requires that the coin daemon have the <b>exportdir</b> runtime para
 
 Structure|Type|Description
 ---------|----|-----------
-"filename"                                   |(string, required)           |the filename, saved in folder set by the [`exportdir`](../005-installations/019-common-runtime-parameters.html#exportdir) runtime parameter
+"filename"                                   |(string, required)           |the filename, saved in folder set by the [`exportdir`](../installations/common-runtime-parameters.html#exportdir) runtime parameter
 
 
 ### Response:
@@ -2848,7 +2848,7 @@ The `z_exportwallet` method exports all wallet keys, including both t address an
 
 Structure|Type|Description
 ---------|----|-----------
-"filename"                                   |(string, required)           |the filename, saved to the directory indicated by the [`exportdir`](../005-installations/019-common-runtime-parameters.html#exportdir) parameter at daemon runtime (required)
+"filename"                                   |(string, required)           |the filename, saved to the directory indicated by the [`exportdir`](../installations/common-runtime-parameters.html#exportdir) parameter at daemon runtime (required)
 
 ### Response:
 
@@ -3866,7 +3866,7 @@ fromaddresses                                |(string, required)           |
 ]                                            |                             |
 "toaddress"                                  |(string, required)           |the t address or z address to receive the combined utxo
 fee                                          |(numeric, optional, default=0.0001)|the fee amount to attach to this transaction
-transparent_limit                            |(numeric, optional, default=50)|limit on the maximum number of transparent UTXOs to merge; you may set this value to 0 to use the node option [`mempooltxinputlimit`](../005-installations/019-common-runtime-parameters.html#mempooltxinputlimit)
+transparent_limit                            |(numeric, optional, default=50)|limit on the maximum number of transparent UTXOs to merge; you may set this value to 0 to use the node option [`mempooltxinputlimit`](../installations/common-runtime-parameters.html#mempooltxinputlimit)
 shielded_limit                               |(numeric, optional, default=10)|limit on the maximum number of hidden notes to merge; you may set this value to 0 to merge as many as will fit in the transaction
 "memo"                                       |(string, optional)           |encoded as hex; when ``toaddress`` is a z address, this value will be stored in the memo field of the new note
 
@@ -4007,7 +4007,7 @@ Response:
 
 The `z_shieldcoinbase` method shields transparent coinbase funds by sending the funds to a shielded z address.  This is an asynchronous operation and utxos selected for shielding will be locked. If there is an error, they are unlocked.
 
-The RPC call `listlockunspent` can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the [`mempooltxinputlimit`](../005-installations/019-common-runtime-parameters.html#mempooltxinputlimit) option will determine the number of uxtos.  Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
+The RPC call `listlockunspent` can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the [`mempooltxinputlimit`](../installations/common-runtime-parameters.html#mempooltxinputlimit) option will determine the number of uxtos.  Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
 
 ### Arguments:
 

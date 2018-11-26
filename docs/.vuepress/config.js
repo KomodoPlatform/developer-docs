@@ -6,7 +6,7 @@ module.exports = {
     lastUpdated: 'Last Updated',
     nav: [{
         text: "Start Here",
-        link: "/basic-docs/000-start-here/001-introduction.html"
+        link: "/basic-docs/start-here/introduction.html"
       },
       {
         text: "KomodoPlatform.com",
@@ -18,13 +18,13 @@ module.exports = {
           title: "Start Here",
           collapsable: true,
           children: [
-            ["/basic-docs/000-start-here/001-introduction.md", "Introduction"],
+            ["/basic-docs/start-here/introduction.md", "Introduction"],
             [
-              "/basic-docs/000-start-here/005-outline-for-new-developers.md",
+              "/basic-docs/start-here/005-outline-for-new-developers.md",
               "Outline for New Developers"
             ],
             [
-              "/basic-docs/000-start-here/017-cc-overview.md",
+              "/basic-docs/start-here/017-cc-overview.md",
               "Overview of CryptoConditions (Smart Contracts)"
             ]
           ]
