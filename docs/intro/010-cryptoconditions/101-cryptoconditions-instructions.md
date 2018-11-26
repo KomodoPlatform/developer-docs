@@ -40,7 +40,7 @@ Then relaunch your daemon using the required parameters, and make sure to includ
 
 `./komodo-cli -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=777 -pubkey=DO_NOT_USE_ADDRESS019a79b0921a1be6d3ca6f9e8a050feb14eb845fe46b9d756`
 
-The daemon will now use the pubkey as the basis for all CryptoConditions based smart contracts.
+The daemon will now use the pubkey as the basis for all CryptoConditions-based smart contracts.
 
 To see your CC address, you will typically use an `address` related rpc call from the list of available rpc calls of your chosen smart contract. For example, `rewardsaddress` could return a response like this:
 
