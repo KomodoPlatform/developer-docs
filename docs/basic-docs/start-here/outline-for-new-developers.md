@@ -226,7 +226,7 @@ Or, you could make your asset chain suitable for a rapid mining period, followed
 
 Now you should be ready to head into smart contract territory.
 
-Smart contracts on Komodo are a bit different (and if you ask us, a bit better too, but we're admittedly biased). If you need to catch the general idea, read the section, [Smart Contract Overview](017-cc-overview.html).
+Smart contracts on Komodo are a bit different (and if you ask us, a bit better too, but we're admittedly biased). If you need to catch the general idea, read the section, [Smart Contract Overview](cc-overview.html).
 
 First, you must create an asset chain that has the [ac_cc runtime parameter properly enabled](../installations/asset-chain-parameters.html#ac-cc).
 
