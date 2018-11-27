@@ -4,17 +4,17 @@
 
 Komodo is built on the Bitcoin protocol, and traditionally, Bitcoin Script is thought of as being incapable of supporting smart contracts. This is mostly a consequence of the fact that Bitcoin Script is (intentionally) not Turing complete. Now, all of this is changing with Crypto Conditions, a utxo-based smart contract protocol.
 
-As is often the case, Komodo Platform is leading the blockchain industry in this brand-new technology. This section will explain what Crypto Conditions is, how it works, and how utxo-based smart contracts will dramatically alter the blockchain landscape.
+As is often the case, Komodo Platform is leading the blockchain industry in this brand new technology. This section will explain what Crypto Conditions is, how it works, and how utxo-based smart contracts will dramatically alter the blockchain landscape.
 
 ## A Brief Review of Bitcoin Script
 
 The very first block in the Bitcoin blockchain was mined on or around January 3, 2009. Since then, this revolutionary technology has exploded, forever changing the way we think of money and currency. We owe many of these developments to Satoshi Nakamoto and his original Bitcoin-core code.
 
-The Bitcoin-core code itself is written in C++. A time-tested and well-known programming language, C++ is Turing complete and can therefore do all of the things that any other Turing complete programming language can do.
+The Bitcoin-core code itself is written in C++. A time-tested and well-known programming language, C++ is Turing complete and can therefore do all that any other Turing complete programming language can do.
 
 However, Bitcoin transactions are not executed with C++. Instead, transactions are carried out with a special protocol called Bitcoin Script. Script has a number of "opcodes", or commands, that tell nodes how to deal with any specific transaction request.
 
-While most computer programming languages are considered Turing complete, Bitcoin Script is not. It’s widely accepted that this was an intentional decision. But before we can discuss the relative merits of making a programming language Turing complete, let’s take a moment to understand what exactly Turing complete means.
+While most computer programming languages are considered Turing complete, Bitcoin Script is not. It’s widely accepted that this was an intentional decision. But before we can discuss the relative merits of making a programming language Turing complete, let’s take a moment to understand what exactly "Turing complete" means.
 
 ## Turing Completeness
 
@@ -72,7 +72,7 @@ Moreover, gas prevents an accidental infinite loop from wreaking havoc on the ne
 
 An important benefit the gas-based platform brought to the world is that it broke the barrier for allowing developers to decentralize software execution in a p2p environment.
 
-In a non-decentralized p2p software application, users typically must rely on a centralized server or other untrusted third-party to maintain sanity in the execution of software instructions. Decentralized applications, "dApps", allow users to interact with software while relying not on a centralized server, but on the decentralized blockchain.
+For example, in a non-decentralized p2p software application, users typically must rely on a centralized server or other impersonal third-party to maintain sanity in the execution of software instructions. Decentralized applications, "dApps", allow users to interact with software while relying not on a centralized server, but on the decentralized blockchain.
 
 ## The Problem with the Gas-based Model
 
@@ -82,11 +82,11 @@ If a particular contract or dApp needs the network to perform a large number of 
 
 Take these two competing statements from Buterin by way of illustration. In January of 2014 he said, “...Our goal is to provide a platform for decentralized applications – an android of the cryptocurrency world, where all efforts can share a common set of APIs, trustless interactions and no compromises.” [But later, in July 2018, Buterin had this to say:](https://www.coindesk.com/vitalik-ethereum-app-builders-screwed-scaling-limits/) “If you want to build a decentralized Uber and Lyft on top of an unscalable Ethereum, you are screwed. Full stop.”
 
-The "Uber" reference is to a popular phone app where users can hail and share a freelance taxi service. On average, this app processes 12 financial transactions per second. At the time of Buterin's statement, Ethereum can process 15 transactions per second. Let's make a rough analysis of the cost to maintain this one dApp on Ethereum.
+The "Uber" reference is to a popular phone app where users can hail and share a freelance-taxi service. On average, this app processes 12 financial transactions per second. At the time of Buterin's statement, Ethereum can process 15 transactions per second. Let's make a rough analysis of the cost to maintain this one dApp on Ethereum.
 
 The value of the gas fees for an Uber-like decentralized app would have to cover ~80% of the cost of maintaining the Ethereum blockchain (`(12 txs / 15 txs) * 100 = 80%`). Currently, it costs about [$150,000 USD per hour](http://www.crypto51.app/) to maintain the Ethereum hash rate. The dApp developer and their end-users would be responsible for 80% of this, so they would have to pay gas fees of at least $120,000 per hour, which translates to ~$30 per second.
 
-While existing large corporations and their customer bases may be able to afford this financial burn rate, it is difficult to conceive of a startup that can afford it. The ongoing gas fees to continually maintain the functionality of this dApp are simply too expensive.
+Therefore, looking only at the costs, and not at the lack of space for multiple dApps, we begin to see the enormous flaws of the gas-based model. While existing large corporations and their customer bases may be able to afford this financial burn rate, it is difficult to conceive of a startup that can afford it. The ongoing gas fees to continually maintain the functionality of this dApp are simply too expensive.
 
 All this is assuming that the dApp only processes one transaction per ride, per customer. If the dApp is instead a game that has a looping function, the gas fees can grow even more absurd, and the blockchain itself can crash as it attempts to constantly operate at 100% capacity.
 
@@ -136,7 +136,7 @@ In its simplest form, Crypto Conditions locks a utxo in a publicly-known address
 
 It is fundamentally different than the gas-based model. In the gas-based model, a user has a total balance and they instruct their blockchain software to execute a smart-contract either until the contract is complete, or their total balance is gone.
 
-With Komodo's Crypto Conditions, a user locks a series of utxos in a smart-contract with a set of instructions that must be met before the utxo can be sent to its final destination.
+With Komodo's Crypto Conditions, a user locks a series of utxos in a contract with a set of instructions that must be met before the utxo can be sent to its final destination.
 
 This is a dramatically more secure setup. Only the utxos that have been indicated as belonging to a smart contract can be spent. This is different from the gas-based model, where a bug in the software can (and frequently does) allow a faulty smart contract to drain the full balance of a wallet.
 
@@ -180,7 +180,7 @@ First, these smart contracts are hard-coded into the Komodo code base, which mea
 
 The C and C++ programming languages are widely understood, time-tested, and, perhaps most importantly, Turing complete. Thus, utxo-based smart contracts can be programmed to do anything that any other existing program or application is able to do.
 
-Furthermore, because smart contracts on Komodo run in the daemon, developers can avoid the limitations and hassles of having to run code in a virtual machine, as is the case with the many gas-based smart contract platforms. You have far more speed, flexibility, and power. This is made possible by our unique design of connecting independent blockchains together, rather than forcing all users to run on a layer-one main chain.
+Furthermore, because smart contracts on Komodo run in the daemon, developers can avoid the limitations and hassles of having to run code in a virtual machine, as is the case with the many gas-based smart contract platforms. On Komodo, you have far more speed, flexibility, and power. This is made possible by our unique design of connecting independent blockchains together, rather than forcing all users to run on a layer-one main chain.
 
 Second, utxo-based smart contracts are more secure than balance-based smart contracts. This is true in several ways. For one thing, because Komodo’s smart contracts are utxo-based, it is far more difficult, if not impossible, to use a smart contract to flood the parent coin's coin supply with malicious coins.
 
@@ -206,7 +206,7 @@ If a project on the Komodo Platform needs additional contracts urgently and has 
 
 ## Conclusion
 
-As far as the Komodo team knows, no other blockchain project has successfully implemented Crypto Conditions on a live chain. From atomic swaps and on-demand scalability features to cross-chain interoperability syncing and utxo-based smart contracts, Komodo Platform is continuing to develop the technologies at the bleeding edge of the blockchain industry.
+As far as the Komodo team knows, no other blockchain project has successfully implemented Crypto Conditions on a live chain. From atomic swaps and on-demand scalability features to cross-chain interoperability syncing and utxo-based smart contracts, Komodo continues to develop technologies at the bleeding edge of the blockchain industry.
 
 Komodo has implemented several smart contracts already, and they are available to all asset chains in our ecosystem. Some of these smart contracts can facilitate Oracles, on-chain gambling, on-chain DEX functionality, ERC20-like tokens, micro-payment channels, and more.
 
