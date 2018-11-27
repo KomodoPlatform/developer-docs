@@ -32,7 +32,7 @@ blockhashes                                  |(array)                      |hash
 Command:
 
 ```
-komodo-cli generate 2
+./komodo-cli generate 2
 
 response:
 
@@ -71,7 +71,7 @@ true/false                                   |(boolean)                    |indi
 Command:
 
 ```
-komodo-cli getgenerate
+./komodo-cli getgenerate
 ```
 
 Response:
@@ -131,7 +131,7 @@ Turn on generation with unlimited processors:
 Command:
 
 ```
-komodo-cli setgenerate true -1
+./komodo-cli setgenerate true -1
 ```
 
 
@@ -146,7 +146,7 @@ Check the setting:
 Command:
 
 ```
-komodo-cli getgenerate
+./komodo-cli getgenerate
 ```
 
 Response:
@@ -160,7 +160,7 @@ Turn off generation:
 Command:
 
 ```
-komodo-cli setgenerate false
+./komodo-cli setgenerate false
 ```
 
 Response:

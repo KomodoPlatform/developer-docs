@@ -26,7 +26,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli addnode "192.168.0.6:8233" "onetry"
+./komodo-cli addnode "192.168.0.6:8233" "onetry"
 ```
 
 Response:
@@ -72,7 +72,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli clearbanned
+./komodo-cli clearbanned
 ```
 
 Response:
@@ -120,7 +120,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli disconnectnode "192.168.0.6:8233"
+./komodo-cli disconnectnode "192.168.0.6:8233"
 ```
 
 Response:
@@ -186,7 +186,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getaddednodeinfo true
+./komodo-cli getaddednodeinfo true
 ```
 
 Response:
@@ -209,7 +209,7 @@ Response:
 Command:
 
 ```
-komodo-cli getaddednodeinfo true "78.47.205.239"
+./komodo-cli getaddednodeinfo true "78.47.205.239"
 ```
 
 Response:
@@ -281,7 +281,7 @@ n                                            |(numeric)                    |the 
 Command:
 
 ```
-komodo-cli getconnectioncount
+./komodo-cli getconnectioncount
 ```
 
 Response:
@@ -339,7 +339,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getdeprecationinfo
+./komodo-cli getdeprecationinfo
 ```
 
 Response:
@@ -401,7 +401,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getnettotals
+./komodo-cli getnettotals
 ```
 
 Response:
@@ -485,7 +485,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getnetworkinfo
+./komodo-cli getnetworkinfo
 ```
 
 Response:
@@ -629,7 +629,7 @@ number,                                      |(numeric)                    |the 
 Command:
 
 ```
-komodo-cli getpeerinfo
+./komodo-cli getpeerinfo
 ```
 
 Response:
@@ -732,7 +732,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli listbanned
+./komodo-cli listbanned
 ```
 
 Response:
@@ -800,7 +800,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli ping
+./komodo-cli ping
 ```
 
 Response:
@@ -857,7 +857,7 @@ Use <b>listbanned</b> to view results.
 Command:
 
 ```
-komodo-cli setban "192.168.0.6" "add" 86400
+./komodo-cli setban "192.168.0.6" "add" 86400
 ```
 
 Response:
@@ -869,7 +869,7 @@ Response:
 Command:
 
 ```
-komodo-cli setban "192.168.0.0/24" "add"
+./komodo-cli setban "192.168.0.0/24" "add"
 ```
 
 Response:

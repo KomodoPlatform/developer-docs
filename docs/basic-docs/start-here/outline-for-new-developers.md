@@ -153,7 +153,7 @@ In general, the cost for Komodo's security services is competitive. While the in
 Please reach out to our team whenever you are ready to purchase dPoW. We will direct you to one of our service providers, and they can give you a direct quote for the annual cost.
 
 ::: tip
-We have a limited supply of early-bird discounts. Please inquire while supply last.
+We have a limited supply of early-adopter discounts. Please inquire while supply last.
 :::
 
 ### A Brief Note About Languages
@@ -168,13 +168,13 @@ For anything that occurs outside of the daemon, naturally you may use any langua
 
 ## Install the Basic Komodo Software
 
-So you've decide you want to take Komodo for a free test drive. Alright!
+So you've decided you want to take Komodo for a free test drive. Alright!
 
 The next step is to install the software on your machine.
 
 [Follow through the instructions here,](../installations/basic-instructions.html#installing-basic-komodo-software) and return to this spot in the outline when you are finished.
 
-## Get Familiarized With komodod and komodo-cli
+## Get Acquainted With komodod and komodo-cli
 
 Now that you have `komodod` and `komodo-cli` installed, [skim briefly through the instructions on how to interact with a Komodo-based daemon, linked here](../installations/basic-instructions.html#interacting-with-komodo-chains).
 
@@ -246,7 +246,7 @@ Most developers don't need to design smart contracts on Komodo, but rather, only
 
 ## Learn About BarterDEX and Agama
 
-Once you purchase our [dPoW security services and scalability solutions](../installations/creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work), you are eligible to add your asset chain to our native atomic-swap powered DEX, [BarterDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), and our multi-coin wallet, [Agama](https://komodoplatform.com/komodo-wallets/).
+Your asset chain can easily be integrated into our native atomic-swap powered DEX, [BarterDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), and our multi-coin wallet, [Agama](https://komodoplatform.com/komodo-wallets/).
 
 You can learn more about both on [docs.komodoplatform.com](https://docs.komodoplatform.com).
 

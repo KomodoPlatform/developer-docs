@@ -369,7 +369,7 @@ Step One:
 Command:
 
 ```
-"./komodo-cli -ac_name=CCNG1 gatewaysbind 202277c3a48ef168b164f7995eaced940e6416afefd6acd5aac0cb0a439df210 51a3fa99ef2abb3c1ce8248896d934bd348b7a1e0c5dbc06688c976247263a25 KMD 100000000 1 1 024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0
+./komodo-cli -ac_name=CCNG1 gatewaysbind 202277c3a48ef168b164f7995eaced940e6416afefd6acd5aac0cb0a439df210 51a3fa99ef2abb3c1ce8248896d934bd348b7a1e0c5dbc06688c976247263a25 KMD 100000000 1 1 024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0
 ```
 
 Response from Step One:
@@ -598,7 +598,7 @@ hex:                                         |(string)                     |a ra
 Command:
 
 ```
-"./komodo-cli -ac_name=CCNG1 gatewayswithdraw aa1b82d78398184c93405ccd15e3cf00b63634aac98a7b75053aa90eaf9cb47d KMD 03d8448c9a23f78addaca57669e31cd4b10a846579500442f40e87601453ca4e1d 0.1
+./komodo-cli -ac_name=CCNG1 gatewayswithdraw aa1b82d78398184c93405ccd15e3cf00b63634aac98a7b75053aa90eaf9cb47d KMD 03d8448c9a23f78addaca57669e31cd4b10a846579500442f40e87601453ca4e1d 0.1
 ```
 
 Response:

@@ -32,7 +32,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_getpaymentdisclosure 96f12882450429324d5f3b48630e3168220e49ab7b0f066e5c2935a6b88bb0f2 0 0 "refund"
+./komodo-cli z_getpaymentdisclosure 96f12882450429324d5f3b48630e3168220e49ab7b0f066e5c2935a6b88bb0f2 0 0 "refund"
 ```
 
 Response:
@@ -83,7 +83,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_validatepaymentdisclosure "zpd:706462ff004c561a0447ba2ec51184e6c204..."
+./komodo-cli z_validatepaymentdisclosure "zpd:706462ff004c561a0447ba2ec51184e6c204..."
 ```
 
 Response:

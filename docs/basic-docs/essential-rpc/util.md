@@ -34,7 +34,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli createmultisig 2 "[\"RJnVEQgucK1iwiRjfTZmreXkF49KgTErDn\",\"RCVyjn9MQ8Tw6YRJnDcsx67kfsmfUgLdfw\"]"
+./komodo-cli createmultisig 2 "[\"RJnVEQgucK1iwiRjfTZmreXkF49KgTErDn\",\"RCVyjn9MQ8Tw6YRJnDcsx67kfsmfUgLdfw\"]"
 ```
 
 Response:
@@ -90,7 +90,7 @@ n                                            |                             |
 Command:
 
 ```
-komodo-cli estimatefee 6
+./komodo-cli estimatefee 6
 ```
 
 Response:
@@ -124,7 +124,7 @@ n                                            |(numeric)                    |esti
 Command:
 
 ```
-komodo-cli estimatepriority 6
+./komodo-cli estimatepriority 6
 ```
 
 Response:
@@ -156,7 +156,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli invalidateblock "02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"
+./komodo-cli invalidateblock "02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"
 ```
 
 Response:
@@ -204,7 +204,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli reconsiderblock "02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"
+./komodo-cli reconsiderblock "02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"
 ```
 
 Response:
@@ -245,7 +245,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli validateaddress "RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7"
+./komodo-cli validateaddress "RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7"
 ```
 
 Response:
@@ -296,7 +296,7 @@ Create the signature:
 Command:
 
 ```
-komodo-cli signmessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "my message"
+./komodo-cli signmessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "my message"
 ```
 
 Response:
@@ -310,7 +310,7 @@ Verify the signature:
 Command:
 
 ```
-komodo-cli verifymessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=" "my message"
+./komodo-cli verifymessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=" "my message"
 ```
 
 Response:
@@ -348,7 +348,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_validateaddress "zcWsmqT4X2V4jgxbgiCzyrAfRT1vi1F4sn7M5Pkh66izzw8Uk7LBGAH3DtcSMJeUb2pi3W4SQF8LMKkU2cUuVP68yAGcomL"
+./komodo-cli z_validateaddress "zcWsmqT4X2V4jgxbgiCzyrAfRT1vi1F4sn7M5Pkh66izzw8Uk7LBGAH3DtcSMJeUb2pi3W4SQF8LMKkU2cUuVP68yAGcomL"
 
 {
   "isvalid": true,

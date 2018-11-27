@@ -31,13 +31,13 @@ For a more detailed description of Jumblr, please read Section IV of our [whitep
 Designate your deposit address.
 
 ```
-komodo-cli jumblr_deposit RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb
+./komodo-cli jumblr_deposit RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb
 ```
 
 Designate your secret destination address.
 
 ```
-komodo-cli jumblr_secret RS46GZ5iTkt2exdauQG3JJ8fdnZNJUvAc1
+./komodo-cli jumblr_secret RS46GZ5iTkt2exdauQG3JJ8fdnZNJUvAc1
 ```
 
 ## jumblr_deposit
@@ -68,7 +68,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli "RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb"
+./komodo-cli "RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb"
 ```
 
 Response:
@@ -105,7 +105,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli jumblr_pause
+./komodo-cli jumblr_pause
 ```
 
 Response:
@@ -142,7 +142,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli jumblr_resume
+./komodo-cli jumblr_resume
 ```
 
 Response:
@@ -172,5 +172,5 @@ Structure|Type|Description
 #### :pushpin: Examples:
 
 ```
-komodo-cli jumbr_secret "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns"
+./komodo-cli jumbr_secret "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns"
 ```

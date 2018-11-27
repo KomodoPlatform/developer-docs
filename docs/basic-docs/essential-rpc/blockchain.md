@@ -25,7 +25,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getbestblockhash
+./komodo-cli getbestblockhash
 ```
 
 Response:
@@ -102,7 +102,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getblock "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"
+./komodo-cli getblock "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"
 ```
 
 Response:
@@ -143,7 +143,7 @@ Response:
 Command:
 
 ```
-komodo-cli getblock "0dd66ee1f151c38f73843378c08715ee3f4d3cf2888783e2846b81c057987084" false
+./komodo-cli getblock "0dd66ee1f151c38f73843378c08715ee3f4d3cf2888783e2846b81c057987084" false
 ```
 
 Response:
@@ -220,7 +220,7 @@ Response:
 Command:
 
 ```
-komodo-cli getblock 120
+./komodo-cli getblock 120
 ```
 
 Response:
@@ -262,7 +262,7 @@ Response:
 Command:
 
 ```
-komodo-cli getblock 120 false
+./komodo-cli getblock 120 false
 ```
 
 Response:
@@ -405,7 +405,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getblockchaininfo
+./komodo-cli getblockchaininfo
 ```
 
 Response:
@@ -540,7 +540,7 @@ data                                         |(numeric)                    |the 
 Command:
 
 ```
-komodo-cli getblockcount
+./komodo-cli getblockcount
 ```
 
 Response:
@@ -590,7 +590,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getblockhash 100
+./komodo-cli getblockhash 100
 ```
 
 Response:
@@ -654,7 +654,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getblockhashes 1231614698 1231024505
+./komodo-cli getblockhashes 1231614698 1231024505
 ```
 
 Response:
@@ -680,7 +680,7 @@ Response:
 Command:
 
 ```
-komodo-cli getblockhashes 1231614698 1231024505 '{"noOrphans":false, "logicalTimes":true}'
+./komodo-cli getblockhashes 1231614698 1231024505 '{"noOrphans":false, "logicalTimes":true}'
 ```
 
 Response:
@@ -733,7 +733,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getblockheader "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"
+./komodo-cli getblockheader "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"
 ```
 
 Response:
@@ -759,7 +759,7 @@ Response:
 Command:
 
 ```
-komodo-cli getblockheader "043daeb9276c4fb9176f95d043567e18d40bff3aff114f551b950ee48c75ca02" false
+./komodo-cli getblockheader "043daeb9276c4fb9176f95d043567e18d40bff3aff114f551b950ee48c75ca02" false
 ```
 
 Response:
@@ -846,7 +846,7 @@ Status|Description
 Command:
 
 ```
-komodo-cli getchaintips
+./komodo-cli getchaintips
 ```
 
 Response:
@@ -910,7 +910,7 @@ number                                       |(numeric)                    |the 
 Command:
 
 ```
-komodo-cli getdifficulty
+./komodo-cli getdifficulty
 ```
 
 Response:
@@ -964,7 +964,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getmempoolinfo
+./komodo-cli getmempoolinfo
 ```
 
 Response:
@@ -1046,7 +1046,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getrawmempool true
+./komodo-cli getrawmempool true
 ```
 
 Response:
@@ -1124,7 +1124,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getspentinfo '{"txid": "41ec75822318373bd00513efe7c708e745ab370db08ef4e0bd2ba4882ea77b40", "index": 0}'
+./komodo-cli getspentinfo '{"txid": "41ec75822318373bd00513efe7c708e745ab370db08ef4e0bd2ba4882ea77b40", "index": 0}'
 ```
 
 Response:
@@ -1188,7 +1188,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli gettxout "txid" 1
+./komodo-cli gettxout "txid" 1
 ```
 
 Response:
@@ -1276,7 +1276,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli gettxoutproof '["c71f4a2ebf87bdd588e3aa168917933ee4be1661245ebf52d5708a8339cf9d7a"]' "0a28e2fb630b282138bf23bb79f597b11acff6f57c8d9c1c10fa54770035c813"
+./komodo-cli gettxoutproof '["c71f4a2ebf87bdd588e3aa168917933ee4be1661245ebf52d5708a8339cf9d7a"]' "0a28e2fb630b282138bf23bb79f597b11acff6f57c8d9c1c10fa54770035c813"
 ```
 
 Response:
@@ -1318,7 +1318,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli gettxoutsetinfo
+./komodo-cli gettxoutsetinfo
 ```
 
 Response:
@@ -1400,7 +1400,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli kvsearch examplekey
+./komodo-cli kvsearch examplekey
 ```
 
 Response:
@@ -1490,7 +1490,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli kvupdate "examplekey" "examplevalue" 2 "examplepassphrase"
+./komodo-cli kvupdate "examplekey" "examplevalue" 2 "examplepassphrase"
 ```
 
 Response:
@@ -1573,7 +1573,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli minerids 1000000
+./komodo-cli minerids 1000000
 ```
 
 Response:
@@ -1675,7 +1675,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli notaries 1536365515
+./komodo-cli notaries 1536365515
 ```
 
 Response:
@@ -1754,7 +1754,7 @@ true/false                                   |(boolean)                    |veri
 Command:
 
 ```
-komodo-cli verifychain
+./komodo-cli verifychain
 ```
 
 Response:
@@ -1806,7 +1806,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli verifytxoutproof "040000004cd8bd98c66020496d0b34a5f5412400146ba10d6c7ab4286f84f7008d8d390e9ca9575183f60906e293e9766997396bec59f1c0b966085de3d17f8ac3c9d5280000000000000000000000000000000000000000000000000000000000000000da05975bf50e0f202d004b81fcc388cfd411d8c7c59a548e070b5affe938ce8ce830f10b298b00002402939a9a31df1305b40d26d9748283b102c708258717248d0d63f01d2957d8e3dcf56f6e03000000022e4babc29707fbdd8da2e4277b7c8b8b09e837f409eb047c936904d75fc8e6267a9dcf39838a70d552bf5e246116bee43e93178916aae388d5bd87bf2e4a1fc7010d"
+./komodo-cli verifytxoutproof "040000004cd8bd98c66020496d0b34a5f5412400146ba10d6c7ab4286f84f7008d8d390e9ca9575183f60906e293e9766997396bec59f1c0b966085de3d17f8ac3c9d5280000000000000000000000000000000000000000000000000000000000000000da05975bf50e0f202d004b81fcc388cfd411d8c7c59a548e070b5affe938ce8ce830f10b298b00002402939a9a31df1305b40d26d9748283b102c708258717248d0d63f01d2957d8e3dcf56f6e03000000022e4babc29707fbdd8da2e4277b7c8b8b09e837f409eb047c936904d75fc8e6267a9dcf39838a70d552bf5e246116bee43e93178916aae388d5bd87bf2e4a1fc7010d"
 ```
 
 Response:

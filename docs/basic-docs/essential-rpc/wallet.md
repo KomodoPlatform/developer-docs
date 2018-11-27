@@ -40,7 +40,7 @@ Add a multisig address from 2 addresses:
 Command:
 
 ```
-komodo-cli addmultisigaddress 2 '["RSWwtqsNr9mW21UXRm6Lz4AzQnj4pVzzkp","RW8d8EChHTooVbwF3reqHYgkzWCnJFLXgh"]'
+./komodo-cli addmultisigaddress 2 '["RSWwtqsNr9mW21UXRm6Lz4AzQnj4pVzzkp","RW8d8EChHTooVbwF3reqHYgkzWCnJFLXgh"]'
 ```
 
 Response:
@@ -92,7 +92,7 @@ Structure|Type|Description
 #### :pushpin: Examples:
 
 ```
-komodo-cli backupwallet "mybackupdata"
+./komodo-cli backupwallet "mybackupdata"
 
 /home/myusername/myexportdir/mybackupdata
 ```
@@ -142,7 +142,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli dumpprivkey "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs"
+./komodo-cli dumpprivkey "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs"
 ```
 
 Response:
@@ -199,7 +199,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli dumpwallet "test"
+./komodo-cli dumpwallet "test"
 ```
 
 Response:
@@ -261,7 +261,7 @@ Encrypt your wallet:
 Command:
 
 ```
-komodo-cli encryptwallet "mypassphrase"
+./komodo-cli encryptwallet "mypassphrase"
 ```
 
 Response:
@@ -275,7 +275,7 @@ Set the passphrase to use the wallet, such as for signing or sending coins:
 Command:
 
 ```
-komodo-cli walletpassphrase "mypassphrase"
+./komodo-cli walletpassphrase "mypassphrase"
 ```
 
 Response:
@@ -289,7 +289,7 @@ Enter a test command like `signmessage`:
 Command:
 
 ```
-komodo-cli signmessage "address" "test message"
+./komodo-cli signmessage "address" "test message"
 ```
 
 Response:
@@ -303,7 +303,7 @@ Lock the wallet again by removing the passphrase:
 Command:
 
 ```
-komodo-cli walletlock
+./komodo-cli walletlock
 ```
 
 Response:
@@ -351,7 +351,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getaccount "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"
+./komodo-cli getaccount "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"
 ```
 
 Response:
@@ -401,7 +401,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getaccountaddress
+./komodo-cli getaccountaddress
 ```
 
 Response:
@@ -453,7 +453,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getaddressesbyaccount "tabby"
+./komodo-cli getaddressesbyaccount "tabby"
 ```
 
 Response:
@@ -507,7 +507,7 @@ The total amount in the wallet:
 Command:
 
 ```
-komodo-cli getbalance
+./komodo-cli getbalance
 
 ```
 
@@ -522,7 +522,7 @@ The total amount in the wallet where at least five blocks are confirmed:
 Command:
 
 ```
-komodo-cli getbalance "*" 5
+./komodo-cli getbalance "*" 5
 ```
 
 Response:
@@ -582,7 +582,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getnewaddress
+./komodo-cli getnewaddress
 ```
 
 Response:
@@ -636,7 +636,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getrawchangeaddress
+./komodo-cli getrawchangeaddress
 ```
 
 Response:
@@ -691,7 +691,7 @@ amount                                       |(numeric)                    |the 
 Command:
 
 ```
-komodo-cli getreceivedbyaccount ""
+./komodo-cli getreceivedbyaccount ""
 ```
 
 Response:
@@ -724,7 +724,7 @@ amount                                       |(numeric)                    |the 
 Command:
 
 ```
-komodo-cli getreceivedbyaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN"
+./komodo-cli getreceivedbyaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN"
 ```
 
 Response:
@@ -736,7 +736,7 @@ Response:
 Command:
 
 ```
-komodo-cli getreceivedbyaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN" 0
+./komodo-cli getreceivedbyaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN" 0
 ```
 
 Response:
@@ -748,7 +748,7 @@ Response:
 Command:
 
 ```
-komodo-cli getreceivedbyaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN" 6
+./komodo-cli getreceivedbyaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN" 6
 ```
 
 Response:
@@ -830,7 +830,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli gettransaction "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa"
+./komodo-cli gettransaction "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa"
 ```
 
 Response:
@@ -856,7 +856,7 @@ Response:
 Command:
 
 ```
-komodo-cli gettransaction "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa" true
+./komodo-cli gettransaction "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa" true
 ```
 
 Response:
@@ -931,7 +931,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getunconfirmedbalance
+./komodo-cli getunconfirmedbalance
 ```
 
 Response:
@@ -991,7 +991,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getwalletinfo
+./komodo-cli getwalletinfo
 ```
 
 Response:
@@ -1067,7 +1067,7 @@ Import an address with rescan:
 Command:
 
 ```
-komodo-cli importaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN"
+./komodo-cli importaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN"
 ```
 
 Response:
@@ -1079,7 +1079,7 @@ Response:
 Command:
 
 ```
-komodo-cli importaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN" "testing" false
+./komodo-cli importaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN" "testing" false
 ```
 
 Response:
@@ -1139,7 +1139,7 @@ addresses                                    |(string)                     |the 
 Command:
 
 ```
-komodo-cli importprivkey "DONOTUSExxxxxxxxxxxxxxxxxxxxj4Xu9jjinhLpffhdtoKg5gar2"
+./komodo-cli importprivkey "DONOTUSExxxxxxxxxxxxxxxxxxxxj4Xu9jjinhLpffhdtoKg5gar2"
 ```
 
 Response:
@@ -1151,7 +1151,7 @@ R9z796AehK5b6NCPeVkGUHSpJnawerf8oP
 Command:
 
 ```
-komodo-cli importprivkey "DONOTUSExxxxxxxxxxxxxxxxxxxxj4Xu9jjinhLpffhdtoKg5gar2" "testing" false
+./komodo-cli importprivkey "DONOTUSExxxxxxxxxxxxxxxxxxxxj4Xu9jjinhLpffhdtoKg5gar2" "testing" false
 ```
 
 Response:
@@ -1201,7 +1201,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli importwallet "path/to/exportdir/nameofbackup"
+./komodo-cli importwallet "path/to/exportdir/nameofbackup"
 ```
 
 Response:
@@ -1251,7 +1251,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli keypoolrefill
+./komodo-cli keypoolrefill
 ```
 
 Response:
@@ -1263,7 +1263,7 @@ Response:
 Command:
 
 ```
-komodo-cli keypoolrefill 100
+./komodo-cli keypoolrefill 100
 ```
 
 Response:
@@ -1321,7 +1321,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli listaccounts 6
+./komodo-cli listaccounts 6
 ```
 
 Response:
@@ -1377,7 +1377,7 @@ amount,                                      |(numeric)                    |the 
 Command:
 
 ```
-komodo-cli listaddressgroupings
+./komodo-cli listaddressgroupings
 ```
 
 Response:
@@ -1485,7 +1485,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli listlockunspent
+./komodo-cli listlockunspent
 ```
 
 Response:
@@ -1559,7 +1559,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli listreceivedbyaccount
+./komodo-cli listreceivedbyaccount
 ```
 
 Response:
@@ -1571,7 +1571,7 @@ Response:
 Command:
 
 ```
-komodo-cli listreceivedbyaccount 6 true
+./komodo-cli listreceivedbyaccount 6 true
 ```
 
 Response:
@@ -1628,7 +1628,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli listreceivedbyaddress
+./komodo-cli listreceivedbyaddress
 ```
 
 Response:
@@ -1650,7 +1650,7 @@ Response:
 Command:
 
 ```
-komodo-cli listreceivedbyaddress 6 true
+./komodo-cli listreceivedbyaddress 6 true
 ```
 
 Response:
@@ -1752,7 +1752,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli listsinceblock
+./komodo-cli listsinceblock
 ```
 
 Response:
@@ -1790,7 +1790,7 @@ Response:
 Command:
 
 ```
-komodo-cli listsinceblock "029f11d80ef9765602235e1bc9727e3eb6ba20839319f761fee920d63401e327" 6
+./komodo-cli listsinceblock "029f11d80ef9765602235e1bc9727e3eb6ba20839319f761fee920d63401e327" 6
 ```
 
 Response:
@@ -1910,7 +1910,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli listtransactions
+./komodo-cli listtransactions
 ```
 
 Response:
@@ -1945,7 +1945,7 @@ Response:
 Command:
 
 ```
-komodo-cli listtransactions "*" 20 100
+./komodo-cli listtransactions "*" 20 100
 ```
 
 Response:
@@ -2056,7 +2056,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli listunspent
+./komodo-cli listunspent
 ```
 
 Response:
@@ -2081,7 +2081,7 @@ Response:
 Command:
 
 ```
-komodo-cli listunspent 6 9999999 '["RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu","RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"]'
+./komodo-cli listunspent 6 9999999 '["RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu","RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"]'
 ```
 
 Response:
@@ -2188,7 +2188,7 @@ true/false                                   |(boolean)                    |whet
 Command:
 
 ```
-komodo-cli lockunspent false '[{"txid":"d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd","vout":0}]'
+./komodo-cli lockunspent false '[{"txid":"d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd","vout":0}]'
 ```
 
 Response:
@@ -2246,7 +2246,7 @@ true/false                                   |(boolean)                    |true
 Command:
 
 ```
-komodo-cli move "" "tabby" 0.01
+./komodo-cli move "" "tabby" 0.01
 ```
 
 Response:
@@ -2258,7 +2258,7 @@ Response:
 Command:
 
 ```
-komodo-cli move "timotei" "akiko" 0.01 6 "happy birthday!"
+./komodo-cli move "timotei" "akiko" 0.01 6 "happy birthday!"
 ```
 
 Response:
@@ -2306,7 +2306,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli resendwallettransactions
+./komodo-cli resendwallettransactions
 ```
 
 Response:
@@ -2369,7 +2369,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli sendfrom "" "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu" 0.01
+./komodo-cli sendfrom "" "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu" 0.01
 ```
 
 Response:
@@ -2381,7 +2381,7 @@ Response:
 Command:
 
 ```
-komodo-cli sendfrom "tabby" "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu" 0.01 6 "donation" "seans outpost"
+./komodo-cli sendfrom "tabby" "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu" 0.01 6 "donation" "seans outpost"
 ```
 
 Response:
@@ -2439,7 +2439,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli sendmany "" '{"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}'
+./komodo-cli sendmany "" '{"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}'
 ```
 
 Response:
@@ -2451,7 +2451,7 @@ e39b046f0e30bd2a80c64ec78d902107858c8f0d55097d7f2293df1c9a4496ae
 Command:
 
 ```
-komodo-cli sendmany "" '{"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}' 6 "testing"
+./komodo-cli sendmany "" '{"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}' 6 "testing"
 ```
 
 Response:
@@ -2463,7 +2463,7 @@ Response:
 Command:
 
 ```
-komodo-cli sendmany "" '{"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}' 1 "" '["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ","RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu"]'
+./komodo-cli sendmany "" '{"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}' 1 "" '["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ","RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu"]'
 ```
 
 Response:
@@ -2517,7 +2517,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1
+./komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1
 ```
 
 Response:
@@ -2529,7 +2529,7 @@ cc23924c007adc98b8ea5b9b8b47638e080aa469eb9738b976def487a44f467b
 Command:
 
 ```
-komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1 "donation" "seans outpost"
+./komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1 "donation" "seans outpost"
 ```
 
 Response:
@@ -2541,7 +2541,7 @@ Response:
 Command:
 
 ```
-komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1 "" "" true
+./komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1 "" "" true
 ```
 
 Response:
@@ -2590,7 +2590,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli setaccount "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "tabby"
+./komodo-cli setaccount "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "tabby"
 ```
 
 Response:
@@ -2636,7 +2636,7 @@ true/false                                   |(boolean)                    |retu
 Command:
 
 ```
-komodo-cli settxfee 0.00001
+./komodo-cli settxfee 0.00001
 ```
 
 Response:
@@ -2689,7 +2689,7 @@ Create the signature:
 Command:
 
 ```
-komodo-cli signmessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "my message"
+./komodo-cli signmessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "my message"
 ```
 
 Response:
@@ -2703,7 +2703,7 @@ Verify the signature:
 Command:
 
 ```
-komodo-cli verifymessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=" "my message"
+./komodo-cli verifymessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=" "my message"
 ```
 
 Response:
@@ -2757,7 +2757,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_exportkey "ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH"
+./komodo-cli z_exportkey "ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH"
 ```
 
 Response:
@@ -2811,7 +2811,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_exportviewingkey "ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH"
+./komodo-cli z_exportviewingkey "ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH"
 ```
 
 Response:
@@ -2861,7 +2861,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_exportwallet "test"
+./komodo-cli z_exportwallet "test"
 ```
 
 Response:
@@ -2919,7 +2919,7 @@ The total amount received by address "myaddress" at least 5 blocks confirmed
 Command:
 
 ```
-komodo-cli z_getbalance "ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn"
+./komodo-cli z_getbalance "ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn"
 ```
 
 Response:
@@ -2931,7 +2931,7 @@ Response:
 Command:
 
 ```
-komodo-cli z_getbalance "ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn" 5
+./komodo-cli z_getbalance "ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn" 5
 ```
 
 Response:
@@ -2981,7 +2981,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_getnewaddress
+./komodo-cli z_getnewaddress
 ```
 
 Response:
@@ -3061,7 +3061,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_getoperationresult '["opid-6e581ee5-4e90-4e70-8961-f95d8d28748c"]'
+./komodo-cli z_getoperationresult '["opid-6e581ee5-4e90-4e70-8961-f95d8d28748c"]'
 ```
 
 Response:
@@ -3177,7 +3177,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_getoperationstatus
+./komodo-cli z_getoperationstatus
 ```
 
 Response:
@@ -3211,7 +3211,7 @@ Response:
 Command:
 
 ```
-komodo-cli z_getoperationstatus '["opid-47e12224-8477-4cd4-852d-d8c3ddbc6375"]'
+./komodo-cli z_getoperationstatus '["opid-47e12224-8477-4cd4-852d-d8c3ddbc6375"]'
 ```
 
 Response:
@@ -3315,7 +3315,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_gettotalbalance
+./komodo-cli z_gettotalbalance
 ```
 
 Response:
@@ -3332,7 +3332,7 @@ Response:
 Command:
 
 ```
-komodo-cli z_gettotalbalance 5
+./komodo-cli z_gettotalbalance 5
 ```
 
 Response:
@@ -3406,7 +3406,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_importkey "DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK"
+./komodo-cli z_importkey "DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK"
 ```
 
 Response:
@@ -3418,7 +3418,7 @@ Response:
 Command:
 
 ```
-komodo-cli z_importkey "DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK" whenkeyisnew 30000
+./komodo-cli z_importkey "DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK" whenkeyisnew 30000
 ```
 
 Response:
@@ -3430,7 +3430,7 @@ Response:
 Command:
 
 ```
-komodo-cli z_importkey "DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK" yes 20000
+./komodo-cli z_importkey "DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK" yes 20000
 ```
 
 Response:
@@ -3494,7 +3494,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja"
+./komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja"
 ```
 
 Response:
@@ -3507,7 +3507,7 @@ Response:
 Command:
 
 ```
-komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja" no
+./komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja" no
 ```
 
 Response:
@@ -3519,7 +3519,7 @@ Response:
 Command:
 
 ```
-komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja" whenkeyisnew 30000
+./komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja" whenkeyisnew 30000
 ```
 
 Response:
@@ -3531,7 +3531,7 @@ Response:
 Command:
 
 ```
-komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja" yes 20000
+./komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja" yes 20000
 ```
 
 Response:
@@ -3581,7 +3581,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_importwallet "/mydirectory/nameofbackup"
+./komodo-cli z_importwallet "/mydirectory/nameofbackup"
 ```
 
 Response:
@@ -3638,7 +3638,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_listaddresses
+./komodo-cli z_listaddresses
 ```
 
 Response:
@@ -3697,7 +3697,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_listoperationids
+./komodo-cli z_listoperationids
 ```
 
 Response:
@@ -3712,7 +3712,7 @@ Response:
 Command:
 
 ```
-komodo-cli z_listoperationids "success"
+./komodo-cli z_listoperationids "success"
 ```
 
 Response:
@@ -3772,7 +3772,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_listreceivedbyaddress "ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf"
+./komodo-cli z_listreceivedbyaddress "ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf"
 ```
 
 Response:
@@ -3790,7 +3790,7 @@ Response:
 Command:
 
 ```
-komodo-cli z_listreceivedbyaddress "ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf" 2
+./komodo-cli z_listreceivedbyaddress "ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf" 2
 ```
 
 Response:
@@ -3891,7 +3891,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_mergetoaddress '["t1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd"]' ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf
+./komodo-cli z_mergetoaddress '["t1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd"]' ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf
 ```
 
 Response:
@@ -3950,7 +3950,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_sendmany "RUX5vGkxJCKBPGm8b97VUumt2aHkuCjp8e" '[{"address":"RVEsww91UBdUNGyCC1GjDVuvJShEei2kj4","amount":0.01}]'
+./komodo-cli z_sendmany "RUX5vGkxJCKBPGm8b97VUumt2aHkuCjp8e" '[{"address":"RVEsww91UBdUNGyCC1GjDVuvJShEei2kj4","amount":0.01}]'
 ```
 
 Response:
@@ -3962,7 +3962,7 @@ opid-ad947755-b348-4842-90ca-0f0c71d13d34
 Command:
 
 ```
-komodo-cli z_sendmany "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns" '[{"address":"ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3","amount":0.01}]'
+./komodo-cli z_sendmany "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns" '[{"address":"ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3","amount":0.01}]'
 ```
 
 Response:
@@ -3974,7 +3974,7 @@ opid-cdd6af37-88a2-44d7-9630-d54d21f8b1c4
 Command:
 
 ```
-komodo-cli z_sendmany "ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3" '[{"address":"ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP","amount":0.0099}]'
+./komodo-cli z_sendmany "ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3" '[{"address":"ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP","amount":0.0099}]'
 ```
 
 Response:
@@ -4035,7 +4035,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli z_shieldcoinbase "RXN2rxidK4cwzRL44UTnWvQjjvLdoMmCpU" "ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP"
+./komodo-cli z_shieldcoinbase "RXN2rxidK4cwzRL44UTnWvQjjvLdoMmCpU" "ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP"
 ```
 
 Response:
@@ -4053,7 +4053,7 @@ Response:
 Command:
 
 ```
-komodo-cli z_shieldcoinbase "REyaj53EB2nwUnsmVyn8JHCcquKf1zYkEP" "ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP" 0.0001 50
+./komodo-cli z_shieldcoinbase "REyaj53EB2nwUnsmVyn8JHCcquKf1zYkEP" "ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP" 0.0001 50
 ```
 
 Response:

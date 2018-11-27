@@ -151,7 +151,7 @@ In another ten to twenty minutes, all of the information in the KMD chain (inclu
 
 Thus, your asset chain will have all the power of Bitcoin securing your blockchain's history, with the zero-knowledge privacy of the Zcash parameters pre-installed, and all of the interoperability, scalability, and more that Komodo adds to your development experience.
 
-As the notarizations are transactions, they naturally have a cost, and this cost is covered by you, the asset-chain developer. Over the course of a year, assuming consistent activity, the cost for performing these transactions is 300 KMD, and also 800 of your asset chain's coins.
+As the notarizations are transactions, they naturally have a cost, and this cost is covered by you, the asset-chain developer. Over the course of a year, assuming consistent activity, the cost for performing these transactions is 365 KMD, and also 365 of your asset chain's coins.
 
 The second part of the cost of notarization is the payment to the actual Komodo team, which is given in exchange for our services. You may reach out to our third-party service providers to receive a quote. @siu (Discord: @siu#3920) is the head of ChainMakers, and @PTYX (Discord: @PTYX#6840) is the head of Chainzilla. Both can provide different levels of service in asset-chain creation, electrum-server (SPV) setup and maintenance, explorer setup, and other decentralized-technology services.
 

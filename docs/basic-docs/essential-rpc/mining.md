@@ -27,7 +27,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getblocksubsidy 100
+./komodo-cli getblocksubsidy 100
 ```
 
 Response:
@@ -120,7 +120,7 @@ number                                       |(numeric)                    |tran
 Command:
 
 ```
-komodo-cli getblocktemplate '{"mode":"template","capabilities":["workid"]}'
+./komodo-cli getblocktemplate '{"mode":"template","capabilities":["workid"]}'
 ```
 
 Response:
@@ -243,7 +243,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getlocalsolps
+./komodo-cli getlocalsolps
 ```
 
 Response:
@@ -306,7 +306,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getmininginfo
+./komodo-cli getmininginfo
 ```
 
 Response:
@@ -391,7 +391,7 @@ data                                         |(numeric)                    |solu
 Command:
 
 ```
-komodo-cli getnetworkhashps
+./komodo-cli getnetworkhashps
 ```
 
 Response:
@@ -450,7 +450,7 @@ data                                         |(numeric)                    |solu
 Command:
 
 ```
-komodo-cli getnetworksolps
+./komodo-cli getnetworksolps
 ```
 
 Response:
@@ -502,7 +502,7 @@ true                                         |(boolean)                    |retu
 Command:
 
 ```
-komodo-cli prioritisetransaction "7dc902b280da27cf2dabe41ed6f4d04c828714f289435db193a49341005607eb" 0.0 10000
+./komodo-cli prioritisetransaction "7dc902b280da27cf2dabe41ed6f4d04c828714f289435db193a49341005607eb" 0.0 10000
 ```
 
 Response:
@@ -568,7 +568,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli submitblock "mydata"
+./komodo-cli submitblock "mydata"
 ```
 
 Response:

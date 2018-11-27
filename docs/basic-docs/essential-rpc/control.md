@@ -42,7 +42,7 @@ Structure|Type|Description
 Command:
 
 ```
-komodo-cli getinfo
+./komodo-cli getinfo
 ```
 
 Response:
@@ -180,7 +180,7 @@ Komodo server stopping                       |                             |
 Command:
 
 ```
-komodo-cli stop
+./komodo-cli stop
 ```
 
 Response:

@@ -282,7 +282,7 @@ hex:                                         |(string)                     |a ra
 Step 1: Command
 
 ```
-"./komodo-cli -ac_name=HELLOWORLD channelsrefund 2f95b0f4e3dbe7f5ebc0f9479800c9ff3f44e76f5378313c9406ab5a92ff4631 2079c46cd9f3970f9fd73d8022bf6f30aaf5031bf877d2c541c4c0df1dea1be5
+./komodo-cli -ac_name=HELLOWORLD channelsrefund 2f95b0f4e3dbe7f5ebc0f9479800c9ff3f44e76f5378313c9406ab5a92ff4631 2079c46cd9f3970f9fd73d8022bf6f30aaf5031bf877d2c541c4c0df1dea1be5
 ```
 
 Response from Step 1:
