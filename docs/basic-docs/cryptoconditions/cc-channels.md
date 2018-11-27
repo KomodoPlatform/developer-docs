@@ -6,14 +6,14 @@ When a payment is executed properly with `channels`, as soon as it enters the me
 
 The flow of a `channels` contract is as follows:
 
-* Anyone can create a channel using [`channelsopen`](../cryptoconditions/cc-dice.html#channelsopen)
+* Anyone can create a channel using [`channelsopen`](../cryptoconditions/cc-channels.html#channelsopen)
   * When creating the channel, the user indicates the number and size of their potential payment(s), and what their destination is
-* Once the channel is notarized, at any time in the future the user can execute [`channelspayment`](../cryptoconditions/cc-dice.html#channelspayment) to release a specific amount of their available payments
+* Once the channel is notarized, at any time in the future the user can execute [`channelspayment`](../cryptoconditions/cc-channels.html#channelspayment) to release a specific amount of their available payments
   * As soon as the `channelspayment` result enters the mempool, the odds of withdrawing the `txid` from processing decrease to almost zero
-* The creator of a channel may close the channel at any time using [`channelsclose`](../cryptoconditions/cc-dice.html#channelsclose)
+* The creator of a channel may close the channel at any time using [`channelsclose`](../cryptoconditions/cc-channels.html#channelsclose)
   * This shows the receiver that this payment stream is permanently ended
-* Once the channel's closure is notarized, the creator may withdraw remaining funds using [`channelsrefund`](../cryptoconditions/cc-dice.html#channelsrefund)
-* The [`channelsinfo`](../cryptoconditions/cc-dice.html#channelsinfo) method reveals public information for any or all available channels on an asset chain
+* Once the channel's closure is notarized, the creator may withdraw remaining funds using [`channelsrefund`](../cryptoconditions/cc-channels.html#channelsrefund)
+* The [`channelsinfo`](../cryptoconditions/cc-channels.html#channelsinfo) method reveals public information for any or all available channels on an asset chain
 
 ## channelsclose
 
@@ -21,11 +21,11 @@ The flow of a `channels` contract is as follows:
 
 The `channelsclose` method marks a specific channel as closed, meaning that no additional payments will be added to the channel.
 
-The owner of the `channel` may still execute [`channelspayment`](../cryptoconditions/cc-dice.html#channelspayment) for any remaining payments in the channel, until all payments are used or withdrawn.
+The owner of the `channel` may still execute [`channelspayment`](../cryptoconditions/cc-channels.html#channelspayment) for any remaining payments in the channel, until all payments are used or withdrawn.
 
 The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
 
-The `sendrawtransaction` method then returns a `txid` which is used in the [`channelsrefund`](../cryptoconditions/cc-dice.html#channelsrefund) method to reclaim funds.
+The `sendrawtransaction` method then returns a `txid` which is used in the [`channelsrefund`](../cryptoconditions/cc-channels.html#channelsrefund) method to reclaim funds.
 
 ### Arguments:
 
