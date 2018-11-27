@@ -80,7 +80,7 @@ In Komodo, we knew privacy would be an essential feature for any developer with 
 
 This allows us to provide built-in zero-knowledge technology, which is a special kind of privacy tech. Other types of privacy typically only attempt to hide your trail by blending your transaction history with other users. Those other types of privacy can protect you for some time, but not forever. Because your blended data is given to the public domain, as quantum-computing technology advances it will likely be able to unravel your currency trail -- and your privacy.
 
-Zero-knowledge technology is much stronger. It moves your coins from one address to another with no data leftover in the public domain for later analysis. The way it works inside the blockchain engine is pretty complicated, but lucky for you, you don't have to worry about how it works. Just read up on it Part IV of our [whitepaper](https://komodoplatform.com/whitepaper) to make sure you fully understand the pros and cons of this privacy method, and then dive right in, using our built-in API commands.
+Zero-knowledge technology is much stronger. It moves your coins from one address to another with no data leftover in the public domain for later analysis. The way it works inside the blockchain engine is pretty complicated, but lucky for you, you don't have to worry about how it works. Just read Part IV of our [whitepaper](https://komodoplatform.com/whitepaper) to make sure you fully understand the pros and cons of this privacy method, and then dive right in, using our built-in API commands.
 
 Every asset chain has zero-knowledge privacy pre-installed, giving you the tools to protect both yourself and your end-users from people who just don't know how to mind their own business.
 
