@@ -239,7 +239,7 @@ First, you must create an asset chain that has the [ac_cc runtime parameter prop
 With this activated, you can try a few existing templates:
 
 - [Create ERC20 tokens on your new asset chain](../cryptoconditions/cc-tokens.html)
-- Try using your [built-in on-chain DEX](../cryptoconditions/cc-dice.html)
+- Try using your [built-in on-chain DEX](../cryptoconditions/cc-gateways.html)
 - Use [the oracles smart-contract template](../cryptoconditions/cc-oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
 
 ...and more!

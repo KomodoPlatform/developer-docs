@@ -74,7 +74,7 @@ const renames = [
   },
   {
     before: '110-cc-channels',
-    after: 'cc-dice'
+    after: 'cc-channels'
   },
   {
     before: '101-cryptoconditions',
