@@ -28,9 +28,9 @@ All chains are required to set `ac_supply`.
 
 This is the amount of pre-mined coins you would like the chain to have.
 
-The node that sets [`gen`](../005-installations/019-common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
+The node that sets [`gen`](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
 
-If `ac_supply` is not set, [`ac_reward`](../005-installations/023-asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [`ac_pubkey`](../005-installations/023-asset-chain-parameters.html#ac-pubkey) is set, the  pre-mined coins will be mined to the address of the corresponding pubkey.
+If `ac_supply` is not set, [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) is set, the  pre-mined coins will be mined to the address of the corresponding pubkey.
 
 The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
 
@@ -50,7 +50,7 @@ A simple asset chain
 
 This is the block reward for each mined block, given in satoshis.
 
-If this is not set, the block reward will be `10000` satoshis and blocks will be [on-demand](../005-installations/015-creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work) after block 127.
+If this is not set, the block reward will be `10000` satoshis and blocks will be [on-demand](../installations/creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work) after block 127.
 
 #### :pushpin: Examples:
 
@@ -92,7 +92,7 @@ A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases b
 
 ## ac_halving
 
-This is the number of blocks between each block reward halving. This parameter will have no effect if [`ac_reward`](../005-installations/023-asset-chain-parameters.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [`ac_decay`](../005-installations/023-asset-chain-parameters.html#ac-decay) is not, the reward will decrease by 50% each halving.
+This is the number of blocks between each block reward halving. This parameter will have no effect if [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [`ac_decay`](../installations/asset-chain-parameters.html#ac-decay) is not, the reward will decrease by 50% each halving.
 
 #### :pushpin: Examples:
 
@@ -116,7 +116,7 @@ A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decrea
 
 ## ac_decay
 
-This is the percentage the block reward will decrease by each block-reward halving. This parameter will have no effect if [`ac_reward`](../005-installations/023-asset-chain-parameters.html#ac-reward) is not set.
+This is the percentage the block reward will decrease by each block-reward halving. This parameter will have no effect if [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) is not set.
 
 This is the formula that `ac_decay` follows:
 
@@ -144,7 +144,7 @@ A 777777-coin pre-mine, a 1000-coin block reward, the block reward decreases by 
 
 ## ac_perc
 
-The `ac_perc` parameter is the percentage added to both the block reward and to the transactions that will be sent to the [`ac_pubkey`](../005-installations/023-asset-chain-parameters.html#ac-pubkey) address. If the `ac_perc` parameter is set, `ac_pubkey` must also be set.
+The `ac_perc` parameter is the percentage added to both the block reward and to the transactions that will be sent to the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address. If the `ac_perc` parameter is set, `ac_pubkey` must also be set.
 
 For example, if `ac_reward=100000000` and `ac_perc=10000000`, for each block mined, the miner receives 1 coin along with the `ac_pubkey` address receiving 0.1 coin. For every transaction sent, the pubkey address will receive 10% of the overall transaction value. This 10% is not taken from the user, rather it is created at this point. Each transaction inflates the overall supply.
 
@@ -164,11 +164,11 @@ A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 
 
 The `ac_pubkey` parameter designates a public address for receiving payments from the network. These payments can come in the genesis block, in all blocks mined thereafter, and from every transaction on the network.
 
-It is used in combination with [`ac_perc`](../005-installations/023-asset-chain-parameters.html#ac-perc), which sets the amount that is sent to the address. If `ac_perc` is not set, the only effect of `ac_pubkey` is to have the genesis block be mined to the `pubkey` specified.
+It is used in combination with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), which sets the amount that is sent to the address. If `ac_perc` is not set, the only effect of `ac_pubkey` is to have the genesis block be mined to the `pubkey` specified.
 
 If `ac_pubkey` is set, but `ac_perc` is not, this simply means the genesis block will be mined to the set `pubkey`'s address, and no blocks or transactions thereafter will mine payments to the `pubkey`.
 
-`pubkey` must be set to a 33 byte hex string. You can get the pubkey of an address by using the [`validateaddress`](../015-essential-rpc/335-util.html#validateaddress) command in `komodod`, and searching for the returned `pubkey` property. The address must be imported to the wallet before using `validateaddress`.
+`pubkey` must be set to a 33 byte hex string. You can get the pubkey of an address by using the [`validateaddress`](../essential-rpc/util.html#validateaddress) command in `komodod`, and searching for the returned `pubkey` property. The address must be imported to the wallet before using `validateaddress`.
 
 #### :pushpin: Examples:
 
@@ -277,9 +277,9 @@ Once staking is active, utxos available in the `wallet.dat` file will begin stak
 
 On an `ac_staked` asset chain there are 64 global segments (`segid`'s) to which all utxos belong, and these 64 `segid`'s will automatically take turns staking blocks. The method of determining which segment a utxo belongs to is determined automatically, according to the hash of the address in which the utxo resides and the height of the blockchain.
 
-You can see which segment an address belongs to by using the [`validateaddress`](../015-essential-rpc/335-util.html#validateaddress) rpc call. You can find out the amount of rewards your staked coins have earned via the [`getbalance64`](../015-essential-rpc/339-wallet.html#getbalance64) rpc call.
+You can see which segment an address belongs to by using the [`validateaddress`](../essential-rpc/util.html#validateaddress) rpc call. You can find out the amount of rewards your staked coins have earned via the [`getbalance64`](../essential-rpc/wallet.html#getbalance64) rpc call.
 
-Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure. If `ac_staked` is used in conjunction with [`ac_perc`](../005-installations/023-asset-chain-parameters.html#ac-perc), the [`ac_pubkey`](../005-installations/023-asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction.
+Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure. If `ac_staked` is used in conjunction with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction.
 
 ### Rules for Staking a Block
 

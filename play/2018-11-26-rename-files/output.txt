@@ -6,7 +6,7 @@ module.exports = {
     lastUpdated: 'Last Updated',
     nav: [{
         text: "Start Here",
-        link: "/basic-docs/start-here/introduction.md"
+        link: "/basic-docs/start-here/introduction.html"
       },
       {
         text: "KomodoPlatform.com",
@@ -25,7 +25,7 @@ module.exports = {
             ],
             [
               "/basic-docs/start-here/cc-overview.md",
-              "Overview of Crypto Conditions (Smart Contracts)"
+              "Overview of CryptoConditions (Smart Contracts)"
             ]
           ]
         },
@@ -52,12 +52,12 @@ module.exports = {
           ]
         },
         {
-          title: "Crypto Conditions (Smart Contracts)",
+          title: "CryptoConditions (Smart Contracts)",
           collapsable: true,
           children: [
             [
               "/basic-docs/cryptoconditions/cryptoconditions-instructions.md",
-              "Instructions for Crypto Conditions"
+              "Instructions for CryptoConditions"
             ],
             ["/basic-docs/cryptoconditions/cc-dice.md", "Channels"],
             ["/basic-docs/cryptoconditions/cc-dice.md", "Dice"],

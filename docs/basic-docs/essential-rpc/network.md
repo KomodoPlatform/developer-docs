@@ -12,7 +12,7 @@ The `addnode` method attempts to add or remove a node from the addnode list, or 
 
 Structure|Type|Description
 ---------|----|-----------
-"node"                                       |(string, required)           |the node (see [`getpeerinfo`](../015-essential-rpc/327-network.html#getpeerinfo) for nodes)
+"node"                                       |(string, required)           |the node (see [`getpeerinfo`](../essential-rpc/network.html#getpeerinfo) for nodes)
 "command"                                    |(string, required)           |'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once
 
 ### Response:
@@ -107,7 +107,7 @@ Use `getpeerinfo` to determine the result.
 
 Structure|Type|Description
 ---------|----|-----------
-"node"                                       |(string, required)           |the node's address (see [`getpeerinfo`](../015-essential-rpc/327-network.html#getpeerinfo) for nodes)
+"node"                                       |(string, required)           |the node's address (see [`getpeerinfo`](../essential-rpc/network.html#getpeerinfo) for nodes)
 
 ### Response:
 
