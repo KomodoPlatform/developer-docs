@@ -38,7 +38,7 @@ Response:
 }
 ```
 
-You can find the rpcuser, rpcpassword, and rpcport in the coin's .conf file
+You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
@@ -140,7 +140,7 @@ Response:
 }
 ```
 
-You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
@@ -167,7 +167,7 @@ Response:
 }
 ```
 
-You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
@@ -250,7 +250,7 @@ Response:
 ]
 ```
 
-You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
@@ -318,7 +318,7 @@ Response:
 
 ```
 
-You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
@@ -414,7 +414,7 @@ Response:
 }
 ```
 
-You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
@@ -441,7 +441,7 @@ Response:
 }
 ```
 
-You can find your rpcusername, rpcpassword, and rpcport in the coin's .conf file
+You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
