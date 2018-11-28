@@ -72,6 +72,10 @@ BarterDEX is a pioneer in atomic-swap based exchange methods. If you're not fami
 
 We performed our first atomic swap in 2014, and using our BarterDEX v1.0 software we performed thousands in 2017 with the open-source community before the concept gained attention in the news. To date, users in the Komodo ecosystem have conducted over 100,000 atomic swaps. We are currently taking what we learned from these experiences and rewriting the software from the ground up for v2.0.
 
-Via our open-source philosophy, anyone is welcome to use BarterDEX without restriction. As it is based on atomic-swap technology, the end-users utilizing BarterDEX maintain ownership of their private keys at all times. Therefore, developers maintaining any cluster of traders utilizing the BarterDEX software are not acting in the capacity of an escrow-service, a trading provider, a centralized exchange, or even a multi-coin decentralized gateway, unlike most other exchanges. This provides significant relief from the developer's security responsibilities.
+Via our open-source philosophy, anyone is welcome to use BarterDEX without restriction. As it is based on atomic-swap technology, the end-users utilizing BarterDEX maintain ownership of their private keys at all times. Therefore, developers maintaining any cluster of traders utilizing the BarterDEX software are not acting in the capacity of an escrow-service, a trading provider, a centralized exchange, or even a multi-coin decentralized gateway, unlike most other exchanges. This provides significant relief from the developer's technical security responsibilities.
+
+::: tip
+Developers should consult with their local authorities about the legal nature of these decisions.
+:::
 
 Because the BarterDEX software is separate from `komodod` and `komodo-cli`, at this time we do not yet include it in this API documentation. Rather, you may find [API documentation for BarterDEX here](https://docs.komodoplatform.com/barterDEX/barterDEX-API.html).
