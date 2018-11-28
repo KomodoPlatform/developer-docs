@@ -876,7 +876,7 @@ oracletxid                                   |(string)                     |the 
 taddr                                        |(number)                     |
 prefix                                       |(number)                     |
 prefix2                                      |(number)                     |
-deposit                                      |(string)                     |the t address associated with the gateay pubkey
+deposit                                      |(string)                     |the t address associated with the gateway pubkey
 tokenid                                      |(string)                     |the `tokenid` of the proxy token
 totalsupply                                  |(number)                     |total available supply of proxy tokens
 remaining                                    |(number)                     |amount of proxy tokens not currently issued
