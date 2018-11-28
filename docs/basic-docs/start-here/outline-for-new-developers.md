@@ -153,11 +153,7 @@ In general, the cost for Komodo's security services is competitive. While the in
 Please reach out to our team whenever you are ready to purchase dPoW. We will direct you to one of our service providers, and they can give you a direct quote for the annual cost.
 
 ::: tip
-<<<<<<< HEAD
 We have a limited supply of early-adopter discounts. Please inquire while supply last.
-=======
-We have a limited supply of early-bird discounts. Please inquire while supplies last.
->>>>>>> dev
 :::
 
 ### A Brief Note About Languages

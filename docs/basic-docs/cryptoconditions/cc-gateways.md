@@ -59,7 +59,7 @@ The above command will output a **hex** value, which you now broadcast using `se
 
 `./komodo-cli -ac_name=HELLOWORLD sendrawtransaction HEX_DATA_HERE`
 
-## Create an Oracle for Storing "Blockheader Data" on the Blockchain
+## Create an Oracle
 
 To add external data to the blockchain, we use the [`oracles`](../cryptoconditions/cc-oracles.html) smart contract.
 
