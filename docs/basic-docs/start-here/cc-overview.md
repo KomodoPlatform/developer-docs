@@ -162,7 +162,7 @@ For all of these reasons, the private key is no longer the relevant factor for c
 
 It’s also worth pointing out that one of the conditions of a Crypto Conditions contract can be a restriction on which addresses the funds can be sent to.
 
-With these rules in place, a Crypto Conditions smart contract becomes like a mini-consensus mechanism. It forces consensus for the participants in the smart contract, while riding on the master consensus mechanism of the blockchain.
+With these rules in place, a Crypto Conditions smart contract becomes like a mini-consensus mechanism. It forces consensus for the participants in the smart contract, just like the master consensus mechanism of the blockchain.
 
 If you'd like to try writing your own Crypto Conditions smart contract, [read this documentation by Komodo’s lead developer, JL777](https://docs.komodoplatform.com/cc/index-book-jl.html).
 
@@ -182,7 +182,7 @@ The C and C++ programming languages are widely understood, time-tested, and, per
 
 Furthermore, because smart contracts on Komodo run in the daemon, developers can avoid the limitations and hassles of having to run code in a virtual machine, as is the case with the many gas-based smart contract platforms. On Komodo, you have far more speed, flexibility, and power. This is made possible by our unique design of connecting independent blockchains together, rather than forcing all users to run on a layer-one main chain.
 
-Second, utxo-based smart contracts are more secure than balance-based smart contracts. This is true in several ways. For one thing, because Komodo’s smart contracts are utxo-based, it is far more difficult, if not impossible, to use a smart contract to flood the parent coin's coin supply with malicious coins.
+Second, utxo-based smart contracts are more secure than balance-based smart contracts. This is true in several ways. For one thing, because Komodo’s smart contracts are utxo-based, it is far more difficult, if not impossible, to use a smart contract to flood the parent coin's coin supply with illegitimate coins.
 
 This is not the case with balance-based smart contracts, like those on Ethereum. Because the smart contracts are linked to balances, rather than blockchain-enforced utxos, a malicious actor can manipulate balances to disastrous ends. We’ve seen this happen again and again and again.
 
@@ -196,7 +196,7 @@ Finally, utxo-based smart contracts do not require “gas” or any sort of fee 
 
 Komodo, on the other hand, is far more scalable and will not require a fee for every single process, other than a single, ordinary transaction fee for sending funds. This fee is not paid in KMD, but in the coin of the developer and user's choice.
 
-To avoid the risk of infinite loops, Komodo is exhaustively testing the code for all smart contracts prior to implementation.
+Komodo is exhaustively testing the code for all smart contracts prior to implementation, to ensure quality and bug-free contracts.
 
 Then the contracts are embedded into the Komodo daemon. This prevents alterations, while also making the code publicly visible. Anyone can verify the code of the contracts to see that they do exactly what they claim.
 

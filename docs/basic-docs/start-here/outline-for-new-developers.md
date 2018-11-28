@@ -54,9 +54,9 @@ Unlike other blockchain platforms, on Komodo your end-users do not have to pay g
 
 Because your asset chain is its own independent blockchain, your scalability is limitless and is not affected by activity elsewhere in the Komodo ecosystem.
 
-If another asset chain in the Komodo ecosystem has a sudden surge of activity, your asset chain does not slow down at all, as you are both on entirely separate consensus mechanisms.
+If another asset chain in the Komodo ecosystem has a sudden surge of activity, your asset chain does not slow down at all, as you are both on entirely separate blockchains.
 
-On the other hand, if activity on your asset chain hits an extremely high level and causes your chain to slow down, you can bifurcate your asset chain into two linked asset chains. Using this method, we have already proved that the Komodo ecosystem can run more than 40,000 transactions per second, and we are prepared to scale to 1,000,000 and beyond.
+On the other hand, if activity on your asset chain hits an extremely high level and causes your chain to slow down, you can split your asset chain into two linked asset chains. Using this method, we have already proved that the Komodo ecosystem can run more than 40,000 transactions per second, and we are prepared to scale to 1,000,000 and beyond.
 
 Your creativity is not limited by the mathematical constraints that affect other blockchain platforms, but instead only by hardware and your imagination.
 
@@ -70,7 +70,7 @@ For example, you can run as many asset chains as you want, and through our cross
 
 Or, maybe you want to write a smart contract that coordinates with a business partner's asset chain? Not a problem. Our technology allows you to monitor and update your chain's state and smart contracts using SPV technology to make observations of other asset chains and participating third-party blockchains.
 
-What if you want to trade value directly with blockchains outside the Komodo ecosystem? We've got you covered. With our atomic-swap powered decentralized exchange, BarterDEX, you can swap coins with any blockchain that is based on either the Bitcoin or Ethereum softwares. We also have smart-contract technology that allows you to build decentralized gateways or bridges to other blockchain softwares of your choice.
+What if you want to trade value directly with blockchains outside the Komodo ecosystem? We've got you covered. With our atomic-swap powered decentralized exchange, BarterDEX, you can swap coins with any blockchain that is based on either Bitcoin or Ethereum. We also have smart-contract technology that allows you to build decentralized gateways or bridges to other blockchain networks of your choice.
 
 ### Built-in Zero-knowledge Privacy
 
@@ -112,7 +112,7 @@ If there's one thing we've learned since we made our first atomic-swap in 2014, 
 
 There are many questions the blockchain industry faces over the next several decades. How will we approach encryption in the age of quantum computing? What will miners do as Bitcoin's block rewards decrease? How will software adapt to government interests?
 
-The good news for you is that our team does a good chunk of the work for you. When you purchase our primary services, you freely receive the updates we create for your asset chain's daemon. This helps to keep your blockchain up-to-speed with many of the latest trends.
+The good news for you is that our team does a good chunk of the work for you. You freely receive the updates we create for your asset chain's daemon. This helps to keep your blockchain up-to-speed with many of the latest trends.
 
 ### The Komodo Declaration of Independence
 
