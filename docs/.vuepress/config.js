@@ -43,7 +43,7 @@ module.exports = {
             ],
             [
               "/basic-docs/installations/common-runtime-parameters.md",
-              "Basic Runtime Parameters"
+              "Launch Settings & Maintenance"
             ],
             [
               "/basic-docs/installations/asset-chain-parameters.md",
