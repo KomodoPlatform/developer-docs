@@ -152,7 +152,7 @@ Please keep in mind the flow of the oracle data fees :
 
 **bindtxid**:
 
-This is the id of the gateway at `MYPUBKEY`.
+This is the transaction id of the gateway binding. This is returned after the `hex` value from the `gatewaysbind` call is broadcast.
 
 If the command is successful, you may review your new gateway using [`gatewaysinfo`](../cryptoconditions/cc-gateways.html#gatewaysinfo):
 
@@ -299,42 +299,45 @@ Execute the following commands on the node running the oracle dApp:
 
 This should complete the withdrawal process, and therefore the cycle for the `gateways` contract.
 
-## gatewayslist
+## gatewaysaddress
 
-**gatewayslist**
+## gatewaysbind
 
-The `gatewayslist` method displays a list of `bindtxids` for the available gateways.
+**gatewaysbind tokenid oracletxid coin tokensupply M N pubkey(s)**
+
+The `gatewaysbind` method binds the provided sources into a new gateway.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+tokenid                                      |(string)                     |the `tokenid` that the gateway will control as a proxy of foreign (off-chain) assets
+oracletxid                                   |(string)                     |the `oracletxid` under which the gateway should be created
+name                                         |(string)                     |the name of the coin represented by the gateway's proxy token
+tokensupply                                  |(number)                     |the maximum available supply of the proxy token; this should be equal to the total number of `tokenid` tokens
+M                                            |(number)                     |the minimum number of gateway signatory nodes required to facilitate a gateway transaction
+N                                            |(number)                     |the full number of gateway signatory nodes that will control the gateway
+pubkey                                       |(string)                     |the pubkey on which tokens will be available after conversion
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-bindtxid                         |(string)                     |the bindtxid of an available gateway
-,                                            |                             |
-]                                            |                             |
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
 #### :pushpin: Examples:
 
 Command:
 
 ```
-./komodo-cli -ac_name=CCNG1 gatewayslist
+
 ```
 
 Response:
 
 ```
-[
-  "4114e3c5dcddc464c5fd94efebf8215322f12226bffc93f84d6d5e0b4ca131a9",
-  "aeef4320afe73e1cfe43c4c129b31da018990f49d65b5eeb45cb9a348fdf6ece"
-]
+
 ```
 
 ## gatewaysbind
@@ -397,62 +400,57 @@ Response from Step Two:
 aa1b82d78398184c93405ccd15e3cf00b63634aac98a7b75053aa90eaf9cb47d
 ```
 
-## gatewaysinfo
+## gatewaysclaim
 
-**gatewaysinfo bindtxid**
+**gatewaysclaim bindtxid coin deposittxid destpub amount**
 
-The `gateaysinfo` method returns information about the `bindtxid` gateway.
+The `gatewaysclaim` method allows the owner of the `deposittxid` to claim their on-chain proxy tokens. This method can only be executed by the owner of the `pubkey` that was used to launch the daemon from which the `gatewaysdeposit` call was executed.
+
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-bindtxid                                     |(string)                     |the `bindtxid` for the associated gateway
+bindtxid                                     |(string)                     |the `bindtxid` of the gateway
+coin                                         |(string)                     |name of the proxy token
+deposittxid                                  |(string)                     |the `deposittxid` returned after broadcasting the hex returned from the `gatewaysdeposit` method
+destpub                                      |(string)                     |the `pubkey` address to which the proxy tokens should be sent
+amount                                       |(number)                     |the amount to send to the `pubkey`
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-result                                       |(string)                     |whether the command executed successfully
-name                                         |(string)                     |name of the command
-pubkey                                       |(string)                     |the pubkey that holds the converted proxy tokens
-coin                                         |(string)                     |name of the asset that the proxy token represents
-oracletxid                                   |(string)                     |the `oracletxid` of the associated oracle
-taddr                                        |(number)                     |===
-prefix                                       |(number)                     |===
-prefix2                                      |(number)                     |===
-deposit                                      |(string)                     |=== the t address associated with the gateay pubkey
-tokenid                                      |(string)                     |the `tokenid` of the proxy token
-totalsupply                                  |(number)                     |total available supply of proxy tokens
-remaining                                    |(number)                     |amount of proxy tokens not currently issued
-issued                                       |(number)                     |amount of proxy tokens currently issued
+result:                                      |(string)                     |whether the command succeeded
+hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
 
 #### :pushpin: Examples:
 
-Command:
+Step One:
+
+Command
 
 ```
-./komodo-cli -ac_name=CCNG1 ca0779f403d2c56ed65c68797ab9a6c30095689b127f0557897bbc628280b508
+./komodo-cli -ac_name=CCNG1 gatewaysclaim aa1b82d78398184c93405ccd15e3cf00b63634aac98a7b75053aa90eaf9cb47d KMD 0450336eed92b90f6921d017b5fe77aab0c608d69f737dabfa52c983b10027a0 024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0 0.1
 ```
 
-Response:
+Response from Step One:
 
 ```
-{
-  "result": "success",
-  "name": "Gateways",
-  "pubkey": "024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0",
-  "coin": "KMD",
-  "oracletxid": "ba26ba27dc17a017a2c0915378c0a8430e468dffb42c4fc1cd36abf69c88388b",
-  "taddr": 0,
-  "prefix": 60,
-  "prefix2": 85,
-  "deposit": "RXEXoa1nRmKhMbuZovpcYwQMsicwzccZBp",
-  "tokenid": "07646d72dec393f486f8a116facd9b8a575dcf00ec99f819151fd1784015941b",
-  "totalsupply": "1.00000000",
-  "remaining": "1.00000000",
-  "issued": "0.00000000"
-}
+===
+```
+
+Step Two: Broadcast using `sendrawtransction`
+
+```
+./komodo-cli -ac_name=CCNG1 sendrawtransaction ===
+```
+
+Response from Step Two:
+
+```
+===
 ```
 
 ## gatewaysdeposit
@@ -517,57 +515,101 @@ Response:
 ===
 ```
 
-## gatewaysclaim
+## gatewaysinfo
 
-**gatewaysclaim bindtxid coin deposittxid destpub amount**
+**gatewaysinfo bindtxid**
 
-The `gatewaysclaim` method allows the owner of the `deposittxid` to claim their on-chain proxy tokens. This method can only be executed by the owner of the `pubkey` that was used to launch the daemon from which the `gatewaysdeposit` call was executed.
-
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The `gateaysinfo` method returns information about the `bindtxid` gateway.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-bindtxid                                     |(string)                     |the `bindtxid` of the gateway
-coin                                         |(string)                     |name of the proxy token
-deposittxid                                  |(string)                     |the `deposittxid` returned after broadcasting the hex returned from the `gatewaysdeposit` method
-destpub                                      |(string)                     |the `pubkey` address to which the proxy tokens should be sent
-amount                                       |(number)                     |the amount to send to the `pubkey`
+bindtxid                                     |(string)                     |the `bindtxid` for the associated gateway
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+result                                       |(string)                     |whether the command executed successfully
+name                                         |(string)                     |name of the command
+pubkey                                       |(string)                     |the pubkey that holds the converted proxy tokens
+coin                                         |(string)                     |name of the asset that the proxy token represents
+oracletxid                                   |(string)                     |the `oracletxid` of the associated oracle
+taddr                                        |(number)                     |===
+prefix                                       |(number)                     |===
+prefix2                                      |(number)                     |===
+deposit                                      |(string)                     |=== the t address associated with the gateay pubkey
+tokenid                                      |(string)                     |the `tokenid` of the proxy token
+totalsupply                                  |(number)                     |total available supply of proxy tokens
+remaining                                    |(number)                     |amount of proxy tokens not currently issued
+issued                                       |(number)                     |amount of proxy tokens currently issued
 
 #### :pushpin: Examples:
 
-Step One:
-
-Command
+Command:
 
 ```
-./komodo-cli -ac_name=CCNG1 gatewaysclaim aa1b82d78398184c93405ccd15e3cf00b63634aac98a7b75053aa90eaf9cb47d KMD 0450336eed92b90f6921d017b5fe77aab0c608d69f737dabfa52c983b10027a0 024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0 0.1
+./komodo-cli -ac_name=CCNG1 ca0779f403d2c56ed65c68797ab9a6c30095689b127f0557897bbc628280b508
 ```
 
-Response from Step One:
+Response:
 
 ```
-===
+{
+  "result": "success",
+  "name": "Gateways",
+  "pubkey": "024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0",
+  "coin": "KMD",
+  "oracletxid": "ba26ba27dc17a017a2c0915378c0a8430e468dffb42c4fc1cd36abf69c88388b",
+  "taddr": 0,
+  "prefix": 60,
+  "prefix2": 85,
+  "deposit": "RXEXoa1nRmKhMbuZovpcYwQMsicwzccZBp",
+  "tokenid": "07646d72dec393f486f8a116facd9b8a575dcf00ec99f819151fd1784015941b",
+  "totalsupply": "1.00000000",
+  "remaining": "1.00000000",
+  "issued": "0.00000000"
+}
 ```
 
-Step Two: Broadcast using `sendrawtransction`
+
+## gatewayslist
+
+**gatewayslist**
+
+The `gatewayslist` method displays a list of `bindtxids` for the available gateways.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+(none)                                       |                             |
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+[                                            |                             |
+bindtxid                         |(string)                     |the bindtxid of an available gateway
+,                                            |                             |
+]                                            |                             |
+
+#### :pushpin: Examples:
+
+Command:
 
 ```
-./komodo-cli -ac_name=CCNG1 sendrawtransaction ===
+./komodo-cli -ac_name=CCNG1 gatewayslist
 ```
 
-Response from Step Two:
+Response:
 
 ```
-===
+[
+  "4114e3c5dcddc464c5fd94efebf8215322f12226bffc93f84d6d5e0b4ca131a9",
+  "aeef4320afe73e1cfe43c4c129b31da018990f49d65b5eeb45cb9a348fdf6ece"
+]
 ```
 
 ## gatewayswithdraw

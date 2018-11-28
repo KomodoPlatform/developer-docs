@@ -54,9 +54,9 @@ Unlike other blockchain platforms, on Komodo your end-users do not have to pay g
 
 Because your asset chain is its own independent blockchain, your scalability is limitless and is not affected by activity elsewhere in the Komodo ecosystem.
 
-If another asset chain in the Komodo ecosystem has a sudden surge of activity, your asset chain does not slow down at all, as you are both on entirely separate consensus mechanisms.
+If another asset chain in the Komodo ecosystem has a sudden surge of activity, your asset chain does not slow down at all, as you are both on entirely separate blockchains.
 
-On the other hand, if activity on your asset chain hits an extremely high level and causes your chain to slow down, you can bifurcate your asset chain into two linked asset chains. Using this method, we have already proved that the Komodo ecosystem can run more than 40,000 transactions per second, and we are prepared to scale to 1,000,000 and beyond.
+On the other hand, if activity on your asset chain hits an extremely high level and causes your chain to slow down, you can split your asset chain into two linked asset chains. Using this method, we have already proved that the Komodo ecosystem can run more than 40,000 transactions per second, and we are prepared to scale to 1,000,000 and beyond.
 
 Your creativity is not limited by the mathematical constraints that affect other blockchain platforms, but instead only by hardware and your imagination.
 
@@ -70,7 +70,7 @@ For example, you can run as many asset chains as you want, and through our cross
 
 Or, maybe you want to write a smart contract that coordinates with a business partner's asset chain? Not a problem. Our technology allows you to monitor and update your chain's state and smart contracts using SPV technology to make observations of other asset chains and participating third-party blockchains.
 
-What if you want to trade value directly with blockchains outside the Komodo ecosystem? We've got you covered. With our atomic-swap powered decentralized exchange, BarterDEX, you can swap coins with any blockchain that is based on either the Bitcoin or Ethereum softwares. We also have smart-contract technology that allows you to build decentralized gateways or bridges to other blockchain softwares of your choice.
+What if you want to trade value directly with blockchains outside the Komodo ecosystem? We've got you covered. With our atomic-swap powered decentralized exchange, BarterDEX, you can swap coins with any blockchain that is based on either Bitcoin or Ethereum. We also have smart-contract technology that allows you to build decentralized gateways or bridges to other blockchain networks of your choice.
 
 ### Built-in Zero-knowledge Privacy
 
@@ -112,11 +112,11 @@ If there's one thing we've learned since we made our first atomic-swap in 2014, 
 
 There are many questions the blockchain industry faces over the next several decades. How will we approach encryption in the age of quantum computing? What will miners do as Bitcoin's block rewards decrease? How will software adapt to government interests?
 
-The good news for you is that our team does a good chunk of the work for you. When you are a subscriber to our services, updates to our open-source code are free, keeping your blockchain up-to-speed with many of the latest trends.
+The good news for you is that our team does a good chunk of the work for you. You freely receive the updates we create for your asset chain's daemon. This helps to keep your blockchain up-to-speed with many of the latest trends.
 
 ### The Komodo Declaration of Independence
 
-What if you someday want to move elsewhere? We would be sad to see you go, but the freedom to leave is perhaps the most essential piece of Komodo's design. In fact, [read our history](https://komodoplatform.com/komodo-platform-a-commitment-to-innovation/), and you'll discover that this freedom is the reason why our platform exists in the first place.
+What if, someday, you decide you want to move elsewhere? We would be sad to see you go, but the freedom to leave is perhaps the most essential piece of Komodo's design. In fact, [read our history](https://komodoplatform.com/komodo-platform-a-commitment-to-innovation/), and you'll discover that this freedom is the reason why our platform exists in the first place.
 
 Since your asset chain is a fully independent blockchain, there's no need go through the mess of manually transferring end-users' ERC20 tokens into a new blockchain or any other cumbersome departure. Just stop making payments for our security services, and you and your end-users can head off into the great beyond.
 
@@ -142,7 +142,7 @@ Over time, as the library of secure smart-contract templates increases, it is po
 
 Simply creating and developing the asset chain for testing purposes does not require contact with or payment to the Komodo team.
 
-::: warning
+::: warning IMPORTANT
 However, in nearly all circumstances, an asset chain is only secure once it receives our dPoW connection to the Bitcoin hash rate (dPoW).
 :::
 
@@ -153,16 +153,24 @@ In general, the cost for Komodo's security services is competitive. While the in
 Please reach out to our team whenever you are ready to purchase dPoW. We will direct you to one of our service providers, and they can give you a direct quote for the annual cost.
 
 ::: tip
+<<<<<<< HEAD
 We have a limited supply of early-adopter discounts. Please inquire while supply last.
+=======
+We have a limited supply of early-bird discounts. Please inquire while supplies last.
+>>>>>>> dev
 :::
 
 ### A Brief Note About Languages
 
-In considering the languages available in the Komodo ecosystem, there are two aspects to address: code that runs inside your daemon, including your smart contracts; code that runs outside your daemon, including GUIs, backend databases, etc.
+In considering the languages available in the Komodo ecosystem, there are two aspects to address: code that runs inside your daemon, and code that runs outside of it.
+
+Code that runs inside the daemon is typically low-level, and working with this code requires strong experience. This low-level code may, for example, change the nature of your consensus mechanism, or provide a foundational smart-contract template that can be called from outside the daemon to be used in a dApp.
+
+Code that runs outside the daemon can be high-level. A dApp that is built on existing smart-contract templates can exist entirely outside the daemon. It could consist of GUI's, back-end databases, and other non-daemon code and assets that make your dApp function.
 
 In both circumstances, you are able to use whatever language you desire.
 
-However, if you are writing smart contracts or making adjustments to your daemon, we currently recommend that you have a considerable amount of programming experience, and that you work primarily in C/C++. These are the native languages of the Komodo daemon. When making adjustments to your coin's daemon, other languages can be supported, depending on the circumstances. It may incur an additional cost. Please reach out to our team with your questions.
+However, if you are working within the daemon, we currently recommend that you have a considerable amount of programming experience, and that you work primarily in C/C++. These are the native languages of the Komodo daemon. When making adjustments to your coin's daemon, other languages can be supported, depending on the circumstances. It may incur an additional cost. Please reach out to our team with your questions.
 
 For anything that occurs outside of the daemon, naturally you may use any language that can throw an rpc call to your coin's daemon. Most common languages support this functionality. We are working to create wrappers for importing Komodo functionality into your workflow. If you have a language that is not yet available, we welcome you to create a wrapper and contribute it to [our Github repository](https://www.github.com/komodoplatform). Please reach out to us with your language-wrapper requests.
 
@@ -226,7 +234,9 @@ Or, you could make your asset chain suitable for a rapid mining period, followed
 
 Now you should be ready to head into smart contract territory.
 
-Smart contracts on Komodo are a bit different (and if you ask us, a bit better too, but we're admittedly biased). If you need to catch the general idea, read the section, [Smart Contract Overview](cc-overview.html).
+Smart contracts on Komodo are a bit different (and if you ask us, a bit better too, but we're admittedly biased).
+
+If you need to catch the general idea, read the section, [Smart Contract Overview](cc-overview.html).
 
 First, you must create an asset chain that has the [ac_cc runtime parameter properly enabled](../installations/asset-chain-parameters.html#ac-cc).
 
@@ -240,7 +250,7 @@ With this activated, you can try a few existing templates:
 
 ## Write Your Own Smart-Contract Templates
 
-If you're ready to try out your own customized smart contract, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Crypto Conditions](https://docs.komodoplatform.com/cc/index-book-jl.html).
+If you're ready to try writing your own customized smart-contract template, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Crypto Conditions](https://docs.komodoplatform.com/cc/index-book-jl.html).
 
 Most developers don't need to design smart contracts on Komodo, but rather, only need to implement existing smart-contracts templates while developing a dApp. So don't be discouraged if the technical documentation appears too thick for your level of experience. Come to Discord when you have questions.
 
