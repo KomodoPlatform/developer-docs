@@ -18,7 +18,7 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-"balance"                                    |(number)                     |the current confirmed balance of satoshis
+"balance"                                    |(number)                     |the current confirmed balance in satoshis
 "received"                                   |(number)                     |the total confirmed number of satoshis received (including change)
 
 #### :pushpin: Examples:
@@ -80,7 +80,7 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-"satoshis"                                   |(number)                     |the difference of satoshis
+"satoshis"                                   |(number)                     |the difference in satoshis
 "txid"                                       |(string)                     |the related transaction id
 "index"                                      |(number)                     |the related input or output index
 "height"                                     |(number)                     |the block height
@@ -88,7 +88,7 @@ Structure|Type|Description
 
 #### :pushpin: Examples:
 
-Command
+Command:
 
 ```bash
 ./komodo-cli getaddressdeltas '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
@@ -223,7 +223,7 @@ Structure|Type|Description
 "address"                                    |(string)                     |the address
 "txid"                                       |(string)                     |the related txid
 "index"                                      |(number)                     |the related input or output index
-"satoshis"                                   |(number)                     |the difference of satoshis
+"satoshis"                                   |(number)                     |the difference in satoshis
 "timestamp"                                  |(number)                     |the time the transaction entered the mempool (seconds)
 "prevtxid"                                   |(string)                     |the previous txid (if spending)
 "prevout"                                    |(string)                     |the previous transaction output index (if spending)
