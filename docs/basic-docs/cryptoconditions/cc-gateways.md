@@ -638,7 +638,7 @@ The `gatewaysaddress` method returns information about the on-chain gateway.
 
 Structure|Type|Description
 ---------|----|-----------
-(none)
+(none)                                       |                             |
 
 ### Response:
 
@@ -1040,10 +1040,10 @@ The method returns a hex value which must then be broadcast using the [`sendrawt
 
 Structure|Type|Description
 ---------|----|-----------
-evalcode (number) the EVAL code of the gateway
-token_id (string) the token_id of the token
-gateways_pubkey (string) the gateway pubkey
-amount (number) the total supply, given in tokens
+evalcode                                     |(number)                     |the EVAL code of the gateway
+token_id                                     |(string)                     |the token_id of the token
+gateways_pubkey                              |(string)                     |the gateway pubkey
+amount                                       |(number)                     |the total supply, given in tokens
 
 ### Response:
 
