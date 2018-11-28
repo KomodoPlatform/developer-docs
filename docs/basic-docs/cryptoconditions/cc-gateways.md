@@ -873,10 +873,10 @@ name                                         |(string)                     |name
 pubkey                                       |(string)                     |the pubkey that holds the converted proxy tokens
 coin                                         |(string)                     |name of the asset that the proxy token represents
 oracletxid                                   |(string)                     |the `oracletxid` of the associated oracle
-taddr                                        |(number)                     |===
-prefix                                       |(number)                     |===
-prefix2                                      |(number)                     |===
-deposit                                      |(string)                     |=== the t address associated with the gateay pubkey
+taddr                                        |(number)                     |
+prefix                                       |(number)                     |
+prefix2                                      |(number)                     |
+deposit                                      |(string)                     |the t address associated with the gateay pubkey
 tokenid                                      |(string)                     |the `tokenid` of the proxy token
 totalsupply                                  |(number)                     |total available supply of proxy tokens
 remaining                                    |(number)                     |amount of proxy tokens not currently issued
