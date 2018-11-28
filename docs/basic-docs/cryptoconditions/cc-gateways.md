@@ -652,31 +652,6 @@ Structure|Type|Description
 "myCCaddress"                                |(string)                     |taking the contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
 "myaddress"                                  |(string)                     |the public address of the pubkey used to launch the chain
 
-## gatewaysbind
-
-**gatewaysbind tokenid oracletxid coin tokensupply M N pubkey(s)**
-
-The `gatewaysbind` method binds the provided sources into a new gateway.
-
-### Arguments:
-
-Structure|Type|Description
----------|----|-----------
-tokenid                                      |(string)                     |the `tokenid` that the gateway will control as a proxy of foreign (off-chain) assets
-oracletxid                                   |(string)                     |the `oracletxid` under which the gateway should be created
-name                                         |(string)                     |the name of the coin represented by the gateway's proxy token
-tokensupply                                  |(number)                     |the maximum available supply of the proxy token; this should be equal to the total number of `tokenid` tokens
-M                                            |(number)                     |the minimum number of gateway signatory nodes required to facilitate a gateway transaction
-N                                            |(number)                     |the full number of gateway signatory nodes that will control the gateway
-pubkey                                       |(string)                     |the pubkey on which tokens will be available after conversion
-
-### Response:
-
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
-
 #### :pushpin: Examples:
 
 Command:
