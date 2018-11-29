@@ -79,7 +79,7 @@ nblocks                                      |(numeric)                    |the 
 
 Structure|Type|Description
 ---------|----|-----------
-n                                            |                             |
+n                                            |(numeric)                             |estimated fee
 
 #### :pushpin: Examples:
 
