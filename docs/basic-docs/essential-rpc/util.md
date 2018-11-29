@@ -126,7 +126,7 @@ Command:
 Response:
 
 ```bash
-===
+-1
 ```
 
 ## invalidateblock

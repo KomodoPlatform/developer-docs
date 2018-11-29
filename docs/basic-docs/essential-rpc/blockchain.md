@@ -1106,13 +1106,17 @@ Structure|Type|Description
 Command:
 
 ```bash
-./komodo-cli getspentinfo '{"txid": "41ec75822318373bd00513efe7c708e745ab370db08ef4e0bd2ba4882ea77b40", "index": 0}'
+./komodo-cli getspentinfo '{"txid": "4479f2c05ba22adf2333db724f247a09effcc9edea8c079da0da05d3a0451064", "index": 0}'
 ```
 
 Response:
 
 ```json
-===
+{
+  "txid": "d2a7b19178ff6b4b1d54befc300879239969716322e4bcd2742162d86ef113c8",
+  "index": 228,
+  "height": 994953
+}
 ```
 
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
@@ -1120,13 +1124,21 @@ You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` f
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getspentinfo", "params": [{"txid": "41ec75822318373bd00513efe7c708e745ab370db08ef4e0bd2ba4882ea77b40", "index": 0}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getspentinfo", "params": [{"txid": "4479f2c05ba22adf2333db724f247a09effcc9edea8c079da0da05d3a0451064", "index": 0}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
 ```json
-===
+{  
+   "result":{  
+      "txid":"d2a7b19178ff6b4b1d54befc300879239969716322e4bcd2742162d86ef113c8",
+      "index":228,
+      "height":994953
+   },
+   "error":null,
+   "id":"curltest"
+}
 ```
 
 ## gettxout
