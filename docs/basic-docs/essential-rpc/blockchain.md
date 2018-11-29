@@ -1083,7 +1083,8 @@ Response:
 
 **getspentinfo '{"txid": "txid_string", "index", block_height_number}'**
 
-The `getspentinfo` method returns the transaction id and index where an output is spent.
+The `getspentinfo` method returns the transaction id and index where an output is spent.It requires [`spentindex`](../installations/common-runtime-parameters.html#spentindex) to be enabled.
+
 
 ### Arguments:
 

@@ -12,43 +12,42 @@ The `getblocksubsidy` method returns the block-subsidy reward. The resulting cal
 
 Structure|Type|Description
 ---------|----|-----------
-true/false                                   |(boolean)                    |indicates whether the server is set to generate coins
+height                                   |(numeric, optional)                    |The block height.  If not provided, defaults to the current height of the chain.
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
 "miner"                                      |(numeric)                    |the mining reward amount
-}                                            |                             |
+
 
 #### :pushpin: Examples:
 
 Command:
 
-```
+```bash
 ./komodo-cli getblocksubsidy 100
 ```
 
 Response:
 
-```
+```json
 {
   "miner": 0.00010000
 }
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockubsidy", "params": [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 ===
 ```
 
@@ -59,7 +58,7 @@ Response:
 The `getblocktemplate` method returns data that is necessary to construct a block.
 
 ::: tip
-See <a href="https://en.bitcoin.it/wiki/BIP_0022">the Bitcoin wiki</a> for full specification.
+See <a href="https://en.bitcoin.it/wiki/BIP_0022">the Bitcoin wiki</a> for the full specification.
 :::
 
 If the request parameters include a `mode` key, it is used to explicitly select between the default 'template' request or a 'proposal'.
@@ -68,64 +67,48 @@ If the request parameters include a `mode` key, it is used to explicitly select 
 
 Structure|Type|Description
 ---------|----|-----------
-"jsonrequestobject"                          |(string, optional)           |a json object in the following spec
-{                                            |                             |
-"mode"                                       |(string, optional)           |can be: "template" | "omitted"
-"capabilities":                              |                             |
+"jsonrequestobject" : { ... }                         |(string, optional)           |a json object in the following spec
+"mode"                                       |(string, optional)           |This must be set to "template" or omitted
+"capabilities": [ ... ]                      |(array, optional)            |A list of strings
 "support"                                    |(string)                     |client side supported features: "longpoll", "coinbasetxn", "coinbasevalue", "proposal", "serverlist", "workid"
-,                                            |                             |
-]                                            |                             |
-}                                            |                             |
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
 "version"                                    |(numeric)                    |the block version
 "previousblockhash"                          |(string)                     |the hash of current highest block
-"transactions"                               |                             |
-{                                            |                             |
+"transactions":[ ... ]                       |(array)                             |contents of non-coinbase transactions that should be included in the next block
 "data"                                       |(string)                     |transaction data encoded in hexadecimal (byte-for-byte)
 "hash"                                       |(string)                     |hash/id encoded in little-endian hexadecimal
-"depends"                                    |                             |
+"depends"                                    |(array)                      |array of numbers 
 number                                       |(numeric)                    |transactions before this one (by 1-based index in "transactions" list) that must be present in the final block, if this one is
-,                                            |                             |
-],                                           |                             |
 "fee"                                        |(numeric)                    |the difference in value between transaction inputs and outputs (in Satoshis). For coinbase transactions, this is a negative number of the total collected block fees (ie, not including the block subsidy). If a key is not present, the fee is unknown and clients MUST NOT assume it is not present.
 "sigops"                                     |(numeric)                    |total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.
 "required"                                   |(boolean)                    |if provided and true, this transaction must be in the final block
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
-"coinbasetxn"                                |                             |
-...                                          |(json object)                |information for coinbase transaction
-},                                           |                             |
+"coinbasetxn": { ... }                       |(json object)                |information for coinbase transaction
 "target"                                     |(string)                     |the hash target
 "mintime"                                    |(numeric)                    |the minimum timestamp appropriate for next block time in seconds since epoch (Jan 1 1970 GMT)
-"mutable"                                    |                             |
+"mutable"                                    |(array of string)            |list of ways the block template may be changed
 "value"                                      |(string)                     |a way the block template may be changed, e.g. "time", "transactions", "prevblock"
-,                                            |                             |
-],                                           |                             |
 "noncerange"                                 |(string)                     |a range of valid nonces
 "sigoplimit"                                 |(numeric)                    |limit of sigops in blocks
 "sizelimit"                                  |(numeric)                    |limit of block size
 "curtime"                                    |(numeric)                    |current timestamp in seconds since epoch (Jan 1 1970 GMT)
 "bits"                                       |(string)                     |compressed target of next block
 "height"                                     |(numeric)                    |the height of the next block
-}                                            |                             |
 
 #### :pushpin: Examples:
 
 Command:
 
-```
+```bash
 ./komodo-cli getblocktemplate '{"mode":"template","capabilities":["workid"]}'
 ```
 
 Response:
 
-```
+```json
 {
   "capabilities": [
     "proposal"
@@ -161,17 +144,17 @@ Response:
 }
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblocktemplate", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": {
     "capabilities": [
@@ -242,27 +225,27 @@ Structure|Type|Description
 
 Command:
 
-```
+```bash
 ./komodo-cli getlocalsolps
 ```
 
 Response:
 
-```
+```bash
 0.4141607577247555
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getlocalsolps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": 0.4141607577247555,
   "error": null,
@@ -286,32 +269,30 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
 "blocks"                                     |(numeric)                    |the current block
 "currentblocksize"                           |(numeric)                    |the last block size
 "currentblocktx"                             |(numeric)                    |the last block transaction
 "difficulty"                                 |(numeric)                    |the current difficulty
 "errors":                                    |                             |
 "generate"                                   |(boolean)                    |if the generation is on or off (see [getgenerate](../essential-rpc/generate.html#getgenerate) or [setgenerate](../essential-rpc/generate.html#setgenerate) calls)
-"genproclimit"                               |(numeric)                    |the processor limit for generation; -1 if no generation (see[getgenerate](../essential-rpc/generate.html#getgenerate) or [setgenerate](../essential-rpc/generate.html#setgenerate) calls)
+"genproclimit"                               |(numeric)                    |the processor limit for generation; `-1` if no generation (see [getgenerate](../essential-rpc/generate.html#getgenerate) or [setgenerate](../essential-rpc/generate.html#setgenerate) calls)
 "localsolps"                                 |(numeric)                    |the average local solution rate (solutions per second) since this node was started
 "networksolps"                               |(numeric)                    |the estimated network solution rate (solutions per second)
 "pooledtx":                                  |                             |
 "testnet"                                    |(boolean)                    |if using testnet or not
 "chain"                                      |(string)                     |current network name as defined in BIP70 (main, test, regtest)
-}                                            |                             |
 
 #### :pushpin: Examples:
 
 Command:
 
-```
+```bash
 ./komodo-cli getmininginfo
 ```
 
 Response:
 
-```
+```json
 {
   "blocks": 1007341,
   "currentblocksize": 0,
@@ -330,17 +311,17 @@ Response:
 }
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": {
     "blocks": 1007341,
@@ -367,6 +348,10 @@ Response:
 
 **getnetworkhashps ( blocks height )**
 
+::: warning
+DEPRECATED: Use <b>getnetworksolps</b> instead.
+:::
+
 The `getnetworkhashps` method returns the estimated network solutions per second based on the last `n` blocks.
 
 Pass in `blocks` value to override the default number of blocks. Passing in `-1` will return a value based on the average hashps of the relevant difficulty window.
@@ -390,37 +375,33 @@ data                                         |(numeric)                    |solu
 
 Command:
 
-```
+```bash
 ./komodo-cli getnetworkhashps
 ```
 
 Response:
 
-```
+```bash
 10724120
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworkhashps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": 10449287,
   "error": null,
   "id": "curltest"
 }
 ```
-
-::: warning
-DEPRECATED: Use <b>getnetworksolps</b> instead.
-:::
 
 ## getnetworksolps
 
@@ -449,27 +430,27 @@ data                                         |(numeric)                    |solu
 
 Command:
 
-```
+```bash
 ./komodo-cli getnetworksolps
 ```
 
 Response:
 
-```
+```bash
 9954190
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworksolps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 ===
 ```
 
@@ -488,8 +469,8 @@ This method is inherited from the original Bitcoin protocol, of which KMD is a f
 Structure|Type|Description
 ---------|----|-----------
 "transaction_id"                             |(string, required)           |the transaction id
-priority                                     |                             |
-fee                                          |                             |
+priority                                     |(numeric, required)          |The priority to add or subtract. (The transaction selection algorithm considers the tx as it would have a higher priority. (priority of a transaction is calculated: `coinage * value_in_satoshis / txsize`))
+fee                                          |(numeric, required)          |The fee value (in satoshis) to add (or subtract, if negative). The fee is not actually paid, only the algorithm for selecting transactions into a block considers the transaction as it would have paid a higher (or lower) fee.
 
 ### Response:
 
@@ -501,27 +482,27 @@ true                                         |(boolean)                    |retu
 
 Command:
 
-```
+```bash
 ./komodo-cli prioritisetransaction "7dc902b280da27cf2dabe41ed6f4d04c828714f289435db193a49341005607eb" 0.0 10000
 ```
 
 Response:
 
-```
+```bash
 true
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "prioritisetransaction", "params": ["txid", 0.0, 10000] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": true,
   "error": null,
@@ -548,10 +529,9 @@ Note: for more information on <b>submitblock</b> parameters and results, see <a 
 Structure|Type|Description
 ---------|----|-----------
 "hexdata"                                    |(string, required)           |the hex-encoded block data to submit
-"jsonparametersobject"                       |(string, optional)           |object of optional parameters
-{                                            |                             |
+"jsonparametersobject" : { ... }                      |(string, optional)           |object of optional parameters
 "workid"                                     |(string, sometimes optional) |if the server provides a workid, it MUST be included with submissions
-}                                            |                             |
+
 
 ### Response:
 
@@ -567,26 +547,26 @@ Structure|Type|Description
 
 Command:
 
-```
+```bash
 ./komodo-cli submitblock "mydata"
 ```
 
 Response:
 
-```
+```bash
 ===
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "submitblock", "params": ["mydata"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 ===
 ```
