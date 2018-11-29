@@ -25,27 +25,27 @@ Structure|Type|Description
 
 Command:
 
-```
+```bash
 ./komodo-cli addnode "192.168.0.6:8233" "onetry"
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addnode", "params": ["192.168.0.6:8233", "onetry"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
@@ -71,27 +71,27 @@ Structure|Type|Description
 
 Command:
 
-```
+```bash
 ./komodo-cli clearbanned
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "clearbanned", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
@@ -119,27 +119,27 @@ Structure|Type|Description
 
 Command:
 
-```
+```bash
 ./komodo-cli disconnectnode "192.168.0.6:8233"
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "disconnectnode", "params": ["192.168.0.6:8233"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
@@ -166,32 +166,23 @@ dns                                          |(boolean, required)          |if f
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-{                                            |                             |
 "addednode"                                  |(string)                     |the node ip address
 "connected"                                  |(boolean)                    |if connected
-"addresses"                                  |                             |
-{                                            |                             |
+"addresses" : { ... }                                 |                             |
 "address"                                    |(string)                     |the server host and port
 "connected"                                  |(string)                     |"connected" accepts two possible values: "inbound" or "outbound"
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
 
 #### :pushpin: Examples:
 
 Command:
 
-```
+```bash
 ./komodo-cli getaddednodeinfo true
 ```
 
 Response:
 
-```
+```json
 [
   {
     "addednode": "78.47.196.146",
@@ -208,13 +199,13 @@ Response:
 
 Command:
 
-```
+```bash
 ./komodo-cli getaddednodeinfo true "78.47.205.239"
 ```
 
 Response:
 
-```
+```json
 [
   {
     "addednode": "78.47.205.239",
@@ -229,17 +220,17 @@ Response:
 ]
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddednodeinfo", "params": [true, "78.47.205.239"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": [
     {
@@ -280,27 +271,27 @@ n                                            |(numeric)                    |the 
 
 Command:
 
-```
+```bash
 ./komodo-cli getconnectioncount
 ```
 
 Response:
 
-```
+```bash
 10
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getconnectioncount", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": 10,
   "error": null,
@@ -328,23 +319,21 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
 "version"                                    |(numeric)                    |the server version
 "subversion"                                 |(string)                     |the server sub-version string (i.e. "/MagicBean:x.y.z[-v]/")
 "deprecationheight"                          |(numeric)                    |the block height at which this version will deprecate and shut down (unless [`disabledeprecation`](https://z.cash/blog/new-release-1-1-2/) is set)
-}                                            |                             |
 
 #### :pushpin: Examples:
 
 Command:
 
-```
+```bash
 ./komodo-cli getdeprecationinfo
 ```
 
 Response:
 
-```
+```json
 {
   "version": 1001550,
   "subversion": "/MagicBean:1.0.15/",
@@ -352,17 +341,17 @@ Response:
 }
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getdeprecationinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": {
     "version": 1001550,
@@ -390,23 +379,21 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
 "totalbytesrecv"                             |(numeric)                    |total bytes received
 "totalbytessent"                             |(numeric)                    |total bytes sent
 "timemillis"                                 |(numeric)                    |total cpu time
-}                                            |                             |
 
 #### :pushpin: Examples:
 
 Command:
 
-```
+```bash
 ./komodo-cli getnettotals
 ```
 
 Response:
 
-```
+```json
 {
   "totalbytesrecv": 29853501,
   "totalbytessent": 15589555,
@@ -414,17 +401,17 @@ Response:
 }
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnettotals", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": {
     "totalbytesrecv": 29872297,
@@ -452,45 +439,36 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
 "version"                                    |(numeric)                    |the server version
 "subversion"                                 |(string)                     |the server subversion string (i.e. "/MagicBean:x.y.z[-v]/")
 "protocolversion"                            |(numeric)                    |the protocol version
 "localservices"                              |(string)                     |the services we offer to the network
 "timeoffset"                                 |(numeric)                    |the time offset
 "connections"                                |(numeric)                    |the number of connections
-"networks":                                  |                             |
-{                                            |                             |
+"networks": [ ... ]                          |(array)                      |information per network
 "name"                                       |(string)                     |network (ipv4, ipv6 or onion)
 "limited"                                    |(boolean)                    |whether the network is limited using -onlynet
 "reachable"                                  |(boolean)                    |whether the network is reachable
 "proxy"                                      |(string)                     |(submitted as "host:port") the proxy that is used for this network, or empty if none
-}                                            |                             |
-,                                            |                             |
-],                                           |                             |
 "relayfee"                                   |(numeric)                    |minimum relay fee for non-free transactions in COIN/kB
-"localaddresses":                            |                             |
-{                                            |                             |
+"localaddresses": [ ... ]                    |(array)                      |list of local addresses
 "address"                                    |(string)                     |network address
 "port"                                       |(numeric)                    |network port
 "score"                                      |(numeric)                    |relative score
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
 "warnings"                                   |(string)                     |any network warnings (such as alert messages)
-}                                            |                             |
+
 
 #### :pushpin: Examples:
 
 Command:
 
-```
+```bash
 ./komodo-cli getnetworkinfo
 ```
 
 Response:
 
-```
+```json
 {
   "version": 1001550,
   "subversion": "/MagicBean:1.0.15/",
@@ -528,17 +506,17 @@ Response:
 }
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworkinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": {
     "version": 1001550,
@@ -595,8 +573,6 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-{                                            |                             |
 "id"                                         |(numeric)                    |peer index
 "addr":,                                     |(string)                     |the ip address and port of the peer ("host:port")
 "addrlocal"                                  |(string)                     |local address ("ip:port")
@@ -616,25 +592,20 @@ Structure|Type|Description
 "banscore"                                   |(numeric)                    |the ban score
 "synced_headers"                             |(numeric)                    |the last header we have in common with this peer
 "synced_blocks"                              |(numeric)                    |the last block we have in common with this peer
-"inflight":                                  |                             |
-number,                                      |(numeric)                    |the heights of blocks we're currently asking from this peer
-...                                          |                             |
-]                                            |                             |
-}                                            |                             |
-,                                            |                             |
-]                                            |                             |
+"inflight":                                  |(array)                             |
+number                                      |(numeric)                    |the heights of blocks we're currently asking from this peer
 
 #### :pushpin: Examples:
 
 Command:
 
-```
+```bash
 ./komodo-cli getpeerinfo
 ```
 
 Response:
 
-```
+```json
 [
   {
     "id": 1,
@@ -662,17 +633,17 @@ Response:
 ]
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getpeerinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": [
     {
@@ -719,25 +690,21 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-{                                            |                             |
 "address"                                    |(string)                     |the address/subnet that is banned
 "banned_until"                               |(numeric)                    |the timestamp, at which point the ban will be removed
-},                                           |                             |
-...                                          |                             |
-]                                            |                             |
+
 
 #### :pushpin: Examples:
 
 Command:
 
-```
+```bash
 ./komodo-cli listbanned
 ```
 
 Response:
 
-```
+```json
 [
   {
     "address": "78.47.205.239/255.255.255.255",
@@ -746,17 +713,17 @@ Response:
 ]
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listbanned", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": [
     {
@@ -799,27 +766,27 @@ Structure|Type|Description
 
 Command:
 
-```
+```bash
 ./komodo-cli ping
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "ping", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": null,
   "error": null,
@@ -856,38 +823,38 @@ Use <b>listbanned</b> to view results.
 
 Command:
 
-```
+```bash
 ./komodo-cli setban "192.168.0.6" "add" 86400
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
 Command:
 
-```
+```bash
 ./komodo-cli setban "192.168.0.0/24" "add"
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setban", "params": ["78.47.205.239", "add", 86400] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
