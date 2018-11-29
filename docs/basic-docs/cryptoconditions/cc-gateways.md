@@ -873,9 +873,9 @@ name                                         |(string)                     |name
 pubkey                                       |(string)                     |the pubkey that holds the converted proxy tokens
 coin                                         |(string)                     |name of the asset that the proxy token represents
 oracletxid                                   |(string)                     |the `oracletxid` of the associated oracle
-taddr                                        |(number)                     |
-prefix                                       |(number)                     |
-prefix2                                      |(number)                     |
+taddr                                        |(number)                     |coin specific address that customizes the address for the relevant foreign coin (BTC, LTC, etc.)
+prefix                                       |(number)                     |coin specific address prefix that customizes the address for the relevant foreign coin (BTC, LTC, etc.)
+prefix2                                      |(number)                     |coin specific address prefix that customizes the address for the relevant foreign coin (BTC, LTC, etc.)
 deposit                                      |(string)                     |the t address associated with the gateway pubkey
 tokenid                                      |(string)                     |the `tokenid` of the proxy token
 totalsupply                                  |(number)                     |total available supply of proxy tokens
