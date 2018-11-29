@@ -22,20 +22,19 @@ numblocks                                    |(numeric)                    |the 
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
 blockhashes                                  |(array)                      |hashes of blocks generated
-,...                                         |                             |
-]                                            |                             |
 
 #### :pushpin: Examples:
 
 Command:
 
-```
+```bash
 ./komodo-cli generate 2
+```
 
-response:
+Response:
 
+```bash
 [
   "0475316d63fe48bb9d58373595cb334fc2553f65496edfb2fb17b9ed06f4c480",
   "00d29a2b7dec52baa9ab8e4264363f32b4989eef7dbb0a9932fbc11274195b5a"
@@ -70,27 +69,27 @@ true/false                                   |(boolean)                    |indi
 
 Command:
 
-```
+```bash
 ./komodo-cli getgenerate
 ```
 
 Response:
 
-```
+```bash
 false
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getgenerate", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": false,
   "error": null,
@@ -104,7 +103,7 @@ Response:
 
 The `setgenerate` method allows the user to set the `generate` property in the coin daemon to `true` or `false`, thus turning generation (mining) on or off.
 
-Generation is limited to [`genproclimit`](../installations/common-runtime-parameters.html#genproclimit) processors. Set `genproclimit` to `-1` for unlimited.
+Generation is limited to [`genproclimit`](../installations/common-runtime-parameters.html#genproclimit) processors. Set `genproclimit` to `-1` to use maximum available processors.
 
 ::: tip
 See also the <b>getgenerate</b> method to query the current setting, and <b>genproclimit</b> for setting processor default parameters.
@@ -125,19 +124,19 @@ Structure|Type|Description
 
 #### :pushpin: Examples:
 
-Turn on generation with unlimited processors:
+Turn on generation with maximum available processors:
 
 
 Command:
 
-```
+```bash
 ./komodo-cli setgenerate true -1
 ```
 
 
 Response:
 
-```
+```bash
 (none)
 ```
 
@@ -145,13 +144,13 @@ Check the setting:
 
 Command:
 
-```
+```bash
 ./komodo-cli getgenerate
 ```
 
 Response:
 
-```
+```bash
 true
 ```
 
@@ -159,13 +158,13 @@ Turn off generation:
 
 Command:
 
-```
+```bash
 ./komodo-cli setgenerate false
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
@@ -173,13 +172,13 @@ Turning the setting on via json rpc:
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setgenerate", "params": [true, 1] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": null,
   "error": null,

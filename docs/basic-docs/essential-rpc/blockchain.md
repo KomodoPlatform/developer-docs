@@ -142,7 +142,7 @@ Command:
 
 Response:
 
-```json
+```bash
 04000000f442fe53d6b0fc7055f7f2b3fd3891269b60dbee33868c74a7382b8447b5f9096896423421d7e1193a7b88d2fbf1eef1c46f637e7a49217c171a18852d29e8d6000000000000000000000000000000000000000000000000000000000000000040b7965bf80e0f20040000d107217bd67b88b0e029af2d498329c3eea8b0d743f25e6de6742400002430a5e9153392b643d139cf205b270d55cb7d3b4779fd7a3666bdb744ef221c966fde13240101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff05028e010101ffffffff0110270000000000002321033097c6f4b12bd13a2e39b686b3a2fc30fe55a1d51221d857421e40564d5e237cac3fb7965b
 ```
 
@@ -631,13 +631,18 @@ Structure|Type|Description
 Command:
 
 ```bash
-./komodo-cli getblockhashes 1231614698 1231024505
+./komodo-cli getblockhashes 1531614698 1531614498
 ```
 
 Response:
 
-```json
-===
+```bash
+[
+  "01c555caa581783c94af1ec4fdd1237a37829fc8ccf9fd956f3df462495a8629",
+  "0debf03ff8fe2c09ccb7e8b3770121d71ef8c7fce267a04f9301cc50f594f9ac",
+  "01c92378d9fa66eb83d0bfcf601678792e0351f9b51483db1084347dabd78432"
+]
+
 ```
 
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
@@ -645,25 +650,46 @@ You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` f
 Command:
 
 ```
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockhashes", "params": [1231614698, 1231024505] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockhashes", "params": [1531614698, 1531614498] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
 ```json
-===
+{  
+   "result":[  
+      "01c555caa581783c94af1ec4fdd1237a37829fc8ccf9fd956f3df462495a8629",
+      "0debf03ff8fe2c09ccb7e8b3770121d71ef8c7fce267a04f9301cc50f594f9ac",
+      "01c92378d9fa66eb83d0bfcf601678792e0351f9b51483db1084347dabd78432"
+   ],
+   "error":null,
+   "id":"curltest"
+}
 ```
 
 Command:
 
 ```bash
-./komodo-cli getblockhashes 1231614698 1231024505 '{"noOrphans":false, "logicalTimes":true}'
+./komodo-cli getblockhashes 1531614698 1531614498 '{"noOrphans":false, "logicalTimes":true}'
 ```
 
 Response:
 
 ```json
-===
+[
+  {
+    "blockhash": "01c555caa581783c94af1ec4fdd1237a37829fc8ccf9fd956f3df462495a8629",
+    "logicalts": 1531614555
+  },
+  {
+    "blockhash": "0debf03ff8fe2c09ccb7e8b3770121d71ef8c7fce267a04f9301cc50f594f9ac",
+    "logicalts": 1531614615
+  },
+  {
+    "blockhash": "01c92378d9fa66eb83d0bfcf601678792e0351f9b51483db1084347dabd78432",
+    "logicalts": 1531614692
+  }
+]
 ```
 
 ## getblockheader

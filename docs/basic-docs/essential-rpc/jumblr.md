@@ -4,24 +4,29 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## Basic Instructions
 
-Install Komodo following the [installation guides](../installations/basic-instructions.html#installing-basic-komodo-software) and change into the `komodod` subdirectory.
-
-`cd komodo/src`
-
-`komodod &`
-
-Designate a KMD address with at least 10.024 KMD funds.
-
-`komodo-cli jumblr_deposit "KMD_address"`
-
-Designate a destination address for your funds. This should be a transparent address that you are keeping secret.
-
-`komodo-cli jumblr_secret "destination_KMD_address"`
-
-Leave your node running until the balance in your first address reaches below 10.024 KMD and the destination address receives the correct amount.
+* Install Komodo following the [installation guides](../installations/basic-instructions.html#installing-basic-komodo-software) and change into the `komodod` subdirectory using: 
+```bash
+cd ~/komodo/src
+```
+* Start the daemon: 
+```bash
+./komodod &
+```
+* Designate a KMD address with at least 10.024 KMD funds: 
+```bash
+./komodo-cli jumblr_deposit KMD_address
+```
+::: tip
+The jumblr process continues until there are less than ~ 10.024 KMD in the deposit address.
+:::
+* Designate a destination address for your funds. This should be a transparent address that you are keeping secret: 
+```bash
+komodo-cli jumblr_secret destination_KMD_address
+```
+* Leave your node running until the balance in your first address reaches below 10.024 KMD and the destination address receives the correct amount.
 
 ::: warning
-Jumblr is created to be resistant against time-based analysis. Because of this, Jumblr is purposefully designed not to be fast. You will need to leave your computer or node running for several hours for the process to finish.
+Jumblr is created to be resistant against time-based analysis. Because of this, Jumblr is purposefully designed not to be fast. You will need to leave your computer/node running for several hours for the process to finish.
 :::
 
 For a more detailed description of Jumblr, please read Section IV of our [whitepaper](https://komodoplatform.com/whitepaper).
@@ -30,13 +35,13 @@ For a more detailed description of Jumblr, please read Section IV of our [whitep
 
 Designate your deposit address.
 
-```
+```bash
 ./komodo-cli jumblr_deposit RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb
 ```
 
 Designate your secret destination address.
 
-```
+```bash
 ./komodo-cli jumblr_secret RS46GZ5iTkt2exdauQG3JJ8fdnZNJUvAc1
 ```
 
@@ -67,13 +72,13 @@ Structure|Type|Description
 
 Command:
 
-```
-./komodo-cli "RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb"
+```bash
+./komodo-cli jumblr_deposit RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
@@ -104,13 +109,13 @@ Structure|Type|Description
 
 Command:
 
-```
+```bash
 ./komodo-cli jumblr_pause
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
@@ -141,13 +146,13 @@ Structure|Type|Description
 
 Command:
 
-```
+```bash
 ./komodo-cli jumblr_resume
 ```
 
 Response:
 
-```
+```bash
 (none)
 ```
 
@@ -171,6 +176,14 @@ Structure|Type|Description
 
 #### :pushpin: Examples:
 
-```
+Command:
+
+```bash
 ./komodo-cli jumbr_secret "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns"
+```
+
+Response:
+
+```bash
+(none)
 ```

@@ -18,7 +18,6 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
 "version"                                    |(numeric)                    |the server version
 "protocolversion"                            |(numeric)                    |the protocol version
 "walletversion"                              |(numeric)                    |the wallet version
@@ -35,19 +34,18 @@ Structure|Type|Description
 "paytxfee"                                   |(numeric)                    |the transaction fee set in COIN/kB
 "relayfee"                                   |(numeric)                    |minimum relay fee for non-free transactions in COIN/kB
 "errors"                                     |(string)                     |any error messages
-}                                            |                             |
 
 #### :pushpin: Examples:
 
 Command:
 
-```
+```bash
 ./komodo-cli getinfo
 ```
 
 Response:
 
-```
+```json
 {
   "version": 1001550,
   "protocolversion": 170003,
@@ -82,17 +80,17 @@ Response:
 }
 ```
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
-```
+```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
-```
+```json
 {
   "result": {
     "version": 1001550,
@@ -179,12 +177,12 @@ Komodo server stopping                       |                             |
 
 Command:
 
-```
+```bash
 ./komodo-cli stop
 ```
 
 Response:
 
-```
+```bash
 "Komodo server stopping"
 ```
