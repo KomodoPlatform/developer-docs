@@ -16,7 +16,7 @@ This is the ticker symbol for the coin you wish to create. We recommended it con
 
 A simple asset chain
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
 ```
 
@@ -30,7 +30,7 @@ This is the amount of pre-mined coins you would like the chain to have.
 
 The node that sets [`gen`](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
 
-If `ac_supply` is not set, [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) is set, the  pre-mined coins will be mined to the address of the corresponding pubkey.
+If `ac_supply` is not set, [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) is set, the pre-mined coins will be mined to the address of the corresponding pubkey.
 
 The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
 
@@ -42,7 +42,7 @@ An additional fraction of a coin will be added to this based on the asset chain'
 
 A simple asset chain
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
 ```
 
@@ -54,39 +54,39 @@ If this is not set, the block reward will be `10000` satoshis and blocks will be
 
 #### :pushpin: Examples:
 
-A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Recall that ac_supply is given in coins, while ac_reward is given in satoshis.)
+A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Note that ac_supply is given in coins, while ac_reward is given in satoshis.)
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 &
 ```
 
 A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
 ```
 
 ## ac_end
 
-This is the block height in which block rewards will end. Every block after this height will have 0 block reward, and by default the only incentive to mine a new block will be transaction fees.
+This is the block height at which block rewards will end. Every block after this height will have 0 block reward, and by default the only incentive to mine a new block will be transaction fees.
 
 #### :pushpin: Examples:
 
 A 777777-coin pre-mine, with a default block reward of 0.0001 coin, and on-demand blocks after block 128. The block reward ends at block 25000.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_end=25000 &
 ```
 
 A 777777-coin pre-mine, with a 5-coin block reward, and the block reward ends at block 200.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_end=200 &
 ```
 
 A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases by 50% every 2000 blocks, and the block reward ends at block 10000.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_halving=2000 -ac_end=10000 &
 ```
 
@@ -94,24 +94,12 @@ A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases b
 
 This is the number of blocks between each block reward halving. This parameter will have no effect if [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [`ac_decay`](../installations/asset-chain-parameters.html#ac-decay) is not, the reward will decrease by 50% each halving.
 
-#### :pushpin: Examples:
+#### :pushpin: Example:
 
 A 777777-coin pre-mine, with a 5-coin block reward, and the block reward decreases by 50% every 2000 blocks.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_halving=2000 &
-```
-
-A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
-
-```
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
-```
-
-A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
-
-```
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
 ```
 
 ## ac_decay
@@ -120,26 +108,20 @@ This is the percentage the block reward will decrease by each block-reward halvi
 
 This is the formula that `ac_decay` follows:
 
-`numhalvings = (height / ac_halving);`
+```
+numhalvings = (height / ac_halving);
+for (i=0; i<numhalvings; i++)
+reward_after = reward_before * ac_decay / 100000000;
+```
 
-`for (i=0; i<numhalvings; i++)`
-
-`reward_after = reward_before * ac_decay / 100000000;`
-
-For example, if this is set to `750000000`, at each halving the block reward will drop to 75% of its previous value.
+For example, if this parameter is set to `750000000`, at each halving the block reward will drop to 75% of its previous value.
 
 #### :pushpin: Examples:
 
 A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
-```
-
-A 777777-coin pre-mine, a 1000-coin block reward, the block reward decreases by 25% every 100000 blocks, the block reward ends at block 1000000, and the chain adjusts difficulty so 1% of blocks are mined via PoS, 99% via PoW. The pubkey address receives an additional 0.5% above the block reward for each mined block. For example, before the first halving, the pubkey address will receive 5 coins (0.5% of 1000 coin block reward) for every mined block. After the first halving, the pubkey address will receive 3.75 coins for every mined block (0.5% of 750-block reward). The pubkey address receives an additional 0.5% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 0.5 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
-
-```
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000000 -ac_halving=100000 -ac_decay=75000000 -ac_end=1000000 -ac_perc=500000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=1 &
 ```
 
 ## ac_perc
@@ -156,7 +138,7 @@ Vout 1 of each coinbase transaction must be the correct amount sent to the corre
 
 A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 5 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50 &
 ```
 
@@ -174,7 +156,7 @@ If `ac_pubkey` is set, but `ac_perc` is not, this simply means the genesis block
 
 A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 5 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50
 ```
 
@@ -186,9 +168,9 @@ This parameter is still in testing.
 
 The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via cross-chain smart contracts and MoMoM technology.
 
-Under most circumstances, this parameter requires the Komodo notarization service to achieve functionality, as it relies on the `pubkey` of the trusted notary nodes to ensure coin-supply stability.
+Under most circumstances, this parameter requires the Komodo notarization service to achieve functionality, as it relies on the `pubkey`s of the trusted notary nodes to ensure coin-supply stability.
 
-Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- meaning that coins on one asset chain can be directly transferred to another asset chain that has the same `ac_cc` setting and notary nodes with the same `pubkey`.
+Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- meaning that coins on one asset chain can be directly transferred to another asset chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
 
 ### ac_cc=0
 
@@ -202,41 +184,40 @@ Setting `ac_cc=1` permits smart contracts on the asset chain, but will not allow
 
 The values of `2` through `100` indicate asset chains that can import functions across asset chains, but their coins are not fungible.
 
-For example, an asset chain may be able to query another asset chain on the same `ac_cc` cluster for details about a transaction.
+For example, an asset chain may be able to query another asset chain on the same `ac_cc` cluster (i.e., same `ac_cc` value) for details about a transaction.
 
-However, coins may not be transferred between blockchains.
+However, coins may not be transferred between blockchains. So, these are not fungible chains.
 
 ### ac_cc=101 to 9999
 
-Setting the value of `ac_cc` to any value greater than or equal to `101` will permit cross-chain interaction with any asset chain that has the same `ac_cc` value and is secured by notary nodes with the same `pubkey`. For example, an asset chain set to `ac_cc=2` in its parameters can interact with other asset chains with `ac_cc=2`, on the same notary-node network, but cannot interact with an asset chain set to `ac_cc=3`.
-
+Setting the value of `ac_cc` to any value greater than or equal to `101` will permit cross-chain interaction with any asset chain that has the same `ac_cc` value and is secured by notary nodes with the same `pubkey`.They all form a cluster with the same N value where the base tokens in all the chains in that cluster are fungible via the burn protocol. For example, an asset chain set to `ac_cc=201` in its parameters can interact with other asset chains with `ac_cc=201`, on the same notary-node network, but cannot interact with an asset chain set to `ac_cc=300`.
 
 #### :pushpin: Examples:
 
 A 777777 pre-mined chain with no smart contracts enabled.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=0 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 &
 
 ```
 
 A 777777 pre-mined chain with smart contracts on-chain only; no cross-chain smart contracts.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=1 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 &
 
 ```
 
 A 777777 pre-mined chain where smart-contracts are allowed between all fellow asset chains that have -ac_cc=2 in their launch parameters. However, the cross-chain burn protocol is not active, and therefore coins cannot be transferred between chains.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=2 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 &
 
 ```
 
 A 777777 pre-mined chain. Smart-contracts are allowed between all fellow asset chains that have -ac_cc=102 in their launch parameters. Also, all -ac_cc=102 chains can use the cross-chain burn protocol to transfer coins from one chain to another.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=102 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 &
 
 ```
@@ -254,7 +235,7 @@ Measurements of the PoS:PoW ratio are approximate; the PoW difficulty will autom
 When creating a chain with the `ac_staked` parameter, the creation process is slightly different. Start the first node with `-gen -genproclimit=0`, and start the second node with `-gen -genproclimit=$(nproc)`. Send coins from the second node to the first node, and the first node will begin staking.
 
 ::: warning
-On a chain using a high percentage for PoS, it's vital to have coins staking by block 100.  If too many PoW blocks are mined consecutively at the start of the chain, the PoW difficulty may increase enough to stop the chain entirely. This can prevent users from sending transactions to staking nodes.
+On a chain using a high percentage for PoS, it's vital to have coins staking by block 100. If too many PoW blocks are mined consecutively at the start of the chain, the PoW difficulty may increase enough to stop the chain entirely. This can prevent users from sending transactions to staking nodes.
 :::
 
 ::: warning
@@ -273,9 +254,9 @@ It is not possible to both PoW mine and stake on the same node. When the chain's
 
 To initiate staking, include `-gen -genproclimit=0` as a parameter while starting the daemon, or execute `./komodo-cli -ac_name=CHAIN_NAME setgenerate true 0` after launching the daemon.
 
-Once staking is active, utxos available in the `wallet.dat` file will begin staking automatically.  
+Once staking is active, utxos available in the `wallet.dat` file will begin staking automatically.
 
-On an `ac_staked` asset chain there are 64 global segments (`segid`'s) to which all utxos belong, and these 64 `segid`'s will automatically take turns staking blocks. The method of determining which segment a utxo belongs to is determined automatically, according to the hash of the address in which the utxo resides and the height of the blockchain.
+On an `ac_staked` asset chain there are 64 global segments (`segid`'s) to which all addresses (by extension utxos) belong, and these 64 `segid`'s get turns to stake blocks. The segment a utxo belongs to is determined automatically, according to the address in which the utxo resides and the height of the blockchain.
 
 You can see which segment an address belongs to by using the [`validateaddress`](../essential-rpc/util.html#validateaddress) rpc call. You can find out the amount of rewards your staked coins have earned via the [`getbalance64`](../essential-rpc/wallet.html#getbalance64) rpc call.
 
@@ -285,39 +266,44 @@ Each staked block will have an additional transaction added to the end of the bl
 
 The following are the (current) rules for staking a block:
 
-* Block timestamps are used as the monotonically increasing timestamp. It is important to have a synced system clock.
+- Block timestamps are used as the monotonically increasing timestamp. It is important to have a synced system clock.
 
-* A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, it is 6000 seconds. More precisely, a utxo is not eligible for staking until `100 * the median time to mine a new block`. For example, utxos on a one-minute block time asset chain would be eligible for staking after one-hundred minutes.
+- A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, it is 6000 seconds. More precisely, a utxo is not eligible for staking until `100 * the median time to mine a new block`. For example, utxos on a one-minute block time asset chain would be eligible for staking one-hundred minutes after their creation.
 
-* The `segid`s rotate through a cue to determine which `segid` has the most likely chance to stake a new block. The formula that determines this is based on the block height: `(height % 64) = the segid0 for this height`. For each block, the eligibility to stake a new block begins with `segid[0]`, and then the eligibility expands to the next segment in cue at every two-second interval until the block is staked. For example, if `segid[0]` has not mined a new block within two seconds, the consensus mechanism opens up the priority to include the second, `segid[1]`. This continues either until the block is staked, or all 64 `segid`'s are eligible to stake a new block. Once a block is staked, the `height` of the blockchain changes, pushing the `segid[0]` segment to the end of the cue, etc.
+- The `segid`s rotate through a cue to determine which `segid` has the most likely chance to stake a new block. The formula that determines this is based on the block height: `(height % 64) = the segid0 for this height`. For each block, the eligibility to stake a new block begins with `segid[0]`, and then the eligibility expands to the next segment in cue at every two-second interval until the block is staked. For example, if `segid[0]` has not mined a new block within two seconds, the consensus mechanism opens up the priority to include the second, `segid[1]`. This continues either until the block is staked, or all 64 `segid`'s are eligible to stake a new block. Once a block is staked, the `height` of the blockchain changes, pushing the `segid[0]` segment to the end of the cue, etc.
 
-* By internal design, a utxo is more likely to win a block within a `segid` based on age of the utxo and amount of coins.
+- By internal design, a utxo is more likely to win a block within a `segid` based on age of the utxo and amount of coins.
 
 #### :pushpin: Examples:
+
 A 777777-coin pre-mine with a 1-coin block reward. The chain adjusts difficulty to keep 90% of blocks mined via PoS, and 10% mined via PoW.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 -ac_staked=90 &
 ```
 
 A 777777 coin pre-mine with a 10-coin block reward. The chain adjusts difficulty so 2% of blocks are mined via PoS, 98% via PoW.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_staked=2 &
 ```
 
 A 777777-coin pre-mine, with a 1-coin block reward, block reward decreases by 50% every 2000 blocks, and the chain adjusts difficulty so 10% of blocks are mined via PoS, 90% via PoW.
 
-
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 -ac_havling=2000 -ac_staked=10 &
 ```
 
 A 777777-coin pre-mine, a 10000-coin block reward, the block reward decreases by 40% every 2000 blocks, and the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW.
 
-
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000000 -ac_halving=2000 -ac_decay=60000000 -ac_staked=50 &
+```
+
+A 777777-coin pre-mine, a 1000-coin block reward, the block reward decreases by 25% every 100000 blocks, the block reward ends at block 1000000, and the chain adjusts difficulty so 1% of blocks are mined via PoS, 99% via PoW. The pubkey address receives an additional 0.5% above the block reward for each mined block. For example, before the first halving, the pubkey address will receive 5 coins (0.5% of 1000 coin block reward) for every mined block. After the first halving, the pubkey address will receive 3.75 coins for every mined block (0.5% of 750-block reward). The pubkey address receives an additional 0.5% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 0.5 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000000 -ac_halving=100000 -ac_decay=75000000 -ac_end=1000000 -ac_perc=500000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=1 &
 ```
 
 ## ac_public
@@ -332,7 +318,7 @@ If `ac_public` is set to `1`, zk-SNARKs are disabled, and all z address function
 
 A public-only asset chain.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_public=1 &
 ```
 
@@ -348,6 +334,6 @@ If `ac_private` is set to `1`, all transactions other than coinbase transactions
 
 A private-only asset chain.
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_private=1 &
 ```
