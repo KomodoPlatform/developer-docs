@@ -26,7 +26,7 @@ komodo-cli jumblr_secret destination_KMD_address
 * Leave your node running until the balance in your first address reaches below 10.024 KMD and the destination address receives the correct amount.
 
 ::: warning
-Jumblr is created to be resistant against time-based analysis. Because of this, Jumblr is purposefully designed not to be fast. You will need to leave your computer/node running for several hours for the process to finish.
+Jumblr is created to be resistant against time-based analysis. Because of this, Jumblr is purposefully designed not to be fast. You will need to leave your node running for several hours for the process to finish.
 :::
 
 For a more detailed description of Jumblr, please read Section IV of our [whitepaper](https://komodoplatform.com/whitepaper).
