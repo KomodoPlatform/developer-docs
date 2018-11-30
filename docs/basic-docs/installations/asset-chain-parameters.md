@@ -186,7 +186,7 @@ The values of `2` through `100` indicate asset chains that can import functions 
 
 For example, an asset chain may be able to query another asset chain on the same `ac_cc` cluster (i.e., same `ac_cc` value) for details about a transaction.
 
-However, coins may not be transferred between blockchains. So, these are not fungible chains.
+However, coins are not fungible, and therefore cannot be transferred between blockchains.
 
 ### ac_cc=101 to 9999
 
