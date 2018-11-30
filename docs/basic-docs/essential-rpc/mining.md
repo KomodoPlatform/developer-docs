@@ -12,7 +12,7 @@ The `getblocksubsidy` method returns the block-subsidy reward. The resulting cal
 
 Structure|Type|Description
 ---------|----|-----------
-height                                   |(numeric, optional)                    |The block height.  If not provided, defaults to the current height of the chain.
+height                                   |(numeric, optional)                    |the block height; if the block height is not provided, the method defaults to the current height of the chain
 
 ### Response:
 
