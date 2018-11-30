@@ -256,7 +256,7 @@ To initiate staking, include `-gen -genproclimit=0` as a parameter while startin
 
 Once staking is active, utxos available in the `wallet.dat` file will begin staking automatically.
 
-On an `ac_staked` asset chain there are 64 global segments (`segid`'s) to which all addresses (by extension utxos) belong, and these 64 `segid`'s get turns to stake blocks. The segment a utxo belongs to is determined automatically, according to the address in which the utxo resides and the height of the blockchain.
+On an `ac_staked` asset chain there are 64 global segments (`segid`'s) to which all addresses and the corresponding utxos belong. These 64 `segid`'s become eligible to stake blocks in turns. The segment a utxo belongs to is determined automatically, according to the address in which the utxo resides and the height of the blockchain.
 
 You can see which segment an address belongs to by using the [`validateaddress`](../essential-rpc/util.html#validateaddress) rpc call. You can find out the amount of rewards your staked coins have earned via the [`getbalance64`](../essential-rpc/wallet.html#getbalance64) rpc call.
 

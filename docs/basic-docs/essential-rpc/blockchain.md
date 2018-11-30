@@ -1165,10 +1165,10 @@ Structure|Type|Description
 "scriptPubKey":                              |(numeric)                    |the transaction value in KMD
 "asm"                                        |(string)                     |
 "hex"                                        |(string)                     |
-"reqSigs"                                    |(numeric)                    |number of required signatures
+"reqSigs"                                    |(numeric)                    |the number of required signatures
 "type"                                       |(string)                     |the type, e.g. pubkeyhash
-"addresses"                                  |(array of string)            |array of Komodo addresses
-"address"                                    |(string)                     |address on blockchain
+"addresses"                                  |(array of strings)            |an array of Komodo addresses
+"address"                                    |(string)                     |the address on blockchain
 "version"                                    |(numeric)                    |the version
 "coinbase"                                   |(boolean)                    |coinbase or not
 
