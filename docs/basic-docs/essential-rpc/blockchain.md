@@ -613,7 +613,7 @@ Structure|Type|Description
 ---------|----|-----------
 high                                         |(numeric, required)          |the newer block timestamp
 low                                          |(numeric, required)          |the older block timestamp
-options                                      |(string, required)           |A json object
+options                                      |(string, required)           |a json object
 "noOrphans"                                  |(boolean)                    |will only include blocks on the main chain
 "logicalTimes"                               |(boolean)                    |will include logical timestamps with hashes
 
@@ -1162,7 +1162,7 @@ Structure|Type|Description
 "bestblock"                                  |(string)                     |the block hash
 "confirmations"                              |(numeric)                    |the number of confirmations
 "value"                                      |(numeric)                    |the transaction value
-"scriptPubKey":                              |(numeric)                    |The transaction value in KMD
+"scriptPubKey":                              |(numeric)                    |the transaction value in KMD
 "asm"                                        |(string)                     |
 "hex"                                        |(string)                     |
 "reqSigs"                                    |(numeric)                    |number of required signatures
