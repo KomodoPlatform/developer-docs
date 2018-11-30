@@ -74,8 +74,8 @@ If the request parameters include a `mode` key, it is used to explicitly select 
 Structure|Type|Description
 ---------|----|-----------
 "jsonrequestobject" : { ... }                         |(string, optional)           |a json object in the following spec
-"mode"                                       |(string, optional)           |This must be set to "template" or omitted
-"capabilities": [ ... ]                      |(array, optional)            |A list of strings
+"mode"                                       |(string, optional)           |this must be set to "template" or omitted
+"capabilities": [ ... ]                      |(array, optional)            |a list of strings
 "support"                                    |(string)                     |client side supported features: "longpoll", "coinbasetxn", "coinbasevalue", "proposal", "serverlist", "workid"
 
 ### Response:
