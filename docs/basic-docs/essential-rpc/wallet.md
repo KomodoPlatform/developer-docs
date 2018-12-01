@@ -794,13 +794,13 @@ Structure|Type|Description
 "txid"                                       |(string)                     |the transaction id
 "time"                                       |(numeric)                    |the transaction time in seconds since epoch (1 Jan 1970 GMT)
 "timereceived"                               |(numeric)                    |the time received in seconds since epoch (1 Jan 1970 GMT)
-"details"                                    |                             |
+"details" : [ ... ]                          |                             |
 "account"                                    |(string)                     |DEPRECATED the account name involved in the transaction; can be "" for the default account
 "address"                                    |(string)                     |the address involved in the transaction
 "category"                                   |(string)                     |the category - either `send` or `receive`
 "amount"                                     |(numeric)                    |the amount
 "vout"                                       |(numeric)                    |the vout value
-"vjoinsplit"                                 |                             |
+"vjoinsplit" : [ ... ]                       |                             |
 "anchor"                                     |(string)                     |merkle root of note commitment tree
 "nullifiers"                                 |                             |
 "commitments"                                |                             |
@@ -2350,8 +2350,7 @@ The `sendmany` method can send multiple transactions at once. Amounts are double
 Structure|Type|Description
 ---------|----|-----------
 "account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-"amounts"                                    |                             |
-"address":amount                             |("string":numeric)           |the address (string) and the value (double-precision floating numeric)
+"amounts" { "address":amount, ... }          |("string":numeric)           |the address (string) and the value (double-precision floating numeric)
 minconf                                      |(numeric, optional, default=1)|only use the balance confirmed at least this many times
 "comment"                                    |(string, optional)           |a comment
 subtractfeefromamount                        |(string, optional)           |a json array with addresses. The fee will be equally deducted from the amount of each selected address; the recipients will receive less than you enter in their corresponding amount field. If no addresses are specified here, the sender pays the fee.
@@ -2960,13 +2959,13 @@ Structure|Type|Description
 "id"                                         |(string)                     |the operation id
 "status"                                     |(string)                     |the result of the operation; can be `success` | `failed` | `executing`
 "creation_time"                              |(numeric)                    |the creation time, in seconds since epoch (Jan 1 1970 GMT)
-"result":                                    |                             |
+"result": { ... }                            |(json)                |
 "txid":                                      |(string)                     |the transaction id
 "execution_secs"                             |(numeric)                    |the length of time to calculate the transaction
 "method"                                     |(string)                     |the name of the method used in the operation
-"params":                                    |                             |
+"params": { ... }                            |(json)                       |
 "fromaddress"                                |(string)                     |the address from which funds are drawn
-"amounts":                                   |                             |
+"amounts": [ ... ]                           |(array of jsons)             |
 "address"                                    |(string)                     |the receiving address
 "amount"                                     |(numeric)                    |the amount to receive
 "minconf"                                    |(numeric)                    |the minimum number of confirmations required
@@ -3067,13 +3066,13 @@ Structure|Type|Description
 "id"                                         |(string)                     |the operation id
 "status"                                     |(string)                     |the status of the operation; can be `success` | `executing` | `failed`
 "creation_time"                              |(numeric)                    |the creation time, in seconds since epoch (Jan 1 1970 GMT)
-"error":                                     |                             |
+"error" : { ... }                             |(json)                             |
 "code"                                       |(numeric)                    |the associated error code
 "message"                                    |(string)                     |a message to indicate the nature of the error, if such a message is available
 "method"                                     |(string)                     |name of the method used in the operation
-"params":                                    |                             |
+"params" : { ... }                             |(json)                        |
 "fromaddress"                                |(string)                     |the address from which funds are drawn
-"amounts":                                   |                             |
+"amounts": [ ... ]                           |(array of jsons)                           |
 "address"                                    |(string)                     |the receiving address
 "amount"                                     |(numeric)                    |the amount to receive
 "minconf"                                    |(numeric)                    |indicates the required number of mining confirmations
@@ -3819,7 +3818,7 @@ The `amount` values are double-precision floating point numbers. Change from a t
 Structure|Type|Description
 ---------|----|-----------
 "fromaddress"                                |(string, required)           |the sending t address or z address
-"amounts"                                    |                             |
+"amounts"                                    |(array of jsons)             |
 "address"                                    |(string, required)           |the receiving address; can be a t address or z address
 "amount"                                     |(numeric, required)          |the numeric amount
 "memo"                                       |(string, optional)           |if the address is a z address, this property accepts raw data represented in hexadecimal string format

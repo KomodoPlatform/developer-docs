@@ -82,9 +82,9 @@ Structure|Type|Description
 "versiongroupid"                             |(string, optional)           |the version group id (overwintered txs)
 "locktime"                                   |(numeric)                    |the lock time
 "expiryheight"                               |(numeric, optional)          |last valid block height for mining transaction (overwintered txs)
-"vin"                                        |(array of json objects)                             |
+"vin" : [ ... ]                              |(array of json objects)                             |
 "txid"                                       |(string)                     |the transaction id
-"vout"                                       |(numeric)                    |the output number
+"vout" : [ ... ]                                     |(numeric)                    |the output number
 "scriptSig"                                  |(json object)                |the script
 "asm"                                        |(string)                     |asm
 "hex"                                        |(string)                     |hex
@@ -99,20 +99,20 @@ Structure|Type|Description
 "type"                                       |(string)                     |the type, eg 'pubkeyhash'
 "addresses"                                  |                             |
 "address"                                    |(string)                     |the address
-"vjoinsplit"                                 |                             |
+"vjoinsplit" : [ ... ]                                |(array of json objects, only for version >= 2)             |
 "vpub_old"                                   |(numeric)                    |public input value
 "vpub_new"                                   |(numeric)                    |public output value
 "anchor"                                     |(string)                     |the anchor
-"nullifiers"                                 |                             |
+"nullifiers" : [ ... ]                       |(array of strings)                             |
 "hex"                                        |(string)                     |input note nullifier
-"commitments"                                |                             |
+"commitments" : [ ... ]                      |(array of strings)                             |
 "hex"                                        |(string)                     |output note commitment
 "onetimePubKey"                              |(string)                     |the onetime public key used to encrypt the ciphertexts
 "randomSeed"                                 |(string)                     |the random seed
-"macs"                                       |                             |
+"macs" : [ ... ]                             |(array of strings)                             |
 "hex"                                        |(string)                     |input note MAC
 "proof"                                      |(string)                     |the zero-knowledge proof
-"ciphertexts"                                |                             |
+"ciphertexts" : [ ... ]                      |(array of strings)                             |
 "hex"                                        |(string)                     |output note ciphertext
 
 #### :pushpin: Examples:
@@ -234,7 +234,7 @@ Structure|Type|Description
 "hex"                                        |(string)                     |hex encoded public key
 "type"                                       |(string)                     |the output type
 "reqSigs"                                    |(numeric)                    |the required signatures
-"addresses": [ ... ]                         |(array)                             |
+"addresses": [ ... ]                         |(array of strings)                             |
 "address"                                    |(string)                     |the address
 "p2sh"                                       |(string)                     |script address
 
@@ -397,6 +397,7 @@ Structure|Type|Description
 "data"                                       |(string)                     |the serialized, hex-encoded data for 'txid'
 
 ### Response (if `verbose` > `0`):
+
 Structure|Type|Description
 ---------|----|-----------
 "hex"                                        |(string)                     |the serialized, hex-encoded data for 'txid'
@@ -404,14 +405,14 @@ Structure|Type|Description
 "version"                                    |(numeric)                    |the version
 "locktime"                                   |(numeric)                    |the lock time
 "expiryheight"                               |(numeric, optional)          |the block height after which the transaction expires
-"vin"                                        |(array of json objects)                             |
+"vin" : [ ... ]                              |(array of json objects)                             |
 "txid"                                       |(string)                     |the transaction id
 "vout"                                       |(numeric)                    |
-"scriptSig":                                 |(array of json objects)                             |
+"scriptSig": { ... }                         |(array of json objects)                             |the script
 "asm"                                        |(string)                     |asm
 "hex"                                        |(string)                     |hex
 "sequence"                                   |(numeric)                    |the script sequence number
-"vout"                                       |                             |
+"vout" : [ ... ]                             |(array of json objects)      |
 "value"                                      |(numeric)                    |the value
 "number"                                     |(numeric)                    |index
 "scriptPubKey"                               |                             |
@@ -419,22 +420,22 @@ Structure|Type|Description
 "hex"                                        |(string)                     |the hex
 "reqSigs"                                    |(numeric)                    |the required sigs
 "type"                                       |(string)                     |the type, eg 'pubkeyhash'
-"addresses"                                  |                             |
+"addresses" : [ ... ]                        |(array of strings)                             |
 "address"                                    |(string)                     |the address
-"vjoinsplit"                                 |                             |
+"vjoinsplit" : [ ... ]                       |(array of json objects, only for version >= 2)      |
 "vpub_old"                                   |(numeric)                    |public input value
 "vpub_new"                                   |(numeric)                    |public output value
 "anchor"                                     |(string)                     |the anchor
 "nullifiers"                                 |                             |
 "hex"                                        |(string)                     |input note nullifier
-"commitments"                                |                             |
+"commitments" : [ ... ]                        |(array of strings)                             |
 "hex"                                        |(string)                     |output note commitment
 "onetimePubKey"                              |(string)                     |the onetime public key used to encrypt the ciphertexts
 "randomSeed"                                 |(string)                     |the random seed
-"macs"                                       |                             |
+"macs": [ ... ]                        |(array of strings)                             |
 "hex"                                        |(string)                     |input note MAC
 "proof"                                      |(string)                     |the zero-knowledge proof
-"ciphertexts"                                |                             |
+"ciphertexts": [ ... ]                        |(array of strings)                             |
 "hex"                                        |(string)                     |output note ciphertext
 "blockhash"                                  |(string)                     |the block hash
 "confirmations"                              |(numeric)                    |the confirmations

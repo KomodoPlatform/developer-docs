@@ -84,10 +84,10 @@ Structure|Type|Description
 ---------|----|-----------
 "version"                                    |(numeric)                    |the block version
 "previousblockhash"                          |(string)                     |the hash of current highest block
-"transactions":[ ... ]                       |(array)                             |contents of non-coinbase transactions that should be included in the next block
+"transactions":[ ... ]                       |(array)                      |the contents of non-coinbase transactions that should be included in the next block
 "data"                                       |(string)                     |transaction data encoded in hexadecimal (byte-for-byte)
-"hash"                                       |(string)                     |hash/id encoded in little-endian hexadecimal
-"depends"                                    |(array)                      |an array of numbers 
+"hash"                                       |(string)                     |the hash/id encoded in little-endian hexadecimal
+"depends" : [ ... ]                                   |(array)                      |an array of numbers 
 number                                       |(numeric)                    |the transactions before this one (by 1-based index in "transactions" list) that must be present in the final block, if this one is
 "fee"                                        |(numeric)                    |the difference in value between transaction inputs and outputs (in Satoshis). For coinbase transactions, this is a negative number of the total collected block fees (ie, not including the block subsidy). If a key is not present, the fee is unknown and clients MUST NOT assume it is not present.
 "sigops"                                     |(numeric)                    |the total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.
@@ -95,7 +95,7 @@ number                                       |(numeric)                    |the 
 "coinbasetxn": { ... }                       |(json object)                |information for coinbase transaction
 "target"                                     |(string)                     |the hash target
 "mintime"                                    |(numeric)                    |the minimum timestamp appropriate for next block time in seconds since epoch (Jan 1 1970 GMT)
-"mutable"                                    |(array of strings)            |list of ways the block template may be changed
+"mutable": [ ... ]                           |(array of strings)           |list of ways the block template may be changed, 
 "value"                                      |(string)                     |a way the block template may be changed, e.g. "time", "transactions", "prevblock"
 "noncerange"                                 |(string)                     |a range of valid nonces
 "sigoplimit"                                 |(numeric)                    |the limit of sigops in blocks
@@ -480,7 +480,7 @@ Structure|Type|Description
 ---------|----|-----------
 "transaction_id"                             |(string, required)           |the transaction id
 priority                                     |(numeric, required)          |the priority to add or subtract (the transaction selection algorithm assigns the tx a higher priority; (transaction priority calculation: `coinage * value_in_satoshis / txsize`))
-fee                                          |(numeric, required)          |the fee value in satoshis to add (or subtract, if negative); the fee is not actually paid, only the algorithm for selecting transactions into a block considers the transaction as it would have paid a higher (or lower) fee.
+fee                                          |(numeric, required)          |the fee value in satoshis to add (or subtract, if negative); the fee is not actually paid, only the algorithm for selecting transactions into a block considers the transaction as it paid a higher (or lower) fee.
 
 ### Response:
 
@@ -541,7 +541,6 @@ Structure|Type|Description
 "hexdata"                                    |(string, required)           |the hex-encoded block data to submit
 "jsonparametersobject" : { ... }                      |(string, optional)           |object of optional parameters
 "workid"                                     |(string, sometimes optional) |if the server provides a workid, it MUST be included with submissions
-
 
 ### Response:
 

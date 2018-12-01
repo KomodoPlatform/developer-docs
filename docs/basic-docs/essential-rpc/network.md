@@ -168,7 +168,7 @@ Structure|Type|Description
 ---------|----|-----------
 "addednode"                                  |(string)                     |the node ip address
 "connected"                                  |(boolean)                    |if connected
-"addresses" : { ... }                                 |                             |
+"addresses" : [ ... ]                        |(array of jsons)             |
 "address"                                    |(string)                     |the server host and port
 "connected"                                  |(string)                     |"connected" accepts two possible values: "inbound" or "outbound"
 
@@ -445,13 +445,13 @@ Structure|Type|Description
 "localservices"                              |(string)                     |the services we offer to the network
 "timeoffset"                                 |(numeric)                    |the time offset
 "connections"                                |(numeric)                    |the number of connections
-"networks": [ ... ]                          |(array)                      |information per network
+"networks": [ ... ]                          |(array of jsons)             |information per network
 "name"                                       |(string)                     |network (ipv4, ipv6 or onion)
 "limited"                                    |(boolean)                    |whether the network is limited using -onlynet
 "reachable"                                  |(boolean)                    |whether the network is reachable
 "proxy"                                      |(string)                     |(submitted as "host:port") the proxy that is used for this network, or empty if none
 "relayfee"                                   |(numeric)                    |minimum relay fee for non-free transactions in COIN/kB
-"localaddresses": [ ... ]                    |(array)                      |list of local addresses
+"localaddresses": [ ... ]                    |(array of jsons)             |list of local addresses
 "address"                                    |(string)                     |network address
 "port"                                       |(numeric)                    |network port
 "score"                                      |(numeric)                    |relative score
@@ -592,7 +592,7 @@ Structure|Type|Description
 "banscore"                                   |(numeric)                    |the ban score
 "synced_headers"                             |(numeric)                    |the last header we have in common with this peer
 "synced_blocks"                              |(numeric)                    |the last block we have in common with this peer
-"inflight":                                  |(array)                             |
+"inflight": [ ... ]                          |(array)                      |
 number                                      |(numeric)                    |the heights of blocks we're currently asking from this peer
 
 #### :pushpin: Examples:
