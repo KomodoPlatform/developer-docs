@@ -569,7 +569,7 @@ If you attempt to unlock your funds before the minimum period is met, the daemon
 
 The method requires the `txid` that was returned as a result of the original [`rewardslock`](../cryptoconditions/cc-rewards.html#rewardslock) method.
 
-If the original `txid` is lost, it is possible to find it again by either rebroadcasting the original `hex` (if it is available), or by scanning through available utxos using the [`getaddressutxos`](../essential-rpc/address-index.html#getaddressutxos) method.
+If the original `txid` is lost, it is possible to find it again by either rebroadcasting the original `hex` (if it is available), or by scanning through available utxos using the [`getaddressutxos`](../essential-rpc/address.html#getaddressutxos) method.
 
 ::: tip
 {

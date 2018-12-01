@@ -8,17 +8,15 @@ To access a coin daemon remotely -- for example, via a `curl` command in the she
 
 Assuming the default installation location, the `.conf` file can be found by exploring the following directories:
 
-`MacOS: ~/Library/Application Support/Komodo`
+- **MacOS:** `~/Library/Application Support/Komodo`
+- **Windows:** `C:\Users\myusername\AppData\Roaming\Komodo\`
+- **GNU/Linux:** `~/.komodo`
 
-`Windows: C:\Users\myusername\AppData\Roaming\Komodo\`
+Within that directory there are also subdirectories containing all KMD-compatible coin daemon's `.conf` files that have been used in the system.
 
-`GNU/Linux: ~/.komodo`
+Contents of a KMD `.conf` file:
 
-Within that directory there are also subdirectories containing all KMD-compatible coin daemon `.conf` files.
-
-Contents of a KMD .conf file:
-
-```
+```bash
 rpcuser=myusername
 rpcpassword=myrpcpassword
 server=1
@@ -39,23 +37,13 @@ Users should exercise caution not to delete the `wallet.dat` file during this pr
 
 To erase all synced blockchain data, the following files should be deleted from the `.komodo` folder:
 
-`blocks`
+**blocks** , **chainstate** , **notarisations** , **komodostate** , **komodostate.ind**
 
-`chainstate`
+These files can typically be found in the default file locations:
 
-`notarisations`
-
-`komodostate`
-
-`komodostate.ind`
-
-**These files can typically be found in the default file locations:**
-
-`MacOS: ~/Library/Application Support/Komodo`
-
-`Windows: C:\Users\myusername\AppData\Roaming\Komodo\`
-
-`GNU/Linux: ~/.komodo`
+- **MacOS:** `~/Library/Application Support/Komodo`
+- **Windows:** `C:\Users\myusername\AppData\Roaming\Komodo\`
+- **GNU/Linux:** `~/.komodo`
 
 ## Intro to Parameters and Settings
 
@@ -69,7 +57,7 @@ To see additional runtime parameters not included here, please visit [the releva
 
 `addressindex` instructs a KMD-based coin daemon to maintain an index of all addresses and balances.
 
-The user should [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
+The user is recommended to [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 `addressindex` is enabled by default on any asset chain that utilizes the Crypto Conditions (CC) smart-contract protocol.
 
@@ -81,7 +69,7 @@ The <b>reindex</b> parameter is not a viable alternative method for re-syncing t
 
 Using `addressindex` as a runtime parameter:
 
-```
+```bash
 komodod -addressindex=1
 ```
 
@@ -121,7 +109,7 @@ Using reindex as a runtime parameter:
 
 `timestampindex` instructs a KMD-based coin daemon to maintain a timestamp index for all blockhashes.
 
-The user should [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
+The user is recommended to [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
@@ -145,7 +133,7 @@ Using timestampindex as a default value in the coin's .conf file:
 
 `spentindex` instructs a KMD-based coin daemon to maintain a full index of all spent transactions (txids).
 
-The user should [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
+The user is recommended to [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 `spentindex` is enabled by default on any asset chain that utilizes the Crypto Conditions (CC) smart contract protocol.
 
@@ -171,13 +159,13 @@ Using spentindex as a default value in the coin's `.conf` file:
 
 `regtest` instructs the coin daemon to run a regression test network. Typically, the user will create a disposable asset chain for these purposes. The asset-chain coin supply parameter is not required in this instance.
 
-(A regression-test network is a useful tool for rapid trial and testing. Please reach out to our team if you are curious to implement this tool in your workflow and are unfamiliar with how it is done.)
+(A regression-test network is a useful tool for rapid trial and testing. Please reach out to [us](https://komodoplatform.com/discord) if you are curious to implement this tool in your workflow and are unfamiliar with how it is done.)
 
 #### :pushpin: Examples:
 
 Using regtest as a runtime parameter:
 
-```
+```bash
 komodod -ac_name=TEST -regtest
 ```
 
@@ -211,7 +199,7 @@ Using bantime as a default value in the coin's .conf file:
 DEPRECATED
 :::
 
-`mempooltxinputlimit` is a runtime parameter inherited from Zcash. The functionality it facilitated is now enabled by default, and therefore the parameter is deprecated. Please see [the Zcash documentation for more information](https://blog.z.cash/new-release-1-1-0/).
+`mempooltxinputlimit` is a runtime parameter inherited from Zcash. The functionality it facilitates is now enabled by default, and therefore the parameter is deprecated. Please see [the Zcash documentation for more information](https://blog.z.cash/new-release-1-1-0/).
 
 ## proxy
 
@@ -221,11 +209,11 @@ DEPRECATED
 
 Using proxy as a runtime parameter:
 
-```
+```bash
 komodod -proxy=127.0.0.1:9050
 ```
 
-Using proxy as a default value in the coin's .conf file:
+Using proxy as a default value in the coin's `.conf` file:
 
 ```
 proxy=127.0.0.1:9050
@@ -241,7 +229,7 @@ Use `[host]:port` notation for IPv6.
 
 Using bind as a runtime parameter:
 
-```
+```bash
   komodod -bind=127.0.0.1:9050
 ```
 
@@ -261,7 +249,7 @@ Use `[host]:port` notation for IPv6
 
 Using whitebind as a runtime parameter:
 
-```
+```bash
   komodod -whitebind=127.0.0.1:9050
 ```
 
@@ -289,7 +277,7 @@ The p2p port must not be blocked by a firewall. If the computers do not have pub
 
 `./komodod -ac_name=EXAMPLECHAIN -ac_supply=1000000 -addnode=<IP of the second node>:8096`
 
-Using addnode as a default value in the coin's .conf file:
+Using addnode as a default value in the coin's `.conf` file:
 
 ```
   addnode=69.164.218.197
@@ -319,7 +307,7 @@ See also [`setgenerate`](../essential-rpc/generate.html#setgenerate).
 
 Using gen as a runtime parameter:
 
-```
+```bash
 komodod -gen
 ```
 
@@ -337,7 +325,7 @@ gen=0
 
 Using listen as a runtime parameter:
 
-```
+```bash
 komodod -listen=1
 ```
 
@@ -355,7 +343,7 @@ listen=1
 
 Using maxconnections as a runtime parameter:
 
-```
+```bash
 komodod -maxconnections=NUMBER
 ```
 
@@ -373,7 +361,7 @@ maxconnections=NUMBER
 
 Using server as a runtime parameter:
 
-```
+```bash
   komodod -server=1
 ```
 
@@ -393,12 +381,11 @@ This option can be specified multiple times.
 
 The default setting is to bind to all interfaces.
 
-
 #### :pushpin: Examples:
 
 Using rpcbind as a runtime parameter:
 
-```
+```bash
 komodod -rpcbind=127.0.0.1:9704
 ```
 
@@ -416,7 +403,7 @@ Using rpcbind as a default value in the coin's .conf file:
 
 Using rpcclienttimeout as a runtime parameter:
 
-```
+```bash
 komodod -rpcclienttimeout=SECONDS
 ```
 
@@ -435,10 +422,8 @@ By default, only RPC connections from localhost are allowed.
 Specify as many `rpcallowip=` settings as you like to allow connections from other hosts, either as a single IPv4/IPv6 or with a subnet specification.
 
 ::: warning
-Opening up the RPC port to hosts outside your local trusted network is NOT RECOMMENDED. The rpcpassword is transmitted over the network unencrypted. Anyone that can authenticate on the RPC port can steal your keys and take over the account running komodod.
+Opening up the RPC port to hosts outside your local trusted network is NOT RECOMMENDED. The rpcpassword is transmitted over the network unencrypted. Also note that anyone that can authenticate on the RPC port can steal your keys and take over the server. [For more information click here](https://github.com/zcash/zcash/issues/1497).
 :::
-
-[For more information click here](https://github.com/zcash/zcash/issues/1497).
 
 #### :pushpin: Examples:
 
@@ -522,7 +507,7 @@ keypool=100
 
 Using rewind as a runtime parameter:
 
-```
+```bash
 komodod -rewind=777777
 ```
 
@@ -540,7 +525,7 @@ Using stopat as a runtime parameter:
 
 ## pubkey
 
-`pubkey` sets an address to use as a change address for all transactions. This value must be set to a 33 byte pubkey. All mined coins will also be sent to this address. We recommend that the user ensure they own the relevant `privkey` of their chosen `pubkey`, lest their funds be sent to a `pubkey` they do not own or control.
+`pubkey` sets an address to use as a change address for all transactions. This value must be set to a 33 byte pubkey. All mined coins will also be sent to this address. We recommend that the user ensure they own the corresponding `privkey` of their chosen `pubkey`, lest their funds be sent to a `pubkey` they do not own or control.
 
 The `pubkey` parameter is required for all Crypto Conditions (CC) smart-contract enabled chains. All smart-contract transactions will utilize the `pubkey` as an integral property.
 
@@ -584,7 +569,7 @@ donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 
 ## exportdir
 
-`exportdir` tells the coin daemon where to store your export directory.
+`exportdir` tells the coin daemon where to store your wallet backups done through the RPC [backupwallet](../essential-rpc/wallet.html#backupwallet) or [dumpwallet](../essential-rpc/wallet.html#dumpwallet)
 
 #### :pushpin: Examples:
 

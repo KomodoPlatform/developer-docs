@@ -175,7 +175,7 @@ The `dumpwallet` method dumps all transparent-address wallet keys into a file, u
 Overwriting an existing file is not permitted. The `destination` parameter accepts only alphanumeric characters.
 
 ::: tip
-This method requires that the coin daemon have the <b>exportdir</b> runtime parameter enabled.
+This method requires that the coin daemon have the <b>[`exportdir`](../installations/common-runtime-parameters.html#exportdir)</b> runtime parameter enabled.
 :::
 
 ### Arguments:
