@@ -142,7 +142,7 @@ Command:
 
 Response:
 
-```json
+```bash
 04000000f442fe53d6b0fc7055f7f2b3fd3891269b60dbee33868c74a7382b8447b5f9096896423421d7e1193a7b88d2fbf1eef1c46f637e7a49217c171a18852d29e8d6000000000000000000000000000000000000000000000000000000000000000040b7965bf80e0f20040000d107217bd67b88b0e029af2d498329c3eea8b0d743f25e6de6742400002430a5e9153392b643d139cf205b270d55cb7d3b4779fd7a3666bdb744ef221c966fde13240101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff05028e010101ffffffff0110270000000000002321033097c6f4b12bd13a2e39b686b3a2fc30fe55a1d51221d857421e40564d5e237cac3fb7965b
 ```
 
@@ -613,7 +613,7 @@ Structure|Type|Description
 ---------|----|-----------
 high                                         |(numeric, required)          |the newer block timestamp
 low                                          |(numeric, required)          |the older block timestamp
-options                                      |(string, required)           |A json object
+options                                      |(string, required)           |a json object
 "noOrphans"                                  |(boolean)                    |will only include blocks on the main chain
 "logicalTimes"                               |(boolean)                    |will include logical timestamps with hashes
 
@@ -631,13 +631,18 @@ Structure|Type|Description
 Command:
 
 ```bash
-./komodo-cli getblockhashes 1231614698 1231024505
+./komodo-cli getblockhashes 1531614698 1531614498
 ```
 
 Response:
 
-```json
-===
+```bash
+[
+  "01c555caa581783c94af1ec4fdd1237a37829fc8ccf9fd956f3df462495a8629",
+  "0debf03ff8fe2c09ccb7e8b3770121d71ef8c7fce267a04f9301cc50f594f9ac",
+  "01c92378d9fa66eb83d0bfcf601678792e0351f9b51483db1084347dabd78432"
+]
+
 ```
 
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
@@ -645,25 +650,46 @@ You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` f
 Command:
 
 ```
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockhashes", "params": [1231614698, 1231024505] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockhashes", "params": [1531614698, 1531614498] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
 ```json
-===
+{  
+   "result":[  
+      "01c555caa581783c94af1ec4fdd1237a37829fc8ccf9fd956f3df462495a8629",
+      "0debf03ff8fe2c09ccb7e8b3770121d71ef8c7fce267a04f9301cc50f594f9ac",
+      "01c92378d9fa66eb83d0bfcf601678792e0351f9b51483db1084347dabd78432"
+   ],
+   "error":null,
+   "id":"curltest"
+}
 ```
 
 Command:
 
 ```bash
-./komodo-cli getblockhashes 1231614698 1231024505 '{"noOrphans":false, "logicalTimes":true}'
+./komodo-cli getblockhashes 1531614698 1531614498 '{"noOrphans":false, "logicalTimes":true}'
 ```
 
 Response:
 
 ```json
-===
+[
+  {
+    "blockhash": "01c555caa581783c94af1ec4fdd1237a37829fc8ccf9fd956f3df462495a8629",
+    "logicalts": 1531614555
+  },
+  {
+    "blockhash": "0debf03ff8fe2c09ccb7e8b3770121d71ef8c7fce267a04f9301cc50f594f9ac",
+    "logicalts": 1531614615
+  },
+  {
+    "blockhash": "01c92378d9fa66eb83d0bfcf601678792e0351f9b51483db1084347dabd78432",
+    "logicalts": 1531614692
+  }
+]
 ```
 
 ## getblockheader
@@ -1057,7 +1083,8 @@ Response:
 
 **getspentinfo '{"txid": "txid_string", "index", block_height_number}'**
 
-The `getspentinfo` method returns the transaction id and index where an output is spent.
+The `getspentinfo` method returns the transaction id and index where an output is spent. It requires [`spentindex`](../installations/common-runtime-parameters.html#spentindex) to be enabled.
+
 
 ### Arguments:
 
@@ -1079,13 +1106,17 @@ Structure|Type|Description
 Command:
 
 ```bash
-./komodo-cli getspentinfo '{"txid": "41ec75822318373bd00513efe7c708e745ab370db08ef4e0bd2ba4882ea77b40", "index": 0}'
+./komodo-cli getspentinfo '{"txid": "4479f2c05ba22adf2333db724f247a09effcc9edea8c079da0da05d3a0451064", "index": 0}'
 ```
 
 Response:
 
 ```json
-===
+{
+  "txid": "d2a7b19178ff6b4b1d54befc300879239969716322e4bcd2742162d86ef113c8",
+  "index": 228,
+  "height": 994953
+}
 ```
 
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
@@ -1093,13 +1124,21 @@ You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` f
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getspentinfo", "params": [{"txid": "41ec75822318373bd00513efe7c708e745ab370db08ef4e0bd2ba4882ea77b40", "index": 0}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getspentinfo", "params": [{"txid": "4479f2c05ba22adf2333db724f247a09effcc9edea8c079da0da05d3a0451064", "index": 0}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
 
 ```json
-===
+{  
+   "result":{  
+      "txid":"d2a7b19178ff6b4b1d54befc300879239969716322e4bcd2742162d86ef113c8",
+      "index":228,
+      "height":994953
+   },
+   "error":null,
+   "id":"curltest"
+}
 ```
 
 ## gettxout
@@ -1123,13 +1162,13 @@ Structure|Type|Description
 "bestblock"                                  |(string)                     |the block hash
 "confirmations"                              |(numeric)                    |the number of confirmations
 "value"                                      |(numeric)                    |the transaction value
-"scriptPubKey":                              |(numeric)                    |The transaction value in KMD
+"scriptPubKey":                              |(numeric)                    |the transaction value in KMD
 "asm"                                        |(string)                     |
 "hex"                                        |(string)                     |
-"reqSigs"                                    |(numeric)                    |number of required signatures
+"reqSigs"                                    |(numeric)                    |the number of required signatures
 "type"                                       |(string)                     |the type, e.g. pubkeyhash
-"addresses"                                  |(array of string)            |array of Komodo addresses
-"address"                                    |(string)                     |address on blockchain
+"addresses"                                  |(array of strings)            |an array of Komodo addresses
+"address"                                    |(string)                     |the address on blockchain
 "version"                                    |(numeric)                    |the version
 "coinbase"                                   |(boolean)                    |coinbase or not
 
