@@ -1168,7 +1168,7 @@ Structure|Type|Description
 "reqSigs"                                    |(numeric)                    |the number of required signatures
 "type"                                       |(string)                     |the type, e.g. pubkeyhash
 "addresses"                                  |(array of strings)            |an array of Komodo addresses
-"address"                                    |(string)                     |the address on blockchain
+"address"                                    |(string)                     |the blockchain address
 "version"                                    |(numeric)                    |the version
 "coinbase"                                   |(boolean)                    |coinbase or not
 

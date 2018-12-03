@@ -87,7 +87,7 @@ Structure|Type|Description
 "transactions":[ ... ]                       |(array)                      |the contents of non-coinbase transactions that should be included in the next block
 "data"                                       |(string)                     |transaction data encoded in hexadecimal (byte-for-byte)
 "hash"                                       |(string)                     |the hash/id encoded in little-endian hexadecimal
-"depends" : [ ... ]                                   |(array)                      |an array of numbers 
+"depends" : [ ... ]                                   |(array)                      |an array of numbers
 number                                       |(numeric)                    |the transactions before this one (by 1-based index in "transactions" list) that must be present in the final block, if this one is
 "fee"                                        |(numeric)                    |the difference in value between transaction inputs and outputs (in Satoshis). For coinbase transactions, this is a negative number of the total collected block fees (ie, not including the block subsidy). If a key is not present, the fee is unknown and clients MUST NOT assume it is not present.
 "sigops"                                     |(numeric)                    |the total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.
@@ -95,7 +95,7 @@ number                                       |(numeric)                    |the 
 "coinbasetxn": { ... }                       |(json object)                |information for coinbase transaction
 "target"                                     |(string)                     |the hash target
 "mintime"                                    |(numeric)                    |the minimum timestamp appropriate for next block time in seconds since epoch (Jan 1 1970 GMT)
-"mutable": [ ... ]                           |(array of strings)           |list of ways the block template may be changed, 
+"mutable": [ ... ]                           |(array of strings)           |a list of ways the block template may be changed 
 "value"                                      |(string)                     |a way the block template may be changed, e.g. "time", "transactions", "prevblock"
 "noncerange"                                 |(string)                     |a range of valid nonces
 "sigoplimit"                                 |(numeric)                    |the limit of sigops in blocks

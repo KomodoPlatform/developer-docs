@@ -2959,13 +2959,13 @@ Structure|Type|Description
 "id"                                         |(string)                     |the operation id
 "status"                                     |(string)                     |the result of the operation; can be `success` | `failed` | `executing`
 "creation_time"                              |(numeric)                    |the creation time, in seconds since epoch (Jan 1 1970 GMT)
-"result": { ... }                            |(json)                |
+"result": { ... }                            |(array of json objects)                |
 "txid":                                      |(string)                     |the transaction id
 "execution_secs"                             |(numeric)                    |the length of time to calculate the transaction
 "method"                                     |(string)                     |the name of the method used in the operation
 "params": { ... }                            |(json)                       |
 "fromaddress"                                |(string)                     |the address from which funds are drawn
-"amounts": [ ... ]                           |(array of jsons)             |
+"amounts": [ ... ]                           |(array of json objects)             |
 "address"                                    |(string)                     |the receiving address
 "amount"                                     |(numeric)                    |the amount to receive
 "minconf"                                    |(numeric)                    |the minimum number of confirmations required
@@ -3066,13 +3066,13 @@ Structure|Type|Description
 "id"                                         |(string)                     |the operation id
 "status"                                     |(string)                     |the status of the operation; can be `success` | `executing` | `failed`
 "creation_time"                              |(numeric)                    |the creation time, in seconds since epoch (Jan 1 1970 GMT)
-"error" : { ... }                             |(json)                             |
+"error" : { ... }                             |(array of json objects)                             |
 "code"                                       |(numeric)                    |the associated error code
 "message"                                    |(string)                     |a message to indicate the nature of the error, if such a message is available
 "method"                                     |(string)                     |name of the method used in the operation
-"params" : { ... }                             |(json)                        |
+"params" : { ... }                             |(array of json objects)                        |
 "fromaddress"                                |(string)                     |the address from which funds are drawn
-"amounts": [ ... ]                           |(array of jsons)                           |
+"amounts": [ ... ]                           |(array of json objects)                           |
 "address"                                    |(string)                     |the receiving address
 "amount"                                     |(numeric)                    |the amount to receive
 "minconf"                                    |(numeric)                    |indicates the required number of mining confirmations
@@ -3818,7 +3818,7 @@ The `amount` values are double-precision floating point numbers. Change from a t
 Structure|Type|Description
 ---------|----|-----------
 "fromaddress"                                |(string, required)           |the sending t address or z address
-"amounts"                                    |(array of jsons)             |
+"amounts"                                    |(array of json objects)             |
 "address"                                    |(string, required)           |the receiving address; can be a t address or z address
 "amount"                                     |(numeric, required)          |the numeric amount
 "memo"                                       |(string, optional)           |if the address is a z address, this property accepts raw data represented in hexadecimal string format

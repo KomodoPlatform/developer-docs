@@ -593,7 +593,7 @@ Structure|Type|Description
 "synced_headers"                             |(numeric)                    |the last header we have in common with this peer
 "synced_blocks"                              |(numeric)                    |the last block we have in common with this peer
 "inflight": [ ... ]                          |(array)                      |
-number                                      |(numeric)                    |the heights of blocks we're currently asking from this peer
+number                                       |(numeric)                    |the block height requested from this peer
 
 #### :pushpin: Examples:
 
