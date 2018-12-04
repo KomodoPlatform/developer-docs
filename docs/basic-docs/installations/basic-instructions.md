@@ -47,7 +47,7 @@ For example, to launch the DEX asset chain, execute:
 ```
 
 ::: tip
-  IMPORTANT: Always execute the launch command EXACTLY as indicated, and as the asset-chain's developers instruct. Failure to do so will cause you eitehr to create a new chain, or to connect to another chain. If you make this mistake, you must delete the blockchain data and re-sync using the correct parameters to regain access to the blockchain's network.
+  IMPORTANT: Always execute the launch command EXACTLY as indicated, and as the asset-chain's developers instruct. Failure to do so will cause you either to create a new chain, or to connect to another chain. If you make this mistake, you must delete the blockchain data and re-sync using the correct parameters to regain access to the blockchain's network.
 :::
 
 To interact with the DEX daemon, use `komodo-cli` like so:

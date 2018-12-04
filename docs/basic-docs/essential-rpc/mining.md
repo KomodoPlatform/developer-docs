@@ -88,8 +88,8 @@ Structure|Type|Description
 "data"                                       |(string)                     |transaction data encoded in hexadecimal (byte-for-byte)
 "hash"                                       |(string)                     |the hash/id encoded in little-endian hexadecimal
 "depends" : [ ... ]                                   |(array)                      |an array of numbers
-number                                       |(numeric)                    |the transactions before this one (by 1-based index in "transactions" list) that must be present in the final block, if this one is
-"fee"                                        |(numeric)                    |the difference in value between transaction inputs and outputs (in Satoshis). For coinbase transactions, this is a negative number of the total collected block fees (ie, not including the block subsidy). If a key is not present, the fee is unknown and clients MUST NOT assume it is not present.
+number                                       |(numeric)                    |if this transaction is present in the final block, the indices of transactions that must be present before it in the final block; the index of the array of transactions starts with "1" 
+"fee"                                        |(numeric)                    |the difference in value between transaction inputs and outputs in Satoshis; for coinbase transactions, this is the negative number of the total collected block fees, not including the block subsidy; if a key is not present, the fee is unknown and clients MUST NOT assume it is not present
 "sigops"                                     |(numeric)                    |the total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.
 "required"                                   |(boolean)                    |if provided and true, this transaction must be in the final block
 "coinbasetxn": { ... }                       |(json object)                |information for coinbase transaction
@@ -479,8 +479,8 @@ This method is inherited from the original Bitcoin protocol, of which KMD is a f
 Structure|Type|Description
 ---------|----|-----------
 "transaction_id"                             |(string, required)           |the transaction id
-priority                                     |(numeric, required)          |the priority to add or subtract (the transaction selection algorithm assigns the tx a higher priority; (transaction priority calculation: `coinage * value_in_satoshis / txsize`))
-fee                                          |(numeric, required)          |the fee value in satoshis to add (or subtract, if negative); the fee is not actually paid, only the algorithm for selecting transactions into a block considers the transaction as it paid a higher (or lower) fee.
+priority_delta                                     |(numeric, required)          |the priority to add or subtract (if negative); the transaction selection algorithm assigns the tx a higher or lower (if negative) priority; transaction priority calculation: `coinage * value_in_satoshis / txsize`
+fee_delta                                          |(numeric, required)          |the fee value in satoshis to add or subtract (if negative); the fee is not actually paid, only the algorithm for selecting transactions into a block considers the transaction as if it paid a higher (or lower) fee.
 
 ### Response:
 
