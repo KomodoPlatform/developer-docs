@@ -12,7 +12,7 @@ You will find [a walkthrough on building from source here](https://docs.komodopl
 
 There are two cooperating pieces of software that the user utilizes when running a Komodo-compatible blockchain from the command line.
 
-The first is the coin daemon itself, `komodod`. This is initiated by calling it from the command line and including any desired runtime parameters. When initiating any Komodo-compatible blockchain other than the main KMD blockchain, the user should also include all the parameters that have been used at its creation like `-ac_name=COINNAME` , `-ac_supply=COINSUPPLY` etc.,
+The first is the coin daemon itself, `komodod`. This is initiated by calling it from the command line and including any desired runtime parameters. When initiating any Komodo-compatible blockchain other than the main KMD blockchain, the user should always include all parameters used during the asset chain's creation.
 
 Once the software is set up, change into the installation directory.
 
