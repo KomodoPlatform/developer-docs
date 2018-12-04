@@ -335,7 +335,7 @@ This feature is currently only available in the <a href="https://github.com/jl77
 If `ac_private` is set to `1`, all transactions other than coinbase transactions (block rewards) must use zk-SNARKs. Beyond sending mined coins from a transparent addresses to a z address, all other transparent activity is disabled.
 
 ::: tip Note
-To allow for the dPOW security machanism be available out of the box for chains with `ac_private` enabled, any address on the blockchain can send to the 64 transparent notary addresses.  
+The dPoW security mechanism requires that transactions are sent to a transparent address. Therefore, on a chain with `ac_private` enabled, any address can send funds to the transparent notary-node addresses.  
 :::
 
 #### :pushpin: Examples:
