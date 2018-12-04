@@ -192,7 +192,7 @@ However, coins are not fungible, and therefore cannot be transferred between blo
 
 Setting the value of `ac_cc` to any value greater than or equal to `101` will permit cross-chain interaction with any asset chain that has the same `ac_cc` value and is secured by notary nodes with the same `pubkey`.
 
-All asset chains that has the same `ac_cc (>= 101)` value form a cluster, where the base tokens of all the chains in the cluster are fungible via the burn protocol.
+All asset chains that have the same `ac_cc (>= 101)` value form a cluster, where the base tokens of all the chains in the cluster are fungible via the burn protocol.
 
 For example, an asset chain set to `ac_cc=201` in its parameters can interact with other asset chains with `ac_cc=201`, on the same notary-node network, but cannot interact with an asset chain set to `ac_cc=300`.
 
