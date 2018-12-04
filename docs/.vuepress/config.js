@@ -72,7 +72,7 @@ module.exports = {
           title: "Essential RPC Calls",
           collapsable: true,
           children: [
-            ["/basic-docs/essential-rpc/address-index.md", "Address"],
+            ["/basic-docs/essential-rpc/address.md", "Address"],
             ["/basic-docs/essential-rpc/blockchain.md", "Blockchain"],
             ["/basic-docs/essential-rpc/control.md", "Control"],
             ["/basic-docs/essential-rpc/disclosure.md", "Disclosure"],
