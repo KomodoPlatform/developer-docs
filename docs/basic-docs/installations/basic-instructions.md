@@ -16,9 +16,9 @@ The first is the coin daemon itself, `komodod`. This is initiated by calling it 
 
 Once the software is set up, change into the installation directory.
 
-<aside class="notice">
+::: tip
   Note to Windows Users: Replace ./komodod and ./komodo-cli with komodod.exe and komodo-cli.exe for each step.
-</aside>
+:::
 
 To launch the main KMD chain, execute:
 
@@ -38,7 +38,7 @@ After the daemon launches, you may interact with it using `komodo-cli` like so:
 ./komodo-cli API_COMMAND
 ```
 
-To launch another Komodo-based blockchain, include the necessary parameters. The list of launch parameters for most of the Komodod-based blockchains in our ecosystem [is found here](https://github.com/jl777/komodo/blob/master/src/assetchains.old).
+To launch another Komodo-based blockchain, include the necessary parameters. A list of launch parameters for most of the Komodod-based blockchains in our ecosystem [is found here](https://github.com/jl777/komodo/blob/master/src/assetchains.old).
 
 For example, to launch the DEX asset chain, execute:
 
@@ -46,9 +46,9 @@ For example, to launch the DEX asset chain, execute:
 ./komodod -ac_name=DEX -ac_supply=999999 -addnode=78.47.196.146 &
 ```
 
-<aside class="notice">
-  IMPORTANT: Always execute the launch command EXACTLY as indicated, and as the asset-chain's developers instruct. Failure to do so will cause you to create a new chain or connect to another chain. Then you will have to delete the blockchain data and re-sync using the correct parameters to regain access to the blockchain's network.
-</aside>
+::: tip
+  IMPORTANT: Always execute the launch command EXACTLY as indicated, and as the asset-chain's developers instruct. Failure to do so will cause you eitehr to create a new chain, or to connect to another chain. If you make this mistake, you must delete the blockchain data and re-sync using the correct parameters to regain access to the blockchain's network.
+:::
 
 To interact with the DEX daemon, use `komodo-cli` like so:
 
@@ -80,9 +80,9 @@ For more information about creating and interacting with asset chains, please vi
 
 Follow this link to find information on [accessing the coin daemon remotely](../installations/common-runtime-parameters.html#accessing-the-coin-daemon-remotely).
 
-<aside class="notice">
-  A blockchain is vulnerable to double-spend attacks when its hash power is low. A Komodo-based blockchain can be secured against such attacks by enabling the dPoW security service. Please reach out to us when you are ready to purchase.
-</aside>
+::: tip
+Typically, a blockchain is vulnerable to double-spend attacks when its hash power is low. A Komodo-based blockchain can be secured against such attacks by enabling the dPoW security service. Please reach out to us when you are ready to purchase.
+:::
 
 ## Komodo's Native DEX: BarterDEX
 

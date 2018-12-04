@@ -12,7 +12,7 @@ Assuming the default installation location, the `.conf` file can be found by exp
 - **Windows:** `C:\Users\myusername\AppData\Roaming\Komodo\`
 - **GNU/Linux:** `~/.komodo`
 
-Within that directory there are also subdirectories containing all KMD-compatible coin daemon's `.conf` files that have been used in the system.
+Within this directory there are also subdirectories containing all KMD-compatible `.conf` files used on this node.
 
 Contents of a KMD `.conf` file:
 
@@ -57,7 +57,7 @@ To see additional runtime parameters not included here, please visit [the releva
 
 `addressindex` instructs a KMD-based coin daemon to maintain an index of all addresses and balances.
 
-The user is recommended to [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
+We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 `addressindex` is enabled by default on any asset chain that utilizes the Crypto Conditions (CC) smart-contract protocol.
 
@@ -109,7 +109,7 @@ Using reindex as a runtime parameter:
 
 `timestampindex` instructs a KMD-based coin daemon to maintain a timestamp index for all blockhashes.
 
-The user is recommended to [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
+We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
@@ -133,7 +133,7 @@ Using timestampindex as a default value in the coin's .conf file:
 
 `spentindex` instructs a KMD-based coin daemon to maintain a full index of all spent transactions (txids).
 
-The user is recommended to [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
+We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 `spentindex` is enabled by default on any asset chain that utilizes the Crypto Conditions (CC) smart contract protocol.
 
@@ -569,7 +569,7 @@ donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 
 ## exportdir
 
-`exportdir` tells the coin daemon where to store your wallet backups done through the RPC [backupwallet](../essential-rpc/wallet.html#backupwallet) or [dumpwallet](../essential-rpc/wallet.html#dumpwallet)
+`exportdir` tells the coin daemon where to store the wallet backup files created through the [backupwallet](../essential-rpc/wallet.html#backupwallet) and [dumpwallet](../essential-rpc/wallet.html#dumpwallet) calls.
 
 #### :pushpin: Examples:
 
