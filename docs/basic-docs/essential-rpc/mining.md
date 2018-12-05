@@ -479,7 +479,7 @@ This method is inherited from the original Bitcoin protocol, of which KMD is a f
 Structure|Type|Description
 ---------|----|-----------
 "transaction_id"                             |(string, required)           |the transaction id
-priority_delta                                     |(numeric, required)          |the priority to add or subtract (if negative). The transaction selection algorithm assigns the tx a higher or lower priority.The transaction priority calculation: `coinage * value_in_satoshis / txsize`
+priority_delta                                     |(numeric, required)          |the priority to add or subtract (if negative). The transaction selection algorithm assigns the tx a higher or lower priority. The transaction priority calculation: `coinage * value_in_satoshis / txsize`
 fee_delta                                          |(numeric, required)          |the fee value in satoshis to add or subtract (if negative); the fee is not actually paid, only the algorithm for selecting transactions into a block considers the transaction as if it paid a higher (or lower) fee.
 
 ### Response:
