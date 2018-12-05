@@ -72,17 +72,17 @@ module.exports = {
           title: "Essential RPC Calls",
           collapsable: true,
           children: [
-            ["/basic-docs/essential-rpc/address.md", "Address"],
-            ["/basic-docs/essential-rpc/blockchain.md", "Blockchain"],
-            ["/basic-docs/essential-rpc/control.md", "Control"],
-            ["/basic-docs/essential-rpc/disclosure.md", "Disclosure"],
-            ["/basic-docs/essential-rpc/generate.md", "Generate"],
-            ["/basic-docs/essential-rpc/mining.md", "Mining"],
-            ["/basic-docs/essential-rpc/jumblr.md", "Jumblr"],
-            ["/basic-docs/essential-rpc/network.md", "Network"],
-            ["/basic-docs/essential-rpc/rawtransactions.md", "Raw Transactions"],
-            ["/basic-docs/essential-rpc/util.md", "Util"],
-            ["/basic-docs/essential-rpc/wallet.md", "Wallet"]
+            ["/basic-docs/komodo-api/address.md", "Address"],
+            ["/basic-docs/komodo-api/blockchain.md", "Blockchain"],
+            ["/basic-docs/komodo-api/control.md", "Control"],
+            ["/basic-docs/komodo-api/disclosure.md", "Disclosure"],
+            ["/basic-docs/komodo-api/generate.md", "Generate"],
+            ["/basic-docs/komodo-api/mining.md", "Mining"],
+            ["/basic-docs/komodo-api/jumblr.md", "Jumblr"],
+            ["/basic-docs/komodo-api/network.md", "Network"],
+            ["/basic-docs/komodo-api/rawtransactions.md", "Raw Transactions"],
+            ["/basic-docs/komodo-api/util.md", "Util"],
+            ["/basic-docs/komodo-api/wallet.md", "Wallet"]
           ]
         }
       ],

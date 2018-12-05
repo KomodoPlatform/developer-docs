@@ -14,7 +14,7 @@ The first address you must understand is the pubkey. Any user using a Crypto Con
 
 Typically, each Crypto Conditions smart contract will take the pubkey, combine it with a unique and contract-specific number called the `EVAL code`, and create a new [`Base58Check`](https://en.bitcoin.it/wiki/Base58Check_encoding) encoded address from it. This `Base58Check` encoded address will be the address you use for interacting on the Crypto Conditions-based contract.
 
-To get a pubkey, launch the chain with the normal launch parameters and execute the [`getnewaddress`](../essential-rpc/wallet.html#getnewaddress) rpc call.
+To get a pubkey, launch the chain with the normal launch parameters and execute the [`getnewaddress`](../komodo-api/wallet.html#getnewaddress) rpc call.
 
 `./komodo-cli -ac_name=HELLOWORLD getnewaddress`
 
@@ -22,7 +22,7 @@ This will return a new address:
 
 `DO_NOT_USE_ADDRESSgg2ionaes1J5L786`
 
-Now, execute the [`validateaddress`](../essential-rpc/util.html#validateaddress) rpc call.
+Now, execute the [`validateaddress`](../komodo-api/util.html#validateaddress) rpc call.
 
 `./komodo-cli -ac_name=HELLOWORLD validateaddress DO_NOT_USE_ADDRESSgg2ionaes1J5L786`
 

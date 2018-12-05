@@ -23,7 +23,7 @@ The `channelsclose` method marks a specific channel as closed, meaning that no a
 
 The owner of the `channel` may still execute [`channelspayment`](../cryptoconditions/cc-channels.html#channelspayment) for any remaining payments in the channel, until all payments are used or withdrawn.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method then returns a `txid` which is used in the [`channelsrefund`](../cryptoconditions/cc-channels.html#channelsrefund) method to reclaim funds.
 
@@ -136,7 +136,7 @@ Response:
 
 The `channelsopen` method opens a channel between two public keys (sender and receiver).
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method then returns a `txid` which is the unique identifying `channels_tx_id`.
 
@@ -196,7 +196,7 @@ The owner of a channel reveals the password of a unique payment `txid` as a part
 
 If the receiver is monitoring the chain at the time of payment and saves the password, and there is a chain reorganization that nullifies the payment, the receiver now has the password to resend the payment. This option is available so long as the channel remains open and the payment has not been refunded.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method then returns a `txid` which is the unique identifying `channels_tx_id`.
 
@@ -260,7 +260,7 @@ The `channelsrefund` method withdraws funds directly to the CC address of the ch
 
 The method can only be executed after the channel `close_tx_id` has either one notarization or 60 confirmations.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 

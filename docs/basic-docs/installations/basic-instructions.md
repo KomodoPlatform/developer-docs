@@ -56,7 +56,7 @@ To interact with the DEX daemon, use `komodo-cli` like so:
 ./komodo-cli -ac_name=DEX API_COMMAND
 ```
 
-Detailed descriptions of all Komodo commands are provided [here](../essential-rpc/address.html) and parameters [here](../installations/common-runtime-parameters.html#intro-to-parameters-and-settings).
+Detailed descriptions of all Komodo commands are provided [here](../komodo-api/address.html) and parameters [here](../installations/common-runtime-parameters.html#intro-to-parameters-and-settings).
 
 Also, in the terminal you can call the Komodo documentation by executing:
 

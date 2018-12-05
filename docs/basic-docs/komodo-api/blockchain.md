@@ -341,7 +341,7 @@ The `getblockchaininfo` method returns a json object containing state informatio
 When the chain tip is at the last block before a network upgrade activation, the <b>consensus.chaintip</b> value is not equal to the <b>consensus.nextblock</b> value.
 :::
 
-[getblockchaininfo](../essential-rpc/blockchain.html#getblockchaininfo) now returns a new size_on_disk key, which is the size of the blockchain, on disk, in bytes.
+[getblockchaininfo](../komodo-api/blockchain.html#getblockchaininfo) now returns a new size_on_disk key, which is the size of the blockchain, on disk, in bytes.
 
 ### Arguments:
 
@@ -1349,7 +1349,7 @@ Response:
 
 **kvsearch "key_string"**
 
-The `kvsearch` method searches for a key stored via the [`kvupdate`](../essential-rpc/blockchain.html#kvupdate) command.
+The `kvsearch` method searches for a key stored via the [`kvupdate`](../komodo-api/blockchain.html#kvupdate) command.
 
 ::: tip
 This feature is only available for asset chains.

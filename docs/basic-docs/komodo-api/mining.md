@@ -280,8 +280,8 @@ Structure|Type|Description
 "currentblocktx"                             |(numeric)                    |the last block transaction
 "difficulty"                                 |(numeric)                    |the current difficulty
 "errors":                                    |                             |
-"generate"                                   |(boolean)                    |if the generation is on or off (see [getgenerate](../essential-rpc/generate.html#getgenerate) or [setgenerate](../essential-rpc/generate.html#setgenerate) calls)
-"genproclimit"                               |(numeric)                    |the processor limit for generation; `-1` if no generation (see [getgenerate](../essential-rpc/generate.html#getgenerate) or [setgenerate](../essential-rpc/generate.html#setgenerate) calls)
+"generate"                                   |(boolean)                    |if the generation is on or off (see [getgenerate](../komodo-api/generate.html#getgenerate) or [setgenerate](../komodo-api/generate.html#setgenerate) calls)
+"genproclimit"                               |(numeric)                    |the processor limit for generation; `-1` if no generation (see [getgenerate](../komodo-api/generate.html#getgenerate) or [setgenerate](../komodo-api/generate.html#setgenerate) calls)
 "localsolps"                                 |(numeric)                    |the average local solution rate (solutions per second) since this node was started
 "networksolps"                               |(numeric)                    |the estimated network solution rate (solutions per second)
 "pooledtx":                                  |                             |
@@ -479,7 +479,7 @@ This method is inherited from the original Bitcoin protocol, of which KMD is a f
 Structure|Type|Description
 ---------|----|-----------
 "transaction_id"                             |(string, required)           |the transaction id
-priority_delta                                     |(numeric, required)          |the priority to add or subtract (if negative). The transaction selection algorithm assigns the tx a higher or lower priority.The transaction priority calculation: `coinage * value_in_satoshis / txsize`
+priority_delta                                     |(numeric, required)          |the priority to add or subtract (if negative). The transaction selection algorithm assigns the tx a higher or lower priority. The transaction priority calculation: `coinage * value_in_satoshis / txsize`
 fee_delta                                          |(numeric, required)          |the fee value in satoshis to add or subtract (if negative); the fee is not actually paid, only the algorithm for selecting transactions into a block considers the transaction as if it paid a higher (or lower) fee.
 
 ### Response:

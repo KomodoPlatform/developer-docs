@@ -22,7 +22,7 @@ The `diceaddfunds` method adds funds to the desired `dice` contract.
 
 Only the owner of the `dice` contract is able to add funds.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -200,7 +200,7 @@ Response:
 
 The `dicebet` method places a bet on the indicated `dice` contract.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -369,7 +369,7 @@ The `dicefinish` method rebroadcasts a bet that has already been broadcasted.
 
 If the returned `hex` value is `0`, the bet is finished.
 
-If the returned `hex` value is not `0`, then the `hex` value should be broadcast with [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction).
+If the returned `hex` value is not `0`, then the `hex` value should be broadcast with [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction).
 
 ### Arguments:
 
@@ -409,7 +409,7 @@ Response:
 
 The `dicefund` method creates and funds a dice contract.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 Ideally, the dice creator node should be online throughout the contract's life, to determine `winning bid` or `losing bid`.
 

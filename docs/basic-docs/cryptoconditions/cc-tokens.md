@@ -57,7 +57,7 @@ Response:
 
 The `tokenask` method posts a public ask order.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -169,7 +169,7 @@ The `tokenbid` method posts a public bid order.
 
 To fill the order, the parent chain's coin must be used.
 
-The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) to complete the command.
+The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) to complete the command.
 
 The `sendrawtransaction` method then returns a `txid`, which is the identification method of the bid order, and should be saved for future use.
 
@@ -220,7 +220,7 @@ Response:
 
 The `tokencancelask` method cancels a specific `ask`/`sell` order that you created.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -351,7 +351,7 @@ Response:
 
 The `tokencancelbid` method cancels a specific `bid`/`buy` order that you created.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -995,9 +995,9 @@ Response:
 
 The `tokentransfer` method transfers tokens from one cc address to another.
 
-It is similar to the [`sendmany`](../essential-rpc/wallet.html#sendmany) method used to send coins on the parent chain.
+It is similar to the [`sendmany`](../komodo-api/wallet.html#sendmany) method used to send coins on the parent chain.
 
-The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) to complete the command.
+The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) to complete the command.
 
 ::: tip
 The source `txid/vout` needs to be specified as it is critical to match outputs with inputs.
