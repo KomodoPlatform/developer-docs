@@ -140,7 +140,7 @@ The following command returns information about all available RPC and API comman
 
 ## Secure this Asset Chain with Delayed Proof of Work
 
-Your new asset chain can receive the same security of the Bitcoin hash rate with our security, called "delayed Proof of Work" (dPoW).
+Your new asset chain can receive the same security of the Bitcoin hash rate through our security mechanism, called "delayed Proof of Work" (dPoW).
 
 There are two aspects to the cost for dPoW services. The first comes from the cost of making records in your asset chain's database, and in the records of the KMD main chain. These records are called "notarizations."
 

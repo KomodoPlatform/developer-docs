@@ -794,17 +794,20 @@ Structure|Type|Description
 "txid"                                       |(string)                     |the transaction id
 "time"                                       |(numeric)                    |the transaction time in seconds since epoch (1 Jan 1970 GMT)
 "timereceived"                               |(numeric)                    |the time received in seconds since epoch (1 Jan 1970 GMT)
-"details" : [ ... ]                          |                             |
+"details" : [ ... ]                          |(array)                             |
 "account"                                    |(string)                     |DEPRECATED the account name involved in the transaction; can be "" for the default account
 "address"                                    |(string)                     |the address involved in the transaction
 "category"                                   |(string)                     |the category - either `send` or `receive`
 "amount"                                     |(numeric)                    |the amount
 "vout"                                       |(numeric)                    |the vout value
-"vjoinsplit" : [ ... ]                       |                             |
+"vjoinsplit" : [ ... ]                       |(array of json objects)                             |
 "anchor"                                     |(string)                     |merkle root of note commitment tree
-"nullifiers"                                 |                             |
-"commitments"                                |                             |
-"macs"                                       |                             |
+"nullifiers" : [ ... ]                       |(array of strings)                             |
+"hex"                                        |(string)                     |
+"commitments" : [ ... ]                      |(array of strings)           |
+"hex"                                        |(string)                     |
+"macs" : [ ... ]                             |(array of strings)           |
+"hex"                                        |(string)                     |
 "vpub_old"                                   |(numeric)                    |the amount removed from the transparent value pool
 "vpub_new"                                   |(numeric)                    |the amount added to the transparent value pool
 "hex"                                        |(string)                     |raw data for transaction
