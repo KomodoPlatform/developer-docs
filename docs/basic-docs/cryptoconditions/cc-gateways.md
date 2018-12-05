@@ -720,7 +720,7 @@ Response from Step One:
 
 Step Two:
 
-Broadcast using [`sendrawtransction`](../essential-rpc/rawtransactions.html#sendrawtransaction):
+Broadcast using [`sendrawtransction`](../komodo-api/rawtransactions.html#sendrawtransaction):
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000152d7d470197f5dc650c9ec09e1c8f4975d315219e3b6edad3c927c2fc23197ca0200000048473044022006bf373f1dd51c638a38d1e592741db73387e6acc186fca2011cd7283520ff770220673be91d346ba72adcbc9ab1df712f750047c2609399256c07ad3170d9ea850401ffffffff031027000000000000302ea22c802091abda62a548f9c7f5beb19d16f01714ae3d4e526f3266fc8d347d6123f3d77b8103120c008203000401cce05c9836180900002321024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0ac0000000000000000796a4c76f142034b4d443c550010f29d430acbc0aad5acd6efaf16640e94edac5e99f764b168f18ea4c377222000e1f5050000000001010121024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0253a264762978c6806bc5d0c1e7a8b34bd34d9968824e81c3cbb2aef99faa35100000000
@@ -740,7 +740,7 @@ aa1b82d78398184c93405ccd15e3cf00b63634aac98a7b75053aa90eaf9cb47d
 
 The `gatewaysclaim` method allows the owner of the `deposittxid` to claim their on-chain proxy tokens. This method can only be executed by the owner of the `pubkey` that was used to launch the daemon from which the `gatewaysdeposit` call was executed.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -796,7 +796,7 @@ Response from Step Two:
 
 The `gatewaysdeposit` method is used to alert the gateway of the completed deposit of the foreign (off-chain) asset.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method then returns a `txid` which serves as the **deposittxid**.
 
@@ -810,7 +810,7 @@ name                                         |(string)                     |the 
 cointxid                                     |(string)                     |the `txid` returned when the foreign assets were sent to the gateway pubkey
 claimvout                                    |(string)                     |the `vout` of the claim (on the first use, this value should be 0)
 deposithex                                   |(string)                     |returned from the `txid` wherein the funds were sent to the foreign-asset gateway pubkey
-proof                                        |(string)                     |the proof for the `txid`; can be found using the [`gettxoutproof`](../essential-rpc/blockchain.html#gettxoutproof) method
+proof                                        |(string)                     |the proof for the `txid`; can be found using the [`gettxoutproof`](../komodo-api/blockchain.html#gettxoutproof) method
 destpub                                      |(string)                     |the public key where the tokens should be received on the asset chain
 amount                                       |(number)                     |the amount of the deposit
 
@@ -1009,7 +1009,7 @@ The `tokenconvert` method converts your total proxy-token supply into a token bo
 
 The amount must be the total number of tokens.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 

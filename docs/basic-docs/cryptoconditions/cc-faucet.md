@@ -60,7 +60,7 @@ Response:
 
 The `faucetfund` method creates and funds a faucet contract.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -168,7 +168,7 @@ Response from Step 3
 
 The `faucetget` method requests the `faucet` contract to send coins.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 A `faucet` command yields 0.1 coins and requires about 30 seconds of CPU time.
 

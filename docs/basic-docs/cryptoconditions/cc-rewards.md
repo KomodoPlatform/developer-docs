@@ -21,7 +21,7 @@ The flow of a plan is as follows:
 
 The `rewardsaddfunding` method adds funds to a rewards plan.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -191,7 +191,7 @@ Response:
 
 The `rewardscreatefunding` method creates a new `rewards` plan.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method will then return a `txid`. This `txid` is the `fundingtxid` that serves to identify the `rewards` plan.
 
@@ -424,7 +424,7 @@ Response:
 
 The `rewardslock` method commits your desired amount of funds into the specified rewards plan. They remain locked until the minimum number of seconds/days passes.
 
-The method returns a `hex` value that must be broadcast using [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction).
+The method returns a `hex` value that must be broadcast using [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction).
 
 The `sendrawtransaction` method will then return a `txid`, which is later used in the [`rewardsunlock`](../cryptoconditions/cc-rewards.html#rewardsunlock) method. In general, it is best to save this `txid` in a secure location.
 
@@ -563,13 +563,13 @@ Response from Step 3:
 
 The `rewardsunlock` method unlocks your funds from a specific rewards plan after the minimum lock time is met. If `txid` is not provided, `rewardsunlock` unlocks all funds in the `fundingtxid` plan.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../essential-rpc/rawtransactions.html#sendrawtransaction) method to complete the command.
+The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method to complete the command.
 
 If you attempt to unlock your funds before the minimum period is met, the daemon returns this error:
 
 The method requires the `txid` that was returned as a result of the original [`rewardslock`](../cryptoconditions/cc-rewards.html#rewardslock) method.
 
-If the original `txid` is lost, it is possible to find it again by either rebroadcasting the original `hex` (if it is available), or by scanning through available utxos using the [`getaddressutxos`](../essential-rpc/address.html#getaddressutxos) method.
+If the original `txid` is lost, it is possible to find it again by either rebroadcasting the original `hex` (if it is available), or by scanning through available utxos using the [`getaddressutxos`](../komodo-api/address.html#getaddressutxos) method.
 
 ::: tip
 {

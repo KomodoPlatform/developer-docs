@@ -280,8 +280,8 @@ Structure|Type|Description
 "currentblocktx"                             |(numeric)                    |the last block transaction
 "difficulty"                                 |(numeric)                    |the current difficulty
 "errors":                                    |                             |
-"generate"                                   |(boolean)                    |if the generation is on or off (see [getgenerate](../essential-rpc/generate.html#getgenerate) or [setgenerate](../essential-rpc/generate.html#setgenerate) calls)
-"genproclimit"                               |(numeric)                    |the processor limit for generation; `-1` if no generation (see [getgenerate](../essential-rpc/generate.html#getgenerate) or [setgenerate](../essential-rpc/generate.html#setgenerate) calls)
+"generate"                                   |(boolean)                    |if the generation is on or off (see [getgenerate](../komodo-api/generate.html#getgenerate) or [setgenerate](../komodo-api/generate.html#setgenerate) calls)
+"genproclimit"                               |(numeric)                    |the processor limit for generation; `-1` if no generation (see [getgenerate](../komodo-api/generate.html#getgenerate) or [setgenerate](../komodo-api/generate.html#setgenerate) calls)
 "localsolps"                                 |(numeric)                    |the average local solution rate (solutions per second) since this node was started
 "networksolps"                               |(numeric)                    |the estimated network solution rate (solutions per second)
 "pooledtx":                                  |                             |

@@ -206,11 +206,11 @@ After you have your asset chain running on both nodes, we recommend executing so
 
 Here are links to some simple and common rpc examples:
 
-[`getnewaddress`](../essential-rpc/wallet.html#getnewaddress)
+[`getnewaddress`](../komodo-api/wallet.html#getnewaddress)
 
-[`sendtoaddress`](../essential-rpc/wallet.html#sendtoaddress)
+[`sendtoaddress`](../komodo-api/wallet.html#sendtoaddress)
 
-[`getinfo`](../essential-rpc/control.html#getinfo)
+[`getinfo`](../komodo-api/control.html#getinfo)
 
 As Komodo is downstream from both [Bitcoin](https://bitcoin.org) and [Zcash](https://z.cash), essentially all of the commands that are available on those two upstream blockchains are also available here.
 
