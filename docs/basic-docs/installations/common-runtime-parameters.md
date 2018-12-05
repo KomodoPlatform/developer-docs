@@ -301,7 +301,7 @@ connect=69.164.218.197
 
 `gen` instructs the daemon to attempt to generate new blocks, and thereby mine new coins.
 
-See also [`setgenerate`](../essential-rpc/generate.html#setgenerate).
+See also [`setgenerate`](../komodo-api/generate.html#setgenerate).
 
 #### :pushpin: Examples:
 
@@ -569,7 +569,7 @@ donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 
 ## exportdir
 
-`exportdir` tells the coin daemon where to store the wallet backup files created through the [backupwallet](../essential-rpc/wallet.html#backupwallet) and [dumpwallet](../essential-rpc/wallet.html#dumpwallet) calls.
+`exportdir` tells the coin daemon where to store the wallet backup files created through the [backupwallet](../komodo-api/wallet.html#backupwallet) and [dumpwallet](../komodo-api/wallet.html#dumpwallet) calls.
 
 #### :pushpin: Examples:
 
