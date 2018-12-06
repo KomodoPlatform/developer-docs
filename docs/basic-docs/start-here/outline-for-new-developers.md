@@ -56,7 +56,7 @@ Because your asset chain is its own independent blockchain, your scalability is 
 
 If another asset chain in the Komodo ecosystem has a sudden surge of activity, your asset chain does not slow down at all, as you are both on entirely separate blockchains.
 
-On the other hand, if activity on your asset chain hits an extremely high level and causes your chain to slow down, you can split your asset chain into two linked asset chains. Using this method, we have already proved that the Komodo ecosystem can run more than 40,000 transactions per second, and we are prepared to scale to 1,000,000 and beyond.
+On the other hand, if activity on your asset chain hits an extremely high rate and causes your chain to get congested, you can split your asset chain into two linked asset chains. Using this method, we have already proved that the Komodo ecosystem can run more than 40,000 transactions per second, and we are prepared to scale to 1,000,000 and beyond.
 
 Your creativity is not limited by the mathematical constraints that affect other blockchain platforms, but instead only by hardware and your imagination.
 
