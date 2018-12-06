@@ -1,6 +1,6 @@
 module.exports = {
   title: "Komodo Developer Documentation",
-  base: "/komodo-docs-vuepress/",
+  base: "/",
   description: "Documentation for developers building on Komodo",
   themeConfig: {
     lastUpdated: 'Last Updated',
