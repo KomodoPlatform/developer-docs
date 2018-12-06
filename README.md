@@ -7,7 +7,7 @@ Built using [Vuepress](https://vuepress.vuejs.org/)
 > Prerequisites: nodejs and yarn.
 
 * Clone the repository
-* `cd` into the directory `cd komodo-docs-vuepress/`
+* `cd` into the directory `cd developer-docs/`
 
 Install Vuepress globally
 
@@ -49,7 +49,7 @@ Issuing the build command while the above dev command is active might cause the 
 yarn docs:build
 ```
 
-The html files are available in `komodo-docs-vuepress/docs/.vuepress/dist/`
+The html files are available in `developer-docs/docs/.vuepress/dist/`
 
 ## Deploy
 
