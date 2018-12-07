@@ -1,5 +1,5 @@
 module.exports = {
-  title: "Komodo Developer Documentation",
+  title: "Komodo Documentation",
   base: "/",
   description: "Documentation for developers building on Komodo",
   themeConfig: {
