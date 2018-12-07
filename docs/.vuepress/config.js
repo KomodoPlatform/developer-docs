@@ -69,7 +69,7 @@ module.exports = {
           ]
         },
         {
-          title: "Essential RPC Calls",
+          title: "Komodo API",
           collapsable: true,
           children: [
             ["/basic-docs/komodo-api/address.md", "Address"],

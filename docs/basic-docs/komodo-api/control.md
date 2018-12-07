@@ -10,30 +10,30 @@ The `getinfo` method returns an object containing various state info.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"version"                                    |(numeric)                    |the server version
-"protocolversion"                            |(numeric)                    |the protocol version
-"walletversion"                              |(numeric)                    |the wallet version
-"balance"                                    |(numeric)                    |the total balance of the wallet
-"blocks"                                     |(numeric)                    |the current number of blocks processed in the server
-"timeoffset"                                 |(numeric)                    |the time offset
-"connections"                                |(numeric)                    |the number of connections
-"proxy"                                      |(string, optional)           |the proxy used by the server
-"difficulty"                                 |(numeric)                    |the current difficulty
-"testnet"                                    |(boolean)                    |if the server is using testnet or not
-"keypoololdest"                              |(numeric)                    |the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool
-"keypoolsize"                                |(numeric)                    |how many new keys are pre-generated
-"unlocked_until"                             |(numeric)                    |the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked
-"paytxfee"                                   |(numeric)                    |the transaction fee set in COIN/kB
-"relayfee"                                   |(numeric)                    |minimum relay fee for non-free transactions in COIN/kB
-"errors"                                     |(string)                     |any error messages
+| Structure         | Type               | Description                                                                                                                            |
+| ----------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| "version"         | (numeric)          | the server version                                                                                                                     |
+| "protocolversion" | (numeric)          | the protocol version                                                                                                                   |
+| "walletversion"   | (numeric)          | the wallet version                                                                                                                     |
+| "balance"         | (numeric)          | the total balance of the wallet                                                                                                        |
+| "blocks"          | (numeric)          | the current number of blocks processed in the server                                                                                   |
+| "timeoffset"      | (numeric)          | the time offset                                                                                                                        |
+| "connections"     | (numeric)          | the number of connections                                                                                                              |
+| "proxy"           | (string, optional) | the proxy used by the server                                                                                                           |
+| "difficulty"      | (numeric)          | the current difficulty                                                                                                                 |
+| "testnet"         | (boolean)          | if the server is using testnet or not                                                                                                  |
+| "keypoololdest"   | (numeric)          | the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool                                                |
+| "keypoolsize"     | (numeric)          | how many new keys are pre-generated                                                                                                    |
+| "unlocked_until"  | (numeric)          | the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked |
+| "paytxfee"        | (numeric)          | the transaction fee set in COIN/kB                                                                                                     |
+| "relayfee"        | (numeric)          | minimum relay fee for non-free transactions in COIN/kB                                                                                 |
+| "errors"          | (string)           | any error messages                                                                                                                     |
 
 #### :pushpin: Examples:
 
@@ -69,8 +69,8 @@ Response:
   "testnet": false,
   "keypoololdest": 1536262464,
   "keypoolsize": 101,
-  "paytxfee": 0.00000000,
-  "relayfee": 0.00000100,
+  "paytxfee": 0.0,
+  "relayfee": 0.000001,
   "errors": "",
   "name": "SIDD",
   "p2pport": 9800,
@@ -115,7 +115,7 @@ Response:
     "testnet": false,
     "keypoololdest": 1536262464,
     "keypoolsize": 101,
-    "relayfee": 1e-06,
+    "relayfee": 1e-6,
     "paytxfee": 0,
     "errors": "",
     "name": "SIDD",
@@ -129,24 +129,92 @@ Response:
 }
 ```
 
+## help
+
 **help ( "command" )**
 
 The `help` method lists all commands, or all information for a specified command.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"command"                                    |(string, optional)           |the command requiring assistance
-
+| Structure | Type               | Description                      |
+| --------- | ------------------ | -------------------------------- |
+| "command" | (string, optional) | the command requiring assistance |
 
 Response:
 
-Structure|Type|Description
----------|----|-----------
-"command"                                    |(string, optional)           |the command requiring assistance
+| Structure | Type               | Description                      |
+| --------- | ------------------ | -------------------------------- |
+| "command" | (string, optional) | the command requiring assistance |
 
 #### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli help
+```
+
+Response:
+
+```
+== Addressindex ==
+getaddressbalance
+getaddressdeltas
+getaddressmempool
+getaddresstxids
+getaddressutxos
+getsnapshot
+
+== Auction ==
+auctionaddress [pubkey]
+
+== Blockchain ==
+coinsupply <height>
+getbestblockhash
+getblock "hash|height" ( verbose )
+getblockchaininfo
+getblockcount
+
+getblockhash index
+getblockhashes timestamp
+getblockheader "hash" ( verbose )
+getchaintips
+getdifficulty
+
+........ (so on... other responses omitted here for brevity)
+```
+
+Command:
+
+```bash
+./komodo-cli help getaddressbalance
+```
+
+Response:
+
+```
+Returns the balance for an address(es) (requires addressindex to be enabled).
+
+Arguments:
+{
+  "addresses"
+    [
+      "address"  (string) The base58check encoded address
+      ,...
+    ]
+}
+
+Result:
+{
+  "balance"  (string) The current balance in satoshis
+  "received"  (string) The total number of satoshis received (including change)
+}
+
+Examples:
+> komodo-cli getaddressbalance '{"addresses": ["RY5LccmGiX9bUHYGtSWQouNy1yFhc5rM87"]}'
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["RY5LccmGiX9bUHYGtSWQouNy1yFhc5rM87"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:7771/
+```
 
 ## stop
 
@@ -162,16 +230,16 @@ Forcefully stopping the chain should be avoided, as it may cause a corruption in
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-Komodo server stopping                       |                             |
-[COIN] Komodo server stopping                |                             |
+| Structure                     | Type | Description |
+| ----------------------------- | ---- | ----------- |
+| Komodo server stopping        |      |
+| [COIN] Komodo server stopping |      |
 
 #### :pushpin: Examples:
 
