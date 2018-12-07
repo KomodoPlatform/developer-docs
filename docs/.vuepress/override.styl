@@ -1,5 +1,23 @@
-.hero > img {
+.hero > img, .home, img, target {
 	max-width: 100%;
-	height: auto;
+	max-height: 100%;
 	overflow: hidden;
+}
+
+@media (max-width: 419px) {
+
+	.navbar {
+		height: 5rem;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	.sidebar .nav-links .nav-item {
+		padding: 1.5rem 0 0.5rem 1.5rem;
+	}
+
+	.content:not(.custom) > h1:first-child, .content:not(.custom) > h2:first-child, .content:not(.custom) > h3:first-child, .content:not(.custom) > h4:first-child, .content:not(.custom) > h5:first-child, .content:not(.custom) > h6:first-child {
+		margin-top: -0.5rem;
+	}
+
 }
