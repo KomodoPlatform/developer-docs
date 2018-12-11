@@ -3,7 +3,9 @@ app:
   ports:
     - 8080:8080
   volumes:
-    - ./:/opt/app/
+    - ./docs:/opt/app/docs
+    - ./package.json:/opt/app/package.json
+    - ./yarn.lock:/opt/app/yarn.lock
   container_name: komodo_docs
   stdin_open: true
-  user: "1000:1000"
+
