@@ -22,4 +22,4 @@ deploy:
   repo: KomodoPlatform/developer-docs
   target-branch: gh-pages
   on:
-    branch: gcharang
+    branch: master
