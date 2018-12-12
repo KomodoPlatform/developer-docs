@@ -8,4 +8,4 @@ app:
     - ./yarn.lock:/opt/app/yarn.lock
   container_name: komodo_docs
   stdin_open: true
-
+  user: "1000:1000"

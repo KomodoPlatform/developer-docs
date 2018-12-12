@@ -6,7 +6,7 @@ set -e
 
 # build
 docker build -t komodo_docs_image .
-docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) --entrypoint "yarn" komodo_docs_image "docs:build"
+docker run --rm -v $(pwd):/opt/app/ -w /opt/app/ -u $(id -u):$(id -g) --entrypoint "yarn" komodo_docs_image "docs:build"
 
 
 
@@ -14,7 +14,7 @@ docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) --entrypoint "yarn
 cd docs/.vuepress/dist
 
 # if you are deploying to a custom domain
-echo 'developers.komodoplatform.com' > CNAME
+#echo 'developers.komodoplatform.com' > CNAME
 
 git init
 git add -A
@@ -27,6 +27,6 @@ git commit -m 'deploy'
 # GIT_USER=$(git config --global user.name)
 #git push -f git@github.com:$GIT_USER/developer-docs.git master:gh-pages
 
-git push -f git@github.com:komodoplatform/developer-docs.git master:gh-pages
+git push -f git@github.com:gcharang/developer-docs.git master:gh-pages
 
 cd -
