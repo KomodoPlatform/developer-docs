@@ -6,7 +6,8 @@ services:
 script:
   - docker build -t komodo_docs_image .
   - docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) komodo_docs_image
-  - rm ./* || true
+  - rm ./* ./.* || true
+  - rm -rf ./.* || true
   - find * -type d | grep -v "\<docs\>" | xargs rm -r || true
   - mv docs/.vuepress/dist/{.,}* . || true
   - rm -rf .git docs/ || true
@@ -19,7 +20,7 @@ deploy:
   skip-cleanup: true
   github-token: $GH_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep-history: false
-  repo: KomodoPlatform/developer-docs
+  repo: gcharang/developer-docs
   target-branch: gh-pages
   on:
     branch: master
