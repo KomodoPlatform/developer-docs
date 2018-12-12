@@ -23,4 +23,4 @@ deploy:
   repo: gcharang/developer-docs
   target-branch: gh-pages
   on:
-    branch: master
+    branch: gcharang
