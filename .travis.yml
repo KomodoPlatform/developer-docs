@@ -20,7 +20,7 @@ deploy:
   skip-cleanup: true
   github-token: $GH_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep-history: false
-  repo: gcharang/developer-docs
+  repo: komodoplatform/developer-docs
   target-branch: gh-pages
   on:
-    branch: gcharang
+    branch: master
