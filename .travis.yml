@@ -16,6 +16,6 @@ deploy:
   skip-cleanup: true
   github-token: $GH_TOKEN  # Set in the settings page of your repository, as a secure variable
   local-dir: docs/.vuepress/dist/
-  repo: gcharang/developer-docs
+  repo: komodoplatform/developer-docs
   on:
-    branch: gcharang
+    branch: master
