@@ -19,3 +19,13 @@ deploy:
   repo: komodoplatform/developer-docs
   on:
     branch: master
+
+# blocklist
+branches:
+  except:
+  - gcharang
+
+# safelist
+branches:
+  only:
+  - master
