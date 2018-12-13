@@ -47,7 +47,7 @@ module.exports = {
             ],
             [
               "/basic-docs/installations/asset-chain-parameters.md",
-              "Runtime Tools for Asset Chains"
+              "Custom Parameters for Asset Chains"
             ]
           ]
         },
