@@ -8,9 +8,11 @@ Prerequisites:
   * nodejs 
   * yarn
 
-::: tip
+---
+**Tip:**
+
 If you prefer using Docker, installation of nodejs and yarn is not required. Instructions for using Docker in the final section)
-:::
+---
 
 * Fork the repository
 * Clone the repository
