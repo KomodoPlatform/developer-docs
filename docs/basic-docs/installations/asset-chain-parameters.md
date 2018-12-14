@@ -198,16 +198,14 @@ All asset chains that have the same `ac_cc (>= 101)` value form a cluster, where
 
 For example, an asset chain set to `ac_cc=201` in its parameters can interact with other asset chains with `ac_cc=201`, on the same notary-node network, but cannot interact with an asset chain set to `ac_cc=300`.
 
-To summarize:
-
-```
+::: tip Summary
 Consider a chain with -ac_cc=N
-* If N = 0, contracts are disabled
-* If N > 0, on-chain contracts are active
-* If N = 1, contrats are enabled
-* If N >= 2 and <= 100, the chain allows for non-fungible cross-chain contracts within all other chains bearing the same N value
-* If N >= 101, the chain can form a cluster with all other chains with the same N value. The base tokens of all chains in the cluster are fungible via the burn protocol
-```
+* If <b>N = 0</b>, contracts are disabled
+* If <b>N > 0</b>, on-chain contracts are active
+* If <b>N = 1</b>, contrats are enabled
+* If <b>N >= 2 and <= 100</b>, the chain allows for non-fungible cross-chain contracts within all other chains bearing the same N value
+* If <b>N >= 101</b>, the chain can form a cluster with all other chains with the same N value. The base tokens of all chains in the cluster are fungible via the burn protocol
+:::
 
 #### :pushpin: Examples:
 
