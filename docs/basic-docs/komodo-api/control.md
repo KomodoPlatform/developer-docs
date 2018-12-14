@@ -182,7 +182,7 @@ getblockheader "hash" ( verbose )
 getchaintips
 getdifficulty
 
-........ (so on... other responses omitted here for brevity)
+........ (other responses omitted for brevity)
 ```
 
 Command:

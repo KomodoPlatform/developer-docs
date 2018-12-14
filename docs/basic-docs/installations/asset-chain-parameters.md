@@ -204,9 +204,9 @@ To summarize:
 Consider a chain with -ac_cc=N
 * If N = 0, contracts are disabled
 * If N > 0, on-chain contracts are active
-* If N = 1, then it just enables contrats
-* If N >= 2 and <= 100, it allows for non-fungible cross chain contracts within all the chains with the same N value
-* If N >= 101, then it forms a cluster of all the chains with the same N value. The base tokens in all these chains in the cluster are fungible via the burn protocol
+* If N = 1, contrats are enabled
+* If N >= 2 and <= 100, the chain allows for non-fungible cross-chain contracts within all other chains bearing the same N value
+* If N >= 101, the chain can form a cluster with all other chains with the same N value. The base tokens of all chains in the cluster are fungible via the burn protocol
 ```
 
 #### :pushpin: Examples:
