@@ -1366,7 +1366,6 @@ key                                          |(string, required)           |sear
 
 Structure|Type|Description
 ---------|----|-----------
-
 "coin"                                       |(string)                     |chain the key is stored on
 "currentheight"                              |(numeric)                    |current height of the chain
 "key"                                        |(string)                     |key

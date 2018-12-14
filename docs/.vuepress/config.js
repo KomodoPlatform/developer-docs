@@ -47,7 +47,7 @@ module.exports = {
             ],
             [
               "/basic-docs/installations/asset-chain-parameters.md",
-              "Runtime Tools for Asset Chains"
+              "Custom Parameters for Asset Chains"
             ]
           ]
         },
@@ -69,7 +69,7 @@ module.exports = {
           ]
         },
         {
-          title: "Essential RPC Calls",
+          title: "Komodo API",
           collapsable: true,
           children: [
             ["/basic-docs/komodo-api/address.md", "Address"],

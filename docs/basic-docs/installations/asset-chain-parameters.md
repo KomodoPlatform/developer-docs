@@ -104,14 +104,16 @@ A 777777-coin pre-mine, with a 5-coin block reward, and the block reward decreas
 
 ## ac_decay
 
-This is the percentage the block reward will decrease by each block-reward halving. This parameter will have no effect if [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) is not set.
+This is the percentage which determines the the block reward decrease on each block-reward "halving". This parameter will have no effect if [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) is not set. 
+
+For example, if this is set to ``75000000``, the block reward will drop 25% from the previous block reward on each "halving" event.
 
 This is the formula that `ac_decay` follows:
 
 ```
 numhalvings = (height / ac_halving);
 for (i=0; i<numhalvings; i++)
-reward_after = reward_before * ac_decay / 100000000;
+block_reward_after = block_reward_before * ac_decay / 100000000;
 ```
 
 For example, if this parameter is set to `750000000`, at each halving the block reward will drop to 75% of its previous value.
@@ -144,13 +146,13 @@ A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 
 
 ## ac_pubkey
 
-The `ac_pubkey` parameter designates a public address for receiving payments from the network. These payments can come in the genesis block, in all blocks mined thereafter, and from every transaction on the network.
+The `ac_pubkey` parameter designates a pubkey for receiving payments from the network. These payments can come in the genesis block, in all blocks mined thereafter, and from every transaction on the network.
 
 It is used in combination with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), which sets the amount that is sent to the address. If `ac_perc` is not set, the only effect of `ac_pubkey` is to have the genesis block be mined to the `pubkey` specified.
 
 If `ac_pubkey` is set, but `ac_perc` is not, this simply means the genesis block will be mined to the set `pubkey`'s address, and no blocks or transactions thereafter will mine payments to the `pubkey`.
 
-`pubkey` must be set to a 33 byte hex string. You can get the pubkey of an address by using the [`validateaddress`](../komodo-api/util.html#validateaddress) command in `komodod`, and searching for the returned `pubkey` property. The address must be imported to the wallet before using `validateaddress`.
+`pubkey` is a string that has 66 characters (a 33 byte hex encoded string). You can get the pubkey of an address by using the [`validateaddress`](../komodo-api/util.html#validateaddress) command in `komodod`, and searching for the returned `pubkey` property. The corresponding `private key` must be present/imported to the wallet before using `validateaddress`.
 
 #### :pushpin: Examples:
 
@@ -195,6 +197,17 @@ Setting the value of `ac_cc` to any value greater than or equal to `101` will pe
 All asset chains that have the same `ac_cc (>= 101)` value form a cluster, where the base tokens of all the chains in the cluster are fungible via the burn protocol.
 
 For example, an asset chain set to `ac_cc=201` in its parameters can interact with other asset chains with `ac_cc=201`, on the same notary-node network, but cannot interact with an asset chain set to `ac_cc=300`.
+
+To summarize:
+
+```
+Consider a chain with -ac_cc=N
+* If N = 0, contracts are disabled
+* If N > 0, on-chain contracts are active
+* If N = 1, then it just enables contrats
+* If N >= 2 and <= 100, it allows for non-fungible cross chain contracts within all the chains with the same N value
+* If N >= 101, then it forms a cluster of all the chains with the same N value. The base tokens in all these chains in the cluster are fungible via the burn protocol
+```
 
 #### :pushpin: Examples:
 
