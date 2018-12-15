@@ -1,22 +1,20 @@
-# Smart Contract: Faucet
+# Contract Module: Faucet
 
-The `faucet` Crypto Conditions smart contract enables anyone to set up and operate an on-chain faucet.
+The `faucet` module enables anyone to fund an on-chain faucet on any chain which has contracts [enabled](../installations/asset-chain-parameters.html#summary-of-ac-cc).
 
-There may only be one `faucet` contract per asset chain.
+There is only one on-chain `faucet` per asset chain.
 
-For any faucet, there is a public address to which anyone can send their funds to support the faucet.
+For any chain, there is a Faucet which can be funded by any one.
 
-A `faucet` rpc call can be executed by anyone on the asset chain, as long as their public address satisfies a few constraints: the user's pubkey and address must have no history of funds or transactions, and an address can claim faucet funds only once.
+To receive funds from a `faucet`, the [`faucetget`](../cryptoconditions/cc-faucet.html#faucetget) RPC can be executed by anyone on the asset chain, as long as their public address satisfies a few constraints: their node's pubkey ( and the corresponding address) must have no history of funds or transactions, and an address can claim faucet funds only once on a chain; the call also requires the node to perform a small PoW calculation to deter leechers.
 
-The [`faucetget`](../cryptoconditions/cc-faucet.html#faucetget) is the rpc call that executes the `faucet` contract, and the rpc call requires the user to perform a small PoW calculation. This deters leechers.
-
-When called, `faucet` sends 0.1 coins to the indicated address, and requires about 30 seconds of CPU time.
+When `faucetget` is executed, the on-chain `faucet` sends 0.1 coins to the address that corresponds to the node's pubkey; it requires about 30 seconds of CPU time.
 
 ## faucetaddress
 
 **faucetaddress [pubkey]**
 
-The `faucetaddress` method returns the CC address information for the requested pubkey. If no pubkey is provided, the method returns information for the pubkey used to launch the daemon.
+The `faucetaddress` method returns the CC address information for the specified pubkey. If no pubkey is provided, the method returns information for the pubkey used to launch the daemon.
 
 ### Arguments:
 
@@ -26,30 +24,33 @@ The `faucetaddress` method returns the CC address information for the requested 
 
 ### Response:
 
-| Structure       | Type     | Description                                                                                                                        |
-| --------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| FaucetCCaddress | (string) | taking the faucet contract's EVAL code as a modifyer, this is the public address that corresponds to the faucet contract's privkey |
-| CCaddress       | (string) | taking the faucet contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user                           |
-| myCCaddress     | (string) | taking the dice contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user                             |
-| myaddress       | (string) | the unmodified public address of the pubkey used to launch the chain                                                               |
+| Structure       | Type     | Description                                                                                                                          |
+| --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| FaucetCCaddress | (string) | taking the faucet contract's `EVAL` code as a modifyer, this is the public address that corresponds to the faucet contract's privkey |
+| CCaddress       | (string) | taking the faucet contract's `EVAL` code as a modifyer, this is the CC address from the pubkey of the user                           |
+| myCCaddress     | (string) | taking the dice contract's `EVAL` code as a modifyer, this is the CC address from the pubkey of the user                             |
+| myaddress       | (string) | the unmodified public address of the pubkey used to launch the chain                                                                 |
 
 #### :pushpin: Examples:
 
 Command:
 
 ```
-./komodo-cli -ac_name=HELLOWORLD faucetaddress 03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc
+./komodo-cli -ac_name=HELLOWORLD faucetaddress 03336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8
 ```
 
 Response:
 
-```
+```json
 {
   "result": "success",
-  "FaucetCCaddress": "RSxACZQhskPjQyxp7TUPG1oP1wm4agFycJ",
-  "CCaddress": "RSxACZQhskPjQyxp7TUPG1oP1wm4agFycJ",
-  "myCCaddress": "RSxACZQhskPjQyxp7TUPG1oP1wm4agFycJ",
-  "myaddress": "RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"
+  "FaucetCCaddress": "R9zHrofhRbub7ER77B7NrVch3A63R39GuC",
+  "Faucetmarker": "RKQV4oYs4rvxAWx1J43VnT73rSTVtUeckk",
+  "GatewaysPubkey": "03ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb40",
+  "FaucetCCassets": "RF2p5LgEBpUzUgUyFSUDa8ZBnr2wxE87do",
+  "CCaddress": "RReGLfH2MTrkeLSepkVy5vnQPE29g7KofS",
+  "myCCaddress": "RReGLfH2MTrkeLSepkVy5vnQPE29g7KofS",
+  "myaddress": "RJYiWn3FRCSSLf9Pe5RJcbrKQYosaMburP"
 }
 ```
 
