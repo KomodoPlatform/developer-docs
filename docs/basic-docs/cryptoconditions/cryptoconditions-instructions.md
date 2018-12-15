@@ -58,7 +58,7 @@ The daemon will now use this pubkey as the basis for all addresses used for the 
 
 To know your addresses belonging to differnt contracts, you will typically use an `address` related RPC from the list of available RPC calls of your chosen contract module. For example, `faucetaddress` would return a response like this:
 
-```jsoult": "success",
+```json
 {
   "result": "success",
   "FaucetCCaddress": "R9zHrofhRbub7ER77B7NrVch3A63R39GuC",
