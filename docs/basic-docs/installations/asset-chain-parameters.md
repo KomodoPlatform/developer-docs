@@ -239,10 +239,6 @@ A 777777 pre-mined chain. Smart-contracts are allowed between all fellow asset c
 
 ## ac_staked
 
-::: tip
-This feature is currently only available in the <a href="https://github.com/jl777/komodo/tree/jl777">jl777 branch</a>
-:::
-
 `ac_staked` indicates the percentage of blocks the chain will aim to have mined via Proof of Stake (PoS), with the remainder via Proof of Work (PoW). For example, an `ac_staked=90` chain will have ~90% PoS blocks and 10% PoW blocks.
 
 Measurements of the PoS:PoW ratio are approximate; the PoW difficulty will automatically adjust based on the overall percentage of PoW-mined blocks to adhere to the approximate `PoS` value.
@@ -323,10 +319,6 @@ A 777777-coin pre-mine, a 1000-coin block reward, the block reward decreases by 
 
 ## ac_public
 
-::: tip Notice
-This feature is currently only available in the <a href="https://github.com/jl777/komodo/tree/jl777">jl777 branch</a>.
-:::
-
 If `ac_public` is set to `1`, zk-SNARKs are disabled, and all z address functionalilty is disabled. Therefore, all transactions on the blockchain are public.
 
 #### :pushpin: Examples:
@@ -338,10 +330,6 @@ A public-only asset chain.
 ```
 
 ## ac_private
-
-::: tip
-This feature is currently only available in the <a href="https://github.com/jl777/komodo/tree/jl777">jl777 branch</a>.
-:::
 
 If `ac_private` is set to `1`, all transactions other than coinbase transactions (block rewards) must use zk-SNARKs. Beyond sending mined coins from a transparent addresses to a z address, all other transparent activity is disabled.
 
