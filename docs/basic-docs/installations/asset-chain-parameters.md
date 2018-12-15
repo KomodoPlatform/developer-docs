@@ -106,8 +106,6 @@ A 777777-coin pre-mine, with a 5-coin block reward, and the block reward decreas
 
 This is the percentage which determines the the block reward decrease on each block-reward "halving". This parameter will have no effect if [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) is not set. 
 
-For example, if this is set to ``75000000``, the block reward will drop 25% from the previous block reward on each "halving" event.
-
 This is the formula that `ac_decay` follows:
 
 ```
@@ -116,7 +114,7 @@ for (i=0; i<numhalvings; i++)
 block_reward_after = block_reward_before * ac_decay / 100000000;
 ```
 
-For example, if this parameter is set to `750000000`, at each halving the block reward will drop to 75% of its previous value.
+For example, if this parameter is set to `75000000`, at each "halving" the block reward will drop to 75% of its previous value.
 
 #### :pushpin: Examples:
 
@@ -277,7 +275,7 @@ Each staked block will have an additional transaction added to the end of the bl
 
 The following are the (current) rules for staking a block:
 
-- Block timestamps are used as the monotonically increasing timestamp. It is important to have a synced system clock.
+- Block timestamps are used as the monotonically increasing on-chain clock. It is important to have a synced system clock.
 
 - A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, it is 6000 seconds. More precisely, a utxo is not eligible for staking until `100 * the median time to mine a new block`. For example, utxos on a one-minute block time asset chain would be eligible for staking one-hundred minutes after their creation.
 

@@ -36,6 +36,8 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 **getNotarisationsForBlock blockHash**
 
+Takes a block hash and returns notarisation transactions within the block
+
 ### Arguments:
 
 ### Response:
