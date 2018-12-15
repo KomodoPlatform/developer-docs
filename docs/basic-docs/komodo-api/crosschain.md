@@ -40,6 +40,10 @@ Takes a block hash and returns notarisation transactions within the block
 
 ### Arguments:
 
+| Structure | Type     | Description       |
+| --------- | -------- | ----------------- |
+| blockHash | (string) | hash of the block |
+
 ### Response:
 
 #### :pushpin: Examples:
