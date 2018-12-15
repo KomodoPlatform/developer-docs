@@ -26,9 +26,9 @@ The `faucetaddress` method returns the CC address information for the specified 
 
 | Structure       | Type     | Description                                                                                                                          |
 | --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| FaucetCCaddress | (string) | taking the faucet contract's `EVAL` code as a modifyer, this is the public address that corresponds to the faucet contract's privkey |
-| CCaddress       | (string) | taking the faucet contract's `EVAL` code as a modifyer, this is the CC address from the pubkey of the user                           |
-| myCCaddress     | (string) | taking the dice contract's `EVAL` code as a modifyer, this is the CC address from the pubkey of the user                             |
+| FaucetCCaddress | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the public address that corresponds to the faucet contract's privkey |
+| CCaddress       | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the CC address from the pubkey of the user                           |
+| myCCaddress     | (string) | taking the dice contract's `EVAL` code as a modifier, this is the CC address from the pubkey of the user                             |
 | myaddress       | (string) | the unmodified public address of the pubkey used to launch the chain                                                                 |
 
 #### :pushpin: Examples:

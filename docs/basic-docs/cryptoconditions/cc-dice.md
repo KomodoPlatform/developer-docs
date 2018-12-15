@@ -167,10 +167,10 @@ pubkey                                       |(string, optional)           |the 
 Structure|Type|Description
 ---------|----|-----------
 result                                       |(string)                     |whether the diceaddress method was successful
-DiceCCaddress                                |(string)                     |taking the dice contract's EVAL code as a modifyer, this is the public address that corresponds to the dice contract's privkey
+DiceCCaddress                                |(string)                     |taking the dice contract's EVAL code as a modifier, this is the public address that corresponds to the dice contract's privkey
 Dicemarker                                   |(string)                     |the unmodified public address generated from the dice contract's privkey
-CCaddress                                    |(string)                     |taking the dice contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
-myCCaddress                                  |(string)                     |taking the dice contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
+CCaddress                                    |(string)                     |taking the dice contract's EVAL code as a modifier, this is the CC address from the pubkey of the user
+myCCaddress                                  |(string)                     |taking the dice contract's EVAL code as a modifier, this is the CC address from the pubkey of the user
 myaddress                                    |(string)                     |the public address of the pubkey used to launch the chain
 
 #### :pushpin: Examples:
