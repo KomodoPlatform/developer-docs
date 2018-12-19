@@ -4,9 +4,9 @@
 
 The method of transferring contract-related assets is often slightly different from transferring the main coins of an asset chain.
 
-When making a transaction on the main blockchain of your asset chain, you typically only deal with a sending address and a receiving address. To move coins, you might use RPC such as `sendtoaddress` or `z_sendmany`.
+When making a transaction on the main blockchain of your asset chain, you typically only deal with a sending address and a receiving address. To move coins, you might use methods such as `sendtoaddress` or `z_sendmany`.
 
-There are a few other types of addresses to keep in mind when working with transactions using the contract modules. It is not necessary to fully understand all of the address types, but basic knowledge about a few addresses will be necessary.
+There are a few other types of addresses to keep in mind when working with transactions while using the contract modules. It is not necessary to fully understand all of the address types, but basic knowledge about a few addresses will be necessary.
 
 ## Creating and Launching With a Pubkey
 
@@ -52,11 +52,11 @@ Then relaunch your daemon using the required parameters, and make sure to includ
 ./komodo-cli -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=777 -pubkey=DO_NOT_USE_ADDRESS019a79b0921a1be6d3ca6f9e8a050feb14eb845fe46b9d756
 ```
 
-## Other types of Addresses associated with Contract modules
+## Other Types of Addresses
 
-The daemon will now use this pubkey as the basis for all addresses used for the different contract modules. 
+The daemon will now use the above pubkey as the basis for all addresses used for the different contract modules.
 
-To know your addresses belonging to differnt contracts, you will typically use an `address` related RPC from the list of available RPC calls of your chosen contract module. For example, `faucetaddress` would return a response like this:
+To discover the addresses the pubkey provides, you will typically use an `address` related RPC from the list of available RPC calls of your chosen contract module. For example, `faucetaddress` would return a response like this:
 
 ```json
 {

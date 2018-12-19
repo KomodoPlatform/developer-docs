@@ -4,14 +4,14 @@ Komodo documentation uses [Vuepress](https://vuepress.vuejs.org/).
 
 ## Setup:
 
-Prerequisites: 
-  * nodejs 
+Prerequisites:
+  * nodejs
   * yarn
 
 ---
 **Tip:**
 
-If you prefer using Docker, installation of nodejs and yarn is not required. Instructions for using Docker in the final section
+If you prefer using Docker, installation of nodejs and yarn is not required. See below for Docker instructions.
 
 
 * Fork the repository
@@ -36,7 +36,7 @@ HTML output is displayed at http://localhost:8080
 
 If the changes are not reflected right away, refresh the page.
 
-Exit the dev mode by doing `CTRL + C` in the same terminal `yarn docs:dev` has been done. 
+Exit the dev mode by doing `CTRL + C` in the same terminal `yarn docs:dev` has been done.
 
 Issuing the build command while the above dev command is active might cause the build to fail with errors.
 
@@ -73,4 +73,3 @@ You can use Docker to reliably produce a developer environment that won't confli
 * Use `CTRL + C` in the terminal `docker-compose up` has been done to stop the container.
 * To deploy using docker, use the command `./deploy_docker.sh`. This script deploys to your own fork; the webpages are now located at the following address: `https://<USERNAME>.github.io/developer-docs`
 * When used for the first time, Docker might take some time to download the required data and build an image. Subsequent usage will be faster.
-
