@@ -19,12 +19,12 @@ pubkey                                       |(string, optional)           |the 
 Structure|Type|Description
 ---------|----|-----------
 result                                       |(string)                     |whether the method executed successfully
-OraclesCCaddress                             |(string)                     |taking the contract's EVAL code as a modifyer, this is the public address that corresponds to the contract's privkey
+OraclesCCaddress                             |(string)                     |taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey
 Oraclesmarker                                |(string)                     |the unmodified public address generated from the contract's privkey
 GatewaysPubkey                               |(string)                     |the pubkey for the gateways cc
 OraclesCCassets                              |(string)                     |this property is used for development purposes only and can otherwise be ignored
-CCaddress                                    |(string)                     |taking the contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
-myCCaddress                                  |(string)                     |taking the contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
+CCaddress                                    |(string)                     |taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user
+myCCaddress                                  |(string)                     |taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user
 myaddress                                    |(string)                     |the public address of the pubkey used to launch the chain
 
 #### :pushpin: Examples:

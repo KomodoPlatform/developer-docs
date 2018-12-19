@@ -106,8 +106,6 @@ A 777777-coin pre-mine, with a 5-coin block reward, and the block reward decreas
 
 This is the percentage which determines the the block reward decrease on each block-reward "halving". This parameter will have no effect if [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) is not set. 
 
-For example, if this is set to ``75000000``, the block reward will drop 25% from the previous block reward on each "halving" event.
-
 This is the formula that `ac_decay` follows:
 
 ```
@@ -116,7 +114,7 @@ for (i=0; i<numhalvings; i++)
 block_reward_after = block_reward_before * ac_decay / 100000000;
 ```
 
-For example, if this parameter is set to `750000000`, at each halving the block reward will drop to 75% of its previous value.
+For example, if this parameter is set to `75000000`, at each "halving" the block reward will drop to 75% of its previous value.
 
 #### :pushpin: Examples:
 
@@ -198,16 +196,15 @@ All asset chains that have the same `ac_cc (>= 101)` value form a cluster, where
 
 For example, an asset chain set to `ac_cc=201` in its parameters can interact with other asset chains with `ac_cc=201`, on the same notary-node network, but cannot interact with an asset chain set to `ac_cc=300`.
 
-To summarize:
+### Summary of `ac_cc`
 
-```
-Consider a chain with -ac_cc=N
-* If N = 0, contracts are disabled
-* If N > 0, on-chain contracts are active
-* If N = 1, contrats are enabled
-* If N >= 2 and <= 100, the chain allows for non-fungible cross-chain contracts within all other chains bearing the same N value
-* If N >= 101, the chain can form a cluster with all other chains with the same N value. The base tokens of all chains in the cluster are fungible via the burn protocol
-```
+::: tip Consider a chain with -ac_cc=N
+* If <b>N = 0</b>, contracts are disabled
+* If <b>N > 0</b>, contrats are enabled
+* If <b>N = 1</b>, on-chain contracts are active
+* If <b>N >= 2 and <= 100</b>, the chain allows for non-fungible cross-chain contracts within all other chains bearing the same N value
+* If <b>N >= 101</b>, the chain can form a cluster with all other chains with the same N value. The base tokens of all chains in the cluster are fungible via the burn protocol
+:::
 
 #### :pushpin: Examples:
 
@@ -240,10 +237,6 @@ A 777777 pre-mined chain. Smart-contracts are allowed between all fellow asset c
 ```
 
 ## ac_staked
-
-::: tip
-This feature is currently only available in the <a href="https://github.com/jl777/komodo/tree/jl777">jl777 branch</a>
-:::
 
 `ac_staked` indicates the percentage of blocks the chain will aim to have mined via Proof of Stake (PoS), with the remainder via Proof of Work (PoW). For example, an `ac_staked=90` chain will have ~90% PoS blocks and 10% PoW blocks.
 
@@ -283,7 +276,7 @@ Each staked block will have an additional transaction added to the end of the bl
 
 The following are the (current) rules for staking a block:
 
-- Block timestamps are used as the monotonically increasing timestamp. It is important to have a synced system clock.
+- Block timestamps are used as the monotonically increasing on-chain clock. It is important to have a synced system clock.
 
 - A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, it is 6000 seconds. More precisely, a utxo is not eligible for staking until `100 * the median time to mine a new block`. For example, utxos on a one-minute block time asset chain would be eligible for staking one-hundred minutes after their creation.
 
@@ -325,10 +318,6 @@ A 777777-coin pre-mine, a 1000-coin block reward, the block reward decreases by 
 
 ## ac_public
 
-::: tip Notice
-This feature is currently only available in the <a href="https://github.com/jl777/komodo/tree/jl777">jl777 branch</a>.
-:::
-
 If `ac_public` is set to `1`, zk-SNARKs are disabled, and all z address functionalilty is disabled. Therefore, all transactions on the blockchain are public.
 
 #### :pushpin: Examples:
@@ -340,10 +329,6 @@ A public-only asset chain.
 ```
 
 ## ac_private
-
-::: tip
-This feature is currently only available in the <a href="https://github.com/jl777/komodo/tree/jl777">jl777 branch</a>.
-:::
 
 If `ac_private` is set to `1`, all transactions other than coinbase transactions (block rewards) must use zk-SNARKs. Beyond sending mined coins from a transparent addresses to a z address, all other transparent activity is disabled.
 

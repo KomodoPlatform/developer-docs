@@ -14,15 +14,15 @@ The `generate` method instructs the coin daemon to immediately mine the indicate
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-numblocks                                    |(numeric)                    |the desired number of blocks to generate
+| Structure | Type      | Description                              |
+| --------- | --------- | ---------------------------------------- |
+| numblocks | (numeric) | the desired number of blocks to generate |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-blockhashes                                  |(array)                      |hashes of blocks generated
+| Structure   | Type    | Description                |
+| ----------- | ------- | -------------------------- |
+| blockhashes | (array) | hashes of blocks generated |
 
 #### :pushpin: Examples:
 
@@ -55,15 +55,15 @@ See also <b>gen</b>.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |(none)                       |
+| Structure | Type   | Description |
+| --------- | ------ | ----------- |
+| (none)    | (none) |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-true/false                                   |(boolean)                    |indicates whether the server is set to generate coins
+| Structure  | Type      | Description                                           |
+| ---------- | --------- | ----------------------------------------------------- |
+| true/false | (boolean) | indicates whether the server is set to generate coins |
 
 #### :pushpin: Examples:
 
@@ -111,28 +111,26 @@ See also the <b>getgenerate</b> method to query the current setting, and <b>genp
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-generate                                     |(boolean, required)          |set to true to turn on generation; set to off to turn off generation
-genproclimit                                 |(numeric, optional)          |set the processor limit for when generation is on; use value "-1" for unlimited
+| Structure    | Type                | Description                                                                     |
+| ------------ | ------------------- | ------------------------------------------------------------------------------- |
+| generate     | (boolean, required) | set to true to turn on generation; set to off to turn off generation            |
+| genproclimit | (numeric, optional) | set the processor limit for when generation is on; use value "-1" for unlimited |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |(none)                       |
+| Structure | Type   | Description |
+| --------- | ------ | ----------- |
+| (none)    | (none) |
 
 #### :pushpin: Examples:
 
 Turn on generation with maximum available processors:
-
 
 Command:
 
 ```bash
 ./komodo-cli setgenerate true -1
 ```
-
 
 Response:
 
