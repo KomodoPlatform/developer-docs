@@ -1,14 +1,10 @@
 # Contract Module: Faucet
 
-The `faucet` module enables anyone to fund an on-chain faucet on any chain which has contracts [enabled](../installations/asset-chain-parameters.html#summary-of-ac-cc).
+The `faucet` module enables anyone to fund an on-chain faucet on any chain where contracts are [enabled](../installations/asset-chain-parameters.html#summary-of-ac-cc). An asset chain may have only one on-chain `faucet`.
 
-There is only one on-chain `faucet` per asset chain.
+To receive funds from a `faucet`, the [`faucetget`](../cryptoconditions/cc-faucet.html#faucetget) RPC can be executed by anyone on the asset chain, as long as their public address satisfies a few constraints. Their daemon's pubkey ( corresponding to the address) must have no history of funds or transactions, and an address can claim faucet funds only once on a chain. The call also requires the node to perform a small PoW calculation; this deters leechers.
 
-For any chain, there is a Faucet which can be funded by any one.
-
-To receive funds from a `faucet`, the [`faucetget`](../cryptoconditions/cc-faucet.html#faucetget) RPC can be executed by anyone on the asset chain, as long as their public address satisfies a few constraints: their daemon's pubkey ( corresponding to the address) must have no history of funds or transactions, and an address can claim faucet funds only once on a chain; the call also requires the node to perform a small PoW calculation to deter leechers.
-
-When `faucetget` is executed, the on-chain `faucet` sends 0.1 coins to the address that corresponds to the node's pubkey; it requires about 30 seconds of CPU time.
+When `faucetget` is executed, the on-chain `faucet` sends 0.1 coins to the address that corresponds to the node's pubkey. This requires about 30 seconds of CPU time.
 
 ## faucetaddress
 
@@ -27,9 +23,9 @@ The `faucetaddress` method returns the CC address information for the specified 
 | Structure       | Type     | Description                                                                                                                          |
 | --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | FaucetCCaddress | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the public address that corresponds to the faucet contract's privkey |
-| Faucetmarker    | (string) | internal address not related to usage of faucet                                                                                      |
-| FaucetCCassets  | (string) | internal address not related to usage of faucet                                                                                      |
-| GatewaysPubkey  | (string) | Gateways contract module's global pubkey                                                                                             |
+| Faucetmarker    | (string) | the internal address (not related to usage of faucet)                                                                                      |
+| FaucetCCassets  | (string) | the internal address (not related to usage of faucet)                                                                                      |
+| GatewaysPubkey  | (string) | the global pubkey for this Gateways contract module                                                                                             |
 | CCaddress       | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the CC address from the pubkey of the user                           |
 | myCCaddress     | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the CC address from the pubkey of the user                           |
 | myaddress       | (string) | the unmodified public address of the pubkey used to launch the chain                                                                 |

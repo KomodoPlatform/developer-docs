@@ -2,9 +2,9 @@
 
 The `dice` module allows for a decentralized `dice` game on a blockchain. The `dice` module is essentially a simple, but fully functional decentralized application (dApp).
 
-It also useful as a demonstration to show how Crypto Conditions based contracts can leverage provably random entropy to enable blockchain-enforced real-time gameplay.
+It is also useful as a demonstration to show how Crypto Conditions based contracts can leverage provably random entropy to enable blockchain-enforced real-time gameplay.
 
-`dice` is a simple gambling game, where one node creates a "house" contract, with seed funds and other parameters, and other users place bets within the indicated parameters. Winners and losers are determined through on-chain consensus based on provably random entropy generated using inputs from both the house and the player.
+`dice` is a simple gambling game, where one node creates a "house" contract, with seed funds and other parameters, and other users place bets within the indicated parameters. Winners and losers are determined through blockchain technology. This technology includes on-chain, consensus based, provably random entropy that derives from the activity of both the "house" and the users.
 
 The "house" node should be running the [`dicestatus`](../cryptoconditions/cc-dice.html#dicestatus) method at a regular frequency. This method resolves unfinished bets and generates new entropy utxos for the "house" contract.
 
@@ -163,8 +163,8 @@ The `diceaddress` method takes either your pubkey or a pubkey that you provide a
 | result         | (string) | whether the diceaddress method was successful                                                                                  |
 | DiceCCaddress  | (string) | taking the dice contract's EVAL code as a modifier, this is the public address that corresponds to the dice contract's privkey |
 | Dicemarker     | (string) | the unmodified public address generated from the dice contract's privkey                                                       |
-| DiceCCassets   | (string) | internal address not related to usage of faucet                                                                                |
-| GatewaysPubkey | (string) | Gateways contract module's global pubkey                                                                                       |
+| DiceCCassets   | (string) | the internal address (this is not related to the usage of dice)                                                                                |
+| GatewaysPubkey | (string) | the global pubkey for this Gateways CC module                                                                                       |
 | myCCaddress    | (string) | taking the dice contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                         |
 | myaddress      | (string) | the public address of the pubkey used to launch the chain                                                                      |
 
@@ -202,9 +202,9 @@ The method returns a hex value which must then be broadcast using the [`sendrawt
 
 | Structure   | Type     | Description                                                       |
 | ----------- | -------- | ----------------------------------------------------------------- |
-| name        | (string) | name of the dice contract you want to place your bet              |
+| name        | (string) | the name of the dice contract you want to place your bet              |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
-| amount      | (number) | amount you want to place bet                                      |
+| amount      | (number) | the amount you want to place bet                                      |
 | odds        | (number) | specify your odds                                                 |
 
 ### Response:
@@ -355,9 +355,9 @@ Response from Step 3:
 
 The `dicefinish` method rebroadcasts a bet that has already been broadcasted.
 
-If the returned `hex` value is `0`, the bet is finished.
+If the returned `hex` value is `0` the bet is finished.
 
-If the returned `hex` value is not `0`, then the `hex` value should be broadcast with [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction);  the hex will have a value, if the bet has not finished or is stuck
+If the returned `hex` value is not `0`, the `hex` value should be broadcast with [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction). If the bet has not finished or is stuck, the `hex` will have a value.
 
 ### Arguments:
 
@@ -413,8 +413,8 @@ The `maxodds` property must be between 1 and 9999.
 | ------------- | -------- | ---------------------------------------------------------------------------------------- |
 | name          | (string) | name of your dice contract                                                               |
 | funds         | (number) | the amount of funds you want to start with                                               |
-| minbet        | (number) | minimum amount allowed for bet                                                           |
-| maxbet        | (number) | maximum amount allowed for bet                                                           |
+| maxbet        | (number) | maximum amount allowed for a bet                                                           |
+| minbet        | (number) | minimum amount allowed for a bet                                                           |
 | maxodds       | (number) | the largest odds an end-user can use for betting                                         |
 | timeoutblocks | (number) | the many blocks before the contract times out and pays the automatically declared winner |
 
