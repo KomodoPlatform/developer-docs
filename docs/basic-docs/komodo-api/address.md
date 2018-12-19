@@ -4,22 +4,22 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## getaddressbalance
 
-**getaddressbalance '{ "addresses" : [ "address" , ...  ] }'**
+**getaddressbalance '{ "addresses" : [ "address" , ... ] }'**
 
-The ``getaddressbalance`` method returns the confirmed balance for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressbalance` method returns the confirmed balance for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| "address" | (string) | the address |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"balance"                                    |(number)                     |the current confirmed balance in satoshis
-"received"                                   |(number)                     |the total confirmed number of satoshis received (including change)
+| Structure  | Type     | Description                                                        |
+| ---------- | -------- | ------------------------------------------------------------------ |
+| "balance"  | (number) | the current confirmed balance in satoshis                          |
+| "received" | (number) | the total confirmed number of satoshis received (including change) |
 
 #### :pushpin: Examples:
 
@@ -61,30 +61,30 @@ Response:
 
 ## getaddressdeltas
 
-**getaddressdeltas '{ "addresses" : [ "address" , ...  ] }'**
+**getaddressdeltas '{ "addresses" : [ "address" , ... ] }'**
 
-**getaddressdeltas '{ "addresses" : [ "address" , ...  ] , "start": start, "end": end, "chainInfo": boolean }'**
+**getaddressdeltas '{ "addresses" : [ "address" , ... ] , "start": start, "end": end, "chainInfo": boolean }'**
 
-The ``getaddressdeltas`` method returns all confirmed balance changes of an address. The user can optionally limit the response to a given interval of blocks. The method requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressdeltas` method returns all confirmed balance changes of an address. The user can optionally limit the response to a given interval of blocks. The method requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
-"start"                                      |(number)                     |the start block height
-"end"                                        |(number)                     |the end block height
-"chainInfo"                                  |(boolean)                    |include chain info in results (only applies if start and end specified)
+| Structure   | Type      | Description                                                             |
+| ----------- | --------- | ----------------------------------------------------------------------- |
+| "address"   | (string)  | the address                                                             |
+| "start"     | (number)  | the start block height                                                  |
+| "end"       | (number)  | the end block height                                                    |
+| "chainInfo" | (boolean) | include chain info in results (only applies if start and end specified) |
 
 ### Response
 
-Structure|Type|Description
----------|----|-----------
-"satoshis"                                   |(number)                     |the difference in satoshis
-"txid"                                       |(string)                     |the related transaction id
-"index"                                      |(number)                     |the related input or output index
-"height"                                     |(number)                     |the block height
-"address"                                    |(string)                     |the address
+| Structure  | Type     | Description                       |
+| ---------- | -------- | --------------------------------- |
+| "satoshis" | (number) | the difference in satoshis        |
+| "txid"     | (string) | the related transaction id        |
+| "index"    | (number) | the related input or output index |
+| "height"   | (number) | the block height                  |
+| "address"  | (string) | the address                       |
 
 #### :pushpin: Examples:
 
@@ -206,27 +206,27 @@ Response:
 
 ## getaddressmempool
 
-**getaddressmempool '{ "addresses" : [ "address" , ...  ] }'**
+**getaddressmempool '{ "addresses" : [ "address" , ... ] }'**
 
 The `getaddressmempool` method returns all mempool deltas for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| "address" | (string) | the address |
 
 ### Response
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
-"txid"                                       |(string)                     |the related txid
-"index"                                      |(number)                     |the related input or output index
-"satoshis"                                   |(number)                     |the difference in satoshis
-"timestamp"                                  |(number)                     |the time the transaction entered the mempool (seconds)
-"prevtxid"                                   |(string)                     |the previous txid (if spending)
-"prevout"                                    |(string)                     |the previous transaction output index (if spending)
+| Structure   | Type     | Description                                            |
+| ----------- | -------- | ------------------------------------------------------ |
+| "address"   | (string) | the address                                            |
+| "txid"      | (string) | the related txid                                       |
+| "index"     | (number) | the related input or output index                      |
+| "satoshis"  | (number) | the difference in satoshis                             |
+| "timestamp" | (number) | the time the transaction entered the mempool (seconds) |
+| "prevtxid"  | (string) | the previous txid (if spending)                        |
+| "prevout"   | (string) | the previous transaction output index (if spending)    |
 
 #### :pushpin: Examples:
 
@@ -280,23 +280,23 @@ Response:
 
 ## getaddresstxids
 
-**getaddresstxids '{ "addresses" : [ "address" , ...  ] }'**
+**getaddresstxids '{ "addresses" : [ "address" , ... ] }'**
 
 The `getaddresstxids` method returns the txids for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
-"start"                                      |(number)                     |the start block height
-"end"                                        |(number)                     |the end block height
+| Structure | Type     | Description            |
+| --------- | -------- | ---------------------- |
+| "address" | (string) | the address            |
+| "start"   | (number) | the start block height |
+| "end"     | (number) | the end block height   |
 
 ### Response
 
-Structure|Type|Description
----------|----|-----------
-"transaction_id"                             |(string)                     |the transaction id
+| Structure        | Type     | Description        |
+| ---------------- | -------- | ------------------ |
+| "transaction_id" | (string) | the transaction id |
 
 #### :pushpin: Examples:
 
@@ -338,7 +338,6 @@ Response:
   "error": null,
   "id": "curltest"
 }
-
 ```
 
 ## getaddressutxos
@@ -349,21 +348,21 @@ The `getaddressutxos` method returns all unspent outputs for an address. It requ
 
 ### Arguments
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
-"chainInfo"                                  |(boolean)                    |include chain info with results
+| Structure   | Type      | Description                     |
+| ----------- | --------- | ------------------------------- |
+| "address"   | (string)  | the address                     |
+| "chainInfo" | (boolean) | include chain info with results |
 
 ### Response
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
-"txid"                                       |(string)                     |the output txid
-"height"                                     |(number)                     |the block height
-"outputIndex"                                |(number)                     |the output index
-"script"                                     |(string)                     |the script hex encoded
-"satoshis"                                   |(number)                     |the number of satoshis of the output
+| Structure     | Type     | Description                          |
+| ------------- | -------- | ------------------------------------ |
+| "address"     | (string) | the address                          |
+| "txid"        | (string) | the output txid                      |
+| "height"      | (number) | the block height                     |
+| "outputIndex" | (number) | the output index                     |
+| "script"      | (string) | the script hex encoded               |
+| "satoshis"    | (number) | the number of satoshis of the output |
 
 #### :pushpin: Examples:
 

@@ -23,10 +23,10 @@ pubkey                                       |(string, optional)           |the 
 Structure|Type|Description
 ---------|----|-----------
 result                                       |(string)                     |whether the command executed successfully
-AssetsCCaddress                              |(string)                     |taking the token contract's EVAL code as a modifyer, this is the public address that corresponds to the token contract's privkey
+AssetsCCaddress                              |(string)                     |taking the token contract's EVAL code as a modifier, this is the public address that corresponds to the token contract's privkey
 Assetsmarker                                 |(string)                     |the unmodified public address generated from the token contract's privkey
-CCaddress                                    |(string)                     |taking the token contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
-myCCaddress                                  |(string)                     |taking the token contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
+CCaddress                                    |(string)                     |taking the token contract's EVAL code as a modifier, this is the CC address from the pubkey of the user
+myCCaddress                                  |(string)                     |taking the token contract's EVAL code as a modifier, this is the CC address from the pubkey of the user
 myaddress                                    |(string)                     |the public address of the pubkey used to launch the chain
 
 #### :pushpin: Examples:
@@ -121,7 +121,7 @@ pubkey                                       |(string)                     |the 
 Structure|Type|Description
 ---------|----|-----------
 result                                       |(string)                     |whether the command executed succesfully
-CCaddress                                    |(string)                     |taking the token contract's EVAL code as a modifyer, this is the CC address from the pubkey of the user
+CCaddress                                    |(string)                     |taking the token contract's EVAL code as a modifier, this is the CC address from the pubkey of the user
 tokenid                                      |(string)                     |the txid that identifies the token
 balance                                      |(number)                     |the balance of the address that corresponds to the pubkey
 
