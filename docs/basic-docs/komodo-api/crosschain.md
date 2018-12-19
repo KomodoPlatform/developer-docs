@@ -46,6 +46,10 @@ Takes a block hash and returns notarisation transactions within the block
 
 ### Response:
 
+| Structure | Type     | Description       |
+| --------- | -------- | ----------------- |
+| blockHash | (string) | hash of the block |
+
 #### :pushpin: Examples:
 
 ## height_MoM
