@@ -357,7 +357,7 @@ The `dicefinish` method rebroadcasts a bet that has already been broadcasted.
 
 If the returned `hex` value is `0`, the bet is finished.
 
-If the returned `hex` value is not `0`, then the `hex` value should be broadcast with [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction).
+If the returned `hex` value is not `0`, then the `hex` value should be broadcast with [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction);  the hex will have a value, if the bet has not finished or is stuck
 
 ### Arguments:
 
