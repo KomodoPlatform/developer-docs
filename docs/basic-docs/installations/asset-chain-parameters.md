@@ -235,17 +235,86 @@ A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50
 ```
 
+## ac_script
+
+The `ac_script` parameter enables the `ac_founders` reward to be sent to a multisig address or any p2sh address. If this parameter is used, block 1 (the "premine") will be mined to the `ac_script` address. 
+
+This parameter requires that `ac_founders` also be active. If `ac_script` is set, `ac_pubkey` must not be. 
+
+`ac_script` should be set to the `"hex"` value of `"scriptPubKey"`. 
+
+#### Finding the `"scriptPubKey"`:
+
+To find the `"scriptPubKey"` value, first create a multisig address with the [`createmultisig`](../komodo-api/util.html#createmultisig) command. 
+
+Command:
+
+```
+komodo-cli -ac_name=EXAMPLE createmultisig 2 "[\"RMnZJpfLbFHUxMS3HM5gkvtFKeduhr96Ec\",\"RW2Yx4Tk9WGfUvhbJTXGFiRhr7PKcVtrm5\",\"RQ1uqBj9yk94BcxEZodbeNqb3jWv8pLeA4\"]"
+```
+
+Response:
+```
+{
+	"address": "bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV",
+	"redeemScript": 	"522102040ce30d52ff1faae7a673c2994ed0a2c4115a40fa220ce055d9b85e8f9311ef2102a2ba4606206c032914dd48390c15f5bf996d91bf9dbd07614d972f39d93a511321026014ef4194f6c7406a475a605d6a393ae2d7a2b12a6964587299bae84172fff053ae"
+}
+```
+
+On a test chain, send coins to the `bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV` address. 
+
+```
+komodo-cli -ac_name=EXAMPLE sendtoaddress bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV 10
+```
+
+Response (txid):
+
+```
+ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f
+```
+
+Observe the resulting transaction with `getrawtransaction <txid> 1`:
+
+```
+komodo-cli -ac_name=EXAMPLE getrawtransaction ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f 1
+```
+
+Observe the output:
+
+```
+{
+	"value": 10.00000000,
+	"valueSat": 1000000000,
+	"n": 1,
+	"scriptPubKey": {
+		"asm": "OP_HASH160 2706324daaac92c93420e985f55d88ea20e22ae1 OP_EQUAL",
+		"hex": "a9142706324daaac92c93420e985f55d88ea20e22ae187",
+		"reqSigs": 1,
+		"type": "scripthash",
+		"addresses": [
+			"bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV"
+		]
+	}
+}
+```
+
+Set `ac_script` to the `"hex"` value from the returned json object. 
+
+```
+-ac_script=a9142706324daaac92c93420e985f55d88ea20e22ae187`
+```
+
 ## ac_cc
 
 ::: warning Notice
 This parameter is still in testing.
 :::
 
-The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via cross-chain smart contracts and MoMoM technology.
+The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via CryptoConditions modules and MoMoM technology.
 
 Under most circumstances, this parameter requires the Komodo notarization service to achieve functionality, as it relies on the `pubkey`s of the trusted notary nodes to ensure coin-supply stability.
 
-Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- meaning that coins on one asset chain can be directly transferred to another asset chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
+Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one asset chain can be directly transferred to any other asset chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
 
 ### ac_cc=0
 
