@@ -382,7 +382,7 @@ A 777777 pre-mined chain. Smart-contracts are allowed between all fellow asset c
 
 ## ac_staked
 
-`ac_staked` indicates the percentage of blocks the chain will aim to have mined via Proof of Stake (PoS), with the remainder via Proof of Work (PoW). For example, an `ac_staked=90` chain will have ~90% PoS blocks and 10% PoW blocks.
+`ac_staked` indicates the percentage of blocks the chain will aim to mine via Proof of Stake (PoS), with the remainder via Proof of Work (PoW). For example, an `ac_staked=90` chain will have ~90% PoS blocks and ~10% PoW blocks.
 
 Measurements of the PoS:PoW ratio are approximate; the PoW difficulty will automatically adjust based on the overall percentage of PoW-mined blocks to adhere to the approximate `PoS` value.
 
@@ -393,7 +393,7 @@ On a chain using a high percentage for PoS, it's vital to have coins staking by 
 :::
 
 ::: warning
-It is also vital to stake coins in all 64 segids. You can use the genaddresses.py script in <a href="https://github.com/alrighttt/dockersegid">this repository</a> to generate an address for each segid. This functionality will soon be integrated directly into the daemon.
+It is vital to stake coins in all 64 segids. You can use the genaddresses.py script in <a href="https://github.com/alrighttt/dockersegid">this repository</a> to generate an address for each segid. This functionality will soon be integrated directly into the daemon.
 :::
 
 ::: tip
@@ -487,3 +487,93 @@ A private-only asset chain.
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_private=1 &
 ```
+
+## ac_sapling
+
+The `ac_sapling` parameter adjusts the block height of an asset chain's default sapling activation. (Sapling is an upstream privacy technology provided by [Zcash](https://z.cash/), of which Komodo is a fork.) 
+
+By default, sapling will activate at block 61 on a newly created assetchain. 
+
+This can also be used to activate sapling prior to block 61. (Activating sapling prior to block 61 should not be done on a chain intended for production use.)
+
+To disable sapling activation indefinitely, set `ac_sapling` to a block height beyond the expected life of the asset chain. For example, `-ac_sapling=5000000` will delay sapling activation to block `5000000`. 
+
+## ac_timelock...
+
+**-ac_timeunlockgte=satoshis -ac_timelockfrom=height -ac_timelockto=height**
+
+The `ac_timelock...` parameters enforce "coinbase locking". 
+
+In coinbase locking, the asset chain's block-reward feature behaves in a different manner compared to a default asset chain. Any block reward that is greater than or equal to the `ac_timeunlockgte` satoshi amount is temporarily locked. It will be unlocked (and therefore spendable) on a random block between the `ac_timelockfrom` and `ac_timelockto` heights.
+
+The random unlock time for each reward is independent of the unlock time of other rewards.  
+
+For example:
+
+```
+komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=10000000000 -ac_halving=10000 -ac_timelockgte=10000000000 -ac_timeunlockfrom=10000 -ac_timeunlockto=100000
+```
+
+For the first 10000 blocks, any rewards that are greater than or equal to 10000000000 are locked until a random block between 10000 and 100000.
+
+## ac_txpow
+
+::: warning
+This parameter is in testing and should not yet be used on a production chain.
+:::
+
+Setting `-ac_txpow=1` enforces a transaction-rate limiter. This can help to prevent spam transactions on an asset chain. 
+
+`ac_txpow` forces all transactions (other than coinbase transactions) to have a txid starting and ending with `00`. 
+
+This parameter is currently a proof of concept. Many of the traditional rpc commands, such as `sendtoaddress` or `sendmany`, are not currently supported. Instead, use [`createrawtransaction`](../komodo-api/rawtransactions.html#createrawtransaction) and [`signrawtransaction`](../komodo-api/rawtransactions.html#signrawtransaction). 
+
+## ac_algo
+
+::: warning
+This parameter is in testing and should not yet be used on a production chain.
+:::
+
+The `ac_algo` parameter changes the chain's mining algorithm from the default equihash to the verushash.
+
+To enable this feature, set `-ac_algo=verushash`.
+
+This activates verushash1.0. More recent versions of verushash are not yet supported. 
+
+The verushash feature serves as a proof of concept for adding support for additional mining algorithms.
+
+We are currently testing methods to support compatibility for `ac_staked`, but this feature is not yet recommended for external testing.
+
+## ac_veruspos
+
+::: warning
+This parameter is in testing and should not yet be used on a production chain.
+:::
+
+The `ac_veruspos` parameter is an alternative to [`ac_staked`](../installations/asset-chain-parameters.html#ac-staked). 
+
+When activated, the chain uses [Verus](http://veruscoin.io/)'s proof of stake implementation instead. 
+
+The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` does not have the same segid mechanism as `-ac_staked`.)
+
+## ac_ccenable
+
+::: warning
+This parameter is in testing and should not yet be used on a production chain.
+:::
+
+The `ac_ccenable` parameter restricts the asset chain so that only indicated CryptoConditions modules can be enabled. `ac_ccenable` requires [`ac_cc`](../installations/asset-chain-parameters.html#ac-cc) to be active. 
+
+To indicate which CryptoConditions modules should be available, insert each module's eval code in decimal and separated by commas. Eval codes can be found [here](https://github.com/jl777/komodo/blob/master/src/cc/eval.h). 
+
+For example, the following parameters create an asset chain where only the `faucet` and `rewards` modules are active:
+
+```
+komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable=228,229
+```
+
+When `-ac_cc` is set, but `-ac_ccenable` is not, all CryptoConditions modules are enabled. 
+
+`ac_ccenable` disables spending utxos that are created under a non-enabled CryptoConditions module. It does not yet prevent rpc calls from non-enabled modules from creating utxos. Therefore, we highly recommend that this feature not be activated on any production chain, as improper usage of `ac_ccenable` can result in unspendable utxos. 
+
+
