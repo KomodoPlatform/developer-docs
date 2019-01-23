@@ -564,7 +564,7 @@ This parameter is in testing and should not yet be used on a production chain.
 
 The `ac_ccenable` parameter restricts the asset chain so that only indicated CryptoConditions modules can be enabled. `ac_ccenable` requires [`ac_cc`](../installations/asset-chain-parameters.html#ac-cc) to be active. 
 
-To indicate which CryptoConditions modules should be available, insert each module's eval code in decimal and separated by commas. Eval codes can be found [here](https://github.com/jl777/komodo/blob/master/src/cc/eval.h). 
+To indicate which CryptoConditions modules should be available, insert each module's eval code in decimal and separated by commas. A list of all eval codes can be found [here](https://github.com/jl777/komodo/blob/master/src/cc/eval.h). 
 
 For example, the following parameters create an asset chain where only the `faucet` and `rewards` modules are active:
 
@@ -574,6 +574,6 @@ komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable
 
 When `-ac_cc` is set, but `-ac_ccenable` is not, all CryptoConditions modules are enabled. 
 
-`ac_ccenable` disables spending utxos that are created under a non-enabled CryptoConditions module. It does not yet prevent rpc calls from non-enabled modules from creating utxos. Therefore, we highly recommend that this feature not be activated on any production chain, as improper usage of `ac_ccenable` can result in unspendable utxos. 
+`ac_ccenable` disables spending utxos that are created under a non-enabled CryptoConditions module. It does not yet prevent rpc calls from creating utxos that belong to non-enabled modules. Therefore, we highly recommend that this feature not be activated on any production chain, as improper usage of `ac_ccenable` can result in unspendable utxos. 
 
 
