@@ -22,15 +22,11 @@ A simple asset chain
 
 ## ac_supply
 
-::: warning
-All chains are required to set `ac_supply`.
-:::
-
 This is the amount of pre-mined coins you would like the chain to have.
 
 The node that sets [`gen`](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
 
-If `ac_supply` is not set, [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) is set, the pre-mined coins will be mined to the address of the corresponding pubkey.
+If `ac_supply` is not set, [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [`ac_founders`](../installations/asset-chain-parameters.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
 
 The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
 
@@ -50,7 +46,7 @@ A simple asset chain
 
 This is the block reward for each mined block, given in satoshis.
 
-If this is not set, the block reward will be `10000` satoshis and blocks will be [on-demand](../installations/creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work) after block 127.
+If this is not set, the block reward will be `10000` satoshis and blocks will be [on-demand](../installations/creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work) after block 127 (a new block will not be mined unless there is a transaction in the mempool).
 
 #### :pushpin: Examples:
 
@@ -68,7 +64,7 @@ A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decrea
 
 ## ac_end
 
-This is the block height at which block rewards will end. Every block after this height will have 0 block reward, and by default the only incentive to mine a new block will be transaction fees.
+This is the block height at which block rewards will end. Every block after this height will have 0 block reward (this means that, assuming all other settings are default, the only incentive to mine a new block will be transaction fees).
 
 #### :pushpin: Examples:
 
@@ -104,13 +100,13 @@ A 777777-coin pre-mine, with a 5-coin block reward, and the block reward decreas
 
 ## ac_decay
 
-This is the percentage which determines the the block reward decrease on each block-reward "halving". This parameter will have no effect if [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) is not set. 
+This is the percentage which determines the block reward decrease on each block-reward "halving". 
+
+This parameter will have no effect if [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) is not set. 
 
 This is the formula that `ac_decay` follows:
 
 ```
-numhalvings = (height / ac_halving);
-for (i=0; i<numhalvings; i++)
 block_reward_after = block_reward_before * ac_decay / 100000000;
 ```
 
@@ -124,9 +120,59 @@ A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decrea
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
 ```
 
+## ac_eras
+
+The `ac_eras` parameter allows the value of a chain's block reward to vary over time. 
+
+Each different time interval is called an "era" and a chain can have at most three eras. 
+
+The `ac_eras` parameter accepts only one value (`1`, `2`, or `3`). When activated, it allows certain other asset-chain parameters to accept multiple values.
+
+The principle parameter that is affected by `ac_eras` is [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward), and it must receive at least one value. 
+
+Also, [`ac_decay`](../installations/asset-chain-parameters.html#ac-decay), [`ac_halving`](../installations/asset-chain-parameters.html#ac-halving), and [`ac_end`](../installations/asset-chain-parameters.html#ac-end) can each receive multiple values and thereby affect reward functionality.
+
+In all parameters receiving multiple values, the values for the second and third eras must be preceded by a comma.
+
+For example:
+
+```
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_eras=3 -ac_reward=5000000000,7000000000,4000000000
+```
+
+In this asset chain, the first era will have a reward of 5000000000, the second will have 7000000000, and the third will have 4000000000.
+
+If any of the relevant parameters has fewer distinct values than eras, the parameter's final value will carry through the remaining eras. 
+
+For example: 
+
+```
+-ac_eras=2 -ac_reward=100000000,200000000 -ac_halving=100
+```
+
+In this asset chain, the `ac_halving` value for both eras is `100`.
+
+When `ac_end` is set to `0`, the settings for the final era will last indefinitely. The `0` setting should only be used for the last era.
+
+One more feature of `ac_eras` is the ability to transition from one era to the next with a linear progression, rather than a direct switch. To achieve this effect, in the initial era (the point at which the linear progression should begin) set the `ac_decay` value to `100000000` and the `ac_halving` value to `1`.
+
+For example, the following parameter values create an asset chain with a "slow start" reward:
+
+```
+./komodod -ac_name=HELLOWORLD -ac_reward=0,10000000000 -ac_eras=2 -ac_end=1000,0 -ac_decay=100000000,100000000 -ac_halving=1
+```
+
+This chain's block reward will grow linearly from 0 to 100 over 1000 blocks, then stay at 100 indefinitely.
+
+::: tip
+Use the [`getblocksubsidy`](../komodo-api/mining.html#getblocksubsidy) rpc method to verify your asset chain will work as expect at each relevant height: `./komodo-cli -ac_name=HELLOWORLD getblocksubsidy <blockheight>`
+:::
+
 ## ac_perc
 
 The `ac_perc` parameter is the percentage added to both the block reward and to the transactions that will be sent to the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address. If the `ac_perc` parameter is set, `ac_pubkey` must also be set.
+
+The ac_perc is not intended for isolated use, and it should only be activated on chains that also use at least one of the following parameters, -ac_pubkey and -ac_founders.
 
 For example, if `ac_reward=100000000` and `ac_perc=10000000`, for each block mined, the miner receives 1 coin along with the `ac_pubkey` address receiving 0.1 coin. For every transaction sent, the pubkey address will receive 10% of the overall transaction value. This 10% is not taken from the user, rather it is created at this point. Each transaction inflates the overall supply.
 
@@ -145,6 +191,8 @@ A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 
 ## ac_pubkey
 
 The `ac_pubkey` parameter designates a pubkey for receiving payments from the network. These payments can come in the genesis block, in all blocks mined thereafter, and from every transaction on the network.
+
+This parameter is not inteded for isolated use, and it should only be activated on chains that also use at least one of the following parameters, -ac_perc and -ac_founders.
 
 It is used in combination with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), which sets the amount that is sent to the address. If `ac_perc` is not set, the only effect of `ac_pubkey` is to have the genesis block be mined to the `pubkey` specified.
 

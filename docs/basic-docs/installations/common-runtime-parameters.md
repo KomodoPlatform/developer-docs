@@ -33,11 +33,11 @@ addnode=144.76.94.3
 
 Sometimes it is necessary to manually delete all blockchain data. This should automatically trigger a full resync of the blockchain.
 
-Users should exercise caution not to delete the `wallet.dat` file during this procedure. We recommend that the user make frequent backups of the `wallet.dat` file, especially before deleting files from the application directory.
+Users should exercise caution not to delete the `wallet.dat` file during this procedure. We recommend that the user make frequent backups of the `wallet.dat` file, especially before deleting files from the data directory.
 
 To erase all synced blockchain data, the following files should be deleted from the `.komodo` folder:
 
-**blocks** , **chainstate** , **notarisations** , **komodostate** , **komodostate.ind**
+**blocks** , **chainstate** , **notarisations** , **komodostate** , **komodostate.ind** , **peers.dat**
 
 These files can typically be found in the default file locations:
 
@@ -102,7 +102,7 @@ Depending on the size and state of the chain you are re-indexing, this parameter
 Using reindex as a runtime parameter:
 
 ```
-  komodod -reindex
+komodod -reindex
 ```
 
 ## timestampindex
@@ -120,13 +120,13 @@ The <b>reindex</b> parameter is not a viable alternative method for re-syncing t
 Using timestampindex as a runtime parameter:
 
 ```
-  ./komodod -timestampindex=1
+./komodod -timestampindex=1
 ```
 
 Using timestampindex as a default value in the coin's .conf file:
 
 ```
-  timestampindex=1
+timestampindex=1
 ```
 
 ## spentindex
@@ -146,13 +146,13 @@ The <b>reindex</b> parameter is not a viable alternative method for re-syncing t
 Using spentindex as a runtime parameter:
 
 ```
-  komodod -spentindex=1
+komodod -spentindex=1
 ```
 
 Using spentindex as a default value in the coin's `.conf` file:
 
 ```
-  spentindex=1
+spentindex=1
 ```
 
 ## regtest
@@ -184,13 +184,13 @@ regtest=0
 Using bantime as a runtime parameter:
 
 ```
-  komodod -bantime=100000
+komodod -bantime=100000
 ```
 
 Using bantime as a default value in the coin's .conf file:
 
 ```
-  bantime=100000
+bantime=100000
 ```
 
 ## mempooltxinputlimit
@@ -230,13 +230,13 @@ Use `[host]:port` notation for IPv6.
 Using bind as a runtime parameter:
 
 ```bash
-  komodod -bind=127.0.0.1:9050
+komodod -bind=127.0.0.1:9050
 ```
 
 Using bind as a default value in the coin's `.conf` file:
 
 ```
-  bind=127.0.0.1:9050
+bind=127.0.0.1:9050
 ```
 
 ## whitebind
@@ -250,13 +250,13 @@ Use `[host]:port` notation for IPv6
 Using whitebind as a runtime parameter:
 
 ```bash
-  komodod -whitebind=127.0.0.1:9050
+komodod -whitebind=127.0.0.1:9050
 ```
 
 Using whitebind as a default value in the coin's `.conf` file:
 
 ```
-  whitebind=127.0.0.1:9050
+whitebind=127.0.0.1:9050
 ```
 
 ## addnode
@@ -280,7 +280,7 @@ The p2p port must not be blocked by a firewall. If the computers do not have pub
 Using addnode as a default value in the coin's `.conf` file:
 
 ```
-  addnode=69.164.218.197
+addnode=69.164.218.197
 ```
 
 ## connect
@@ -362,13 +362,13 @@ maxconnections=NUMBER
 Using server as a runtime parameter:
 
 ```bash
-  komodod -server=1
+komodod -server=1
 ```
 
 Using server as a default value in the coin's .conf file:
 
 ```
-  server=1
+server=1
 ```
 
 ## rpcbind
@@ -392,7 +392,7 @@ komodod -rpcbind=127.0.0.1:9704
 Using rpcbind as a default value in the coin's .conf file:
 
 ```
-  rpcbind=127.0.0.1:9704
+rpcbind=127.0.0.1:9704
 ```
 
 ## rpcclienttimeout
@@ -444,7 +444,7 @@ Using rpcallowip as a default value in the coin's .conf file:
 Using rpcport as a default value in the coin's `.conf` file:
 
 ```
-  rpcport=8232
+rpcport=8232
 ```
 
 ## rpcconnect
@@ -472,7 +472,7 @@ rpcconnect=127.0.0.1
 Using sendfreetransactions as a default value in the coin's .conf file:
 
 ```
-  sendfreetransactions=0
+sendfreetransactions=0
 ```
 
 ## genproclimit
@@ -484,7 +484,7 @@ Using sendfreetransactions as a default value in the coin's .conf file:
 Using genproclimit as a default value in the coin's .conf file:
 
 ```
-  genproclimit=1
+genproclimit=1
 ```
 
 ## keypool
@@ -520,7 +520,7 @@ komodod -rewind=777777
 Using stopat as a runtime parameter:
 
 ```
-  komodod -stopat=1000000
+komodod -stopat=1000000
 ```
 
 ## pubkey
@@ -576,5 +576,5 @@ donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 Using exportdir as a default value in the coin's `.conf` file:
 
 ```
-  exportdir=/home/myusername/mydirectory
+exportdir=/home/myusername/mydirectory
 ```
