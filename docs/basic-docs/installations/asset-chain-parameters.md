@@ -201,9 +201,9 @@ The `ac_founders` parameter creates a "founder's reward."
 
 This parameter requires [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc). Also, either [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) OR [`ac_script`](../installations/asset-chain-parameters.html#ac-script) must be set. 
 
-The `ac_founders` value determines the frequency at which this founder's reward is paid.
+The `ac_perc` value determines the percentage of block rewards paid to the founder. These rewards are not paid out immediately, but rather according to the `ac_founders` setting.
 
-The `ac_perc` value determines the percentage of block rewards paid to the founder.
+`ac_founders` determines the frequency at which the founder's reward is paid.
 
 For example:
 
@@ -211,23 +211,21 @@ For example:
 -ac_reward=100000000 -ac_perc=10000000 -ac_founders=100
 ```
 
-The above parameters result in rewards of 1 coin per block, except for every 100th block. On each 100th-block interval, 1 coin is rewarded to the miner(s), as usual, and 10 additional coins are paid to the founder's address.
+The above parameters result in mining rewards of 100000000 satoshis (1 coin) per block, with a difference on every 100th block. On the 100th block exception, 1000000000 additional satoshis (10 coins) are paid to the founder's address. 
 
-Use `-ac_pubkey` to send the founder's reward to a normal address. 
+The coins rewarded to the founder are created at the moment of payment, thus increasing the overall coin supply. See [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc) for more details.
 
-Use `-ac_script` to send the founder's reward to a multisig address.
+Use `ac_pubkey` to send the founder's reward to a normal address. 
+
+Use `ac_script` to send the founder's reward to a multisig address.
 
 ## ac_pubkey
 
 The `ac_pubkey` parameter designates a pubkey for receiving payments from the network. These payments can come in the genesis block, in all blocks mined thereafter, and from every transaction on the network.
 
-This parameter is not inteded for isolated use, and it should only be activated on chains that also use at least one of the following parameters, -ac_perc and -ac_founders.
+This parameter is not inteded for isolated use. It should only be activated on chains that also use at least one of the following parameters: `ac_perc`, `ac_founders, or `ac_import=PUBKEY`.
 
-It is used in combination with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), which sets the amount that is sent to the address. If `ac_perc` is not set, the only effect of `ac_pubkey` is to have the genesis block be mined to the `pubkey` specified.
-
-If `ac_pubkey` is set, but `ac_perc` is not, this simply means the genesis block will be mined to the set `pubkey`'s address, and no blocks or transactions thereafter will mine payments to the `pubkey`.
-
-`pubkey` is a string that has 66 characters (a 33 byte hex encoded string). You can get the pubkey of an address by using the [`validateaddress`](../komodo-api/util.html#validateaddress) command in `komodod`, and searching for the returned `pubkey` property. The corresponding `private key` must be present/imported to the wallet before using `validateaddress`.
+The `pubkey` must be a 66 character string (a compressed pubkey). You can find this pubkey for any address by using the [`validateaddress`](../komodo-api/util.html#validateaddress) command, and searching for the returned `pubkey` property. (The corresponding `private key` must be present/imported to the wallet before using `validateaddress`.)
 
 #### :pushpin: Examples:
 
