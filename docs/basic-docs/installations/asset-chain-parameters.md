@@ -132,31 +132,31 @@ The principle parameter that is affected by `ac_eras` is [`ac_reward`](../instal
 
 Also, [`ac_decay`](../installations/asset-chain-parameters.html#ac-decay), [`ac_halving`](../installations/asset-chain-parameters.html#ac-halving), and [`ac_end`](../installations/asset-chain-parameters.html#ac-end) can each receive multiple values and thereby affect reward functionality.
 
+For every era, there must be a corresponding value in `ac_end` that indicates the block height at which this era ends. To set the final era to last indefinitely, set the `ac_end` value of that era to `0`; the `0` setting should only be used for the last era.
+
 In all parameters receiving multiple values, the values for the second and third eras must be preceded by a comma.
 
 For example:
 
 ```
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_eras=3 -ac_reward=5000000000,7000000000,4000000000
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_eras=3 -ac_reward=5000000000,7000000000,4000000000 -ac_end=1000,10000,0
 ```
 
-In this asset chain, the first era will have a reward of 5000000000, the second will have 7000000000, and the third will have 4000000000.
+In this asset chain, the first era will have a reward of 5000000000, the second will have 7000000000, and the third will have 4000000000. The reward for the first era ends at block 1000, for the second era at block 10000, and the third era lasts indefinitely.
 
 If any of the relevant parameters has fewer distinct values than eras, the parameter's final value will carry through the remaining eras. 
 
 For example: 
 
 ```
--ac_eras=2 -ac_reward=100000000,200000000 -ac_halving=100
+-ac_eras=2 -ac_reward=100000000,200000000 -ac_halving=100 -ac_end=10000,0
 ```
 
 In this asset chain, the `ac_halving` value for both eras is `100`.
 
-When `ac_end` is set to `0`, the settings for the final era will last indefinitely. The `0` setting should only be used for the last era.
-
 One more feature of `ac_eras` is the ability to transition from one era to the next with a linear progression, rather than a direct switch. To achieve this effect, in the initial era (the point at which the linear progression should begin) set the `ac_decay` value to `100000000` and the `ac_halving` value to `1`.
 
-For example, the following parameter values create an asset chain with a "slow start" reward:
+For example, the following parameters create an asset chain with a "slow start" reward:
 
 ```
 ./komodod -ac_name=HELLOWORLD -ac_reward=0,10000000000 -ac_eras=2 -ac_end=1000,0 -ac_decay=100000000,100000000 -ac_halving=1
@@ -165,7 +165,7 @@ For example, the following parameter values create an asset chain with a "slow s
 This chain's block reward will grow linearly from 0 to 100 over 1000 blocks, then stay at 100 indefinitely.
 
 ::: tip
-Use the [`getblocksubsidy`](../komodo-api/mining.html#getblocksubsidy) rpc method to verify your asset chain will work as expect at each relevant height: `./komodo-cli -ac_name=HELLOWORLD getblocksubsidy <blockheight>`
+Use the [`getblocksubsidy`](../komodo-api/mining.html#getblocksubsidy) rpc method to verify your asset chain will work as expected at each relevant height: `./komodo-cli -ac_name=HELLOWORLD getblocksubsidy <blockheight>`
 :::
 
 ## ac_perc
