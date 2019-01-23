@@ -170,15 +170,22 @@ Use the [`getblocksubsidy`](../komodo-api/mining.html#getblocksubsidy) rpc metho
 
 ## ac_perc
 
-The `ac_perc` parameter is the percentage added to both the block reward and to the transactions that will be sent to the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address. If the `ac_perc` parameter is set, `ac_pubkey` must also be set.
+The `ac_perc` parameter has two different functionailites depending on the configuation of the chain params. 
 
-The ac_perc is not intended for isolated use, and it should only be activated on chains that also use at least one of the following parameters, -ac_pubkey and -ac_founders.
+#### ac_perc without -ac_founders
+When `ac_perc` is used without [`-ac_founders`](../installations/asset-chain-parameters.html#ac-founders) the chain will follow an inflation tax model. In this model, the `-ac_perc` parameter is the percentage added to the block reward, and the transactions that allocate these rewards are sent to the `-ac_pubkey` address. Naturally, for this configuration to function the `-ac_pubkey` parameter must be included. 
 
-For example, if `ac_reward=100000000` and `ac_perc=10000000`, for each block mined, the miner receives 1 coin along with the `ac_pubkey` address receiving 0.1 coin. For every transaction sent, the pubkey address will receive 10% of the overall transaction value. This 10% is not taken from the user, rather it is created at this point. Each transaction inflates the overall supply.
+For example, if `-ac_reward=100000000` and `-ac_perc=10000000`, for each block mined the miner receives 100000000 satoshis (1 coin), and the owner of the `-ac_pubkey` address receives 10000000 satoshis (0.1 coin, which is 10% of the miner's reward). The amount sent to the pubkey is not taken from the user, rather it is created at this point. Therefore, each transaction inflates the overall coin supply. 
+
+The maximum amount of coins created via this method across all transactions per block is capped at `(1000000 * <percentage>)`.
 
 ::: tip
-Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding `pubkey`. The `vout` type for all coinbase vouts must be `pubkey` as opposed to `pubkeyhash`. This only affects a miner trying to use a stratum. Z-nomp is currently incompatible.
+Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding pubkey. The `vout` type for all coinbase vouts must be `pubkey` as opposed to `pubkeyhash`. This only affects a miner trying to use a stratum. Community member, Blackjok3r, developed a coinbase overide method for this purpose. Please see [this repo](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode) for details. 
 :::
+
+#### ac_perc with -ac_founders
+
+Please see the [`-ac_founders`](../installations/asset-chain-parameters.html#ac-founders) documentation for this functionality. 
 
 #### :pushpin: Examples:
 
@@ -187,6 +194,28 @@ A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50 &
 ```
+
+## -ac_founders
+
+The `ac_founders` parameter creates a "founder's reward." 
+
+This parameter requires [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc). Also, either [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) OR [`ac_script`](../installations/asset-chain-parameters.html#ac-script) must be set. 
+
+The `ac_founders` value determines the frequency at which this founder's reward is paid.
+
+The `ac_perc` value determines the percentage of block rewards paid to the founder.
+
+For example:
+
+```
+-ac_reward=100000000 -ac_perc=10000000 -ac_founders=100
+```
+
+The above parameters result in rewards of 1 coin per block, except for every 100th block. On each 100th-block interval, 1 coin is rewarded to the miner(s), as usual, and 10 additional coins are paid to the founder's address.
+
+Use `-ac_pubkey` to send the founder's reward to a normal address. 
+
+Use `-ac_script` to send the founder's reward to a multisig address.
 
 ## ac_pubkey
 
