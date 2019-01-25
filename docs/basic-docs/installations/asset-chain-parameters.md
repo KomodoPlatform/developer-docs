@@ -181,7 +181,7 @@ For example, if `-ac_reward=100000000` and `-ac_perc=10000000`, for each block m
 
 The maximum amount of coins created via this method across all transactions per block is capped at `(1000000 * <percentage>)`.
 
-::: tip(FIXME coinbase can only have 2 vouts, 1 to pay miner, 1 to pay ac_pubkey correct amount. Also joker is team member now)
+::: tip(FIXME joker is team member now)
 Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding pubkey. This only affects a miner trying to use a stratum. Community member, Blackjok3r, developed a coinbase overide method for this purpose. Please see [this repo](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode) for details. 
 :::
 
@@ -315,9 +315,9 @@ This parameter is still in testing.
 
 The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via CryptoConditions modules and MoMoM technology.
 
-Under most circumstances, this parameter requires the Komodo notarization service to achieve functionality, as it relies on the `pubkey`s of the trusted notary nodes to ensure coin-supply stability.(FIXME this only applies to burn protocol, ac_cc can be used without notarization otherwise)
+Under most circumstances, this parameter requires the Komodo notarization service to achieve functionality, as it relies on the `pubkey`s of the trusted notary nodes to ensure coin-supply stability.(FIXME this only applies to burn protocol, ac_cc can be used without notarization otherwise. Applies to cross chain tx validation, but this can't affect supply)
 
-Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one asset chain can be directly transferred to any other asset chain that has the same `ac_cc` setting (FIXME if >99)and the same set of notary nodes (same set of `notary pubkeys`) .
+Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one asset chain can be directly transferred to any other asset chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
 
 ### ac_cc=0
 
@@ -348,7 +348,7 @@ For example, an asset chain set to `ac_cc=201` in its parameters can interact wi
 ::: tip Consider a chain with -ac_cc=N
 * If <b>N = 0</b>, contracts are disabled (FIXME we should be moving away from "contracts" in favor of "crypto conditions")
 * If <b>N > 0</b>, contracts are enabled
-* If <b>N = 1</b>, on-chain contracts are active (FIXME redundant)
+* If <b>N = 1</b>, on-chain contracts are active (FIXME no cross chain validation)
 * If <b>N >= 2 and <= 99</b>, the chain allows for non-fungible cross-chain contracts within all other chains bearing the same N value
 * If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value(FIXME notarized by same dpow network). The base tokens(FIXME tokens != coins) of all chains in the cluster are fungible via the burn protocol. 
 :::
@@ -415,7 +415,7 @@ Once staking is active, utxos available in the `wallet.dat` file will begin stak
 
 On an `ac_staked` asset chain there are 64 global segments (`segid`'s) to which all addresses and the corresponding utxos belong. These 64 `segid`'s become eligible to stake blocks in turns. The segment a utxo belongs to is determined automatically, according to the address in which the utxo resides and the height of the blockchain.(FIXME entirely based on address, not height)
 
-You can see which segment an address belongs to by using the [`validateaddress`](../komodo-api/util.html#validateaddress) rpc call. You can find out the amount of rewards your staked coins have earned via the [`getbalance64`](../komodo-api/wallet.html#getbalance64) rpc call.(FIXME getbalance64 is to show what distribution of coins across segids)
+You can see which segment an address belongs to by using the [`validateaddress`](../komodo-api/util.html#validateaddress) rpc call. You can find out the amount of rewards your staked coins have earned via the [`getbalance64`](../komodo-api/wallet.html#getbalance64) rpc call.(FIXME getbalance64 is to show distribution of coins across segids, how many coins you have staking in each segid)
 
 Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure. If `ac_staked` is used in conjunction with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction.
 
@@ -423,7 +423,7 @@ Each staked block will have an additional transaction added to the end of the bl
 
 The following are the (current) rules for staking a block:
 
-- Block timestamps are used as the monotonically increasing on-chain clock. It is important to have a synced system clock.(FIXME sudo apt-get install chrony; sudo systemctl restart chrony.service; then check `timedatectl` for `NTP syncronized: Yes`
+- Block timestamps are used as the monotonically increasing on-chain clock. It is important to have a synced system clock.(FIXME sudo apt-get install chrony; sudo systemctl restart chrony.service; then check `timedatectl` for `NTP syncronized: Yes`)
 
 - A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, it is 6000 seconds. More precisely, a utxo is not eligible for staking until `100 * the median time to mine a new block`.(FIXME expected blocktime* ie 1 minute) For example, utxos on a one-minute block time asset chain would be eligible for staking one-hundred minutes after their creation.
 
