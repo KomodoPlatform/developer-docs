@@ -3728,6 +3728,63 @@ Response:
 }
 ```
 
+## z_listunspent 
+
+**z_listunspent ( minconf maxconf includeWatchonly ["zaddr", ...] )**
+
+The `z_listunspent` method returns an array of unspent shielded notes. 
+
+The method can also filter to only include results that have between `minconf` and `maxconf` (inclusive) confirmations, and also for specified z_addresses (`["zaddr", ...])`.
+
+When `minconf` is `0` unspent notes with zero confirmations are returned, even though they are not immediately spendable.
+
+Results are an array of Objects, each of which has:
+{txid, jsindex, jsoutindex, confirmations, address, amount, memo} (Sprout)
+{txid, outindex, confirmations, address, amount, memo} (Sapling)
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+minconf			|(numeric, optional, default=1)		|the minimum confirmations to filter
+maxconf         	|(numeric, optional, default=9999999)	|the maximum confirmations to filter
+includeWatchonly 	|(bool, optional, default=false)	|whether to also include watchonly addresses (see [`z_importviewingkey`](../komodo-api/wallet.html#z-importviewingkey))
+addresses		|(string, array)			|a json array of z addresses (both Sprout and Sapling) to act as a filter; duplicate addresses are not allowed
+address			|(string)				|a z address
+
+### Results:
+
+Structure|Type|Description
+---------|----|-----------
+			|(an array of json objects, with each object having the properties below)	|
+ txid			|(string)									|the transaction id 
+ jsindex		|(numeric) 									|the joinsplit index
+ jsoutindex		|(numeric, only returned on sprout addresses)					|the output index of the joinsplit
+ outindex		|(numeric, only returned on sapling addresses)					|the output index
+ confirmations		|(numeric)									|the number of confirmations
+ spendable		|(boolean)									|true if note can be spent by wallet, false if note has zero confirmations, false if address is watchonly
+ address		|(string)									|the shielded address
+ amount			|(numeric)									|the amount of value in the note
+ memo			|(string)									|hexademical string representation of memo field
+ change			|(boolean)									|true if the address that received the note is also one of the sending addresses
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+komodo-cli z_listunspent 
+```
+
+Response:
+
+```
+
+```
+
+> komodo-cli z_listunspent 6 9999999 false "[\"zs14d8tc0hl9q0vg5l28uec5vk6sk34fkj2n8s7jalvw5fxpy6v39yn4s2ga082lymrkjk0x2nqg37\",\"zs14d8tc0hl9q0vg5l28uec5vk6sk34fkj2n8s7jalvw5fxpy6v39yn4s2ga082lymrkjk0x2nqg37\"]"
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_listunspent", "params": [6 9999999 false "[\"zs14d8tc0hl9q0vg5l28uec5vk6sk34fkj2n8s7jalvw5fxpy6v39yn4s2ga082lymrkjk0x2nqg37\",\"zs14d8tc0hl9q0vg5l28uec5vk6sk34fkj2n8s7jalvw5fxpy6v39yn4s2ga082lymrkjk0x2nqg37\"]"] }' -H 'content-type: text/plain;' http://127.0.0.1:7771/
+
 ## z_mergetoaddress
 
 **z_mergetoaddress [ "fromaddress", ... ] "toaddress" ( fee ) ( transparent_limit ) ( shielded_limit ) ( memo )**
