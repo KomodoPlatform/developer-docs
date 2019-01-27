@@ -1091,9 +1091,9 @@ Response:
 }
 ```
 
-## key
+## importprivkey
 
-**key "komodoprivkey" ( "label" rescan )**
+**importkey "komodoprivkey" ( "label" rescan )**
 
 The `importprivkey` method adds a private key to your wallet.
 
