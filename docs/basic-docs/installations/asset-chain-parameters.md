@@ -22,15 +22,11 @@ A simple asset chain
 
 ## ac_supply
 
-::: warning
-All chains are required to set `ac_supply`.
-:::
-
 This is the amount of pre-mined coins you would like the chain to have.
 
 The node that sets [`gen`](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
 
-If `ac_supply` is not set, [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) is set, the pre-mined coins will be mined to the address of the corresponding pubkey.
+If `ac_supply` is not set, [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [`ac_founders`](../installations/asset-chain-parameters.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
 
 The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
 
@@ -50,7 +46,7 @@ A simple asset chain
 
 This is the block reward for each mined block, given in satoshis.
 
-If this is not set, the block reward will be `10000` satoshis and blocks will be [on-demand](../installations/creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work) after block 127.
+If this is not set, the block reward will be `10000` satoshis and blocks will be [on-demand](../installations/creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work) after block 127 (a new block will not be mined unless there is a transaction in the mempool).
 
 #### :pushpin: Examples:
 
@@ -68,7 +64,7 @@ A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decrea
 
 ## ac_end
 
-This is the block height at which block rewards will end. Every block after this height will have 0 block reward, and by default the only incentive to mine a new block will be transaction fees.
+This is the block height at which block rewards will end. Every block after this height will have 0 block reward (this means that, assuming all other settings are default, the only incentive to mine a new block will be transaction fees).
 
 #### :pushpin: Examples:
 
@@ -104,13 +100,13 @@ A 777777-coin pre-mine, with a 5-coin block reward, and the block reward decreas
 
 ## ac_decay
 
-This is the percentage which determines the the block reward decrease on each block-reward "halving". This parameter will have no effect if [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) is not set. 
+This is the percentage which determines the block reward decrease on each block-reward "halving". 
+
+This parameter will have no effect if [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) is not set. 
 
 This is the formula that `ac_decay` follows:
 
 ```
-numhalvings = (height / ac_halving);
-for (i=0; i<numhalvings; i++)
 block_reward_after = block_reward_before * ac_decay / 100000000;
 ```
 
@@ -124,15 +120,72 @@ A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decrea
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
 ```
 
-## ac_perc
+## ac_eras
 
-The `ac_perc` parameter is the percentage added to both the block reward and to the transactions that will be sent to the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address. If the `ac_perc` parameter is set, `ac_pubkey` must also be set.
+The `ac_eras` parameter allows the value of a chain's block reward to vary over time. 
 
-For example, if `ac_reward=100000000` and `ac_perc=10000000`, for each block mined, the miner receives 1 coin along with the `ac_pubkey` address receiving 0.1 coin. For every transaction sent, the pubkey address will receive 10% of the overall transaction value. This 10% is not taken from the user, rather it is created at this point. Each transaction inflates the overall supply.
+Each different time interval is called an "era" and a chain can have at most three eras. 
+
+The `ac_eras` parameter accepts only one value (`1`, `2`, or `3`). When activated, it allows certain other asset-chain parameters to accept multiple values.
+
+The principle parameter that is affected by `ac_eras` is [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward), and it must receive at least one value. 
+
+Also, [`ac_decay`](../installations/asset-chain-parameters.html#ac-decay), [`ac_halving`](../installations/asset-chain-parameters.html#ac-halving), and [`ac_end`](../installations/asset-chain-parameters.html#ac-end) can each receive multiple values and thereby affect reward functionality.
+
+For every era, there must be a corresponding value in `ac_end` that indicates the block height at which this era ends. To set the final era to last indefinitely, set the `ac_end` value of that era to `0`; the `0` setting should only be used for the last era.
+
+In all parameters receiving multiple values, the values for the second and third eras must be preceded by a comma.
+
+For example:
+
+```
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_eras=3 -ac_reward=5000000000,7000000000,4000000000 -ac_end=1000,10000,0
+```
+
+In this asset chain, the first era will have a reward of 5000000000, the second will have 7000000000, and the third will have 4000000000. The reward for the first era ends at block 1000, for the second era at block 10000, and the third era lasts indefinitely.
+
+If any of the relevant parameters has fewer distinct values than eras, the parameter's final value will carry through the remaining eras. 
+
+For example: 
+
+```
+-ac_eras=2 -ac_reward=100000000,200000000 -ac_halving=100 -ac_end=10000,0
+```
+
+In this asset chain, the `ac_halving` value for both eras is `100`.
+
+One more feature of `ac_eras` is the ability to transition from one era to the next with a linear progression, rather than a direct switch. To achieve this effect, in the initial era (the point at which the linear progression should begin) set the `ac_decay` value to `100000000` and the `ac_halving` value to `1`.
+
+For example, the following parameters create an asset chain with a "slow start" reward:
+
+```
+./komodod -ac_name=HELLOWORLD -ac_reward=0,10000000000 -ac_eras=2 -ac_end=1000,0 -ac_decay=100000000,100000000 -ac_halving=1
+```
+
+This chain's block reward will grow linearly from 0 to 100 over 1000 blocks, then stay at 100 indefinitely.
 
 ::: tip
-Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding `pubkey`. The `vout` type for all coinbase vouts must be `pubkey` as opposed to `pubkeyhash`. This only affects a miner trying to use a stratum. Z-nomp is currently incompatible.
+Use the [`getblocksubsidy`](../komodo-api/mining.html#getblocksubsidy) rpc method to verify your asset chain will work as expected at each relevant height: `./komodo-cli -ac_name=HELLOWORLD getblocksubsidy <blockheight>`
 :::
+
+## ac_perc
+
+The `ac_perc` parameter has two different functionailites depending on the configuation of the chain params. 
+
+#### ac_perc without ac_founders
+When `ac_perc` is used without [`-ac_founders`](../installations/asset-chain-parameters.html#ac-founders) the chain will follow an inflation tax model. In this model, the `-ac_perc` parameter is the percentage added to the block reward, and the transactions that allocate these rewards are sent to the `-ac_pubkey` address. Naturally, for this configuration to function the `-ac_pubkey` parameter must be included. 
+
+For example, if `-ac_reward=100000000` and `-ac_perc=10000000`, for each block mined the miner receives 100000000 satoshis (1 coin), and the owner of the `-ac_pubkey` address receives 10000000 satoshis (0.1 coin, which is 10% of the miner's reward). The amount sent to the pubkey is not taken from the user, rather it is created at this point. Therefore, each transaction inflates the overall coin supply. 
+
+The maximum amount of coins created via this method across all transactions per block is capped at `(1000000 * <percentage>)`.
+
+::: tip
+Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding pubkey. The `vout` type for all coinbase vouts must be `pubkey` as opposed to `pubkeyhash`. This only affects a miner trying to use a stratum. Community member, Blackjok3r, developed a coinbase overide method for this purpose. Please see [this repo](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode) for details. 
+:::
+
+#### ac_perc with ac_founders
+
+Please see the [`-ac_founders`](../installations/asset-chain-parameters.html#ac-founders) documentation for this functionality. 
 
 #### :pushpin: Examples:
 
@@ -142,15 +195,37 @@ A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50 &
 ```
 
+## ac_founders
+
+The `ac_founders` parameter creates a "founder's reward." 
+
+This parameter requires [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc). Also, either [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) OR [`ac_script`](../installations/asset-chain-parameters.html#ac-script) must be set. 
+
+The `ac_perc` value determines the percentage of block rewards paid to the founder. These rewards are not paid out immediately, but rather according to the `ac_founders` setting.
+
+`ac_founders` determines the frequency at which the founder's reward is paid.
+
+For example:
+
+```
+-ac_reward=100000000 -ac_perc=10000000 -ac_founders=100
+```
+
+The above parameters result in mining rewards of 100000000 satoshis (1 coin) per block, with a difference on every 100th block. On the 100th block exception, 1000000000 additional satoshis (10 coins) are paid to the founder's address. 
+
+The coins rewarded to the founder are created at the moment of payment, thus increasing the overall coin supply. See [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc) for more details.
+
+Use `ac_pubkey` to send the founder's reward to a normal address. 
+
+Use `ac_script` to send the founder's reward to a multisig address.
+
 ## ac_pubkey
 
 The `ac_pubkey` parameter designates a pubkey for receiving payments from the network. These payments can come in the genesis block, in all blocks mined thereafter, and from every transaction on the network.
 
-It is used in combination with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), which sets the amount that is sent to the address. If `ac_perc` is not set, the only effect of `ac_pubkey` is to have the genesis block be mined to the `pubkey` specified.
+This parameter is not inteded for isolated use. It should only be activated on chains that also use at least one of the following parameters: `ac_perc`, `ac_founders, or `ac_import=PUBKEY`.
 
-If `ac_pubkey` is set, but `ac_perc` is not, this simply means the genesis block will be mined to the set `pubkey`'s address, and no blocks or transactions thereafter will mine payments to the `pubkey`.
-
-`pubkey` is a string that has 66 characters (a 33 byte hex encoded string). You can get the pubkey of an address by using the [`validateaddress`](../komodo-api/util.html#validateaddress) command in `komodod`, and searching for the returned `pubkey` property. The corresponding `private key` must be present/imported to the wallet before using `validateaddress`.
+The `pubkey` must be a 66 character string (a compressed pubkey). You can find this pubkey for any address by using the [`validateaddress`](../komodo-api/util.html#validateaddress) command, and searching for the returned `pubkey` property. (The corresponding `private key` must be present/imported to the wallet before using `validateaddress`.)
 
 #### :pushpin: Examples:
 
@@ -160,17 +235,86 @@ A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50
 ```
 
+## ac_script
+
+The `ac_script` parameter enables the `ac_founders` reward to be sent to a multisig address or any p2sh address. If this parameter is used, block 1 (the "premine") will be mined to the `ac_script` address. 
+
+This parameter requires that `ac_founders` also be active. If `ac_script` is set, `ac_pubkey` must not be. 
+
+`ac_script` should be set to the `"hex"` value of `"scriptPubKey"`. 
+
+#### Finding the `"scriptPubKey"`:
+
+To find the `"scriptPubKey"` value, first create a multisig address with the [`createmultisig`](../komodo-api/util.html#createmultisig) command. 
+
+Command:
+
+```
+komodo-cli -ac_name=EXAMPLE createmultisig 2 "[\"RMnZJpfLbFHUxMS3HM5gkvtFKeduhr96Ec\",\"RW2Yx4Tk9WGfUvhbJTXGFiRhr7PKcVtrm5\",\"RQ1uqBj9yk94BcxEZodbeNqb3jWv8pLeA4\"]"
+```
+
+Response:
+```
+{
+	"address": "bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV",
+	"redeemScript": 	"522102040ce30d52ff1faae7a673c2994ed0a2c4115a40fa220ce055d9b85e8f9311ef2102a2ba4606206c032914dd48390c15f5bf996d91bf9dbd07614d972f39d93a511321026014ef4194f6c7406a475a605d6a393ae2d7a2b12a6964587299bae84172fff053ae"
+}
+```
+
+On a test chain, send coins to the `bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV` address. 
+
+```
+komodo-cli -ac_name=EXAMPLE sendtoaddress bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV 10
+```
+
+Response (txid):
+
+```
+ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f
+```
+
+Observe the resulting transaction with `getrawtransaction <txid> 1`:
+
+```
+komodo-cli -ac_name=EXAMPLE getrawtransaction ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f 1
+```
+
+Observe the output:
+
+```
+{
+	"value": 10.00000000,
+	"valueSat": 1000000000,
+	"n": 1,
+	"scriptPubKey": {
+		"asm": "OP_HASH160 2706324daaac92c93420e985f55d88ea20e22ae1 OP_EQUAL",
+		"hex": "a9142706324daaac92c93420e985f55d88ea20e22ae187",
+		"reqSigs": 1,
+		"type": "scripthash",
+		"addresses": [
+			"bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV"
+		]
+	}
+}
+```
+
+Set `ac_script` to the `"hex"` value from the returned json object. 
+
+```
+-ac_script=a9142706324daaac92c93420e985f55d88ea20e22ae187`
+```
+
 ## ac_cc
 
 ::: warning Notice
 This parameter is still in testing.
 :::
 
-The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via cross-chain smart contracts and MoMoM technology.
+The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via CryptoConditions modules and MoMoM technology.
 
 Under most circumstances, this parameter requires the Komodo notarization service to achieve functionality, as it relies on the `pubkey`s of the trusted notary nodes to ensure coin-supply stability.
 
-Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- meaning that coins on one asset chain can be directly transferred to another asset chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
+Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one asset chain can be directly transferred to any other asset chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
 
 ### ac_cc=0
 
@@ -238,7 +382,7 @@ A 777777 pre-mined chain. Smart-contracts are allowed between all fellow asset c
 
 ## ac_staked
 
-`ac_staked` indicates the percentage of blocks the chain will aim to have mined via Proof of Stake (PoS), with the remainder via Proof of Work (PoW). For example, an `ac_staked=90` chain will have ~90% PoS blocks and 10% PoW blocks.
+`ac_staked` indicates the percentage of blocks the chain will aim to mine via Proof of Stake (PoS), with the remainder via Proof of Work (PoW). For example, an `ac_staked=90` chain will have ~90% PoS blocks and ~10% PoW blocks.
 
 Measurements of the PoS:PoW ratio are approximate; the PoW difficulty will automatically adjust based on the overall percentage of PoW-mined blocks to adhere to the approximate `PoS` value.
 
@@ -249,7 +393,7 @@ On a chain using a high percentage for PoS, it's vital to have coins staking by 
 :::
 
 ::: warning
-It is also vital to stake coins in all 64 segids. You can use the genaddresses.py script in <a href="https://github.com/alrighttt/dockersegid">this repository</a> to generate an address for each segid. This functionality will soon be integrated directly into the daemon.
+It is vital to stake coins in all 64 segids. You can use the genaddresses.py script in <a href="https://github.com/alrighttt/dockersegid">this repository</a> to generate an address for each segid. This functionality will soon be integrated directly into the daemon.
 :::
 
 ::: tip
@@ -343,3 +487,93 @@ A private-only asset chain.
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_private=1 &
 ```
+
+## ac_sapling
+
+The `ac_sapling` parameter adjusts the block height of an asset chain's default sapling activation. (Sapling is an upstream privacy technology provided by [Zcash](https://z.cash/), of which Komodo is a fork.) 
+
+By default, sapling will activate at block 61 on a newly created assetchain. 
+
+This can also be used to activate sapling prior to block 61. (Activating sapling prior to block 61 should not be done on a chain intended for production use.)
+
+To disable sapling activation indefinitely, set `ac_sapling` to a block height beyond the expected life of the asset chain. For example, `-ac_sapling=5000000` will delay sapling activation to block `5000000`. 
+
+## ac_timelock...
+
+**-ac_timeunlockgte=satoshis -ac_timelockfrom=height -ac_timelockto=height**
+
+The `ac_timelock...` parameters enforce "coinbase locking". 
+
+In coinbase locking, the asset chain's block-reward feature behaves in a different manner compared to a default asset chain. Any block reward that is greater than or equal to the `ac_timeunlockgte` satoshi amount is temporarily locked. It will be unlocked (and therefore spendable) on a random block between the `ac_timelockfrom` and `ac_timelockto` heights.
+
+The random unlock time for each reward is independent of the unlock time of other rewards.  
+
+For example:
+
+```
+komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=10000000000 -ac_halving=10000 -ac_timelockgte=10000000000 -ac_timeunlockfrom=10000 -ac_timeunlockto=100000
+```
+
+For the first 10000 blocks, any rewards that are greater than or equal to 10000000000 are locked until a random block between 10000 and 100000.
+
+## ac_txpow
+
+::: warning
+This parameter is in testing and should not yet be used on a production chain.
+:::
+
+Setting `-ac_txpow=1` enforces a transaction-rate limiter. This can help to prevent spam transactions on an asset chain. 
+
+`ac_txpow` forces all transactions (other than coinbase transactions) to have a txid starting and ending with `00`. 
+
+This parameter is currently a proof of concept. Many of the traditional rpc commands, such as `sendtoaddress` or `sendmany`, are not currently supported. Instead, use [`createrawtransaction`](../komodo-api/rawtransactions.html#createrawtransaction) and [`signrawtransaction`](../komodo-api/rawtransactions.html#signrawtransaction). 
+
+## ac_algo
+
+::: warning
+This parameter is in testing and should not yet be used on a production chain.
+:::
+
+The `ac_algo` parameter changes the chain's mining algorithm from the default equihash to the verushash.
+
+To enable this feature, set `-ac_algo=verushash`.
+
+This activates verushash1.0. More recent versions of verushash are not yet supported. 
+
+The verushash feature serves as a proof of concept for adding support for additional mining algorithms.
+
+We are currently testing methods to support compatibility for `ac_staked`, but this feature is not yet recommended for external testing.
+
+## ac_veruspos
+
+::: warning
+This parameter is in testing and should not yet be used on a production chain.
+:::
+
+The `ac_veruspos` parameter is an alternative to [`ac_staked`](../installations/asset-chain-parameters.html#ac-staked). 
+
+When activated, the chain uses [Verus](http://veruscoin.io/)'s proof of stake implementation instead. 
+
+The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` does not have the same segid mechanism as `-ac_staked`.)
+
+## ac_ccenable
+
+::: warning
+This parameter is in testing and should not yet be used on a production chain.
+:::
+
+The `ac_ccenable` parameter restricts the asset chain so that only indicated CryptoConditions modules can be enabled. `ac_ccenable` requires [`ac_cc`](../installations/asset-chain-parameters.html#ac-cc) to be active. 
+
+To indicate which CryptoConditions modules should be available, insert each module's eval code in decimal and separated by commas. A list of all eval codes can be found [here](https://github.com/jl777/komodo/blob/master/src/cc/eval.h). 
+
+For example, the following parameters create an asset chain where only the `faucet` and `rewards` modules are active:
+
+```
+komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable=228,229
+```
+
+When `-ac_cc` is set, but `-ac_ccenable` is not, all CryptoConditions modules are enabled. 
+
+`ac_ccenable` disables spending utxos that are created under a non-enabled CryptoConditions module. It does not yet prevent rpc calls from creating utxos that belong to non-enabled modules. Therefore, we highly recommend that this feature not be activated on any production chain, as improper usage of `ac_ccenable` can result in unspendable utxos. 
+
+
