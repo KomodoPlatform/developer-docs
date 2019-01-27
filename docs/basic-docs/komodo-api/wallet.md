@@ -2,9 +2,9 @@
 
 The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
-## sigaddress
+## addmultisigaddress
 
-**sigaddress nrequired [ "key", ... ] \( "account" )**
+**addmultisigaddress nrequired [ "key", ... ] \( "account" )**
 
 The `addmultisigaddress` method adds a multi-signature address to the wallet, where `nrequired` indicates the number of keys (out of the total provided) required to execute a transaction.
 
