@@ -520,7 +520,7 @@ For the first 10000 blocks, any rewards that are greater than or equal to 100000
 ## ac_txpow
 
 ::: warning
-This parameter is in testing and should not yet be used on a production chain.
+This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
 :::
 
 Setting `-ac_txpow=1` enforces a transaction-rate limiter. This can help to prevent spam transactions on an asset chain. 
@@ -532,7 +532,7 @@ This parameter is currently a proof of concept. Many of the traditional rpc comm
 ## ac_algo
 
 ::: warning
-This parameter is in testing and should not yet be used on a production chain.
+This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
 :::
 
 The `ac_algo` parameter changes the chain's mining algorithm from the default equihash to the verushash.
@@ -548,7 +548,7 @@ We are currently testing methods to support compatibility for `ac_staked`, but t
 ## ac_veruspos
 
 ::: warning
-This parameter is in testing and should not yet be used on a production chain.
+This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
 :::
 
 The `ac_veruspos` parameter is an alternative to [`ac_staked`](../installations/asset-chain-parameters.html#ac-staked). 
@@ -560,7 +560,7 @@ The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` doe
 ## ac_ccenable
 
 ::: warning
-This parameter is in testing and should not yet be used on a production chain.
+This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
 :::
 
 The `ac_ccenable` parameter restricts the asset chain so that only indicated CryptoConditions modules can be enabled. `ac_ccenable` requires [`ac_cc`](../installations/asset-chain-parameters.html#ac-cc) to be active. 
