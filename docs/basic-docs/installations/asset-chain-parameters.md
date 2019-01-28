@@ -221,6 +221,8 @@ Use `ac_pubkey` to send the founder's reward to a normal address.
 
 Use `ac_script` to send the founder's reward to a multisig address.
 
+Set `ac_founders=1` to stay compatible with most straum implementations. 
+
 ## ac_pubkey
 
 The `ac_pubkey` parameter designates a pubkey for receiving payments from the network. These payments can come in the genesis block, in all blocks mined thereafter, and from every transaction on the network.
