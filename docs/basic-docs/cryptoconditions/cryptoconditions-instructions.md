@@ -2,11 +2,11 @@
 
 ## Understanding the Types of Addresses Used in Crypto Conditions-Based Contracts
 
-The method of transferring contract-related assets is often slightly different from transferring the main coins of an asset chain.
+The method of transferring contract-related assets is often slightly different than the typical asset-chain transaction.
 
-When making a transaction on the main blockchain of your asset chain, you typically only deal with a sending address and a receiving address. To move coins, you might use methods such as `sendtoaddress` or `z_sendmany`.
+When making a transaction on an asset chain, you typically only deal with a sending address and a receiving address. To move coins, you might use methods such as `sendtoaddress` or `z_sendmany`.
 
-There are a few other types of addresses to keep in mind when working with transactions while using the contract modules. It is not necessary to fully understand all of the address types, but basic knowledge about a few addresses will be necessary.
+When using CryptoConditions, however, there are a few new types of addresses to keep in mind when working with transactions. It is not necessary to fully understand all of the address types, but basic knowledge about a few addresses will be necessary.
 
 ## Creating and Launching With a Pubkey
 
