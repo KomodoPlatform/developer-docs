@@ -10,7 +10,7 @@ Our DEX software is capable of facilitating atomic-swap exchanges between approx
 
 ## Why is Komodo's DEX Special?
 
-We're admittedly biased, but all the same, we are very proud of Komodo's DEX technology as it has a truly remarkable story.
+We're admittedly biased, but all the same, we are proud of Komodo's DEX technology as it has a truly remarkable story.
 
 In May 2014 we performed our first atomic swap. By August of 2017, we released version 1.0 of our publicly available atomic-swap DEX software. These are but two examples of how we have been leading the way in atomic-swap DEX technology since the beginning.
 
