@@ -357,28 +357,25 @@ For example, an asset chain set to `ac_cc=201` in its parameters can interact wi
 A 777777 pre-mined chain with no smart contracts enabled.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=0 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 &
-
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=0 &
 ```
 
 A 777777 pre-mined chain with smart contracts on-chain only; no cross-chain smart contracts.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=1 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 &
-
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=1 &
 ```
 
 A 777777 pre-mined chain where smart-contracts are allowed between all fellow asset chains that have -ac_cc=2 in their launch parameters. However, the cross-chain burn protocol is not active, and therefore coins cannot be transferred between chains.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=2 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 &
-
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=2 &
 ```
 
 A 777777 pre-mined chain. Smart-contracts are allowed between all fellow asset chains that have -ac_cc=102 in their launch parameters. Also, all -ac_cc=102 chains can use the cross-chain burn protocol to transfer coins from one chain to another.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=102 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=102 &
 ```
 
 ## ac_staked
@@ -394,7 +391,7 @@ On a chain using a high percentage for PoS, it's vital to have coins staking by 
 :::
 
 ::: warning
-It is vital to stake coins in all 64 segids. You can use the genaddresses.py script in <a href="https://github.com/KMDLabs/pos64staker">this repository</a> to generate an address for each segid. This functionality will soon be integrated directly into the daemon.
+It is vital to stake coins in all 64 segids. You can use the genaddresses.py script in [this repository](https://github.com/KMDLabs/pos64staker) to generate an address for each segid. This functionality will soon be integrated directly into the daemon.
 :::
 
 ::: tip
@@ -402,7 +399,7 @@ The first 100 blocks will allow PoW regardless of the ac_staked value.
 :::
 
 ::: tip
-It is not possible to both PoW mine and stake on the same node. When the chain's consensus mechanism is set to both PoS and PoW, the developer will need a minimum of two nodes mining/staking to keep the blockchain moving.
+It is not possible to both PoW mine and stake on the same node. Therefore, when the chain's consensus mechanism allows both PoS and PoW, the chain creator needs a minimum of two nodes mining/staking to keep the blockchain moving.
 :::
 
 ### Notes on How ac_staked Functions
