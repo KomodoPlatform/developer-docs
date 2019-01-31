@@ -84,13 +84,6 @@ module.exports = {
             ["/basic-docs/komodo-api/util.md", "Util"],
             ["/basic-docs/komodo-api/wallet.md", "Wallet"]
           ]
-        },
-        {
-          title: "Atomic-Swap DEX",
-          collapsable: true,
-          children: [
-            ["/basic-docs/atomicswapdex/introduction-to-komodo-dex.md", "Introduction to Komodo's DEX"]
-          ]
         }
       ],
       "/": ["", "/basic-docs/"]
