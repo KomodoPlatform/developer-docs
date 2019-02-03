@@ -14,7 +14,7 @@ This command must be executed at the initiation of each MM2 instance.
 
 The `electrum` method connects your MM2 instance to the `coin` blockchain using electrum technology (e.g. lite mode).
 
-This allows the user to rely on SPV technology for blockchain syncing, rather than syncing the entire blockchain locally.
+This allows the user to rely on SPV technology for blockchain syncing, rather than syncing the entire blockchain to their local machine.
 
 ### Arguments:
 
@@ -38,7 +38,7 @@ This allows the user to rely on SPV technology for blockchain syncing, rather th
 
 **enable (coin)**
 
-The `enable` method connects your MM2 instance to the `coin` blockchain using the blockchain's native technology.
+The `enable` method connects your MM2 instance to the `coin` blockchain using this blockchain's native technology.
 
 A native installation of this blockchain must also be running on the user's node for `enable` to function.
 
@@ -46,7 +46,7 @@ A native installation of this blockchain must also be running on the user's node
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| coin      | (string) | the name of the coin to which you desire to connect |
+| coin      | (string) | the name of the blockchain to which the user desires to connect |
 
 ### Response:
 
@@ -63,7 +63,7 @@ A native installation of this blockchain must also be running on the user's node
 
 **my_balance coin**
 
-The `my_balance` method returns the current balance of the specified coin.
+The `my_balance` method returns the current balance of the specified `coin`.
 
 ### Arguments:
 
@@ -153,7 +153,7 @@ By default, `timeout` and `duration` should be set to `timeout=10` and `duration
 
 ## setprice
 
-**setprice base rel price broadcast=1**
+**setprice base rel price broadcast=number**
 
 ::: warning Note
 This API method's documentation is currently limited, as we are still testing.
@@ -170,6 +170,7 @@ The `setprice` method places an order on the orderbook, and it relies on this no
 | base       | (string) | the name of the coin the user desires to receive |
 | rel       | (string) | the name of the coin the user desires to sell |
 | price     | (number) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| broadcast | (number) | |
 
 ### Response:
 
