@@ -136,6 +136,92 @@ The `sell` method issues a sell request and attempts to match an order from the 
 
 By default, `timeout` and `duration` should be set to `timeout=10` and `duration=3600`.
 
+### Arguments:
 
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| base       | (string) | the name of the coin the user desires to receive |
+| rel       | (string) | the name of the coin the user desires to sell |
+| price     | (number) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| relvolume | (number) | the amount of coins the user is willing to spend of the `rel` coin |
+| timeout | (number) | |
+| duration | (number) | | 
 
+#### :pushpin: Examples:
+
+(coming soon)
+
+## setprice
+
+**setprice base rel price broadcast=1**
+
+::: warning Note
+This API method's documentation is currently limited, as we are still testing.
+:::
+
+The `setprice` method places an order on the orderbook, and it relies on this node acting as a `maker` -- also called a `Bob` node.
+
+`setprice` requires that the node have the `maker` environment enabled at runtime. To achieve this, do not set the `client=1` parameter.
+
+### Arguments:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| base       | (string) | the name of the coin the user desires to receive |
+| rel       | (string) | the name of the coin the user desires to sell |
+| price     | (number) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+
+### Response:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| (coming soon) | | | 
+
+#### :pushpin: Examples:
+
+(coming soon)
+
+## stop
+
+**stop()**
+
+The `stop` method stops the MM2 software if there are no swaps in process. 
+
+### Arguments:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| (none)    |   | |
+
+### Response:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| (none)    |   | |
+
+#### :pushpin: Examples:
+
+(coming soon)
+
+## help
+
+**help()**
+
+The `help` method returns the full API documentation in the terminal. 
+
+### Arguments:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| (none)    |   | |
+
+### Response:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| (none)    |   | |
+
+#### :pushpin: Examples:
+
+(coming soon)
 
