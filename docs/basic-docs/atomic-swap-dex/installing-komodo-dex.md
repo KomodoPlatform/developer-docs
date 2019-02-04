@@ -18,7 +18,7 @@ Users who worked with the previous version of the MM software, MarketMaker 1.0 (
 
 MM1 used nanomsg technology for its off-chain network layer (e.g. orderbook propagation, ordermatching, client traffic routing, and other technologies that are not active on the blockchain itself).
 
-MM2 uses a torrent/DHT network system for the off-chain network layer, `libtorrent`. This p2p software is widely used and highly reliable, granting a greater development experience.
+MM2 uses `libtorred` as a torrent/DHT network system for the off-chain network layer. This p2p software is widely used and highly reliable, granting a greater development experience.
 
 ### Rust Implementation
 
@@ -49,7 +49,7 @@ With MM2, each node is a full standalone p2p solution (e.g. there are no longer 
 
 * Minimum 2GB of free RAM 
 
-* Root access
+* Admin/root privileges
 
 ### Note about Linux
 
@@ -75,7 +75,7 @@ Once Git Bash is open and running on your machine, you may continue.
 
 ### Note about 32-bit Operating Systems
 
-We are currently testing 32-bit operating system functionality. As these can often be comparatively old machines, we cannot guarantee that they will work by default. 
+We are currently testing 32-bit operating system functionality. As 32-bit machines can often be comparatively older hardware, we cannot guarantee that MarketMaker 2.0 will run successfully by default. 
 
 We invite users of 32-bit operating systems to test the software and [report any errors to our team](https://support.komodoplatform.com/support/tickets/new).
 
@@ -131,6 +131,32 @@ rustup default nightly-2018-12-24
 rustup component add rustfmt-preview
 ```
 
+#### Install jq
+
+`jq` is an optional, but useful addition to our needed software. `jq` can provide a more readable format of JSON output in the terminal, which helps us more quickly digest mm2's data.
+
+Linux:
+
+```
+sudo apt-get install jq
+```
+
+MacOS:
+
+Download the appropriate file from [this link.](https://stedolan.github.io/jq/download/)
+
+In your terminal, make the file executable by changing into the directory where the file downloaded and executing:
+
+```
+chmod +x jq
+```
+
+Then execute the file.
+
+Windows:
+
+Download and execute the appropriate file from [this link.](https://stedolan.github.io/jq/download/)
+
 ### Install MM2
 
 Download the MM2 repository:
@@ -160,7 +186,4 @@ cd target/debug/
 ```
 
 MarketMaker 2.0 is now installed and ready.
-
-
-
 
