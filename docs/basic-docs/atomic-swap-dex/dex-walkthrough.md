@@ -281,20 +281,20 @@ Here's the response:
 }
 ```
 
-That's much easier to read. We can easily see that there is someone with the address `RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh` who is willing to give up BEER for PIZZA.
+That's much easier to read. We can easily see someone with the address `RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh`.
 
 ```
 "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
+```
 
-...
-(ommitted for brevity)
-...
+They are willing to give up BEER for PIZZA.
 
+```
 "base": "BEER",
 "rel": "PIZZA",
 ```
 
-They're asking for `0.89999998` PIZZA for every 1 BEER. 
+They are asking for `0.89999998` PIZZA for every 1 BEER. 
 
 ```
 "price": 0.89999998,
@@ -438,6 +438,6 @@ You should receive a similar response:
 
 Congratulations! You've just been one of the first people in history to trade a currency without any help from a middleman and without even having to know your trading partner.
 
-Please reach out to us [on Discord](https://komodoplatform.com/discord) to tell us about your experience.
+Please reach out to us [on Discord](https://komodoplatform.com/discord) and tell us about your experience.
 
 Onward and upward...
