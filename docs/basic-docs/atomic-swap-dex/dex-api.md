@@ -239,12 +239,12 @@ By default, `timeout` and `duration` should be set to `timeout=10` and `duration
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| base       | (string) | the name of the coin the user desires to receive |
-| rel       | (string) | the name of the coin the user desires to sell |
-| price     | (number) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| relvolume | (number) | the amount of coins the user is willing to spend of the `rel` coin |
-| timeout | (number) | |
-| duration | (number) | | 
+| base       | string | the name of the coin the user desires to receive |
+| rel       | string | the name of the coin the user desires to sell |
+| price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| relvolume | number | the amount of coins the user is willing to spend of the `rel` coin |
+| timeout | number | |
+| duration | number | | 
 
 ### Response:
 
@@ -425,10 +425,10 @@ The `setprice` method places an order on the orderbook, and it relies on this no
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| base       | (string) | the name of the coin the user desires to receive |
-| rel       | (string) | the name of the coin the user desires to sell |
-| price     | (number) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| broadcast | (number) | defines whether the price should be broadcast to P2P network as an order; the default value is `1` |
+| base       | string | the name of the coin the user desires to receive |
+| rel       | string | the name of the coin the user desires to sell |
+| price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| broadcast | number | defines whether the price should be broadcast to P2P network as an order; the default value is `1` |
 
 ### Response:
 

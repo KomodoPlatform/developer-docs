@@ -96,7 +96,7 @@ In August 2017 we released version 1.0 of our first atomic-swap based DEX to the
 
 Upon release of Komodo’s DEX 1.0, our open-source community performed over 100,000 atomic swaps. It was the first time in history that users with no coding knowledge could trade assets without either a third-party acting as an arbiter, or even without any public knowledge of who was trading with whom.
  
-Today, we took what we learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is what you will find with our DEX 2.0 software. We are also working with Ideas By Nature -- a UX/UI design and development firm -- to create a well designed atomic-swap trading experience.
+Today, we took what we learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is what you will find with our DEX 2.0 software. We are also working with Ideas By Nature, a UX/UI design and development firm, to create a well designed atomic-swap trading experience.
 
 While the code behind our technology is complex, the good news is: it takes care of itself! As a developer and entrepreneur building on Komodo, you can simply fire up our DEX software and access its functionalities through our API. 
 

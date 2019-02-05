@@ -306,7 +306,7 @@ They have a total of `10855.85028615` available to trade.
 "maxvolume": 10855.85028615,
 ```
 
-## MM2 Needs Some Wiggle Room to Work With
+## MM2 Needs Wiggle Room
 
 Here's the only tricky part about executing atomic swaps.
 
