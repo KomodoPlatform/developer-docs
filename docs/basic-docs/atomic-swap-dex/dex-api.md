@@ -9,14 +9,17 @@ This API documentation currently only features RPC methods that are available in
 **electrum coin urls**
 
 ::: warning Note
-This command must be executed at the initiation of each MM2 instance.  
-Coin can be enabled only once and in either Electrum or Native mode. It's not possible to use both modes at once.  
-Electrum mode is available for UTXO coins only (BTC and forks). It's not available for ETH/ERC20.
+This command must be executed at the initiation of each MM2 instance.
 :::
 
-The `electrum` enables a `coin` by connecting your MM2 instance to the `coin` blockchain using electrum technology (e.g. lite mode).
+The `electrum` method enables a `coin` by connecting your MM2 instance to the `coin` blockchain using electrum technology (e.g. lite mode).
 
-This allows the user to rely on SPV technology for blockchain syncing, rather than syncing the entire blockchain to their local machine.
+This allows the user to avoid syncing the entire blockchain to their local machine.
+
+Each `coin` can be enabled only once, and in either Electrum or Native mode. It's not possible to use both modes at once.  
+
+Electrum mode is available for utxo-based coins only (BTC and forks). It's not available for ETH/ERC20.
+
 
 ### Arguments:
 
