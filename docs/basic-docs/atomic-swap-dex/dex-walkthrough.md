@@ -1,6 +1,6 @@
 # DEX Walkthrough
 
-Now that you have MarketMaker 2.0 (MM2) installed you are ready to try your first atomic swap!
+Now that you have MarketMaker 2.0 (MM2) installed you are ready for your first atomic swap!
 
 ## Setting Up Initial Environment Variables
 
