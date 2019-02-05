@@ -221,7 +221,7 @@ Use `ac_pubkey` to send the founder's reward to a normal address.
 
 Use `ac_script` to send the founder's reward to a multisig address.
 
-Set `ac_founders=1` to stay compatible with most straum implementations. 
+Set `ac_founders=1` to stay compatible with most straum implementations. Any other value requires disabling stratum. Team member, @blackjok3r, wrote a `disable-db stratum` modification.  
 
 ## ac_pubkey
 
@@ -326,7 +326,7 @@ Setting `ac_cc=0` disables CryptoConditions on the asset chain entirely.
 
 ### ac_cc=1
 
-Setting `ac_cc=1` permits smart contracts on the asset chain, but will not allow the asset chain to interact in cross-chain smart contracts with other asset chains.
+Setting `ac_cc=1` permits CryptonConditions on the asset chain, but will not allow the asset chain to interact in cross-chain CryptoConditions functionality with other asset chains.
 
 ### ac_cc=2 to 99
 
@@ -347,7 +347,7 @@ For example, an asset chain set to `ac_cc=201` in its parameters can interact wi
 ::: tip Consider a chain with -ac_cc=N
 * If <b>N = 0</b>, CryptoConditions is disabled
 * If <b>N > 0</b>, CryptoConditions is enabled
-* If <b>N = 1</b>, on-chain CryptoConditions is active, cross-chain is disabled
+* If <b>N = 1</b>, on-chain CryptoConditions is active, cross-chain validation is disabled
 * If <b>N >= 2 and <= 99</b>, the chain allows for non-fungible cross-chain contracts within all other chains bearing the same N value
 * If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
 :::
@@ -384,7 +384,15 @@ A 777777 pre-mined chain. Smart-contracts are allowed between all fellow asset c
 
 Measurements of the PoS:PoW ratio are approximate; the PoW difficulty will automatically adjust based on the overall percentage of PoW-mined blocks to adhere to the approximate `PoS` value.
 
-When creating a chain with the `ac_staked` parameter, the creation process is slightly different. Start the first node with `-gen -genproclimit=0`, and start the second node with `-gen -genproclimit=$(nproc)`. Send coins from the second node to the first node, and the first node will begin staking.
+When creating a chain with the `ac_staked` parameter, the creation process is slightly different. 
+
+* Start both the first and second nodes **without** `-gen -genproclimit=0`. 
+* Once both are connected, use the [`generate`](../komodo-api/generate.html#generate) method on one node to mine two blocks and then stop mining. 
+* All of the coins (including the pre-mine) are now located on the node that mined two blocks. Do not split them with a normal transaction. Rather, split them using this script: [link](https://github.com/stakedchain/pos64staker). 
+* Send coins to the other node, and on both nodes use the `generate` method to begin staking. 
+* Use the [`getbalance`](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10. 
+
+Following the above instructions will ensure that the asset chain is stable.
 
 ::: warning
 On a chain using a high percentage for PoS, it's vital to have coins staking by block 100. If too many PoW blocks are mined consecutively at the start of the chain, the PoW difficulty may increase enough to stop the chain entirely. This can prevent users from sending transactions to staking nodes.
@@ -420,11 +428,11 @@ The following are the (current) rules for staking a block:
 
 - Block timestamps are used as the monotonically increasing on-chain clock. It is important to have a synced system clock. Use the following sequence to sync your clock:`sudo apt-get install chrony`, `sudo systemctl restart chrony.service`, then check `timedatectl` for `NTP syncronized: Yes`
 
-- A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, it is 6000 seconds. More precisely, a utxo is not eligible for staking until `100 * the expected blocktime (i.e. 1 minute)`. For example, utxos on a one-minute block time asset chain would be eligible for staking one-hundred minutes after their creation.
+- A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, it is 6000 seconds. More precisely, a utxo is not eligible for staking until `100 * the expected blocktime (i.e. 1 minute)`. For example, utxos on a one-minute block-time asset chain would be eligible for staking one-hundred minutes after their creation.
 
 - The `segid`s rotate through a cue to determine which `segid` has the most likely chance to stake a new block. The formula that determines this is based on the block height: `(height % 64) = the segid0 for this height`. For each block, the eligibility to stake a new block begins with `segid[0]`, and then the eligibility expands to the next segment in cue at every two-second interval until the block is staked. For example, if `segid[0]` has not mined a new block within two seconds, the consensus mechanism opens up the priority to include the second, `segid[1]`. This continues either until the block is staked, or all 64 `segid`'s are eligible to stake a new block. Once a block is staked, the `height` of the blockchain changes, pushing the `segid[0]` segment to the end of the cue, etc.
 
-- By internal design, a utxo is more likely to win a block within a `segid` based on age of the utxo and amount of coins. (i.e. A utxo's likelihood of staking increases with both size and age.)
+- By internal design, a utxo is more likely to win a block within a `segid` based on age of the utxo and amount of coins. Regarding the age eligibiility, the maximum maturity level is one month. (After reaching one month of age, a UTXO's likelihood of staking a coin does not further increase.)
 
 #### :pushpin: Examples:
 
@@ -557,7 +565,7 @@ The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` doe
 ## ac_ccenable
 
 ::: warning
-This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
+This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain, as additional steps must be taken by the developer to ensure user safety.
 :::
 
 The `ac_ccenable` parameter restricts the asset chain so that only indicated CryptoConditions modules can be enabled. `ac_ccenable` requires [`ac_cc`](../installations/asset-chain-parameters.html#ac-cc) to be active. 
@@ -572,6 +580,4 @@ komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable
 
 When `-ac_cc` is set, but `-ac_ccenable` is not, all CryptoConditions modules are enabled. 
 
-`ac_ccenable` disables spending utxos that are created under a non-enabled CryptoConditions module. It does not yet prevent rpc calls from creating utxos that belong to non-enabled modules. Therefore, we highly recommend that this feature not be activated on any production chain, as improper usage of `ac_ccenable` can result in unspendable utxos. 
-
-
+`ac_ccenable` disables spending utxos that are created under a non-enabled CryptoConditions module. It does not yet prevent rpc calls from creating utxos that belong to non-enabled modules. Therefore, we highly recommend that this feature not be activated on a default production chain, as improper usage of `ac_ccenable` can result in unspendable utxos. At this time, this danger can be eliminated by manually deactivating all inactive CryptoConditions modules. In the future, if there is sufficient interest, we can automate this task. 
