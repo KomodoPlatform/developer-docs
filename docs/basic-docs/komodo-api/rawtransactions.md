@@ -92,7 +92,7 @@ Structure|Type|Description
 "vout"                                       |(array of json objects)                             |
 "value"                                      |(numeric)                    |the value
 "number"                                     |(numeric)                    |index
-"scriptPubKey"                               |                             |
+"scriptPubKey"                               |(json object)                |
 "asm"                                        |(string)                     |the asm
 "hex"                                        |(string)                     |the hex
 "reqSigs"                                    |(numeric)                    |the required sigs
