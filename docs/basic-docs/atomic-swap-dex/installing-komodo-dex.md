@@ -32,7 +32,7 @@ Double-click the downloaded `.exe` file and follow the Installation Wizard.
 
 Once Git Bash is open and running on your machine, you may continue.
 
-### Note about 32-bit Operating Systems
+### Note About 32-bit Operating Systems
 
 We are currently testing 32-bit operating system functionality. As 32-bit machines can often be comparatively older hardware, we cannot guarantee that MarketMaker 2.0 will run successfully by default. 
 
@@ -48,13 +48,13 @@ Install [Rust](https://www.rust-lang.org/tools/install):
 curl https://sh.rustup.rs -sSf | sh
 ```
 
-#### cmake version 3.12 or higher
+#### cmake Version 3.12 or Higher
 
 Download the cmake software here: [download link](https://cmake.org/download/)
 
 Unpack and follow the instructions here: [instructions link](https://cmake.org/install/)
 
-#### Build tools for your OS
+#### Build Tools for Your OS
 
 Linux: 
 
@@ -71,7 +71,7 @@ MacOS: [Install XCode via the App Store](https://itunes.apple.com/us/app/xcode/i
 Install the following additional dependencies using the terminal.
 
 ```bash
-apt-get install libboost-dev libboost-system-dev build-essential git
+sudo apt-get install -y libboost-dev libboost-system-dev build-essential git apt-get install llvm-3.9-dev libclang-3.9-dev clang-3.9
 ```
 
 #### Install Additional Rust Components
