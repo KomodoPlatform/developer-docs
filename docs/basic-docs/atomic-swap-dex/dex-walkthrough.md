@@ -118,7 +118,9 @@ userpass.(PLACEHOLDER FOR YOUR USERPASS) ← USERPASS FOR API CALLS!
 
 This is found at the beginning of the terminal output, and you'll see different text in the `PLACEHOLDER FOR YOUR USERPASS` location.
 
-Select that text with your mouse and copy it. (Normally, to copy in the terminal, you need to hit CTRL + SHIFT + C).
+Select that text with your mouse and copy it. 
+
+(Normally, to copy in the terminal you need to hit `CTRL + SHIFT + C` on Windows/Linux, or `CMD + SHIFT + C` on MacOS).
 
 Make a new file in the `~/KomodoPlatform/target/debug` directory called `userpass` and enter the following text, including your userpass:
 
@@ -132,7 +134,7 @@ Save it, and then in the terminal execute:
 source userpass
 ```
 
-Testing that it was successfully retrieved by executing:
+Test it by executing:
 
 ```
 echo $userpass
@@ -144,9 +146,11 @@ Now, we have all the environment variables we need.
 
 ## Connect to the Relevant Coin Networks
 
-While we have the coins set up in the internal files, MM2 isn't going to connect to their blockchain networks immediately. One reason for this is that if you trade between many coins, the startup process would require connecting to every coin all at once.
+While we did set up the coins' configuration properties in the internal files, MM2 isn't going to connect to their blockchain networks immediately. 
 
-Instead, we'll tell MM2 that we're ready to activate these coins now.
+One reason for this is that if you trade between many coins, the startup process would require connecting to every coin all at once.
+
+We'll tell MM2 that we're ready to activate these coins now.
 
 Execute the following command:
 
@@ -176,23 +180,25 @@ You should get a similar response:
 
 You are now connected to the PIZZA test-blockchain network.
 
+## Get PIZZA From a Faucet
+
 Note that in the examples the address, `RLgAgBFHFbG2ma9MDTHyKL5vovftMepBkE`, is present in both returned responses.
 
-You will see a different address in your returned responses. i
+You will see a different address in your returned responses.
 
-This address is unique to you and you will use it for these trades.
+This address is unique to you and you will use it for our trades here.
 
-We don't recommend placing any cryptocurrencies in this address that you consider to have real value for now, as MM2 is still in testing.
+We don't recommend placing anything valuable in this address for now, as MM2 is still in testing.
 
 BEER and PIZZA, on the other hand, have no real value, so you can place as much in here as you like!
 
-Let's retrieve some PIZZA!
+Let's retrieve some PIZZA.
 
 [Click on this link](https://www.atomicexplorer.com/#/faucet/pizza) and you should see an address input box. 
 
-Place your address in there, fill out the reCapcha to prove you're a human, and hit `OK`.
+Place your address in there, fill out the reCaptcha to prove you're a human, and hit `OK`.
 
-In a minute or two, a few PIZZA coins will arrive in your address. 
+In a minute or so a few PIZZA coins will arrive in your address. 
 
 You can check by executing this command:
 
@@ -210,7 +216,7 @@ You now have PIZZA.
 
 ## Observing the Orderbook
 
-MarketMaker 2.0 uses a decentralized orderbook to allow users to buy and sell from each other without having to rely on a centralized service. This gives it an increased level of security, as there is no central agency that can manipulate prices. This also prevents "wash" trading, where trading activity is faked to give a false appearance to exchange users.
+MarketMaker 2.0 uses a decentralized orderbook to allow users to buy and sell from each other without having to rely on a centralized service. This gives it an increased level of security, as there is no central agency that can manipulate prices. This also prevents "wash" trading, where trading activity is faked. 
 
 To see the orderbook's current state, execute the following command:
 
@@ -278,6 +284,12 @@ Here's the response:
 That's much easier to read. We can easily see that there is someone with the address `RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh` who is willing to give up BEER for PIZZA.
 
 ```
+"address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
+
+...
+(ommitted for brevity)
+...
+
 "base": "BEER",
 "rel": "PIZZA",
 ```
@@ -304,11 +316,11 @@ Naturally, you want to get as much BEER for your PIZZA as you can manage. Theref
 
 This is where the nature of atomic swaps differentiates from the traditional method. 
 
-There's a tremendous amount of automation happening inside MM2, and the Internet environment of both your machine and the machine of your trading partner are likely of varying quality. Therefore, you need to give MM2 some wiggle room in the price. This will help ensure that both sides of the trade are certain that they can commit to the trade. 
+There's a tremendous amount of automation happening inside MM2, and the Internet environment of both your machine and the machine of your trading partner are likely of varying quality. Therefore, you need to give MM2 some wiggle room in the price. This will help ensure that both sides of the trade are certain that they can commit. 
 
 You need to list your price a bit higher than the price that your trading partner originally offered.
 
-This aspect of your experience can later be refined through a proper user-experience and user-interface design (UX/UI) treatment. We are partnered with Ideas by Nature, a UX/UI design firm, for this aspect. 
+This aspect of your experience can later be refined through a proper user-experience and user-interface design (UX/UI) treatment. We are partnered with Ideas by Nature, a UX/UI design firm, for this aspect and we hope you will see the results soon. 
 
 ::: tip
 The need to give MM2 some wiggle room goes down as more users create trade offers for these coin on this network. If a trading pair on a MM2 network becomes extremely popular, the need for wiggle room can all but disappear. 
@@ -424,8 +436,8 @@ You should receive a similar response:
 }
 ```
 
-Congratulations! You've just been one of the first people in history to trade a currency without any help from a middleman, and without even having to know your trading partner.
+Congratulations! You've just been one of the first people in history to trade a currency without any help from a middleman and without even having to know your trading partner.
 
 Please reach out to us [on Discord](https://komodoplatform.com/discord) to tell us about your experience.
 
-Onward and upward!
+Onward and upward...
