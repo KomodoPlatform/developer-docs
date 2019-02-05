@@ -26,10 +26,10 @@ Electrum mode is available for utxo-based coins only (BTC and forks). It's not a
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin you want to enable |
-| urls      | array(string)  | the urls of coin Electrum servers to which you want to connect |
+| urls      | array of strings | the urls of coin Electrum servers to which you want to connect |
 
 ::: warning Note
-If connection to at least 1 of urls fails for some reason you will get the error and coin won't be enabled.
+If the connection to at least one of the provided `urls` fails for any reason, MM2 will not enable the coin and will return an error.
 :::
 
 ### Response:
@@ -48,7 +48,7 @@ Command:
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"urls\":[\"electrum1.cipig.net:10022\",\"electrum2.cipig.net:10022\",\"electrum3.cipig.net:10022\"]}"
 ```
 
-Success Response:
+Response (Success):
 
 ```bash
 {
@@ -57,7 +57,7 @@ Success Response:
   "result": "success"
 }
 ```
-Error Response:
+Response (Error):
 ```bash
 {
   "error":"lp_coins:829] lp_coins:786] utxo:951] rpc_clients:557] rpc_clients:384] electrum4.cipig.net:10025 error Custom { kind: Other, error: StringError(\"failed to lookup address information: Name or service not known\") }"
@@ -68,13 +68,13 @@ Error Response:
 
 **enable (coin)**
 
-::: warning Note
-Coin can be enabled only once and in either Electrum or Native mode. It's not possible to use both modes at once.  
-For UTXO coins the daemon of this blockchain must also be running on the user's machine for `enable` to function.  
-ETH/ERC20 coins are also enabled by this method, but local installation of ETH node is not required.  
-:::
-
 The `enable` method enables a coin by connecting your MM2 instance to the `coin` blockchain using the `native` coin daemon (e.g. komodod for KMD).
+
+Each coin can be enabled only once, and in either Electrum or Native mode. It's not possible to use both modes at once.  
+
+For utxo-based coins the daemon of this blockchain must also be running on the user's machine for `enable` to function.  
+
+ETH/ERC20 coins are also enabled by the `enable` method, but a local installation of an ETH node is not required.  
 
 ### Arguments:
 
@@ -99,7 +99,7 @@ Command:
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\"}"
 ```
 
-Success response:
+Response (success):
 
 ```bash
 {
@@ -119,7 +119,7 @@ The `my_balance` method returns the current balance of the specified `coin`.
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| coin      | string | the name of the coin balance of which you want to get |
+| coin      | string | the name of the coin to retrieve the balance |
 
 ### Response:
 
@@ -165,7 +165,6 @@ By default `duration` should be set to `duration=3600`.
 | duration  | number | `deprecated` |
 
 ### Response:
-
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -261,14 +260,14 @@ By default, `timeout` and `duration` should be set to `timeout=10` and `duration
 | pending.tradeid | number | unique id of this trade on this network |
 | pending.requestid | number | unique id of this trade request |
 | pending.quoteid | number | `deprecated, will be removed` |
-| pending.bob | string | `deprecated, will be removed`, name of the coin bob is trading, same as `base` |
+| pending.bob | string | `deprecated, will be removed`; name of the coin bob is trading, same as `base` |
 | pending.base | string | name of the `base` coin the user desires |
 | pending.basevalue | number | the value of `base` coin to be exchanged | 
-| pending.alice | string | `deprecated, will be removed`, name of the coin alice is trading, same as `rel` |
+| pending.alice | string | `deprecated, will be removed`; name of the coin alice is trading, same as `rel` |
 | pending.rel | string | name of the `rel` coin the user is trading |
 | pending.relvalue | number | the value of `rel` coin to be exchanged |
-| pending.desthash | string | `deprecated, will be renamed` taker (alice) curve25519 pubkey |
-| pending.aliceid | number | `deprecated, will be removed or renamed` alice's unique id on this network |
+| pending.desthash | string | `deprecated, will be renamed`; taker (alice) curve25519 pubkey |
+| pending.aliceid | number | `deprecated, will be removed or renamed`; alice's unique id on this network |
 | uuid | string | request uuid |
 
 #### :pushpin: Examples:
@@ -319,7 +318,7 @@ Success Response:
 }
 ```
 
-Error Response:
+Response (error):
 
 ```bash
 {"error":"rpc:278] utxo:884] REL balance 12.88892991 is too low, required 21.15"}
@@ -376,7 +375,7 @@ Command:
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"basevolume\":0.1,\"price\":2}"
 ```
 
-Success Response:
+Response (success):
 
 ```bash
 {
@@ -402,7 +401,7 @@ Success Response:
 "uuid":"858b786db415182d8ff60e7a928b3350e16e632ceb95e3a0296ef78c1d28caac"}
 ```
 
-Error Response:
+Response (error):
 
 ```bash
 {"error":"rpc:278] utxo:884] REL balance 12.88892991 is too low, required 21.15"}
@@ -418,7 +417,9 @@ This API method's documentation is currently limited, as we are still testing.
 
 The `setprice` method places an order on the orderbook, and it relies on this node acting as a `maker` -- also called a `Bob` node.
 
-`setprice` requires that the node can bind ports on public IP to accept direct TCP connections from other nodes for ordermatching. This requirement will be removed soon.
+::: warning Note
+`setprice` currently requires that the node can bind ports on a public IP to accept direct TCP connections from other nodes for ordermatching. This requirement will be removed soon.
+:::
 
 ### Arguments:
 
@@ -427,13 +428,13 @@ The `setprice` method places an order on the orderbook, and it relies on this no
 | base       | (string) | the name of the coin the user desires to receive |
 | rel       | (string) | the name of the coin the user desires to sell |
 | price     | (number) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| broadcast | (number) | defines if the price should be broadcasted to P2P network as order, defaults to 1 |
+| broadcast | (number) | defines whether the price should be broadcast to P2P network as an order; the default value is `1` |
 
 ### Response:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| result | string | was the request success or not | 
+| result | string | whether the request succeeded | 
 
 #### :pushpin: Examples:
 
@@ -443,13 +444,13 @@ Command:
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BASE\",\"rel\":\"REL\",\"price\":0.9}
 ```
 
-Success Response:
+Response (success):
 
 ```bash
 {"result":"success"}
 ```
 
-Error Response:
+Response (error):
 
 ```bash
 {"error":"Rel coin REL is not found"}

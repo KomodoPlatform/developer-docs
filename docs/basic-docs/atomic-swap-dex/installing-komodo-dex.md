@@ -11,7 +11,7 @@
 * Admin/root privileges
 
 ::: warning Note
-If you don't want to build MM2 from source you can download prebuilt nightly binary from http://195.201.0.6/mm2/
+If you would prefer to avoid building MM2 from source, you can download our pre-built nightly binary [from this link](http://195.201.0.6/mm2/).
 :::
 
 ### Note about Linux
@@ -140,6 +140,4 @@ If everything installs successfully you will see something similar:
 “Finished dev [optimized + debuginfo] target(s) in 3m 33s”
 ```
 
-The executable is now built and available by path: `MM2_repo/target/debug/mm2`
-
-MarketMaker 2.0 is now built and ready.
+The MM2 executable is now built and available here: `MM2_repo/target/debug/mm2`

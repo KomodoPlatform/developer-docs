@@ -6,7 +6,7 @@ Komodo's DEX software is built to have a core component that can serve many fron
 
 The core component is called MarketMaker 2.0, or MM2 for brevity.
 
-Various front-end GUIs exist in our ecosystem, some of them built by the volunteer efforts of our community members. We are also working to release a Komodo-supported GUI, in coordination with Ideas By Nature, a UX/UI design firm.
+Various front-end GUIs exist in our ecosystem, some of them built by the volunteer efforts of our community members. We are also working to release a Komodo-supported User Experience and User Interface, in coordination with Ideas By Nature, a UX/UI design firm.
 
 This also allows developers and entrepreneurs the freedom to create your own frontend implementation for your own purposes. For example, you can create your own frontend implementation that acts on the same atomic-swap network as other communities. Or, you could make a frontend implementation for your own private network. 
 
