@@ -10,6 +10,10 @@
 
 * Admin/root privileges
 
+::: warning Note
+If you don't want to build MM2 from source you can download prebuilt nightly binary from http://195.201.0.6/mm2/
+:::
+
 ### Note about Linux
 
 For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us](https://support.komodoplatform.com/support/tickets/new).
@@ -116,12 +120,12 @@ Windows:
 
 Download and execute the appropriate file from [this link.](https://stedolan.github.io/jq/download/)
 
-### Install MM2
+### Build MM2
 
-Download the MM2 repository:
+Clone the MM2 repository:
 
 ```bash
-git clone https://github.com/KomodoPlatform/KomodoPlatform --branch spvdex --single-branch && cd KomodoPlatform
+git clone https://github.com/artemii235/SuperNET.git --branch mm2 --single-branch && cd SuperNET
 ```
 
 Compile the source code:
@@ -136,13 +140,6 @@ If everything installs successfully you will see something similar:
 “Finished dev [optimized + debuginfo] target(s) in 3m 33s”
 ```
 
-The executable is now installed in this directory in the folder: `target/debug/`
+The executable is now built and available by path: `MM2_repo/target/debug/mm2`
 
-Change into this directory:
-
-```bash
-cd target/debug/
-```
-
-MarketMaker 2.0 is now installed and ready.
-
+MarketMaker 2.0 is now built and ready.
