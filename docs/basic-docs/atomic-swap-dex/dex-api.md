@@ -229,11 +229,11 @@ Response:
 
 ## buy
 
-**buy base rel price relvolume timeout=number duration=number**
+**buy base rel price relvolume (duration=number) (timeout=number)**
 
 The `buy` method issues a buy request and attempts to match an order from the orderbook based on the provided arguments.
 
-By default, `timeout` and `duration` should be set to `timeout=10` and `duration=3600`.
+MM2 will set the `timeout` and `duration` values by default, but the user may override by giving them a value.
 
 ### Arguments:
 
@@ -243,8 +243,8 @@ By default, `timeout` and `duration` should be set to `timeout=10` and `duration
 | rel       | string | the name of the coin the user desires to sell |
 | price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
 | relvolume | number | the amount of coins the user is willing to spend of the `rel` coin |
-| timeout | number | |
-| duration | number | | 
+| timeout | number | the amount of time to wait until the request expires; MM2 handles automatically |
+| duration | number | the amount of time MM2 will continue attempting to match an order; once this time expires, the user may reissue a `buy` request |
 
 ### Response:
 
@@ -278,7 +278,7 @@ Command:
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"relvolume\":1,\"price\":0.95}"
 ```
 
-Success Response:
+Response (success):
 
 ```bash
 {
@@ -326,11 +326,11 @@ Response (error):
 
 ## sell
 
-**sell base rel price basevolume timeout=number duration=number**
+**sell base rel price basevolume (duration=number) (timeout=number)**
 
 The `sell` method issues a sell request and attempts to match an order from the orderbook based on the provided arguments.
 
-By default, `timeout` and `duration` should be set to `timeout=10` and `duration=3600`.
+MM2 will set the `timeout` and `duration` values by default, but the user may override by giving them a value.
 
 ### Arguments:
 
@@ -340,8 +340,8 @@ By default, `timeout` and `duration` should be set to `timeout=10` and `duration
 | rel       | string | the name of the coin the user desires to sell |
 | price     | number | the price in `base` the user is willing to receive per one unit of the `rel` coin |
 | basevolume | number | the amount of coins the user is willing to spend of the `base` coin |
-| timeout | number | |
-| duration | number | | 
+| timeout | number | the amount of time to wait until the request expires |
+| duration | number | the amount of time MM2 will continue attempting to match an order; once this time expires, the user may reissue a `sell` request |
 
 ### Response:
 

@@ -75,7 +75,7 @@ MacOS: [Install XCode via the App Store](https://itunes.apple.com/us/app/xcode/i
 Install the following additional dependencies using the terminal.
 
 ```bash
-sudo apt-get install -y libboost-dev libboost-system-dev build-essential git apt-get install llvm-3.9-dev libclang-3.9-dev clang-3.9
+sudo apt-get install -y libboost-dev libboost-system-dev build-essential git apt-get install llvm-3.9-dev libclang-3.9-dev clang-3.9 libcurl4-openssl-dev libssl-dev pkg-config
 ```
 
 #### Install Additional Rust Components

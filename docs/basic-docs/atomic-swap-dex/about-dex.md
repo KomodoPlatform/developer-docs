@@ -1,6 +1,6 @@
 # Additional Notes
 
-## A Back-end for Front-end Implementations
+## A Back End for Front-End Implementations
 
 Komodo's DEX software is built to have a core component that can serve many front-end graphical-user interfaces (GUIs). 
 
