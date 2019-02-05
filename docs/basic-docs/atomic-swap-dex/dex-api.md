@@ -12,7 +12,7 @@ This API documentation currently only features RPC methods that are available in
 This command must be executed at the initiation of each MM2 instance.
 :::
 
-The `electrum` method enables a `coin` by connecting your MM2 instance to the `coin` blockchain using electrum technology (e.g. lite mode).
+The `electrum` method enables a `coin` by connecting the user's MM2 instance to the `coin` blockchain using electrum technology (e.g. lite mode).
 
 This allows the user to avoid syncing the entire blockchain to their local machine.
 
@@ -150,11 +150,9 @@ Response:
 
 ## orderbook
 
-**orderbook base rel duration=number**
+**orderbook base rel (duration=number)**
 
 The `orderbook` method requests from the network the currently available orders for the specified trading pair.
-
-By default `duration` should be set to `duration=3600`.
 
 ### Arguments:
 
@@ -428,7 +426,7 @@ The `setprice` method places an order on the orderbook, and it relies on this no
 | base       | string | the name of the coin the user desires to receive |
 | rel       | string | the name of the coin the user desires to sell |
 | price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| broadcast | number | defines whether the price should be broadcast to P2P network as an order; the default value is `1` |
+| broadcast | number | defines whether the price should be broadcast to p2p network as an order; the default value is `1` |
 
 ### Response:
 
