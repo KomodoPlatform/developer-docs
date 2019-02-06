@@ -577,9 +577,10 @@ komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable
 When `-ac_cc` is set, but `-ac_ccenable` is not, all CryptoConditions modules are enabled. 
 
 ::: warning
-If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the evalcodes in the `libcc.so` will not disable CryptoConditions RPC calls that have the risk of creating unspendable utxos.
+`ac_ccenable` disables spending utxos that are created under a non-enabled CryptoConditions module. We have also implemented additional functionality that disables the RPC functions that would otherwise allow a user to create a utxo that would then be unspendable, due to `ac_ccenable`. It is still possible to create raw transactions that bypass this security feature, and thus create utxos that are unspendable. A normal user or developer relying on our RPC functionality should not be concerned with this. However, those who experiment with raw transactions should be cautious.
 :::
 
 ::: warning
-`ac_ccenable` disables spending utxos that are created under a non-enabled CryptoConditions module. We have also implemented additional functionality that disables the RPC functions that would otherwise allow a user to create a utxo that would then be unspendable, due to `ac_ccenable`. It is still possible to create raw transactions that bypass this security feature, and thus create utxos that are unspendable. A normal user or developer relying on our RPC functionality should not be concerned with this. However, those who experiment with raw transactions should be cautious.
+If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the evalcodes in the `libcc.so` will not disable CryptoConditions RPC calls. Therefore, there remains a risk that a disabled RPC call can still be used to create a utxo, which will then be unspendable.
 :::
+
