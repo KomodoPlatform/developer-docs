@@ -10,7 +10,7 @@ Let's start by setting up a customized environment variable to make it easier to
 Environment variables are for your ease of use during this early phase of development. Later, once we have a CLI and GUI prepared, a regular user won't need to do these steps as the variables can be saved in a configuration file.
 :::
 
-#### coins
+#### coins env
 
 In the Komodo ecosystem we use two blockchain coins, BEER and PIZZA, for testing purposes. These coins are freely distributed and there's no blockchain scarcity, so you don't want to treat these coins as real currency. Also, if you lose them or destroy them, there's no need to stress. You can always just grab more from our faucet. 
 
@@ -44,6 +44,17 @@ Great, now you can access the contents of that file at anytime by typing `$coins
 Depending on your operating system, the terminal will forget these variables as soon as you close the session. To reload them into a new terminal, simply repeat the `source <$PATH_TO_FILE/file>` commands.
 ::: 
 
+#### coins file (preferred method in MM2)
+
+It's not mandatory to set coins config as environment variable/command line JSON argument.  
+MM2 now looks for `coins` file in it's directory and loads the coins info from there (if it's not set from command line).  
+It's more convenient because coins file won't be deleted on terminal session finish.  
+
+Make a file called `coins` in MM2 directory and place the following text into it:
+```
+[{"coin": "PIZZA","asset": "PIZZA","txversion":4,"rpcport": 11608},{"coin": "BEER","txversion":4,"asset": "BEER","rpcport": 8923}]
+```
+
 #### userpass 
 
 We also need to choose a password. 
@@ -72,7 +83,7 @@ Here is an approximate interpretation of the arguments in the command, to help y
 | netid | 9999 | this tells MM2 which network to join. 9999 is a private test network we use here. 0 is the default network. |
 | passphrase | YOUR_PASSWORD_HERE | your password |
 | userhome | /${HOME#"/"} | the path to your home, called from your environment variables and entered as a regular expression |
-| coins | $coins | the coins that you would like to have available and taken from your environment variables |
+| coins | $coins (optional) | the coins that you would like to have available and taken from your environment variables, MM2 will load config from `coins` file if this argument is not set |
 | client | 1 | this tells MarketMaker 2.0 that you are here to buy (e.g. to act as an Alice node), rather than to sell (e.g. to act as a Bob node) |
 
 Having executed the command, you should see output similar to the following:
