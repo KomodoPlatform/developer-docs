@@ -8,15 +8,15 @@
 
 * Minimum 2GB of free RAM 
 
-* Admin/root privileges
+* Normal user account with admin/root privileges
 
 ::: warning Note
-If you don't want to build MM2 from source you can download prebuilt nightly binary from http://195.201.0.6/mm2/
+If you would prefer to avoid building MM2 from source, you can download our pre-built nightly binary [from this link](http://195.201.0.6/mm2/).
 :::
 
 ### Note about Linux
 
-For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us](https://support.komodoplatform.com/support/tickets/new).
+For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us in #dev-tradebots channel in Komodo Discord](https://komodoplatform.com/discord).
 
 ### Note about Installing on Windows
 
@@ -36,11 +36,11 @@ Double-click the downloaded `.exe` file and follow the Installation Wizard.
 
 Once Git Bash is open and running on your machine, you may continue.
 
-### Note about 32-bit Operating Systems
+### Note About 32-bit Operating Systems
 
 We are currently testing 32-bit operating system functionality. As 32-bit machines can often be comparatively older hardware, we cannot guarantee that MarketMaker 2.0 will run successfully by default. 
 
-We invite users of 32-bit operating systems to test the software and [report any errors to our team](https://support.komodoplatform.com/support/tickets/new).
+We invite users of 32-bit operating systems to test the software and [report any errors to our team at #dev-tradebots channel in Komodo Discord](https://komodoplatform.com/discord).
 
 ### Installing Dependencies
 
@@ -52,13 +52,13 @@ Install [Rust](https://www.rust-lang.org/tools/install):
 curl https://sh.rustup.rs -sSf | sh
 ```
 
-#### cmake version 3.12 or higher
+#### cmake Version 3.12 or Higher
 
 Download the cmake software here: [download link](https://cmake.org/download/)
 
 Unpack and follow the instructions here: [instructions link](https://cmake.org/install/)
 
-#### Build tools for your OS
+#### Build Tools for Your OS
 
 Linux: 
 
@@ -75,7 +75,7 @@ MacOS: [Install XCode via the App Store](https://itunes.apple.com/us/app/xcode/i
 Install the following additional dependencies using the terminal.
 
 ```bash
-apt-get install libboost-dev libboost-system-dev build-essential git
+sudo apt-get install -y libboost-dev libboost-system-dev build-essential git llvm-3.9-dev libclang-3.9-dev clang-3.9 libcurl4-openssl-dev libssl-dev pkg-config
 ```
 
 #### Install Additional Rust Components
@@ -125,6 +125,7 @@ Download and execute the appropriate file from [this link.](https://stedolan.git
 Clone the MM2 repository:
 
 ```bash
+cd ~
 git clone https://github.com/artemii235/SuperNET.git --branch mm2 --single-branch && cd SuperNET
 ```
 
@@ -140,6 +141,4 @@ If everything installs successfully you will see something similar:
 “Finished dev [optimized + debuginfo] target(s) in 3m 33s”
 ```
 
-The executable is now built and available by path: `MM2_repo/target/debug/mm2`
-
-MarketMaker 2.0 is now built and ready.
+The MM2 executable is now built and available here: `~/SuperNET/target/debug/mm2`

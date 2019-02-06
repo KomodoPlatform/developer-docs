@@ -9,24 +9,27 @@ This API documentation currently only features RPC methods that are available in
 **electrum coin urls**
 
 ::: warning Note
-This command must be executed at the initiation of each MM2 instance.  
-Coin can be enabled only once and in either Electrum or Native mode. It's not possible to use both modes at once.  
-Electrum mode is available for UTXO coins only (BTC and forks). It's not available for ETH/ERC20.
+This command must be executed at the initiation of each MM2 instance.
 :::
 
-The `electrum` enables a `coin` by connecting your MM2 instance to the `coin` blockchain using electrum technology (e.g. lite mode).
+The `electrum` method enables a `coin` by connecting the user's MM2 instance to the `coin` blockchain using electrum technology (e.g. lite mode).
 
-This allows the user to rely on SPV technology for blockchain syncing, rather than syncing the entire blockchain to their local machine.
+This allows the user to avoid syncing the entire blockchain to their local machine.
+
+Each `coin` can be enabled only once, and in either Electrum or Native mode. It's not possible to use both modes at once.  
+
+Electrum mode is available for utxo-based coins only (BTC and forks). It's not available for ETH/ERC20.
+
 
 ### Arguments:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin you want to enable |
-| urls      | array(string)  | the urls of coin Electrum servers to which you want to connect |
+| urls      | array of strings | the urls of coin Electrum servers to which you want to connect |
 
 ::: warning Note
-If connection to at least 1 of urls fails for some reason you will get the error and coin won't be enabled.
+If the connection to at least one of the provided `urls` fails for any reason, MM2 will not enable the coin and will return an error.
 :::
 
 ### Response:
@@ -45,7 +48,7 @@ Command:
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"urls\":[\"electrum1.cipig.net:10022\",\"electrum2.cipig.net:10022\",\"electrum3.cipig.net:10022\"]}"
 ```
 
-Success Response:
+Response (Success):
 
 ```bash
 {
@@ -54,7 +57,7 @@ Success Response:
   "result": "success"
 }
 ```
-Error Response:
+Response (Error):
 ```bash
 {
   "error":"lp_coins:829] lp_coins:786] utxo:951] rpc_clients:557] rpc_clients:384] electrum4.cipig.net:10025 error Custom { kind: Other, error: StringError(\"failed to lookup address information: Name or service not known\") }"
@@ -65,13 +68,13 @@ Error Response:
 
 **enable (coin)**
 
-::: warning Note
-Coin can be enabled only once and in either Electrum or Native mode. It's not possible to use both modes at once.  
-For UTXO coins the daemon of this blockchain must also be running on the user's machine for `enable` to function.  
-ETH/ERC20 coins are also enabled by this method, but local installation of ETH node is not required.  
-:::
-
 The `enable` method enables a coin by connecting your MM2 instance to the `coin` blockchain using the `native` coin daemon (e.g. komodod for KMD).
+
+Each coin can be enabled only once, and in either Electrum or Native mode. It's not possible to use both modes at once.  
+
+For utxo-based coins the daemon of this blockchain must also be running on the user's machine for `enable` to function.  
+
+ETH/ERC20 coins are also enabled by the `enable` method, but a local installation of an ETH node is not required.  
 
 ### Arguments:
 
@@ -96,7 +99,7 @@ Command:
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\"}"
 ```
 
-Success response:
+Response (success):
 
 ```bash
 {
@@ -116,7 +119,7 @@ The `my_balance` method returns the current balance of the specified `coin`.
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| coin      | string | the name of the coin balance of which you want to get |
+| coin      | string | the name of the coin to retrieve the balance |
 
 ### Response:
 
@@ -147,11 +150,9 @@ Response:
 
 ## orderbook
 
-**orderbook base rel duration=number**
+**orderbook base rel (duration=number)**
 
 The `orderbook` method requests from the network the currently available orders for the specified trading pair.
-
-By default `duration` should be set to `duration=3600`.
 
 ### Arguments:
 
@@ -162,7 +163,6 @@ By default `duration` should be set to `duration=3600`.
 | duration  | number | `deprecated` |
 
 ### Response:
-
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -227,22 +227,22 @@ Response:
 
 ## buy
 
-**buy base rel price relvolume timeout=number duration=number**
+**buy base rel price relvolume (timeout=number) (duration=number)**
 
 The `buy` method issues a buy request and attempts to match an order from the orderbook based on the provided arguments.
 
-By default, `timeout` and `duration` should be set to `timeout=10` and `duration=3600`.
+MM2 will set the `timeout` value by default, but the user may override by giving it a value.
 
 ### Arguments:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| base       | (string) | the name of the coin the user desires to receive |
-| rel       | (string) | the name of the coin the user desires to sell |
-| price     | (number) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| relvolume | (number) | the amount of coins the user is willing to spend of the `rel` coin |
-| timeout | (number) | |
-| duration | (number) | | 
+| base       | string | the name of the coin the user desires to receive |
+| rel       | string | the name of the coin the user desires to sell |
+| price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| relvolume | number | the amount of coins the user is willing to spend of the `rel` coin |
+| timeout | number | the amount of time to wait until the request expires; MM2 handles automatically |
+| duration | number | `deprecated |
 
 ### Response:
 
@@ -258,14 +258,14 @@ By default, `timeout` and `duration` should be set to `timeout=10` and `duration
 | pending.tradeid | number | unique id of this trade on this network |
 | pending.requestid | number | unique id of this trade request |
 | pending.quoteid | number | `deprecated, will be removed` |
-| pending.bob | string | `deprecated, will be removed`, name of the coin bob is trading, same as `base` |
+| pending.bob | string | `deprecated, will be removed`; name of the coin bob is trading, same as `base` |
 | pending.base | string | name of the `base` coin the user desires |
 | pending.basevalue | number | the value of `base` coin to be exchanged | 
-| pending.alice | string | `deprecated, will be removed`, name of the coin alice is trading, same as `rel` |
+| pending.alice | string | `deprecated, will be removed`; name of the coin alice is trading, same as `rel` |
 | pending.rel | string | name of the `rel` coin the user is trading |
 | pending.relvalue | number | the value of `rel` coin to be exchanged |
-| pending.desthash | string | `deprecated, will be renamed` taker (alice) curve25519 pubkey |
-| pending.aliceid | number | `deprecated, will be removed or renamed` alice's unique id on this network |
+| pending.desthash | string | `deprecated, will be renamed`; taker (alice) curve25519 pubkey |
+| pending.aliceid | number | `deprecated, will be removed or renamed`; alice's unique id on this network |
 | uuid | string | request uuid |
 
 #### :pushpin: Examples:
@@ -276,7 +276,7 @@ Command:
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"relvolume\":1,\"price\":0.95}"
 ```
 
-Success Response:
+Response (success):
 
 ```bash
 {
@@ -316,7 +316,7 @@ Success Response:
 }
 ```
 
-Error Response:
+Response (error):
 
 ```bash
 {"error":"rpc:278] utxo:884] REL balance 12.88892991 is too low, required 21.15"}
@@ -324,11 +324,11 @@ Error Response:
 
 ## sell
 
-**sell base rel price basevolume timeout=number duration=number**
+**sell base rel price basevolume (timeout=number) (duration=number)**
 
 The `sell` method issues a sell request and attempts to match an order from the orderbook based on the provided arguments.
 
-By default, `timeout` and `duration` should be set to `timeout=10` and `duration=3600`.
+MM2 will set the `timeout` value by default, but the user may override by giving a value.
 
 ### Arguments:
 
@@ -338,8 +338,8 @@ By default, `timeout` and `duration` should be set to `timeout=10` and `duration
 | rel       | string | the name of the coin the user desires to sell |
 | price     | number | the price in `base` the user is willing to receive per one unit of the `rel` coin |
 | basevolume | number | the amount of coins the user is willing to spend of the `base` coin |
-| timeout | number | |
-| duration | number | | 
+| timeout | number | the amount of time to wait until the request expires |
+| duration | number | `deprecated` |
 
 ### Response:
 
@@ -373,7 +373,7 @@ Command:
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"basevolume\":0.1,\"price\":2}"
 ```
 
-Success Response:
+Response (success):
 
 ```bash
 {
@@ -399,7 +399,7 @@ Success Response:
 "uuid":"858b786db415182d8ff60e7a928b3350e16e632ceb95e3a0296ef78c1d28caac"}
 ```
 
-Error Response:
+Response (error):
 
 ```bash
 {"error":"rpc:278] utxo:884] REL balance 12.88892991 is too low, required 21.15"}
@@ -415,22 +415,24 @@ This API method's documentation is currently limited, as we are still testing.
 
 The `setprice` method places an order on the orderbook, and it relies on this node acting as a `maker` -- also called a `Bob` node.
 
-`setprice` requires that the node can bind ports on public IP to accept direct TCP connections from other nodes for ordermatching. This requirement will be removed soon.
+::: warning Note
+`setprice` currently requires that the node can bind ports on a public IP to accept direct TCP connections from other nodes for ordermatching. This requirement will be removed soon.
+:::
 
 ### Arguments:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| base       | (string) | the name of the coin the user desires to receive |
-| rel       | (string) | the name of the coin the user desires to sell |
-| price     | (number) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| broadcast | (number) | defines if the price should be broadcasted to P2P network as order, defaults to 1 |
+| base       | string | the name of the coin the user desires to receive |
+| rel       | string | the name of the coin the user desires to sell |
+| price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| broadcast | number | defines whether the price should be broadcast to p2p network as an order; the default value is `1` |
 
 ### Response:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| result | string | was the request success or not | 
+| result | string | whether the request succeeded | 
 
 #### :pushpin: Examples:
 
@@ -440,13 +442,13 @@ Command:
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BASE\",\"rel\":\"REL\",\"price\":0.9}
 ```
 
-Success Response:
+Response (success):
 
 ```bash
 {"result":"success"}
 ```
 
-Error Response:
+Response (error):
 
 ```bash
 {"error":"Rel coin REL is not found"}

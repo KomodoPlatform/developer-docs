@@ -1,14 +1,14 @@
 # Additional Notes
 
-## A Backend for Frontend Implementations
+## A Back End for Front-End Implementations
 
 Komodo's DEX software is built to have a core component that can serve many front-end graphical-user interfaces (GUIs). 
 
 The core component is called MarketMaker 2.0, or MM2 for brevity.
 
-Various front-end GUIs exist in our ecosystem, some of them built by the volunteer efforts of our community members. We are also working to release a Komodo-supported GUI, in coordination with Ideas By Nature, a UX/UI design firm.
+Various front-end GUIs exist in our ecosystem, some of them built by the volunteer efforts of our community members. We are also working to release a Komodo-supported User Experience and User Interface, in coordination with Ideas By Nature, a UX/UI design firm.
 
-This also allows developers and entrepreneurs the freedom to create your own frontend implementation for your own purposes. For example, you can create your own frontend implementation that acts on the same atomic-swap network as other communities. Or, you could make a frontend implementation for your own private network. 
+This also allows developers and entrepreneurs the freedom to create your own front-end implementation for your own purposes. For example, you can create your own front-end implementation that acts on the same atomic-swap network as other communities. Or, you could make a front-end implementation for your own private network. 
 
 The documentation here only concerns the core component, MarketMaker 2.0 (MM2). This component is typically accessed via an API or a terminal interface.
 
@@ -28,7 +28,7 @@ MM2 uses `libtorrent` as a torrent/DHT network system for the off-chain network 
 
 MM1 was based on ANSI C.
 
-For MM2 we ported the system to Rust, utilizing the cargo ecosystem. Internal benchmarks prove this to be more efficient. Furthermore, the Rust codebase supports mobile devices natively, including Android & iOS. This is a key benefit, as we expect mobile devices to be a key component of MM2 adoption.
+For MM2 we ported the system to Rust, utilizing the cargo ecosystem. Internal benchmarks prove this to be more efficient. Furthermore, the Rust code base supports mobile devices, including Android & iOS. This is a key benefit, as we expect mobile devices to be a key component of MM2 adoption.
 
 ### Multi-Threading and Other Multi-Tasking Improvements
 
