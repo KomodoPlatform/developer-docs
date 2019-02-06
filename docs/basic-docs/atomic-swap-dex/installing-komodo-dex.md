@@ -8,7 +8,7 @@
 
 * Minimum 2GB of free RAM 
 
-* Admin/root privileges
+* Normail user account with admin/root privileges
 
 ::: warning Note
 If you would prefer to avoid building MM2 from source, you can download our pre-built nightly binary [from this link](http://195.201.0.6/mm2/).
@@ -16,7 +16,7 @@ If you would prefer to avoid building MM2 from source, you can download our pre-
 
 ### Note about Linux
 
-For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us](https://support.komodoplatform.com/support/tickets/new).
+For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us in #dev-tradebots channel in Komodo Discord](https://komodoplatform.com/discord).
 
 ### Note about Installing on Windows
 
@@ -40,7 +40,7 @@ Once Git Bash is open and running on your machine, you may continue.
 
 We are currently testing 32-bit operating system functionality. As 32-bit machines can often be comparatively older hardware, we cannot guarantee that MarketMaker 2.0 will run successfully by default. 
 
-We invite users of 32-bit operating systems to test the software and [report any errors to our team](https://support.komodoplatform.com/support/tickets/new).
+We invite users of 32-bit operating systems to test the software and [report any errors to our team at #dev-tradebots channel in Komodo Discord](https://komodoplatform.com/discord).
 
 ### Installing Dependencies
 
@@ -125,6 +125,7 @@ Download and execute the appropriate file from [this link.](https://stedolan.git
 Clone the MM2 repository:
 
 ```bash
+cd ~
 git clone https://github.com/artemii235/SuperNET.git --branch mm2 --single-branch && cd SuperNET
 ```
 
@@ -140,4 +141,4 @@ If everything installs successfully you will see something similar:
 “Finished dev [optimized + debuginfo] target(s) in 3m 33s”
 ```
 
-The MM2 executable is now built and available here: `MM2_repo/target/debug/mm2`
+The MM2 executable is now built and available here: `~/SuperNET/target/debug/mm2`
