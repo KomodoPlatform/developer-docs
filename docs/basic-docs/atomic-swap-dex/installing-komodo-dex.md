@@ -8,7 +8,7 @@
 
 * Minimum 2GB of free RAM 
 
-* Normail user account with admin/root privileges
+* Normal user account with admin/root privileges
 
 ::: warning Note
 If you would prefer to avoid building MM2 from source, you can download our pre-built nightly binary [from this link](http://195.201.0.6/mm2/).
