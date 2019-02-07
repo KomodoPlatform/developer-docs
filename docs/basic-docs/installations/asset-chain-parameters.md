@@ -221,7 +221,7 @@ Use `ac_pubkey` to send the founder's reward to a normal address.
 
 Use `ac_script` to send the founder's reward to a multisig address.
 
-Set `ac_founders=1` to stay compatible with most straum implementations. Any other value requires disabling stratum. Team member, @blackjok3r, wrote a `disable-db stratum` modification.  (FIXME "requires disabling stratum" doesn't make sense. Would recommend `"Any other value requires blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode)."`)
+Set `ac_founders=1` to stay compatible with most straum implementations. Any other value requires disabling stratum. Team member, @blackjok3r, wrote a `disable-db stratum` modification.  
 
 ## ac_pubkey
 
@@ -411,7 +411,7 @@ It is not possible to both PoW mine and stake on the same node. Therefore, when 
 :::
 
 ### Notes on How ac_staked Functions
-(FIXME This contradicts what is said on line 389. I'd definitely not recommend using `-gen genproclimit=0`, so it's probably best to remove the instructions below. Again, I think really need a separate doc entirely for starting ac_staked chains.) 
+
 To initiate staking, include `-gen -genproclimit=0` as a parameter while starting the daemon, or execute `./komodo-cli -ac_name=CHAIN_NAME setgenerate true 0` after launching the daemon.
 
 Once staking is active, utxos available in the `wallet.dat` file will begin staking automatically.
@@ -420,7 +420,7 @@ On an `ac_staked` asset chain there are 64 global segments (`segid`'s) to which 
 
 You can see which segment an address belongs to by using the [`validateaddress`](../komodo-api/util.html#validateaddress) rpc call. You can use the [`getbalance64`](../komodo-api/wallet.html#getbalance64) rpc call to observe how your staked coins are distributed across the separate segids.
 
-Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure. If `ac_staked` is used in conjunction with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction. (FIXME This behavior has changed in that it will count the extra staking txs in ac_perc calc until block 100000. After block 100000, it stops counting them in the ac_perc calc. I need to ask jl if this is how all future ac_staked ac_perc ac_pubkey chains will act or if he will make it OUR specific.)
+Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure. If `ac_staked` is used in conjunction with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction.
 
 ### Rules for Staking a Block
 
