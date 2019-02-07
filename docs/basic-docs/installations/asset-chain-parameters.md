@@ -221,7 +221,7 @@ Use `ac_pubkey` to send the founder's reward to a normal address.
 
 Use `ac_script` to send the founder's reward to a multisig address.
 
-Set `ac_founders=1` to stay compatible with most straum implementations. Any other value requires disabling stratum. Team member, @blackjok3r, wrote a `disable-db stratum` modification.  
+Set `ac_founders=1` to stay compatible with most straum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [`discord`](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
 
 ## ac_pubkey
 
@@ -412,15 +412,15 @@ It is not possible to both PoW mine and stake on the same node. Therefore, when 
 
 ### Notes on How ac_staked Functions
 
-To initiate staking, include `-gen -genproclimit=0` as a parameter while starting the daemon, or execute `./komodo-cli -ac_name=CHAIN_NAME setgenerate true 0` after launching the daemon.
-
 Once staking is active, utxos available in the `wallet.dat` file will begin staking automatically.
 
 On an `ac_staked` asset chain there are 64 global segments (`segid`'s) to which all addresses and the corresponding utxos belong. These 64 `segid`'s become eligible to stake blocks in turns. The segment a utxo belongs to is determined automatically, according to the address in which the utxo resides.
 
 You can see which segment an address belongs to by using the [`validateaddress`](../komodo-api/util.html#validateaddress) rpc call. You can use the [`getbalance64`](../komodo-api/wallet.html#getbalance64) rpc call to observe how your staked coins are distributed across the separate segids.
 
-Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure. If `ac_staked` is used in conjunction with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction.
+Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure. 
+
+There are additional considerations when `ac_staked` is used in conjunction with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc) and [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey). The coins that are mined via `ac_staked` will be included in the `ac_perc` calculations until the asset chain reaches block height `1000000`. Therefore, the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction. After block `1000000`, `ac_perc` will no longer include the coins mined from `ac_staked`, and therefore the amount of coins sent to the `ac_pubkey` address will normalize.
 
 ### Rules for Staking a Block
 
@@ -428,11 +428,11 @@ The following are the (current) rules for staking a block:
 
 - Block timestamps are used as the monotonically increasing on-chain clock. It is important to have a synced system clock. Use the following sequence to sync your clock:`sudo apt-get install chrony`, `sudo systemctl restart chrony.service`, then check `timedatectl` for `NTP syncronized: Yes`
 
-- A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, it is 6000 seconds. More precisely, a utxo is not eligible for staking until `100 * the expected blocktime (i.e. 1 minute)`. For example, utxos on a one-minute block-time asset chain would be eligible for staking one-hundred minutes after their creation.
+- A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, between blocks `1` and `2000` the amount of time required for a utxo to be eligibile is `blockheight * 3 seconds`. After block `2000`, the required amount of time is 6000 seconds. More precisely, after block `2000` a utxo is not eligible for staking until `100 * the expected blocktime (i.e. 1 minute)`. For example, utxos on a one-minute block-time asset chain would be eligible for staking one-hundred minutes after their creation.
 
 - The `segid`s rotate through a cue to determine which `segid` has the most likely chance to stake a new block. The formula that determines this is based on the block height: `(height % 64) = the segid0 for this height`. For each block, the eligibility to stake a new block begins with `segid[0]`, and then the eligibility expands to the next segment in cue at every two-second interval until the block is staked. For example, if `segid[0]` has not mined a new block within two seconds, the consensus mechanism opens up the priority to include the second, `segid[1]`. This continues either until the block is staked, or all 64 `segid`'s are eligible to stake a new block. Once a block is staked, the `height` of the blockchain changes, pushing the `segid[0]` segment to the end of the cue, etc.
 
-- By internal design, a utxo is more likely to win a block within a `segid` based on age of the utxo and amount of coins. Regarding the age eligibiility, the maximum maturity level is one month. (After reaching one month of age, a UTXO's likelihood of staking a coin does not further increase.)
+- By internal design, a utxo is more likely to win a block within a `segid` based on age of the utxo and amount of coins. Regarding the age eligibiility, the maximum maturity level is one month (e.g. after reaching one month of age, a utxo's likelihood of staking a coin does not further increase). The age of the utxo is set by the `nlocktime` property of the utxo, or if `nlocktime` is not set, the age is determined by the utxo's `blocktime` property.
 
 #### :pushpin: Examples:
 
@@ -565,7 +565,7 @@ The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` doe
 ## ac_ccenable
 
 ::: warning
-This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain, as additional steps must be taken by the developer to ensure user safety.
+This parameter is at the end of the beta development phase and is prepared for public testing. If you are interested in adopting this feature for a production asset chain, please reach out to us so that we can assist you: [link](https://komodoplatform.com/discord).
 :::
 
 The `ac_ccenable` parameter restricts the asset chain so that only indicated CryptoConditions modules can be enabled. `ac_ccenable` requires [`ac_cc`](../installations/asset-chain-parameters.html#ac-cc) to be active. 
@@ -580,4 +580,11 @@ komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable
 
 When `-ac_cc` is set, but `-ac_ccenable` is not, all CryptoConditions modules are enabled. 
 
-`ac_ccenable` disables spending utxos that are created under a non-enabled CryptoConditions module. It does not yet prevent rpc calls from creating utxos that belong to non-enabled modules. Therefore, we highly recommend that this feature not be activated on a default production chain, as improper usage of `ac_ccenable` can result in unspendable utxos. At this time, this danger can be eliminated by manually deactivating all inactive CryptoConditions modules. In the future, if there is sufficient interest, we can automate this task. 
+::: warning
+`ac_ccenable` disables spending utxos that are created under a non-enabled CryptoConditions module. We have also implemented additional functionality that disables RPC functions. This prevents the user from creating a utxo that `ac_ccenable` would render unspendable. It is still possible to create raw transactions that bypass this security feature, and thus create utxos that are unspendable. A normal user or developer relying on our RPC functionality should not be concerned with this. However, those who experiment with raw transactions should be cautious.
+:::
+
+::: warning
+If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the evalcodes in the `libcc.so` will not disable CryptoConditions RPC calls. Therefore, there remains a risk that a disabled RPC call can still be used to create a utxo, which will then be unspendable.
+:::
+
