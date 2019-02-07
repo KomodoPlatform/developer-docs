@@ -692,7 +692,7 @@ Response:
 
 ## oraclessubscribe
 
-**oraclessubscribe oracletxid publisher datafee**
+**oraclessubscribe oracletxid publisher amount**
 
 The user executes `oraclessubscribe` to subscribe to a publisher of an oracle plan.
 
@@ -708,7 +708,11 @@ Structure|Type|Description
 ---------|----|-----------
 oracletxid                                   |(string)                     |the unique identifying transaction id of the oracle
 publisher                                    |(string)                     |the unique publisher id, which can be found using the oraclesinfo method
-datafee                                      |(number)                     |the amount of funds the subscriber commits to paying for each data upload from the publisher; this amount is immediately withdrawn from the user's wallet
+amount                                      |(number)                     |the amount of funds the subscriber commits to paying for data upload from the publisher; this amount is immediately withdrawn from the user's wallet
+
+::: tip
+If the **datafee** is 10 COINS, the amount used to subscribe is 1000 COINS, then the publisher will be able to publish data a 100 times. 
+:::
 
 ### Response:
 
