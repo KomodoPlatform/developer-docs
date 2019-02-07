@@ -182,7 +182,7 @@ For example, if `-ac_reward=100000000` and `-ac_perc=10000000`, for each block m
 The maximum amount of coins created via this method across all transactions per block is capped at `(1000000 * <percentage>)`.
 
 ::: tip
-Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding pubkey. The `vout` type for all coinbase vouts must be `pubkey` as opposed to `pubkeyhash`. This only affects a miner trying to use a stratum. Team member, Blackjok3r, developed a coinbase overide method for this purpose. Please see [this repo](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode) for details. 
+Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding pubkey. This only affects a miner trying to use a stratum. Team member, Blackjok3r, developed a coinbase overide method for this purpose. Please see [this repo](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode) for details. 
 :::
 
 #### ac_perc with ac_founders
@@ -191,7 +191,7 @@ Please see the [`-ac_founders`](../installations/asset-chain-parameters.html#ac-
 
 #### :pushpin: Examples:
 
-A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
+A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block. (FIXME we missed this. Needs to reflect the new block 100k rule mentioned on line 423)
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50 &
@@ -227,13 +227,13 @@ Set `ac_founders=1` to stay compatible with most straum implementations. Any oth
 
 The `ac_pubkey` parameter designates a pubkey for receiving payments from the network. These payments can come in the genesis block, in all blocks mined thereafter, and from every transaction on the network.
 
-This parameter is not inteded for isolated use. It should only be activated on chains that also use at least one of the following parameters: `ac_perc`, `ac_founders, or `ac_import=PUBKEY`.
+This parameter is not inteded for isolated use. It should only be activated on chains that also use at least one of the following parameters: `ac_perc`, `ac_founders`, or `ac_import=PUBKEY`.
 
 The `pubkey` must be a 66 character string (a compressed pubkey). You can find this pubkey for any address by using the [`validateaddress`](../komodo-api/util.html#validateaddress) command, and searching for the returned `pubkey` property. The first two digits of a compressed `pubkey` are only either `02` or `03`. (The corresponding `private key` must be present/imported to the wallet before using `validateaddress`.)
 
 #### :pushpin: Examples:
 
-A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
+A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.(FIXME we missed this. Needs to reflect the new block 100k rule mentioned on line 423)
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50
@@ -305,7 +305,7 @@ Observe the output:
 Set `ac_script` to the `"hex"` value from the returned json object. 
 
 ```
--ac_script=a9142706324daaac92c93420e985f55d88ea20e22ae187`
+-ac_script=a9142706324daaac92c93420e985f55d88ea20e22ae187
 ```
 
 ## ac_cc
@@ -318,7 +318,7 @@ The `ac_cc` parameter sets the network cluster on which the chain can interact w
 
 Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one asset chain can be directly transferred to any other asset chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
 
-Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, the cross-chain fungibility feature requires it.
+Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, the cross-chain fungibility feature requires it.(FIXME "cross-chain fungibility feature requires it" this applies to all cross chain CCs, not just burn protocol. This means an assetchain on the same cluster can verify transactions happened on another chain in the same cluster.)
 
 ### ac_cc=0
 
@@ -387,7 +387,7 @@ Measurements of the PoS:PoW ratio are approximate; the PoW difficulty will autom
 When creating a chain with the `ac_staked` parameter, the creation process is slightly different. 
 
 * Start both the first and second nodes **without** `-gen -genproclimit=0`. 
-* Once both are connected, use the [`generate`](../komodo-api/generate.html#generate) method on one node to mine two blocks and then stop mining. 
+* Once both are connected, use the [`generate`](../komodo-api/generate.html#generate) method on one node to mine two blocks and then stop mining. (FIXME generate command is exclusive to regtest mode. Once both are connected, use `setgenerate true 1` on the node you wish to receive the premine, look at the debug.log `tail -f ~/.komodo/<CHAIN>/debug.log`, wait for it to mine two blocks and do `setgenerate false`.)
 * All of the coins (including the pre-mine) are now located on the node that mined two blocks. Do not split them with a normal transaction. Rather, split them using this script: [link](https://github.com/stakedchain/pos64staker). 
 * Send coins to the other node, and on both nodes use the `generate` method to begin staking. 
 * Use the [`getbalance`](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10. 
