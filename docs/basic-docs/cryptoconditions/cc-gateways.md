@@ -1,4 +1,4 @@
-# Smart Contract: Gateways
+# Contract Module: Gateways
 
 The idea of the `gateways` smart contract is to facilitate, manage, and trade tokenized representations of foreign blockchain assets.
 
