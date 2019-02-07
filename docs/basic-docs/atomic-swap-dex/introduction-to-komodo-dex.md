@@ -12,7 +12,7 @@ This software is capable of facilitating atomic-swap exchanges between approxima
 
 When it comes to DEX technology, Komodo has a remarkable story.
 
-In May 2014 Komodo’s lead developer performed his first atomic swap. By August of 2017, the Komodo project released version 1.0 of this atomic-swap DEX software, allowing anonymous Internet users to perform atomic swaps via automation. These are but two examples of how Komodo has led the way in atomic-swap DEX technology since the beginning.
+In May 2014, Komodo’s lead developer performed his first atomic swap. By August of 2017, Komodo released version 1.0 of the atomic-swap DEX software, allowing anonymous Internet users to perform atomic swaps via automation. These are but two examples of how Komodo has led the way in atomic-swap DEX technology since the beginning.
 
 To understand Komodo DEX software, one must first understand what a decentralized exchange is, why it's important, and how atomic swaps come into play.
 
@@ -24,9 +24,9 @@ In the world of cryptocurrency, the goods we are trading are our digital assets.
 
 ### Trading Between Blockchains is a Challenge
 
-So long as a user uses these assets within their parent blockchains the normal methods of conducting transactions are sufficient to trade between persons. However, questions start to arise once the user wants to exchange assets on one blockchain for assets on an entirely separate blockchain.
+So long as a user uses these assets within their parent blockchains the normal methods of conducting transactions are sufficient to trade between persons. However, questions arise once the user wants to exchange assets on one blockchain for assets on an entirely separate blockchain.
 
-Typically, separate blockchains have separate demographics of miners and stakers securing the history. When a user trades value between the two blockchains, by default there is no inter-chain security mechanism that can ensure that the user's trading partner doesn't cheat, and that technical difficulties don’t destroy the user's assets.
+Typically, separate blockchains have separate demographics of miners and stakers securing the history. When a user trades value between the two blockchains, by default there is no inter-chain security mechanism that can ensure that the user's trading partner does not cheat, and that technical difficulties do not destroy the user's assets.
 
 ### The Centralized Exchange as a Method
 
@@ -38,7 +38,7 @@ The user is then within a single environment that is controlled by a centralized
 
 Throughout this experience the user relies on the security of a centralized third party to ensure that their purchases and sales are conducted honestly and accurately. When the user is finished exchanging, they hand back their IOUs and tell the CEX the address where they would like to export their purchases.
 
-Only once the user receives their digital assets back into an address which they control can the user rest assured that they truly "own" these assets again.
+Once the user receives their digital assets back into an address which they control, they are again truly the "owner" of these assets.
 
 ### Problems with Centralized Exchanges
 
@@ -48,9 +48,11 @@ There are two primary risks in the trading process: security and trust.
 
 Concerning security, when a user places their assets on a centralized exchange, the private keys to these assets are held in a database that, by nature, must have some kind of connection to all types of people on the Internet. Therefore, the user's assets are in a more dangerous position than when the user personally holds them in a secure manner, such as with a paper wallet.
 
-The danger is even greater when taking into consideration that this CEX database holds the assets of thousands of other users. Having a large amount of funds available via the Internet paints a bright target on the user's hard-earned digital valuables; any attacker who manages to break through the CEX's security measures will find a lucrative reward.
+Furthermore, this CEX's database holds the assets of thousands of other users. Having a large amount of vulnerable funds on the Internet attracts attackers.
 
-From 2017 to 2018, nearly 1 billion USD dollar's worth of digital assets were stolen from major exchanges around the world. Compared to fiat currency, it is far more difficult to recover stolen blockchain-based assets.
+From 2017 to 2018, nearly 1 billion US dollar's worth of digital assets were stolen from major exchanges around the world. Compared to fiat currency, it is far more difficult to recover stolen blockchain-based assets, and for this reason these funds are typically considered permanently lost.
+
+CEX's that have been affected by attackers must be wary of legal liabilities. The infamous Mt. Gox case stands as a warning to CEX owners that users may attempt to hold the CEX liability in the event of a theft.
 
 The risks do not stop there, as we must also consider the integrity and competence of the CEX itself. When using a CEX, you must trust that the CEX will give you back your digital assets when you request. Even when working with large and popular CEX's, reports yet abound of users who lose their funds due to the CEX's mistakes, technical difficulties, or even legal concerns.
 
