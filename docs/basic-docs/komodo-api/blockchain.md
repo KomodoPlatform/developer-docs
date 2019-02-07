@@ -1162,7 +1162,7 @@ Structure|Type|Description
 "bestblock"                                  |(string)                     |the block hash
 "confirmations"                              |(numeric)                    |the number of confirmations
 "value"                                      |(numeric)                    |the transaction value
-"scriptPubKey":                              |(numeric)                    |the transaction value in KMD
+"scriptPubKey":                              |(json object)                |the transaction value in KMD
 "asm"                                        |(string)                     |
 "hex"                                        |(string)                     |
 "reqSigs"                                    |(numeric)                    |the number of required signatures
