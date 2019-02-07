@@ -411,7 +411,7 @@ It is not possible to both PoW mine and stake on the same node. Therefore, when 
 :::
 
 ### Notes on How ac_staked Functions
-(FIXME This contradicts what is said on line 389. I'd definitely not recommend using `-gen genproclimit=0` as it can cause forks if you aren't closely paying attention. It's probably best to remove the instructions below. Again, I think we really need a separate doc entirely for starting ac_staked chains as there are many different quirks to it.) 
+(FIXME This contradicts what is said on line 389. I'd definitely not recommend using `-gen genproclimit=0`, so it's probably best to remove the instructions below. Again, I think really need a separate doc entirely for starting ac_staked chains.) 
 To initiate staking, include `-gen -genproclimit=0` as a parameter while starting the daemon, or execute `./komodo-cli -ac_name=CHAIN_NAME setgenerate true 0` after launching the daemon.
 
 Once staking is active, utxos available in the `wallet.dat` file will begin staking automatically.
@@ -420,15 +420,15 @@ On an `ac_staked` asset chain there are 64 global segments (`segid`'s) to which 
 
 You can see which segment an address belongs to by using the [`validateaddress`](../komodo-api/util.html#validateaddress) rpc call. You can use the [`getbalance64`](../komodo-api/wallet.html#getbalance64) rpc call to observe how your staked coins are distributed across the separate segids.
 
-Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure. If `ac_staked` is used in conjunction with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction. (FIXME This behavior has changed in that it will count the extra staking txs in ac_perc calc until block 100000. After block 100000, it stops counting them in the ac_perc calc.)
+Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure. If `ac_staked` is used in conjunction with [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc), the [`ac_pubkey`](../installations/asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction. (FIXME This behavior has changed in that it will count the extra staking txs in ac_perc calc until block 100000. After block 100000, it stops counting them in the ac_perc calc. I need to ask jl if this is how all future ac_staked ac_perc ac_pubkey chains will act or if he will make it OUR specific.)
 
 ### Rules for Staking a Block
 
 The following are the (current) rules for staking a block:
 
-- Block timestamps are used as the monotonically increasing on-chain clock. It is important to have a synced system clock. Use the following sequence to sync your clock:`sudo apt-get install chrony`, `sudo systemctl restart chrony.service`, then check `timedatectl` for `NTP syncronized: Yes`(FIXME this is linux specific, not sure what the equivalent would be on windows or OSX)
+- Block timestamps are used as the monotonically increasing on-chain clock. It is important to have a synced system clock. Use the following sequence to sync your clock:`sudo apt-get install chrony`, `sudo systemctl restart chrony.service`, then check `timedatectl` for `NTP syncronized: Yes`
 
-- A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, it is 6000 seconds. More precisely, a utxo is not eligible for staking until `100 * the expected blocktime (i.e. 1 minute)`. For example, utxos on a one-minute block-time asset chain would be eligible for staking one-hundred minutes after their creation.(FIXME this 6000 seconds rule doesn't apply until block 2000. Until then it takes height*3 seconds)
+- A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, it is 6000 seconds. More precisely, a utxo is not eligible for staking until `100 * the expected blocktime (i.e. 1 minute)`. For example, utxos on a one-minute block-time asset chain would be eligible for staking one-hundred minutes after their creation.
 
 - The `segid`s rotate through a cue to determine which `segid` has the most likely chance to stake a new block. The formula that determines this is based on the block height: `(height % 64) = the segid0 for this height`. For each block, the eligibility to stake a new block begins with `segid[0]`, and then the eligibility expands to the next segment in cue at every two-second interval until the block is staked. For example, if `segid[0]` has not mined a new block within two seconds, the consensus mechanism opens up the priority to include the second, `segid[1]`. This continues either until the block is staked, or all 64 `segid`'s are eligible to stake a new block. Once a block is staked, the `height` of the blockchain changes, pushing the `segid[0]` segment to the end of the cue, etc.
 
