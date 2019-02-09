@@ -60,15 +60,15 @@ Unpack and follow the instructions here: [instructions link](https://cmake.org/i
 
 #### Build Tools for Your OS
 
-Linux: 
+##### Linux: 
 
 ```bash
 sudo apt-get install build-essential
 ```
 
-Windows: [Follow these instructions for MSVC](https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation?view=vs-2017)
+##### Windows: [Follow these instructions for MSVC](https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation?view=vs-2017)
 
-MacOS: [Install XCode via the App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12)
+##### MacOS: [Install XCode via the App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12)
 
 #### Install Additional Dependencies
 
@@ -104,7 +104,7 @@ rustup component add rustfmt-preview
 sudo apt-get install jq
 ```
 
-MacOS:
+##### MacOS:
 
 Download the appropriate file from [this link.](https://stedolan.github.io/jq/download/)
 
@@ -116,7 +116,7 @@ chmod +x jq
 
 Then execute the file.
 
-Windows:
+##### Windows:
 
 Download and execute the appropriate file from [this link.](https://stedolan.github.io/jq/download/)
 
