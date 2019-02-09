@@ -98,7 +98,7 @@ rustup component add rustfmt-preview
 
 `jq` is an optional, but useful addition to our needed software. `jq` can provide a more readable format of JSON output in the terminal, which helps us more quickly digest mm2's data.
 
-Linux:
+##### Linux:
 
 ```
 sudo apt-get install jq
