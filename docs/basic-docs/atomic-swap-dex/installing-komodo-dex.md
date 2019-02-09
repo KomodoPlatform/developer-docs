@@ -16,7 +16,7 @@ If you would prefer to avoid building MM2 from source, you can download our pre-
 
 ### Note about Linux
 
-For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us in #dev-tradebots channel in Komodo Discord](https://komodoplatform.com/discord).
+For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us on the #dev-tradebots channel on Discord](https://komodoplatform.com/discord).
 
 ### Note about Installing on Windows
 
@@ -40,7 +40,7 @@ Once Git Bash is open and running on your machine, you may continue.
 
 We are currently testing 32-bit operating system functionality. As 32-bit machines can often be comparatively older hardware, we cannot guarantee that MarketMaker 2.0 will run successfully by default. 
 
-We invite users of 32-bit operating systems to test the software and [report any errors to our team at #dev-tradebots channel in Komodo Discord](https://komodoplatform.com/discord).
+We invite users of 32-bit operating systems to test the software and [report any errors to our team on the #dev-tradebots channel on Discord](https://komodoplatform.com/discord).
 
 ### Installing Dependencies
 
