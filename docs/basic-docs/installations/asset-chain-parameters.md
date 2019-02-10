@@ -2,7 +2,7 @@
 
 The Komodo platform offers various default customizations for determining the underlying nature of your asset chain. The desired combination of parameters should be included with the `komodod` execution every time the asset-chain daemon is launched.
 
-Changing these customizations at a later time is possible, but this typically requires a hard fork of your asset chain. In general, it is best to have your asset chain's parameters finalized before decentralizing the ownership of your coin. Should you discover a need to change these parameters after the fact, please reach out to our development team for assistance.
+Changing these customizations at a later time is possible, but this typically requires a hard-fork of your asset chain. In general, it is best to have your asset chain's parameters finalized before decentralizing the ownership of your coin. Should you discover a need to change these parameters after the fact, please reach out to our development team for assistance.
 
 ## ac_name
 
@@ -26,6 +26,8 @@ This is the amount of pre-mined coins you would like the chain to have.
 
 The node that sets [`gen`](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
 
+If only `ac_supply` is set and `ac_reward` or `ac_staked` not used, this will be an on-demand chain with default block reward of 0.0001 coins. A new block will be mined by miners when there is a transaction on the mempool.
+
 If `ac_supply` is not set, [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [`ac_founders`](../installations/asset-chain-parameters.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
 
 The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
@@ -36,7 +38,7 @@ An additional fraction of a coin will be added to the initial supply based on th
 
 #### :pushpin: Examples:
 
-A simple asset chain
+A simple asset chain with pre-mined coins and on-demand block generation.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
@@ -46,7 +48,7 @@ A simple asset chain
 
 This is the block reward for each mined block, given in satoshis.
 
-If this is not set, the block reward will be `10000` satoshis and blocks will be [on-demand](../installations/creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work) after block 127 (a new block will not be mined unless there is a transaction in the mempool).
+If this is not set, the block reward will be `10000` satoshis and blocks will be on-demand after block 127 (a new block will not be mined unless there is a transaction in the mempool).
 
 #### :pushpin: Examples:
 
@@ -54,6 +56,12 @@ A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Note that
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 &
+```
+
+A 0 coin pre-mine, with a 1 coin block reward that does not end. This is an example of pure PoW coin without pre-mine.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=100000000 &
 ```
 
 A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
@@ -322,7 +330,7 @@ Most functionalities enabled by `ac_cc` can function with or without Komodo's no
 
 ### ac_cc=0
 
-Setting `ac_cc=0` disables CryptoConditions on the asset chain entirely.
+Setting `ac_cc=0` disables CryptoConditions on the asset chain entirely. It is recommended NOT to use `ac_cc=0` for any chain that you do not wish to use CryptoConditions. Not using this param on a chain will have similar effect.
 
 ### ac_cc=1
 
@@ -357,7 +365,7 @@ For example, an asset chain set to `ac_cc=201` in its parameters can interact wi
 A 777777 pre-mined chain with no smart contracts enabled.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=0 &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
 ```
 
 A 777777 pre-mined chain with smart contracts on-chain only; no cross-chain smart contracts.
@@ -502,7 +510,7 @@ By default, sapling will activate at block 61 on a newly created assetchain.
 
 This can also be used to activate sapling prior to block 61. (Activating sapling prior to block 61 should not be done on a chain intended for production use.)
 
-To disable sapling activation indefinitely, set `ac_sapling` to a block height beyond the expected life of the asset chain. For example, `-ac_sapling=5000000` will delay sapling activation to block `5000000`. 
+To delay sapling activation, set `ac_sapling` to a block height far in the future. For example, `-ac_sapling=5000000` will delay sapling activation to block `5000000`. At block `5000000` sapling will be activated.
 
 ## ac_timelock...
 
