@@ -490,15 +490,19 @@ sendfreetransactions=0
 
 ## genproclimit
 
-`genproclimit` sets the number of threads to be used for mining. To initiate all cores, use the value `-1`.
+`genproclimit` sets the number of threads to be used for mining. To use all the available processors, use the value `-1`.
 
 #### :pushpin: Examples:
 
-Using genproclimit as a default value in the coin's .conf file:
+Using genproclimit as a default value in the coin's .conf file, to mine using 2 threads:
 
 ```
-genproclimit=1
+genproclimit=2
 ```
+
+::: tip
+Setting <b>genproclimit=0</b> makes the daemon try to stake using the available coins.
+:::
 
 ## keypool
 

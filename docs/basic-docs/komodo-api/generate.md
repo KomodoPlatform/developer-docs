@@ -101,12 +101,12 @@ Response:
 
 **setgenerate generate ( genproclimit )**
 
-The `setgenerate` method allows the user to set the `generate` property in the coin daemon to `true` or `false`, thus turning generation (mining) on or off.
+The `setgenerate` method allows the user to set the `generate` property in the coin daemon to `true` or `false`, thus turning generation (mining/staking) on or off.
 
 Generation is limited to [`genproclimit`](../installations/common-runtime-parameters.html#genproclimit) processors. Set `genproclimit` to `-1` to use maximum available processors.
 
 ::: tip
-See also the <b>getgenerate</b> method to query the current setting, and <b>genproclimit</b> for setting processor default parameters.
+See also the [<b>getgenerate</b>](../komodo-api/generate.html#getgenerate) method to query the current setting, and [<b>genproclimit</b>](../installations/common-runtime-parameters.html#genproclimit) for setting the default number of processors the daemon uses through thr `.conf` file.
 :::
 
 ### Arguments:
@@ -124,7 +124,7 @@ See also the <b>getgenerate</b> method to query the current setting, and <b>genp
 
 #### :pushpin: Examples:
 
-Turn on generation with maximum available processors:
+##### Turn on mining with maximum available processors:
 
 Command:
 
@@ -138,7 +138,35 @@ Response:
 (none)
 ```
 
-Check the setting:
+##### Turn on staking:
+
+Command:
+
+```bash
+./komodo-cli setgenerate true 0
+```
+
+Response:
+
+```bash
+(none)
+```
+
+##### Turn on mining with 4 threads:
+
+Command:
+
+```bash
+./komodo-cli setgenerate true 4
+```
+
+Response:
+
+```bash
+(none)
+```
+
+##### Check the setting:
 
 Command:
 
@@ -152,7 +180,7 @@ Response:
 true
 ```
 
-Turn off generation:
+##### Turn off generation:
 
 Command:
 
@@ -166,7 +194,7 @@ Response:
 (none)
 ```
 
-Turning the setting on via json rpc:
+##### Turning the setting on via json rpc:
 
 Command:
 
