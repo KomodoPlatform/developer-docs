@@ -38,17 +38,25 @@ An additional fraction of a coin will be added to the initial supply based on th
 
 #### :pushpin: Examples:
 
-A simple asset chain with pre-mined coins and on-demand block generation.
+A simple asset chain with pre-mined coins and a block reward of 0.0005.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=50000 &
 ```
 
 ## ac_reward
 
+::: warning
+Komodo recommends that this parameter be included on all asset chains. Please see below for additional notes.
+:::
+
 This is the block reward for each mined block, given in satoshis.
 
-If this is not set, the block reward will be `10000` satoshis and blocks will be on-demand after block 127 (a new block will not be mined unless there is a transaction in the mempool).
+If both `ac_reward` and `ac_staked` are not set, the default block reward will be `10000` satoshis and blocks will be on-demand after block 127 (a new block will not be mined unless there is a transaction in the mempool).
+
+Komodo recommends that `ac_reward` be included in all asset chains. This prevents the asset chain from becoming an on-demand blockchain, and therefore this increases the asset chain's security.
+
+To make an asset chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The asset chain's first block will have a block reward of one, after which the `ac_reward` value will end, as defined by the `ac_end=1` value. 
 
 #### :pushpin: Examples:
 
@@ -58,7 +66,7 @@ A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Note that
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 &
 ```
 
-A 0 coin pre-mine, with a 1 coin block reward that does not end. This is an example of a pure PoW coin without any pre-mine.
+A 0 coin pre-mine with a 1-coin block reward that does not end. This is an example of pure PoW asset chain that has no pre-mined coins.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=100000000 &
@@ -70,16 +78,32 @@ A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decrea
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
 ```
 
+## ac_blocktime
+
+This parameter sets the average time (in seconds) by which a new block should be mined.
+
+If this parameter is not included, the default value is `ac_blocktime=60`.
+
+When the value of `ac_blocktime` is less than `60`, the asset chain's block time will stabilize within less than twelve hours after launch. If the asset chain's `ac_blocktime` value is greater than `60`, the asset chain's block time can require several days to stabilize. 
+
+#### :pushpin: Examples:
+
+A 777777 coin pre-mine with a 1-coin block reward and a block speed of 20 seconds.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 -ac_blocktime=20 &
+```
+
 ## ac_end
 
 This is the block height at which block rewards will end. Every block after this height will have 0 block reward (this means that, assuming all other settings are default, the only incentive to mine a new block will be transaction fees).
 
 #### :pushpin: Examples:
 
-A 777777-coin pre-mine, with a default block reward of 0.0001 coin, and on-demand blocks after block 128. The block reward ends at block 25000.
+A 777777-coin pre-mine, with a block reward of 0.0005 coin, and on-demand blocks after block 128. The block reward ends at block 25000.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_end=25000 &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=50000 -ac_end=25000 &
 ```
 
 A 777777-coin pre-mine, with a 5-coin block reward, and the block reward ends at block 200.
@@ -326,7 +350,7 @@ The `ac_cc` parameter sets the network cluster on which the chain can interact w
 
 Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one asset chain can be directly transferred to any other asset chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
 
-Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, the cross-chain fungibility feature requires it.
+Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, cross-chain transaction validation and its dependent features, including cross-chain fungibility, require notarization.
 
 ### ac_cc=0
 
