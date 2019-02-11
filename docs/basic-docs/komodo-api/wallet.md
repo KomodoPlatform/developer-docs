@@ -2,9 +2,9 @@
 
 The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
-## sigaddress
+## addmultisigaddress
 
-**sigaddress nrequired [ "key", ... ] \( "account" )**
+**addmultisigaddress nrequired [ "key", ... ] \( "account" )**
 
 The `addmultisigaddress` method adds a multi-signature address to the wallet, where `nrequired` indicates the number of keys (out of the total provided) required to execute a transaction.
 
@@ -227,29 +227,31 @@ Response:
 
 **encryptwallet "passphrase"**
 
-::: warning
-Wallet encryption is DISABLED. This call always fails.
-:::
-
 The `encryptwallet` method encrypts the wallet with the indicated `passphrase`.
 
-This method is for first-time encryption only. After this, any calls that interact with private keys, such as sending or signing, will require the passphrase to be set prior to making these calls.
+:::tip
+This feature is available for the Komodo blockchain and any assetchain with <b>-ac_public</b> enabled. Wallets of assetchains which have private transactions enabled cannot use this feature.
+:::
 
-::: tip
-Using the <b>encryptwallet</b> method will shutdown the server.
+For a more involved guide, see: [Encrypt Komodo's wallet.dat File](https://docs.komodoplatform.com/komodo/encrypt-wallet.html)
+
+This method is for first-time encryption only. After this, any calls that interact with private keys, such as: making a transaction, dumping a privatekey of an address or signing, will require the passphrase to be input prior to calling the corresponding RPC.
+
+::: warning
+Using the <b>encryptwallet</b> method will shutdown the Komodo daemon (`komodod`).
 :::
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"passphrase"                                 |(string)                     |the passphrase with which to encrypt the wallet; it must be at least 1 character, but should be long
+"passphrase"                                 |(string)                     |the passphrase with which to encrypt the wallet; it must be at least 1 character, but is recommended to be long
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+(none)                                       |(string)                    |a notice that the server is stopping and that a new backup is to be made; the wallet is now encrypted
 
 #### :pushpin: Examples:
 
@@ -264,15 +266,21 @@ Command:
 Response:
 
 ```bash
-(disabled)
+wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.
 ```
 
-Set the passphrase to use the wallet, such as for signing or sending coins:
+Input the passphrase to use the wallet, such as for making transactions or signing messages:
+
+::: tip
+<b>Usage</b>: walletpassphrase "passphrase" timeout
+:::
+
+To unlock the wallet for 60 seconds:
 
 Command:
 
 ```bash
-./komodo-cli walletpassphrase "mypassphrase"
+./komodo-cli walletpassphrase "mypassphrase" 60
 ```
 
 Response:
@@ -306,7 +314,7 @@ Command:
 Response:
 
 ```bash
-(disabled)
+(No response)
 ```
 
 As a json rpc call:
@@ -3902,7 +3910,7 @@ Response:
 
 **z_sendmany "fromaddress" [ { "address": ..., "amount": ... }, ... ] \( minconf ) ( fee )**
 
-The `z_sendmany` method sends one or more transactions at once, and allows for sending transactions of types `t --> z`, `z --> z`, `z --> t`. It is the principle method for dealing with shielded `z` transactions in the Komodo ecosystem.
+The `z_sendmany` method sends one or more transactions at once, and allows for sending transactions of types `t --> t`, `t --> z`, `z --> z`, `z --> t`. It is the principle method for dealing with shielded `z` transactions in the Komodo ecosystem.
 
 The `amount` values are double-precision floating point numbers. Change from a t address flows to a new t address address, while change from z address returns to itself. When sending coinbase utxos to a z address, change is not allowed. The entire value of the utxo(s) must be consumed. Currently, the maximum number of z address outputs is 54 due to transaction-size limits.
 
