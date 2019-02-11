@@ -227,29 +227,31 @@ Response:
 
 **encryptwallet "passphrase"**
 
-::: warning
-Wallet encryption is DISABLED. This call always fails.
-:::
-
 The `encryptwallet` method encrypts the wallet with the indicated `passphrase`.
 
-This method is for first-time encryption only. After this, any calls that interact with private keys, such as sending or signing, will require the passphrase to be set prior to making these calls.
+:::tip
+This feature is available for the Komodo blockchain and any assetchain with <b>-ac_public</b> enabled. Wallets of assetchains which have private transactions enabled cannot use this feature.
+:::
 
-::: tip
-Using the <b>encryptwallet</b> method will shutdown the server.
+For a more involved guide, see: [Encrypt Komodo's wallet.dat File](https://docs.komodoplatform.com/komodo/encrypt-wallet.html)
+
+This method is for first-time encryption only. After this, any calls that interact with private keys, such as: making a transaction, dumping a privatekey of an address or signing, will require the passphrase to be input prior to calling the corresponding RPC.
+
+::: warning
+Using the <b>encryptwallet</b> method will shutdown the Komodo daemon (`komodod`).
 :::
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"passphrase"                                 |(string)                     |the passphrase with which to encrypt the wallet; it must be at least 1 character, but should be long
+"passphrase"                                 |(string)                     |the passphrase with which to encrypt the wallet; it must be at least 1 character, but is recommended to be long
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-(none)                                       |                             |
+(none)                                       |(string)                    |a notice that the server is stopping and that a new backup is to be made; the wallet is now encrypted
 
 #### :pushpin: Examples:
 
@@ -264,15 +266,21 @@ Command:
 Response:
 
 ```bash
-(disabled)
+wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.
 ```
 
-Set the passphrase to use the wallet, such as for signing or sending coins:
+Input the passphrase to use the wallet, such as for making transactions or signing messages:
+
+::: tip
+<b>Usage</b>: walletpassphrase "passphrase" timeout
+:::
+
+To unlock the wallet for 60 seconds:
 
 Command:
 
 ```bash
-./komodo-cli walletpassphrase "mypassphrase"
+./komodo-cli walletpassphrase "mypassphrase" 60
 ```
 
 Response:
@@ -306,7 +314,7 @@ Command:
 Response:
 
 ```bash
-(disabled)
+(No response)
 ```
 
 As a json rpc call:
