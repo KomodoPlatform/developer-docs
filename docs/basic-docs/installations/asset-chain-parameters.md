@@ -26,7 +26,7 @@ This is the amount of pre-mined coins you would like the chain to have.
 
 The node that sets [`gen`](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
 
-If only `ac_supply` is set and `ac_reward` or `ac_staked` not used, this will be an on-demand chain with default block reward of 0.0001 coins. A new block will be mined by miners when there is a transaction on the mempool.
+If only `ac_supply` is set and neither [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) nor [`ac_staked`](../installations/asset-chain-parameters.html#ac-staked) are used, this will be an on-demand chain with a default block reward of **0.0001 coins**. A new block will be mined by miners when there is a transaction in the mempool.
 
 If `ac_supply` is not set, [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [`ac_founders`](../installations/asset-chain-parameters.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
 
@@ -58,7 +58,7 @@ A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Note that
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 &
 ```
 
-A 0 coin pre-mine, with a 1 coin block reward that does not end. This is an example of pure PoW coin without pre-mine.
+A 0 coin pre-mine, with a 1 coin block reward that does not end. This is an example of a pure PoW coin without any pre-mine.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=100000000 &
@@ -330,7 +330,11 @@ Most functionalities enabled by `ac_cc` can function with or without Komodo's no
 
 ### ac_cc=0
 
-Setting `ac_cc=0` disables CryptoConditions on the asset chain entirely. It is recommended NOT to use `ac_cc=0` for any chain that you do not wish to use CryptoConditions. Not using this param on a chain will have similar effect.
+Setting `ac_cc=0` disables CryptoConditions on the asset chain entirely. 
+
+::: tip
+It is recommended to <b>NOT</b> use `ac_cc=0` for a chain that you do not wish to enable CryptoConditions. Simply not using this param on a chain will have similar effect.
+:::
 
 ### ac_cc=1
 
@@ -356,7 +360,7 @@ For example, an asset chain set to `ac_cc=201` in its parameters can interact wi
 * If <b>N = 0</b>, CryptoConditions is disabled
 * If <b>N > 0</b>, CryptoConditions is enabled
 * If <b>N = 1</b>, on-chain CryptoConditions is active, cross-chain validation is disabled
-* If <b>N >= 2 and <= 99</b>, the chain allows for non-fungible cross-chain contracts within all other chains bearing the same N value
+* If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in the different chains are non-fungible across chains.
 * If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
 :::
 
