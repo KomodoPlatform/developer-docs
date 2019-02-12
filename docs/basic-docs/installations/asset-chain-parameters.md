@@ -26,8 +26,6 @@ This is the amount of pre-mined coins you would like the chain to have.
 
 The node that sets [`gen`](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
 
-If only `ac_supply` is set and neither [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) nor [`ac_staked`](../installations/asset-chain-parameters.html#ac-staked) are used, this will be an on-demand chain with a default block reward of **0.0001 coins**. A new block will be mined by miners when there is a transaction in the mempool.
-
 If `ac_supply` is not set, [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [`ac_founders`](../installations/asset-chain-parameters.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
 
 The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
@@ -66,7 +64,7 @@ A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Note that
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 &
 ```
 
-A 0 coin pre-mine with a 1-coin block reward that does not end. This is an example of pure PoW asset chain that has no pre-mined coins.
+A 0 coin pre-mine with a 1-coin block reward that does not end. This is an example of a pure PoW asset chain that has no pre-mined coins.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=100000000 &
@@ -100,7 +98,7 @@ This is the block height at which block rewards will end. Every block after this
 
 #### :pushpin: Examples:
 
-A 777777-coin pre-mine, with a block reward of 0.0005 coin, and on-demand blocks after block 128. The block reward ends at block 25000.
+A 777777-coin pre-mine, with a block reward of 0.0005 coin. The block reward ends at block 25000.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=50000 -ac_end=25000 &
@@ -357,7 +355,7 @@ Most functionalities enabled by `ac_cc` can function with or without Komodo's no
 Setting `ac_cc=0` disables CryptoConditions on the asset chain entirely. 
 
 ::: tip
-It is recommended to <b>NOT</b> use `ac_cc=0` for a chain that you do not wish to enable CryptoConditions. Simply not using this param on a chain will have similar effect.
+It is better to <b>NOT</b> use `ac_cc=0` for an asset chain where CryptoConditions should not be enabled. Omitting the `ac_cc` parameter altogether will achieve the same result.
 :::
 
 ### ac_cc=1
@@ -384,7 +382,7 @@ For example, an asset chain set to `ac_cc=201` in its parameters can interact wi
 * If <b>N = 0</b>, CryptoConditions is disabled
 * If <b>N > 0</b>, CryptoConditions is enabled
 * If <b>N = 1</b>, on-chain CryptoConditions is active, cross-chain validation is disabled
-* If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in the different chains are non-fungible across chains.
+* If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in each asset chain are non-fungible across chains.
 * If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
 :::
 
