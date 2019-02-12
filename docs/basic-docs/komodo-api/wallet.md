@@ -231,15 +231,15 @@ Response:
 Using the `encryptwallet` method will shutdown the Komodo daemon (`komodod`).
 :::
 
+:::tip
+This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
+:::
+
 The `encryptwallet` method encrypts the wallet with the indicated `passphrase`.
 
 For more information, please see these instructions: [Encrypt Komodo's wallet.dat File](https://docs.komodoplatform.com/komodo/encrypt-wallet.html)
 
-This method is for first-time encryption only. After the first encryption, any calls that interact with private keys will require the passphrase prior to calling the corresponding method. This includes methods that create a transaction, dump a private key for an address, sign a transaction, etc.
-
-:::tip
-This feature is available for the Komodo blockchain and any assetchain with `-ac_public` enabled. Wallets of asset chains which have private transactions enabled cannot use this feature.
-:::
+This method is for first-time encryption only. After the first encryption, any calls that interact with private keys will require the passphrase via [`walletpassphrase`](../komodo-api/wallet.html#walletpassphrase) prior to calling the corresponding method. This includes methods that create a transaction, dump a private key for an address, sign a transaction, etc.
 
 ### Arguments:
 
@@ -2657,7 +2657,11 @@ Response:
 **walletlock**
 
 ::: tip
-The `walletlock` method is not visible in via `help` rpc method or active until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+The `walletlock` method is neither active nor visible in the `help` method until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+:::
+
+:::tip
+This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
 :::
 
 The `walletlock` method re-locks a wallet that has a passphrase enabled via [`encryptwallet`](../komodo-api/wallet.html#encryptwallet). 
@@ -2666,7 +2670,7 @@ The `walletlock` method re-locks a wallet that has a passphrase enabled via [`en
 
 Structure|Type|Description
 ---------|----|-----------
-(none) ||
+(none) | |
 
 ### Response:
 
@@ -2690,10 +2694,14 @@ Response:
 
 ## walletpassphrase
 
-**walletpassphrase passphrase (timeout)**
+**walletpassphrase "passphrase" (timeout)**
 
 ::: tip
-The `walletlock` method is not visible in via `help` rpc method or active until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+The `walletpassphrase` method is neither active nor visible in the `help` method until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+:::
+
+:::tip
+This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
 :::
 
 The `walletpassphrase` method unlocks the wallet using the passphrase that was set by the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) method. 
@@ -2704,8 +2712,8 @@ The `timeout` argument can be included to limit the length of time (in seconds) 
 
 Structure|Type|Description
 ---------|----|-----------
-passphrase                                  |(string)                                   |the passphrase that was set by the `encryptwallet` method
-timeout                                     |(number in seconds)                       |the amount of time for which the wallet should remember the passphrase
+"passphrase"                                  |(string)                                   |the passphrase that was set by the `encryptwallet` method
+timeout                                     |(number in seconds, optional)                       |the amount of time for which the wallet should remember the passphrase
 
 ### Response:
 
@@ -2719,6 +2727,47 @@ Command:
 
 ```bash
 ./komodo-cli walletpassphrase 
+```
+
+Response:
+
+```bash
+(none)
+```
+
+## walletpassphrasechange
+
+**walletpassphrasechange "oldpassphrase" "newpassphrase"**
+
+::: tip
+The `walletpassphrasechange` method is neither active nor visible in the `help` method until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+:::
+
+:::tip
+This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
+:::
+
+The `walletpassphrasechange` method changes `"oldpassphrase"` to `"newpassphrase"`.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"oldpassphrase"             |(string)           |the old passphrase
+"newpassphrase"             |(string)           |the new passphrase
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+(none) ||
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli walletpassphrasechange "oldpassphrase" "newpassphrase"
 ```
 
 Response:
