@@ -54,7 +54,7 @@ If both `ac_reward` and `ac_staked` are not set, the default block reward will b
 
 Komodo recommends that `ac_reward` be included in all asset chains. This prevents the asset chain from becoming an on-demand blockchain, and therefore this increases the asset chain's security.
 
-To make an asset chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The asset chain's first block will have a block reward of one, after which the `ac_reward` value will end, as defined by the `ac_end=1` value. 
+To make an asset chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The asset chain's first block will have a block reward of one satoshi, after which the `ac_reward` value will end. 
 
 #### :pushpin: Examples:
 
