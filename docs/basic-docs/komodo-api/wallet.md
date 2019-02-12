@@ -227,35 +227,36 @@ Response:
 
 **encryptwallet "passphrase"**
 
-The `encryptwallet` method encrypts the wallet with the indicated `passphrase`.
-
-:::tip
-This feature is available for the Komodo blockchain and any assetchain with <b>-ac_public</b> enabled. Wallets of assetchains which have private transactions enabled cannot use this feature.
+::: warning
+Using the `encryptwallet` method will shutdown the Komodo daemon (`komodod`).
 :::
 
-For a more involved guide, see: [Encrypt Komodo's wallet.dat File](https://docs.komodoplatform.com/komodo/encrypt-wallet.html)
+The `encryptwallet` method encrypts the wallet with the indicated `passphrase`.
 
-This method is for first-time encryption only. After this, any calls that interact with private keys, such as: making a transaction, dumping a privatekey of an address or signing, will require the passphrase to be input prior to calling the corresponding RPC.
+For more information, please see these instructions: [Encrypt Komodo's wallet.dat File](https://docs.komodoplatform.com/komodo/encrypt-wallet.html)
 
-::: warning
-Using the <b>encryptwallet</b> method will shutdown the Komodo daemon (`komodod`).
+This method is for first-time encryption only. After the first encryption, any calls that interact with private keys will require the passphrase prior to calling the corresponding method. This includes methods that create a transaction, dump a private key for an address, sign a transaction, etc.
+
+:::tip
+This feature is available for the Komodo blockchain and any assetchain with `-ac_public` enabled. Wallets of asset chains which have private transactions enabled cannot use this feature.
 :::
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"passphrase"                                 |(string)                     |the passphrase with which to encrypt the wallet; it must be at least 1 character, but is recommended to be long
+passphrase                                 |(string)                     |the passphrase for wallet encryption; the passphrase must be at least 1 character, but should be many
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |(string)                    |a notice that the server is stopping and that a new backup is to be made; the wallet is now encrypted
+| Text Response |
+| ------------- |
+| wallet encrypted | 
+| Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup. |
 
 #### :pushpin: Examples:
 
-Encrypt your wallet:
+##### Encrypt your wallet:
 
 Command:
 
@@ -269,13 +270,7 @@ Response:
 wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.
 ```
 
-Input the passphrase to use the wallet, such as for making transactions or signing messages:
-
-::: tip
-<b>Usage</b>: walletpassphrase "passphrase" timeout
-:::
-
-To unlock the wallet for 60 seconds:
+##### Unlock the wallet for 60 seconds
 
 Command:
 
@@ -289,21 +284,7 @@ Response:
 (disabled)
 ```
 
-Enter a test command like `signmessage`:
-
-Command:
-
-```bash
-./komodo-cli signmessage "address" "test message"
-```
-
-Response:
-
-```bash
-(disabled)
-```
-
-Lock the wallet again by removing the passphrase:
+##### Lock the wallet again by removing the passphrase:
 
 Command:
 
@@ -328,16 +309,18 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 Response:
 
 ```bash
-(disabled)
+{
+    "result":"wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.",
+    "error":null,
+    "id":"curltest"
+}
 ```
 
 ## getaccount
 
 **getaccount "address"**
 
-::: tip
-The <b>getaccount</b> method returns the account associated with the given address.
-:::
+The `getaccount` method returns the account associated with the given address.
 
 ### Arguments:
 
@@ -2667,6 +2650,81 @@ Response:
   "error": null,
   "id": "curltest"
 }
+```
+
+## walletlock
+
+**walletlock**
+
+::: tip
+The `walletlock` method is not visible in via `help` rpc method or active until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+:::
+
+The `walletlock` method re-locks a wallet that has a passphrase enabled via [`encryptwallet`](../komodo-api/wallet.html#encryptwallet). 
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+(none) ||
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+(none) | | 
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli walletlock
+```
+
+Response:
+
+```bash
+(none)
+```
+
+## walletpassphrase
+
+**walletpassphrase passphrase (timeout)**
+
+::: tip
+The `walletlock` method is not visible in via `help` rpc method or active until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+:::
+
+The `walletpassphrase` method unlocks the wallet using the passphrase that was set by the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) method. 
+
+The `timeout` argument can be included to limit the length of time (in seconds) the wallet will remain unlocked.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+passphrase                                  |(string)                                   |the passphrase that was set by the `encryptwallet` method
+timeout                                     |(number in seconds)                       |the amount of time for which the wallet should remember the passphrase
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+(none) | | 
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli walletpassphrase 
+```
+
+Response:
+
+```bash
+(none)
 ```
 
 ## z_exportkey

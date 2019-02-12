@@ -1085,14 +1085,12 @@ Response:
 
 The `getspentinfo` method returns the transaction id and index where the given output is spent. It requires [`spentindex`](../installations/common-runtime-parameters.html#spentindex) to be enabled.
 
-
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
 "txid"                                       |(string)                     |the hex string of the txid
 "index"                                      |(number)                     |the output's index
-
 
 ### Response:
 
