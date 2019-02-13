@@ -251,8 +251,7 @@ passphrase                                 |(string)                     |the pa
 
 | Text Response |
 | ------------- |
-| wallet encrypted | 
-| Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup. |
+| wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup. |
 
 #### :pushpin: Examples:
 
