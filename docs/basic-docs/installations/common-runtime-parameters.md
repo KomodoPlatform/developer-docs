@@ -324,12 +324,6 @@ Using gen as a runtime parameter to mine using 4 threads:
 ./komodod -gen -genproclimit=4
 ```
 
-Using gen as a default value in the coin's .conf file to mine using 2 threads:
-
-```
-gen=2
-```
-
 ## listen
 
 `listen` instructs the daemon to listen for RPC calls on the network. It is enabled by default, except when `connect` is used.

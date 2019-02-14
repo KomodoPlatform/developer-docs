@@ -54,7 +54,7 @@ If both `ac_reward` and `ac_staked` are not set, the default block reward will b
 
 Komodo recommends that `ac_reward` be included in all asset chains. This prevents the asset chain from becoming an on-demand blockchain, and therefore this increases the asset chain's security.
 
-To make an asset chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The asset chain's first block will have a block reward of one satoshi, after which the `ac_reward` value will end. 
+To make an asset chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The asset chain's first block will reward only the `-ac_supply` value, after which the `ac_reward` value will be `0`. 
 
 #### :pushpin: Examples:
 
@@ -142,7 +142,7 @@ This is the formula that `ac_decay` follows:
 block_reward_after = block_reward_before * ac_decay / 100000000;
 ```
 
-For example, if this parameter is set to `75000000`, at each "halving" the block reward will drop by 25% of its previous value.
+For example, if this parameter is set to `75000000`, at each "halving" the block reward will drop to 75% of its previous value.
 
 #### :pushpin: Examples:
 
@@ -259,7 +259,7 @@ Set `ac_founders=1` to stay compatible with most straum implementations. Any oth
 
 The `ac_pubkey` parameter designates a pubkey for receiving payments from the network. These payments can come in the genesis block, in all blocks mined thereafter, and from every transaction on the network.
 
-This parameter is not inteded for isolated use. It should only be activated on chains that also use at least one of the following parameters: `ac_perc`, `ac_founders`, or `ac_import=PUBKEY`.
+This parameter is not intended for isolated use. It should only be activated on chains that also use at least one of the following parameters: `ac_perc`, `ac_founders`, or `ac_import=PUBKEY`.
 
 The `pubkey` must be a 66 character string (a compressed pubkey). You can find this pubkey for any address by using the [`validateaddress`](../komodo-api/util.html#validateaddress) command, and searching for the returned `pubkey` property. The first two digits of a compressed `pubkey` are only either `02` or `03`. (The corresponding `private key` must be present/imported to the wallet before using `validateaddress`.)
 
