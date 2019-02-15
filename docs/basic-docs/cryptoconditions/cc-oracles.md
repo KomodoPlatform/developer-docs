@@ -516,7 +516,7 @@ After the transaction confirms, use `oraclesinfo` to output registration informa
 Structure|Type|Description
 ---------|----|-----------
 oracletxid                                   |(string)                     |the unique identifying transaction id of the oracle
-datafee (numbers) the fee required of a subscriber for each data point the publisher publishes in this oracle
+datafee                                      |(numbers)                    |the fee required of a subscriber for each data point the publisher publishes in this oracle
 
 ### Response:
 
@@ -692,7 +692,7 @@ Response:
 
 ## oraclessubscribe
 
-**oraclessubscribe oracletxid publisher datafee**
+**oraclessubscribe oracletxid publisher amount**
 
 The user executes `oraclessubscribe` to subscribe to a publisher of an oracle plan.
 
@@ -702,13 +702,17 @@ The method returns a hex value which must then be broadcast using the [`sendrawt
 
 The `sendrawtransaction` method then returns a unique txid, also called the `oraclesubscribtiontxid`, or the id of the oracle subscription transaction. This can be used for further development purposes.
 
+::: tip
+If the **datafee** is 10 COINS and the `amount` submitted is 1000 COINS, the publisher can publish data 100 times based on this amount. 
+:::
+
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
 oracletxid                                   |(string)                     |the unique identifying transaction id of the oracle
 publisher                                    |(string)                     |the unique publisher id, which can be found using the oraclesinfo method
-datafee                                      |(number)                     |the amount of funds the subscriber commits to paying for each data upload from the publisher; this amount is immediately withdrawn from the user's wallet
+amount                                      |(number)                     |the total amount of funds the subscriber commits to pay for data upload by the publisher; this amount is immediately withdrawn from the user's wallet
 
 ### Response:
 

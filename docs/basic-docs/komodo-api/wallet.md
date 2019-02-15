@@ -2,9 +2,9 @@
 
 The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
-## sigaddress
+## addmultisigaddress
 
-**sigaddress nrequired [ "key", ... ] \( "account" )**
+**addmultisigaddress nrequired [ "key", ... ] \( "account" )**
 
 The `addmultisigaddress` method adds a multi-signature address to the wallet, where `nrequired` indicates the number of keys (out of the total provided) required to execute a transaction.
 
@@ -228,32 +228,34 @@ Response:
 **encryptwallet "passphrase"**
 
 ::: warning
-Wallet encryption is DISABLED. This call always fails.
+Using the `encryptwallet` method will shutdown the Komodo daemon (`komodod`).
+:::
+
+:::tip
+This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
 :::
 
 The `encryptwallet` method encrypts the wallet with the indicated `passphrase`.
 
-This method is for first-time encryption only. After this, any calls that interact with private keys, such as sending or signing, will require the passphrase to be set prior to making these calls.
+For more information, please see these instructions: [Encrypt Komodo's wallet.dat File](https://docs.komodoplatform.com/komodo/encrypt-wallet.html)
 
-::: tip
-Using the <b>encryptwallet</b> method will shutdown the server.
-:::
+This method is for first-time encryption only. After the first encryption, any calls that interact with private keys will require the passphrase via [`walletpassphrase`](../komodo-api/wallet.html#walletpassphrase) prior to calling the corresponding method. This includes methods that create a transaction, dump a private key for an address, sign a transaction, etc.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"passphrase"                                 |(string)                     |the passphrase with which to encrypt the wallet; it must be at least 1 character, but should be long
+passphrase                                 |(string)                     |the passphrase for wallet encryption; the passphrase must be at least 1 character, but should be many
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Text Response |
+| ------------- |
+| wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup. |
 
 #### :pushpin: Examples:
 
-Encrypt your wallet:
+##### Encrypt your wallet:
 
 Command:
 
@@ -264,15 +266,15 @@ Command:
 Response:
 
 ```bash
-(disabled)
+wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.
 ```
 
-Set the passphrase to use the wallet, such as for signing or sending coins:
+##### Unlock the wallet for 60 seconds
 
 Command:
 
 ```bash
-./komodo-cli walletpassphrase "mypassphrase"
+./komodo-cli walletpassphrase "mypassphrase" 60
 ```
 
 Response:
@@ -281,21 +283,7 @@ Response:
 (disabled)
 ```
 
-Enter a test command like `signmessage`:
-
-Command:
-
-```bash
-./komodo-cli signmessage "address" "test message"
-```
-
-Response:
-
-```bash
-(disabled)
-```
-
-Lock the wallet again by removing the passphrase:
+##### Lock the wallet again by removing the passphrase:
 
 Command:
 
@@ -306,7 +294,7 @@ Command:
 Response:
 
 ```bash
-(disabled)
+(No response)
 ```
 
 As a json rpc call:
@@ -320,16 +308,18 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 Response:
 
 ```bash
-(disabled)
+{
+    "result":"wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.",
+    "error":null,
+    "id":"curltest"
+}
 ```
 
 ## getaccount
 
 **getaccount "address"**
 
-::: tip
-The <b>getaccount</b> method returns the account associated with the given address.
-:::
+The `getaccount` method returns the account associated with the given address.
 
 ### Arguments:
 
@@ -2661,6 +2651,130 @@ Response:
 }
 ```
 
+## walletlock
+
+**walletlock**
+
+::: tip
+The `walletlock` method is neither active nor visible in the `help` method until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+:::
+
+:::tip
+This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
+:::
+
+The `walletlock` method re-locks a wallet that has a passphrase enabled via [`encryptwallet`](../komodo-api/wallet.html#encryptwallet). 
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+(none) | |
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+(none) | | 
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli walletlock
+```
+
+Response:
+
+```bash
+(none)
+```
+
+## walletpassphrase
+
+**walletpassphrase "passphrase" (timeout)**
+
+::: tip
+The `walletpassphrase` method is neither active nor visible in the `help` method until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+:::
+
+:::tip
+This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
+:::
+
+The `walletpassphrase` method unlocks the wallet using the passphrase that was set by the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) method. 
+
+The `timeout` argument can be included to limit the length of time (in seconds) the wallet will remain unlocked.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"passphrase"                                  |(string)                                   |the passphrase that was set by the `encryptwallet` method
+timeout                                     |(number in seconds, optional)                       |the amount of time for which the wallet should remember the passphrase
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+(none) | | 
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli walletpassphrase 
+```
+
+Response:
+
+```bash
+(none)
+```
+
+## walletpassphrasechange
+
+**walletpassphrasechange "oldpassphrase" "newpassphrase"**
+
+::: tip
+The `walletpassphrasechange` method is neither active nor visible in the `help` method until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+:::
+
+:::tip
+This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
+:::
+
+The `walletpassphrasechange` method changes `"oldpassphrase"` to `"newpassphrase"`.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+"oldpassphrase"             |(string)           |the old passphrase
+"newpassphrase"             |(string)           |the new passphrase
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+(none) ||
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli walletpassphrasechange "oldpassphrase" "newpassphrase"
+```
+
+Response:
+
+```bash
+(none)
+```
+
 ## z_exportkey
 
 **z_exportkey "z_address"**
@@ -3902,7 +4016,7 @@ Response:
 
 **z_sendmany "fromaddress" [ { "address": ..., "amount": ... }, ... ] \( minconf ) ( fee )**
 
-The `z_sendmany` method sends one or more transactions at once, and allows for sending transactions of types `t --> z`, `z --> z`, `z --> t`. It is the principle method for dealing with shielded `z` transactions in the Komodo ecosystem.
+The `z_sendmany` method sends one or more transactions at once, and allows for sending transactions of types `t --> t`, `t --> z`, `z --> z`, `z --> t`. It is the principle method for dealing with shielded `z` transactions in the Komodo ecosystem.
 
 The `amount` values are double-precision floating point numbers. Change from a t address flows to a new t address address, while change from z address returns to itself. When sending coinbase utxos to a z address, change is not allowed. The entire value of the utxo(s) must be consumed. Currently, the maximum number of z address outputs is 54 due to transaction-size limits.
 

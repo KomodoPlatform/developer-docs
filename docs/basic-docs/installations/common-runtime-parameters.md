@@ -303,18 +303,25 @@ connect=69.164.218.197
 
 See also [`setgenerate`](../komodo-api/generate.html#setgenerate).
 
+::: warning
+This parameter should be avoided. Instead, start the daemon without the `-gen` parameter. Once the asset chain is launched, wait until the blockchain is synced to the current block and then execute the [`setgenerate`](../komodo-api/generate.html#setgenerate) method. The sync status of the blockchain can be found by executing the [`getinfo`](../komodo-api/control.html#getinfo) method and comparing the `blocks` and `longestchain` properties.
+:::
+
+::: tip
+* If the `genproclimit` property is not specified after the `gen` option, the daemon mines using 1 thread. 
+* To mine using all available threads, use: `-genproclimit=-1`
+:::
+
+::: tip
+`gen=0` in the .conf file on an asset chain where `ac_staked` is enabled sets the daemon to stake using all available coins
+:::
+
 #### :pushpin: Examples:
 
-Using gen as a runtime parameter:
+Using gen as a runtime parameter to mine using 4 threads:
 
 ```bash
-komodod -gen
-```
-
-Using gen as a default value in the coin's .conf file:
-
-```
-gen=0
+./komodod -gen -genproclimit=4
 ```
 
 ## listen
@@ -477,14 +484,18 @@ sendfreetransactions=0
 
 ## genproclimit
 
-`genproclimit` sets the number of threads to be used for mining. To initiate all cores, use the value `-1`.
+`genproclimit` sets the number of threads to be used for mining. To use all the available processors, use the value `-1`.
+
+::: tip
+Setting `genproclimit=0` instructs the daemon to stake (if possible) using all available coins.
+:::
 
 #### :pushpin: Examples:
 
-Using genproclimit as a default value in the coin's .conf file:
+Using genproclimit as a default value in the coin's .conf file, to mine using 2 threads:
 
 ```
-genproclimit=1
+genproclimit=2
 ```
 
 ## keypool

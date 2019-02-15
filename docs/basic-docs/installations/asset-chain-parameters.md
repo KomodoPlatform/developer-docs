@@ -2,7 +2,7 @@
 
 The Komodo platform offers various default customizations for determining the underlying nature of your asset chain. The desired combination of parameters should be included with the `komodod` execution every time the asset-chain daemon is launched.
 
-Changing these customizations at a later time is possible, but this typically requires a hard fork of your asset chain. In general, it is best to have your asset chain's parameters finalized before decentralizing the ownership of your coin. Should you discover a need to change these parameters after the fact, please reach out to our development team for assistance.
+Changing these customizations at a later time is possible, but this typically requires a hard-fork of your asset chain. In general, it is best to have your asset chain's parameters finalized before decentralizing the ownership of your coin. Should you discover a need to change these parameters after the fact, please reach out to our development team for assistance.
 
 ## ac_name
 
@@ -36,17 +36,25 @@ An additional fraction of a coin will be added to the initial supply based on th
 
 #### :pushpin: Examples:
 
-A simple asset chain
+A simple asset chain with pre-mined coins and a block reward of 0.0005.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=50000 &
 ```
 
 ## ac_reward
 
+::: warning
+Komodo recommends that this parameter be included on all asset chains. Please see below for additional notes.
+:::
+
 This is the block reward for each mined block, given in satoshis.
 
-If this is not set, the block reward will be `10000` satoshis and blocks will be [on-demand](../installations/creating-asset-chains.html#secure-this-asset-chain-with-delayed-proof-of-work) after block 127 (a new block will not be mined unless there is a transaction in the mempool).
+If both `ac_reward` and `ac_staked` are not set, the default block reward will be `10000` satoshis and blocks will be on-demand after block 127 (a new block will not be mined unless there is a transaction in the mempool).
+
+Komodo recommends that `ac_reward` be included in all asset chains. This prevents the asset chain from becoming an on-demand blockchain, and therefore this increases the asset chain's security.
+
+To make an asset chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The asset chain's first block will reward only the `-ac_supply` value, after which the `ac_reward` value will be `0`. 
 
 #### :pushpin: Examples:
 
@@ -56,10 +64,34 @@ A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Note that
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 &
 ```
 
+A 0 coin pre-mine with a 1-coin block reward that does not end. This is an example of a pure PoW asset chain that has no pre-mined coins.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=100000000 &
+```
+
 A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
+```
+
+## ac_blocktime
+
+This parameter sets the average time (in seconds) by which a new block should be mined.
+
+If this parameter is not included, the default value is `ac_blocktime=60`.
+
+When the value of `ac_blocktime` is less than `60`, the asset chain's block time will stabilize within less than twelve hours after launch. If the asset chain's `ac_blocktime` value is greater than `60`, the asset chain's block time can require several days to stabilize. 
+
+When the value of `ac_blocktime` is less than `12` seconds (a high speed asset chain), the variances in network quality between consensus nodes (miners and stakers) can create difficulties in achieving a stable blockchain consensus. High-speed asset chains may function effectively on a LAN or other stable network, but Komodo recommends caution when attempting to manage a high-speed asset chain on the public Internet. 
+
+#### :pushpin: Examples:
+
+A 777777 coin pre-mine with a 1-coin block reward and a block speed of 20 seconds.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 -ac_blocktime=20 &
 ```
 
 ## ac_end
@@ -68,10 +100,10 @@ This is the block height at which block rewards will end. Every block after this
 
 #### :pushpin: Examples:
 
-A 777777-coin pre-mine, with a default block reward of 0.0001 coin, and on-demand blocks after block 128. The block reward ends at block 25000.
+A 777777-coin pre-mine, with a block reward of 0.0005 coin. The block reward ends at block 25000.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_end=25000 &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=50000 -ac_end=25000 &
 ```
 
 A 777777-coin pre-mine, with a 5-coin block reward, and the block reward ends at block 200.
@@ -110,7 +142,7 @@ This is the formula that `ac_decay` follows:
 block_reward_after = block_reward_before * ac_decay / 100000000;
 ```
 
-For example, if this parameter is set to `75000000`, at each "halving" the block reward will drop to 25% of its previous value.
+For example, if this parameter is set to `75000000`, at each "halving" the block reward will drop to 75% of its previous value.
 
 #### :pushpin: Examples:
 
@@ -227,7 +259,7 @@ Set `ac_founders=1` to stay compatible with most straum implementations. Any oth
 
 The `ac_pubkey` parameter designates a pubkey for receiving payments from the network. These payments can come in the genesis block, in all blocks mined thereafter, and from every transaction on the network.
 
-This parameter is not inteded for isolated use. It should only be activated on chains that also use at least one of the following parameters: `ac_perc`, `ac_founders, or `ac_import=PUBKEY`.
+This parameter is not intended for isolated use. It should only be activated on chains that also use at least one of the following parameters: `ac_perc`, `ac_founders`, or `ac_import=PUBKEY`.
 
 The `pubkey` must be a 66 character string (a compressed pubkey). You can find this pubkey for any address by using the [`validateaddress`](../komodo-api/util.html#validateaddress) command, and searching for the returned `pubkey` property. The first two digits of a compressed `pubkey` are only either `02` or `03`. (The corresponding `private key` must be present/imported to the wallet before using `validateaddress`.)
 
@@ -318,11 +350,15 @@ The `ac_cc` parameter sets the network cluster on which the chain can interact w
 
 Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one asset chain can be directly transferred to any other asset chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
 
-Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, the cross-chain fungibility feature requires it.
+Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, cross-chain transaction validation and its dependent features, including cross-chain fungibility, require notarization.
 
 ### ac_cc=0
 
-Setting `ac_cc=0` disables CryptoConditions on the asset chain entirely.
+Setting `ac_cc=0` disables CryptoConditions on the asset chain entirely. 
+
+::: tip
+It is better to <b>NOT</b> use `ac_cc=0` for an asset chain where CryptoConditions should not be enabled. Omitting the `ac_cc` parameter altogether will achieve the same result.
+:::
 
 ### ac_cc=1
 
@@ -348,7 +384,7 @@ For example, an asset chain set to `ac_cc=201` in its parameters can interact wi
 * If <b>N = 0</b>, CryptoConditions is disabled
 * If <b>N > 0</b>, CryptoConditions is enabled
 * If <b>N = 1</b>, on-chain CryptoConditions is active, cross-chain validation is disabled
-* If <b>N >= 2 and <= 99</b>, the chain allows for non-fungible cross-chain contracts within all other chains bearing the same N value
+* If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in each asset chain are non-fungible across chains.
 * If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
 :::
 
@@ -357,7 +393,7 @@ For example, an asset chain set to `ac_cc=201` in its parameters can interact wi
 A 777777 pre-mined chain with no smart contracts enabled.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=0 &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
 ```
 
 A 777777 pre-mined chain with smart contracts on-chain only; no cross-chain smart contracts.
@@ -502,7 +538,7 @@ By default, sapling will activate at block 61 on a newly created assetchain.
 
 This can also be used to activate sapling prior to block 61. (Activating sapling prior to block 61 should not be done on a chain intended for production use.)
 
-To disable sapling activation indefinitely, set `ac_sapling` to a block height beyond the expected life of the asset chain. For example, `-ac_sapling=5000000` will delay sapling activation to block `5000000`. 
+To delay sapling activation, set `ac_sapling` to a block height far in the future. For example, `-ac_sapling=5000000` will delay sapling activation to block `5000000`. At block `5000000` sapling will be activated.
 
 ## ac_timelock...
 
