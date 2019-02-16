@@ -340,7 +340,7 @@ Response:
 
 **heirlist**
 
-The `heiradd` method outputs a list of all available plans' fundingids.
+The `heiradd` method outputs a list of all available funding plan ids.
 
 ### Arguments:
 
