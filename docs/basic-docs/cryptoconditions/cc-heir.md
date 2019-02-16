@@ -368,6 +368,7 @@ Response:
 ## heiraddress
 
 **heiraddress pubkey**
+
 The `heiraddress` method shows user's address and balances for heir cc contract.
 
 ### Arguments:
