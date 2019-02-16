@@ -307,12 +307,12 @@ tokenid                                       |(string)                     |tok
 owner                                         |(string)                     |the owner's public key
 heir                                          |(string)                     |the heir's public key
 type                                          |(string)                     |type of this funding plan, 'coins' or 'tokens'
-lifetime                                      |(string)                     |total lifetime funding amount for this funding plan, in coins or tokens
-available                                     |(string)                     |amount available, in coins or tokens
-OwnerRemainderTokens                          |(string)                     |the owner's token amount remainder
-InactivityTimeSetting                         |(string)                     |the owner inactivity time set for this funding plan after which the heir is allowed to spend fund, in secs
-IsHeirSpendingAllowed                         |(string)                     |the flag, if the heir is allowed to spend funds, true or false
-InactivityTime                                |(string)                     |the owner real inactivity time, in secs
+lifetime                                      |(number)                     |total lifetime funding amount for this funding plan, in coins or tokens
+available                                     |(number)                     |amount available, in coins or tokens
+OwnerRemainderTokens                          |(number)                     |the owner's token amount remainder
+InactivityTimeSetting                         |(number)                     |the owner inactivity time set for this funding plan after which the heir is allowed to spend fund, in secs
+IsHeirSpendingAllowed                         |(boolean)                    |the flag, if the heir is allowed to spend funds, true or false
+InactivityTime                                |(number)                     |the owner real inactivity time, in secs
 memo                                          |(string)                     |a real world document (or link to the document and the document's hash) which contains the owner's requirements regarding the inherited funds
 
 
@@ -368,13 +368,13 @@ Response:
 ## heiraddress
 
 ** heiraddress pubkey**
-The `heiraddress` method adds more funds or donations to the funding plan.
+The `heiraddress` method shows user's address and balances for heir cc contract.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-pubkey                                       |(string)                     |pubkey in hexademical
+pubkey                                       |(string)                     |heir's pubkey in hexademical
 
 
 ### Response:
@@ -383,12 +383,13 @@ Structure|Type|Description
 ---------|----|-----------
 result                                       |(string)                     |whether the method executed successfully
 HeirCCaddress                                |(string)                     |taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey
-heirmarker                                   |(string)                     |the unmodified public address generated from the contract's privkey
-GatewaysPubkey                               |(string)                     |the pubkey for the gateways cc
-HeirCCassets                                 |(string)                     |this property is used for development purposes only and can otherwise be ignored
-CCaddress                                    |(string)                     |taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user
+CCbalance                                    |(number)                     |unspent amount on HeirCCaddress in coins
+HeirNormalAddress                            |(string)                     |the unmodified normal public address generated from the contract's privkey, used for markers
+HeirCC1of2Address                            |(string)                     |address for storage funds in coins spendable by owner and heir
+HeirCC1of2TokensAddress                      |(string)                     |address for storage funds in tokens spendable by owner and heir
 myCCaddress                                  |(string)                     |taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user
-myaddress                                    |(string)                     |the public address of the pubkey used to launch the chain
+myaddress                                    |(string)                     |the public normal address of the pubkey used to launch the chain
+mybalance                                    |(number)                     |my balance on myaddress in coins
 
 
 Command:
