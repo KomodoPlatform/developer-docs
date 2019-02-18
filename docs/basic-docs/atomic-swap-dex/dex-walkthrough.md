@@ -55,7 +55,7 @@ Make a file called `coins` in MM2 directory and place the following text into it
 [{"coin": "PIZZA","asset": "PIZZA","txversion":4,"rpcport": 11608},{"coin": "BEER","txversion":4,"asset": "BEER","rpcport": 8923}]
 ```
 
-#### userpass 
+#### RPC password 
 
 We also need to choose a password. 
 
@@ -70,10 +70,10 @@ We have our initial materials, let's launch the software.
 Look at the following command below, but don't execute it yet:
 
 ```
-stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999,\"client\":1, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSWORD_HERE\", \"coins\":$coins}" &
+stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"coins\":$coins, \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &
 ```
 
-Find the phrase, `YOUR_PASSWORD_HERE`. Replace that with your actual password, and then execute the command in the terminal.
+Replace `YOUR_PASSPHRASE_HERE` and `YOUR_PASSWORD_HERE` with your actual passphrase and password, and then execute the command in the terminal.
 
 Here is an approximate interpretation of the arguments in the command, to help you see what's happening:
 
@@ -81,19 +81,17 @@ Here is an approximate interpretation of the arguments in the command, to help y
 | -------- | ------- | ----------- |
 | gui | MM2GUI | this is a flag that can be ignored for now |
 | netid | 9999 | this tells MM2 which network to join. 9999 is a private test network we use here. 0 is the default network. |
-| passphrase | YOUR_PASSWORD_HERE | your password |
+| passphrase | YOUR_PASSPHRASE_HERE | your passphrase, coins private keys are derived from it allowing MM to send transactions from specific address |
+| rpc_password | YOUR_PASSWORD_HERE | your password for protected RPC methods (userpass) |
 | userhome | /${HOME#"/"} | the path to your home, called from your environment variables and entered as a regular expression |
 | coins | $coins (optional) | the coins that you would like to have available and taken from your environment variables, MM2 will load config from `coins` file if this argument is not set |
-| client | 1 | this tells MarketMaker 2.0 that you are here to buy (e.g. to act as an Alice node), rather than to sell (e.g. to act as a Bob node) |
 
 Having executed the command, you should see output similar to the following:
 
 ```
-userpass.(PLACEHOLDER FOR YOUR USERPASS) ← USERPASS FOR API CALLS!
 29 19:39:41, lp_coins:796] ticker = "BTC", method = Some("enable"), block_count = 0 😅 2019-01-29 20:39:41 +0100 [coin KMD no-conf] Warning, coin KMD is used without a corresponding configuration.
 cant open.(/root/.komodo/komodo.conf)
 29 19:39:41, lp_coins:796] ticker = "KMD", method = Some("enable"), block_count = 0
-userpass.(PLACEHOLDER FOR YOUR USERPASS) ← USERPASS FOR API CALLS!
 RPCport.7783 remoteport.7782, nanoports 47762 47772 47782
 29 19:39:41, peers:942] initialize] netid 9999 public key ab44ae49d2ff89295ee9a0574e89a2bdd7bfbb4f1a34f7d5c0256cf06e89485d preferred port 47773 drill false
 connected to push.(tcp://333.333.333.333:47762) pushsock.0 valid.1  | connected to sub.(tcp://333.333.333.333:47772) subsock.1 valid.1 numactive.1
@@ -121,22 +119,14 @@ If you see something similar, MarketMaker 2.0 is up and running!
 
 ## Setting userpass Environment Variable
 
-Before going too far, let's look back at the terminal output above, grab some information, and use it to make yet another environment variable.
+::: tip
+Userpass will be renamed to rpc_password for clarity in near future
+:::
+
+Make a new file in the `~/KomodoPlatform/target/debug` directory called `userpass` and enter the following text, including your rpc_password specified in MM config:
 
 ```
-userpass.(PLACEHOLDER FOR YOUR USERPASS) ← USERPASS FOR API CALLS!
-```
-
-This is found at the beginning of the terminal output, and you'll see different text in the `PLACEHOLDER FOR YOUR USERPASS` location.
-
-Select that text with your mouse and copy it. 
-
-(Normally, to copy in the terminal you need to hit `CTRL + SHIFT + C` on Windows/Linux, or `CMD + SHIFT + C` on MacOS).
-
-Make a new file in the `~/KomodoPlatform/target/debug` directory called `userpass` and enter the following text, including your userpass:
-
-```
-export userpass="YOUR_USERPASS"
+export userpass="RPC_PASSWORD"
 ```
 
 Save it, and then in the terminal execute:
