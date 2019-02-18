@@ -1,23 +1,29 @@
-# Smart Contract: Heir
+# Contract Module: Heir
 
-The idea of Heir cryptocondition (CC) contract is to allow crypto inheritance. A special 1of2 CC address is used, that is, one key of two is able to spend funds. This 1of2 address is funded and freely spendable by the funds creator (owner). The owner may add additional funds to the 1of2 address.
+The Heir module allows users to setup crypto inheritance. It uses a special `1of2` CC address, that is, one key of two is able to spend funds. This `1of2` address is funded and freely spendable by the creator of the fund (owner). The owner may also add additional funds to the `1of2` address at anytime.
 
-The heir is only allowed to spend after the specified by funds owner inactivity time has passed. This means that if the owner address doesn't spend any funds for some period, then it is time to allow the heir to spend fund from that 1of2 address. After the inactivity time has passed both the heir and owner may freely spend available funds. This is achieved by that that after the first heir spending, a special flag is set depicting that spending is allowed for the heir from now on, whether the owner adds more funds or spends them.
+The heir is allowed to claim the funds only after an `inactivity time` specified by the owner of the fund has passed. This means that if the owner address doesn't spend any funds for the specified `inactivity time` period, then it is time to allow the heir to claim funds from that `1of2` address. After the inactivity time has passed, both the heir and owner may freely claim available funds. This is achieved by setting a special flag in the first `heirclaim` transaction done by the heir, which signals that spending is allowed for the heir from now on, whether the owner adds more funds or spends them hereafter.
 
-Heir contract supports funding both in coins and tokens.
+Heir contract supports funding both in coins (The base coin of the chain) and tokens (On-chain assets created using the [Tokens](../cryptoconditions/cc-tokens.html) module. These can even be other CryptoCurrencies that have been brought onto this chain through the [Gateways](../cryptoconditions/cc-gateways.html) module).
 
-Note: when using Heir contract in a private chain, to make funds available for the heir, you should wait for inactivity time and add any arbitrary transaction to the chain (for the duration between owner tx and chain tip to be calculated correctly).
+The `heiradd` rpc call allows anyone to add funds to the funding plan (even from non-owner uxtos). Those additions will be considered as donations and will not be counted in calculation of the `inactivity time` period that is required to elapse before the heir is allowed to spend funds.
 
-The heiradd rpc call allows to add funds from non-owner uxtos. Those additions will be considered as donations and will not be accounted in calculation if heir is allowed to spend funds. The heiradd rpc call warns the user whether he is making a donation to the fund. The heiradd rpc call also would not allow to add funds from both owner and non-owner inputs simultaneously. In any case such fund additions will be considered as donations too.
+The `heiradd` rpc call warns the user that he is making a donation to the fund if he is neither the **owner** nor the **heir**.
+
+The `heiradd` rpc call doesn't allow addition of funds from both owner and non-owner inputs in a single transaction.
+
+::: warning
+If the owner manages to create a funding transaction manually using outputs belonging to the owner pubkey and another pubkey, then this transaction is considered as a donation and won't affect the calculation of `inactive-time` period.
+:::
 
 The flow of Heir cc plan is as follows:
 
-* Anyone can create a new plan using [`heirfund`](../cryptoconditions/cc-heir.html#heirfund)
-* Owner can add more funds or any other user can add donations to the funding plan using [`heiradd`](../cryptoconditions/cc-heir.html#heiradd)
-* Owner or Heir cam claim funds by either the owner or heir using [`heirclaim`](../cryptoconditions/cc-heir.html#heirclaim)
-* To get details of a particular funding plan, use [`heirinfo`](../cryptoconditions/cc-heir.html#heirinfo)
-* to get list of all funding plans, use [`heirlist`](../cryptoconditions/cc-heir.html#heirlist) 
-* to output heir cc addresses, use [`heiraddress`](../cryptoconditions/cc-heir.html#heiraddress)
+- Anyone can create a new plan using [heirfund](../cryptoconditions/cc-heir.html#heirfund)
+- Owner can add more funds or any other user can add donations to the funding plan using [heiradd](../cryptoconditions/cc-heir.html#heiradd)
+- Owner or Heir (Once `inactivity time` period is reached) can claim funds using [heirclaim](../cryptoconditions/cc-heir.html#heirclaim)
+- To get details of a particular funding plan, use [heirinfo](../cryptoconditions/cc-heir.html#heirinfo)
+- To get list of all funding plans, use [heirlist](../cryptoconditions/cc-heir.html#heirlist)
+- To output heir cc addresses, use [heiraddress](../cryptoconditions/cc-heir.html#heiraddress)
 
 ## heirfund
 
@@ -29,22 +35,22 @@ The method returns a hex value which must then be broadcast using the [`sendrawt
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-txfee                                        |(number)                     |transaction fee in sat, defaults to 10000 sat
-amount                                       |(number)                     |initial funds amount, in coins or tokens (dependent on if the tokenid parameter is present)
-name                                         |(string)                     |this heir funding plan name (arbitrary)
-heirpubkey                                   |(string)                     |the heir's public key hexademical
-inactivitytime                               |(number)                     |time in seconds, as this time has passed from the last owner activity on this plan, heir is allowed to spend funds
-memo                                         |(string)                     |a copy of a real world document with owner's requirements for the heir about funds (like a will). This field together with the plan's other fields is limited by 10000 bytes. To store documents of large sizes it is suggested to put into this 'memo' field a link to such document and its hash for verification.
-tokenid                                      |(string, optional)           |hexademical token id, if set, the funding is considered in tokens
+| Structure      | Type               | Description                                                                                                                                                                                                                                                                                                          |
+| -------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| txfee          | (number)           | transaction fee in sat, defaults to 10000 sat                                                                                                                                                                                                                                                                        |
+| amount         | (number)           | initial funds amount, in coins or tokens (dependent on if the tokenid parameter is present)                                                                                                                                                                                                                          |
+| name           | (string)           | this heir funding plan name (arbitrary)                                                                                                                                                                                                                                                                              |
+| heirpubkey     | (string)           | the heir's public key hexademical                                                                                                                                                                                                                                                                                    |
+| inactivitytime | (number)           | time in seconds, as this time has passed from the last owner activity on this plan, heir is allowed to spend funds                                                                                                                                                                                                   |
+| memo           | (string)           | a copy of a real world document with owner's requirements for the heir about funds (like a will). This field together with the plan's other fields is limited by 10000 bytes. To store documents of large sizes it is suggested to put into this 'memo' field a link to such document and its hash for verification. |
+| tokenid        | (string, optional) | hexademical token id, if set, the funding is considered in tokens                                                                                                                                                                                                                                                    |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+| Structure | Type     | Description                                                                                          |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result:   | (string) | whether the command succeeded                                                                        |
+| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples:
 
@@ -55,7 +61,6 @@ Step 1: Create a raw transaction (in coins) and get the HEX value
 ```
 
 Note: this example is for coins. For using tokens you need first to create tokens by `tokencreate` and pass the tokenid as the last param of `heirfund`
-
 
 Response from Step 1:
 
@@ -78,8 +83,8 @@ Response from Step 2:
 ```
 b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
 ```
-Please, wait until the tx is confirmed
 
+Please, wait until the tx is confirmed
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -203,39 +208,44 @@ The `heiradd` method adds more funds or donations to the funding plan.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-txfee                                        |(number)                     |transaction fee in sat, defaults to 10000 sat
-amount                                       |(number)                     |additional funds amount, in coins or tokens (dependent on if the tokenid parameter is present), resets inactivity time calculation
-fundintxid                                   |(string)                     |the id of the funding plan, the txid of heirfund transaction
+| Structure  | Type     | Description                                                                                                                        |
+| ---------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| txfee      | (number) | transaction fee in sat, defaults to 10000 sat                                                                                      |
+| amount     | (number) | additional funds amount, in coins or tokens (dependent on if the tokenid parameter is present), resets inactivity time calculation |
+| fundintxid | (string) | the id of the funding plan, the txid of heirfund transaction                                                                       |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
-
+| Structure | Type     | Description                                                                                          |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result:   | (string) | whether the command succeeded                                                                        |
+| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples:
 
 Step 1
+
 ```
 ./komodo-cli -ac_name=TESTAC heiradd 0 5 b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
 ```
+
 Response:
+
 ```
 {
   "result": "success",
   "hex": "0400008085202f8902f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80200000049483045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a01fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80300000049483045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d01ffffffff050065cd1d00000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc1027000000000000232102f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8ace0303e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eace0144a8a040000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000620000000000000000000000000000"
 }
 ```
+
 Step 2
+
 ```
  ./komodo-cli -ac_name=TESTAC sendrawtransaction 0400008085202f8902f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80200000049483045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a01fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80300000049483045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d01ffffffff050065cd1d00000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc1027000000000000232102f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8ace0303e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eace0144a8a040000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000620000000000000000000000000000
 ```
 
 Response:
+
 ```
 e7b8f58539e2554a51d8438e5e58b0a12896f076e2a2850a503f372e402521b
 ```
@@ -248,38 +258,44 @@ The `heirclaim` method allows the owner or heir to claim funds from the funding 
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-txfee                                        |(number)                     |transaction fee in sat, defaults to 10000 sat
-amount                                       |(number)                     |claimed funds amount, in coins or tokens (dependent on if the tokenid parameter is present), resets inactivity time calculation
-fundintxid                                   |(string)                     |the id of the funding plan, the txid of heirfund transaction
+| Structure  | Type     | Description                                                                                                                     |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| txfee      | (number) | transaction fee in sat, defaults to 10000 sat                                                                                   |
+| amount     | (number) | claimed funds amount, in coins or tokens (dependent on if the tokenid parameter is present), resets inactivity time calculation |
+| fundintxid | (string) | the id of the funding plan, the txid of heirfund transaction                                                                    |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
-
+| Structure | Type     | Description                                                                                          |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result:   | (string) | whether the command succeeded                                                                        |
+| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples:
 
 Step 1
+
 ```
 ./komodo-cli -ac_name=TESTAC heirclaim 0 7 b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
 ```
+
 Response:
+
 ```
 {
   "result": "success",
   "hex": "0400008085202f8903b32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e70200000049483045022100f3805c1424472626ee89e2f4c5ab4f7c310d37774604eb97860200d1dfb120d102202a0ffcc6e5c1f8893dde1ab3a67eafa554ac1af17dce14cf0580a55f5b9fdc6e01ffffffffb32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e700000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e81404827886fbbd2c8d3337dabfa69e69e5af03151a00fa1c7d3b6f33b68e36974f2228bf0aac209eaa55d16e8c2cdcb9c3993590e47c3e524a29a223db7042b7fa1a129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b800000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e8140bb6e5c5c6b1e3a97d99e5dd1cf8e30942069260f8a482f7004d7638b4f5a53dd4d592d4a1d099cc7c0d6b79fcaeec262606d38c56abd7d13cea0753e73a3985aa129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001ffffffff040027b929000000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac00a3e11100000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401ccd0093e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea43b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000680000000000000000000000000000"
 }
 ```
+
 Step 2
+
 ```
 ./komodo-cli -ac_name=TESTAC sendrawtransaction  0400008085202f8903b32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e70200000049483045022100f3805c1424472626ee89e2f4c5ab4f7c310d37774604eb97860200d1dfb120d102202a0ffcc6e5c1f8893dde1ab3a67eafa554ac1af17dce14cf0580a55f5b9fdc6e01ffffffffb32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e700000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e81404827886fbbd2c8d3337dabfa69e69e5af03151a00fa1c7d3b6f33b68e36974f2228bf0aac209eaa55d16e8c2cdcb9c3993590e47c3e524a29a223db7042b7fa1a129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b800000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e8140bb6e5c5c6b1e3a97d99e5dd1cf8e30942069260f8a482f7004d7638b4f5a53dd4d592d4a1d099cc7c0d6b79fcaeec262606d38c56abd7d13cea0753e73a3985aa129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001ffffffff040027b929000000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac00a3e11100000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401ccd0093e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea43b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000680000000000000000000000000000
 ```
+
 Response:
+
 ```
 f0f7f536a261ee8e02fb592d81305b6052939a510e3e3435280b0bad454626c7
 ```
@@ -292,35 +308,37 @@ The `heirinfo` method outputs detailed information about the funding plan.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-fundintxid                                    |(string)                     |the id of the funding plan, the txid of heirfund transaction
+| Structure  | Type     | Description                                                  |
+| ---------- | -------- | ------------------------------------------------------------ |
+| fundintxid | (string) | the id of the funding plan, the txid of heirfund transaction |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result:                                       |(string)                     |whether the command succeeded
-fundingtxid                                   |(string)                     |txid of this heir funding plan creation tx, used as a handler to it
-name                                          |(string)                     |name of this heir plan
-tokenid                                       |(string)                     |token id, if funding is in tokens
-owner                                         |(string)                     |the owner's public key
-heir                                          |(string)                     |the heir's public key
-type                                          |(string)                     |type of this funding plan, 'coins' or 'tokens'
-lifetime                                      |(number)                     |total lifetime funding amount for this funding plan, in coins or tokens
-available                                     |(number)                     |amount available, in coins or tokens
-OwnerRemainderTokens                          |(number)                     |the owner's token amount remainder
-InactivityTimeSetting                         |(number)                     |the owner inactivity time set for this funding plan after which the heir is allowed to spend fund, in secs
-IsHeirSpendingAllowed                         |(boolean)                    |the flag, if the heir is allowed to spend funds, true or false
-InactivityTime                                |(number)                     |the owner real inactivity time, in secs
-memo                                          |(string)                     |a real world document (or link to the document and the document's hash) which contains the owner's requirements regarding the inherited funds
-
+| Structure             | Type      | Description                                                                                                                                   |
+| --------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| result:               | (string)  | whether the command succeeded                                                                                                                 |
+| fundingtxid           | (string)  | txid of this heir funding plan creation tx, used as a handler to it                                                                           |
+| name                  | (string)  | name of this heir plan                                                                                                                        |
+| tokenid               | (string)  | token id, if funding is in tokens                                                                                                             |
+| owner                 | (string)  | the owner's public key                                                                                                                        |
+| heir                  | (string)  | the heir's public key                                                                                                                         |
+| type                  | (string)  | type of this funding plan, 'coins' or 'tokens'                                                                                                |
+| lifetime              | (number)  | total lifetime funding amount for this funding plan, in coins or tokens                                                                       |
+| available             | (number)  | amount available, in coins or tokens                                                                                                          |
+| OwnerRemainderTokens  | (number)  | the owner's token amount remainder                                                                                                            |
+| InactivityTimeSetting | (number)  | the owner inactivity time set for this funding plan after which the heir is allowed to spend fund, in secs                                    |
+| IsHeirSpendingAllowed | (boolean) | the flag, if the heir is allowed to spend funds, true or false                                                                                |
+| InactivityTime        | (number)  | the owner real inactivity time, in secs                                                                                                       |
+| memo                  | (string)  | a real world document (or link to the document and the document's hash) which contains the owner's requirements regarding the inherited funds |
 
 #### :pushpin: Examples:
+
 ```
 ./komodo-cli -ac_name=TESTAC heirinfo b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
 ```
+
 Response:
+
 ```
 {
   "fundingtxid": "b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0",
@@ -336,6 +354,7 @@ Response:
   "result": "success"
 }
 ```
+
 ## heirlist
 
 **heirlist**
@@ -344,27 +363,30 @@ The `heiradd` method outputs a list of all available funding plan ids.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-fundintxid                                   |(string)                     |the id of the funding plan, the txid of heirfund transaction
+| Structure  | Type     | Description                                                  |
+| ---------- | -------- | ------------------------------------------------------------ |
+| fundintxid | (string) | the id of the funding plan, the txid of heirfund transaction |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-
+| Structure | Type     | Description                   |
+| --------- | -------- | ----------------------------- |
+| result:   | (string) | whether the command succeeded |
 
 #### :pushpin: Examples:
+
 ```
 ./komodo-cli -ac_name=TESTAC heirlist
 ```
+
 Response:
+
 ```
 [
   "b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0"
 ]
 ```
+
 ## heiraddress
 
 **heiraddress pubkey**
@@ -373,25 +395,23 @@ The `heiraddress` method shows user's address and balances for heir cc contract.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-pubkey                                       |(string)                     |heir's pubkey in hexademical
-
+| Structure | Type     | Description                  |
+| --------- | -------- | ---------------------------- |
+| pubkey    | (string) | heir's pubkey in hexademical |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result                                       |(string)                     |whether the method executed successfully
-HeirCCaddress                                |(string)                     |taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey
-CCbalance                                    |(number)                     |unspent amount on HeirCCaddress in coins
-HeirNormalAddress                            |(string)                     |the unmodified normal public address generated from the contract's privkey, used for markers
-HeirCC1of2Address                            |(string)                     |address for storage funds in coins spendable by owner and heir
-HeirCC1of2TokensAddress                      |(string)                     |address for storage funds in tokens spendable by owner and heir
-myCCaddress                                  |(string)                     |taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user
-myaddress                                    |(string)                     |the public normal address of the pubkey used to launch the chain
-mybalance                                    |(number)                     |my balance on myaddress in coins
-
+| Structure                 | Type     | Description                                                                                                          |
+| ------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
+| result                    | (string) | whether the method executed successfully                                                                             |
+| HeirCCaddress             | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
+| CCbalance                 | (number) | unspent amount on HeirCCaddress in coins                                                                             |
+| HeirNormalAddress         | (string) | the unmodified normal public address generated from the contract's privkey, used for markers                         |
+| HeirCC`1of2`Address       | (string) | address for storage funds in coins spendable by owner and heir                                                       |
+| HeirCC`1of2`TokensAddress | (string) | address for storage funds in tokens spendable by owner and heir                                                      |
+| myCCaddress               | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
+| myaddress                 | (string) | the public normal address of the pubkey used to launch the chain                                                     |
+| mybalance                 | (number) | my balance on myaddress in coins                                                                                     |
 
 Command:
 
@@ -407,8 +427,8 @@ Response:
   "HeirCCAddress": "RDVHcSekmXgeYBqRupNTmqo3Rn8QRXNduy",
   "CCbalance": 0.00010000,
   "HeirNormalAddress": "RTPwUjKYECcGn6Y4KYChLhgaht1RSU4jwf",
-  "HeirCC1of2Address": "RCiaNQq9yVb5biyEy8xWrAJCjjvQ9oW8rn",
-  "HeirCC1of2TokensAddress": "RGKHD8UaTU2avj6LdmuSgpuaukk6XY4fss",
+  "HeirCC`1of2`Address": "RCiaNQq9yVb5biyEy8xWrAJCjjvQ9oW8rn",
+  "HeirCC`1of2`TokensAddress": "RGKHD8UaTU2avj6LdmuSgpuaukk6XY4fss",
   "myAddress": "REXP3kgaa5wbio76aqnTJDb8CQJHBiZy2b",
   "myCCAddress(Heir)": "RTF9g6SRzbgZXTT7arGZrmTeNKuLoGYyZA",
   "PubkeyCCaddress(Heir)": "RTF9g6SRzbgZXTT7arGZrmTeNKuLoGYyZA",
