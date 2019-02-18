@@ -33,7 +33,10 @@ The `ac_supply` parameter should be set to a whole number without any decimals p
 ::: tip
 An additional fraction of a coin will be added to the initial supply based on the asset chain's parameters. This is used by nodes to verify the genesis block. For example, the DEX chain's `ac_supply` parameter is set to `999999`, but in reality the genesis block was `999999.13521376`. When using `ac_staked`, the additional amount may be more than a full coin, and can add up to two digits left of the decimal point.
 :::
+
+<!--
 (FIX ME ac_staked chains can add more than a fraction of a coin. Up to 2 decimal places I believe. Example, MGNX -ac_supply=12465003 vs actual 12465040.4364023
+-->
 
 #### :pushpin: Examples:
 
@@ -214,7 +217,7 @@ For example, if `-ac_reward=100000000` and `-ac_perc=10000000`, for each block m
 The maximum amount of coins created via this method across all transactions per block is capped at `(1000000 * <percentage>)`.
 
 ::: tip
-Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding pubkey. This only affects a miner trying to use a stratum. Team member, Blackjok3r, developed a coinbase overide method for this purpose. Please see [this repo](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode) for details.
+Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding pubkey. This only affects a miner trying to use a stratum. Team member, [Blackjok3r](https://github.com/blackjok3rtt/), developed a coinbase overide method for this purpose. Please see [this repo](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode) for details.
 :::
 
 #### ac_perc with ac_founders
@@ -223,7 +226,7 @@ Please see the [`-ac_founders`](../installations/asset-chain-parameters.html#ac-
 
 #### :pushpin: Examples:
 
-A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block. (FIXME we missed this. Needs to reflect the new block 100k rule mentioned on line 423)
+A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block. ,<!-- (FIXME we missed this. Needs to reflect the new block 100k rule mentioned on line 423) -->
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50 &
@@ -265,7 +268,7 @@ The `pubkey` must be a 66 character string (a compressed pubkey). You can find t
 
 #### :pushpin: Examples:
 
-A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.(FIXME we missed this. Needs to reflect the new block 100k rule mentioned on line 423)
+A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block. <!-- (FIXME we missed this. Needs to reflect the new block 100k rule mentioned on line 423) -->
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50
@@ -418,7 +421,7 @@ A 777777 pre-mined chain. Smart-contracts are allowed between all fellow asset c
 
 `ac_staked` indicates the percentage of blocks the chain will aim to mine via Proof of Stake (PoS), with the remainder via Proof of Work (PoW). For example, an `ac_staked=90` chain will have ~90% PoS blocks and ~10% PoW blocks.
 
-Measurements of the PoS:PoW ratio are approximate; the PoW difficulty will automatically adjust based on the overall percentage of PoW-mined blocks to adhere to the approximate `PoS` value.
+Measurements of the `PoS:PoW` ratio are approximate; the PoW difficulty will automatically adjust based on the overall percentage of PoW-mined blocks to adhere to the approximate `PoS` value.
 
 When creating a chain with the `ac_staked` parameter, the creation process is slightly different.
 
