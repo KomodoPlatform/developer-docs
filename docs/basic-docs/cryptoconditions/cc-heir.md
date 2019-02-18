@@ -31,7 +31,7 @@ The flow of Heir cc plan is as follows:
 
 The `heirfund` method creates a new heir funding plan.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 

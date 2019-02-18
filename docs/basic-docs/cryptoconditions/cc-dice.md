@@ -6,13 +6,13 @@ It is also useful as a demonstration to show how Crypto Conditions based contrac
 
 `dice` is a simple gambling game, where one node creates a "house" contract, with seed funds and other parameters, and other users place bets within the indicated parameters. Winners and losers are determined through blockchain technology. This technology includes on-chain, consensus based, provably random entropy that derives from the activity of both the "house" and the users.
 
-The "house" node should be running the [`dicestatus`](../cryptoconditions/cc-dice.html#dicestatus) method at a regular frequency. This method resolves unfinished bets and generates new entropy utxos for the "house" contract.
+The "house" node should be running the [dicestatus](../cryptoconditions/cc-dice.html#dicestatus) method at a regular frequency. This method resolves unfinished bets and generates new entropy utxos for the "house" contract.
 
-To create a "house" contract, use [`dicefund`](../cryptoconditions/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [`diceaddfunds`](../cryptoconditions/cc-dice.html#diceaddfunds).
+To create a "house" contract, use [dicefund`](../cryptoconditions/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [`diceaddfunds](../cryptoconditions/cc-dice.html#diceaddfunds).
 
-Once the contract is created and funded, users can place a bet using [`dicebet`](../cryptoconditions/cc-dice.html#dicebet).
+Once the contract is created and funded, users can place a bet using [dicebet](../cryptoconditions/cc-dice.html#dicebet).
 
-Anyone can execute a [`dicefinish`](../cryptoconditions/cc-dice.html#dicefinish) RPC after the contract's time expires. This prevents the "house" node from cheating by going offline.
+Anyone can execute a [dicefinish](../cryptoconditions/cc-dice.html#dicefinish) RPC after the contract's time expires. This prevents the "house" node from cheating by going offline.
 
 ## diceaddfunds
 
@@ -22,7 +22,7 @@ The `diceaddfunds` method adds funds to the desired `dice` contract.
 
 Only the owner of the `dice` contract is able to add funds.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -196,7 +196,7 @@ Response:
 
 The `dicebet` method places a bet on the indicated `dice` contract.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -357,7 +357,7 @@ The `dicefinish` method rebroadcasts a bet that has already been broadcasted.
 
 If the returned `hex` value is `0` the bet is finished.
 
-If the returned `hex` value is not `0`, the `hex` value should be broadcast with [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction). If the bet has not finished or is stuck, the `hex` will have a value.
+If the returned `hex` value is not `0`, the `hex` value should be broadcast with [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction). If the bet has not finished or is stuck, the `hex` will have a value.
 
 ### Arguments:
 
@@ -397,7 +397,7 @@ Response:
 
 The `dicefund` method creates and funds a dice contract.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 Ideally, the dice creator node should be online throughout the contract's life, to determine `winning bid` or `losing bid`.
 
@@ -619,7 +619,7 @@ The `diceinfo` method looks up information about the specific `dice` contract re
 
 A `fundingtxid` is the txid of the transaction that created and funded the relevant contract.
 
-Use the [`dicelist`](../cryptoconditions/cc-dice.html#dicelist) method to discover a list of available `fundingtxid` hashes on the asset chain.
+Use the [dicelist](../cryptoconditions/cc-dice.html#dicelist) method to discover a list of available `fundingtxid` hashes on the asset chain.
 
 ### Arguments:
 

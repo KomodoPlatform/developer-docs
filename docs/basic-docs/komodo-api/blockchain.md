@@ -605,7 +605,7 @@ Response:
 
 **getblockhashes high low '{"noOrphans": bool, "logicalTimes": bool}'**
 
-The `getblockhashes` method returns an array of hashes of blocks within the timestamp range provided. It requires [`timestampindex`](../installations/common-runtime-parameters.html#timestampindex) to be enabled.
+The `getblockhashes` method returns an array of hashes of blocks within the timestamp range provided. It requires [timestampindex](../installations/common-runtime-parameters.html#timestampindex) to be enabled.
 
 ### Arguments:
 
@@ -1083,7 +1083,7 @@ Response:
 
 **getspentinfo '{"txid": "txid_string", "index"}'**
 
-The `getspentinfo` method returns the transaction id and index where the given output is spent. It requires [`spentindex`](../installations/common-runtime-parameters.html#spentindex) to be enabled.
+The `getspentinfo` method returns the transaction id and index where the given output is spent. It requires [spentindex](../installations/common-runtime-parameters.html#spentindex) to be enabled.
 
 ### Arguments:
 
@@ -1347,7 +1347,7 @@ Response:
 
 **kvsearch "key_string"**
 
-The `kvsearch` method searches for a key stored via the [`kvupdate`](../komodo-api/blockchain.html#kvupdate) command.
+The `kvsearch` method searches for a key stored via the [kvupdate](../komodo-api/blockchain.html#kvupdate) command.
 
 ::: tip
 This feature is only available for asset chains.
