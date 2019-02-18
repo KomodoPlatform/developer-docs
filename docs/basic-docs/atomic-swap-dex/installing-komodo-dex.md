@@ -16,7 +16,7 @@ If you would prefer to avoid building MM2 from source, you can download our pre-
 
 ### Note about Linux
 
-For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us in #dev-tradebots channel in Komodo Discord](https://komodoplatform.com/discord).
+For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us on the #dev-tradebots channel on Discord](https://komodoplatform.com/discord).
 
 ### Note about Installing on Windows
 
@@ -40,7 +40,7 @@ Once Git Bash is open and running on your machine, you may continue.
 
 We are currently testing 32-bit operating system functionality. As 32-bit machines can often be comparatively older hardware, we cannot guarantee that MarketMaker 2.0 will run successfully by default. 
 
-We invite users of 32-bit operating systems to test the software and [report any errors to our team at #dev-tradebots channel in Komodo Discord](https://komodoplatform.com/discord).
+We invite users of 32-bit operating systems to test the software and [report any errors to our team on the #dev-tradebots channel on Discord](https://komodoplatform.com/discord).
 
 ### Installing Dependencies
 
@@ -60,15 +60,15 @@ Unpack and follow the instructions here: [instructions link](https://cmake.org/i
 
 #### Build Tools for Your OS
 
-Linux: 
+##### Linux: 
 
 ```bash
 sudo apt-get install build-essential
 ```
 
-Windows: [Follow these instructions for MSVC](https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation?view=vs-2017)
+##### Windows: [Follow these instructions for MSVC](https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation?view=vs-2017)
 
-MacOS: [Install XCode via the App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12)
+##### MacOS: [Install XCode via the App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12)
 
 #### Install Additional Dependencies
 
@@ -98,13 +98,13 @@ rustup component add rustfmt-preview
 
 `jq` is an optional, but useful addition to our needed software. `jq` can provide a more readable format of JSON output in the terminal, which helps us more quickly digest mm2's data.
 
-Linux:
+##### Linux:
 
 ```
 sudo apt-get install jq
 ```
 
-MacOS:
+##### MacOS:
 
 Download the appropriate file from [this link.](https://stedolan.github.io/jq/download/)
 
@@ -116,7 +116,7 @@ chmod +x jq
 
 Then execute the file.
 
-Windows:
+##### Windows:
 
 Download and execute the appropriate file from [this link.](https://stedolan.github.io/jq/download/)
 
