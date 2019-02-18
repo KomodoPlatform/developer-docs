@@ -2,58 +2,21 @@
 
 Now that you have MarketMaker 2.0 (MM2) installed you are ready for your first atomic swap!
 
-## Setting Up Initial Environment Variables
+Since we're testing MM2 as a back end, we're going to be doing a few things that a normal user will not be expected to do once we have a GUI or TUI/CLI available. We are working with Ideas By Nature, a user-experience and user-interface design firm, to facilitate this. 
 
-Let's start by setting up a customized environment variable to make it easier to execute commands later.
+Let's open up the terminal and get started.
 
-::: tip
-Environment variables are for your ease of use during this early phase of development. Later, once we have a CLI and GUI prepared, a regular user won't need to do these steps as the variables can be saved in a configuration file.
-:::
-
-#### coins env
+## Setting Up Coin List 
 
 In the Komodo ecosystem we use two blockchain coins, BEER and PIZZA, for testing purposes. These coins are freely distributed and there's no blockchain scarcity, so you don't want to treat these coins as real currency. Also, if you lose them or destroy them, there's no need to stress. You can always just grab more from our faucet. 
 
 Let's set up a file in the `~/KomodoPlatform/target/debug` directory to import the settings for these test coins. Make a file called `coins` and place the following text into it:
 
 ```
-export coins="[{\"coin\": \"PIZZA\",\"asset\": \"PIZZA\",\"txversion\":4,\"rpcport\": 11608},{\"coin\": \"BEER\",\"txversion\":4,\"asset\": \"BEER\",\"rpcport\": 8923}]"
-```
-
-Save the file and then in your terminal execute the following command:
-
-```
-source coins
-```
-
-Test the `$coins` variable by executing:
-
-```
-echo $coins
-```
-
-You should see similar output:
-
-```
 [{"coin": "PIZZA","asset": "PIZZA","txversion":4,"rpcport": 11608},{"coin": "BEER","txversion":4,"asset": "BEER","rpcport": 8923}]
 ```
 
-Great, now you can access the contents of that file at anytime by typing `$coins` in the terminal.
-
-::: tip
-Depending on your operating system, the terminal will forget these variables as soon as you close the session. To reload them into a new terminal, simply repeat the `source <$PATH_TO_FILE/file>` commands.
-::: 
-
-#### coins file (preferred method in MM2)
-
-It's not mandatory to set coins config as environment variable/command line JSON argument.  
-MM2 now looks for `coins` file in it's directory and loads the coins info from there (if it's not set from command line).  
-It's more convenient because coins file won't be deleted on terminal session finish.  
-
-Make a file called `coins` in MM2 directory and place the following text into it:
-```
-[{"coin": "PIZZA","asset": "PIZZA","txversion":4,"rpcport": 11608},{"coin": "BEER","txversion":4,"asset": "BEER","rpcport": 8923}]
-```
+Save this file. MM2 will search for it automatically on launch.
 
 #### userpass 
 
@@ -70,7 +33,7 @@ We have our initial materials, let's launch the software.
 Look at the following command below, but don't execute it yet:
 
 ```
-stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999,\"client\":1, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSWORD_HERE\", \"coins\":$coins}" &
+stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999,\"client\":1, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSWORD_HERE\"}" &
 ```
 
 Find the phrase, `YOUR_PASSWORD_HERE`. Replace that with your actual password, and then execute the command in the terminal.
@@ -83,7 +46,6 @@ Here is an approximate interpretation of the arguments in the command, to help y
 | netid | 9999 | this tells MM2 which network to join. 9999 is a private test network we use here. 0 is the default network. |
 | passphrase | YOUR_PASSWORD_HERE | your password |
 | userhome | /${HOME#"/"} | the path to your home, called from your environment variables and entered as a regular expression |
-| coins | $coins (optional) | the coins that you would like to have available and taken from your environment variables, MM2 will load config from `coins` file if this argument is not set |
 | client | 1 | this tells MarketMaker 2.0 that you are here to buy (e.g. to act as an Alice node), rather than to sell (e.g. to act as a Bob node) |
 
 Having executed the command, you should see output similar to the following:
@@ -121,13 +83,13 @@ If you see something similar, MarketMaker 2.0 is up and running!
 
 ## Setting userpass Environment Variable
 
-Before going too far, let's look back at the terminal output above, grab some information, and use it to make yet another environment variable.
+Before going too far, let's look back at the terminal output above, grab some information, and place it as an environment variable in our terminal. This will allow us to call this information easily when we need it.
 
 ```
 userpass.(PLACEHOLDER FOR YOUR USERPASS) ← USERPASS FOR API CALLS!
 ```
 
-This is found at the beginning of the terminal output, and you'll see different text in the `PLACEHOLDER FOR YOUR USERPASS` location.
+You can find that content by looking at the terminal output returned directly after launching MM2. You will see different text in the `PLACEHOLDER FOR YOUR USERPASS` location.
 
 Select that text with your mouse and copy it. 
 
@@ -153,7 +115,9 @@ echo $userpass
 
 You should see your userpass as a returned value.
 
-Now, we have all the environment variables we need. 
+::: tip
+The `userpass` environment variable will remain in our terminal's memory until we close the session. When we open up a new session later, we need to create the `userpass` environment variable again. Later, a GUI designer can create functionality to perform this automatically.  
+:::
 
 ## Connect to the Relevant Coin Networks
 
@@ -201,7 +165,7 @@ This address is unique to you and you will use it for our trades here.
 
 We don't recommend placing anything valuable in this address for now, as MM2 is still in testing.
 
-BEER and PIZZA, on the other hand, have no real value, so you can place as much in here as you like!
+On the other hand, BEER and PIZZA have no real value, so you can place as much in here as you like!
 
 Let's retrieve some PIZZA.
 
@@ -327,11 +291,11 @@ Naturally, you want to get as much BEER for your PIZZA as you can manage. Theref
 
 This is where the nature of atomic swaps differentiates from the traditional method. 
 
-There's a tremendous amount of automation happening inside MM2, and the Internet environment of both your machine and the machine of your trading partner are likely of varying quality. Therefore, you need to give MM2 some wiggle room in the price. This will help ensure that both sides of the trade are certain that they can commit. 
+There's a tremendous amount of automation happening inside MM2, and the Internet environment of both your machine and the machine of your trading partner are likely of varying quality. Therefore, you need to give MM2 some wiggle room in the price. This will help ensure that both sides of the trade are certain they can commit. 
 
 You need to list your price a bit higher than the price that your trading partner originally offered.
 
-This aspect of your experience can later be refined through a proper user-experience and user-interface design (UX/UI) treatment. We are partnered with Ideas by Nature, a UX/UI design firm, for this aspect and we hope you will see the results soon. 
+This aspect of your experience can later be refined through a proper user-experience and user-interface design (UX/UI) treatment. 
 
 ::: tip
 The need to give MM2 some wiggle room goes down as more users create trade offers for these coin on this network. If a trading pair on a MM2 network becomes extremely popular, the need for wiggle room can all but disappear. 
