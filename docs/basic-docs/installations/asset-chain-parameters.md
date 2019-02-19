@@ -34,10 +34,6 @@ The `ac_supply` parameter should be set to a whole number without any decimals p
 An additional fraction of a coin will be added to the initial supply based on the asset chain's parameters. This is used by nodes to verify the genesis block. For example, the DEX chain's `ac_supply` parameter is set to `999999`, but in reality the genesis block was `999999.13521376`. When using `ac_staked`, the additional amount may be more than a full coin, and can add up to two digits left of the decimal point.
 :::
 
-<!--
-(FIX ME ac_staked chains can add more than a fraction of a coin. Up to 2 decimal places I believe. Example, MGNX -ac_supply=12465003 vs actual 12465040.4364023
--->
-
 #### :pushpin: Examples:
 
 A simple asset chain with pre-mined coins and a block reward of 0.0005.
@@ -430,7 +426,7 @@ When creating a chain with the `ac_staked` parameter, the creation process is sl
 * Observe the debug.log by executing `tail -f ~/.komodo/<CHAIN>/debug.log`
 * Wait for the asset chain to mine two blocks
 * Execute `setgenerate false` to stop mining
-* All of the coins (including the pre-mine) are now located on the node that mined two blocks. Do not split them with a normal transaction. Rather, split them using this script: [link](https://github.com/stakedchain/pos64staker).
+* All of the coins (including the pre-mine) are now located on the node that mined two blocks. Do not split them with a normal transaction. Rather, split them using this tool: [link](https://github.com/KMDLabs/pos64staker).
 * Send coins to the other node, and on both nodes use the `generate` method to begin staking.
 * Use the [getbalance](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10.
 
