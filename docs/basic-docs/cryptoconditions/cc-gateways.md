@@ -1,57 +1,130 @@
 # Contract Module: Gateways
 
-The idea of the `gateways` smart contract is to facilitate, manage, and trade tokenized representations of foreign blockchain assets.
+The `gateways` CryptoConditions module allows the user to facilitate, manage, and trade tokenized representations of foreign blockchain assets.
 
 For example, a user is able to deposit their real-world BTC into a monitored address on the Bitcoin blockchain. Then, on the `gateways` asset chain, the ownership of this BTC is tokenized. Only the owner of the token has the right to withdraw the BTC to a chosen address. The user that made the deposit can use the token either for asset trading, or for other creative purposes.
 
 This allows the `gateways`-enabled asset chain to feature secure, on-chain, high-speed trading.
 
-Using an established `gateways` smart contract is not considered difficult. However, setting up the `gateways` requires the user to closely follow several detailed steps.
+Using an established `gateways` smart contract is not considered difficult. However, setting up the gateway requires the user to closely follow several detailed steps.
 
-**GatewaysCC** usage
-* Prepare a special oracle, having the data type `Ihh`; this oracle will retrieve information regarding Komodo's chainstate using the **oraclefeed dApp**
+### GatewaysCC Tutorial Overview
+
+In this tutorial, we will create a gateway that can serve to represent KMD. The following are the steps in the gateway-creation process:
+
+* Create a new asset chain and provide representative tokens
+* Prepare a special oracle to monitor Komodo's chainstate
 * Bind the tokens and the oracle to our gateway
-* Deposit KMD
-* Exchange it with other tokens on-chain
-* Use the tokens to withdraw the KMD
+* Deposit KMD into the gateway
+* Exchange tokens with other tokens on-chain
+* Use the tokens to withdraw KMD
 
 Please ensure that you have the KMD main chain downloaded and synced before continuing further in the guide.
 
 Also, please open an empty text file and save all output transaction ids and hex-encoded data from each step. You will need the information at various stages.
 
-**tokenid**:
+## Create a new Blockchain 
 
-Wait to ensure that the `tokenid` transaction is successfully notarized.
+For this tutorial we will create a temporary asset chain called `HELLOWORLD` for educational purposes.  
 
-`./komodo-cli -ac_name=HELLOWORLD getinfo`
+Make sure that the total `ac_supply` of this asset chain is fairly large. `777777` coins will do for our purposes. Also, make sure to include the `ac_pubkey` parameter.
 
-Watch for the notarization count to increase.
+[Follow these linked instructions](../installations/creating-asset-chains.html#creating-a-new-asset-chain) before continuing.
 
-Check that the mempool does not have your `tokenid` transaction in it.
+Recall also that a user must have a `pubkey` enabled when interacting with a CryptoConditions asset chain. [View this linked material for an explanation.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey)
 
-`./komodo-cli -ac_name=HELLOWORLD getrawmempool`
+If desired, the reader may use an existing asset chain instead of a temporary educational chain. [Follow this link](https://github.com/jl777/komodo/blob/master/src/assetchains.old) for a list of asset-chain launch parameters.
 
-You should not see your `tokenid` transaction in the returned response.
+## Create a Token to Represent an External Cryptocurrency 
 
-You may also check the info in your token:
+For the GatewaysCC module to fuction it must have access to tokens that can represent an external cryptocurrency. We use the [`Tokens`](../cryptoconditions/cc-tokens.html) CC module to this effect. 
 
-`./komodo-cli -ac_name=HELLOWORLD tokeninfo YOUR_TOKEN_ID`
+### Decide the Number of Tokens to Create
 
-You may also check the balance for a specific pubkey:
+We want the number of total tokens to be the maximum possible amount of the represented cryptocurrency that we expect to hold. 
 
-(If you have not transferred any of the tokens, then the entire supply should be within your own pubkey.)
+Each token is created not from a full coin, but rather from a satoshi.
 
-`./komodo-cli -ac_name=HELLOWORLD tokenbalance TOKEN_ID PUBKEY`
+For example, `1` HELLOWORLD coin creates `100000000` tokens.
 
-**GatewaysPubkey**:
+The HELLOWORLD satoshis should pair on a one-to-one basis with KMD satoshis.
+
+For our purposes, we will use `1000` coins of HELLOWORLD.
+
+### Creating the tokens:
+
+To create the tokens, execute the following command.
+
+./komodo-cli -ac_name=HELLOWORLD tokencreate KMD 1000 KMD_equivalent_token_for_gatewaysCC
+
+This creates a `100000000000` token supply of on-chain tokens with the name of `KMD`, which represent the external cryptocurrency, `KMD`. 
+
+For more details on the above command, see [`tokencreate`.](../cryptoconditions/cc-tokens.html#tokencreate)
+
+This command returns a hex value as a response:
+
+```
+{
+  "result": "success",
+  "hex": "01000000022c223cfc9c3349aed24ca89e44af6fcdb030150443bd6ac55e2080ce4b097c3002000000484730440220316605c400c47e2d5aa6104ac5c5229e71683b8db9482efa1655d257690d338802202344f254b208a6d724f52f4503531cf005a8ca68119bde4b6cb281ab9fccaf1101ffffffff80e66c0c47311449c5effc2782134006f05fd31e79659bc4b0608d7e247e280c0000000049483045022100ec494d3fa5c76fe0382e83980affdfd091509fb4e18b20fff8c095374e6b6bee022015ddaf95dc8b03e8cbba00ff7a377b80a7bd2200a68669718c329c617549757701ffffffff0400a0724e18090000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc1027000000000000232102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702acc01f66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000396a37e3632103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc0354414b0e54657374696e672070686173652e00000000" } ```
+  
+Select the hex value (`01000000022c223c...`) and copy it (CTRL + SHFT + C).
+
+Broadcast this value using [`sendrawtransaction`:](../komodo-api/rawtransactions.html#sendrawtransaction)
+
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex
+```
+
+This returns a string, and this string is our `tokenid`. 
+
+```
+0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa40000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000
+```
+
+Copy the `tokenid` into the text editor we opened at the beginning of the tutorial and keep it available for future use.
+
+Watch the mempool using [`getrawmempool`](../komodo-api/blockchain.html#getrawmempool) to verify that the `tokenid` is successfully mined:
+
+```
+./komodo-cli -ac_name=HELLOWORLD getrawmempool
+```
+
+Once the `tokenid` disappears from the mempool the transaction is mined. 
+
+If this asset chain were receiving full dPoW security services, at this point it would be appropriate to wait for notarization. We can use [`getinfo`](../komodo-api/control.html#getinfo) and watch for the `notarizations` property to increase: 
+
+```
+./komodo-cli -ac_name=HELLOWORLD getinfo
+```
+
+On this educational asset chain, however, we can continue without waiting of notarization. 
+
+We can check to see that our token is successfully created on the chain using [`tokeninfo`](../cryptoconditions/cc-tokens.html#tokeninfo):
+
+```
+./komodo-cli -ac_name=HELLOWORLD tokeninfo insert_token_id
+```
+
+We can check the balance of our `pubkey` using [`tokenbalance`.](../cryptoconditions/cc-tokens.html#tokenbalance):
+
+```
+./komodo-cli -ac_name=HELLOWORLD tokenbalance insert_tokenid insert_pubkey
+``` 
+
+### Create the GatewaysPubkey 
+
+Execute this command to create a `gatewayspubkey`:
 
 `./komodo-cli -ac_name=HELLOWORLD gatewaysaddress`
 
-This call returns the **GatewaysPubkey**.
+Copy the returned `gatewayspubkey` to the text editor.
 
-Then convert 100% of your KMD-token supply to the GatewayCC using the special `tokenconvert` call. Use the unique evalcode for `GatewaysCC` as the first parameter: `241`
+Convert 100% of our KMD-token supply to the gateway using the [`tokenconvert`](../cryptoconditions/cc-gateways.html#tokenconvert) method. 
 
-You must set the supply in the number of tokens for this command. For example, if you used `1` coin from the parent chain to create `100000000` tokens, you now use `100000000` as the argument to indicate the total supply.
+Use the unique evalcode that belongs to `GatewaysCC` as the first parameter: `241`
+
+Set the supply as the number of KMD-tokens to add to the gateway. For example, if we used `1000` coins to create `100000000000` tokens, we now use `100000000000` as the argument.
 
 `./komodo-cli -ac_name=HELLOWORLD tokenconvert 241 YOUR_TOKEN_ID GATEWAYS_PUBKEY TOTAL_SUPPLY`
 
@@ -99,7 +172,7 @@ Broadcast the returned HEX value:
 
 Then you have to subscribe to it for getting the UTXOs for data publishing. The number of data publishing transactions you can perform in a block is equal to the number of active subscriptions there are.
 
-Get the **data-publisher's pubkey** from the `oracesinfo` call:
+Get the **data-publisher's pubkey** from the `oraclesinfo` call:
 
 `./komodo-cli -ac_name=HELLOWORLD oraclesinfo ORACLE_ID`
 

@@ -1,18 +1,18 @@
 # Smart Contract: Heir
 
-The Heir CryptoConditions (CC) module allows cryptocurrency funds to be passed on as an inheritance. 
+The Heir CryptoConditions (CC) module allows cryptocurrency funds to be passed on as an inheritance. The module functions by the means of a special `1of2` CC address, wherein one key out of two total keys is able to spend the funds. 
 
-The Heir CC module accepts both coins and tokens.
+The owner of the funds creates and fills the `1of2` address. Once created, the owner may continue freely spending the funds within the address, and may also place more funds in this address.
 
-The module functions by the means of a special `1of2` CC address. In this type of address there are two keys that are capable of spending funds from the address. However, only the first key may spend funds by default.
+If the owner does not utilize the `1of2` address for a specified period of time, the address automatically unlocks to the second key's owner (the heir). The owners of both the first (creator) and second (heir) keys may now freely spend funds from the address. 
 
-This first key belongs to the owner of the `1of2` CC address, and this key is created from the owner's passphrase. The owner may use this key to freely spend funds, and also to add more funds to the address.
-
-Should the creator fail to utilize the address for a specified period of time, the address automatically unlocks to the second key. This second key is owned by the heir. Once unlocked, both the creator and the heir may freely spend funds from the address. 
+The Heir CC module accepts both asset-chain coins and tokens.
 
 ::: tip
-When used on a chain where private transactions are enabled, executing a few extra steps during the unlocking process can assist in allowing the heir to spend funds.  to make funds available for the heir, once the period of inactivity has passed, add any arbitrary transaction to the chain (for the duration between owner tx and chain tip to be calculated correctly).
+When using the Heir CC module on a private chain, to make funds available for the heir, you should wait for inactivity time and add any arbitrary transaction to the chain (for the duration between owner tx and chain tip to be calculated correctly).
 :::
+
+The [`heiradd`](../cryptoconditions/cc-heir.html#heiradd) method allows to add funds from non-owner uxtos. Those additions will be considered as donations and will not be accounted in calculation if heir is allowed to spend funds. The heiradd rpc call warns the user whether he is making a donation to the fund. The heiradd rpc call also would not allow to add funds from both owner and non-owner inputs simultaneously. In any case such fund additions will be considered as donations too.
 
 The flow of Heir cc plan is as follows:
 
@@ -204,8 +204,6 @@ Response:
 **heiradd txfee amount fundingtxid**
 
 The `heiradd` method adds more funds or donations to the funding plan.
-
-The [`heiradd`](../cryptoconditions/cc-heir.html#heiradd) method allows any user (including the address owner) to add funds to the address. These deposited funds are considered to be donations to the owner only; the heir will not receive access to these funds at any time. The method also sends a warning to the donator to ensure they agree to submit the given funds as a donation. It is not possible for the owner and a non-owner to use `heiradd` to contribute funds as part of the same utxo; the owner and non-owner must contribute funds separately. 
 
 ### Arguments:
 
