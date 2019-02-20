@@ -234,7 +234,7 @@ Response:
 
 The `heiradd` method adds more funds to the funding plan. If someone other than the owner uses the `heiradd` method to add funds to the funding plan, then they are considered to be donations and won't affect the calculation of time elapsed for the `inactivity time` period 
 
-The [`heiradd`](../cryptoconditions/cc-heir.html#heiradd) method allows any user (including the address owner) to add funds to the address. These deposited funds are considered to be donations to the owner only; the heir will not receive access to these funds at any time. The method also sends a warning to the donator to ensure they agree to submit the given funds as a donation. It is not possible for the owner and a non-owner to use `heiradd` to contribute funds as part of the same utxo; the owner and non-owner must contribute funds separately. 
+The [heiradd](../cryptoconditions/cc-heir.html#heiradd) method allows any user (including the address owner) to add funds to the address. These deposited funds are considered to be donations to the owner only; the heir will not receive access to these funds at any time. The method also sends a warning to the donator to ensure they agree to submit the given funds as a donation. It is not possible for the owner and a non-owner to use `heiradd` to contribute funds as part of the same utxo; the owner and non-owner must contribute funds separately. 
 
 ### Arguments:
 
