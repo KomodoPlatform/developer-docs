@@ -12,16 +12,16 @@ The Heir CC module accepts both asset-chain coins and tokens.
 When using the Heir CC module on a private chain, to make funds available for the heir, you should wait for inactivity time and add any arbitrary transaction to the chain (for the duration between owner tx and chain tip to be calculated correctly).
 :::
 
-The [`heiradd`](../cryptoconditions/cc-heir.html#heiradd) method allows to add funds from non-owner uxtos. Those additions will be considered as donations and will not be accounted in calculation if heir is allowed to spend funds. The heiradd rpc call warns the user whether he is making a donation to the fund. The heiradd rpc call also would not allow to add funds from both owner and non-owner inputs simultaneously. In any case such fund additions will be considered as donations too.
+The [heiradd](../cryptoconditions/cc-heir.html#heiradd) method allows to add funds from non-owner uxtos. Those additions will be considered as donations and will not be accounted in calculation if heir is allowed to spend funds. The heiradd rpc call warns the user whether he is making a donation to the fund. The heiradd rpc call also would not allow to add funds from both owner and non-owner inputs simultaneously. In any case such fund additions will be considered as donations too.
 
 The flow of Heir cc plan is as follows:
 
-* Anyone can create a new plan using [`heirfund`](../cryptoconditions/cc-heir.html#heirfund)
-* Owner can add more funds or any other user can add donations to the funding plan using [`heiradd`](../cryptoconditions/cc-heir.html#heiradd)
-* Owner or Heir cam claim funds by either the owner or heir using [`heirclaim`](../cryptoconditions/cc-heir.html#heirclaim)
-* To get details of a particular funding plan, use [`heirinfo`](../cryptoconditions/cc-heir.html#heirinfo)
-* to get list of all funding plans, use [`heirlist`](../cryptoconditions/cc-heir.html#heirlist) 
-* to output heir cc addresses, use [`heiraddress`](../cryptoconditions/cc-heir.html#heiraddress)
+* Anyone can create a new plan using [heirfund](../cryptoconditions/cc-heir.html#heirfund)
+* Owner can add more funds or any other user can add donations to the funding plan using [heiradd](../cryptoconditions/cc-heir.html#heiradd)
+* Owner or Heir cam claim funds by either the owner or heir using [heirclaim](../cryptoconditions/cc-heir.html#heirclaim)
+* To get details of a particular funding plan, use [heirinfo](../cryptoconditions/cc-heir.html#heirinfo)
+* to get list of all funding plans, use [heirlist](../cryptoconditions/cc-heir.html#heirlist) 
+* to output heir cc addresses, use [heiraddress](../cryptoconditions/cc-heir.html#heiraddress)
 
 ## heirfund
 
@@ -29,7 +29,7 @@ The flow of Heir cc plan is as follows:
 
 The `heirfund` method creates a new heir funding plan.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 

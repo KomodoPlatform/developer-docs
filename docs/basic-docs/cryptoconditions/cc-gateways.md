@@ -43,7 +43,7 @@ If desired, the reader may use an existing asset chain instead of a temporary ed
 
 ## Create a Token to Represent an External Cryptocurrency 
 
-For the GatewaysCC module to fuction it must have access to tokens that can represent an external cryptocurrency. We use the [`Tokens`](../cryptoconditions/cc-tokens.html) CC module to this effect. 
+For the GatewaysCC module to fuction it must have access to tokens that can represent an external cryptocurrency. We use the [Tokens](../cryptoconditions/cc-tokens.html) CC module to this effect. 
 
 ### Decide the Number of Tokens to Create
 
@@ -90,7 +90,7 @@ This returns a string, and this string is our `tokenid`.
 
 Copy the `tokenid` into the text editor we opened at the beginning of the tutorial and keep it available for future use.
 
-Watch the mempool using [`getrawmempool`](../komodo-api/blockchain.html#getrawmempool) to verify that the `tokenid` is successfully mined:
+Watch the mempool using [getrawmempool](../komodo-api/blockchain.html#getrawmempool) to verify that the `tokenid` is successfully mined:
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD getrawmempool
@@ -98,7 +98,7 @@ Watch the mempool using [`getrawmempool`](../komodo-api/blockchain.html#getrawme
 
 Once the `tokenid` disappears from the mempool the transaction is mined. 
 
-If this asset chain were receiving full dPoW security services, at this point it would be appropriate to wait for notarization. We can use [`getinfo`](../komodo-api/control.html#getinfo) and watch for the `notarizations` property to increase: 
+If this asset chain were receiving full dPoW security services, at this point it would be appropriate to wait for notarization. We can use [getinfo](../komodo-api/control.html#getinfo) and watch for the `notarizations` property to increase: 
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD getinfo
@@ -106,7 +106,7 @@ If this asset chain were receiving full dPoW security services, at this point it
 
 On this educational asset chain, however, we can continue without waiting of notarization. 
 
-We can check to see that our token is successfully created on the chain using [`tokeninfo`](../cryptoconditions/cc-tokens.html#tokeninfo):
+We can check to see that our token is successfully created on the chain using [tokeninfo](../cryptoconditions/cc-tokens.html#tokeninfo):
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD tokeninfo insert_token_id
@@ -126,7 +126,7 @@ Execute the following command to create a `gatewayspubkey`:
 
 This represents our new gateway. Copy the returned `gatewayspubkey` to the text editor.
 
-Convert 100% of our KMD-token supply to the gateway using the [`tokenconvert`](../cryptoconditions/cc-gateways.html#tokenconvert) method. 
+Convert 100% of our KMD-token supply to the gateway using the [tokenconvert](../cryptoconditions/cc-gateways.html#tokenconvert) method. 
 
 Use the unique evalcode that belongs to `GatewaysCC` as the first parameter: `241`
 
@@ -150,7 +150,7 @@ Broadcast the hex value using [`sendrawtransaction`:](../komodo-api/rawtransacti
 
 ## Create an Oracle
 
-We use the [`oracles`](../cryptoconditions/cc-oracles.html) CryptoConditions module to add external data to the blockchain.
+We use the [oracles](../cryptoconditions/cc-oracles.html) CryptoConditions module to add external data to the blockchain.
 
 The name of our oracle should be identical to the name of our tokens, `KMD`, and the data format must start with `Ihh` (height, blockhash, merkleroot):
 
@@ -183,7 +183,7 @@ This returns a transaction id, which is the `oracleid`:
 
 Record this in the text editor.
 
-Register as a publisher for the oracle using [`oraclesregister`](../cryptoconditions/cc-oracles.html#oraclesregister):
+Register as a publisher for the oracle using [oraclesregister](../cryptoconditions/cc-oracles.html#oraclesregister):
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD oraclesregister insert_oracleid data_fee_in_satoshis`
@@ -195,7 +195,7 @@ This returns a hex value (not shown for brevity), which we now broadcast:
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_value 
 ```
 
-Retrieve the data publisher's `pubkey` using [`oraclesinfo`](../cryptoconditions/cc-oracles.html#oraclesinfo):
+Retrieve the data publisher's `pubkey` using [oraclesinfo](../cryptoconditions/cc-oracles.html#oraclesinfo):
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD oraclesinfo insert_oracleid
@@ -226,7 +226,7 @@ Response from `oraclesinfo`:
 
 The property, `"publisher"`, in the entry, `"registered"`, of the returned json object is the data publisher's `pubkey`, also called the `publisherpubkey`.
 
-Subscribe to the oracle using [`oraclessubscribe`](../cryptoconditions/cc-oracles.html#oraclessubscribe) to receive utxo information for data publishing. 
+Subscribe to the oracle using [oraclessubscribe](../cryptoconditions/cc-oracles.html#oraclessubscribe) to receive utxo information for data publishing. 
 
 The frequency of data-publishing transactions we can perform in a block is equal to the number of active subscriptions to an oracle. Therefore, we must have at least one subscription for the oracle to allow publishing.)
 
@@ -252,7 +252,7 @@ Verify the oracle information to ensure it is properly established:
 
 ## Activating Gateway Binding 
 
-We now create a gateway and bind our information to it, using the [`gatewaysbind`](../cryptoconditions/cc-gateways.html#gatewaysbind) method.
+We now create a gateway and bind our information to it, using the [gatewaysbind](../cryptoconditions/cc-gateways.html#gatewaysbind) method.
 
 This method requires that we decide how many total gateway signatories we desire (`N`), and how many signatories are required to withdraw funds (`M`). 
 
@@ -270,7 +270,7 @@ This method returns a hex value (not shown for brevity), which we now broadcast:
 
 The broadcast returns a transaction id, also called the `bindtxid`. Copy this information into the text editor.
 
-Assuming all is properly created and executed, we may now review our new gateway using [`gatewaysinfo`](../cryptoconditions/cc-gateways.html#gatewaysinfo):
+Assuming all is properly created and executed, we may now review our new gateway using [gatewaysinfo](../cryptoconditions/cc-gateways.html#gatewaysinfo):
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD gatewaysinfo insert_bindtxid
@@ -342,16 +342,16 @@ Example Response:
 
 The `deposit` property contains the `gatewaysDepositAddress`. When we send funds to this address, we receive in return HELLOWORLD KMD tokens to an on-chain address that we indicate as follows.
 
-Use the [`z_sendmany`](../komodo-api/wallet.html#z-sendmany) method to send funds to two addresses simultaneously. The first address is the `pubkey` that corresponds to our pubkey on the HELLOWORLD asset chain. The second address is the `gatewaysDepositAddress` on the KMD chain. We send a nominal amount into the first address, and the amount we wish to have available for trading into the second address.
+Use the [z_sendmany](../komodo-api/wallet.html#z-sendmany) method to send funds to two addresses simultaneously. The first address is the `pubkey` that corresponds to our pubkey on the HELLOWORLD asset chain. The second address is the `gatewaysDepositAddress` on the KMD chain. We send a nominal amount into the first address, and the amount we wish to have available for trading into the second address.
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD z_sendmany "insert_address_where_KMD_funds_are_currently_held" '[{"address":"addressOfPubkeyForTokenizedKmd","amount":0.0001},{"address":"gatewaysDepositAddress","amount":0.1}]'
 
 The returned transaction id is our `cointxid`. Save this in the text editor.
 
-Wait for the transaction to be mined. We may check the transaction progress using the [`z_getoperationstatus`](../komodo-api/wallet.html#z-getoperationstatus) method. 
+Wait for the transaction to be mined. We may check the transaction progress using the [z_getoperationstatus](../komodo-api/wallet.html#z-getoperationstatus) method. 
 
-Once confirmed, execute the [`gettransaction`](../komodo-api/wallet.html#gettransaction) method with the `cointxid` to obtain more information we will need later.
+Once confirmed, execute the [gettransaction](../komodo-api/wallet.html#gettransaction) method with the `cointxid` to obtain more information we will need later.
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD gettransaction insert_cointxid
@@ -371,7 +371,7 @@ Next, execute the following command for more information:
 
 This returns a `proof` value. Transfer this to the text editor.
 
-We now have the necessary data to execute the [`gatewaysdeposit`](../cryptoconditions/cc-gateways.html#gatewaysdeposit-2) method on the HELLOWORLD asset chain. 
+We now have the necessary data to execute the [gatewaysdeposit](../cryptoconditions/cc-gateways.html#gatewaysdeposit-2) method on the HELLOWORLD asset chain. 
 
 The `gatewaysdeposit` method broadcasts the relevant data on the asset chain so that the gateway nodes may validate the information and prepare to distribute the KMD tokens.
 
@@ -427,9 +427,9 @@ Once this transaction is successfully confirmed, the gateway will credit tokens 
 
 ### Withdrawing KMD Funds 
 
-When finished with our tokens, we may send them to the gateway and withdraw the corresponding KMD funds via the [`gatewayswithdraw`](../cryptoconditions/cc-gateways.html#gatewayswithdraw) method. Only the current owner of the KMD funds may execute the `gatewayswithdraw` method for these funds.
+When finished with our tokens, we may send them to the gateway and withdraw the corresponding KMD funds via the [gatewayswithdraw](../cryptoconditions/cc-gateways.html#gatewayswithdraw) method. Only the current owner of the KMD funds may execute the `gatewayswithdraw` method for these funds.
 
-Convert the tokens back to their non-bound form using [`tokenconvert`](../cryptoconditions/cc-gateways.html#tokenconvert):
+Convert the tokens back to their non-bound form using [tokenconvert](../cryptoconditions/cc-gateways.html#tokenconvert):
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD tokenconvert 241 insert_tokenid insert_our_pubkey insert_total_supply
@@ -441,7 +441,7 @@ Convert the tokens back to their non-bound form using [`tokenconvert`](../crypto
 Recall that for the gateway to function, the oracle dApp must be running.
 :::
 
-After the `tokenconvert` transaction receives confirmation, we can use the [`gatewayswithdraw`](../cryptoconditions/cc-gateways.html#gatewayswithdraw) method.
+After the `tokenconvert` transaction receives confirmation, we can use the [gatewayswithdraw](../cryptoconditions/cc-gateways.html#gatewayswithdraw) method.
 
 Before we execute `gatewayswithdraw`, we must first import the private key for the `gatewaysdeposit` address. This is the address on the asset chain which is operating the gateway. Make sure to execute this command on the same node where the oracle dApp daemon is running.
 
@@ -1218,7 +1218,7 @@ Response from Step One:
 
 Step Two:
 
-Broadcast using [`sendrawtransction`](../komodo-api/rawtransactions.html#sendrawtransaction):
+Broadcast using [sendrawtransction](../komodo-api/rawtransactions.html#sendrawtransaction):
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000152d7d470197f5dc650c9ec09e1c8f4975d315219e3b6edad3c927c2fc23197ca0200000048473044022006bf373f1dd51c638a38d1e592741db73387e6acc186fca2011cd7283520ff770220673be91d346ba72adcbc9ab1df712f750047c2609399256c07ad3170d9ea850401ffffffff031027000000000000302ea22c802091abda62a548f9c7f5beb19d16f01714ae3d4e526f3266fc8d347d6123f3d77b8103120c008203000401cce05c9836180900002321024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0ac0000000000000000796a4c76f142034b4d443c550010f29d430acbc0aad5acd6efaf16640e94edac5e99f764b168f18ea4c377222000e1f5050000000001010121024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0253a264762978c6806bc5d0c1e7a8b34bd34d9968824e81c3cbb2aef99faa35100000000
@@ -1238,7 +1238,7 @@ aa1b82d78398184c93405ccd15e3cf00b63634aac98a7b75053aa90eaf9cb47d
 
 The `gatewaysclaim` method allows the owner of the `deposittxid` to claim their on-chain proxy tokens. This method can only be executed by the owner of the `pubkey` that was used to launch the daemon from which the `gatewaysdeposit` call was executed.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -1294,7 +1294,7 @@ Response from Step Two:
 
 The `gatewaysdeposit` method is used to alert the gateway of the completed deposit of the foreign (off-chain) asset.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method then returns a `txid` which serves as the **deposittxid**.
 
@@ -1308,7 +1308,7 @@ name                                         |(string)                     |the 
 cointxid                                     |(string)                     |the `txid` returned when the foreign assets were sent to the gateway pubkey
 claimvout                                    |(string)                     |the `vout` of the claim (on the first use, this value should be 0)
 deposithex                                   |(string)                     |returned from the `txid` wherein the funds were sent to the foreign-asset gateway pubkey
-proof                                        |(string)                     |the proof for the `txid`; can be found using the [`gettxoutproof`](../komodo-api/blockchain.html#gettxoutproof) method
+proof                                        |(string)                     |the proof for the `txid`; can be found using the [gettxoutproof](../komodo-api/blockchain.html#gettxoutproof) method
 destpub                                      |(string)                     |the public key where the tokens should be received on the asset chain
 amount                                       |(number)                     |the amount of the deposit
 
@@ -1507,7 +1507,7 @@ The `tokenconvert` method converts your total proxy-token supply into a token bo
 
 The amount must be the total number of tokens.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 

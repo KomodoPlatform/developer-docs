@@ -89,7 +89,7 @@ Please refer to [Asset Chain Parameters](../installations/asset-chain-parameters
 :::
 
 ::: tip
-Please note the requirements for [`ac_supply`](../installations/asset-chain-parameters.html#ac-supply), and instructions for using [`addnode`](../installations/common-runtime-parameters.html#addnode) under various network conditions, including firewalls and LANs.
+Please note the requirements for [ac_supply`](../installations/asset-chain-parameters.html#ac-supply), and instructions for using [`addnode](../installations/common-runtime-parameters.html#addnode) under various network conditions, including firewalls and LANs.
 :::
 
 ## Part II: Connecting the Second Node
@@ -102,7 +102,7 @@ On the second node you issue the same command, with two key differences. You wil
 
 Once the second node connects, it will automatically mine blocks.
 
-On a Komodo-based blockchain, all of the pre-mined coins are mined in the first block. Therefore, whichever machine executes the mining command will receive the entirety of the blockchain's pre-mined coin supply, as set in the [`ac_supply`](../installations/asset-chain-parameters.html#ac-supply) parameter. Upon mining the first block, these coins are be available in the default `wallet.dat` file.
+On a Komodo-based blockchain, all of the pre-mined coins are mined in the first block. Therefore, whichever machine executes the mining command will receive the entirety of the blockchain's pre-mined coin supply, as set in the [ac_supply](../installations/asset-chain-parameters.html#ac-supply) parameter. Upon mining the first block, these coins are be available in the default `wallet.dat` file.
 
 These are the coins you will later distribute to your community, using either our native DEX, [BarterDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), or our decentralized-ICO software (coming soon), or on any other third-party exchange.
 

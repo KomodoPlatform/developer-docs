@@ -78,7 +78,7 @@ This method requires that the coin daemon have the <b>exportdir</b> runtime para
 
 Structure|Type|Description
 ---------|----|-----------
-"destination"                                |(string, required)           |the destination filename, saved in the directory set by the [`exportdir`](../installations/common-runtime-parameters.html#exportdir) runtime parameter
+"destination"                                |(string, required)           |the destination filename, saved in the directory set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter
 
 ### Response:
 
@@ -175,14 +175,14 @@ The `dumpwallet` method dumps all transparent-address wallet keys into a file, u
 Overwriting an existing file is not permitted. The `destination` parameter accepts only alphanumeric characters.
 
 ::: tip
-This method requires that the coin daemon have the <b>[`exportdir`](../installations/common-runtime-parameters.html#exportdir)</b> runtime parameter enabled.
+This method requires that the coin daemon have the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter enabled.
 :::
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
-"filename"                                   |(string, required)           |the filename, saved in folder set by the [`exportdir`](../installations/common-runtime-parameters.html#exportdir) runtime parameter
+"filename"                                   |(string, required)           |the filename, saved in folder set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter
 
 
 ### Response:
@@ -239,7 +239,7 @@ The `encryptwallet` method encrypts the wallet with the indicated `passphrase`.
 
 For more information, please see these instructions: [Encrypt Komodo's wallet.dat File](https://docs.komodoplatform.com/komodo/encrypt-wallet.html)
 
-This method is for first-time encryption only. After the first encryption, any calls that interact with private keys will require the passphrase via [`walletpassphrase`](../komodo-api/wallet.html#walletpassphrase) prior to calling the corresponding method. This includes methods that create a transaction, dump a private key for an address, sign a transaction, etc.
+This method is for first-time encryption only. After the first encryption, any calls that interact with private keys will require the passphrase via [walletpassphrase](../komodo-api/wallet.html#walletpassphrase) prior to calling the corresponding method. This includes methods that create a transaction, dump a private key for an address, sign a transaction, etc.
 
 ### Arguments:
 
@@ -1099,7 +1099,7 @@ See also <b>dumpprivkey</b>.
 
 Structure|Type|Description
 ---------|----|-----------
-"privkey"                                    |(string, required)           |the private key (see [`dumpprivkey`](../komodo-api/wallet.html#dumpprivkey))
+"privkey"                                    |(string, required)           |the private key (see [dumpprivkey](../komodo-api/wallet.html#dumpprivkey))
 "label"                                      |(string, optional, default="")|an optional label
 rescan                                       |(boolean, optional, default=true)|rescan the wallet for transactions
 
@@ -1157,7 +1157,7 @@ Response:
 
 **importwallet "filename"**
 
-The `importwallet` method imports transparent-address keys from a wallet-dump file (see [`dumpwallet`](../komodo-api/wallet.html#dumpwallet)).
+The `importwallet` method imports transparent-address keys from a wallet-dump file (see [dumpwallet](../komodo-api/wallet.html#dumpwallet)).
 
 ### Arguments:
 
@@ -2656,14 +2656,14 @@ Response:
 **walletlock**
 
 ::: tip
-The `walletlock` method is neither active nor visible in the `help` method until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+The `walletlock` method is neither active nor visible in the `help` method until the [encryptwallet](../komodo-api/wallet.html#encryptwallet) passphrase is set.
 :::
 
 :::tip
 This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
 :::
 
-The `walletlock` method re-locks a wallet that has a passphrase enabled via [`encryptwallet`](../komodo-api/wallet.html#encryptwallet). 
+The `walletlock` method re-locks a wallet that has a passphrase enabled via [encryptwallet](../komodo-api/wallet.html#encryptwallet). 
 
 ### Arguments:
 
@@ -2696,14 +2696,14 @@ Response:
 **walletpassphrase "passphrase" (timeout)**
 
 ::: tip
-The `walletpassphrase` method is neither active nor visible in the `help` method until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+The `walletpassphrase` method is neither active nor visible in the `help` method until the [encryptwallet](../komodo-api/wallet.html#encryptwallet) passphrase is set.
 :::
 
 :::tip
 This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
 :::
 
-The `walletpassphrase` method unlocks the wallet using the passphrase that was set by the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) method. 
+The `walletpassphrase` method unlocks the wallet using the passphrase that was set by the [encryptwallet](../komodo-api/wallet.html#encryptwallet) method. 
 
 The `timeout` argument can be included to limit the length of time (in seconds) the wallet will remain unlocked.
 
@@ -2739,7 +2739,7 @@ Response:
 **walletpassphrasechange "oldpassphrase" "newpassphrase"**
 
 ::: tip
-The `walletpassphrasechange` method is neither active nor visible in the `help` method until the [`encryptwallet`](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+The `walletpassphrasechange` method is neither active nor visible in the `help` method until the [encryptwallet](../komodo-api/wallet.html#encryptwallet) passphrase is set.
 :::
 
 :::tip
@@ -2893,7 +2893,7 @@ The `z_exportwallet` method exports all wallet keys, including both t address an
 
 Structure|Type|Description
 ---------|----|-----------
-"filename"                                   |(string, required)           |the filename, saved to the directory indicated by the [`exportdir`](../installations/common-runtime-parameters.html#exportdir) parameter at daemon runtime (required)
+"filename"                                   |(string, required)           |the filename, saved to the directory indicated by the [exportdir](../installations/common-runtime-parameters.html#exportdir) parameter at daemon runtime (required)
 
 ### Response:
 
@@ -3412,7 +3412,7 @@ See also <b>z_exportkey</b>.
 
 Structure|Type|Description
 ---------|----|-----------
-"z_privatekey"                               |(string, required)           |the z_privatekey (see [`z_exportkey`](../komodo-api/wallet.html#z-exportkey))
+"z_privatekey"                               |(string, required)           |the z_privatekey (see [z_exportkey](../komodo-api/wallet.html#z-exportkey))
 rescan                                       |(string, optional, default=`"whenkeyisnew"`)|rescan the wallet for transactions; can be `yes` | `no` | `whenkeyisnew`
 startHeight                                  |(numeric, optional, default=0)|block height to start rescan
 
@@ -3846,7 +3846,7 @@ Structure|Type|Description
 ---------|----|-----------
 minconf			|(numeric, optional, default=1)		|the minimum confirmations to filter
 maxconf         	|(numeric, optional, default=9999999)	|the maximum confirmations to filter
-includeWatchonly 	|(bool, optional, default=false)	|whether to also include watchonly addresses (see [`z_importviewingkey`](../komodo-api/wallet.html#z-importviewingkey))
+includeWatchonly 	|(bool, optional, default=false)	|whether to also include watchonly addresses (see [z_importviewingkey](../komodo-api/wallet.html#z-importviewingkey))
 addresses		|(array)				|a json array of z addresses (both Sprout and Sapling) to act as a filter; duplicate addresses are not allowed
 address			|(string)				|a z address
 
@@ -3966,7 +3966,7 @@ fromaddresses                                |(string, required)           |
 "address"                                    |(string)                     |can be a t address or a z address
 "toaddress"                                  |(string, required)           |the t address or z address to receive the combined utxo
 fee                                          |(numeric, optional, default=0.0001)|the fee amount to attach to this transaction
-transparent_limit                            |(numeric, optional, default=50)|limit on the maximum number of transparent UTXOs to merge; you may set this value to 0 to use the node option [`mempooltxinputlimit`](../installations/common-runtime-parameters.html#mempooltxinputlimit)
+transparent_limit                            |(numeric, optional, default=50)|limit on the maximum number of transparent UTXOs to merge; you may set this value to 0 to use the node option [mempooltxinputlimit](../installations/common-runtime-parameters.html#mempooltxinputlimit)
 shielded_limit                               |(numeric, optional, default=10)|limit on the maximum number of hidden notes to merge; you may set this value to 0 to merge as many as will fit in the transaction
 "memo"                                       |(string, optional)           |encoded as hex; when ``toaddress`` is a z address, this value will be stored in the memo field of the new note
 
@@ -4100,7 +4100,7 @@ Response:
 
 The `z_shieldcoinbase` method shields transparent coinbase funds by sending the funds to a shielded z address.  This is an asynchronous operation and utxos selected for shielding will be locked. If there is an error, they are unlocked.
 
-The RPC call `listlockunspent` can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the [`mempooltxinputlimit`](../installations/common-runtime-parameters.html#mempooltxinputlimit) option will determine the number of uxtos.  Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
+The RPC call `listlockunspent` can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the [mempooltxinputlimit](../installations/common-runtime-parameters.html#mempooltxinputlimit) option will determine the number of uxtos.  Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
 
 ### Arguments:
 
