@@ -1,4 +1,4 @@
-# Smart Contract: Oracles
+# Contract Module: Oracles
 
 #### :pushpin: Examples:
 
@@ -116,7 +116,7 @@ Response:
 ```
 
 
-Use './komodo-cli -ac_name=HELLOWORLD getrawmempool' to ensure that the tx is confirmed
+(Use `./komodo-cli -ac_name=HELLOWORLD getrawmempool` to ensure that the transaction receives confirmation.)
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
