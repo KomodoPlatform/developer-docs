@@ -44,7 +44,7 @@ Here is an approximate interpretation of the arguments in the command, to help y
 | -------- | ------- | ----------- |
 | gui | MM2GUI | this is a flag that can be ignored for now |
 | netid | 9999 | this tells MM2 which network to join. 9999 is a private test network we use here. 0 is the default network. |
-| passphrase | YOUR_PASSPHRASE_HERE | your passphrase, coins private keys are derived from it allowing MM to send transactions from specific address |
+| passphrase | YOUR_PASSPHRASE_HERE | your passphrase; this is the source of each of your coins' private keys |
 | rpc_password | YOUR_PASSWORD_HERE | your password for protected RPC methods (userpass) |
 | userhome | /${HOME#"/"} | the path to your home, called from your environment variables and entered as a regular expression |
 
@@ -82,10 +82,10 @@ If you see something similar, MarketMaker 2.0 is up and running!
 ## Setting userpass Environment Variable
 
 ::: tip
-Userpass will be renamed to rpc_password for clarity in near future
+Userpass will be renamed to <b>rpc_password</b> for clarity in the near future
 :::
 
-Make a new file in the `~/KomodoPlatform/target/debug` directory called `userpass` and enter the following text, including your rpc_password specified in MM config:
+Make a new file in the `~/KomodoPlatform/target/debug` directory called `userpass` and enter the following text, including the `rpc_password` you specified earlier:
 
 ```
 export userpass="RPC_PASSWORD"
