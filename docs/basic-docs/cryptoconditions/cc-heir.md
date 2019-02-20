@@ -537,12 +537,12 @@ The `heiraddress` method shows the owner's addresses and balances for heir cc co
 | HeirCCaddress             | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
 | CCbalance                 | (number) | unspent amount in the HeirCCaddress in coins                                                                             |
 | HeirNormalAddress         | (string) | the unmodified normal public address generated from the contract's privkey, used for markers                         |
-| HeirCC`1of2`Address       | (string) | address for storing funds in **coins** spendable by owner and heir                                                       |
-| HeirCC`1of2`TokensAddress | (string) | address for storing funds in **tokens** spendable by owner and heir                                                      |
+| HeirCC`1of2`Address       | (string) | address for storing funds in **coins** spendable by either owner or heir (funds address)                                                       |
+| HeirCC`1of2`TokensAddress | (string) | address for storing funds in **tokens** spendable by either owner or heir (token funds address)                                                      |
 | myCCaddress(Heir)               | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the **Heir**                    |
-| myaddress                 | (string) | the unmodified normal public address of the pubkey [used to launch the daemon](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey)                                                     |
-| mybalance                 | (number) | the balance of myaddress in coins                                                                                     |
-
+| myaddress                 | (string) | the unmodified normal public address of the pubkey [used to launch the daemon](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) this is the normal address used to withdraw funds in coins from from HeirCC`1of2`Address; applicable for any user who wants to use heir cc (owner or heir)                                                     |
+| mybalance                 | (number) | the balance of myaddress in coins                                                                            |
+| MyTokenAddress            | (string) | user's address to withdraw funds in tokens from HeirCC`1of2`TokensAddress (in development)                                      |
 #### :pushpin: Example:
 
 Command:
