@@ -1,4 +1,4 @@
-# Smart Contract: Rewards
+# Contract Module: Rewards
 
 The `rewards` contract creates a master-node like rewards program, giving a user the ability to earn rewards by locking coins.
 

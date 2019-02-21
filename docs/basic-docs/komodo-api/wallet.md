@@ -1267,7 +1267,7 @@ Response:
 
 ## listaccounts
 
-**listaccounts ( minconf includeWatchonly)**
+**listaccounts ( minconf includeWatchonly )**
 
 ::: tip
 DEPRECATED
@@ -1483,7 +1483,7 @@ Response:
 
 ## listreceivedbyaccount
 
-**listreceivedbyaccount ( minconf includeempty includeWatchonly)**
+**listreceivedbyaccount ( minconf includeempty includeWatchonly )**
 
 ::: warning
 DEPRECATED

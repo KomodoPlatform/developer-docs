@@ -1,4 +1,4 @@
-# Smart Contract: Heir
+# Contract Module: Heir
 
 The Heir CryptoConditions (CC) module allows cryptocurrency funds to be passed on as an inheritance. The module functions by the means of a special `1of2` CC address, wherein one key out of two total keys is able to spend the funds. 
 
@@ -12,7 +12,7 @@ The Heir CC module accepts both asset-chain coins and tokens.
 When using the Heir CC module on a private chain, to make funds available for the heir, you should wait for inactivity time and add any arbitrary transaction to the chain (for the duration between owner tx and chain tip to be calculated correctly).
 :::
 
-The [heiradd](../cryptoconditions/cc-heir.html#heiradd) method allows to add funds from non-owner uxtos. Those additions will be considered as donations and will not be accounted in calculation if heir is allowed to spend funds. The heiradd rpc call warns the user whether he is making a donation to the fund. The heiradd rpc call also would not allow to add funds from both owner and non-owner inputs simultaneously. In any case such fund additions will be considered as donations too.
+The [heiradd](../cryptoconditions/cc-heir.html#heiradd) method allows other users to add funds to the account. Those additions will be considered as donations and will not be accounted in calculation if heir is allowed to spend funds. The heiradd rpc call warns the user whether he is making a donation to the fund. The heiradd rpc call also would not allow to add funds from both owner and non-owner inputs simultaneously. In any case such fund additions will be considered as donations too.
 
 The flow of Heir cc plan is as follows:
 

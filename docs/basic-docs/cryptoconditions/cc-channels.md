@@ -1,4 +1,4 @@
-# Smart Contract: Channels
+# Contract Module: Channels
 
 The `channels` contract facilitates instant payments in a trustless environment.
 

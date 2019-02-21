@@ -1,4 +1,4 @@
-# Smart Contract: Tokens
+# Contract Module: Tokens
 
 The `tokens` Crypto Conditions smart contract enables core-asset support for the on-chain creation of colored coins, also called tokens. The functionality is facilitated by utxo technology. Tokens can be generated on any chain where the [ac_cc](../installations/asset-chain-parameters.html#ac-cc) is enabled.
 
