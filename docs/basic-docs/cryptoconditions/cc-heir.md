@@ -8,7 +8,7 @@ This first key belongs to the owner of the `1of2` CC address and it is created f
 
 Should the owner fail to utilize the address for a specified period of time (`inactivitytime`), the address automatically unlocks to the second key. This second key is owned by the heir. Once unlocked, both the creator and the heir may freely spend funds from the address. 
 
-The [`heiradd`](../cryptoconditions/cc-heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
+The [heiradd](../cryptoconditions/cc-heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
 
 The Heir CC module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../cryptoconditions/cc-tokens.html) CC module that represent on-chain assets, or even tokens that are formed via the [Gateways](../cryptoconditions/cc-gateways.html) module to represent off-chain assets or other cryptocurrencies.
 
