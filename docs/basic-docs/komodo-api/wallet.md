@@ -3966,7 +3966,7 @@ fromaddresses                                |(string, required)           |
 "address"                                    |(string)                     |can be a t address or a z address
 "toaddress"                                  |(string, required)           |the t address or z address to receive the combined utxo
 fee                                          |(numeric, optional, default=0.0001)|the fee amount to attach to this transaction
-transparent_limit                            |(numeric, optional, default=50)|limit on the maximum number of transparent UTXOs to merge; you may set this value to 0 to use the node option [mempooltxinputlimit](../installations/common-runtime-parameters.html#mempooltxinputlimit)
+transparent_limit                            |(numeric, optional, default=50)|limit on the maximum number of transparent utxos to merge; you may set this value to 0 to use the node option [mempooltxinputlimit](../installations/common-runtime-parameters.html#mempooltxinputlimit)
 shielded_limit                               |(numeric, optional, default=10)|limit on the maximum number of hidden notes to merge; you may set this value to 0 to merge as many as will fit in the transaction
 "memo"                                       |(string, optional)           |encoded as hex; when ``toaddress`` is a z address, this value will be stored in the memo field of the new note
 

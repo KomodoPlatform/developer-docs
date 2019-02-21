@@ -304,7 +304,7 @@ connect=69.164.218.197
 See also [setgenerate](../komodo-api/generate.html#setgenerate).
 
 ::: warning
-This parameter should be avoided. Instead, start the daemon without the `-gen` parameter. Once the asset chain is launched, wait until the blockchain is synced to the current block and then execute the [setgenerate`](../komodo-api/generate.html#setgenerate) method. The sync status of the blockchain can be found by executing the [`getinfo](../komodo-api/control.html#getinfo) method and comparing the `blocks` and `longestchain` properties.
+This parameter should be avoided. Instead, start the daemon without the `-gen` parameter. Once the asset chain is launched, wait until the blockchain is synced to the current block and then execute the [setgenerate](../komodo-api/generate.html#setgenerate) method. The sync status of the blockchain can be found by executing the [getinfo](../komodo-api/control.html#getinfo) method and comparing the `blocks` and `longestchain` properties.
 :::
 
 ::: tip

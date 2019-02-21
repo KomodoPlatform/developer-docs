@@ -224,7 +224,7 @@ For example, you can learn how to make asset chains that are more complicated in
 
 Once you understand the concept, you can test a few asset-chain tricks -- like making your asset chain's consensus mechanism [a mix between Proof of Work and Proof of Stake](../installations/asset-chain-parameters.html#ac-staked).
 
-Or, you could make your asset chain suitable for a rapid mining period, followed by complete blockchain disposal. Use parameters such as [ac_end`](../installations/asset-chain-parameters.html#ac-end), [ac_reward`](../installations/asset-chain-parameters.html#ac-reward), [`ac_decay](../installations/asset-chain-parameters.html#ac-decay), and [`ac_perc](../installations/asset-chain-parameters.html#ac-perc) for this effect.
+Or, you could make your asset chain suitable for a rapid mining period, followed by complete blockchain disposal. Use parameters such as [ac_end](../installations/asset-chain-parameters.html#ac-end), [ac_reward](../installations/asset-chain-parameters.html#ac-reward), [ac_decay](../installations/asset-chain-parameters.html#ac-decay), and [ac_perc](../installations/asset-chain-parameters.html#ac-perc) for this effect.
 
 ## Discover CC Smart Contracts
 

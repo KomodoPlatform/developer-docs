@@ -106,7 +106,7 @@ The `setgenerate` method allows the user to set the `generate` property in the c
 Generation is limited to [genproclimit](../installations/common-runtime-parameters.html#genproclimit) processors. Set `genproclimit` to `-1` to use maximum available processors.
 
 ::: tip
-See also the [getgenerate`](../komodo-api/generate.html#getgenerate) method to query the current setting, and [`genproclimit](../installations/common-runtime-parameters.html#genproclimit) for setting the default number of processors the daemon uses through the `.conf` file.
+See also the [getgenerate](../komodo-api/generate.html#getgenerate) method to query the current setting, and [genproclimit](../installations/common-runtime-parameters.html#genproclimit) for setting the default number of processors the daemon uses through the `.conf` file.
 :::
 
 ### Arguments:

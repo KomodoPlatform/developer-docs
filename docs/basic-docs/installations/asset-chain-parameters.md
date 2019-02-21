@@ -26,7 +26,7 @@ This is the amount of pre-mined coins you would like the chain to have.
 
 The node that sets [gen](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
 
-If `ac_supply` is not set, [ac_reward`](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [`ac_founders](../installations/asset-chain-parameters.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
+If `ac_supply` is not set, [ac_reward](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [ac_founders](../installations/asset-chain-parameters.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
 
 The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
 
@@ -120,7 +120,7 @@ A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases b
 
 ## ac_halving
 
-This is the number of blocks between each block reward halving. This parameter will have no effect if [ac_reward`](../installations/asset-chain-parameters.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [`ac_decay](../installations/asset-chain-parameters.html#ac-decay) is not, the reward will decrease by 50% each halving.
+This is the number of blocks between each block reward halving. This parameter will have no effect if [ac_reward](../installations/asset-chain-parameters.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [ac_decay](../installations/asset-chain-parameters.html#ac-decay) is not, the reward will decrease by 50% each halving.
 
 #### :pushpin: Example:
 
@@ -163,7 +163,7 @@ The `ac_eras` parameter accepts only one value (`1`, `2`, or `3`). When activate
 
 The principle parameter that is affected by `ac_eras` is [ac_reward](../installations/asset-chain-parameters.html#ac-reward), and it must receive at least one value.
 
-Also, [ac_decay`](../installations/asset-chain-parameters.html#ac-decay), [ac_halving](../installations/asset-chain-parameters.html#ac-halving), and [`ac_end](../installations/asset-chain-parameters.html#ac-end) can each receive multiple values and thereby affect reward functionality.
+Also, [ac_decay](../installations/asset-chain-parameters.html#ac-decay), [ac_halving](../installations/asset-chain-parameters.html#ac-halving), and [ac_end](../installations/asset-chain-parameters.html#ac-end) can each receive multiple values and thereby affect reward functionality.
 
 For every era, there must be a corresponding value in `ac_end` that indicates the block height at which this era ends. To set the final era to last indefinitely, set the `ac_end` value of that era to `0`; the `0` setting should only be used for the last era.
 
@@ -232,7 +232,7 @@ A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 
 
 The `ac_founders` parameter creates a "founder's reward."
 
-This parameter requires [ac_perc`](../installations/asset-chain-parameters.html#ac-perc). If the `ac_perc` value is not declared, the `ac_founders` value defaults to `35%`.  Also, either [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) OR [`ac_script](../installations/asset-chain-parameters.html#ac-script) must be set.
+This parameter requires [ac_perc](../installations/asset-chain-parameters.html#ac-perc). If the `ac_perc` value is not declared, the `ac_founders` value defaults to `35%`.  Also, either [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) OR [ac_script](../installations/asset-chain-parameters.html#ac-script) must be set.
 
 The `ac_perc` value determines the percentage of block rewards paid to the founder. These rewards are not paid out immediately, but rather according to the `ac_founders` setting.
 
@@ -454,11 +454,11 @@ Once staking is active, utxos available in the `wallet.dat` file will begin stak
 
 On an `ac_staked` asset chain there are 64 global segments (`segid`'s) to which all addresses and the corresponding utxos belong. These 64 `segid`'s become eligible to stake blocks in turns. The segment a utxo belongs to is determined automatically, according to the address in which the utxo resides.
 
-You can see which segment an address belongs to by using the [validateaddress`](../komodo-api/util.html#validateaddress) rpc call. You can use the [`getbalance64](../komodo-api/wallet.html#getbalance64) rpc call to observe how your staked coins are distributed across the separate segids.
+You can see which segment an address belongs to by using the [validateaddress](../komodo-api/util.html#validateaddress) rpc call. You can use the [getbalance64](../komodo-api/wallet.html#getbalance64) rpc call to observe how your staked coins are distributed across the separate segids.
 
 Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure.
 
-There are additional considerations when `ac_staked` is used in conjunction with [ac_perc`](../installations/asset-chain-parameters.html#ac-perc) and [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey). The coins that are mined via `ac_staked` will be included in the `ac_perc` calculations until the asset chain reaches block height `1000000`. Therefore, the [`ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction. After block `1000000`, `ac_perc` will no longer include the coins mined from `ac_staked`, and therefore the amount of coins sent to the `ac_pubkey` address will normalize.
+There are additional considerations when `ac_staked` is used in conjunction with [ac_perc](../installations/asset-chain-parameters.html#ac-perc) and [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey). The coins that are mined via `ac_staked` will be included in the `ac_perc` calculations until the asset chain reaches block height `1000000`. Therefore, the [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction. After block `1000000`, `ac_perc` will no longer include the coins mined from `ac_staked`, and therefore the amount of coins sent to the `ac_pubkey` address will normalize.
 
 ### Rules for Staking a Block
 
@@ -571,7 +571,7 @@ Setting `-ac_txpow=1` enforces a transaction-rate limiter. This can help to prev
 
 `ac_txpow` forces all transactions (other than coinbase transactions) to have a txid starting and ending with `00`.
 
-This parameter is currently a proof of concept. Many of the traditional rpc commands, such as `sendtoaddress` or `sendmany`, are not currently supported. Instead, use [createrawtransaction`](../komodo-api/rawtransactions.html#createrawtransaction) and [`signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction).
+This parameter is currently a proof of concept. Many of the traditional rpc commands, such as `sendtoaddress` or `sendmany`, are not currently supported. Instead, use [createrawtransaction](../komodo-api/rawtransactions.html#createrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction).
 
 ## ac_algo
 

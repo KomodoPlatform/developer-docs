@@ -567,7 +567,7 @@ Response:
 
 The `sendrawtransction` method submits raw transaction (serialized, hex-encoded) to local nodes and the network.
 
-Also see [createrawtransaction`](../komodo-api/rawtransactions.html#createrawtransaction) and [`signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction) calls.
+Also see [createrawtransaction](../komodo-api/rawtransactions.html#createrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction) calls.
 
 ### Arguments:
 

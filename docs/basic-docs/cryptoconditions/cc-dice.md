@@ -8,7 +8,7 @@ It is also useful as a demonstration to show how Crypto Conditions based contrac
 
 The "house" node should be running the [dicestatus](../cryptoconditions/cc-dice.html#dicestatus) method at a regular frequency. This method resolves unfinished bets and generates new entropy utxos for the "house" contract.
 
-To create a "house" contract, use [dicefund`](../cryptoconditions/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [`diceaddfunds](../cryptoconditions/cc-dice.html#diceaddfunds).
+To create a "house" contract, use [dicefund](../cryptoconditions/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [diceaddfunds](../cryptoconditions/cc-dice.html#diceaddfunds).
 
 Once the contract is created and funded, users can place a bet using [dicebet](../cryptoconditions/cc-dice.html#dicebet).
 
