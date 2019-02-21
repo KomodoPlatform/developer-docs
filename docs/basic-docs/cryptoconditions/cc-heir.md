@@ -561,6 +561,12 @@ The `heiraddress` method shows the owner's addresses and balances for the Heir C
 
 :::
 
+<!--
+FIXME
+
+The method will be available in all daemons but just won't be meaningful in any daemon other than one launched using the <owner pubkey> of a heir funding plan
+-->
+
 ### Arguments:
 
 | Structure | Type     | Description                  |
