@@ -396,9 +396,7 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
 fundingtxid                                  |(string)                     |the txid of the transaction that created and funded the relevant contract
-]                                            |                             |
 
 #### :pushpin: Examples:
 

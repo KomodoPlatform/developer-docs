@@ -68,15 +68,15 @@ format                                       |(string)                     |an i
 
 The various formats of data that can be registered for an oracle and their symbols are as follows:
 
-`s` -> ` < 256 char string`
-`S` -> ` < 65536 char string`
-`d` -> ` < 256 binary data`
-`D` -> ` < 65536 binary data`
-`c` -> `1 byte signed little endian number, 'C' if unsigned`
-`t` -> `2 byte signed little endian number, 'T' if unsigned`
-`i` -> `4 byte signed little endian number, 'I' if unsigned`
-`l` -> `8 byte signed little endian number, 'L' if unsigned`
-`h` -> `32 byte hash`
+- `s` -> ` < 256 char string`
+- `S` -> ` < 65536 char string`
+- `d` -> ` < 256 binary data`
+- `D` -> ` < 65536 binary data`
+- `c` -> `1 byte signed little endian number, 'C' if unsigned`
+- `t` -> `2 byte signed little endian number, 'T' if unsigned`
+- `i` -> `4 byte signed little endian number, 'I' if unsigned`
+- `l` -> `8 byte signed little endian number, 'L' if unsigned`
+- `h` -> `32 byte hash`
 
 ### Response:
 
@@ -380,25 +380,19 @@ oracletxid                                   |(string)                     |the 
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
 result                                       |(string)                     |whether the command executed successfully
 txid                                         |(string)                     |the unique txid, or oracletxid, that identifies the oracle
 name                                         |(string)                     |the name of the oracle contract
 description                                  |(string)                     |the description of the oracle contract
 format                                       |(string)                     |a string that identifies the data type accepted for the oracle contract (see [oraclescreate](../cryptoconditions/cc-oracles.html#oraclescreate))
 marker                                       |(string)                     |the unmodified public address generated from the oracle contract's privkey
-registered:                                  |                             |
-{                                            |                             |
+registered:                                  |(array)                             |
 publisher                                    |(string)                     |the unique identifier for the publisher (see [oraclesregister](../cryptoconditions/cc-oracles.html#oraclesregister))
 baton                                        |(string)                     |the baton address of the publisher, which is a cryptoconditions address (based on the pubkey of the publisher and the EVAL code of the oracle contract)
 batontxid                                    |(string)                     |the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher
 lifetime                                     |(number)                     |length of time since publisher's inception
 funds                                        |(number)                     |the funds committed by subscribers to the publisher's account, and which are used for payouts
 datafee                                      |(number)                     |the amount a subscriber pays for each data upload
-}                                            |                             |
-]                                            |                             |
-}                                            |                             |
-
 
 #### :pushpin: Examples:
 
@@ -447,9 +441,7 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-oracletxid,                                  |(string)                     |a unique identifying oracletxid
-]                                            |                             |
+oracletxid                                  |(array of strings)                     |the unique identifying oracletxid(s)
 
 #### :pushpin: Examples:
 
@@ -657,14 +649,9 @@ num                                          |(number)                     |numb
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
 result                                       |(string)                     |whether the command executed successfully
-samples:                                     |                             |
-[                                            |                             |
+samples:                                     |(array of strings)                             |
 "XXXXXXXXXXX"                                |(string)                     |a sample data point
-],                                           |                             |
-]                                            |                             |
-}                                            |                             |
 
 #### :pushpin: Examples:
 

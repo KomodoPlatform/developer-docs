@@ -796,9 +796,7 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-tokenid                                      |(string)                     |the identifying txid for the token id
-]                                            |                             |
+tokenid                                      |(array of strings)                     |the identifying txid for the token id
 
 #### :pushpin: Examples:
 
@@ -833,13 +831,13 @@ The `tokenorders` method displays the public on-chain orderbook for a specific t
 
 Information about the `funcid` property:
 
-A lowercase `b`' describes an bid offer.
+- A lowercase `b` describes an bid offer.
 
-An uppercase `B` describes a bid fill.
+- An uppercase `B` describes a bid fill.
 
-A lowercase `s` describes an ask offer.
+- A lowercase `s` describes an ask offer.
 
-An uppercase `S` describes the ask fill.
+- An uppercase `S` describes the ask fill.
 
 ### Arguments:
 

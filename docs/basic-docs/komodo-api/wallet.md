@@ -2493,7 +2493,7 @@ Response:
 
 **setaccount "address" "account"**
 
-::: tip
+::: tip Notice
 DEPRECATED
 :::
 
@@ -3522,7 +3522,6 @@ Response:
 
 ```bash
 (none)
-
 ```
 
 Command:

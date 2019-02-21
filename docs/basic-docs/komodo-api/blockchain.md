@@ -77,7 +77,7 @@ Structure|Type|Description
 "height"                                     |(numeric)                    |the block height or index (same as provided height)
 "version"                                    |(numeric)                    |the block version
 "merkleroot"                                 |(string)                     |the merkle root
-"tx" : [ "transaction_id" ,...]              |(array of string)                             |the transaction ids
+"tx" : [ "transaction_id" ,...]              |(array of strings)                             |
 "time"                                       |(numeric)                    |the block time in seconds since epoch (Jan 1 1970 GMT)
 "nonce"                                      |(numeric)                    |the nonce
 "bits"                                       |(string)                     |the bits

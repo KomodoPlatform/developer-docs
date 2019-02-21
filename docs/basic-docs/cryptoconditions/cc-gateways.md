@@ -8,7 +8,7 @@ This allows the `gateways`-enabled asset chain to feature secure, on-chain, high
 
 Using an established `gateways` smart contract is not considered difficult. However, setting up the gateway requires the user to closely follow several detailed steps.
 
-### GatewaysCC Tutorial Overview
+## GatewaysCC Tutorial and Overview
 
 In this tutorial, we will create a gateway that can serve to represent KMD. The following are the steps in the gateway-creation process:
 
@@ -23,13 +23,13 @@ Please ensure that you have the KMD main chain downloaded and synced before cont
 
 Also, please open an empty text file and save all output transaction ids and hex-encoded data from each step. You will need the information at various stages.
 
-## Manually Compile and Install Komodo From Source
+### Manually Compile and Install Komodo From Source
 
 For this tutorial, please compile and install Komodo software from the source repositories. 
 
 [Information on manual installations can be found at this linked documentation.](https://docs.komodoplatform.com/komodo/install-Komodo-manually.html)
 
-## Create a new Blockchain 
+### Create a new Blockchain 
 
 For this tutorial we will create a temporary asset chain called `HELLOWORLD` for educational purposes.  
 
@@ -41,7 +41,7 @@ Recall also that a user must have a `pubkey` enabled when interacting with a Cry
 
 If desired, the reader may use an existing asset chain instead of a temporary educational chain. [Follow this link](https://github.com/jl777/komodo/blob/master/src/assetchains.old) for a list of asset-chain launch parameters.
 
-## Create a Token to Represent an External Cryptocurrency 
+### Create a Token to Represent an External Cryptocurrency 
 
 For the GatewaysCC module to fuction it must have access to tokens that can represent an external cryptocurrency. We use the [Tokens](../cryptoconditions/cc-tokens.html) CC module to this effect. 
 
@@ -61,7 +61,9 @@ For our purposes, we will use `1000` coins of HELLOWORLD.
 
 To create the tokens, execute the following command.
 
+```
 ./komodo-cli -ac_name=HELLOWORLD tokencreate KMD 1000 KMD_equivalent_token_for_gatewaysCC
+```
 
 This creates a `100000000000` token supply of on-chain tokens with the name of `KMD`, which represent the external cryptocurrency, `KMD`. 
 
@@ -73,7 +75,8 @@ This command returns a hex value as a response:
 {
   "result": "success",
   "hex": "01000000022c223cfc9c3349aed24ca89e44af6fcdb030150443bd6ac55e2080ce4b097c3002000000484730440220316605c400c47e2d5aa6104ac5c5229e71683b8db9482efa1655d257690d338802202344f254b208a6d724f52f4503531cf005a8ca68119bde4b6cb281ab9fccaf1101ffffffff80e66c0c47311449c5effc2782134006f05fd31e79659bc4b0608d7e247e280c0000000049483045022100ec494d3fa5c76fe0382e83980affdfd091509fb4e18b20fff8c095374e6b6bee022015ddaf95dc8b03e8cbba00ff7a377b80a7bd2200a68669718c329c617549757701ffffffff0400a0724e18090000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc1027000000000000232102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702acc01f66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000396a37e3632103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc0354414b0e54657374696e672070686173652e00000000" } ```
-  
+```
+
 Select the hex value (`01000000022c223c...`) and copy it (CTRL + SHFT + C).
 
 Broadcast this value using [`sendrawtransaction`:](../komodo-api/rawtransactions.html#sendrawtransaction)
@@ -104,7 +107,7 @@ If this asset chain were receiving full dPoW security services, at this point it
 ./komodo-cli -ac_name=HELLOWORLD getinfo
 ```
 
-On this educational asset chain, however, we can continue without waiting of notarization. 
+On this educational asset chain, however, we can continue without waiting for notarization. 
 
 We can check to see that our token is successfully created on the chain using [tokeninfo](../cryptoconditions/cc-tokens.html#tokeninfo):
 
@@ -118,7 +121,7 @@ We can check the balance of our `pubkey` using [`tokenbalance`.](../cryptocondit
 ./komodo-cli -ac_name=HELLOWORLD tokenbalance insert_tokenid insert_pubkey
 ``` 
 
-## Create the Gateway 
+### Create the Gateway 
 
 Execute the following command to create a `gatewayspubkey`:
 
@@ -134,6 +137,7 @@ Set the supply as the number of KMD-tokens to add to the gateway. For example, i
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD tokenconvert 241 insert_tokenid insert_gatewayspubkey insert_totalsupply`
+```
 
 This returns another hex value:
 
@@ -146,9 +150,11 @@ This returns another hex value:
 
 Broadcast the hex value using [`sendrawtransaction`:](../komodo-api/rawtransactions.html#sendrawtransaction)
 
-`./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_data`
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_data
+```
 
-## Create an Oracle
+### Create an Oracle
 
 We use the [oracles](../cryptoconditions/cc-oracles.html) CryptoConditions module to add external data to the blockchain.
 
@@ -204,24 +210,24 @@ Retrieve the data publisher's `pubkey` using [oraclesinfo](../cryptoconditions/c
 Response from `oraclesinfo`:
 
 ```
-    {
-        "result": "success",
-        "txid": "46e2dc958477160eb37de3a1ec1bb18899d77f5b47bd52b8a6f7a9ce14729157",
-        "name": "KMD",
-        "description": "blockheaders",
-        "format": "Ihh",
-        "marker": "RNFz9HAuzXhAjx6twEJzcHXconzChfiNM6",
-        "registered": [
-            {
-                "publisher": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5",
-                "baton": "RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9",
-                "batontxid": "99dd11f4eac1369f3fe8c6428f49e63da26e1b493f69b5bde29edbfbd06eb785",
-                "lifetime": "0.00000000",
-                "funds": "0.00000000",
-                "datafee": "0.01000000"
-            }
-        ]
-    }
+{
+    "result": "success",
+    "txid": "46e2dc958477160eb37de3a1ec1bb18899d77f5b47bd52b8a6f7a9ce14729157",
+    "name": "KMD",
+    "description": "blockheaders",
+    "format": "Ihh",
+    "marker": "RNFz9HAuzXhAjx6twEJzcHXconzChfiNM6",
+    "registered": [
+        {
+            "publisher": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5",
+            "baton": "RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9",
+            "batontxid": "99dd11f4eac1369f3fe8c6428f49e63da26e1b493f69b5bde29edbfbd06eb785",
+            "lifetime": "0.00000000",
+            "funds": "0.00000000",
+            "datafee": "0.01000000"
+        }
+    ]
+}
 ```
 
 The property, `"publisher"`, in the entry, `"registered"`, of the returned json object is the data publisher's `pubkey`, also called the `publisherpubkey`.
@@ -250,7 +256,7 @@ Verify the oracle information to ensure it is properly established:
 ./komodo-cli -ac_name=HELLOWORLD oraclesinfo insert_oracleid 
 ```
 
-## Activating Gateway Binding 
+### Activating Gateway Binding 
 
 We now create a gateway and bind our information to it, using the [gatewaysbind](../cryptoconditions/cc-gateways.html#gatewaysbind) method.
 
@@ -278,7 +284,7 @@ Assuming all is properly created and executed, we may now review our new gateway
 
 Use the returned information to verify that the `tokenid` and `oracleid` match the information in our text editor.
 
-## Assemble an Oracle dApp
+### Assemble an Oracle dApp
 
 An oracle dApp automates the transfer of merkleroot data to our oracle. The Komodo software suite includes built-in tools for creating an oracle dApp.
 
@@ -308,9 +314,7 @@ KMD ht.1023336 <- 689d0f0006a53215d5a07d9ee1c9206dcdccacd1c364968b555c56cdf78f9f
 broadcast HELLOWORLD txid.(f33d5ffaec7d13f14605556cee86262299db8fad0337d1baefadc59ec24b6055)
 ```
 
-## Using the Gateway
-
-### `gatewaysdeposit`
+### Using the Gateway
 
 With our gateway created and our oracle dApp running as a background process, we are finally prepared to test our gateway.
 
@@ -346,6 +350,7 @@ Use the [z_sendmany](../komodo-api/wallet.html#z-sendmany) method to send funds 
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD z_sendmany "insert_address_where_KMD_funds_are_currently_held" '[{"address":"addressOfPubkeyForTokenizedKmd","amount":0.0001},{"address":"gatewaysDepositAddress","amount":0.1}]'
+```
 
 The returned transaction id is our `cointxid`. Save this in the text editor.
 
@@ -377,15 +382,15 @@ The `gatewaysdeposit` method broadcasts the relevant data on the asset chain so 
 
 Here is the information we need for this call:
 
-`BINDTXID`: our bindtxid
-`HEIGHT`: the `blockindex` value of our `z_sendmany` transaction
-`COIN`: KMD for this example
-`COINTXID`: the txid returned from `z_sendmany`
-`CLAIMVOUT`: the `vout` of the claim (this value should be 0, as it is our first use)
-`DEPOSITHEX`: the `hex` value that is found by executing `gettransaction` on the cointxid 
-`PROOF`: the `proof` value returned after executing `gettxoutproof` on the cointxid
-`DESTPUB`: the public key where the KMD tokens should be received on the asset chain
-`AMOUNT`: the amount of the deposit (in this case 0.1)
+- `BINDTXID`: our bindtxid
+- `HEIGHT`: the `blockindex` value of our `z_sendmany` transaction
+- `COIN`: KMD for this example
+- `COINTXID`: the txid returned from `z_sendmany`
+- `CLAIMVOUT`: the `vout` of the claim (this value should be 0, as it is our first use)
+- `DEPOSITHEX`: the `hex` value that is found by executing `gettransaction` on the cointxid 
+- `PROOF`: the `proof` value returned after executing `gettxoutproof` on the cointxid
+- `DESTPUB`: the public key where the KMD tokens should be received on the asset chain
+- `AMOUNT`: the amount of the deposit (in this case 0.1)
 
 ```
 ./komodo-cli gatewaysdeposit BINDTXID HEIGHT COIN COINTXID CLAIMVOUT DEPOSITHEX PROOF DESTPUB AMOUNT
@@ -395,7 +400,9 @@ Successfully executing this command will return a hex value.
 
 Broadcast the hex data:
 
-`./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_data`
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_data
+```
 
 The broadcast returns a transaction id. Copy this to the text editor. It is the `deposittxid`.
 
@@ -409,11 +416,11 @@ To claim the funds we must spend the marker and the deposit asset, and perform t
 
 This method is only available to the owner of the `privkey` corresponding to the pubkey used previously in the `gatewaysdeposit` method. The pubkey should be the `-pubkey=$PUBKEY` parameter used to launch the daemon.
 
-`BINDTXID`: our bindtxid
-`COIN`: KMD for this example
-`DEPOSITTXID`: the transaction id returned from the `gatewaysdeposit`call
-`DESTPUB`: the public key where these tokens should be received on the asset chain
-`AMOUNT`: the amount of the deposit (in this case 0.1)
+- `BINDTXID`: our bindtxid
+- `COIN`: KMD for this example
+- `DEPOSITTXID`: the transaction id returned from the `gatewaysdeposit`call
+- `DESTPUB`: the public key where these tokens should be received on the asset chain
+- `AMOUNT`: the amount of the deposit (in this case 0.1)
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD gatewaysclaim BINDTXID COIN DEPOSITTXID DESTPUB AMOUNT
@@ -421,7 +428,9 @@ This method is only available to the owner of the `privkey` corresponding to the
 
 Broadcast the returned hex value:
 
-`./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_data`
+```
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_data
+```
 
 Once this transaction is successfully confirmed, the gateway will credit tokens to our indicated pubkey. These tokens are now usable as regular TokenCC tokens.
 
@@ -460,14 +469,14 @@ Find the private key returned from this command:
 Execute the following commands on the node running the oracle dApp:
 
 ```
-./komodo-cli importprivkey insert_private_key```
+./komodo-cli importprivkey insert_private_key
 ```
 Information for the next command:
 
-`BINDTXID`: our bindtxid
-`COIN`: KMD for this example
-`WITHDRAWPUB`: the pubkey where the withdrawn coins should appear on the external chain; in this case, the KMD pubkey
-`AMOUNT`: the amount to withdraw
+- `BINDTXID`: our bindtxid
+- `COIN`: KMD for this example
+- `WITHDRAWPUB`: the pubkey where the withdrawn coins should appear on the external chain; in this case, the KMD pubkey
+- `AMOUNT`: the amount to withdraw
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD gatewayswithdraw insert_bindtxid KMD insert_withdraw_pubkey insert_desired_withdraw_amount
@@ -1030,7 +1039,7 @@ Command:
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD gatewaysclaim 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d KMD 07d79e39354cc38a76dfe2ca8a5fb711432192237608ea066621662f13e0c08e 02d389e879ca68809794c0ef29869b23b4dd8e22122fcc4e8b69adb1d33752dd9d 0.1
-``
+```
 
 Response:
 
@@ -1112,7 +1121,7 @@ Response:
   "result": "success",
   "hex": "01000000020e2778e5c0917b00a995ffd0e027ac896492b70b2004ca0096d5309bc1d695ce0000000048473044022072bd3e74c1fb6a56111fc34caab1d605cedfbcb0a9dcd1a4c8d0dae9db61d43902205ccea739077b3374559353af3392e637b7c462ca699f9b9dba786b5398491b4201ffffffff8425c1bf730444ceac45a47376164d66a156e6c2a48116ec14cd17a88f8ab8e5010000007b4c79a276a072a26ba067a565802102d389e879ca68809794c0ef29869b23b4dd8e22122fcc4e8b69adb1d33752dd9d814051e39b89bace8226f3ca1779b754f2b57ee480e9636b16322bb36a89ec22de967ea66cdc906debb5f6b7c26a51ac2d089966aeb92d07aacc43507b1555c02313a100af038001f1a10001ffffffff058096980000000000302ea22c802091abda62a548f9c7f5beb19d16f01714ae3d4e526f3266fc8d347d6123f3d77b8103120c008203000401cc102700000000000023210271bc6b553f5f763ca7f64457710f8a0b3f5273b2941edc5091ca41cec39b7328ac1027000000000000302ea22c802091abda62a548f9c7f5beb19d16f01714ae3d4e526f3266fc8d347d6123f3d77b8103120c008203000401ccd02a724e18090000232102d389e879ca68809794c0ef29869b23b4dd8e22122fcc4e8b69adb1d33752dd9dac0000000000000000536a4c50f157bff603b64f309e344e34b10fd2053db59788909914f8488a7f73ddddc2165d31034b4d44210271bc6b553f5f763ca7f64457710f8a0b3f5273b2941edc5091ca41cec39b7328809698000000000000000000"
 }
-``
+```
 
 Command:
 
@@ -1425,10 +1434,7 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
 bindtxid                         |(string)                     |the bindtxid of an available gateway
-,                                            |                             |
-]                                            |                             |
 
 #### :pushpin: Examples:
 

@@ -1,4 +1,4 @@
-# Building a Komodo Asset Chain
+# Creating Komodo Asset Chains
 
 ## Creating A New Asset Chain
 
