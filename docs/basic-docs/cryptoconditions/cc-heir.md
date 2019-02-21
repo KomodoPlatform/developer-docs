@@ -235,6 +235,13 @@ When anyone other than the owner uses the `heiradd` method to add funds, these f
 
 It is not possible for the owner and a non-owner to use `heiradd` to contribute funds as part of the same utxo; the owner and non-owner must contribute funds separately. 
 
+<!--
+FIXME
+
+A little more clarity is needed in the above paragraph. The case I want to highlight and the most common difficulty that users would face will be: they see wallet balance: 20. but owner pubkey only has 5 and other pubkeys of the same wallet have the remaining 15. Now they won't be able to do **heiradd 20**
+This might cause confusion on why it didn't work.
+ -->
+
 ::: tip
 Use the [<b>heirlist</b>](../cryptoconditions/cc-heir.html#heirlist) method to find a <b>fundingtxid</b>. 
 :::
