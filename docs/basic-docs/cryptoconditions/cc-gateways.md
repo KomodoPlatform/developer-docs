@@ -67,7 +67,7 @@ To create the tokens, execute the following command.
 
 This creates a `100000000000` token supply of on-chain tokens with the name of `KMD`, which represent the external cryptocurrency, `KMD`. 
 
-For more details on the above command, see [`tokencreate`.](../cryptoconditions/cc-tokens.html#tokencreate)
+For more details on the above command, see [tokencreate](../cryptoconditions/cc-tokens.html#tokencreate)
 
 This command returns a hex value as a response:
 
@@ -79,7 +79,7 @@ This command returns a hex value as a response:
 
 Select the hex value (`01000000022c223c...`) and copy it (CTRL + SHFT + C).
 
-Broadcast this value using [`sendrawtransaction`:](../komodo-api/rawtransactions.html#sendrawtransaction)
+Broadcast this value using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction)
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex
@@ -115,7 +115,7 @@ We can check to see that our token is successfully created on the chain using [t
 ./komodo-cli -ac_name=HELLOWORLD tokeninfo insert_token_id
 ```
 
-We can check the balance of our `pubkey` using [`tokenbalance`.](../cryptoconditions/cc-tokens.html#tokenbalance):
+We can check the balance of our `pubkey` using [tokenbalance](../cryptoconditions/cc-tokens.html#tokenbalance):
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD tokenbalance insert_tokenid insert_pubkey
@@ -148,7 +148,7 @@ This returns another hex value:
 }
 ```
 
-Broadcast the hex value using [`sendrawtransaction`:](../komodo-api/rawtransactions.html#sendrawtransaction)
+Broadcast the hex value using [sendrawtransaction:](../komodo-api/rawtransactions.html#sendrawtransaction)
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_data
@@ -160,7 +160,7 @@ We use the [oracles](../cryptoconditions/cc-oracles.html) CryptoConditions modul
 
 The name of our oracle should be identical to the name of our tokens, `KMD`, and the data format must start with `Ihh` (height, blockhash, merkleroot):
 
-Create the oracle using [`oraclescreate`:](../cryptoconditions/cc-oracles.html#oraclescreate)
+Create the oracle using [oraclescreate:](../cryptoconditions/cc-oracles.html#oraclescreate)
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD oraclescreate KMD blockheaders Ihh
@@ -175,7 +175,7 @@ This returns a hex value:
 }
 ```
 
-Broadcast the returned hex data using [`sendrawtransaction`:](../komodo-api/rawtransactions.html#sendrawtransaction)
+Broadcast the returned hex data using [sendrawtransaction:](../komodo-api/rawtransactions.html#sendrawtransaction)
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_data

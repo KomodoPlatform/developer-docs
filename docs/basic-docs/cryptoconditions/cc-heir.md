@@ -2,13 +2,22 @@
 
 The Heir CryptoConditions (CC) module allows cryptocurrency funds to be passed on as an inheritance. 
 
-The module functions by the means of a special `1of2` CC address. In this type of address there are two keys that are capable of spending funds from the address. However, only the first key may spend funds by default.
+The module functions by the means of a special `1of2` CC address. In this type of address there are two private-keys that are capable of spending funds from the address. However, only the first private-key may spend funds by default.
 
-This first key belongs to the owner of the `1of2` CC address and it is created from the owner's passphrase. The owner may use this key to freely spend funds and also to add more funds to the address.
+This first private-key belongs to the owner of the `1of2` CC address. The owner may use this key to freely spend funds and also to add more funds to the address.
 
-Should the owner fail to utilize the address for a specified period of time (`inactivitytime`), the address automatically unlocks to the second key. This second key is owned by the heir. Once unlocked, both the creator and the heir may freely spend funds from the address. 
+Should the owner fail to interact with the `1of2` CC address for a specified period of time (`inactivitytime`), the address automatically unlocks to the second key. This second key is owned by the heir. Once unlocked, both the creator and the heir may freely spend funds from the address. 
 
-The [`heiradd`](../cryptoconditions/cc-heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
+<!-- 
+FIXME Is the following detail not needed in the doc:
+
+```
+After the inactivity time has passed, both the heir and owner may freely claim available funds. This is achieved by setting a special flag in the first `heirclaim` transaction done by the heir, which signals that spending is allowed for the heir from now on, whether the owner adds more funds or spends them hereafter.
+```
+ 
+-->
+
+The [heiradd](../cryptoconditions/cc-heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
 
 The Heir CC module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../cryptoconditions/cc-tokens.html) CC module that represent on-chain assets, or even tokens that are formed via the [Gateways](../cryptoconditions/cc-gateways.html) module to represent off-chain assets or other cryptocurrencies.
 
@@ -23,12 +32,8 @@ The Heir CC module accepts both coins and tokens. These can be the base coin of 
 - To get list of all funding plans on the asset chain, use [heirlist](../cryptoconditions/cc-heir.html#heirlist)
 - To output Heir CC addresses, use [heiraddress](../cryptoconditions/cc-heir.html#heiraddress)
 
-::: tip
-When used on a chain where private transactions are enabled, executing a few extra steps during the unlocking process can assist in allowing the heir to spend funds. Once the <b>inactivitytime</b> period has passed, the heir should make a standard transaction on the chain using any arbitrary amount. This assists the Heirs CC module in correctly calculating the time between the last owner transaction and the chain tip.
-:::
-
 ::: warning
-If an owner of an Heir CC address seeking to add funds to their account avoids the normal methods and instead manually creates a utxo contribution, this utxo will not follow the normal patterns. Specifically, if the owner manually creates a contribution utxo that derives from both the owner pubkey and also from another pubkey, this utxo will not affect the `inactivitytime` calculation. Instead of resetting the `inactivitytime`, the utxo will count only as a donation.
+If an owner of an Heir CC address seeking to add funds to their account avoids the normal methods (the RPC provided) and instead manually creates a utxo contribution, this utxo will not follow the normal patterns. Specifically, if the owner manually creates a contribution utxo that derives from both the owner pubkey and also from another pubkey, this utxo will not affect the `inactivitytime` calculation. Instead of resetting the `inactivitytime`, the utxo will count only as a donation.
 :::
 
 ## heirfund
@@ -229,6 +234,13 @@ When the owner uses the `heiradd` method the `inactivitytime` calculations are r
 When anyone other than the owner uses the `heiradd` method to add funds, these funds are considered to be donations and won't affect the calculation of the elapsed `inactivitytime`. The method also sends a warning to the donator to ensure they agree to submit the given funds as a donation. 
 
 It is not possible for the owner and a non-owner to use `heiradd` to contribute funds as part of the same utxo; the owner and non-owner must contribute funds separately. 
+
+<!--
+FIXME
+
+A little more clarity is needed in the above paragraph. The case I want to highlight and the most common difficulty that users would face will be: they see wallet balance: 20. but owner pubkey only has 5 and other pubkeys of the same wallet have the remaining 15. Now they won't be able to do **heiradd 20**
+This might cause confusion on why it didn't work.
+ -->
 
 ::: tip
 Use the [<b>heirlist</b>](../cryptoconditions/cc-heir.html#heirlist) method to find a <b>fundingtxid</b>. 
@@ -548,6 +560,12 @@ The `heiraddress` method shows the owner's addresses and balances for the Heir C
 - The argument of this method is the **heir's** pubkey.
 
 :::
+
+<!--
+FIXME
+
+The method will be available in all daemons but just won't be meaningful in any daemon other than one launched using the <owner pubkey> of a heir funding plan
+-->
 
 ### Arguments:
 
