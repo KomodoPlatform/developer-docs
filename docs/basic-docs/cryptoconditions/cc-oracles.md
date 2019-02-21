@@ -68,15 +68,26 @@ format                                       |(string)                     |an i
 
 The various formats of data that can be registered for an oracle and their symbols are as follows:
 
-- `s` -> ` < 256 char string`
-- `S` -> ` < 65536 char string`
-- `d` -> ` < 256 binary data`
-- `D` -> ` < 65536 binary data`
+- `s` -> `char string; size < 256 bytes`
+- `S` -> `char string; size < 65536 bytes`
+- `d` -> `binary data; size < 256 bytes`
+- `D` -> `binary data; size < 65536 bytes`
 - `c` -> `1 byte signed little endian number, 'C' if unsigned`
 - `t` -> `2 byte signed little endian number, 'T' if unsigned`
 - `i` -> `4 byte signed little endian number, 'I' if unsigned`
 - `l` -> `8 byte signed little endian number, 'L' if unsigned`
 - `h` -> `32 byte hash`
+
+::: warning
+
+- Even though the formats `S`,`D` specify that the data size can be upto `65536` bytes, it must be noted that the transaction size together with the data cannot exceed the limit of `10000` bytes.
+- Although the formats `d`,`D` are for raw binary data, it is almost better to use them than the formats `s`,`S`; the formats `s`,`S` use twice as much space on-chain while the only benefit to use them is that they will show human readable text in the output of the RPC [oraclessamples](../cryptoconditions/cc-oracles.html#oraclessamples)  
+
+:::
+
+::: tip 
+If data to be submitted is larger than `8KB`, it is suggested to break it into chunks of size 8KB or lower.
+:::
 
 ### Response:
 
@@ -196,7 +207,27 @@ The `oraclesdata` method publishes data to an oracle.
 
 A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [oraclessubscribe](../cryptoconditions/cc-oracles.html#oraclessubscribe).
 
-Data is submitted using the `hexstr` property. The first portion of the `hexstr` property must include ===; this sets the string length for the rest of the data. The second portion of the `hexstr` property is the data itself.
+Data is submitted using the `hexstr` property. The first bytes of the `hexstr` property must be the length of the data being submitted in hexadecimal format; this sets the string length for the rest of the data. The second portion of the `hexstr` property is the data itself.
+
+::: tip Note
+
+- for submitting data of the type `s`, `d` whose size is less than 256 bytes, the first byte denotes the length
+- for submitting data of the type `S`, `D` whose size is less than 65536 bytes, the first two bytes denotes the length in **Little Endian** format
+
+:::
+
+#### :pushpin: Example:
+
+- To submit the string: "teststring" to an oracle of the format `s`, that data that needs to be submitted is `0a74657374737472696e67`
+  - Notice the first byte: `0a`, which is the hexadecimal representation of the decimal number `10`, which is the size of the string - `10 bytes` as each alphabet and space take `1 byte` to fill
+  - the following bytes are `74`,`65`,`73`,`74`, .... so on are the characters: `t`,`e`,`s`,`t` .... respectively  
+ 
+- To submit the string: "teststring" to an oracle of the format `S`, that data that needs to be submitted is `0a0074657374737472696e67`
+  - Notice the first two bytes: `0a` and `00`, which is the hexadecimal representation of the decimal number `10` written to fill `2 bytes` and in **Little Endian** format.
+
+::: tip
+An example script that can be used to produce data that can be submitted to a Oracle of type: `S` is available [here](https://docs.komodopatform.com/cc/contracts/oracles/scenarios/script-data-conversion.html)
+:::
 
 The `oraclesdata` method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
