@@ -2,9 +2,9 @@
 
 The Heir CryptoConditions (CC) module allows cryptocurrency funds to be passed on as an inheritance. 
 
-The module functions by the means of a special `1of2` CC address. In this type of address there are two private-keys that are capable of spending funds from the address. However, only the first private-key may spend funds by default.
+The module functions by the means of a special `1of2` CC address. In this type of address there are two private keys that are capable of spending funds from the address. However, only the first private key may spend funds by default.
 
-This first private-key belongs to the owner of the `1of2` CC address. The owner may use this key to freely spend funds and also to add more funds to the address.
+This first private key belongs to the owner of the `1of2` CC address. The owner may use this key to freely spend funds and also to add more funds to the address.
 
 Should the owner fail to interact with the `1of2` CC address for a specified period of time (`inactivitytime`), the address automatically unlocks to the second key. This second key is owned by the heir. Once unlocked, both the creator and the heir may freely spend funds from the address. 
 
