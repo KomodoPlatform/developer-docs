@@ -67,7 +67,7 @@ To create the tokens, execute the following command.
 
 This creates a `100000000000` token supply of on-chain tokens with the name of `KMD`, which represent the external cryptocurrency, `KMD`. 
 
-For more details on the above command, see [tokencreate](../cryptoconditions/cc-tokens.html#tokencreate)
+For more details on the above command, see [tokencreate.](../cryptoconditions/cc-tokens.html#tokencreate)
 
 This command returns a hex value as a response:
 
@@ -79,7 +79,7 @@ This command returns a hex value as a response:
 
 Select the hex value (`01000000022c223c...`) and copy it (CTRL + SHFT + C).
 
-Broadcast this value using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction)
+Broadcast this value using [sendrawtransaction:](../komodo-api/rawtransactions.html#sendrawtransaction)
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex
