@@ -65,8 +65,18 @@ module.exports = {
             ["/basic-docs/cryptoconditions/cc-gateways.md", "Gateways"],
             ["/basic-docs/cryptoconditions/cc-oracles.md", "Oracles"],
             ["/basic-docs/cryptoconditions/cc-rewards.md", "Rewards"],
-            ["/basic-docs/cryptoconditions/cc-tokens.md", "Tokens"],
-            ["/basic-docs/cryptoconditions/cc-musig.md", "MUSIG"]
+            ["/basic-docs/cryptoconditions/cc-tokens.md", "Tokens"]
+          ]
+        },
+        {
+          title: "Dynamic modules",
+          collapsable: true,
+          children: [
+            //[
+             // "/basic-docs/cryptoconditions/dynamic/dynamic-modules-instructions.md",
+              //"Instructions for loading and using dynamic modules"
+           // ],
+            ["/basic-docs/cryptoconditions/dynamic/cc-musig.md", "MuSig"]
           ]
         },
         {
