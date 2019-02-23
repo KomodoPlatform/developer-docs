@@ -1,10 +1,10 @@
 # Module: MuSig (In Development)
 
 ::: warning
-
-This module is still in development. The documentation is here for testing purposes.
-It is incomplete and may contain some errors.
+This module is under heavy development development. The document is here for testing purposes. It is incomplete and may contain some errors. If you find any info is missing or not accurate, please let us know at `#cc-musig` channel in the [Komodo Discord](https://komodoplatform.com/discord).
 :::
+
+This module is under heavy development and this guide is specifically for testing.
 
 ## Introduction
 
@@ -19,6 +19,15 @@ It is incomplete and may contain some errors.
 :::
 
 The module `MuSig` implements a Schnorr-based multi-signature scheme, that produces "Short, constant-size signatures which look the same to verifiers regardless of signer set" and has "Provable security in the plain public key model.". See this [article](https://blockstream.com/2019/02/18/musig-a-new-multisignature-standard/) for more information.
+
+## Install Dependencies
+
+These are a must and you need to make sure all the dependencies are installed correctly
+
+```bash
+sudo apt-get update && sudo apt-get upgrade -y
+sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libgtest-dev libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate software-properties-common curl libcurl4-gnutls-dev cmake clang libsodium-dev -y
+```
 
 ## Build instructions
 
@@ -58,6 +67,8 @@ In the directory `komodo/src/`
 ```bash
 ./komodod -ac_name=MUSIG -ac_supply=100000 -ac_reward=10000000 -pubkey=<yourpub> -ac_cclib=sudoku -ac_cc=2 -addnode=5.9.102.210 &
 ```
+
+Learn about setting the pubkey [here.](../../cryptoconditions/dynamic/cc-rogue.html##set-pubkey-value)
 
 ### Get funds to test
 
