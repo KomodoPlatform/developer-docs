@@ -76,7 +76,8 @@ module.exports = {
               "/basic-docs/cryptoconditions/dynamic/dynamic-modules-instructions.md",
               "Instructions for dynamic modules"
             ],
-            ["/basic-docs/cryptoconditions/dynamic/cc-musig.md", "MuSig"]
+            ["/basic-docs/cryptoconditions/dynamic/cc-musig.md", "MuSig"],
+            ["/basic-docs/cryptoconditions/dynamic/cc-rogue.md", "Rogue"]
           ]
         },
         {
