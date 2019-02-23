@@ -123,7 +123,7 @@ We will use two nodes to create a `20f2` MuSig pubkey, fund it and spend from it
 ::: tip
 
 - To learn how to use these methods, see: [cclib](../../komodo-api/cclib.html#cclib-2)
-- The `EVALCODE` of the Dynamic Module `MuSig` is `18.`
+- The `EVALCODE` of the Dynamic Module `MuSig` is `18`
 
 :::
 
