@@ -72,10 +72,10 @@ module.exports = {
           title: "Dynamic modules",
           collapsable: true,
           children: [
-            //[
-             // "/basic-docs/cryptoconditions/dynamic/dynamic-modules-instructions.md",
-              //"Instructions for loading and using dynamic modules"
-           // ],
+            [
+              "/basic-docs/cryptoconditions/dynamic/dynamic-modules-instructions.md",
+              "Instructions for dynamic modules"
+            ],
             ["/basic-docs/cryptoconditions/dynamic/cc-musig.md", "MuSig"]
           ]
         },
@@ -86,6 +86,7 @@ module.exports = {
             ["/basic-docs/komodo-api/address.md", "Address"],
             ["/basic-docs/komodo-api/blockchain.md", "Blockchain"],
             ["/basic-docs/komodo-api/control.md", "Control"],
+            ["/basic-docs/komodo-api/cclib.md", "CClib"],
             ["/basic-docs/komodo-api/disclosure.md", "Disclosure"],
             ["/basic-docs/komodo-api/generate.md", "Generate"],
             ["/basic-docs/komodo-api/mining.md", "Mining"],

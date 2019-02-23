@@ -64,7 +64,7 @@ In the directory `komodo/src/`
 In the directory `komodo/src/`
 
 ::: tip
-Import the private key corresponding to the pubkey used to start the daemon using the [importprivkey](../komodo-api/wallet.html#importprivkey) RPC.
+Import the private key corresponding to the pubkey used to start the daemon using the [importprivkey](../../komodo-api/wallet.html#importprivkey) RPC.
 :::
 
 ```bash
@@ -75,14 +75,14 @@ Import the private key corresponding to the pubkey used to start the daemon usin
 
 ## Work flow when using MuSig
 
-- first make a combined pubkey using the method [combine.](../dynamic/cc-musig.html#combine) From the response, take note of `combined_pk` and `pkhash`
-- next, send some coins to the `combined_pk` using the method [send.](../dynamic/cc-musig.html#send) From the decoded rawtransaction, take note of the `change_script` and `sendtxid`<!-- expalin what these two are -->
-- now calculate the message that needs to be signed by all the parties using the method [calcmsg,](../dynamic/cc-musig.html#calcmsg) which uses `change_script` and `sendtxid` as inputs. From the response, take note of `msg`. To create a valid spend, this `msg` needs to be signed by all the participating pubkeys.
-- on each signing node, a session needs to be creted using the method [session,](../dynamic/cc-musig.html#session) which takes the follwing arguments as inputs: `ind` (index; node with the first pubkey gets `0`),`numsigners` (number of pubkeys participating), `combined_pk`, `pkhash`, `msg` (message to be signed). From the response on each node, take note of the `commitment` and send all the `commitment`s to all the other nodes.
+- First make a combined pubkey using the method [combine.](../dynamic/cc-musig.html#combine) From the response, take note of `combined_pk` and `pkhash`
+- Next, send some coins to the `combined_pk` using the method [send.](../dynamic/cc-musig.html#send) From the decoded rawtransaction, take note of the `change_script` and `sendtxid`<!-- expalin what these two are -->
+- Now calculate the message that needs to be signed by all the parties using the method [calcmsg,](../dynamic/cc-musig.html#calcmsg) which uses `change_script` and `sendtxid` as inputs. From the response, take note of `msg`. To create a valid spend, this `msg` needs to be signed by all the participating pubkeys.
+- On each signing node, a session needs to be creted using the method [session,](../dynamic/cc-musig.html#session) which takes the follwing arguments as inputs: `ind` (index; node with the first pubkey gets `0`),`numsigners` (number of pubkeys participating), `combined_pk`, `pkhash`, `msg` (message to be signed). From the response on each node, take note of the `commitment` and send all the `commitment`s to all the other nodes.
 
 ::: warning
 
-- The `session` method stores the commitment for each node into the global struct.
+- The [session](../dynamic/cc-musig.html#session) method stores the commitment for each node into the global struct.
 - Keep in mind there is a single global struct with the `session` unique to each `cclib session` call.
 - This means that restarting any deamon in the middle of the process on any of the nodes results in a failure.
 - Also `cclib session` method can't called more than a single time on each node during the whole process.
@@ -90,16 +90,18 @@ Import the private key corresponding to the pubkey used to start the daemon usin
 
 :::
 
-- on each node, use the method [commit,](../dynamic/cc-musig.html#commit)
+- On each node, use the method [commit,](../dynamic/cc-musig.html#commit)
   which takes the arguments: `pkhash` and `commitment`s from all the other nodes to output `nonce`s. Make sure to exchange the `nonce`s from all the nodes so that each node will have `nonce`s from all the other nodes.
-- on each node, use the method [nonce,](../dynamic/cc-musig.html#nonce)
+- On each node, use the method [nonce,](../dynamic/cc-musig.html#nonce)
   which takes the arguments: `pkhash` and `nonce`s from all the other nodes to output `partialsig`s. Make sure to exchange the `partialsig`s from all the nodes so that each node will have `partialsig`s from all the other nodes.
-- finally, on each node, use the method [partialsig,](../dynamic/cc-musig.html#partialsig)
+- Finally, on each node, use the method [partialsig,](../dynamic/cc-musig.html#partialsig)
   which takes the arguments: `pkhash` and `partialsig`s from all the other nodes to output `combinedsig`s. Make sure to exchange the `combinedsig`s from all the nodes so that each node will have `combinedsig`s from all the other nodes. You can verify that all the nodes produced the same `combinedsig`.
-- now, for a sanity test, the method [verify](../dynamic/cc-musig.html#verify) can be used to make sure that, this `combinedsig` will work with the `msg` needed for the spend. It takes the arguments `msg`,`combined_pk`, `combinedsig`. <!-- what does it output -->
-- now the [spend](../dynamic/cc-musig.html#spend) part. This method takes `sendtxid`,`change_script`,`combinedsig` as inputs. <!-- who can spend, how much,something is missing here -->
+- Now, for a sanity test, the method [verify](../dynamic/cc-musig.html#verify) can be used to make sure that, this `combinedsig` will work with the `msg` needed for the spend. It takes the arguments `msg`,`combined_pk`, `combinedsig`. <!-- what does it output -->
+- Now the [spend](../dynamic/cc-musig.html#spend) part. This method takes `sendtxid`,`change_script`,`combinedsig` as inputs. <!-- who can spend, how much,something is missing here -->
 
 ## Available methods
+
+These methods can be used through the RPC call: [cclib](../../komodo-api/cclib.html#cclib)
 
 ### combine
 
