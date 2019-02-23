@@ -87,9 +87,9 @@ Import the private key corresponding to the pubkey used to start the daemon usin
 ## Work flow when using MuSig
 
 - First make a combined pubkey using the method [combine.](../dynamic/cc-musig.html#combine) From the response, take note of `combined_pk` and `pkhash`
-- Next, send some coins to the `combined_pk` using the method [send.](../dynamic/cc-musig.html#send) From the decoded rawtransaction, take note of the `change_script` and `sendtxid`<!-- expalin what these two are -->
-- Now calculate the message that needs to be signed by all the parties using the method [calcmsg,](../dynamic/cc-musig.html#calcmsg) which uses `sendtxid` and `change_script` as inputs. From the response, take note of `msg`. To create a valid spend, this `msg` needs to be signed by all the participating pubkeys.
-- On each signing node, a session needs to be creted using the method [session,](../dynamic/cc-musig.html#session) which takes the follwing arguments as inputs: `ind` (index; node with the first pubkey gets `0`),`numsigners` (number of pubkeys participating), `combined_pk`, `pkhash`, `msg` (message to be signed). From the response on each node, take note of the `commitment` and send all the `commitment`s to all the other nodes.
+- Next, send some coins to the `combined_pk` using the method [send.](../dynamic/cc-musig.html#send) From the decoded rawtransaction, take note of the `sendtxid` and `change_script` <!-- expalin what these two are -->
+- Now calculate the message that needs to be signed by all the parties using the method [calcmsg,](../dynamic/cc-musig.html#calcmsg) which uses `sendtxid` and `change_script` as arguments. From the response, take note of `msg`. To create a valid spend, this `msg` needs to be signed by all the participating pubkeys.
+- On each signing node, a session needs to be creted using the method [session,](../dynamic/cc-musig.html#session) which takes the follwing arguments: `ind` (index; node with the first pubkey gets `0`),`numsigners` (number of pubkeys participating), `combined_pk`, `pkhash`, `msg` (message to be signed). From the response on each node, take note of the `commitment` and send all the `commitment`s to all the other nodes.
 
 ::: warning
 
@@ -108,7 +108,7 @@ Import the private key corresponding to the pubkey used to start the daemon usin
 - Finally, on each node, use the method [partialsig,](../dynamic/cc-musig.html#partialsig)
   which takes the arguments: `pkhash` and `partialsig`s from all the other nodes to output `combinedsig`s. Make sure to exchange the `combinedsig`s from all the nodes so that each node will have `combinedsig`s from all the other nodes. You can verify that all the nodes produced the same `combinedsig`.
 - Now, for a sanity test, the method [verify](../dynamic/cc-musig.html#verify) can be used to make sure that, this `combinedsig` will work with the `msg` needed for the spend. It takes the arguments `msg`,`combined_pk`, `combinedsig`. <!-- what does it output -->
-- Now the [spend](../dynamic/cc-musig.html#spend) part. This method takes `sendtxid`,`change_script`,`combinedsig` as inputs. <!-- who can spend, how much,something is missing here -->
+- Now the [spend](../dynamic/cc-musig.html#spend) part. This method takes `sendtxid`,`change_script`,`combinedsig` as arguments. <!-- who can spend, how much,something is missing here -->
 
 ## A Complete Example
 
@@ -133,7 +133,7 @@ The first three methods need to be used in only one of the nodes. We will use **
 
 #### In Node1
 
-Input the two pubkeys in order.
+The arguments are the two pubkeys in order.
 
 Command:
 
@@ -240,7 +240,7 @@ Response:
 
 #### In Node1
 
-Use `sendtxid` and `change_script` as inputs.
+The arguments are `sendtxid` and `change_script`
 
 Command:
 
