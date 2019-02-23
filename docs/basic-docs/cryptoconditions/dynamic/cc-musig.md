@@ -2,7 +2,7 @@
 
 ::: warning
 
-This module is still in development. This documentation is here for testing purposes.
+This module is still in development. The documentation is here for testing purposes.
 It is incomplete and may contain some errors.
 :::
 
@@ -75,10 +75,10 @@ Import the private key corresponding to the pubkey used to start the daemon usin
 
 ## Work flow when using MuSig
 
-- first make a combined pubkey using the method [combine.](../cryptoconditions/dynamic/cc-musig.html#combine) From the response, take note of `combined_pk` and `pkhash`
-- next, send some coins to the `combined_pk` using the method [send.](../cryptoconditions/dynamic/cc-musig.html#send) From the decoded rawtransaction, take note of the `change_script` and `sendtxid`<!-- expalin what these two are -->
-- now calculate the message that needs to be signed by all the parties using the method [calcmsg,](../cryptoconditions/dynamic/cc-musig.html#calcmsg) which uses `change_script` and `sendtxid` as inputs. From the response, take note of `msg`. To create a valid spend, this `msg` needs to be signed by all the participating pubkeys.
-- on each signing node, a session needs to be creted using the method [session,](../cryptoconditions/dynamic/cc-musig.html#session) which takes the follwing arguments as inputs: `ind` (index; node with the first pubkey gets `0`),`numsigners` (number of pubkeys participating), `combined_pk`, `pkhash`, `msg` (message to be signed). From the response on each node, take note of the `commitment` and send all the `commitment`s to all the other nodes.
+- first make a combined pubkey using the method [combine.](../dynamic/cc-musig.html#combine) From the response, take note of `combined_pk` and `pkhash`
+- next, send some coins to the `combined_pk` using the method [send.](../dynamic/cc-musig.html#send) From the decoded rawtransaction, take note of the `change_script` and `sendtxid`<!-- expalin what these two are -->
+- now calculate the message that needs to be signed by all the parties using the method [calcmsg,](../dynamic/cc-musig.html#calcmsg) which uses `change_script` and `sendtxid` as inputs. From the response, take note of `msg`. To create a valid spend, this `msg` needs to be signed by all the participating pubkeys.
+- on each signing node, a session needs to be creted using the method [session,](../dynamic/cc-musig.html#session) which takes the follwing arguments as inputs: `ind` (index; node with the first pubkey gets `0`),`numsigners` (number of pubkeys participating), `combined_pk`, `pkhash`, `msg` (message to be signed). From the response on each node, take note of the `commitment` and send all the `commitment`s to all the other nodes.
 
 ::: warning
 
@@ -90,11 +90,31 @@ Import the private key corresponding to the pubkey used to start the daemon usin
 
 :::
 
-- on each node, use the method [commit,](../cryptoconditions/dynamic/cc-musig.html#commit)
+- on each node, use the method [commit,](../dynamic/cc-musig.html#commit)
   which takes the arguments: `pkhash` and `commitment`s from all the other nodes to output `nonce`s. Make sure to exchange the `nonce`s from all the nodes so that each node will have `nonce`s from all the other nodes.
-- on each node, use the method [nonce,](../cryptoconditions/dynamic/cc-musig.html#nonce)
+- on each node, use the method [nonce,](../dynamic/cc-musig.html#nonce)
   which takes the arguments: `pkhash` and `nonce`s from all the other nodes to output `partialsig`s. Make sure to exchange the `partialsig`s from all the nodes so that each node will have `partialsig`s from all the other nodes.
-- finally, on each node, use the method [partialsig,](../cryptoconditions/dynamic/cc-musig.html#partialsig)
+- finally, on each node, use the method [partialsig,](../dynamic/cc-musig.html#partialsig)
   which takes the arguments: `pkhash` and `partialsig`s from all the other nodes to output `combinedsig`s. Make sure to exchange the `combinedsig`s from all the nodes so that each node will have `combinedsig`s from all the other nodes. You can verify that all the nodes produced the same `combinedsig`.
-- now, for a sanity test, the method `verify` can be used to make sure that, this `combinedsig` will work with the `msg` needed for the spend. It takes the arguments `msg`,`combined_pk`, `combinedsig`. <!-- what does it output -->
-- now the `spend` part. This method takes `sendtxid`,`change_script`,`combinedsig` as inputs. <!-- who can spend, how much,something is missing here -->
+- now, for a sanity test, the method [verify](../dynamic/cc-musig.html#verify) can be used to make sure that, this `combinedsig` will work with the `msg` needed for the spend. It takes the arguments `msg`,`combined_pk`, `combinedsig`. <!-- what does it output -->
+- now the [spend](../dynamic/cc-musig.html#spend) part. This method takes `sendtxid`,`change_script`,`combinedsig` as inputs. <!-- who can spend, how much,something is missing here -->
+
+## Available methods
+
+### combine
+
+### send
+
+### calcmsg
+
+### session
+
+### commit
+
+### nonce
+
+### partialsig
+
+### verify
+
+### spend
