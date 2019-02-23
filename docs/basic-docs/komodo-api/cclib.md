@@ -12,11 +12,11 @@ The `cclib` RPC allows the user to interact with various Dynamic Modules that ha
 
 ### Arguments:
 
-| Name        | Type             | Description                                      |
-| ----------- | ---------------- | ------------------------------------------------ |
-| method      | (string)         | name of the method                               |
-| evalcode    | (decimal number) | `EVALCODE` of the Dynamic Module of interest     |
-| json_params | (array)          | parameters supplied to to the method in an array |
+| Name        | Type             | Description                                         |
+| ----------- | ---------------- | --------------------------------------------------- |
+| method      | (string)         | name of the method                                  |
+| evalcode    | (decimal number) | `EVALCODE` of the Dynamic Module of interest        |
+| json_params | (array)          | parameters to be supplied to the method in an array |
 
 ### Response:
 
