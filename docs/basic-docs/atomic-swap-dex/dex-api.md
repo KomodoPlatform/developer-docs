@@ -81,6 +81,8 @@ ETH/ERC20 coins are also enabled by the `enable` method, but a local installatio
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin you want to enable |
+| urls      | array of strings | `required for ETH/ERC20` urls of Ethereum RPC nodes to which you want to connect |
+| swap_contract_address | string | `required for ETH/ERC20` address of etomic swap smart contract |
 
 ### Response:
 
@@ -93,18 +95,38 @@ ETH/ERC20 coins are also enabled by the `enable` method, but a local installatio
 
 #### :pushpin: Examples:
 
-Command:
+Command (BTC/KMD/other forks):
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\"}"
+```
+
+```bash
+{
+  "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+  "balance": 10,
+  "result": "success"
+}
+```
+
+::: tip
+Swap smart contract on ETH mainnet: [0x8500AFc0bc5214728082163326C2FF0C73f4a871](https://etherscan.io/address/0x8500AFc0bc5214728082163326C2FF0C73f4a871) Mainnet node maintained by MM2 team: `http://195.201.0.6:8555`  
+Swap smart contract on Ropsten testnet: [0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94](https://ropsten.etherscan.io/address/0x7bc1bbdd6a0a722fc9bffc49c921b685ecb84b94) Ropsten node maintained by MM2 team: `http://195.201.0.6:8545`.  
+If you want to use MM2 on other Ethereum networks (Kovan testnet or forks like ETC) you can deploy the Etomic swap contract code from [this repo.](https://github.com/artemii235/etomic-swap) You will also need to setup ETH node or use public service like [Infura.](https://infura.io/)
+:::
+
+Command (ETH/ERC20/forks):
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\"}"
 ```
 
 Response (success):
 
 ```bash
 {
-  "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": 10,
+  "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
+  "balance": 50,
   "result": "success"
 }
 ```
