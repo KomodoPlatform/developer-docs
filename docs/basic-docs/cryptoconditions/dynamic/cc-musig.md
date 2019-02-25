@@ -5,10 +5,8 @@ sidebarDepth: 2
 # Module: MuSig (In Development)
 
 ::: warning
-This module is under heavy development development. The document is here for testing purposes. It is incomplete and may contain some errors. If you find any info is missing or not accurate, please let us know at `#cc-musig` channel in the [Komodo Discord](https://komodoplatform.com/discord).
+The module MuSig is under heavy development. This document is here for testing purposes. If you find any info is missing or not accurate, please let us know at `#cc-musig` channel in the [Komodo Discord](https://komodoplatform.com/discord).
 :::
-
-This module is under heavy development and this guide is specifically for testing.
 
 ## Introduction
 
