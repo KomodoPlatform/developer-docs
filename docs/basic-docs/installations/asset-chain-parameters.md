@@ -222,7 +222,13 @@ Please see the [-ac_founders](../installations/asset-chain-parameters.html#ac-fo
 
 #### :pushpin: Examples:
 
-A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block. ,<!-- (FIXME we missed this. Needs to reflect the new block 100k rule mentioned on line 423) -->
+This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins that are mined via `ac_staked` will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive slightly more for the first `100000` blocks.
+
+Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW. 
+
+For the first `100000` blocks, the `pubkey` address receives at least 1 coin for every mined block (an additional 10% above the block reward). The pubkey address also receives at least an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block. The extra amount sent to the `pubkey` address derives from blocks that are mined via `ac_staked`, the rewards of which are calculated into `ac_perc`.
+
+After the first `100000` blocks, the rewards from `ac_staked` are no longer included in the `ac_perc` rewards sent to the `pubkey`.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50 &
@@ -264,7 +270,13 @@ The `pubkey` must be a 66 character string (a compressed pubkey). You can find t
 
 #### :pushpin: Examples:
 
-A 777777-coin pre-mine, a 10-coin block reward, the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW. The pubkey address receives 1 coin for every mined block (an additional 10% above the block reward). The pubkey address receives an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block. <!-- (FIXME we missed this. Needs to reflect the new block 100k rule mentioned on line 423) -->
+This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins that are mined via `ac_staked` will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive slightly more for the first `100000` blocks.
+
+Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW. 
+
+For the first `100000` blocks, the `pubkey` address receives at least 1 coin for every mined block (an additional 10% above the block reward). The pubkey address also receives at least an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block. The extra amount sent to the `pubkey` address derives from blocks that are mined via `ac_staked`, the rewards of which are calculated into `ac_perc`.
+
+After the first `100000` blocks, the rewards from `ac_staked` are no longer included in the `ac_perc` rewards sent to the `pubkey`.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50
