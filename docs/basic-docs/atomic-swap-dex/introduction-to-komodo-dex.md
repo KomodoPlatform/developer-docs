@@ -54,19 +54,19 @@ A CEX has several challenges to consider as a result of this danger. From a lega
 
 In light of these concerns, many reputable and established CEX's are turning to decentralized technologies. For example, Binance, one of the most popular CEX's on the Internet, [is moving swiftly into decentralized technology](https://www.theblockcrypto.com/2019/02/07/binance-moves-away-from-ethereum-as-it-prepares-to-launch-dex/) to enhance both security and functionality for their users.
 
-## A Decentralized Exchange Can Mitigate the Risk
+## A Decentralized Exchange Can Bring Greater Safety
 
-To understand why a CEX may wish to implement decentralized technologies within their environment, one must first understand how a typical decentralize exchange (DEX) works. There are many types of decentralized exchanges, each having a unique technical structure. Perhaps the most popular and earliest methods of conducting a DEX is a decentralized gateway.
+To understand why a CEX may wish to implement decentralized technologies within their environment, one must first understand how a typical decentralize exchange (DEX) works. There are many types of DEX's, each having a unique technical structure. Perhaps the most popular and earliest methods of conducting a DEX is a decentralized gateway.
 
 --table showing several different types of DEXs, and perhaps a paragraph to summarize the ideas of the others--
 
-A decentralized gateway can be thought of as a cryptocurrency holding station that is owned and controlled by several different parties. The gateway performs two functions: it holds the assets that users send to it, and it issues IOUs.
+A decentralized gateway can be thought of as a cryptocurrency holding station that is owned and controlled by several different parties. The gateway performs two functions: it holds the assets that users send to it, and it issues IOUs the users who send funds to it.
 
-The IOUs issued to the user do not derive from a centralized database, but rather, they are managed through a blockchain. The user maintains control over the private keys to their IOUs at all times. While this is not as secure as having access to the private keys to the true digital assets, it does provide some protection. Assuming the user knows how to secure their private keys, when the user is offline their IOUs are not vulnerable to attackers. This is one improvement over the CEX model, where IOUs are available online at all times. 
+The IOUs issued to the user do not derive from a centralized database, but rather, they are managed through a blockchain. The user maintains control over the private keys to their IOUs at all times. While this is not as secure as having access to the private keys to the true digital assets, it does provide some protection. Assuming the user knows how to secure their private keys, when the user is offline their IOUs are not vulnerable to attackers. This is one improvement over the CEX model. 
 
 The user trades their IOUs with other users in much the same way as on a CEX. When a user is finished trading, they send their IOUs back to the gateway, and with this transaction they include an external address to which they would like their funds withdrawn.
 
-Now comes another key difference. The actual assets that the gateway is holding are contained in a special type of blockchain address. It is special because it is owned and controlled not by one person or central authority, but rather by several people or parties working together. This address can collect funds from anywhere and from anyone. However, it can only release funds when several of the address’s owners together grant permission. This special type of blockchain address is called a “multi-signature” address.
+Now comes another key difference. The actual assets that the gateway is holding are contained in a special type of blockchain address. It is special because it is owned and controlled not by one person or central authority, but rather by several people or parties working together. This address can collect funds from anywhere and from anyone. However, it can only release funds when several of the address’s owners grant permission. This special type of blockchain address is called a “multi-signature” address.
 
 Because a multi-signature address requires several different parties to sign the release of funds, the gateway is able to provide an improved measure of security. For an attacker to succeed, they must compromise several different parties, rather than a central authority. 
 
