@@ -1,3 +1,7 @@
+---
+sidebarDepth: 2
+---
+
 # Module: MuSig (In Development)
 
 ::: warning
