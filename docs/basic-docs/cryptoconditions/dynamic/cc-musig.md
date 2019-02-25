@@ -10,8 +10,6 @@ This module is under heavy development and this guide is specifically for testin
 
 ::: tip
 
-- RPC are in the comments of the file:
-  - [komodo/src/cc/musig.cpp](https://github.com/jl777/komodo/blob/jl777/src/cc/musig.cpp)
 - There are comments in the following files that describe musig:
   - [komodo/src/secp256k1/include/secp256k1_musig.h](https://github.com/jl777/komodo/blob/jl777/src/secp256k1/include/secp256k1_musig.h)
   - [komodo//src/secp256k1/src/modules/musig/example.c](https://github.com/jl777/komodo/blob/jl777/src/secp256k1/src/modules/musig/example.c)
@@ -87,11 +85,11 @@ Import the private key corresponding to the pubkey used to start the daemon usin
 ## Work flow when using MuSig
 
 ::: tip
-See the [Working Example](../dynamic/cc-musig.html#a-complete-example) for more details and explanations.
+See the [Working Example](../dynamic/cc-musig.html#a-complete-example) for more details and explanation.
 :::
 
 - First make a combined pubkey using the method [combine.](../dynamic/cc-musig.html#combine) From the response, take note of `combined_pk` and `pkhash`
-- Next, send some coins to the `combined_pk` using the method [send.](../dynamic/cc-musig.html#send) From the decoded rawtransaction, take note of the `sendtxid` and `change_script` <!-- expalin what these two are -->
+- Next, send some coins to the `combined_pk` using the method [send.](../dynamic/cc-musig.html#send) From the decoded rawtransaction, take note of the `sendtxid` and `change_script`
 - Now calculate the message that needs to be signed by all the parties using the method [calcmsg,](../dynamic/cc-musig.html#calcmsg) which uses `sendtxid` and `change_script` as arguments. From the response, take note of `msg`. To create a valid spend, this `msg` needs to be signed by all the participating pubkeys.
 - On each signing node, a session needs to be created using the method [session,](../dynamic/cc-musig.html#session) which takes the follwing arguments: `ind` (index; node with the first pubkey gets `0`),`numsigners` (number of pubkeys participating), `combined_pk`, `pkhash`, `msg` (message to be signed). From the response on each node, take note of the `commitment` and send all the `commitment`s to all the other nodes.
 
@@ -100,7 +98,7 @@ See the [Working Example](../dynamic/cc-musig.html#a-complete-example) for more 
 - The [session](../dynamic/cc-musig.html#session) method stores the commitment for each node into the global struct.
 - Keep in mind there is a single global struct with the `session` unique to each `cclib session` call.
 - This means that restarting any deamon in the middle of the process on any of the nodes results in a failure.
-- Also `cclib session` method can't called more than a single time on each node during the whole process.
+- Also `cclib session` method can't be called more than a single time on each node during the whole process.
 - This is an artificial restriction just to simplify the initial implementation of MuSig
 
 :::
@@ -111,8 +109,8 @@ See the [Working Example](../dynamic/cc-musig.html#a-complete-example) for more 
   which takes the arguments: `pkhash` and `nonce`s from all the other nodes to output `partialsig`s. Make sure to exchange the `partialsig`s from all the nodes so that each node will have `partialsig`s from all the other nodes.
 - Finally, on each node, use the method [partialsig,](../dynamic/cc-musig.html#partialsig)
   which takes the arguments: `pkhash` and `partialsig`s from all the other nodes to output `combinedsig`s. Make sure to exchange the `combinedsig`s from all the nodes so that each node will have `combinedsig`s from all the other nodes. You can verify that all the nodes produced the same `combinedsig`.
-- Now, for a sanity test, the method [verify](../dynamic/cc-musig.html#verify) can be used to make sure that, this `combinedsig` will work with the `msg` needed for the spend. It takes the arguments `msg`,`combined_pk`, `combinedsig`. <!-- what does it output -->
-- Now the [spend](../dynamic/cc-musig.html#spend) part. This method takes `sendtxid`,`change_script`,`combinedsig` as arguments. <!-- who can spend, how much,something is missing here -->
+- Now, for a sanity test, the method [verify](../dynamic/cc-musig.html#verify) can be used to make sure that, this `combinedsig` will work with the `msg` needed for the spend. It takes the arguments `msg`,`combined_pk`, `combinedsig`. 
+- Now the [spend](../dynamic/cc-musig.html#spend) part. This method takes `sendtxid`,`change_script`,`combinedsig` as arguments. <!-- who can spend, how much, the code needs to be updated to control these things -->
 
 ## A Complete Example
 
@@ -210,7 +208,7 @@ Response:
 ::: tip
 
 - Showing only the relevant part.
-- Look for the key `vout` which has an array of `jsons` in the decoded transaction.
+- in the decoded transaction, look for the key `vout` which is an array of `jsons` .
 - Each of these `jsons` represents a different `vout`
 - The one useful for us is the one that has
   `"type": "pubkey"` in it.
@@ -466,7 +464,7 @@ Response:
 
 - Copy and save the values of `combinedsig` from both the nodes in a secure location.
 - Exchange the values of `combinedsig` between the two nodes.
-- If the values of `combinedsig` produced by both the nodes is the same, then Congratulations! you have followed the example without any errors and are almost able `spend` from the multisig address.
+- If the values of `combinedsig` produced by both the nodes is the same, then Congratulations! you have followed the example without any errors and are almost able to `spend` from the multisig address.
 
 :::
 
@@ -525,7 +523,7 @@ The arguments are `sendtxid`,`change_script`,`combinedsig`.
 
 ::: tip
 
-- Eventhough the same `spend` command is used in both the nodes, they will output different `rawtransactions`.
+- Even though the same `spend` command is used in both the nodes, they will output different `rawtransactions`.
 - This is because, both the nodes will try to spend the funds to themselves.
 
 :::
@@ -574,8 +572,8 @@ Response:
 
 ::: warning
 
-- Whichever node broadcasts it's `hex` of the spend transaction receives the funds in the multisig address.
-- If both nodes broadcast their `hex` of the spend transaction, which ever transaction confirms first,rewards the node that broadcasted it with funds from the multisig address.
+- The node that broadcasts it's `hex` of the spend transaction receives the funds in the multisig address.
+- If both nodes broadcast their `hex` of the spend transaction, which ever transaction confirms first, the corresponding node gets credited with the spend.
 
 :::
 

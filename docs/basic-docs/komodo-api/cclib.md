@@ -45,7 +45,7 @@ The `cclibaddress` method returns information about the addresses related to the
 | CClibCCAddress         | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the Dynamic Module's privkey |
 | CCbalance              | (number) | amount of coins in the `CClibCCAddress`                                                                                    |
 | CClibNormalAddress     | (string) | the unmodified public address generated from the Dynamic Module's privkey                                                  |
-| CClibCCTokensAddress   | (string) |                                                                                                                            |
+| CClibCCTokensAddress   | (string) | this property is used for development purposes only and can otherwise be ignored                                           |
 | myAddress              | (string) | the normal address generated from the `pubkey`                                                                             |
 | myCCAddress(CClib)     | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the `pubkey`                 |
 | PubkeyCCaddress(CClib) | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the `pubkey`                 |
@@ -94,18 +94,18 @@ The `cclibinfo` RPC displays all the methods that are available to interact with
 
 ### Response:
 
-| Name            | Type             | Description                                                                |
-| --------------- | ---------------- | -------------------------------------------------------------------------- |
-| result          | (string)         | the result of the operation; can be `success`/ `failed`                    |
-| CClib           | (string)         | name of the                                                                |
-| methods         | (array of jsons) | an array containing jsons, that each describe a method of a dynamic module |
-| evalcode        | (decimal number) | `EVALCODE` of the Dynamic Module                                           |
-| funcid          |                  |                                                                            |
-| name            | (string)         | name of the Dynamic Module                                                 |
-| method          | (string)         | name of the method                                                         |
-| help            | (string)         | help for the method; describes its arguments                               |
-| params_required | (decimal number) | number of parameters that are required for the method to succeed           |
-| params_max      | (decimal number) | maximum number of parameters the method can accept                         |
+| Name            | Type             | Description                                                                                                                                              |
+| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result          | (string)         | the result of the operation; can be `success`/ `failed`                                                                                                  |
+| CClib           | (string)         | name of the                                                                                                                                              |
+| methods         | (array of jsons) | an array containing jsons, that each describe a method of a dynamic module                                                                               |
+| evalcode        | (decimal number) | `EVALCODE` of the Dynamic Module                                                                                                                         |
+| funcid          | (character)      | for methods that dont generate a transaction, it is just a mneumonic; for methods that do generate a transaction, it is the `"funcid in the"` `opreturn` |
+| name            | (string)         | name of the Dynamic Module                                                                                                                               |
+| method          | (string)         | name of the method                                                                                                                                       |
+| help            | (string)         | help for the method; describes its arguments                                                                                                             |
+| params_required | (decimal number) | number of parameters that are required for the method to succeed                                                                                         |
+| params_max      | (decimal number) | maximum number of parameters the method can accept                                                                                                       |
 
 #### :pushpin: Examples:
 
