@@ -111,7 +111,7 @@ See the [Working Example](../dynamic/cc-musig.html#a-complete-example) for more 
   which takes the arguments: `pkhash` and `nonce`s from all the other nodes to output `partialsig`s. Make sure to exchange the `partialsig`s from all the nodes so that each node will have `partialsig`s from all the other nodes.
 - Finally, on each node, use the method [partialsig,](../dynamic/cc-musig.html#partialsig)
   which takes the arguments: `pkhash` and `partialsig`s from all the other nodes to output `combinedsig`s. Make sure to exchange the `combinedsig`s from all the nodes so that each node will have `combinedsig`s from all the other nodes. You can verify that all the nodes produced the same `combinedsig`.
-- Now, for a sanity test, the method [verify](../dynamic/cc-musig.html#verify) can be used to make sure that, this `combinedsig` will work with the `msg` needed for the spend. It takes the arguments `msg`,`combined_pk`, `combinedsig`. 
+- Now, for a sanity test, the method [verify](../dynamic/cc-musig.html#verify) can be used to make sure that, this `combinedsig` will work with the `msg` needed for the spend. It takes the arguments `msg`,`combined_pk`, `combinedsig`.
 - Now the [spend](../dynamic/cc-musig.html#spend) part. This method takes `sendtxid`,`change_script`,`combinedsig` as arguments. <!-- who can spend, how much, the code needs to be updated to control these things -->
 
 ## A Complete Example
@@ -121,7 +121,7 @@ We will use two nodes to create a `20f2` MuSig pubkey, fund it and spend from it
 - Node1's daemon has been started with the pubkey: `0225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a`
 - Node2's daemon has been started with the pubkey: `02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567`
 - We use the method `combine` to create a combined pubkey (gives us the multisig address)
-- Then use the method `send` to funds the multisig address corresponding to the combined pubkey.
+- Then use the method `send` to fund the multisig address corresponding to the combined pubkey.
 - The rest of the methods are used to create a combined signature that will be able to `spend` the funds.
 
 ::: tip
@@ -326,7 +326,7 @@ Response:
 
 ### commit
 
-The arguments are `pkhash`, `ind` of the other node (index of **Node1** is `0`),`commitmemt` from the other node. 
+The arguments are `pkhash`, `ind` of the other node (index of **Node1** is `0`),`commitmemt` from the other node.
 
 #### In Node1
 
@@ -375,7 +375,7 @@ Response:
 
 ### nonce
 
-The arguments are `pkhash`, `ind` of the other node (index of **Node1** is `0`),`nonce` from the other node. 
+The arguments are `pkhash`, `ind` of the other node (index of **Node1** is `0`),`nonce` from the other node.
 
 #### In Node1
 
@@ -424,7 +424,7 @@ Response:
 
 ### partialsig
 
-The arguments are `pkhash`, `ind` of the other node (index of **Node1** is `0`),`partialsig` from the other node. 
+The arguments are `pkhash`, `ind` of the other node (index of **Node1** is `0`),`partialsig` from the other node.
 
 #### In Node1
 
@@ -472,7 +472,7 @@ Response:
 
 ### verify
 
-The arguments are `msg`,`combined_pk`, `combinedsig`. 
+The arguments are `msg`,`combined_pk`, `combinedsig`.
 
 #### In Node1
 
@@ -517,7 +517,6 @@ Response:
 - Both the nodes should display: `"result": "success"`. If not, you have made an error in following the steps.
 
 :::
-
 
 ### spend
 
@@ -579,28 +578,152 @@ Response:
 
 :::
 
-<!---
 ## Explanations
 
 These methods can be used through the RPC call: [cclib](../../komodo-api/cclib.html#cclib-2)
 
 ### combine
 
+**cclib combine 18 '[ "pubkey1" , "pubkey2" , .....]'**
+
+
+
+#### Parameters
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
+#### Response
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
 ### send
+
+**cclib send 18 '["combined_pk" , amount]'**
+
+#### Parameters
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
+#### Response
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
 
 ### calcmsg
 
+**cclib calcmsg 18 '["sendtxid" , "scriptPubKey"]'**
+
+#### Parameters
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
+#### Response
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
 ### session
+
+**cclib session 18 '["myindex" , "numsigners" , "combined_pk" , "pkhash" , "msg"]'**
+
+#### Parameters
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
+#### Response
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
 
 ### commit
 
+**cclib commit 18 '["pkhash" , ind , "commitment"]'**
+
+#### Parameters
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
+#### Response
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
 ### nonce
+
+**cclib nonce 18 '["pkhash" , ind , "nonce"]'**
+
+#### Parameters
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
+#### Response
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
 
 ### partialsig
 
+**cclib partialsig 18 '["pkhash" , ind , "partialsig"]'**
+
+#### Parameters
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
+#### Response
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
 ### verify
+
+**cclib verify 18 '["msg" , "sig" , "pubkey "]'**
+
+#### Parameters
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
+#### Response
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
 
 ### spend
 
---->
+**cclib spend 18 '["sendtxid" , "sig" , "scriptPubKey"]'**
 
+#### Parameters
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
+
+#### Response
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+|        |          |                                    |
