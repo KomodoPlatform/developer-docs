@@ -227,7 +227,7 @@ Verify the oracle information to ensure it is properly established:
 
 We now create a gateway and bind our information to it, using the [gatewaysbind](../cryptoconditions/cc-gateways.html#gatewaysbind) method.
 
-This method requires that we decide how many total gateway signatories we desire (`N`), and how many signatories are required to withdraw funds (`M`). 
+This method requires that we decide how many total gateway signatures we desire (`N`), and how many signatures are required to withdraw funds (`M`). 
 
 For our educational example, we may set both `N` and `M` equal to 1, for simplicity. Also, for KMD the values 60, 85 and 188 are for pubtype p2shtype and wiftype, for some other coin are different values.
 
@@ -266,7 +266,7 @@ Compile the dApp:
 Run the dApp:
 
 ```
-./oraclefeed -ac_name=HELLOWORLD insert_oracleid insert_mypubkey Ihh insert_bindtxid &
+./oraclefeed HELLOWORLD insert_oracleid insert_mypubkey Ihh insert_bindtxid &
 ```
 
 Response example:
