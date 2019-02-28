@@ -6,7 +6,7 @@ For example, a user is able to deposit their real-world BTC into a monitored add
 
 This allows the `gateways`-enabled asset chain to feature secure, on-chain, high-speed trading.
 
-Using an established `gateways` smart contract is not considered difficult. However, setting up the gateway requires the user to closely follow several detailed steps.
+Using an established `gateways` contract is not considered difficult. However, setting up the gateway requires the user to closely follow several detailed steps.
 
 ## GatewaysCC Tutorial and Overview
 
@@ -59,7 +59,7 @@ For our purposes, we will use `1000` coins of HELLOWORLD.
 
 ### Creating the tokens:
 
-To create the tokens, execute the following command.
+To create the tokens, execute the following command:
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD tokencreate KMD 1000 KMD_equivalent_token_for_gatewaysCC
@@ -101,7 +101,7 @@ Watch the mempool using [getrawmempool](../komodo-api/blockchain.html#getrawmemp
 
 Once the `tokenid` disappears from the mempool the transaction is mined. 
 
-If this asset chain were receiving full dPoW security services, at this point it would be appropriate to wait for notarization. We can use [getinfo](../komodo-api/control.html#getinfo) and watch for the `notarizations` property to increase: 
+If this asset chain were receiving full dPoW security services, at this point it would be appropriate to wait for notarization. We can use [getinfo](../komodo-api/control.html#getinfo) to watch for the `notarizations` property to increase: 
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD getinfo
@@ -156,7 +156,7 @@ This returns a transaction id, which is the `oracleid`:
 
 Record this in the text editor.
 
-Register as a publisher for the oracle on a node which will post KMD blockheaders using oraclefeed dApp and be in charge of withdrawal using [oraclesregister](../cryptoconditions/cc-oracles.html#oraclesregister):
+To prepare for the oraclefeed dApp, use [oraclesregister](../cryptoconditions/cc-oracles.html#oraclesregister) to register as a publisher for the oracle. This must be done on a node which can post KMD blockheaders and which can execute withdrawal transactions:
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD oraclesregister insert_oracleid data_fee_in_satoshis`
@@ -201,7 +201,7 @@ The property, `"publisher"`, in the entry, `"registered"`, of the returned json 
 
 Subscribe to the oracle using [oraclessubscribe](../cryptoconditions/cc-oracles.html#oraclessubscribe) to receive utxo information for data publishing. 
 
-The frequency of data-publishing transactions we can perform in a block is equal to the number of active subscriptions to an oracle. Therefore, we must have at least one subscription for the oracle to allow publishing.)
+The frequency of data-publishing transactions we can perform in a block is equal to the number of active subscriptions committed to the oracle. Therefore, we must have at least one subscription for the oracle to allow publishing.
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD oraclessubscribe insert_oracleid insert_publisherpubkey insert_data_fee_in_coins
@@ -214,7 +214,7 @@ This returns a hex value (not shown for brevity), which we now broadcast:
 ```
 
 ::: warning Note
-Execute the <b>oraclessubscribe</b> and <b>sendrawtransaction</b> methods several times and with same amount. This gives us the opportunity to broadcast more than one sample of data per block. In our example, we want to publish data for more than one KMD-height per block.
+Execute the <b>oraclessubscribe</b> and <b>sendrawtransaction</b> methods several times and with the same amount. This gives us the opportunity to broadcast more than one sample of data per block. In our example, we want to publish data for more than one KMD-height per block.
 :::
 
 Verify the oracle information to ensure it is properly established:
@@ -229,7 +229,9 @@ We now create a gateway and bind our information to it, using the [gatewaysbind]
 
 This method requires that we decide how many total gateway signatures we desire (`N`), and how many signatures are required to withdraw funds (`M`). 
 
-For our educational example, we may set both `N` and `M` equal to 1, for simplicity. Also, for KMD the values 60, 85 and 188 are for pubtype p2shtype and wiftype, for some other coin are different values.
+For our educational example, we may set both `N` and `M` equal to 1, for simplicity. 
+
+As a part of this command we will need to indicate the `pubtype`, `p2shtype`, and `wiftype` values for our chosen coin. For KMD, these values are `60`, `85` and `188` respectively.
 
 ```
 ./komodo-cli -ac_name=HELLOWORLD gatewaysbind insert_tokenid insert_oracleid KMD insert_tokensupply 1 1 insert_gatewayspubkey 60 85 188
@@ -313,13 +315,19 @@ Example Response:
 
 The `deposit` property contains the `gatewaysDepositAddress`. When we send funds to this address, we receive in return HELLOWORLD KMD tokens to an on-chain address that we indicate as follows.
 
-Use the [z_sendmany](../komodo-api/wallet.html#z-sendmany) method to send funds to two addresses simultaneously. The first address is the `pubkey` that corresponds to our pubkey on the HELLOWORLD asset chain which will receive tokens. The second address is the `gatewaysDepositAddress` on the KMD chain. We send a nominal amount into the first address, and the amount we wish to have available for trading into the second address. This is done on external chain, in this case KMD.
+Use the [z_sendmany](../komodo-api/wallet.html#z-sendmany) method to send funds to two addresses simultaneously. The first address is the `pubkey` that corresponds to our pubkey on the HELLOWORLD asset chain which will receive tokens. The second address is the `gatewaysDepositAddress` on the KMD chain. We send a nominal amount into the first address, and the amount we wish to have available for trading into the second address. This is done on the external chain -- in this case, KMD.
 
 ```
 ./komodo-cli z_sendmany "insert_address_where_KMD_funds_are_currently_held" '[{"address":"addressOfPubkeyForTokenizedKmd","amount":0.0001},{"address":"gatewaysDepositAddress","amount":0.1}]'
 ```
 
-The returned string is operation_id with which you can get transaction id using `z_getoperationstatus`. Save this in the text editor as `cointxid`.
+The returned string is the `operation_id`. Use this with the [z_getoperationstatus](../komodo-api/wallet.html#z-getoperationstatus) method.
+
+```
+./komodo-cli z_getoperationstatus '["insert_operation_id"]'
+```
+
+Execute this every few seconds until the `status` property reads `success`. Once this occurs, find the `txid` value. This is our `cointxid`, and we copy this into our text editor.
 
 Wait for the transaction to be mined. Once confirmed, execute the [gettransaction](../komodo-api/wallet.html#gettransaction) method with the `cointxid` to obtain more information we will need later.
 
@@ -331,7 +339,7 @@ In the returned results there is a property, `blockindex`, that describes the th
 
 There is also a property, `hex`. Transfer this value to the text editor as well.
 
-Also, we can verify with the `gettransaction` returned information that the addresses were correct by looking at the `vout` properties. There should be two, and change.
+Also, via the returned information from the `gettransaction` method, we can verify that the addresses were correct by looking at the `vout` properties. There should be two, and change.
 
 Next, execute the following command for more information:
 
@@ -354,7 +362,7 @@ Here is the information we need for this call:
 - `CLAIMVOUT`: the `vout` of the claim (this value should be 0, as it is our first use)
 - `DEPOSITHEX`: the `hex` value that is found by executing `gettransaction` on the cointxid 
 - `PROOF`: the `proof` value returned after executing `gettxoutproof` on the cointxid
-- `DESTPUB`: the public key where the KMD tokens should be received on the asset chain (the same pubkey used to get first address for z_sendmany)
+- `DESTPUB`: the public key where the KMD tokens should be received on the asset chain (the same pubkey used earlier to retrieve the first address for the z_sendmany method)
 - `AMOUNT`: the amount of the deposit (in this case 0.1)
 
 ```
@@ -371,7 +379,9 @@ Broadcast the hex data:
 
 The broadcast returns a transaction id. Copy this to the text editor. It is the `deposittxid`.
 
-::: warning Note For the deposit to process successfully, the oraclefeed dApp must first process the block height of z_sendmany transaction through the oracle :::
+::: warning Note 
+For the deposit to process successfully, the oraclefeed dApp must first process the block height of the z_sendmany transaction through the oracle 
+:::
 
 ### Claim the Funds on the Asset Chain
 
@@ -398,7 +408,7 @@ Broadcast the returned hex value:
 Once this transaction is successfully confirmed, the gateway will credit tokens to our indicated pubkey. These tokens are now usable as regular TokenCC tokens.
 
 ::: warning Note
-For the claim to process successfully, the deposit and bind transaction must be confirmed first - 101 confirms (or notarized if chain has dPoW)
+For the claim to process successfully, the deposit and bind transaction must be confirmed first. This requires either 101 confirmations, or if the chain has dPoW, 1 notarization.
 :::
 
 ### Withdrawing KMD Funds 
@@ -423,7 +433,7 @@ Find the private key returned from this command:
 ./komodo-cli -ac_name=HELLOWORLD dumprivkey insert_gatewayDepositAddress
 ```
 
-Execute the following commands on the KMD daemon on node running the oraclefeed dApp:
+Execute the following commands on the node running the oraclefeed dApp:
 
 ```
 ./komodo-cli importprivkey "insert_private_key" "label" false
@@ -806,7 +816,7 @@ Response:
 ]
 ```
 
-Wait until this height is oraclized by the `oraclefeed` dAPP
+Wait until this height is oraclized by the `oraclefeed` dApp.
 
 Find the `height` and `hex` values here:
 
