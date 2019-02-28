@@ -3186,7 +3186,7 @@ Structure|Type|Description
 "error" : { ... }                             |(array of json objects)                             |
 "code"                                       |(numeric)                    |the associated error code
 "message"                                    |(string)                     |a message to indicate the nature of the error, if such a message is available
-"method"                                     |(string)                     |name of the method used in the operation
+"method"                                     |(string)                     |the name of the method used in the operation
 "params" : { ... }                             |(array of json objects)                        |
 "fromaddress"                                |(string)                     |the address from which funds are drawn
 "amounts": [ ... ]                           |(array of json objects)                           |

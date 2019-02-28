@@ -1137,7 +1137,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 Structure|Type|Description
 ---------|----|-----------
 bindtxid                                     |(string)                     |the `bindtxid` of the gateway
-coin                                         |(string)                     |name of the proxy token
+coin                                         |(string)                     |the name of the proxy token
 deposittxid                                  |(string)                     |the `deposittxid` returned after broadcasting the hex returned from the `gatewaysdeposit` method
 destpub                                      |(string)                     |the `pubkey` address to which the proxy tokens should be sent
 amount                                       |(number)                     |the amount to send to the `pubkey`
@@ -1246,21 +1246,21 @@ Response:
 
 **gatewaysexternaladdress bindtxid pubkey**
 
-The `gatewaysexternaladdress` method returns address on external chain for given `pubkey` and `bindtxid` gateway.
+The `gatewaysexternaladdress` method returns the address on the external chain for the gateways associated with the given `pubkey` and `bindtxid` values.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
 bindtxid                                     |(string)                     |the `bindtxid` for the associated gateway
-pubkey                                       |(string)                     |the `pubkey` to generate address on external chain
+pubkey                                       |(string)                     |the `pubkey` needed to generate the address on the external chain
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
 result                                       |(string)                     |whether the command executed successfully
-address                                      |(string)                     |address for given pubkey
+address                                      |(string)                     |the address for the given pubkey
 
 #### :pushpin: Examples:
 
@@ -1283,21 +1283,23 @@ Response:
 
 **gatewaysdumpprivkey bindtxid address**
 
-The `gatewaysdumpprivkey` method returns private key for given `address` and `bindtxid` in wif format of external chain.
+The `gatewaysdumpprivkey` method returns the private key for the given `address` and `bindtxid`. 
+
+The private key is returned in the wif format of the associated external chain.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
 bindtxid                                     |(string)                     |the `bindtxid` for the associated gateway
-address                                      |(string)                     |the `address` for which to return private key in external chain format
+address                                      |(string)                     |the `address` for which the private key is requested
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
 result                                       |(string)                     |whether the command executed successfully
-privkey                                      |(string)                     |private key
+privkey                                      |(string)                     |the private key
 
 #### :pushpin: Examples:
 
@@ -1333,18 +1335,18 @@ bindtxid                                     |(string)                     |the 
 Structure|Type|Description
 ---------|----|-----------
 result                                       |(string)                     |whether the command executed successfully
-name                                         |(string)                     |name of the command
+name                                         |(string)                     |the name of the command
 pubkey                                       |(string)                     |the pubkey that holds the converted proxy tokens
-coin                                         |(string)                     |name of the asset that the proxy token represents
+coin                                         |(string)                     |the name of the asset that the proxy token represents
 oracletxid                                   |(string)                     |the `oracletxid` of the associated oracle
-taddr                                        |(number)                     |coin specific address that customizes the address for the relevant foreign coin (BTC, LTC, etc.)
-prefix                                       |(number)                     |coin specific address prefix that customizes the address for the relevant foreign coin (BTC, LTC, etc.)
-prefix2                                      |(number)                     |coin specific address prefix that customizes the address for the relevant foreign coin (BTC, LTC, etc.)
+taddr                                        |(number)                     |the coin-specific address that customizes the address for the relevant foreign coin (BTC, LTC, etc.)
+prefix                                       |(number)                     |the coin-specific address prefix that customizes the address for the relevant foreign coin (BTC, LTC, etc.)
+prefix2                                      |(number)                     |the coin-specific address prefix that customizes the address for the relevant foreign coin (BTC, LTC, etc.)
 deposit                                      |(string)                     |the t address associated with the gateway pubkey
 tokenid                                      |(string)                     |the `tokenid` of the proxy token
-totalsupply                                  |(number)                     |total available supply of proxy tokens
-remaining                                    |(number)                     |amount of proxy tokens not currently issued
-issued                                       |(number)                     |amount of proxy tokens currently issued
+totalsupply                                  |(number)                     |the total available supply of proxy tokens
+remaining                                    |(number)                     |the amount of proxy tokens not currently issued
+issued                                       |(number)                     |the amount of proxy tokens currently issued
 
 #### :pushpin: Examples:
 
