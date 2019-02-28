@@ -1232,6 +1232,80 @@ Response:
 07d79e39354cc38a76dfe2ca8a5fb711432192237608ea066621662f13e0c08e
 ```
 
+## gatewaysexternaladdress
+
+**gatewaysexternaladdress bindtxid pubkey**
+
+The `gatewaysexternaladdress` method returns address on external chain for given `pubkey` and `bindtxid` gateway.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+bindtxid                                     |(string)                     |the `bindtxid` for the associated gateway
+pubkey                                       |(string)                     |the `pubkey` to generate address on external chain
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result                                       |(string)                     |whether the command executed successfully
+address                                      |(string)                     |address for given pubkey
+
+#### :pushpin: Examples:
+
+Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD gatewaysexternaladdress 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d 02ebb42018347eb3a4da76e85347bb0f042355ff3d16e323b21f8e6cb10098654e
+```
+
+Response:
+
+```
+{
+  "result": "success",
+  "address": "RPq3opCLxV3xgpiM8ewUvyRE5aqovfVeH5"
+}
+```
+
+## gatewaysdumpprivkey
+
+**gatewaysdumpprivkey bindtxid address**
+
+The `gatewaysdumpprivkey` method returns private key for given `address` and `bindtxid` in wif format of external chain.
+
+### Arguments:
+
+Structure|Type|Description
+---------|----|-----------
+bindtxid                                     |(string)                     |the `bindtxid` for the associated gateway
+address                                      |(string)                     |the `address` for which to return private key in external chain format
+
+### Response:
+
+Structure|Type|Description
+---------|----|-----------
+result                                       |(string)                     |whether the command executed successfully
+privkey                                      |(string)                     |private key
+
+#### :pushpin: Examples:
+
+Command:
+
+```
+./komodo-cli -ac_name=HELLOWORLD gatewaysdumpprivkey 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d RVHLGTE3aFGwqpUVsoHJiJGs9pmsnd3fNB
+```
+
+Response:
+
+```
+{
+  "result": "success",
+  "privkey": "1pAcQXouEKKjuCpH25AjPoiihGNWB7DGwgfRCRAhJtRVGKvRHrk"
+}
+```
+
 ## gatewaysinfo
 
 **gatewaysinfo bindtxid**
