@@ -63,7 +63,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 Structure|Type|Description
 ---------|----|-----------
 name                                         |(string)                     |the desired name of the oracle contract
-description                                  |(string)                     |description of the oracle
+description                                  |(string)                     |the description of the oracle
 format                                       |(string)                     |an indication of what format of data is accepted into this contract; use the list of characters provided below for this property
 
 The various formats of data that can be registered for an oracle and their symbols are as follows:
@@ -80,13 +80,13 @@ The various formats of data that can be registered for an oracle and their symbo
 
 ::: warning
 
-- Even though the formats `S`,`D` specify that the data size can be upto `65536` bytes, it must be noted that the transaction size together with the data cannot exceed the limit of `10000` bytes.
-- Although the formats `d`,`D` are for raw binary data, it is almost better to use them than the formats `s`,`S`; the formats `s`,`S` use twice as much space on-chain while the only benefit to use them is that they will show human readable text in the output of the RPC [oraclessamples](../cryptoconditions/cc-oracles.html#oraclessamples)  
+- Even though the formats `S` and `D` specify that the data size can be up to `65536` bytes, the combination of the transaction size and the data size cannot exceed the limit of `10000` bytes.
+- Although the formats `d` and `D` are for raw binary data, they are preferable to the `s` and `S` human-readable formats. This is because the `s` and `S` formats occupy twice the size of data on the blockchain, and yet their only advantage is their ability to show human-readable output in the [oraclessamples](../cryptoconditions/cc-oracles.html#oraclessamples) method.  
 
 :::
 
 ::: tip 
-If data to be submitted is larger than `8KB`, it is suggested to break it into chunks of size 8KB or lower.
+If data to be submitted is larger than `8KB`, break it into chunks of size `8KB` or lower.
 :::
 
 ### Response:
@@ -209,29 +209,44 @@ A publisher cannot successfully execute this command until they have at least on
 
 Data is submitted using the `hexstr` property. The first bytes of the `hexstr` property must be the length of the data being submitted in hexadecimal format; this sets the string length for the rest of the data. The second portion of the `hexstr` property is the data itself.
 
-::: tip Note
-
-- for submitting data of the type `s`, `d` whose size is less than 256 bytes, the first byte denotes the length
-- for submitting data of the type `S`, `D` whose size is less than 65536 bytes, the first two bytes denotes the length in **Little Endian** format
-
-:::
-
-#### :pushpin: Example:
-
-- To submit the string: "teststring" to an oracle of the format `s`, that data that needs to be submitted is `0a74657374737472696e67`
-  - Notice the first byte: `0a`, which is the hexadecimal representation of the decimal number `10`, which is the size of the string - `10 bytes` as each alphabet and space take `1 byte` to fill
-  - the following bytes are `74`,`65`,`73`,`74`, .... so on are the characters: `t`,`e`,`s`,`t` .... respectively  
- 
-- To submit the string: "teststring" to an oracle of the format `S`, that data that needs to be submitted is `0a0074657374737472696e67`
-  - Notice the first two bytes: `0a` and `00`, which is the hexadecimal representation of the decimal number `10` written to fill `2 bytes` and in **Little Endian** format.
-
-::: tip
-An example script that can be used to produce data that can be submitted to a Oracle of type: `S` is available [here](https://docs.komodopatform.com/cc/contracts/oracles/scenarios/script-data-conversion.html)
-:::
-
 The `oraclesdata` method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method outputs a unique `txid`, called `oraclesdatatxid`, which is the unique identifier for this data sample.
+
+::: tip
+An example script that can be used to produce data for an oracle of type `S` is available [here](https://docs.komodopatform.com/cc/contracts/oracles/scenarios/script-data-conversion.html)
+:::
+
+::: tip Note
+
+- for submitting data of the types `s` and `d`, where the size is less than 256 bytes, the first byte denotes the length
+- for submitting data of the types `S` and `D`, where the size is less than 65536 bytes, the first two bytes denotes the length in **Little Endian** format
+
+:::
+
+#### :pushpin: Examples for data submission:
+
+##### Example A
+
+- The objective: to submit a `10` character string, `"teststring"`, to an oracle of the format `s`
+- The data to meet this objective is as follows: `0a74657374737472696e67`
+  - Notice the first byte, `0a`
+    - This is the hexadecimal representation of the decimal number `10`
+    - `10` is the byte size of this `10` character string, because each character requires `1 byte` of space
+  - Notice the remaining bytes, `74657374737472696e67`
+    - Each two characters is a byte representing a character
+    - `74` = `t`
+    - `65` = `e`
+    - `73` = `s`
+    - `74` = `t` etc.
+
+##### Example B
+
+- The objective: to submit the `10` character string, `"teststring"`, to an oracle of the format `S`
+- The data to meet this objective is as follows: `0a0074657374737472696e67`
+  - Notice the first two bytes, `0a` and `00`
+  - These are the hexadecimal representations of the decimal number `10`, written to fill `2 bytes` and in **Little Endian** format
+  - The remaining data, `74657374737472696e67`, is the same as Example A 
 
 ### Arguments:
 
@@ -421,7 +436,7 @@ registered:                                  |(array)                           
 publisher                                    |(string)                     |the unique identifier for the publisher (see [oraclesregister](../cryptoconditions/cc-oracles.html#oraclesregister))
 baton                                        |(string)                     |the baton address of the publisher, which is a cryptoconditions address (based on the pubkey of the publisher and the EVAL code of the oracle contract)
 batontxid                                    |(string)                     |the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher
-lifetime                                     |(number)                     |length of time since publisher's inception
+lifetime                                     |(number)                     |the length of time since publisher's inception
 funds                                        |(number)                     |the funds committed by subscribers to the publisher's account, and which are used for payouts
 datafee                                      |(number)                     |the amount a subscriber pays for each data upload
 
@@ -666,7 +681,7 @@ Response from Step 3:
 
 The `oraclessample` method fetches data samples from a publisher.
 
-The user indicates the desired publisher by inserting the `batonutxo` by the publisher. Use [oraclesinfo](../cryptoconditions/cc-oracles.html#oraclesinfo) to find a list of publishers and their current `batonutxo`'s.
+The user indicates the desired publisher by inserting the `batonutxo` by the publisher. Use [oraclesinfo](../cryptoconditions/cc-oracles.html#oraclesinfo) to find a list of publishers and their current batonutxo's.
 
 ### Arguments:
 
@@ -674,7 +689,7 @@ Structure|Type|Description
 ---------|----|-----------
 oracletxid                                   |(string)                     |the unique identifying transaction id of the oracle contract
 batonutxo                                    |(string)                     |the baton transaction id, which can be found using the oraclesinfo method
-num                                          |(number)                     |number of sample data points required
+num                                          |(number)                     |the number of sample data points required
 
 ### Response:
 

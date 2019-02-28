@@ -8,15 +8,6 @@ This first private-key belongs to the owner of the `1of2` CC address. The owner 
 
 Should the owner fail to interact with the `1of2` CC address for a specified period of time (`inactivitytime`), the address automatically unlocks to the second key. This second key is owned by the heir. Once unlocked, both the creator and the heir may freely spend funds from the address. 
 
-<!-- 
-FIXME Is the following detail not needed in the doc:
-
-```
-After the inactivity time has passed, both the heir and owner may freely claim available funds. This is achieved by setting a special flag in the first `heirclaim` transaction done by the heir, which signals that spending is allowed for the heir from now on, whether the owner adds more funds or spends them hereafter.
-```
- 
--->
-
 The [heiradd](../cryptoconditions/cc-heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
 
 The Heir CC module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../cryptoconditions/cc-tokens.html) CC module that represent on-chain assets, or even tokens that are formed via the [Gateways](../cryptoconditions/cc-gateways.html) module to represent off-chain assets or other cryptocurrencies.
@@ -28,8 +19,8 @@ The Heir CC module accepts both coins and tokens. These can be the base coin of 
 - Any other user, including the heir, can add donations using [heiradd](../cryptoconditions/cc-heir.html#heiradd)
 - The owner can claim funds at any time using [heirclaim](../cryptoconditions/cc-heir.html#heirclaim) 
 - Once `inactivitytime` period is reached, the heir can also claim funds using [heirclaim](../cryptoconditions/cc-heir.html#heirclaim)
-- To get details of a particular funding plan, use [heirinfo](../cryptoconditions/cc-heir.html#heirinfo)
-- To get list of all funding plans on the asset chain, use [heirlist](../cryptoconditions/cc-heir.html#heirlist)
+- To retrieve the details of a particular funding plan, use [heirinfo](../cryptoconditions/cc-heir.html#heirinfo)
+- To retrieve a list of all funding plans on the asset chain, use [heirlist](../cryptoconditions/cc-heir.html#heirlist)
 - To output Heir CC addresses, use [heiraddress](../cryptoconditions/cc-heir.html#heiraddress)
 
 ::: warning
@@ -48,13 +39,13 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 | Structure      | Type               | Description                                                                                                                                    |
 | -------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| txfee          | (number)           | transaction fee in satoshis, defaults to 10000 satoshis when set to `0`                                                                              |
-| amount         | (number)           | initial funding amount, in coins or tokens (this parameter is considered to be the amount of tokens if the (tokenid) parameter is present)         |
-| name           | (string)           | name of the heir funding plan (arbitrary)                                                                                                      |
+| txfee          | (number)           | the transaction fee in satoshis, defaults to 10000 satoshis when set to `0`                                                                              |
+| amount         | (number)           | the initial funding amount, in coins or tokens (this parameter is considered to be the amount of tokens if the (tokenid) parameter is present)         |
+| name           | (string)           | the name of the heir funding plan (arbitrary)                                                                                                      |
 | heirpubkey     | (string)           | the heir's public key (in hexademical)                                                                                                         |
-| inactivitytime | (number)           | time (in seconds) that must pass without the owner executing an `heiradd` or `heirclaim` method, after which the address unlocks to the heir       |
+| inactivitytime | (number)           | the time (in seconds) that must pass without the owner executing an `heiradd` or `heirclaim` method, after which the address unlocks to the heir       |
 | memo           | (string)           | a store for arbitrary data; for example, this can hold a digital copy of a physical will or other relevant documents |
-| tokenid        | (string, optional) | token id in hexademical; if set, the funds contributed to this address must be of the variety specified by the tokenid                                                                              |
+| tokenid        | (string, optional) | the token id in hexademical; if set, the funds contributed to this address must be of the variety specified by the tokenid                                                                              |
 
 ::: warning
 
@@ -229,18 +220,11 @@ Response:
 
 The `heiradd` method adds more funds to the Heir CC plan. 
 
-When the owner uses the `heiradd` method the `inactivitytime` calculations are reset, thus renewing the owner's sole access for the funds.
+When the owner uses the `heiradd` method the `inactivitytime` calculations are reset, thus renewing the owner's sole access to the funds.
 
 When anyone other than the owner uses the `heiradd` method to add funds, these funds are considered to be donations and won't affect the calculation of the elapsed `inactivitytime`. The method also sends a warning to the donator to ensure they agree to submit the given funds as a donation. 
 
-It is not possible for the owner and a non-owner to use `heiradd` to contribute funds as part of the same utxo; the owner and non-owner must contribute funds separately. 
-
-<!--
-FIXME
-
-A little more clarity is needed in the above paragraph. The case I want to highlight and the most common difficulty that users would face will be: they see wallet balance: 20. but owner pubkey only has 5 and other pubkeys of the same wallet have the remaining 15. Now they won't be able to do **heiradd 20**
-This might cause confusion on why it didn't work.
- -->
+For each transaction using `heiradd`, the funds may be sent either from the owner's pubkey, or from a non-owner's pubkey. Funds cannot be sent from both owner and non-owner pubkeys at the same time. This can cause confusion for the owner if the funds available in their wallet are held partially in the owner's declared pubkey for this Heir CC account, and partially in other pubkeys. Therefore, the owner should ensure that all funds they desire to add to the account are within their declared Heir CC pubkey   before attempting to use `heiradd`.
 
 ::: tip
 Use the [<b>heirlist</b>](../cryptoconditions/cc-heir.html#heirlist) method to find a <b>fundingtxid</b>. 
@@ -479,13 +463,13 @@ Use the [<b>heirlist</b>](../cryptoconditions/cc-heir.html#heirlist) method to f
 | Structure             | Type      | Description                                                                                                                                   |
 | --------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | fundingtxid | (string) | the id of the funding plan, the txid of [heirfund](../cryptoconditions/cc-heir.html#heirfund) transaction |
-| name                  | (string)  | name of the heir plan                                                                                                                        |
+| name                  | (string)  | the name of the heir plan                                                                                                                        |
 | tokenid               | (string)  | `token id`, if applicable                                                                                                             |
 | owner                 | (string)  | the owner's public key                                                                                                                        |
 | heir                  | (string)  | the heir's public key                                                                                                                         |
 | type                  | (string)  | the type of this funding plan (coins or tokens)                                                                                                |
 | lifetime              | (number)  | the total amount contributed to this plan since inception, given in the relevant currency (coins or tokens)                                                                       |
-| available             | (number)  | amount available, given in the relevant currency (coins or tokens)                                                                                                          |
+| available             | (number)  | the amount available, given in the relevant currency (coins or tokens)                                                                                                          |
 | OwnerRemainderTokens  | (number)  | the amount of funds remaining in the account that were contributed by the owner                                                                                                            |
 | InactivityTimeSetting | (number)  | the `inactivitytime` (in secs) that is required to elapse without owner activity before the plan is automatically unlocked to the heir                                     |
 | IsHeirSpendingAllowed | (boolean) | a boolean flag that indicates whether the heir is allowed to claim funds                                                                                |
@@ -556,16 +540,10 @@ The `heiraddress` method shows the owner's addresses and balances for the Heir C
 
 ::: warning
 
-- This method is only available from a daemon that was launched using the pubkey of the owner of the relevant Heir CC plan.
+- The functionality of this method is only applicable when executed on a daemon that was launched using the pubkey of the owner of the relevant Heir CC plan. For all other daemons, the method is available, but has no functional purpose.
 - The argument of this method is the **heir's** pubkey.
 
 :::
-
-<!--
-FIXME
-
-The method will be available in all daemons but just won't be meaningful in any daemon other than one launched using the <owner pubkey> of a heir funding plan
--->
 
 ### Arguments:
 
@@ -579,14 +557,14 @@ The method will be available in all daemons but just won't be meaningful in any 
 | ------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
 | result                    | (string) | whether the method executed successfully                                                                             |
 | HeirCCaddress             | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
-| CCbalance                 | (number) | unspent amount in the HeirCCaddress                                                                             |
+| CCbalance                 | (number) | the unspent amount in the HeirCCaddress                                                                             |
 | HeirNormalAddress         | (string) | the unmodified normal public address generated from the contract's privkey, used for markers                         |
 | HeirCC`1of2`Address       | (string) | the address for storing funds in **coins** spendable by either the owner or the heir (funds address)                                                       |
 | HeirCC`1of2`TokensAddress | (string) | the address for storing funds in **tokens** spendable by either the owner or the heir (token funds address)                                                      |
 | myCCaddress(Heir)               | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the **heir**                    |
 | myaddress                 | (string) | the unmodified normal public address of the pubkey [used to launch the daemon](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey). This is the normal address used to withdraw funds in coins from from HeirCC`1of2`Address. This property is applicable to any user who wants to use the Heir CC plan (owner or heir)                                                     |
 | mybalance                 | (number) | the balance of myaddress in coins                                                                            |
-| MyTokenAddress            | (string) | user's address to withdraw funds in tokens from HeirCC`1of2`TokensAddress (in development)                                      |
+| MyTokenAddress            | (string) | the user's address to withdraw funds in tokens from HeirCC`1of2`TokensAddress (in development)                                      |
 #### :pushpin: Example:
 
 Command:

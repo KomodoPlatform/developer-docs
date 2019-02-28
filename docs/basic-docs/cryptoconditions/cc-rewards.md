@@ -205,9 +205,9 @@ Structure|Type|Description
 ---------|----|-----------
 name                                         |(string)                     |the desired name of your rewards plan
 amount                                       |(number)                     |the amount of seed funds to withdraw from your wallet
-APR                                          |(number)                     |annual percentage of rewards, given in percentage units
-mindays                                      |(number)                     |minimum number of days the funds will be locked
-maxdays                                      |(number)                     |maximum number of days the funds will be locked
+APR                                          |(number)                     |the annual percentage of rewards, given in percentage units
+mindays                                      |(number)                     |the minimum number of days the funds will be locked
+maxdays                                      |(number)                     |the maximum number of days the funds will be locked
 mindeposit                                   |(number)                     |the minimum deposit amount for a user to participate
 
 ### Response:
@@ -347,13 +347,13 @@ fundingtxid                                  |(string)           |the txid given
 
 Structure|Type|Description
 ---------|----|-----------
-name                                         |(string)                     |name of the rewards plan
+name                                         |(string)                     |the name of the rewards plan
 sbits                                        |(number)                     |a 64-bit int binary encoding of the first 8 characters of the name property
-APR                                          |(number)                     |annual percentage of rewards, given in percentage units
-minseconds                                   |(number)                     |minimum number of seconds the funds will be locked
-maxseconds                                   |(number)                     |minimum number of seconds the funds will be locked
-mindeposit                                   |(number)                     |minimum deposit amount
-funding                                      |(number)                     |total available funds in the rewards plan
+APR                                          |(number)                     |the annual percentage of rewards, given in percentage units
+minseconds                                   |(number)                     |the minimum number of seconds the funds will be locked
+maxseconds                                   |(number)                     |the maximum number of seconds the funds will be locked
+mindeposit                                   |(number)                     |the minimum deposit amount
+funding                                      |(number)                     |the total available funds in the rewards plan
 
 #### :pushpin: Examples:
 

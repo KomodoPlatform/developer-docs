@@ -88,11 +88,9 @@ open_txid                                    |(string)                     |the 
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
 result                                       |(string)                     |whether the command executed successfully
-name                                         |(string)                     |name of the channel
+name                                         |(string)                     |the name of the channel
 Open:                                     |(string)                     | a channel and its relevant information: address of the destination pubkey, number of payments, denomination per payment, and the channel open_tx_id
-}                                            |                             |
 
 #### :pushpin: Examples:
 

@@ -494,7 +494,7 @@ Structure|Type|Description
 ---------|----|-----------
 name                                         |(string)                     |the proposed name of the token
 supply                                       |(number)                     |the intended supply of the token, given in coins
-"description"                                |(string)                     |description of the token
+"description"                                |(string)                     |the description of the token
 
 ### Response:
 
@@ -755,7 +755,7 @@ Structure|Type|Description
 result                                       |(string)                     |whether the command executed successfully
 tokenid                                      |(string)                     |the identifying txid for the token id
 owner                                        |(string)                     |the identifying pubkey of the token creator
-name                                         |(string)                     |name of the token
+name                                         |(string)                     |the name of the token
 supply                                       |(number)                     |the total supply of the token
 description                                  |(string)                     |the token description provided by the owner at token creation
 

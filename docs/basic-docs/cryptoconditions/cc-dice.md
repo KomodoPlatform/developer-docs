@@ -28,7 +28,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 | Structure   | Type     | Description                                                       |
 | ----------- | -------- | ----------------------------------------------------------------- |
-| name        | (string) | name of your dice contract                                        |
+| name        | (string) | the name of your dice contract                                        |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
 | amount      | (number) | the amount of funds you want to add to your dice from your wallet |
 
@@ -202,17 +202,17 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 | Structure   | Type     | Description                                                       |
 | ----------- | -------- | ----------------------------------------------------------------- |
-| name        | (string) | the name of the dice contract you want to place your bet              |
+| name        | (string) | the name of the dice contract for which the user desires to place a bet              |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
-| amount      | (number) | the amount you want to place bet                                      |
-| odds        | (number) | specify your odds                                                 |
+| amount      | (number) | the amount the user dires to place as a bet                                      |
+| odds        | (number) | specify the user's odds                                                 |
 
 ### Response:
 
 | Structure | Type     | Description                                                                                            |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------ |
 | "result"  | (string) | whether the dicebet command executed successfully                                                      |
-| "hex"     | (string) | the data of your transaction, in a raw hex-encoded format; you must now broadcast this raw transaction |
+| "hex"     | (string) | the data of the user's transaction, in a raw hex-encoded format; broadcast this using `sendrawtransaction` |
 
 #### :pushpin: Examples:
 
@@ -411,19 +411,19 @@ The `maxodds` property must be between 1 and 9999.
 
 | Structure     | Type     | Description                                                                              |
 | ------------- | -------- | ---------------------------------------------------------------------------------------- |
-| name          | (string) | name of your dice contract                                                               |
-| funds         | (number) | the amount of funds you want to start with                                               |
+| name          | (string) | the name of the user's dice contract                                                               |
+| funds         | (number) | the amount of funds with which the user desires to start                                               |
 | maxbet        | (number) | maximum amount allowed for a bet                                                           |
 | minbet        | (number) | minimum amount allowed for a bet                                                           |
 | maxodds       | (number) | the largest odds an end-user can use for betting                                         |
-| timeoutblocks | (number) | the many blocks before the contract times out and pays the automatically declared winner |
+| timeoutblocks | (number) | the number of blocks before the contract times out and pays the automatically declared winner |
 
 ### Response:
 
 | Structure | Type     | Description                                                                                                              |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------ |
 | result    | (string) | whether the command executed successfully                                                                                |
-| hex       | (string) | the data of the transaction in raw hex-encoded format; you should broadcast this hex with the sendrawtransaction command |
+| hex       | (string) | the data of the transaction in raw hex-encoded format; broadcast this using the sendrawtransaction method |
 
 #### :pushpin: Examples:
 
@@ -683,9 +683,7 @@ A `fundingtxid` is the txid of the transaction that created and funded the relev
 
 | Structure   | Type     | Description                                                               |
 | ----------- | -------- | ------------------------------------------------------------------------- |
-| [           |          |
 | fundingtxid | (string) | the txid of the transaction that created and funded the relevant contract |
-| ]           |          |
 
 #### :pushpin: Examples:
 
