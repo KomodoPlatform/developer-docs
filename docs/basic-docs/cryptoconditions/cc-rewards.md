@@ -1,4 +1,4 @@
-# Smart Contract: Rewards
+# Contract Module: Rewards
 
 The `rewards` contract creates a master-node like rewards program, giving a user the ability to earn rewards by locking coins.
 
@@ -8,12 +8,12 @@ There can be many `rewards` plans active at any given time.
 
 The flow of a plan is as follows:
 
-* Anyone can create a new plan using [`rewardscreatefunding`](../cryptoconditions/cc-rewards.html#rewardscreatefunding)
-* Anyone can add funding to the plan using [`rewardsaddfunding`](../cryptoconditions/cc-rewards.html#rewardsaddfunding)
-* Anyone can query the list of all active plans using [`rewardslist`](../cryptoconditions/cc-rewards.html#rewardslist)
-* To get the details of a particular plan, use [`rewardsinfo`](../cryptoconditions/cc-rewards.html#rewardsinfo)
-* After finding a suitable plan, any user can lock funds using [`rewardslock`](../cryptoconditions/cc-rewards.html#rewardslock)
-* After the minimum lock time is met, the user can use [`rewardsunlock`](../cryptoconditions/cc-rewards.html#rewardsunlock) to unlock their funds and receive their rewards
+* Anyone can create a new plan using [rewardscreatefunding](../cryptoconditions/cc-rewards.html#rewardscreatefunding)
+* Anyone can add funding to the plan using [rewardsaddfunding](../cryptoconditions/cc-rewards.html#rewardsaddfunding)
+* Anyone can query the list of all active plans using [rewardslist](../cryptoconditions/cc-rewards.html#rewardslist)
+* To get the details of a particular plan, use [rewardsinfo](../cryptoconditions/cc-rewards.html#rewardsinfo)
+* After finding a suitable plan, any user can lock funds using [rewardslock](../cryptoconditions/cc-rewards.html#rewardslock)
+* After the minimum lock time is met, the user can use [rewardsunlock](../cryptoconditions/cc-rewards.html#rewardsunlock) to unlock their funds and receive their rewards
 
 ## rewardsaddfunding
 
@@ -21,7 +21,7 @@ The flow of a plan is as follows:
 
 The `rewardsaddfunding` method adds funds to a rewards plan.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -191,7 +191,7 @@ Response:
 
 The `rewardscreatefunding` method creates a new `rewards` plan.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method will then return a `txid`. This `txid` is the `fundingtxid` that serves to identify the `rewards` plan.
 
@@ -205,9 +205,9 @@ Structure|Type|Description
 ---------|----|-----------
 name                                         |(string)                     |the desired name of your rewards plan
 amount                                       |(number)                     |the amount of seed funds to withdraw from your wallet
-APR                                          |(number)                     |annual percentage of rewards, given in percentage units
-mindays                                      |(number)                     |minimum number of days the funds will be locked
-maxdays                                      |(number)                     |maximum number of days the funds will be locked
+APR                                          |(number)                     |the annual percentage of rewards, given in percentage units
+mindays                                      |(number)                     |the minimum number of days the funds will be locked
+maxdays                                      |(number)                     |the maximum number of days the funds will be locked
 mindeposit                                   |(number)                     |the minimum deposit amount for a user to participate
 
 ### Response:
@@ -335,7 +335,7 @@ Response from Step 3:
 
 The `rewardsinfo` method returns information about specific `rewards` plan.
 
-Use [`rewardslist`](../cryptoconditions/cc-rewards.html#rewardslist) to see a list of all available `fundingtxid`'s.
+Use [rewardslist](../cryptoconditions/cc-rewards.html#rewardslist) to see a list of all available `fundingtxid`'s.
 
 ### Arguments:
 
@@ -347,13 +347,13 @@ fundingtxid                                  |(string)           |the txid given
 
 Structure|Type|Description
 ---------|----|-----------
-name                                         |(string)                     |name of the rewards plan
+name                                         |(string)                     |the name of the rewards plan
 sbits                                        |(number)                     |a 64-bit int binary encoding of the first 8 characters of the name property
-APR                                          |(number)                     |annual percentage of rewards, given in percentage units
-minseconds                                   |(number)                     |minimum number of seconds the funds will be locked
-maxseconds                                   |(number)                     |minimum number of seconds the funds will be locked
-mindeposit                                   |(number)                     |minimum deposit amount
-funding                                      |(number)                     |total available funds in the rewards plan
+APR                                          |(number)                     |the annual percentage of rewards, given in percentage units
+minseconds                                   |(number)                     |the minimum number of seconds the funds will be locked
+maxseconds                                   |(number)                     |the maximum number of seconds the funds will be locked
+mindeposit                                   |(number)                     |the minimum deposit amount
+funding                                      |(number)                     |the total available funds in the rewards plan
 
 #### :pushpin: Examples:
 
@@ -396,9 +396,7 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
 fundingtxid                                  |(string)                     |the txid of the transaction that created and funded the relevant contract
-]                                            |                             |
 
 #### :pushpin: Examples:
 
@@ -424,11 +422,11 @@ Response:
 
 The `rewardslock` method commits your desired amount of funds into the specified rewards plan. They remain locked until the minimum number of seconds/days passes.
 
-The method returns a `hex` value that must be broadcast using [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction).
+The method returns a `hex` value that must be broadcast using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction).
 
-The `sendrawtransaction` method will then return a `txid`, which is later used in the [`rewardsunlock`](../cryptoconditions/cc-rewards.html#rewardsunlock) method. In general, it is best to save this `txid` in a secure location.
+The `sendrawtransaction` method will then return a `txid`, which is later used in the [rewardsunlock](../cryptoconditions/cc-rewards.html#rewardsunlock) method. In general, it is best to save this `txid` in a secure location.
 
-If the final `txid` is lost, it is possible to find it again. See [`rewardsunlock`](../cryptoconditions/cc-rewards.html#rewardsunlock) for more information.
+If the final `txid` is lost, it is possible to find it again. See [rewardsunlock](../cryptoconditions/cc-rewards.html#rewardsunlock) for more information.
 
 ### Arguments:
 
@@ -563,13 +561,13 @@ Response from Step 3:
 
 The `rewardsunlock` method unlocks your funds from a specific rewards plan after the minimum lock time is met. If `txid` is not provided, `rewardsunlock` unlocks all funds in the `fundingtxid` plan.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method to complete the command.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method to complete the command.
 
 If you attempt to unlock your funds before the minimum period is met, the daemon returns this error:
 
-The method requires the `txid` that was returned as a result of the original [`rewardslock`](../cryptoconditions/cc-rewards.html#rewardslock) method.
+The method requires the `txid` that was returned as a result of the original [rewardslock](../cryptoconditions/cc-rewards.html#rewardslock) method.
 
-If the original `txid` is lost, it is possible to find it again by either rebroadcasting the original `hex` (if it is available), or by scanning through available utxos using the [`getaddressutxos`](../komodo-api/address.html#getaddressutxos) method.
+If the original `txid` is lost, it is possible to find it again by either rebroadcasting the original `hex` (if it is available), or by scanning through available utxos using the [getaddressutxos](../komodo-api/address.html#getaddressutxos) method.
 
 ::: tip
 {

@@ -1,6 +1,6 @@
-# Smart Contract: Tokens
+# Contract Module: Tokens
 
-The `tokens` Crypto Conditions smart contract enables core-asset support for the on-chain creation of colored coins, also called tokens. The functionality is facilitated by utxo technology. Tokens can be generated on any chain where the [`ac_cc`](../installations/asset-chain-parameters.html#ac-cc) is enabled.
+The `tokens` Crypto Conditions smart contract enables core-asset support for the on-chain creation of colored coins, also called tokens. The functionality is facilitated by utxo technology. Tokens can be generated on any chain where the [ac_cc](../installations/asset-chain-parameters.html#ac-cc) is enabled.
 
 The `tokens` smart contract requires locking a proportional amount of satoshis of the native coins. These satoshis create the supply for the token.
 
@@ -57,7 +57,7 @@ Response:
 
 The `tokenask` method posts a public ask order.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -169,7 +169,7 @@ The `tokenbid` method posts a public bid order.
 
 To fill the order, the parent chain's coin must be used.
 
-The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) to complete the command.
+The method returns a raw hex, which must be broadcast using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) to complete the command.
 
 The `sendrawtransaction` method then returns a `txid`, which is the identification method of the bid order, and should be saved for future use.
 
@@ -220,7 +220,7 @@ Response:
 
 The `tokencancelask` method cancels a specific `ask`/`sell` order that you created.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -351,7 +351,7 @@ Response:
 
 The `tokencancelbid` method cancels a specific `bid`/`buy` order that you created.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -494,7 +494,7 @@ Structure|Type|Description
 ---------|----|-----------
 name                                         |(string)                     |the proposed name of the token
 supply                                       |(number)                     |the intended supply of the token, given in coins
-"description"                                |(string)                     |description of the token
+"description"                                |(string)                     |the description of the token
 
 ### Response:
 
@@ -755,7 +755,7 @@ Structure|Type|Description
 result                                       |(string)                     |whether the command executed successfully
 tokenid                                      |(string)                     |the identifying txid for the token id
 owner                                        |(string)                     |the identifying pubkey of the token creator
-name                                         |(string)                     |name of the token
+name                                         |(string)                     |the name of the token
 supply                                       |(number)                     |the total supply of the token
 description                                  |(string)                     |the token description provided by the owner at token creation
 
@@ -796,9 +796,7 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-tokenid                                      |(string)                     |the identifying txid for the token id
-]                                            |                             |
+tokenid                                      |(array of strings)                     |the identifying txid for the token id
 
 #### :pushpin: Examples:
 
@@ -833,13 +831,13 @@ The `tokenorders` method displays the public on-chain orderbook for a specific t
 
 Information about the `funcid` property:
 
-A lowercase `b`' describes an bid offer.
+- A lowercase `b` describes an bid offer.
 
-An uppercase `B` describes a bid fill.
+- An uppercase `B` describes a bid fill.
 
-A lowercase `s` describes an ask offer.
+- A lowercase `s` describes an ask offer.
 
-An uppercase `S` describes the ask fill.
+- An uppercase `S` describes the ask fill.
 
 ### Arguments:
 
@@ -995,9 +993,9 @@ Response:
 
 The `tokentransfer` method transfers tokens from one cc address to another.
 
-It is similar to the [`sendmany`](../komodo-api/wallet.html#sendmany) method used to send coins on the parent chain.
+It is similar to the [sendmany](../komodo-api/wallet.html#sendmany) method used to send coins on the parent chain.
 
-The method returns a raw hex, which must be broadcast using [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) to complete the command.
+The method returns a raw hex, which must be broadcast using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) to complete the command.
 
 ::: tip
 The source `txid/vout` needs to be specified as it is critical to match outputs with inputs.

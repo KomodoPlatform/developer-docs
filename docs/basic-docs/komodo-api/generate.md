@@ -103,10 +103,10 @@ Response:
 
 The `setgenerate` method allows the user to set the `generate` property in the coin daemon to `true` or `false`, thus turning generation (mining/staking) on or off.
 
-Generation is limited to [`genproclimit`](../installations/common-runtime-parameters.html#genproclimit) processors. Set `genproclimit` to `-1` to use maximum available processors.
+Generation is limited to [genproclimit](../installations/common-runtime-parameters.html#genproclimit) processors. Set `genproclimit` to `-1` to use maximum available processors.
 
 ::: tip
-See also the [`getgenerate`](../komodo-api/generate.html#getgenerate) method to query the current setting, and [`genproclimit`](../installations/common-runtime-parameters.html#genproclimit) for setting the default number of processors the daemon uses through the `.conf` file.
+See also the [getgenerate](../komodo-api/generate.html#getgenerate) method to query the current setting, and [genproclimit](../installations/common-runtime-parameters.html#genproclimit) for setting the default number of processors the daemon uses through the `.conf` file.
 :::
 
 ### Arguments:

@@ -21,7 +21,7 @@ git commit -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
 GIT_USER=$(git config --global user.name)
-git push -f git@github.com:$GIT_USER/developer-docsdeveloper-docs.git master:gh-pages
+git push -f git@github.com:$GIT_USER/developer-docs.git master:gh-pages
 #git push -f git@github.com:siddhartha-komodo/developer-docs.git master:gh-pages
 #git push -f git@github.com:komodoplatform/developer-docs.git master:gh-pages
 

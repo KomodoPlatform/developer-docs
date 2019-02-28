@@ -1,4 +1,4 @@
-# Smart Contract: Oracles
+# Contract Module: Oracles
 
 #### :pushpin: Examples:
 
@@ -56,27 +56,38 @@ Response:
 
 The `oraclescreate` method creates a new oracle.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
 name                                         |(string)                     |the desired name of the oracle contract
-description                                  |(string)                     |description of the oracle
+description                                  |(string)                     |the description of the oracle
 format                                       |(string)                     |an indication of what format of data is accepted into this contract; use the list of characters provided below for this property
 
 The various formats of data that can be registered for an oracle and their symbols are as follows:
 
-`s` -> ` < 256 char string`
-`S` -> ` < 65536 char string`
-`d` -> ` < 256 binary data`
-`D` -> ` < 65536 binary data`
-`c` -> `1 byte signed little endian number, 'C' if unsigned`
-`t` -> `2 byte signed little endian number, 'T' if unsigned`
-`i` -> `4 byte signed little endian number, 'I' if unsigned`
-`l` -> `8 byte signed little endian number, 'L' if unsigned`
-`h` -> `32 byte hash`
+- `s` -> `char string; size < 256 bytes`
+- `S` -> `char string; size < 65536 bytes`
+- `d` -> `binary data; size < 256 bytes`
+- `D` -> `binary data; size < 65536 bytes`
+- `c` -> `1 byte signed little endian number, 'C' if unsigned`
+- `t` -> `2 byte signed little endian number, 'T' if unsigned`
+- `i` -> `4 byte signed little endian number, 'I' if unsigned`
+- `l` -> `8 byte signed little endian number, 'L' if unsigned`
+- `h` -> `32 byte hash`
+
+::: warning
+
+- Even though the formats `S` and `D` specify that the data size can be up to `65536` bytes, the combination of the transaction size and the data size cannot exceed the limit of `10000` bytes.
+- Although the formats `d` and `D` are for raw binary data, they are preferable to the `s` and `S` human-readable formats. This is because the `s` and `S` formats occupy twice the size of data on the blockchain, and yet their only advantage is their ability to show human-readable output in the [oraclessamples](../cryptoconditions/cc-oracles.html#oraclessamples) method.  
+
+:::
+
+::: tip 
+If data to be submitted is larger than `8KB`, break it into chunks of size `8KB` or lower.
+:::
 
 ### Response:
 
@@ -116,7 +127,7 @@ Response:
 ```
 
 
-Use './komodo-cli -ac_name=HELLOWORLD getrawmempool' to ensure that the tx is confirmed
+(Use `./komodo-cli -ac_name=HELLOWORLD getrawmempool` to ensure that the transaction receives confirmation.)
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -194,13 +205,48 @@ Response from Step 3:
 
 The `oraclesdata` method publishes data to an oracle.
 
-A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [`oraclessubscribe`](../cryptoconditions/cc-oracles.html#oraclessubscribe).
+A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [oraclessubscribe](../cryptoconditions/cc-oracles.html#oraclessubscribe).
 
-Data is submitted using the `hexstr` property. The first portion of the `hexstr` property must include ===; this sets the string length for the rest of the data. The second portion of the `hexstr` property is the data itself.
+Data is submitted using the `hexstr` property. The first bytes of the `hexstr` property must be the length of the data being submitted in hexadecimal format; this sets the string length for the rest of the data. The second portion of the `hexstr` property is the data itself.
 
-The `oraclesdata` method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The `oraclesdata` method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method outputs a unique `txid`, called `oraclesdatatxid`, which is the unique identifier for this data sample.
+
+::: tip
+An example script that can be used to produce data for an oracle of type `S` is available [here](https://docs.komodopatform.com/cc/contracts/oracles/scenarios/script-data-conversion.html)
+:::
+
+::: tip Note
+
+- for submitting data of the types `s` and `d`, where the size is less than 256 bytes, the first byte denotes the length
+- for submitting data of the types `S` and `D`, where the size is less than 65536 bytes, the first two bytes denotes the length in **Little Endian** format
+
+:::
+
+#### :pushpin: Examples for data submission:
+
+##### Example A
+
+- The objective: to submit a `10` character string, `"teststring"`, to an oracle of the format `s`
+- The data to meet this objective is as follows: `0a74657374737472696e67`
+  - Notice the first byte, `0a`
+    - This is the hexadecimal representation of the decimal number `10`
+    - `10` is the byte size of this `10` character string, because each character requires `1 byte` of space
+  - Notice the remaining bytes, `74657374737472696e67`
+    - Each two characters is a byte representing a character
+    - `74` = `t`
+    - `65` = `e`
+    - `73` = `s`
+    - `74` = `t` etc.
+
+##### Example B
+
+- The objective: to submit the `10` character string, `"teststring"`, to an oracle of the format `S`
+- The data to meet this objective is as follows: `0a0074657374737472696e67`
+  - Notice the first two bytes, `0a` and `00`
+  - These are the hexadecimal representations of the decimal number `10`, written to fill `2 bytes` and in **Little Endian** format
+  - The remaining data, `74657374737472696e67`, is the same as Example A 
 
 ### Arguments:
 
@@ -380,25 +426,19 @@ oracletxid                                   |(string)                     |the 
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
 result                                       |(string)                     |whether the command executed successfully
 txid                                         |(string)                     |the unique txid, or oracletxid, that identifies the oracle
 name                                         |(string)                     |the name of the oracle contract
 description                                  |(string)                     |the description of the oracle contract
-format                                       |(string)                     |a string that identifies the data type accepted for the oracle contract (see [`oraclescreate`](../cryptoconditions/cc-oracles.html#oraclescreate))
+format                                       |(string)                     |a string that identifies the data type accepted for the oracle contract (see [oraclescreate](../cryptoconditions/cc-oracles.html#oraclescreate))
 marker                                       |(string)                     |the unmodified public address generated from the oracle contract's privkey
-registered:                                  |                             |
-{                                            |                             |
-publisher                                    |(string)                     |the unique identifier for the publisher (see [`oraclesregister`](../cryptoconditions/cc-oracles.html#oraclesregister))
+registered:                                  |(array)                             |
+publisher                                    |(string)                     |the unique identifier for the publisher (see [oraclesregister](../cryptoconditions/cc-oracles.html#oraclesregister))
 baton                                        |(string)                     |the baton address of the publisher, which is a cryptoconditions address (based on the pubkey of the publisher and the EVAL code of the oracle contract)
 batontxid                                    |(string)                     |the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher
-lifetime                                     |(number)                     |length of time since publisher's inception
+lifetime                                     |(number)                     |the length of time since publisher's inception
 funds                                        |(number)                     |the funds committed by subscribers to the publisher's account, and which are used for payouts
 datafee                                      |(number)                     |the amount a subscriber pays for each data upload
-}                                            |                             |
-]                                            |                             |
-}                                            |                             |
-
 
 #### :pushpin: Examples:
 
@@ -447,9 +487,7 @@ Structure|Type|Description
 
 Structure|Type|Description
 ---------|----|-----------
-[                                            |                             |
-oracletxid,                                  |(string)                     |a unique identifying oracletxid
-]                                            |                             |
+oracletxid                                  |(array of strings)                     |the unique identifying oracletxid(s)
 
 #### :pushpin: Examples:
 
@@ -501,7 +539,7 @@ A user executes the `oraclesregister` method to register to become a data publis
 
 The `datafee` property is set in satoshis, and should be `>=` the chain's default transaction fee.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ::: tip
 Use `./komodo-cli -ac_name=YOURNAME getrawmempool` to verify the transaction is confirmed.
@@ -643,7 +681,7 @@ Response from Step 3:
 
 The `oraclessample` method fetches data samples from a publisher.
 
-The user indicates the desired publisher by inserting the `batonutxo` by the publisher. Use [`oraclesinfo`](../cryptoconditions/cc-oracles.html#oraclesinfo) to find a list of publishers and their current `batonutxo`'s.
+The user indicates the desired publisher by inserting the `batonutxo` by the publisher. Use [oraclesinfo](../cryptoconditions/cc-oracles.html#oraclesinfo) to find a list of publishers and their current batonutxo's.
 
 ### Arguments:
 
@@ -651,20 +689,15 @@ Structure|Type|Description
 ---------|----|-----------
 oracletxid                                   |(string)                     |the unique identifying transaction id of the oracle contract
 batonutxo                                    |(string)                     |the baton transaction id, which can be found using the oraclesinfo method
-num                                          |(number)                     |number of sample data points required
+num                                          |(number)                     |the number of sample data points required
 
 ### Response:
 
 Structure|Type|Description
 ---------|----|-----------
-{                                            |                             |
 result                                       |(string)                     |whether the command executed successfully
-samples:                                     |                             |
-[                                            |                             |
+samples:                                     |(array of strings)                             |
 "XXXXXXXXXXX"                                |(string)                     |a sample data point
-],                                           |                             |
-]                                            |                             |
-}                                            |                             |
 
 #### :pushpin: Examples:
 
@@ -696,9 +729,9 @@ Response:
 
 The user executes `oraclessubscribe` to subscribe to a publisher of an oracle plan.
 
-Every publisher must have at least one subscriber before the [`oraclesdata`](../cryptoconditions/cc-oracles.html#oraclesdata) can succesfully execute.
+Every publisher must have at least one subscriber before the [oraclesdata](../cryptoconditions/cc-oracles.html#oraclesdata) can succesfully execute.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method then returns a unique txid, also called the `oraclesubscribtiontxid`, or the id of the oracle subscription transaction. This can be used for further development purposes.
 

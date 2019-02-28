@@ -12,7 +12,7 @@ The `addnode` method attempts to add or remove a node from the addnode list, or 
 
 Structure|Type|Description
 ---------|----|-----------
-"node"                                       |(string, required)           |the node (see [`getpeerinfo`](../komodo-api/network.html#getpeerinfo) for nodes)
+"node"                                       |(string, required)           |the node (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes)
 "command"                                    |(string, required)           |'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once
 
 ### Response:
@@ -107,7 +107,7 @@ Use `getpeerinfo` to determine the result.
 
 Structure|Type|Description
 ---------|----|-----------
-"node"                                       |(string, required)           |the node's address (see [`getpeerinfo`](../komodo-api/network.html#getpeerinfo) for nodes)
+"node"                                       |(string, required)           |the node's address (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes)
 
 ### Response:
 
@@ -321,7 +321,7 @@ Structure|Type|Description
 ---------|----|-----------
 "version"                                    |(numeric)                    |the server version
 "subversion"                                 |(string)                     |the server sub-version string (i.e. "/MagicBean:x.y.z[-v]/")
-"deprecationheight"                          |(numeric)                    |the block height at which this version will deprecate and shut down (unless [`disabledeprecation`](https://z.cash/blog/new-release-1-1-2/) is set)
+"deprecationheight"                          |(numeric)                    |the block height at which this version will deprecate and shut down (unless [disabledeprecation](https://z.cash/blog/new-release-1-1-2/) is set)
 
 #### :pushpin: Examples:
 
