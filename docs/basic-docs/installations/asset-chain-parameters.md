@@ -222,7 +222,7 @@ Please see the [-ac_founders](../installations/asset-chain-parameters.html#ac-fo
 
 #### :pushpin: Examples:
 
-This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins that are mined via `ac_staked` will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive slightly more for the first `100000` blocks.
+This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
 
 Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW. 
 
@@ -270,7 +270,7 @@ The `pubkey` must be a 66 character string (a compressed pubkey). You can find t
 
 #### :pushpin: Examples:
 
-This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins that are mined via `ac_staked` will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive slightly more for the first `100000` blocks.
+This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
 
 Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW. 
 
@@ -470,7 +470,7 @@ You can see which segment an address belongs to by using the [validateaddress](.
 
 Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure.
 
-There are additional considerations when `ac_staked` is used in conjunction with [ac_perc](../installations/asset-chain-parameters.html#ac-perc) and [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey). The coins that are mined via `ac_staked` will be included in the `ac_perc` calculations until the asset chain reaches block height `1000000`. Therefore, the [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) address will receive slightly more coins for each staked block compared to a mined block because of this extra transaction. After block `1000000`, `ac_perc` will no longer include the coins mined from `ac_staked`, and therefore the amount of coins sent to the `ac_pubkey` address will normalize.
+There are additional considerations when `ac_staked` is used in conjunction with [ac_perc](../installations/asset-chain-parameters.html#ac-perc) and [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey). The coins used to stake will be included in the `ac_perc` calculations until the asset chain reaches block height `1000000`. Therefore, the [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) address will receive more coins for each staked block compared to a mined block because of this extra coin supply. After block `1000000`, `ac_perc` will no longer include the coins used for staking, and therefore the amount of coins sent to the `ac_pubkey` address will normalize.
 
 ### Rules for Staking a Block
 
