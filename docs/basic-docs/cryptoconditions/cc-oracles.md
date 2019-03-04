@@ -1,7 +1,5 @@
 # Contract Module: Oracles
 
-#### :pushpin: Examples:
-
 ## oraclesaddress
 
 **oraclesaddress (pubkey)**
