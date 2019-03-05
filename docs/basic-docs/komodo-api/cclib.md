@@ -1,6 +1,6 @@
 # CClib
 
-The following methods interact with dynamic CryptoConditions modules.
+The following methods interact with CryptoConditions modules that make use of the `-ac_cclib` parameter.
 
 ## cclib
 

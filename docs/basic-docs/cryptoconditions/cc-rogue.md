@@ -1,12 +1,22 @@
-# Module: Rogue
+# Contract Module: Rogue
 
-::: warning
-This module is under heavy development and this guide is specifically for testing. If you find any info is missing or not accurate, please let us know at `#cc-rogue` channel in the [Komodo Discord](https://komodoplatform.com/discord).
-:::
+## Introduction
 
-## Install Dependencies
+The ROGUE CC Module serves as a proof-of-concept to demonstrate CryptoCondition's capabilities as a blockchain-based gaming technology. 
 
-These are a must and you need to make sure all the dependencies are installed correctly for Linux or macOS.
+ROGUE is based on the original [Rogue](http://www.livingroguelike.com/rl-games/the-original-rogue-information-and-how-to-play-online/) game. As such, it can be categorized as a [Roguelike](http://www.livingroguelike.com/roguelike-info-discussions/what-is-a-roguelike/).
+
+The following installation and walkthrough tutorials can assist the reader in testing ROGUE. For more information, please reach out to our community on [Discord](https://komodoplatform.com/discord). The #cc-rogue channel is available for questions and assistance. 
+
+## Installation
+
+### Requirements
+
+ROGUE is currently playable on modern MacOS and Linux machines. 
+
+Windows is not yet available. Please check with our #cc-rogue channel on [Discord](https://komodoplatform.com/discord) for updates. 
+
+### Install Dependencies
 
 #### Linux
 
@@ -17,19 +27,19 @@ sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoco
 
 #### macOS (OSX)
 
-Ensure commandline tools from apple/xcode are installed. Issue the following command in a terminal.
+Use the terminal to ensure the MacOS XCode tools are installed: 
 
 ```
 xcode-select --install
 ```
 
-`brew` is needed to install dependencies. If you have latest `brew` installed in your system already, skip this and install the deps directly.
+Ensure the latest version of `brew` is installed. If necessary, execute the following command:
 
 ```bash
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-These are the dependencies needed to install with `brew`.
+Once `brew` is installed, execute each of the following commands:
 
 ```
 brew update
@@ -43,13 +53,9 @@ brew install coreutils
 brew install wget
 ```
 
-Once you have installed all dependencies correctly, it is time to clone and compile. Follow the next steps to compile Komodo in both Linux and macOS (OSX).
+### Clone & Compile Komodo
 
----
-
-## Clone & Compile Komodo
-
-For macOS (OSX) use `./zcutil/build-mac.sh -j8` to compile(change `8` from `-j8` to any number of CPU threads you want to use for compiling).
+#### Linux
 
 ```bash
 cd ~
@@ -60,7 +66,22 @@ git checkout jl777
 ./zcutil/build.sh -j$(nproc)
 ```
 
-## Update `komodod`
+#### MacOS
+
+```bash
+cd ~
+git clone https://github.com/jl777/komodo
+cd komodo
+git checkout jl777
+./zcutil/fetch-params.sh
+./zcutil/build-mac.sh -j8
+```
+
+::: tip
+Change the `8` in the `-j8` portion of the last command to any number of processor threads desired and/or appropriate for your machine. 
+:::
+
+### Update `komodod`
 
 ```bash
 cd ~/komodo
@@ -69,38 +90,36 @@ git pull
 ./zcutil/build.sh -j$(nproc)
 ```
 
----
+### Set `pubkey` value
 
-## Set `pubkey` value
+#### Step 1 - Start the chain
 
-We need to get `pubkey` value for the smartaddress you are going to use the ROGUE wallet with. `pubkey` is needed for CC use.
-
-### Step 1 - Start the chain
-
-Start the ROGUE chain with the following command in a terminal window and wait for the daemon to fully sync. **Don't close this terminal window and keep it running.**
+Start the ROGUE chain with the following command in a terminal window and wait for the daemon to sync. Keep this terminal open and the daemon running until this process is completed. 
 
 ```bash
 cd ~/komodo/src
 ./komodod -ac_name=ROGUE -ac_supply=1000000 -addnode=5.9.102.210  -ac_cclib=rogue -ac_perc=10000000 -ac_reward=100000000 -ac_cc=60001 -ac_script=2ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc -daemon
 ```
 
-### Step 2
+#### Step 2
 
-Open a new terminal window and issue the following command to generate a new address and you can use the rest of the commands in this terminal including gameplay.
+Open a new terminal. This terminal can be used to execute all remaining installation and gameplay commands.
 
 ```bash
 ./komodo-cli -ac_name=ROGUE getnewaddress
 ```
 
-### Step 3
+The returned value is a ROGUE address. We need to find the associated pubkey for this address.
 
-Use `validateaddress` command with the address you got to get the pubkey displayed
+#### Step 3
+
+Use the `validateaddress` method with the address.
 
 ```bash
-./komodo-cli -ac_name=ROGUE validateaddress RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92
+./komodo-cli -ac_name=ROGUE validateaddress insert_address_here 
 ```
 
-This will display the following info from where you get the pubkey.
+The `validateaddress` method will return information similar to the following:
 
 ```JSON
 {
@@ -117,9 +136,21 @@ This will display the following info from where you get the pubkey.
 }
 ```
 
-### Step 4
+Look for the `pubkey` value:
 
-Set the pubkey we got from Step 3. This step is mandatory and without pubkey set, CC is not usable.
+```
+"pubkey": "02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2",
+```
+
+This is the `pubkey` for our address.
+
+#### Step 4
+
+Set the pubkey for the ROGUE asset chain. 
+
+::: warning Note
+This step is mandatory. Without the pubkey, CryptoConditions is not usable.
+:::
 
 ```bash
 ./komodo-cli -ac_name=ROGUE setpubkey 02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2
