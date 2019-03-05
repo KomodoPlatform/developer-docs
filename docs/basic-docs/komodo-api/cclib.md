@@ -4,7 +4,7 @@ The following methods interact with dynamic CryptoConditions modules.
 
 ## cclib
 
-**cclib insert_method insert_evalcode \"[%22json_params%22]\"**
+**cclib insert_method insert_evalcode \\"[%22json_params%22]\\"**
 
 The `cclib` method allows the user to interact with the dynamic CryptoConditions module associated with `evalcode`.
 
@@ -116,7 +116,7 @@ The library is loaded at runtime using the [-ac_cclib.](../../installations/asse
 | CClib           | (string)         | the name of the given CClibrary                                                                                                                                             |
 | methods         | (array of json objects) | an array containing json objects, each of which describe a method of a module                                                                               |
 | evalcode        | (decimal number) | the `EVALCODE` of the given CryptoConditions module                                                                                                                         |
-| funcid          | (character)      | for methods that generate a transaction, the `funcid` value is the `funcid` in the `opreturn`; for methods that do not generate a transaction, the `funcid` value is a mnemonic |
+| funcid          | (character)      | for methods that generate a transaction, this is the `funcid` in the `opreturn`; for methods that do not generate a transaction, this value is a mnemonic |
 | name            | (string)         | the name of the CryptoConditions module                                                                                                                               |
 | method          | (string)         | the name of the method                                                                                                                                       |
 | help            | (string)         | help for the method, including a description of the method's arguments                                                                                                             |
