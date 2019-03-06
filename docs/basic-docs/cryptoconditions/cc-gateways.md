@@ -109,13 +109,13 @@ If this asset chain were receiving full dPoW security services, at this point it
 
 On this educational asset chain, however, we can continue without waiting for notarization. 
 
-We can check to see that our token is successfully created on the chain using [tokeninfo](../cryptoconditions/cc-tokens.html#tokeninfo):
+We can check to see that our token is successfully created on the chain using [tokeninfo:](../cryptoconditions/cc-tokens.html#tokeninfo)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD tokeninfo insert_token_id
 ```
 
-We can check the balance of our `pubkey` using [tokenbalance](../cryptoconditions/cc-tokens.html#tokenbalance):
+We can check the balance of our `pubkey` using [tokenbalance:](../cryptoconditions/cc-tokens.html#tokenbalance)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD tokenbalance insert_tokenid insert_pubkey
@@ -168,7 +168,7 @@ This returns a hex value (not shown for brevity), which we now broadcast:
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_value 
 ```
 
-Retrieve the data publisher's `pubkey` using [oraclesinfo](../cryptoconditions/cc-oracles.html#oraclesinfo):
+Retrieve the data publisher's `pubkey` using [oraclesinfo:](../cryptoconditions/cc-oracles.html#oraclesinfo)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD oraclesinfo insert_oracleid
@@ -245,7 +245,7 @@ This method returns a hex value (not shown for brevity), which we now broadcast:
 
 The broadcast returns a transaction id, also called the `bindtxid`. Copy this information into the text editor.
 
-Assuming all is properly created and executed, we may now review our new gateway using [gatewaysinfo](../cryptoconditions/cc-gateways.html#gatewaysinfo):
+Assuming all is properly created and executed, we may now review our new gateway using [gatewaysinfo:](../cryptoconditions/cc-gateways.html#gatewaysinfo)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD gatewaysinfo insert_bindtxid
@@ -1115,7 +1115,7 @@ Response from Step One:
 
 Step Two:
 
-Broadcast using [sendrawtransction](../komodo-api/rawtransactions.html#sendrawtransaction):
+Broadcast using [sendrawtransction:](../komodo-api/rawtransactions.html#sendrawtransaction)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000152d7d470197f5dc650c9ec09e1c8f4975d315219e3b6edad3c927c2fc23197ca0200000048473044022006bf373f1dd51c638a38d1e592741db73387e6acc186fca2011cd7283520ff770220673be91d346ba72adcbc9ab1df712f750047c2609399256c07ad3170d9ea850401ffffffff031027000000000000302ea22c802091abda62a548f9c7f5beb19d16f01714ae3d4e526f3266fc8d347d6123f3d77b8103120c008203000401cce05c9836180900002321024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0ac0000000000000000796a4c76f142034b4d443c550010f29d430acbc0aad5acd6efaf16640e94edac5e99f764b168f18ea4c377222000e1f5050000000001010121024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0253a264762978c6806bc5d0c1e7a8b34bd34d9968824e81c3cbb2aef99faa35100000000
