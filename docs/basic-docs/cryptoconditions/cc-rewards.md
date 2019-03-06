@@ -422,7 +422,7 @@ Response:
 
 The `rewardslock` method commits your desired amount of funds into the specified rewards plan. They remain locked until the minimum number of seconds/days passes.
 
-The method returns a `hex` value that must be broadcast using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction).
+The method returns a `hex` value that must be broadcast using [sendrawtransaction.](../komodo-api/rawtransactions.html#sendrawtransaction)
 
 The `sendrawtransaction` method will then return a `txid`, which is later used in the [rewardsunlock](../cryptoconditions/cc-rewards.html#rewardsunlock) method. In general, it is best to save this `txid` in a secure location.
 

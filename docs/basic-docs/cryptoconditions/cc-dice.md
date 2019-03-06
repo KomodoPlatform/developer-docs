@@ -8,9 +8,9 @@ It is also useful as a demonstration to show how Crypto Conditions based contrac
 
 The "house" node should be running the [dicestatus](../cryptoconditions/cc-dice.html#dicestatus) method at a regular frequency. This method resolves unfinished bets and generates new entropy utxos for the "house" contract.
 
-To create a "house" contract, use [dicefund](../cryptoconditions/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [diceaddfunds](../cryptoconditions/cc-dice.html#diceaddfunds).
+To create a "house" contract, use [dicefund](../cryptoconditions/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [diceaddfunds.](../cryptoconditions/cc-dice.html#diceaddfunds)
 
-Once the contract is created and funded, users can place a bet using [dicebet](../cryptoconditions/cc-dice.html#dicebet).
+Once the contract is created and funded, users can place a bet using [dicebet.](../cryptoconditions/cc-dice.html#dicebet)
 
 Anyone can execute a [dicefinish](../cryptoconditions/cc-dice.html#dicefinish) RPC after the contract's time expires. This prevents the "house" node from cheating by going offline.
 
@@ -357,7 +357,7 @@ The `dicefinish` method rebroadcasts a bet that has already been broadcasted.
 
 If the returned `hex` value is `0` the bet is finished.
 
-If the returned `hex` value is not `0`, the `hex` value should be broadcast with [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction). If the bet has not finished or is stuck, the `hex` will have a value.
+If the returned `hex` value is not `0`, the `hex` value should be broadcast with [sendrawtransaction.](../komodo-api/rawtransactions.html#sendrawtransaction) If the bet has not finished or is stuck, the `hex` will have a value.
 
 ### Arguments:
 

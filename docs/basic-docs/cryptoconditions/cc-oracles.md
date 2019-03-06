@@ -203,7 +203,7 @@ Response from Step 3:
 
 The `oraclesdata` method publishes data to an oracle.
 
-A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [oraclessubscribe](../cryptoconditions/cc-oracles.html#oraclessubscribe).
+A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [oraclessubscribe.](../cryptoconditions/cc-oracles.html#oraclessubscribe)
 
 Data is submitted using the `hexstr` property. The first bytes of the `hexstr` property must be the length of the data being submitted in hexadecimal format; this sets the string length for the rest of the data. The second portion of the `hexstr` property is the data itself.
 
