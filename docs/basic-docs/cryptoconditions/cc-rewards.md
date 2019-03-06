@@ -242,7 +242,7 @@ Step 2: Broadcast/send the raw hex/transaction. This will output the txid which 
 
 Response from Step 2:
 
-```
+```bash
 e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd
 ```
 
@@ -409,7 +409,7 @@ Command:
 
 Response:
 
-```
+```bash
 [
   "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd"
 ]
@@ -468,7 +468,7 @@ Step 2: Broadcast raw transaction
 
 Response from Step 2:
 
-```
+```bash
 494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263
 ```
 
@@ -626,7 +626,7 @@ Step 2: Broadcast raw transaction
 
 Response from Step 2:
 
-```
+```bash
 7a69605f5ecfeb0613c8573cbc4ae2471698a65b60c983ec21fb41f09975c000
 ```
 
