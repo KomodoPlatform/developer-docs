@@ -1,20 +1,26 @@
 # CClib
 
-The following methods interact with dynamic CryptoConditions modules.
+The following methods interact with CryptoConditions modules that make use of the `-ac_cclib` parameter.
 
 ## cclib
 
-**cclib method [evalcode] [json_params]**
+**cclib insert_method insert_evalcode \\"[%22json_params%22]\\"**
 
 The `cclib` method allows the user to interact with the dynamic CryptoConditions module associated with `evalcode`.
 
-Each `evalcode` module can have unique `json_params` inputs, as well as unique responses.
+Each `evalcode` module has unique methods and json parameters associated, as well as unique responses.
+
+Inside the `[]` brackets of the array, the json parameters must be wrapped with the characters `%22`.  
+
+::: tip
+The [cclibinfo](../komodo-api/cclib.html#cclibinfo) method returns a complete list of available methods and their parameters for each unique `evalcode`.
+:::
 
 ### Arguments:
 
 | Name        | Type             | Description                                         |
 | ----------- | ---------------- | --------------------------------------------------- |
-| method      | (string)         | the name of the method                                  |
+| method      | (string)         | the unique name of the method                                  |
 | evalcode    | (decimal number) | the `EVALCODE` of the module of interest        |
 | json_params | (array)          | the parameters to be supplied to the method, provided as an array |
 
@@ -22,36 +28,44 @@ Each `evalcode` module can have unique `json_params` inputs, as well as unique r
 
 | Name        | Type             | Description                                         |
 | ----------- | ---------------- | --------------------------------------------------- |
-| (each `EVALCODE` is unique |||
+| (each `EVALCODE` is unique) |||
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib extract 17 \"[%22a963899fce66e303f8dc30faaee1e4550c93f612e3bdf53fc755c064974ebc2c%22,%22031d6340665e4be675e6b39093152b6169e546ac6885c39058c4c60afee529d491%22]\"
+```
 
 ## cclibaddress
 
-**cclibaddress [evalcode][pubkey]**
+**cclibaddress evalcode pubkey**
 
-The `cclibaddress` method returns information about the addresses related to the specified `pubkey` for the Dynamic Module refered by the supplied `evalcode`. If no `pubkey` is provided, the `pubkey` used to the launch the daemon is the default.
+The `cclibaddress` method returns information about the addresses related to the specified `pubkey`, and according to the CryptoConditions module associated with the specified `evalcode`. If no `pubkey` is provided, the `pubkey` used to the launch the daemon is the default.
 
 ### Arguments:
 
 | Name     | Type             | Description                                                                         |
 | -------- | ---------------- | ----------------------------------------------------------------------------------- |
-| evalcode | (decimal number) | `EVALCODE` of the Dynamic Module of interest                                        |
-| pubkey   | (string)         | the public key whose addresses related to the Dynamic Module are required; optional |
+| evalcode | (decimal number) | the `EVALCODE` of the module of interest        |
+| pubkey   | (string, optional)         | the public key related to the requested address information |
 
 ### Response:
 
 | Name                   | Type     | Description                                                                                                                |
 | ---------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
 | result                 | (string) | the result of the operation; can be `success`/ `failed`                                                                    |
-| CClibCCAddress         | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the Dynamic Module's privkey |
-| CCbalance              | (number) | amount of coins in the `CClibCCAddress`                                                                                    |
-| CClibNormalAddress     | (string) | the unmodified public address generated from the Dynamic Module's privkey                                                  |
+| CClibCCAddress         | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the CryptoConditions module's privkey |
+| CCbalance              | (number) | the amount of coins in the `CClibCCAddress`                                                                                    |
+| CClibNormalAddress     | (string) | the unmodified public address generated from the CryptoConditions module's privkey                                                  |
 | CClibCCTokensAddress   | (string) | this property is used for development purposes only and can otherwise be ignored                                           |
 | myAddress              | (string) | the normal address generated from the `pubkey`                                                                             |
 | myCCAddress(CClib)     | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the `pubkey`                 |
 | PubkeyCCaddress(CClib) | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the `pubkey`                 |
 | myCCaddress            | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the `pubkey`                 |
-| myCCbalance            | (number) | amount of coins in the `myCCaddress`                                                                                       |
-| mybalance              | (number) | amount of coins in the `myAddress`                                                                                         |
+| myCCbalance            | (number) | the amount of coins in `myCCaddress`                                                                                       |
+| mybalance              | (number) | the amount of coins in `myAddress`                                                                                         |
 
 #### :pushpin: Examples:
 
@@ -84,28 +98,30 @@ Response:
 
 **cclibinfo**
 
-The `cclibinfo` RPC displays all the methods that are available to interact with different dynamic modules that have been bundled with the CC Library that has been loaded through the parameter [-ac_cclib.](../../installations/asset-chain-parameters.html#ac-cclib)
+The `cclibinfo` method displays all the methods of all the modules that are available in the current library. 
+
+The library is loaded at runtime using the [-ac_cclib.](../../installations/asset-chain-parameters.html#ac-cclib) parameter.
 
 ### Arguments:
 
 | Name   | Type   | Description |
 | ------ | ------ | ----------- |
-| (none) | (none) |
+| (none) |  | |
 
 ### Response:
 
 | Name            | Type             | Description                                                                                                                                              |
 | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result          | (string)         | the result of the operation; can be `success`/ `failed`                                                                                                  |
-| CClib           | (string)         | name of the                                                                                                                                              |
-| methods         | (array of jsons) | an array containing jsons, that each describe a method of a dynamic module                                                                               |
-| evalcode        | (decimal number) | `EVALCODE` of the Dynamic Module                                                                                                                         |
-| funcid          | (character)      | for methods that dont generate a transaction, it is just a mneumonic; for methods that do generate a transaction, it is the `"funcid in the"` `opreturn` |
-| name            | (string)         | name of the Dynamic Module                                                                                                                               |
-| method          | (string)         | name of the method                                                                                                                                       |
-| help            | (string)         | help for the method; describes its arguments                                                                                                             |
-| params_required | (decimal number) | number of parameters that are required for the method to succeed                                                                                         |
-| params_max      | (decimal number) | maximum number of parameters the method can accept                                                                                                       |
+| result          | (string)         | whether the command executed successfully                                                                                                  |
+| CClib           | (string)         | the name of the given CClibrary                                                                                                                                             |
+| methods         | (array of json objects) | an array containing json objects, each of which describe a method of a module                                                                               |
+| evalcode        | (decimal number) | the `EVALCODE` of the given CryptoConditions module                                                                                                                         |
+| funcid          | (character)      | for methods that generate a transaction, this is the `funcid` in the `opreturn`; for methods that do not generate a transaction, this value is a mnemonic |
+| name            | (string)         | the name of the CryptoConditions module                                                                                                                               |
+| method          | (string)         | the name of the method                                                                                                                                       |
+| help            | (string)         | help for the method, including a description of the method's arguments                                                                                                             |
+| params_required | (decimal number) | the number of parameters that are required for the method to succeed                                                                                         |
+| params_max      | (decimal number) | the maximum number of parameters the method can accept                                                                                                       |
 
 #### :pushpin: Examples:
 
