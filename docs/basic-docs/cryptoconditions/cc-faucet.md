@@ -23,9 +23,9 @@ The `faucetaddress` method returns the CC address information for the specified 
 | Structure       | Type     | Description                                                                                                                          |
 | --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | FaucetCCaddress | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the public address that corresponds to the faucet contract's privkey |
-| Faucetmarker    | (string) | the internal address (not related to usage of faucet)                                                                                      |
-| FaucetCCassets  | (string) | the internal address (not related to usage of faucet)                                                                                      |
-| GatewaysPubkey  | (string) | the global pubkey for this Gateways contract module                                                                                             |
+| Faucetmarker    | (string) | the internal address (not related to usage of faucet)                                                                                |
+| FaucetCCassets  | (string) | the internal address (not related to usage of faucet)                                                                                |
+| GatewaysPubkey  | (string) | the global pubkey for this Gateways contract module                                                                                  |
 | CCaddress       | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the CC address from the pubkey of the user                           |
 | myCCaddress     | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the CC address from the pubkey of the user                           |
 | myaddress       | (string) | the unmodified public address of the pubkey used to launch the chain                                                                 |
