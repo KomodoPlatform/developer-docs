@@ -35,7 +35,7 @@ The [cclibinfo](../komodo-api/cclib.html#cclibinfo) method returns a complete li
 Command:
 
 ```bash
-./komodo-cli -ac_name=MUSIG cclib combine 18 '["0225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a","02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567"]'
+./komodo-cli -ac_name=MUSIG cclib combine 18 '["%220225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a%22","%2202d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567%22"]'
 ```
 
 Response:
