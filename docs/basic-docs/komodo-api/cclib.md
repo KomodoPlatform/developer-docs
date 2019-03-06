@@ -35,7 +35,17 @@ The [cclibinfo](../komodo-api/cclib.html#cclibinfo) method returns a complete li
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib extract 17 \"[%22a963899fce66e303f8dc30faaee1e4550c93f612e3bdf53fc755c064974ebc2c%22,%22031d6340665e4be675e6b39093152b6169e546ac6885c39058c4c60afee529d491%22]\"
+./komodo-cli -ac_name=MUSIG cclib combine 18 '["0225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a","02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567"]'
+```
+
+Response:
+
+```json
+{
+  "pkhash": "8897e150bfb07d3f967ffadb4b0f3c84ea73a94c0d715c4b7e6d9c816c5113a9",
+  "combined_pk": "03d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a",
+  "result": "success"
+}
 ```
 
 ## cclibaddress
