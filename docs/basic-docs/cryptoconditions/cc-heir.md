@@ -66,7 +66,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 ##### Step 1: Create a raw transaction (in coins) and get the HEX value
 
 ::: tip
-The following example demonstrates Heir CC usage when utilizing coins, instead of tokens. When instead using tokens, create the tokens first with the [tokencreate](../cryptoconditions/cc-tokens.html#tokencreate) method and pass the `tokenid` as the last parameter of [heirfund](../cryptoconditions/cc-heir.html#heirfund).
+The following example demonstrates Heir CC usage when utilizing coins, instead of tokens. When instead using tokens, create the tokens first with the [tokencreate](../cryptoconditions/cc-tokens.html#tokencreate) method and pass the `tokenid` as the last parameter of [heirfund.](../cryptoconditions/cc-heir.html#heirfund)
 :::
 
 ```bash
@@ -562,7 +562,7 @@ The `heiraddress` method shows the owner's addresses and balances for the Heir C
 | HeirCC`1of2`Address       | (string) | the address for storing funds in **coins** spendable by either the owner or the heir (funds address)                                                       |
 | HeirCC`1of2`TokensAddress | (string) | the address for storing funds in **tokens** spendable by either the owner or the heir (token funds address)                                                      |
 | myCCaddress(Heir)               | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the **heir**                    |
-| myaddress                 | (string) | the unmodified normal public address of the pubkey [used to launch the daemon](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey). This is the normal address used to withdraw funds in coins from from HeirCC`1of2`Address. This property is applicable to any user who wants to use the Heir CC plan (owner or heir)                                                     |
+| myaddress                 | (string) | the unmodified normal public address of the pubkey [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) This is the normal address used to withdraw funds in coins from from HeirCC`1of2`Address. This property is applicable to any user who wants to use the Heir CC plan (owner or heir)                                                     |
 | mybalance                 | (number) | the balance of myaddress in coins                                                                            |
 | MyTokenAddress            | (string) | the user's address to withdraw funds in tokens from HeirCC`1of2`TokensAddress (in development)                                      |
 #### :pushpin: Example:
