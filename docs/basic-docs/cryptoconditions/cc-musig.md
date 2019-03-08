@@ -166,7 +166,7 @@ Once the broadcast transaction is confirmed, check the balance using the `getinf
 
 There should be a small amount of funds in the balance.
 
-## A Complete Example
+## Full Example
 
 The aim of this example is to create a `20f2` MuSig pubkey, fund it, and spend from it.
 
@@ -183,7 +183,7 @@ The `EVALCODE` for the MuSig module is `18`.
 
 Of the following steps, the first three need to be executed only on the first node. 
 
-### combine
+### Step 1: combine
 
 Use the `combine` method to create a `combined_pk` address:
 
@@ -205,7 +205,7 @@ Response:
 
 Copy the values of `pkhash` and `combined_pk` and save them in a secure location for later use.
 
-### send
+### Step 2: send
 
 Use the `send` method to send `1` coin to the `combined_pk` address:
 
@@ -227,7 +227,7 @@ Response:
 
 Copy the `hex` value to your clipboard. 
 
-### Broadcast the hex Value and Retrieve the sendtxid
+### Step 3: Broadcast the hex Value and Retrieve the sendtxid
 
 Use the [sendrawtransaction](../../komodo-api/wallet.html#sendrawtransaction) method to broadcast the raw hex value:
 
@@ -245,7 +245,7 @@ Response:
 
 The returned value is our `sendtxid`. Copy this to a secure location for later use.
 
-### Obtain the change_script Value 
+### Step 4: Obtain the change_script Value 
 
 Decode the raw transaction to take note of the `hex` value in the `scriptPubKey` of the `vout` value that has the `"type":"pubkey"` key pair.
 
@@ -259,6 +259,7 @@ In the response there are a series of `vout` values, each of which has an array 
 
 ```json
 "vout": [                                                                                                                                                          
+
     ... (omitted for brevity) ...
 
     {
@@ -283,7 +284,7 @@ In the response there are a series of `vout` values, each of which has an array 
 
 The `hex` value in the `scriptPubkey` object is our `change_script` value. Copy this value and save it to a secure location for later use.
 
-### calcmsg
+### Step 5: calcmsg
 
 Use the `calcmsg` method to <!--do what?-->. The `calcmsg` method needs the `sendtxid` and `change_script` values retrieved from previous commands.
 
@@ -308,7 +309,7 @@ Response:
 
 Copy the `msg` value to a secure location for later use. The `msg` value needs to be signed to create a valid `spend` transaction.
 
-### session
+### Step 6: session
 
 From this point forward, all steps should be executed on both nodes 1 and 2.
 
@@ -366,7 +367,7 @@ Response:
 
 Copy the `commitment` value to a secure location for later use, and also copy the `commitment` value to Node 1.
 
-### commit
+### Step 7: commit
 
 #### Node 1
 
@@ -419,7 +420,7 @@ Response:
 Copy the `nonce` value to a secure location, and also copy the `nonce` value to Node 1.
 
 
-### nonce
+### Step 8: nonce
 
 #### Node 1
 
@@ -471,7 +472,7 @@ Response:
 
 Copy the `partialsig` value to a secure location, and also copy the `partialsig` value to Node 1.
 
-### partialsig
+### Step 9: partialsig
 
 #### Node 1
 
@@ -523,7 +524,7 @@ Copy the `combinedsig` value to a secure location.
 
 If the values of `combinedsig` produced by both the nodes is the same, then you have followed the example without any errors to this point.
 
-### verify
+### Step 10: verify
 
 #### Node 1
 The `verify` method requires an array of arguments. The arguments are as folows:
@@ -576,7 +577,7 @@ Copy the `combinedsig` value to a secure location. It should match with the `com
 
 The response from both nodes should display a `"result": "success"` key pair. If this is not the case, you made an error in a previous step.  
 
-### spend
+### Step 11: spend
 
 ::: tip Note
 Each node will output different raw transaction values, as both nodes are attempting to spend funds to their own wallets. Of the two, the node that broadcasts its returned raw transaction value first will receive the coins. The other node does not need to broadcast its raw transaction value.
@@ -638,7 +639,7 @@ Copy the `hex` value to a secure location.
 
 Both nodes have now executed the command, but the response on both nodes is only a raw transaction. One of the nodes must broadcast the raw `hex` value. The node that executes the `sendrawtransaction` method will receive the coins. The other node does not need to broadcast a `hex` value, and no attempt to broadcast the `hex` value will succeed. 
 
-### sendrawtransaction
+### Step 12: sendrawtransaction
 
 #### Node 1
 
