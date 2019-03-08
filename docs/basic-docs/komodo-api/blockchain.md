@@ -77,7 +77,7 @@ Structure|Type|Description
 "height"                                     |(numeric)                    |the block height or index (same as provided height)
 "version"                                    |(numeric)                    |the block version
 "merkleroot"                                 |(string)                     |the merkle root
-"tx" : [ "transaction_id" ,...]              |(array of string)                             |the transaction ids
+"tx" : [ "transaction_id" ,...]              |(array of strings)                             |
 "time"                                       |(numeric)                    |the block time in seconds since epoch (Jan 1 1970 GMT)
 "nonce"                                      |(numeric)                    |the nonce
 "bits"                                       |(string)                     |the bits
@@ -605,7 +605,7 @@ Response:
 
 **getblockhashes high low '{"noOrphans": bool, "logicalTimes": bool}'**
 
-The `getblockhashes` method returns an array of hashes of blocks within the timestamp range provided. It requires [`timestampindex`](../installations/common-runtime-parameters.html#timestampindex) to be enabled.
+The `getblockhashes` method returns an array of hashes of blocks within the timestamp range provided. It requires [timestampindex](../installations/common-runtime-parameters.html#timestampindex) to be enabled.
 
 ### Arguments:
 
@@ -1081,18 +1081,16 @@ Response:
 
 ## getspentinfo
 
-**getspentinfo '{"txid": "txid_string", "index", block_height_number}'**
+**getspentinfo '{"txid": "txid_string", "index"}'**
 
-The `getspentinfo` method returns the transaction id and index where an output is spent. It requires [`spentindex`](../installations/common-runtime-parameters.html#spentindex) to be enabled.
-
+The `getspentinfo` method returns the transaction id and index where the given output is spent. It requires [spentindex](../installations/common-runtime-parameters.html#spentindex) to be enabled.
 
 ### Arguments:
 
 Structure|Type|Description
 ---------|----|-----------
 "txid"                                       |(string)                     |the hex string of the txid
-"index"                                      |(number)                     |the start block height
-
+"index"                                      |(number)                     |the output's index
 
 ### Response:
 
@@ -1162,7 +1160,7 @@ Structure|Type|Description
 "bestblock"                                  |(string)                     |the block hash
 "confirmations"                              |(numeric)                    |the number of confirmations
 "value"                                      |(numeric)                    |the transaction value
-"scriptPubKey":                              |(numeric)                    |the transaction value in KMD
+"scriptPubKey":                              |(json object)                |the transaction value in KMD
 "asm"                                        |(string)                     |
 "hex"                                        |(string)                     |
 "reqSigs"                                    |(numeric)                    |the number of required signatures
@@ -1349,7 +1347,7 @@ Response:
 
 **kvsearch "key_string"**
 
-The `kvsearch` method searches for a key stored via the [`kvupdate`](../komodo-api/blockchain.html#kvupdate) command.
+The `kvsearch` method searches for a key stored via the [kvupdate](../komodo-api/blockchain.html#kvupdate) command.
 
 ::: tip
 This feature is only available for asset chains.

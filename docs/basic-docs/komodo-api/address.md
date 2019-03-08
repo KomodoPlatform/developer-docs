@@ -6,7 +6,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 **getaddressbalance '{ "addresses" : [ "address" , ... ] }'**
 
-The `getaddressbalance` method returns the confirmed balance for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressbalance` method returns the confirmed balance for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments:
 
@@ -65,7 +65,7 @@ Response:
 
 **getaddressdeltas '{ "addresses" : [ "address" , ... ] , "start": start, "end": end, "chainInfo": boolean }'**
 
-The `getaddressdeltas` method returns all confirmed balance changes of an address. The user can optionally limit the response to a given interval of blocks. The method requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressdeltas` method returns all confirmed balance changes of an address. The user can optionally limit the response to a given interval of blocks. The method requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
@@ -208,7 +208,7 @@ Response:
 
 **getaddressmempool '{ "addresses" : [ "address" , ... ] }'**
 
-The `getaddressmempool` method returns all mempool deltas for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressmempool` method returns all mempool deltas for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
@@ -282,7 +282,7 @@ Response:
 
 **getaddresstxids '{ "addresses" : [ "address" , ... ] }'**
 
-The `getaddresstxids` method returns the txids for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddresstxids` method returns the txids for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
@@ -344,7 +344,7 @@ Response:
 
 **getaddressutxos '{ "addresses" : [ "address" , ... ] }'**
 
-The `getaddressutxos` method returns all unspent outputs for an address. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressutxos` method returns all unspent outputs for an address. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 

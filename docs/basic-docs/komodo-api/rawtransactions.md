@@ -92,7 +92,7 @@ Structure|Type|Description
 "vout"                                       |(array of json objects)                             |
 "value"                                      |(numeric)                    |the value
 "number"                                     |(numeric)                    |index
-"scriptPubKey"                               |                             |
+"scriptPubKey"                               |(json object)                |
 "asm"                                        |(string)                     |the asm
 "hex"                                        |(string)                     |the hex
 "reqSigs"                                    |(numeric)                    |the required sigs
@@ -567,7 +567,7 @@ Response:
 
 The `sendrawtransction` method submits raw transaction (serialized, hex-encoded) to local nodes and the network.
 
-Also see [`createrawtransaction`](../komodo-api/rawtransactions.html#createrawtransaction) and [`signrawtransaction`](../komodo-api/rawtransactions.html#signrawtransaction) calls.
+Also see [createrawtransaction](../komodo-api/rawtransactions.html#createrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction) calls.
 
 ### Arguments:
 

@@ -263,7 +263,7 @@ whitebind=127.0.0.1:9050
 
 `addnode` tells the daemon which nodes are trusted to act as seed nodes. After connecting to a node via `addnode`, the trusted node will send your node the list of all nodes that it is connected to, and your node will then connect to these additional nodes until [the max limit](../installations/common-runtime-parameters.html#maxconnections) is reached.
 
-This contrasts from the [`connect`](../installations/common-runtime-parameters.html#connect) runtime parameter, as the latter does not attempt to connect your node to additional nodes.
+This contrasts from the [connect](../installations/common-runtime-parameters.html#connect) runtime parameter, as the latter does not attempt to connect your node to additional nodes.
 
 If you are behind a firewall or are having issues connecting to the network, `addnode` is a stronger option.
 
@@ -287,7 +287,7 @@ addnode=69.164.218.197
 
 `connect` connects the `komodod` server to a trusted peer node, but not to request or add any additional nodes.
 
-Please refer to the [`addnode`](../installations/common-runtime-parameters.html#addnode) parameter entry for more information.
+Please refer to the [addnode](../installations/common-runtime-parameters.html#addnode) parameter entry for more information.
 
 #### :pushpin: Examples:
 
@@ -301,20 +301,27 @@ connect=69.164.218.197
 
 `gen` instructs the daemon to attempt to generate new blocks, and thereby mine new coins.
 
-See also [`setgenerate`](../komodo-api/generate.html#setgenerate).
+See also [setgenerate](../komodo-api/generate.html#setgenerate).
+
+::: warning
+This parameter should be avoided. Instead, start the daemon without the `-gen` parameter. Once the asset chain is launched, wait until the blockchain is synced to the current block and then execute the [setgenerate](../komodo-api/generate.html#setgenerate) method. The sync status of the blockchain can be found by executing the [getinfo](../komodo-api/control.html#getinfo) method and comparing the `blocks` and `longestchain` properties.
+:::
+
+::: tip
+* If the `genproclimit` property is not specified after the `gen` option, the daemon mines using 1 thread. 
+* To mine using all available threads, use: `-genproclimit=-1`
+:::
+
+::: tip
+`gen=0` in the .conf file on an asset chain where `ac_staked` is enabled sets the daemon to stake using all available coins
+:::
 
 #### :pushpin: Examples:
 
-Using gen as a runtime parameter:
+Using gen as a runtime parameter to mine using 4 threads:
 
 ```bash
-komodod -gen
-```
-
-Using gen as a default value in the coin's .conf file:
-
-```
-gen=0
+./komodod -gen -genproclimit=4
 ```
 
 ## listen
@@ -477,14 +484,18 @@ sendfreetransactions=0
 
 ## genproclimit
 
-`genproclimit` sets the number of threads to be used for mining. To initiate all cores, use the value `-1`.
+`genproclimit` sets the number of threads to be used for mining. To use all the available processors, use the value `-1`.
+
+::: tip
+Setting `genproclimit=0` instructs the daemon to stake (if possible) using all available coins.
+:::
 
 #### :pushpin: Examples:
 
-Using genproclimit as a default value in the coin's .conf file:
+Using genproclimit as a default value in the coin's .conf file, to mine using 2 threads:
 
 ```
-genproclimit=1
+genproclimit=2
 ```
 
 ## keypool
