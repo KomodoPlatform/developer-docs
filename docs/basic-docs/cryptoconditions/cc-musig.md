@@ -259,11 +259,7 @@ In the response there are a series of `vout` values, each of which has an array 
 
 ```json
 "vout": [                                                                                                                                                          
-    ...
-
-    (omitted for brevity)
-
-    ...
+    ... (omitted for brevity) ...
 
     {
       "value": 0.09980000,
@@ -280,14 +276,9 @@ In the response there are a series of `vout` values, each of which has an array 
       }
     },
 
-    ...
-
-    (omitted for brevity)
-
-    ...
+    ... (omitted for brevity) ...
 
   ]
-
 ```
 
 The `hex` value in the `scriptPubkey` object is our `change_script` value. Copy this value and save it to a secure location for later use.
