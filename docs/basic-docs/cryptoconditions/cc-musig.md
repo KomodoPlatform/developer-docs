@@ -20,7 +20,7 @@ For further information, see this [article.](https://blockstream.com/2019/02/18/
 
 - Create a combined pubkey using the [combine](../cryptoconditions/cc-musig.html#combine) method 
   - From the response, take note of the `combined_pk` and `pkhash` values
-- Send coins to the `combined_pk` using the [send](../cryptoconditions/cc-musig.html#send) method
+- Send coins to the `combined_pk` address using the [send](../cryptoconditions/cc-musig.html#send) method
   - Decode the returned raw transaction using [getrawtransaction](../komodo-api/rawtransactions.html#getrawtransaction)
   - From the decoded raw transaction, take note of the `sendtxid` and `change_script` values
 - Calculate the message that needs to be signed using the [calcmsg](../cryptoconditions/cc-musig.html#calcmsg) method 
