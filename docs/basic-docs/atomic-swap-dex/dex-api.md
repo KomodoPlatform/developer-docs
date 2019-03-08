@@ -66,11 +66,11 @@ Response (Error):
 
 ## enable
 
-**enable (coin)**
+**enable coin**
 
 The `enable` method enables a coin by connecting your MM2 instance to the `coin` blockchain using the `native` coin daemon (e.g. komodod for KMD).
 
-Each coin can be enabled only once, and in either Electrum or Native mode. It's not possible to use both modes at once.  
+Each coin can be enabled only once, and in either Electrum or Native mode. It is not possible to use both modes at once.  
 
 For utxo-based coins the daemon of this blockchain must also be running on the user's machine for `enable` to function.  
 
@@ -80,9 +80,9 @@ ETH/ERC20 coins are also enabled by the `enable` method, but a local installatio
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| coin      | string | the name of the coin you want to enable |
-| urls      | array of strings | `required for ETH/ERC20` urls of Ethereum RPC nodes to which you want to connect |
-| swap_contract_address | string | `required for ETH/ERC20` address of etomic swap smart contract |
+| coin      | string | the name of the coin the user desires to enable |
+| urls      | array of strings (required for ETH/ERC20) | urls of Ethereum RPC nodes to which the user desires to connect |
+| swap_contract_address | string (required for ETH/ERC20) | address of etomic swap smart contract |
 
 ### Response:
 
@@ -95,11 +95,13 @@ ETH/ERC20 coins are also enabled by the `enable` method, but a local installatio
 
 #### :pushpin: Examples:
 
-Command (BTC/KMD/other forks):
+Command (For BTC Fork):
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\"}"
 ```
+
+Response:
 
 ```bash
 {
@@ -110,18 +112,26 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 ```
 
 ::: tip
-Swap smart contract on ETH mainnet: [0x8500AFc0bc5214728082163326C2FF0C73f4a871](https://etherscan.io/address/0x8500AFc0bc5214728082163326C2FF0C73f4a871) Mainnet node maintained by MM2 team: `http://195.201.0.6:8555`  
-Swap smart contract on Ropsten testnet: [0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94](https://ropsten.etherscan.io/address/0x7bc1bbdd6a0a722fc9bffc49c921b685ecb84b94) Ropsten node maintained by MM2 team: `http://195.201.0.6:8545`.  
-If you want to use MM2 on other Ethereum networks (Kovan testnet or forks like ETC) you can deploy the Etomic swap contract code from [this repo.](https://github.com/artemii235/etomic-swap) You will also need to setup ETH node or use public service like [Infura.](https://infura.io/)
+- Swap smart contract on ETH mainnet: [0x8500AFc0bc5214728082163326C2FF0C73f4a871](https://etherscan.io/address/0x8500AFc0bc5214728082163326C2FF0C73f4a871) 
+Main-net node maintained by MM2 team: <b>http://195.201.0.6:8555</b>  
 :::
 
-Command (ETH/ERC20/forks):
+::: tip
+- Swap smart contract on Ropsten testnet: [0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94](https://ropsten.etherscan.io/address/0x7bc1bbdd6a0a722fc9bffc49c921b685ecb84b94) 
+Ropsten node maintained by MM2 team: <b>http://195.201.0.6:8545</b> 
+:::
+
+::: tip
+To use MM2 on other Ethereum networks (such as the Kovan testnet or ETC), deploy the Etomic swap contract code from [this repository.](https://github.com/artemii235/etomic-swap) This requires an ETH node setup, or access to a public service such as [Infura.](https://infura.io/)
+:::
+
+Command (For ETH and ERC20 forks):
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\"}"
 ```
 
-Response (success):
+Response:
 
 ```bash
 {
@@ -514,33 +524,34 @@ The `help` method returns the full API documentation in the terminal.
 
 ## withdraw
 
-**withdraw (coin,to,amount)**
+**withdraw coin to amount**
 
-The `withdraw` method generates, signs and returns the transaction transferring `amount` of `coin` to address `to`.  
-This method `does not` broadcast the generated transaction. The transaction should be validated by user and thereafter sent by `send_raw_transaction` method.   
+The `withdraw` method generates, signs, and returns a transaction that transfers the `amount` of `coin` to the address indicated in the `to` argument.  
+
+This method generates a raw transaction which should then be broadcast using [send_raw_transaction](../atomic-swap-dex/dex-api.html#send-raw-transaction).
 
 ### Arguments:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| coin      | string | the name of the coin you want to withdraw |
+| coin      | string | the name of the coin the user desires to withdraw |
 | to        | string | coins will be withdrawn to this address |
-| amount    | number | the amount user desires to withdraw |
+| amount    | number | the amount the user desires to withdraw |
 
 ### Response:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| tx_hex    | string    | transaction bytes in hexadecimal format, use as input for `send_raw_transaction` method |
+| tx_hex    | string    | transaction bytes in hexadecimal format; use this value as input for the `send_raw_transaction` method |
 | from      | string    | coins will be withdrawn from this address |
 | to        | string    | coins with be withdrawn to this address |
 | amount    | number    | the amount of coins to be withdrawn |
-| fee_details | object    | fee details of generated transaction, differs for UTXO and ETH/ERC20 coins, check examples for more details |
+| fee_details | object    | fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details |
 
 
 #### :pushpin: Examples:
 
-Command (BTC/KMD/other forks):
+Command (BTC, KMD, and other BTC-based forks):
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"KMD\",\"to\":\"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW\",\"amount\":10,\"userpass\":\"$userpass\"}"
@@ -560,7 +571,7 @@ Response (success):
 }
 ```
 
-Command (ETH/ERC20/forks):
+Command (ETH, ERC20, and other ETH-based forks):
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"ETH\",\"to\":\"0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29\",\"amount\":10,\"userpass\":\"$userpass\"}"
@@ -585,22 +596,22 @@ Response (success):
 
 ## send_raw_transaction
 
-**send_raw_transaction (coin, tx_hex)**
+**send_raw_transaction coin tx_hex**
 
-The `send_raw_transaction` method broadcasts the transaction to network of selected coin.  
+The `send_raw_transaction` method broadcasts the transaction to the network of selected coin.  
 
 ### Arguments:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| coin      | string | the name of the coin to broadcast the transaction |
-| tx_hex    | string | transaction bytes in hexadecimal format, usually generated by `withdraw` method |
+| coin      | string | the name of the coin network on which to broadcast the transaction |
+| tx_hex    | string | the transaction bytes in hexadecimal format; this is typically generated by the `withdraw` method |
 
 ### Response:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| tx_hash   | string   | hash of broadcasted transaction |
+| tx_hash   | string   | the hash of the broadcasted transaction |
 
 #### :pushpin: Examples:
 
