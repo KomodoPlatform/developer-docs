@@ -526,16 +526,16 @@ The `help` method returns the full API documentation in the terminal.
 
 **withdraw coin to amount**
 
-The `withdraw` method generates, signs, and returns a transaction that transfers the `amount` of `coin` to the indicated `address`.  
+The `withdraw` method generates, signs, and returns a transaction that transfers the `amount` of `coin` to the address indicated in the `to` argument.  
 
-This method generates a raw transaction which can then be (optional) verified using [getrawtransaction](../komodo-api/rawtransactions.html#getrawtransaction) and then (mandatory) broadcast using [sendrawtransaction](../atomic-swap-dex/dex-api.html#send-raw-transaction).
+This method generates a raw transaction which should then be broadcast using [send_raw_transaction](../atomic-swap-dex/dex-api.html#send-raw-transaction).
 
 ### Arguments:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin the user desires to withdraw |
-| address        | string | coins will be withdrawn to this address |
+| to        | string | coins will be withdrawn to this address |
 | amount    | number | the amount the user desires to withdraw |
 
 ### Response:
