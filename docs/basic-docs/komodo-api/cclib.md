@@ -1,4 +1,4 @@
-# CClib
+# CC Lib
 
 The following methods interact with CryptoConditions modules that make use of the `-ac_cclib` parameter.
 

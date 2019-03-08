@@ -1,5 +1,7 @@
 # Contract Module: Gateways
 
+## Introduction
+
 The `gateways` CryptoConditions module allows the user to facilitate, manage, and trade tokenized representations of foreign blockchain assets.
 
 For example, a user is able to deposit their real-world BTC into a monitored address on the Bitcoin blockchain. Then, on the `gateways` asset chain, the ownership of this BTC is tokenized. Only the owner of the token has the right to withdraw the BTC to a chosen address. The user that made the deposit can use the token either for asset trading, or for other creative purposes.
