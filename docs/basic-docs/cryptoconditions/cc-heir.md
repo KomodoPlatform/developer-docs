@@ -1,5 +1,7 @@
 # Contract Module: Heir
 
+## Introduction
+
 The Heir CryptoConditions (CC) module allows cryptocurrency funds to be passed on as an inheritance. 
 
 The module functions by the means of a special `1of2` CC address. In this type of address there are two private keys that are capable of spending funds from the address. However, only the first private key may spend funds by default.

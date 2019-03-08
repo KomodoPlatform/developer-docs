@@ -1,5 +1,7 @@
 # Contract Module: Rewards
 
+## Introduction
+
 The `rewards` contract creates a master-node like rewards program, giving a user the ability to earn rewards by locking coins.
 
 It features configurable parameters, such as a customizable APR, minimum deposit, a required holding period,etc.

@@ -65,7 +65,7 @@ The `cclibaddress` method returns information about the addresses related to the
 
 | Name                   | Type     | Description                                                                                                                |
 | ---------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
-| result                 | (string) | the result of the operation; can be `success`/ `failed`                                                                    |
+| result                 | (string) | whether the command executed successfully                                                                    |
 | CClibCCAddress         | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the CryptoConditions module's privkey |
 | CCbalance              | (number) | the amount of coins in the `CClibCCAddress`                                                                                    |
 | CClibNormalAddress     | (string) | the unmodified public address generated from the CryptoConditions module's privkey                                                  |
@@ -110,7 +110,7 @@ Response:
 
 The `cclibinfo` method displays all the methods of all the modules that are available in the current library. 
 
-The library is loaded at runtime using the [-ac_cclib](../../installations/asset-chain-parameters.html#ac-cclib) parameter.
+The library is loaded at runtime using the [-ac_cclib](../installations/asset-chain-parameters.html#ac-cclib) parameter.
 
 ### Arguments:
 

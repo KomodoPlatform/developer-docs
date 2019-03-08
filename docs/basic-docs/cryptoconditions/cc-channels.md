@@ -1,5 +1,7 @@
 # Contract Module: Channels
 
+## Introduction
+
 The `channels` contract facilitates instant payments in a trustless environment.
 
 When a payment is executed properly with `channels`, as soon as it enters the mempool the odds that the payment can be withdrawn or attacked decrease to almost zero. Many developers and users may find it advantageous to use `channels` to create a secure instant-payment network that can be used within their business environment.

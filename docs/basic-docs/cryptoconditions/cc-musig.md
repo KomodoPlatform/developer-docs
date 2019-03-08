@@ -6,48 +6,42 @@
 The MuSig module is in the final stages of testing. If you would like to use MuSig on a production-level asset chain, please reach out to the Komodo team on [Discord](https://komodoplatform.com/discord)
 :::
 
-The MuSig CryptoConditions (CC) module implements a new type of multi-signature functionality. MuSig allows a blockchain to process multi-signature transactions in a more data-efficient manner, and MuSig also keeps private the number of signers partaking in a multi-signature transaction.
+The MuSig CryptoConditions (CC) module implements a new type of multi-signature functionality. MuSig allows a blockchain to process multi-signature transactions in a more data-efficient manner. MuSig also keeps private the number of signers partaking in a multi-signature transaction.
 
-To allow this functionality, the MuSig module makes use of Schnorr Signatures. Schnorr Signatures are unique in that each signature is 64 bytes in size, regardless of the number of signers in a transaction. Also, a multi-signature Schnorr Signatures can be processed in one verification. 
+This functionality is facilitated by MuSig's implementation of Schnorr Signature technology. Schnorr Signatures are a unique in that each signature is 64 bytes in size, regardless of the number of signers in a transaction. Also, a multi-signature Schnorr Signature can be processed in one verification. 
 
 Schnorr Signatures differs from the existing multi-signature method (ECDSA), as the ECDSA method requires each signer of a transaction to be verified separately. Also, with the ECDSA method each set of signers must be collected into a final verification. The size of the ECDSA multi-signature transaction can vary according to the number of signers in the set, and this can disclose information that would otherwise be kept private.
 
 Therefore, Schnorr Signatures greatly reduce verification time and data-storage requirements, and enhance user privacy.
 
-For further information, see this [article.](https://blockstream.com/2019/02/18/musig-a-new-multisignature-standard/)
-
-Also, the reader may refer to the comments in the following core `komodod` files: 
-
-- [komodo/src/secp256k1/include/secp256k1_musig.h](https://github.com/jl777/komodo/blob/jl777/src/secp256k1/include/secp256k1_musig.h)
-- [komodo//src/secp256k1/src/modules/musig/example.c](https://github.com/jl777/komodo/blob/jl777/src/secp256k1/src/modules/musig/example.c)
+For further information, see this [article.](https://blockstream.com/2019/02/18/musig-a-new-multisignature-standard/) Also, the reader may refer to the comments in the following core `komodod` files, [File 1](https://github.com/jl777/komodo/blob/jl777/src/secp256k1/include/secp256k1_musig.h) and [File 2.](https://github.com/jl777/komodo/blob/jl777/src/secp256k1/src/modules/musig/example.c)
 
 ### Workflow When Using MuSig
 
-- Make a combined pubkey using the method [combine.](../dynamic/cc-musig.html#combine)
+- Create a combined pubkey using the [combine](../cryptoconditions/cc-musig.html#combine) method 
   - From the response, take note of the `combined_pk` and `pkhash` values
-- Send coins to the `combined_pk` address using the [send](../dynamic/cc-musig.html#send) method.
-  - From the decoded rawtransaction, take note of the `sendtxid` and `change_script`
-- Now calculate the message that needs to be signed by all the parties using the method [calcmsg,](../dynamic/cc-musig.html#calcmsg) which uses `sendtxid` and `change_script` as arguments. From the response, take note of `msg`. To create a valid spend, this `msg` needs to be signed by all the participating pubkeys.
-- On each signing node, a session needs to be created using the method [session,](../dynamic/cc-musig.html#session) which takes the follwing arguments: `ind` (index; node with the first pubkey gets `0`),`numsigners` (number of pubkeys participating), `combined_pk`, `pkhash`, `msg` (message to be signed). From the response on each node, take note of the `commitment` and send all the `commitment`s to all the other nodes.
-
-::: warning
-
-- The [session](../dynamic/cc-musig.html#session) method stores the commitment for each node into the global struct.
-- Keep in mind there is a single global structure with the `session` unique to each `cclib session` call.
-- This means that restarting any deamon in the middle of the process on any of the nodes results in a failure.
-- Also `cclib session` method can't be called more than a single time on each node during the whole process.
-- This is an artificial restriction just to simplify the initial implementation of MuSig
-
-:::
-
-- On each node, use the method [commit,](../dynamic/cc-musig.html#commit)
-  which takes the arguments: `pkhash` and `commitment`s from all the other nodes to output `nonce`s. Make sure to exchange the `nonce`s from all the nodes so that each node will have `nonce`s from all the other nodes.
-- On each node, use the method [nonce,](../dynamic/cc-musig.html#nonce)
-  which takes the arguments: `pkhash` and `nonce`s from all the other nodes to output `partialsig`s. Make sure to exchange the `partialsig`s from all the nodes so that each node will have `partialsig`s from all the other nodes.
-- Finally, on each node, use the method [partialsig,](../dynamic/cc-musig.html#partialsig)
-  which takes the arguments: `pkhash` and `partialsig`s from all the other nodes to output `combinedsig`s. Make sure to exchange the `combinedsig`s from all the nodes so that each node will have `combinedsig`s from all the other nodes. You can verify that all the nodes produced the same `combinedsig`.
-- Now, for a sanity test, the method [verify](../dynamic/cc-musig.html#verify) can be used to make sure that, this `combinedsig` will work with the `msg` needed for the spend. It takes the arguments `msg`,`combined_pk`, `combinedsig`.
-- Now the [spend](../dynamic/cc-musig.html#spend) part. This method takes `sendtxid`,`change_script`,`combinedsig` as arguments. <!-- who can spend, how much, the code needs to be updated to control these things -->
+- Send coins to the `combined_pk` using the [send](../cryptoconditions/cc-musig.html#send) method
+  - Decode the returned raw transaction using [getrawtransaction](../komodo-api/rawtransactions.html#getrawtransaction)
+  - From the decoded raw transaction, take note of the `sendtxid` and `change_script` values
+- Calculate the message that needs to be signed using the [calcmsg](../cryptoconditions/cc-musig.html#calcmsg) method 
+  - From the response, take note of `msg`
+  - This `msg` needs to be signed by all participating pubkeys
+- On each node create a session using the [session](../cryptoconditions/cc-musig.html#session) method
+  - From the response on each node take note of the `commitment` value
+  - Transfer each node's `commitment` value to each other node
+  - Do not stop the `komodod` daemon on any node from this point forward
+    - The `komodod` daemon stores the `commitment` value as a part of the global structure
+    - Should any `komodod` daemon be stopped, the MuSig workflow must be restarted from the beginning
+  - Also, execute the `sessions` method only once on each node
+- On each node use the [commit](../cryptoconditions/cc-musig.html#commit) method
+  - Transfer each node's `nonce` value to each other node
+- On each node use the [nonce](../cryptoconditions/cc-musig.html#nonce) method
+  - Transfer each node's `partialsig` value to each other node
+- On each node execute the [partialsig](../cryptoconditions/cc-musig.html#partialsig) method
+  - Verify that the `combinedsig` value of each node is the same as each other node by transferring one `combinedsig` value on one node to all other nodes
+- On at least one node execute the [verify](../cryptoconditions/cc-musig.html#verify) method
+  - Use the returned output to verify that the `combinedsig` value will be able to successfully execute the `spend` method for the desired `msg`
+- On one node execute the [spend](../cryptoconditions/cc-musig.html#spend) method and broadcast the returned raw transaction
 
 ## Installation
 
@@ -81,7 +75,7 @@ git checkout jl777
 ./zcutil/build.sh -j$(nproc)
 ```
 
-Compile the appropriate CC library by executing the following series of command. Each line should be executed separately:
+Compile the appropriate CC library by executing the following series of commands. Each line should be executed separately:
 
 ```bash
 cd src/cc
@@ -130,7 +124,7 @@ Once the asset chain is relaunched with the new pubkey included as a launch para
 
 ::: tip Note
 
-The reader should launch the asset chain with a pubkey whose private key is already imported to the wallet. If this is not the case, restart the asset chain with an appropriate pubkey, or use the [importprivkey](../../komodo-api/wallet.html#importprivkey) method to import the private key of the desired pubkey.
+The reader should launch the asset chain with a pubkey whose private key is already imported to the wallet. If this is not the case, restart the asset chain with an appropriate pubkey, or use the [importprivkey](../komodo-api/wallet.html#importprivkey) method to import the private key of the desired pubkey.
 
 :::
 
@@ -229,7 +223,7 @@ Copy the `hex` value to your clipboard.
 
 ### Step 3: Broadcast the hex Value and Retrieve the sendtxid
 
-Use the [sendrawtransaction](../../komodo-api/wallet.html#sendrawtransaction) method to broadcast the raw hex value:
+Use the [sendrawtransaction](../komodo-api/wallet.html#sendrawtransaction) method to broadcast the raw hex value:
 
 Command:
 
@@ -286,7 +280,7 @@ The `hex` value in the `scriptPubkey` object is our `change_script` value. Copy 
 
 ### Step 5: calcmsg
 
-Use the `calcmsg` method to <!--do what?-->. The `calcmsg` method needs the `sendtxid` and `change_script` values retrieved from previous commands.
+Use the `calcmsg` method to calculate the `msg` value. The `calcmsg` method needs the `sendtxid` and `change_script` values retrieved from previous commands.
 
 <!--Do these values need %22 around them? And escaped quotes?-->
 
@@ -315,15 +309,15 @@ From this point forward, all steps should be executed on both nodes 1 and 2.
 
 After each step on the first node, copy the relevant data to the second node before proceeding to the following step.
 
+#### Node 1
+
 The following `session` command requires an array of arguments. The arguments are as follows:
 
 1. `ind`: the index of the signatory in the set. In this example our current node, Node 1, is `0`
 2. `numsigners`: the number of pubkeys participating in the multi-signature transaction
 3. `combined_pk`: the `combined_pk` address, retrieved previously
-4. `pkhash`: the `pkhas`, retrieved previously
+4. `pkhash`: the `pkhash` value, retrieved previously
 5. `msg`: the `msg` to be signed, retrieved previously
-
-#### Node 1
 
 Command:
 
@@ -342,7 +336,7 @@ Response:
 }
 ```
 
-Copy the value of `commitment` to a secure location for later use, and also copy the `commitment` value to Node 2.
+Copy the value of `commitment` both to a secure location and to Node 2.
 
 #### Node 2
 
@@ -365,7 +359,7 @@ Response:
 }
 ```
 
-Copy the `commitment` value to a secure location for later use, and also copy the `commitment` value to Node 1.
+Copy the `commitment` value both to a secure location and to Node 1.
 
 ### Step 7: commit
 
@@ -394,7 +388,7 @@ Response:
 }
 ```
 
-Copy the `nonce` value to a secure location, and also copy the `nonce` value to Node 2.
+Copy the `nonce` value both to a secure location and to Node 2.
 
 #### Node 2
 
@@ -417,7 +411,7 @@ Response:
 }
 ```
 
-Copy the `nonce` value to a secure location, and also copy the `nonce` value to Node 1.
+Copy the `nonce` value both to a secure location and to Node 1.
 
 
 ### Step 8: nonce
@@ -447,7 +441,7 @@ Response:
 }
 ```
 
-Copy the `partialsig` value to a secure location, and also copy the `partialsig` value to Node 2.
+Copy the `partialsig` value both to a secure location and to Node 2.
 
 #### Node 2
 
@@ -470,7 +464,7 @@ Response:
 }
 ```
 
-Copy the `partialsig` value to a secure location, and also copy the `partialsig` value to Node 1.
+Copy the `partialsig` value both to a secure location and to Node 1.
 
 ### Step 9: partialsig
 
@@ -498,7 +492,7 @@ Response:
 }
 ```
 
-Copy the `combinedsig` value to a secure location, and also copy the `combinedsig` value to Node 2.
+Copy the `combinedsig` value both to a secure location and to Node 2.
 
 #### Node 2
 
@@ -573,7 +567,7 @@ Response:
 }
 ```
 
-Copy the `combinedsig` value to a secure location. It should match with the `combinedsig` value returned on Node 1.
+Copy the `combinedsig` value to a secure location. Visually verify that this `combinedsig` value matches with the `combinedsig` value returned on Node 1.
 
 The response from both nodes should display a `"result": "success"` key pair. If this is not the case, you made an error in a previous step.  
 
@@ -616,28 +610,9 @@ Copy the `hex` value to a secure location.
 
 #### Node 2
 
-Execute the same command:
+In this example, our desire is to receive the transferred coins on Node 1, not on Node 2. 
 
-```bash
-./komodo-cli -ac_name=MUSIG cclib spend 18 '["09daa45cb6e17028f9568347291a993cbf29c152a527b53e9ac0925d4900c293","210225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270aac","4b3a9b2b162802bc6c2cca2d22e70ab1cf738a9d4f5692f4f881d0cce0319c137b27889bb562602c94e163729c4168120a4ab41a8e936909e832e6af09e758f2"]'
-```
-
-Response:
-
-```json
-{
-  "msg": "3ef43614242afd3c57e02a75a3bc99342fea7c731f6190b791c0f99826789603",
-  "combined_pk": "03d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a",
-  "combinedsig": "4b3a9b2b162802bc6c2cca2d22e70ab1cf738a9d4f5692f4f881d0cce0319c137b27889bb562602c94e163729c4168120a4ab41a8e936909e832e6af09e758f2",
-  "hex": "0400008085202f890193c200495d92c09a3eb527a552c129bf3c991a29478356f92870e1b65ca4da09000000007b4c79a276a072a26ba067a5658021032d29d6545a2aafad795d9cf50912ecade549137163934dfb2895ebc0e211ce8a81401272d03e011f002a464aa75e8c3d093d45a2c4865b7b334998c8dc2fbaa814c17a2f34c9746d2921483b884d577b86465095ce64a4716b4b5d2f0b578860e149a100af03800112a10001ffffffff0200e1f5050000000023210225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270aac0000000000000000686a4c6512792103d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a404b3a9b2b162802bc6c2cca2d22e70ab1cf738a9d4f5692f4f881d0cce0319c137b27889bb562602c94e163729c4168120a4ab41a8e936909e832e6af09e758f200000000470800000000000000000000000000",
-  "txid": "f0c64b8af416d4cafae01079d95be8ef3a84c88dcb68dc8e63907bb6a20455dd",
-  "result": "success"
-}
-```
-
-Copy the `hex` value to a secure location.
-
-Both nodes have now executed the command, but the response on both nodes is only a raw transaction. One of the nodes must broadcast the raw `hex` value. The node that executes the `sendrawtransaction` method will receive the coins. The other node does not need to broadcast a `hex` value, and no attempt to broadcast the `hex` value will succeed. 
+Therefore, it is not necessary to execute the `spend` method again, nor is it necessary for Node 2 to execute the following step.
 
 ### Step 12: sendrawtransaction
 
@@ -648,6 +623,8 @@ Broadcast the `hex` value using `sendrawtransaction:
 ```bash
 ./komodo-cli -ac_name=MUSIG sendrawtransaction "0400008085202f890193c200495d92c09a3eb527a552c129bf3c991a29478356f92870e1b65ca4da09000000007b4c79a276a072a26ba067a5658021032d29d6545a2aafad795d9cf50912ecade549137163934dfb2895ebc0e211ce8a81401272d03e011f002a464aa75e8c3d093d45a2c4865b7b334998c8dc2fbaa814c17a2f34c9746d2921483b884d577b86465095ce64a4716b4b5d2f0b578860e149a100af03800112a10001ffffffff0200e1f5050000000023210225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270aac0000000000000000686a4c6512792103d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a404b3a9b2b162802bc6c2cca2d22e70ab1cf738a9d4f5692f4f881d0cce0319c137b27889bb562602c94e163729c4168120a4ab41a8e936909e832e6af09e758f200000000470800000000000000000000000000"
 ```
+
+Once the broadcast transaction is mined and notarized, the MuSig transaction is complete.
 
 Congratulations. You have now successfully executed a full cycle of the MuSig module. 
 
@@ -714,20 +691,20 @@ scriptPubkey = 21 + pubkey + ac
 For example:
 
 * The `pubkey` is: `02f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193e`
-* The `scriptPubkey` is: `2102f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193eac`
+* The associated `scriptPubkey` is: `2102f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193eac`
 
 ### Arguments: 
 
 | Name         | Type     | Description                                                                                                                                                                                                                                                                                                                         |
 | ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| sendtxid     | (string) | the transaction id of the transaction created by the [send](../../dynamic/cc-musig.html#send-2) method that was executed to fund the MuSig address; only the funds in the `vout0` of the `sendtxid` are spent                                                                                                                                    |
+| sendtxid     | (string) | the transaction id of the transaction created by the [send](../cryptoconditions/cc-musig.html#send) method that was executed to fund the MuSig address; only the funds in the `vout0` of the `sendtxid` are spent                                                                                                                                    |
 | scriptPubKey | (string) | a modified form of a pubkey; this is the pubkey that will receive the spent funds.  |
 
 ### Response:
 
 | Name   | Type     | Description                                                                                                                  |
 | ------ | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| msg    | (string) | the message that must be signed by all the signers for the final [spend](../../dynamic/cc-musig.html#spend) to succeed |
+| msg    | (string) | the message that must be signed by all the signers for the final [spend](../cryptoconditions/cc-musig.html#spend) to succeed |
 | result | (string) | whether the call executed successfully                                                                                    |
 
 ## session
@@ -746,7 +723,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | numsigners  | (decimal number) | the total number of signers participating                                                                                                  |
 | combined_pk | (string)         | the combined pubkey of all the signers computed through MuSiG                                                                              |
 | pkhash      | (string)         | the 32-byte hash of the original public keys                                                                                               |
-| msg         | (string)         | the message that needs to be signed by all the signers for the final [spend](../../dynamic/cc-musig.html#spend-2) to succeed               |
+| msg         | (string)         | the message that needs to be signed by all the signers for the final [spend](../cryptoconditions/cc-musig.html#spend) to succeed               |
 
 ### Response:
 
@@ -754,7 +731,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | ---------- | ---------------- | -------------------------------------------------------------- |
 | myind      | (decimal number) | index of the node in which this method has been run            |
 | numsigners | (decimal number) | the total number of signers participating                      |
-| commitment | (string)         | `commitment` produced by the node for this `msg` and `session` |
+| commitment | (string)         | the `commitment` value produced by the node for this `msg` and `session` |
 | result     | (string)         | whether the call executed successfully                      |
 
 ## commit
@@ -771,7 +748,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | ---------- | ---------------- | ------------------------------------------------------------------------- |
 | pkhash     | (string)         | the 32-byte hash of the original public keys                              |
 | ind        | (decimal number) | index of the node, whose `commitment` is being added to the global structure |
-| commitment | (string)         | `commitment` produced by the node with index `ind`                        |
+| commitment | (string)         | the `commitment` value produced by the node with index `ind`                        |
 
 ### Response:
 
@@ -779,7 +756,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | ----------- | ---------------- | -------------------------------------------------------------- |
 | added_index | (decimal number) | index of the node whose `commitment` has been added            |
 | myind       | (decimal number) | index of the node in which this method was executed            |
-| nonce       | (string)         | `nonce` produced by the node in which this method was executed |
+| nonce       | (string)         | the `nonce` value produced by the node on which this method is executed |
 | result      | (string)         | whether the call executed successfully                      |
 
 ## nonce
@@ -795,16 +772,16 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | Name   | Type             | Description                                                          |
 | ------ | ---------------- | -------------------------------------------------------------------- |
 | pkhash | (string)         | the 32-byte hash of the original public keys                         |
-| ind    | (decimal number) | index of the node, whose `nonce` is being added to the global structure |
-| nonce  | (string)         | `nonce` produced by the node with index `ind`                        |
+| ind    | (decimal number) | the index of the node, whose `nonce` is being added to the global structure |
+| nonce  | (string)         | the `nonce` value produced by the node with index `ind`                        |
 
 ### Response:
 
 | Name        | Type             | Description                                                         |
 | ----------- | ---------------- | ------------------------------------------------------------------- |
 | added_index | (decimal number) | index of the node whose `nonce` is added                      |
-| myind       | (decimal number) | index of the node on which this method was executed                 |
-| partialsig  | (string)         | `partialsig` produced by the node on which this method was executed |
+| myind       | (decimal number) | index of the node on which this method is executed                 |
+| partialsig  | (string)         | the `partialsig` value produced by the node on which this method is executed |
 | result      | (string)         | whether the call executed successfully                           |
 
 ## partialsig
@@ -820,16 +797,16 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | Name       | Type             | Description                                                               |
 | ---------- | ---------------- | ------------------------------------------------------------------------- |
 | pkhash     | (string)         | the 32-byte hash of the original public keys                              |
-| ind        | (decimal number) | index of the node, whose `partialsig` is now added to the global structure |
-| partialsig | (string)         | `partialsig` produced by the node with index `ind`                        |
+| ind        | (decimal number) | the index of the node, whose `partialsig` is now added to the global structure |
+| partialsig | (string)         | the `partialsig` value produced by the node with index `ind`                        |
 
 ### Response:
 
 | Name        | Type             | Description                                                          |
 | ----------- | ---------------- | -------------------------------------------------------------------- |
 | added_index | (decimal number) | index of the node whose `partialsig` was added                  |
-| myind       | (decimal number) | index of the node on which this method was executed                  |
-| combinedsig | (string)         | `combinedsig` produced by the node on which this method was executed |
+| myind       | (decimal number) | index of the node on which this method is executed                  |
+| combinedsig | (string)         | the `combinedsig` value produced by the node on which this method is executed |
 | result      | (string)         | whether the call executed successfully                            |
 
 ## verify
@@ -844,16 +821,16 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 
 | Name        | Type     | Description                                                                                                                  |
 | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../dynamic/cc-musig.html#spend-2) to succeed |
+| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../cryptoconditions/cc-musig.html#spend) to succeed |
 | combined_pk | (string) | the combined pubkey of all the signers computed through MuSig                                                                |
-| combinedsig | (string) | `combinedsig` produced by the node on which this method is being run                                                         |
+| combinedsig | (string) | the `combinedsig` value produced by the node on which this method is executed                                                         |
 
 ### Response:
 
 | Name        | Type     | Description                                                                                                                  |
 | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../dynamic/cc-musig.html#spend-2) to succeed |
-| combinedsig | (string) | `combinedsig` produced by the node on which this method is being run                                                         |
+| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../cryptoconditions/cc-musig.html#spend) to succeed |
+| combinedsig | (string) | the `combinedsig` value produced by the node on which this method is executed                                                         |
 | combined_pk | (string) | the combined pubkey of all the signers computed through MuSig                                                                |
 | result      | (string)         | whether the call executed successfully                             |
 
@@ -880,7 +857,7 @@ For example:
 
 | Name         | Type     | Description                                                                                                                                                                                                                                                                                                                         |
 | ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| sendtxid     | (string) | the transaction id of the transaction created by the [send](../../dynamic/cc-musig.html#send-2) method used to fund the MuSig address; only the funds in the `vout0` of the `sendtxid` are spent                                                                                                                                    |
+| sendtxid     | (string) | the transaction id of the transaction created by the [send](../cryptoconditions/cc-musig.html#send) method used to fund the MuSig address; only the funds in the `vout0` of the `sendtxid` are spent                                                                                                                                    |
 | combinedsig  | (string) | the combined signature produced by all the signers                                                                                                                                                                                                                                                                                  |
 | scriptPubKey | (string) | a modified form of a pubkey to which funds are to be spent |
 
@@ -888,7 +865,7 @@ For example:
 
 | Name        | Type     | Description                                                                                                                  |
 | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../dynamic/cc-musig.html#spend) to succeed |
+| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../cryptoconditions/cc-musig.html#spend) to succeed |
 | combined_pk | (string) | the combined pubkey of all the signers computed through MuSig                                                                |
 | combinedsig | (string) | the combined signature produced by all the signers                                                                           |
 | hex         | (string) | `spend` transaction in rawtransaction format, provided in hexadecimal                                                                 |

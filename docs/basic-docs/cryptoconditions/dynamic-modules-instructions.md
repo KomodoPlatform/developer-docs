@@ -7,7 +7,7 @@ A new way of creating the modules has been introduced, which allows the daemon, 
 ::: warning
 
 - The creation of `libcc.so` and build process is not yet final.
-- Currently `komodod` containing a dynamic module is built and used to launch an asset chain that has the module enabled through the parameter [-ac_cclib.](../../installations/asset-chain-parameters.html#ac-cclib)
+- Currently `komodod` containing a dynamic module is built and used to launch an asset chain that has the module enabled through the parameter [-ac_cclib.](../installations/asset-chain-parameters.html#ac-cclib)
 - Go through the pages for differnt dynamic modules to learn how to build and test them currently.
 - The specifics of this process may change in the futute
 
@@ -19,7 +19,7 @@ A new way of creating the modules has been introduced, which allows the daemon, 
 
 ::: tip
 
-- Each module must be given an `EVAL code` which also acts as an identifier to interact with the module when using calls from the [CClib](../../komodo-api/cclib.html) section.
+- Each module must be given an `EVAL code` which also acts as an identifier to interact with the module when using calls from the [CClib](../komodo-api/cclib.html) section.
 - The `EVAL code` defined must be >= 16 and < 128
 
 :::
@@ -34,4 +34,4 @@ Work is being done to allow dynamic loading of `libcc.so`. Then it just needs to
 
 - Build the `libcc.so` and put it in the directory [komodo/src](https://github.com/jl777/komodo/blob/jl777/src/) and rebuild
 - The `komodod` built so, has the newly created module in it.
-- To launch a chain that has this module enabled, include the parameter [-ac_cclib.](../../installations/asset-chain-parameters.html#ac-cclib) with its value as the name of the dynamic library defined in the file: [cclib.cpp](https://github.com/jl777/komodo/blob/jl777/src/cc/cclib.cpp) in the variable `MYCCLIBNAME`
+- To launch a chain that has this module enabled, include the parameter [-ac_cclib.](../installations/asset-chain-parameters.html#ac-cclib) with its value as the name of the dynamic library defined in the file: [cclib.cpp](https://github.com/jl777/komodo/blob/jl777/src/cc/cclib.cpp) in the variable `MYCCLIBNAME`
