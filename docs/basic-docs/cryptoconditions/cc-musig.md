@@ -33,7 +33,7 @@ Also, the reader may refer to the comments in the following core `komodod` files
 ::: warning
 
 - The [session](../dynamic/cc-musig.html#session) method stores the commitment for each node into the global struct.
-- Keep in mind there is a single global struct with the `session` unique to each `cclib session` call.
+- Keep in mind there is a single global structure with the `session` unique to each `cclib session` call.
 - This means that restarting any deamon in the middle of the process on any of the nodes results in a failure.
 - Also `cclib session` method can't be called more than a single time on each node during the whole process.
 - This is an artificial restriction just to simplify the initial implementation of MuSig
