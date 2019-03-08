@@ -703,7 +703,8 @@ Usage of this method depends upon the [cclib](../komodo-api/cclib.html#cclib) me
 
 The `calcmsg` method takes the indicated `sendtxid` and the indicated `scriptPubkey` and calculates the `msg` value.
 
-Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`. 
+Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+
 The `scriptPubkey` argument can be any valid `pubkey`. To create a `scriptPubkey` from a normal `pubkey`, simply add the values `21` to the beginning of the `pubkey` string and the values `ac` to the end of the string:
 
 ```
@@ -726,14 +727,18 @@ For example:
 
 | Name   | Type     | Description                                                                                                                  |
 | ------ | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| msg    | (string) | the message that must be signed by all the signers for the final [spend](../../dynamic/cc-musig.html#spend-2) to succeed |
+| msg    | (string) | the message that must be signed by all the signers for the final [spend](../../dynamic/cc-musig.html#spend) to succeed |
 | result | (string) | whether the call executed successfully                                                                                    |
 
-### session
+## session
 
 **cclib session 18 '["myindex" , "numsigners" , "combined_pk" , "pkhash" , "msg"]'**
 
-#### Parameters
+The `session` method returns several necessary values that are needed to properly execute a transaction in the MuSig module.
+
+Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`. 
+
+### Arguments: 
 
 | Name        | Type             | Description                                                                                                                                |
 | ----------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -743,127 +748,149 @@ For example:
 | pkhash      | (string)         | the 32-byte hash of the original public keys                                                                                               |
 | msg         | (string)         | the message that needs to be signed by all the signers for the final [spend](../../dynamic/cc-musig.html#spend-2) to succeed               |
 
-#### Response
+### Response:
 
 | Name       | Type             | Description                                                    |
 | ---------- | ---------------- | -------------------------------------------------------------- |
 | myind      | (decimal number) | index of the node in which this method has been run            |
 | numsigners | (decimal number) | the total number of signers participating                      |
 | commitment | (string)         | `commitment` produced by the node for this `msg` and `session` |
-| result     | (string)         | whether the call was a success or failure                      |
+| result     | (string)         | whether the call executed successfully                      |
 
-### commit
+## commit
 
 **cclib commit 18 '["pkhash" , ind , "commitment"]'**
 
-#### Parameters
+The `commit` method returns several values that are necessary to execute a transaction using the MuSig module.
+
+Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`. 
+
+### Arguments: 
 
 | Name       | Type             | Description                                                               |
 | ---------- | ---------------- | ------------------------------------------------------------------------- |
 | pkhash     | (string)         | the 32-byte hash of the original public keys                              |
-| ind        | (decimal number) | index of the node, whose `commitment` is being added to the global struct |
+| ind        | (decimal number) | index of the node, whose `commitment` is being added to the global structure |
 | commitment | (string)         | `commitment` produced by the node with index `ind`                        |
 
-#### Response
+### Response:
 
 | Name        | Type             | Description                                                    |
 | ----------- | ---------------- | -------------------------------------------------------------- |
 | added_index | (decimal number) | index of the node whose `commitment` has been added            |
-| myind       | (decimal number) | index of the node in which this method has been run            |
-| nonce       | (string)         | `nonce` produced by the node in which this method has been run |
-| result      | (string)         | whether the call was a success or failure                      |
+| myind       | (decimal number) | index of the node in which this method was executed            |
+| nonce       | (string)         | `nonce` produced by the node in which this method was executed |
+| result      | (string)         | whether the call executed successfully                      |
 
-### nonce
+## nonce
 
 **cclib nonce 18 '["pkhash" , ind , "nonce"]'**
 
-#### Parameters
+The `nonce` method returns several values that are necessary to execute a transaction using the MuSig module.
+
+Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`. 
+
+### Arguments: 
 
 | Name   | Type             | Description                                                          |
 | ------ | ---------------- | -------------------------------------------------------------------- |
 | pkhash | (string)         | the 32-byte hash of the original public keys                         |
-| ind    | (decimal number) | index of the node, whose `nonce` is being added to the global struct |
+| ind    | (decimal number) | index of the node, whose `nonce` is being added to the global structure |
 | nonce  | (string)         | `nonce` produced by the node with index `ind`                        |
 
-#### Response
+### Response:
 
 | Name        | Type             | Description                                                         |
 | ----------- | ---------------- | ------------------------------------------------------------------- |
-| added_index | (decimal number) | index of the node whose `nonce` has been added                      |
-| myind       | (decimal number) | index of the node in which this method has been run                 |
-| partialsig  | (string)         | `partialsig` produced by the node in which this method has been run |
-| result      | (string)         | whether the call was a success or failure                           |
+| added_index | (decimal number) | index of the node whose `nonce` is added                      |
+| myind       | (decimal number) | index of the node on which this method was executed                 |
+| partialsig  | (string)         | `partialsig` produced by the node on which this method was executed |
+| result      | (string)         | whether the call executed successfully                           |
 
-### partialsig
+## partialsig
 
 **cclib partialsig 18 '["pkhash" , ind , "partialsig"]'**
 
-#### Parameters
+The `partialsig` method returns several values that are necessary to execute a transaction using the MuSig module.
 
-#### Parameters
+Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+
+### Arguments: 
 
 | Name       | Type             | Description                                                               |
 | ---------- | ---------------- | ------------------------------------------------------------------------- |
 | pkhash     | (string)         | the 32-byte hash of the original public keys                              |
-| ind        | (decimal number) | index of the node, whose `partialsig` is being added to the global struct |
+| ind        | (decimal number) | index of the node, whose `partialsig` is now added to the global structure |
 | partialsig | (string)         | `partialsig` produced by the node with index `ind`                        |
 
-#### Response
+### Response:
 
 | Name        | Type             | Description                                                          |
 | ----------- | ---------------- | -------------------------------------------------------------------- |
-| added_index | (decimal number) | index of the node whose `partialsig` has been added                  |
-| myind       | (decimal number) | index of the node in which this method has been run                  |
-| combinedsig | (string)         | `combinedsig` produced by the node in which this method has been run |
-| result      | (string)         | whether the call was a success or failure                            |
+| added_index | (decimal number) | index of the node whose `partialsig` was added                  |
+| myind       | (decimal number) | index of the node on which this method was executed                  |
+| combinedsig | (string)         | `combinedsig` produced by the node on which this method was executed |
+| result      | (string)         | whether the call executed successfully                            |
 
-### verify
+## verify
 
 **cclib verify 18 '["msg" , "combined_pk" , "combinedsig"]'**
 
-#### Parameters
+The `verify` method returns several values that are necessary to execute a transaction using the MuSig module.
+
+Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+
+### Arguments: 
 
 | Name        | Type     | Description                                                                                                                  |
 | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../dynamic/cc-musig.html#spend-2) to succeed |
 | combined_pk | (string) | the combined pubkey of all the signers computed through MuSig                                                                |
-| combinedsig | (string) | `combinedsig` produced by the node in which this method is being run                                                         |
+| combinedsig | (string) | `combinedsig` produced by the node on which this method is being run                                                         |
 
-#### Response
+### Response:
 
 | Name        | Type     | Description                                                                                                                  |
 | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../dynamic/cc-musig.html#spend-2) to succeed |
-| combinedsig | (string) | `combinedsig` produced by the node in which this method is being run                                                         |
+| combinedsig | (string) | `combinedsig` produced by the node on which this method is being run                                                         |
 | combined_pk | (string) | the combined pubkey of all the signers computed through MuSig                                                                |
-| result      | (string)         | whether the call was a success or failure                            |
+| result      | (string)         | whether the call executed successfully                             |
 
-### spend
+## spend
 
 **cclib spend 18 '["sendtxid" , "combinedsig" , "scriptPubKey"]'**
 
-#### Parameters
+The `spend` method returns several values that are necessary to execute a transaction using the MuSig module.
+
+Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+
+The `scriptPubkey` argument can be any valid `pubkey`. To create a `scriptPubkey` from a normal `pubkey`, simply add the values `21` to the beginning of the `pubkey` string and the values `ac` to the end of the string:
+
+```
+scriptPubkey = 21 + pubkey + ac
+```
+
+For example:
+
+* The `pubkey` is: `02f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193e`
+* The `scriptPubkey` is: `2102f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193eac`
+
+### Arguments: 
 
 | Name         | Type     | Description                                                                                                                                                                                                                                                                                                                         |
 | ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | sendtxid     | (string) | the transaction id of the transaction created by the [send](../../dynamic/cc-musig.html#send-2) method used to fund the MuSig address; only the funds in the `vout0` of the `sendtxid` are spent                                                                                                                                    |
 | combinedsig  | (string) | the combined signature produced by all the signers                                                                                                                                                                                                                                                                                  |
-| scriptPubKey | (string) | a modified form of a pubkey to which funds are to be spent; modification: concatenate `21` at the beginning and `ac` at the end of the pubkey; If pubkey is `02f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193e` then scriptPubkey will be `2102f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193eac` |
+| scriptPubKey | (string) | a modified form of a pubkey to which funds are to be spent |
 
-<!--
-FIXME:
-The description of scriptPubkey needs to be made more coherent
--->
-
-#### Response
+### Response:
 
 | Name        | Type     | Description                                                                                                                  |
 | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../dynamic/cc-musig.html#spend-2) to succeed |
+| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../dynamic/cc-musig.html#spend) to succeed |
 | combined_pk | (string) | the combined pubkey of all the signers computed through MuSig                                                                |
 | combinedsig | (string) | the combined signature produced by all the signers                                                                           |
-| hex         | (string) | `spend` transaction in rawtransaction format; in hexadecimal                                                                 |
+| hex         | (string) | `spend` transaction in rawtransaction format, provided in hexadecimal                                                                 |
 | txid        | (string) | the transaction id of the spend transaction                                                                                  |
-| result      | (string) | whether the call was a success or failure                                                                                    |
-
-
+| result      | (string) | whether the call executed successfully                                                                                    |
