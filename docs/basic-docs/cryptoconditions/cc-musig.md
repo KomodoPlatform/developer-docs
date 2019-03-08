@@ -130,7 +130,7 @@ Once the asset chain is relaunched with the new pubkey included as a launch para
 
 ::: tip Note
 
-For this walkthrough, the reader should launch the asset chain with a pubkey whose private key is already imported to the wallet. If this is not the case, restart the asset chain with an appropriate pubkey, or use the [importprivkey](../../komodo-api/wallet.html#importprivkey) method to import the private key of the desired pubkey.
+The reader should launch the asset chain with a pubkey whose private key is already imported to the wallet. If this is not the case, restart the asset chain with an appropriate pubkey, or use the [importprivkey](../../komodo-api/wallet.html#importprivkey) method to import the private key of the desired pubkey.
 
 :::
 
