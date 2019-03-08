@@ -613,6 +613,18 @@ When activated, the chain uses [Verus](http://veruscoin.io/)'s proof of stake im
 
 The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` does not have the same segid mechanism as `-ac_staked`.)
 
+## ac_cclib
+
+The `ac_cclib` parameter is used in conjunction with various CryptoConditions modules. 
+
+Typically, the asset chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each CryptoConditions module in question. Once the asset chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
+
+```
+-ac_cclib=desired_CC_module
+```
+
+Each CC module uses the `ac_cclib` parameter differently, and therefore the reader should refer to the desired CryptoConditions module for further instructions.  
+
 ## ac_ccenable
 
 ::: warning

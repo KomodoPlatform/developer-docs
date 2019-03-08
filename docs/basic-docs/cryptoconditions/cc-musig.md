@@ -2,34 +2,52 @@
 sidebarDepth: 2
 ---
 
-# Module: MuSig (In Development)
-
-::: warning
-The module MuSig is under heavy development. This document is here for testing purposes. If you find any info is missing or not accurate, please let us know at `#cc-musig` channel in the [Komodo Discord](https://komodoplatform.com/discord).
-:::
+# Contract Module: MuSig 
 
 ## Introduction
 
-::: tip
-
-- There are comments in the following files that describe musig:
-  - [komodo/src/secp256k1/include/secp256k1_musig.h](https://github.com/jl777/komodo/blob/jl777/src/secp256k1/include/secp256k1_musig.h)
-  - [komodo//src/secp256k1/src/modules/musig/example.c](https://github.com/jl777/komodo/blob/jl777/src/secp256k1/src/modules/musig/example.c)
-
+::: tip Notice
+The MuSig module is in the final stages of testing. If you would like to use MuSig on a production-level asset chain, please reach out to the Komodo team on [Discord](https://komodoplatform.com/discord)
 :::
 
-The module `MuSig` implements a Schnorr-based multi-signature scheme, that produces "Short, constant-size signatures which look the same to verifiers regardless of signer set" and has "Provable security in the plain public key model.". See this [article](https://blockstream.com/2019/02/18/musig-a-new-multisignature-standard/) for more information.
+The MuSig CryptoConditions (CC) module implements a new type of multi-signature functionality. MuSig allows a blockchain to process multi-signature transactions in a more data-efficient manner, and MuSig also keeps private the number of signers partaking in a multi-signature transaction.
 
-## Install Dependencies
+To allow this functionality, the MuSig module makes use of Schnorr Signatures. Schnorr Signatures are unique in that each signature is 64 bytes in size, regardless of the number of signers in a transaction. Also, a multi-signature Schnorr Signatures can be processed in one verification. 
 
-These are a must and you need to make sure all the dependencies are installed correctly
+Schnorr Signatures differs from the existing multi-signature method (ECDSA), as the ECDSA method requires each signer of a transaction to be verified separately. Also, with the ECDSA method each set of signers must be collected into a final verification. The size of the ECDSA multi-signature transaction can vary according to the number of signers in the set, and this can disclose information that would otherwise be kept private.
+
+Therefore, Schnorr Signatures greatly reduce verification time and data-storage requirements, and enhance user privacy.
+
+For further information, see this [article.](https://blockstream.com/2019/02/18/musig-a-new-multisignature-standard/)
+
+Also, the reader may refer to the comments in the following core `komodod` files: 
+
+- [komodo/src/secp256k1/include/secp256k1_musig.h](https://github.com/jl777/komodo/blob/jl777/src/secp256k1/include/secp256k1_musig.h)
+- [komodo//src/secp256k1/src/modules/musig/example.c](https://github.com/jl777/komodo/blob/jl777/src/secp256k1/src/modules/musig/example.c)
+
+## Installation
+
+MuSig is currently only available on MacOS and Linux operating systems.
+
+Please check with the Komodo team on [Discord](https://komodoplatform.com/discord) for information regarding Windows functionality.
+
+### Install Dependencies
+
+Ensure that local repositories are up to date:
 
 ```bash
 sudo apt-get update && sudo apt-get upgrade -y
+```
+
+Install Dependencies:
+
+```bash
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libgtest-dev libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate software-properties-common curl libcurl4-gnutls-dev cmake clang libsodium-dev -y
 ```
 
-## Build instructions
+### Build instructions
+
+Build `komodod` by executing the following series of commands. Each line should be executed separately:
 
 ```bash
 git clone https://github.com/jl777/komodo
@@ -39,7 +57,7 @@ git checkout jl777
 ./zcutil/build.sh -j$(nproc)
 ```
 
-then
+Compile the appropriate CC library by executing the following series of command. Each line should be executed separately:
 
 ```bash
 cd src/cc
@@ -49,6 +67,8 @@ make -j$(nproc)
 ```
 
 ### Update
+
+Update the `komodod` daemon by executing the following series of commands. Each line should be executed separately:
 
 ```bash
 cd komodo
@@ -60,17 +80,29 @@ cd ../..
 make -j$(nproc)
 ```
 
-## Chain params
+### Chain params
 
-In the directory `komodo/src/`
+Change into the `~/komodo/src` directory:
+
+```bash
+cd ~/komodo/src
+```
+
+Launch the MuSig asset chain using the following launch parameters.
 
 ```bash
 ./komodod -ac_name=MUSIG -ac_supply=100000 -ac_reward=10000000 -pubkey=<yourpub> -ac_cclib=sudoku -ac_cc=2 -addnode=5.9.102.210 &
 ```
 
-Learn about setting the pubkey [here.](../../cryptoconditions/dynamic/cc-rogue.html##set-pubkey-value)
+Follow these instruction for obtaining and setting a pubkey:
 
-### Get funds to test
+- [Instructions for obtaining and setting a pubkey](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey)
+
+Once the asset chain is relaunched with your new pubkey included as a launch parameter, the MuSig asset chain is prepared for use.
+
+## MuSig Walkthrough
+
+### Step 1: Acquire funds for testing
 
 In the directory `komodo/src/`
 

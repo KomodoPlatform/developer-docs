@@ -110,7 +110,7 @@ Response:
 
 The `cclibinfo` method displays all the methods of all the modules that are available in the current library. 
 
-The library is loaded at runtime using the [-ac_cclib.](../../installations/asset-chain-parameters.html#ac-cclib) parameter.
+The library is loaded at runtime using the [-ac_cclib](../../installations/asset-chain-parameters.html#ac-cclib) parameter.
 
 ### Arguments:
 

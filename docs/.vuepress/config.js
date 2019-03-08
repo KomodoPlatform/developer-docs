@@ -64,6 +64,7 @@ module.exports = {
             ["/basic-docs/cryptoconditions/cc-faucet.md", "Faucet"],
             ["/basic-docs/cryptoconditions/cc-gateways.md", "Gateways"],
             ["/basic-docs/cryptoconditions/cc-heir.md", "Heir"],
+            ["/basic-docs/cryptoconditions/cc-musig.md", "Musig"],
             ["/basic-docs/cryptoconditions/cc-oracles.md", "Oracles"],
             ["/basic-docs/cryptoconditions/cc-rewards.md", "Rewards"],
             ["/basic-docs/cryptoconditions/cc-tokens.md", "Tokens"] 
