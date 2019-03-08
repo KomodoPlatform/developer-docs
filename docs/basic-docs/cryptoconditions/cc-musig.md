@@ -258,24 +258,35 @@ Command:
 In the response there are a series of `vout` values, each of which has an array of json objects. Search for the `vout` value that has the `"type":"pubkey"` key pair listed. In this object, retrieve the `hex` value from the `scriptPubkey`:
 
 ```json
-(omitted for brevity)
+"vout": [                                                                                                                                                          
+    ...
 
-...
+    (omitted for brevity)
 
-{
-  "value": 0.0998,
-  "valueSat": 9980000,
-  "n": 1,
-  "scriptPubKey": {
-    "asm": "0225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a OP_CHECKSIG",
-    "hex": "210225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270aac",
-    "reqSigs": 1,
-    "type": "pubkey",
-    "addresses": ["RUfCUd3UryKJ49baQvSuAs42wakNunvvfT"]
-  }
-}
+    ...
 
-...
+    {
+      "value": 0.09980000,
+      "valueSat": 9980000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "0225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a OP_CHECKSIG",
+        "hex": "210225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270aac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": [
+          "RUfCUd3UryKJ49baQvSuAs42wakNunvvfT"
+        ]
+      }
+    },
+
+    ...
+
+    (omitted for brevity)
+
+    ...
+
+  ]
 
 ```
 
@@ -708,6 +719,7 @@ scriptPubkey = 21 + pubkey + ac
 ```
 
 For example:
+
 * The `pubkey` is: `02f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193e`
 * The `scriptPubkey` is: `2102f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193eac`
 
