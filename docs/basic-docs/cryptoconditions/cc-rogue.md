@@ -474,10 +474,372 @@ The most direct way to win the game is to obtain the `amulet` and return from th
 
 With each player that survives, whether by winning or by bailing out, the player and all of his obtained items are retained on the blockchain. The character is a non-fungible asset that can be traded. The character's data can be used in any future ROGUE game. To activate this character, when registering for a game specify the transaction id that was returned from the `highlander` method.
 
- ## newgame
+## newgame
 
- ## gameinfo
+**cclib newgame 17 \"[maxplayers,buyin]\"**
 
- ## register
- 
- ## bailout
+Creating new game. Buy-in argument using for multiplayer games. It's forming game pot and last player standing or first who do highlander take it. 
+In singleplayer mode you'll get 0.0001 ROGUE per gold.
+
+#### Arguments:
+
+#### Response:
+
+#### :pushpin: Examples:
+
+Command for a single-player training game:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib newgame 17 "[1]"
+```
+
+Response:
+
+```json
+{
+  "name": "rogue",
+  "method": "newgame",
+  "maxplayers": 1,
+  "buyin": 0.00000000,
+  "type": "newbie",
+  "hex": "0400008085202f8901018feb110a6e0d8751a158b3e73dac07383c83766a83908d641f2d4b1db6f704010000007b4c79a276a072a26ba067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa8830581405349ce7a0a3823ca35e3dc30d17c8d8f170bfea89373166f14b8b4f04d36c34a41199ad448074be74b7a6344d0c36b4f68748f976f3f95b7d0c8ec84e54bf773a100af03800111a10001ffffffff061027000000000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc40420f0000000000302ea22c80208958791fdd38bdf532c97f1691fd231a3f1f5c0c3cd28b68d7383c8b1078828e81031210008203000401cc1027000000000000302ea22c80208958791fdd38bdf532c97f1691fd231a3f1f5c0c3cd28b68d7383c8b1078828e81031210008203000401cc00b8880000000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc10270000000000002321027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85ac0000000000000000106a0e114700000000000000000100000000000000964c00000000000000000000000000",
+  "txid": "b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026",
+  "result": "success"
+}
+```
+
+## gameinfo
+
+**cclib gameinfo 17 \"[%22GAME_TXID%22]\"**
+
+Check info about game
+
+#### Arguments:
+
+#### Response:
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib gameinfo 17 \"[%22b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026%22]\"
+```
+
+Response:
+
+```json
+{
+  "name": "rogue",
+  "method": "gameinfo",
+  "gametxid": "b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026",
+  "result": "success",
+  "gameheight": 19587,
+  "height": 19587,
+  "start": 19587,
+  "starthash": "0003a5ed4715220a742a6c2381daa5d49d29fa56189c7d676985902734e71e2e",
+  "seed": 2991956025523248686,
+  "run": "./komodo-cli -ac_name=ROGUE cclib register 17 \"[%22b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026%22]\"",
+  "alive": 0,
+  "numplayers": 0,
+  "maxplayers": 1,
+  "buyin": 0.00000000,
+  "players": [
+  ]
+}
+```
+
+## pending
+
+**cclib pending 17**
+
+Displaying lists of not finished games on chain
+
+#### Arguments:
+
+#### Response:
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib pending 17
+```
+
+Response:
+
+```bash
+{
+  "result": "success",
+  "name": "rogue",
+  "method": "pending",
+  "pending": [
+    "19de2b0f2562ae775ef213d1e396bc741ccc4f32bac32b36e8ee5da25e451801",
+    "ff5139cfcb47366674f52c550cfb9c11eb298afa1479ce9924d8bac2a407d701",
+    "8f3e6104ee324bc6a60430ef9485c682ee890cdb0660e9a747599531fecea203",
+    ...
+    ...
+    ...
+    "ff9d5e111caaa0e84666ce6e0fda66e93e4fb13ca2dd0debbdc82e663b36d9fc"
+  ],
+  "numpending": 175
+}
+```
+## register
+
+**cclib register 17 \"[%22GAME_TXID%22,%22PLAYER_TXID%22]\"**
+
+Registering you for participation in game. Player txid is optional argument to re-use saved player in game.
+
+#### Arguments:
+
+#### Response:
+
+#### :pushpin: Examples:
+
+Command:
+
+Registration without player:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib register 17 \"[%22b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026%22]\"
+```
+Response:
+
+```bash
+{
+  "name": "rogue",
+  "method": "register",
+  "maxplayers": 1,
+  "buyin": 0.00000000,
+  "type": "newbie",
+  "hex": "0400008085202f890126504f5edd0fc461e09b4bd6d4439751d8037a927bd8d075eace1d9a3b1cabb901000000a74ca5a281a1a0819ca28194a067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa883058140a1f23cbe9d8e7a20306df4c86da47b4ae3b59556742b7fcdf68f6f3549b02d734879b94fd73f5847914d448e4d78e48d415bffe55081a491e242ec6256f02638a129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffff03301b0f0000000000302ea22c80202ba0b269f75c72a0ce23e03812814b1e76a8fd57b3e75fee8b37bfef2b4ebf3581031210008203000401cc0100000000000000302ea22c80207f0205ad6b02be91baf2a56dcc77381e7b0e19cb9a83dfb9530316958f5b706781032210008203000401cc0000000000000000446a42115226504f5edd0fc461e09b4bd6d4439751d8037a927bd8d075eace1d9a3b1cabb9000000000000000000000000000000000000000000000000000000000000000000000000bd4c00000000000000000000000000",
+  "txid": "855802e2e83d0d4632518959e4ff9e840ed9838f51bd6b3a80dc27b8ea7900ba",
+  "result": "success"
+}
+```
+
+## bailout
+
+**cclib bailout 17 \"[%22GAME_TXID%22]\"**
+
+Finishing game, if player is allive he saving after bailout tx is mined. Gold converting to ROGUE
+
+#### Arguments:
+
+#### Response:
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib bailout 17 \"[%2239b65c12e37f6338b2daf8b7d8d6e1b6c083622590cb7a318daadabc785b73f0%22]\"
+```
+
+Response:
+
+```bash
+{
+  "name": "rogue",
+  "method": "bailout",
+  "myrogueaddr": "RVuzXY65FyJiPPWSBc9efATh6nb4M9MceR",
+  "gametxid": "39b65c12e37f6338b2daf8b7d8d6e1b6c083622590cb7a318daadabc785b73f0",
+  "hex": "0400008085202f8902261b7562e9ce81a3b666a69cd71c1900bece3e8ca9bb85430076f0de51ef9b8700000000a74ca5a281a1a0819ca28194a067a5658021027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e858140d2f916906d56a615de2c3a04bf7977df9136a7adc793681917bc44656c61c0ef68038ff1072632d5b546b17c9a0f58d5e057c4794f01e54c90a247460d6bd2afa129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001fffffffff0735b78bcdaaa8d317acb90256283c0b6e1d6d8b7f8dab238637fe3125cb63902000000a74ca5a281a1a0819ca28194a067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa883058140c08bf9ed2c6ddbe3298fcad23f7397fd17bb76cafada4793acb7a6a4c08908731bdf90ace865fa8111a827d874fbd8f447fecca5982654685365577f1b5e7d36a129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffff0300a60e0000000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc30750000000000002321027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85ac00000000000000005f6a4c5c1151f0735b78bcdaaa8d317acb90256283c0b6e1d6d8b7f8dab238637fe3125cb63905524f4755450c4c6542726f6e204a616d65730000000021027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e850000000000c04c00000000000000000000000000",
+  "txid": "194fe36a878fdac853e05c9b48b771a69a9a980c22c803b2ec5c2ceecb719329",
+  "result": "success"
+}
+```
+
+## highlander
+
+**cclib highlander 17 \"[%22MULTIPLAYER_GAME_TXID%22]\"**
+
+Multilplayers game call: If you won your game before anybody else did or if you are the last one left who didnt bailout, you can claim the prize.
+
+#### Arguments:
+
+#### Response:
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib highlander 17 \"[%22b94a0c14604df04a994e8fde610af7ddede76a62e1e3d86bbdac18e695662301%22]\"
+```
+
+Response:
+
+```bash
+{
+  "name": "rogue",
+  "method": "highlander",
+  "myrogueaddr": "RVuzXY65FyJiPPWSBc9efATh6nb4M9MceR",
+  "gametxid": "b94a0c14604df04a994e8fde610af7ddede76a62e1e3d86bbdac18e695662301",
+  "result": "success"
+  "hex": hex
+  "txid": txid
+}
+```
+
+## playerinfo
+
+**cclib playerinfo 17 \"[%22PLAYER_TXID%22]\"**
+
+Displaying information about player
+
+#### Arguments:
+
+#### Response:
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib playerinfo 17 \"[%22cf2ae0997e24f100aa9da3cda747105e3134a102da69630d6d1683a6f0f7b0ab%22]\"
+```
+
+Response:
+
+```bash
+"{
+  "result": "success",
+  "name": "rogue",
+  "method": "playerinfo",
+  "player": {
+    "playertxid": "cf2ae0997e24f100aa9da3cda747105e3134a102da69630d6d1683a6f0f7b0ab",
+    "tokenid": "929ff2101e974111499f37f2af86280f403f9e704c070a9225398aa5ce83c1cf",
+    "data": "580000000c0000001000000001000000070000000700000001000000000000003a0000000000000003000000000000000000000000000000000000001000000000000000000000000000000000000000000000005d00000000000000010000000100000000000000000000000600000012000000000000000000000000000000000000000000000029000000ffffffff010000000000000001000000010000000000000012000000000000003278340000000000317833000000000029000000ffffffff0100000002000000010000000000000000000000120000000000000031783100000000003178310000000000290000000200000026000000030000000000000000000000000000001e00000000000000317831000000000032783300000000002100000000000000010000000a00000000000000000000000b0000001000000000000000307830000000000030783000000000002100000000000000010000000200000000000000000000000b000000100000000000000030783000000000003078300000000000",
+    "pack": [
+      "3 rations of food",
+      "+1 ring mail [protection 4]",
+      "A +1,+1 mace",
+      "A +1,+0 short bow",
+      "38 +0,+0 arrows",
+      "A potion of haste self(topaz)",
+      "A potion of poison(amber)"
+    ],
+    "packsize": 7,
+    "hitpoints": 12,
+    "strength": 16,
+    "level": 1,
+    "experience": 7,
+    "dungeonlevel": 1,
+    "chain": "ROGUE",
+    "pname": "fred"
+  }
+}"
+```
+
+## players
+
+**cclib players 17**
+
+Diplaying list of your players
+
+#### Arguments:
+
+#### Response:
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib players 17
+```
+
+Response:
+
+```bash
+{
+  "name": "rogue",
+  "method": "players",
+  "playerdata": [
+    "cf2ae0997e24f100aa9da3cda747105e3134a102da69630d6d1683a6f0f7b0ab",
+    "1a705d1e900ac760afd5bb24e0d6c40ce6bf10f42d3344559ad18ddfa6ee08bc",
+    "5ebd33eb9d62d977bf8d600d84fec1a6a6046a7a171bff64fa9548f05c8caddd"
+  ],
+  "numplayerdata": 3
+}
+```
+
+## games
+
+**cclib games 17**
+
+Displaying list of your finished and unfinished games
+
+#### Arguments:
+
+#### Response:
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+ ./komodo-cli -ac_name=ROGUE cclib games 17
+```
+
+Response:
+
+```bash
+{
+  "name": "rogue",
+  "method": "games",
+  "pastgames": [
+    "2d1010473c9675a3e04e84fe191404926761f324e4053a0f859d4806f68bbf25",
+    "39b65c12e37f6338b2daf8b7d8d6e1b6c083622590cb7a318daadabc785b73f0",
+    "790b94addb0c19399a7afedbb7580268f4fc8a3d91a600af6729c4d73fdb6498",
+    "bbdecbb3b037e299dd5b303a11e4839e5625c94ce4e36acd3b7b549fec342ad3",
+    ...
+    ...
+    ...
+    "43244d4be57564ef441fe8790bb08e23787244f533c9591ab3adb9cf755e9eed",
+    "0199a50d45e56060ded6aa30e3ce4ae8ed090c0033c78e3e024aef403277a207",
+    "a3833e860ff02d178f431032952f947f7e0c485690d9dd7e6e8133813f253a34",
+  ],
+  "games": [
+    "b94a0c14604df04a994e8fde610af7ddede76a62e1e3d86bbdac18e695662301",
+    "3443ad3112908b31cab74ec7094c294d337aad5253e4e1af35eaac1f31ed7ab3",
+     ...
+     ...
+     ...
+    "dd859a7a9c980e7a5018913de98e48515a96b1ac54b39515e2cca3efed9659eb"
+  ],
+  "numgames": 140
+}
+```
+
+## setname
+
+**cclib setname 17 \"[%22NAME%22]\"**
+
+Setting name which be given for unnamed players
+
+#### Arguments:
+
+#### Response:
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib setname 17 \"[%22SuperMegaWarrior%22]\"
+```
+
+Response:
+
+```bash
+{
+  "name": "rogue",
+  "method": "setname",
+  "result": "success",
+  "pname": "SuperMegaWarrior"
+}
+```
