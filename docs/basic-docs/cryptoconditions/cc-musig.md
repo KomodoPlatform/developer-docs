@@ -782,7 +782,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | Name       | Type             | Description                                                                  |
 | ---------- | ---------------- | ---------------------------------------------------------------------------- |
 | pkhash     | (string)         | the 32-byte hash of the original public keys                                 |
-| ind        | (decimal number) | index of the node, whose `commitment` is being added to the global structure |
+| ind        | (decimal number) | index of the node, whose `commitment` is being added to the `global data structure` |
 | commitment | (string)         | the `commitment` value produced by the node with index `ind`                 |
 
 ### Response:
@@ -807,7 +807,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | Name   | Type             | Description                                                                 |
 | ------ | ---------------- | --------------------------------------------------------------------------- |
 | pkhash | (string)         | the 32-byte hash of the original public keys                                |
-| ind    | (decimal number) | the index of the node, whose `nonce` is being added to the global structure |
+| ind    | (decimal number) | the index of the node, whose `nonce` is being added to the `global data structure` |
 | nonce  | (string)         | the `nonce` value produced by the node with index `ind`                     |
 
 ### Response:
@@ -832,7 +832,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | Name       | Type             | Description                                                                    |
 | ---------- | ---------------- | ------------------------------------------------------------------------------ |
 | pkhash     | (string)         | the 32-byte hash of the original public keys                                   |
-| ind        | (decimal number) | the index of the node, whose `partialsig` is now added to the global structure |
+| ind        | (decimal number) | the index of the node, whose `partialsig` is now added to the `global data structure` |
 | partialsig | (string)         | the `partialsig` value produced by the node with index `ind`                   |
 
 ### Response:
