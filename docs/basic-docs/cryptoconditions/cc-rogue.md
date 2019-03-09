@@ -910,7 +910,7 @@ Command:
 
 Response:
 
-```bash
+```json
 {
   "name": "rogue",
   "method": "players",
@@ -955,7 +955,7 @@ Command:
 
 Response:
 
-```bash
+```json
 {
   "name": "rogue",
   "method": "games",
@@ -997,6 +997,13 @@ Setting name which be given for unnamed players
 
 #### Response:
 
+| Name   | Type     | Description |
+| ------ | -------- | ----------- |
+| name   | (string) |             |
+| method | (string) |             |
+| result | (string) |             |
+| pname  | (string) |             |
+
 #### :pushpin: Examples:
 
 Command:
@@ -1007,7 +1014,7 @@ Command:
 
 Response:
 
-```bash
+```json
 {
   "name": "rogue",
   "method": "setname",
