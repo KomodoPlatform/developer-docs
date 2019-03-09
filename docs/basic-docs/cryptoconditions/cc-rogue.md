@@ -689,7 +689,7 @@ Response:
   "name": "rogue",
   "method": "register",
   "maxplayers": 1,
-  "buyin": 0.00000000,
+  "buyin": 0.0,
   "type": "newbie",
   "hex": "0400008085202f890126504f5edd0fc461e09b4bd6d4439751d8037a927bd8d075eace1d9a3b1cabb901000000a74ca5a281a1a0819ca28194a067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa883058140a1f23cbe9d8e7a20306df4c86da47b4ae3b59556742b7fcdf68f6f3549b02d734879b94fd73f5847914d448e4d78e48d415bffe55081a491e242ec6256f02638a129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffff03301b0f0000000000302ea22c80202ba0b269f75c72a0ce23e03812814b1e76a8fd57b3e75fee8b37bfef2b4ebf3581031210008203000401cc0100000000000000302ea22c80207f0205ad6b02be91baf2a56dcc77381e7b0e19cb9a83dfb9530316958f5b706781032210008203000401cc0000000000000000446a42115226504f5edd0fc461e09b4bd6d4439751d8037a927bd8d075eace1d9a3b1cabb9000000000000000000000000000000000000000000000000000000000000000000000000bd4c00000000000000000000000000",
   "txid": "855802e2e83d0d4632518959e4ff9e840ed9838f51bd6b3a80dc27b8ea7900ba",
@@ -699,7 +699,7 @@ Response:
 
 ## keystrokes
 
-**cclib bailout 17 \"[%22GAME_TXID%22,%22keystrokes%22]\"**
+**cclib keystrokes 17 \"[%22GAME_TXID%22,%22keystrokes%22]\"**
 
 #### Arguments:
 
@@ -729,6 +729,16 @@ Finishing game, if player is allive he saving after bailout tx is mined. Gold co
 | gametxid | (string) |             |
 
 #### Response:
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| name        | (string) |             |
+| method      | (string) |             |
+| myrogueaddr | (string) |             |
+| gametxid    | (string) |             |
+| hex         | (string) |             |
+| txid        | (string) |             |
+| result      | (string) |             |
 
 #### :pushpin: Examples:
 
@@ -766,6 +776,14 @@ Multilplayers game call: If you won your game before anybody else did or if you 
 
 #### Response:
 
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| name        | (string) |             |
+| method      | (string) |             |
+| myrogueaddr | (string) |             |
+| gametxid    | (string) |             |
+| txid        | (string) |             |
+
 #### :pushpin: Examples:
 
 Command:
@@ -802,6 +820,25 @@ Displaying information about player
 
 #### Response:
 
+| Name         | Type               | Description |
+| ------------ | ------------------ | ----------- |
+| result       | (string)           |             |
+| name         | (string)           |             |
+| method       | (string)           |             |
+| player       | (json object)      |             |
+| playertxid   | (string)           |             |
+| tokenid      | (string)           |             |
+| data         | (string)           |             |
+| pack         | (array of strings) |             |
+| packsize     | (number)           |             |
+| hitpoints    | (number)           |             |
+| strength     | (number)           |             |
+| level        | (number)           |             |
+| experience   | (number)           |             |
+| dungeonlevel | (number)           |             |
+| chain        | (string)           |             |
+| pname        | (string)           |             |
+
 #### :pushpin: Examples:
 
 Command:
@@ -812,7 +849,7 @@ Command:
 
 Response:
 
-```bash
+```json
 "{
   "result": "success",
   "name": "rogue",
@@ -856,6 +893,13 @@ Diplaying list of your players
 
 #### Response:
 
+| Name                    | Type               | Description |
+| ----------------------- | ------------------ | ----------- |
+| name                    | (string)           |             |
+| method                  | (string)           |             |
+| playerdata              | (array of strings) |             |
+| maxplnumplayerdataayers | (decimal number)   |             |
+
 #### :pushpin: Examples:
 
 Command:
@@ -892,6 +936,14 @@ Displaying list of your finished and unfinished games
 | (none) |      |             |
 
 #### Response:
+
+| Name      | Type               | Description |
+| --------- | ------------------ | ----------- |
+| name      | (string)           |             |
+| method    | (string)           |             |
+| pastgames | (array of strings) |             |
+| games     | (array of strings) |             |
+| numgames  | (decimal number)   |             |
 
 #### :pushpin: Examples:
 
