@@ -170,7 +170,11 @@ Response:
 
 The pubkey is now set.
 
-To reuse this pubkey in the future, include the pubkey as an [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) launch parameter.
+To reuse this pubkey in the future, include the pubkey as a [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter.
+
+<!--
+ac_pubkey vs pubkey launch parameter in this section?
+-->
 
 For example:
 
@@ -181,9 +185,11 @@ cd ~/komodo/src
 
 ### Installing the TUI (Optional)
 
+The Terminal User Interface (TUI) provides automated methods for executing the ROGUE methods (rpcs) that are used to start and finish a game. Use of the TUI is optional, but recommended for most players. 
+
 #### Linux
 
-Open another terminal window. (Do not close or terminal processes on other terminals running the ROGUE software.)
+Open another terminal window. (Do not close or terminal processes on other terminals running ROGUE software.)
 
 Install TUI dependencies:
 
@@ -208,7 +214,9 @@ cp -r * ~/komodo/src
 
 #### MacOS (OSX)
 
-Download the latest portable zip for OSX [here.](https://github.com/tonymorony/komodo_cryptoconditions_tui/releases)
+Download the latest portable zip for OSX: 
+
+[Link to Komodo Rogue TUI downloadable zip](https://github.com/tonymorony/komodo_cryptoconditions_tui/releases)
 
 Extract the contents into the `~/komodo/src` directory.
 
@@ -219,15 +227,11 @@ cd  ~/komodo/src
 ./rogue_tui.py
 ```
 
-## Manual and Walkthrough 
+## Manual Walkthrough
 
-### Using the TUI
+The Komodo team provides a [Terminal User Interface (TUI)](../cryptoconditions/cc-rogue.html#installing-the-tui-optional) to allow players to launch and conclude a game without having to interact with the module's api commands. 
 
-As Komodo's Rogue implementation is based closely off of the classic Rogue game, the manual for the classic Rogue provides sufficient instructions for TUI gameplay.
-
-[Link to Classic Rogue Manual Here](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf)
-
-### Manual-Gameplay Walkthrough
+For those who would prefer the manual process, the following walkthrough provides detailed step-by-step instructions.
 
 #### Step 1
 
@@ -398,122 +402,82 @@ Execute the above `run` command to start the game:
 cc/rogue/rogue 3767108440867690538 09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70
 ```
 
-The game is now running.
+The game is now running and should be visible on-screen.
 
 #### Step 7 - Play the Game
 
-Once the game is running, the manual s
+For instructions on in-game controls and objectives, [read this linked section.](../cryptoconditions/cc-rogue.html#gameplay-documentation)
 
 #### Step 8 - Bailout
 
-Once you have enough Gold and if you want to convert them into ROGUE coin, quit from the game by entering **Q** and issue a bailout like below. If your player die in-game, this will not work.
+When you are satisfied with your store of gold and you would like to convert it into `ROGUE` coins, follow this procedure. (This assumes your player did not die.)
+
+Quit the game by typing `Q` on the keyboard.
+
+Execute the [bailout]() method. For example:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 \"[%2209d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70%22]\"
 ```
 
-#### Useful read:
+To use this character in a future game, save the transaction id that is returned from the above command and use it when registering for a future game.
 
-Here is the doc on how to play `rogue` game: https://github.com/jl777/komodo/blob/jl777/src/cc/rogue/rogue.doc#L388 
+#### Step 9: Highlander Victory
 
-Here are some description on how it works: https://github.com/jl777/komodo/blob/jl777/src/cc/rogue_rpc.cpp
+If you are the winner of a multi-player game, whether by obtaining the amulet and exiting the dungeon, or by being the last player standing, you may claim an additional prize.
 
-## Important!
+The prize is the collective value of all `ROGUE` coins that were contributed during the buy-in stage.
 
-This game is being developed. There are bugs present. If you find any bugs, please report them to `cc-rogue` channel in [Komodo Discord](https://komodoplatform.com/discord)
+To obtain this prize, use the [highlander](../cryptoconditions/cc-rogue.html#highlander) method:
 
-(s) for saving doesn't work,
-You may enter ''SHIFT'' + ''Q'' to quit
+```
+./komodo-cli -ac_name=ROGUE cclib highlander 17 \"[%224fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a%22]\"
+```
 
+To use the character in a future game, save the transaction id that is returned from the above command and use it during the registration phase of a future game.
 
-/*
- Roguelander - using highlander competition between rogue players
- anybody can create a game by specifying maxplayers and buyin. Buyin of 0.00 ROGUE is for newbies and a good way to get experience. All players will start in the identical level, but each level after that will be unique to each player.
+## Gameplay Documentation
 
- There are two different modes that is based on the maxplayers. If maxplayers is one, then it is basically a practice/farming game where there are no time limits. Also, the gold -> ROGUE conversion rate is cut in half. You can start a single player game as soon as the newgame tx is confirmed.
+As Komodo's Rogue implementation is based off of the classic Rogue game, the classic manual provides the basic instructions for the game:
 
- If maxplayers is more than one, then it goes into highlander mode. There can only be one winner. Additionally, multiplayer mode adds a timelimit of ROGUE_MAXKEYSTROKESGAP (60) blocks between keystrokes updates. That is approx. one hour and every level it does an automatic update, so as long as you are actively playing, it wont be a problem. The is ROGUE_REGISTRATION blocks waiting period before any of the players can start. The random seed for the game is based on the future blockhash so that way, nobody is able to start before the others.
+[Link to Classic Rogue Manual Here](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf)
 
- rogue is not an easy game to win, so it could be that the winner for a specific group is simply the last one standing. If you bailout of a game you cant win, but you can convert all the ingame gold you gathered at 0.001 ROGUE each. [In the event that there arent enough globally locked funds to payout the ROGUE, you will have to wait until there is. Since 10% of all economic activity creates more globally locked funds, it is just a matter of time before there will be enough funds to payout. Also, you can help speed this up by encouraging others to transact in ROGUE]
+After reading the linked manual, there are additional aspects to keep in mind for Komodo's unique implementation. 
 
- Of course, the most direct way to win, is to get the amulet and come back out of the dungeon. The winner will get all of the buyins from all the players in addition to 0.01 ROGUE for every ingame gold.
+:::tip Quick Tip
+Some users report that typing the letter `s` on the keyboard does not properly execute the `save game` command. If this is an issue, instead use `SHIFT + Q`.
+:::
 
- The above alone is enough to make the timeless classic solitaire game into a captivating multiplayer game, where real coins are at stake. However, there is an even better aspect to ROGUE! Whenever your player survives a game, even when you bailout, the entire player and his pack is preserved on the blockchain and becomes a nonfungible asset that you can trade for ROGUE.
+Komodo's Rogue features two different game modes. There is one mode for single-player gameplay, where the `maxplayer` value is set to `1`, and one mode for multiplayer gameplay, where the `maxplayer` value is greater than `1`. 
 
- Additionally, instead of just being a collectors item with unique characteristics, the rogue playerdata can be used in any ROGUE game. Just specify the txid that created your character when you register and your character is restored. The better your characteristics your playerdata has, the more likely you are to win in multiplayer mode to win all the buyins. So there is definite economic value to a strong playerdata.
+#### Single-Player Mode
 
- You can farm characters in single player mode to earn ROGUE or to make competitive playerdata sets. You can purchase existing playerdata for collecting, or for using in battle.
+The single-player mode is more limited in nature. In general, this mode is for practicing or farming purposes. 
 
- Here is how to play:
+There are no time limits. 
 
- ./komodo-cli -ac_name=ROGUE cclib newgame 17 \"[3,10]\" -> this will create a hex transaction that when broadcast with sendrawtransaction will get a gametxid onto the blockchain. This specific command was for 3 players and a buyin of 10 ROGUE. Lets assume the gametxid is 4fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a, most all the other commands will need the gametxid.
+The conversion of in-game gold to `ROGUE` coins is halved to a ratio of `1` in-game gold to `0.0005` ROGUE coins. 
 
- you can always find all the existing games with:
+As soon as the `gameplay_txid` is confirmed the player may begin to play.
 
-  ./komodo-cli -ac_name=ROGUE cclib pending 17
+#### Multi-Player Mode
 
- and info about a specific game with:
+If more than one player is allowed in the game parameters, the game goes into "Highlander" mode. In this mode, there can be only one winner of each game. The winner is the last player standing.
 
-  ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 \"[%224fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a%22]\"
- due to quirks of various parsing at the shell, rpc and internal level, the above convention is used where %22 is added where " should be. also all fields are separated by , without any space.
+Multiplayer mode also adds a time limit that is based on the frequency of keystrokes. So long as you are frequently entering commands, the time limit will expire in approximately one hour. If players are not frequently entering keystrokes, the time limit can vary. 
 
- When you do a gameinfo command it will show a "run" field and that will tell you if you are registered for the game or not. If not, the "run" field shows the register syntax you need to do, if you are registered, it will show the command line to start the rogue game that is playing the registered game.
+There is a waiting period after the `gameplay_txid` is confirmed. This is an arbitrary number of blocks that is determined using blockchain-enforced randomization. This ensures that no player receives an unfair advantage via advanced knowledge of the start time.
 
-./komodo-cli -ac_name=ROGUE cclib register 17 \"[%224fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a%22,%22playerdata_txid%22]\"
- If you want to cash in your ingame gold and preserve your character for another battle, do the bailout:
+If a player uses the `bailout` method, they are allowed to convert all their gold to `ROGUE` coins at a ratio of `1:0.001` each. The conversion is facilitated using globally locked `ROGUE` coins. The funds in this global vault automatically accrue through asset-chain activity. In the event that there are not enough globally locked funds at the time the `bailout` method is executed, the player must simply wait until the funds are generated via automated methods. You can encourage this fund to grow more quickly by encouraging other players and people to transact using ROGUE, as transactions feed the fund.
 
-./komodo-cli -ac_name=ROGUE cclib bailout 17 \"[%224fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a%22]\"
- If you won your game before anybody else did or if you are the last one left who didnt bailout, you can claim the prize:
+The most direct way to win the game is to obtain the `amulet` and return from the dungeon. The winner receives all of the buy-in ROGUE coins that were originally contributed, as well as `0.01` ROGUE coin for every in-game gold obtained. 
 
- ./komodo-cli -ac_name=ROGUE cclib highlander 17 \"[%224fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a%22]\"
- The txid you get from the bailout or highlander transactions is the "playerdata_txid" that you can use in future games.
-
- Transaction details
- creategame
- vout0 -> txfee highlander vout TCBOO creation
- vout1 to vout.maxplayers+1 -> 1of2 registration ROGUE_REGISTRATIONSIZE batons
- vout2+maxplayers to vout.2*maxplayers+1 -> 1of2 registration txfee batons for game completion
-
- register
- vin0 -> ROGUE_REGISTRATIONSIZE 1of2 registration baton from creategame
- vin1 -> optional nonfungible character vout @
- vin2 -> original creation TCBOO playerdata used
- vin3+ -> buyin
- vout0 -> keystrokes/completion baton
-
- keystrokes
- vin0 -> txfee 1of2 baton from registration or previous keystrokes
- opret -> user input chars
-
- bailout: must be within ROGUE_MAXKEYSTROKESGAP blocks of last keystrokes
- vin0 -> keystrokes baton of completed game with Q
- vout0 -> 1% ingame gold
-
- highlander
- vin0 -> txfee highlander vout from creategame TCBOO creation
- vin1 -> keystrokes baton of completed game, must be last to quit or first to win, only spent registration batons matter. If more than ROGUE_MAXKEYSTROKESGAP blocks since last keystrokes, it is forfeit
- vins -> rest of unspent registration utxo so all newgame vouts are spent
- vout0 -> nonfungible character with pack @
- vout1 -> 1% ingame gold and all the buyins
-
-
- then to register you need to spend one of the vouts and also provide the buyin
- once you register the gui mode is making automatic keystrokes tx with the raw chars in opreturn.
- if during the registration, you provide a character as an input, your gameplay starts with that character instead of the default
-
- each keystrokes tx spends a baton vout that you had in your register tx
-
- so from the creategame tx, you can trace the maxplayers vouts to find all the registrations and all the keystrokes to get the keyboard events
-
- If you quit out of the game, then the in game gold that you earned can be converted to ROGUE coins, but unless you are the last one remaining, any character you input, is permanently spent
-
- so you can win a multiplayer by being the last player to quit or the first one to win. In either case, you would need to spend a special highlander vout in the original creategame tx. having this as an input allows to create a tx that has the character as the nonfungible token, collect all the buyin and of course the ingame gold
-
- once you have a non-fungible token, ownership of it can be transferred or traded or spent in a game
- */
+With each player that survives, whether by winning or by bailing out, the player and all of his obtained items are retained on the blockchain. The character is a non-fungible asset that can be traded. The character's data can be used in any future ROGUE game. To activate this character, when registering for a game specify the transaction id that was returned from the `highlander` method.
 
  ## newgame
 
  ## gameinfo
 
  ## register
+ 
+ ## bailout

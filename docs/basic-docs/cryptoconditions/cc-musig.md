@@ -177,7 +177,7 @@ The `EVALCODE` for the MuSig module is `18`.
 
 Of the following steps, the first three need to be executed only on the first node. 
 
-### Step 1: combine
+#### Step 1: combine
 
 Use the `combine` method to create a `combined_pk` address:
 
@@ -199,7 +199,7 @@ Response:
 
 Copy the values of `pkhash` and `combined_pk` and save them in a secure location for later use.
 
-### Step 2: send
+#### Step 2: send
 
 Use the `send` method to send `1` coin to the `combined_pk` address:
 
@@ -221,7 +221,7 @@ Response:
 
 Copy the `hex` value to your clipboard. 
 
-### Step 3: Broadcast the hex Value and Retrieve the sendtxid
+#### Step 3: Broadcast the hex Value and Retrieve the sendtxid
 
 Use the [sendrawtransaction](../komodo-api/wallet.html#sendrawtransaction) method to broadcast the raw hex value:
 
@@ -239,7 +239,7 @@ Response:
 
 The returned value is our `sendtxid`. Copy this to a secure location for later use.
 
-### Step 4: Obtain the change_script Value 
+#### Step 4: Obtain the change_script Value 
 
 Decode the raw transaction to take note of the `hex` value in the `scriptPubKey` of the `vout` value that has the `"type":"pubkey"` key pair.
 
@@ -278,7 +278,7 @@ In the response there are a series of `vout` values, each of which has an array 
 
 The `hex` value in the `scriptPubkey` object is our `change_script` value. Copy this value and save it to a secure location for later use.
 
-### Step 5: calcmsg
+#### Step 5: calcmsg
 
 Use the `calcmsg` method to calculate the `msg` value. The `calcmsg` method needs the `sendtxid` and `change_script` values retrieved from previous commands.
 
@@ -303,13 +303,13 @@ Response:
 
 Copy the `msg` value to a secure location for later use. The `msg` value needs to be signed to create a valid `spend` transaction.
 
-### Step 6: session
+#### Step 6: session
 
 From this point forward, all steps should be executed on both nodes 1 and 2.
 
 After each step on the first node, copy the relevant data to the second node before proceeding to the following step.
 
-#### Node 1
+##### Node 1
 
 The following `session` command requires an array of arguments. The arguments are as follows:
 
@@ -338,7 +338,7 @@ Response:
 
 Copy the value of `commitment` both to a secure location and to Node 2.
 
-#### Node 2
+##### Node 2
 
 Execute the same command as before, only change the `ind` value from `0` to `1`, to indicate Node 2.
 
@@ -361,9 +361,9 @@ Response:
 
 Copy the `commitment` value both to a secure location and to Node 1.
 
-### Step 7: commit
+#### Step 7: commit
 
-#### Node 1
+##### Node 1
 
 The `commit` method requires an array of arguments. The arguments are as follows:
 
@@ -390,7 +390,7 @@ Response:
 
 Copy the `nonce` value both to a secure location and to Node 2.
 
-#### Node 2
+##### Node 2
 
 Execute the same command as before, only change the value of `ind` to `0` to indicate Node 1.
 
@@ -414,9 +414,9 @@ Response:
 Copy the `nonce` value both to a secure location and to Node 1.
 
 
-### Step 8: nonce
+#### Step 8: nonce
 
-#### Node 1
+##### Node 1
 
 The `nonce` method requires an array of arguments. The arguments are as follows:
 
@@ -443,7 +443,7 @@ Response:
 
 Copy the `partialsig` value both to a secure location and to Node 2.
 
-#### Node 2
+##### Node 2
 
 Execute the same command, only change the `ind` value to `0` to indicate Node 1, and change the `nonce` to the value retrieved from Node 1.
 
@@ -466,9 +466,9 @@ Response:
 
 Copy the `partialsig` value both to a secure location and to Node 1.
 
-### Step 9: partialsig
+#### Step 9: partialsig
 
-#### Node 1
+##### Node 1
 
 The `partialsig` method requires an array of arguments. The arguments are as follows:
 
@@ -494,7 +494,7 @@ Response:
 
 Copy the `combinedsig` value both to a secure location and to Node 2.
 
-#### Node 2
+##### Node 2
 
 Execute the same command, but change the `ind` value to `0` to indicate Node 1, and change the `partialsig` to the value retrieved from Node 1 previously.
 
@@ -518,9 +518,10 @@ Copy the `combinedsig` value to a secure location.
 
 If the values of `combinedsig` produced by both the nodes is the same, then you have followed the example without any errors to this point.
 
-### Step 10: verify
+#### Step 10: verify
 
-#### Node 1
+##### Node 1
+
 The `verify` method requires an array of arguments. The arguments are as folows:
 
 1. `msg`: the `msg` value, retrieved previously
@@ -546,7 +547,7 @@ Response:
 
 Copy the `combinedsig` value to a secure location.
 
-#### Node 2
+##### Node 2
 
 Execute the same command on Node 2.
 
@@ -571,13 +572,13 @@ Copy the `combinedsig` value to a secure location. Visually verify that this `co
 
 The response from both nodes should display a `"result": "success"` key pair. If this is not the case, you made an error in a previous step.  
 
-### Step 11: spend
+#### Step 11: spend
 
 ::: tip Note
 Each node will output different raw transaction values, as both nodes are attempting to spend funds to their own wallets. Of the two, the node that broadcasts its returned raw transaction value first will receive the coins. The other node does not need to broadcast its raw transaction value.
 :::
 
-#### Node 1
+##### Node 1
 
 We are now prepared to execute the `spend` method.
 
@@ -608,15 +609,15 @@ Response:
 
 Copy the `hex` value to a secure location.
 
-#### Node 2
+##### Node 2
 
 In this example, our desire is to receive the transferred coins on Node 1, not on Node 2. 
 
 Therefore, it is not necessary to execute the `spend` method again, nor is it necessary for Node 2 to execute the following step.
 
-### Step 12: sendrawtransaction
+#### Step 12: sendrawtransaction
 
-#### Node 1
+##### Node 1
 
 Broadcast the `hex` value using `sendrawtransaction:
 
