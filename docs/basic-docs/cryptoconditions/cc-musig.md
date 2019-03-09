@@ -712,7 +712,7 @@ Usage of this method depends upon the [cclib](../komodo-api/cclib.html#cclib) me
 
 The `calcmsg` method can be used by any one of the signers to initiate the procedure to create a `spend` transaction. This method takes a transaction id called the `sendtxid` and a modified form of pubkey called the `scriptPubKey` as parameters to calculate the `msg` value.
 
-- The `sendtxid` is the id of a transaction that added funds to the `combined_pk` through the [send](../dynamic/cc-musig.html#send) method.
+- The `sendtxid` is the id of a transaction that added funds to the `combined_pk` through the [send](../cryptoconditions/cc-musig.html#send) method.
 - The `scriptPubKey` expected here is of the type [p2pk](http://learnmeabitcoin.com/glossary/p2pk) in `hex` form.
 
 To create a `scriptPubkey` from a normal `pubkey`, simply add the values `21` to the beginning of the `pubkey` string and the values `ac` to the end of the string:
