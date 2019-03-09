@@ -2,15 +2,17 @@
 
 ## Introduction
 
-The Rogue CryptoConditions (CC) contract module serves as a proof-of-concept to demonstrate CryptoCondition's capabilities as a blockchain-based gaming technology. 
+The Rogue CryptoConditions (CC) contract module serves as a proof-of-concept to demonstrate CryptoCondition's capabilities as a blockchain-based gaming technology.
 
 Rogue CC is based on the classic [Rogue](http://www.livingroguelike.com/rl-games/the-original-rogue-information-and-how-to-play-online/) game. As such, it can be categorized as a [Roguelike.](http://www.livingroguelike.com/roguelike-info-discussions/what-is-a-roguelike/)
 
-The core aspects of Rogue gameplay occur on the blockchain. Core aspects include such data as character health points, items, movement, attacks, and other relevant game states. This data is hashed and pushed into the protection of Bitcoin via Komodo. 
+The core aspects of Rogue gameplay occur on the blockchain. Core aspects include such data as character health points, items, movement, attacks, and other relevant game states.
+
+<!--FIXME ROGUE is not being notarised?-- This data is hashed and pushed into the protection of Bitcoin via Komodo. -->
 
 The Rogue implementation makes use of the classic on-screen visual representation of gameplay. This interface relies on ASCII characters to represent characters, items, and other in-game objects and actions.
 
-The procedures to launch and finish a game require the execution of various methods (rpcs). To make the game more easy to start and finish for players who are not comfortable with the terminal, the Komodo team has created a Terminal User Interface (TUI).  
+The procedures to launch and finish a game require the execution of various methods (rpcs). To make the game more easy to start and finish for players who are not comfortable with the terminal, the Komodo team has created a Terminal User Interface (TUI).
 
 The following installation and walkthrough tutorials can assist the reader in testing Rogue. For more information, please reach out to our community on [Discord](https://komodoplatform.com/discord). The #cc-rogue channel is available for questions and assistance.
 
@@ -18,9 +20,9 @@ The following installation and walkthrough tutorials can assist the reader in te
 
 ### Requirements
 
-Rogue is currently playable on modern MacOS and Linux machines. 
+Rogue is currently playable on modern MacOS and Linux machines.
 
-Windows is not yet available. Please ask on our #cc-rogue channel on [Discord](https://komodoplatform.com/discord) for updates. 
+Windows is not yet available. Please ask on our #cc-rogue channel on [Discord](https://komodoplatform.com/discord) for updates.
 
 ### Install Dependencies
 
@@ -33,9 +35,9 @@ sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoco
 
 #### macOS (OSX)
 
-Use the terminal to ensure the MacOS XCode tools are installed: 
+Use the terminal to ensure the MacOS XCode tools are installed:
 
-```
+```bash
 xcode-select --install
 ```
 
@@ -47,7 +49,7 @@ Ensure the latest version of `brew` is installed. If necessary, execute the foll
 
 Once `brew` is installed, execute each of the following commands:
 
-```
+```bash
 brew update
 brew upgrade
 brew tap discoteq/discoteq; brew install flock
@@ -84,7 +86,7 @@ git checkout jl777
 ```
 
 ::: tip
-Change the `8` in the `-j8` portion of the last command to any number of processor threads desired and/or appropriate for your machine. 
+Change the `8` in the `-j8` portion of the last command to any number of processor threads desired and/or appropriate for your machine.
 :::
 
 ### Update `komodod`
@@ -100,7 +102,7 @@ git pull
 
 #### Step 1 - Start the chain
 
-Start the ROGUE chain with the following command in a terminal window and wait for the daemon to sync. Keep this terminal open and the daemon running for the duration of your Rogue gameplay. 
+Start the ROGUE chain with the following command in a terminal window and wait for the daemon to sync. Keep this terminal open and the daemon running for the duration of your Rogue gameplay.
 
 ```bash
 cd ~/komodo/src
@@ -122,7 +124,7 @@ The returned value is a ROGUE address. We need to find the associated pubkey for
 Use the `validateaddress` method with the address.
 
 ```bash
-./komodo-cli -ac_name=ROGUE validateaddress insert_address_here 
+./komodo-cli -ac_name=ROGUE validateaddress insert_address_here
 ```
 
 The `validateaddress` method will return information similar to the following:
@@ -144,7 +146,7 @@ The `validateaddress` method will return information similar to the following:
 
 Look for the `pubkey` value:
 
-```
+```bash
 "pubkey": "02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2",
 ```
 
@@ -152,7 +154,7 @@ This is the `pubkey` for our address.
 
 #### Step 4
 
-Set the pubkey for the ROGUE asset chain. 
+Set the pubkey for the ROGUE asset chain.
 
 ```bash
 ./komodo-cli -ac_name=ROGUE setpubkey 02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2
@@ -185,7 +187,7 @@ cd ~/komodo/src
 
 ### Installing the TUI (Optional)
 
-The Terminal User Interface (TUI) provides automated methods for executing the ROGUE methods (rpcs) that are used to start and finish a game. Use of the TUI is optional, but recommended for most players. 
+The Terminal User Interface (TUI) provides automated methods for executing the ROGUE methods (rpcs) that are used to start and finish a game. Use of the TUI is optional, but recommended for most players.
 
 #### Linux
 
@@ -212,9 +214,16 @@ git checkout rogue
 cp -r * ~/komodo/src
 ```
 
+Execute the following commands to launch the TUI software:
+
+```bash
+cd  ~/komodo/src
+./rogue_tui.py
+```
+
 #### MacOS (OSX)
 
-Download the latest portable zip for OSX: 
+Download the latest portable zip for OSX:
 
 [Link to Komodo Rogue TUI downloadable zip](https://github.com/tonymorony/komodo_cryptoconditions_tui/releases)
 
@@ -229,7 +238,7 @@ cd  ~/komodo/src
 
 ## Manual Walkthrough
 
-The Komodo team provides a [Terminal User Interface (TUI)](../cryptoconditions/cc-rogue.html#installing-the-tui-optional) to allow players to launch and conclude a game without having to interact with the module's api commands. 
+The Komodo team provides a [Terminal User Interface (TUI)](../cryptoconditions/cc-rogue.html#installing-the-tui-optional) to allow players to launch and conclude a game without having to interact with the module's api commands.
 
 For those who would prefer the manual process, the following walkthrough provides detailed step-by-step instructions.
 
@@ -243,11 +252,11 @@ cd ~/komodo/src
 
 #### Step 2
 
-Register a new game via the [newgame](../cryptoconditions/cc-rogue.html#newgame) method. For this example, we choose to have a single player with a `0` buy-in requirement. 
+Register a new game via the [newgame](../cryptoconditions/cc-rogue.html#newgame) method. For this example, we choose to have a single player with a `0` buy-in requirement.
 
 Methods for ROGUE require the use of the [cclib](../komodo-api/cclib.html#cclib) method. The Rogue module's required `EVALCODE` for the `cclib` method is `17`.
 
-Command: 
+Command:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib newgame 17 "[1]"
@@ -430,7 +439,7 @@ The prize is the collective value of all `ROGUE` coins that were contributed dur
 
 To obtain this prize, use the [highlander](../cryptoconditions/cc-rogue.html#highlander) method:
 
-```
+```bash
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 \"[%224fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a%22]\"
 ```
 
@@ -442,21 +451,21 @@ As Komodo's Rogue implementation is based off of the classic Rogue game, the cla
 
 [Link to Classic Rogue Manual Here](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf)
 
-After reading the linked manual, there are additional aspects to keep in mind for Komodo's unique implementation. 
+After reading the linked manual, there are additional aspects to keep in mind for Komodo's unique implementation.
 
 :::tip Quick Tip
 Some users report that typing the letter `s` on the keyboard does not properly execute the `save game` command. If this is an issue, instead use `SHIFT + Q`.
 :::
 
-Komodo's Rogue features two different game modes. There is one mode for single-player gameplay, where the `maxplayer` value is set to `1`, and one mode for multiplayer gameplay, where the `maxplayer` value is greater than `1`. 
+Komodo's Rogue features two different game modes. There is one mode for single-player gameplay, where the `maxplayer` value is set to `1`, and one mode for multiplayer gameplay, where the `maxplayer` value is greater than `1`.
 
 #### Single-Player Mode
 
-The single-player mode is more limited in nature. In general, this mode is for practicing or farming purposes. 
+The single-player mode is more limited in nature. In general, this mode is for practicing or farming purposes.
 
-There are no time limits. 
+There are no time limits.
 
-The conversion of in-game gold to `ROGUE` coins is halved to a ratio of `1` in-game gold to `0.0005` ROGUE coins. 
+The conversion of in-game gold to `ROGUE` coins is halved to a ratio of `1` in-game gold to `0.0005` ROGUE coins.
 
 As soon as the `gameplay_txid` is confirmed the player may begin to play.
 
@@ -464,13 +473,13 @@ As soon as the `gameplay_txid` is confirmed the player may begin to play.
 
 If more than one player is allowed in the game parameters, the game goes into "Highlander" mode. In this mode, there can be only one winner of each game. The winner is the last player standing.
 
-Multiplayer mode also adds a time limit that is based on the frequency of keystrokes. So long as you are frequently entering commands, the time limit will expire in approximately one hour. If players are not frequently entering keystrokes, the time limit can vary. 
+Multiplayer mode also adds a time limit that is based on the frequency of keystrokes. So long as you are frequently entering commands, the time limit will expire in approximately one hour. If players are not frequently entering keystrokes, the time limit can vary.
 
 There is a waiting period after the `gameplay_txid` is confirmed. This is an arbitrary number of blocks that is determined using blockchain-enforced randomization. This ensures that no player receives an unfair advantage via advanced knowledge of the start time.
 
 If a player uses the `bailout` method, they are allowed to convert all their gold to `ROGUE` coins at a ratio of `1:0.001` each. The conversion is facilitated using globally locked `ROGUE` coins. The funds in this global vault automatically accrue through asset-chain activity. In the event that there are not enough globally locked funds at the time the `bailout` method is executed, the player must simply wait until the funds are generated via automated methods. You can encourage this fund to grow more quickly by encouraging other players and people to transact using ROGUE, as transactions feed the fund.
 
-The most direct way to win the game is to obtain the `amulet` and return from the dungeon. The winner receives all of the buy-in ROGUE coins that were originally contributed, as well as `0.01` ROGUE coin for every in-game gold obtained. 
+The most direct way to win the game is to obtain the `amulet` and return from the dungeon. The winner receives all of the buy-in ROGUE coins that were originally contributed, as well as `0.01` ROGUE coin for every in-game gold obtained.
 
 With each player that survives, whether by winning or by bailing out, the player and all of his obtained items are retained on the blockchain. The character is a non-fungible asset that can be traded. The character's data can be used in any future ROGUE game. To activate this character, when registering for a game specify the transaction id that was returned from the `highlander` method.
 
@@ -478,12 +487,28 @@ With each player that survives, whether by winning or by bailing out, the player
 
 **cclib newgame 17 \"[maxplayers,buyin]\"**
 
-Creating new game. Buy-in argument using for multiplayer games. It's forming game pot and last player standing or first who do highlander take it. 
+Creating new game. Buy-in argument using for multiplayer games. It's forming game pot and last player standing or first who do highlander take it.
 In singleplayer mode you'll get 0.0001 ROGUE per gold.
 
 #### Arguments:
 
+| Name       | Type             | Description |
+| ---------- | ---------------- | ----------- |
+| maxplayers | (decimal number) |             |
+| buyin      | ( number)        |             |
+
 #### Response:
+
+| Name       | Type             | Description |
+| ---------- | ---------------- | ----------- |
+| name       | (string)         |             |
+| method     | (string)         |             |
+| maxplayers | (decimal number) |             |
+| buyin      | (number)         |             |
+| type       | (string)         |             |
+| hex        | (string)         |             |
+| txid       | (string)         |             |
+| result     | (string)         |             |
 
 #### :pushpin: Examples:
 
@@ -500,7 +525,7 @@ Response:
   "name": "rogue",
   "method": "newgame",
   "maxplayers": 1,
-  "buyin": 0.00000000,
+  "buyin": 0.0,
   "type": "newbie",
   "hex": "0400008085202f8901018feb110a6e0d8751a158b3e73dac07383c83766a83908d641f2d4b1db6f704010000007b4c79a276a072a26ba067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa8830581405349ce7a0a3823ca35e3dc30d17c8d8f170bfea89373166f14b8b4f04d36c34a41199ad448074be74b7a6344d0c36b4f68748f976f3f95b7d0c8ec84e54bf773a100af03800111a10001ffffffff061027000000000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc40420f0000000000302ea22c80208958791fdd38bdf532c97f1691fd231a3f1f5c0c3cd28b68d7383c8b1078828e81031210008203000401cc1027000000000000302ea22c80208958791fdd38bdf532c97f1691fd231a3f1f5c0c3cd28b68d7383c8b1078828e81031210008203000401cc00b8880000000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc10270000000000002321027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85ac0000000000000000106a0e114700000000000000000100000000000000964c00000000000000000000000000",
   "txid": "b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026",
@@ -516,7 +541,29 @@ Check info about game
 
 #### Arguments:
 
+| Name     | Type     | Description |
+| -------- | -------- | ----------- |
+| gametxid | (string) |             |
+
 #### Response:
+
+| Name       | Type               | Description |
+| ---------- | ------------------ | ----------- |
+| name       | (string)           |             |
+| method     | (string)           |             |
+| gametxid   | (decimal number)   |             |
+| result     | (string)           |             |
+| gameheight | (decimal number)   |             |
+| height     | (decimal number)   |             |
+| start      | (decimal number)   |             |
+| starthash  | (string)           |             |
+| seed       | (decimal number)   |             |
+| run        | (string)           |             |
+| alive      | (decimal number)   |             |
+| numplayers | (decimal number)   |             |
+| maxplayers | (decimal number)   |             |
+| buyin      | (number)           |             |
+| players    | (array of strings) |             |
 
 #### :pushpin: Examples:
 
@@ -543,9 +590,8 @@ Response:
   "alive": 0,
   "numplayers": 0,
   "maxplayers": 1,
-  "buyin": 0.00000000,
-  "players": [
-  ]
+  "buyin": 0.0,
+  "players": []
 }
 ```
 
@@ -557,7 +603,19 @@ Displaying lists of not finished games on chain
 
 #### Arguments:
 
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
+
 #### Response:
+
+| Name       | Type               | Description |
+| ---------- | ------------------ | ----------- |
+| result     | (string)           |             |
+| name       | (string)           |             |
+| method     | (string)           |             |
+| pending    | (array of strings) |             |
+| numpending | (decimal number)   |             |
 
 #### :pushpin: Examples:
 
@@ -569,7 +627,7 @@ Command:
 
 Response:
 
-```bash
+```json
 {
   "result": "success",
   "name": "rogue",
@@ -586,6 +644,7 @@ Response:
   "numpending": 175
 }
 ```
+
 ## register
 
 **cclib register 17 \"[%22GAME_TXID%22,%22PLAYER_TXID%22]\"**
@@ -594,7 +653,24 @@ Registering you for participation in game. Player txid is optional argument to r
 
 #### Arguments:
 
+| Name       | Type     | Description |
+| ---------- | -------- | ----------- |
+| gametxid   | (string) |             |
+| playertxid | (string) |             |
+
 #### Response:
+
+| Name       | Type               | Description |
+| ---------- | ------------------ | ----------- |
+| name       | (string)           |             |
+| method     | (string)           |             |
+| pending    | (array of strings) |             |
+| maxplayers | (decimal number)   |             |
+| buyin      | (number)           |             |
+| type       | (string)           |             |
+| hex        | (string)           |             |
+| txid       | (string)           |             |
+| result     | (string)           |             |
 
 #### :pushpin: Examples:
 
@@ -605,20 +681,40 @@ Registration without player:
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib register 17 \"[%22b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026%22]\"
 ```
+
 Response:
 
-```bash
+```json
 {
   "name": "rogue",
   "method": "register",
   "maxplayers": 1,
-  "buyin": 0.00000000,
+  "buyin": 0.0,
   "type": "newbie",
   "hex": "0400008085202f890126504f5edd0fc461e09b4bd6d4439751d8037a927bd8d075eace1d9a3b1cabb901000000a74ca5a281a1a0819ca28194a067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa883058140a1f23cbe9d8e7a20306df4c86da47b4ae3b59556742b7fcdf68f6f3549b02d734879b94fd73f5847914d448e4d78e48d415bffe55081a491e242ec6256f02638a129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffff03301b0f0000000000302ea22c80202ba0b269f75c72a0ce23e03812814b1e76a8fd57b3e75fee8b37bfef2b4ebf3581031210008203000401cc0100000000000000302ea22c80207f0205ad6b02be91baf2a56dcc77381e7b0e19cb9a83dfb9530316958f5b706781032210008203000401cc0000000000000000446a42115226504f5edd0fc461e09b4bd6d4439751d8037a927bd8d075eace1d9a3b1cabb9000000000000000000000000000000000000000000000000000000000000000000000000bd4c00000000000000000000000000",
   "txid": "855802e2e83d0d4632518959e4ff9e840ed9838f51bd6b3a80dc27b8ea7900ba",
   "result": "success"
 }
 ```
+
+## keystrokes
+
+**cclib keystrokes 17 \"[%22GAME_TXID%22,%22keystrokes%22]\"**
+
+#### Arguments:
+
+| Name       | Type     | Description |
+| ---------- | -------- | ----------- |
+| gametxid   | (string) |             |
+| keystrokes |          |             |
+
+#### Response:
+
+#### :pushpin: Examples:
+
+Command:
+
+Response:
 
 ## bailout
 
@@ -628,7 +724,21 @@ Finishing game, if player is allive he saving after bailout tx is mined. Gold co
 
 #### Arguments:
 
+| Name     | Type     | Description |
+| -------- | -------- | ----------- |
+| gametxid | (string) |             |
+
 #### Response:
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| name        | (string) |             |
+| method      | (string) |             |
+| myrogueaddr | (string) |             |
+| gametxid    | (string) |             |
+| hex         | (string) |             |
+| txid        | (string) |             |
+| result      | (string) |             |
 
 #### :pushpin: Examples:
 
@@ -660,7 +770,19 @@ Multilplayers game call: If you won your game before anybody else did or if you 
 
 #### Arguments:
 
+| Name     | Type     | Description |
+| -------- | -------- | ----------- |
+| gametxid | (string) |             |
+
 #### Response:
+
+| Name        | Type     | Description |
+| ----------- | -------- | ----------- |
+| name        | (string) |             |
+| method      | (string) |             |
+| myrogueaddr | (string) |             |
+| gametxid    | (string) |             |
+| txid        | (string) |             |
 
 #### :pushpin: Examples:
 
@@ -692,7 +814,30 @@ Displaying information about player
 
 #### Arguments:
 
+| Name     | Type     | Description |
+| -------- | -------- | ----------- |
+| gametxid | (string) |             |
+
 #### Response:
+
+| Name         | Type               | Description |
+| ------------ | ------------------ | ----------- |
+| result       | (string)           |             |
+| name         | (string)           |             |
+| method       | (string)           |             |
+| player       | (json object)      |             |
+| playertxid   | (string)           |             |
+| tokenid      | (string)           |             |
+| data         | (string)           |             |
+| pack         | (array of strings) |             |
+| packsize     | (number)           |             |
+| hitpoints    | (number)           |             |
+| strength     | (number)           |             |
+| level        | (number)           |             |
+| experience   | (number)           |             |
+| dungeonlevel | (number)           |             |
+| chain        | (string)           |             |
+| pname        | (string)           |             |
 
 #### :pushpin: Examples:
 
@@ -704,7 +849,7 @@ Command:
 
 Response:
 
-```bash
+```json
 "{
   "result": "success",
   "name": "rogue",
@@ -742,7 +887,18 @@ Diplaying list of your players
 
 #### Arguments:
 
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
+
 #### Response:
+
+| Name                    | Type               | Description |
+| ----------------------- | ------------------ | ----------- |
+| name                    | (string)           |             |
+| method                  | (string)           |             |
+| playerdata              | (array of strings) |             |
+| maxplnumplayerdataayers | (decimal number)   |             |
 
 #### :pushpin: Examples:
 
@@ -754,7 +910,7 @@ Command:
 
 Response:
 
-```bash
+```json
 {
   "name": "rogue",
   "method": "players",
@@ -775,7 +931,19 @@ Displaying list of your finished and unfinished games
 
 #### Arguments:
 
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
+
 #### Response:
+
+| Name      | Type               | Description |
+| --------- | ------------------ | ----------- |
+| name      | (string)           |             |
+| method    | (string)           |             |
+| pastgames | (array of strings) |             |
+| games     | (array of strings) |             |
+| numgames  | (decimal number)   |             |
 
 #### :pushpin: Examples:
 
@@ -787,7 +955,7 @@ Command:
 
 Response:
 
-```bash
+```json
 {
   "name": "rogue",
   "method": "games",
@@ -823,7 +991,18 @@ Setting name which be given for unnamed players
 
 #### Arguments:
 
+| Name               | Type     | Description |
+| ------------------ | -------- | ----------- |
+| pname(player_name) | (string) |             |
+
 #### Response:
+
+| Name   | Type     | Description |
+| ------ | -------- | ----------- |
+| name   | (string) |             |
+| method | (string) |             |
+| result | (string) |             |
+| pname  | (string) |             |
 
 #### :pushpin: Examples:
 
@@ -835,7 +1014,7 @@ Command:
 
 Response:
 
-```bash
+```json
 {
   "name": "rogue",
   "method": "setname",
@@ -843,3 +1022,22 @@ Response:
   "pname": "SuperMegaWarrior"
 }
 ```
+
+## extract
+
+**cclib bailout 17 \"[%22GAME_TXID%22,%pubkey%22]\"**
+
+#### Arguments:
+
+| Name     | Type     | Description |
+| -------- | -------- | ----------- |
+| gametxid | (string) |             |
+| pubkey   | (string) |             |
+
+#### Response:
+
+#### :pushpin: Examples:
+
+Command:
+
+Response:
