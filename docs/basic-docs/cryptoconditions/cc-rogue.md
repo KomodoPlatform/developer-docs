@@ -231,7 +231,8 @@ Extract the contents into the `~/komodo/src` directory.
 Execute the following commands to launch the TUI software:
 
 ```bash
-cd  ~/komodo/src
+cd ~/komodo/src
+cp ~/Library/Application\ Support/Komodo/ROGUE/ROGUE.conf ~/komodo/src/ROGUE.conf
 ./rogue_tui.py
 ```
 
