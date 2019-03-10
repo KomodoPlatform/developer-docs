@@ -75,7 +75,7 @@ git checkout jl777
 ./zcutil/build.sh -j$(nproc)
 ```
 
-Compile the appropriate CC library by executing the following series of commands. Each line should be executed separately:
+Compile the appropriate CC library:
 
 ```bash
 cd src/cc
