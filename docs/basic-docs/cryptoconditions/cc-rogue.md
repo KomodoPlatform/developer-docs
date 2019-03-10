@@ -447,7 +447,7 @@ To obtain this prize, use the [highlander](../cryptoconditions/cc-rogue.html#hig
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 '["4fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a"]'
 ```
 
-To use the character in a future game, save the transaction id that is returned from the above command and use it when executing the [register](../cryptoconditions/cc-rogue.html#register) method for a future game.
+To use the character again, save the transaction id that is returned from the above command and use it when executing the [register](../cryptoconditions/cc-rogue.html#register) method for a future game.
 
 ## Gameplay Documentation
 
