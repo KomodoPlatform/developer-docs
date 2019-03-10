@@ -4,13 +4,36 @@ The following methods interact with CryptoConditions modules that make use of th
 
 ## cclib
 
-**cclib insert_method insert_evalcode \\"[%22json_params%22]\\"**
+**cclib insert_method insert_evalcode \"[%22json_string%22, json_integer, ... ]\"**
 
 The `cclib` method allows the user to interact with the dynamic CryptoConditions module associated with `evalcode`.
 
 Each `evalcode` module has unique methods and json parameters associated, as well as unique responses.
 
-Inside the `[]` brackets of the array, the json parameters must be wrapped with the characters `%22`.  
+#### cclib formatting
+Arguments for `cclib` methods are supplied as arrays. When executed in the terminal, the values for the array can be added in a normal fashion. However, when `cclib` methods are executed as a part of a script, the shell cannot parse the arrays without additional formatting. 
+
+##### Array Formatting for Terminal
+
+In the terminal, the array is bound by `''` single-quotation characters and strings are bound by `""` double-quotation characters.
+
+Terminal format: 
+
+```bash
+./komodo-cli -ac_name=MUSIG  cclib send 18 '["03d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a",1]'
+```
+
+##### Array Formatting for Bash Scripts
+
+In a bash-script, the array is bound by `\"\"` escaped double-quotation characters and strings within the array are bound by `%22 %22` characters. (`0x22` is the ASCII encoding for `"`.)
+
+This format can be used in a terminal directly or in shell scripts, and therefore some developers may default to it, although the format is not always necessary.
+
+Script format: 
+
+```bash
+./komodo-cli -ac_name=MUSIG  cclib send 18 \"[%2203d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a%22,1]\"
+```
 
 ::: tip
 The [cclibinfo](../komodo-api/cclib.html#cclibinfo) method returns a complete list of available methods and their parameters for each unique `evalcode`.

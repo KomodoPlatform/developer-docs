@@ -6,11 +6,9 @@ The Rogue CryptoConditions (CC) contract module serves as a proof-of-concept to 
 
 Rogue CC is based on the classic [Rogue](http://www.livingroguelike.com/rl-games/the-original-rogue-information-and-how-to-play-online/) game. As such, it can be categorized as a [Roguelike.](http://www.livingroguelike.com/roguelike-info-discussions/what-is-a-roguelike/)
 
-The core aspects of Rogue gameplay occur on the blockchain. Core aspects include such data as character health points, items, movement, attacks, and other relevant game states.
+The core aspects of Rogue gameplay occur on the blockchain. These aspects include such data as character health points, items, movement, attacks, and other relevant game states.
 
-<!--FIXME ROGUE is not being notarised?-- This data is hashed and pushed into the protection of Bitcoin via Komodo. -->
-
-The Rogue implementation makes use of the classic on-screen visual representation of gameplay. This interface relies on ASCII characters to represent characters, items, and other in-game objects and actions.
+Komodo's Rogue implementation makes use of the classic on-screen visual representation of gameplay. This interface relies on ASCII characters to represent characters, items, and other in-game objects and actions.
 
 The procedures to launch and finish a game require the execution of various methods (rpcs). To make the game more easy to start and finish for players who are not comfortable with the terminal, the Komodo team has created a Terminal User Interface (TUI).
 
@@ -191,7 +189,7 @@ The Terminal User Interface (TUI) provides automated methods for executing the R
 
 #### Linux
 
-Open another terminal window. (Do not close or terminal processes on other terminals running ROGUE software.)
+Open another terminal window. (Do not close the other terminal windows that are running the game's daemon.)
 
 Install TUI dependencies:
 
@@ -362,7 +360,7 @@ Response:
 
 #### Step 5
 
-Check the game's current state again using the `gameinfo` method. Use the `gameplay_txid` as an argument:
+Check the game's current state again using the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method. Use the `gameplay_txid` as an argument:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 \"[%2209d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70%22]\"
@@ -401,11 +399,13 @@ Response:
 
 Note that the `gameinfo` method now returned a `seed` value, as well as player data.
 
-In the above returned json object, find the `run` value. This is the exact command needed to start the game.
+In the returned json object, find the `run` value. This is the exact command needed to start the game.
 
 #### Step 6 - Play
 
 Execute the above `run` command to start the game:
+
+<!--The below example seems wrong, but I'm not sure?-->
 
 ```bash
 cc/rogue/rogue 3767108440867690538 09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70
@@ -419,7 +419,9 @@ For instructions on in-game controls and objectives, [read this linked section.]
 
 #### Step 8 - Bailout
 
-When you are satisfied with your store of gold and you would like to convert it into `ROGUE` coins, follow this procedure. (This assumes your player did not die.)
+If your character is still alive and you would like to leave the game, follow this procedure.
+
+This will convert your in-game gold to `ROGUE` coins at a ratio of `1:0.0005`, respectively.
 
 Quit the game by typing `Q` on the keyboard.
 
@@ -431,9 +433,11 @@ Execute the [bailout]() method. For example:
 
 To use this character in a future game, save the transaction id that is returned from the above command and use it when registering for a future game.
 
-#### Step 9: Highlander Victory
+#### Step 9: Highlander Victory (Not Available in Single-Player Mode)
 
-If you are the winner of a multi-player game, whether by obtaining the amulet and exiting the dungeon, or by being the last player standing, you may claim an additional prize.
+In this walkthrough we have used single-player mode, and therefore the following `highlander` method is not available. For explanatory purposes, we include a description here.
+
+If you are the winner of a multi-player game, you may exit the game in a manner that allows you to claim an additional prize.
 
 The prize is the collective value of all `ROGUE` coins that were contributed during the buy-in stage.
 
@@ -443,7 +447,7 @@ To obtain this prize, use the [highlander](../cryptoconditions/cc-rogue.html#hig
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 \"[%224fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a%22]\"
 ```
 
-To use the character in a future game, save the transaction id that is returned from the above command and use it during the registration phase of a future game.
+To use the character in a future game, save the transaction id that is returned from the above command and use it when executing the [register](../cryptoconditions/cc-rogue.html#register) method for a future game.
 
 ## Gameplay Documentation
 
@@ -465,7 +469,7 @@ The single-player mode is more limited in nature. In general, this mode is for p
 
 There are no time limits.
 
-The conversion of in-game gold to `ROGUE` coins is halved to a ratio of `1` in-game gold to `0.0005` ROGUE coins.
+The conversion of in-game gold to `ROGUE` coins is halved to a ratio of `1:0.0005`.
 
 As soon as the `gameplay_txid` is confirmed the player may begin to play.
 
@@ -481,34 +485,39 @@ If a player uses the `bailout` method, they are allowed to convert all their gol
 
 The most direct way to win the game is to obtain the `amulet` and return from the dungeon. The winner receives all of the buy-in ROGUE coins that were originally contributed, as well as `0.01` ROGUE coin for every in-game gold obtained.
 
-With each player that survives, whether by winning or by bailing out, the player and all of his obtained items are retained on the blockchain. The character is a non-fungible asset that can be traded. The character's data can be used in any future ROGUE game. To activate this character, when registering for a game specify the transaction id that was returned from the `highlander` method.
+With each player that survives, whether by winning or by bailing out, the player and all of his obtained items are retained on the blockchain. The character is a non-fungible asset that can be traded. The character can also be used in any future ROGUE game. To activate this character, use the character's `player_txid` value when executing the [register](../cryptoconditions/cc-rogue.html#register) method.
 
 ## newgame
 
 **cclib newgame 17 \"[maxplayers,buyin]\"**
 
-Creating new game. Buy-in argument using for multiplayer games. It's forming game pot and last player standing or first who do highlander take it.
-In singleplayer mode you'll get 0.0001 ROGUE per gold.
+The `newgame` method creates a new game. 
+
+The `buyin` argument is required for multi-player games. The coins contributed via `buyin` become a winner-takes-all pot. Either the first player to claim the `amulet` and return from the dungeon, or the last player standing; may claim this prize using the [highlander](../cryptoconditions/cc-rogue.html#highlander) method.
+
+In single-player mode, the conversion ratio of in-game gold to `ROGUE` coins is `1:0.001`.
+
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 #### Arguments:
 
 | Name       | Type             | Description |
 | ---------- | ---------------- | ----------- |
-| maxplayers | (decimal number) |             |
-| buyin      | ( number)        |             |
+| maxplayers | (decimal number) | the max number of players; if set to `1`, the game begins in single-player mode            |
+| buyin      | (number, required if `maxplayers` > `1`)        | the required amount to contribute per player; the winner receives all `buyin` coins             |
 
 #### Response:
 
 | Name       | Type             | Description |
 | ---------- | ---------------- | ----------- |
-| name       | (string)         |             |
-| method     | (string)         |             |
-| maxplayers | (decimal number) |             |
-| buyin      | (number)         |             |
-| type       | (string)         |             |
-| hex        | (string)         |             |
-| txid       | (string)         |             |
-| result     | (string)         |             |
+| name       | (string)         | the name of the module            |
+| method     | (string)         | the name of the method            |
+| maxplayers | (decimal number) | the max number of players for this game            |
+| buyin      | (number)         | the required amount to contribute per player; the winner receives all `buyin` coins           |
+| type       | (string)         | the level of difficulty for this game            |
+| hex        | (string)         | a `hex` value containing the relevant game data; this value must be broadcast using the `sendrawtransaction` method            |
+| txid       | (string)         | a transaction id that represents the `gametxid`            |
+| result     | (string)         | whether the command executed successfully            |
 
 #### :pushpin: Examples:
 
@@ -537,33 +546,33 @@ Response:
 
 **cclib gameinfo 17 \"[%22GAME_TXID%22]\"**
 
-Check info about game
+The `gameinfo` method returns relevant information about the indicated `gametxid` game.
 
 #### Arguments:
 
 | Name     | Type     | Description |
 | -------- | -------- | ----------- |
-| gametxid | (string) |             |
+| gametxid | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method            |
 
 #### Response:
 
 | Name       | Type               | Description |
 | ---------- | ------------------ | ----------- |
-| name       | (string)           |             |
-| method     | (string)           |             |
-| gametxid   | (decimal number)   |             |
-| result     | (string)           |             |
+| name       | (string)           | name of the module            |
+| method     | (string)           | name of the method            |
+| gametxid   | (decimal number)   | the indicated `gametxid` transaction id            |
+| result     | (string)           | whether the command executed successfully            |
 | gameheight | (decimal number)   |             |
 | height     | (decimal number)   |             |
 | start      | (decimal number)   |             |
 | starthash  | (string)           |             |
 | seed       | (decimal number)   |             |
-| run        | (string)           |             |
-| alive      | (decimal number)   |             |
-| numplayers | (decimal number)   |             |
-| maxplayers | (decimal number)   |             |
-| buyin      | (number)           |             |
-| players    | (array of strings) |             |
+| run        | (string)           | the complete terminal command that must be executed to begin this game            |
+| alive      | (decimal number)   | the number of players still alive in the game            |
+| numplayers | (decimal number)   | the total number of players that joined the game            |
+| maxplayers | (decimal number)   | the max number of players the game allows            |
+| buyin      | (number)           | the amount of `ROGUE` coins required for a player to join            |
+| players    | (array of strings) | an array containing the identifying transaction ids of each player            |
 
 #### :pushpin: Examples:
 
@@ -599,7 +608,7 @@ Response:
 
 **cclib pending 17**
 
-Displaying lists of not finished games on chain
+The `pending` method displays a list of unfinished games on the asset chain.
 
 #### Arguments:
 
@@ -611,11 +620,11 @@ Displaying lists of not finished games on chain
 
 | Name       | Type               | Description |
 | ---------- | ------------------ | ----------- |
-| result     | (string)           |             |
-| name       | (string)           |             |
-| method     | (string)           |             |
-| pending    | (array of strings) |             |
-| numpending | (decimal number)   |             |
+| result     | (string)           | whether the command executed successfully            |
+| name       | (string)           | the name of the module            |
+| method     | (string)           | the name of the method            |
+| pending    | (array of strings) | an array of `gametxid`'s that represent unfinished games on the asset chain            |
+| numpending | (decimal number)   | the total number of unfinished games on the asset chain            |
 
 #### :pushpin: Examples:
 
@@ -647,36 +656,38 @@ Response:
 
 ## register
 
-**cclib register 17 \"[%22GAME_TXID%22,%22PLAYER_TXID%22]\"**
+**cclib register 17 \"[%22GAME_TXID%22(,%22PLAYER_TXID%22)]\"**
 
-Registering you for participation in game. Player txid is optional argument to re-use saved player in game.
+The `register` method registers your character for a game. 
+
+The optional `player_txid` allows the user to re-use a character that survived a previous game.
+
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 #### Arguments:
 
 | Name       | Type     | Description |
 | ---------- | -------- | ----------- |
-| gametxid   | (string) |             |
-| playertxid | (string) |             |
+| gametxid   | (string) | the `gametxid` of the game the user desires to join            |
+| playertxid | (string, optional) | the `playertxid` of an existing character the user owns and would like to use            |
 
 #### Response:
 
 | Name       | Type               | Description |
 | ---------- | ------------------ | ----------- |
-| name       | (string)           |             |
-| method     | (string)           |             |
+| name       | (string)           | the name of the module            |
+| method     | (string)           | the name of the method           |
 | pending    | (array of strings) |             |
-| maxplayers | (decimal number)   |             |
-| buyin      | (number)           |             |
-| type       | (string)           |             |
-| hex        | (string)           |             |
-| txid       | (string)           |             |
-| result     | (string)           |             |
+| maxplayers | (decimal number)   | the max number of players allowed in this game            |
+| buyin      | (number)           | the required `buyin` amount of `ROGUE` coins to enter the game           |
+| type       | (string)           | the level of difficulty for this game            |
+| hex        | (string)           | a `hex` value of registration data; this must be broadcast using `sendrawtransaction`            |
+| txid       | (string)           | a transaction id that indicates the `playertxid` for this character             |
+| result     | (string)           | whether the command executed successfully            |
 
 #### :pushpin: Examples:
 
-Command:
-
-Registration without player:
+Command (registration without player):
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib register 17 \"[%22b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026%22]\"
@@ -696,7 +707,6 @@ Response:
   "result": "success"
 }
 ```
-
 ## keystrokes
 
 **cclib keystrokes 17 \"[%22GAME_TXID%22,%22keystrokes%22]\"**
@@ -720,25 +730,36 @@ Response:
 
 **cclib bailout 17 \"[%22GAME_TXID%22]\"**
 
-Finishing game, if player is allive he saving after bailout tx is mined. Gold converting to ROGUE
+The `bailout` method allows a user to withdraw their character from the game. 
+
+This method is only available when the character is still alive. The character must remain alive until the returned `bailout_txid` is mined.
+
+When the character successfully bails out from the game, all in-game gold the character has captured is converted into `ROGUE` coins.
+
+The conversion ratio depends upon the mode of gameplay. 
+
+- Single-player mode: `1` gold to `0.0005` ROGUE coins
+- Multi-player mode: `1` gold to `0.001` ROGUE coins
+
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 #### Arguments:
 
 | Name     | Type     | Description |
 | -------- | -------- | ----------- |
-| gametxid | (string) |             |
+| gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character             |
 
 #### Response:
 
 | Name        | Type     | Description |
 | ----------- | -------- | ----------- |
-| name        | (string) |             |
-| method      | (string) |             |
+| name        | (string) | the name of the module            |
+| method      | (string) | the name of the method            |
 | myrogueaddr | (string) |             |
-| gametxid    | (string) |             |
-| hex         | (string) |             |
-| txid        | (string) |             |
-| result      | (string) |             |
+| gametxid    | (string) | the unique `gametxid` transaction id that identifies this game            |
+| hex         | (string) | a hex value that must be broadcast using `sendrawtransaction`            |
+| txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to re-use the character from this game            |
+| result      | (string) | whether the command executed successfully             |
 
 #### :pushpin: Examples:
 
@@ -766,23 +787,25 @@ Response:
 
 **cclib highlander 17 \"[%22MULTIPLAYER_GAME_TXID%22]\"**
 
-Multilplayers game call: If you won your game before anybody else did or if you are the last one left who didnt bailout, you can claim the prize.
+The `highlander` method allows a character to exit the game and claim the `buyin` prize funds.
+
+This method is only available in multi-player mode, and the user's character must either be the last standing character or the character must be in possession of the `amulet` and have successfully exited the dungeon.
 
 #### Arguments:
 
 | Name     | Type     | Description |
 | -------- | -------- | ----------- |
-| gametxid | (string) |             |
+| gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character             |
 
 #### Response:
 
 | Name        | Type     | Description |
 | ----------- | -------- | ----------- |
-| name        | (string) |             |
-| method      | (string) |             |
+| name        | (string) | the name of the module            |
+| method      | (string) | the name of the method            |
 | myrogueaddr | (string) |             |
-| gametxid    | (string) |             |
-| txid        | (string) |             |
+| gametxid    | (string) | the unique `gametxid` transaction id that identifies this game            |
+| txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to re-use the character from this game            |
 
 #### :pushpin: Examples:
 
@@ -800,9 +823,9 @@ Response:
   "method": "highlander",
   "myrogueaddr": "RVuzXY65FyJiPPWSBc9efATh6nb4M9MceR",
   "gametxid": "b94a0c14604df04a994e8fde610af7ddede76a62e1e3d86bbdac18e695662301",
-  "result": "success"
-  "hex": hex
-  "txid": txid
+  "result": "success",
+  "hex": "hex",
+  "txid": "txid"
 }
 ```
 
@@ -810,34 +833,34 @@ Response:
 
 **cclib playerinfo 17 \"[%22PLAYER_TXID%22]\"**
 
-Displaying information about player
+The `playerinfo` method displays information about the currently active character.
 
 #### Arguments:
 
 | Name     | Type     | Description |
 | -------- | -------- | ----------- |
-| gametxid | (string) |             |
+| gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character             |
 
 #### Response:
 
 | Name         | Type               | Description |
 | ------------ | ------------------ | ----------- |
-| result       | (string)           |             |
-| name         | (string)           |             |
-| method       | (string)           |             |
-| player       | (json object)      |             |
-| playertxid   | (string)           |             |
+| result       | (string)           | whether the command executed successfully             |
+| name        | (string) | the name of the module            |
+| method      | (string) | the name of the method            |
+| player       | (json object)      | a json object containing relevant player data            |
+| playertxid   | (string)           | the unique identifying transaction id of this player            |
 | tokenid      | (string)           |             |
 | data         | (string)           |             |
-| pack         | (array of strings) |             |
-| packsize     | (number)           |             |
-| hitpoints    | (number)           |             |
-| strength     | (number)           |             |
-| level        | (number)           |             |
-| experience   | (number)           |             |
-| dungeonlevel | (number)           |             |
-| chain        | (string)           |             |
-| pname        | (string)           |             |
+| pack         | (array of strings) | an array containing the items in the character's pack            |
+| packsize     | (number)           | the number of items in the character's pack           |
+| hitpoints    | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information            |
+| strength     | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information           |
+| level        | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information           |
+| experience   | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information            |
+| dungeonlevel | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information            |
+| chain        | (string)           | the name of the asset chain on which this game is occurring            |
+| pname(player_name) | (string) | the desired name for the user's currently active character            |
 
 #### :pushpin: Examples:
 
@@ -883,7 +906,7 @@ Response:
 
 **cclib players 17**
 
-Diplaying list of your players
+The `players` method displays a list of all `playertxid` transaction ids held in the user's local wallet.
 
 #### Arguments:
 
@@ -895,10 +918,10 @@ Diplaying list of your players
 
 | Name                    | Type               | Description |
 | ----------------------- | ------------------ | ----------- |
-| name                    | (string)           |             |
-| method                  | (string)           |             |
-| playerdata              | (array of strings) |             |
-| maxplnumplayerdataayers | (decimal number)   |             |
+| name        | (string) | the name of the module            |
+| method      | (string) | the name of the method            |
+| playerdata              | (array of strings) | an array containing all `playertxid` transaction ids in the user's local wallet             |
+| numplayerdata | (decimal number)   | the number of `playertxid` transaction ids in the `playerdata` array             |
 
 #### :pushpin: Examples:
 
@@ -927,7 +950,7 @@ Response:
 
 **cclib games 17**
 
-Displaying list of your finished and unfinished games
+The `games` method displays a list of the user's unfinished and finished games.
 
 #### Arguments:
 
@@ -939,11 +962,11 @@ Displaying list of your finished and unfinished games
 
 | Name      | Type               | Description |
 | --------- | ------------------ | ----------- |
-| name      | (string)           |             |
-| method    | (string)           |             |
-| pastgames | (array of strings) |             |
-| games     | (array of strings) |             |
-| numgames  | (decimal number)   |             |
+| name        | (string) | the name of the module            |
+| method      | (string) | the name of the method            |
+| pastgames | (array of strings) | an array of `gametxid` transaction ids of finished games, from the user's local wallet file              |
+| games     | (array of strings) | an array of `gametxid` transaction ids of unfinished games, from the user's local wallet file           |
+| numgames  | (decimal number)   | the total number of games, from the user's local wallet file            |
 
 #### :pushpin: Examples:
 
@@ -987,22 +1010,28 @@ Response:
 
 **cclib setname 17 \"[%22NAME%22]\"**
 
-Setting name which be given for unnamed players
+The `setname` method sets the name of the user's currently active character. 
+
+<!--Does the following need to be added?
+
+This method is available only during an active game, and only for characters that do not already have a name.
+
+-->
 
 #### Arguments:
 
 | Name               | Type     | Description |
 | ------------------ | -------- | ----------- |
-| pname(player_name) | (string) |             |
+| pname(player_name) | (string) | the desired name for the user's currently active character            |
 
 #### Response:
 
 | Name   | Type     | Description |
 | ------ | -------- | ----------- |
-| name   | (string) |             |
-| method | (string) |             |
-| result | (string) |             |
-| pname  | (string) |             |
+| name        | (string) | the name of the module            |
+| method      | (string) | the name of the method            |
+| result | (string) | whether the command executed successfully             |
+| pname(player_name) | (string) | the desired name for the user's currently active character            |
 
 #### :pushpin: Examples:
 

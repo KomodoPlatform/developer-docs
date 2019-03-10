@@ -96,9 +96,7 @@ Response from Step 2:
 b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
 ```
 
-::: tip
 This transaction id is the funding transaction id of this Heir CC plan. Copy and save this to a safe location.
-:::
 
 Wait until the transaction is confirmed.
 
