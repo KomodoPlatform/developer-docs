@@ -296,7 +296,7 @@ Check the game's state using the [gameinfo](../cryptoconditions/cc-rogue.html#ga
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib gameinfo 17 \"[%2209d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70%22]\"
+./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
 Response:
@@ -311,7 +311,7 @@ Response:
   "start": 7462,
   "starthash": "0006b3ede92cd36bd50f7eca8bfffcb9a32254d1f24193517447752b004b582a",
   "seed": 3767108440867690538,
-  "run": "./komodo-cli -ac_name=ROGUE cclib register 17 \"[%2209d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70%22]\"",
+  "run": "./komodo-cli -ac_name=ROGUE cclib register 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'",
   "alive": 0,
   "numplayers": 0,
   "maxplayers": 1,
@@ -328,7 +328,7 @@ In the returned json object, observe the `run` value. This lists the specific co
 Register the `gameplay_txid` using the [register](../cryptoconditions/cc-rogue.html#register) method:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib register 17 \"[%2209d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70%22]\"
+./komodo-cli -ac_name=ROGUE cclib register 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
 Response:
@@ -363,7 +363,7 @@ Response:
 Check the game's current state again using the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method. Use the `gameplay_txid` as an argument:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib gameinfo 17 \"[%2209d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70%22]\"
+./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
 Response:
@@ -428,7 +428,7 @@ Quit the game by typing `Q` on the keyboard.
 Execute the [bailout]() method. For example:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib bailout 17 \"[%2209d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70%22]\"
+./komodo-cli -ac_name=ROGUE cclib bailout 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
 To use this character in a future game, save the transaction id that is returned from the above command and use it when registering for a future game.
@@ -444,7 +444,7 @@ The prize is the collective value of all `ROGUE` coins that were contributed dur
 To obtain this prize, use the [highlander](../cryptoconditions/cc-rogue.html#highlander) method:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib highlander 17 \"[%224fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a%22]\"
+./komodo-cli -ac_name=ROGUE cclib highlander 17 '["4fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a"]'
 ```
 
 To use the character in a future game, save the transaction id that is returned from the above command and use it when executing the [register](../cryptoconditions/cc-rogue.html#register) method for a future game.
@@ -489,7 +489,7 @@ With each player that survives, whether by winning or by bailing out, the player
 
 ## newgame
 
-**cclib newgame 17 \"[maxplayers,buyin]\"**
+**cclib newgame 17 '[maxplayers,buyin]'**
 
 The `newgame` method creates a new game. 
 
@@ -544,7 +544,7 @@ Response:
 
 ## gameinfo
 
-**cclib gameinfo 17 \"[%22GAME_TXID%22]\"**
+**cclib gameinfo 17 '["game_txid"]'**
 
 The `gameinfo` method returns relevant information about the indicated `gametxid` game.
 
@@ -579,7 +579,7 @@ The `gameinfo` method returns relevant information about the indicated `gametxid
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib gameinfo 17 \"[%22b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026%22]\"
+./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026"]'
 ```
 
 Response:
@@ -595,7 +595,7 @@ Response:
   "start": 19587,
   "starthash": "0003a5ed4715220a742a6c2381daa5d49d29fa56189c7d676985902734e71e2e",
   "seed": 2991956025523248686,
-  "run": "./komodo-cli -ac_name=ROGUE cclib register 17 \"[%22b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026%22]\"",
+  "run": "./komodo-cli -ac_name=ROGUE cclib register 17 '["b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026"]'",
   "alive": 0,
   "numplayers": 0,
   "maxplayers": 1,
@@ -656,7 +656,7 @@ Response:
 
 ## register
 
-**cclib register 17 \"[%22GAME_TXID%22(,%22PLAYER_TXID%22)]\"**
+**cclib register 17 '["game_txid"(,"player_txid")]'**
 
 The `register` method registers your character for a game. 
 
@@ -690,7 +690,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 Command (registration without player):
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib register 17 \"[%22b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026%22]\"
+./komodo-cli -ac_name=ROGUE cclib register 17 '["b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026"]'
 ```
 
 Response:
@@ -760,7 +760,7 @@ Response:
 
 ## bailout
 
-**cclib bailout 17 \"[%22GAME_TXID%22]\"**
+**cclib bailout 17 '["game_txid"]'**
 
 The `bailout` method allows a user to withdraw their character from the game. 
 
@@ -798,7 +798,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib bailout 17 \"[%2239b65c12e37f6338b2daf8b7d8d6e1b6c083622590cb7a318daadabc785b73f0%22]\"
+./komodo-cli -ac_name=ROGUE cclib bailout 17 '["39b65c12e37f6338b2daf8b7d8d6e1b6c083622590cb7a318daadabc785b73f0"]'
 ```
 
 Response:
@@ -817,7 +817,7 @@ Response:
 
 ## highlander
 
-**cclib highlander 17 \"[%22MULTIPLAYER_GAME_TXID%22]\"**
+**cclib highlander 17 '["game_txid"]'**
 
 The `highlander` method allows a character to exit the game and claim the `buyin` prize funds.
 
@@ -844,7 +844,7 @@ This method is only available in multi-player mode, and the user's character mus
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib highlander 17 \"[%22b94a0c14604df04a994e8fde610af7ddede76a62e1e3d86bbdac18e695662301%22]\"
+./komodo-cli -ac_name=ROGUE cclib highlander 17 '["b94a0c14604df04a994e8fde610af7ddede76a62e1e3d86bbdac18e695662301"]'
 ```
 
 Response:
@@ -863,7 +863,7 @@ Response:
 
 ## playerinfo
 
-**cclib playerinfo 17 \"[%22PLAYER_TXID%22]\"**
+**cclib playerinfo 17 '["player_txid"]'**
 
 The `playerinfo` method displays information about the currently active character.
 
@@ -892,14 +892,14 @@ The `playerinfo` method displays information about the currently active characte
 | experience   | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information            |
 | dungeonlevel | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information            |
 | chain        | (string)           | the name of the asset chain on which this game is occurring            |
-| pname(player_name) | (string) | the desired name for the user's currently active character            |
+| pname | (string) | the name of the user's currently active character            |
 
 #### :pushpin: Examples:
 
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib playerinfo 17 \"[%22cf2ae0997e24f100aa9da3cda747105e3134a102da69630d6d1683a6f0f7b0ab%22]\"
+./komodo-cli -ac_name=ROGUE cclib playerinfo 17 '["cf2ae0997e24f100aa9da3cda747105e3134a102da69630d6d1683a6f0f7b0ab"]'
 ```
 
 Response:
@@ -1040,7 +1040,7 @@ Response:
 
 ## setname
 
-**cclib setname 17 \"[%22NAME%22]\"**
+**cclib setname 17 '["name"]'**
 
 The `setname` method sets the name of the user's currently active character. 
 
@@ -1070,7 +1070,7 @@ This method is available only during an active game, and only for characters tha
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib setname 17 \"[%22SuperMegaWarrior%22]\"
+./komodo-cli -ac_name=ROGUE cclib setname 17 '["SuperMegaWarrior"]'
 ```
 
 Response:
@@ -1088,7 +1088,7 @@ Response:
 
 **cclib extract 17 '["game_txid","pubkey"]'**
 
-The `extract` method allows the user extract the complete history of a game after the game concludes. This allows the user to replay all game actions.
+The `extract` method allows the user extract the complete history of a game. This allows the user to view a replay of the game.
 
 #### Arguments:
 
