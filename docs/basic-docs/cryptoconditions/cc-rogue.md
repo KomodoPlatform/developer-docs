@@ -709,22 +709,54 @@ Response:
 ```
 ## keystrokes
 
-**cclib keystrokes 17 \"[%22GAME_TXID%22,%22keystrokes%22]\"**
+**cclib keystrokes 17 '["game_txid","keystrokes"]'**
+
+The `keystrokes` method executes the indicated `keystroke` for the indicated `game_txid`.
+
+<!-- We need to add a section that explains how the keystrokes are translated from the button push on the keyboard to the long string of characters we see in the example.-->
+
+After a game concludes the complete list of keystrokes can be found in the `keystrokes.log` file. <!--Need the path directory -->
 
 #### Arguments:
 
 | Name       | Type     | Description |
 | ---------- | -------- | ----------- |
-| gametxid   | (string) |             |
-| keystrokes |          |             |
+| gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character             |
+| keystrokes | (string)         | the desired keystroke <!-- need to indicate how the keystroke is provided/formatted -->             |
 
 #### Response:
+
+| Name	| Type	| Description	|
+| ----  | ----  | -----------   |
+| (none) | | |
 
 #### :pushpin: Examples:
 
 Command:
 
+```bash
+./komodo-cli -ac_name=ROGUE cclib keystrokes 17 '["777ba510824b467e9ddfb00a075e9cd5c6f73d1fa6f772b1a22563502def25ee","6a68686868686866686820686868682068686868206868666868686c6c6c6c6a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a68666b"]'
+```
+
 Response:
+
+```bash
+{
+   "result":{
+      "name":"rogue",
+      "method":"keystrokes",
+      "gametxid":"777ba510824b467e9ddfb00a075e9cd5c6f73d1fa6f772b1a22563502def25ee",
+      "keystrokes":"6a68686868686866686820686868682068686868206868666868686c6c6c6c6a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a68666b",
+      "batontxid":"3d9b93fb784852c5899f5cfa11b0c24f185835169781755027cb7e04fe4a7463",
+      "playertxid":"0000000000000000000000000000000000000000000000000000000000000000",
+      "hex":"0400008085202f890163744afe047ecb2750758197163558184fc2b011fa5c9f89c5524878fb939b3d00000000a74ca5a281a1a0819ca28194a067a5658021027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85814086ad1e7babe52189c9201acae2a031284ebba0fa5841f4e35a475c9eb267140d535b96e2379b2c99332c4f5efdbddcb5cd850301b9ffe1ba6de139696cea5439a129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffff029063a70000000000302ea22c80202ba0b269f75c72a0ce23e03812814b1e76a8fd57b3e75fee8b37bfef2b4ebf3581031210008203000401cc0000000000000000ad6a4caa114bee25ef2d506325a2b172f7a61f3df7c6d59c5e070ab0df9d7e464b8210a57b7763744afe047ecb2750758197163558184fc2b011fa5c9f89c5524878fb939b3d21027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85456a68686868686866686820686868682068686868206868666868686c6c6c6c6a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a68666b00000000a6b900000000000000000000000000",
+      "txid":"1fc6543d4aa577e976f9cb449835fe633510e169e00ceff243ca2791d68aec1c",
+      "result":"success"
+   },
+   "error":null,
+   "id":"jl777"
+}
+```
 
 ## bailout
 
@@ -1054,19 +1086,55 @@ Response:
 
 ## extract
 
-**cclib bailout 17 \"[%22GAME_TXID%22,%pubkey%22]\"**
+**cclib extract 17 '["game_txid","pubkey"]'**
+
+The `extract` method allows the user extract the complete history of a game after the game concludes. This allows the user to replay all game actions.
 
 #### Arguments:
 
 | Name     | Type     | Description |
 | -------- | -------- | ----------- |
-| gametxid | (string) |             |
-| pubkey   | (string) |             |
+| gametxid | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method            |
+| pubkey   | (string) | the `pubkey` of the player for whom the user desires to extract all relevant game data            |
 
 #### Response:
+
+| Name     | Type     | Description |
+| -------- | -------- | ----------- |
+| name       | (string)         | the name of the module            |
+| method     | (string)         | the name of the method            |
+| gametxid | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method            |
+| rogueaddr | (string) | |
+| status | (string) | whether the command executed successfully |
+| keystrokes | (string) | all keyboard strokes concatenated into a single string | <!-- ? -->
+| numkeys | (number) | |
+| playertxid | (string) | the `playertxid` transaction id that represents the character belonging to the indicated `pubkey` |
+| extracted  | | |
+| seed | | |
+| replay        | (string)           | the complete terminal command that must be executed to begin this game            |
 
 #### :pushpin: Examples:
 
 Command:
 
+```bash
+./komodo-cli -ac_name=ROGUE cclib extract 17 '["6bb0efcb14cd5101a4d8d8865c6a93162aa9480c5d3e0ce33902193cebdc4c39","0325151cf0f7321d0cde232898c5adc6b60f32df71b79af3a49d10020d42925ae9"]'
+```
+
 Response:
+
+```bash
+{
+  "name": "rogue",
+  "method": "extract",
+  "gametxid": "6bb0efcb14cd5101a4d8d8865c6a93162aa9480c5d3e0ce33902193cebdc4c39",
+  "rogueaddr": "RJHD68KaUg14DaooPz5VFXeTTh8qdpEseb",
+  "status": "success",
+  "keystrokes": "772a2064572a20636868686a68686866686868686868686868686868686c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6b6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c686a686a68686c6b6c6c6c6a6c6a6a6a6c6a6a6a6a6a686a6868686868686a6a686a6a6c6c6c6c6c6c6c6c6c6a6a6a6a6a6a6a6a6a6a686b6b6b6c6b6b6b6b6b6b68686868686868686b6b68206b686868686868686868686868686868686868686868686a6a6a6a686868686868686868686b686b686c6c6a6a6a6c6a6c6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6a6a6a686b6c6b6b6b686868686868686868686b6b6b6b68686868686868686868686868686c6c6c6c206c6c686868686868686b6b68686868206868686a6c6c6a6a6a6a6a6a68686868686868686868686a6a6a666a686868686b686c206c6920207170686c6c206a6b206a6920207270686b6c6c6c6c6c6c6c6c6b686b6b6b6c6c6c6c6c6c6c6c6b6b20666b6b6b6b686868686868686868686b6b686b6b6b6b6b6b6b6c6c6c6c6b6b6b6b6c6c6c6c6c6c6c6c6c6c6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a206868686868686868686868666c6c6c6c6c6a6c6c6c6c6c6c6c6c6a6a6a68686868686868686868686868686a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6a6a6a68686868683e6c686668686b68206c206c6a686a6a6a6a6a6a6a206b6b666a6a6c6c6a6c6c6c6c6868686868686868686868686868686868686868686868686868686868686868686a6a6a686868686868686868686b68686868686868686868206869206868646c6c6c6c6b6b686b6b6b6b6c6c6c6c6b6b6b6868686868686b6b6b6b6b6b6b68686868686868686868686b6b6b6b6b6c6c6c6c6c6c6c6c6c6c6c20686868666c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a6c6c6c6c6c6c206868686c6c6c20666b6b6920646a6c64696a686c6c6b206a692071202020726d6b6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c73736868686868686868686868686868686868686868686868686868686868686868686b6b6b686868686868686868686868686a686a6a6a6a6a6c6c6c6c6c6c6c6c6c6c206c6c6c206c6c6c6c206c6a6a6a6a6a6868686868686868686b6b6b6868686868206a20206c206c6c206c6c206c20",
+  "numkeys": 884,
+  "playertxid": "aeea6d8b3f50391a4bd477761e4d15ce3872ca6eccdfdb0fe40dd35868924c48",
+  "extracted": "$$$gold.288 hp.52 strength.16/16 level.6 exp.271 dl.2",
+  "seed": 4344864534442616921,
+  "replay": "cc/rogue/rogue 4344864534442616921"
+}
+```
