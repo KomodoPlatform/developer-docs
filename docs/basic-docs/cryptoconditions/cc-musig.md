@@ -633,11 +633,6 @@ You have now successfully executed a full cycle of the MuSig module.
 **cclib combine 18 '[ "pubkey1", "pubkey2", .....]'**
 
 The `combine` method produces the combined pubkey ( `combined_pk` ) from all pubkeys provided.
-<!--FIXME
-the sentence above ended with "computed through MuSig", but this phrase may not be necessary, as we assume that everything is being computed through MuSig for this module?
-
-gcharang: I added "computed through MuSig" for the  "combined_pk" to differntiate it from the pubkey for a normal multisig txn
--->
 
 Usage of this method depends upon the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
@@ -652,7 +647,7 @@ Usage of this method depends upon the [cclib](../komodo-api/cclib.html#cclib) me
 | Name        | Type     | Description                                                   |
 | ----------- | -------- | ------------------------------------------------------------- |
 | pkhash      | (string) | the 32-byte hash of the original public keys                  |
-| combined_pk | (string) | the combined pubkey of all the signers computed through MuSig |
+| combined_pk | (string) | the combined pubkey of all the signers |
 | result      | (string) | whether the call executed successfully                        |
 
 #### :pushpin: Examples:
@@ -687,7 +682,7 @@ Usage of this method depends upon the [cclib](../komodo-api/cclib.html#cclib) me
 
 | Name        | Type     | Description                                                   |
 | ----------- | -------- | ------------------------------------------------------------- |
-| combined_pk | (string) | the combined pubkey of all the signers computed through MuSig |
+| combined_pk | (string) | the combined pubkey of all the signers |
 | amount      | (number) | the amount of coins to be sent to the `combined_pk`           |
 
 #### Response:
@@ -785,7 +780,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | ----------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | myindex     | (decimal number) | the index of the node that is running this method; each node must be assigned a unique index from the set: {0,1,2,3, ... , (`numsigners` - 1)} |
 | numsigners  | (decimal number) | the total number of signers participating                                                                                                  |
-| combined_pk | (string)         | the combined pubkey of all the signers computed through MuSiG                                                                              |
+| combined_pk | (string)         | the combined pubkey of all the signers                                                                               |
 | pkhash      | (string)         | the 32-byte hash of the original public keys                                                                                               |
 | msg         | (string)         | the message that needs to be signed by all the signers for the final [spend](../cryptoconditions/cc-musig.html#spend) to succeed           |
 
@@ -967,7 +962,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | Name        | Type     | Description                                                                                                                      |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../cryptoconditions/cc-musig.html#spend) to succeed |
-| combined_pk | (string) | the combined pubkey of all the signers <!--  computed through MuSig (is this necessary?) -->                                                                   |
+| combined_pk | (string) | the combined pubkey of all the signers                                                                    |
 | combinedsig | (string) | the `combinedsig` value produced by the node on which this method is executed                                                    |
 
 #### Response:
@@ -976,7 +971,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../cryptoconditions/cc-musig.html#spend) to succeed |
 | combinedsig | (string) | the `combinedsig` value produced by the node on which this method is executed                                                    |
-| combined_pk | (string) | the combined pubkey of all the signers<!--  computed through MuSig (is this necessary?) -->                                                                    |
+| combined_pk | (string) | the combined pubkey of all the signers                                                                    |
 | result      | (string) | whether the call executed successfully                                                                                           |
 
 #### :pushpin: Examples:
@@ -1034,7 +1029,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | Name        | Type     | Description                                                                                                                      |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../cryptoconditions/cc-musig.html#spend) to succeed |
-| combined_pk | (string) | the combined pubkey of all the signers<!-- computed through MuSig (is this necessary?) -->                                                                    |
+| combined_pk | (string) | the combined pubkey of all the signers                                                                    |
 | combinedsig | (string) | the combined signature produced by all the signers                                                                               |
 | hex         | (string) | the `spend` transaction in raw-transaction format, provided in hexadecimal                                                            |
 | txid        | (string) | the transaction id of the spend transaction                                                                                      |
