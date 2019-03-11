@@ -477,7 +477,7 @@ As soon as the `gameplay_txid` is confirmed the player may begin to play.
 
 #### Multi-Player Mode
 
-If more than one player is allowed in the game parameters, the game goes into "Highlander" mode. In this mode, there can be only one winner of each game. The winner is the last player standing.
+If more than one player is allowed in the game parameters, the game goes into "Highlander" mode. In this mode, there can be only one winner of each game. The winner is either the last player standing, or the first player to retrieve the `amulet` and successfully exit the dungeon.
 
 Multiplayer mode also adds a time limit that is based on the frequency of keystrokes. So long as you are frequently entering commands, the time limit will expire in approximately one hour. If players are not frequently entering keystrokes, the time limit can vary.
 
