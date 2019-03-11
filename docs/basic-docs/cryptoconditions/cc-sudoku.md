@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Introduction here
+
 
 ### CC Sudoku Workflow
 
