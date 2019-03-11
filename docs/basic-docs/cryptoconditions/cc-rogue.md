@@ -298,7 +298,7 @@ Check the game's state using the [gameinfo](../cryptoconditions/cc-rogue.html#ga
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib gameinfo 17 \"[%2209d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70%22]\"
+./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
 Response:
@@ -313,7 +313,7 @@ Response:
   "start": 7462,
   "starthash": "0006b3ede92cd36bd50f7eca8bfffcb9a32254d1f24193517447752b004b582a",
   "seed": 3767108440867690538,
-  "run": "./komodo-cli -ac_name=ROGUE cclib register 17 \"[%2209d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70%22]\"",
+  "run": "./komodo-cli -ac_name=ROGUE cclib register 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'",
   "alive": 0,
   "numplayers": 0,
   "maxplayers": 1,
@@ -330,7 +330,7 @@ In the returned json object, observe the `run` value. This lists the specific co
 Register the `gameplay_txid` using the [register](../cryptoconditions/cc-rogue.html#register) method:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib register 17 \"[%2209d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70%22]\"
+./komodo-cli -ac_name=ROGUE cclib register 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
 Response:
@@ -365,7 +365,7 @@ Response:
 Check the game's current state again using the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method. Use the `gameplay_txid` as an argument:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib gameinfo 17 \"[%2209d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70%22]\"
+./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
 Response:
@@ -430,7 +430,7 @@ Quit the game by typing `Q` on the keyboard.
 Execute the [bailout]() method. For example:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib bailout 17 \"[%2209d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70%22]\"
+./komodo-cli -ac_name=ROGUE cclib bailout 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
 To use this character in a future game, save the transaction id that is returned from the above command and use it when registering for a future game.
@@ -446,10 +446,10 @@ The prize is the collective value of all `ROGUE` coins that were contributed dur
 To obtain this prize, use the [highlander](../cryptoconditions/cc-rogue.html#highlander) method:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib highlander 17 \"[%224fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a%22]\"
+./komodo-cli -ac_name=ROGUE cclib highlander 17 '["4fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a"]'
 ```
 
-To use the character in a future game, save the transaction id that is returned from the above command and use it when executing the [register](../cryptoconditions/cc-rogue.html#register) method for a future game.
+To use the character again, save the transaction id that is returned from the above command and use it when executing the [register](../cryptoconditions/cc-rogue.html#register) method for a future game.
 
 ## Gameplay Documentation
 
@@ -491,7 +491,7 @@ With each player that survives, whether by winning or by bailing out, the player
 
 ## newgame
 
-**cclib newgame 17 \"[maxplayers,buyin]\"**
+**cclib newgame 17 '[maxplayers,buyin]'**
 
 The `newgame` method creates a new game.
 
@@ -546,7 +546,7 @@ Response:
 
 ## gameinfo
 
-**cclib gameinfo 17 \"[%22GAME_TXID%22]\"**
+**cclib gameinfo 17 '["game_txid"]'**
 
 The `gameinfo` method returns relevant information about the indicated `gametxid` game.
 
@@ -581,7 +581,7 @@ The `gameinfo` method returns relevant information about the indicated `gametxid
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib gameinfo 17 \"[%22b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026%22]\"
+./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026"]'
 ```
 
 Response:
@@ -597,7 +597,7 @@ Response:
   "start": 19587,
   "starthash": "0003a5ed4715220a742a6c2381daa5d49d29fa56189c7d676985902734e71e2e",
   "seed": 2991956025523248686,
-  "run": "./komodo-cli -ac_name=ROGUE cclib register 17 \"[%22b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026%22]\"",
+  "run": "./komodo-cli -ac_name=ROGUE cclib register 17 '["b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026"]'",
   "alive": 0,
   "numplayers": 0,
   "maxplayers": 1,
@@ -658,7 +658,7 @@ Response:
 
 ## register
 
-**cclib register 17 \"[%22GAME_TXID%22(,%22PLAYER_TXID%22)]\"**
+**cclib register 17 '["game_txid"(,"player_txid")]'**
 
 The `register` method registers your character for a game.
 
@@ -692,7 +692,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 Command (registration without player):
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib register 17 \"[%22b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026%22]\"
+./komodo-cli -ac_name=ROGUE cclib register 17 '["b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026"]'
 ```
 
 Response:
@@ -712,26 +712,58 @@ Response:
 
 ## keystrokes
 
-**cclib keystrokes 17 \"[%22GAME_TXID%22,%22keystrokes%22]\"**
+**cclib keystrokes 17 '["game_txid","keystrokes"]'**
+
+The `keystrokes` method executes the indicated `keystroke` for the indicated `game_txid`.
+
+<!-- We need to add a section that explains how the keystrokes are translated from the button push on the keyboard to the long string of characters we see in the example.-->
+
+After a game concludes the complete list of keystrokes can be found in the `keystrokes.log` file. <!--Need the path directory -->
 
 #### Arguments:
 
-| Name       | Type     | Description |
-| ---------- | -------- | ----------- |
-| gametxid   | (string) |             |
-| keystrokes |          |             |
+| Name       | Type     | Description                                                                                                      |
+| ---------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
+| gametxid   | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character |
+| keystrokes | (string) | the desired keystroke <!-- need to indicate how the keystroke is provided/formatted -->                          |
 
 #### Response:
+
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### :pushpin: Examples:
 
 Command:
 
+```bash
+./komodo-cli -ac_name=ROGUE cclib keystrokes 17 '["777ba510824b467e9ddfb00a075e9cd5c6f73d1fa6f772b1a22563502def25ee","6a68686868686866686820686868682068686868206868666868686c6c6c6c6a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a68666b"]'
+```
+
 Response:
+
+```bash
+{
+   "result":{
+      "name":"rogue",
+      "method":"keystrokes",
+      "gametxid":"777ba510824b467e9ddfb00a075e9cd5c6f73d1fa6f772b1a22563502def25ee",
+      "keystrokes":"6a68686868686866686820686868682068686868206868666868686c6c6c6c6a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a68666b",
+      "batontxid":"3d9b93fb784852c5899f5cfa11b0c24f185835169781755027cb7e04fe4a7463",
+      "playertxid":"0000000000000000000000000000000000000000000000000000000000000000",
+      "hex":"0400008085202f890163744afe047ecb2750758197163558184fc2b011fa5c9f89c5524878fb939b3d00000000a74ca5a281a1a0819ca28194a067a5658021027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85814086ad1e7babe52189c9201acae2a031284ebba0fa5841f4e35a475c9eb267140d535b96e2379b2c99332c4f5efdbddcb5cd850301b9ffe1ba6de139696cea5439a129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffff029063a70000000000302ea22c80202ba0b269f75c72a0ce23e03812814b1e76a8fd57b3e75fee8b37bfef2b4ebf3581031210008203000401cc0000000000000000ad6a4caa114bee25ef2d506325a2b172f7a61f3df7c6d59c5e070ab0df9d7e464b8210a57b7763744afe047ecb2750758197163558184fc2b011fa5c9f89c5524878fb939b3d21027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85456a68686868686866686820686868682068686868206868666868686c6c6c6c6a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a68666b00000000a6b900000000000000000000000000",
+      "txid":"1fc6543d4aa577e976f9cb449835fe633510e169e00ceff243ca2791d68aec1c",
+      "result":"success"
+   },
+   "error":null,
+   "id":"jl777"
+}
+```
 
 ## bailout
 
-**cclib bailout 17 \"[%22GAME_TXID%22]\"**
+**cclib bailout 17 '["game_txid"]'**
 
 The `bailout` method allows a user to withdraw their character from the game.
 
@@ -769,7 +801,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib bailout 17 \"[%2239b65c12e37f6338b2daf8b7d8d6e1b6c083622590cb7a318daadabc785b73f0%22]\"
+./komodo-cli -ac_name=ROGUE cclib bailout 17 '["39b65c12e37f6338b2daf8b7d8d6e1b6c083622590cb7a318daadabc785b73f0"]'
 ```
 
 Response:
@@ -788,7 +820,7 @@ Response:
 
 ## highlander
 
-**cclib highlander 17 \"[%22MULTIPLAYER_GAME_TXID%22]\"**
+**cclib highlander 17 '["game_txid"]'**
 
 The `highlander` method allows a character to exit the game and claim the `buyin` prize funds.
 
@@ -815,7 +847,7 @@ This method is only available in multi-player mode, and the user's character mus
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib highlander 17 \"[%22b94a0c14604df04a994e8fde610af7ddede76a62e1e3d86bbdac18e695662301%22]\"
+./komodo-cli -ac_name=ROGUE cclib highlander 17 '["b94a0c14604df04a994e8fde610af7ddede76a62e1e3d86bbdac18e695662301"]'
 ```
 
 Response:
@@ -834,7 +866,7 @@ Response:
 
 ## playerinfo
 
-**cclib playerinfo 17 \"[%22PLAYER_TXID%22]\"**
+**cclib playerinfo 17 '["player_txid"]'**
 
 The `playerinfo` method displays information about the currently active character.
 
@@ -846,31 +878,31 @@ The `playerinfo` method displays information about the currently active characte
 
 #### Response:
 
-| Name               | Type               | Description                                                                                             |
-| ------------------ | ------------------ | ------------------------------------------------------------------------------------------------------- |
-| result             | (string)           | whether the command executed successfully                                                               |
-| name               | (string)           | the name of the module                                                                                  |
-| method             | (string)           | the name of the method                                                                                  |
-| player             | (json object)      | a json object containing relevant player data                                                           |
-| playertxid         | (string)           | the unique identifying transaction id of this player                                                    |
-| tokenid            | (string)           |                                                                                                         |
-| data               | (string)           |                                                                                                         |
-| pack               | (array of strings) | an array containing the items in the character's pack                                                   |
-| packsize           | (number)           | the number of items in the character's pack                                                             |
-| hitpoints          | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
-| strength           | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
-| level              | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
-| experience         | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
-| dungeonlevel       | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
-| chain              | (string)           | the name of the asset chain on which this game is occurring                                             |
-| pname(player_name) | (string)           | the desired name for the user's currently active character                                              |
+| Name         | Type               | Description                                                                                             |
+| ------------ | ------------------ | ------------------------------------------------------------------------------------------------------- |
+| result       | (string)           | whether the command executed successfully                                                               |
+| name         | (string)           | the name of the module                                                                                  |
+| method       | (string)           | the name of the method                                                                                  |
+| player       | (json object)      | a json object containing relevant player data                                                           |
+| playertxid   | (string)           | the unique identifying transaction id of this player                                                    |
+| tokenid      | (string)           |                                                                                                         |
+| data         | (string)           |                                                                                                         |
+| pack         | (array of strings) | an array containing the items in the character's pack                                                   |
+| packsize     | (number)           | the number of items in the character's pack                                                             |
+| hitpoints    | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
+| strength     | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
+| level        | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
+| experience   | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
+| dungeonlevel | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
+| chain        | (string)           | the name of the asset chain on which this game is occurring                                             |
+| pname        | (string)           | the name of the user's currently active character                                                       |
 
 #### :pushpin: Examples:
 
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib playerinfo 17 \"[%22cf2ae0997e24f100aa9da3cda747105e3134a102da69630d6d1683a6f0f7b0ab%22]\"
+./komodo-cli -ac_name=ROGUE cclib playerinfo 17 '["cf2ae0997e24f100aa9da3cda747105e3134a102da69630d6d1683a6f0f7b0ab"]'
 ```
 
 Response:
@@ -1011,7 +1043,7 @@ Response:
 
 ## setname
 
-**cclib setname 17 \"[%22NAME%22]\"**
+**cclib setname 17 '["name"]'**
 
 The `setname` method sets the name of the user's currently active character.
 
@@ -1041,7 +1073,7 @@ This method is available only during an active game, and only for characters tha
 Command:
 
 ```bash
-./komodo-cli -ac_name=ROGUE cclib setname 17 \"[%22SuperMegaWarrior%22]\"
+./komodo-cli -ac_name=ROGUE cclib setname 17 '["SuperMegaWarrior"]'
 ```
 
 Response:
@@ -1057,19 +1089,55 @@ Response:
 
 ## extract
 
-**cclib bailout 17 \"[%22GAME_TXID%22,%pubkey%22]\"**
+**cclib extract 17 '["game_txid","pubkey"]'**
+
+The `extract` method allows the user extract the complete history of a game. This allows the user to view a replay of the game.
 
 #### Arguments:
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| gametxid | (string) |             |
-| pubkey   | (string) |             |
+| Name     | Type     | Description                                                                                              |
+| -------- | -------- | -------------------------------------------------------------------------------------------------------- |
+| gametxid | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method |
+| pubkey   | (string) | the `pubkey` of the player for whom the user desires to extract all relevant game data                   |
 
 #### Response:
+
+| Name       | Type     | Description                                                                                              |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------- |
+| name       | (string) | the name of the module                                                                                   |
+| method     | (string) | the name of the method                                                                                   |
+| gametxid   | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method |
+| rogueaddr  | (string) |                                                                                                          |
+| status     | (string) | whether the command executed successfully                                                                |
+| keystrokes | (string) | all keyboard strokes concatenated into a single string                                                   | <!-- ? --> |
+| numkeys    | (number) |                                                                                                          |
+| playertxid | (string) | the `playertxid` transaction id that represents the character belonging to the indicated `pubkey`        |
+| extracted  |          |                                                                                                          |
+| seed       |          |                                                                                                          |
+| replay     | (string) | the complete terminal command that must be executed to begin this game                                   |
 
 #### :pushpin: Examples:
 
 Command:
 
+```bash
+./komodo-cli -ac_name=ROGUE cclib extract 17 '["6bb0efcb14cd5101a4d8d8865c6a93162aa9480c5d3e0ce33902193cebdc4c39","0325151cf0f7321d0cde232898c5adc6b60f32df71b79af3a49d10020d42925ae9"]'
+```
+
 Response:
+
+```bash
+{
+  "name": "rogue",
+  "method": "extract",
+  "gametxid": "6bb0efcb14cd5101a4d8d8865c6a93162aa9480c5d3e0ce33902193cebdc4c39",
+  "rogueaddr": "RJHD68KaUg14DaooPz5VFXeTTh8qdpEseb",
+  "status": "success",
+  "keystrokes": "772a2064572a20636868686a68686866686868686868686868686868686c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6b6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c686a686a68686c6b6c6c6c6a6c6a6a6a6c6a6a6a6a6a686a6868686868686a6a686a6a6c6c6c6c6c6c6c6c6c6a6a6a6a6a6a6a6a6a6a686b6b6b6c6b6b6b6b6b6b68686868686868686b6b68206b686868686868686868686868686868686868686868686a6a6a6a686868686868686868686b686b686c6c6a6a6a6c6a6c6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6a6a6a686b6c6b6b6b686868686868686868686b6b6b6b68686868686868686868686868686c6c6c6c206c6c686868686868686b6b68686868206868686a6c6c6a6a6a6a6a6a68686868686868686868686a6a6a666a686868686b686c206c6920207170686c6c206a6b206a6920207270686b6c6c6c6c6c6c6c6c6b686b6b6b6c6c6c6c6c6c6c6c6b6b20666b6b6b6b686868686868686868686b6b686b6b6b6b6b6b6b6c6c6c6c6b6b6b6b6c6c6c6c6c6c6c6c6c6c6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a206868686868686868686868666c6c6c6c6c6a6c6c6c6c6c6c6c6c6a6a6a68686868686868686868686868686a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6a6a6a68686868683e6c686668686b68206c206c6a686a6a6a6a6a6a6a206b6b666a6a6c6c6a6c6c6c6c6868686868686868686868686868686868686868686868686868686868686868686a6a6a686868686868686868686b68686868686868686868206869206868646c6c6c6c6b6b686b6b6b6b6c6c6c6c6b6b6b6868686868686b6b6b6b6b6b6b68686868686868686868686b6b6b6b6b6c6c6c6c6c6c6c6c6c6c6c20686868666c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a6c6c6c6c6c6c206868686c6c6c20666b6b6920646a6c64696a686c6c6b206a692071202020726d6b6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c73736868686868686868686868686868686868686868686868686868686868686868686b6b6b686868686868686868686868686a686a6a6a6a6a6c6c6c6c6c6c6c6c6c6c206c6c6c206c6c6c6c206c6a6a6a6a6a6868686868686868686b6b6b6868686868206a20206c206c6c206c6c206c20",
+  "numkeys": 884,
+  "playertxid": "aeea6d8b3f50391a4bd477761e4d15ce3872ca6eccdfdb0fe40dd35868924c48",
+  "extracted": "$$$gold.288 hp.52 strength.16/16 level.6 exp.271 dl.2",
+  "seed": 4344864534442616921,
+  "replay": "cc/rogue/rogue 4344864534442616921"
+}
+```

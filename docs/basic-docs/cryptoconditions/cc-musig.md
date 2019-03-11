@@ -252,6 +252,9 @@ Command:
 In the response there are a series of `vout` values, each of which has an array of json objects. Search for the `vout` value that has the `"type":"pubkey"` key pair listed. In this object, retrieve the `hex` value from the `scriptPubkey`:
 
 ```json
+
+... (omitted for brevity) ...
+
 "vout": [
 
     ... (omitted for brevity) ...
@@ -274,6 +277,9 @@ In the response there are a series of `vout` values, each of which has an array 
     ... (omitted for brevity) ...
 
   ]
+
+... (omitted for brevity) ...
+
 ```
 
 This `hex` is our `change_script` value. Save this to a secure location for later use.
@@ -624,7 +630,7 @@ You have now successfully executed a full cycle of the MuSig module.
 
 ## combine
 
-**cclib combine 18 '[ "pubkey1" , "pubkey2" , .....]'**
+**cclib combine 18 '[ "pubkey1", "pubkey2", .....]'**
 
 The `combine` method produces the combined pubkey ( `combined_pk` ) from all pubkeys provided.
 <!--the sentence above ended with "computed through MuSig", but this phrase may not be necessary, as we assume that everything is being computed through MuSig for this module?-->
@@ -665,7 +671,7 @@ Response:
 
 ## send
 
-**cclib send 18 '["combined_pk" , amount]'**
+**cclib send 18 '["combined_pk", amount]'**
 
 The `send` method allows any node on the network to fund the `combined_pk` with the specified `amount` . 
 
@@ -708,7 +714,7 @@ Response:
 
 ## calcmsg
 
-**cclib calcmsg 18 '["sendtxid" , "scriptPubKey"]'**
+**cclib calcmsg 18 '["sendtxid", "scriptPubKey"]'**
 
 The `calcmsg` method can be used by any one of the signers to initiate a `spend` transaction. 
 
@@ -763,7 +769,7 @@ Response:
 
 ## session
 
-**cclib session 18 '["myindex" , "numsigners" , "combined_pk" , "pkhash" , "msg"]'**
+**cclib session 18 '["myindex", "numsigners", "combined_pk", "pkhash", "msg"]'**
 
 The `session` method creates a `global data structure` on each node on which the method is executed. The method also adds a `commitment` to sign the `msg` message provided.
 
@@ -809,7 +815,7 @@ Response:
 
 ## commit
 
-**cclib commit 18 '["pkhash" , ind , "commitment"]'**
+**cclib commit 18 '["pkhash", ind, "commitment"]'**
 
 The `commit` method produces a `nonce` for each set of `index` and `commitment` values provided. 
 
@@ -855,7 +861,7 @@ Response:
 
 ## nonce
 
-**cclib nonce 18 '["pkhash" , ind , "nonce"]'**
+**cclib nonce 18 '["pkhash", ind, "nonce"]'**
 
 The `nonce` method produces a `partialsig` for each set of `index` and `nonce` value provided.
 
@@ -901,7 +907,7 @@ Response:
 
 ## partialsig
 
-**cclib partialsig 18 '["pkhash" , ind , "partialsig"]'**
+**cclib partialsig 18 '["pkhash", ind, "partialsig"]'**
 
 The `partialsig` method produces a `combinedsig` for each set of `index` and `nonce` values provided.
 
@@ -946,7 +952,7 @@ Response:
 
 ## verify
 
-**cclib verify 18 '["msg" , "combined_pk" , "combinedsig"]'**
+**cclib verify 18 '["msg", "combined_pk", "combinedsig"]'**
 
 The `verify` method verifies that the `combinedsig` is able to spend the funds owned by `combined_pk`. The funds in question are those which were referenced in the creation of the `msg` value.
 
@@ -990,7 +996,7 @@ Response:
 
 ## spend
 
-**cclib spend 18 '["sendtxid" , "combinedsig" , "scriptPubKey"]'**
+**cclib spend 18 '["sendtxid", "combinedsig", "scriptPubKey"]'**
 
 The `spend` method spends coins to the indicated `scriptPubKey`.
 
