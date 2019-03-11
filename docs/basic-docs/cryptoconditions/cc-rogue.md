@@ -210,6 +210,7 @@ git clone https://github.com/tonymorony/komodo_cryptoconditions_tui
 cd komodo_cryptoconditions_tui
 git checkout rogue
 cp -r * ~/komodo/src
+cp ~/.komodo/ROGUE/ROGUE.conf ~/komodo/src/ROGUE.conf
 ```
 
 Execute the following commands to launch the TUI software:
@@ -230,7 +231,8 @@ Extract the contents into the `~/komodo/src` directory.
 Execute the following commands to launch the TUI software:
 
 ```bash
-cd  ~/komodo/src
+cd ~/komodo/src
+cp ~/Library/Application\ Support/Komodo/ROGUE/ROGUE.conf ~/komodo/src/ROGUE.conf
 ./rogue_tui.py
 ```
 
@@ -491,7 +493,7 @@ With each player that survives, whether by winning or by bailing out, the player
 
 **cclib newgame 17 '[maxplayers,buyin]'**
 
-The `newgame` method creates a new game. 
+The `newgame` method creates a new game.
 
 The `buyin` argument is required for multi-player games. The coins contributed via `buyin` become a winner-takes-all pot. Either the first player to claim the `amulet` and return from the dungeon, or the last player standing; may claim this prize using the [highlander](../cryptoconditions/cc-rogue.html#highlander) method.
 
@@ -501,23 +503,23 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 #### Arguments:
 
-| Name       | Type             | Description |
-| ---------- | ---------------- | ----------- |
-| maxplayers | (decimal number) | the max number of players; if set to `1`, the game begins in single-player mode            |
-| buyin      | (number, required if `maxplayers` > `1`)        | the required amount to contribute per player; the winner receives all `buyin` coins             |
+| Name       | Type                                     | Description                                                                         |
+| ---------- | ---------------------------------------- | ----------------------------------------------------------------------------------- |
+| maxplayers | (decimal number)                         | the max number of players; if set to `1`, the game begins in single-player mode     |
+| buyin      | (number, required if `maxplayers` > `1`) | the required amount to contribute per player; the winner receives all `buyin` coins |
 
 #### Response:
 
-| Name       | Type             | Description |
-| ---------- | ---------------- | ----------- |
-| name       | (string)         | the name of the module            |
-| method     | (string)         | the name of the method            |
-| maxplayers | (decimal number) | the max number of players for this game            |
-| buyin      | (number)         | the required amount to contribute per player; the winner receives all `buyin` coins           |
-| type       | (string)         | the level of difficulty for this game            |
-| hex        | (string)         | a `hex` value containing the relevant game data; this value must be broadcast using the `sendrawtransaction` method            |
-| txid       | (string)         | a transaction id that represents the `gametxid`            |
-| result     | (string)         | whether the command executed successfully            |
+| Name       | Type             | Description                                                                                                         |
+| ---------- | ---------------- | ------------------------------------------------------------------------------------------------------------------- |
+| name       | (string)         | the name of the module                                                                                              |
+| method     | (string)         | the name of the method                                                                                              |
+| maxplayers | (decimal number) | the max number of players for this game                                                                             |
+| buyin      | (number)         | the required amount to contribute per player; the winner receives all `buyin` coins                                 |
+| type       | (string)         | the level of difficulty for this game                                                                               |
+| hex        | (string)         | a `hex` value containing the relevant game data; this value must be broadcast using the `sendrawtransaction` method |
+| txid       | (string)         | a transaction id that represents the `gametxid`                                                                     |
+| result     | (string)         | whether the command executed successfully                                                                           |
 
 #### :pushpin: Examples:
 
@@ -550,29 +552,29 @@ The `gameinfo` method returns relevant information about the indicated `gametxid
 
 #### Arguments:
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| gametxid | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method            |
+| Name     | Type     | Description                                                                                              |
+| -------- | -------- | -------------------------------------------------------------------------------------------------------- |
+| gametxid | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method |
 
 #### Response:
 
-| Name       | Type               | Description |
-| ---------- | ------------------ | ----------- |
-| name       | (string)           | name of the module            |
-| method     | (string)           | name of the method            |
-| gametxid   | (decimal number)   | the indicated `gametxid` transaction id            |
-| result     | (string)           | whether the command executed successfully            |
-| gameheight | (decimal number)   |             |
-| height     | (decimal number)   |             |
-| start      | (decimal number)   |             |
-| starthash  | (string)           |             |
-| seed       | (decimal number)   |             |
-| run        | (string)           | the complete terminal command that must be executed to begin this game            |
-| alive      | (decimal number)   | the number of players still alive in the game            |
-| numplayers | (decimal number)   | the total number of players that joined the game            |
-| maxplayers | (decimal number)   | the max number of players the game allows            |
-| buyin      | (number)           | the amount of `ROGUE` coins required for a player to join            |
-| players    | (array of strings) | an array containing the identifying transaction ids of each player            |
+| Name       | Type               | Description                                                            |
+| ---------- | ------------------ | ---------------------------------------------------------------------- |
+| name       | (string)           | name of the module                                                     |
+| method     | (string)           | name of the method                                                     |
+| gametxid   | (decimal number)   | the indicated `gametxid` transaction id                                |
+| result     | (string)           | whether the command executed successfully                              |
+| gameheight | (decimal number)   |                                                                        |
+| height     | (decimal number)   |                                                                        |
+| start      | (decimal number)   |                                                                        |
+| starthash  | (string)           |                                                                        |
+| seed       | (decimal number)   |                                                                        |
+| run        | (string)           | the complete terminal command that must be executed to begin this game |
+| alive      | (decimal number)   | the number of players still alive in the game                          |
+| numplayers | (decimal number)   | the total number of players that joined the game                       |
+| maxplayers | (decimal number)   | the max number of players the game allows                              |
+| buyin      | (number)           | the amount of `ROGUE` coins required for a player to join              |
+| players    | (array of strings) | an array containing the identifying transaction ids of each player     |
 
 #### :pushpin: Examples:
 
@@ -618,13 +620,13 @@ The `pending` method displays a list of unfinished games on the asset chain.
 
 #### Response:
 
-| Name       | Type               | Description |
-| ---------- | ------------------ | ----------- |
-| result     | (string)           | whether the command executed successfully            |
-| name       | (string)           | the name of the module            |
-| method     | (string)           | the name of the method            |
-| pending    | (array of strings) | an array of `gametxid`'s that represent unfinished games on the asset chain            |
-| numpending | (decimal number)   | the total number of unfinished games on the asset chain            |
+| Name       | Type               | Description                                                                 |
+| ---------- | ------------------ | --------------------------------------------------------------------------- |
+| result     | (string)           | whether the command executed successfully                                   |
+| name       | (string)           | the name of the module                                                      |
+| method     | (string)           | the name of the method                                                      |
+| pending    | (array of strings) | an array of `gametxid`'s that represent unfinished games on the asset chain |
+| numpending | (decimal number)   | the total number of unfinished games on the asset chain                     |
 
 #### :pushpin: Examples:
 
@@ -658,7 +660,7 @@ Response:
 
 **cclib register 17 '["game_txid"(,"player_txid")]'**
 
-The `register` method registers your character for a game. 
+The `register` method registers your character for a game.
 
 The optional `player_txid` allows the user to re-use a character that survived a previous game.
 
@@ -666,24 +668,24 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 #### Arguments:
 
-| Name       | Type     | Description |
-| ---------- | -------- | ----------- |
-| gametxid   | (string) | the `gametxid` of the game the user desires to join            |
-| playertxid | (string, optional) | the `playertxid` of an existing character the user owns and would like to use            |
+| Name       | Type               | Description                                                                   |
+| ---------- | ------------------ | ----------------------------------------------------------------------------- |
+| gametxid   | (string)           | the `gametxid` of the game the user desires to join                           |
+| playertxid | (string, optional) | the `playertxid` of an existing character the user owns and would like to use |
 
 #### Response:
 
-| Name       | Type               | Description |
-| ---------- | ------------------ | ----------- |
-| name       | (string)           | the name of the module            |
-| method     | (string)           | the name of the method           |
-| pending    | (array of strings) |             |
-| maxplayers | (decimal number)   | the max number of players allowed in this game            |
-| buyin      | (number)           | the required `buyin` amount of `ROGUE` coins to enter the game           |
-| type       | (string)           | the level of difficulty for this game            |
-| hex        | (string)           | a `hex` value of registration data; this must be broadcast using `sendrawtransaction`            |
-| txid       | (string)           | a transaction id that indicates the `playertxid` for this character             |
-| result     | (string)           | whether the command executed successfully            |
+| Name       | Type               | Description                                                                           |
+| ---------- | ------------------ | ------------------------------------------------------------------------------------- |
+| name       | (string)           | the name of the module                                                                |
+| method     | (string)           | the name of the method                                                                |
+| pending    | (array of strings) |                                                                                       |
+| maxplayers | (decimal number)   | the max number of players allowed in this game                                        |
+| buyin      | (number)           | the required `buyin` amount of `ROGUE` coins to enter the game                        |
+| type       | (string)           | the level of difficulty for this game                                                 |
+| hex        | (string)           | a `hex` value of registration data; this must be broadcast using `sendrawtransaction` |
+| txid       | (string)           | a transaction id that indicates the `playertxid` for this character                   |
+| result     | (string)           | whether the command executed successfully                                             |
 
 #### :pushpin: Examples:
 
@@ -707,6 +709,7 @@ Response:
   "result": "success"
 }
 ```
+
 ## keystrokes
 
 **cclib keystrokes 17 '["game_txid","keystrokes"]'**
@@ -719,16 +722,16 @@ After a game concludes the complete list of keystrokes can be found in the `keys
 
 #### Arguments:
 
-| Name       | Type     | Description |
-| ---------- | -------- | ----------- |
-| gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character             |
-| keystrokes | (string)         | the desired keystroke <!-- need to indicate how the keystroke is provided/formatted -->             |
+| Name       | Type     | Description                                                                                                      |
+| ---------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
+| gametxid   | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character |
+| keystrokes | (string) | the desired keystroke <!-- need to indicate how the keystroke is provided/formatted -->                          |
 
 #### Response:
 
-| Name	| Type	| Description	|
-| ----  | ----  | -----------   |
-| (none) | | |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### :pushpin: Examples:
 
@@ -762,13 +765,13 @@ Response:
 
 **cclib bailout 17 '["game_txid"]'**
 
-The `bailout` method allows a user to withdraw their character from the game. 
+The `bailout` method allows a user to withdraw their character from the game.
 
 This method is only available when the character is still alive. The character must remain alive until the returned `bailout_txid` is mined.
 
 When the character successfully bails out from the game, all in-game gold the character has captured is converted into `ROGUE` coins.
 
-The conversion ratio depends upon the mode of gameplay. 
+The conversion ratio depends upon the mode of gameplay.
 
 - Single-player mode: `1` gold to `0.0005` ROGUE coins
 - Multi-player mode: `1` gold to `0.001` ROGUE coins
@@ -777,21 +780,21 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 #### Arguments:
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character             |
+| Name     | Type     | Description                                                                                                      |
+| -------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
+| gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character |
 
 #### Response:
 
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| name        | (string) | the name of the module            |
-| method      | (string) | the name of the method            |
-| myrogueaddr | (string) |             |
-| gametxid    | (string) | the unique `gametxid` transaction id that identifies this game            |
-| hex         | (string) | a hex value that must be broadcast using `sendrawtransaction`            |
-| txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to re-use the character from this game            |
-| result      | (string) | whether the command executed successfully             |
+| Name        | Type     | Description                                                                                                                                                                |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name        | (string) | the name of the module                                                                                                                                                     |
+| method      | (string) | the name of the method                                                                                                                                                     |
+| myrogueaddr | (string) |                                                                                                                                                                            |
+| gametxid    | (string) | the unique `gametxid` transaction id that identifies this game                                                                                                             |
+| hex         | (string) | a hex value that must be broadcast using `sendrawtransaction`                                                                                                              |
+| txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to re-use the character from this game |
+| result      | (string) | whether the command executed successfully                                                                                                                                  |
 
 #### :pushpin: Examples:
 
@@ -825,19 +828,19 @@ This method is only available in multi-player mode, and the user's character mus
 
 #### Arguments:
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character             |
+| Name     | Type     | Description                                                                                                      |
+| -------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
+| gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character |
 
 #### Response:
 
-| Name        | Type     | Description |
-| ----------- | -------- | ----------- |
-| name        | (string) | the name of the module            |
-| method      | (string) | the name of the method            |
-| myrogueaddr | (string) |             |
-| gametxid    | (string) | the unique `gametxid` transaction id that identifies this game            |
-| txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to re-use the character from this game            |
+| Name        | Type     | Description                                                                                                                                                                |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name        | (string) | the name of the module                                                                                                                                                     |
+| method      | (string) | the name of the method                                                                                                                                                     |
+| myrogueaddr | (string) |                                                                                                                                                                            |
+| gametxid    | (string) | the unique `gametxid` transaction id that identifies this game                                                                                                             |
+| txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to re-use the character from this game |
 
 #### :pushpin: Examples:
 
@@ -869,30 +872,30 @@ The `playerinfo` method displays information about the currently active characte
 
 #### Arguments:
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character             |
+| Name     | Type     | Description                                                                                                      |
+| -------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
+| gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character |
 
 #### Response:
 
-| Name         | Type               | Description |
-| ------------ | ------------------ | ----------- |
-| result       | (string)           | whether the command executed successfully             |
-| name        | (string) | the name of the module            |
-| method      | (string) | the name of the method            |
-| player       | (json object)      | a json object containing relevant player data            |
-| playertxid   | (string)           | the unique identifying transaction id of this player            |
-| tokenid      | (string)           |             |
-| data         | (string)           |             |
-| pack         | (array of strings) | an array containing the items in the character's pack            |
-| packsize     | (number)           | the number of items in the character's pack           |
-| hitpoints    | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information            |
-| strength     | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information           |
-| level        | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information           |
-| experience   | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information            |
-| dungeonlevel | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information            |
-| chain        | (string)           | the name of the asset chain on which this game is occurring            |
-| pname | (string) | the name of the user's currently active character            |
+| Name         | Type               | Description                                                                                             |
+| ------------ | ------------------ | ------------------------------------------------------------------------------------------------------- |
+| result       | (string)           | whether the command executed successfully                                                               |
+| name         | (string)           | the name of the module                                                                                  |
+| method       | (string)           | the name of the method                                                                                  |
+| player       | (json object)      | a json object containing relevant player data                                                           |
+| playertxid   | (string)           | the unique identifying transaction id of this player                                                    |
+| tokenid      | (string)           |                                                                                                         |
+| data         | (string)           |                                                                                                         |
+| pack         | (array of strings) | an array containing the items in the character's pack                                                   |
+| packsize     | (number)           | the number of items in the character's pack                                                             |
+| hitpoints    | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
+| strength     | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
+| level        | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
+| experience   | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
+| dungeonlevel | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
+| chain        | (string)           | the name of the asset chain on which this game is occurring                                             |
+| pname        | (string)           | the name of the user's currently active character                                                       |
 
 #### :pushpin: Examples:
 
@@ -948,12 +951,12 @@ The `players` method displays a list of all `playertxid` transaction ids held in
 
 #### Response:
 
-| Name                    | Type               | Description |
-| ----------------------- | ------------------ | ----------- |
-| name        | (string) | the name of the module            |
-| method      | (string) | the name of the method            |
-| playerdata              | (array of strings) | an array containing all `playertxid` transaction ids in the user's local wallet             |
-| numplayerdata | (decimal number)   | the number of `playertxid` transaction ids in the `playerdata` array             |
+| Name          | Type               | Description                                                                     |
+| ------------- | ------------------ | ------------------------------------------------------------------------------- |
+| name          | (string)           | the name of the module                                                          |
+| method        | (string)           | the name of the method                                                          |
+| playerdata    | (array of strings) | an array containing all `playertxid` transaction ids in the user's local wallet |
+| numplayerdata | (decimal number)   | the number of `playertxid` transaction ids in the `playerdata` array            |
 
 #### :pushpin: Examples:
 
@@ -992,13 +995,13 @@ The `games` method displays a list of the user's unfinished and finished games.
 
 #### Response:
 
-| Name      | Type               | Description |
-| --------- | ------------------ | ----------- |
-| name        | (string) | the name of the module            |
-| method      | (string) | the name of the method            |
-| pastgames | (array of strings) | an array of `gametxid` transaction ids of finished games, from the user's local wallet file              |
-| games     | (array of strings) | an array of `gametxid` transaction ids of unfinished games, from the user's local wallet file           |
-| numgames  | (decimal number)   | the total number of games, from the user's local wallet file            |
+| Name      | Type               | Description                                                                                   |
+| --------- | ------------------ | --------------------------------------------------------------------------------------------- |
+| name      | (string)           | the name of the module                                                                        |
+| method    | (string)           | the name of the method                                                                        |
+| pastgames | (array of strings) | an array of `gametxid` transaction ids of finished games, from the user's local wallet file   |
+| games     | (array of strings) | an array of `gametxid` transaction ids of unfinished games, from the user's local wallet file |
+| numgames  | (decimal number)   | the total number of games, from the user's local wallet file                                  |
 
 #### :pushpin: Examples:
 
@@ -1042,7 +1045,7 @@ Response:
 
 **cclib setname 17 '["name"]'**
 
-The `setname` method sets the name of the user's currently active character. 
+The `setname` method sets the name of the user's currently active character.
 
 <!--Does the following need to be added?
 
@@ -1052,18 +1055,18 @@ This method is available only during an active game, and only for characters tha
 
 #### Arguments:
 
-| Name               | Type     | Description |
-| ------------------ | -------- | ----------- |
-| pname(player_name) | (string) | the desired name for the user's currently active character            |
+| Name               | Type     | Description                                                |
+| ------------------ | -------- | ---------------------------------------------------------- |
+| pname(player_name) | (string) | the desired name for the user's currently active character |
 
 #### Response:
 
-| Name   | Type     | Description |
-| ------ | -------- | ----------- |
-| name        | (string) | the name of the module            |
-| method      | (string) | the name of the method            |
-| result | (string) | whether the command executed successfully             |
-| pname(player_name) | (string) | the desired name for the user's currently active character            |
+| Name               | Type     | Description                                                |
+| ------------------ | -------- | ---------------------------------------------------------- |
+| name               | (string) | the name of the module                                     |
+| method             | (string) | the name of the method                                     |
+| result             | (string) | whether the command executed successfully                  |
+| pname(player_name) | (string) | the desired name for the user's currently active character |
 
 #### :pushpin: Examples:
 
@@ -1092,26 +1095,26 @@ The `extract` method allows the user extract the complete history of a game. Thi
 
 #### Arguments:
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| gametxid | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method            |
-| pubkey   | (string) | the `pubkey` of the player for whom the user desires to extract all relevant game data            |
+| Name     | Type     | Description                                                                                              |
+| -------- | -------- | -------------------------------------------------------------------------------------------------------- |
+| gametxid | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method |
+| pubkey   | (string) | the `pubkey` of the player for whom the user desires to extract all relevant game data                   |
 
 #### Response:
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| name       | (string)         | the name of the module            |
-| method     | (string)         | the name of the method            |
-| gametxid | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method            |
-| rogueaddr | (string) | |
-| status | (string) | whether the command executed successfully |
-| keystrokes | (string) | all keyboard strokes concatenated into a single string | <!-- ? -->
-| numkeys | (number) | |
-| playertxid | (string) | the `playertxid` transaction id that represents the character belonging to the indicated `pubkey` |
-| extracted  | | |
-| seed | | |
-| replay        | (string)           | the complete terminal command that must be executed to begin this game            |
+| Name       | Type     | Description                                                                                              |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------- |
+| name       | (string) | the name of the module                                                                                   |
+| method     | (string) | the name of the method                                                                                   |
+| gametxid   | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method |
+| rogueaddr  | (string) |                                                                                                          |
+| status     | (string) | whether the command executed successfully                                                                |
+| keystrokes | (string) | all keyboard strokes concatenated into a single string                                                   | <!-- ? --> |
+| numkeys    | (number) |                                                                                                          |
+| playertxid | (string) | the `playertxid` transaction id that represents the character belonging to the indicated `pubkey`        |
+| extracted  |          |                                                                                                          |
+| seed       |          |                                                                                                          |
+| replay     | (string) | the complete terminal command that must be executed to begin this game                                   |
 
 #### :pushpin: Examples:
 

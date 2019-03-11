@@ -633,7 +633,11 @@ You have now successfully executed a full cycle of the MuSig module.
 **cclib combine 18 '[ "pubkey1", "pubkey2", .....]'**
 
 The `combine` method produces the combined pubkey ( `combined_pk` ) from all pubkeys provided.
-<!--the sentence above ended with "computed through MuSig", but this phrase may not be necessary, as we assume that everything is being computed through MuSig for this module?-->
+<!--FIXME
+the sentence above ended with "computed through MuSig", but this phrase may not be necessary, as we assume that everything is being computed through MuSig for this module?
+
+gcharang: I added "computed through MuSig" for the  "combined_pk" to differntiate it from the pubkey for a normal multisig txn
+-->
 
 Usage of this method depends upon the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
