@@ -426,7 +426,7 @@ For example:
 
 The `bailout` transaction sends all earned ROGUE coins and and the player's non-fungible character token to the user's local `pubkey`. The character's inventory and characteristics are saved.
 
-After the `bailout` transaction is mined, the player may view their character using the [players](../cryptoconditions/cc-rogue.html#players) and [playerinfo](/cryptoconditions/cc-rogue.html#playerinfo) methods.
+After the `bailout` transaction is mined, the player may view their character using the [players](../cryptoconditions/cc-rogue.html#players) and [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) methods.
 
 #### Step 9: Highlander Victory 
 
@@ -444,11 +444,14 @@ To use the character again, save the transaction id that is returned from the ab
 
 ## Multi-Player Mode Walkthrough
 
-In this walktrough we will use two different ROGUE nodes to play - let's call them `player1` and `player2`.
+In this walktrough we use two nodes to play a multi-player game of Rogue.
 
-For educational purposes, we will execute all methods manually.
+- Node 1 is `player1`
+- Node 2 is `player2`
 
-#### Step 0
+For educational purposes, we execute all methods manually, as opposed to using the [TUI](../cryptoconditions/cc-rogue.html#installing-the-tui-optional).
+
+#### Step 1: Create a Multi-Player Game
 
 Open a new terminal and navigate to the `~/komodo/src` directory:
 
@@ -456,16 +459,18 @@ Open a new terminal and navigate to the `~/komodo/src` directory:
 cd ~/komodo/src
 ```
 
-#### Step 1 (multi-player game creaiton)
+For this game, we choose the following details:
 
-From one of the nodes execute following call:
+- the max number of players: `2`
+- the cost (in `ROGUE` coins of the game `buyin`: `0.1`
+
+Execute the [newgame](../cryptoconditions/cc-rogue.html#newgame) method on `player1` as follows:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib newgame 17 '["2","0.1"]'
 ```
 
-2 - maximal amount of players
-0.1 - game buyin (in ROGUE coins)
+Response:
 
 ```JSON
 {
@@ -480,11 +485,15 @@ From one of the nodes execute following call:
 }
 ```
 
-Lets use genereated txid and check information about game:
+Save the returned `txid` value for future use. This is our `game_txid`.
+
+Use the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method to check information about the game:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
+
+Response:
 
 ```JSON
 {
@@ -506,18 +515,25 @@ Lets use genereated txid and check information about game:
 }
 ```
 
-Game have now `"openslots":2` and `"numplayers":0` because nobody registered yet.
-Please note that `gameheight` (height when game was created) is `54265` while `start` height is `54270` (seed for rogue game start will be revealed only on this height).
+As shown in the returned json object, the game has a `maxplayers` value of `2` and an `openslots` value of `0`, as no players have joined.
 
-#### Step 2 (registration in multi-player game)
+Note that the `gameheight` value is `54265`. This is the block height at which the `game_txid` was created. 
 
-Registration for multi-player game is quite similar to single-player one: using `gametxid` as first argument and `playertxid` as second argument.
+Also note that the `start` value is `54270`. This is the block height at which the `seed` value will be revealed, allowing players to generate the level design and begin the game. 
 
-From `player1` node (this player used character playertxid as register argument so this character will appear in this game):
+#### Step 2: Register for the Game
+
+For our example, `player1` would like to use an existing character that survived a previous game. This allows `player1` to start with all the advantages this character achieved previously, including character statistics and items.
+
+To activate the existing characer, `player1` includes the associated `player_txid` for the character when executing the [register](../cryptoconditions/cc-rogue.html#register) method. (The `player_txid` values of any `pubkey` can be found using the [players](../cryptoconditions/cc-rogue.html#players) method.)
+
+The player also includes the `game_txid` as the first argument of the `register` method.
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde","8005f81a604df6bbfae91dc8252505df43edbdf06492a2201362cb42dba4d8f2"]'
 ```
+
+Response:
 
 ```JSON
 {
@@ -532,11 +548,13 @@ From `player1` node (this player used character playertxid as register argument 
 }
 ```
 
-From `player2` node (this player not used character playertxid so will start game with fresh character):
+In our example, the `player2` node does not have a character from a previous game, and therefore `player2` executes the `register` method with only the `game_txid`.
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
+
+Response:
 
 ```JSON
 {
@@ -551,11 +569,15 @@ From `player2` node (this player not used character playertxid so will start gam
 }
 ```
 
-Lets wait now until both registration transactions are mined and check gameinfo again:
+Wait until the `txid` values returned on both nodes are mined. (Use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to check the transaction's status.)
+
+After the transactions are mined, use the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method to check the game's status again:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
+
+Response:
 
 ```JSON
 {
@@ -627,27 +649,40 @@ Lets wait now until both registration transactions are mined and check gameinfo 
 }
 ```
 
-Now game state indicating that it's filled and since it's `gameheight` already `seed` is revealed. Also please note that state contains information about one character because `player1` used him for registration. 
+The `openslots` value is now `0`, as `2` players have joined. 
 
-So now everything is ready for rumble and clash! Both players can start now game by execution same command `cc/rogue/rogue 3928429259918614461 4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde`
+Note also that the `start` block height has past, and therefore the `seed` value is available.
 
-:::tip Interesting fact
-Both players will start from same level(dungeon level 1)because entropy of same block (same seed) was used for level generation.
-Next levels will be different
-:::
+Also note that the response includes information about the `player_txid` character provided by `player1` during registration.
 
-#### Step 3 (gameplay and finishing of multi-player game)
-
-To start game on both players node:
+The game is prepared. Both players may begin the game using the command found in the returned `run` value. 
 
 ```bash
 cc/rogue/rogue 3928429259918614461 4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde
 ```
 
-`player1` played a little and decided to execute bailout:
+<!-- 
+Need clarification on the tip below. Why exactly do the characters both start on the same dungeon level? Why did the block entropy (the seed) produce the same level for both characters? And what will happen on the next level? Is the next level a part of this game, or are you referring to a new game created later?
+
+
+:::tip Interesting fact
+Both players will start from same level(dungeon level 1)because entropy of same block (same seed) was used for level generation.
+Next levels will be different
+:::
+-->
+#### Step 3: Play and Finish the Game
+
+[View this linked section for instructions on gameplay.](../cryptoconditions/cc-rogue.html#gameplay-documentation)
+
+In our example, `player1` decides to bail out of the game without waiting until `player2` dies, and without retrieving the `amulet` from the dungeon. 
+
+To exit, `player1` executes the [bailout](../cryptoconditions/cc-rogue.html#bailout) method:
+
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
+
+Response:
 
 ```JSON
 {
@@ -661,11 +696,15 @@ cc/rogue/rogue 3928429259918614461 4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c
 }
 ```
 
-Let's check gameinfo again:
+With the `bailout` transaction mined, the `gameinfo` method now returns updated information:
+
+Command:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
+
+Response:
 
 ```JSON
 {
@@ -696,15 +735,24 @@ Let's check gameinfo again:
       "batonvout": 0,
       "batonvalue": 0.00010000,
       "batonht": 54297,
+
+    ... (omitted for brevity) ...
+
 ```
 
-`alive:0` and first slot player `"status"` is `finished`. That means that `player2` can execute `highlander` now to take the buyins pot!
+Note that the `alive` property has a value of `1`, indicating that the `player1` character has left and the `player2` character remains. Also note that in the `players` array, the first json object, which describes the `player1` node, has a `status` of `finished`.
 
-From `player2` node (after rogue game quiting by `Q + y + Enter`:
+Since `player1` left early, `player2` is the last character standing. The [highlander](../cryptoconditions/cc-rogue.html#highlander) method is now available to him.
+
+`player2` first begins the exit procedure by entering `Q`, then `y + Enter`.
+
+With the exit process in motion, `player2` executes the `highlander` method:
 
 ```bash 
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
+
+Response:
 
 ```JSON
 {
@@ -718,7 +766,7 @@ From `player2` node (after rogue game quiting by `Q + y + Enter`:
 }
 ```
 
-Thats it - multiplayer game finished. In highlander transaction winner will receive both buyins (also converted gold and character token).
+The multi-player game is now finished. The `player2` node received the `highlander` prize, including the total `buyin` amount and an increased conversion rate of in-game gold to `ROGUE` coins.
 
 ## Mechanics of character saving / re-usage (difference between tokentxid and playertxid)
 
@@ -913,11 +961,11 @@ The `gameinfo` method returns relevant information about the indicated `gametxid
 | method     | (string)           | name of the method                                                     |
 | gametxid   | (decimal number)   | the indicated `gametxid` transaction id                                |
 | result     | (string)           | whether the command executed successfully                              |
-| gameheight | (decimal number)   |                                                                        |
-| height     | (decimal number)   |                                                                        |
-| start      | (decimal number)   |                                                                        |
+| gameheight | (decimal number)   | the block height at which this `game_txid` was created                                                                      |
+| height     | (decimal number)   |                                                                         |
+| start      | (decimal number)   | the block height at which the seed will be revealed                                                                       |
 | starthash  | (string)           |                                                                        |
-| seed       | (decimal number)   |                                                                        |
+| seed       | (decimal number)   | the blockchain-generated random seed. This provides the necessary randomization for players to generate the current game's level design. The `seed` value is revealed at the `start` block height.                                                                        |
 | run        | (string)           | the complete terminal command that must be executed to begin this game |
 | alive      | (decimal number)   | the number of players still alive in the game                          |
 | numplayers | (decimal number)   | the total number of players that joined the game                       |
