@@ -67,7 +67,7 @@ brew install wget
 cd ~
 git clone https://github.com/jl777/komodo
 cd komodo
-git checkout jl777
+git checkout FSM
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh -j$(nproc)
 ```
@@ -78,7 +78,7 @@ git checkout jl777
 cd ~
 git clone https://github.com/jl777/komodo
 cd komodo
-git checkout jl777
+git checkout FSM
 ./zcutil/fetch-params.sh
 ./zcutil/build-mac.sh -j8
 ```
@@ -91,7 +91,7 @@ Change the `8` in the `-j8` portion of the last command to any number of process
 
 ```bash
 cd ~/komodo
-git checkout jl777
+git checkout FSM
 git pull
 ./zcutil/build.sh -j$(nproc)
 ```
@@ -183,9 +183,18 @@ cd ~/komodo/src
 ./komodod -ac_name=ROGUE -pubkey=02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2 -ac_supply=1000000 -addnode=5.9.102.210  -ac_cclib=rogue -ac_perc=10000000 -ac_reward=100000000 -ac_cc=60001 -ac_script=2ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc -daemon
 ```
 
+Please note that if you want to re-use warriors you have to start daemon with same pubkey each time.
+cclib players 17 call displaying warriors for pubkey which was set in `-pubkey` daemon param or by `setpubkey` RPC call. 
+
 ### Installing the TUI (Optional)
 
 The Terminal User Interface (TUI) provides automated methods for executing the ROGUE methods (rpcs) that are used to start and finish a game. Use of the TUI is optional, but recommended for most players.
+
+::: tip
+Latest porable bundles (precompiled komodod + rogue + TUI) can be found [here](https://github.com/tonymorony/komodo_cryptoconditions_tui/releases)
+:::
+
+**Please note that right now due to OS specific non-determinism bugs bundle (and ROGUE chain in general) availiable only for unix OS**  
 
 #### Linux
 
@@ -203,14 +212,12 @@ Install required python packages:
 pip3 install setuptools wheel slick-bitcoinrpc
 ```
 
-Clone the repo and copy the required files:
+Clone the repo and copy all repo files to same directory with ROGUE `komodod` daemon:
 
 ```bash
 git clone https://github.com/tonymorony/komodo_cryptoconditions_tui
 cd komodo_cryptoconditions_tui
-git checkout rogue
 cp -r * ~/komodo/src
-cp ~/.komodo/ROGUE/ROGUE.conf ~/komodo/src/ROGUE.conf
 ```
 
 Execute the following commands to launch the TUI software:
@@ -219,7 +226,7 @@ Execute the following commands to launch the TUI software:
 cd  ~/komodo/src
 ./rogue_tui.py
 ```
-
+<!-- Not availiable atm
 #### MacOS (OSX)
 
 Download the latest portable zip for OSX:
@@ -235,8 +242,8 @@ cd ~/komodo/src
 cp ~/Library/Application\ Support/Komodo/ROGUE/ROGUE.conf ~/komodo/src/ROGUE.conf
 ./rogue_tui.py
 ```
-
-## Manual Walkthrough
+-->
+## Manual Walkthrough (Singleplayer mode)
 
 The Komodo team provides a [Terminal User Interface (TUI)](../cryptoconditions/cc-rogue.html#installing-the-tui-optional) to allow players to launch and conclude a game without having to interact with the module's api commands.
 
@@ -252,7 +259,7 @@ cd ~/komodo/src
 
 #### Step 2
 
-Register a new game via the [newgame](../cryptoconditions/cc-rogue.html#newgame) method. For this example, we choose to have a single player with a `0` buy-in requirement.
+Create a new game via the [newgame](../cryptoconditions/cc-rogue.html#newgame) method. For this example, we choose to have a single player with a `0` buy-in requirement.
 
 Methods for ROGUE require the use of the [cclib](../komodo-api/cclib.html#cclib) method. The Rogue module's required `EVALCODE` for the `cclib` method is `17`.
 
@@ -277,19 +284,11 @@ Response:
 }
 ```
 
-Broadcast the raw `hex` value using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction):
-
-```bash
-./komodo-cli -ac_name=ROGUE sendrawtransaction 0400008085202f89010061c9741f0451fcbec05ff789eef49487f4e50dcfbe05534b3f37167e9be400010000007b4c79a276a072a26ba067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa883058140aa48a0604d4d2eb76efd21639b26897fa3c036edd8dd4ca3d91c1f9cce294ec55071aab6187326ee1b1e80a1a3d22f72dd393fb65f009a619e8cf7fb0632a52ca100af03800111a10001ffffffff061027000000000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc1027000000000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc40420f0000000000302ea22c80208958791fdd38bdf532c97f1691fd231a3f1f5c0c3cd28b68d7383c8b1078828e81031210008203000401cc1027000000000000302ea22c80208958791fdd38bdf532c97f1691fd231a3f1f5c0c3cd28b68d7383c8b1078828e81031210008203000401cc00b8880000000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc0000000000000000106a0e114700000000000000000100000000000000341d00000000000000000000000000
-```
-
-Response:
-
-```JSON
-09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70
-```
-
 The returned transaction id is the `gameplay_txid`. Save this for future use.
+
+:::tip
+Please note that Rogue transactions auto-broadcast at the moment
+:::
 
 #### Step 3
 
@@ -348,17 +347,6 @@ Response:
 }
 ```
 
-Broadcast the raw `hex` value using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction):
-
-```bash
-./komodo-cli -ac_name=ROGUE sendrawtransaction 0400008085202f890170fe35d4e867e69634ac7bdfebe4e253446b565493c2efd4e98e67bfb902d70902000000a74ca5a281a1a0819ca28194a067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa8830581407c0a8458a64c5653b279bbff6f50d23474819c720330510f80294a7a6789d6a11bbb49efb610c8402b67d7323be456bd0b7e787856882cb16a58409b05e42e6aa129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffff02301b0f0000000000302ea22c802039784572269885d080d1990f4eea2b3a93b285b10887d66ccc5f63e0026b0be781031210008203000401cc0000000000000000446a42115270fe35d4e867e69634ac7bdfebe4e253446b565493c2efd4e98e67bfb902d709000000000000000000000000000000000000000000000000000000000000000000000000401d00000000000000000000000000
-```
-
-Response:
-
-```JSON
-0896bf6cdabb31d90aa470ba8b85b01193bbca07b44618f8cadc0ed12d4ea749c
-```
 
 #### Step 5
 
@@ -405,9 +393,7 @@ In the returned json object, find the `run` value. This is the exact command nee
 
 #### Step 6 - Play
 
-Execute the above `run` command to start the game:
-
-<!--The below example seems wrong, but I'm not sure?-->
+Wait until `register txid` is mined (not presists in mempool anymore) and execute the above `run` command to start the game:
 
 ```bash
 cc/rogue/rogue 3767108440867690538 09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70
@@ -423,23 +409,24 @@ For instructions on in-game controls and objectives, [read this linked section.]
 
 If your character is still alive and you would like to leave the game, follow this procedure.
 
-This will convert your in-game gold to `ROGUE` coins at a ratio of `1:0.0005`, respectively.
+This will convert your in-game gold to `ROGUE` coins at a ratio of `ROGUE(satoshis) = gold * gold * dungeon_level_on_exit * 10`, respectively and save your character.
 
-Quit the game by typing `Q` on the keyboard.
+Quit the game by typing `Q` on the keyboard to open quit context menu, then input `n` and press `Enter`.
 
-Execute the [bailout]() method. For example:
+After all keystrokes transactions for this game are mined (txids for game can be found in keystrokes.log file which automatically creating in same folder with daemon) execute the [bailout]() method. For example:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
-To use this character in a future game, save the transaction id that is returned from the above command and use it when registering for a future game.
+Bailout transaction will send you converted ROGUE and non-fungible character token. All inventory and character characteristics will be saved. As soon as `bailout txid` is mined you should find him in your players list ([players call](../cryptoconditions/cc-rogue.html#players)) and check information about him ([playerinfo call with playertxid as argument](/cryptoconditions/cc-rogue.html#playerinfo)).
 
-#### Step 9: Highlander Victory (Not Available in Single-Player Mode)
+
+#### Step 9: Highlander Victory (Availiable in Single-player mode only if amulet is found)
 
 In this walkthrough we have used single-player mode, and therefore the following `highlander` method is not available. For explanatory purposes, we include a description here.
 
-If you are the winner of a multi-player game, you may exit the game in a manner that allows you to claim an additional prize.
+If you are the winner of a multi-player game (last player alive or found amulet first), you may exit the game in a manner that allows you to claim an additional prize.
 
 The prize is the collective value of all `ROGUE` coins that were contributed during the buy-in stage.
 
@@ -451,6 +438,351 @@ To obtain this prize, use the [highlander](../cryptoconditions/cc-rogue.html#hig
 
 To use the character again, save the transaction id that is returned from the above command and use it when executing the [register](../cryptoconditions/cc-rogue.html#register) method for a future game.
 
+## Manual Walkthrough (Multiplayer mode)
+
+In this walktrough we will use two different ROGUE nodes to play - let's call them `player1` and `player2`.
+
+#### Step 0
+
+Open a new terminal and navigate to the `~/komodo/src` directory:
+
+```bash
+cd ~/komodo/src
+```
+
+#### Step 1 (multi-player game creaiton)
+
+From one of the nodes execute following call:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib newgame 17 '["2","0.1"]'
+```
+
+2 - maximal amount of players
+0.1 - game buyin (in ROGUE coins)
+
+```JSON
+{
+  "name": "rogue",
+  "method": "newgame",
+  "maxplayers": 2,
+  "buyin": 0.10000000,
+  "type": "buyin",
+  "hex": "0400008085202f89010806e5efe696da16723dc894c191db31a78184a6d1e2f49d1be11baf5a711d15010000007b4c79a276a072a26ba067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa883058140166b7641979bb086181d30a5e0c9a84591dc8a3455f77858735fc75aa087b7dd4d0745fac898e547a069b5e75273bf0b28c29466b7f41c5800cb888bfff96f52a100af03800111a10001ffffffff081027000000000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc40420f0000000000302ea22c80208958791fdd38bdf532c97f1691fd231a3f1f5c0c3cd28b68d7383c8b1078828e81031210008203000401cc40420f0000000000302ea22c80208958791fdd38bdf532c97f1691fd231a3f1f5c0c3cd28b68d7383c8b1078828e81031210008203000401cc1027000000000000302ea22c80208958791fdd38bdf532c97f1691fd231a3f1f5c0c3cd28b68d7383c8b1078828e81031210008203000401cc1027000000000000302ea22c80208958791fdd38bdf532c97f1691fd231a3f1f5c0c3cd28b68d7383c8b1078828e81031210008203000401ccb04e790000000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc10270000000000002321027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85ac0000000000000000106a0e1147809698000000000002000000000000000dd400000000000000000000000000",
+  "txid": "4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde",
+  "result": "success"
+}
+```
+
+Lets use genereated txid and check information about game:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
+```
+
+```JSON
+{
+  "name": "rogue",
+  "method": "gameinfo",
+  "gametxid": "4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde",
+  "result": "success",
+  "gameheight": 54265,
+  "height": 54265,
+  "start": 54270,
+  "alive": 0,
+  "openslots": 2,
+  "numplayers": 0,
+  "maxplayers": 2,
+  "buyin": 0.10000000,
+  "seed": 0,
+  "players": [
+  ]
+}
+```
+
+Game have now `"openslots":2` and `"numplayers":0` because nobody registered yet.
+Please note that `gameheight` (height when game was created) is `54265` while `start` height is `54270` (seed for rogue game start will be revealed only on this height).
+
+#### Step 2 (registration in multi-player game)
+
+Registration for multi-player game is quite similar to single-player one: using `gametxid` as first argument and `playertxid` as second argument.
+
+From `player1` node (this player used character playertxid as register argument so this character will appear in this game):
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib register 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde","8005f81a604df6bbfae91dc8252505df43edbdf06492a2201362cb42dba4d8f2"]'
+```
+
+```JSON
+{
+  "name": "rogue",
+  "method": "register",
+  "maxplayers": 2,
+  "buyin": 0.10000000,
+  "type": "buyin",
+  "hex": "0400008085202f8903deab2890124b47fee4c4e47640c443b248966b6c12c78db4358b19b1a89ccf4c01000000a74ca5a281a1a0819ca28194a067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa883058140d68dba89573f717140a84471f1056bc783996ed45b39218425eb0b9dd2f51f2563c8779e21ed4aa62defee170920cd760a5f80dc7a184414a12dec27d6e39990a129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001fffffffff2d8a4db42cb621320a29264f0bded43df052525c81de9fabbf64d601af8058001000000804c7ea27ba077a26ba067a5658021027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e858140ba62fa04393766f2a39bc23c1cded3ac8fa940e2f47747b03376ecf467f2307737812e2927cbbd9787f8632979d5f7575e5f603d0dbaafc8905605b836014b0da100af03800111af038001f2a10001ffffffff0d45d807c5f96bbf021e7186e5632c4ff37cda13f4fbc0861e76d32ae078985a000000004847304402206a20289df3b06cec3154ab48d4a3cb62eb7c27ddbaacd24938307a3a003bb8cf02207f658d0c442b81ced5b44031c76d548185fa33f810fa1a3209d5181e2e46e16a01ffffffff04b0b1a70000000000302ea22c80202ba0b269f75c72a0ce23e03812814b1e76a8fd57b3e75fee8b37bfef2b4ebf3581031210008203000401cc0100000000000000302ea22c80207f0205ad6b02be91baf2a56dcc77381e7b0e19cb9a83dfb9530316958f5b706781032210008203000401cc804a5d05000000002321027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85ac00000000000000008c6a4c89f2748005f81a604df6bbfae91dc8252505df43edbdf06492a2201362cb42dba4d8f2012102deaddeaddeaddeaddeaddeaddeaddeaddeaddeaddeaddeaddeaddeaddeaddead16421152deab2890124b47fee4c4e47640c443b248966b6c12c78db4358b19b1a89ccf4cf2d8a4db42cb621320a29264f0bded43df052525c81de9fabbf64d601af805800000000014d400000000000000000000000000",
+  "txid": "20b5cf8249dda9e532d93d63e0b7fc3e28b15fdc606dbf04e06b3afd2cbb023d",
+  "result": "success"
+}
+```
+
+From `player2` node (this player not used character playertxid so will start game with fresh character):
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib register 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
+```
+
+```JSON
+{
+  "name": "rogue",
+  "method": "register",
+  "maxplayers": 2,
+  "buyin": 0.10000000,
+  "type": "buyin",
+  "hex": "0400008085202f8902deab2890124b47fee4c4e47640c443b248966b6c12c78db4358b19b1a89ccf4c02000000a74ca5a281a1a0819ca28194a067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa883058140d6ba58b1f908127a08975c2b894908a5394e17752f3f4fc42f62a84854a6a34e7d36b9b0f5a9e8331b0b763fccd9c751c9768f494a160ba0c173253c598d3459a129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffff0d47edc39292bc46274460312302e9f5fbc7ff8e9e03dfc26fde0c9137030661000000004847304402204b8bb25641221d02db0af6319044c7249fe6e1e3aacf3430f296444bd00780a7022046a53d377dd1746b32ad38482fc3d88aa485fad2e1a7da634d46a753000b3bc601ffffffff04b0b1a70000000000302ea22c8020dab28a48d54ca8ae474d7ff8fefa29aa38739f873f9a2488d5260e481c4d924381031210008203000401cc0100000000000000302ea22c80207f0205ad6b02be91baf2a56dcc77381e7b0e19cb9a83dfb9530316958f5b706781032210008203000401cc7f4a5d05000000002321030c16387fda9c2c3e1b90b272a938424f9eecf16e859887874fb843892c3572abac0000000000000000446a421152deab2890124b47fee4c4e47640c443b248966b6c12c78db4358b19b1a89ccf4c00000000000000000000000000000000000000000000000000000000000000000000000017d400000000000000000000000000",
+  "txid": "8c595f0fd053d140bb1449b962ffb31fc983c7de9e19c44fd4b1c3e908d99efa",
+  "result": "success"
+}
+```
+
+Lets wait now until both registration transactions are mined and check gameinfo again:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
+```
+
+```JSON
+{
+  "name": "rogue",
+  "method": "gameinfo",
+  "gametxid": "4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde",
+  "result": "success",
+  "gameheight": 54265,
+  "height": 54265,
+  "start": 54270,
+  "starthash": "0009fb977f5d34ff8fbaf5393e17ecc6c590d9f6db120c69b684959922b31fbd",
+  "seed": 3928429259918614461,
+  "run": "cc/rogue/rogue 3928429259918614461 4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde",
+  "alive": 2,
+  "openslots": 0,
+  "numplayers": 2,
+  "maxplayers": 2,
+  "buyin": 0.10000000,
+  "seed": 3928429259918614461,
+  "players": [
+    {
+      "slot": 0,
+      "status": "registered",
+      "baton": "20b5cf8249dda9e532d93d63e0b7fc3e28b15fdc606dbf04e06b3afd2cbb023d",
+      "tokenid": "8005f81a604df6bbfae91dc8252505df43edbdf06492a2201362cb42dba4d8f2",
+      "batonaddr": "RVuzXY65FyJiPPWSBc9efATh6nb4M9MceR",
+      "ismine": false,
+      "batonvout": 0,
+      "batonvalue": 0.10990000,
+      "batonht": 54273,
+      "player": {
+        "gametxid": "4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde",
+        "batontxid": "20b5cf8249dda9e532d93d63e0b7fc3e28b15fdc606dbf04e06b3afd2cbb023d",
+        "playertxid": "8005f81a604df6bbfae91dc8252505df43edbdf06492a2201362cb42dba4d8f2",
+        "tokenid": "8005f81a604df6bbfae91dc8252505df43edbdf06492a2201362cb42dba4d8f2",
+        "data": "250000000e00000010001000020000000b0000000700000002000000000000003a0000000000000001000000000000000000000000000000000000001000000000000000000000000000000000000000000000005d00000000000000010000000100000000000000000000000600000012000000000000000000000000000000000000000000000029000000ffffffff010000000000000001000000010000000000000012000000000000003278340000000000317833000000000029000000ffffffff010000000200000001000000000000000000000012000000000000003178310000000000317831000000000029000000020000001f000000030000000000000000000000000000001e00000000000000317831000000000032783300000000002f0000000000000001000000080000000000000000000000060000001000000000000000317831000000000031783100000000003d00000000000000010000000200000000000000000000000b000000100000000000000030783000000000003078300000000000",
+        "pack": [
+          "Some food",
+          "+1 ring mail [protection 4]",
+          "A +1,+1 mace",
+          "A +1,+0 short bow",
+          "31 +0,+0 arrows",
+          "A staff of slow monster [6 charges](kukui wood)",
+          "A ring of sustain strength(obsidian)"
+        ],
+        "packsize": 7,
+        "hitpoints": 14,
+        "strength": 16,
+        "maxstrength": 16,
+        "level": 2,
+        "experience": 11,
+        "dungeonlevel": 2,
+        "chain": "ROGUE",
+        "pname": "tester02"
+      }
+    },
+    {
+      "slot": 1,
+      "status": "registered",
+      "baton": "8c595f0fd053d140bb1449b962ffb31fc983c7de9e19c44fd4b1c3e908d99efa",
+      "tokenid": "0000000000000000000000000000000000000000000000000000000000000000",
+      "batonaddr": "RMYAWp4qQ2RQRAeBHeW3GdD79GjGHkNwE6",
+      "ismine": true,
+      "batonvout": 0,
+      "batonvalue": 0.10990000,
+      "batonht": 54276
+    }
+  ]
+}
+```
+
+Now game state indicating that it's filled and since it's `gameheight` already `seed` is revealed. Also please note that state contains information about one character because `player1` used him for registration. 
+
+So now everything is ready for rumble and clash! Both players can start now game by execution same command `cc/rogue/rogue 3928429259918614461 4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde`
+
+:::tip Interesting fact
+Both players will start from same level(dungeon level 1)because entropy of same block (same seed) was used for level generation.
+Next levels will be different
+:::
+
+#### Step 3 (gameplay and finishing of multi-player game)
+
+To start game on both players node:
+
+```bash
+cc/rogue/rogue 3928429259918614461 4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde
+```
+
+`player1` played a little and decided to execute bailout:
+```bash
+./komodo-cli -ac_name=ROGUE cclib bailout 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
+```
+
+```JSON
+{
+  "name": "rogue",
+  "method": "bailout",
+  "myrogueaddr": "RVuzXY65FyJiPPWSBc9efATh6nb4M9MceR",
+  "gametxid": "4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde",
+  "hex": "0400008085202f8903bafcee9bbe5536b0a5dc2bdff72f34ceedc4f6dae07cdf9eef973339a095845900000000a74ca5a281a1a0819ca28194a067a5658021027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e858140542c935c9812a93c4b304123f86f3b71b5a2236edbc7d080dbf9fec1ddd683397935d5990eb2617e304be1560740ff80fdc3d7524c68adfc70cf57e2376b3666a129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffffdeab2890124b47fee4c4e47640c443b248966b6c12c78db4358b19b1a89ccf4c03000000a74ca5a281a1a0819ca28194a067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa8830581403f6df06683f5788ee5ea9113af44d0d76753e619be4b1ead6a56c9fbabaa5c1e25a26f2c6097398c1f3eb98578eff8c05315d9f49a30f1006b6d8dc72a7d45c2a129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffff04e14b45dfd8f96da57b4cd7207b8349085a9c58e617f559b6a633dc751a83d3010000007b4c79a276a072a26ba067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa8830581400d139c3302c33098fca9d25e3072ab9ccedb07bb82f79e8f97d35078183cf69c230d64ce52c4f9ba5c1f8f26affeb8ff4646a77240cc38f2af7d24be627c6fb8a100af03800111a10001ffffffff061027000000000000302ea22c8020432de388aabcb6b4e3326351d1d815cee8be9a8d37b055cd1c0cf8782e5c50c08103120c008203000401cc0100000000000000302ea22c8020f29dbf12dea61586c1c7a8c6fe99eaa82a32298686bac7d0f698e91e896f48d481032210008203000401cca04b0000000000002321027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85ac50603f0100000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc1f4e0000000000002321027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85ac0000000000000000fdcf026a4dcb02f26321027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e851333393238343239323539393138363134343631403463636639636138623131393862333562343864633731323663366239363438623234336334343037366534633465346665343734623132393032386162646511fd4e021151deab2890124b47fee4c4e47640c443b248966b6c12c78db4358b19b1a89ccf4c05524f4755450874657374657230320000000021027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85fdf4012c0000000e0000001000100002000000110000000900000001000000000000003a0000000000000001000000000000000000000000000000000000001200000000000000000000000000000000000000000000005d0000000000000001000000010000000000000000000000060000001200000000000000000000000000000000000000000000005d00000000000000010000000000000000000000000000000800000010000000000000003078300000000000307830000000000029000000ffffffff010000000000000001000000010000000000000012000000000000003278340000000000317833000000000029000000ffffffff010000000200000001000000000000000000000012000000000000003178310000000000317831000000000029000000020000001f000000030000000000000000000000000000001e00000000000000317831000000000032783300000000002f0000000000000001000000080000000000000000000000060000001200000000000000317831000000000031783100000000003d00000000000000010000000200000000000000000000000b0000001200000000000000307830000000000030783000000000003f00000000000000010000000800000000000000000000000b000000100000000000000030783000000000003078300000000000000000002dd400000000000000000000000000",
+  "txid": "5184b9d50cb70eb3b2f92e53e66ff90777a650e9167f8a133eb13a2da2ae999c",
+  "result": "success"
+}
+```
+
+Let's check gameinfo again:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
+```
+
+```JSON
+{
+  "name": "rogue",
+  "method": "gameinfo",
+  "gametxid": "4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde",
+  "result": "success",
+  "gameheight": 54265,
+  "height": 54265,
+  "start": 54270,
+  "starthash": "0009fb977f5d34ff8fbaf5393e17ecc6c590d9f6db120c69b684959922b31fbd",
+  "seed": 3928429259918614461,
+  "run": "cc/rogue/rogue 3928429259918614461 4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde",
+  "alive": 1,
+  "openslots": 0,
+  "numplayers": 2,
+  "maxplayers": 2,
+  "buyin": 0.10000000,
+  "seed": 3928429259918614461,
+  "players": [
+    {
+      "slot": 0,
+      "status": "finished",
+      "baton": "5184b9d50cb70eb3b2f92e53e66ff90777a650e9167f8a133eb13a2da2ae999c",
+      "tokenid": "0000000000000000000000000000000000000000000000000000000000000000",
+      "batonaddr": "RVuzXY65FyJiPPWSBc9efATh6nb4M9MceR",
+      "ismine": true,
+      "batonvout": 0,
+      "batonvalue": 0.00010000,
+      "batonht": 54297,
+```
+
+`alive:0` and first slot player `"status"` is `finished`. That means that `player2` can execute `highlander` now to take the buyins pot!
+
+From `player2` node (after rogue game quiting by `Q + y + Enter`:
+
+```bash 
+./komodo-cli -ac_name=ROGUE cclib highlander 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
+```
+
+```JSON
+{
+  "name": "rogue",
+  "method": "highlander",
+  "myrogueaddr": "RMYAWp4qQ2RQRAeBHeW3GdD79GjGHkNwE6",
+  "gametxid": "4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde",
+  "hex": "0400008085202f8906fb01b5159bd9eb16c969a274573312a870eaec6ca921d45cfea828cf4bfdce7400000000a74ca5a281a1a0819ca28194a067a5658021030c16387fda9c2c3e1b90b272a938424f9eecf16e859887874fb843892c3572ab814040b427395fa60eec5d645994bdf49f56479913f76af9a0143a1cedba51bdf40604db488e5f16c22738d007832cce6f5694e0b72a59934af01283241eabfb04f4a129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffffdeab2890124b47fee4c4e47640c443b248966b6c12c78db4358b19b1a89ccf4c04000000a74ca5a281a1a0819ca28194a067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa8830581401b629f9b61eef6513f07b351a2a3c3ece554204fc355bc5d22cb2df7fa86355908e4d443783f998fdaa98818078a9644f8147391e2b96f53aa025619deab057ba129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffffdeab2890124b47fee4c4e47640c443b248966b6c12c78db4358b19b1a89ccf4c000000007b4c79a276a072a26ba067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa88305814077ca033d18a0125a269abdacb825d399f950e564eb9ad38f53eadd30213d158349952d30e109b7bfd5f47165e3e05b849c919f028bf447813a006fb76cf8fafba100af03800111a10001ffffffff09d702382f7d9bb899b5c935ec85f17da65df496c0898d5466e852235a99a529010000007b4c79a276a072a26ba067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa883058140f9885eba23b5f7ce803cd6256afdfda72cdac6e3112c448c9752e378310b4f8e66f18a1a9309d9c848680c0e1656cabb63857426a5e34c831ee7ba8883478d23a100af03800111a10001ffffffff0b295c8f2da505fd2fd76a23e742976855de3476381ea54ea2f4741398f9c8e5010000007b4c79a276a072a26ba067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa8830581402adefb3329c07c992aa0e5217ec129bbbdea0b60a9ef4dd65a8788833f764012673e9888b28a6cd61e438c95703c93becd0344d59e8b4af0800289b8539e104ca100af03800111a10001ffffffff0b473035d1618096e7856167a47a80e440b05884c2a6f9cc51545ea9bf22477b010000007b4c79a276a072a26ba067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa883058140586da282bd1f1038c2f34f9bf93543cb0bc315d37d3572d262a6b7d9133533920fdb65118b702435bdbb62e41c4d873e79cc9ce6786ea74686f5c49413358c36a100af03800111a10001ffffffff061027000000000000302ea22c8020432de388aabcb6b4e3326351d1d815cee8be9a8d37b055cd1c0cf8782e5c50c08103120c008203000401cc0100000000000000302ea22c8020b3004eceb8c0082eae35418495dc48c6785dc23d0176e82514c90a41d93198ea81032210008203000401cc343a3101000000002321030c16387fda9c2c3e1b90b272a938424f9eecf16e859887874fb843892c3572abacbc9e3f0100000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc2f750000000000002321030c16387fda9c2c3e1b90b272a938424f9eecf16e859887874fb843892c3572abac0000000000000000fd2b026a4d2702f26321030c16387fda9c2c3e1b90b272a938424f9eecf16e859887874fb843892c3572ab1333393238343239323539393138363134343631403463636639636138623131393862333562343864633731323663366239363438623234336334343037366534633465346665343734623132393032386162646511fdaa011148deab2890124b47fee4c4e47640c443b248966b6c12c78db4358b19b1a89ccf4c05524f475545000100000021030c16387fda9c2c3e1b90b272a938424f9eecf16e859887874fb843892c3572abfd58010d0000000c0000001000100001000000020000000600000001000000000000003a0000000000000001000000000000000000000000000000000000001000000000000000000000000000000000000000000000005d00000000000000010000000100000000000000000000000600000012000000000000000000000000000000000000000000000029000000ffffffff010000000000000001000000010000000000000012000000000000003278340000000000317833000000000029000000ffffffff0100000002000000010000000000000000000000120000000000000031783100000000003178310000000000290000000200000022000000030000000000000000000000000000001e00000000000000317831000000000032783300000000003f00000000000000010000000800000000000000000000000b0000001000000000000000307830000000000030783000000000000000000030d400000000000000000000000000",
+  "txid": "fc86d6b5f5d3ab98de97d50fbd3853c726197d28a9436aeba66e70dadd541065",
+  "result": "success"
+}
+```
+
+Thats it - multiplayer game finished. In highlander transaction winner will receive both buyins (also converted gold and character token).
+
+## Mechanics of character saving / re-usage (difference between tokentxid and playertxid)
+
+As been told before - Komodo variation of Rogue allows to save characters with characteristics and inventory.
+
+List of player saved characters possible to get by `players` call:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib players 17
+```
+
+```JSON
+{
+  "name": "rogue",
+  "method": "players",
+  "playerdata": [
+    "65a27df1afb51136fb021ad903ad4f4778060ea85b64ea63a62392c2463a3f71",
+    "89a2f4e47816991d009de8fd3f0b246dc7212b0a2d7de580b2cc9f3e07141785",
+    "0b385477e803af3803beaf953659cee52f8a1f8687dbfac565c172ca850c2f97",
+    "f79b6698ac74c6aca6ef7a223215f40d2a506586d26c71c4d0b3d79e75b00cc8"
+  ],
+  "numplayerdata": 4
+}
+```
+
+Let's check information about one:
+
+```bash
+./komodo-cli -ac_name=ROGUE cclib playerinfo 17 '["0b385477e803af3803beaf953659cee52f8a1f8687dbfac565c172ca850c2f97"]'
+
+```
+
+```JSON
+{
+  "result": "success",
+  "name": "rogue",
+  "method": "playerinfo",
+  "player": {
+    "gametxid": "c43b219b752708e73a1c5ab690365c7e6723cec8fc47c36aab09fa762ab3271b",
+    "playertxid": "0b385477e803af3803beaf953659cee52f8a1f8687dbfac565c172ca850c2f97",
+    "tokenid": "0b385477e803af3803beaf953659cee52f8a1f8687dbfac565c172ca850c2f97",
+    "data": "240000000c0000001000100001000000050000000600000002000000000000003a0000000000000001000000000000000000000000000000000000001000000000000000000000000000000000000000000000005d00000000000000010000000100000000000000000000000600000012000000000000000000000000000000000000000000000029000000ffffffff010000000000000001000000010000000000000012000000000000003278340000000000317833000000000029000000ffffffff010000000200000001000000000000000000000012000000000000003178310000000000317831000000000029000000020000001d000000030000000000000000000000000000001e00000000000000317831000000000032783300000000003f00000000000000010000000400000000000000000000000b000000100000000000000030783000000000003078300000000000",
+    "pack": [
+      "Some food",
+      "+1 ring mail [protection 4]",
+      "A +1,+1 mace",
+      "A +1,+0 short bow",
+      "29 +0,+0 arrows",
+      "A scroll of enchant armor"
+    ],
+    "packsize": 6,
+    "hitpoints": 12,
+    "strength": 16,
+    "maxstrength": 16,
+    "level": 1,
+    "experience": 5,
+    "dungeonlevel": 2,
+    "chain": "ROGUE",
+    "pname": "TonyL"
+  }
+}
+```
+Important thing is that in this list displaying `playertxid` of characters. Each character have 2 transactions associated: `tokentxid` and `playertxid`.
+
+`tokentxid` representing character as non-fungible token - it's giving once on character "birth" (other words token with this txid creating. This txid using for character transferring as a token and trading on TokensCC DEX. If character dies - token burning (sending to burn address).
+
+`playertxid` representing character as Rogue game player - it's changing after each character re-usage and succesfull bailout. So character `tokentxid` might be not the same (same only after first game) as `playertxid` but `tokentxid` is always the same.
+
+In case of bailout with alive character `gameinfo` for this game will return `batontxid` which is actually new `playertxid` of used character. From other side in `playerinfo` can be found `gametxid` in which this character `playertxid` participated so this way is possible to detect actual `playertxid` for given `tokenid`.
+
 ## Gameplay Documentation
 
 As Komodo's Rogue implementation is based off of the classic Rogue game, the classic manual provides the basic instructions for the game:
@@ -459,8 +791,20 @@ As Komodo's Rogue implementation is based off of the classic Rogue game, the cla
 
 After reading the linked manual, there are additional aspects to keep in mind for Komodo's unique implementation.
 
-:::tip Quick Tip
-Some users report that typing the letter `s` on the keyboard does not properly execute the `save game` command. If this is an issue, instead use `SHIFT + Q`.
+:::tip Character saving
+Please note that `s` not using as `save game` command. Instead use `Q + y + Enter` and after execute bailout command to extract gold and charachter progress.
+Important that you have to collect more than 0 gold and kill at least one monster - otherwise your character will be counted as dead.
+:::
+
+:::tip Inventory changes
+As expiremental feature over the original Rogue gameplay inventory scaling now with strength of character. Character can carry up to `strength * 2` items (but
+no more than 23 unique letters in inventory). Throwable objects packs counts as single item. If you bailouted from game with more items in inventory that you can carry - on next character reusage part of items will be automatically flushed to fit it
+:::
+
+:::tip Charachter re-usage game start
+Please note that to start game with this character you have to use it's playertxid as second argument of `register` call
+Also, next game you will start from dungeon level 1 without gold (because it was converted to ROGUE) and without weared armor/wielded weapon.
+So not forget to wield weapon back by `w` and wear armor by `W`
 :::
 
 Komodo's Rogue features two different game modes. There is one mode for single-player gameplay, where the `maxplayer` value is set to `1`, and one mode for multiplayer gameplay, where the `maxplayer` value is greater than `1`.
@@ -471,9 +815,9 @@ The single-player mode is more limited in nature. In general, this mode is for p
 
 There are no time limits.
 
-The conversion of in-game gold to `ROGUE` coins is halved to a ratio of `1:0.0005`.
+The conversion of in-game gold to `ROGUE` coins is halved to a ratio of `ROGUE(satoshis) = gold * gold * dungeon_level_on_exit * 10`.
 
-As soon as the `gameplay_txid` is confirmed the player may begin to play.
+As soon as the `register_txid` is confirmed the player may begin to play.
 
 #### Multi-Player Mode
 
@@ -481,13 +825,13 @@ If more than one player is allowed in the game parameters, the game goes into "H
 
 Multiplayer mode also adds a time limit that is based on the frequency of keystrokes. So long as you are frequently entering commands, the time limit will expire in approximately one hour. If players are not frequently entering keystrokes, the time limit can vary.
 
-There is a waiting period after the `gameplay_txid` is confirmed. This is an arbitrary number of blocks that is determined using blockchain-enforced randomization. This ensures that no player receives an unfair advantage via advanced knowledge of the start time.
+There is a waiting period after the `gameplay_txid` is confirmed. This is an arbitrary number of blocks that is determined using blockchain-enforced randomization. This ensures that no player receives an unfair advantage via advanced knowledge of the start time. Game can be started only in 5 blocks after creation (game seed will be reaveled in gameinfo only after game startheight which can be found in gameinfo as well).
 
-If a player uses the `bailout` method, they are allowed to convert all their gold to `ROGUE` coins at a ratio of `1:0.001` each. The conversion is facilitated using globally locked `ROGUE` coins. The funds in this global vault automatically accrue through asset-chain activity. In the event that there are not enough globally locked funds at the time the `bailout` method is executed, the player must simply wait until the funds are generated via automated methods. You can encourage this fund to grow more quickly by encouraging other players and people to transact using ROGUE, as transactions feed the fund.
+If a player uses the `bailout` method, they are allowed to convert all their gold to `ROGUE` coins at a ratio of `ROGUE(satoshis) = gold * gold * dungeon_level_on_exit * 20` each. The conversion is facilitated using globally locked `ROGUE` coins. The funds in this global vault automatically accrue through asset-chain activity. In the event that there are not enough globally locked funds at the time the `bailout` method is executed, the player must simply wait until the funds are generated via automated methods. You can encourage this fund to grow more quickly by encouraging other players and people to transact using ROGUE, as transactions feed the fund.
 
-The most direct way to win the game is to obtain the `amulet` and return from the dungeon. The winner receives all of the buy-in ROGUE coins that were originally contributed, as well as `0.01` ROGUE coin for every in-game gold obtained.
+The most direct way to win the game is to obtain the `amulet` and return from the dungeon. The winner receives all of the buy-in ROGUE coins that were originally contributed, as well as `ROGUE(satoshis) = gold * gold * dungeon_level_on_exit * 20` ROGUE coin for in-game gold obtained.
 
-With each player that survives, whether by winning or by bailing out, the player and all of his obtained items are retained on the blockchain. The character is a non-fungible asset that can be traded. The character can also be used in any future ROGUE game. To activate this character, use the character's `player_txid` value when executing the [register](../cryptoconditions/cc-rogue.html#register) method.
+With each player that survives (in both single-player and multi-player modes), whether by winning or by bailing out, the player with all of his obtained items are retained on the blockchain. The character and his inventory is a non-fungible asset that can be traded. The character can also be used in any future ROGUE game. To activate this character, use the character's `player_txid` value when executing the [register](../cryptoconditions/cc-rogue.html#register) method.
 
 ## newgame
 
@@ -497,7 +841,7 @@ The `newgame` method creates a new game.
 
 The `buyin` argument is required for multi-player games. The coins contributed via `buyin` become a winner-takes-all pot. Either the first player to claim the `amulet` and return from the dungeon, or the last player standing; may claim this prize using the [highlander](../cryptoconditions/cc-rogue.html#highlander) method.
 
-In single-player mode, the conversion ratio of in-game gold to `ROGUE` coins is `1:0.001`.
+In single-player mode, the conversion ratio of in-game gold to `ROGUE` coins is `ROGUE(satoshis) = gold * gold * dungeon_level_on_exit * 10`.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
@@ -1045,13 +1389,8 @@ Response:
 
 **cclib setname 17 '["name"]'**
 
-The `setname` method sets the name of the user's currently active character.
+The `setname` method sets the name variable from which will be given name to user unnamed characters (both already existing and unnamed and new created ones).
 
-<!--Does the following need to be added?
-
-This method is available only during an active game, and only for characters that do not already have a name.
-
--->
 
 #### Arguments:
 
