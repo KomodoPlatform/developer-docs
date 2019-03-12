@@ -805,7 +805,6 @@ no more than 23 unique letters in inventory). Throwable objects packs counts as 
 Please note that to start game with this character you have to use it's playertxid as second argument of `register` call
 Also, next game you will start from dungeon level 1 without gold (because it was converted to ROGUE) and without weared armor/wielded weapon.
 So not forget to wield weapon back by `w` and wear armor by `W`
-:::
 
 Komodo's Rogue features two different game modes. There is one mode for single-player gameplay, where the `maxplayer` value is set to `1`, and one mode for multiplayer gameplay, where the `maxplayer` value is greater than `1`.
 
