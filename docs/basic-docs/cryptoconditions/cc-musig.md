@@ -16,7 +16,7 @@ Therefore, Schnorr Signatures greatly reduce verification time and data-storage 
 
 For further information, see this [article.](https://blockstream.com/2019/02/18/musig-a-new-multisignature-standard/) Also, the reader may refer to the comments in the following core `komodod` files, [File 1](https://github.com/jl777/komodo/blob/jl777/src/secp256k1/include/secp256k1_musig.h) and [File 2.](https://github.com/jl777/komodo/blob/jl777/src/secp256k1/src/modules/musig/example.c)
 
-### Workflow When Using MuSig
+#### MuSig CC Module Flow
 
 - Create a combined pubkey using the [combine](../cryptoconditions/cc-musig.html#combine) method
   - From the response, take note of the `combined_pk` and `pkhash` values

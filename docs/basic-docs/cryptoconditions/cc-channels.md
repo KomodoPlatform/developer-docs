@@ -6,7 +6,7 @@ The `channels` contract facilitates instant payments in a trustless environment.
 
 When a payment is executed properly with `channels`, as soon as it enters the mempool the odds that the payment can be withdrawn or attacked decrease to almost zero. Many developers and users may find it advantageous to use `channels` to create a secure instant-payment network that can be used within their business environment.
 
-The flow of a Channels CC contract is as follows:
+#### Channels CC Module Flow
 
 - Anyone can create a channel using [channelsopen](../cryptoconditions/cc-channels.html#channelsopen)
   - When creating the channel, the user indicates the number and size of their potential payment(s), and what their destination is

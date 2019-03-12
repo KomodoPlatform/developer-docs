@@ -14,7 +14,7 @@ The [heiradd](../cryptoconditions/cc-heir.html#heiradd) method allows anyone, in
 
 The Heir CC module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../cryptoconditions/cc-tokens.html) CC module that represent on-chain assets, or even tokens that are formed via the [Gateways](../cryptoconditions/cc-gateways.html) module to represent off-chain assets or other cryptocurrencies.
 
-### Flow of the Heir CC Module:
+#### Heir CC Module Flow
 
 - Anyone can create a new Heir CC address using [heirfund](../cryptoconditions/cc-heir.html#heirfund)
 - The owner of this address can add more funds using [heiradd](../cryptoconditions/cc-heir.html#heiradd)
