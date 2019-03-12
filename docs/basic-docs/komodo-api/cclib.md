@@ -4,7 +4,7 @@ The following methods interact with CryptoConditions modules that make use of th
 
 ## cclib
 
-**cclib insert_method insert_evalcode \"[%22json_string%22, json_integer, ... ]\"**
+**cclib insert_method insert_evalcode \\"[%22json_string%22, json_integer, ... ]\\"**
 
 The `cclib` method allows the user to interact with the dynamic CryptoConditions module associated with `evalcode`.
 
