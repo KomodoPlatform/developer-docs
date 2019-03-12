@@ -183,13 +183,13 @@ cd ~/komodo/src
 
 The Terminal User Interface (TUI) provides automated methods for executing the ROGUE methods (rpcs) that are used to start and finish a game. Use of the TUI is optional, but recommended for most players.
 
-::: tip
-Latest porable bundles (precompiled komodod + rogue + TUI) can be found [here](https://github.com/tonymorony/komodo_cryptoconditions_tui/releases)
-:::
+#### Portable Bundles for Unix OS
 
-**Please note that right now due to OS specific non-determinism bugs bundle (and ROGUE chain in general) availiable only for unix OS**  
+These portable bundles contain all all necessary software to successfully launch the ROGUE TUI.
 
-#### Linux
+[Link to portable bundles for Unix OS](https://github.com/tonymorony/komodo_cryptoconditions_tui/releases)
+
+#### Compile for Linux
 
 Open another terminal window. (Do not close the other terminal windows that are running the game's daemon.)
 
@@ -205,7 +205,7 @@ Install required python packages:
 pip3 install setuptools wheel slick-bitcoinrpc
 ```
 
-Clone the repo and copy all repo files to same directory with ROGUE `komodod` daemon:
+Clone the repository and copy all the files to the directory of the ROGUE `komodod` daemon:
 
 ```bash
 git clone https://github.com/tonymorony/komodo_cryptoconditions_tui
@@ -236,7 +236,7 @@ cp ~/Library/Application\ Support/Komodo/ROGUE/ROGUE.conf ~/komodo/src/ROGUE.con
 ./rogue_tui.py
 ```
 -->
-## Manual Walkthrough (Singleplayer mode)
+## Single-Player Mode Walkthrough
 
 The Komodo team provides a [Terminal User Interface (TUI)](../cryptoconditions/cc-rogue.html#installing-the-tui-optional) to allow players to launch and conclude a game without having to interact with the module's api commands.
 
@@ -277,7 +277,9 @@ Response:
 }
 ```
 
-The returned transaction id is the `gameplay_txid`. Save this for future use.
+The ROGUE software currently broadcasts the `hex` value automatically. It is not necessary to use the `sendrawtransaction` method.
+
+The returned transaction id `txid` is the `gameplay_txid`. Save this for future use.
 
 :::tip
 Please note that Rogue transactions auto-broadcast at the moment
@@ -386,7 +388,9 @@ In the returned json object, find the `run` value. This is the exact command nee
 
 #### Step 6 - Play
 
-Wait until `register txid` is mined (not presists in mempool anymore) and execute the above `run` command to start the game:
+Wait until the network mines the `register_txid`. Optionally, use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to monitor the status of the transaction.
+
+Once the transaction is mined, execute the `run` command (found in the returned json object earlier) to start the game:
 
 ```bash
 cc/rogue/rogue 3767108440867690538 09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70
@@ -402,28 +406,35 @@ For instructions on in-game controls and objectives, [read this linked section.]
 
 If your character is still alive and you would like to leave the game, follow this procedure.
 
-This will convert your in-game gold to `ROGUE` coins at a ratio of `ROGUE(satoshis) = gold * gold * dungeon_level_on_exit * 10`, respectively and save your character.
+This will convert your in-game gold to `ROGUE` coins at a ratio of `ROGUE_satoshis = gold * gold * dungeon_level_on_exit * 10`.
 
-Quit the game by typing `Q` on the keyboard to open quit context menu, then input `n` and press `Enter`.
+Save your character.
 
-After all keystrokes transactions for this game are mined (txids for game can be found in keystrokes.log file which automatically creating in same folder with daemon) execute the [bailout]() method. For example:
+To quit the game, type the letter `Q` on the keyboard. This opens a context menu. Type the letter `n` and press `Enter`.
+
+This begins the process of leaving the game, but the player is not finished yet.
+
+Wait for the ROGUE network to mine all [`keystrokes`](../cryptoconditions/cc-rogue.html#keystrokes) transactions. To see a list of all `keystrokes` created, check the `keystrokes.log` file in the `~/komodo/src` directory, and use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to verify when the last `keystrokes` are mined.
+
+When the last transactions are mined, execute the [bailout](../cryptoconditions/cc-rogue.html#bailout) method to leave the game while keeping the character, items, and to transfer your in-game gold to `ROGUE` coins.
+
+For example:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
-Bailout transaction will send you converted ROGUE and non-fungible character token. All inventory and character characteristics will be saved. As soon as `bailout txid` is mined you should find him in your players list ([players call](../cryptoconditions/cc-rogue.html#players)) and check information about him ([playerinfo call with playertxid as argument](/cryptoconditions/cc-rogue.html#playerinfo)).
+The `bailout` transaction sends all earned ROGUE coins and and the player's non-fungible character token to the user's local `pubkey`. The character's inventory and characteristics are saved.
 
+After the `bailout` transaction is mined, the player may view their character using the [players](../cryptoconditions/cc-rogue.html#players) and [playerinfo](/cryptoconditions/cc-rogue.html#playerinfo) methods.
 
-#### Step 9: Highlander Victory (Availiable in Single-player mode only if amulet is found)
+#### Step 9: Highlander Victory 
 
-In this walkthrough we have used single-player mode, and therefore the following `highlander` method is not available. For explanatory purposes, we include a description here.
+In this walkthrough we have used single-player mode. The following `highlander` method is only available if the character manages to capture the `amulet` and safely exit the dungeon. In a normal multi-player game, the `highlander` method is available to either the first player to safely retrieve the `amulet`, or to the last player standing after all others have died.
 
-If you are the winner of a multi-player game (last player alive or found amulet first), you may exit the game in a manner that allows you to claim an additional prize.
+The player that successfully executes the `highlander` method receives a prize: the collective value of all `ROGUE` coins that were contributed during the buy-in stage.
 
-The prize is the collective value of all `ROGUE` coins that were contributed during the buy-in stage.
-
-To obtain this prize, use the [highlander](../cryptoconditions/cc-rogue.html#highlander) method:
+The [highlander](../cryptoconditions/cc-rogue.html#highlander) method is executed as follows:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 '["4fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a"]'
@@ -431,9 +442,11 @@ To obtain this prize, use the [highlander](../cryptoconditions/cc-rogue.html#hig
 
 To use the character again, save the transaction id that is returned from the above command and use it when executing the [register](../cryptoconditions/cc-rogue.html#register) method for a future game.
 
-## Manual Walkthrough (Multiplayer mode)
+## Multi-Player Mode Walkthrough
 
 In this walktrough we will use two different ROGUE nodes to play - let's call them `player1` and `player2`.
+
+For educational purposes, we will execute all methods manually.
 
 #### Step 0
 
@@ -1002,11 +1015,6 @@ The optional `player_txid` allows the user to re-use a character that survived a
 
 For the `player_txid` argument to properly call an existing character, the user's daemon must be set to the `pubkey` that owns the `player_txid`. This can be accomplished either through the [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter, or through the [setpubkey](..) method.
 
-
-
-This is an important point to consider when the user desires to reuse a character in a future game. VThe `pubkey`  Please note that if you want to re-use warriors you have to start daemon with same pubkey each time.
-cclib players 17 call displaying warriors for pubkey which was set in `-pubkey` daemon param or by `setpubkey` RPC call. 
-
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 #### Arguments:
@@ -1284,7 +1292,7 @@ Response:
 
 **cclib players 17**
 
-The `players` method displays a list of all `playertxid` transaction ids held in the user's local wallet.
+The `players` method displays a list of all `playertxid` transaction ids held in the user's current `pubkey`.
 
 #### Arguments:
 
