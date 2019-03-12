@@ -460,7 +460,7 @@ As Komodo's Rogue implementation is based off of the classic Rogue game, the cla
 After reading the linked manual, there are additional aspects to keep in mind for Komodo's unique implementation.
 
 :::tip Quick Tip
-Some users report that typing the letter `s` on the keyboard does not properly execute the `save game` command. If this is an issue, instead use `SHIFT + Q`.
+In the classic manual, to save the game the user must type the letter `s` on the keyboard. However, Komodo disabled this command for technical reasons. Instead, use `SHIFT + Q`.
 :::
 
 Komodo's Rogue features two different game modes. There is one mode for single-player gameplay, where the `maxplayer` value is set to `1`, and one mode for multiplayer gameplay, where the `maxplayer` value is greater than `1`.
