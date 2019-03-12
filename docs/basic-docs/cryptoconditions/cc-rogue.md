@@ -172,19 +172,12 @@ The pubkey is now set.
 
 To reuse this pubkey in the future, include the pubkey as a [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter.
 
-<!--
-ac_pubkey vs pubkey launch parameter in this section?
--->
-
-For example:
+Include the `pubkey` in the `-pubkey` launch parameter as follows:
 
 ```bash
 cd ~/komodo/src
 ./komodod -ac_name=ROGUE -pubkey=02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2 -ac_supply=1000000 -addnode=5.9.102.210  -ac_cclib=rogue -ac_perc=10000000 -ac_reward=100000000 -ac_cc=60001 -ac_script=2ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc -daemon
 ```
-
-Please note that if you want to re-use warriors you have to start daemon with same pubkey each time.
-cclib players 17 call displaying warriors for pubkey which was set in `-pubkey` daemon param or by `setpubkey` RPC call. 
 
 ### Installing the TUI (Optional)
 
@@ -1006,6 +999,13 @@ Response:
 The `register` method registers your character for a game.
 
 The optional `player_txid` allows the user to re-use a character that survived a previous game.
+
+For the `player_txid` argument to properly call an existing character, the user's daemon must be set to the `pubkey` that owns the `player_txid`. This can be accomplished either through the [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter, or through the [setpubkey](..) method.
+
+
+
+This is an important point to consider when the user desires to reuse a character in a future game. VThe `pubkey`  Please note that if you want to re-use warriors you have to start daemon with same pubkey each time.
+cclib players 17 call displaying warriors for pubkey which was set in `-pubkey` daemon param or by `setpubkey` RPC call. 
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
