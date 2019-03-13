@@ -31,20 +31,19 @@ The `channelsaddress` method displays the oracle address for a specific pubkey.
 
 ### Response:
 
-| Structure                   | Type      | Description                                                                                                                                                                  |
-| --------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                      | (string)  | whether the method executed successfully                                                                                                                                     |
-| ChannelsCCAddress           | (string)  | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                         |
-| CCbalance                   | (numeric) | the unspent amount in the `ChannelsCCaddress`                                                                                                                                |
-| ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey, used for markers                                                                                 |
-| ChannelsCC1of2Address       | (string)  |                                                                                                                                                                              |
-| ChannelsCC1of2TokensAddress | (string)  |                                                                                                                                                                              |
-| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` supplied as the argument                                                             |
-| PubkeyCCaddress(Channels)   | (string)  |                                                                                                                                                                              |
-| myCCbalance                 | (numeric) | the balance of `myccaddress` in coins                                                                                                                                        |
-| myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) |
-| mybalance                   | (numeric) | the balance of `myaddress` in coins                                                                                                                                          |
-
+| Structure                   | Type      | Description                                                                                                                                                                                                       |
+| --------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                      | (string)  | whether the method executed successfully                                                                                                                                                                          |
+| ChannelsCCAddress           | (string)  | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                                                              |
+| CCbalance                   | (numeric) | the unspent amount in the `ChannelsCCaddress`                                                                                                                                                                     |
+| ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey, used for markers                                                                                                                      |
+| ChannelsCC1of2Address       | (string)  | the channel address where funds are stored when channel is opened (if using coins)                                                                                                                                |
+| ChannelsCC1of2TokensAddress | (string)  | the channel address where funds are stored when channel is opened (if using tokens)                                                                                                                               |
+| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) |
+| PubkeyCCaddress(Channels)   | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` supplied as the argument                                                                                                  |
+| myCCbalance                 | (numeric) | the balance of `myccaddress` in coins                                                                                                                                                                             |
+| myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey)                                      |
+| mybalance                   | (numeric) | the balance of `myaddress` in coins                                                                                                                                                                               |
 
 #### :pushpin: Examples:
 
