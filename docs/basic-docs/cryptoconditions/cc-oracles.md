@@ -29,13 +29,13 @@ myaddress                                    |(string)                     |the 
 
 Command:
 
-```
+```bash
 ./komodo-cli -ac_name=HELLOWORLD oraclesaddress 03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5
 ```
 
 Response:
 
-```
+```json
 {
     "result": "success",
     "OraclesCCaddress": "REt2C4ZMnX8YYX1DRpffNA4hECZTFm39e3",
@@ -98,13 +98,13 @@ hex                                          |(string)                     |a ra
 
 Step 1: Create a customized oracle contract and get the hex value
 
- ```
+```bash
 ./komodo-cli -ac_name=HELLOWORLD oraclescreate "NYWTHR" "Weather in NYC" "L"
 ```
 
 Response from Step 1:
 
-```
+```json
 {
     "result": "success",
     "hex": "010000000185b76ed0fbdb9ee2bdb5693f491b6ea23de6498f42c6e83f9f36c1eaf411dd990200000049483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01ffffffff0310270000000000002321038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac378740a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000001c6a1aec43064e5957544852014c0e5765617468657220696e204e594300000000"
@@ -113,14 +113,14 @@ Response from Step 1:
 
 Step 2: Send raw transaction / broadcast the hex value
 
-```
+```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000185b76ed0fbdb9ee2bdb5693f491b6ea23de6498f42c6e83f9f36c1eaf411dd990200000049483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01ffffffff0310270000000000002321038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac378740a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000001c6a1aec43064e5957544852014c0e5765617468657220696e204e594300000000
 # This will output an unique txid which will be refered as oracletxid or ID of the oracle.
 ```
 
 Response:
 
-```
+```bash
 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203
 ```
 
@@ -130,13 +130,13 @@ Response:
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
 
-```
+```bash
 ./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000185b76ed0fbdb9ee2bdb5693f491b6ea23de6498f42c6e83f9f36c1eaf411dd990200000049483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01ffffffff0310270000000000002321038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac378740a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000001c6a1aec43064e5957544852014c0e5765617468657220696e204e594300000000
 ```
 
 Response from Step 3:
 
-```
+```json
 {
     "txid": "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203",
     "size": 249,
