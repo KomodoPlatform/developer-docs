@@ -14,12 +14,12 @@ Using an established `gateways` contract is not considered difficult. However, s
 
 In this tutorial, we will create a gateway that can serve to represent KMD. The following are the steps in the gateway-creation process:
 
-* Create a new asset chain and provide representative tokens
-* Prepare a special oracle to monitor Komodo's chainstate
-* Bind the tokens and the oracle to our gateway
-* Deposit KMD into the gateway
-* Exchange tokens with other tokens on-chain
-* Use the tokens to withdraw KMD
+- Create a new asset chain and provide representative tokens
+- Prepare a special oracle to monitor Komodo's chainstate
+- Bind the tokens and the oracle to our gateway
+- Deposit KMD into the gateway
+- Exchange tokens with other tokens on-chain
+- Use the tokens to withdraw KMD
 
 Please ensure that you have the KMD main chain downloaded and synced before continuing further in the guide.
 
@@ -27,13 +27,13 @@ Also, please open an empty text file and save all output transaction ids and hex
 
 #### Manually Compile and Install Komodo From Source
 
-For this tutorial, please compile and install Komodo software from the source repositories. 
+For this tutorial, please compile and install Komodo software from the source repositories.
 
 [Information on manual installations can be found at this linked documentation.](https://docs.komodoplatform.com/komodo/install-Komodo-manually.html)
 
-#### Create a new Blockchain 
+#### Create a new Blockchain
 
-For this tutorial we will create a temporary asset chain called `HELLOWORLD` for educational purposes.  
+For this tutorial we will create a temporary asset chain called `HELLOWORLD` for educational purposes.
 
 Make sure that the total `ac_supply` of this asset chain is fairly large. `777777` coins will do for our purposes.
 
@@ -43,13 +43,13 @@ Recall also that a user must have a `pubkey` enabled when interacting with a Cry
 
 If desired, the reader may use an existing asset chain instead of a temporary educational chain. [Follow this link](https://github.com/jl777/komodo/blob/master/src/assetchains.old) for a list of asset-chain launch parameters.
 
-#### Create a Token to Represent an External Cryptocurrency 
+#### Create a Token to Represent an External Cryptocurrency
 
-For the GatewaysCC module to function it must have access to tokens that can represent an external cryptocurrency. We use the [Tokens](../cryptoconditions/cc-tokens.html) CC module to this effect. 
+For the GatewaysCC module to function it must have access to tokens that can represent an external cryptocurrency. We use the [Tokens](../cryptoconditions/cc-tokens.html) CC module to this effect.
 
 #### Decide the Number of Tokens to Create
 
-We want the number of total tokens to be the maximum possible amount of the represented cryptocurrency that we expect to hold. 
+We want the number of total tokens to be the maximum possible amount of the represented cryptocurrency that we expect to hold.
 
 Each token is created not from a full coin, but rather from a satoshi.
 
@@ -67,17 +67,17 @@ To create the tokens, execute the following command:
 ./komodo-cli -ac_name=HELLOWORLD tokencreate KMD 1000 KMD_equivalent_token_for_gatewaysCC
 ```
 
-This creates a `100000000000` token supply of on-chain tokens with the name of `KMD`, which represent the external cryptocurrency, `KMD`. 
+This creates a `100000000000` token supply of on-chain tokens with the name of `KMD`, which represent the external cryptocurrency, `KMD`.
 
 For more details on the above command, see [tokencreate.](../cryptoconditions/cc-tokens.html#tokencreate)
 
 This command returns a hex value as a response:
 
-```json
+````json
 {
   "result": "success",
   "hex": "01000000022c223cfc9c3349aed24ca89e44af6fcdb030150443bd6ac55e2080ce4b097c3002000000484730440220316605c400c47e2d5aa6104ac5c5229e71683b8db9482efa1655d257690d338802202344f254b208a6d724f52f4503531cf005a8ca68119bde4b6cb281ab9fccaf1101ffffffff80e66c0c47311449c5effc2782134006f05fd31e79659bc4b0608d7e247e280c0000000049483045022100ec494d3fa5c76fe0382e83980affdfd091509fb4e18b20fff8c095374e6b6bee022015ddaf95dc8b03e8cbba00ff7a377b80a7bd2200a68669718c329c617549757701ffffffff0400a0724e18090000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc1027000000000000232102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702acc01f66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000396a37e3632103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc0354414b0e54657374696e672070686173652e00000000" } ```
-```
+````
 
 Select the hex value (`01000000022c223c...`) and copy it (CTRL + SHFT + C).
 
@@ -87,7 +87,7 @@ Broadcast this value using [sendrawtransaction:](../komodo-api/rawtransactions.h
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex
 ```
 
-This returns a string, and this string is our `tokenid`. 
+This returns a string, and this string is our `tokenid`.
 
 ```bash
 315d16c2dddd737f8a48f81499908897b53d05d20fb1344e349e304fb603f6bf
@@ -101,15 +101,15 @@ Watch the mempool using [getrawmempool](../komodo-api/blockchain.html#getrawmemp
 ./komodo-cli -ac_name=HELLOWORLD getrawmempool
 ```
 
-Once the `tokenid` disappears from the mempool the transaction is mined. 
+Once the `tokenid` disappears from the mempool the transaction is mined.
 
-If this asset chain were receiving full dPoW security services, at this point it would be appropriate to wait for notarization. We can use [getinfo](../komodo-api/control.html#getinfo) to watch for the `notarizations` property to increase: 
+If this asset chain were receiving full dPoW security services, at this point it would be appropriate to wait for notarization. We can use [getinfo](../komodo-api/control.html#getinfo) to watch for the `notarizations` property to increase:
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD getinfo
 ```
 
-On this educational asset chain, however, we can continue without waiting for notarization. 
+On this educational asset chain, however, we can continue without waiting for notarization.
 
 We can check to see that our token is successfully created on the chain using [tokeninfo:](../cryptoconditions/cc-tokens.html#tokeninfo)
 
@@ -121,7 +121,7 @@ We can check the balance of our `pubkey` using [tokenbalance:](../cryptoconditio
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD tokenbalance insert_tokenid insert_pubkey
-``` 
+```
 
 #### Create an Oracle
 
@@ -139,8 +139,8 @@ This returns a hex value:
 
 ```json
 {
-    "result": "success",
-    "hex": "010000000185b76ed0fbdb9ee2bdb5693f491b6ea23de6498f42c6e83f9f36c1eaf411dd990200000049483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01ffffffff0310270000000000002321038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac378740a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000001c6a1aec43064e5957544852014c0e5765617468657220696e204e594300000000"
+  "result": "success",
+  "hex": "010000000185b76ed0fbdb9ee2bdb5693f491b6ea23de6498f42c6e83f9f36c1eaf411dd990200000049483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01ffffffff0310270000000000002321038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac378740a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000001c6a1aec43064e5957544852014c0e5765617468657220696e204e594300000000"
 }
 ```
 
@@ -167,7 +167,7 @@ To prepare for the oraclefeed dApp, use [oraclesregister](../cryptoconditions/cc
 This returns a hex value (not shown for brevity), which we now broadcast:
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_value 
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_value
 ```
 
 Retrieve the data publisher's `pubkey` using [oraclesinfo:](../cryptoconditions/cc-oracles.html#oraclesinfo)
@@ -180,28 +180,28 @@ Response from `oraclesinfo`:
 
 ```json
 {
-    "result": "success",
-    "txid": "46e2dc958477160eb37de3a1ec1bb18899d77f5b47bd52b8a6f7a9ce14729157",
-    "name": "KMD",
-    "description": "blockheaders",
-    "format": "Ihh",
-    "marker": "RNFz9HAuzXhAjx6twEJzcHXconzChfiNM6",
-    "registered": [
-        {
-            "publisher": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5",
-            "baton": "RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9",
-            "batontxid": "99dd11f4eac1369f3fe8c6428f49e63da26e1b493f69b5bde29edbfbd06eb785",
-            "lifetime": "0.00000000",
-            "funds": "0.00000000",
-            "datafee": "0.01000000"
-        }
-    ]
+  "result": "success",
+  "txid": "46e2dc958477160eb37de3a1ec1bb18899d77f5b47bd52b8a6f7a9ce14729157",
+  "name": "KMD",
+  "description": "blockheaders",
+  "format": "Ihh",
+  "marker": "RNFz9HAuzXhAjx6twEJzcHXconzChfiNM6",
+  "registered": [
+    {
+      "publisher": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5",
+      "baton": "RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9",
+      "batontxid": "99dd11f4eac1369f3fe8c6428f49e63da26e1b493f69b5bde29edbfbd06eb785",
+      "lifetime": "0.00000000",
+      "funds": "0.00000000",
+      "datafee": "0.01000000"
+    }
+  ]
 }
 ```
 
 The property, `"publisher"`, in the entry, `"registered"`, of the returned json object is the data publisher's `pubkey`, also called the `publisherpubkey`.
 
-Subscribe to the oracle using [oraclessubscribe](../cryptoconditions/cc-oracles.html#oraclessubscribe) to receive utxo information for data publishing. 
+Subscribe to the oracle using [oraclessubscribe](../cryptoconditions/cc-oracles.html#oraclessubscribe) to receive utxo information for data publishing.
 
 The frequency of data-publishing transactions we can perform in a block is equal to the number of active subscriptions committed to the oracle. Therefore, we must have at least one subscription for the oracle to allow publishing.
 
@@ -212,7 +212,7 @@ The frequency of data-publishing transactions we can perform in a block is equal
 This returns a hex value (not shown for brevity), which we now broadcast:
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_value 
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_value
 ```
 
 ::: warning Note
@@ -222,16 +222,16 @@ Execute the <b>oraclessubscribe</b> and <b>sendrawtransaction</b> methods severa
 Verify the oracle information to ensure it is properly established:
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD oraclesinfo insert_oracleid 
+./komodo-cli -ac_name=HELLOWORLD oraclesinfo insert_oracleid
 ```
 
-#### Activating Gateway Binding 
+#### Activating Gateway Binding
 
 We now create a gateway and bind our information to it, using the [gatewaysbind](../cryptoconditions/cc-gateways.html#gatewaysbind) method.
 
-This method requires that we decide how many total gateway signatures we desire (`N`), and how many signatures are required to withdraw funds (`M`). 
+This method requires that we decide how many total gateway signatures we desire (`N`), and how many signatures are required to withdraw funds (`M`).
 
-For our educational example, we may set both `N` and `M` equal to 1, for simplicity. 
+For our educational example, we may set both `N` and `M` equal to 1, for simplicity.
 
 As a part of this command we will need to indicate the `pubtype`, `p2shtype`, and `wiftype` values for our chosen coin. For KMD, these values are `60`, `85` and `188` respectively.
 
@@ -242,7 +242,7 @@ As a part of this command we will need to indicate the `pubtype`, `p2shtype`, an
 This method returns a hex value (not shown for brevity), which we now broadcast:
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_value 
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_value
 ```
 
 The broadcast returns a transaction id, also called the `bindtxid`. Copy this information into the text editor.
@@ -296,7 +296,7 @@ With our gateway created and our oracle dApp running as a background process, we
 First, we need the `gatewaysDepositAddress`. This is the address where we will deposit our KMD on the main KMD chain.
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD gatewaysinfo insert_bindtxid 
+./komodo-cli -ac_name=HELLOWORLD gatewaysinfo insert_bindtxid
 ```
 
 Example Response:
@@ -341,7 +341,7 @@ Wait for the transaction to be mined. Once confirmed, execute the [gettransactio
 ./komodo-cli gettransaction insert_cointxid
 ```
 
-In the returned results there is a property, `blockindex`, that describes the the height of the block that contains this address. Copy the `blockindex` to the text editor. 
+In the returned results there is a property, `blockindex`, that describes the the height of the block that contains this address. Copy the `blockindex` to the text editor.
 
 There is also a property, `hex`. Transfer this value to the text editor as well.
 
@@ -355,7 +355,7 @@ Next, execute the following command for more information:
 
 This returns a `proof` value. Transfer this to the text editor.
 
-We now have the necessary data to execute the [gatewaysdeposit](../cryptoconditions/cc-gateways.html#gatewaysdeposit-2) method on the HELLOWORLD asset chain. 
+We now have the necessary data to execute the [gatewaysdeposit](../cryptoconditions/cc-gateways.html#gatewaysdeposit-2) method on the HELLOWORLD asset chain.
 
 The `gatewaysdeposit` method broadcasts the relevant data on the asset chain so that the gateway nodes may validate the information and prepare to distribute the KMD tokens.
 
@@ -366,7 +366,7 @@ Here is the information we need for this call:
 - `COIN`: KMD for this example
 - `COINTXID`: the `cointxid` returned from `z_sendmany`
 - `CLAIMVOUT`: the `vout` of the claim (this value should be 0, as it is our first use)
-- `DEPOSITHEX`: the `hex` value that is found by executing `gettransaction` on the cointxid 
+- `DEPOSITHEX`: the `hex` value that is found by executing `gettransaction` on the cointxid
 - `PROOF`: the `proof` value returned after executing `gettxoutproof` on the cointxid
 - `DESTPUB`: the public key where the KMD tokens should be received on the asset chain (the same pubkey used earlier to retrieve the first address for the z_sendmany method)
 - `AMOUNT`: the amount of the deposit (in this case 0.1)
@@ -375,7 +375,7 @@ Here is the information we need for this call:
 ./komodo-cli -ac_name=HELLOWORLD  gatewaysdeposit BINDTXID HEIGHT COIN COINTXID CLAIMVOUT DEPOSITHEX PROOF DESTPUB AMOUNT
 ```
 
-Successfully executing this command will return a hex value. 
+Successfully executing this command will return a hex value.
 
 Broadcast the hex data:
 
@@ -385,8 +385,8 @@ Broadcast the hex data:
 
 The broadcast returns a transaction id. Copy this to the text editor. It is the `deposittxid`.
 
-::: warning Note 
-For the deposit to process successfully, the oraclefeed dApp must first process the block height of the z_sendmany transaction through the oracle 
+::: warning Note
+For the deposit to process successfully, the oraclefeed dApp must first process the block height of the z_sendmany transaction through the oracle
 :::
 
 #### Claim the Funds on the Asset Chain
@@ -417,7 +417,7 @@ Once this transaction is successfully confirmed, the gateway will credit tokens 
 For the claim to process successfully, the deposit and bind transaction must be confirmed first. This requires either 101 confirmations, or if the chain has dPoW, 1 notarization.
 :::
 
-#### Withdrawing KMD Funds 
+#### Withdrawing KMD Funds
 
 When finished with our tokens, we may send them to the gateway and withdraw the corresponding KMD funds via the [gatewayswithdraw](../cryptoconditions/cc-gateways.html#gatewayswithdraw) method. Only the current owner of the KMD funds may execute the `gatewayswithdraw` method for these funds.
 
@@ -444,6 +444,7 @@ Execute the following commands on the node running the oraclefeed dApp:
 ```bash
 ./komodo-cli importprivkey "insert_private_key" "label" false
 ```
+
 Information for the next command:
 
 - `BINDTXID`: our bindtxid
@@ -461,7 +462,7 @@ Congratulations, you have successfully completed the cycle of the `gateways` Cry
 
 ## Full Example
 
-The following content provides the full terminal input and output of a complete gateway cycle. 
+The following content provides the full terminal input and output of a complete gateway cycle.
 
 Command:
 
@@ -687,7 +688,7 @@ DONOTUSE_privkey_STRING
 Command:
 
 ```bash
-./komodo-cli importprivkey "privkey" "label" false 
+./komodo-cli importprivkey "privkey" "label" false
 ```
 
 Response:
@@ -704,7 +705,7 @@ Command:
 
 Response:
 
-```bash 
+```bash
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   671  100   671    0     0  41937      0 --:--:-- --:--:-- --:--:-- 41937
@@ -856,8 +857,8 @@ Response:
   ],
   "vout": [
     {
-      "value": 0.00010000,
-      "interest": 0.00000000,
+      "value": 0.0001,
+      "interest": 0.0,
       "valueSat": 10000,
       "n": 0,
       "scriptPubKey": {
@@ -865,14 +866,12 @@ Response:
         "hex": "76a9141b355cb6b76cab1b16cb873db8828fe5d2521ae488ac",
         "reqSigs": 1,
         "type": "pubkeyhash",
-        "addresses": [
-          "RBm4FN3JhjhbVFaGKJ8DQgtgPHKXvhFMs3"
-        ]
+        "addresses": ["RBm4FN3JhjhbVFaGKJ8DQgtgPHKXvhFMs3"]
       }
     },
     {
-      "value": 0.10000000,
-      "interest": 0.00000000,
+      "value": 0.1,
+      "interest": 0.0,
       "valueSat": 10000000,
       "n": 1,
       "scriptPubKey": {
@@ -880,14 +879,12 @@ Response:
         "hex": "76a914f0d1fc29f8962ac2805a1659192d9ad26794d22988ac",
         "reqSigs": 1,
         "type": "pubkeyhash",
-        "addresses": [
-          "RXEXoa1nRmKhMbuZovpcYwQMsicwzccZBp"
-        ]
+        "addresses": ["RXEXoa1nRmKhMbuZovpcYwQMsicwzccZBp"]
       }
     },
     {
-      "value": 0.16435000,
-      "interest": 0.00000000,
+      "value": 0.16435,
+      "interest": 0.0,
       "valueSat": 16435000,
       "n": 2,
       "scriptPubKey": {
@@ -895,14 +892,11 @@ Response:
         "hex": "76a91482804b943dd6a2008af73f8ba40449c062f0935188ac",
         "reqSigs": 1,
         "type": "pubkeyhash",
-        "addresses": [
-          "RMBDcZbvjhfureuAaobJmKJLSApAVbBx6g"
-        ]
+        "addresses": ["RMBDcZbvjhfureuAaobJmKJLSApAVbBx6g"]
       }
     }
   ],
-  "vjoinsplit": [
-  ],
+  "vjoinsplit": [],
   "blockhash": "00000006396dff8e9eb78217f17dbf83711d9066a91f25917cc504c76a83a85f",
   "height": 1116196,
   "confirmations": 1,
@@ -923,6 +917,7 @@ Response:
 ```bash
 04000000380b8fd2b9bdf570358980a4c9fc94e418ac656913999b5f9a016ec5afc46b0b188320f231637a0ded0b0bdada1f34c81ad5873b8c3f096b2014018af13f43980000000000000000000000000000000000000000000000000000000000000000b2e6fd5ba786061d57fff87a00000000000046430000000000000200000000000000000000000000fd40050035435dd2c1df5c20cb48e0617b6cee81f5349f0735b36fe93f17f82d678ad3eb374d0e398b049fddcb21a4d7ddf7345867c6a363eddcfe61f31d49dbc35652794c60da61bd5f164fd554f17b5bd669f636744412822af2ebd0f318dacb71514720164c59c392ef2b1ccc3a5dc5c9c83cd37a11f98b97c8f5170a357a972ec3cacbeb0dab34b757354883b46a598f2b93fcd735b4163db6b2b037f7d7d71a773e909ac4ce3f1228012d5bebfd9edad9842ae8c6cddf6942c543594b85013591a604c4223a3d2e007ed25f5994e9d8f6b6a704daf57cad41aea9609923612eee2fc55ad075c91c23a8cc46af9a45a7390c537d2e2302994239ae44230537ceaa2188e7f4eb6a0ab55471d152b9177e9fd90843504f29d3e92fd3d7142caae018b51318ec6b86083b7e2d155ce868f6b673b13cf1ed59107d15c6c84201441dde14074930f4755ec64975f354a99bd957021c073768f575dde3ab020dd73b488e2d03d57bc414a16d45b3e2052b24fb2360ec5f73524525fc59d2151b89310b19764541b801ad72171085bc6275832222484b8d7ee6ed91ab6a544c45af5c4d8445b0624f04a234aec6997eecf007f0e971eea33b21e45ba8f72825fa84605cdfa929aeb6dc425f2612000e7ce2ba04ff8c53061154eb38cba7f6d0bfe5dab031dadea2095e01e93f9e063d0b42e412f865572625f77aa8b10b58f7b0428ea0ff530ea10d37150496bb181e37fc5814ad524ce4618955e9158b6aebb956b02b961f920ee48eb5a08efc39d27fc2fd4ec175e38798bcca7331a7b5da2ca6c56fcb98e740c2f471eac6b67ced78125c5fcecd4f76eac1d76233aa58ed808e398b9e2b1eaa74e773d18276b732239403ce0c452cb26f0f34156a0a63e007ccfbd76f168fb941fbd2fbe23b57e519835c804ace6e22e281b3d0adda7c4b93a87d94500103315c780fe91ee67320a422eecb4a6daedc2d774567bfebc1d5b72fa693178f3443aa1eb47f18d6931f7b0fc6ec151caad4eae5f787c2a963c3963ffc924ba66a7ea1754763faf2884de0c86a0f75fe7f8dfb1265b449184668cb7348520810cf731663f5180ac31642d6b135d5ce7de88ba63d6db3d6c5dfa19492281dfed3b3765451717f3497ac2b4c040e2e4e77219b2586c227cd138b8d94ccc273fbfbb51a35523870c503e2d8527b840ced11917075e8a41ae9616f1df8d41df5bae39c6d6de5bb8d43d401bb9089723db59f0f06aa4fdf4145a905812ef799eb574abb9985de878a289e5f4b1256ca2121d553465f44065580cb5bde170459d1c22e8d388cbec9e37dc3cca07e489a9859942a9ccef4a5e45eed7228b94c86d10a233b5a1ddfcb1735cb9b16de6e8f49f3c841796acba31a8e9c90b531952ed03bd72e0b00fa3373ea4bc845d7469afae305639c772285a5223bf2d86a12c92312dc19db86400c6760b9e75af40ce4c16278bba8a804d5a69b88290dd4c2b43423bee9eb97c54261f956a32d80fdd3f421d1199ee45d42ad657e928be2e9fa54d844cff60b06bc525ce54daca9689e0616bfdbdbc36e09bea11a276d25d3ca9a80ed7109183784dfd1d23b7c791a7913a633e2d28948c655e68ade706654e38f717fe29119af4282430c8d1f702a52ea189f1e9e6faafb213205a195dab1c2d01dc6a3711f671ea118e8a3c995632903c58ebbd4eae5dbc4555b24c1649e89e03efb92134b9e24fb9fc649462f928d992fa33d45edcb4ef13f0d5c2cb6663e7dbf2414b5ed617e56b8715ace6910807e4a901ba603dab4092f9eeb46566ec3f38f3a1789c60822530c390d19b1d939217b7a691abb91454fce76cccf3557ddb3fc55bd4f44761aa9363db0f38360adf60e743ba3b902788bb254637f6074df62460400000003a973b7134b7fcbcb1fe70fdfaaf056c209a9f5dd77800eb37b065ca8317cbb3a980d2dd2285639f72d476c48c7f5eb658aa18bee88caf689b562278dee127890445df562c183ed7279f2f8e37ba249447439884d5b7030eac6485112eb07ea2d010b
 ```
+
 Command:
 
 ```bash
@@ -1029,21 +1024,21 @@ The `gatewaysaddress` method returns information about the on-chain gateway.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"result"                                     |(string)                     |whether the command executed successfully
-"GatewaysCCaddress"                          |(string)                     |taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey
-"Gatewaysmarker"                             |(string)                     |the unmodified public address generated from the contract's privkey
-"GatewaysPubkey"                             |(string)                     |the pubkey for the gateways cc
-"GatewaysCCassets"                           |(string)                     |this property is used for development purposes only and can otherwise be ignored
-"myCCaddress"                                |(string)                     |taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user
-"myaddress"                                  |(string)                     |the public address of the pubkey used to launch the chain
+| Structure           | Type     | Description                                                                                                          |
+| ------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
+| "result"            | (string) | whether the command executed successfully                                                                            |
+| "GatewaysCCaddress" | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
+| "Gatewaysmarker"    | (string) | the unmodified public address generated from the contract's privkey                                                  |
+| "GatewaysPubkey"    | (string) | the pubkey for the gateways cc                                                                                       |
+| "GatewaysCCassets"  | (string) | this property is used for development purposes only and can otherwise be ignored                                     |
+| "myCCaddress"       | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
+| "myaddress"         | (string) | the public address of the pubkey used to launch the chain                                                            |
 
 #### :pushpin: Examples:
 
@@ -1075,26 +1070,26 @@ The `gatewaysbind` method binds the provided sources into a new gateway.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-tokenid                                      |(string)                     |the `tokenid` that the gateway will control as a proxy of foreign (off-chain) assets
-oracletxid                                   |(string)                     |the `oracletxid` under which the gateway should be created
-name                                         |(string)                     |the name of the coin represented by the gateway's proxy token
-tokensupply                                  |(number)                     |the maximum available supply of the proxy token; this should be equal to the total number of `tokenid` tokens
-M                                            |(number)                     |the minimum number of gateway signatory nodes required to facilitate a gateway transaction
-N                                            |(number)                     |the full number of gateway signatory nodes that will control the gateway
-pubkey                                       |(string)                     |the pubkey on which tokens will be available after conversion
-pubtype                                      |(number)                     |the prefix number of pubkey type of external chain
-p2shtype                                     |(number)                     |the prefix number of p2sh type of external chain
-wiftype                                      |(number)                     |the prefix number of wif type of external chain
-taddr					     |(number)			   |the 2nd byte of prefix number of pubkey type (optional, only for 2 byte prefix chains)
+| Structure   | Type     | Description                                                                                                   |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------------------- |
+| tokenid     | (string) | the `tokenid` that the gateway will control as a proxy of foreign (off-chain) assets                          |
+| oracletxid  | (string) | the `oracletxid` under which the gateway should be created                                                    |
+| name        | (string) | the name of the coin represented by the gateway's proxy token                                                 |
+| tokensupply | (number) | the maximum available supply of the proxy token; this should be equal to the total number of `tokenid` tokens |
+| M           | (number) | the minimum number of gateway signatory nodes required to facilitate a gateway transaction                    |
+| N           | (number) | the full number of gateway signatory nodes that will control the gateway                                      |
+| pubkey      | (string) | the pubkey on which tokens will be available after conversion                                                 |
+| pubtype     | (number) | the prefix number of pubkey type of external chain                                                            |
+| p2shtype    | (number) | the prefix number of p2sh type of external chain                                                              |
+| wiftype     | (number) | the prefix number of wif type of external chain                                                               |
+| taddr       | (number) | the 2nd byte of prefix number of pubkey type (optional, only for 2 byte prefix chains)                        |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+| Structure | Type     | Description                                                                                          |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result:   | (string) | whether the command succeeded                                                                        |
+| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples:
 
@@ -1141,20 +1136,20 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-bindtxid                                     |(string)                     |the `bindtxid` of the gateway
-coin                                         |(string)                     |the name of the proxy token
-deposittxid                                  |(string)                     |the `deposittxid` returned after broadcasting the hex returned from the `gatewaysdeposit` method
-destpub                                      |(string)                     |the `pubkey` address to which the proxy tokens should be sent
-amount                                       |(number)                     |the amount to send to the `pubkey`
+| Structure   | Type     | Description                                                                                      |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------ |
+| bindtxid    | (string) | the `bindtxid` of the gateway                                                                    |
+| coin        | (string) | the name of the proxy token                                                                      |
+| deposittxid | (string) | the `deposittxid` returned after broadcasting the hex returned from the `gatewaysdeposit` method |
+| destpub     | (string) | the `pubkey` address to which the proxy tokens should be sent                                    |
+| amount      | (number) | the amount to send to the `pubkey`                                                               |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+| Structure | Type     | Description                                                                                          |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result:   | (string) | whether the command succeeded                                                                        |
+| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples:
 
@@ -1199,24 +1194,24 @@ The `sendrawtransaction` method then returns a `txid` which serves as the **depo
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-bindtxid                                     |(string)                     |the bindtxid of the gateway
-height                                       |(number)                     |the block height of the `txid` wherein the funds were sent to the foreign-asset gateway pubkey
-name                                         |(string)                     |the name of the foreign asset
-cointxid                                     |(string)                     |the `txid` returned when the foreign assets were sent to the gateway pubkey
-claimvout                                    |(string)                     |the `vout` of the claim (on the first use, this value should be 0)
-deposithex                                   |(string)                     |returned from the `txid` wherein the funds were sent to the foreign-asset gateway pubkey
-proof                                        |(string)                     |the proof for the `txid`; can be found using the [gettxoutproof](../komodo-api/blockchain.html#gettxoutproof) method
-destpub                                      |(string)                     |the public key where the tokens should be received on the asset chain
-amount                                       |(number)                     |the amount of the deposit
+| Structure  | Type     | Description                                                                                                          |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
+| bindtxid   | (string) | the bindtxid of the gateway                                                                                          |
+| height     | (number) | the block height of the `txid` wherein the funds were sent to the foreign-asset gateway pubkey                       |
+| name       | (string) | the name of the foreign asset                                                                                        |
+| cointxid   | (string) | the `txid` returned when the foreign assets were sent to the gateway pubkey                                          |
+| claimvout  | (string) | the `vout` of the claim (on the first use, this value should be 0)                                                   |
+| deposithex | (string) | returned from the `txid` wherein the funds were sent to the foreign-asset gateway pubkey                             |
+| proof      | (string) | the proof for the `txid`; can be found using the [gettxoutproof](../komodo-api/blockchain.html#gettxoutproof) method |
+| destpub    | (string) | the public key where the tokens should be received on the asset chain                                                |
+| amount     | (number) | the amount of the deposit                                                                                            |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
+| Structure | Type     | Description                                                                                          |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result:   | (string) | whether the command succeeded                                                                        |
+| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples:
 
@@ -1257,17 +1252,17 @@ The `gatewaysexternaladdress` method returns the address on the external chain f
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-bindtxid                                     |(string)                     |the `bindtxid` for the associated gateway
-pubkey                                       |(string)                     |the `pubkey` needed to generate the address on the external chain
+| Structure | Type     | Description                                                       |
+| --------- | -------- | ----------------------------------------------------------------- |
+| bindtxid  | (string) | the `bindtxid` for the associated gateway                         |
+| pubkey    | (string) | the `pubkey` needed to generate the address on the external chain |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result                                       |(string)                     |whether the command executed successfully
-address                                      |(string)                     |the address for the given pubkey
+| Structure | Type     | Description                               |
+| --------- | -------- | ----------------------------------------- |
+| result    | (string) | whether the command executed successfully |
+| address   | (string) | the address for the given pubkey          |
 
 #### :pushpin: Examples:
 
@@ -1290,23 +1285,23 @@ Response:
 
 **gatewaysdumpprivkey bindtxid address**
 
-The `gatewaysdumpprivkey` method returns the private key for the given `address` and `bindtxid`. 
+The `gatewaysdumpprivkey` method returns the private key for the given `address` and `bindtxid`.
 
 The private key is returned in the wif format of the associated external chain.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-bindtxid                                     |(string)                     |the `bindtxid` for the associated gateway
-address                                      |(string)                     |the `address` for which the private key is requested
+| Structure | Type     | Description                                          |
+| --------- | -------- | ---------------------------------------------------- |
+| bindtxid  | (string) | the `bindtxid` for the associated gateway            |
+| address   | (string) | the `address` for which the private key is requested |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result                                       |(string)                     |whether the command executed successfully
-privkey                                      |(string)                     |the private key
+| Structure | Type     | Description                               |
+| --------- | -------- | ----------------------------------------- |
+| result    | (string) | whether the command executed successfully |
+| privkey   | (string) | the private key                           |
 
 #### :pushpin: Examples:
 
@@ -1333,27 +1328,27 @@ The `gatewaysinfo` method returns information about the `bindtxid` gateway.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-bindtxid                                     |(string)                     |the `bindtxid` for the associated gateway
+| Structure | Type     | Description                               |
+| --------- | -------- | ----------------------------------------- |
+| bindtxid  | (string) | the `bindtxid` for the associated gateway |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result                                       |(string)                     |whether the command executed successfully
-name                                         |(string)                     |the name of the command
-pubkey                                       |(string)                     |the pubkey that holds the converted proxy tokens
-coin                                         |(string)                     |the name of the asset that the proxy token represents
-oracletxid                                   |(string)                     |the `oracletxid` of the associated oracle
-taddr                                        |(number)                     |the coin-specific address that customizes the address for the relevant foreign coin (BTC, LTC, etc.)
-prefix                                       |(number)                     |the coin-specific address prefix that customizes the address for the relevant foreign coin (BTC, LTC, etc.)
-prefix2                                      |(number)                     |the coin-specific address prefix that customizes the address for the relevant foreign coin (BTC, LTC, etc.)
-deposit                                      |(string)                     |the t address associated with the gateway pubkey
-tokenid                                      |(string)                     |the `tokenid` of the proxy token
-totalsupply                                  |(number)                     |the total available supply of proxy tokens
-remaining                                    |(number)                     |the amount of proxy tokens not currently issued
-issued                                       |(number)                     |the amount of proxy tokens currently issued
+| Structure   | Type     | Description                                                                                                 |
+| ----------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| result      | (string) | whether the command executed successfully                                                                   |
+| name        | (string) | the name of the command                                                                                     |
+| pubkey      | (string) | the pubkey that holds the converted proxy tokens                                                            |
+| coin        | (string) | the name of the asset that the proxy token represents                                                       |
+| oracletxid  | (string) | the `oracletxid` of the associated oracle                                                                   |
+| taddr       | (number) | the coin-specific address that customizes the address for the relevant foreign coin (BTC, LTC, etc.)        |
+| prefix      | (number) | the coin-specific address prefix that customizes the address for the relevant foreign coin (BTC, LTC, etc.) |
+| prefix2     | (number) | the coin-specific address prefix that customizes the address for the relevant foreign coin (BTC, LTC, etc.) |
+| deposit     | (string) | the t address associated with the gateway pubkey                                                            |
+| tokenid     | (string) | the `tokenid` of the proxy token                                                                            |
+| totalsupply | (number) | the total available supply of proxy tokens                                                                  |
+| remaining   | (number) | the amount of proxy tokens not currently issued                                                             |
+| issued      | (number) | the amount of proxy tokens currently issued                                                                 |
 
 #### :pushpin: Examples:
 
@@ -1383,7 +1378,6 @@ Response:
 }
 ```
 
-
 ## gatewayslist
 
 **gatewayslist**
@@ -1392,15 +1386,15 @@ The `gatewayslist` method displays a list of `bindtxids` for the available gatew
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-bindtxid                         |(string)                     |the bindtxid of an available gateway
+| Structure | Type     | Description                          |
+| --------- | -------- | ------------------------------------ |
+| bindtxid  | (string) | the bindtxid of an available gateway |
 
 #### :pushpin: Examples:
 
@@ -1427,20 +1421,19 @@ The `gatewayswithdraw` method sends proxy tokens in the gateways `pubkey`. The g
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-bindtxid                                     |(string)                     |the `bindtxid` of the gateway
-coin                                         |(string)                     |the name of the asset
-withdrawpub                                  |(string)                     |the `pubkey` to which the foreign assets should be sent
-amount                                       |(number)                     |the number of proxy tokens to send to the gateway, which will then be exchanged for the relevant amount of the foreign asset
+| Structure   | Type     | Description                                                                                                                  |
+| ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| bindtxid    | (string) | the `bindtxid` of the gateway                                                                                                |
+| coin        | (string) | the name of the asset                                                                                                        |
+| withdrawpub | (string) | the `pubkey` to which the foreign assets should be sent                                                                      |
+| amount      | (number) | the number of proxy tokens to send to the gateway, which will then be exchanged for the relevant amount of the foreign asset |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-result:                                      |(string)                     |whether the command succeeded
-hex:                                         |(string)                     |a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command
-
+| Structure | Type     | Description                                                                                          |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result:   | (string) | whether the command succeeded                                                                        |
+| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples:
 

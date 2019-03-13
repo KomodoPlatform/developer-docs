@@ -16,7 +16,7 @@ The following installation and walkthrough tutorials can assist the reader in te
 
 - Create a puzzle using the [gen](../cryptoconditions/cc-sudoku.html#gen) method
   - commit the amount of `SUDOKU` coins that will serve as a bounty for the first node to complete this puzzle
-- Find a puzzle to solve using the [pending](../cryptoconditions/cc-sudoku.html#pending) method 
+- Find a puzzle to solve using the [pending](../cryptoconditions/cc-sudoku.html#pending) method
 - Gather additional information about any puzzle using the [txidinfo](../cryptoconditions/cc-sudoku.html#txidinfo) method
 - Propose a solution for a puzzle using the [solution](../cryptoconditions/cc-sudoku.html#solution) method
 
@@ -109,6 +109,7 @@ Ensure the working directory is correct:
 ```bash
 cd ~/komodo/src
 ```
+
 #### Step 1 - Start the chain
 
 Start the SUDOKU chain with the following command in a terminal window and wait for the daemon to sync. Keep this terminal open and the daemon running for the duration of your Sudoku gameplay.
@@ -190,7 +191,7 @@ For example:
 
 ### Install Sudoku Terminal User Interface (TUI)
 
-The Komodo team offers a Terminal User Interface (TUI) to assist the user in visualizing the game. The TUI is optional, but recommended for most players. 
+The Komodo team offers a Terminal User Interface (TUI) to assist the user in visualizing the game. The TUI is optional, but recommended for most players.
 
 #### Linux
 
@@ -228,19 +229,20 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 #### Arguments:
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| (need this) | | |
+| Name        | Type | Description |
+| ----------- | ---- | ----------- |
+| (need this) |      |             |
 
 #### Response:
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| (solved Sudoku puzzle, visualized) | (string, multi-line) | an ASCII-character representation of the generated Sudoku puzzle, with all solutions in place |
+| Name                                 | Type                 | Description                                                                                         |
+| ------------------------------------ | -------------------- | --------------------------------------------------------------------------------------------------- |
+| (solved Sudoku puzzle, visualized)   | (string, multi-line) | an ASCII-character representation of the generated Sudoku puzzle, with all solutions in place       |
 | (unsolved Sudoku puzzle, visualized) | (string, multi-line) | an ASCII-character representation of the generated Sudoku puzzle, with numbers removed for gameplay |
-| (numbers remaining) | (string) | a description of how many numbers are remaining to solve in the Sudoku puzzle |
-| (Sudoku Puzzle - integer) | (number, multi-line) | a multi-line number-based representation of the solved Sudoku puzzle; no visual embellishments |
-| 
+| (numbers remaining)                  | (string)             | a description of how many numbers are remaining to solve in the Sudoku puzzle                       |
+| (Sudoku Puzzle - integer)            | (number, multi-line) | a multi-line number-based representation of the solved Sudoku puzzle; no visual embellishments      |
+
+|
 | solve | (number) | a number-based concatenated representation of the unsolved Sudoku puzzle; `0`'s represent empty spaces in the puzzle |
 | score | (string) | `score` returns three values: the reward provided to the first node to submit the correct solution, the solution in concatenated format, the number of numbers left to fill |  
 | result | (string) | whether the command executed successfully |
@@ -249,7 +251,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | srand | (number) | |
 | amount | (number) | the reward provided to the first node to submit the correct solution |
 | hex | (string) | a `hex` value representing the encoded data; this must be broadcast using `sendrawtransaction` |
-| txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` | 
+| txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` |
 
 #### :pushpin: Examples:
 
@@ -329,23 +331,23 @@ The `txidinfo` method returns information about the indicated `puzzle_txid` puzz
 
 #### Arguments:
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| (need this) | | |
+| Name        | Type | Description |
+| ----------- | ---- | ----------- |
+| (need this) |      |             |
 
 #### Response:
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| result | (string) | whether the command executed successfully |
-| txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` | 
-| result | (string) | whether the command executed successfully |
-| height | (number) | the block height at which the puzzle was generated |
-| sudokuaddr | (string) | the CC address that owns this puzzle and will distribute the reward |
-| amount | (number) | the reward provided to the first node to submit the correct solution |
-| unsolved | (string) | the unsolved puzzle, provided in concatenated form |
-| name | (string) | name of the module |
-| method | (string) | name of the method |
+| Name       | Type     | Description                                                                                       |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------- |
+| result     | (string) | whether the command executed successfully                                                         |
+| txid       | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` |
+| result     | (string) | whether the command executed successfully                                                         |
+| height     | (number) | the block height at which the puzzle was generated                                                |
+| sudokuaddr | (string) | the CC address that owns this puzzle and will distribute the reward                               |
+| amount     | (number) | the reward provided to the first node to submit the correct solution                              |
+| unsolved   | (string) | the unsolved puzzle, provided in concatenated form                                                |
+| name       | (string) | name of the module                                                                                |
+| method     | (string) | name of the method                                                                                |
 
 #### :pushpin: Examples:
 
@@ -359,15 +361,15 @@ Response:
 
 ```json
 {
-    "result": "success",
-    "txid": "0aaa8fdc83aa9111b1f1d143ca7baf5730cd68c02f1422b3f8cf4186959db6ff",
-    "result": "success",
-    "height": 766,
-    "sudokuaddr": "RAFVbQbZ5esSkktLQq9mdQWrvi7UBnzqwE",
-    "amount": 10.00000000,
-    "unsolved": "4--13--6---89--2--37-2--541--5-8-1-66---4-----1-7------8-------------3---------9-",
-    "name": "sudoku",
-    "method": "txidinfo"
+  "result": "success",
+  "txid": "0aaa8fdc83aa9111b1f1d143ca7baf5730cd68c02f1422b3f8cf4186959db6ff",
+  "result": "success",
+  "height": 766,
+  "sudokuaddr": "RAFVbQbZ5esSkktLQq9mdQWrvi7UBnzqwE",
+  "amount": 10.0,
+  "unsolved": "4--13--6---89--2--37-2--541--5-8-1-66---4-----1-7------8-------------3---------9-",
+  "name": "sudoku",
+  "method": "txidinfo"
 }
 ```
 
@@ -379,23 +381,23 @@ The `pending` method returns a complete list of all unsolved puzzles on the asse
 
 #### Arguments:
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| (need this) | | |
+| Name        | Type | Description |
+| ----------- | ---- | ----------- |
+| (need this) |      |             |
 
 #### Response:
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| result | (string) | whether the command executed successfully |
-| name | (string) | name of the module |
-| method | (string) | name of the method |
-| pending | (array of json objects) | an array of json objects, each containing information about an unsolved puzzle on the chain |
-| height | (number) | the block height at which the puzzle was generated |
-| amount | (number) | the reward provided to the first node to submit the correct solution |
-| txid | (string) | a transaction id representing the generation of this puzzle, also called the `puzzle_txid` | 
-| numpending | (number) | the total number of on-chain unsolved puzzles |
-| total | (number) | the collective value of all outstanding bounties for unsolved puzzles |
+| Name       | Type                    | Description                                                                                 |
+| ---------- | ----------------------- | ------------------------------------------------------------------------------------------- |
+| result     | (string)                | whether the command executed successfully                                                   |
+| name       | (string)                | name of the module                                                                          |
+| method     | (string)                | name of the method                                                                          |
+| pending    | (array of json objects) | an array of json objects, each containing information about an unsolved puzzle on the chain |
+| height     | (number)                | the block height at which the puzzle was generated                                          |
+| amount     | (number)                | the reward provided to the first node to submit the correct solution                        |
+| txid       | (string)                | a transaction id representing the generation of this puzzle, also called the `puzzle_txid`  |
+| numpending | (number)                | the total number of on-chain unsolved puzzles                                               |
+| total      | (number)                | the collective value of all outstanding bounties for unsolved puzzles                       |
 
 #### :pushpin: Examples:
 
@@ -436,7 +438,7 @@ Response:
 
 **cclib solution 17 '["puzzle_txid","solution",t0,t1,t2,...]'**
 
-The `solution` method submits the proposed `solution` to the blockchain for the indicated `puzzle_txid` puzzle. 
+The `solution` method submits the proposed `solution` to the blockchain for the indicated `puzzle_txid` puzzle.
 
 The `t0...` values represent the timestamp at which the solution was found for each number. Prefilled cells have an automated timestamp of `tX=0`, where `X` is the index of the puzzle number.
 
@@ -444,29 +446,29 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 #### Arguments:
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| txid | (string) | a transaction id representing the generation of this puzzle, also called the `puzzle_txid` | 
-| solution | (number) | the proposed solution, provided in a concatenated format |
-| tX... | (time) | there are `81` total `t...` arguments. `X` is the index of the indicated argument. The argument is a timestamp representing the time at which `X` number was solved |
+| Name     | Type     | Description                                                                                                                                                         |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| txid     | (string) | a transaction id representing the generation of this puzzle, also called the `puzzle_txid`                                                                          |
+| solution | (number) | the proposed solution, provided in a concatenated format                                                                                                            |
+| tX...    | (time)   | there are `81` total `t...` arguments. `X` is the index of the indicated argument. The argument is a timestamp representing the time at which `X` number was solved |
 
 #### Response:
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| name | (string) | name of the module |
-| hex | (string) | a `hex` value representing the encoded data; this must be broadcast using `sendrawtransaction` |
-| txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` | 
-| amount | (number) | the reward provided to the first node to submit the correct solution |
-| result | (string) | whether the command executed successfully |
-| sudokuaddr | (string) | the CC address that owns this puzzle and will distribute the reward |
-| method | (string) | name of the method |
-| solved | (string) | this returns three values: the block height at which the puzzle was solved, the amount of coins rewarded, the CC address that submitted the correct solution |
-| solution | (number) | this contains three values: a number-based concatenated representation of the solved puzzle; `0`'s represent empty spaces in the Sudoku puzzle, the total score for solving this puzzle, a string representing the concatenated unsolved puzzle | 
-| score breakdown | (string) | the respective value of each number, contributed towards the total score for solving this puzzle |
-| statistics | (string) | basic statistics regarding the provided solution |
-| statement of acceptance | (string) | a statement accepting (or rejecting) the proposed solution |
-| solution_txid | (string) | a unique transaction id for proposed solution | 
+| Name                    | Type     | Description                                                                                                                                                                                                                                     |
+| ----------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name                    | (string) | name of the module                                                                                                                                                                                                                              |
+| hex                     | (string) | a `hex` value representing the encoded data; this must be broadcast using `sendrawtransaction`                                                                                                                                                  |
+| txid                    | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid`                                                                                                                                               |
+| amount                  | (number) | the reward provided to the first node to submit the correct solution                                                                                                                                                                            |
+| result                  | (string) | whether the command executed successfully                                                                                                                                                                                                       |
+| sudokuaddr              | (string) | the CC address that owns this puzzle and will distribute the reward                                                                                                                                                                             |
+| method                  | (string) | name of the method                                                                                                                                                                                                                              |
+| solved                  | (string) | this returns three values: the block height at which the puzzle was solved, the amount of coins rewarded, the CC address that submitted the correct solution                                                                                    |
+| solution                | (number) | this contains three values: a number-based concatenated representation of the solved puzzle; `0`'s represent empty spaces in the Sudoku puzzle, the total score for solving this puzzle, a string representing the concatenated unsolved puzzle |
+| score breakdown         | (string) | the respective value of each number, contributed towards the total score for solving this puzzle                                                                                                                                                |
+| statistics              | (string) | basic statistics regarding the provided solution                                                                                                                                                                                                |
+| statement of acceptance | (string) | a statement accepting (or rejecting) the proposed solution                                                                                                                                                                                      |
+| solution_txid           | (string) | a unique transaction id for proposed solution                                                                                                                                                                                                   |
 
 #### :pushpin: Examples:
 
