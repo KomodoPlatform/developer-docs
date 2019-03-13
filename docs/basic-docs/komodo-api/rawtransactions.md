@@ -14,13 +14,13 @@ This is a raw transaction, and therefore the inputs are not signed and the trans
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"transactions"                               |(string, required)           |a json array of json objects
-"txid"                                       |(string, required)           |the transaction id
-"vout"                                       |(numeric, required)          |the output number
-"addresses"                                  |(string, required)           |a json object with addresses as keys and amounts as values
-"address"                                    |(numeric, required)          |the key is the address, the value is the COIN amount
+|Structure|Type|Description|
+|---------|----|-----------|
+|"transactions"       |(string, required)           |a json array of json objects|
+|"txid"                                       |(string, required)           |the transaction id|
+|"vout"                                       |(numeric, required)          |the output number|
+|"addresses"                                  |(string, required)           |a json object with addresses as keys and amounts as values|
+|"address"                                    |(numeric, required)          |the key is the address, the value is the COIN amount|
 
 ### Response:
 
