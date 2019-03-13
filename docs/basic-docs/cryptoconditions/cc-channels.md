@@ -17,6 +17,63 @@ When a payment is executed properly with `channels`, as soon as it enters the me
 - Once the channel's closure is notarized, the creator may withdraw remaining funds using [channelsrefund](../cryptoconditions/cc-channels.html#channelsrefund)
 - The [channelsinfo](../cryptoconditions/cc-channels.html#channelsinfo) method reveals public information for any or all available channels on an asset chain
 
+## channelsaddress
+
+**channelsaddress (pubkey)**
+
+The `channelsaddress` method displays the oracle address for a specific pubkey.
+
+### Arguments:
+
+| Structure | Type                       | Description                      |
+| --------- | -------------------------- | -------------------------------- |
+| pubkey    | (string, **not** optional) | the pubkey of the requested info |
+
+### Response:
+
+| Structure                   | Type      | Description                                                                                                                                                                  |
+| --------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                      | (string)  | whether the method executed successfully                                                                                                                                     |
+| ChannelsCCAddress           | (string)  | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                         |
+| CCbalance                   | (numeric) | the unspent amount in the `ChannelsCCaddress`                                                                                                                                |
+| ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey, used for markers                                                                                 |
+| ChannelsCC1of2Address       | (string)  |                                                                                                                                                                              |
+| ChannelsCC1of2TokensAddress | (string)  |                                                                                                                                                                              |
+| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` supplied as the argument                                                             |
+| PubkeyCCaddress(Channels)   | (string)  |                                                                                                                                                                              |
+| myCCbalance                 | (numeric) | the balance of `myccaddress` in coins                                                                                                                                        |
+| myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) |
+| mybalance                   | (numeric) | the balance of `myaddress` in coins                                                                                                                                          |
+
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD channelsaddress 0225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a
+```
+
+Response:
+
+```json
+{
+  "result": "success",
+  "ChannelsCCAddress": "RQy3rwX8sP9oDm3c39vGKA6H315cgtPLfr",
+  "CCbalance": 0.0,
+  "ChannelsNormalAddress": "RQUuT8zmkvDfXqECH4m3VD3SsHZAfnoh1v",
+  "ChannelsCC1of2Address": "RW5qo7cPFuap1cifuFWMHurvmBU7drn9cv",
+  "ChannelsCC1of2TokensAddress": "RNjxnUR9QScLiRzo841DjCG5w5FbVbATMy",
+  "myAddress": "RJYiWn3FRCSSLf9Pe5RJcbrKQYosaMburP",
+  "myCCAddress(Channels)": "R9coADhfQwsbF8V1HVskZoYCuSw5FH8RsS",
+  "PubkeyCCaddress(Channels)": "RFiRURHbjQNDunGC3SmiNcpt89BRbqvBQb",
+  "myCCaddress": "R9coADhfQwsbF8V1HVskZoYCuSw5FH8RsS",
+  "myCCbalance": 0.0,
+  "myaddress": "RJYiWn3FRCSSLf9Pe5RJcbrKQYosaMburP",
+  "mybalance": 9.9387
+}
+```
+
 ## channelsclose
 
 **channelsclose open_txid**
