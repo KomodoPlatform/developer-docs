@@ -10,18 +10,18 @@ The `createmultisig` method creates a multi-signature address with `n` signature
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-number_required                              |(numeric, required)          |the number of required signatures out of the `n` key(s) or address(es)
-"keys"                                       |(string, required)           |a json array of keys which are addresses or hex-encoded public keys
-"key"                                        |(string)                     |an address or hex-encoded public key
+| Structure       | Type                | Description                                                            |
+| --------------- | ------------------- | ---------------------------------------------------------------------- |
+| number_required | (numeric, required) | the number of required signatures out of the `n` key(s) or address(es) |
+| "keys"          | (string, required)  | a json array of keys which are addresses or hex-encoded public keys    |
+| "key"           | (string)            | an address or hex-encoded public key                                   |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the value of the new multisig address
-"redeemScript"                               |(string)                     |the string value of the hex-encoded redemption script
+| Structure      | Type     | Description                                           |
+| -------------- | -------- | ----------------------------------------------------- |
+| "address"      | (string) | the value of the new multisig address                 |
+| "redeemScript" | (string) | the string value of the hex-encoded redemption script |
 
 #### :pushpin: Examples:
 
@@ -71,15 +71,15 @@ The value `-1.0` is returned if not enough transactions and blocks have been obs
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-nblocks                                      |(numeric)                    |the number of blocks within which the fee should be tested
+| Structure | Type      | Description                                                |
+| --------- | --------- | ---------------------------------------------------------- |
+| nblocks   | (numeric) | the number of blocks within which the fee should be tested |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-n                                            |(numeric)                             |estimated fee
+| Structure | Type      | Description   |
+| --------- | --------- | ------------- |
+| n         | (numeric) | estimated fee |
 
 #### :pushpin: Examples:
 
@@ -105,15 +105,15 @@ The value `-1.0` is returned if not enough transactions and blocks have been obs
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-nblocks                                      |(numeric)                    |a statement indicating within how many blocks the transaction should be confirmed
+| Structure | Type      | Description                                                                       |
+| --------- | --------- | --------------------------------------------------------------------------------- |
+| nblocks   | (numeric) | a statement indicating within how many blocks the transaction should be confirmed |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-n                                            |(numeric)                    |estimated priority
+| Structure | Type      | Description        |
+| --------- | --------- | ------------------ |
+| n         | (numeric) | estimated priority |
 
 #### :pushpin: Examples:
 
@@ -137,15 +137,15 @@ The `invalidateblock` method permanently marks a block as invalid, as if it viol
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-hash                                         |(string, required)           |the hash of the block to mark as invalid
+| Structure | Type               | Description                              |
+| --------- | ------------------ | ---------------------------------------- |
+| hash      | (string, required) | the hash of the block to mark as invalid |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -187,15 +187,15 @@ The `reconsiderblock` method removes invalidity status of a block and its descen
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-hash                                         |(string, required)           |the hash of the block to reconsider
+| Structure | Type               | Description                         |
+| --------- | ------------------ | ----------------------------------- |
+| hash      | (string, required) | the hash of the block to reconsider |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -219,22 +219,22 @@ The `validateaddress` method returns information about the given address.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address to validate
+| Structure | Type               | Description             |
+| --------- | ------------------ | ----------------------- |
+| "address" | (string, required) | the address to validate |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"isvalid"                                    |(boolean)                    |indicates whether the address is valid. If it is not, this is the only property returned.
-"address"                                    |(string)                     |the address validated
-"scriptPubKey"                               |(string)                     |the hex encoded scriptPubKey generated by the address
-"ismine"                                     |(boolean)                    |indicates whether the address is yours
-"isscript"                                   |(boolean)                    |whether the key is a script
-"pubkey"                                     |(string)                     |the hex value of the raw public key
-"iscompressed"                               |(boolean)                    |whether the address is compressed
-"account"                                    |(string)                     |DEPRECATED the account associated with the address; "" is the default account
+| Structure      | Type      | Description                                                                               |
+| -------------- | --------- | ----------------------------------------------------------------------------------------- |
+| "isvalid"      | (boolean) | indicates whether the address is valid. If it is not, this is the only property returned. |
+| "address"      | (string)  | the address validated                                                                     |
+| "scriptPubKey" | (string)  | the hex encoded scriptPubKey generated by the address                                     |
+| "ismine"       | (boolean) | indicates whether the address is yours                                                    |
+| "isscript"     | (boolean) | whether the key is a script                                                               |
+| "pubkey"       | (string)  | the hex value of the raw public key                                                       |
+| "iscompressed" | (boolean) | whether the address is compressed                                                         |
+| "account"      | (string)  | DEPRECATED the account associated with the address; "" is the default account             |
 
 #### :pushpin: Examples:
 
@@ -273,17 +273,17 @@ See also <b>signmessage</b>.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address to use for the signature
-"signature"                                  |(string, required)           |the signature provided by the signer in base 64 encoding
-"message"                                    |(string, required)           |the message that was signed
+| Structure   | Type               | Description                                              |
+| ----------- | ------------------ | -------------------------------------------------------- |
+| "address"   | (string, required) | the address to use for the signature                     |
+| "signature" | (string, required) | the signature provided by the signer in base 64 encoding |
+| "message"   | (string, required) | the message that was signed                              |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-true/false                                   |(boolean)                    |indicates whether the signature is verified
+| Structure  | Type      | Description                                 |
+| ---------- | --------- | ------------------------------------------- |
+| true/false | (boolean) | indicates whether the signature is verified |
 
 #### :pushpin: Examples:
 
@@ -323,19 +323,19 @@ The `z_validateaddress` method returns information about the given z address.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"zaddr"                                      |(string, required)           |the z address to validate
+| Structure | Type               | Description               |
+| --------- | ------------------ | ------------------------- |
+| "zaddr"   | (string, required) | the z address to validate |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"isvalid"                                    |(boolean)                    |indicates whether the address is valid; if not, this is the only property returned
-"address"                                    |(string)                     |the z address validated
-"ismine"                                     |(boolean)                    |indicates if the address is yours or not
-"payingkey"                                  |(string)                     |the hex value of the paying key, a_pk
-"transmissionkey"                            |(string)                     |the hex value of the transmission key, pk_enc
+| Structure         | Type      | Description                                                                        |
+| ----------------- | --------- | ---------------------------------------------------------------------------------- |
+| "isvalid"         | (boolean) | indicates whether the address is valid; if not, this is the only property returned |
+| "address"         | (string)  | the z address validated                                                            |
+| "ismine"          | (boolean) | indicates if the address is yours or not                                           |
+| "payingkey"       | (string)  | the hex value of the paying key, a_pk                                              |
+| "transmissionkey" | (string)  | the hex value of the transmission key, pk_enc                                      |
 
 #### :pushpin: Examples:
 
@@ -344,6 +344,7 @@ Command:
 ```bash
 ./komodo-cli z_validateaddress "zcWsmqT4X2V4jgxbgiCzyrAfRT1vi1F4sn7M5Pkh66izzw8Uk7LBGAH3DtcSMJeUb2pi3W4SQF8LMKkU2cUuVP68yAGcomL"
 ```
+
 Response:
 
 ```json

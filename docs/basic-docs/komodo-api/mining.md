@@ -10,16 +10,15 @@ The `getblocksubsidy` method returns the block-subsidy reward. The resulting cal
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-height                                   |(numeric, optional)                    |the block height; if the block height is not provided, the method defaults to the current height of the chain
+| Structure | Type                | Description                                                                                                   |
+| --------- | ------------------- | ------------------------------------------------------------------------------------------------------------- |
+| height    | (numeric, optional) | the block height; if the block height is not provided, the method defaults to the current height of the chain |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"miner"                                      |(numeric)                    |the mining reward amount
-
+| Structure | Type      | Description              |
+| --------- | --------- | ------------------------ |
+| "miner"   | (numeric) | the mining reward amount |
 
 #### :pushpin: Examples:
 
@@ -33,7 +32,7 @@ Response:
 
 ```json
 {
-  "miner": 3.00000000
+  "miner": 3.0
 }
 ```
 
@@ -48,12 +47,12 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 Response:
 
 ```json
-{  
-   "result":{  
-      "miner":3.00000000
-   },
-   "error":null,
-   "id":"curltest"
+{
+  "result": {
+    "miner": 3.0
+  },
+  "error": null,
+  "id": "curltest"
 }
 ```
 
@@ -71,38 +70,38 @@ If the request parameters include a `mode` key, it is used to explicitly select 
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"jsonrequestobject" : { ... }                         |(string, optional)           |a json object in the following spec
-"mode"                                       |(string, optional)           |this must be set to "template" or omitted
-"capabilities": [ ... ]                      |(array, optional)            |a list of strings
-"support"                                    |(string)                     |client side supported features: "longpoll", "coinbasetxn", "coinbasevalue", "proposal", "serverlist", "workid"
+| Structure                     | Type               | Description                                                                                                    |
+| ----------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
+| "jsonrequestobject" : { ... } | (string, optional) | a json object in the following spec                                                                            |
+| "mode"                        | (string, optional) | this must be set to "template" or omitted                                                                      |
+| "capabilities": [ ... ]       | (array, optional)  | a list of strings                                                                                              |
+| "support"                     | (string)           | client side supported features: "longpoll", "coinbasetxn", "coinbasevalue", "proposal", "serverlist", "workid" |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"version"                                    |(numeric)                    |the block version
-"previousblockhash"                          |(string)                     |the hash of current highest block
-"transactions":[ ... ]                       |(array)                      |the contents of non-coinbase transactions that should be included in the next block
-"data"                                       |(string)                     |transaction data encoded in hexadecimal (byte-for-byte)
-"hash"                                       |(string)                     |the hash/id encoded in little-endian hexadecimal
-"depends" : [ ... ]                                   |(array)                      |an array of numbers
-number                                       |(numeric)                    |the indexes of transactions that must be present in the final block if this transaction is present in the final block; the index of the array of transactions starts with "1"
-"fee"                                        |(numeric)                    |the difference in value between transaction inputs and outputs in Satoshis; for coinbase transactions, this is the negative number of the total collected block fees, not including the block subsidy; if a key is not present, the fee is unknown and clients MUST NOT assume it is not present
-"sigops"                                     |(numeric)                    |the total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.
-"required"                                   |(boolean)                    |if provided and true, this transaction must be in the final block
-"coinbasetxn": { ... }                       |(json object)                |information for coinbase transaction
-"target"                                     |(string)                     |the hash target
-"mintime"                                    |(numeric)                    |the minimum timestamp appropriate for next block time in seconds since epoch (Jan 1 1970 GMT)
-"mutable": [ ... ]                           |(array of strings)           |a list of ways the block template may be changed
-"value"                                      |(string)                     |a way the block template may be changed, e.g. "time", "transactions", "prevblock"
-"noncerange"                                 |(string)                     |a range of valid nonces
-"sigoplimit"                                 |(numeric)                    |the limit of sigops in blocks
-"sizelimit"                                  |(numeric)                    |the limit of block size
-"curtime"                                    |(numeric)                    |current timestamp in seconds since epoch (Jan 1 1970 GMT)
-"bits"                                       |(string)                     |compressed target of next block
-"height"                                     |(numeric)                    |the height of the next block
+| Structure              | Type               | Description                                                                                                                                                                                                                                                                                      |
+| ---------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| "version"              | (numeric)          | the block version                                                                                                                                                                                                                                                                                |
+| "previousblockhash"    | (string)           | the hash of current highest block                                                                                                                                                                                                                                                                |
+| "transactions":[ ... ] | (array)            | the contents of non-coinbase transactions that should be included in the next block                                                                                                                                                                                                              |
+| "data"                 | (string)           | transaction data encoded in hexadecimal (byte-for-byte)                                                                                                                                                                                                                                          |
+| "hash"                 | (string)           | the hash/id encoded in little-endian hexadecimal                                                                                                                                                                                                                                                 |
+| "depends" : [ ... ]    | (array)            | an array of numbers                                                                                                                                                                                                                                                                              |
+| number                 | (numeric)          | the indexes of transactions that must be present in the final block if this transaction is present in the final block; the index of the array of transactions starts with "1"                                                                                                                    |
+| "fee"                  | (numeric)          | the difference in value between transaction inputs and outputs in Satoshis; for coinbase transactions, this is the negative number of the total collected block fees, not including the block subsidy; if a key is not present, the fee is unknown and clients MUST NOT assume it is not present |
+| "sigops"               | (numeric)          | the total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.                                                                                                                   |
+| "required"             | (boolean)          | if provided and true, this transaction must be in the final block                                                                                                                                                                                                                                |
+| "coinbasetxn": { ... } | (json object)      | information for coinbase transaction                                                                                                                                                                                                                                                             |
+| "target"               | (string)           | the hash target                                                                                                                                                                                                                                                                                  |
+| "mintime"              | (numeric)          | the minimum timestamp appropriate for next block time in seconds since epoch (Jan 1 1970 GMT)                                                                                                                                                                                                    |
+| "mutable": [ ... ]     | (array of strings) | a list of ways the block template may be changed                                                                                                                                                                                                                                                 |
+| "value"                | (string)           | a way the block template may be changed, e.g. "time", "transactions", "prevblock"                                                                                                                                                                                                                |
+| "noncerange"           | (string)           | a range of valid nonces                                                                                                                                                                                                                                                                          |
+| "sigoplimit"           | (numeric)          | the limit of sigops in blocks                                                                                                                                                                                                                                                                    |
+| "sizelimit"            | (numeric)          | the limit of block size                                                                                                                                                                                                                                                                          |
+| "curtime"              | (numeric)          | current timestamp in seconds since epoch (Jan 1 1970 GMT)                                                                                                                                                                                                                                        |
+| "bits"                 | (string)           | compressed target of next block                                                                                                                                                                                                                                                                  |
+| "height"               | (numeric)          | the height of the next block                                                                                                                                                                                                                                                                     |
 
 #### :pushpin: Examples:
 
@@ -116,18 +115,14 @@ Response:
 
 ```json
 {
-  "capabilities": [
-    "proposal"
-  ],
+  "capabilities": ["proposal"],
   "version": 4,
   "previousblockhash": "0ec57dbbaa7fdb290b847981e38908482b1be05f375f021c4d1f6f6315fd5c7e",
-  "transactions": [
-  ],
+  "transactions": [],
   "coinbasetxn": {
     "data": "01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff0503d7590f00ffffffff0100a3e111000000002321029400ae04d9c0e3e49b114fc5e0a7e250ece5f5b5b8f1614075ddfd62c67319aeac1ba2985b",
     "hash": "6af34ca0711ff5c7d3b4d2334ec55f4995014261f3c537446537169f9b96b0d6",
-    "depends": [
-    ],
+    "depends": [],
     "fee": 0,
     "sigops": 1,
     "coinbasevalue": 300000000,
@@ -136,11 +131,7 @@ Response:
   "longpollid": "0ec57dbbaa7fdb290b847981e38908482b1be05f375f021c4d1f6f6315fd5c7e39",
   "target": "000000070be50000000000000000000000000000000000000000000000000000",
   "mintime": 1536729153,
-  "mutable": [
-    "time",
-    "transactions",
-    "prevblock"
-  ],
+  "mutable": ["time", "transactions", "prevblock"],
   "noncerange": "00000000ffffffff",
   "sigoplimit": 20000,
   "sizelimit": 2000000,
@@ -163,9 +154,7 @@ Response:
 ```json
 {
   "result": {
-    "capabilities": [
-      "proposal"
-    ],
+    "capabilities": ["proposal"],
     "version": 4,
     "previousblockhash": "0c77fb62dcabffd39c0b4ad79da9a51ecc4265158b01ae09d7fd70f93ab7d499",
     "transactions": [
@@ -189,11 +178,7 @@ Response:
     "longpollid": "0c77fb62dcabffd39c0b4ad79da9a51ecc4265158b01ae09d7fd70f93ab7d499147",
     "target": "0000000670be0000000000000000000000000000000000000000000000000000",
     "mintime": 1536729888,
-    "mutable": [
-      "time",
-      "transactions",
-      "prevblock"
-    ],
+    "mutable": ["time", "transactions", "prevblock"],
     "noncerange": "00000000ffffffff",
     "sigoplimit": 20000,
     "sizelimit": 2000000,
@@ -218,14 +203,15 @@ This is the same information shown on the metrics screen (if enabled).
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                            |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
-Structure|Type|Description
----------|----|-----------
-"data"                                       |(numeric)                    |solutions per second average
+
+| Structure | Type      | Description                  |
+| --------- | --------- | ---------------------------- |
+| "data"    | (numeric) | solutions per second average |
 
 #### :pushpin: Examples:
 
@@ -267,26 +253,26 @@ The `getmininginfo` method returns a json object containing mining-related infor
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |(none)                       |
+| Structure | Type   | Description |
+| --------- | ------ | ----------- |
+| (none)    | (none) |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"blocks"                                     |(numeric)                    |the current block
-"currentblocksize"                           |(numeric)                    |the last block size
-"currentblocktx"                             |(numeric)                    |the last block transaction
-"difficulty"                                 |(numeric)                    |the current difficulty
-"errors":                                    |                             |
-"generate"                                   |(boolean)                    |if the generation is on or off (see [getgenerate](../komodo-api/generate.html#getgenerate) or [setgenerate](../komodo-api/generate.html#setgenerate) calls)
-"genproclimit"                               |(numeric)                    |the processor limit for generation; `-1` if no generation (see [getgenerate](../komodo-api/generate.html#getgenerate) or [setgenerate](../komodo-api/generate.html#setgenerate) calls)
-"localsolps"                                 |(numeric)                    |the average local solution rate (solutions per second) since this node was started
-"networksolps"                               |(numeric)                    |the estimated network solution rate (solutions per second)
-"pooledtx":                                  |                             |
-"testnet"                                    |(boolean)                    |if using testnet or not
-"chain"                                      |(string)                     |current network name as defined in BIP70 (main, test, regtest)
+| Structure          | Type      | Description                                                                                                                                                                            |
+| ------------------ | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "blocks"           | (numeric) | the current block                                                                                                                                                                      |
+| "currentblocksize" | (numeric) | the last block size                                                                                                                                                                    |
+| "currentblocktx"   | (numeric) | the last block transaction                                                                                                                                                             |
+| "difficulty"       | (numeric) | the current difficulty                                                                                                                                                                 |
+| "errors":          |           |
+| "generate"         | (boolean) | if the generation is on or off (see [getgenerate](../komodo-api/generate.html#getgenerate) or [setgenerate](../komodo-api/generate.html#setgenerate) calls)                            |
+| "genproclimit"     | (numeric) | the processor limit for generation; `-1` if no generation (see [getgenerate](../komodo-api/generate.html#getgenerate) or [setgenerate](../komodo-api/generate.html#setgenerate) calls) |
+| "localsolps"       | (numeric) | the average local solution rate (solutions per second) since this node was started                                                                                                     |
+| "networksolps"     | (numeric) | the estimated network solution rate (solutions per second)                                                                                                                             |
+| "pooledtx":        |           |
+| "testnet"          | (boolean) | if using testnet or not                                                                                                                                                                |
+| "chain"            | (string)  | current network name as defined in BIP70 (main, test, regtest)                                                                                                                         |
 
 #### :pushpin: Examples:
 
@@ -366,16 +352,16 @@ Pass in `height` to estimate the network speed at the time when a certain block 
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-blocks                                       |(numeric, optional, default=120)|the number of blocks (use -1 to calculate over the relevant difficulty averaging window)
-height                                       |(numeric, optional, default=-1)|to estimate at the time of the given height
+| Structure | Type                             | Description                                                                              |
+| --------- | -------------------------------- | ---------------------------------------------------------------------------------------- |
+| blocks    | (numeric, optional, default=120) | the number of blocks (use -1 to calculate over the relevant difficulty averaging window) |
+| height    | (numeric, optional, default=-1)  | to estimate at the time of the given height                                              |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-data                                         |(numeric)                    |solutions per second estimated
+| Structure | Type      | Description                    |
+| --------- | --------- | ------------------------------ |
+| data      | (numeric) | solutions per second estimated |
 
 #### :pushpin: Examples:
 
@@ -420,17 +406,16 @@ Pass in `height` to estimate the network speed at the time when a certain block 
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-blocks                                       |(numeric, optional, default=120)    |the number of blocks; use -1 to calculate according to the relevant difficulty averaging window
-height                                       |(numeric, optional, default=-1)     |to estimate at the time of the given height
-
+| Structure | Type                             | Description                                                                                     |
+| --------- | -------------------------------- | ----------------------------------------------------------------------------------------------- |
+| blocks    | (numeric, optional, default=120) | the number of blocks; use -1 to calculate according to the relevant difficulty averaging window |
+| height    | (numeric, optional, default=-1)  | to estimate at the time of the given height                                                     |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-data                                         |(numeric)                    |solutions per second, estimated
+| Structure | Type      | Description                     |
+| --------- | --------- | ------------------------------- |
+| data      | (numeric) | solutions per second, estimated |
 
 #### :pushpin: Examples:
 
@@ -457,10 +442,10 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 Response:
 
 ```json
-{  
-   "result":17547717,
-   "error":null,
-   "id":"curltest"
+{
+  "result": 17547717,
+  "error": null,
+  "id": "curltest"
 }
 ```
 
@@ -476,17 +461,17 @@ This method is inherited from the original Bitcoin protocol, of which KMD is a f
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"transaction_id"                             |(string, required)           |the transaction id
-priority_delta                                     |(numeric, required)          |the priority to add or subtract (if negative). The transaction selection algorithm assigns the tx a higher or lower priority. The transaction priority calculation: `coinage * value_in_satoshis / txsize`
-fee_delta                                          |(numeric, required)          |the fee value in satoshis to add or subtract (if negative); the fee is not actually paid, only the algorithm for selecting transactions into a block considers the transaction as if it paid a higher (or lower) fee.
+| Structure        | Type                | Description                                                                                                                                                                                                           |
+| ---------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "transaction_id" | (string, required)  | the transaction id                                                                                                                                                                                                    |
+| priority_delta   | (numeric, required) | the priority to add or subtract (if negative). The transaction selection algorithm assigns the tx a higher or lower priority. The transaction priority calculation: `coinage * value_in_satoshis / txsize`            |
+| fee_delta        | (numeric, required) | the fee value in satoshis to add or subtract (if negative); the fee is not actually paid, only the algorithm for selecting transactions into a block considers the transaction as if it paid a higher (or lower) fee. |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-true                                         |(boolean)                    |returns true
+| Structure | Type      | Description  |
+| --------- | --------- | ------------ |
+| true      | (boolean) | returns true |
 
 #### :pushpin: Examples:
 
@@ -536,21 +521,21 @@ Note: for more information on <b>submitblock</b> parameters and results, see <a 
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"hexdata"                                    |(string, required)           |the hex-encoded block data to submit
-"jsonparametersobject" : { ... }                      |(string, optional)           |object of optional parameters
-"workid"                                     |(string, sometimes optional) |if the server provides a workid, it MUST be included with submissions
+| Structure                        | Type                         | Description                                                           |
+| -------------------------------- | ---------------------------- | --------------------------------------------------------------------- |
+| "hexdata"                        | (string, required)           | the hex-encoded block data to submit                                  |
+| "jsonparametersobject" : { ... } | (string, optional)           | object of optional parameters                                         |
+| "workid"                         | (string, sometimes optional) | if the server provides a workid, it MUST be included with submissions |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"duplicate"                                |                             |node already has valid copy of block
-"duplicate-invalid"                        |                             |node already has block, but it is invalid
-"duplicate-inconclusive"                   |                             |node already has block but has not validated it
-"inconclusive"                             |                             |node has not validated the block, it may not be on the node's current best chain
-"rejected"                                 |                             |block was rejected as invalid
+| Structure                | Type | Description                                                                      |
+| ------------------------ | ---- | -------------------------------------------------------------------------------- |
+| "duplicate"              |      | node already has valid copy of block                                             |
+| "duplicate-invalid"      |      | node already has block, but it is invalid                                        |
+| "duplicate-inconclusive" |      | node already has block but has not validated it                                  |
+| "inconclusive"           |      | node has not validated the block, it may not be on the node's current best chain |
+| "rejected"               |      | block was rejected as invalid                                                    |
 
 #### :pushpin: Examples:
 
@@ -577,9 +562,9 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 Response:
 
 ```json
-{  
-   "result":"duplicate",
-   "error":null,
-   "id":"curltest"
+{
+  "result": "duplicate",
+  "error": null,
+  "id": "curltest"
 }
 ```
