@@ -236,11 +236,16 @@ cp ~/Library/Application\ Support/Komodo/ROGUE/ROGUE.conf ~/komodo/src/ROGUE.con
 ./rogue_tui.py
 ```
 -->
-## Single-Player Mode Walkthrough
+## Walkthroughs
 
 The Komodo team provides a [Terminal User Interface (TUI)](../cryptoconditions/cc-rogue.html#installing-the-tui-optional) to allow players to launch and conclude a game without having to interact with the module's api commands.
 
-For those who would prefer the manual process, the following walkthrough provides detailed step-by-step instructions.
+For those who would prefer the manual process, the following walkthroughs provide detailed step-by-step instructions.
+
+- [Single-Player Mode Walkthrough](../cryptoconditions/cc-rogue.html#single-player-mode-walkthrough)
+- [Multi-Player Mode Walkthrough](../cryptoconditions/cc-rogue.html#multi-player-mode-walkthrough)
+
+### Single-Player Mode Walkthrough
 
 #### Step 1
 
@@ -442,7 +447,7 @@ The [highlander](../cryptoconditions/cc-rogue.html#highlander) method is execute
 
 To use the character again, save the transaction id that is returned from the above command and use it when executing the [register](../cryptoconditions/cc-rogue.html#register) method for a future game.
 
-## Multi-Player Mode Walkthrough
+### Multi-Player Mode Walkthrough
 
 In this walktrough we use two nodes to play a multi-player game of Rogue.
 
@@ -485,7 +490,7 @@ Response:
 }
 ```
 
-Save the returned `txid` value for future use. This is our `game_txid`.
+Save the returned `txid` value for future use. This is our `gametxid`.
 
 Use the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method to check information about the game:
 
@@ -517,7 +522,7 @@ Response:
 
 As shown in the returned json object, the game has a `maxplayers` value of `2` and an `openslots` value of `0`, as no players have joined.
 
-Note that the `gameheight` value is `54265`. This is the block height at which the `game_txid` was created. 
+Note that the `gameheight` value is `54265`. This is the block height at which the `gametxid` was created. 
 
 Also note that the `start` value is `54270`. This is the block height at which the `seed` value will be revealed, allowing players to generate the level design and begin the game. 
 
@@ -525,9 +530,9 @@ Also note that the `start` value is `54270`. This is the block height at which t
 
 For our example, `player1` would like to use an existing character that survived a previous game. This allows `player1` to start with all the advantages this character achieved previously, including character statistics and items.
 
-To activate the existing characer, `player1` includes the associated `player_txid` for the character when executing the [register](../cryptoconditions/cc-rogue.html#register) method. (The `player_txid` values of any `pubkey` can be found using the [players](../cryptoconditions/cc-rogue.html#players) method.)
+To activate the existing characer, `player1` includes the associated `playertxid` for the character when executing the [register](../cryptoconditions/cc-rogue.html#register) method. (The `playertxid` values of any `pubkey` can be found using the [players](../cryptoconditions/cc-rogue.html#players) method.)
 
-The player also includes the `game_txid` as the first argument of the `register` method.
+The player also includes the `gametxid` as the first argument of the `register` method.
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde","8005f81a604df6bbfae91dc8252505df43edbdf06492a2201362cb42dba4d8f2"]'
@@ -548,7 +553,7 @@ Response:
 }
 ```
 
-In our example, the `player2` node does not have a character from a previous game, and therefore `player2` executes the `register` method with only the `game_txid`.
+In our example, the `player2` node does not have a character from a previous game, and therefore `player2` executes the `register` method with only the `gametxid`.
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
@@ -653,7 +658,7 @@ The `openslots` value is now `0`, as `2` players have joined.
 
 Note also that the `start` block height has past, and therefore the `seed` value is available.
 
-Also note that the response includes information about the `player_txid` character provided by `player1` during registration.
+Also note that the response includes information about the `playertxid` character provided by `player1` during registration.
 
 The game is prepared. Both players may begin the game using the command found in the returned `run` value. 
 
@@ -662,6 +667,7 @@ cc/rogue/rogue 3928429259918614461 4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c
 ```
 
 <!-- 
+
 Need clarification on the tip below. Why exactly do the characters both start on the same dungeon level? Why did the block entropy (the seed) produce the same level for both characters? And what will happen on the next level? Is the next level a part of this game, or are you referring to a new game created later?
 
 
@@ -669,7 +675,9 @@ Need clarification on the tip below. Why exactly do the characters both start on
 Both players will start from same level(dungeon level 1)because entropy of same block (same seed) was used for level generation.
 Next levels will be different
 :::
+
 -->
+
 #### Step 3: Play and Finish the Game
 
 [View this linked section for instructions on gameplay.](../cryptoconditions/cc-rogue.html#gameplay-documentation)
@@ -684,7 +692,7 @@ To exit, `player1` executes the [bailout](../cryptoconditions/cc-rogue.html#bail
 
 Response:
 
-```JSON
+```json
 {
   "name": "rogue",
   "method": "bailout",
@@ -754,7 +762,7 @@ With the exit process in motion, `player2` executes the `highlander` method:
 
 Response:
 
-```JSON
+```json
 {
   "name": "rogue",
   "method": "highlander",
@@ -768,75 +776,6 @@ Response:
 
 The multi-player game is now finished. The `player2` node received the `highlander` prize, including the total `buyin` amount and an increased conversion rate of in-game gold to `ROGUE` coins.
 
-## Mechanics of character saving / re-usage (difference between tokentxid and playertxid)
-
-As been told before - Komodo variation of Rogue allows to save characters with characteristics and inventory.
-
-List of player saved characters possible to get by `players` call:
-
-```bash
-./komodo-cli -ac_name=ROGUE cclib players 17
-```
-
-```JSON
-{
-  "name": "rogue",
-  "method": "players",
-  "playerdata": [
-    "65a27df1afb51136fb021ad903ad4f4778060ea85b64ea63a62392c2463a3f71",
-    "89a2f4e47816991d009de8fd3f0b246dc7212b0a2d7de580b2cc9f3e07141785",
-    "0b385477e803af3803beaf953659cee52f8a1f8687dbfac565c172ca850c2f97",
-    "f79b6698ac74c6aca6ef7a223215f40d2a506586d26c71c4d0b3d79e75b00cc8"
-  ],
-  "numplayerdata": 4
-}
-```
-
-Let's check information about one:
-
-```bash
-./komodo-cli -ac_name=ROGUE cclib playerinfo 17 '["0b385477e803af3803beaf953659cee52f8a1f8687dbfac565c172ca850c2f97"]'
-
-```
-
-```JSON
-{
-  "result": "success",
-  "name": "rogue",
-  "method": "playerinfo",
-  "player": {
-    "gametxid": "c43b219b752708e73a1c5ab690365c7e6723cec8fc47c36aab09fa762ab3271b",
-    "playertxid": "0b385477e803af3803beaf953659cee52f8a1f8687dbfac565c172ca850c2f97",
-    "tokenid": "0b385477e803af3803beaf953659cee52f8a1f8687dbfac565c172ca850c2f97",
-    "data": "240000000c0000001000100001000000050000000600000002000000000000003a0000000000000001000000000000000000000000000000000000001000000000000000000000000000000000000000000000005d00000000000000010000000100000000000000000000000600000012000000000000000000000000000000000000000000000029000000ffffffff010000000000000001000000010000000000000012000000000000003278340000000000317833000000000029000000ffffffff010000000200000001000000000000000000000012000000000000003178310000000000317831000000000029000000020000001d000000030000000000000000000000000000001e00000000000000317831000000000032783300000000003f00000000000000010000000400000000000000000000000b000000100000000000000030783000000000003078300000000000",
-    "pack": [
-      "Some food",
-      "+1 ring mail [protection 4]",
-      "A +1,+1 mace",
-      "A +1,+0 short bow",
-      "29 +0,+0 arrows",
-      "A scroll of enchant armor"
-    ],
-    "packsize": 6,
-    "hitpoints": 12,
-    "strength": 16,
-    "maxstrength": 16,
-    "level": 1,
-    "experience": 5,
-    "dungeonlevel": 2,
-    "chain": "ROGUE",
-    "pname": "TonyL"
-  }
-}
-```
-Important thing is that in this list displaying `playertxid` of characters. Each character have 2 transactions associated: `tokentxid` and `playertxid`.
-
-`tokentxid` representing character as non-fungible token - it's giving once on character "birth" (other words token with this txid creating. This txid using for character transferring as a token and trading on TokensCC DEX. If character dies - token burning (sending to burn address).
-
-`playertxid` representing character as Rogue game player - it's changing after each character re-usage and succesfull bailout. So character `tokentxid` might be not the same (same only after first game) as `playertxid` but `tokentxid` is always the same.
-
-In case of bailout with alive character `gameinfo` for this game will return `batontxid` which is actually new `playertxid` of used character. From other side in `playerinfo` can be found `gametxid` in which this character `playertxid` participated so this way is possible to detect actual `playertxid` for given `tokenid`.
-
 ## Gameplay Documentation
 
 As Komodo's Rogue implementation is based off of the classic Rogue game, the classic manual provides the basic instructions for the game:
@@ -845,22 +784,9 @@ As Komodo's Rogue implementation is based off of the classic Rogue game, the cla
 
 After reading the linked manual, there are additional aspects to keep in mind for Komodo's unique implementation.
 
-:::tip Character saving
-Please note that `s` not using as `save game` command. Instead use `Q + y + Enter` and after execute bailout command to extract gold and charachter progress.
-Important that you have to collect more than 0 gold and kill at least one monster - otherwise your character will be counted as dead.
-:::
+### Gameplay Modes
 
-:::tip Inventory changes
-As expiremental feature over the original Rogue gameplay inventory scaling now with strength of character. Character can carry up to `strength * 2` items (but
-no more than 23 unique letters in inventory). Throwable objects packs counts as single item. If you bailouted from game with more items in inventory that you can carry - on next character reusage part of items will be automatically flushed to fit it
-:::
-
-:::tip Charachter re-usage game start
-Please note that to start game with this character you have to use it's playertxid as second argument of `register` call
-Also, next game you will start from dungeon level 1 without gold (because it was converted to ROGUE) and without weared armor/wielded weapon.
-So not forget to wield weapon back by `w` and wear armor by `W`
-
-Komodo's Rogue features two different game modes. There is one mode for single-player gameplay, where the `maxplayer` value is set to `1`, and one mode for multiplayer gameplay, where the `maxplayer` value is greater than `1`.
+Komodo's Rogue features two different game modes. There is one mode for single-player gameplay, where the `maxplayer` value is set to `1`, and one mode for multi-player gameplay, where the `maxplayer` value is greater than `1`.
 
 #### Single-Player Mode
 
@@ -868,23 +794,62 @@ The single-player mode is more limited in nature. In general, this mode is for p
 
 There are no time limits.
 
-The conversion of in-game gold to `ROGUE` coins is halved to a ratio of `ROGUE(satoshis) = gold * gold * dungeon_level_on_exit * 10`.
-
 As soon as the `register_txid` is confirmed the player may begin to play.
+
+When concluding the game, the conversion of in-game gold to `ROGUE` coins is halved. See the [highlander](../cryptoconditions/cc-rogue.html#highlander) and [bailout](../cryptoconditions/cc-rogue.html#bailout) methods for further details.
 
 #### Multi-Player Mode
 
 If more than one player is allowed in the game parameters, the game goes into "Highlander" mode. In this mode, there can be only one winner of each game. The winner is either the last player standing, or the first player to retrieve the `amulet` and successfully exit the dungeon.
 
-Multiplayer mode also adds a time limit that is based on the frequency of keystrokes. So long as you are frequently entering commands, the time limit will expire in approximately one hour. If players are not frequently entering keystrokes, the time limit can vary.
+Multi-player mode also adds a time limit that is based on the frequency of keystrokes. So long as the players are frequently entering commands, the time limit will expire in approximately one hour. If players are not frequently entering keystrokes, the time limit can vary.
 
-There is a waiting period after the `gameplay_txid` is confirmed. This is an arbitrary number of blocks that is determined using blockchain-enforced randomization. This ensures that no player receives an unfair advantage via advanced knowledge of the start time. Game can be started only in 5 blocks after creation (game seed will be reaveled in gameinfo only after game startheight which can be found in gameinfo as well).
+There is a waiting period after the `gameplay_txid` is confirmed. This ensures that no player receives an unfair advantage via advanced knowledge of the start time. The delay is `5` blocks. On a default asset chain, this creates a `5` minute wait period. Once the `5` blocks are mined, the asset chain automatically reveals a `seed` that is created using blockchain-based provable randomization. The `seed` provides the basis for level-design generation. After the level is generated, the players may begin to play. 
 
-If a player uses the `bailout` method, they are allowed to convert all their gold to `ROGUE` coins at a ratio of `ROGUE(satoshis) = gold * gold * dungeon_level_on_exit * 20` each. The conversion is facilitated using globally locked `ROGUE` coins. The funds in this global vault automatically accrue through asset-chain activity. In the event that there are not enough globally locked funds at the time the `bailout` method is executed, the player must simply wait until the funds are generated via automated methods. You can encourage this fund to grow more quickly by encouraging other players and people to transact using ROGUE, as transactions feed the fund.
+There are two methods for winning the game. The most direct way to win the game is to obtain the `amulet` and return from the dungeon. The winner receives all of the `buyin` coins that were originally contributed, as well as an increased conversion ratio for their in-game gold to `ROGUE` reward. Alternatively, the player also may win by having the last surviving character. 
 
-The most direct way to win the game is to obtain the `amulet` and return from the dungeon. The winner receives all of the buy-in ROGUE coins that were originally contributed, as well as `ROGUE(satoshis) = gold * gold * dungeon_level_on_exit * 20` ROGUE coin for in-game gold obtained.
+See the [highlander](../cryptoconditions/cc-rogue.html#highlander) method for further details.
 
-With each player that survives (in both single-player and multi-player modes), whether by winning or by bailing out, the player with all of his obtained items are retained on the blockchain. The character and his inventory is a non-fungible asset that can be traded. The character can also be used in any future ROGUE game. To activate this character, use the character's `player_txid` value when executing the [register](../cryptoconditions/cc-rogue.html#register) method.
+### The Mechanics of Saving, Trading, and Re-Using Characters
+
+::: tip Note
+
+Due to the nature of saving and reusing characters, the Komodo implementation of Rogue changes the manner in which the user saves characters. Instead of typing `s` on the keyboard, type `Q + y + Enter`, then execute the [bailout](../cryptoconditions/cc-rogue.html#bailout) method to conclude the game.
+
+:::
+
+If a player successfully uses either the [highlander](../cryptoconditions/cc-rogue.html#highlander) or [bailout](../cryptoconditions/cc-rogue.html#bailout) method to conclude a game, the player may save their character, items, and achieved characteristics. They also convert the character's in-game gold to `ROGUE` coins. The ratio of conversion depends upon the game conditions; see the `highlander` and `bailout` methods for further details.
+
+#### Recalling an Existing Character
+
+When either of these methods are executed, the returned response includes a `playertxid` transaction id. The `playertxid` represents the state of this character at the completion of the game. It is used as an argument for the [register](../cryptoconditions/cc-rogue.html#register) method when recalling the character, items, and achieved characterstics into a future game. 
+
+The `playertxid` value changes with each game, and therefore only the most recent `playertxid` for a character should be used. To see a complete list of current `playertxid` values belonging to the user's `pubkey`, use the [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) method. 
+
+When the user registers an existing character, the game dungeon's difficulty begins at level `1`, and the character has no gold (as it was converted to `ROGUE` coins). Also, even if the character has armor and a wielded weapon in their item list, these items are not equipped by default. The player must equip them at the start of the game by typing the letters `w` for weapon and `W` for armor.
+
+One gameplay element that the Komodo team has changed from classic Rogue is the ability to scale the amount of inventory the character may carry according to the character's strength. The formula is as follows:
+
+```
+current max inventory = character strength * 2
+```
+
+The highest `max inventory` value is `23` unique letters. Throwable-object packages count as a single item.
+
+If the user bails out of a game while holding more items than they are allowed to carry, the game will automatically flush items from the character's inventory as a part of the `bailout` method.
+
+#### Trading an Existing Character
+
+A character that survived a game is also a non-fungible asset and can be traded on the blockchain. When trading a character, the user does not use the `playertxid` value. Rather, the user employs the `tokentxid` value. This `tokentxid` is used in coordination with the [Tokens CC](../cryptoconditions/cc-tokens.html#introduction) module for on-chain trading.
+
+The `tokentxid` can be found by using the [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) method and submitting the known `playertxid` as an argument. 
+
+The `tokentxid` is created at the character's initial creation and does not change throughout the character's life. When the character dies, the `tokentxid` is sent to a burn address, making the character permanently unplayable. 
+
+<!-- I need more clarification on the part about how to find a `playertxid` when the developer only has a `tokentxid`
+
+From other side in `playerinfo` can be found `gametxid` in which this character `playertxid` participated so this way is possible to detect actual `playertxid` for given `tokenid`.
+-->
 
 ## newgame
 
@@ -893,8 +858,6 @@ With each player that survives (in both single-player and multi-player modes), w
 The `newgame` method creates a new game.
 
 The `buyin` argument is required for multi-player games. The coins contributed via `buyin` become a winner-takes-all pot. Either the first player to claim the `amulet` and return from the dungeon, or the last player standing; may claim this prize using the [highlander](../cryptoconditions/cc-rogue.html#highlander) method.
-
-In single-player mode, the conversion ratio of in-game gold to `ROGUE` coins is `ROGUE(satoshis) = gold * gold * dungeon_level_on_exit * 10`.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
@@ -943,7 +906,7 @@ Response:
 
 ## gameinfo
 
-**cclib gameinfo 17 '["game_txid"]'**
+**cclib gameinfo 17 '["gametxid"]'**
 
 The `gameinfo` method returns relevant information about the indicated `gametxid` game.
 
@@ -961,7 +924,7 @@ The `gameinfo` method returns relevant information about the indicated `gametxid
 | method     | (string)           | name of the method                                                     |
 | gametxid   | (decimal number)   | the indicated `gametxid` transaction id                                |
 | result     | (string)           | whether the command executed successfully                              |
-| gameheight | (decimal number)   | the block height at which this `game_txid` was created                                                                      |
+| gameheight | (decimal number)   | the block height at which this `gametxid` was created                                                                      |
 | height     | (decimal number)   |                                                                         |
 | start      | (decimal number)   | the block height at which the seed will be revealed                                                                       |
 | starthash  | (string)           |                                                                        |
@@ -1055,13 +1018,13 @@ Response:
 
 ## register
 
-**cclib register 17 '["game_txid"(,"player_txid")]'**
+**cclib register 17 '["gametxid"(,"playertxid")]'**
 
 The `register` method registers your character for a game.
 
-The optional `player_txid` allows the user to re-use a character that survived a previous game.
+The optional `playertxid` allows the user to reuse a character that survived a previous game.
 
-For the `player_txid` argument to properly call an existing character, the user's daemon must be set to the `pubkey` that owns the `player_txid`. This can be accomplished either through the [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter, or through the [setpubkey](..) method.
+For the `playertxid` argument to properly call an existing character, the user's daemon must be set to the `pubkey` that owns the `playertxid`. This can be accomplished either through the [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter or through the [setpubkey](..) method.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
@@ -1111,13 +1074,13 @@ Response:
 
 ## keystrokes
 
-**cclib keystrokes 17 '["game_txid","keystrokes"]'**
+**cclib keystrokes 17 '["gametxid","keystrokes"]'**
 
-The `keystrokes` method executes the indicated `keystroke` for the indicated `game_txid`.
+The `keystrokes` method executes the indicated `keystroke` for the indicated `gametxid`.
 
 <!-- We need to add a section that explains how the keystrokes are translated from the button push on the keyboard to the long string of characters we see in the example.-->
 
-After a game concludes the complete list of keystrokes can be found in the `keystrokes.log` file. <!--Need the path directory -->
+After a game concludes the complete list of keystrokes can be found in the `~/komodo/src/keystrokes.log` file.
 
 #### Arguments:
 
@@ -1162,11 +1125,13 @@ Response:
 
 ## bailout
 
-**cclib bailout 17 '["game_txid"]'**
+**cclib bailout 17 '["gametxid"]'**
 
 The `bailout` method allows a user to withdraw their character from the game.
 
 This method is only available when the character is still alive. The character must remain alive until the returned `bailout_txid` is mined.
+
+Also, the character must have more than `0` gold and must have killed at least `1` monster. Otherwise, the `bailout` method will treat the character as dead, regardless of the character's status. 
 
 When the character successfully bails out from the game, all in-game gold the character has captured is converted into `ROGUE` coins.
 
@@ -1175,7 +1140,9 @@ The conversion ratio depends upon the mode of gameplay.
 - Single-player mode: `1` gold to `0.0005` ROGUE coins
 - Multi-player mode: `1` gold to `0.001` ROGUE coins
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The conversion is facilitated using globally locked `ROGUE` coins. The funds in this global vault automatically accrue through asset-chain activity. In the event that there are not enough globally locked funds at the time the method is executed, the player must simply wait until the funds are generated via automated methods. You can encourage this fund to grow more quickly by encouraging other players and people to transact using ROGUE, as transactions feed the fund.
+
+The method returns a `hex` value. While most methods in the Komodo API require the user/developer to broadcast the `hex` value using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction), the Rogue CC module broadcasts automatically.
 
 #### Arguments:
 
@@ -1192,7 +1159,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | myrogueaddr | (string) |                                                                                                                                                                            |
 | gametxid    | (string) | the unique `gametxid` transaction id that identifies this game                                                                                                             |
 | hex         | (string) | a hex value that must be broadcast using `sendrawtransaction`                                                                                                              |
-| txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to re-use the character from this game |
+| txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to reuse the character from this game |
 | result      | (string) | whether the command executed successfully                                                                                                                                  |
 
 #### :pushpin: Examples:
@@ -1219,11 +1186,31 @@ Response:
 
 ## highlander
 
-**cclib highlander 17 '["game_txid"]'**
+**cclib highlander 17 '["gametxid"]'**
 
 The `highlander` method allows a character to exit the game and claim the `buyin` prize funds.
 
-This method is only available in multi-player mode, and the user's character must either be the last standing character or the character must be in possession of the `amulet` and have successfully exited the dungeon.
+In single-player mode, the `highlander` method is available after safely retrieving the `amulet` and exiting the dungeon.
+
+In multi-player mode, the `highlander` method is available either to the character that is the last man standing, or to any character that successfully retrieves the `amulet` and exits the dungeon.
+
+### Highlander Rewards
+
+The character that successfully executes the `highlander` method receives an increased ratio of conversion from in-game gold to `ROGUE` coins. The ratio depends upon the mode of gameplay; see below for further details.
+
+The conversion is facilitated using globally locked `ROGUE` coins. The funds in this global vault automatically accrue through asset-chain activity. In the event that there are not enough globally locked funds at the time the `highlander` method is executed, the player must wait until the funds are generated via automated methods. You can encourage this fund to grow more quickly by encouraging other players and people to transact using ROGUE, as transactions feed the fund.
+
+#### Rewards in Single-Player Mode:
+
+```
+ROGUE_satoshis = gold * gold * dungeon_level_on_exit * 10
+```
+
+#### Rewards in Multi-Player Mode
+
+```
+ROGUE_satoshis = gold * gold * dungeon_level_on_exit * 20
+```
 
 #### Arguments:
 
@@ -1239,7 +1226,7 @@ This method is only available in multi-player mode, and the user's character mus
 | method      | (string) | the name of the method                                                                                                                                                     |
 | myrogueaddr | (string) |                                                                                                                                                                            |
 | gametxid    | (string) | the unique `gametxid` transaction id that identifies this game                                                                                                             |
-| txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to re-use the character from this game |
+| txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to reuse the character from this game |
 
 #### :pushpin: Examples:
 
@@ -1265,7 +1252,7 @@ Response:
 
 ## playerinfo
 
-**cclib playerinfo 17 '["player_txid"]'**
+**cclib playerinfo 17 '["playertxid"]'**
 
 The `playerinfo` method displays information about the currently active character.
 
@@ -1284,7 +1271,7 @@ The `playerinfo` method displays information about the currently active characte
 | method       | (string)           | the name of the method                                                                                  |
 | player       | (json object)      | a json object containing relevant player data                                                           |
 | playertxid   | (string)           | the unique identifying transaction id of this player                                                    |
-| tokenid      | (string)           |                                                                                                         |
+| tokenid      | (string)           | the unique transaction id that represents this character as a non-fungible asset for on-chain trading using the [Tokens CC](../cryptoconditions/cc-tokens.html#introduction) module                                                                                                        |
 | data         | (string)           |                                                                                                         |
 | pack         | (array of strings) | an array containing the items in the character's pack                                                   |
 | packsize     | (number)           | the number of items in the character's pack                                                             |
@@ -1444,9 +1431,9 @@ Response:
 
 **cclib setname 17 '["name"]'**
 
-The `setname` method sets the name variable from which will be given name to user unnamed characters (both already existing and unnamed and new created ones).
+The `setname` method sets the name of a character. This method can be executed for existing unnamed characters, and for characters that are newly created and unnamed.
 
-
+<!--In the above statement about which characters can have their name set, the question that I'm wondering is, can a character that has a name already get a new name? Or can a character be named only once? -->
 #### Arguments:
 
 | Name               | Type     | Description                                                |
@@ -1483,7 +1470,7 @@ Response:
 
 ## extract
 
-**cclib extract 17 '["game_txid","pubkey"]'**
+**cclib extract 17 '["gametxid","pubkey"]'**
 
 The `extract` method allows the user extract the complete history of a game. This allows the user to view a replay of the game.
 
@@ -1507,7 +1494,7 @@ The `extract` method allows the user extract the complete history of a game. Thi
 | numkeys    | (number) |                                                                                                          |
 | playertxid | (string) | the `playertxid` transaction id that represents the character belonging to the indicated `pubkey`        |
 | extracted  |          |                                                                                                          |
-| seed       |          |                                                                                                          |
+| seed       | (decimal number)   | the blockchain-generated random seed. This provides the necessary randomization for players to generate the current game's level design. The `seed` value is revealed at the `start` block height.                                                                        |
 | replay     | (string) | the complete terminal command that must be executed to begin this game                                   |
 
 #### :pushpin: Examples:
