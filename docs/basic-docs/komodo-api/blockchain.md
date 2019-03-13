@@ -2,6 +2,10 @@
 
 The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
+## coinsupply
+
+
+
 ## getbestblockhash
 
 **getbestblockhash**
