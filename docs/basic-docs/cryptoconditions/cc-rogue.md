@@ -284,11 +284,7 @@ Response:
 
 The ROGUE software currently broadcasts the `hex` value automatically. It is not necessary to use the `sendrawtransaction` method.
 
-The returned transaction id `txid` is the `gameplay_txid`. Save this for future use.
-
-:::tip
-Please note that Rogue transactions auto-broadcast at the moment
-:::
+The returned transaction id `txid` is the `gametxid`. Save this for future use.
 
 #### Step 3
 
@@ -326,7 +322,7 @@ In the returned json object, observe the `run` value. This lists the specific co
 
 #### Step 4
 
-Register the `gameplay_txid` using the [register](../cryptoconditions/cc-rogue.html#register) method:
+Register the `gametxid` using the [register](../cryptoconditions/cc-rogue.html#register) method:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
@@ -350,7 +346,7 @@ Response:
 
 #### Step 5
 
-Check the game's current state again using the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method. Use the `gameplay_txid` as an argument:
+Check the game's current state again using the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method. Use the `gametxid` as an argument:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
@@ -409,27 +405,23 @@ For instructions on in-game controls and objectives, [read this linked section.]
 
 #### Step 8 - Bailout
 
-If your character is still alive and you would like to leave the game, follow this procedure.
-
-This will convert your in-game gold to `ROGUE` coins at a ratio of `ROGUE_satoshis = gold * gold * dungeon_level_on_exit * 10`.
+If your character is still alive and you would like to leave the game while keeping your profits, follow this procedure.
 
 Save your character.
 
 To quit the game, type the letter `Q` on the keyboard. This opens a context menu. Type the letter `n` and press `Enter`.
 
-This begins the process of leaving the game, but the player is not finished yet.
+This begins the process of leaving the game, but you are not finished yet.
 
 Wait for the ROGUE network to mine all [`keystrokes`](../cryptoconditions/cc-rogue.html#keystrokes) transactions. To see a list of all `keystrokes` created, check the `keystrokes.log` file in the `~/komodo/src` directory, and use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to verify when the last `keystrokes` are mined.
 
-When the last transactions are mined, execute the [bailout](../cryptoconditions/cc-rogue.html#bailout) method to leave the game while keeping the character, items, and to transfer your in-game gold to `ROGUE` coins.
+When the last transactions are mined, execute the [bailout](../cryptoconditions/cc-rogue.html#bailout) method to leave the game while keeping the character and items in your `pubkey`, and the method will also transfer your in-game gold to `ROGUE` coins.
 
 For example:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
-
-The `bailout` transaction sends all earned ROGUE coins and and the player's non-fungible character token to the user's local `pubkey`. The character's inventory and characteristics are saved.
 
 After the `bailout` transaction is mined, the player may view their character using the [players](../cryptoconditions/cc-rogue.html#players) and [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) methods.
 
@@ -467,7 +459,7 @@ cd ~/komodo/src
 For this game, we choose the following details:
 
 - the max number of players: `2`
-- the cost (in `ROGUE` coins of the game `buyin`: `0.1`
+- the cost in `ROGUE` coins of the game `buyin`: `0.1`
 
 Execute the [newgame](../cryptoconditions/cc-rogue.html#newgame) method on `player1` as follows:
 
@@ -666,19 +658,6 @@ The game is prepared. Both players may begin the game using the command found in
 cc/rogue/rogue 3928429259918614461 4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde
 ```
 
-<!-- 
-
-Need clarification on the tip below. Why exactly do the characters both start on the same dungeon level? Why did the block entropy (the seed) produce the same level for both characters? And what will happen on the next level? Is the next level a part of this game, or are you referring to a new game created later?
-
-TonyL: I'm talking about dungeon levels in same game. First level generating from seed, next levels generating by rogue game pseudo-rng. In multiplayer game two players starting with same seed (generated from same blocks entropy) - thats why first level will be the same.
--->
-
-:::tip Interesting fact
-Both players will start game from same level (dungeon level 1)because entropy of same block (same seed) was used for level generation.
-Next levels will be different
-:::
-
-
 #### Step 3: Play and Finish the Game
 
 [View this linked section for instructions on gameplay.](../cryptoconditions/cc-rogue.html#gameplay-documentation)
@@ -805,13 +784,15 @@ If more than one player is allowed in the game parameters, the game goes into "H
 
 Multi-player mode also adds a time limit that is based on the frequency of keystrokes. So long as the players are frequently entering commands, the time limit will expire in approximately one hour. If players are not frequently entering keystrokes, the time limit can vary.
 
-There is a waiting period after the `gameplay_txid` is confirmed. This ensures that no player receives an unfair advantage via advanced knowledge of the start time. The delay is `5` blocks. On a default asset chain, this creates a `5` minute wait period. Once the `5` blocks are mined, the asset chain automatically reveals a `seed` that is created using blockchain-based provable randomization. The `seed` provides the basis for level-design generation. After the level is generated, the players may begin to play. 
+There is a waiting period after the `gametxid` is confirmed. This ensures that no player receives an unfair advantage via advanced knowledge of the start time. The delay is `5` blocks. On a default asset chain, this creates a `5` minute wait period. Once the `5` blocks are mined, the asset chain automatically reveals a `seed` that is created using blockchain-based provable randomization. The `seed` provides the basis for level-design generation. After the level is generated, the players may begin to play. 
+
+Due to the fact that the entropy -- the `seed` -- was the same for both players during level generation, both players will begin at dungeon-level `1`. However, the generation of levels greater than `1` take into account the gameplay of the characters, and therefore the level designs will be different for each player.
 
 There are two methods for winning the game. The most direct way to win the game is to obtain the `amulet` and return from the dungeon. The winner receives all of the `buyin` coins that were originally contributed, as well as an increased conversion ratio for their in-game gold to `ROGUE` reward. Alternatively, the player also may win by having the last surviving character. 
 
 See the [highlander](../cryptoconditions/cc-rogue.html#highlander) method for further details.
 
-### The Mechanics of Saving, Trading, and Re-Using Characters
+### The Mechanics of Saving, Trading, and Reusing Characters
 
 ::: tip Note
 
@@ -843,20 +824,9 @@ If the user bails out of a game while holding more items than they are allowed t
 
 A character that survived a game is also a non-fungible asset and can be traded on the blockchain. When trading a character, the user does not use the `playertxid` value. Rather, the user employs the `tokentxid` value. This `tokentxid` is used in coordination with the [Tokens CC](../cryptoconditions/cc-tokens.html#introduction) module for on-chain trading.
 
-The `tokentxid` can be found by using the [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) method and submitting the known `playertxid` as an argument. 
+The `tokentxid` can be found by using the [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) method and submitting the known `playertxid` as an argument. For more information, see the `playerinfo` method.
 
 The `tokentxid` is created at the character's initial creation and does not change throughout the character's life. When the character dies, the `tokentxid` is sent to a burn address, making the character permanently unplayable. 
-
-<!-- I need more clarification on the part about how to find a `playertxid` when the developer only has a `tokentxid`
-
-From other side in `playerinfo` can be found `gametxid` in which this character `playertxid` participated so this way is possible to detect actual `playertxid` for given `tokenid`.
-
-TonyL: How warriors scanner (actual playertxid searcher is stage 3) implemented in TUI:
-1) I'm taking list of all tokens existing on chain by `tokenlist` call
-2) Checking for each token if it a rogue character by `playerinfo` call (in case of error - it's not character but usual token/token of other application)
-3) For tokeinds which I'm detected as ROGUE character I'm checking `playerinfo` again - if it have batontxid - it means that he was reused in other game and playertxid not actual for this tokentxid, so I'm getting playerinfo for batontxid and so on to point where playerinfo don't have batontxid key. From such playerinfo without batontxid I'm taking playertxid 
-4) Then I'm checking if this character alive or not (iterating this actual playertxid list to check if specific token vout is spent for this playertxid)
--->
 
 ## newgame
 
@@ -932,9 +902,9 @@ The `gameinfo` method returns relevant information about the indicated `gametxid
 | gametxid   | (decimal number)   | the indicated `gametxid` transaction id                                |
 | result     | (string)           | whether the command executed successfully                              |
 | gameheight | (decimal number)   | the block height at which this `gametxid` was created                                                                      |
-| height     | (decimal number)   |                                                                         |
+| height     | (decimal number)   | <!--need this-->                                                                         |
 | start      | (decimal number)   | the block height at which the seed will be revealed                                                                       |
-| starthash  | (string)           |                                                                        |
+| starthash  | (string)           | <!--need this -->                                                                        |
 | seed       | (decimal number)   | the blockchain-generated random seed. This provides the necessary randomization for players to generate the current game's level design. The `seed` value is revealed at the `start` block height.                                                                        |
 | run        | (string)           | the complete terminal command that must be executed to begin this game |
 | alive      | (decimal number)   | the number of players still alive in the game                          |
@@ -1084,10 +1054,7 @@ Response:
 
 The `keystrokes` method executes the indicated `keystroke` for the indicated `gametxid`.
 
-<!-- We need to add a section that explains how the keystrokes are translated from the button push on the keyboard to the long string of characters we see in the example.
-
-TonyL: please consult James on this matter in case of tricky questions. I don't know clearly how it implemented on rogue side because with keystrokes call deal only rogue dapp. All I know is that ASCII characters input converting to hex and broadcasting as hex string in transaction after each dungeon level.  `extract` call return whole game progress so all levels received keystrokes are concatenated. Button push on the keybroard converting to ASCII symbol which covnerting to hex on broadcasting.
--->
+The player's keystrokes on the keyboard are recorded in ASCII format. [See this link](https://theasciicode.com.ar/) for a table of ASCII keyboard translations.
 
 After a game concludes the complete list of keystrokes can be found in the `~/komodo/src/keystrokes.log` file.
 
@@ -1096,22 +1063,14 @@ After a game concludes the complete list of keystrokes can be found in the `~/ko
 | Name       | Type     | Description                                                                                                      |
 | ---------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
 | gametxid   | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character |
-| keystrokes | (string) | the desired keystroke <!-- need to indicate how the keystroke is provided/formatted -->                          |
+| keystrokes | (string) | the desired keystroke, provided in ASCII format and contactenated into a single string                          |
 
 #### Response:
 
 | Name   | Type | Description |
 | ------ | ---- | ----------- |
-| (none) |      |             |
 
-<!--
-
-Example of request:
-["keystrokes","17","[%22777ba510824b467e9ddfb00a075e9cd5c6f73d1fa6f772b1a22563502def25ee%22,%226a68686868686866686820686868682068686868206868666868686c6c6c6c6a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a68666b%22]"]
-
-Response:
-{"result":{"name":"rogue","method":"keystrokes","gametxid":"777ba510824b467e9ddfb00a075e9cd5c6f73d1fa6f772b1a22563502def25ee","keystrokes":"6a68686868686866686820686868682068686868206868666868686c6c6c6c6a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a68666b","batontxid":"3d9b93fb784852c5899f5cfa11b0c24f185835169781755027cb7e04fe4a7463","playertxid":"0000000000000000000000000000000000000000000000000000000000000000","hex":"0400008085202f890163744afe047ecb2750758197163558184fc2b011fa5c9f89c5524878fb939b3d00000000a74ca5a281a1a0819ca28194a067a5658021027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85814086ad1e7babe52189c9201acae2a031284ebba0fa5841f4e35a475c9eb267140d535b96e2379b2c99332c4f5efdbddcb5cd850301b9ffe1ba6de139696cea5439a129a5278020446b52761bffb00eaa7a055c9994987ce2120a551fb4dfd01ffae1ffbee6b56b8103020000af03800111a10001ffffffff029063a70000000000302ea22c80202ba0b269f75c72a0ce23e03812814b1e76a8fd57b3e75fee8b37bfef2b4ebf3581031210008203000401cc0000000000000000ad6a4caa114bee25ef2d506325a2b172f7a61f3df7c6d59c5e070ab0df9d7e464b8210a57b7763744afe047ecb2750758197163558184fc2b011fa5c9f89c5524878fb939b3d21027d28d7d59ac499fac55f89b9e06933d66aaf74435c48326d83f8fbc6a7b14e85456a68686868686866686820686868682068686868206868666868686c6c6c6c6a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a68666b00000000a6b900000000000000000000000000","txid":"1fc6543d4aa577e976f9cb449835fe633510e169e00ceff243ca2791d68aec1c","result":"success"},"error":null,"id":"jl777"}
--->
+<!--I can use the response in the example below as a starting point, but before I do so, I need to ask: is that formatted via the jq terminal software? It looks like it. In other words, the result, error, and id properties look like they came from jq, and the stuff inside the result property is what the terminal would normally reply. ? -->
 
 #### :pushpin: Examples:
 
@@ -1174,7 +1133,7 @@ The method returns a `hex` value. While most methods in the Komodo API require t
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | name        | (string) | the name of the module                                                                                                                                                     |
 | method      | (string) | the name of the method                                                                                                                                                     |
-| myrogueaddr | (string) | address on assetchain for setted pubkey (in -pubkey= param or via setpubkey RPC)                                                                                                                                                                           |
+| myrogueaddr | (string) | the address on the asset chain for the user's `pubkey`     |
 | gametxid    | (string) | the unique `gametxid` transaction id that identifies this game                                                                                                             |
 | hex         | (string) | a hex value that must be broadcast using `sendrawtransaction`                                                                                                              |
 | txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to reuse the character from this game |
@@ -1242,7 +1201,7 @@ ROGUE_satoshis = gold * gold * dungeon_level_on_exit * 20
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | name        | (string) | the name of the module                                                                                                                                                     |
 | method      | (string) | the name of the method                                                                                                                                                     |
-| myrogueaddr | (string) | address on assetchain for setted pubkey (in -pubkey= param or via setpubkey RPC)                                                                                                                                                                          |
+| myrogueaddr | (string) | the address on the asset chain for the user's `pubkey`     |
 | gametxid    | (string) | the unique `gametxid` transaction id that identifies this game                                                                                                             |
 | txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to reuse the character from this game |
 
@@ -1274,6 +1233,20 @@ Response:
 
 The `playerinfo` method displays information about the currently active character.
 
+##### Tips on Finding Character Information
+
+There are occasions where the developer may wish to start with the `tokentxid` of a character(s) and from there to find the most up-to-date `playertxid`. 
+
+The following is one solution:
+
+- If necessary, obtain a list of all `tokens` on the asset chain via the [tokenlist](../cryptoconditions/cc-tokens.html#tokenlist) method.
+- For each item in the response, execute an iterative function that executes the [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) method on the individual `token`
+  - If the method responds with an error, that `token` does not represent a character, but some other on-chain asset, and therefore the token can be ignored.
+- For each response from the `playerinfo` method, check to see if the data contains a `batontxid`, and check to see if the character is alive
+  - If there is a `batontxid`, this means that this `playertxid` has been used in a game and is no longer valid, and therefore this `playertxid` can be ignored
+  - Likewise, if the character is no longer alive, it can be ignored
+- For all `tokens` that have, a valid response, no `batontxid`, and are alive, the `token` that served as the basis for this sequence of events can be considered the correct `tokentxid` for the discovered `playertxid`
+
 #### Arguments:
 
 | Name     | Type     | Description                                                                                                      |
@@ -1290,7 +1263,7 @@ The `playerinfo` method displays information about the currently active characte
 | player       | (json object)      | a json object containing relevant player data                                                           |
 | playertxid   | (string)           | the unique identifying transaction id of this player                                                    |
 | tokenid      | (string)           | the unique transaction id that represents this character as a non-fungible asset for on-chain trading using the [Tokens CC](../cryptoconditions/cc-tokens.html#introduction) module                                                                                                        |
-| data         | (string)           | character state information in hex form                                                                 |
+| data         | (string)           | the character-state information in hex form                                                                 |
 | pack         | (array of strings) | an array containing the items in the character's pack                                                   |
 | packsize     | (number)           | the number of items in the character's pack                                                             |
 | hitpoints    | (number)           | see [this linked manual](https://docs.freebsd.org/44doc/usd/30.rogue/paper.pdf) for further information |
@@ -1449,7 +1422,9 @@ Response:
 
 **cclib setname 17 '["name"]'**
 
-The `setname` method sets the name of a character. This method can be executed for existing unnamed characters, and for characters that are newly created and unnamed. Please note that once name of character is set it can't be changed.
+The `setname` method sets the name of a character. 
+
+A character may receive a `name` at any point, but the character's name may be set only once. It is not possible to rename a character.
 
 #### Arguments:
 
@@ -1505,12 +1480,12 @@ The `extract` method allows the user extract the complete history of a game. Thi
 | name       | (string) | the name of the module                                                                                   |
 | method     | (string) | the name of the method                                                                                   |
 | gametxid   | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method |
-| rogueaddr  | (string) |                                                                                                          |
+| rogueaddr  | (string) | <!--need this-->                                                                                                          |
 | status     | (string) | whether the command executed successfully                                                                |
-| keystrokes | (string) | all keyboard strokes concatenated into a single hex string                                               | <!-- ? --> |
-| numkeys    | (number) |                                                                                                          |
+| keystrokes | (string) | all keyboard strokes concatenated into a single hex string                                               | 
+| numkeys    | (number) | <!--need this-->                                                                                                          |
 | playertxid | (string) | the `playertxid` transaction id that represents the character belonging to the indicated `pubkey`        |
-| extracted  |          |                                                                                                          |
+| extracted  |          | <!--need this-->                                                                                                          |
 | seed       | (decimal number)   | the blockchain-generated random seed. This provides the necessary randomization for players to generate the current game's level design. The `seed` value is revealed at the `start` block height.                                                                        |
 | replay     | (string) | the complete terminal command that must be executed to begin this game                                   |
 
