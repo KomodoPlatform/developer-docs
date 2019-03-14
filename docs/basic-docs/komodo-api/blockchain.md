@@ -46,8 +46,8 @@ Response:
   "coin": "KMD",
   "height": 80000,
   "supply": 100239878.15241314,
-  "zfunds": 86.99986800,
-  "sprout": 86.99986800,
+  "zfunds": 86.999868,
+  "sprout": 86.999868,
   "total": 100239965.15228114
 }
 ```
@@ -64,17 +64,17 @@ Response:
 
 ```json
 {
-    "result": {
-        "result": "success",
-        "coin": "KMD",
-        "height": 80000,
-        "supply": 100239878.15241314,
-        "zfunds": 86.99986800,
-        "sprout": 86.99986800,
-        "total": 100239965.15228114
-    },
-    "error": null,
-    "id": "curltest"
+  "result": {
+    "result": "success",
+    "coin": "KMD",
+    "height": 80000,
+    "supply": 100239878.15241314,
+    "zfunds": 86.999868,
+    "sprout": 86.999868,
+    "total": 100239965.15228114
+  },
+  "error": null,
+  "id": "curltest"
 }
 ```
 
@@ -1044,7 +1044,7 @@ Response:
         "3": 18,
         "4": 19,
 
-  ( .... omitted for brevity ... )      
+  ( .... omitted for brevity ... )
 
         "60": 11,
         "61": 16,
@@ -1075,9 +1075,9 @@ Response:
             "1": 16,
             "2": 16,
             "3": 17,
-            
+
     ( .... omitted for brevity ... )
-            
+
             "60": 11,
             "61": 16,
             "62": 18,
@@ -1316,9 +1316,9 @@ The `gettxout` method returns details about an unspent transaction output.
 | "bestblock"     | (string)           | the block hash                    |
 | "confirmations" | (numeric)          | the number of confirmations       |
 | "value"         | (numeric)          | the transaction value             |
-| "scriptPubKey": | (json object)      | the transaction value in KMD      |
-| "asm"           | (string)           |
-| "hex"           | (string)           |
+| "scriptPubKey": | (json object)      |                                   |
+| "asm"           | (string)           | `scriptPubKey` in assembly format |
+| "hex"           | (string)           | `scriptPubKey` in hex format      |
 | "reqSigs"       | (numeric)          | the number of required signatures |
 | "type"          | (string)           | the type, e.g. pubkeyhash         |
 | "addresses"     | (array of strings) | an array of Komodo addresses      |

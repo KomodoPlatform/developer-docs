@@ -67,6 +67,14 @@ Response:
 
 The `decodeccopret` method decodes the OP RETURN data from a CC transaction to output the `EVALCODE` and `function id` of the method that produced the transaction.
 
+::: tip
+`the OP RETURN data from a CC transaction` can be found by following these steps:
+
+- Decode the transaction using the method [getrawtransaction](./rawtransactions.html#getrawtransaction)'s verbose option.
+- Look for the `vout` key which will be an array of jsons
+- In one of the
+  :::
+
 ### Arguments:
 
 | Structure    | Type     | Description    |

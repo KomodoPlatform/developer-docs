@@ -380,10 +380,10 @@ This method relies on the <b>txindex</b> runtime parameter, which is enabled by 
 
 ### Arguments:
 
-| Structure | Type                           | Description                                                            |
-| --------- | ------------------------------ | ---------------------------------------------------------------------- |
-| "txid"    | (string, required)             | the transaction id                                                     |
-| verbose   | (numeric, optional, default=0) | if 0, the method returns a string; otherwise, it returns a json object |
+| Structure | Type                           | Description                                                                   |
+| --------- | ------------------------------ | ----------------------------------------------------------------------------- |
+| "txid"    | (string, required)             | the transaction id                                                            |
+| verbose   | (numeric, optional, default=0) | if 0, the method returns a string in hex; otherwise, it returns a json object |
 
 ### Response (if `verbose` is not set, or set to `0`):
 
@@ -393,49 +393,51 @@ This method relies on the <b>txindex</b> runtime parameter, which is enabled by 
 
 ### Response (if `verbose` > `0`):
 
-| Structure               | Type                                           | Description                                                  |
-| ----------------------- | ---------------------------------------------- | ------------------------------------------------------------ |
-| "hex"                   | (string)                                       | the serialized, hex-encoded data for 'txid'                  |
-| "txid"                  | (string)                                       | the transaction id (same as provided)                        |
-| "version"               | (numeric)                                      | the version                                                  |
-| "locktime"              | (numeric)                                      | the lock time                                                |
-| "expiryheight"          | (numeric, optional)                            | the block height after which the transaction expires         |
+| Structure               | Type                                           | Description                                                                                                                     |
+| ----------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| "hex"                   | (string)                                       | the serialized, hex-encoded data for 'txid'                                                                                     |
+| "txid"                  | (string)                                       | the transaction id (same as provided)                                                                                           |
+| "version"               | (numeric)                                      | the version                                                                                                                     |
+| "locktime"              | (numeric)                                      | the lock time                                                                                                                   |
+| "expiryheight"          | (numeric, optional)                            | the block height after which the transaction expires                                                                            |
 | "vin" : [ ... ]         | (array of json objects)                        |
-| "txid"                  | (string)                                       | the transaction id                                           |
+| "txid"                  | (string)                                       | the transaction id                                                                                                              |
 | "vout"                  | (numeric)                                      |
-| "scriptSig": { ... }    | (array of json objects)                        | the script                                                   |
-| "asm"                   | (string)                                       | asm                                                          |
-| "hex"                   | (string)                                       | hex                                                          |
-| "sequence"              | (numeric)                                      | the script sequence number                                   |
+| "scriptSig": { ... }    | (array of json objects)                        | the script                                                                                                                      |
+| "asm"                   | (string)                                       | asm                                                                                                                             |
+| "hex"                   | (string)                                       | hex                                                                                                                             |
+| "sequence"              | (numeric)                                      | the script sequence number                                                                                                      |
 | "vout" : [ ... ]        | (array of json objects)                        |
-| "value"                 | (numeric)                                      | the value                                                    |
-| "number"                | (numeric)                                      | index                                                        |
+| "value"                 | (numeric)                                      | the value                                                                                                                       |
+| "number"                | (numeric)                                      | index                                                                                                                           |
 | "scriptPubKey"          |                                                |
-| "asm"                   | (string)                                       | the asm                                                      |
-| "hex"                   | (string)                                       | the hex                                                      |
-| "reqSigs"               | (numeric)                                      | the required sigs                                            |
-| "type"                  | (string)                                       | the type, eg 'pubkeyhash'                                    |
+| "asm"                   | (string)                                       | the asm                                                                                                                         |
+| "hex"                   | (string)                                       | the hex                                                                                                                         |
+| "reqSigs"               | (numeric)                                      | the required sigs                                                                                                               |
+| "type"                  | (string)                                       | the type, eg 'pubkeyhash'                                                                                                       |
 | "addresses" : [ ... ]   | (array of strings)                             |
-| "address"               | (string)                                       | the address                                                  |
+| "address"               | (string)                                       | the address                                                                                                                     |
 | "vjoinsplit" : [ ... ]  | (array of json objects, only for version >= 2) |
-| "vpub_old"              | (numeric)                                      | public input value                                           |
-| "vpub_new"              | (numeric)                                      | public output value                                          |
-| "anchor"                | (string)                                       | the anchor                                                   |
+| "vpub_old"              | (numeric)                                      | public input value                                                                                                              |
+| "vpub_new"              | (numeric)                                      | public output value                                                                                                             |
+| "anchor"                | (string)                                       | the anchor                                                                                                                      |
 | "nullifiers"            |                                                |
-| "hex"                   | (string)                                       | input note nullifier                                         |
+| "hex"                   | (string)                                       | input note nullifier                                                                                                            |
 | "commitments" : [ ... ] | (array of strings)                             |
-| "hex"                   | (string)                                       | output note commitment                                       |
-| "onetimePubKey"         | (string)                                       | the onetime public key used to encrypt the ciphertexts       |
-| "randomSeed"            | (string)                                       | the random seed                                              |
+| "hex"                   | (string)                                       | output note commitment                                                                                                          |
+| "onetimePubKey"         | (string)                                       | the onetime public key used to encrypt the ciphertexts                                                                          |
+| "randomSeed"            | (string)                                       | the random seed                                                                                                                 |
 | "macs": [ ... ]         | (array of strings)                             |
-| "hex"                   | (string)                                       | input note MAC                                               |
-| "proof"                 | (string)                                       | the zero-knowledge proof                                     |
+| "hex"                   | (string)                                       | input note MAC                                                                                                                  |
+| "proof"                 | (string)                                       | the zero-knowledge proof                                                                                                        |
 | "ciphertexts": [ ... ]  | (array of strings)                             |
-| "hex"                   | (string)                                       | output note ciphertext                                       |
-| "blockhash"             | (string)                                       | the block hash                                               |
-| "confirmations"         | (numeric)                                      | the confirmations                                            |
-| "time"                  | (numeric)                                      | the transaction time in seconds since epoch (Jan 1 1970 GMT) |
-| "blocktime"             | (numeric)                                      | the block time in seconds since epoch (Jan 1 1970 GMT)       |
+| "hex"                   | (string)                                       | output note ciphertext                                                                                                          |
+| "blockhash"             | (string)                                       | the block hash                                                                                                                  |
+| "height"                | (numeric)                                      | height of the block                                                                                                             |
+| "confirmations"         | (numeric)                                      | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "rawconfirmations"      | (numeric)                                      | the raw confirmations (number of blocks on top of this transaction's block)                                                     |
+| "time"                  | (numeric)                                      | the transaction time in seconds since epoch (Jan 1 1970 GMT)                                                                    |
+| "blocktime"             | (numeric)                                      | the block time in seconds since epoch (Jan 1 1970 GMT)                                                                          |
 
 #### :pushpin: Examples:
 
