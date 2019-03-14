@@ -4227,50 +4227,94 @@ Response:
 
 **zcbenchmark benchmarktype samplecount**
 
-### Arguments:
+Runs a benchmark of the selected type samplecount times, returning the running times of each sample.
 
-### Response:
+Output:
 
-#### :pushpin: Examples:
+```json
+[
+  {
+    "runningtime": runningtime
+  },
+  {
+    "runningtime": runningtime
+  }
+  ...
+]
+```
 
 ## zcrawjoinsplit
 
 **zcrawjoinsplit rawtx inputs outputs vpub_old vpub_new**
 
-### Arguments:
+::: warning
+DEPRECATED.
+:::
 
-### Response:
+- inputs: a JSON object mapping {note: zcsecretkey, ...}
+- outputs: a JSON object mapping {zcaddr: value, ...}
 
-#### :pushpin: Examples:
+Splices a joinsplit into rawtx. Inputs are unilaterally confidential.
+Outputs are confidential between sender/receiver. The vpub_old and
+vpub_new values are globally public and move transparent value into
+or out of the confidential value store, respectively.
+
+Note: The caller is responsible for delivering the output enc1 and
+enc2 to the appropriate recipients, as well as signing rawtxout and
+ensuring it is mined. (A future RPC call will deliver the confidential
+payments in-band on the blockchain.)
+
+Output:
+
+```json
+{
+  "encryptednote1": enc1,
+  "encryptednote2": enc2,
+  "rawtxn": rawtxout
+}
+```
 
 ## zcrawkeygen
 
 **zcrawkeygen**
 
-### Arguments:
+::: warning
+DEPRECATED.
+:::
 
-### Response:
+Generate a zcaddr which can send and receive confidential values.
 
-#### :pushpin: Examples:
+Output:
 
+```json
+{
+  "zcaddress": zcaddr,
+  "zcsecretkey": zcsecretkey,
+  "zcviewingkey": zcviewingkey
+}
+```
 
 ## zcrawreceive zcsecretkey encryptednote
 
 **zcrawreceive zcsecretkey encryptednote**
 
-### Arguments:
+::: warning
+DEPRECATED.
+:::
 
-### Response:
+Decrypts encryptednote and checks if the coin commitments
+are in the blockchain as indicated by the "exists" result.
 
-#### :pushpin: Examples:
+Output:
+
+```json
+{
+  "amount": value,
+  "note": noteplaintext,
+  "exists": exists
+}
+```
 
 ## zcsamplejoinsplit
 
-**zcsamplejoinsplit**
-
-### Arguments:
-
-### Response:
-
-#### :pushpin: Examples:
-
+Perform a joinsplit and return the JSDescription.
