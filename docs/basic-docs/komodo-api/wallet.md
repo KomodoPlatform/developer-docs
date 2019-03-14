@@ -773,79 +773,106 @@ The `gettransaction` method queries detailed information about transaction `txid
 
 ### Response:
 
-| Structure               | Type                    | Description                                                                                |
-| ----------------------- | ----------------------- | ------------------------------------------------------------------------------------------ |
-| "amount"                | (numeric)               | the transaction amount                                                                     |
-| "confirmations"         | (numeric)               | the number of confirmations                                                                |
-| "blockhash"             | (string)                | the block hash                                                                             |
-| "blockindex"            | (numeric)               | the block index                                                                            |
-| "blocktime"             | (numeric)               | the time in seconds since epoch (1 Jan 1970 GMT)                                           |
-| "txid"                  | (string)                | the transaction id                                                                         |
-| "time"                  | (numeric)               | the transaction time in seconds since epoch (1 Jan 1970 GMT)                               |
-| "timereceived"          | (numeric)               | the time received in seconds since epoch (1 Jan 1970 GMT)                                  |
+| Structure               | Type                    | Description                                                                                                                     |
+| ----------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| "amount"                | (numeric)               | the transaction amount                                                                                                          |
+| "confirmations"         | (numeric)               | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "rawconfirmations"      | (numeric)               | the raw confirmations (number of blocks on top of this transaction's block)                                                     |
+| "blockhash"             | (string)                | the block hash                                                                                                                  |
+| "blockindex"            | (numeric)               | the block index                                                                                                                 |
+| "blocktime"             | (numeric)               | the time in seconds since epoch (1 Jan 1970 GMT)                                                                                |
+| "txid"                  | (string)                | the transaction id                                                                                                              |
+| "time"                  | (numeric)               | the transaction time in seconds since epoch (1 Jan 1970 GMT)                                                                    |
+| "timereceived"          | (numeric)               | the time received in seconds since epoch (1 Jan 1970 GMT)                                                                       |
 | "details" : [ ... ]     | (array)                 |
-| "account"               | (string)                | DEPRECATED the account name involved in the transaction; can be "" for the default account |
-| "address"               | (string)                | the address involved in the transaction                                                    |
-| "category"              | (string)                | the category - either `send` or `receive`                                                  |
-| "amount"                | (numeric)               | the amount                                                                                 |
-| "vout"                  | (numeric)               | the vout value                                                                             |
+| "account"               | (string)                | DEPRECATED the account name involved in the transaction; can be "" for the default account                                      |
+| "address"               | (string)                | the address involved in the transaction                                                                                         |
+| "category"              | (string)                | the category - either `send` or `receive`                                                                                       |
+| "amount"                | (numeric)               | the amount                                                                                                                      |
+| "vout"                  | (numeric)               | the vout value                                                                                                                  |
 | "vjoinsplit" : [ ... ]  | (array of json objects) |
-| "anchor"                | (string)                | merkle root of note commitment tree                                                        |
+| "anchor"                | (string)                | merkle root of note commitment tree                                                                                             |
 | "nullifiers" : [ ... ]  | (array of strings)      |
 | "hex"                   | (string)                |
 | "commitments" : [ ... ] | (array of strings)      |
 | "hex"                   | (string)                |
 | "macs" : [ ... ]        | (array of strings)      |
 | "hex"                   | (string)                |
-| "vpub_old"              | (numeric)               | the amount removed from the transparent value pool                                         |
-| "vpub_new"              | (numeric)               | the amount added to the transparent value pool                                             |
-| "hex"                   | (string)                | raw data for transaction                                                                   |
+| "vpub_old"              | (numeric)               | the amount removed from the transparent value pool                                                                              |
+| "vpub_new"              | (numeric)               | the amount added to the transparent value pool                                                                                  |
+| "hex"                   | (string)                | raw data for transaction                                                                                                        |
 
 #### :pushpin: Examples:
 
 Command:
 
 ```bash
-./komodo-cli gettransaction "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa"
+./komodo-cli gettransaction "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a"
 ```
 
 Response:
 
 ```json
 {
-  "amount": 0.0,
-  "fee": -0.00005,
-  "confirmations": 0,
-  "txid": "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa",
+  "amount": 0.000001,
+  "rawconfirmations": 14,
+  "confirmations": 1,
+  "blockhash": "07eb80d845eae646a95351a47a1b54964610f3caf4d4ff53750d0de66fbfc525",
+  "blockindex": 1,
+  "blocktime": 1552585479,
+  "expiryheight": 1268793,
+  "txid": "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a",
   "walletconflicts": [],
-  "time": 1536993107,
-  "timereceived": 1536993107,
+  "time": 1552585444,
+  "timereceived": 1552585444,
   "vjoinsplit": [],
-  "details": [],
-  "hex": "0100000001d69a6c4b9aa1991bd72ab86086db91a4c709c4b954c15d1622f2e1fb2deeb262000000004847304402205927908c985e09f6d9888e37e23b82770ca906b145c74a388ea9359afba63fff02204bd49a9b158ecfb7c12737579a31dd9e44dc63214813f70617f9a24a1e4d987801feffffff02302d903b000000001976a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac40420f00000000001976a914646e1ddd9b6415e0209e5bbe3861309353301eec88aca2659c5b"
+  "details": [
+    {
+      "account": "",
+      "address": "RGmfyV6GLkNXTSM5XaxtpwPrw4R7iiHEa2",
+      "category": "receive",
+      "amount": 0.000001,
+      "vout": 1,
+      "size": 254
+    }
+  ],
+  "hex": "0400008085202f8901310bd18e1c5de58eed0482e13c855763e83fadb19c1abd330e62c07a13370edf1b0000006a47304402207a607ff3b479317dd41842f024380994ec7e4353c0cb33bff32bc795cfa8a7c202205ff036aeee1760f0677d22155be8210b78ffffb3b03f568304278a914fe6e0d1012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8feffffff0254738e1d00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac64000000000000001976a914522bd057d4304d6204187c99e6dece0c29bdbe9788acce928a5c395c13000000000000000000000000"
 }
 ```
 
 Command:
 
 ```bash
-./komodo-cli gettransaction "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa" true
+./komodo-cli gettransaction "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a" true
 ```
 
 Response:
 
 ```json
 {
-  "amount": 0.0,
-  "fee": -0.00005,
-  "confirmations": 0,
-  "txid": "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa",
+  "amount": 0.000001,
+  "rawconfirmations": 14,
+  "confirmations": 1,
+  "blockhash": "07eb80d845eae646a95351a47a1b54964610f3caf4d4ff53750d0de66fbfc525",
+  "blockindex": 1,
+  "blocktime": 1552585479,
+  "expiryheight": 1268793,
+  "txid": "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a",
   "walletconflicts": [],
-  "time": 1536993107,
-  "timereceived": 1536993107,
+  "time": 1552585444,
+  "timereceived": 1552585444,
   "vjoinsplit": [],
-  "details": [],
-  "hex": "0100000001d69a6c4b9aa1991bd72ab86086db91a4c709c4b954c15d1622f2e1fb2deeb262000000004847304402205927908c985e09f6d9888e37e23b82770ca906b145c74a388ea9359afba63fff02204bd49a9b158ecfb7c12737579a31dd9e44dc63214813f70617f9a24a1e4d987801feffffff02302d903b000000001976a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac40420f00000000001976a914646e1ddd9b6415e0209e5bbe3861309353301eec88aca2659c5b"
+  "details": [
+    {
+      "account": "",
+      "address": "RGmfyV6GLkNXTSM5XaxtpwPrw4R7iiHEa2",
+      "category": "receive",
+      "amount": 0.000001,
+      "vout": 1,
+      "size": 254
+    }
+  ],
+  "hex": "0400008085202f8901310bd18e1c5de58eed0482e13c855763e83fadb19c1abd330e62c07a13370edf1b0000006a47304402207a607ff3b479317dd41842f024380994ec7e4353c0cb33bff32bc795cfa8a7c202205ff036aeee1760f0677d22155be8210b78ffffb3b03f568304278a914fe6e0d1012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8feffffff0254738e1d00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac64000000000000001976a914522bd057d4304d6204187c99e6dece0c29bdbe9788acce928a5c395c13000000000000000000000000"
 }
 ```
 
@@ -854,7 +881,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` 
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettransaction", "params": ["7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettransaction", "params": ["34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
@@ -862,16 +889,29 @@ Response:
 ```json
 {
   "result": {
-    "amount": 0,
-    "fee": -5e-5,
-    "confirmations": 0,
-    "txid": "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa",
+    "amount": 0.000001,
+    "rawconfirmations": 19,
+    "confirmations": 1,
+    "blockhash": "07eb80d845eae646a95351a47a1b54964610f3caf4d4ff53750d0de66fbfc525",
+    "blockindex": 1,
+    "blocktime": 1552585479,
+    "expiryheight": 1268793,
+    "txid": "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a",
     "walletconflicts": [],
-    "time": 1536993107,
-    "timereceived": 1536993107,
+    "time": 1552585444,
+    "timereceived": 1552585444,
     "vjoinsplit": [],
-    "details": [],
-    "hex": "0100000001d69a6c4b9aa1991bd72ab86086db91a4c709c4b954c15d1622f2e1fb2deeb262000000004847304402205927908c985e09f6d9888e37e23b82770ca906b145c74a388ea9359afba63fff02204bd49a9b158ecfb7c12737579a31dd9e44dc63214813f70617f9a24a1e4d987801feffffff02302d903b000000001976a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac40420f00000000001976a914646e1ddd9b6415e0209e5bbe3861309353301eec88aca2659c5b"
+    "details": [
+      {
+        "account": "",
+        "address": "RGmfyV6GLkNXTSM5XaxtpwPrw4R7iiHEa2",
+        "category": "receive",
+        "amount": 0.000001,
+        "vout": 1,
+        "size": 254
+      }
+    ],
+    "hex": "0400008085202f8901310bd18e1c5de58eed0482e13c855763e83fadb19c1abd330e62c07a13370edf1b0000006a47304402207a607ff3b479317dd41842f024380994ec7e4353c0cb33bff32bc795cfa8a7c202205ff036aeee1760f0677d22155be8210b78ffffb3b03f568304278a914fe6e0d1012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8feffffff0254738e1d00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac64000000000000001976a914522bd057d4304d6204187c99e6dece0c29bdbe9788acce928a5c395c13000000000000000000000000"
   },
   "error": null,
   "id": "curltest"
@@ -1478,12 +1518,13 @@ The `listreceivedbyaccount` method lists balances by account.
 
 ### Response:
 
-| Structure           | Type      | Description                                                         |
-| ------------------- | --------- | ------------------------------------------------------------------- |
-| "involvesWatchonly" | (bool)    | only returned if imported addresses were involved in transaction    |
-| "account"           | (string)  | the account name of the receiving account                           |
-| "amount"            | (numeric) | the total amount received by addresses with this account            |
-| "confirmations"     | (numeric) | the number of confirmations of the most recent transaction included |
+| Structure           | Type      | Description                                                                                                                     |
+| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| "involvesWatchonly" | (bool)    | only returned if imported addresses were involved in transaction                                                                |
+| "account"           | (string)  | the account name of the receiving account                                                                                       |
+| "amount"            | (numeric) | the total amount received by addresses with this account                                                                        |
+| "confirmations"     | (numeric) | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "rawconfirmations"  | (numeric) | the raw confirmations of the most recent transaction included (number of blocks on top of this transaction's block)             |
 
 #### :pushpin: Examples:
 
@@ -1495,8 +1536,15 @@ Command:
 
 Response:
 
-```bash
-(deprecated)
+```json
+[
+  {
+    "account": "",
+    "amount": 0.000001,
+    "rawconfirmations": 21,
+    "confirmations": 21
+  }
+]
 ```
 
 Command:
@@ -1507,8 +1555,15 @@ Command:
 
 Response:
 
-```bash
-(deprecated)
+```json
+[
+  {
+    "account": "",
+    "amount": 0.000001,
+    "rawconfirmations": 23,
+    "confirmations": 23
+  }
+]
 ```
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
@@ -1521,8 +1576,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 Response:
 
-```bash
-(deprecated)
+```json
+{
+  "result": [
+    {
+      "account": "",
+      "amount": 0.000001,
+      "rawconfirmations": 24,
+      "confirmations": 24
+    }
+  ],
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 ## listreceivedbyaddress
@@ -1541,13 +1607,14 @@ The `listreceivedbyaddress` method lists balances by receiving address.
 
 ### Response:
 
-| Structure           | Type      | Description                                                                |
-| ------------------- | --------- | -------------------------------------------------------------------------- |
-| "involvesWatchonly" | (bool)    | only returned if imported addresses were involved in transaction           |
-| "address"           | (string)  | the receiving address                                                      |
-| "account"           | (string)  | DEPRECATED the account of the receiving address; the default account is "" |
-| "amount"            | (numeric) | the total amount received by the address                                   |
-| "confirmations"     | (numeric) | the number of confirmations of the most recent transaction included        |
+| Structure           | Type      | Description                                                                                                                     |
+| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| "involvesWatchonly" | (bool)    | only returned if imported addresses were involved in transaction                                                                |
+| "address"           | (string)  | the receiving address                                                                                                           |
+| "account"           | (string)  | DEPRECATED the account of the receiving address; the default account is ""                                                      |
+| "amount"            | (numeric) | the total amount received by the address                                                                                        |
+| "confirmations"     | (numeric) | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "rawconfirmations"  | (numeric) | the raw confirmations of the most recent transaction included (number of blocks on top of this transaction's block)             |
 
 #### :pushpin: Examples:
 
@@ -1562,12 +1629,13 @@ Response:
 ```json
 [
   {
-    "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
+    "address": "RGmfyV6GLkNXTSM5XaxtpwPrw4R7iiHEa2",
     "account": "",
-    "amount": 0.01,
-    "confirmations": 10,
+    "amount": 0.000001,
+    "rawconfirmations": 40,
+    "confirmations": 40,
     "txids": [
-      "5e6349567c893bab51a525219e5d2264532f1e73277fa1179449343cf2864211"
+      "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a"
     ]
   }
 ]
@@ -1584,20 +1652,30 @@ Response:
 ```json
 [
   {
-    "address": "RSWwtqsNr9mW21UXRm6Lz4AzQnj4pVzzkp",
+    "address": "RGmfyV6GLkNXTSM5XaxtpwPrw4R7iiHEa2",
+    "account": "",
+    "amount": 0.000001,
+    "rawconfirmations": 41,
+    "confirmations": 41,
+    "txids": [
+      "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a"
+    ]
+  },
+  {
+    "address": "RSMmyzk2cZ7xJdDx62wAZbvM5dzxH8CPqv",
     "account": "",
     "amount": 0.0,
+    "rawconfirmations": 0,
     "confirmations": 0,
     "txids": []
   },
   {
-    "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
+    "address": "RVErfGzpdNSLrg19FVAuet6nXGDaWnqiVc",
     "account": "",
-    "amount": 0.01,
-    "confirmations": 10,
-    "txids": [
-      "5e6349567c893bab51a525219e5d2264532f1e73277fa1179449343cf2864211"
-    ]
+    "amount": 0.0,
+    "rawconfirmations": 0,
+    "confirmations": 0,
+    "txids": []
   }
 ]
 ```
@@ -1608,22 +1686,36 @@ Command:
 
 ```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbyaddress", "params": [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
 
+Response:
+
+```json
 {
   "result": [
     {
-      "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
+      "address": "RGmfyV6GLkNXTSM5XaxtpwPrw4R7iiHEa2",
       "account": "",
-      "amount": 0.01,
-      "confirmations": 10,
+      "amount": 0.000001,
+      "rawconfirmations": 41,
+      "confirmations": 41,
       "txids": [
-        "5e6349567c893bab51a525219e5d2264532f1e73277fa1179449343cf2864211"
+        "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a"
       ]
     },
     {
-      "address": "RV3vVf5wPHwtToNzHqMomieLoqyF1VodB1",
+      "address": "RSMmyzk2cZ7xJdDx62wAZbvM5dzxH8CPqv",
       "account": "",
-      "amount": 0,
+      "amount": 0.0,
+      "rawconfirmations": 0,
+      "confirmations": 0,
+      "txids": []
+    },
+    {
+      "address": "RVErfGzpdNSLrg19FVAuet6nXGDaWnqiVc",
+      "account": "",
+      "amount": 0.0,
+      "rawconfirmations": 0,
       "confirmations": 0,
       "txids": []
     }
@@ -1649,25 +1741,26 @@ The `listsinceblock` method queries all transactions in blocks since block `bloc
 
 ### Response:
 
-| Structure       | Type      | Description                                                                                                                                                                                                        |
-| --------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| "transactions": |           |
-| "account"       | (string)  | DEPRECATED the account name associated with the transaction; will be "" for the default account                                                                                                                    |
-| "address"       | (string)  | the address of the transaction (not present for move transactions -- category = move)                                                                                                                              |
-| "category"      | (string)  | the transaction category; `send` has negative amounts, `receive` has positive amounts                                                                                                                              |
-| "amount"        | (numeric) | the amount of the relevant currency -- negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category, and for the `move` category for inbound funds. |
-| "vout"          | (numeric) | the vout value                                                                                                                                                                                                     |
-| "fee"           | (numeric) | the amount of the fee; this value is negative and only available for the `send` category of transactions                                                                                                           |
-| "confirmations" | (numeric) | the number of confirmations for the transaction; available for `send` and `receive` category of transactions                                                                                                       |
-| "blockhash"     | (string)  | the block hash containing the transaction; available for the `send` and `receive` categories of transactions                                                                                                       |
-| "blockindex"    | (numeric) | the block index containing the transaction; available for the `send` and `receive` categories of transactions                                                                                                      |
-| "blocktime"     | (numeric) | the block time in seconds since epoch (1 Jan 1970 GMT)                                                                                                                                                             |
-| "txid"          | (string)  | the transaction id; available for `send` and `receive` categories of transactions                                                                                                                                  |
-| "time"          | (numeric) | the transaction time in seconds since epoch (Jan 1 1970 GMT)                                                                                                                                                       |
-| "timereceived"  | (numeric) | the time received in seconds since epoch (Jan 1 1970 GMT); available for `send` and `receive` category of transactions                                                                                             |
-| "comment"       | (string)  | whether a comment is associated with the transaction                                                                                                                                                               |
-| "to"            | (string)  | whether a 'to' comment is associated with the transaction                                                                                                                                                          |
-| "lastblock"     | (string)  | the hash of the last block                                                                                                                                                                                         |
+| Structure          | Type      | Description                                                                                                                                                                                                        |
+| ------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| "transactions":    |           |
+| "account"          | (string)  | DEPRECATED the account name associated with the transaction; will be "" for the default account                                                                                                                    |
+| "address"          | (string)  | the address of the transaction (not present for move transactions -- category = move)                                                                                                                              |
+| "category"         | (string)  | the transaction category; `send` has negative amounts, `receive` has positive amounts                                                                                                                              |
+| "amount"           | (numeric) | the amount of the relevant currency -- negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category, and for the `move` category for inbound funds. |
+| "vout"             | (numeric) | the vout value                                                                                                                                                                                                     |
+| "fee"              | (numeric) | the amount of the fee; this value is negative and only available for the `send` category of transactions                                                                                                           |
+| "confirmations"    | (numeric) | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info                                                                                    |
+| "rawconfirmations" | (numeric) | the raw confirmations of the transaction; available for `send` and `receive` category of transactions (number of blocks on top of this transaction's block)                                                        |
+| "blockhash"        | (string)  | the block hash containing the transaction; available for the `send` and `receive` categories of transactions                                                                                                       |
+| "blockindex"       | (numeric) | the block index containing the transaction; available for the `send` and `receive` categories of transactions                                                                                                      |
+| "blocktime"        | (numeric) | the block time in seconds since epoch (1 Jan 1970 GMT)                                                                                                                                                             |
+| "txid"             | (string)  | the transaction id; available for `send` and `receive` categories of transactions                                                                                                                                  |
+| "time"             | (numeric) | the transaction time in seconds since epoch (Jan 1 1970 GMT)                                                                                                                                                       |
+| "timereceived"     | (numeric) | the time received in seconds since epoch (Jan 1 1970 GMT); available for `send` and `receive` category of transactions                                                                                             |
+| "comment"          | (string)  | whether a comment is associated with the transaction                                                                                                                                                               |
+| "to"               | (string)  | whether a 'to' comment is associated with the transaction                                                                                                                                                          |
+| "lastblock"        | (string)  | the hash of the last block                                                                                                                                                                                         |
 
 #### :pushpin: Examples:
 
@@ -1684,28 +1777,25 @@ Response:
   "transactions": [
     {
       "account": "",
-      "address": "RSqt98kgCcXEKLSoMjBkwnMoYpVvHjxqaf",
-      "category": "generate",
-      "amount": 0.00010000,
-      "vout": 0,
-      "confirmations": 19,
-      "generated": true,
-      "blockhash": "02738f05d6e13f4be0ed2c04d472d42112ec03d5f35bd797b8ef0e0fc61dd472",
-      "blockindex": 0,
-      "blocktime": 1537220864,
-      "expiryheight": 0,
-      "txid": "a4a589a5c5397ae8a72ee6819ce18703418d21b6ab7370a8f58a8a48dca7cd01",
-      "walletconflicts": [
-      ],
-      "time": 1537220863,
-      "timereceived": 1537220863,
-      "vjoinsplit": [
-      ],
-      "size": 99
-    },
-      ...
+      "address": "RGmfyV6GLkNXTSM5XaxtpwPrw4R7iiHEa2",
+      "category": "receive",
+      "amount": 0.000001,
+      "vout": 1,
+      "rawconfirmations": 44,
+      "confirmations": 44,
+      "blockhash": "07eb80d845eae646a95351a47a1b54964610f3caf4d4ff53750d0de66fbfc525",
+      "blockindex": 1,
+      "blocktime": 1552585479,
+      "expiryheight": 1268793,
+      "txid": "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a",
+      "walletconflicts": [],
+      "time": 1552585444,
+      "timereceived": 1552585444,
+      "vjoinsplit": [],
+      "size": 254
+    }
   ],
-  "lastblock": "003852ef655d7577492ffed079894a66788a8679b4c291f08850b9cea7b20ad0"
+  "lastblock": "05686392a3011a180988246b3b0343bc4eec992c101d2e651c6ee786af1b2fb5"
 }
 ```
 
@@ -1722,28 +1812,25 @@ Response:
   "transactions": [
     {
       "account": "",
-      "address": "RSqt98kgCcXEKLSoMjBkwnMoYpVvHjxqaf",
-      "category": "generate",
-      "amount": 0.00010000,
-      "vout": 0,
-      "confirmations": 19,
-      "generated": true,
-      "blockhash": "02738f05d6e13f4be0ed2c04d472d42112ec03d5f35bd797b8ef0e0fc61dd472",
-      "blockindex": 0,
-      "blocktime": 1537220864,
-      "expiryheight": 0,
-      "txid": "a4a589a5c5397ae8a72ee6819ce18703418d21b6ab7370a8f58a8a48dca7cd01",
-      "walletconflicts": [
-      ],
-      "time": 1537220863,
-      "timereceived": 1537220863,
-      "vjoinsplit": [
-      ],
-      "size": 99
-    },
-      ...
+      "address": "RGmfyV6GLkNXTSM5XaxtpwPrw4R7iiHEa2",
+      "category": "receive",
+      "amount": 0.000001,
+      "vout": 1,
+      "rawconfirmations": 45,
+      "confirmations": 45,
+      "blockhash": "07eb80d845eae646a95351a47a1b54964610f3caf4d4ff53750d0de66fbfc525",
+      "blockindex": 1,
+      "blocktime": 1552585479,
+      "expiryheight": 1268793,
+      "txid": "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a",
+      "walletconflicts": [],
+      "time": 1552585444,
+      "timereceived": 1552585444,
+      "vjoinsplit": [],
+      "size": 254
+    }
   ],
-  "lastblock": "0542c8f7c718e062af872b08a8a4469ed1b2f48ecb023533e57997b074a4430f"
+  "lastblock": "08db1a09b32ebb55f026c41d5555281ebeae4c9eb8b36e88db62b6f1d7fd12d1"
 }
 ```
 
@@ -1759,32 +1846,32 @@ Response:
 
 ```json
 {
-  "transactions": [
-    {
-       "account": "",
-       "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
-       "category": "generate",
-       "amount": 0.0001,
-       "vout": 0,
-       "confirmations": 86,
-       "generated": true,
-       "blockhash": "006b9064941f7b04c5f8c36e6456f30a592b46fc6b256d15e3a9fa36a319b52f",
-       "blockindex": 0,
-       "blocktime": 1536976225,
-       "expiryheight": 0,
-       "txid": "0a47e3965b76cd0593fa37dabb8fc1a3fbb0660cd0d9c1ac3fc5ae8c83e3bcd5",
-       "walletconflicts": [],
-       "time": 1536976224,
-       "timereceived": 1536976224,
-       "vjoinsplit": [],
-       "size": 99
-     },
-      ...
-   ],
-   "lastblock": "0542c8f7c718e062af872b08a8a4469ed1b2f48ecb023533e57997b074a4430f"
- },
- "error": null,
- "id": "curltest"
+  "result": {
+    "transactions": [
+      {
+        "account": "",
+        "address": "RGmfyV6GLkNXTSM5XaxtpwPrw4R7iiHEa2",
+        "category": "receive",
+        "amount": 0.000001,
+        "vout": 1,
+        "rawconfirmations": 46,
+        "confirmations": 46,
+        "blockhash": "07eb80d845eae646a95351a47a1b54964610f3caf4d4ff53750d0de66fbfc525",
+        "blockindex": 1,
+        "blocktime": 1552585479,
+        "expiryheight": 1268793,
+        "txid": "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a",
+        "walletconflicts": [],
+        "time": 1552585444,
+        "timereceived": 1552585444,
+        "vjoinsplit": [],
+        "size": 254
+      }
+    ],
+    "lastblock": "01b4ce6c4659138de1a7a67e8dac354b5acc3a998145effedbfec7ef41a2cec6"
+  },
+  "error": null,
+  "id": "curltest"
 }
 ```
 
@@ -1805,23 +1892,24 @@ The `listtransactions` method returns up to `count` most recent transactions ski
 
 ### Response:
 
-| Structure       | Type      | Description                                                                                                                                                                                          |
-| --------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "account"       | (string)  | DEPRECATED the account name associated with the transaction; it will be "" for the default account                                                                                                   |
-| "address"       | (string)  | the address of the transaction; not present for move transactions (category = move)                                                                                                                  |
-| "category"      | (string)  | The transaction category. This property can be `send`                                                                                                                                                | `receive` | `move`. `move` is a local (off blockchain) transaction between accounts -- not associated with an address, transaction id, or block. `send` and `receive` transactions are associated with an address, transaction id, and block details. |
-| "amount"        | (numeric) | The amount. This value is negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category and for the `move` category for inbound funds. |
-| "vout"          | (numeric) | the vout value                                                                                                                                                                                       |
-| "fee"           | (numeric) | the amount of the fee; this is negative and only available for the `send` category of transactions                                                                                                   |
-| "confirmations" | (numeric) | the number of confirmations for the transaction; available for the `send` and `receive` categories of transactions                                                                                   |
-| "blockhash"     | (string)  | the block hash containing the transaction; available for the `send` and `receive` categories of transactions                                                                                         |
-| "blockindex"    | (numeric) | the block index containing the transaction; available for the `send` and `receive` categories of transactions                                                                                        |
-| "txid"          | (string)  | the transaction id; available for the `send` and `receive` categories of transactions                                                                                                                |
-| "time"          | (numeric) | the transaction time in seconds since epoch (midnight Jan 1 1970 GMT)                                                                                                                                |
-| "timereceived"  | (numeric) | the time received in seconds since epoch (midnight Jan 1 1970 GMT); available for the `send` and `receive` categories of transactions                                                                |
-| "comment"       | (string)  | whether a comment is associated with the transaction                                                                                                                                                 |
-| "otheraccount"  | (string)  | for the `move` category of transactions; indicates the account which sent the funds (for receiving funds, positive amounts), or went to (for sending funds, negative amounts)                        |
-| "size"          | (numeric) | transaction size in bytes                                                                                                                                                                            |
+| Structure          | Type      | Description                                                                                                                                                                                          |
+| ------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "account"          | (string)  | DEPRECATED the account name associated with the transaction; it will be "" for the default account                                                                                                   |
+| "address"          | (string)  | the address of the transaction; not present for move transactions (category = move)                                                                                                                  |
+| "category"         | (string)  | The transaction category. This property can be `send`                                                                                                                                                | `receive` | `move`. `move` is a local (off blockchain) transaction between accounts -- not associated with an address, transaction id, or block. `send` and `receive` transactions are associated with an address, transaction id, and block details. |
+| "amount"           | (numeric) | The amount. This value is negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category and for the `move` category for inbound funds. |
+| "vout"             | (numeric) | the vout value                                                                                                                                                                                       |
+| "fee"              | (numeric) | the amount of the fee; this is negative and only available for the `send` category of transactions                                                                                                   |
+| "confirmations"    | (numeric) | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info                                                                      |
+| "rawconfirmations" | (numeric) | the raw confirmations of the transaction; available for `send` and `receive` category of transactions (number of blocks on top of this transaction's block)                                          |
+| "blockhash"        | (string)  | the block hash containing the transaction; available for the `send` and `receive` categories of transactions                                                                                         |
+| "blockindex"       | (numeric) | the block index containing the transaction; available for the `send` and `receive` categories of transactions                                                                                        |
+| "txid"             | (string)  | the transaction id; available for the `send` and `receive` categories of transactions                                                                                                                |
+| "time"             | (numeric) | the transaction time in seconds since epoch (midnight Jan 1 1970 GMT)                                                                                                                                |
+| "timereceived"     | (numeric) | the time received in seconds since epoch (midnight Jan 1 1970 GMT); available for the `send` and `receive` categories of transactions                                                                |
+| "comment"          | (string)  | whether a comment is associated with the transaction                                                                                                                                                 |
+| "otheraccount"     | (string)  | for the `move` category of transactions; indicates the account which sent the funds (for receiving funds, positive amounts), or went to (for sending funds, negative amounts)                        |
+| "size"             | (numeric) | transaction size in bytes                                                                                                                                                                            |
 
 #### :pushpin: Examples:
 
@@ -1837,21 +1925,22 @@ Response:
 [
   {
     "account": "",
-    "address": "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu",
+    "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
     "category": "generate",
-    "amount": 0.00021689,
+    "amount": 0.00010000,
     "vout": 0,
-    "confirmations": 10,
+    "rawconfirmations": 99,
+    "confirmations": 99,
     "generated": true,
-    "blockhash": "038a888c0a6e6c8103684f3a7b53dcab71186c7cb2136fd298f7900b3da05d94",
+    "blockhash": "0eb4edeb5141a7670ef8be413873e1bef4f6f321867a2b8d67a616cdc7df1e77",
     "blockindex": 0,
-    "blocktime": 1537223045,
+    "blocktime": 1536976212,
     "expiryheight": 0,
-    "txid": "760788836335913068a66d3e4279233214b96a7dfc7757b899ea5d700aa4bc57",
+    "txid": "3041aa7374e530d4d28e14620dd2bb9d2ff0bf71dd1106f08bc9f02fce44598e",
     "walletconflicts": [
     ],
-    "time": 1537223044,
-    "timereceived": 1537223044,
+    "time": 1536976211,
+    "timereceived": 1536976211,
     "vjoinsplit": [
     ],
     "size": 99
@@ -1876,6 +1965,7 @@ Response:
     "category": "generate",
     "amount": 0.00010000,
     "vout": 0,
+    "rawconfirmations": 99,
     "confirmations": 99,
     "generated": true,
     "blockhash": "0eb4edeb5141a7670ef8be413873e1bef4f6f321867a2b8d67a616cdc7df1e77",
@@ -1914,6 +2004,7 @@ Response:
       "category": "generate",
       "amount": 0.0001,
       "vout": 0,
+      "rawconfirmations": 99,
       "confirmations": 99,
       "generated": true,
       "blockhash": "0eb4edeb5141a7670ef8be413873e1bef4f6f321867a2b8d67a616cdc7df1e77",
@@ -1950,16 +2041,17 @@ The `listunspent` method returns an array of unspent transaction outputs, with a
 
 ### Response:
 
-| Structure       | Type      | Description                                                      |
-| --------------- | --------- | ---------------------------------------------------------------- |
-| "txid"          | (string)  | the transaction id                                               |
-| "vout"          | (numeric) | the vout value                                                   |
-| "generated"     | (boolean) | true if txout is a coinbase transaction output                   |
-| "address"       | (string)  | the address                                                      |
-| "account"       | (string)  | DEPRECATED the associated account, or "" for the default account |
-| "scriptPubKey"  | (string)  | the script key                                                   |
-| "amount"        | (numeric) | the transaction amount                                           |
-| "confirmations" | (numeric) | the number of confirmations                                      |
+| Structure          | Type      | Description                                                                                                                     |
+| ------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| "txid"             | (string)  | the transaction id                                                                                                              |
+| "vout"             | (numeric) | the vout value                                                                                                                  |
+| "generated"        | (boolean) | true if txout is a coinbase transaction output                                                                                  |
+| "address"          | (string)  | the address                                                                                                                     |
+| "account"          | (string)  | DEPRECATED the associated account, or "" for the default account                                                                |
+| "scriptPubKey"     | (string)  | the script key                                                                                                                  |
+| "amount"           | (numeric) | the transaction amount                                                                                                          |
+| "confirmations"    | (numeric) | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "rawconfirmations" | (numeric) | the raw confirmations (number of blocks on top of this transaction's block)                                                     |
 
 #### :pushpin: Examples:
 
@@ -1981,7 +2073,8 @@ Response:
     "scriptPubKey": "21037e631c6a03d028e48aecfd93b2d2737d5d7e2852a426b940ff301f78aa31690cac",
     "amount": 0.00010000,
     "interest": 0.00000000,
-    "confirmations": 6,
+    "rawconfirmations": 6,
+    "confirmations": 1,
     "spendable": true
   },
     ...
@@ -2006,7 +2099,8 @@ Response:
     "scriptPubKey": "21037e631c6a03d028e48aecfd93b2d2737d5d7e2852a426b940ff301f78aa31690cac",
     "amount": 0.0001,
     "interest": 0.0,
-    "confirmations": 7,
+    "rawconfirmations": 7,
+    "confirmations": 1,
     "spendable": true
   },
   {
@@ -2017,6 +2111,7 @@ Response:
     "scriptPubKey": "76a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac",
     "amount": 9.99304496,
     "interest": 0.0,
+    "rawconfirmations": 21,
     "confirmations": 21,
     "spendable": true
   }
@@ -2044,6 +2139,7 @@ Response:
       "scriptPubKey": "21037e631c6a03d028e48aecfd93b2d2737d5d7e2852a426b940ff301f78aa31690cac",
       "amount": 0.0001,
       "interest": 0.0,
+      "rawconfirmations": 7,
       "confirmations": 7,
       "spendable": true
     },
@@ -2055,6 +2151,7 @@ Response:
       "scriptPubKey": "76a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac",
       "amount": 9.99304496,
       "interest": 0.0,
+      "rawconfirmations": 21,
       "confirmations": 21,
       "spendable": true
     }
@@ -3816,16 +3913,17 @@ The `z_listreceivedbyaddress` method returns a list of amounts received by a z a
 
 An array of json objects, each having the properties below.
 
-| Structure     | Type                                         | Description                                                                     |
-| ------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
-| txid          | (string)                                     | the transaction id                                                              |
-| amount        | (numeric)                                    | the amount of value in the note                                                 |
-| memo          | (string)                                     | hexadecimal string representation of memo field                                 |
-| confirmations | (numeric)                                    | the number of confirmations                                                     |
-| jsindex       | (sprout)                                     | (numeric, received only by sprout addresses) the joinsplit index                |
-| jsoutindex    | (numeric, received only by sprout addresses) | the output index of the joinsplit                                               |
-| outindex      | (numeric, sapling)                           | the output index                                                                |
-| change        | (boolean)                                    | true if the address that received the note is also one of the sending addresses |
+| Structure          | Type                                         | Description                                                                                                                     |
+| ------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| txid               | (string)                                     | the transaction id                                                                                                              |
+| amount             | (numeric)                                    | the amount of value in the note                                                                                                 |
+| memo               | (string)                                     | hexadecimal string representation of memo field                                                                                 |
+| "confirmations"    | (numeric)                                    | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "rawconfirmations" | (numeric)                                    | the raw confirmations (number of blocks on top of this transaction's block)                                                     |
+| jsindex            | (sprout)                                     | (numeric, received only by sprout addresses) the joinsplit index                                                                |
+| jsoutindex         | (numeric, received only by sprout addresses) | the output index of the joinsplit                                                                                               |
+| outindex           | (numeric, sapling)                           | the output index                                                                                                                |
+| change             | (boolean)                                    | true if the address that received the note is also one of the sending addresses                                                 |
 
 #### :pushpin: Examples:
 
@@ -3894,18 +3992,19 @@ Results are an array of Objects, each of which has:
 
 An array of json objects, each having the properties below.
 
-| Structure     | Type                                          | Description                                                                                              |
-| ------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| txid          | (string)                                      | the transaction id                                                                                       |
-| jsindex       | (numeric)                                     | the joinsplit index                                                                                      |
-| jsoutindex    | (numeric, only returned on sprout addresses)  | the output index of the joinsplit                                                                        |
-| outindex      | (numeric, only returned on sapling addresses) | the output index                                                                                         |
-| confirmations | (numeric)                                     | the number of confirmations                                                                              |
-| spendable     | (boolean)                                     | true if note can be spent by wallet, false if note has zero confirmations, false if address is watchonly |
-| address       | (string)                                      | the shielded address                                                                                     |
-| amount        | (numeric)                                     | the amount of value in the note                                                                          |
-| memo          | (string)                                      | hexademical string representation of memo field                                                          |
-| change        | (boolean)                                     | true if the address that received the note is also one of the sending addresses                          |
+| Structure          | Type                                          | Description                                                                                                                     |
+| ------------------ | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| txid               | (string)                                      | the transaction id                                                                                                              |
+| jsindex            | (numeric)                                     | the joinsplit index                                                                                                             |
+| jsoutindex         | (numeric, only returned on sprout addresses)  | the output index of the joinsplit                                                                                               |
+| outindex           | (numeric, only returned on sapling addresses) | the output index                                                                                                                |
+| "confirmations"    | (numeric)                                     | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "rawconfirmations" | (numeric)                                     | the raw confirmations (number of blocks on top of this transaction's block)                                                     |  |
+| spendable          | (boolean)                                     | true if note can be spent by wallet, false if note has zero confirmations, false if address is watchonly                        |
+| address            | (string)                                      | the shielded address                                                                                                            |
+| amount             | (numeric)                                     | the amount of value in the note                                                                                                 |
+| memo               | (string)                                      | hexademical string representation of memo field                                                                                 |
+| change             | (boolean)                                     | true if the address that received the note is also one of the sending addresses                                                 |
 
 #### :pushpin: Examples:
 
