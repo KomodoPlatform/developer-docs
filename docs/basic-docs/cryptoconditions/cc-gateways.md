@@ -1126,6 +1126,12 @@ Response from Step Two:
 aa1b82d78398184c93405ccd15e3cf00b63634aac98a7b75053aa90eaf9cb47d
 ```
 
+<!--FIXME new RPC added
+## gatewayscompletesigning
+
+**gatewayscompletesigning withdrawtxid coin hex**
+-->
+
 ## gatewaysclaim
 
 **gatewaysclaim bindtxid coin deposittxid destpub amount**
@@ -1412,6 +1418,14 @@ Response:
   "aeef4320afe73e1cfe43c4c129b31da018990f49d65b5eeb45cb9a348fdf6ece"
 ]
 ```
+
+<!--FIXME new RPC added
+gatewaysmarkdone completesigningtx coin
+gatewayspartialsign txidaddr refcoin hex
+gatewayspendingdeposits bindtxid coin
+gatewayspendingwithdraws bindtxid coin
+gatewaysprocessed bindtxid coin
+-->
 
 ## gatewayswithdraw
 
