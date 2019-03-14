@@ -353,21 +353,24 @@ Response:
 
 ```json
 {
-  "hash": "0939408360b273fd681bbe5823999655fd5a7240303cdcbf952afe252246cc13",
-  "confirmations": 279,
-  "size": 277,
+  "hash": "028d455c8b61d4ee5959e2d3d6e6b60d4d779e0ba8b0e1c093e9443ba5c42179",
+  "confirmations": 1268619,
+  "rawconfirmations": 1268619,
+  "size": 1587,
   "height": 120,
   "version": 4,
-  "merkleroot": "4781cefbf7e14f6d7cdf89ae972391ae59b5776d1ed51204e94e65adf3ca6331",
-  "segid": -2,
-  "tx": ["4781cefbf7e14f6d7cdf89ae972391ae59b5776d1ed51204e94e65adf3ca6331"],
-  "time": 1536347890,
-  "nonce": "000054c5822bb572319a67a89a3f511cf8caf8cd8ed6b7739c0b044b62ea000b",
-  "solution": "03fc1abba5f415b1c422942835d46c7ba3e94665964da4c31e236c6cf9b3dfe6ffb65db1",
-  "bits": "200f0f08",
-  "difficulty": 1.000007093003461,
+  "merkleroot": "d390975e989394e046ef0000f47367fa59e96cb9a4ddfa930a3a378689060149",
+  "segid": -1,
+  "finalsaplingroot": "0000000000000000000000000000000000000000000000000000000000000000",
+  "tx": ["d390975e989394e046ef0000f47367fa59e96cb9a4ddfa930a3a378689060149"],
+  "time": 1473825108,
+  "nonce": "000078d1eba5ea592b0c1a6728f86df449ee17bd64cb14cd246481d18a830003",
+  "solution": "003f9ef9cf78d687c8e4c56f98d2afc5670c34ce0a0d4c72c2115bd70dddf803535f9cf11343a47b4ec30642354007ab856b9942c21e4f47ee8cb9c6f268160eccea157f0a0f3678cfe107569d998d0d959c0c52047220911125802f7d2b9221ab33fd708b429db55319e6750b65076d9e7ca522a221bfff98b6278938742616a7b2e89fb3e9ce7d645e29c1de7d4425d6a339512072b53f9d430f1dca491f0cf00c8ab5f116dc2204a97ff65553a41d43fef0f4b6f0621c6fbe580db218bf2fb241749995b5e2129e1ef5fa40b293cf47570724bf202055255988f47526d95121b1e6e7b9364814af7b4eaaf4e0dfc11ea4a253341b96e70bb92d2305d96e1c5c08bafcb13d20c3e7b9f8d3298979fff112c400f0c3d2a335118da25c42d035f898c8b728f034c414f8281b09f1d0b6754894e9f72285273b1711363c4583079344910dbd9705cde8534efbb838de7f008321268318e68b08bd524952b0d42cbedb3a50e03d5b4d560f370f95d7a43657ca56a83b73bdbd22a9124018f23f154319cc1d0520a150edf6748539074a2164be459b2077afca94638f0f45d29f6f42fcf05301d9581f944a137dfd5f80eac5df99f6b4129f23d50c65fc2231791525dc1523c8b64c6df55cdfdfdbc70b8b811c2b0e9e554ba113f238edcb392bf1cdc9e918a4df7e1ce21a138e9501b6eac8ab889793fda38d02a99bf74f6281e1d55be1ff729fc215529f94e7892b7686e1829bdb0fd432b780b4e28a6e5b973e1b04137f75b0ff1786f1562402adfad8476981a3b23a1b3251c54ca9538d5b4927e8bdc2c72d62fd705eab750a810d6c2b928477849f252afff9330e3d34be4ffe5d79fea92f19d10d3627862754df6449c71e5ffe69276731c9e00ab91ab747a5c0b2ba19a9be4872becb3510b248de5bbd5fc1b5735b65d2b5f36c18dcf30300b50f20b6c3e79114505044ccca604f9f6fde0d460bfc220a4c450d93e5dde0eaebc747c1b3f3349d5705e80d9afdc200d6981a131c3fc80fd19ae3d44bbc305f7fd5c5d03011f1a489460d55ccbaef7d9fb8dc0148ab399b4e38b1ef19c2083766563dcd8af8e8f42629cd72d6d956b374a1e59800f75435e362d2b1e95ba834ad2434b26be7f33670d3e7e54da5d8766ad86d13d61536a587e99414ea34847599cf9d92fe92dc079a920c7492067115a874eb98e5f36632a2d30ba5114625cd04497f5d413dc2add3cdd8fa4eb2f641b210f38541380e3d00a175462a9fe107d2dad559d9e317490d9ad489d7ff3e2b32f9fe3d98015b86fc45aa07d5e0614f8bd123b4e0960690c8e846eafa3b34f016a9418752c9942edb83e1783df05fb653cadfae0c18e604702d5f328b4ccf01d17c22e7f2f0ddfb3ef9395267dbc3170f8366a7144310e015ea6d763d769c01c40fc516d97614f18504c59ced8a9fa749ffeacd02cd47072a0564c5748a30dca894c1904f53ab606a0789d1809adabb01f6fe486e9e6d20f3d5f63f91c02428fc74a6e608a345bf2543ed7646c9af6a7709ba0aa38af74f0a12a33febc30ea39ecde221613d62b60c701974dae2dcbfb81d10ec39229e23c2c2fe6d970f10ddfb16049ee86c36f1546af704808b596566cc1b85dc6e40df0a29488be1feac3d13c1140998d6c303600b7fe207c62fd7ca13431e2be09e3c01fe6bb803a1e84e8160c31539d6588ffc6e6ece38a9d890611f3f0108ef60333da3d37224d2732b366aac75603125203fedc5e1d5ad1918e30dbd59e8ae516cbbf9e30e5fcbf314db2263a0598d3a35f5aa4f732bdf01cf313424422cede953ec45a7945f563b6f2294fa5960185f5f626056d141194775b00e5051ab7c0fbccaff3607825491da72f73dd3c3da17ae65d52053fb6a6d",
+  "bits": "200f0f0f",
+  "difficulty": 1,
   "chainwork": "0000000000000000000000000000000000000000000000000000000000000809",
   "anchor": "59d2cde5e65c1414c32ba54f0fe4bdb3d67618125286e6a191317917c812c6d7",
+  "blocktype": "mined",
   "valuePools": [
     {
       "id": "sprout",
@@ -376,10 +379,18 @@ Response:
       "chainValueZat": 0,
       "valueDelta": 0.0,
       "valueDeltaZat": 0
+    },
+    {
+      "id": "sapling",
+      "monitored": true,
+      "chainValue": 0.0,
+      "chainValueZat": 0,
+      "valueDelta": 0.0,
+      "valueDeltaZat": 0
     }
   ],
-  "previousblockhash": "01d1bfef50e079c53b36463fdf0ae55dc26b2205cd5f39c2bd030d19c2375e28",
-  "nextblockhash": "0438bfda6a2706a622df7808fa5f4f32ac2e5d3039895ff8cb080d7e8e231188"
+  "previousblockhash": "009ccd7da3a2c6212b56147b5491773bde944bb6169160d88dc5879a9e005087",
+  "nextblockhash": "06ea921ade69ca13f8a2220ed6633f35ed6afd94368c404e7cbdee374c7c11d6"
 }
 ```
 
@@ -392,7 +403,7 @@ Command:
 Response:
 
 ```bash
-04000000285e37c2190d03bdc2395fcd05226bc25de50adf3f46363bc579e050efbfd1013163caf3ad654ee90412d51e6d77b559ae912397ae89df7c6d4fe1f7fbce81470000000000000000000000000000000000000000000000000000000000000000f2ce925b080f0f200b00ea624b040b9c73b7d68ecdf8caf81c513f9aa8679a3172b52b82c55400002403fc1abba5f415b1c422942835d46c7ba3e94665964da4c31e236c6cf9b3dfe6ffb65db10101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff0401780101ffffffff011027000000000000232103c0259e1a166e53f6ccf094ce37c0843d4a013622603bc301b4eb0f89c7cce823acf1ce925b
+040000008750009e9a87c58dd8609116b64b94de3b7791547b14562b21c6a2a37dcd9c004901068986373a0a93fadda4b96ce959fa6773f40000ef46e09493985e9790d3000000000000000000000000000000000000000000000000000000000000000054c9d8570f0f0f200300838ad1816424cd14cb64bd17ee49f46df828671a0c2b59eaa5ebd1780000fd4005003f9ef9cf78d687c8e4c56f98d2afc5670c34ce0a0d4c72c2115bd70dddf803535f9cf11343a47b4ec30642354007ab856b9942c21e4f47ee8cb9c6f268160eccea157f0a0f3678cfe107569d998d0d959c0c52047220911125802f7d2b9221ab33fd708b429db55319e6750b65076d9e7ca522a221bfff98b6278938742616a7b2e89fb3e9ce7d645e29c1de7d4425d6a339512072b53f9d430f1dca491f0cf00c8ab5f116dc2204a97ff65553a41d43fef0f4b6f0621c6fbe580db218bf2fb241749995b5e2129e1ef5fa40b293cf47570724bf202055255988f47526d95121b1e6e7b9364814af7b4eaaf4e0dfc11ea4a253341b96e70bb92d2305d96e1c5c08bafcb13d20c3e7b9f8d3298979fff112c400f0c3d2a335118da25c42d035f898c8b728f034c414f8281b09f1d0b6754894e9f72285273b1711363c4583079344910dbd9705cde8534efbb838de7f008321268318e68b08bd524952b0d42cbedb3a50e03d5b4d560f370f95d7a43657ca56a83b73bdbd22a9124018f23f154319cc1d0520a150edf6748539074a2164be459b2077afca94638f0f45d29f6f42fcf05301d9581f944a137dfd5f80eac5df99f6b4129f23d50c65fc2231791525dc1523c8b64c6df55cdfdfdbc70b8b811c2b0e9e554ba113f238edcb392bf1cdc9e918a4df7e1ce21a138e9501b6eac8ab889793fda38d02a99bf74f6281e1d55be1ff729fc215529f94e7892b7686e1829bdb0fd432b780b4e28a6e5b973e1b04137f75b0ff1786f1562402adfad8476981a3b23a1b3251c54ca9538d5b4927e8bdc2c72d62fd705eab750a810d6c2b928477849f252afff9330e3d34be4ffe5d79fea92f19d10d3627862754df6449c71e5ffe69276731c9e00ab91ab747a5c0b2ba19a9be4872becb3510b248de5bbd5fc1b5735b65d2b5f36c18dcf30300b50f20b6c3e79114505044ccca604f9f6fde0d460bfc220a4c450d93e5dde0eaebc747c1b3f3349d5705e80d9afdc200d6981a131c3fc80fd19ae3d44bbc305f7fd5c5d03011f1a489460d55ccbaef7d9fb8dc0148ab399b4e38b1ef19c2083766563dcd8af8e8f42629cd72d6d956b374a1e59800f75435e362d2b1e95ba834ad2434b26be7f33670d3e7e54da5d8766ad86d13d61536a587e99414ea34847599cf9d92fe92dc079a920c7492067115a874eb98e5f36632a2d30ba5114625cd04497f5d413dc2add3cdd8fa4eb2f641b210f38541380e3d00a175462a9fe107d2dad559d9e317490d9ad489d7ff3e2b32f9fe3d98015b86fc45aa07d5e0614f8bd123b4e0960690c8e846eafa3b34f016a9418752c9942edb83e1783df05fb653cadfae0c18e604702d5f328b4ccf01d17c22e7f2f0ddfb3ef9395267dbc3170f8366a7144310e015ea6d763d769c01c40fc516d97614f18504c59ced8a9fa749ffeacd02cd47072a0564c5748a30dca894c1904f53ab606a0789d1809adabb01f6fe486e9e6d20f3d5f63f91c02428fc74a6e608a345bf2543ed7646c9af6a7709ba0aa38af74f0a12a33febc30ea39ecde221613d62b60c701974dae2dcbfb81d10ec39229e23c2c2fe6d970f10ddfb16049ee86c36f1546af704808b596566cc1b85dc6e40df0a29488be1feac3d13c1140998d6c303600b7fe207c62fd7ca13431e2be09e3c01fe6bb803a1e84e8160c31539d6588ffc6e6ece38a9d890611f3f0108ef60333da3d37224d2732b366aac75603125203fedc5e1d5ad1918e30dbd59e8ae516cbbf9e30e5fcbf314db2263a0598d3a35f5aa4f732bdf01cf313424422cede953ec45a7945f563b6f2294fa5960185f5f626056d141194775b00e5051ab7c0fbccaff3607825491da72f73dd3c3da17ae65d52053fb6a6d0101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff0401780101ffffffff0100a3e11100000000232103e0e548e1c42e3a1b26a414d33c8862e10799557d3758b981c921c776054deb53ac00000000
 ```
 
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
@@ -408,33 +419,44 @@ Response:
 ```json
 {
   "result": {
-    "hash": "0939408360b273fd681bbe5823999655fd5a7240303cdcbf952afe252246cc13",
-    "confirmations": 279,
-    "size": 277,
+    "hash": "028d455c8b61d4ee5959e2d3d6e6b60d4d779e0ba8b0e1c093e9443ba5c42179",
+    "confirmations": 1268622,
+    "rawconfirmations": 1268622,
+    "size": 1587,
     "height": 120,
     "version": 4,
-    "merkleroot": "4781cefbf7e14f6d7cdf89ae972391ae59b5776d1ed51204e94e65adf3ca6331",
-    "segid": -2,
-    "tx": ["4781cefbf7e14f6d7cdf89ae972391ae59b5776d1ed51204e94e65adf3ca6331"],
-    "time": 1536347890,
-    "nonce": "000054c5822bb572319a67a89a3f511cf8caf8cd8ed6b7739c0b044b62ea000b",
-    "solution": "03fc1abba5f415b1c422942835d46c7ba3e94665964da4c31e236c6cf9b3dfe6ffb65db1",
-    "bits": "200f0f08",
-    "difficulty": 1.000007093003461,
+    "merkleroot": "d390975e989394e046ef0000f47367fa59e96cb9a4ddfa930a3a378689060149",
+    "segid": -1,
+    "finalsaplingroot": "0000000000000000000000000000000000000000000000000000000000000000",
+    "tx": ["d390975e989394e046ef0000f47367fa59e96cb9a4ddfa930a3a378689060149"],
+    "time": 1473825108,
+    "nonce": "000078d1eba5ea592b0c1a6728f86df449ee17bd64cb14cd246481d18a830003",
+    "solution": "003f9ef9cf78d687c8e4c56f98d2afc5670c34ce0a0d4c72c2115bd70dddf803535f9cf11343a47b4ec30642354007ab856b9942c21e4f47ee8cb9c6f268160eccea157f0a0f3678cfe107569d998d0d959c0c52047220911125802f7d2b9221ab33fd708b429db55319e6750b65076d9e7ca522a221bfff98b6278938742616a7b2e89fb3e9ce7d645e29c1de7d4425d6a339512072b53f9d430f1dca491f0cf00c8ab5f116dc2204a97ff65553a41d43fef0f4b6f0621c6fbe580db218bf2fb241749995b5e2129e1ef5fa40b293cf47570724bf202055255988f47526d95121b1e6e7b9364814af7b4eaaf4e0dfc11ea4a253341b96e70bb92d2305d96e1c5c08bafcb13d20c3e7b9f8d3298979fff112c400f0c3d2a335118da25c42d035f898c8b728f034c414f8281b09f1d0b6754894e9f72285273b1711363c4583079344910dbd9705cde8534efbb838de7f008321268318e68b08bd524952b0d42cbedb3a50e03d5b4d560f370f95d7a43657ca56a83b73bdbd22a9124018f23f154319cc1d0520a150edf6748539074a2164be459b2077afca94638f0f45d29f6f42fcf05301d9581f944a137dfd5f80eac5df99f6b4129f23d50c65fc2231791525dc1523c8b64c6df55cdfdfdbc70b8b811c2b0e9e554ba113f238edcb392bf1cdc9e918a4df7e1ce21a138e9501b6eac8ab889793fda38d02a99bf74f6281e1d55be1ff729fc215529f94e7892b7686e1829bdb0fd432b780b4e28a6e5b973e1b04137f75b0ff1786f1562402adfad8476981a3b23a1b3251c54ca9538d5b4927e8bdc2c72d62fd705eab750a810d6c2b928477849f252afff9330e3d34be4ffe5d79fea92f19d10d3627862754df6449c71e5ffe69276731c9e00ab91ab747a5c0b2ba19a9be4872becb3510b248de5bbd5fc1b5735b65d2b5f36c18dcf30300b50f20b6c3e79114505044ccca604f9f6fde0d460bfc220a4c450d93e5dde0eaebc747c1b3f3349d5705e80d9afdc200d6981a131c3fc80fd19ae3d44bbc305f7fd5c5d03011f1a489460d55ccbaef7d9fb8dc0148ab399b4e38b1ef19c2083766563dcd8af8e8f42629cd72d6d956b374a1e59800f75435e362d2b1e95ba834ad2434b26be7f33670d3e7e54da5d8766ad86d13d61536a587e99414ea34847599cf9d92fe92dc079a920c7492067115a874eb98e5f36632a2d30ba5114625cd04497f5d413dc2add3cdd8fa4eb2f641b210f38541380e3d00a175462a9fe107d2dad559d9e317490d9ad489d7ff3e2b32f9fe3d98015b86fc45aa07d5e0614f8bd123b4e0960690c8e846eafa3b34f016a9418752c9942edb83e1783df05fb653cadfae0c18e604702d5f328b4ccf01d17c22e7f2f0ddfb3ef9395267dbc3170f8366a7144310e015ea6d763d769c01c40fc516d97614f18504c59ced8a9fa749ffeacd02cd47072a0564c5748a30dca894c1904f53ab606a0789d1809adabb01f6fe486e9e6d20f3d5f63f91c02428fc74a6e608a345bf2543ed7646c9af6a7709ba0aa38af74f0a12a33febc30ea39ecde221613d62b60c701974dae2dcbfb81d10ec39229e23c2c2fe6d970f10ddfb16049ee86c36f1546af704808b596566cc1b85dc6e40df0a29488be1feac3d13c1140998d6c303600b7fe207c62fd7ca13431e2be09e3c01fe6bb803a1e84e8160c31539d6588ffc6e6ece38a9d890611f3f0108ef60333da3d37224d2732b366aac75603125203fedc5e1d5ad1918e30dbd59e8ae516cbbf9e30e5fcbf314db2263a0598d3a35f5aa4f732bdf01cf313424422cede953ec45a7945f563b6f2294fa5960185f5f626056d141194775b00e5051ab7c0fbccaff3607825491da72f73dd3c3da17ae65d52053fb6a6d",
+    "bits": "200f0f0f",
+    "difficulty": 1,
     "chainwork": "0000000000000000000000000000000000000000000000000000000000000809",
     "anchor": "59d2cde5e65c1414c32ba54f0fe4bdb3d67618125286e6a191317917c812c6d7",
+    "blocktype": "mined",
     "valuePools": [
       {
         "id": "sprout",
         "monitored": true,
-        "chainValue": 0,
+        "chainValue": 0.0,
         "chainValueZat": 0,
-        "valueDelta": 0,
+        "valueDelta": 0.0,
+        "valueDeltaZat": 0
+      },
+      {
+        "id": "sapling",
+        "monitored": true,
+        "chainValue": 0.0,
+        "chainValueZat": 0,
+        "valueDelta": 0.0,
         "valueDeltaZat": 0
       }
     ],
-    "previousblockhash": "01d1bfef50e079c53b36463fdf0ae55dc26b2205cd5f39c2bd030d19c2375e28",
-    "nextblockhash": "0438bfda6a2706a622df7808fa5f4f32ac2e5d3039895ff8cb080d7e8e231188"
+    "previousblockhash": "009ccd7da3a2c6212b56147b5491773bde944bb6169160d88dc5879a9e005087",
+    "nextblockhash": "06ea921ade69ca13f8a2220ed6633f35ed6afd94368c404e7cbdee374c7c11d6"
   },
   "error": null,
   "id": "curltest"
@@ -833,19 +855,20 @@ The verbose input is optional. If verbose is false, the method returns a string 
 
 ### Response (verbose = `true`):
 
-| Structure           | Type      | Description                                                              |
-| ------------------- | --------- | ------------------------------------------------------------------------ |
-| "hash"              | (string)  | the block hash (same as provided)                                        |
-| "confirmations"     | (numeric) | the number of confirmations, or -1 if the block is not on the main chain |
-| "height"            | (numeric) | the block height or index                                                |
-| "version"           | (numeric) | the block version                                                        |
-| "merkleroot"        | (string)  | the merkle root                                                          |
-| "time"              | (numeric) | the block time in seconds since epoch (Jan 1 1970 GMT)                   |
-| "nonce"             | (numeric) | the nonce                                                                |
-| "bits"              | (string)  | the bits                                                                 |
-| "difficulty"        | (numeric) | the difficulty                                                           |
-| "previousblockhash" | (string)  | the hash of the previous block                                           |
-| "nextblockhash"     | (string)  | the hash of the next block                                               |
+| Structure           | Type      | Description                                                                                                                     |
+| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| "hash"              | (string)  | the block hash (same as provided)                                                                                               |
+| "confirmations"     | (numeric) | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "rawconfirmations"  | (numeric) | the raw confirmations (number of blocks on top of this block) or -1 if the block is not on the main chain                       |
+| "height"            | (numeric) | the block height or index                                                                                                       |
+| "version"           | (numeric) | the block version                                                                                                               |
+| "merkleroot"        | (string)  | the merkle root                                                                                                                 |
+| "time"              | (numeric) | the block time in seconds since epoch (Jan 1 1970 GMT)                                                                          |
+| "nonce"             | (numeric) | the nonce                                                                                                                       |
+| "bits"              | (string)  | the bits                                                                                                                        |
+| "difficulty"        | (numeric) | the difficulty                                                                                                                  |
+| "previousblockhash" | (string)  | the hash of the previous block                                                                                                  |
+| "nextblockhash"     | (string)  | the hash of the next block                                                                                                      |
 
 ### Response (verbose = `false`):
 
@@ -858,39 +881,42 @@ The verbose input is optional. If verbose is false, the method returns a string 
 Command:
 
 ```bash
-./komodo-cli getblockheader "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"
+./komodo-cli getblockheader "0d060c88dd55c48a0e1ae663ca400d2edba709c8484ef84a727cabfbb950c320"
 ```
 
 Response:
 
 ```json
 {
-  "hash": "0dd66ee1f151c38f73843378c08715ee3f4d3cf2888783e2846b81c057987084",
+  "hash": "0d060c88dd55c48a0e1ae663ca400d2edba709c8484ef84a727cabfbb950c320",
   "confirmations": 1,
-  "height": 398,
+  "rawconfirmations": 5,
+  "height": 1268723,
   "version": 4,
-  "merkleroot": "d6e8292d85181a177c21497a7e636fc4f1eef1fbd2887b3a19e1d72134429668",
-  "time": 1536603968,
-  "nonce": "00002474e66d5ef243d7b0a8eec32983492daf29e0b0887bd67b2107d1000004",
-  "solution": "30a5e9153392b643d139cf205b270d55cb7d3b4779fd7a3666bdb744ef221c966fde1324",
-  "bits": "200f0ef8",
-  "difficulty": 1.000023305960651,
-  "chainwork": "0000000000000000000000000000000000000000000000000000000000001a7f",
-  "segid": -2,
-  "previousblockhash": "09f9b547842b38a7748c8633eedb609b269138fdb3f2f75570fcb0d653fe42f4"
+  "merkleroot": "9cdd912d6aa82a5f55db4a79bb2181a74485df386c80e3936ce46d6e35f64d78",
+  "finalsaplingroot": "1ccce5445c492209c1d6e3e0bf21711e6f4012fddb724073dca473eb34a7d8a2",
+  "time": 1552582977,
+  "nonce": "000054c888f9f2c08f1b0112d10ab6b739fc7f0f324dd15277efc3eaa634000a",
+  "solution": "00bfd611d3c531f8a3e962cd46d62109685518a2ed078c0ea1ed4b555db2ed5108603aaedd3ee98ac463084a50d2080a9384a1bb718053a08a55507fce56b83694930194e91bab7260b79bfffd520e5d973c2c9e01221b74d7544383712ca1033ea2caaa499efdf59e06c3f423689c7a7b7a2f5345cbcae6f26afdb7d8300462848ffb1ae69f2f11f13d3f52ebac8aca51f6721a056d8ac5525517ca4079442fdac19ac0b5f7b66004b8448286090b4b29f390b58272157eaa733d011d14cfcaa19813b692e5057556a35dc86e0da613f46605ba7f4ec88ddec30ead8b4b5df032bef638da39092a7d39661723d0b7ea07a5d6fd422fcf423efdd1a90ad094c444481ae950dc41e02d20044555623cec5b2679873fa44ef75acf1c592ca96765f28f3b5f853219b1b140e2467aef56e5b71aca6a4a86d9c918504b2758fbcc8812b9332f7fe52309e95d455f9a7e49c300f17511590fd33befc370e5a5619602732299dad7227e21e4271f6767873a43132dc08c4d488a310c7105b2a45d4536bff1b7cb70f0d68f5e996050cc55da23bf86fb3ad10e3b9028a48a8ef2376a2c2039210409d5b85a922dbe3d7ddbd399e632435957a776c9bc0a77ad8a62d623f0f15df49e543d869d51790cadee496b36bf6368ebb568ed69cf3578913aa097f99eb86b2e2701691bba85fc7d383aede90317877cdcaa4803610fea9d42729635cc623cb7397279c426fb5cee0cab13f3a217a456cd61a34dbc5990cde5de55b0ac12e8429a2e586298f3e8313febe6e6b1f590f885432433aac18d6e7b7b99f3425720d35b30d8b234475c04f09951df512cfc947fb4237cd0279ad276f86de910c30b79da45b7e76531f4bce2e8d03dfbbf11ee5712c9c92c69a96d69b05cb18e418f4e98b3c067e5cb19de2375865b51450a79e80a4fc5a5c716b0bee64b0256542f0a6f9871c02656d90846dca9fb381519682397514f522b3045ce88744f2b5af53d51b4bac3d409139a6b588309e90bbc836ea079e4e4eed7eae7ab0f1871bd6aee35cd7637d3525153ca2d77c1eebc010a5a905e8ed9b97bb18427592c60bd52c13e7e7fa5191323a5f6b03b4dbf2074edf97087b6340ab3dcc11a56bb04c89a22e2f6f8c27123561800e55e1afae61abd2c2809ddf3fbad93e372e2d1febf6f2e9f7e7a0489069e7a927e37025b32661b9c0fc576ac2dd3db4fe79331e4a48ff54c848a45a7679fdee69899af2320a5cd338b8f15f732d353a95ecf16ed82290d073f22381bc7d81743b7ea8343ac20c25fda4f179f142f10a2a2f6f556cc12de3c728a1ae005ed954752558c1a81ff709ea10f49b80774eca5bcf681a7dc2e5101151c95f94fc80df2ecd9c334ed75195a81bc7a0bfe1af5c3f7703de3dff447f338d819d789a725dcac6c028f0a9a43cc8fd140abb0d40a630a84fbdd751c2a08c28f7fd1d376f98c0fc418f4f0929de03f3038640388abc0ee44a14d7094130e0b503a61a6229f10891ab90dc9c9cc76469c0ab30f7fca9386760676194e04a8db6d2506ecaba8e800bccbe2ddc53d46b9771307445efbf15454e35f5a30bb4cf9aedd129bacd19d05c63645c9589e73829ba5abd87e0bee0fccbb06e4214acbee7c240d1586e05a9a50f0661712e4dc9e71050b36dbc7133bfd32df2cc8ddf9356fd4701f37f32635d3a7be0a50b6d6b85597d95a948df1f91a58a70a221cdc1e880ce1a54644ec91eabd7625497f02e02b291381978ccbdd4761e3ca0128efa146a0ea4e9a13003bc1558db863c2a183460455a0560bc75c7f061449714ddc5431458483630fc3ff769e78c71901ea1e516e5fe04cd0a553f5f2403afaef2e33c31eb55d326c030d76e188676099b5b9f43f100afe25994feb",
+  "bits": "1d01e71c",
+  "difficulty": 132777470.6040096,
+  "chainwork": "000000000000000000000000000000000000000000000000000241daab323e77",
+  "segid": -1,
+  "previousblockhash": "0474f6be4f1efb132cfedc252559ef3aee166e6bb58e99160edcf029d13f8017",
+  "nextblockhash": "000000003331516a9b135e3273ebad53a60921e5d3132fe7d596f5903337f504"
 }
 ```
 
 Command:
 
 ```bash
-./komodo-cli getblockheader "043daeb9276c4fb9176f95d043567e18d40bff3aff114f551b950ee48c75ca02" false
+./komodo-cli getblockheader "0d060c88dd55c48a0e1ae663ca400d2edba709c8484ef84a727cabfbb950c320" false
 ```
 
 Response:
 
 ```bash
-0400000057d656a1f4e1f063a2c7f29bc8f83f4355898214da6d1cb6753cb838a07ec40298a4d266d7048e3d2c70b36299eed7329aa30681e76a98acac03b2e9825f161600000000000000000000000000000000000000000000000000000000000000001860dc570f0f0f200000234d537c49212e208712fd66a5a02b368d955287e671b191baf4d2350000fd40050046b5d05bc4e28d970dd26082d6ff4d2e4c5e1e4a25156668ed26ad399f4e72dcd8d188f4e5ccd8f8500d8b10db7450364109f5751792ec3019febab4f54c1dc1c1e99f1f2581bb90a351c44260756292189019125b8cdd4ae94b8b5d49ca38f8ddae7ea3e115d93e1bc6a3f08f6c539f903ad202eedb92b4b510122b1b199351e2136dd1ddad94661a7244b7ba25cfb710c21c4702e8f7379ec5e8af966ceaf1a412450eb6e79e06d3e70acbd38dbaddce5096ccf95224632aa9009d186dd5d626121841419b71a1add9a648a4507864ec1f5d7b32fbc92f731f3ab6b042ddcb51e92c1109ee4feb76aed7aa6b2f7b7b3726445856a78f5c1cadb8097ef271e51713d974d565ed0f356fb734ee3f76fe10e310cdb6cd2d486d143486d54e887ddd7912fa760f8c088bbc04c92b4f5f6639cdb57ca9c86bfd95ac2cdc3ab8a5a8a399ea2f44fcb175ff1948436a88ac013f1d956713c5917d8192df1e25b4450db47bb0c104ef29f9ee53626da86ed2f66c3ca9959e5019380811471e4f208adf6ac9d8631f2427c3e9a560d367721f8b0276514c4e2d966fe5d016d5114ab83d5e4b74028828e8c462f59d67ce04c35a54b0a5fdd9dbaf162fa30a05bc309971ed2544f6b57de7c55e54dc9dae0fc33765bbc7ada3b988597391f45426c0b0dc5e221876346b719ebbf359fa31cda14549a24683da8fa207bb6d0bde876238642a828057d4a992074a3c7e4d08ac34c9620aa00b95dda1d623a6e38129f2bfee2f1d7435a05a4d2103b4f512692553e9ccc96bbb9bc03ccfce20c49fea0d85a306fae6ed65d2c38ff6cb86375272ad64b236e3c58564489dc3c1c14a39f1943b528994ed37177869fb5845fb19e58d42d9e39884f1624dde56d4ee203f7e01365b3b7ae8ae59471788f07761f45f827309e3b2c35bb1bf6bf05321007df6cc00e15426b49cc56ba2d9e0a12d75cc6df394f6798561c097ff85ae88037688a82d5e524662d732b784f004e8a16b0084f90d06f290b83563d49c587e9081eb19fe92b02935124bc0ecc3e61ebbad861feddb7b3d073d3c7abdcb74dfb5b1b68adc7e0379baaad718041520643aa729b8e999f102a59451297d0ee7f4a5ad25bef65b6f68e931d786d952b44fb22abc0b19bcf34b61060e24f53cb9fcc4a5c22af37ed1c00dd7a59d0844bfad11d629c772f083cdbfb15c4118eb96ebc1220be6082b0b8374882bf7461ebaf8a1e4417ffccd22a173d0dfe4edafaec255cf71638afe8edc9bb8372736da8631d359c8c01482dd4a7aaeb67a4bbf29fb0baba460694929c7ede0f1bc1aea916d48e75fee4e126a24c95351428ba63622d5b67090b25f3336a47217cae177f654dcbf4fec952ee444e19eafe67acabe431b573bd451cb892d3136b6d87f7855d938568b330113f7b26ad128c9ef3f420d8dc636413d1cb5c6960fdb64d7a7c853f99ad204f9274d49e16c57be5ebb01aaeccd0a907619abd7336744478fc237981917410289c43cbfd62496ddc8362e183e2f39ac4bfde9bb03d8b5ac8bcd2e9cdf2d75522b325bb6e5ee5d18ca14dd3c04c72afa2fd537b5942946cdb25161f96ac50ad086debb23ccdbc6da364f42ff7cf78e6cbef89347b6cf97856e7763a92ef799c94ce93369b89c7cca0c35c9e70bf24553bc1cc2c638cababd6dddf0da863cb48dd06edc0186ece1352624506e39c9605e68e60fa6ebc3c69d8a299c691630f9c65ad3536f1dfa921b4671dd3ca66559941603d0d824907951a69071b016ec1a3a85d5ec61cdeec2236c9f9afd9612d74ec819e0ba439134f3c9e5b2f391b06ec586015bdfa5df252c242d4e22fbe3b6d5c3ada0f12d426096fe574143ccec2f66e881559fbfa4edf0af5676311c9f8274
+0400000017803fd129f0dc0e16998eb56b6e16ee3aef592525dcfe2c13fb1e4fbef67404784df6356e6de46c93e3806c38df8544a78121bb794adb555f2aa86a2d91dd9ca2d8a734eb73a4dc734072dbfd12406f1e7121bfe0e3d6c10922495c44e5cc1c41898a5c1ce7011d0a0034a6eac3ef7752d14d320f7ffc39b7b60ad112011b8fc0f2f988c8540000fd400500bfd611d3c531f8a3e962cd46d62109685518a2ed078c0ea1ed4b555db2ed5108603aaedd3ee98ac463084a50d2080a9384a1bb718053a08a55507fce56b83694930194e91bab7260b79bfffd520e5d973c2c9e01221b74d7544383712ca1033ea2caaa499efdf59e06c3f423689c7a7b7a2f5345cbcae6f26afdb7d8300462848ffb1ae69f2f11f13d3f52ebac8aca51f6721a056d8ac5525517ca4079442fdac19ac0b5f7b66004b8448286090b4b29f390b58272157eaa733d011d14cfcaa19813b692e5057556a35dc86e0da613f46605ba7f4ec88ddec30ead8b4b5df032bef638da39092a7d39661723d0b7ea07a5d6fd422fcf423efdd1a90ad094c444481ae950dc41e02d20044555623cec5b2679873fa44ef75acf1c592ca96765f28f3b5f853219b1b140e2467aef56e5b71aca6a4a86d9c918504b2758fbcc8812b9332f7fe52309e95d455f9a7e49c300f17511590fd33befc370e5a5619602732299dad7227e21e4271f6767873a43132dc08c4d488a310c7105b2a45d4536bff1b7cb70f0d68f5e996050cc55da23bf86fb3ad10e3b9028a48a8ef2376a2c2039210409d5b85a922dbe3d7ddbd399e632435957a776c9bc0a77ad8a62d623f0f15df49e543d869d51790cadee496b36bf6368ebb568ed69cf3578913aa097f99eb86b2e2701691bba85fc7d383aede90317877cdcaa4803610fea9d42729635cc623cb7397279c426fb5cee0cab13f3a217a456cd61a34dbc5990cde5de55b0ac12e8429a2e586298f3e8313febe6e6b1f590f885432433aac18d6e7b7b99f3425720d35b30d8b234475c04f09951df512cfc947fb4237cd0279ad276f86de910c30b79da45b7e76531f4bce2e8d03dfbbf11ee5712c9c92c69a96d69b05cb18e418f4e98b3c067e5cb19de2375865b51450a79e80a4fc5a5c716b0bee64b0256542f0a6f9871c02656d90846dca9fb381519682397514f522b3045ce88744f2b5af53d51b4bac3d409139a6b588309e90bbc836ea079e4e4eed7eae7ab0f1871bd6aee35cd7637d3525153ca2d77c1eebc010a5a905e8ed9b97bb18427592c60bd52c13e7e7fa5191323a5f6b03b4dbf2074edf97087b6340ab3dcc11a56bb04c89a22e2f6f8c27123561800e55e1afae61abd2c2809ddf3fbad93e372e2d1febf6f2e9f7e7a0489069e7a927e37025b32661b9c0fc576ac2dd3db4fe79331e4a48ff54c848a45a7679fdee69899af2320a5cd338b8f15f732d353a95ecf16ed82290d073f22381bc7d81743b7ea8343ac20c25fda4f179f142f10a2a2f6f556cc12de3c728a1ae005ed954752558c1a81ff709ea10f49b80774eca5bcf681a7dc2e5101151c95f94fc80df2ecd9c334ed75195a81bc7a0bfe1af5c3f7703de3dff447f338d819d789a725dcac6c028f0a9a43cc8fd140abb0d40a630a84fbdd751c2a08c28f7fd1d376f98c0fc418f4f0929de03f3038640388abc0ee44a14d7094130e0b503a61a6229f10891ab90dc9c9cc76469c0ab30f7fca9386760676194e04a8db6d2506ecaba8e800bccbe2ddc53d46b9771307445efbf15454e35f5a30bb4cf9aedd129bacd19d05c63645c9589e73829ba5abd87e0bee0fccbb06e4214acbee7c240d1586e05a9a50f0661712e4dc9e71050b36dbc7133bfd32df2cc8ddf9356fd4701f37f32635d3a7be0a50b6d6b85597d95a948df1f91a58a70a221cdc1e880ce1a54644ec91eabd7625497f02e02b291381978ccbdd4761e3ca0128efa146a0ea4e9a13003bc1558db863c2a183460455a0560bc75c7f061449714ddc5431458483630fc3ff769e78c71901ea1e516e5fe04cd0a553f5f2403afaef2e33c31eb55d326c030d76e188676099b5b9f43f100afe25994feb
 ```
 
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
@@ -898,7 +924,7 @@ You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` f
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockheader", "params": ["0dd66ee1f151c38f73843378c08715ee3f4d3cf2888783e2846b81c057987084"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockheader", "params": ["0d060c88dd55c48a0e1ae663ca400d2edba709c8484ef84a727cabfbb950c320"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
@@ -906,19 +932,22 @@ Response:
 ```json
 {
   "result": {
-    "hash": "0dd66ee1f151c38f73843378c08715ee3f4d3cf2888783e2846b81c057987084",
+    "hash": "0d060c88dd55c48a0e1ae663ca400d2edba709c8484ef84a727cabfbb950c320",
     "confirmations": 1,
-    "height": 398,
+    "rawconfirmations": 12,
+    "height": 1268723,
     "version": 4,
-    "merkleroot": "d6e8292d85181a177c21497a7e636fc4f1eef1fbd2887b3a19e1d72134429668",
-    "time": 1536603968,
-    "nonce": "00002474e66d5ef243d7b0a8eec32983492daf29e0b0887bd67b2107d1000004",
-    "solution": "30a5e9153392b643d139cf205b270d55cb7d3b4779fd7a3666bdb744ef221c966fde1324",
-    "bits": "200f0ef8",
-    "difficulty": 1.000023305960651,
-    "chainwork": "0000000000000000000000000000000000000000000000000000000000001a7f",
-    "segid": -2,
-    "previousblockhash": "09f9b547842b38a7748c8633eedb609b269138fdb3f2f75570fcb0d653fe42f4"
+    "merkleroot": "9cdd912d6aa82a5f55db4a79bb2181a74485df386c80e3936ce46d6e35f64d78",
+    "finalsaplingroot": "1ccce5445c492209c1d6e3e0bf21711e6f4012fddb724073dca473eb34a7d8a2",
+    "time": 1552582977,
+    "nonce": "000054c888f9f2c08f1b0112d10ab6b739fc7f0f324dd15277efc3eaa634000a",
+    "solution": "00bfd611d3c531f8a3e962cd46d62109685518a2ed078c0ea1ed4b555db2ed5108603aaedd3ee98ac463084a50d2080a9384a1bb718053a08a55507fce56b83694930194e91bab7260b79bfffd520e5d973c2c9e01221b74d7544383712ca1033ea2caaa499efdf59e06c3f423689c7a7b7a2f5345cbcae6f26afdb7d8300462848ffb1ae69f2f11f13d3f52ebac8aca51f6721a056d8ac5525517ca4079442fdac19ac0b5f7b66004b8448286090b4b29f390b58272157eaa733d011d14cfcaa19813b692e5057556a35dc86e0da613f46605ba7f4ec88ddec30ead8b4b5df032bef638da39092a7d39661723d0b7ea07a5d6fd422fcf423efdd1a90ad094c444481ae950dc41e02d20044555623cec5b2679873fa44ef75acf1c592ca96765f28f3b5f853219b1b140e2467aef56e5b71aca6a4a86d9c918504b2758fbcc8812b9332f7fe52309e95d455f9a7e49c300f17511590fd33befc370e5a5619602732299dad7227e21e4271f6767873a43132dc08c4d488a310c7105b2a45d4536bff1b7cb70f0d68f5e996050cc55da23bf86fb3ad10e3b9028a48a8ef2376a2c2039210409d5b85a922dbe3d7ddbd399e632435957a776c9bc0a77ad8a62d623f0f15df49e543d869d51790cadee496b36bf6368ebb568ed69cf3578913aa097f99eb86b2e2701691bba85fc7d383aede90317877cdcaa4803610fea9d42729635cc623cb7397279c426fb5cee0cab13f3a217a456cd61a34dbc5990cde5de55b0ac12e8429a2e586298f3e8313febe6e6b1f590f885432433aac18d6e7b7b99f3425720d35b30d8b234475c04f09951df512cfc947fb4237cd0279ad276f86de910c30b79da45b7e76531f4bce2e8d03dfbbf11ee5712c9c92c69a96d69b05cb18e418f4e98b3c067e5cb19de2375865b51450a79e80a4fc5a5c716b0bee64b0256542f0a6f9871c02656d90846dca9fb381519682397514f522b3045ce88744f2b5af53d51b4bac3d409139a6b588309e90bbc836ea079e4e4eed7eae7ab0f1871bd6aee35cd7637d3525153ca2d77c1eebc010a5a905e8ed9b97bb18427592c60bd52c13e7e7fa5191323a5f6b03b4dbf2074edf97087b6340ab3dcc11a56bb04c89a22e2f6f8c27123561800e55e1afae61abd2c2809ddf3fbad93e372e2d1febf6f2e9f7e7a0489069e7a927e37025b32661b9c0fc576ac2dd3db4fe79331e4a48ff54c848a45a7679fdee69899af2320a5cd338b8f15f732d353a95ecf16ed82290d073f22381bc7d81743b7ea8343ac20c25fda4f179f142f10a2a2f6f556cc12de3c728a1ae005ed954752558c1a81ff709ea10f49b80774eca5bcf681a7dc2e5101151c95f94fc80df2ecd9c334ed75195a81bc7a0bfe1af5c3f7703de3dff447f338d819d789a725dcac6c028f0a9a43cc8fd140abb0d40a630a84fbdd751c2a08c28f7fd1d376f98c0fc418f4f0929de03f3038640388abc0ee44a14d7094130e0b503a61a6229f10891ab90dc9c9cc76469c0ab30f7fca9386760676194e04a8db6d2506ecaba8e800bccbe2ddc53d46b9771307445efbf15454e35f5a30bb4cf9aedd129bacd19d05c63645c9589e73829ba5abd87e0bee0fccbb06e4214acbee7c240d1586e05a9a50f0661712e4dc9e71050b36dbc7133bfd32df2cc8ddf9356fd4701f37f32635d3a7be0a50b6d6b85597d95a948df1f91a58a70a221cdc1e880ce1a54644ec91eabd7625497f02e02b291381978ccbdd4761e3ca0128efa146a0ea4e9a13003bc1558db863c2a183460455a0560bc75c7f061449714ddc5431458483630fc3ff769e78c71901ea1e516e5fe04cd0a553f5f2403afaef2e33c31eb55d326c030d76e188676099b5b9f43f100afe25994feb",
+    "bits": "1d01e71c",
+    "difficulty": 132777470.6040096,
+    "chainwork": "000000000000000000000000000000000000000000000000000241daab323e77",
+    "segid": -1,
+    "previousblockhash": "0474f6be4f1efb132cfedc252559ef3aee166e6bb58e99160edcf029d13f8017",
+    "nextblockhash": "000000003331516a9b135e3273ebad53a60921e5d3132fe7d596f5903337f504"
   },
   "error": null,
   "id": "curltest"
@@ -1459,45 +1488,47 @@ The `gettxout` method returns details about an unspent transaction output.
 
 ### Response:
 
-| Structure       | Type               | Description                       |
-| --------------- | ------------------ | --------------------------------- |
-| "bestblock"     | (string)           | the block hash                    |
-| "confirmations" | (numeric)          | the number of confirmations       |
-| "value"         | (numeric)          | the transaction value             |
-| "scriptPubKey": | (json object)      |                                   |
-| "asm"           | (string)           | `scriptPubKey` in assembly format |
-| "hex"           | (string)           | `scriptPubKey` in hex format      |
-| "reqSigs"       | (numeric)          | the number of required signatures |
-| "type"          | (string)           | the type, e.g. pubkeyhash         |
-| "addresses"     | (array of strings) | an array of Komodo addresses      |
-| "address"       | (string)           | the blockchain address            |
-| "version"       | (numeric)          | the version                       |
-| "coinbase"      | (boolean)          | coinbase or not                   |
+| Structure          | Type               | Description                                                                                                                     |
+| ------------------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| "bestblock"        | (string)           | the block hash                                                                                                                  |
+| "confirmations"    | (numeric)          | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "rawconfirmations" | (numeric)          | the raw confirmations (number of blocks on top of this block with this transaction)                                             |
+| "value"            | (numeric)          | the transaction value                                                                                                           |
+| "scriptPubKey":    | (json object)      |                                                                                                                                 |
+| "asm"              | (string)           | `scriptPubKey` in assembly format                                                                                               |
+| "hex"              | (string)           | `scriptPubKey` in hex format                                                                                                    |
+| "reqSigs"          | (numeric)          | the number of required signatures                                                                                               |
+| "type"             | (string)           | the type, e.g. pubkeyhash                                                                                                       |
+| "addresses"        | (array of strings) | an array of Komodo addresses                                                                                                    |
+| "address"          | (string)           | the blockchain address                                                                                                          |
+| "version"          | (numeric)          | the version                                                                                                                     |
+| "coinbase"         | (boolean)          | coinbase or not                                                                                                                 |
 
 #### :pushpin: Examples:
 
 Command:
 
 ```bash
-./komodo-cli gettxout "txid" 1
+./komodo-cli gettxout "d7f9b34ad3e86f48fce55dbec1f2925b8dcbd15199977fd75d224254db9ae80d" 1
 ```
 
 Response:
 
 ```json
 {
-  "bestblock": "0e398d8d00f7846f28b47a6c0da16b14002441f5a5340b6d492060c698bdd84c",
-  "confirmations": 252,
-  "value": 0.0001,
+  "bestblock": "061d724764a60009e782aa7a52c7543b6b3ca7b552bffcd3e3b5010caeaeb19e",
+  "confirmations": 1,
+  "rawconfirmations": 14,
+  "value": 13541.42222075,
   "scriptPubKey": {
-    "asm": "03c0259e1a166e53f6ccf094ce37c0843d4a013622603bc301b4eb0f89c7cce823 OP_CHECKSIG",
-    "hex": "2103c0259e1a166e53f6ccf094ce37c0843d4a013622603bc301b4eb0f89c7cce823ac",
+    "asm": "OP_DUP OP_HASH160 4518e50fdb31bb5951cd570342325bde15408fa3 OP_EQUALVERIFY OP_CHECKSIG",
+    "hex": "76a9144518e50fdb31bb5951cd570342325bde15408fa388ac",
     "reqSigs": 1,
-    "type": "pubkey",
-    "addresses": ["RM1mKzZDEr462UBqVjXSKXR3F83yMpG3Ue"]
+    "type": "pubkeyhash",
+    "addresses": ["RFaYXUJUE7CziS73EE6gvaqFduVo9KWjXT"]
   },
-  "version": 1,
-  "coinbase": true
+  "version": 4,
+  "coinbase": false
 }
 ```
 
@@ -1506,7 +1537,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettxout", "params": ["txid", 1] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettxout", "params": ["d7f9b34ad3e86f48fce55dbec1f2925b8dcbd15199977fd75d224254db9ae80d", 1] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 Response:
@@ -1514,18 +1545,19 @@ Response:
 ```json
 {
   "result": {
-    "bestblock": "0e398d8d00f7846f28b47a6c0da16b14002441f5a5340b6d492060c698bdd84c",
-    "confirmations": 252,
-    "value": 0.0001,
+    "bestblock": "000000020cce6743086cbcb97e90c0ad2735118615dd22b393e10f67cb6f13c7",
+    "confirmations": 1,
+    "rawconfirmations": 15,
+    "value": 13541.42222075,
     "scriptPubKey": {
-      "asm": "03c0259e1a166e53f6ccf094ce37c0843d4a013622603bc301b4eb0f89c7cce823 OP_CHECKSIG",
-      "hex": "2103c0259e1a166e53f6ccf094ce37c0843d4a013622603bc301b4eb0f89c7cce823ac",
+      "asm": "OP_DUP OP_HASH160 4518e50fdb31bb5951cd570342325bde15408fa3 OP_EQUALVERIFY OP_CHECKSIG",
+      "hex": "76a9144518e50fdb31bb5951cd570342325bde15408fa388ac",
       "reqSigs": 1,
-      "type": "pubkey",
-      "addresses": ["RM1mKzZDEr462UBqVjXSKXR3F83yMpG3Ue"]
+      "type": "pubkeyhash",
+      "addresses": ["RFaYXUJUE7CziS73EE6gvaqFduVo9KWjXT"]
     },
-    "version": 1,
-    "coinbase": true
+    "version": 4,
+    "coinbase": false
   },
   "error": null,
   "id": "curltest"
