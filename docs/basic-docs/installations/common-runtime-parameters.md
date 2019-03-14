@@ -75,7 +75,7 @@ komodod -addressindex=1
 
 Using `addressindex` as a default value in the coin's .conf file:
 
-```
+```bash
 addressindex=1
 ```
 
@@ -101,7 +101,7 @@ Depending on the size and state of the chain you are re-indexing, this parameter
 
 Using reindex as a runtime parameter:
 
-```
+```bash
 komodod -reindex
 ```
 
@@ -119,13 +119,13 @@ The <b>reindex</b> parameter is not a viable alternative method for re-syncing t
 
 Using timestampindex as a runtime parameter:
 
-```
+```bash
 ./komodod -timestampindex=1
 ```
 
 Using timestampindex as a default value in the coin's .conf file:
 
-```
+```bash
 timestampindex=1
 ```
 
@@ -145,13 +145,13 @@ The <b>reindex</b> parameter is not a viable alternative method for re-syncing t
 
 Using spentindex as a runtime parameter:
 
-```
+```bash
 komodod -spentindex=1
 ```
 
 Using spentindex as a default value in the coin's `.conf` file:
 
-```
+```bash
 spentindex=1
 ```
 
@@ -171,7 +171,7 @@ komodod -ac_name=TEST -regtest
 
 Using regtest as a default value in the coin's .conf file:
 
-```
+```bash
 regtest=0
 ```
 
@@ -183,13 +183,13 @@ regtest=0
 
 Using bantime as a runtime parameter:
 
-```
+```bash
 komodod -bantime=100000
 ```
 
 Using bantime as a default value in the coin's .conf file:
 
-```
+```bash
 bantime=100000
 ```
 
@@ -215,7 +215,7 @@ komodod -proxy=127.0.0.1:9050
 
 Using proxy as a default value in the coin's `.conf` file:
 
-```
+```bash
 proxy=127.0.0.1:9050
 ```
 
@@ -235,7 +235,7 @@ komodod -bind=127.0.0.1:9050
 
 Using bind as a default value in the coin's `.conf` file:
 
-```
+```bash
 bind=127.0.0.1:9050
 ```
 
@@ -255,7 +255,7 @@ komodod -whitebind=127.0.0.1:9050
 
 Using whitebind as a default value in the coin's `.conf` file:
 
-```
+```bash
 whitebind=127.0.0.1:9050
 ```
 
@@ -279,7 +279,7 @@ The p2p port must not be blocked by a firewall. If the computers do not have pub
 
 Using addnode as a default value in the coin's `.conf` file:
 
-```
+```bash
 addnode=69.164.218.197
 ```
 
@@ -293,7 +293,7 @@ Please refer to the [addnode](../installations/common-runtime-parameters.html#ad
 
 Using connect as a default value in the coin's .conf file:
 
-```
+```bash
 connect=69.164.218.197
 ```
 
@@ -308,9 +308,10 @@ This parameter should be avoided. Instead, start the daemon without the `-gen` p
 :::
 
 ::: tip
-* If the `genproclimit` property is not specified after the `gen` option, the daemon mines using 1 thread. 
-* To mine using all available threads, use: `-genproclimit=-1`
-:::
+
+- If the `genproclimit` property is not specified after the `gen` option, the daemon mines using 1 thread.
+- To mine using all available threads, use: `-genproclimit=-1`
+  :::
 
 ::: tip
 `gen=0` in the .conf file on an asset chain where `ac_staked` is enabled sets the daemon to stake using all available coins
@@ -338,7 +339,7 @@ komodod -listen=1
 
 Using listen as a default value in the coin's `.conf` file:
 
-```
+```bash
 listen=1
 ```
 
@@ -356,7 +357,7 @@ komodod -maxconnections=NUMBER
 
 Using maxconnections as a default value in the coin's .conf file:
 
-```
+```bash
 maxconnections=NUMBER
 ```
 
@@ -374,7 +375,7 @@ komodod -server=1
 
 Using server as a default value in the coin's .conf file:
 
-```
+```bash
 server=1
 ```
 
@@ -398,7 +399,7 @@ komodod -rpcbind=127.0.0.1:9704
 
 Using rpcbind as a default value in the coin's .conf file:
 
-```
+```bash
 rpcbind=127.0.0.1:9704
 ```
 
@@ -416,7 +417,7 @@ komodod -rpcclienttimeout=SECONDS
 
 Using rpcclienttimeout as a default value in the coin's .conf file:
 
-```
+```bash
 rpcclientttimeout=SECONDS
 ```
 
@@ -436,7 +437,7 @@ Opening up the RPC port to hosts outside your local trusted network is NOT RECOM
 
 Using rpcallowip as a default value in the coin's .conf file:
 
-```
+```bash
   rpcallowip=10.1.1.34/255.255.255.0
   rpcallowip=1.2.3.4/24
   rpcallowip=2001:db8:85a3:0:0:8a2e:370:7334/96
@@ -450,7 +451,7 @@ Using rpcallowip as a default value in the coin's .conf file:
 
 Using rpcport as a default value in the coin's `.conf` file:
 
-```
+```bash
 rpcport=8232
 ```
 
@@ -466,7 +467,7 @@ We DO NOT RECOMMEND that the average user set this value to anything other than 
 
 Using rpcconnect as a default value in the coin's `.conf` file:
 
-```
+```bash
 rpcconnect=127.0.0.1
 ```
 
@@ -478,7 +479,7 @@ rpcconnect=127.0.0.1
 
 Using sendfreetransactions as a default value in the coin's .conf file:
 
-```
+```bash
 sendfreetransactions=0
 ```
 
@@ -494,7 +495,7 @@ Setting `genproclimit=0` instructs the daemon to stake (if possible) using all a
 
 Using genproclimit as a default value in the coin's .conf file, to mine using 2 threads:
 
-```
+```bash
 genproclimit=2
 ```
 
@@ -506,7 +507,7 @@ genproclimit=2
 
 Using keypool as a default value in the coin's .conf file:
 
-```
+```bash
 keypool=100
 ```
 
@@ -530,7 +531,7 @@ komodod -rewind=777777
 
 Using stopat as a runtime parameter:
 
-```
+```bash
 komodod -stopat=1000000
 ```
 
@@ -544,13 +545,13 @@ The `pubkey` parameter is required for all Crypto Conditions (CC) smart-contract
 
 Using pubkey as a default value in the coin's `.conf` file:
 
-```
+```bash
 pubkey=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 ```
 
 Using pubkey as a startup parameter:
 
-```
+```bash
 -pubkey=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 ```
 
@@ -562,7 +563,7 @@ Using pubkey as a startup parameter:
 
 Using exchange as a default value in the coin's .conf file:
 
-```
+```bash
 exchange=1
 ```
 
@@ -574,7 +575,7 @@ exchange=1
 
 Using donation as a default value in the coin's .conf file:
 
-```
+```bash
 donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 ```
 
@@ -586,6 +587,6 @@ donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 
 Using exportdir as a default value in the coin's `.conf` file:
 
-```
+```bash
 exportdir=/home/myusername/mydirectory
 ```
