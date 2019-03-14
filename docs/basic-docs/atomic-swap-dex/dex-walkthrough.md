@@ -12,8 +12,15 @@ In the Komodo ecosystem we use two blockchain coins, BEER and PIZZA, for testing
 
 Let's set up a file in the `~/KomodoPlatform/target/debug` directory to import the settings for these test coins. Make a file called `coins` and place the following text into it:
 
+::: warning Note
+MM2 requires `mm2` parameter to be set in coins config or in `electrum/enable` requests. This lets MM2 know that coin is `expected` to work.  
+It's recommended to use coins config from [this repo](https://github.com/jl777/coins).  
+If "mm2" parameter is not set in repo it means that coin `was not` tested with MM2 yet.  
+If you test a new coin and it works please create a PR with coin config and successful swap details following [this guide](https://github.com/jl777/coins#0-the-coin-must-be-tested-with-barterdex-atomic-swaps)    
+:::
+
 ```
-[{"coin": "PIZZA","asset": "PIZZA","txversion":4,"rpcport": 11608},{"coin": "BEER","txversion":4,"asset": "BEER","rpcport": 8923}]
+[{"coin": "PIZZA","asset": "PIZZA","txversion":4,"rpcport": 11608,"mm2":1},{"coin": "BEER","txversion":4,"asset": "BEER","rpcport": 8923,"mm2":1}]
 ```
 
 Save this file. MM2 will search for it automatically on launch.
