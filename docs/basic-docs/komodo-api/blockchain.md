@@ -946,6 +946,94 @@ Response:
 }
 ```
 
+## getchaintxstats
+
+**getchaintxstats nblocks blockhash**
+
+The method `getchaintxstats` returns statistics about the total number and rate of transactions in the chain.
+
+Result:
+{
+"time": xxxxx, (numeric) The timestamp for the final block in the window in UNIX format.
+"txcount": xxxxx, (numeric) The total number of transactions in the chain up to that point.
+"window_final_block_hash": "...", (string) The hash of the final block in the window.
+"window_block_count": xxxxx, (numeric) Size of the window in number of blocks.
+"window_tx_count": xxxxx, (numeric) The number of transactions in the window. Only returned if "window_block_count" is > 0.
+"window_interval": xxxxx, (numeric) The elapsed time in the window in seconds. Only returned if "window_block_count" is > 0.
+"txrate": x.xx, (numeric) The average rate of transactions per second in the window. Only returned if "window_interval" is > 0.
+}
+
+### Arguments:
+
+| Structure | Type                | Description                                 |
+| --------- | ------------------- | ------------------------------------------- |
+| nblocks   | (numeric, optional) | the number of blocks in averaging window.   |
+| blockhash | (string, optional)  | the hash of the block which ends the window |
+
+### Response:
+
+| Structure                 | Type      | Description                                                                                           |
+| ------------------------- | --------- | ----------------------------------------------------------------------------------------------------- |
+| "time"                    | (numeric) | the timestamp for the final block in the window in UNIX format                                        |
+| "txcount"                 | (numeric) | the total number of transactions in the chain up to that point                                        |
+| "window_final_block_hash" | (string)  | the hash of the final block in the window                                                             |
+| "window_block_count"      | (numeric) | size of the window in number of blocks                                                                |
+| "window_tx_count"         | (numeric) | the number of transactions in the window; only returned if `window_block_count` is > 0.               |
+| "window_interval"         | (numeric) | the elapsed time in the window in seconds; only returned if `window_block_count` is > 0.              |
+| "txrate"                  | (numeric) | the average rate of transactions per second in the window; only returned if `window_interval` is > 0. |
+
+Examples:
+
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getchaintxstats", "params": [2016] }' -H 'content-type: text/plain;' http://127.0.0.1:7771/
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli getchaintxstats
+```
+
+Response:
+
+```json
+{
+  "time": 1552568020,
+  "txcount": 4576830,
+  "window_final_block_hash": "037c7fb68fcdd27cb12bb16b6c4b3a88a4bd652b2c979c771836db97611a62f2",
+  "window_block_count": 43200,
+  "window_tx_count": 286787,
+  "window_interval": 2604632,
+  "txrate": 0.1101065332837806
+}
+```
+
+You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getchaintxstats", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+Response:
+
+```json
+{
+  "result": {
+    "time": 1552568020,
+    "txcount": 4576830,
+    "window_final_block_hash": "037c7fb68fcdd27cb12bb16b6c4b3a88a4bd652b2c979c771836db97611a62f2",
+    "window_block_count": 43200,
+    "window_tx_count": 286787,
+    "window_interval": 2604632,
+    "txrate": 0.1101065332837806
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
 ## getdifficulty
 
 **getdifficulty**
