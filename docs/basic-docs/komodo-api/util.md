@@ -291,6 +291,40 @@ Response:
 (none)
 ```
 
+## txnotarizedconfirmed
+
+**txnotarizedconfirmed txid**
+
+The `txnotarizedconfirmed` method returns true if the transaction is notarized on a chain that has dPoW or if confirmation number is greater than 60 on a chain that does not have dPoW.
+
+### Arguments:
+
+| Structure | Type               | Description        |
+| --------- | ------------------ | ------------------ |
+| "txid"    | (string, required) | the transaction id |
+
+### Response:
+
+| Structure | Type      | Description                               |
+| --------- | --------- | ----------------------------------------- |
+| "result"  | (boolean) | the value the check; either true or false |
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli txnotarizedconfirmed ce1e3df1fb24ab3301b4032c3a0af466ca03b9365f8c649511bdd72f5519fecb
+```
+
+Response:
+
+```json
+{
+  "result": true
+}
+```
+
 ## validateaddress
 
 **validateaddress "komodoaddress"**
