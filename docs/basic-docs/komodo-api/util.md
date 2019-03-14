@@ -217,6 +217,12 @@ Response:
 
 The `setpubkey` method sets the indicated `pubkey`. This method can be used in place of the [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter, when necessary.
 
+Visit the section [pubkey](../installations/common-runtime-parameters.html#pubkey) to understand when it is essential to set a pubkey and the consequesces of setting it.
+
+::: warning
+This method works only once per daemon start. It can't be used to change the pubkey that has already been set.
+:::
+
 ### Arguments:
 
 | Structure | Type     | Description        |
