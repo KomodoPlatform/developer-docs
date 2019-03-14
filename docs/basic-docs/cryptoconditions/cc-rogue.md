@@ -210,10 +210,8 @@ cd ~/komodo/src
 
 The Terminal User Interface (TUI) provides automated methods for executing the ROGUE methods (rpcs) that are used to start and finish a game. Use of the TUI is optional, but recommended for most players.
 
-<---!
-I think no need to include TUI manual installation to this manual - it's better for testing if everybody will use same version of daemon/rogue/tui from bundle
-I offer to put this information about MultiOS bundles on top of guide before compilation instructions so most of the users will not compile by themselves and save time / will use same relatively stable version of things.
--->
+<!--I think no need to include TUI manual installation to this manual - it's better for testing if everybody will use same version of daemon/rogue/tui from bundle
+I offer to put this information about MultiOS bundles on top of guide before compilation instructions so most of the users will not compile by themselves and save time / will use same relatively stable version of things.-->
 
 #### Portable MultiOS Bundles for Unix OS, OSX and Windows
 
@@ -223,8 +221,7 @@ These portable bundles contain all all necessary pre-compiled software to just u
 
 ## Walkthroughs
 
-<---! 
-TUI is unofficial software as far as I know, just made for testing simplify purposes by me, not providing by team as end product
+<!-- TUI is unofficial software as far as I know, just made for testing simplify purposes by me, not providing by team as end product
 -->
 
 The Komodo team provides a [Terminal User Interface (TUI)](../cryptoconditions/cc-rogue.html#installing-the-tui-optional) to allow players to launch and conclude a game without having to interact with the module's api commands.
@@ -1060,7 +1057,9 @@ After a game concludes the complete list of keystrokes can be found in the `~/ko
 | Name   | Type | Description |
 | ------ | ---- | ----------- |
 
-<!--I can use the response in the example below as a starting point, but before I do so, I need to ask: is that formatted via the jq terminal software? It looks like it. In other words, the result, error, and id properties look like they came from jq, and the stuff inside the result property is what the terminal would normally reply. ? -->
+<!--I can use the response in the example below as a starting point, but before I do so, I need to ask: is that formatted via the jq terminal software? It looks like it. In other words, the result, error, and id properties look like they came from jq, and the stuff inside the result property is what the terminal would normally reply. ? 
+
+TonyL: nope, I'm never use jq - it's just terminal output-->
 
 #### :pushpin: Examples:
 
@@ -1477,7 +1476,7 @@ The `extract` method allows the user extract the complete history of a game. Thi
 | name       | (string) | the name of the module                                                                                   |
 | method     | (string) | the name of the method                                                                                   |
 | gametxid   | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method |
-| rogueaddr  | (string) | address for pubkey provided in param                                                                     |
+| rogueaddr  | (string) | address for pubkey provided as method param                                                              |
 | status     | (string) | whether the command executed successfully                                                                |
 | keystrokes | (string) | all keyboard strokes concatenated into a single hex string                                               | 
 | numkeys    | (number) | total amount of keystrokes (ASCII symbols)                                                               |
