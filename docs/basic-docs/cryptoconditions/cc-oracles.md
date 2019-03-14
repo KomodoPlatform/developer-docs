@@ -1,5 +1,17 @@
 # Contract Module: Oracles
 
+## Introduction
+
+The `oracles` module is useful for making offchain data available on-chain in a way that enables the data providers to collect revenue per data point uploaded.
+
+### Oracles CC Module Flow
+
+- Anyone can create an Oracle using `oraclescreate` which takes a name, description, expected format of the data as arguments.
+- Anyone can register as a publisher of data for an Oracle using `oraclesregister` which takes the transaction-id of an Oracle already created and `datafee` (fee required for each upload of data ) as arguments.
+- `oracleslist` , `oraclesinfo` , `oraclessamples` can be used in that specific order to find the available Oracles, their publishers and data samples from any specific publisher.
+- Anyone can subscribe to a particular publisher for an Oracle through `oraclessubscribe`
+- A publisher can publish data using `oraclesdata` and collect the `datafee`
+
 ## oraclesaddress
 
 **oraclesaddress (pubkey)**
