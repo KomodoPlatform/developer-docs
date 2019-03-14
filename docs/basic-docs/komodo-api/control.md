@@ -146,8 +146,6 @@ Response:
 }
 ```
 
-## getnotarysendmany
-
 ## help
 
 **help ( "command" )**
