@@ -16,19 +16,18 @@ DEPRECATED: If <b>account</b> is specified, the method assigns the multi-signatu
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-nrequired                                    |(numeric, required)          |the number of required keys (out of the `n` submitted)
-"keysobject"                                 |(string, required)           |a json array of addresses or hex-encoded public keys
-"address"                                    |(string)                     |address or hex-encoded public key
-"account"                                    |(string, optional)           |DEPRECATED: if provided, "account" MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-
+| Structure    | Type                | Description                                                                                                                                              |
+| ------------ | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| nrequired    | (numeric, required) | the number of required keys (out of the `n` submitted)                                                                                                   |
+| "keysobject" | (string, required)  | a json array of addresses or hex-encoded public keys                                                                                                     |
+| "address"    | (string)            | address or hex-encoded public key                                                                                                                        |
+| "account"    | (string, optional)  | DEPRECATED: if provided, "account" MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |an address associated with the keys
+| Structure | Type     | Description                         |
+| --------- | -------- | ----------------------------------- |
+| "address" | (string) | an address associated with the keys |
 
 #### :pushpin: Examples:
 
@@ -76,15 +75,15 @@ This method requires that the coin daemon have the <b>exportdir</b> runtime para
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"destination"                                |(string, required)           |the destination filename, saved in the directory set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter
+| Structure     | Type               | Description                                                                                                                                          |
+| ------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "destination" | (string, required) | the destination filename, saved in the directory set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"path"                                       |(string)                     |the full path of the destination file
+| Structure | Type     | Description                           |
+| --------- | -------- | ------------------------------------- |
+| "path"    | (string) | the full path of the destination file |
 
 #### :pushpin: Examples:
 
@@ -124,15 +123,15 @@ See also <b>importprivkey</b>.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address for the private key
+| Structure | Type               | Description                     |
+| --------- | ------------------ | ------------------------------- |
+| "address" | (string, required) | the address for the private key |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"data"                                       |(string)                     |the private key
+| Structure | Type     | Description     |
+| --------- | -------- | --------------- |
+| "data"    | (string) | the private key |
 
 #### :pushpin: Examples:
 
@@ -180,16 +179,15 @@ This method requires that the coin daemon have the [exportdir](../installations/
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"filename"                                   |(string, required)           |the filename, saved in folder set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter
-
+| Structure  | Type               | Description                                                                                                                       |
+| ---------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| "filename" | (string, required) | the filename, saved in folder set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"path"                                       |(string)                     |the full path of the destination file
+| Structure | Type     | Description                           |
+| --------- | -------- | ------------------------------------- |
+| "path"    | (string) | the full path of the destination file |
 
 #### :pushpin: Examples:
 
@@ -243,14 +241,14 @@ This method is for first-time encryption only. After the first encryption, any c
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-passphrase                                 |(string)                     |the passphrase for wallet encryption; the passphrase must be at least 1 character, but should be many
+| Structure  | Type     | Description                                                                                           |
+| ---------- | -------- | ----------------------------------------------------------------------------------------------------- |
+| passphrase | (string) | the passphrase for wallet encryption; the passphrase must be at least 1 character, but should be many |
 
 ### Response:
 
-| Text Response |
-| ------------- |
+| Text Response                                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------------------------- |
 | wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup. |
 
 #### :pushpin: Examples:
@@ -323,15 +321,15 @@ The `getaccount` method returns the account associated with the given address.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address
+| Structure | Type               | Description |
+| --------- | ------------------ | ----------- |
+| "address" | (string, required) | the address |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"accountname"                                |(string)                     |the account address
+| Structure     | Type     | Description         |
+| ------------- | -------- | ------------------- |
+| "accountname" | (string) | the account address |
 
 #### :pushpin: Examples:
 
@@ -373,15 +371,15 @@ The `getaccountaddress` method returns the current address for receiving payment
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
+| Structure | Type               | Description                                                                                                           |
+| --------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| "account" | (string, required) | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the account address
+| Structure | Type     | Description         |
+| --------- | -------- | ------------------- |
+| "address" | (string) | the account address |
 
 #### :pushpin: Examples:
 
@@ -410,6 +408,7 @@ Response:
 ```bash
 (deprecated)
 ```
+
 ## getaddressesbyaccount
 
 **getaddressesbyaccount "account"**
@@ -422,15 +421,15 @@ The `getaddressesbyaccount` method returns the list of addresses for the given `
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
+| Structure | Type               | Description                                                                                                           |
+| --------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| "account" | (string, required) | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |an address associated with the given account
+| Structure | Type     | Description                                  |
+| --------- | -------- | -------------------------------------------- |
+| "address" | (string) | an address associated with the given account |
 
 #### :pushpin: Examples:
 
@@ -472,17 +471,17 @@ The <b>account</b> input is deprecated.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, optional)           |DEPRECATED if provided, it MUST be set to the empty string `""` or to the string `"*"`
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
-includeWatchonly                             |(bool, optional, default=false)|also include balance in watchonly addresses (see `importaddress`)
+| Structure        | Type                            | Description                                                                            |
+| ---------------- | ------------------------------- | -------------------------------------------------------------------------------------- |
+| "account"        | (string, optional)              | DEPRECATED if provided, it MUST be set to the empty string `""` or to the string `"*"` |
+| minconf          | (numeric, optional, default=1)  | only include transactions confirmed at least this many times                           |
+| includeWatchonly | (bool, optional, default=false) | also include balance in watchonly addresses (see `importaddress`)                      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-amount                                       |(numeric)                    |the total amount
+| Structure | Type      | Description      |
+| --------- | --------- | ---------------- |
+| amount    | (numeric) | the total amount |
 
 #### :pushpin: Examples:
 
@@ -551,15 +550,15 @@ The `getnewaddress` method returns a new address for receiving payments.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, optional)           |DEPRECATED: If provided, the account MUST be set to the empty string `""` to represent the default account; passing any other string will result in an error
+| Structure | Type               | Description                                                                                                                                                  |
+| --------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| "account" | (string, optional) | DEPRECATED: If provided, the account MUST be set to the empty string `""` to represent the default account; passing any other string will result in an error |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the new address
+| Structure | Type     | Description     |
+| --------- | -------- | --------------- |
+| "address" | (string) | the new address |
 
 #### :pushpin: Examples:
 
@@ -605,15 +604,15 @@ This is for use with raw transactions, NOT normal use.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| "address" | (string) | the address |
 
 #### :pushpin: Examples:
 
@@ -659,16 +658,16 @@ The <b>getreceivedbyaccount</b> method returns the total amount received by <b>a
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
+| Structure | Type                           | Description                                                                                                           |
+| --------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| "account" | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
+| minconf   | (numeric, optional, default=1) | only include transactions confirmed at least this many times                                                          |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-amount                                       |(numeric)                    |the total amount received for this account
+| Structure | Type      | Description                                |
+| --------- | --------- | ------------------------------------------ |
+| amount    | (numeric) | the total amount received for this account |
 
 #### :pushpin: Examples:
 
@@ -692,16 +691,16 @@ The `getreceivedbyaddress` method returns the total amount received by the given
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address for transactions
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
+| Structure | Type                           | Description                                                  |
+| --------- | ------------------------------ | ------------------------------------------------------------ |
+| "address" | (string, required)             | the address for transactions                                 |
+| minconf   | (numeric, optional, default=1) | only include transactions confirmed at least this many times |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-amount                                       |(numeric)                    |the total amount of the relevant coin received at this address
+| Structure | Type      | Description                                                    |
+| --------- | --------- | -------------------------------------------------------------- |
+| amount    | (numeric) | the total amount of the relevant coin received at this address |
 
 #### :pushpin: Examples:
 
@@ -767,40 +766,40 @@ The `gettransaction` method queries detailed information about transaction `txid
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"txid"                                       |(string, required)           |the transaction id
-"includeWatchonly"                           |(bool, optional, default=false)|whether to include watchonly addresses in the returned balance calculation and in the `details[]` returned values
+| Structure          | Type                            | Description                                                                                                       |
+| ------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| "txid"             | (string, required)              | the transaction id                                                                                                |
+| "includeWatchonly" | (bool, optional, default=false) | whether to include watchonly addresses in the returned balance calculation and in the `details[]` returned values |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"amount"                                     |(numeric)                    |the transaction amount
-"confirmations"                              |(numeric)                    |the number of confirmations
-"blockhash"                                  |(string)                     |the block hash
-"blockindex"                                 |(numeric)                    |the block index
-"blocktime"                                  |(numeric)                    |the time in seconds since epoch (1 Jan 1970 GMT)
-"txid"                                       |(string)                     |the transaction id
-"time"                                       |(numeric)                    |the transaction time in seconds since epoch (1 Jan 1970 GMT)
-"timereceived"                               |(numeric)                    |the time received in seconds since epoch (1 Jan 1970 GMT)
-"details" : [ ... ]                          |(array)                             |
-"account"                                    |(string)                     |DEPRECATED the account name involved in the transaction; can be "" for the default account
-"address"                                    |(string)                     |the address involved in the transaction
-"category"                                   |(string)                     |the category - either `send` or `receive`
-"amount"                                     |(numeric)                    |the amount
-"vout"                                       |(numeric)                    |the vout value
-"vjoinsplit" : [ ... ]                       |(array of json objects)                             |
-"anchor"                                     |(string)                     |merkle root of note commitment tree
-"nullifiers" : [ ... ]                       |(array of strings)                             |
-"hex"                                        |(string)                     |
-"commitments" : [ ... ]                      |(array of strings)           |
-"hex"                                        |(string)                     |
-"macs" : [ ... ]                             |(array of strings)           |
-"hex"                                        |(string)                     |
-"vpub_old"                                   |(numeric)                    |the amount removed from the transparent value pool
-"vpub_new"                                   |(numeric)                    |the amount added to the transparent value pool
-"hex"                                        |(string)                     |raw data for transaction
+| Structure               | Type                    | Description                                                                                |
+| ----------------------- | ----------------------- | ------------------------------------------------------------------------------------------ |
+| "amount"                | (numeric)               | the transaction amount                                                                     |
+| "confirmations"         | (numeric)               | the number of confirmations                                                                |
+| "blockhash"             | (string)                | the block hash                                                                             |
+| "blockindex"            | (numeric)               | the block index                                                                            |
+| "blocktime"             | (numeric)               | the time in seconds since epoch (1 Jan 1970 GMT)                                           |
+| "txid"                  | (string)                | the transaction id                                                                         |
+| "time"                  | (numeric)               | the transaction time in seconds since epoch (1 Jan 1970 GMT)                               |
+| "timereceived"          | (numeric)               | the time received in seconds since epoch (1 Jan 1970 GMT)                                  |
+| "details" : [ ... ]     | (array)                 |
+| "account"               | (string)                | DEPRECATED the account name involved in the transaction; can be "" for the default account |
+| "address"               | (string)                | the address involved in the transaction                                                    |
+| "category"              | (string)                | the category - either `send` or `receive`                                                  |
+| "amount"                | (numeric)               | the amount                                                                                 |
+| "vout"                  | (numeric)               | the vout value                                                                             |
+| "vjoinsplit" : [ ... ]  | (array of json objects) |
+| "anchor"                | (string)                | merkle root of note commitment tree                                                        |
+| "nullifiers" : [ ... ]  | (array of strings)      |
+| "hex"                   | (string)                |
+| "commitments" : [ ... ] | (array of strings)      |
+| "hex"                   | (string)                |
+| "macs" : [ ... ]        | (array of strings)      |
+| "hex"                   | (string)                |
+| "vpub_old"              | (numeric)               | the amount removed from the transparent value pool                                         |
+| "vpub_new"              | (numeric)               | the amount added to the transparent value pool                                             |
+| "hex"                   | (string)                | raw data for transaction                                                                   |
 
 #### :pushpin: Examples:
 
@@ -814,18 +813,15 @@ Response:
 
 ```json
 {
-  "amount": 0.00000000,
-  "fee": -0.00005000,
+  "amount": 0.0,
+  "fee": -0.00005,
   "confirmations": 0,
   "txid": "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa",
-  "walletconflicts": [
-  ],
+  "walletconflicts": [],
   "time": 1536993107,
   "timereceived": 1536993107,
-  "vjoinsplit": [
-  ],
-  "details": [
-  ],
+  "vjoinsplit": [],
+  "details": [],
   "hex": "0100000001d69a6c4b9aa1991bd72ab86086db91a4c709c4b954c15d1622f2e1fb2deeb262000000004847304402205927908c985e09f6d9888e37e23b82770ca906b145c74a388ea9359afba63fff02204bd49a9b158ecfb7c12737579a31dd9e44dc63214813f70617f9a24a1e4d987801feffffff02302d903b000000001976a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac40420f00000000001976a914646e1ddd9b6415e0209e5bbe3861309353301eec88aca2659c5b"
 }
 ```
@@ -840,18 +836,15 @@ Response:
 
 ```json
 {
-  "amount": 0.00000000,
-  "fee": -0.00005000,
+  "amount": 0.0,
+  "fee": -0.00005,
   "confirmations": 0,
   "txid": "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa",
-  "walletconflicts": [
-  ],
+  "walletconflicts": [],
   "time": 1536993107,
   "timereceived": 1536993107,
-  "vjoinsplit": [
-  ],
-  "details": [
-  ],
+  "vjoinsplit": [],
+  "details": [],
   "hex": "0100000001d69a6c4b9aa1991bd72ab86086db91a4c709c4b954c15d1622f2e1fb2deeb262000000004847304402205927908c985e09f6d9888e37e23b82770ca906b145c74a388ea9359afba63fff02204bd49a9b158ecfb7c12737579a31dd9e44dc63214813f70617f9a24a1e4d987801feffffff02302d903b000000001976a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac40420f00000000001976a914646e1ddd9b6415e0209e5bbe3861309353301eec88aca2659c5b"
 }
 ```
@@ -870,7 +863,7 @@ Response:
 {
   "result": {
     "amount": 0,
-    "fee": -5e-05,
+    "fee": -5e-5,
     "confirmations": 0,
     "txid": "7281407d85619901ee10d52c96869f7879393434b782331df6f67a0e0e9d1ffa",
     "walletconflicts": [],
@@ -893,15 +886,15 @@ The `getunconfirmedbalance` method returns the server's total unconfirmed balanc
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -929,7 +922,7 @@ Response:
 
 ```json
 {
-  "result": 10.05000000,
+  "result": 10.05,
   "error": null,
   "id": "curltest"
 }
@@ -943,23 +936,23 @@ The `getwalletinfo` method returns an object containing various information abou
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"walletversion"                              |(numeric)                    |the wallet version
-"balance"                                    |(numeric)                    |the total confirmed balance of the wallet
-"unconfirmed_balance"                        |(numeric)                    |the total unconfirmed balance of the wallet
-"immature_balance"                           |(numeric)                    |the total immature balance of the wallet
-"txcount"                                    |(numeric)                    |the total number of transactions in the wallet
-"keypoololdest"                              |(numeric)                    |the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool
-"keypoolsize"                                |(numeric)                    |how many new keys are pre-generated
-"unlocked_until"                             |(numeric)                    |the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked
-"paytxfee"                                   |(numeric)                    |the transaction fee configuration, denotated as the relevant COIN per KB
+| Structure             | Type      | Description                                                                                                                            |
+| --------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| "walletversion"       | (numeric) | the wallet version                                                                                                                     |
+| "balance"             | (numeric) | the total confirmed balance of the wallet                                                                                              |
+| "unconfirmed_balance" | (numeric) | the total unconfirmed balance of the wallet                                                                                            |
+| "immature_balance"    | (numeric) | the total immature balance of the wallet                                                                                               |
+| "txcount"             | (numeric) | the total number of transactions in the wallet                                                                                         |
+| "keypoololdest"       | (numeric) | the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool                                                |
+| "keypoolsize"         | (numeric) | how many new keys are pre-generated                                                                                                    |
+| "unlocked_until"      | (numeric) | the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked |
+| "paytxfee"            | (numeric) | the transaction fee configuration, denotated as the relevant COIN per KB                                                               |
 
 #### :pushpin: Examples:
 
@@ -975,12 +968,12 @@ Response:
 {
   "walletversion": 60000,
   "balance": 10.01334496,
-  "unconfirmed_balance": 0.00000000,
-  "immature_balance": 0.00010000,
+  "unconfirmed_balance": 0.0,
+  "immature_balance": 0.0001,
   "txcount": 106,
   "keypoololdest": 1536889653,
   "keypoolsize": 101,
-  "paytxfee": 0.00000000
+  "paytxfee": 0.0
 }
 ```
 
@@ -1023,17 +1016,17 @@ This call can take an increased amount of time to complete if rescan is true.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address to watch
-"label"                                      |(string, optional, default="")|an optional label
-rescan                                       |(boolean, optional, default=true)|rescan the wallet for transactions
+| Structure | Type                              | Description                        |
+| --------- | --------------------------------- | ---------------------------------- |
+| "address" | (string, required)                | the address to watch               |
+| "label"   | (string, optional, default="")    | an optional label                  |
+| rescan    | (boolean, optional, default=true) | rescan the wallet for transactions |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -1097,17 +1090,17 @@ See also <b>dumpprivkey</b>.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"privkey"                                    |(string, required)           |the private key (see [dumpprivkey](../komodo-api/wallet.html#dumpprivkey))
-"label"                                      |(string, optional, default="")|an optional label
-rescan                                       |(boolean, optional, default=true)|rescan the wallet for transactions
+| Structure | Type                              | Description                                                                |
+| --------- | --------------------------------- | -------------------------------------------------------------------------- |
+| "privkey" | (string, required)                | the private key (see [dumpprivkey](../komodo-api/wallet.html#dumpprivkey)) |
+| "label"   | (string, optional, default="")    | an optional label                                                          |
+| rescan    | (boolean, optional, default=true) | rescan the wallet for transactions                                         |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-addresses                                    |(string)                     |the public address
+| Structure | Type     | Description        |
+| --------- | -------- | ------------------ |
+| addresses | (string) | the public address |
 
 #### :pushpin: Examples:
 
@@ -1161,15 +1154,15 @@ The `importwallet` method imports transparent-address keys from a wallet-dump fi
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"filename"                                   |(string, required)           |the wallet file
+| Structure  | Type               | Description     |
+| ---------- | ------------------ | --------------- |
+| "filename" | (string, required) | the wallet file |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -1211,15 +1204,15 @@ The `keypoolrefill` method refills the keypool.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-newsize                                      |(numeric, optional, default=100)|the new keypool size
+| Structure | Type                             | Description          |
+| --------- | -------------------------------- | -------------------- |
+| newsize   | (numeric, optional, default=100) | the new keypool size |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -1277,16 +1270,16 @@ The <b>listaccounts</b> method returns an object that has account names as keys 
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-minconf                                      |(numeric, optional, default=1)|only include transactions with at least this many confirmations
-includeWatchonly                             |(bool, optional, default=false)|include balances in watchonly addresses (see 'importaddress')
+| Structure        | Type                            | Description                                                     |
+| ---------------- | ------------------------------- | --------------------------------------------------------------- |
+| minconf          | (numeric, optional, default=1)  | only include transactions with at least this many confirmations |
+| includeWatchonly | (bool, optional, default=false) | include balances in watchonly addresses (see 'importaddress')   |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"account_number"                             |(numeric)                    |the property name is the account name, and the value is the total balance for the account
+| Structure        | Type      | Description                                                                               |
+| ---------------- | --------- | ----------------------------------------------------------------------------------------- |
+| "account_number" | (numeric) | the property name is the account name, and the value is the total balance for the account |
 
 #### :pushpin: Examples:
 
@@ -1324,17 +1317,17 @@ The `listaddressgroupings` method lists groups of addresses which have had their
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"address",                                   |(string)                     |the address
-amount,                                      |(numeric)                    |the amount
-"account"                                    |(string, optional)           |(DEPRECATED) the account
+| Structure  | Type               | Description              |
+| ---------- | ------------------ | ------------------------ |
+| "address", | (string)           | the address              |
+| amount,    | (numeric)          | the amount               |
+| "account"  | (string, optional) | (DEPRECATED) the account |
 
 #### :pushpin: Examples:
 
@@ -1389,27 +1382,11 @@ Response:
 {
   "result": [
     [
-      [
-        "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ",
-        9.99304496
-      ],
-      [
-        "RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7",
-        0.0004,
-        ""
-      ],
-      [
-        "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN",
-        0.01
-      ]
+      ["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ", 9.99304496],
+      ["RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7", 0.0004, ""],
+      ["RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN", 0.01]
     ],
-    [
-      [
-        "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
-        0.0099,
-        ""
-      ]
-    ]
+    [["RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs", 0.0099, ""]]
   ],
   "error": null,
   "id": "curltest"
@@ -1428,16 +1405,16 @@ See the <b>lockunspent</b> call to lock and unlock transactions for spending.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"txid"                                       |(string)                     |the transaction id locked
-"vout"                                       |(numeric)                    |the vout value
+| Structure | Type      | Description               |
+| --------- | --------- | ------------------------- |
+| "txid"    | (string)  | the transaction id locked |
+| "vout"    | (numeric) | the vout value            |
 
 #### :pushpin: Examples:
 
@@ -1493,20 +1470,20 @@ The `listreceivedbyaccount` method lists balances by account.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-minconf                                      |(numeric, optional, default=1)|the minimum number of confirmations before payments are included
-includeempty                                 |(boolean, optional, default=false)|whether to include accounts that haven't received any payments
-includeWatchonly                             |(bool, optional, default=false)|whether to include watchonly addresses (see 'importaddress')
+| Structure        | Type                               | Description                                                      |
+| ---------------- | ---------------------------------- | ---------------------------------------------------------------- |
+| minconf          | (numeric, optional, default=1)     | the minimum number of confirmations before payments are included |
+| includeempty     | (boolean, optional, default=false) | whether to include accounts that haven't received any payments   |
+| includeWatchonly | (bool, optional, default=false)    | whether to include watchonly addresses (see 'importaddress')     |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"involvesWatchonly"                          |(bool)                       |only returned if imported addresses were involved in transaction
-"account"                                    |(string)                     |the account name of the receiving account
-"amount"                                     |(numeric)                    |the total amount received by addresses with this account
-"confirmations"                              |(numeric)                    |the number of confirmations of the most recent transaction included
+| Structure           | Type      | Description                                                         |
+| ------------------- | --------- | ------------------------------------------------------------------- |
+| "involvesWatchonly" | (bool)    | only returned if imported addresses were involved in transaction    |
+| "account"           | (string)  | the account name of the receiving account                           |
+| "amount"            | (numeric) | the total amount received by addresses with this account            |
+| "confirmations"     | (numeric) | the number of confirmations of the most recent transaction included |
 
 #### :pushpin: Examples:
 
@@ -1556,22 +1533,21 @@ The `listreceivedbyaddress` method lists balances by receiving address.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-minconf                                      |(numeric, optional, default=1)|the minimum number of confirmations before payments are included
-includeempty                                 |(numeric, optional, default=false)|whether to include addresses that haven't received any payments
-includeWatchonly                             |(bool, optional, default=false)|whether to include watchonly addresses (see 'importaddress')
+| Structure        | Type                               | Description                                                      |
+| ---------------- | ---------------------------------- | ---------------------------------------------------------------- |
+| minconf          | (numeric, optional, default=1)     | the minimum number of confirmations before payments are included |
+| includeempty     | (numeric, optional, default=false) | whether to include addresses that haven't received any payments  |
+| includeWatchonly | (bool, optional, default=false)    | whether to include watchonly addresses (see 'importaddress')     |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"involvesWatchonly"                          |(bool)                       |only returned if imported addresses were involved in transaction
-"address"                                    |(string)                     |the receiving address
-"account"                                    |(string)                     |DEPRECATED the account of the receiving address; the default account is ""
-"amount"                                     |(numeric)                    |the total amount received by the address
-"confirmations"                              |(numeric)                    |the number of confirmations of the most recent transaction included
-
+| Structure           | Type      | Description                                                                |
+| ------------------- | --------- | -------------------------------------------------------------------------- |
+| "involvesWatchonly" | (bool)    | only returned if imported addresses were involved in transaction           |
+| "address"           | (string)  | the receiving address                                                      |
+| "account"           | (string)  | DEPRECATED the account of the receiving address; the default account is "" |
+| "amount"            | (numeric) | the total amount received by the address                                   |
+| "confirmations"     | (numeric) | the number of confirmations of the most recent transaction included        |
 
 #### :pushpin: Examples:
 
@@ -1588,7 +1564,7 @@ Response:
   {
     "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
     "account": "",
-    "amount": 0.01000000,
+    "amount": 0.01,
     "confirmations": 10,
     "txids": [
       "5e6349567c893bab51a525219e5d2264532f1e73277fa1179449343cf2864211"
@@ -1610,15 +1586,14 @@ Response:
   {
     "address": "RSWwtqsNr9mW21UXRm6Lz4AzQnj4pVzzkp",
     "account": "",
-    "amount": 0.00000000,
+    "amount": 0.0,
     "confirmations": 0,
-    "txids": [
-    ]
+    "txids": []
   },
   {
     "address": "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs",
     "account": "",
-    "amount": 0.01000000,
+    "amount": 0.01,
     "confirmations": 10,
     "txids": [
       "5e6349567c893bab51a525219e5d2264532f1e73277fa1179449343cf2864211"
@@ -1666,33 +1641,33 @@ The `listsinceblock` method queries all transactions in blocks since block `bloc
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"blockhash"                                  |(string, optional)           |the block hash from which to list transactions
-target-confirmations                         |(numeric, optional)          |the confirmations required (must be 1 or more)
-includeWatchonly                             |(bool, optional, default=false)|include transactions to watchonly addresses (see also 'importaddress')
+| Structure            | Type                            | Description                                                            |
+| -------------------- | ------------------------------- | ---------------------------------------------------------------------- |
+| "blockhash"          | (string, optional)              | the block hash from which to list transactions                         |
+| target-confirmations | (numeric, optional)             | the confirmations required (must be 1 or more)                         |
+| includeWatchonly     | (bool, optional, default=false) | include transactions to watchonly addresses (see also 'importaddress') |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"transactions":                              |                             |
-"account"                                    |(string)                     |DEPRECATED the account name associated with the transaction; will be "" for the default account
-"address"                                    |(string)                     |the address of the transaction (not present for move transactions -- category = move)
-"category"                                   |(string)                     |the transaction category; `send` has negative amounts, `receive` has positive amounts
-"amount"                                     |(numeric)                    |the amount of the relevant currency -- negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category, and for the `move` category for inbound funds.
-"vout"                                       |(numeric)                    |the vout value
-"fee"                                        |(numeric)                    |the amount of the fee; this value is negative and only available for the `send` category of transactions
-"confirmations"                              |(numeric)                    |the number of confirmations for the transaction; available for `send` and `receive` category of transactions
-"blockhash"                                  |(string)                     |the block hash containing the transaction; available for the `send` and `receive` categories of transactions
-"blockindex"                                 |(numeric)                    |the block index containing the transaction; available for the `send` and `receive` categories of transactions
-"blocktime"                                  |(numeric)                    |the block time in seconds since epoch (1 Jan 1970 GMT)
-"txid"                                       |(string)                     |the transaction id; available for `send` and `receive` categories of transactions
-"time"                                       |(numeric)                    |the transaction time in seconds since epoch (Jan 1 1970 GMT)
-"timereceived"                               |(numeric)                    |the time received in seconds since epoch (Jan 1 1970 GMT); available for `send` and `receive` category of transactions
-"comment"                                    |(string)                     |whether a comment is associated with the transaction
-"to"                                         |(string)                     |whether a 'to' comment is associated with the transaction
-"lastblock"                                  |(string)                     |the hash of the last block
+| Structure       | Type      | Description                                                                                                                                                                                                        |
+| --------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| "transactions": |           |
+| "account"       | (string)  | DEPRECATED the account name associated with the transaction; will be "" for the default account                                                                                                                    |
+| "address"       | (string)  | the address of the transaction (not present for move transactions -- category = move)                                                                                                                              |
+| "category"      | (string)  | the transaction category; `send` has negative amounts, `receive` has positive amounts                                                                                                                              |
+| "amount"        | (numeric) | the amount of the relevant currency -- negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category, and for the `move` category for inbound funds. |
+| "vout"          | (numeric) | the vout value                                                                                                                                                                                                     |
+| "fee"           | (numeric) | the amount of the fee; this value is negative and only available for the `send` category of transactions                                                                                                           |
+| "confirmations" | (numeric) | the number of confirmations for the transaction; available for `send` and `receive` category of transactions                                                                                                       |
+| "blockhash"     | (string)  | the block hash containing the transaction; available for the `send` and `receive` categories of transactions                                                                                                       |
+| "blockindex"    | (numeric) | the block index containing the transaction; available for the `send` and `receive` categories of transactions                                                                                                      |
+| "blocktime"     | (numeric) | the block time in seconds since epoch (1 Jan 1970 GMT)                                                                                                                                                             |
+| "txid"          | (string)  | the transaction id; available for `send` and `receive` categories of transactions                                                                                                                                  |
+| "time"          | (numeric) | the transaction time in seconds since epoch (Jan 1 1970 GMT)                                                                                                                                                       |
+| "timereceived"  | (numeric) | the time received in seconds since epoch (Jan 1 1970 GMT); available for `send` and `receive` category of transactions                                                                                             |
+| "comment"       | (string)  | whether a comment is associated with the transaction                                                                                                                                                               |
+| "to"            | (string)  | whether a 'to' comment is associated with the transaction                                                                                                                                                          |
+| "lastblock"     | (string)  | the hash of the last block                                                                                                                                                                                         |
 
 #### :pushpin: Examples:
 
@@ -1821,32 +1796,32 @@ The `listtransactions` method returns up to `count` most recent transactions ski
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, optional)           |DEPRECATED the account name; should be `"*"`
-count                                        |(numeric, optional, default=10)|the number of transactions to return
-from                                         |(numeric, optional, default=0)|the number of transactions to skip
-includeWatchonly                             |(bool, optional, default=false)|include transactions to watchonly addresses (see `importaddress`)
+| Structure        | Type                            | Description                                                       |
+| ---------------- | ------------------------------- | ----------------------------------------------------------------- |
+| "account"        | (string, optional)              | DEPRECATED the account name; should be `"*"`                      |
+| count            | (numeric, optional, default=10) | the number of transactions to return                              |
+| from             | (numeric, optional, default=0)  | the number of transactions to skip                                |
+| includeWatchonly | (bool, optional, default=false) | include transactions to watchonly addresses (see `importaddress`) |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string)                     |DEPRECATED the account name associated with the transaction; it will be "" for the default account
-"address"                                    |(string)                     |the address of the transaction; not present for move transactions (category = move)
-"category"                                   |(string)                     |The transaction category. This property can be `send` | `receive` | `move`. `move` is a local (off blockchain) transaction between accounts -- not associated with an address, transaction id, or block. `send` and `receive` transactions are associated with an address, transaction id, and block details.
-"amount"                                     |(numeric)                    |The amount. This value is negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category and for the `move` category for inbound funds.
-"vout"                                       |(numeric)                    |the vout value
-"fee"                                        |(numeric)                    |the amount of the fee; this is negative and only available for the `send` category of transactions
-"confirmations"                              |(numeric)                    |the number of confirmations for the transaction; available for the `send` and `receive` categories of transactions
-"blockhash"                                  |(string)                     |the block hash containing the transaction; available for the `send` and `receive` categories of transactions
-"blockindex"                                 |(numeric)                    |the block index containing the transaction; available for the `send` and `receive` categories of transactions
-"txid"                                       |(string)                     |the transaction id; available for the `send` and `receive` categories of transactions
-"time"                                       |(numeric)                    |the transaction time in seconds since epoch (midnight Jan 1 1970 GMT)
-"timereceived"                               |(numeric)                    |the time received in seconds since epoch (midnight Jan 1 1970 GMT); available for the `send` and `receive` categories of transactions
-"comment"                                    |(string)                     |whether a comment is associated with the transaction
-"otheraccount"                               |(string)                     |for the `move` category of transactions; indicates the account which sent the funds (for receiving funds, positive amounts), or went to (for sending funds, negative amounts)
-"size"                                       |(numeric)                    |transaction size in bytes
+| Structure       | Type      | Description                                                                                                                                                                                          |
+| --------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "account"       | (string)  | DEPRECATED the account name associated with the transaction; it will be "" for the default account                                                                                                   |
+| "address"       | (string)  | the address of the transaction; not present for move transactions (category = move)                                                                                                                  |
+| "category"      | (string)  | The transaction category. This property can be `send`                                                                                                                                                | `receive` | `move`. `move` is a local (off blockchain) transaction between accounts -- not associated with an address, transaction id, or block. `send` and `receive` transactions are associated with an address, transaction id, and block details. |
+| "amount"        | (numeric) | The amount. This value is negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category and for the `move` category for inbound funds. |
+| "vout"          | (numeric) | the vout value                                                                                                                                                                                       |
+| "fee"           | (numeric) | the amount of the fee; this is negative and only available for the `send` category of transactions                                                                                                   |
+| "confirmations" | (numeric) | the number of confirmations for the transaction; available for the `send` and `receive` categories of transactions                                                                                   |
+| "blockhash"     | (string)  | the block hash containing the transaction; available for the `send` and `receive` categories of transactions                                                                                         |
+| "blockindex"    | (numeric) | the block index containing the transaction; available for the `send` and `receive` categories of transactions                                                                                        |
+| "txid"          | (string)  | the transaction id; available for the `send` and `receive` categories of transactions                                                                                                                |
+| "time"          | (numeric) | the transaction time in seconds since epoch (midnight Jan 1 1970 GMT)                                                                                                                                |
+| "timereceived"  | (numeric) | the time received in seconds since epoch (midnight Jan 1 1970 GMT); available for the `send` and `receive` categories of transactions                                                                |
+| "comment"       | (string)  | whether a comment is associated with the transaction                                                                                                                                                 |
+| "otheraccount"  | (string)  | for the `move` category of transactions; indicates the account which sent the funds (for receiving funds, positive amounts), or went to (for sending funds, negative amounts)                        |
+| "size"          | (numeric) | transaction size in bytes                                                                                                                                                                            |
 
 #### :pushpin: Examples:
 
@@ -1961,30 +1936,30 @@ Response:
 
 ## listunspent
 
-**listunspent ( minconf maxconf  ["address", ... ] )**
+**listunspent ( minconf maxconf ["address", ... ] )**
 
 The `listunspent` method returns an array of unspent transaction outputs, with a range between `minconf` and `maxconf` (inclusive) confirmations. The method can, optionally, filter to only include `txouts` paid to specified addresses.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-minconf                                      |(numeric, optional, default=1)|the minimum confirmations to filter
-maxconf                                      |(numeric, optional, default=9999999)|the maximum confirmations to filter
-"address"                                    |(string)                     |a series of addresses
+| Structure | Type                                 | Description                         |
+| --------- | ------------------------------------ | ----------------------------------- |
+| minconf   | (numeric, optional, default=1)       | the minimum confirmations to filter |
+| maxconf   | (numeric, optional, default=9999999) | the maximum confirmations to filter |
+| "address" | (string)                             | a series of addresses               |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"txid"                                       |(string)                     |the transaction id
-"vout"                                       |(numeric)                    |the vout value
-"generated"                                  |(boolean)                    |true if txout is a coinbase transaction output
-"address"                                    |(string)                     |the address
-"account"                                    |(string)                     |DEPRECATED the associated account, or "" for the default account
-"scriptPubKey"                               |(string)                     |the script key
-"amount"                                     |(numeric)                    |the transaction amount
-"confirmations"                              |(numeric)                    |the number of confirmations
+| Structure       | Type      | Description                                                      |
+| --------------- | --------- | ---------------------------------------------------------------- |
+| "txid"          | (string)  | the transaction id                                               |
+| "vout"          | (numeric) | the vout value                                                   |
+| "generated"     | (boolean) | true if txout is a coinbase transaction output                   |
+| "address"       | (string)  | the address                                                      |
+| "account"       | (string)  | DEPRECATED the associated account, or "" for the default account |
+| "scriptPubKey"  | (string)  | the script key                                                   |
+| "amount"        | (numeric) | the transaction amount                                           |
+| "confirmations" | (numeric) | the number of confirmations                                      |
 
 #### :pushpin: Examples:
 
@@ -2029,8 +2004,8 @@ Response:
     "generated": true,
     "address": "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu",
     "scriptPubKey": "21037e631c6a03d028e48aecfd93b2d2737d5d7e2852a426b940ff301f78aa31690cac",
-    "amount": 0.00010000,
-    "interest": 0.00000000,
+    "amount": 0.0001,
+    "interest": 0.0,
     "confirmations": 7,
     "spendable": true
   },
@@ -2041,7 +2016,7 @@ Response:
     "address": "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ",
     "scriptPubKey": "76a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac",
     "amount": 9.99304496,
-    "interest": 0.00000000,
+    "interest": 0.0,
     "confirmations": 21,
     "spendable": true
   }
@@ -2067,8 +2042,8 @@ Response:
       "generated": true,
       "address": "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu",
       "scriptPubKey": "21037e631c6a03d028e48aecfd93b2d2737d5d7e2852a426b940ff301f78aa31690cac",
-      "amount": 0.00010000,
-      "interest": 0.00000000,
+      "amount": 0.0001,
+      "interest": 0.0,
       "confirmations": 7,
       "spendable": true
     },
@@ -2079,7 +2054,7 @@ Response:
       "address": "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ",
       "scriptPubKey": "76a9141c973dbbed002e189caf31664d9ca7e8b1e92d8788ac",
       "amount": 9.99304496,
-      "interest": 0.00000000,
+      "interest": 0.0,
       "confirmations": 21,
       "spendable": true
     }
@@ -2101,17 +2076,17 @@ See the <b>listunspent</b> and <b>listlockunspent</b> calls to determine local t
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-unlock                                       |(boolean, required)          |whether to unlock (true) or lock (false) the specified transactions
-"txid"                                       |(string)                     |the transaction id
-"vout"                                       |(numeric)                    |the output number
+| Structure | Type                | Description                                                         |
+| --------- | ------------------- | ------------------------------------------------------------------- |
+| unlock    | (boolean, required) | whether to unlock (true) or lock (false) the specified transactions |
+| "txid"    | (string)            | the transaction id                                                  |
+| "vout"    | (numeric)           | the output number                                                   |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-true/false                                   |(boolean)                    |whether the command was successful
+| Structure  | Type      | Description                        |
+| ---------- | --------- | ---------------------------------- |
+| true/false | (boolean) | whether the command was successful |
 
 #### :pushpin: Examples:
 
@@ -2157,19 +2132,19 @@ The `move` method moves a specified amount from one account in your wallet to an
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"fromaccount"                                |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-"toaccount"                                  |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-amount                                       |(numeric)                    |quantity to move between accounts
-minconf                                      |(numeric, optional, default=1)|only use funds with at least this many confirmations
-"comment"                                    |(string, optional)           |an optional comment, stored in the wallet only
+| Structure     | Type                           | Description                                                                                                           |
+| ------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| "fromaccount" | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
+| "toaccount"   | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
+| amount        | (numeric)                      | quantity to move between accounts                                                                                     |
+| minconf       | (numeric, optional, default=1) | only use funds with at least this many confirmations                                                                  |
+| "comment"     | (string, optional)             | an optional comment, stored in the wallet only                                                                        |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-true/false                                   |(boolean)                    |true if successful
+| Structure  | Type      | Description        |
+| ---------- | --------- | ------------------ |
+| true/false | (boolean) | true if successful |
 
 #### :pushpin: Examples:
 
@@ -2219,15 +2194,15 @@ The `resendwallettransactions` method immediately re-broadcasts unconfirmed wall
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"transaction_id"                             |(string)                     |an array of the rebroadcasted transaction id's
+| Structure        | Type     | Description                                    |
+| ---------------- | -------- | ---------------------------------------------- |
+| "transaction_id" | (string) | an array of the rebroadcasted transaction id's |
 
 #### :pushpin: Examples:
 
@@ -2277,20 +2252,20 @@ The `sendfrom` method sends an amount from `account` to `address`.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-"address"                                    |(string, required)           |the address to receive funds
-amount                                       |(numeric, required)          |the amount (transaction fee not included)
-minconf                                      |(numeric, optional, default=1)|only use funds with at least this many confirmations
-"comment"                                    |(string, optional)           |a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet
-"comment-to"                                 |(string, optional)           |an optional comment to store the name of the person or organization to which you're sending the transaction; this is not part of the transaction, it is only kept in your wallet
+| Structure    | Type                           | Description                                                                                                                                                                      |
+| ------------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "account"    | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error                                                            |
+| "address"    | (string, required)             | the address to receive funds                                                                                                                                                     |
+| amount       | (numeric, required)            | the amount (transaction fee not included)                                                                                                                                        |
+| minconf      | (numeric, optional, default=1) | only use funds with at least this many confirmations                                                                                                                             |
+| "comment"    | (string, optional)             | a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet                                                               |
+| "comment-to" | (string, optional)             | an optional comment to store the name of the person or organization to which you're sending the transaction; this is not part of the transaction, it is only kept in your wallet |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"transaction_id"                             |(string)                     |the transaction id
+| Structure        | Type     | Description        |
+| ---------------- | -------- | ------------------ |
+| "transaction_id" | (string) | the transaction id |
 
 #### :pushpin: Examples:
 
@@ -2340,20 +2315,20 @@ The `sendmany` method can send multiple transactions at once. Amounts are double
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
-"amounts" { "address":amount, ... }          |("string":numeric)           |the address (string) and the value (double-precision floating numeric)
-minconf                                      |(numeric, optional, default=1)|only use the balance confirmed at least this many times
-"comment"                                    |(string, optional)           |a comment
-subtractfeefromamount                        |(string, optional)           |a json array with addresses. The fee will be equally deducted from the amount of each selected address; the recipients will receive less than you enter in their corresponding amount field. If no addresses are specified here, the sender pays the fee.
-"address"                                    |(string)                     |subtract fee from this address
+| Structure                           | Type                           | Description                                                                                                                                                                                                                                               |
+| ----------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "account"                           | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error                                                                                                                                     |
+| "amounts" { "address":amount, ... } | ("string":numeric)             | the address (string) and the value (double-precision floating numeric)                                                                                                                                                                                    |
+| minconf                             | (numeric, optional, default=1) | only use the balance confirmed at least this many times                                                                                                                                                                                                   |
+| "comment"                           | (string, optional)             | a comment                                                                                                                                                                                                                                                 |
+| subtractfeefromamount               | (string, optional)             | a json array with addresses. The fee will be equally deducted from the amount of each selected address; the recipients will receive less than you enter in their corresponding amount field. If no addresses are specified here, the sender pays the fee. |
+| "address"                           | (string)                       | subtract fee from this address                                                                                                                                                                                                                            |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"transaction_id"                             |(string)                     |the transaction id for the send; only 1 transaction is created regardless of the number of addresses
+| Structure        | Type     | Description                                                                                          |
+| ---------------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| "transaction_id" | (string) | the transaction id for the send; only 1 transaction is created regardless of the number of addresses |
 
 #### :pushpin: Examples:
 
@@ -2419,19 +2394,19 @@ The `sendtoaddress` method sends an amount to a given address. The amount is rea
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"komodoaddress"                              |(string, required)           |the receiving address
-"amount"                                     |(numeric, required)          |the amount to send (json requires all decimals values less than 1 begin with the characters '0.')
-"comment"                                    |(string, optional)           |a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet
-"comment-to"                                 |(string, optional)           |a comment to store the name of the person or organization to which you're sending the transaction; this is stored in your local wallet file only
-subtractfeefromamount                        |(boolean, optional, default=false)|when `true`, the fee will be deducted from the amount being sent
+| Structure             | Type                               | Description                                                                                                                                      |
+| --------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| "komodoaddress"       | (string, required)                 | the receiving address                                                                                                                            |
+| "amount"              | (numeric, required)                | the amount to send (json requires all decimals values less than 1 begin with the characters '0.')                                                |
+| "comment"             | (string, optional)                 | a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet                               |
+| "comment-to"          | (string, optional)                 | a comment to store the name of the person or organization to which you're sending the transaction; this is stored in your local wallet file only |
+| subtractfeefromamount | (boolean, optional, default=false) | when `true`, the fee will be deducted from the amount being sent                                                                                 |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"transaction_id"                             |(string)                     |the transaction id
+| Structure        | Type     | Description        |
+| ---------------- | -------- | ------------------ |
+| "transaction_id" | (string) | the transaction id |
 
 #### :pushpin: Examples:
 
@@ -2501,10 +2476,10 @@ The `setaccount` method sets the account associated with the given address.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address to be associated with an account
-"account"                                    |(string, required)           |MUST be set to the empty string "" to represent the default account; passing any other string will result in an error
+| Structure | Type               | Description                                                                                                           |
+| --------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| "address" | (string, required) | the address to be associated with an account                                                                          |
+| "account" | (string, required) | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 
 #### :pushpin: Examples:
 
@@ -2608,15 +2583,15 @@ The `settxfee` method sets the transaction fee per kB.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-amount                                       |(numeric, required)          |the transaction fee in COIN/kB rounded to the nearest 0.00000001
+| Structure | Type                | Description                                                      |
+| --------- | ------------------- | ---------------------------------------------------------------- |
+| amount    | (numeric, required) | the transaction fee in COIN/kB rounded to the nearest 0.00000001 |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-true/false                                   |(boolean)                    |returns true if successful
+| Structure  | Type      | Description                |
+| ---------- | --------- | -------------------------- |
+| true/false | (boolean) | returns true if successful |
 
 #### :pushpin: Examples:
 
@@ -2658,16 +2633,16 @@ The `signmessage` method signs a message via the private key of an address.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string, required)           |the address to use for the private key
-"message"                                    |(string, required)           |the message
+| Structure | Type               | Description                            |
+| --------- | ------------------ | -------------------------------------- |
+| "address" | (string, required) | the address to use for the private key |
+| "message" | (string, required) | the message                            |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"signature"                                  |(string)                     |the signature of the message encoded in base 64
+| Structure   | Type     | Description                                     |
+| ----------- | -------- | ----------------------------------------------- |
+| "signature" | (string) | the signature of the message encoded in base 64 |
 
 #### :pushpin: Examples:
 
@@ -2729,19 +2704,19 @@ The `walletlock` method is neither active nor visible in the `help` method until
 This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
 :::
 
-The `walletlock` method re-locks a wallet that has a passphrase enabled via [encryptwallet](../komodo-api/wallet.html#encryptwallet). 
+The `walletlock` method re-locks a wallet that has a passphrase enabled via [encryptwallet](../komodo-api/wallet.html#encryptwallet).
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none) | |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none) | | 
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -2769,29 +2744,29 @@ The `walletpassphrase` method is neither active nor visible in the `help` method
 This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
 :::
 
-The `walletpassphrase` method unlocks the wallet using the passphrase that was set by the [encryptwallet](../komodo-api/wallet.html#encryptwallet) method. 
+The `walletpassphrase` method unlocks the wallet using the passphrase that was set by the [encryptwallet](../komodo-api/wallet.html#encryptwallet) method.
 
 The `timeout` argument can be included to limit the length of time (in seconds) the wallet will remain unlocked.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"passphrase"                                  |(string)                                   |the passphrase that was set by the `encryptwallet` method
-timeout                                     |(number in seconds, optional)                       |the amount of time for which the wallet should remember the passphrase
+| Structure    | Type                          | Description                                                            |
+| ------------ | ----------------------------- | ---------------------------------------------------------------------- |
+| "passphrase" | (string)                      | the passphrase that was set by the `encryptwallet` method              |
+| timeout      | (number in seconds, optional) | the amount of time for which the wallet should remember the passphrase |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none) | | 
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
 Command:
 
 ```bash
-./komodo-cli walletpassphrase 
+./komodo-cli walletpassphrase
 ```
 
 Response:
@@ -2816,16 +2791,16 @@ The `walletpassphrasechange` method changes `"oldpassphrase"` to `"newpassphrase
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"oldpassphrase"             |(string)           |the old passphrase
-"newpassphrase"             |(string)           |the new passphrase
+| Structure       | Type     | Description        |
+| --------------- | -------- | ------------------ |
+| "oldpassphrase" | (string) | the old passphrase |
+| "newpassphrase" | (string) | the new passphrase |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none) ||
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -2853,15 +2828,15 @@ See also <b>z_importkey</b>.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"z_address"                                  |(string, required)           |the z_address for the private key
+| Structure   | Type               | Description                       |
+| ----------- | ------------------ | --------------------------------- |
+| "z_address" | (string, required) | the z_address for the private key |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"key"                                        |(string)                     |the private key
+| Structure | Type     | Description     |
+| --------- | -------- | --------------- |
+| "key"     | (string) | the private key |
 
 #### :pushpin: Examples:
 
@@ -2907,15 +2882,15 @@ See also <b>z_importviewingkey</b>.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"z_address"                                  |(string, required)           |the z_address for the viewing key
+| Structure   | Type               | Description                       |
+| ----------- | ------------------ | --------------------------------- |
+| "z_address" | (string, required) | the z_address for the viewing key |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"vkey"                                       |(string)                     |the viewing key
+| Structure | Type     | Description     |
+| --------- | -------- | --------------- |
+| "vkey"    | (string) | the viewing key |
 
 #### :pushpin: Examples:
 
@@ -2953,19 +2928,19 @@ Response:
 
 **z_exportwallet "filename"**
 
-The `z_exportwallet` method exports all wallet keys, including both t address and z address types, in a human-readable format.  Overwriting an existing file is not permitted.
+The `z_exportwallet` method exports all wallet keys, including both t address and z address types, in a human-readable format. Overwriting an existing file is not permitted.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"filename"                                   |(string, required)           |the filename, saved to the directory indicated by the [exportdir](../installations/common-runtime-parameters.html#exportdir) parameter at daemon runtime (required)
+| Structure  | Type               | Description                                                                                                                                                         |
+| ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "filename" | (string, required) | the filename, saved to the directory indicated by the [exportdir](../installations/common-runtime-parameters.html#exportdir) parameter at daemon runtime (required) |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"path"                                       |(string)                     |the full path of the destination file
+| Structure | Type     | Description                           |
+| --------- | -------- | ------------------------------------- |
+| "path"    | (string) | the full path of the destination file |
 
 #### :pushpin: Examples:
 
@@ -3007,21 +2982,21 @@ The `z_getbalance` method returns the balance of a t address or z address belong
 
 ::: warning
 CAUTION: If <b>address</b> is a watch-only z address, the returned balance may be larger than the actual balance,
-  as spends cannot be detected with incoming viewing keys.
+as spends cannot be detected with incoming viewing keys.
 :::
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the selected z or t address
-minconf                                      |(numeric, optional, default=1)|only include transactions confirmed at least this many times
+| Structure | Type                           | Description                                                  |
+| --------- | ------------------------------ | ------------------------------------------------------------ |
+| "address" | (string)                       | the selected z or t address                                  |
+| minconf   | (numeric, optional, default=1) | only include transactions confirmed at least this many times |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-amount                                       |(numeric)                    |the total amount received at this address (in the relevant COIN value)
+| Structure | Type      | Description                                                            |
+| --------- | --------- | ---------------------------------------------------------------------- |
+| amount    | (numeric) | the total amount received at this address (in the relevant COIN value) |
 
 #### :pushpin: Examples:
 
@@ -3077,15 +3052,15 @@ The `z_getnewaddress` method returns a new z_address for receiving payments.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"z_address"                                  |(string)                     |the new z_address
+| Structure   | Type     | Description       |
+| ----------- | -------- | ----------------- |
+| "z_address" | (string) | the new z_address |
 
 #### :pushpin: Examples:
 
@@ -3131,28 +3106,28 @@ See also <b>z_getoperationstatus</b>.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"operationid"                                |(string, optional)           |a list of operation ids to query; if not provided, the method examines all operations known to the node
+| Structure     | Type               | Description                                                                                             |
+| ------------- | ------------------ | ------------------------------------------------------------------------------------------------------- |
+| "operationid" | (string, optional) | a list of operation ids to query; if not provided, the method examines all operations known to the node |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"id"                                         |(string)                     |the operation id
-"status"                                     |(string)                     |the result of the operation; can be `success` | `failed` | `executing`
-"creation_time"                              |(numeric)                    |the creation time, in seconds since epoch (Jan 1 1970 GMT)
-"result": { ... }                            |(array of json objects)                |
-"txid":                                      |(string)                     |the transaction id
-"execution_secs"                             |(numeric)                    |the length of time to calculate the transaction
-"method"                                     |(string)                     |the name of the method used in the operation
-"params": { ... }                            |(json)                       |
-"fromaddress"                                |(string)                     |the address from which funds are drawn
-"amounts": [ ... ]                           |(array of json objects)             |
-"address"                                    |(string)                     |the receiving address
-"amount"                                     |(numeric)                    |the amount to receive
-"minconf"                                    |(numeric)                    |the minimum number of confirmations required
-"fee"                                        |(numeric)                    |the transaction fee
+| Structure          | Type                    | Description                                                |
+| ------------------ | ----------------------- | ---------------------------------------------------------- |
+| "id"               | (string)                | the operation id                                           |
+| "status"           | (string)                | the result of the operation; can be `success`              | `failed` | `executing` |
+| "creation_time"    | (numeric)               | the creation time, in seconds since epoch (Jan 1 1970 GMT) |
+| "result": { ... }  | (array of json objects) |
+| "txid":            | (string)                | the transaction id                                         |
+| "execution_secs"   | (numeric)               | the length of time to calculate the transaction            |
+| "method"           | (string)                | the name of the method used in the operation               |
+| "params": { ... }  | (json)                  |
+| "fromaddress"      | (string)                | the address from which funds are drawn                     |
+| "amounts": [ ... ] | (array of json objects) |
+| "address"          | (string)                | the receiving address                                      |
+| "amount"           | (numeric)               | the amount to receive                                      |
+| "minconf"          | (numeric)               | the minimum number of confirmations required               |
+| "fee"              | (numeric)               | the transaction fee                                        |
 
 #### :pushpin: Examples:
 
@@ -3238,28 +3213,28 @@ The `z_getoperationstatus` message queries the operation status and any associat
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"operationid"                                |(array, optional)            |a list of operation ids we are interested in; if an array is not provided, the method examines all operations known to the node
+| Structure     | Type              | Description                                                                                                                     |
+| ------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| "operationid" | (array, optional) | a list of operation ids we are interested in; if an array is not provided, the method examines all operations known to the node |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"id"                                         |(string)                     |the operation id
-"status"                                     |(string)                     |the status of the operation; can be `success` | `executing` | `failed`
-"creation_time"                              |(numeric)                    |the creation time, in seconds since epoch (Jan 1 1970 GMT)
-"error" : { ... }                             |(array of json objects)                             |
-"code"                                       |(numeric)                    |the associated error code
-"message"                                    |(string)                     |a message to indicate the nature of the error, if such a message is available
-"method"                                     |(string)                     |the name of the method used in the operation
-"params" : { ... }                             |(array of json objects)                        |
-"fromaddress"                                |(string)                     |the address from which funds are drawn
-"amounts": [ ... ]                           |(array of json objects)                           |
-"address"                                    |(string)                     |the receiving address
-"amount"                                     |(numeric)                    |the amount to receive
-"minconf"                                    |(numeric)                    |indicates the required number of mining confirmations
-"fee"                                        |(numeric)                    |the fee
+| Structure          | Type                    | Description                                                                   |
+| ------------------ | ----------------------- | ----------------------------------------------------------------------------- |
+| "id"               | (string)                | the operation id                                                              |
+| "status"           | (string)                | the status of the operation; can be `success`                                 | `executing` | `failed` |
+| "creation_time"    | (numeric)               | the creation time, in seconds since epoch (Jan 1 1970 GMT)                    |
+| "error" : { ... }  | (array of json objects) |
+| "code"             | (numeric)               | the associated error code                                                     |
+| "message"          | (string)                | a message to indicate the nature of the error, if such a message is available |
+| "method"           | (string)                | the name of the method used in the operation                                  |
+| "params" : { ... } | (array of json objects) |
+| "fromaddress"      | (string)                | the address from which funds are drawn                                        |
+| "amounts": [ ... ] | (array of json objects) |
+| "address"          | (string)                | the receiving address                                                         |
+| "amount"           | (numeric)               | the amount to receive                                                         |
+| "minconf"          | (numeric)               | indicates the required number of mining confirmations                         |
+| "fee"              | (numeric)               | the fee                                                                       |
 
 #### :pushpin: Examples:
 
@@ -3383,19 +3358,19 @@ While the <b>interest</b> property is returned for all KMD-based coin daemons, o
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-minconf                                      |(numeric, optional, default=1)|only include private and transparent transactions confirmed at least this many times
-includeWatchonly                             |(bool, optional, default=false)|also include balance in watchonly addresses (see 'importaddress' and 'z_importviewingkey')
+| Structure        | Type                            | Description                                                                                |
+| ---------------- | ------------------------------- | ------------------------------------------------------------------------------------------ |
+| minconf          | (numeric, optional, default=1)  | only include private and transparent transactions confirmed at least this many times       |
+| includeWatchonly | (bool, optional, default=false) | also include balance in watchonly addresses (see 'importaddress' and 'z_importviewingkey') |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"transparent"                                |(numeric)                    |the total balance of transparent funds
-"interest"                                   |(numeric)                    |the total balance of unclaimed interest earned
-"private"                                    |(numeric)                    |the total balance of private funds
-"total"                                      |(numeric)                    |the total balance of both transparent and private funds
+| Structure     | Type      | Description                                             |
+| ------------- | --------- | ------------------------------------------------------- |
+| "transparent" | (numeric) | the total balance of transparent funds                  |
+| "interest"    | (numeric) | the total balance of unclaimed interest earned          |
+| "private"     | (numeric) | the total balance of private funds                      |
+| "total"       | (numeric) | the total balance of both transparent and private funds |
 
 #### :pushpin: Examples:
 
@@ -3476,17 +3451,17 @@ See also <b>z_exportkey</b>.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"z_privatekey"                               |(string, required)           |the z_privatekey (see [z_exportkey](../komodo-api/wallet.html#z-exportkey))
-rescan                                       |(string, optional, default=`"whenkeyisnew"`)|rescan the wallet for transactions; can be `yes` | `no` | `whenkeyisnew`
-startHeight                                  |(numeric, optional, default=0)|block height to start rescan
+| Structure      | Type                                         | Description                                                                 |
+| -------------- | -------------------------------------------- | --------------------------------------------------------------------------- |
+| "z_privatekey" | (string, required)                           | the z_privatekey (see [z_exportkey](../komodo-api/wallet.html#z-exportkey)) |
+| rescan         | (string, optional, default=`"whenkeyisnew"`) | rescan the wallet for transactions; can be `yes`                            | `no` | `whenkeyisnew` |
+| startHeight    | (numeric, optional, default=0)               | block height to start rescan                                                |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -3564,17 +3539,17 @@ The optional parameters are currently not functional for KMD-based blockchains.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"viewing_key"                                |(string, required)           |the viewing key
-rescan                                       |(string, optional, default="whenkeyisnew")|rescan the wallet for transactions; can be `"yes"` | `"no"` | `"whenkeyisnew"`
-startHeight                                  |(numeric, optional, default=0)|block height to start rescan
+| Structure     | Type                                       | Description                                        |
+| ------------- | ------------------------------------------ | -------------------------------------------------- |
+| "viewing_key" | (string, required)                         | the viewing key                                    |
+| rescan        | (string, optional, default="whenkeyisnew") | rescan the wallet for transactions; can be `"yes"` | `"no"` | `"whenkeyisnew"` |
+| startHeight   | (numeric, optional, default=0)             | block height to start rescan                       |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -3652,15 +3627,15 @@ See also <b>z_exportwallet</b>.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"filename"                                   |(string, required)           |the wallet file
+| Structure  | Type               | Description     |
+| ---------- | ------------------ | --------------- |
+| "filename" | (string, required) | the wallet file |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -3706,15 +3681,15 @@ See also <b>z_importviewingkey</b>.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-includeWatchonly                             |(bool, optional, default=false)|also include watchonly addresses
+| Structure        | Type                            | Description                      |
+| ---------------- | ------------------------------- | -------------------------------- |
+| includeWatchonly | (bool, optional, default=false) | also include watchonly addresses |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"z_address"                                  |(string)                     |a z address belonging to the wallet
+| Structure   | Type     | Description                         |
+| ----------- | -------- | ----------------------------------- |
+| "z_address" | (string) | a z address belonging to the wallet |
 
 #### :pushpin: Examples:
 
@@ -3762,15 +3737,15 @@ The `z_listoperationids` method returns the list of operation ids currently know
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"status"                                     |(string, optional)           |filter result by the operation's state e.g. "success"
+| Structure | Type               | Description                                           |
+| --------- | ------------------ | ----------------------------------------------------- |
+| "status"  | (string, optional) | filter result by the operation's state e.g. "success" |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"operationid"                                |(string)                     |an operation id belonging to the wallet
+| Structure     | Type     | Description                             |
+| ------------- | -------- | --------------------------------------- |
+| "operationid" | (string) | an operation id belonging to the wallet |
 
 #### :pushpin: Examples:
 
@@ -3832,25 +3807,25 @@ The `z_listreceivedbyaddress` method returns a list of amounts received by a z a
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-address 	|(string) 				|the private address.
-minconf 	|(numeric, optional, default=1) 	|only include transactions confirmed at least this many times
+| Structure | Type                           | Description                                                  |
+| --------- | ------------------------------ | ------------------------------------------------------------ |
+| address   | (string)                       | the private address.                                         |
+| minconf   | (numeric, optional, default=1) | only include transactions confirmed at least this many times |
 
 ### Result:
 
 An array of json objects, each having the properties below.
 
-Structure|Type|Description
----------|----|-----------
-txid		|(string)	|the transaction id
-amount		|(numeric)	|the amount of value in the note
-memo		|(string)	|hexadecimal string representation of memo field
-confirmations	|(numeric)	|the number of confirmations
-jsindex		|(sprout)	|(numeric, received only by sprout addresses) the joinsplit index
-jsoutindex	|(numeric, received only by sprout addresses)	|the output index of the joinsplit
-outindex	|(numeric, sapling)				|the output index
-change		|(boolean)	|true if the address that received the note is also one of the sending addresses
+| Structure     | Type                                         | Description                                                                     |
+| ------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
+| txid          | (string)                                     | the transaction id                                                              |
+| amount        | (numeric)                                    | the amount of value in the note                                                 |
+| memo          | (string)                                     | hexadecimal string representation of memo field                                 |
+| confirmations | (numeric)                                    | the number of confirmations                                                     |
+| jsindex       | (sprout)                                     | (numeric, received only by sprout addresses) the joinsplit index                |
+| jsoutindex    | (numeric, received only by sprout addresses) | the output index of the joinsplit                                               |
+| outindex      | (numeric, sapling)                           | the output index                                                                |
+| change        | (boolean)                                    | true if the address that received the note is also one of the sending addresses |
 
 #### :pushpin: Examples:
 
@@ -3891,11 +3866,11 @@ blockHash 0a4f15fe5425ef8bc6eb84e7bc3625c1ceccb3e49132b696a1841ab17a75a705 heigh
 {"result":[{"txid":"23d33c0c12ba2224b2c9c252e304f491bf76ca05670c8f00d48300776c10850f","amount":100.00000000,"memo":"f600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","outindex":0,"rawconfirmations":1,"confirmations":1,"change":false}],"error":null,"id":"curltest"}
 ```
 
-## z_listunspent 
+## z_listunspent
 
 **z_listunspent ( minconf maxconf includeWatchonly ["zaddr", ...] )**
 
-The `z_listunspent` method returns an array of unspent shielded notes. 
+The `z_listunspent` method returns an array of unspent shielded notes.
 
 The method can also filter to only include results that have between `minconf` and `maxconf` (inclusive) confirmations, and also for specified z_addresses (`["zaddr", ...])`.
 
@@ -3907,37 +3882,37 @@ Results are an array of Objects, each of which has:
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-minconf			|(numeric, optional, default=1)		|the minimum confirmations to filter
-maxconf         	|(numeric, optional, default=9999999)	|the maximum confirmations to filter
-includeWatchonly 	|(bool, optional, default=false)	|whether to also include watchonly addresses (see [z_importviewingkey](../komodo-api/wallet.html#z-importviewingkey))
-addresses		|(array)				|a json array of z addresses (both Sprout and Sapling) to act as a filter; duplicate addresses are not allowed
-address			|(string)				|a z address
+| Structure        | Type                                 | Description                                                                                                          |
+| ---------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| minconf          | (numeric, optional, default=1)       | the minimum confirmations to filter                                                                                  |
+| maxconf          | (numeric, optional, default=9999999) | the maximum confirmations to filter                                                                                  |
+| includeWatchonly | (bool, optional, default=false)      | whether to also include watchonly addresses (see [z_importviewingkey](../komodo-api/wallet.html#z-importviewingkey)) |
+| addresses        | (array)                              | a json array of z addresses (both Sprout and Sapling) to act as a filter; duplicate addresses are not allowed        |
+| address          | (string)                             | a z address                                                                                                          |
 
 ### Results:
 
 An array of json objects, each having the properties below.
 
-Structure|Type|Description
----------|----|-----------
-txid			|(string)									|the transaction id 
-jsindex			|(numeric) 									|the joinsplit index
-jsoutindex		|(numeric, only returned on sprout addresses)					|the output index of the joinsplit
-outindex		|(numeric, only returned on sapling addresses)					|the output index
-confirmations		|(numeric)									|the number of confirmations
-spendable		|(boolean)									|true if note can be spent by wallet, false if note has zero confirmations, false if address is watchonly
-address			|(string)									|the shielded address
-amount			|(numeric)									|the amount of value in the note
-memo			|(string)									|hexademical string representation of memo field
-change			|(boolean)									|true if the address that received the note is also one of the sending addresses
+| Structure     | Type                                          | Description                                                                                              |
+| ------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| txid          | (string)                                      | the transaction id                                                                                       |
+| jsindex       | (numeric)                                     | the joinsplit index                                                                                      |
+| jsoutindex    | (numeric, only returned on sprout addresses)  | the output index of the joinsplit                                                                        |
+| outindex      | (numeric, only returned on sapling addresses) | the output index                                                                                         |
+| confirmations | (numeric)                                     | the number of confirmations                                                                              |
+| spendable     | (boolean)                                     | true if note can be spent by wallet, false if note has zero confirmations, false if address is watchonly |
+| address       | (string)                                      | the shielded address                                                                                     |
+| amount        | (numeric)                                     | the amount of value in the note                                                                          |
+| memo          | (string)                                      | hexademical string representation of memo field                                                          |
+| change        | (boolean)                                     | true if the address that received the note is also one of the sending addresses                          |
 
 #### :pushpin: Examples:
 
 Command:
 
 ```
-./komodo-cli z_listunspent 
+./komodo-cli z_listunspent
 ```
 
 Response:
@@ -4005,49 +3980,49 @@ blockHash 0a4f15fe5425ef8bc6eb84e7bc3625c1ceccb3e49132b696a1841ab17a75a705 heigh
 CAUTION: <b>z_mergetoaddress</b> is DISABLED but can be enabled as an experimental feature.
 :::
 
-The `z_mergetoaddress` method merges multiple utxos and notes into a single utxo or note. The method works for both t addresses and z addresses, both separately and in combination.  Coinbase utxos are ignored; use `z_shieldcoinbase` to combine those into a single note.
+The `z_mergetoaddress` method merges multiple utxos and notes into a single utxo or note. The method works for both t addresses and z addresses, both separately and in combination. Coinbase utxos are ignored; use `z_shieldcoinbase` to combine those into a single note.
 
-This is an asynchronous operation, and utxos selected for merging will be locked.  If there is an error, they are unlocked.  The RPC call `listlockunspent` can be used to return a list of locked utxos.
+This is an asynchronous operation, and utxos selected for merging will be locked. If there is an error, they are unlocked. The RPC call `listlockunspent` can be used to return a list of locked utxos.
 
-The number of utxos and notes selected for merging can be limited by the caller.  If the transparent limit parameter is set to `0`, the `mempooltxinputlimit` option will determine the number of utxos. Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
+The number of utxos and notes selected for merging can be limited by the caller. If the transparent limit parameter is set to `0`, the `mempooltxinputlimit` option will determine the number of utxos. Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
 
 ### The fromaddresses array
 
 The following special strings are accepted inside the `fromaddresses` array:
 
- - `"*"`: Merge both utxos and notes from all addresses belonging to the wallet
+- `"*"`: Merge both utxos and notes from all addresses belonging to the wallet
 
- - `"ANY_TADDR"`: Merge utxos from all t addresses belonging to the wallet
+- `"ANY_TADDR"`: Merge utxos from all t addresses belonging to the wallet
 
- - `"ANY_ZADDR"`: Merge notes from all z addresses belonging to the wallet
+- `"ANY_ZADDR"`: Merge notes from all z addresses belonging to the wallet
 
 If a special string is given, any given addresses of that type will be ignored
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-fromaddresses                                |(string, required)           |
-"address"                                    |(string)                     |can be a t address or a z address
-"toaddress"                                  |(string, required)           |the t address or z address to receive the combined utxo
-fee                                          |(numeric, optional, default=0.0001)|the fee amount to attach to this transaction
-transparent_limit                            |(numeric, optional, default=50)|limit on the maximum number of transparent utxos to merge; you may set this value to 0 to use the node option [mempooltxinputlimit](../installations/common-runtime-parameters.html#mempooltxinputlimit)
-shielded_limit                               |(numeric, optional, default=10)|limit on the maximum number of hidden notes to merge; you may set this value to 0 to merge as many as will fit in the transaction
-"memo"                                       |(string, optional)           |encoded as hex; when ``toaddress`` is a z address, this value will be stored in the memo field of the new note
+| Structure         | Type                                | Description                                                                                                                                                                                              |
+| ----------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| fromaddresses     | (string, required)                  |
+| "address"         | (string)                            | can be a t address or a z address                                                                                                                                                                        |
+| "toaddress"       | (string, required)                  | the t address or z address to receive the combined utxo                                                                                                                                                  |
+| fee               | (numeric, optional, default=0.0001) | the fee amount to attach to this transaction                                                                                                                                                             |
+| transparent_limit | (numeric, optional, default=50)     | limit on the maximum number of transparent utxos to merge; you may set this value to 0 to use the node option [mempooltxinputlimit](../installations/common-runtime-parameters.html#mempooltxinputlimit) |
+| shielded_limit    | (numeric, optional, default=10)     | limit on the maximum number of hidden notes to merge; you may set this value to 0 to merge as many as will fit in the transaction                                                                        |
+| "memo"            | (string, optional)                  | encoded as hex; when `toaddress` is a z address, this value will be stored in the memo field of the new note                                                                                             |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"remainingUTXOs"                             |(numeric)                    |number of utxos still available for merging
-"remainingTransparentValue"                  |(numeric)                    |value of utxos still available for merging
-"remainingNotes"                             |(numeric)                    |number of notes still available for merging
-"remainingShieldedValue"                     |(numeric)                    |value of notes still available for merging
-"mergingUTXOs"                               |(numeric)                    |number of utxos being merged
-"mergingTransparentValue"                    |(numeric)                    |value of utxos being merged
-"mergingNotes"                               |(numeric)                    |number of notes being merged
-"mergingShieldedValue"                       |(numeric)                    |value of notes being merged
-"opid"                                       |(string)                     |an operationid to pass to `z_getoperationstatus` to get the result of the operation
+| Structure                   | Type      | Description                                                                         |
+| --------------------------- | --------- | ----------------------------------------------------------------------------------- |
+| "remainingUTXOs"            | (numeric) | number of utxos still available for merging                                         |
+| "remainingTransparentValue" | (numeric) | value of utxos still available for merging                                          |
+| "remainingNotes"            | (numeric) | number of notes still available for merging                                         |
+| "remainingShieldedValue"    | (numeric) | value of notes still available for merging                                          |
+| "mergingUTXOs"              | (numeric) | number of utxos being merged                                                        |
+| "mergingTransparentValue"   | (numeric) | value of utxos being merged                                                         |
+| "mergingNotes"              | (numeric) | number of notes being merged                                                        |
+| "mergingShieldedValue"      | (numeric) | value of notes being merged                                                         |
+| "opid"                      | (string)  | an operationid to pass to `z_getoperationstatus` to get the result of the operation |
 
 #### :pushpin: Examples:
 
@@ -4087,21 +4062,21 @@ The `amount` values are double-precision floating point numbers. Change from a t
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"fromaddress"                                |(string, required)           |the sending t address or z address
-"amounts"                                    |(array of json objects)             |
-"address"                                    |(string, required)           |the receiving address; can be a t address or z address
-"amount"                                     |(numeric, required)          |the numeric amount
-"memo"                                       |(string, optional)           |if the address is a z address, this property accepts raw data represented in hexadecimal string format
-minconf                                      |(numeric, optional, default=1)|only use funds confirmed at least this many times
-fee                                          |(numeric, optional, default=0.0001)|the fee amount to attach to this transaction
+| Structure     | Type                                | Description                                                                                            |
+| ------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| "fromaddress" | (string, required)                  | the sending t address or z address                                                                     |
+| "amounts"     | (array of json objects)             |
+| "address"     | (string, required)                  | the receiving address; can be a t address or z address                                                 |
+| "amount"      | (numeric, required)                 | the numeric amount                                                                                     |
+| "memo"        | (string, optional)                  | if the address is a z address, this property accepts raw data represented in hexadecimal string format |
+| minconf       | (numeric, optional, default=1)      | only use funds confirmed at least this many times                                                      |
+| fee           | (numeric, optional, default=0.0001) | the fee amount to attach to this transaction                                                           |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"operationid"                                |(string)                     |an operationid to pass to z_getoperationstatus to get the result of the operation
+| Structure     | Type     | Description                                                                       |
+| ------------- | -------- | --------------------------------------------------------------------------------- |
+| "operationid" | (string) | an operationid to pass to z_getoperationstatus to get the result of the operation |
 
 #### :pushpin: Examples:
 
@@ -4163,28 +4138,28 @@ Response:
 
 **z_shieldcoinbase "fromaddress" "tozaddress" ( fee ) ( limit )**
 
-The `z_shieldcoinbase` method shields transparent coinbase funds by sending the funds to a shielded z address.  This is an asynchronous operation and utxos selected for shielding will be locked. If there is an error, they are unlocked.
+The `z_shieldcoinbase` method shields transparent coinbase funds by sending the funds to a shielded z address. This is an asynchronous operation and utxos selected for shielding will be locked. If there is an error, they are unlocked.
 
-The RPC call `listlockunspent` can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the [mempooltxinputlimit](../installations/common-runtime-parameters.html#mempooltxinputlimit) option will determine the number of uxtos.  Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
+The RPC call `listlockunspent` can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the [mempooltxinputlimit](../installations/common-runtime-parameters.html#mempooltxinputlimit) option will determine the number of uxtos. Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"fromaddress"                                |(string, required)           |the address is a t address or `"*"` for all t address belonging to the wallet
-"toaddress"                                  |(string, required)           |the address is a z address
-fee                                          |(numeric, optional, default=0.0001)|the fee amount to attach to this transaction
-limit                                        |(numeric, optional, default=50)|limit on the maximum number of utxos to shield; set to `0` to use node option `mempooltxinputlimit`
+| Structure     | Type                                | Description                                                                                         |
+| ------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------- |
+| "fromaddress" | (string, required)                  | the address is a t address or `"*"` for all t address belonging to the wallet                       |
+| "toaddress"   | (string, required)                  | the address is a z address                                                                          |
+| fee           | (numeric, optional, default=0.0001) | the fee amount to attach to this transaction                                                        |
+| limit         | (numeric, optional, default=50)     | limit on the maximum number of utxos to shield; set to `0` to use node option `mempooltxinputlimit` |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"remainingUTXOs"                             |(numeric)                    |number of coinbase utxos still available for shielding
-"remainingValue"                             |(numeric)                    |value of coinbase utxos still available for shielding
-"shieldingUTXOs"                             |(numeric)                    |number of coinbase utxos being shielded
-"shieldingValue"                             |(numeric)                    |value of coinbase utxos being shielded
-"opid"                                       |(string)                     |an operationid to pass to z_getoperationstatus to get the result of the operation
+| Structure        | Type      | Description                                                                       |
+| ---------------- | --------- | --------------------------------------------------------------------------------- |
+| "remainingUTXOs" | (numeric) | number of coinbase utxos still available for shielding                            |
+| "remainingValue" | (numeric) | value of coinbase utxos still available for shielding                             |
+| "shieldingUTXOs" | (numeric) | number of coinbase utxos being shielded                                           |
+| "shieldingValue" | (numeric) | value of coinbase utxos being shielded                                            |
+| "opid"           | (string)  | an operationid to pass to z_getoperationstatus to get the result of the operation |
 
 #### :pushpin: Examples:
 
@@ -4199,9 +4174,9 @@ Response:
 ```json
 {
   "remainingUTXOs": 0,
-  "remainingValue": 0.00000000,
+  "remainingValue": 0.0,
   "shieldingUTXOs": 2,
-  "shieldingValue": 0.00030000,
+  "shieldingValue": 0.0003,
   "opid": "opid-c0a7875c-aaa0-4bdc-8f17-b34ab99e8bab"
 }
 ```
@@ -4217,9 +4192,9 @@ Response:
 ```json
 {
   "remainingUTXOs": 0,
-  "remainingValue": 0.00000000,
+  "remainingValue": 0.0,
   "shieldingUTXOs": 14,
-  "shieldingValue": 0.00160000,
+  "shieldingValue": 0.0016,
   "opid": "opid-08ce931d-876c-45d5-9aea-15cf4c695e72"
 }
 ```
@@ -4247,3 +4222,55 @@ Response:
   "id": "curltest"
 }
 ```
+
+## zcbenchmark
+
+**zcbenchmark benchmarktype samplecount**
+
+### Arguments:
+
+### Response:
+
+#### :pushpin: Examples:
+
+## zcrawjoinsplit
+
+**zcrawjoinsplit rawtx inputs outputs vpub_old vpub_new**
+
+### Arguments:
+
+### Response:
+
+#### :pushpin: Examples:
+
+## zcrawkeygen
+
+**zcrawkeygen**
+
+### Arguments:
+
+### Response:
+
+#### :pushpin: Examples:
+
+
+## zcrawreceive zcsecretkey encryptednote
+
+**zcrawreceive zcsecretkey encryptednote**
+
+### Arguments:
+
+### Response:
+
+#### :pushpin: Examples:
+
+## zcsamplejoinsplit
+
+**zcsamplejoinsplit**
+
+### Arguments:
+
+### Response:
+
+#### :pushpin: Examples:
+
