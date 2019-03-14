@@ -21,7 +21,21 @@ When a payment is executed properly with `channels`, as soon as it enters the me
 
 **channelsaddress (pubkey)**
 
-The `channelsaddress` method displays the oracle address for a specific pubkey.
+The `channelsaddress` method displays the various addresses and their balances for a specified pubkey.
+
+::: tip
+
+- The pubkey used as the argument must be a destination pubkey with which a channel will be opened.
+- If the same `pubkey` [used to launch the daemon](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) has been used as the argument, then the keys:
+
+  1. ChannelsCC1of2Address
+  2. ChannelsCC1of2TokensAddress
+
+will be meaningless.
+
+- And the keys PubkeyCCaddress and myCCAddress will ahve the same values.
+
+:::
 
 ### Arguments:
 
