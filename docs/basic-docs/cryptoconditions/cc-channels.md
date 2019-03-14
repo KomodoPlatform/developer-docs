@@ -33,15 +33,15 @@ The `channelsaddress` method displays the various addresses and their balances f
 
 will be meaningless.
 
-- And the keys PubkeyCCaddress and myCCAddress will ahve the same values.
+- And the keys PubkeyCCaddress and myCCAddress will have the same values.
 
 :::
 
 ### Arguments:
 
-| Structure | Type                       | Description                      |
-| --------- | -------------------------- | -------------------------------- |
-| pubkey    | (string, **not** optional) | the pubkey of the requested info |
+| Structure | Type                       | Description            |
+| --------- | -------------------------- | ---------------------- |
+| pubkey    | (string, **not** optional) | the destination pubkey |
 
 ### Response:
 
@@ -50,7 +50,7 @@ will be meaningless.
 | result                      | (string)  | whether the method executed successfully                                                                                                                                                                          |
 | ChannelsCCAddress           | (string)  | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                                                              |
 | CCbalance                   | (numeric) | the unspent amount in the `ChannelsCCaddress`                                                                                                                                                                     |
-| ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey, used for markers                                                                                                                      |
+| ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey, generally used for markers                                                                                                            |
 | ChannelsCC1of2Address       | (string)  | the channel address where funds are stored when channel is opened (if using coins)                                                                                                                                |
 | ChannelsCC1of2TokensAddress | (string)  | the channel address where funds are stored when channel is opened (if using tokens)                                                                                                                               |
 | myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) |
@@ -58,6 +58,10 @@ will be meaningless.
 | myCCbalance                 | (numeric) | the balance of `myccaddress` in coins                                                                                                                                                                             |
 | myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey)                                      |
 | mybalance                   | (numeric) | the balance of `myaddress` in coins                                                                                                                                                                               |
+
+::: tip
+Every CC has one global CC address (`ChannelsCCAddress`) and one global normal address (`ChannelsNormalAddress`), and many CC use them. But in case of channels, as they function between two pubkeys, the global addresses are not used.
+:::
 
 #### :pushpin: Examples:
 
