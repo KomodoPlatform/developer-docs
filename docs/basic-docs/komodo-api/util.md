@@ -61,6 +61,75 @@ Response:
 }
 ```
 
+## decodeccopret
+
+**decodeccopret scriptPubKey**
+
+The `decodeccopret` method decodes the OP RETURN data from a CC transaction to output the `EVALCODE` and `function id` of the method that produced the transaction.
+
+### Arguments:
+
+| Structure    | Type     | Description    |
+| ------------ | -------- | -------------- |
+| scriptPubKey | (string) | the hex format |
+
+### Response:
+
+| Structure | Type                 | Description                                                   |
+| --------- | -------------------- | ------------------------------------------------------------- |
+| result    | (string)             | whether the call succeeded                                    |
+| OpRets    | (json)               | a json containing the keys `EVALCODE` and `function id`       |
+| eval_code | (hexadecimal number) | the `EVALCODE` of the method that produced the transaction    |
+| function  | (string)             | the `function id` of the method that produced the transaction |
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli decodeccopret 6a2412782103d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a
+```
+
+Response:
+
+```json
+{
+  "result": "success",
+  "OpRets": [
+    {
+      "eval_code": "0x12",
+      "function": "x"
+    }
+  ]
+}
+```
+
+You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decodeccopret", "params": ["6a2412782103d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+Response:
+
+```json
+{
+  "result": {
+    "result": "success",
+    "OpRets": [
+      {
+        "eval_code": "0x12",
+        "function": "x"
+      }
+    ]
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
 ## estimatefee
 
 **estimatefee nblocks**
