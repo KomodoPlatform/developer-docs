@@ -70,9 +70,12 @@ The `decodeccopret` method decodes the OP RETURN data from a CC transaction to o
 ::: tip
 `the OP RETURN data from a CC transaction` can be found by following these steps:
 
-- Decode the transaction using the method [getrawtransaction](./rawtransactions.html#getrawtransaction)'s verbose option.
-- Look for the `vout` key which will be an array of jsons
-- In one of the
+- Decode a transaction produced by a CC module using the method [getrawtransaction](./rawtransactions.html#getrawtransaction)'s verbose option.
+- Look for the `vout` key which is an array of jsons
+- In one of the jsons in the array, in the `scriptPubkey` json, there is the key named `type` whose value is `nulldata`
+- Copy the key `hex` from that `scriptPubkey` json
+- This is the hex-string that is expected as the argument for the above method.
+- You can verify that the transaction was produced by a CC module by checking if one of the `vout` json's `scriptPubkey` json has the key `type` whose value is `cryptocondition`
   :::
 
 ### Arguments:
