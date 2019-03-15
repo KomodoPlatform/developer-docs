@@ -26,12 +26,23 @@ Each `coin` can be enabled only once, and in either Electrum or Native mode. The
 
 #### Notes on the mm2 Parameter
 
-For each `coin`, Komodo software requires the user/developer to set the `mm2` parameter. This can be achieved either in the `COIN.conf` file of the `~/.komodo/COIN` directory, or via the [electrum](../atomic-swap-dex/dex-api.html#electrum) or [enable](../atomic-swap-dex/dex-api.html#enable) methods.
+For each `coin`, Komodo software requires the user/developer to set the `mm2` parameter. This can be achieved either in the `COIN.conf` file of the `~/.komodo/COIN` directory, or via the [electrum](../atomic-swap-dex/dex-api.html#electrum) and [enable](../atomic-swap-dex/dex-api.html#enable) methods.
 
 The value of the `mm2` parameter informs the software as to whether the `coin` is expected to function.
 
 - `0` = `non-functioning`
 - `1` = `functioning`
+
+When enabling new coins, refer to the configurations in the repository linked below. If the `mm2` parameter is not set in the repository, the coin has not yet been tested with Komodo DEX software. 
+
+[Repository of Komodo DEX software coin configurations](https://github.com/jl777/coins)
+
+Volunteers are welcome to test coins with Komodo DEX software at any time. After testing a coin, please create a pull request with the desired coin configuration and successful swap details using the guide linked below.
+
+[Guide to Submitting Coin Test Results](https://github.com/jl777/coins#0-the-coin-must-be-tested-with-barterdex-atomic-swaps)
+
+
+##### Examples of the Parameter Settings
 
 Set the value of the `mm2` parameter in the `COIN.conf` file as follows:
 
@@ -108,20 +119,11 @@ ETH/ERC20 coins are also enabled by the `enable` method, but a local installatio
 
 #### Notes on the mm2 Parameter
 
-For each `coin`, Komodo software requires the user/developer to set the `mm2` parameter. This can be achieved either in the `COIN.conf` file of the `~/.komodo/COIN` directory, or via the [electrum](../atomic-swap-dex/dex-api.html#electrum) or [enable](../atomic-swap-dex/dex-api.html#enable) methods.
+Please refer to the `mm2` explanatory section in the `electrum` method for information about setting the `mm2` parameter and testing new coins.
 
-The value of the `mm2` parameter informs the software as to whether the `coin` is expected to function.
+[Link to `mm2` explanatory section](../atomic-swap-dex/dex-api.html#notes-on-the-mm2-parameter)
 
-- `0` = `non-functioning`
-- `1` = `functioning`
-
-Set the value of the `mm2` parameter in the `COIN.conf` file as follows:
-
-```bash
-mm2=1
-```
-
-For terminal interface examples, see the examples section below.
+For terminal interface examples using the `mm2` parameter with the `enable` method, see the examples section below.
 
 #### Using Komodo DEX Software on an ETH-Based Network
 
