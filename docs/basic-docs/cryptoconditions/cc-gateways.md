@@ -25,13 +25,13 @@ Please ensure that you have the KMD main chain downloaded and synced before cont
 
 Also, please open an empty text file and save all output transaction ids and hex-encoded data from each step. You will need the information at various stages.
 
-### Manually Compile and Install Komodo From Source
+#### Manually Compile and Install Komodo From Source
 
 For this tutorial, please compile and install Komodo software from the source repositories. 
 
 [Information on manual installations can be found at this linked documentation.](https://docs.komodoplatform.com/komodo/install-Komodo-manually.html)
 
-### Create a new Blockchain 
+#### Create a new Blockchain 
 
 For this tutorial we will create a temporary asset chain called `HELLOWORLD` for educational purposes.  
 
@@ -43,11 +43,11 @@ Recall also that a user must have a `pubkey` enabled when interacting with a Cry
 
 If desired, the reader may use an existing asset chain instead of a temporary educational chain. [Follow this link](https://github.com/jl777/komodo/blob/master/src/assetchains.old) for a list of asset-chain launch parameters.
 
-### Create a Token to Represent an External Cryptocurrency 
+#### Create a Token to Represent an External Cryptocurrency 
 
 For the GatewaysCC module to function it must have access to tokens that can represent an external cryptocurrency. We use the [Tokens](../cryptoconditions/cc-tokens.html) CC module to this effect. 
 
-### Decide the Number of Tokens to Create
+#### Decide the Number of Tokens to Create
 
 We want the number of total tokens to be the maximum possible amount of the represented cryptocurrency that we expect to hold. 
 
@@ -59,7 +59,7 @@ The HELLOWORLD satoshis should pair on a one-to-one basis with KMD satoshis.
 
 For our purposes, we will use `1000` coins of HELLOWORLD.
 
-### Creating the tokens:
+#### Creating the tokens:
 
 To create the tokens, execute the following command:
 
@@ -123,7 +123,7 @@ We can check the balance of our `pubkey` using [tokenbalance:](../cryptoconditio
 ./komodo-cli -ac_name=HELLOWORLD tokenbalance insert_tokenid insert_pubkey
 ``` 
 
-### Create an Oracle
+#### Create an Oracle
 
 We use the [oracles](../cryptoconditions/cc-oracles.html) CryptoConditions module to add external data to the blockchain.
 
@@ -225,7 +225,7 @@ Verify the oracle information to ensure it is properly established:
 ./komodo-cli -ac_name=HELLOWORLD oraclesinfo insert_oracleid 
 ```
 
-### Activating Gateway Binding 
+#### Activating Gateway Binding 
 
 We now create a gateway and bind our information to it, using the [gatewaysbind](../cryptoconditions/cc-gateways.html#gatewaysbind) method.
 
@@ -255,7 +255,7 @@ Assuming all is properly created and executed, we may now review our new gateway
 
 Use the returned information to verify that the `tokenid` and `oracleid` match the information in our text editor.
 
-### Assemble an Oracle dApp
+#### Assemble an Oracle dApp
 
 An oracle dApp automates the transfer of merkleroot data to our oracle. The Komodo software suite includes built-in tools for creating an oracle dApp.
 
@@ -289,7 +289,7 @@ KMD ht.1023336 <- 689d0f0006a53215d5a07d9ee1c9206dcdccacd1c364968b555c56cdf78f9f
 broadcast HELLOWORLD txid.(f33d5ffaec7d13f14605556cee86262299db8fad0337d1baefadc59ec24b6055)
 ```
 
-### Using the Gateway
+#### Using the Gateway
 
 With our gateway created and our oracle dApp running as a background process, we are finally prepared to test our gateway.
 
@@ -389,7 +389,7 @@ The broadcast returns a transaction id. Copy this to the text editor. It is the 
 For the deposit to process successfully, the oraclefeed dApp must first process the block height of the z_sendmany transaction through the oracle 
 :::
 
-### Claim the Funds on the Asset Chain
+#### Claim the Funds on the Asset Chain
 
 To claim the funds we must spend the marker and the deposit asset, and perform the claim.
 
@@ -417,7 +417,7 @@ Once this transaction is successfully confirmed, the gateway will credit tokens 
 For the claim to process successfully, the deposit and bind transaction must be confirmed first. This requires either 101 confirmations, or if the chain has dPoW, 1 notarization.
 :::
 
-### Withdrawing KMD Funds 
+#### Withdrawing KMD Funds 
 
 When finished with our tokens, we may send them to the gateway and withdraw the corresponding KMD funds via the [gatewayswithdraw](../cryptoconditions/cc-gateways.html#gatewayswithdraw) method. Only the current owner of the KMD funds may execute the `gatewayswithdraw` method for these funds.
 
@@ -716,7 +716,7 @@ broadcast HELLOWORLD txid.(8553c068743984692dfa91bee2ce27749352c9b2aef5a06b011f1
 KMD ht.1116166 <- 060811006a039b728c305c8d98b42801cde542386fc3fba3a7dbcdfbb97e6e88a891d909976d2c4de105822f03f6b81d35f3075e08bb098553bfbd3709127aac112a7819
 ```
 
-### Example Continues - From Gateway USER Node
+#### Example Continues - From Gateway USER Node
 
 Make a Deposit
 

@@ -1,5 +1,7 @@
 # Contract Module: Heir
 
+## Introduction
+
 The Heir CryptoConditions (CC) module allows cryptocurrency funds to be passed on as an inheritance. 
 
 The module functions by the means of a special `1of2` CC address. In this type of address there are two private keys that are capable of spending funds from the address. However, only the first private key may spend funds by default.
@@ -12,7 +14,7 @@ The [heiradd](../cryptoconditions/cc-heir.html#heiradd) method allows anyone, in
 
 The Heir CC module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../cryptoconditions/cc-tokens.html) CC module that represent on-chain assets, or even tokens that are formed via the [Gateways](../cryptoconditions/cc-gateways.html) module to represent off-chain assets or other cryptocurrencies.
 
-### Flow of the Heir CC Module:
+#### Heir CC Module Flow
 
 - Anyone can create a new Heir CC address using [heirfund](../cryptoconditions/cc-heir.html#heirfund)
 - The owner of this address can add more funds using [heiradd](../cryptoconditions/cc-heir.html#heiradd)
@@ -94,9 +96,7 @@ Response from Step 2:
 b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
 ```
 
-::: tip
 This transaction id is the funding transaction id of this Heir CC plan. Copy and save this to a safe location.
-:::
 
 Wait until the transaction is confirmed.
 

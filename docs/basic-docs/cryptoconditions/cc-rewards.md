@@ -1,12 +1,14 @@
 # Contract Module: Rewards
 
-The `rewards` contract creates a master-node like rewards program, giving a user the ability to earn rewards by locking coins.
+## Introduction
+
+The Rewards CryptoConditions (CC) module creates a master-node like rewards program, giving a user the ability to earn rewards by locking coins.
 
 It features configurable parameters, such as a customizable APR, minimum deposit, a required holding period,etc.
 
 There can be many `rewards` plans active at any given time.
 
-The flow of a plan is as follows:
+### Rewards CC Module Flow
 
 * Anyone can create a new plan using [rewardscreatefunding](../cryptoconditions/cc-rewards.html#rewardscreatefunding)
 * Anyone can add funding to the plan using [rewardsaddfunding](../cryptoconditions/cc-rewards.html#rewardsaddfunding)

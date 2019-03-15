@@ -118,6 +118,34 @@ A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases b
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_halving=2000 -ac_end=10000 &
 ```
 
+## ac_ccactivate
+
+**-ac_ccactivate=block_height**
+
+The `ac_ccactivate` launch parameter allows for the activation of CryptoConditions (CC) on an existing Komodo-based asset chain wherein CC was not originally enabled.
+
+Add the `ac_ccactivate` parameter to the existing launch command for the asset chain and set the value equal to a future block height. When this block height is reached, CC will be available on the asset chain. 
+
+This change requires a hard fork of the asset chain. If the asset chain is receiving Komodo's dPoW security service, the notary nodes must relaunch their asset-chain daemons with the new launch parameter. All nodes must also update their daemons in the same manner.
+
+By default, `ac_ccactivate` uses the default `ac_cc` value of `ac_cc=2`. It is not necessary to further specify `ac_cc` in the launch parameters, unless a value other than `2` is required. 
+
+#### :pushpin: Example:
+
+Before using `ac_ccactivate`:
+
+```bash
+./komodod -ac_name=EXAMPLE -ac_supply=72000000 -addnode=24.54.206.138 &
+```
+
+After using `ac_ccactivate`:
+
+```bash
+./komodod -ac_name=EXAMPLE -ac_supply=72000000 -ac_ccactivate=140 -addnode=24.54.206.138 &
+```
+
+In this example, CryptoConditions will be available at blockheight `140`. All nodes, include the notary nodes, must relaunch the daemon with the new parameters before blockheight `140`.
+
 ## ac_halving
 
 This is the number of blocks between each block reward halving. This parameter will have no effect if [ac_reward](../installations/asset-chain-parameters.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [ac_decay](../installations/asset-chain-parameters.html#ac-decay) is not, the reward will decrease by 50% each halving.
@@ -440,7 +468,7 @@ When creating a chain with the `ac_staked` parameter, the creation process is sl
 * Execute `setgenerate false` to stop mining
 * All of the coins (including the pre-mine) are now located on the node that mined two blocks. Do not split them with a normal transaction. Rather, split them using this tool: [link](https://github.com/KMDLabs/pos64staker).
 * Send coins to the other node, and on both nodes use the `generate` method to begin staking.
-* Use the [getbalance](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10.
+* Use the [getbalance64](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10.
 
 Following the above instructions will ensure that the asset chain is stable.
 

@@ -1,5 +1,7 @@
 # Contract Module: Dice
 
+## Introduction
+
 The `dice` module allows for a decentralized `dice` game on a blockchain. The `dice` module is essentially a simple, but fully functional decentralized application (dApp).
 
 It is also useful as a demonstration to show how Crypto Conditions based contracts can leverage provably random entropy to enable blockchain-enforced real-time gameplay.
