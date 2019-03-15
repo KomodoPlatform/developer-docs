@@ -6,10 +6,14 @@ This API documentation currently only features RPC methods that are available in
 
 ## electrum
 
-**electrum coin urls**
+**electrum coin urls (mm2)**
 
 ::: warning Note
 This command must be executed at the initiation of each MM2 instance.
+:::
+
+::: warning Note
+MM2 requires `mm2` parameter to be set in coins config or in `electrum/enable` requests. This lets MM2 know that coin is `expected` to work. [more info](dex-walkthrough.md#setting-up-coin-list)  
 :::
 
 The `electrum` method enables a `coin` by connecting the user's MM2 instance to the `coin` blockchain using electrum technology (e.g. lite mode).
@@ -20,13 +24,13 @@ Each `coin` can be enabled only once, and in either Electrum or Native mode. It'
 
 Electrum mode is available for utxo-based coins only (BTC and forks). It's not available for ETH/ERC20.
 
-
 ### Arguments:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin you want to enable |
 | urls      | array of strings | the urls of coin Electrum servers to which you want to connect |
+| mm2       | number | let MM2 know that coin is `expected` to work |
 
 ::: warning Note
 If the connection to at least one of the provided `urls` fails for any reason, MM2 will not enable the coin and will return an error.
@@ -66,7 +70,11 @@ Response (Error):
 
 ## enable
 
-**enable coin**
+**enable coin (urls swap_contract_address mm2)**
+
+::: warning Note
+MM2 requires `mm2` parameter to be set in coins config or in `electrum/enable` requests. This lets MM2 know that coin is `expected` to work. [more info](dex-walkthrough.md#setting-up-coin-list)  
+:::
 
 The `enable` method enables a coin by connecting your MM2 instance to the `coin` blockchain using the `native` coin daemon (e.g. komodod for KMD).
 
@@ -83,6 +91,7 @@ ETH/ERC20 coins are also enabled by the `enable` method, but a local installatio
 | coin      | string | the name of the coin the user desires to enable |
 | urls      | array of strings (required for ETH/ERC20) | urls of Ethereum RPC nodes to which the user desires to connect |
 | swap_contract_address | string (required for ETH/ERC20) | address of etomic swap smart contract |
+| mm2       | number | let MM2 know that coin is `expected` to work |
 
 ### Response:
 
