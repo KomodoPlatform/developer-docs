@@ -18,9 +18,13 @@ The following installation and walkthrough tutorials can assist the reader in te
 
 ### Requirements
 
-Rogue is currently playable on modern MacOS and Linux machines.
+Rogue is currently playable on modern MacOS, Linux and Windows machines.
 
-Windows is not yet available. Please ask on our #cc-rogue channel on [Discord](https://komodoplatform.com/discord) for updates.
+Actual precompiled daemons can be found in bundles [here](https://github.com/tonymorony/komodo_cryptoconditions_tui/releases)
+
+If you want to compile komodod daemon and rogue by yourself please follow instructions below.
+
+Also please feel free to ask on our #cc-rogue channel on [Discord](https://komodoplatform.com/discord) for updates or if any assistaince is needed.
 
 ### Install Dependencies
 
@@ -59,6 +63,17 @@ brew install coreutils
 brew install wget
 ```
 
+#### Windows
+
+Use a debian cross-compilation setup with mingw for Windows and run in Linux:
+
+```bash
+sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-gnutls-dev bsdmainutils automake curl cmake mingw-w64
+curl https://sh.rustup.rs -sSf | sh
+source $HOME/.cargo/env
+rustup target add x86_64-pc-windows-gnu
+```
+
 ### Clone & Compile Komodo
 
 #### Linux
@@ -82,6 +97,18 @@ git checkout FSM
 ./zcutil/fetch-params.sh
 ./zcutil/build-mac.sh -j8
 ```
+
+#### Windows
+
+```bash
+git clone https://github.com/jl777/komodo
+cd komodo
+git checkout FSM
+./zcutil/fetch-params.sh
+./zcutil/build-win.sh -j8
+#This can take some time.
+```
+
 
 ::: tip
 Change the `8` in the `-j8` portion of the last command to any number of processor threads desired and/or appropriate for your machine.
@@ -183,60 +210,19 @@ cd ~/komodo/src
 
 The Terminal User Interface (TUI) provides automated methods for executing the ROGUE methods (rpcs) that are used to start and finish a game. Use of the TUI is optional, but recommended for most players.
 
-#### Portable Bundles for Unix OS
+<!--I think no need to include TUI manual installation to this manual - it's better for testing if everybody will use same version of daemon/rogue/tui from bundle
+I offer to put this information about MultiOS bundles on top of guide before compilation instructions so most of the users will not compile by themselves and save time / will use same relatively stable version of things.-->
 
-These portable bundles contain all all necessary software to successfully launch the ROGUE TUI.
+#### Portable MultiOS Bundles for Unix OS, OSX and Windows
 
-[Link to portable bundles for Unix OS](https://github.com/tonymorony/komodo_cryptoconditions_tui/releases)
+These portable bundles contain all all necessary pre-compiled software to just unzip and start play - the ROGUE chain daemon, the rogue game and TUI.
 
-#### Compile for Linux
+[Link to portable MultiOS bundles](https://github.com/tonymorony/komodo_cryptoconditions_tui/releases)
 
-Open another terminal window. (Do not close the other terminal windows that are running the game's daemon.)
-
-Install TUI dependencies:
-
-```bash
-sudo apt-get install python3.6 python3-pip libgnutls28-dev
-```
-
-Install required python packages:
-
-```bash
-pip3 install setuptools wheel slick-bitcoinrpc
-```
-
-Clone the repository and copy all the files to the directory of the ROGUE `komodod` daemon:
-
-```bash
-git clone https://github.com/tonymorony/komodo_cryptoconditions_tui
-cd komodo_cryptoconditions_tui
-cp -r * ~/komodo/src
-```
-
-Execute the following commands to launch the TUI software:
-
-```bash
-cd  ~/komodo/src
-./rogue_tui.py
-```
-<!-- Not availiable atm
-#### MacOS (OSX)
-
-Download the latest portable zip for OSX:
-
-[Link to Komodo Rogue TUI downloadable zip](https://github.com/tonymorony/komodo_cryptoconditions_tui/releases)
-
-Extract the contents into the `~/komodo/src` directory.
-
-Execute the following commands to launch the TUI software:
-
-```bash
-cd ~/komodo/src
-cp ~/Library/Application\ Support/Komodo/ROGUE/ROGUE.conf ~/komodo/src/ROGUE.conf
-./rogue_tui.py
-```
--->
 ## Walkthroughs
+
+<!-- TUI is unofficial software as far as I know, just made for testing simplify purposes by me, not providing by team as end product
+-->
 
 The Komodo team provides a [Terminal User Interface (TUI)](../cryptoconditions/cc-rogue.html#installing-the-tui-optional) to allow players to launch and conclude a game without having to interact with the module's api commands.
 
@@ -405,9 +391,7 @@ For instructions on in-game controls and objectives, [read this linked section.]
 
 #### Step 8 - Bailout
 
-If your character is still alive and you would like to leave the game while keeping your profits, follow this procedure.
-
-Save your character.
+If your character is still alive and you would like to leave the game while keeping your profits, follow this procedure to save your character:
 
 To quit the game, type the letter `Q` on the keyboard. This opens a context menu. Type the letter `n` and press `Enter`.
 
@@ -423,7 +407,7 @@ For example:
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
-After the `bailout` transaction is mined, the player may view their character using the [players](../cryptoconditions/cc-rogue.html#players) and [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) methods.
+After the `bailout` transaction is mined, the player may view saved character from this game (if bailout was executed when he was alive) using the [players](../cryptoconditions/cc-rogue.html#players) and [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) methods.
 
 #### Step 9: Highlander Victory 
 
@@ -437,7 +421,7 @@ The [highlander](../cryptoconditions/cc-rogue.html#highlander) method is execute
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 '["4fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a"]'
 ```
 
-To use the character again, save the transaction id that is returned from the above command and use it when executing the [register](../cryptoconditions/cc-rogue.html#register) method for a future game.
+After the `highlander` transaction is mined, the player may view saved character from this game (if bailout was executed when he was alive) using the [players](../cryptoconditions/cc-rogue.html#players) and [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) methods.
 
 ### Multi-Player Mode Walkthrough
 
@@ -756,6 +740,9 @@ Response:
 
 The multi-player game is now finished. The `player2` node received the `highlander` prize, including the total `buyin` amount and an increased conversion rate of in-game gold to `ROGUE` coins.
 
+After the `bailout` and\or `highlander` transactions are mined, the players may view saved character/s from this game (depends on if bailout was executed when he was alive) using the [players](../cryptoconditions/cc-rogue.html#players) and [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) methods.
+
+
 ## Gameplay Documentation
 
 As Komodo's Rogue implementation is based off of the classic Rogue game, the classic manual provides the basic instructions for the game:
@@ -902,9 +889,9 @@ The `gameinfo` method returns relevant information about the indicated `gametxid
 | gametxid   | (decimal number)   | the indicated `gametxid` transaction id                                |
 | result     | (string)           | whether the command executed successfully                              |
 | gameheight | (decimal number)   | the block height at which this `gametxid` was created                                                                      |
-| height     | (decimal number)   | <!--need this-->                                                                         |
+| height     | (decimal number)   | same as gameheight                                                                         |
 | start      | (decimal number)   | the block height at which the seed will be revealed                                                                       |
-| starthash  | (string)           | <!--need this -->                                                                        |
+| starthash  | (string)           | hash of start block                                                                        |
 | seed       | (decimal number)   | the blockchain-generated random seed. This provides the necessary randomization for players to generate the current game's level design. The `seed` value is revealed at the `start` block height.                                                                        |
 | run        | (string)           | the complete terminal command that must be executed to begin this game |
 | alive      | (decimal number)   | the number of players still alive in the game                          |
@@ -1070,7 +1057,9 @@ After a game concludes the complete list of keystrokes can be found in the `~/ko
 | Name   | Type | Description |
 | ------ | ---- | ----------- |
 
-<!--I can use the response in the example below as a starting point, but before I do so, I need to ask: is that formatted via the jq terminal software? It looks like it. In other words, the result, error, and id properties look like they came from jq, and the stuff inside the result property is what the terminal would normally reply. ? -->
+<!--I can use the response in the example below as a starting point, but before I do so, I need to ask: is that formatted via the jq terminal software? It looks like it. In other words, the result, error, and id properties look like they came from jq, and the stuff inside the result property is what the terminal would normally reply. ? 
+
+TonyL: nope, I'm never use jq - it's just terminal output-->
 
 #### :pushpin: Examples:
 
@@ -1114,8 +1103,15 @@ When the character successfully bails out from the game, all in-game gold the ch
 
 The conversion ratio depends upon the mode of gameplay.
 
-- Single-player mode: `1` gold to `0.0005` ROGUE coins
-- Multi-player mode: `1` gold to `0.001` ROGUE coins
+- Single-player mode: 
+```
+ROGUE_satoshis = gold * gold * dungeon_level_on_exit * 10
+```
+
+- Multi-player mode:
+```
+ROGUE_satoshis = gold * gold * dungeon_level_on_exit * 20
+```
 
 The conversion is facilitated using globally locked `ROGUE` coins. The funds in this global vault automatically accrue through asset-chain activity. In the event that there are not enough globally locked funds at the time the method is executed, the player must simply wait until the funds are generated via automated methods. You can encourage this fund to grow more quickly by encouraging other players and people to transact using ROGUE, as transactions feed the fund.
 
@@ -1480,12 +1476,12 @@ The `extract` method allows the user extract the complete history of a game. Thi
 | name       | (string) | the name of the module                                                                                   |
 | method     | (string) | the name of the method                                                                                   |
 | gametxid   | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method |
-| rogueaddr  | (string) | <!--need this-->                                                                                                          |
+| rogueaddr  | (string) | address for pubkey provided as method param                                                              |
 | status     | (string) | whether the command executed successfully                                                                |
 | keystrokes | (string) | all keyboard strokes concatenated into a single hex string                                               | 
-| numkeys    | (number) | <!--need this-->                                                                                                          |
+| numkeys    | (number) | total amount of keystrokes (ASCII symbols)                                                               |
 | playertxid | (string) | the `playertxid` transaction id that represents the character belonging to the indicated `pubkey`        |
-| extracted  |          | <!--need this-->                                                                                                          |
+| extracted  |          | progress which was extracted from game by `keystrokes` replay playback                                                                                                         |
 | seed       | (decimal number)   | the blockchain-generated random seed. This provides the necessary randomization for players to generate the current game's level design. The `seed` value is revealed at the `start` block height.                                                                        |
 | replay     | (string) | the complete terminal command that must be executed to begin this game                                   |
 
