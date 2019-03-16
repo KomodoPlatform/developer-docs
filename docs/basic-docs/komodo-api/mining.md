@@ -76,7 +76,7 @@ See <a href="https://en.bitcoin.it/wiki/BIP_0022">the Bitcoin wiki</a> for the f
 
 :::
 
-If the request parameters include a `mode` key, it is used to explicitly select between the default 'template' request or a 'proposal'.
+If the request parameters include a `mode` key, it is used to explicitly select between the default 'template' request, a 'proposal' or 'disablecb'.
 
 ### Arguments:
 
