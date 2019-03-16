@@ -251,18 +251,18 @@ The `orderbook` method requests from the network the currently available orders 
 | numbids | number | the number of outstanding bids |
 | biddepth | number | `deprecated` |
 | asks | array | an array of objects containing outstanding asks (from Bob nodes) |
-| coin | string | name of the `base` coin; the user desires this |
-| address | string | address offering the trade |
-| price | number | asking price of `rel` coin the user will sell per every 1 unit of `base` coin |
+| coin | string | the name of the `base` coin; the user desires this |
+| address | string | the address offering the trade |
+| price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
 | numutxos | number | `deprecated` the number of utxos the offer provider has in their wallet |
 | avevolume | number | `deprecated` the average volume of `coin` per utxo |
 | maxvolume | number | the total amount of `base` coins the offer provider has in their wallet |
 | depth | number | `deprecated` |
 | pubkey | string | the pubkey of the offer provider |
 | age | number | the age of the offer |
-| zcredits | number | zeroconf deposit amount |
-| numasks | number | total number of asks |
-| askdepth | number | depth of the ask requests |
+| zcredits | number | the zeroconf deposit amount |
+| numasks | number | the total number of asks |
+| askdepth | number | the depth of the ask requests |
 | base | string | the name of the coin the user desires to receive |
 | rel | string | the name of the coin the user will trade |
 | timestamp | number | the timestamp of the orderbook request |
@@ -333,21 +333,21 @@ MM2 will set the `timeout` value by default, but the user may override by giving
 | swaps | array | an array of swap ids; indicates current ongoing swaps |
 | netamounts | array | `deprecated, will be removed` |
 | pending |  object | an object containing the swap information |
-| pending.uuid | string | pending swap uuid, same as request uuid |
+| pending.uuid | string | the pending swap uuid -- same as request uuid |
 | pending.expiration | number | indicates the time at which the swap expires |
 | pending.timeleft | number | indicates the amount of time remaining before the swap times out |
-| pending.tradeid | number | unique id of this trade on this network |
-| pending.requestid | number | unique id of this trade request |
+| pending.tradeid | number | the unique id of this trade on this network |
+| pending.requestid | number | the unique id of this trade request |
 | pending.quoteid | number | `deprecated, will be removed` |
-| pending.bob | string | `deprecated, will be removed`; name of the coin bob is trading, same as `base` |
-| pending.base | string | name of the `base` coin the user desires |
+| pending.bob | string | `deprecated, will be removed`; the name of the coin bob is trading, same as `base` |
+| pending.base | string | the name of the `base` coin the user desires |
 | pending.basevalue | number | the value of `base` coin to be exchanged | 
-| pending.alice | string | `deprecated, will be removed`; name of the coin alice is trading, same as `rel` |
-| pending.rel | string | name of the `rel` coin the user is trading |
+| pending.alice | string | `deprecated, will be removed`; the name of the coin alice is trading, same as `rel` |
+| pending.rel | string | the name of the `rel` coin the user is trading |
 | pending.relvalue | number | the value of `rel` coin to be exchanged |
 | pending.desthash | string | `deprecated, will be renamed`; taker (alice) curve25519 pubkey |
 | pending.aliceid | number | `deprecated, will be removed or renamed`; alice's unique id on this network |
-| uuid | string | request uuid |
+| uuid | string | the request uuid |
 
 #### :pushpin: Examples:
 
@@ -433,18 +433,18 @@ Komodo software will set the `timeout` value by default, but the user may overri
 | pending.uuid | string | pending swap uuid, same as request uuid |
 | pending.expiration | number | indicates the time at which the swap expires |
 | pending.timeleft | number | indicates the amount of time remaining before the swap times out |
-| pending.tradeid | number | unique id of this trade on this network |
-| pending.requestid | number | unique id of this trade request |
+| pending.tradeid | number | the unique id of this trade on this network |
+| pending.requestid | number | the unique id of this trade request |
 | pending.quoteid | number | `deprecated, will be removed` |
-| pending.bob | string | `deprecated, will be removed`, name of the coin bob is trading, same as `base` |
-| pending.base | string | name of the `base` coin the user desires |
+| pending.bob | string | `deprecated, will be removed`, the name of the coin bob is trading, same as `base` |
+| pending.base | string | the name of the `base` coin the user desires |
 | pending.basevalue | number | the value of `base` coin to be exchanged | 
-| pending.alice | string | `deprecated, will be removed`, name of the coin alice is trading, same as `rel` |
-| pending.rel | string | name of the `rel` coin the user is trading |
+| pending.alice | string | `deprecated, will be removed`, the name of the coin alice is trading, same as `rel` |
+| pending.rel | string | the name of the `rel` coin the user is trading |
 | pending.relvalue | number | the value of `rel` coin to be exchanged |
-| pending.desthash | string | `deprecated, will be renamed` taker (alice) curve25519 pubkey |
+| pending.desthash | string | `deprecated, will be renamed` the taker's (alice) curve25519 pubkey |
 | pending.aliceid | number | `deprecated, will be removed or renamed` alice's unique id on this network |
-| uuid | string | request uuid |
+| uuid | string | the request uuid |
 
 #### :pushpin: Examples:
 
@@ -595,7 +595,7 @@ This method generates a raw transaction which should then be broadcast using [se
 | from      | string    | coins will be withdrawn from this address |
 | to        | string    | coins with be withdrawn to this address |
 | amount    | number    | the amount of coins to be withdrawn |
-| fee_details | object    | fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details |
+| fee_details | object    | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details |
 
 
 #### :pushpin: Examples:
