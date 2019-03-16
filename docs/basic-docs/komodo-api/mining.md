@@ -83,6 +83,7 @@ If the request parameters include a `mode` key, it is used to explicitly select 
 | ---------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | "version"              | (numeric)          | the block version                                                                                                                                                                                                                                                                                |
 | "previousblockhash"    | (string)           | the hash of current highest block                                                                                                                                                                                                                                                                |
+| "finalsaplingroothash" | (string)           | the hash of the final sapling root                                                                                                                                                                                                                                                               |
 | "transactions":[ ... ] | (array)            | the contents of non-coinbase transactions that should be included in the next block                                                                                                                                                                                                              |
 | "data"                 | (string)           | transaction data encoded in hexadecimal (byte-for-byte)                                                                                                                                                                                                                                          |
 | "hash"                 | (string)           | the hash/id encoded in little-endian hexadecimal                                                                                                                                                                                                                                                 |
@@ -92,6 +93,15 @@ If the request parameters include a `mode` key, it is used to explicitly select 
 | "sigops"               | (numeric)          | the total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.                                                                                                                   |
 | "required"             | (boolean)          | if provided and true, this transaction must be in the final block                                                                                                                                                                                                                                |
 | "coinbasetxn": { ... } | (json object)      | information for coinbase transaction                                                                                                                                                                                                                                                             |
+| "longpollid"           | (string)           |                                                                                                                                                                                                                                                                                                  |
+| "data"                 | (string)           | transaction data encoded in hexadecimal (byte-for-byte)                                                                                                                                                                                                                                          |
+| "hash"                 | (string)           | the hash/id encoded in little-endian hexadecimal                                                                                                                                                                                                                                                 |
+| "depends" : [ ... ]    | (array)            | an array of numbers                                                                                                                                                                                                                                                                              |
+| "fee"                  | (numeric)          | the difference in value between transaction inputs and outputs in Satoshis; for coinbase transactions, this is the negative number of the total collected block fees, not including the block subsidy; if a key is not present, the fee is unknown and clients MUST NOT assume it is not present |
+| "sigops"               | (numeric)          | the total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.                                                                                                                   |
+| "foundersreward"       | (numeric)          | the founder's reward that should be paid out in this block; present only in chains with [ac_founders](../installations/asset-chain-parameters.html#ac_founders) enabled; this key is present only in the blocks that payout the founder's reward                                                 |
+| "coinbasevalue"        | (numeric)          | the value of the coinbase transaction (in satoshis)                                                                                                                                                                                                                                              |
+| "required"             | (boolean)          | if provided and true, this transaction must be in the final block                                                                                                                                                                                                                                |
 | "target"               | (string)           | the hash target                                                                                                                                                                                                                                                                                  |
 | "mintime"              | (numeric)          | the minimum timestamp appropriate for next block time in seconds since epoch (Jan 1 1970 GMT)                                                                                                                                                                                                    |
 | "mutable": [ ... ]     | (array of strings) | a list of ways the block template may be changed                                                                                                                                                                                                                                                 |
@@ -117,27 +127,29 @@ Response:
 {
   "capabilities": ["proposal"],
   "version": 4,
-  "previousblockhash": "0ec57dbbaa7fdb290b847981e38908482b1be05f375f021c4d1f6f6315fd5c7e",
+  "previousblockhash": "01499bd2021bb8f74e65712fdeb2a689b12b183eb9e64584d9ea9ebd6e38754e",
+  "finalsaplingroothash": "3e49b5f954aa9d3545bc6c37744661eea48d7c34e3000d82b7f0010c30f4c2fb",
   "transactions": [],
   "coinbasetxn": {
-    "data": "01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff0503d7590f00ffffffff0100a3e111000000002321029400ae04d9c0e3e49b114fc5e0a7e250ece5f5b5b8f1614075ddfd62c67319aeac1ba2985b",
-    "hash": "6af34ca0711ff5c7d3b4d2334ec55f4995014261f3c537446537169f9b96b0d6",
+    "data": "01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff025600ffffffff0200e1f505000000002321039d6cc8a91d6551258a68e9d4bf8e8cfe3defd4be1f9e1c3f341f7a8592772fc8ac80c3c9010000000023210225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270aacb0918c5c",
+    "hash": "ac7f63d0df14a996d77a2883e6341615245811b5a8e36a48b7ca8011eb6a149f",
     "depends": [],
     "fee": 0,
-    "sigops": 1,
-    "coinbasevalue": 300000000,
+    "sigops": 2,
+    "foundersreward": 30000000,
+    "coinbasevalue": 100000000,
     "required": true
   },
-  "longpollid": "0ec57dbbaa7fdb290b847981e38908482b1be05f375f021c4d1f6f6315fd5c7e39",
-  "target": "000000070be50000000000000000000000000000000000000000000000000000",
-  "mintime": 1536729153,
+  "longpollid": "01499bd2021bb8f74e65712fdeb2a689b12b183eb9e64584d9ea9ebd6e38754e7",
+  "target": "0f0f0f0000000000000000000000000000000000000000000000000000000000",
+  "mintime": 1552716187,
   "mutable": ["time", "transactions", "prevblock"],
   "noncerange": "00000000ffffffff",
-  "sigoplimit": 20000,
+  "sigoplimit": 60000,
   "sizelimit": 2000000,
-  "curtime": 1536729628,
-  "bits": "1d070be5",
-  "height": 1006039
+  "curtime": 1552716208,
+  "bits": "200f0f0f",
+  "height": 6
 }
 ```
 
