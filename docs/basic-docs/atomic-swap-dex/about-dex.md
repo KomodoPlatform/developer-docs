@@ -14,7 +14,7 @@ The documentation here only concerns the core component, MarketMaker 2.0 (MM2). 
 
 Documentation for a GUI for MM2 is not yet available.
 
-## New Features of MarketMaker 2.0
+## New Features of MarketMaker 2.0 (Desktop)
 
 Users who worked with the previous version of the MM software, MarketMaker 1.0 (MM1), will note several differences with the new release.  
 
@@ -42,3 +42,14 @@ MM1 had two separate types of nodes: full relay and non-full relay. Non-full rel
 
 With MM2, each node is a full standalone p2p solution (e.g. there are no longer two types of nodes).
 
+## MarketMaker 2.0 for Mobile (New!)
+
+Komodo is pleased to announce that MarketMaker 2.0 is available on compatible Android and iOS devices.
+
+Notable aspects of the Mobile MM2 software include:
+
+- Optimization for low-data usage and CPU consumption
+- Low storage requirements (less than 50 MB)
+- Integrates seamlessly with the desktop MarketMaker 2.0 software
+
+Through the Komodo API, mobile-device developers can integrate MM2 for Mobile into other software packages.

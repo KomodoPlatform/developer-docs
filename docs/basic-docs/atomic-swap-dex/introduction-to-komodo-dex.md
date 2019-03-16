@@ -12,11 +12,11 @@ This software is capable of facilitating atomic-swap exchanges between approxima
 
 When it comes to DEX technology, Komodo has a remarkable story.
 
-In May 2014, Komodo’s lead developer performed his first atomic swap. By August of 2017, Komodo released version 1.0 of the atomic-swap DEX software, allowing anonymous Internet users to perform atomic swaps via automation. These are but two examples of how Komodo has led the way in atomic-swap DEX technology since the beginning.
+In April 2014, Komodo’s lead developer experimented with his first atomic-swap prototypes. By August of 2017, Komodo released version 1.0 of the atomic-swap DEX software, allowing anonymous Internet users to perform over 100,000 atomic swaps via automation. These are but two examples of how Komodo has led the way in atomic-swap DEX technology since the beginning.
 
-To understand Komodo DEX software, one must first understand what a decentralized exchange is, why it's important, and how atomic swaps come into play.
+To understand Komodo DEX software, one must first understand what a decentralized exchange is, why it is important, and how atomic swaps come into play.
 
-This discussion requires a small amount of foundational knowledge. The reader should be generally familiar with blockchain technology and should understand the basic ideas of the Komodo project. If an overview of Komodo is needed, head to the documentation introduction, ["Why Komodo?"](../start-here/outline-for-new-developers.html#why-komodo) For a more thorough understanding of blockchain technology in general, check out [Part I of the Komodo whitepaper.](https://komodoplatform.com/whitepaper) It gives an overview of how a blockchain works and why it matters. After reading these two sections, the following discussion should be attainable.
+This discussion requires a small amount of foundational knowledge. The reader should be generally familiar with blockchain technology and should understand the basic ideas of the Komodo project. If an overview of Komodo is needed, head to the documentation introduction, ["Why Komodo?"](../start-here/outline-for-new-developers.html#why-komodo) For a more thorough understanding of general blockchain technology, check out [Part I of the Komodo whitepaper.](https://komodoplatform.com/whitepaper) It gives an overview of how a blockchain works and why it matters. After reading these two sections, the following discussion should be attainable.
 
 ## Understanding the Most Common Method of Cryptocurrency Exchange
 
@@ -72,6 +72,8 @@ Because a multi-signature address requires several different parties to sign the
 
 In many ways, this popular DEX model is an improvement over the CEX model, and this is why many CEX's are expanding into this territory. Users have control over their IOUs, making them responsible for individual attacks, rather than the exchange owners. The risk of an exchange-wide attack is also shared across multiple parties.
 
+-- pro and con table of DEX gateway --
+
 For a developer and entrepreneur, the DEX method is more secure than the CEX model, but there remain many difficulties on technical and political levels. The entrepreneur must find trustworthy partners to be co-owners of the multi-signature address. The developer must ensure that their partners' infrastructure and other technical contributions are secure, as a failure by the partners can reflect poorly on the developer and entrepreneur's own brand.
 
 Furthermore, from the user's perspective, the primary danger persists in this DEX model. Once the user sends their assets to the gateway, the user loses control and responsibility over their funds.
@@ -86,21 +88,30 @@ This is the idea an atomic swap. It is simply a trade of assets between two user
 
 This is probably enough to get the basic idea. If the reader desires a more thorough understanding of the atomic swap process, read Part III of [the Komodo whitepaper,](https://komodoplatform.com/whitepaper) or [this blog post for a condensed explanation.](https://komodoplatform.com/atomic-swaps/)
 
-The underlying ideas of atomic swaps were invented by Tier Nolan in 2013. He posted his ideas on an online community forum where Komodo's lead developer and primary visionary, JL777, was also exploring blockchain technology. Here’s where Komodo enters the picture.
+The underlying ideas of atomic swaps were invented by Tier Nolan in 2013. He posted his ideas on an online community forum where Komodo's lead developer and primary visionary, JL777, or "James" for short, was also exploring blockchain technology. Here’s where Komodo enters the picture.
 
 ### Komodo's Leadership in Atomic-Swap Technology
 
-Upon reading Nolan’s discussion, JL777 began experimenting. In May 2014 he conducted his first on-chain atomic swap between two assets on the NXT blockchain. In 2015, he performed an atomic swap between BTC and NXT. This made him one of the first few people in the world to perform an atomic swap. (As an aside: It is not clear who did the first-ever atomic swap. Most likely it was Tier Nolan himself, as he had both the idea and the technical skills to achieve it.)
+Upon reading Nolan’s discussion, James began experimenting. In April 2014 he wrote his first experimental software for allowing anonymous users on the Internet to conduct on-chain atomic swaps between two assets on the NXT blockchain.
 
-After performing his second atomic swap, JL777 began leading the creation of the Komodo ecosystem. Komodo is designed from the ground-up to facilitate blockchain interoperability and scalability, and our atomic-swap DEX software plays a key role.
+In September 2015, James performed an experimental atomic swap between Bitcoin and NXT. Like all Bitcoin-based atomic swaps performed during this time period, James's atomic swap could not be considered secure as Bitcoin software lacked a feature called "Check Lock Time Verify." This feature was added in November 2015, and James performed a secure atomic swap shortly thereafter. 
 
-In August 2017, Komodo released version 1.0 of the first atomic-swap based DEX to the public. Releasing this entirely new DEX software to the masses was an endeavor many years in the making, and countless developers and other dreamers contributed.
+At this time, James also began the creation of his current endeavor, the Komodo ecosystem. Additional team members were hired, money was raised, and large-scale software and company development began.
 
-Upon release of Komodo’s DEX 1.0, members of the Komodo open-source community performed over 100,000 atomic swaps. It was the first time in history that users with no coding knowledge could trade assets without either a third-party acting as an arbiter, or even without any public knowledge of who was trading with whom.
+From its foundation, the Komodo ecosystem is designed to facilitate blockchain interoperability and scalability, and our atomic-swap DEX software plays a key role. In August 2017, Komodo released version 1.0 of the first atomic-swap based DEX to the public. Releasing this entirely new DEX software to the masses was an endeavor many years in the making, and countless volunteer developers and other dreamers contributed.
+
+Upon release of Komodo’s DEX 1.0, hundreds of members of the Komodo open-source community collectively performed over 100,000 atomic swaps. It was the first time in history that users with no coding knowledge could trade assets without either a third-party acting as an arbiter, or even without any public knowledge of who was trading with whom.
  
 Today, the Komodo developers took what they learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is the Komodo DEX 2.0 software. Komodo is also partnered with Ideas By Nature, a UX/UI design and development firm, to create a well designed atomic-swap trading experience.
 
-While the code behind Komodo's technology is complex, the good news is; it takes care of itself. A developer and entrepreneur building on Komodo can simply fire up the software and access its functionalities through the API.
+Recently, yet again Komodo forged into new territory with atomic swaps. In February of 2019, the Komodo team performed the first mobile-based atomic swap. The mobile version of our atomic-swap DEX software is available for Android and iOS devices, and the software interfaces seamlessly with our desktop software.
 
-[Need a section about how we are facilitating other exchanges to work with us. We don’t necessarily need to even take all the fees. Point out how networks work. We’re complimenting other exchanges. Open standards.]
+While the code behind Komodo's technology is complex, the good news is, the code takes care of itself. A developer and entrepreneur building on Komodo can simply fire up the software and access its functionalities through the API.
 
+## Komodo's DEX Software is an Industry-Wide Invitation
+
+Komodo DEX software is open source, meaning that we do not keep the software's source code private. Also, the Komodo team does not wish to create a network that is closed to other financially motivated businesses and organizations seeking profit in the cryptocurrency-exchange industry. 
+
+Many opportunities are available for cryptocurrency-exchange entrepreneurs to build their own audiences and businesses using Komodo software. Entrepreneurs can create their own market places on the main Komodo network for trading, or they can trade their own private networks. Developers can use Komodo's back-end software API to integrate atomic-swap DEX functionality into their existing or upcoming software innovations. Enterprise and other large-scale companies can reach out to Komodo for integration with Komodo technology, or even for consulting services.
+
+[Please reach out to the Komodo team for further information.](https://komodoplatform.com/contact-us/)
