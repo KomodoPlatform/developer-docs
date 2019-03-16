@@ -66,6 +66,16 @@ The `getblocktemplate` method returns data that is necessary to construct a bloc
 See <a href="https://en.bitcoin.it/wiki/BIP_0022">the Bitcoin wiki</a> for the full specification.
 :::
 
+::: tip Note for mining asset chains whose coinbase transaction changes frequently
+
+- There are many features in the Komodo Ecosystem that can make an asset chain's daemon produce non-standard coinbase transactions. Examples include an assetchain parameter that creates new coins for a specific pubkey in every block or a CC module that adds outputs to the coinbase transaction.
+- This can be dealt using a mode called `disablecb`
+  - Usage: `./komodo-cli getblocktemplate '{"mode":"disablecb"}'`
+- The block template produced using this mode doesn't have the `"coinbasetxn": { ... } json object` but adds the coinbase transction to the `"transactions":[ ... ] array` just like a regular transaction.
+- Now the pool software can use the `"transactions":[ ... ] array` to create a block and take fees in the payment processor. The `knomp` [fork](https://github.com/blackjok3rtt/knomp) by [@blackjok3rtt](https://github.com/blackjok3rtt) uses this mode.
+
+:::
+
 If the request parameters include a `mode` key, it is used to explicitly select between the default 'template' request or a 'proposal'.
 
 ### Arguments:
@@ -93,7 +103,7 @@ If the request parameters include a `mode` key, it is used to explicitly select 
 | "sigops"               | (numeric)          | the total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.                                                                                                                   |
 | "required"             | (boolean)          | if provided and true, this transaction must be in the final block                                                                                                                                                                                                                                |
 | "coinbasetxn": { ... } | (json object)      | information for coinbase transaction                                                                                                                                                                                                                                                             |
-| "longpollid"           | (string)           |                                                                                                                                                                                                                                                                                                  |
+| "longpollid"           | (string)           | the lastseen longpollid when this response was sent by the server                                                                                                                                                                                                                                |
 | "data"                 | (string)           | transaction data encoded in hexadecimal (byte-for-byte)                                                                                                                                                                                                                                          |
 | "hash"                 | (string)           | the hash/id encoded in little-endian hexadecimal                                                                                                                                                                                                                                                 |
 | "depends" : [ ... ]    | (array)            | an array of numbers                                                                                                                                                                                                                                                                              |
