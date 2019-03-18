@@ -1,5 +1,7 @@
 # Contract Module: Dice
 
+## Introduction
+
 The `dice` module allows for a decentralized `dice` game on a blockchain. The `dice` module is essentially a simple, but fully functional decentralized application (dApp).
 
 It is also useful as a demonstration to show how Crypto Conditions based contracts can leverage provably random entropy to enable blockchain-enforced real-time gameplay.
@@ -8,9 +10,9 @@ It is also useful as a demonstration to show how Crypto Conditions based contrac
 
 The "house" node should be running the [dicestatus](../cryptoconditions/cc-dice.html#dicestatus) method at a regular frequency. This method resolves unfinished bets and generates new entropy utxos for the "house" contract.
 
-To create a "house" contract, use [dicefund](../cryptoconditions/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [diceaddfunds](../cryptoconditions/cc-dice.html#diceaddfunds).
+To create a "house" contract, use [dicefund](../cryptoconditions/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [diceaddfunds.](../cryptoconditions/cc-dice.html#diceaddfunds)
 
-Once the contract is created and funded, users can place a bet using [dicebet](../cryptoconditions/cc-dice.html#dicebet).
+Once the contract is created and funded, users can place a bet using [dicebet.](../cryptoconditions/cc-dice.html#dicebet)
 
 Anyone can execute a [dicefinish](../cryptoconditions/cc-dice.html#dicefinish) RPC after the contract's time expires. This prevents the "house" node from cheating by going offline.
 
@@ -28,7 +30,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 | Structure   | Type     | Description                                                       |
 | ----------- | -------- | ----------------------------------------------------------------- |
-| name        | (string) | the name of your dice contract                                        |
+| name        | (string) | the name of the user's dice contract                                    |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
 | amount      | (number) | the amount of funds you want to add to your dice from your wallet |
 
@@ -163,8 +165,8 @@ The `diceaddress` method takes either your pubkey or a pubkey that you provide a
 | result         | (string) | whether the diceaddress method was successful                                                                                  |
 | DiceCCaddress  | (string) | taking the dice contract's EVAL code as a modifier, this is the public address that corresponds to the dice contract's privkey |
 | Dicemarker     | (string) | the unmodified public address generated from the dice contract's privkey                                                       |
-| DiceCCassets   | (string) | the internal address (this is not related to the usage of dice)                                                                                |
-| GatewaysPubkey | (string) | the global pubkey for this Gateways CC module                                                                                       |
+| DiceCCassets   | (string) | the internal address; this value is not related to the usage of the Dice CC module                                                                |
+| GatewaysPubkey | (string) | the global pubkey for this Gateways CC module                                                                                  |
 | myCCaddress    | (string) | taking the dice contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                         |
 | myaddress      | (string) | the public address of the pubkey used to launch the chain                                                                      |
 
@@ -200,11 +202,11 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments:
 
-| Structure   | Type     | Description                                                       |
-| ----------- | -------- | ----------------------------------------------------------------- |
-| name        | (string) | the name of the dice contract for which the user desires to place a bet              |
-| fundingtxid | (string) | the txid of the transaction that created and funded this contract |
-| amount      | (number) | the amount the user dires to place as a bet                                      |
+| Structure   | Type     | Description                                                             |
+| ----------- | -------- | ----------------------------------------------------------------------- |
+| name        | (string) | the name of the dice contract for which the user desires to place a bet |
+| fundingtxid | (string) | the txid of the transaction that created and funded this contract       |
+| amount      | (number) | the amount the user dires to place as a bet                             |
 | odds        | (number) | specify the user's odds                                                 |
 
 ### Response:
@@ -357,7 +359,7 @@ The `dicefinish` method rebroadcasts a bet that has already been broadcasted.
 
 If the returned `hex` value is `0` the bet is finished.
 
-If the returned `hex` value is not `0`, the `hex` value should be broadcast with [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction). If the bet has not finished or is stuck, the `hex` will have a value.
+If the returned `hex` value is not `0`, the `hex` value should be broadcast with [sendrawtransaction.](../komodo-api/rawtransactions.html#sendrawtransaction) If the bet has not finished or is stuck, the `hex` will have a value.
 
 ### Arguments:
 
@@ -413,8 +415,8 @@ The `maxodds` property must be between 1 and 9999.
 | ------------- | -------- | ---------------------------------------------------------------------------------------- |
 | name          | (string) | the name of the user's dice contract                                                               |
 | funds         | (number) | the amount of funds with which the user desires to start                                               |
-| maxbet        | (number) | maximum amount allowed for a bet                                                           |
-| minbet        | (number) | minimum amount allowed for a bet                                                           |
+| maxbet        | (number) | the maximum amount allowed for a bet                                                           |
+| minbet        | (number) | the minimum amount allowed for a bet                                                           |
 | maxodds       | (number) | the largest odds an end-user can use for betting                                         |
 | timeoutblocks | (number) | the number of blocks before the contract times out and pays the automatically declared winner |
 

@@ -126,7 +126,7 @@ Since the Komodo software began as a fork of Zcash and BTC, essentially all comm
 
 Furthermore, a key purpose of the Komodo blockchain is to create features and functions that facilitate and enhance your development experience. Information regarding these enhancements is available throughout this documentation.
 
-In addition, since you are building on a Komodo-based blockchain, you have easy access to our multi-coin wallet, [Agama](https://komodoplatform.com/komodo-wallets/#desktopsection), our atomic-swap powered decentralized exchange, [BarterDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), our decentralized-ICO software (coming soon), and our future upgrades.
+In addition, since you are building on a Komodo-based blockchain, you have easy access to our multi-coin wallet, [Agama](https://komodoplatform.com/komodo-wallets/#desktop-agama), our atomic-swap powered decentralized exchange, [BarterDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), our decentralized-ICO software (coming soon), and our future upgrades.
 
 ## Example commands
 
