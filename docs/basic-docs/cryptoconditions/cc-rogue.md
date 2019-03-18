@@ -232,7 +232,7 @@ The TUI software can be found in the downloadable software bundles:
 
 Under normal circumstances, a user does not need to manually execute methods in the terminal to launch and conclude a game. Rather, the downloadable software bundles contain all necessary tools to play.
 
-For users/developrs who need a reference for the manual process, the following walkthroughs provide detailed step-by-step instructions.
+For users/developers who need a reference for the manual process, the following walkthroughs provide detailed step-by-step instructions.
 
 - [Single-Player Mode Walkthrough](../cryptoconditions/cc-rogue.html#single-player-mode-walkthrough)
 - [Multi-Player Mode Walkthrough](../cryptoconditions/cc-rogue.html#multi-player-mode-walkthrough)
@@ -1069,7 +1069,7 @@ After a game concludes the complete list of keystrokes can be found in the `~/ko
 | txid | (string) | a unique transaction id for the `keystrokes` transaction |
 | result      | (string) | whether the command executed successfully                                                                                                                                  |
 | error | (string) | error messages are returned here |
-| id | (string) | <!-- need this --> |
+| id | (string) | the returned value here, `jl777`, is constant and can be ignored |
 
 #### :pushpin: Examples:
 
@@ -1491,7 +1491,7 @@ The `extract` method allows the user extract the complete history of a game. Thi
 | keystrokes | (string) | all keyboard strokes concatenated into a single hex string                                               | 
 | numkeys    | (number) | the total number of keystrokes (ASCII symbols)                                                               |
 | playertxid | (string) | the `playertxid` transaction id that represents the character belonging to the indicated `pubkey`        |
-| extracted  | <!--need this-->         | the progress which was extracted from the game by the `keystrokes` replay playback <!--Can you please provide more description? I don't yet understand it. -->                                                                                                         |
+| extracted  | (string) | the gameplay progress extracted via the `keystrokes` replay feature     |
 | seed       | (decimal number)   | the blockchain-generated random seed. This provides the necessary randomization for players to generate the current game's level design. The `seed` value is revealed at the `start` block height.                                                                        |
 | replay     | (string) | the complete terminal command that must be executed to begin this game                                   |
 
