@@ -31,7 +31,7 @@ For this tutorial, please compile and install Komodo software from the source re
 
 [Information on manual installations can be found at this linked documentation.](https://docs.komodoplatform.com/komodo/install-Komodo-manually.html)
 
-#### Create a new Blockchain
+#### Create a New Blockchain
 
 For this tutorial we will create a temporary asset chain called `HELLOWORLD` for educational purposes.
 
@@ -231,7 +231,7 @@ We now create a gateway and bind our information to it, using the [gatewaysbind]
 
 This method requires that we decide how many total gateway signatures we desire (`N`), and how many signatures are required to withdraw funds (`M`).
 
-For our educational example, we may set both `N` and `M` equal to 1, for simplicity.
+For our educational example, we may set both `N` and `M` equal to `1`, for simplicity.
 
 As a part of this command we will need to indicate the `pubtype`, `p2shtype`, and `wiftype` values for our chosen coin. For KMD, these values are `60`, `85` and `188` respectively.
 
@@ -1026,7 +1026,7 @@ The `gatewaysaddress` method returns information about the on-chain gateway.
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
-| (none)    |      |
+| (none)    |      |            |
 
 ### Response:
 
@@ -1120,11 +1120,11 @@ Broadcast using [sendrawtransction:](../komodo-api/rawtransactions.html#sendrawt
 
 Response from Step Two:
 
-(This is the `bindtxid` for the gateway.)
-
 ```bash
 aa1b82d78398184c93405ccd15e3cf00b63634aac98a7b75053aa90eaf9cb47d
 ```
+
+This is the `bindtxid` for the gateway.
 
 <!--FIXME new RPC added
 ## gatewayscompletesigning
@@ -1347,9 +1347,9 @@ The `gatewaysinfo` method returns information about the `bindtxid` gateway.
 | pubkey      | (string) | the pubkey that holds the converted proxy tokens                                                            |
 | coin        | (string) | the name of the asset that the proxy token represents                                                       |
 | oracletxid  | (string) | the `oracletxid` of the associated oracle                                                                   |
-| taddr       | (number) | the coin-specific address that customizes the address for the relevant foreign coin (BTC, LTC, etc.)        |
-| prefix      | (number) | the coin-specific address prefix that customizes the address for the relevant foreign coin (BTC, LTC, etc.) |
-| prefix2     | (number) | the coin-specific address prefix that customizes the address for the relevant foreign coin (BTC, LTC, etc.) |
+| taddr       | (number) | the coin-specific address that customizes the address for the relevant foreign coin         |
+| prefix      | (number) | the coin-specific address prefix that customizes the address for the relevant foreign coin  |
+| prefix2     | (number) | the coin-specific address prefix that customizes the address for the relevant foreign coin  |
 | deposit     | (string) | the t address associated with the gateway pubkey                                                            |
 | tokenid     | (string) | the `tokenid` of the proxy token                                                                            |
 | totalsupply | (number) | the total available supply of proxy tokens                                                                  |

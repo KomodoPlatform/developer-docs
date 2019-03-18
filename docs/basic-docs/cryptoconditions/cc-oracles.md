@@ -2,15 +2,18 @@
 
 ## Introduction
 
-The `oracles` module is useful for making offchain data available on-chain in a way that enables the data providers to collect revenue per data point uploaded.
+The Oracles CryptoConditions (CC) module allows a user to make off-chain data available on-chain. This enables developers to create and use software that responds to off-chain information and events.
+
+Those who publish data to an oracle are called publishers. There is a fee-based model to serve as an incentive for publishers.
 
 ### Oracles CC Module Flow
 
-- Anyone can create an Oracle using `oraclescreate` which takes a name, description, expected format of the data as arguments.
-- Anyone can register as a publisher of data for an Oracle using `oraclesregister` which takes the transaction-id of an Oracle already created and `datafee` (fee required for each upload of data ) as arguments.
-- `oracleslist` , `oraclesinfo` , `oraclessamples` can be used in that specific order to find the available Oracles, their publishers and data samples from any specific publisher.
-- Anyone can subscribe to a particular publisher for an Oracle through `oraclessubscribe`
-- A publisher can publish data using `oraclesdata` and collect the `datafee`
+- Create an Oracle using [oraclescreate](../cryptoconditions/cc-oracles.html#oraclescreate)
+- Register as a data publisher for the oracle using the [oraclesregister](../cryptoconditions/cc-oracles.html#oraclesregister) method; at this stage, the publisher indicates the fee for their data updates
+  - Anyone can register as a publisher for any oracle; users subscribe only to the publishers they desire
+- The [oracleslist](../cryptoconditions/cc-oracles.html#oraclelist), [oraclesinfo](../cryptoconditions/cc-oracles.html#oraclesinfo), and [oraclessamples](../cryptoconditions/cc-oracles.html#oraclessamples) methods allow the user to find oracles and publishers, find more information about a specific oracle and publisher, and discover samples of an existing publisher, respectively
+- Anyone can subscribe to any specific publisher of any oracle using the [ oraclessubscribe](../cryptoconditions/cc-oracles.html#oraclessubscribe) method
+- A publisher can publish data using [oraclesdata](../cryptoconditions/cc-oracles.html#oraclesdata), and thereby collect their fee from their subscribers
 
 ## oraclesaddress
 
@@ -418,7 +421,9 @@ Response:
 
 **oraclesinfo oracletxid**
 
-The `oraclesinfo` method displays information about a specific oracle using `oracletxid`. Use `oracleslist` to get a list of all `oracletxid`'s available on the asset chain.
+The `oraclesinfo` method displays information about a specific oracle using `oracletxid`. 
+
+For a list of all `oracletxid`'s available on the asset chain, see the [oracleslist](../cryptoconditions/cc-oracles.html#oraclelist) method.
 
 ### Arguments:
 
@@ -539,7 +544,7 @@ Response:
 
 **oraclesregister oracletxid datafee**
 
-A user executes the `oraclesregister` method to register to become a data publisher for an existing oracle contract.
+A user executes the `oraclesregister` method to register as a data publisher for an existing oracle contract.
 
 The `datafee` property is set in satoshis, and should be `>=` the chain's default transaction fee.
 

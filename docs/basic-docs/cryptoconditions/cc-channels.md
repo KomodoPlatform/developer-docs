@@ -19,19 +19,19 @@ When a payment is executed properly with `channels`, as soon as it enters the me
 
 ## channelsaddress
 
-**channelsaddress (pubkey)**
+**channelsaddress pubkey**
 
 The `channelsaddress` method displays the various addresses and their balances for a specified pubkey.
 
-::: tip
-Usually, the pubkey used as the argument is the destination pubkey to which a channel is opened.
-:::
+Under normal circumstances, for the `pubkey` the user provides the destination address of the intended channel. 
+
+The global addresses are not used in the Channels CC module. For more information about unique CC addresses, see [this linked explanation.](../cryptoconditions/cryptoconditions-instructions.html#understanding-the-types-of-addresses)
 
 ### Arguments:
 
 | Structure | Type                       | Description            |
 | --------- | -------------------------- | ---------------------- |
-| pubkey    | (string, **not** optional) | the destination pubkey |
+| pubkey    | (string, required) | the destination pubkey |
 
 ### Response:
 
@@ -39,19 +39,15 @@ Usually, the pubkey used as the argument is the destination pubkey to which a ch
 | --------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | result                      | (string)  | whether the method executed successfully                                                                                                                                                                                                               |
 | ChannelsCCAddress           | (string)  | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                                                                                                   |
-| CCbalance                   | (numeric) | the unspent amount in the `ChannelsCCaddress`                                                                                                                                                                                                          |
-| ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey, generally used for markers                                                                                                                                                 |
-| ChannelsCC1of2Address       | (string)  | the channel address where funds are stored when channel is opened from the `pubkey` [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) to the supplied pubkey (if using coins)  |
-| ChannelsCC1of2TokensAddress | (string)  | the channel address where funds are stored when channel is opened from the `pubkey` [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) to the supplied pubkey (if using tokens) |
-| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey)                                      |
+| CCbalance                   | (numeric) | the unspent amount in `ChannelsCCaddress`                                                                                                                                                                                                          |
+| ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey; this is generally used for markers                                                                                                                                                 |
+| ChannelsCC1of2Address       | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using coins <!--I'm confused. Do we need this whole sentence? Seems like we can cut out everything about "from the pubkey to the ...", and just the keep the part at the end about this being used for channels that deal with coins |  from the `pubkey` [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) to the supplied pubkey -->  |
+| ChannelsCC1of2TokensAddress | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using tokens <!-- same | the channel address where funds are stored when channel is opened from the `pubkey` [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) to the supplied pubkey (if using tokens) --> |
+| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` [used to launch the daemon](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey)                                      |
 | PubkeyCCaddress(Channels)   | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` supplied as the argument                                                                                                                                       |
 | myCCbalance                 | (numeric) | the balance of `myccaddress` in coins                                                                                                                                                                                                                  |
-| myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey)                                                                           |
+| myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey)                                                                           |
 | mybalance                   | (numeric) | the balance of `myaddress` in coins                                                                                                                                                                                                                    |
-
-::: tip
-Every CC has one global CC address (`ChannelsCCAddress`) and one global normal address (`ChannelsNormalAddress`), and many CC use them. But in case of channels, as they function between two pubkeys, the global addresses are not used.
-:::
 
 #### :pushpin: Examples:
 
@@ -147,7 +143,7 @@ If no `open_tx_id` argument is included, the method returns a list of all channe
 
 | Structure | Type     | Description                                                                |
 | --------- | -------- | -------------------------------------------------------------------------- |
-| open_txid | (string) | the unique identifying txid that is created when a channel is first opened |
+| open_txid | (string, optional) | the unique identifying txid that is created when a channel is first opened |
 
 ### Response:
 

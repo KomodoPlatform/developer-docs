@@ -1,6 +1,6 @@
 # Crypto Conditions Instructions
 
-## Understanding the Types of Addresses Used in Crypto Conditions-Based Contracts
+## Understanding the Types of Addresses
 
 The method of transferring contract-related assets is often slightly different than the typical asset-chain transaction.
 
