@@ -1,6 +1,6 @@
 # Crypto Conditions Instructions
 
-## Understanding the Types of Addresses Used in Crypto Conditions-Based Contracts
+## Understanding the Types of Addresses
 
 The method of transferring contract-related assets is often slightly different than the typical asset-chain transaction.
 
@@ -70,7 +70,7 @@ To discover the addresses the pubkey provides, you will typically use an `addres
 }
 ```
 
-In this list, the `FaucetCCaddress` is the address that corresponds to the default `Faucet` contract. `myCCaddress` is the address your node uses for interacting with  the `Faucet` contract; it is based on the combination of your pubkey and the `Faucet` contract's unique `EVAL` code (which you do not typically see).
+In this list, the `FaucetCCaddress` is the address that corresponds to the default `Faucet` contract. `myCCaddress` is the address your node uses for interacting with the `Faucet` contract; it is based on the combination of your pubkey and the `Faucet` contract's unique `EVAL` code (which you do not typically see).
 
 The `myaddress` property is the unmodified address that corresponds to your pubkey.
 
