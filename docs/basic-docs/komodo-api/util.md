@@ -67,16 +67,16 @@ Response:
 
 The `decodeccopret` method decodes the OP RETURN data from a CC transaction to output the `EVALCODE` and `function id` of the method that produced the transaction.
 
-::: tip
-`the OP RETURN data from a CC transaction` can be found by following these steps:
+#### Finding the OP RETURN Data From a CC Transaction
+
+The OP RETURN data from a CC transaction can be found by following these steps:
 
 - Decode a transaction produced by a CC module using the method [getrawtransaction](./rawtransactions.html#getrawtransaction)'s verbose option.
-- Look for the `vout` key which is an array of jsons
-- In one of the jsons in the array, in the `scriptPubkey` json, there is the key named `type` whose value is `nulldata`
-- Copy the key: `hex` from that `scriptPubkey` json
+- Look for the `vout` key; it is an array of jsons
+- Find the json that contains the `scriptPubkey`, and which has the `type:nulldata` key pair
+- Copy the `hex` value from that `scriptPubkey` json
 - This is the hex-string that is expected as the argument for the above method.
-- You can verify that the transaction was produced by a CC module by checking if one of the `vout` json's `scriptPubkey` json has the key: `type` whose value is `cryptocondition`
-  :::
+- You can verify that the transaction was produced by a CC module by checking if one of the `vout` json's `scriptPubkey` json has the `type:cryptocondition` key pair
 
 ### Arguments:
 
@@ -159,7 +159,7 @@ The value `-1.0` is returned if not enough transactions and blocks have been obs
 
 | Structure | Type      | Description   |
 | --------- | --------- | ------------- |
-| n         | (numeric) | estimated fee |
+| n         | (numeric) | the estimated fee |
 
 #### :pushpin: Examples:
 
@@ -193,7 +193,7 @@ The value `-1.0` is returned if not enough transactions and blocks have been obs
 
 | Structure | Type      | Description        |
 | --------- | --------- | ------------------ |
-| n         | (numeric) | estimated priority |
+| n         | (numeric) | the estimated priority |
 
 #### :pushpin: Examples:
 
@@ -295,7 +295,11 @@ Response:
 
 **txnotarizedconfirmed txid**
 
-The `txnotarizedconfirmed` method returns true if the transaction is notarized on a chain that has dPoW or if confirmation number is greater than 60 on a chain that does not have dPoW.
+The `txnotarizedconfirmed` method returns information about a transaction's state of confirmation. 
+
+If the transaction is on a chain that has Komodo's dPoW security service, the method returns `true` if the transaction is notarized.
+
+If the chain does not have dPoW, the method returned `true` if the confirmation number is greater than `60`.
 
 ### Arguments:
 
@@ -307,7 +311,7 @@ The `txnotarizedconfirmed` method returns true if the transaction is notarized o
 
 | Structure | Type      | Description                               |
 | --------- | --------- | ----------------------------------------- |
-| "result"  | (boolean) | the value the check; either true or false |
+| "result"  | (boolean) | whether the transaction is confirmed, for dPoW-based chains; for non-dPoW chains, the value indicates whether the transaction has `60` or more confirmations |
 
 #### :pushpin: Examples:
 
