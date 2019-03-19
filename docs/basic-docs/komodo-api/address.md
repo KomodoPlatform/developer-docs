@@ -475,7 +475,9 @@ Response:
 
 **getsnapshot top**
 
-The `getsnapshot` method returns a snapshot of (address,amount) pairs at current height. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getsnapshot` method returns a snapshot of addresses and their amounts at the asset chain's current height. 
+
+The method requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 

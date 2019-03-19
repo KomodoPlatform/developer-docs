@@ -6,17 +6,17 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 **coinsupply height**
 
-The `coinsupply` method returns the coin supply information at a given block "height". If no height is given, the current height is used.
+The `coinsupply` method returns the coin supply information for the indicated block `height`. If no height is given, the method defaults to the blockchain's current height.
 
 ::: tip
-To use this method for large block heights, first execute the method for a small blockheight like `1000` then `10000` then increment the height by about `20000` each time you execute the call till you reach your desired height.
+To use this method for large block heights, first execute the method for a small block height, such as `1000`. Then execute the method for an incrementally higher block height, such as `10000`. Continue increasing the height until reaching the diesred height.
 :::
 
 ### Arguments:
 
 | Structure | Type                | Description  |
 | --------- | ------------------- | ------------ |
-| "height"  | (integer, optional) | Block height |
+| "height"  | (integer, optional) | the desired block height |
 
 ### Response:
 
@@ -140,7 +140,7 @@ The verbose input is optional. The default value is true, and it will return a j
 
 | Structure        | Type                              | Description                                                |
 | ---------------- | --------------------------------- | ---------------------------------------------------------- |
-| hash `OR` height | string `OR` number respectively   | the block hash `OR` the block height                       |
+| hash `OR` height | string `OR` number, respectively   | the block hash `OR` the block height                       |
 | verbose          | (boolean, optional, default=true) | true returns a json object, false returns hex-encoded data |
 
 ### Response (verbose = true):
@@ -148,8 +148,8 @@ The verbose input is optional. The default value is true, and it will return a j
 | Structure                       | Type               | Description                                                                                                                     |
 | ------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
 | "hash"                          | (string)           | the block hash (same as provided hash)                                                                                          |
-| "confirmations"                 | (numeric)          | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
-| "rawconfirmations"              | (numeric)          | the raw confirmations (number of blocks on top of this block) or -1 if the block is not on the main chain                       |
+| "confirmations"                 | (numeric)          | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "rawconfirmations"              | (numeric)          | the raw confirmations (number of blocks on top of this block); the returned value is `-1` if the block is not on the main chain                       |
 | "size"                          | (numeric)          | the block size                                                                                                                  |
 | "height"                        | (numeric)          | the block height or index (same as provided height)                                                                             |
 | "version"                       | (numeric)          | the block version                                                                                                               |
@@ -503,34 +503,34 @@ When the chain tip is at the last block before a network upgrade activation, the
 
 | Structure              | Type      | Description                                                                                                                                       |
 | ---------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "chain"                | (string)  | current network name as defined in BIP70 (main, test, regtest)                                                                                    |
+| "chain"                | (string)  | the current network name, as defined in BIP70 (main, test, regtest)                                                                                    |
 | "blocks"               | (numeric) | the current number of blocks processed in the server                                                                                              |
 | "headers"              | (numeric) | the current number of headers we have validated                                                                                                   |
 | "bestblockhash"        | (string)  | the hash of the currently best block                                                                                                              |
 | "difficulty"           | (numeric) | the current difficulty                                                                                                                            |
-| "verificationprogress" | (numeric) | estimate of verification progress [0..1]                                                                                                          |
-| "chainwork"            | (string)  | total amount of work in active chain, in hexadecimal                                                                                              |
+| "verificationprogress" | (numeric) | an estimate of verification progress [0..1]                                                                                                          |
+| "chainwork"            | (string)  | the total amount of work in the active chain, in hexadecimal                                                                                              |
 | "pruned"               | (bool)    | whether the current state is in pruning mode; if true, the blockchain will not keep all transaction and block information, to preserve disk space |
 | "size_on_disk"         | (numeric) | the size of the blockchain on disk, measured in bytes                                                                                             |
 | "commitments"          | (numeric) | the current number of note commitments in the commitment tree                                                                                     |
-| "softforks": { ..... } | (array)   | status of softforks in progress                                                                                                                   |
-| "id"                   | (string)  | name of softfork                                                                                                                                  |
-| "version"              | (numeric) | block version                                                                                                                                     |
-| "enforce": { ... }     | (object)  | progress toward enforcing the softfork rules for new-version blocks                                                                               |
+| "softforks": { ..... } | (array)   | the status of softforks in progress                                                                                                                   |
+| "id"                   | (string)  | the name of the softfork                                                                                                                                  |
+| "version"              | (numeric) | the block version                                                                                                                                     |
+| "enforce": { ... }     | (object)  | the progress toward enforcing the softfork rules for blocks of the new version                                                                               |
 | "status"               | (boolean) | true if threshold reached                                                                                                                         |
-| "found"                | (numeric) | number of blocks with the new version found                                                                                                       |
-| "required"             | (numeric) | number of blocks required to trigger                                                                                                              |
-| "window"               | (numeric) | maximum size of examined window of recent blocks                                                                                                  |
-| "reject": { ... }      | (object)  | progress toward rejecting pre-softfork blocks (same fields as "enforce")                                                                          |
-| "upgrades":            | (object)  | status of network upgrades                                                                                                                        |
-| "xxxxxxxxx_string":    | (string)  | branch ID of the upgrade                                                                                                                          |
-| "name"                 | (string)  | name of upgrade                                                                                                                                   |
-| "activationheight"     | (numeric) | block height of activation                                                                                                                        |
-| "status"               | (string)  | status of upgrade                                                                                                                                 |
-| "info"                 | (string)  | additional information about upgrade                                                                                                              |
+| "found"                | (numeric) | the number of blocks with the new version found                                                                                                       |
+| "required"             | (numeric) | the number of blocks required to trigger                                                                                                              |
+| "window"               | (numeric) | the maximum size of the examined window of recent blocks                                                                                                  |
+| "reject": { ... }      | (object)  | the progress toward rejecting pre-softfork blocks (same fields as "enforce")                                                                          |
+| "upgrades":            | (object)  | the status of network upgrades                                                                                                                        |
+| "xxxxxxxxx_string":    | (string)  | the branch ID of the upgrade                                                                                                                          |
+| "name"                 | (string)  | the name of upgrade                                                                                                                                   |
+| "activationheight"     | (numeric) | the block height of activation                                                                                                                        |
+| "status"               | (string)  | the status of the upgrade                                                                                                                                 |
+| "info"                 | (string)  | additional information about the upgrade                                                                                                              |
 | "consensus": { ..... } | (object)  | branch IDs of the current and upcoming consensus rules                                                                                            |
 | "chaintip"             | (string)  | branch ID used to validate the current chain tip                                                                                                  |
-| "nextblock"            | (string)  | branch ID that the next block will be validated under                                                                                             |
+| "nextblock"            | (string)  | branch ID under which the next block will be validated                                                                                             |
 
 #### :pushpin: Examples:
 
@@ -752,7 +752,9 @@ Response:
 
 **getblockhashes high low '{"noOrphans": bool, "logicalTimes": bool}'**
 
-The `getblockhashes` method returns an array of hashes of blocks within the timestamp range provided. It requires [timestampindex](../installations/common-runtime-parameters.html#timestampindex) to be enabled.
+The `getblockhashes` method returns an array of hashes of blocks within the timestamp range provided. 
+
+The method requires [timestampindex](../installations/common-runtime-parameters.html#timestampindex) to be enabled.
 
 ### Arguments:
 
@@ -761,8 +763,8 @@ The `getblockhashes` method returns an array of hashes of blocks within the time
 | high           | (numeric, required) | the newer block timestamp                   |
 | low            | (numeric, required) | the older block timestamp                   |
 | options        | (string, required)  | a json object                               |
-| "noOrphans"    | (boolean)           | will only include blocks on the main chain  |
-| "logicalTimes" | (boolean)           | will include logical timestamps with hashes |
+| "noOrphans"    | (boolean)           | a value of `true` implies that the method will only include blocks on the main chain  |
+| "logicalTimes" | (boolean)           | a value of `true` implies that the method will only include logical timestamps with hashes |
 
 ### Response:
 
@@ -858,8 +860,8 @@ The verbose input is optional. If verbose is false, the method returns a string 
 | Structure           | Type      | Description                                                                                                                     |
 | ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | "hash"              | (string)  | the block hash (same as provided)                                                                                               |
-| "confirmations"     | (numeric) | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
-| "rawconfirmations"  | (numeric) | the raw confirmations (number of blocks on top of this block) or -1 if the block is not on the main chain                       |
+| "confirmations"     | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "rawconfirmations"  | (numeric) | the raw confirmations (number of blocks on top of this block); if the block is not on the main chain, a value of `-1` is returned                       |
 | "height"            | (numeric) | the block height or index                                                                                                       |
 | "version"           | (numeric) | the block version                                                                                                               |
 | "merkleroot"        | (string)  | the merkle root                                                                                                                 |
@@ -970,14 +972,14 @@ The `getchaintips` method returns information about all known tips in the block 
 
 | Structure   | Type      | Description                                           |
 | ----------- | --------- | ----------------------------------------------------- |
-| "height"    | (numeric) | height of the chain tip                               |
-| "hash"      | (string)  | block hash of the tip                                 |
-| "branchlen" | (numeric) | zero for main chain                                   |
-| "status"    | (string)  | "active" for the main chain                           |
-| "height"    | (numeric) | height of the branch tip                              |
-| "hash"      | (string)  | blockhash of the branch tip                           |
-| "branchlen" | (numeric) | length of branch connecting the tip to the main chain |
-| "status"    | (string)  | status of the chain                                   |
+| "height"    | (numeric) | the height of the chain tip                               |
+| "hash"      | (string)  | the block hash of the tip                                 |
+| "branchlen" | (numeric) | `0` for main chain                                   |
+| "status"    | (string)  | `"active"` for the main chain                           |
+| "height"    | (numeric) | the height of the branch tip                              |
+| "hash"      | (string)  | the blockhash of the branch tip                           |
+| "branchlen" | (numeric) | the length of the branch connecting the tip of the main chain |
+| "status"    | (string)  | the status of the chain                                   |
 
 ### Possible values for the returned status property:
 
@@ -1045,7 +1047,7 @@ The method `getchaintxstats` returns statistics about the total number and rate 
 
 | Structure | Type                | Description                                 |
 | --------- | ------------------- | ------------------------------------------- |
-| nblocks   | (numeric, optional) | the number of blocks in averaging window.   |
+| nblocks   | (numeric, optional) | the number of blocks in the averaging window.   |
 | blockhash | (string, optional)  | the hash of the block which ends the window |
 
 ### Response:
@@ -1053,12 +1055,12 @@ The method `getchaintxstats` returns statistics about the total number and rate 
 | Structure                 | Type      | Description                                                                                           |
 | ------------------------- | --------- | ----------------------------------------------------------------------------------------------------- |
 | "time"                    | (numeric) | the timestamp for the final block in the window in UNIX format                                        |
-| "txcount"                 | (numeric) | the total number of transactions in the chain up to that point                                        |
+| "txcount"                 | (numeric) | the total number of transactions in the chain up to this point                                        |
 | "window_final_block_hash" | (string)  | the hash of the final block in the window                                                             |
-| "window_block_count"      | (numeric) | size of the window in number of blocks                                                                |
-| "window_tx_count"         | (numeric) | the number of transactions in the window; only returned if `window_block_count` is > 0.               |
-| "window_interval"         | (numeric) | the elapsed time in the window in seconds; only returned if `window_block_count` is > 0.              |
-| "txrate"                  | (numeric) | the average rate of transactions per second in the window; only returned if `window_interval` is > 0. |
+| "window_block_count"      | (numeric) | the size of the window in the number of blocks                                                                |
+| "window_tx_count"         | (numeric) | the number of transactions in the window; this value is only returned if `window_block_count` is > 0.               |
+| "window_interval"         | (numeric) | the elapsed time in the window in seconds; this value is only returned if `window_block_count` is > 0.              |
+| "txrate"                  | (numeric) | the average rate of transactions per second in the window; this value is only returned if `window_interval` is > 0. |
 
 #### :pushpin: Examples:
 
@@ -1162,7 +1164,7 @@ Response:
 
 **getlastsegidstakes depth**
 
-The `getlastsegidstakes` method returns an object containing the number of blocks staked by each segid in the last X (value: `depth`) blocks.
+The `getlastsegidstakes` method returns an object containing the number of blocks staked by each segid in the last `X` number of blocks, where the value of `X` is equal to the indicated `depth`.
 
 ::: tip Note
 Only applies to `-ac_staked` asset chains
@@ -1172,7 +1174,7 @@ Only applies to `-ac_staked` asset chains
 
 | Structure | Type                | Description                       |
 | --------- | ------------------- | --------------------------------- |
-| depth     | (numeric, required) | the number of blocks to scan back |
+| depth     | (numeric, required) | the number of blocks to scan, starting from the current height and working backwards |
 
 ### Response:
 
@@ -1182,7 +1184,7 @@ Only applies to `-ac_staked` asset chains
 | "PoW"     | (numeric)     | the number of blocks created through `PoW`                                   |
 | "PoSPerc" | (numeric)     | the percentage of blocks created through `PoS`                               |
 | "SegIds"  | (json object) | the json containing the data of number of blocks in each `SegId`             |
-| "n"       | (numeric)     | number of blocks staked from `SegId n` in the last X (value: `depth`) blocks |
+| "n"       | (numeric)     | the number of blocks staked from `SegId n` in the last X blocks, where X is equal to the indicated `depth` |
 
 #### :pushpin: Examples:
 
@@ -1267,9 +1269,9 @@ The `getmempoolinfo` method returns details on the active state of the transacti
 
 | Structure | Type      | Description                        |
 | --------- | --------- | ---------------------------------- |
-| "size"    | (numeric) | current tx count                   |
-| "bytes"   | (numeric) | sum of all tx sizes                |
-| "usage"   | (numeric) | total memory usage for the mempool |
+| "size"    | (numeric) | the current transaction count                   |
+| "bytes"   | (numeric) | the sum of all transaction sizes                |
+| "usage"   | (numeric) | the total memory usage for the mempool |
 
 #### :pushpin: Examples:
 
@@ -1336,14 +1338,14 @@ The verbose input is optional and is false by default. When it is true, the meth
 | Structure                  | Type          | Description                                                         |
 | -------------------------- | ------------- | ------------------------------------------------------------------- |
 | "transaction_id": { .... } | (json object) |
-| "size"                     | (numeric)     | transaction size in bytes                                           |
-| "fee"                      | (numeric)     | transaction fee                                                     |
-| "time"                     | (numeric)     | local time transaction entered pool in seconds since 1 Jan 1970 GMT |
-| "height"                   | (numeric)     | block height when transaction entered pool                          |
-| "startingpriority"         | (numeric)     | priority when transaction entered pool                              |
-| "currentpriority"          | (numeric)     | transaction priority now                                            |
+| "size"                     | (numeric)     | the transaction size in bytes                                           |
+| "fee"                      | (numeric)     | the transaction fee                                                     |
+| "time"                     | (numeric)     | the local time transaction entered pool in seconds since 1 Jan 1970 GMT |
+| "height"                   | (numeric)     | the block height wherein the transaction entered the mempool                          |
+| "startingpriority"         | (numeric)     | the priority when the transaction entered the mempool                              |
+| "currentpriority"          | (numeric)     | the transaction priority at the current height                                            |
 | "depends": { ... }         | (array)       | unconfirmed transactions used as inputs for this transaction        |
-| "transaction_id"           | (string)      | parent transaction id                                               |
+| "transaction_id"           | (string)      | the parent transaction id                                               |
 
 #### :pushpin: Examples:
 
@@ -1401,13 +1403,15 @@ Response:
 
 **getspentinfo '{"txid": "txid_string", "index"}'**
 
-The `getspentinfo` method returns the transaction id and index where the given output is spent. It requires [spentindex](../installations/common-runtime-parameters.html#spentindex) to be enabled.
+The `getspentinfo` method returns the transaction id and index where the given output is spent. 
+
+The method requires [spentindex](../installations/common-runtime-parameters.html#spentindex) to be enabled.
 
 ### Arguments:
 
 | Structure | Type     | Description                |
 | --------- | -------- | -------------------------- |
-| "txid"    | (string) | the hex string of the txid |
+| "txid"    | (string) | the hex string of the transaction id |
 | "index"   | (number) | the output's index         |
 
 ### Response:
@@ -1468,7 +1472,7 @@ The `gettxout` method returns details about an unspent transaction output.
 | Structure      | Type                | Description                    |
 | -------------- | ------------------- | ------------------------------ |
 | "txid"         | (string, required)  | the transaction id             |
-| vout           | (numeric, required) | vout value                     |
+| vout           | (numeric, required) | the vout value                     |
 | includemempool | (boolean, optional) | whether to include the mempool |
 
 ### Response:
@@ -1476,7 +1480,7 @@ The `gettxout` method returns details about an unspent transaction output.
 | Structure          | Type               | Description                                                                                                                     |
 | ------------------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
 | "bestblock"        | (string)           | the block hash                                                                                                                  |
-| "confirmations"    | (numeric)          | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "confirmations"    | (numeric)          | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
 | "rawconfirmations" | (numeric)          | the raw confirmations (number of blocks on top of this block with this transaction)                                             |
 | "value"            | (numeric)          | the transaction value                                                                                                           |
 | "scriptPubKey":    | (json object)      |                                                                                                                                 |
@@ -1487,7 +1491,7 @@ The `gettxout` method returns details about an unspent transaction output.
 | "addresses"        | (array of strings) | an array of Komodo addresses                                                                                                    |
 | "address"          | (string)           | the blockchain address                                                                                                          |
 | "version"          | (numeric)          | the version                                                                                                                     |
-| "coinbase"         | (boolean)          | coinbase or not                                                                                                                 |
+| "coinbase"         | (boolean)          | whether this is a coinbase transaction                                                                                                                 |
 
 #### :pushpin: Examples:
 
@@ -1564,7 +1568,7 @@ The <b>gettxoutproof</b> method relies on the <b>txindex</b> runtime parameter. 
 | Structure   | Type               | Description                                             |
 | ----------- | ------------------ | ------------------------------------------------------- |
 | "txid"      | (string)           | a transaction hash                                      |
-| "blockhash" | (string, optional) | if specified, looks for the relevant txid in this block |
+| "blockhash" | (string, optional) | if specified, the method looks for the relevant transaction id in this block hash |
 
 ### Response:
 
@@ -1676,22 +1680,22 @@ This feature is only available for asset chains.
 
 | Structure | Type               | Description                   |
 | --------- | ------------------ | ----------------------------- |
-| key       | (string, required) | search the chain for this key |
+| key       | (string, required) | the key for which the user desires to search the chain |
 
 ### Response:
 
 | Structure       | Type      | Description                                           |
 | --------------- | --------- | ----------------------------------------------------- |
-| "coin"          | (string)  | chain the key is stored on                            |
-| "currentheight" | (numeric) | current height of the chain                           |
-| "key"           | (string)  | key                                                   |
-| "keylen"        | (string)  | length of the key                                     |
-| "owner"         | (string)  | hex string representing the owner of the key          |
-| "height"        | (numeric) | height the key was stored at                          |
-| "expiration"    | (numeric) | height the key will expire                            |
-| "flags"         | (numeric) | 1 if the key was created with a password; 0 otherwise |
-| "value"         | (string)  | stored value                                          |
-| "valuesize"     | (string)  | amount of characters stored                           |
+| "coin"          | (string)  | the chain on which the key is stored                            |
+| "currentheight" | (numeric) | the current height of the chain                           |
+| "key"           | (string)  | the key                                                   |
+| "keylen"        | (string)  | the length of the key                                     |
+| "owner"         | (string)  | a hex string representing the owner of the key          |
+| "height"        | (numeric) | the height at which the key was stored                          |
+| "expiration"    | (numeric) | the height at which the key will expire                            |
+| "flags"         | (numeric) | `1` if the key was created with a password; `0` otherwise |
+| "value"         | (string)  | the stored value                                          |
+| "valuesize"     | (string)  | the amount of characters stored                           |
 
 #### :pushpin: Examples:
 
@@ -1770,16 +1774,16 @@ This feature is available only for asset chains. The maximum value memory size i
 
 | Structure    | Type      | Description                           |
 | ------------ | --------- | ------------------------------------- |
-| "coin"       | (string)  | chain the key is stored on            |
-| "height"     | (numeric) | height the key was stored at          |
-| "expiration" | (numeric) | height the key will expire            |
-| "flags"      | (string)  | amount of days the key will be stored |
-| "key"        | (numeric) | stored key                            |
-| "keylen"     | (numeric) | length of the key                     |
-| "value"      | (numeric) | stored value                          |
-| "valuesize"  | (string)  | length of the stored value            |
-| "fee"        | (string)  | transaction fee paid to store the key |
-| "txid"       | (string)  | transaction id                        |
+| "coin"       | (string)  | the chain on which the key is stored            |
+| "height"     | (numeric) | the height at which the key was stored          |
+| "expiration" | (numeric) | the height at which the key will expire            |
+| "flags"      | (string)  | the amount of days the key will be stored |
+| "key"        | (numeric) | the stored key                            |
+| "keylen"     | (numeric) | the length of the key                     |
+| "value"      | (numeric) | the stored value                          |
+| "valuesize"  | (string)  | the length of the stored value            |
+| "fee"        | (string)  | the transaction fee paid to store the key |
+| "txid"       | (string)  | the transaction id                        |
 
 #### :pushpin: Examples:
 
@@ -1857,7 +1861,7 @@ The `minerids` method returns information about the notary nodes and external mi
 | "notaryid"   | (number) | the id of the specific notary node        |
 | "kmdaddress" | (string) | the KMD address of the notary node        |
 | "pubkey"     | (string) | the public signing key of the notary node |
-| "blocks"     | (number) |
+| "blocks"     | (number) | |
 
 #### :pushpin: Examples:
 
@@ -1950,7 +1954,7 @@ Either or both of the height and timestamp parameters will suffice.
 | "pubkey"            | (string) | the public signing key of the indicated notary node, used on the KMD network to create notary-node authorized transactions |
 | "BTCaddress"        | (string) | the public BTC address the notary node uses on the BTC blockchain to create notarizations                                  |
 | "KMDaddress"        | (string) | the public KMD address the notary node uses on the KMD blockchain to create notarizations                                  |
-| "numnotaries"       | (number) | the number of notary nodes; typically it is 64, but may vary on rare circumstances, such as during election seasons        |
+| "numnotaries"       | (number) | the number of notary nodes; typically this value is 64, but the value may vary on rare circumstances, such as during election seasons        |
 | "height"            | (number) | the block height number at which the notary-node information applies                                                       |
 | "timestamp"         | (number) | the timestamp at which the notary-node information applies                                                                 |
 
@@ -2031,7 +2035,7 @@ Depending on the state of your blockchain database and daemon, this call can tak
 
 | Structure  | Type      | Description                                 |
 | ---------- | --------- | ------------------------------------------- |
-| true/false | (boolean) | verification was successful or unsuccessful |
+| true/false | (boolean) | whether the verification was successful  |
 
 #### :pushpin: Examples:
 
@@ -2081,7 +2085,7 @@ The `verifytxoutproof` method verifies that a proof points to a transaction in a
 
 | Structure | Type     | Description                                                                                |
 | --------- | -------- | ------------------------------------------------------------------------------------------ |
-| "txid"    | (string) | the transaction ids which the proof commits to; the array is empty if the proof is invalid |
+| "txid"    | (string) | the transaction ids to which the proof commits; the array is empty if the proof is invalid |
 
 #### :pushpin: Examples:
 
