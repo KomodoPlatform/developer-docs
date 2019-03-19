@@ -110,8 +110,8 @@ While the code behind Komodo's technology is complex, the good news is, the code
 
 ## Komodo's DEX Software is an Industry-Wide Invitation
 
-Komodo DEX software is open source, meaning that we do not keep the software's source code private. Also, the Komodo team does not wish to create a network that is closed to other financially motivated businesses and organizations seeking profit in the cryptocurrency-exchange industry. 
+Komodo DEX software is open source, meaning that we do not keep the software's source code private. Also, the Komodo team is creating a network that is open to other financially motivated businesses and organizations seeking profit in the cryptocurrency-exchange industry. 
 
-Many opportunities are available for cryptocurrency-exchange entrepreneurs to build their own audiences and businesses using Komodo software. Entrepreneurs can create their own market places on the main Komodo network for trading, or they can trade their own private networks. Developers can use Komodo's back-end software API to integrate atomic-swap DEX functionality into their existing or upcoming software innovations. Enterprise and other large-scale companies can reach out to Komodo for integration with Komodo technology, or even for consulting services.
+Many opportunities are available for cryptocurrency-exchange entrepreneurs to build their own audiences and businesses using Komodo software. Entrepreneurs can create their own market places on the main Komodo network for trading, or they can create their own private networks. Developers can use Komodo's back-end software API to feature atomic-swap DEX functionality in their existing or upcoming software innovations. Enterprise and other large-scale companies can reach out to Komodo for integration with Komodo technology, or even for consulting services.
 
 [Please reach out to the Komodo team for further information.](https://komodoplatform.com/contact-us/)
