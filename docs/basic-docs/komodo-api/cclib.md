@@ -150,7 +150,7 @@ The library is loaded at runtime using the [-ac_cclib](../installations/asset-ch
 | CClib           | (string)                | the name of the given CClibrary                                                                                                                           |
 | methods         | (array of json objects) | an array containing json objects, each of which describe a method of a module                                                                             |
 | evalcode        | (decimal number)        | the `EVALCODE` of the given CryptoConditions module                                                                                                       |
-| funcid          | (character)             | for methods that generate a transaction, this is the `funcid` in the `opreturn`; for methods that do not generate a transaction, this value is a mnemonic |
+| funcid          | (character)             | this value is a mnemonic for all generated transactions; if the provided method does not generate a transaction, this value is a single character that has no relevant meaning |
 | name            | (string)                | the name of the CryptoConditions module                                                                                                                   |
 | method          | (string)                | the name of the method                                                                                                                                    |
 | help            | (string)                | help for the method, including a description of the method's arguments                                                                                    |
@@ -165,6 +165,8 @@ as it is currently the last part says that if the method doesn't generate txn th
 for methods that generate a transaction, this is the `funcid` in the `opreturn`; for methods that do not generate a transaction, this value is a just a mnemonic , i.e., its just one character and useful for nothing.
 ```
  this needs to be written more coherently
+
+Sidd: How is that?
 -->
 
 #### :pushpin: Examples:

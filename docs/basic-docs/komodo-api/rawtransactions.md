@@ -225,13 +225,13 @@ The `decodescript` method decodes a hex-encoded script.
 
 | Structure            | Type               | Description             |
 | -------------------- | ------------------ | ----------------------- |
-| "asm"                | (string)           | script public key       |
-| "hex"                | (string)           | hex encoded public key  |
+| "asm"                | (string)           | the script public key       |
+| "hex"                | (string)           | the hex-encoded public key  |
 | "type"               | (string)           | the output type         |
 | "reqSigs"            | (numeric)          | the required signatures |
 | "addresses": [ ... ] | (array of strings) |
 | "address"            | (string)           | the address             |
-| "p2sh"               | (string)           | script address          |
+| "p2sh"               | (string)           | the script address          |
 
 #### :pushpin: Examples:
 
@@ -434,7 +434,7 @@ This method relies on the <b>txindex</b> runtime parameter, which is enabled by 
 | "hex"                   | (string)                                       | output note ciphertext                                                                                                          |
 | "blockhash"             | (string)                                       | the block hash                                                                                                                  |
 | "height"                | (numeric)                                      | height of the block                                                                                                             |
-| "confirmations"         | (numeric)                                      | confirmation number that is dPoW aware; See this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "confirmations"         | (numeric)                                      | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
 | "rawconfirmations"      | (numeric)                                      | the raw confirmations (number of blocks on top of this transaction's block)                                                     |
 | "time"                  | (numeric)                                      | the transaction time in seconds since epoch (Jan 1 1970 GMT)                                                                    |
 | "blocktime"             | (numeric)                                      | the block time in seconds since epoch (Jan 1 1970 GMT)                                                                          |
@@ -618,7 +618,7 @@ Also see [createrawtransaction](../komodo-api/rawtransactions.html#createrawtran
 | Structure     | Type                               | Description                           |
 | ------------- | ---------------------------------- | ------------------------------------- |
 | "hexstring"   | (string, required)                 | the hex string of the raw transaction |
-| allowhighfees | (boolean, optional, default=false) | allow high fees                       |
+| allowhighfees | (boolean, optional, default=false) | whether to allow high fees                       |
 
 ### Response:
 
@@ -706,14 +706,14 @@ For full details, please see <a href="https://bitcoin.org/en/developer-reference
 | Structure      | Type                            | Description                                                         |
 | -------------- | ------------------------------- | ------------------------------------------------------------------- |
 | "hexstring"    | (string, required)              | the transaction hex string                                          |
-| "prevtxs"      | (string, optional)              | an json array of previous dependent transaction outputs             |
+| "prevtxs"      | (string, optional)              | a json array of previous dependent transaction outputs             |
 | "txid"         | (string, required)              | the transaction id                                                  |
 | "vout"         | (numeric, required)             | the output number                                                   |
-| "scriptPubKey" | (string, required)              | script key                                                          |
+| "scriptPubKey" | (string, required)              | the script key                                                          |
 | "redeemScript" | (string, required for P2SH)     | redeem script                                                       |
 | "amount"       | (numeric, required)             | the amount spent                                                    |
 | "privatekeys"  | (string, optional)              | a json array of base58-encoded private keys for signing             |
-| "privatekey"   | (string)                        | private key in base58-encoding                                      |
+| "privatekey"   | (string)                        | the private key in base58-encoding                                      |
 | "sighashtype"  | (string, optional, default=ALL) | the signature hash type; the following options are available: "ALL" | "NONE" | "SINGLE" | "ALL | ANYONECANPAY" | "NONE | ANYONECANPAY" | "SINGLE | ANYONECANPAY" |
 
 ### Response:
@@ -726,7 +726,7 @@ For full details, please see <a href="https://bitcoin.org/en/developer-reference
 | "txid"      | (string)  | the hash of the referenced, previous transaction         |
 | "vout"      | (numeric) | the index of the output to spend and used as input       |
 | "scriptSig" | (string)  | the hex-encoded signature script                         |
-| "sequence"  | (numeric) | script sequence number                                   |
+| "sequence"  | (numeric) | the script sequence number                                   |
 | "error"     | (string)  | verification or signing error related to the input       |
 
 #### :pushpin: Examples:
