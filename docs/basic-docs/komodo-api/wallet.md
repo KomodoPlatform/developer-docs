@@ -20,7 +20,7 @@ DEPRECATED: If <b>account</b> is specified, the method assigns the multi-signatu
 | ------------ | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | nrequired    | (numeric, required) | the number of required keys (out of the `n` submitted)                                                                                                   |
 | "keysobject" | (string, required)  | a json array of addresses or hex-encoded public keys                                                                                                     |
-| "address"    | (string)            | the address or hex-encoded public key                                                                                                                        |
+| "address"    | (string)            | the address or hex-encoded public key                                                                                                                    |
 | "account"    | (string, optional)  | DEPRECATED: if provided, "account" MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 
 ### Response:
@@ -179,8 +179,8 @@ This method requires that the coin daemon have the [exportdir](../installations/
 
 ### Arguments:
 
-| Structure  | Type               | Description                                                                                                                       |
-| ---------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| Structure  | Type               | Description                                                                                                                           |
+| ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
 | "filename" | (string, required) | the filename, saved in the folder set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter |
 
 ### Response:
@@ -773,34 +773,34 @@ The `gettransaction` method queries detailed information about transaction `txid
 
 ### Response:
 
-| Structure               | Type                    | Description                                                                                                                     |
-| ----------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| "amount"                | (numeric)               | the transaction amount                                                                                                          |
+| Structure               | Type                    | Description                                                                                                                       |
+| ----------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| "amount"                | (numeric)               | the transaction amount                                                                                                            |
 | "confirmations"         | (numeric)               | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
-| "rawconfirmations"      | (numeric)               | the raw confirmations (number of blocks on top of this transaction's block)                                                     |
-| "blockhash"             | (string)                | the block hash                                                                                                                  |
-| "blockindex"            | (numeric)               | the block index                                                                                                                 |
-| "blocktime"             | (numeric)               | the time in seconds since epoch (1 Jan 1970 GMT)                                                                                |
-| "txid"                  | (string)                | the transaction id                                                                                                              |
-| "time"                  | (numeric)               | the transaction time in seconds since epoch (1 Jan 1970 GMT)                                                                    |
-| "timereceived"          | (numeric)               | the time received in seconds since epoch (1 Jan 1970 GMT)                                                                       |
+| "rawconfirmations"      | (numeric)               | the raw confirmations (number of blocks on top of this transaction's block)                                                       |
+| "blockhash"             | (string)                | the block hash                                                                                                                    |
+| "blockindex"            | (numeric)               | the block index                                                                                                                   |
+| "blocktime"             | (numeric)               | the time in seconds since epoch (1 Jan 1970 GMT)                                                                                  |
+| "txid"                  | (string)                | the transaction id                                                                                                                |
+| "time"                  | (numeric)               | the transaction time in seconds since epoch (1 Jan 1970 GMT)                                                                      |
+| "timereceived"          | (numeric)               | the time received in seconds since epoch (1 Jan 1970 GMT)                                                                         |
 | "details" : [ ... ]     | (array)                 |
-| "account"               | (string)                | DEPRECATED the account name involved in the transaction; can be "" for the default account                                      |
-| "address"               | (string)                | the address involved in the transaction                                                                                         |
-| "category"              | (string)                | the category - either `send` or `receive`                                                                                       |
-| "amount"                | (numeric)               | the amount                                                                                                                      |
-| "vout"                  | (numeric)               | the vout value                                                                                                                  |
+| "account"               | (string)                | DEPRECATED the account name involved in the transaction; can be "" for the default account                                        |
+| "address"               | (string)                | the address involved in the transaction                                                                                           |
+| "category"              | (string)                | the category - either `send` or `receive`                                                                                         |
+| "amount"                | (numeric)               | the amount                                                                                                                        |
+| "vout"                  | (numeric)               | the vout value                                                                                                                    |
 | "vjoinsplit" : [ ... ]  | (array of json objects) |
-| "anchor"                | (string)                | merkle root of note commitment tree                                                                                             |
+| "anchor"                | (string)                | merkle root of note commitment tree                                                                                               |
 | "nullifiers" : [ ... ]  | (array of strings)      |
 | "hex"                   | (string)                |
 | "commitments" : [ ... ] | (array of strings)      |
 | "hex"                   | (string)                |
 | "macs" : [ ... ]        | (array of strings)      |
 | "hex"                   | (string)                |
-| "vpub_old"              | (numeric)               | the amount removed from the transparent value pool                                                                              |
-| "vpub_new"              | (numeric)               | the amount added to the transparent value pool                                                                                  |
-| "hex"                   | (string)                | raw data for transaction                                                                                                        |
+| "vpub_old"              | (numeric)               | the amount removed from the transparent value pool                                                                                |
+| "vpub_new"              | (numeric)               | the amount added to the transparent value pool                                                                                    |
+| "hex"                   | (string)                | raw data for transaction                                                                                                          |
 
 #### :pushpin: Examples:
 
@@ -1518,13 +1518,13 @@ The `listreceivedbyaccount` method lists balances by account.
 
 ### Response:
 
-| Structure           | Type      | Description                                                                                                                     |
-| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| "involvesWatchonly" | (bool)    | only returned if imported addresses were involved in transaction                                                                |
-| "account"           | (string)  | the account name of the receiving account                                                                                       |
-| "amount"            | (numeric) | the total amount received by addresses with this account                                                                        |
+| Structure           | Type      | Description                                                                                                                       |
+| ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| "involvesWatchonly" | (bool)    | only returned if imported addresses were involved in transaction                                                                  |
+| "account"           | (string)  | the account name of the receiving account                                                                                         |
+| "amount"            | (numeric) | the total amount received by addresses with this account                                                                          |
 | "confirmations"     | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
-| "rawconfirmations"  | (numeric) | the raw confirmations of the most recent transaction included (number of blocks on top of this transaction's block)             |
+| "rawconfirmations"  | (numeric) | the raw confirmations of the most recent transaction included (number of blocks on top of this transaction's block)               |
 
 #### :pushpin: Examples:
 
@@ -1607,14 +1607,14 @@ The `listreceivedbyaddress` method lists balances by receiving address.
 
 ### Response:
 
-| Structure           | Type      | Description                                                                                                                     |
-| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| "involvesWatchonly" | (bool)    | only returned if imported addresses were involved in transaction                                                                |
-| "address"           | (string)  | the receiving address                                                                                                           |
-| "account"           | (string)  | DEPRECATED the account of the receiving address; the default account is ""                                                      |
-| "amount"            | (numeric) | the total amount received by the address                                                                                        |
+| Structure           | Type      | Description                                                                                                                       |
+| ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| "involvesWatchonly" | (bool)    | only returned if imported addresses were involved in transaction                                                                  |
+| "address"           | (string)  | the receiving address                                                                                                             |
+| "account"           | (string)  | DEPRECATED the account of the receiving address; the default account is ""                                                        |
+| "amount"            | (numeric) | the total amount received by the address                                                                                          |
 | "confirmations"     | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
-| "rawconfirmations"  | (numeric) | the raw confirmations of the most recent transaction included (number of blocks on top of this transaction's block)             |
+| "rawconfirmations"  | (numeric) | the raw confirmations of the most recent transaction included (number of blocks on top of this transaction's block)               |
 
 #### :pushpin: Examples:
 
@@ -1750,7 +1750,7 @@ The `listsinceblock` method queries all transactions in blocks since block `bloc
 | "amount"           | (numeric) | the amount of the relevant currency -- negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category, and for the `move` category for inbound funds. |
 | "vout"             | (numeric) | the vout value                                                                                                                                                                                                     |
 | "fee"              | (numeric) | the amount of the fee; this value is negative and only available for the `send` category of transactions                                                                                                           |
-| "confirmations"    | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info                                                                                    |
+| "confirmations"    | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info                                                                                  |
 | "rawconfirmations" | (numeric) | the raw confirmations of the transaction; available for `send` and `receive` category of transactions (number of blocks on top of this transaction's block)                                                        |
 | "blockhash"        | (string)  | the block hash containing the transaction; available for the `send` and `receive` categories of transactions                                                                                                       |
 | "blockindex"       | (numeric) | the block index containing the transaction; available for the `send` and `receive` categories of transactions                                                                                                      |
@@ -1900,7 +1900,7 @@ The `listtransactions` method returns up to `count` most recent transactions ski
 | "amount"           | (numeric) | The amount. This value is negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category and for the `move` category for inbound funds. |
 | "vout"             | (numeric) | the vout value                                                                                                                                                                                       |
 | "fee"              | (numeric) | the amount of the fee; this is negative and only available for the `send` category of transactions                                                                                                   |
-| "confirmations"    | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info                                                                      |
+| "confirmations"    | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info                                                                    |
 | "rawconfirmations" | (numeric) | the raw confirmations of the transaction; available for `send` and `receive` category of transactions (number of blocks on top of this transaction's block)                                          |
 | "blockhash"        | (string)  | the block hash containing the transaction; available for the `send` and `receive` categories of transactions                                                                                         |
 | "blockindex"       | (numeric) | the block index containing the transaction; available for the `send` and `receive` categories of transactions                                                                                        |
@@ -2041,17 +2041,17 @@ The `listunspent` method returns an array of unspent transaction outputs, with a
 
 ### Response:
 
-| Structure          | Type      | Description                                                                                                                     |
-| ------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| "txid"             | (string)  | the transaction id                                                                                                              |
-| "vout"             | (numeric) | the vout value                                                                                                                  |
-| "generated"        | (boolean) | true if txout is a coinbase transaction output                                                                                  |
-| "address"          | (string)  | the address                                                                                                                     |
-| "account"          | (string)  | DEPRECATED the associated account, or "" for the default account                                                                |
-| "scriptPubKey"     | (string)  | the script key                                                                                                                  |
-| "amount"           | (numeric) | the transaction amount                                                                                                          |
+| Structure          | Type      | Description                                                                                                                       |
+| ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| "txid"             | (string)  | the transaction id                                                                                                                |
+| "vout"             | (numeric) | the vout value                                                                                                                    |
+| "generated"        | (boolean) | true if txout is a coinbase transaction output                                                                                    |
+| "address"          | (string)  | the address                                                                                                                       |
+| "account"          | (string)  | DEPRECATED the associated account, or "" for the default account                                                                  |
+| "scriptPubKey"     | (string)  | the script key                                                                                                                    |
+| "amount"           | (numeric) | the transaction amount                                                                                                            |
 | "confirmations"    | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
-| "rawconfirmations" | (numeric) | the raw confirmations (number of blocks on top of this transaction's block)                                                     |
+| "rawconfirmations" | (numeric) | the raw confirmations (number of blocks on top of this transaction's block)                                                       |
 
 #### :pushpin: Examples:
 
@@ -2233,7 +2233,7 @@ The `move` method moves a specified amount from one account in your wallet to an
 | ------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | "fromaccount" | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 | "toaccount"   | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
-| amount        | (numeric)                      | the quantity to move between accounts                                                                                     |
+| amount        | (numeric)                      | the quantity to move between accounts                                                                                 |
 | minconf       | (numeric, optional, default=1) | only use funds with at least this many confirmations                                                                  |
 | "comment"     | (string, optional)             | an optional comment, stored in the wallet only                                                                        |
 
@@ -3552,7 +3552,7 @@ See also <b>z_exportkey</b>.
 | -------------- | -------------------------------------------- | --------------------------------------------------------------------------- |
 | "z_privatekey" | (string, required)                           | the z_privatekey (see [z_exportkey](../komodo-api/wallet.html#z-exportkey)) |
 | rescan         | (string, optional, default=`"whenkeyisnew"`) | rescan the wallet for transactions; can be `yes`                            | `no` | `whenkeyisnew` |
-| startHeight    | (numeric, optional, default=0)               | the block height at which to begin the rescan                                                |
+| startHeight    | (numeric, optional, default=0)               | the block height at which to begin the rescan                               |
 
 ### Response:
 
@@ -3636,11 +3636,11 @@ The optional parameters are currently not functional for KMD-based blockchains.
 
 ### Arguments:
 
-| Structure     | Type                                       | Description                                        |
-| ------------- | ------------------------------------------ | -------------------------------------------------- |
-| "viewing_key" | (string, required)                         | the viewing key                                    |
+| Structure     | Type                                       | Description                                                   |
+| ------------- | ------------------------------------------ | ------------------------------------------------------------- |
+| "viewing_key" | (string, required)                         | the viewing key                                               |
 | rescan        | (string, optional, default="whenkeyisnew") | whether to rescan the wallet for transactions; can be `"yes"` | `"no"` | `"whenkeyisnew"` |
-| startHeight   | (numeric, optional, default=0)             | block height to start rescan                       |
+| startHeight   | (numeric, optional, default=0)             | block height to start rescan                                  |
 
 ### Response:
 
@@ -3913,17 +3913,17 @@ The `z_listreceivedbyaddress` method returns a list of amounts received by a z a
 
 An array of json objects, each having the properties below.
 
-| Structure          | Type                                         | Description                                                                                                                     |
-| ------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| txid               | (string)                                     | the transaction id                                                                                                              |
-| amount             | (numeric)                                    | the amount of value in the note                                                                                                 |
-| memo               | (string)                                     | hexadecimal string representation of memo field                                                                                 |
+| Structure          | Type                                         | Description                                                                                                                       |
+| ------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| txid               | (string)                                     | the transaction id                                                                                                                |
+| amount             | (numeric)                                    | the amount of value in the note                                                                                                   |
+| memo               | (string)                                     | hexadecimal string representation of memo field                                                                                   |
 | "confirmations"    | (numeric)                                    | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
-| "rawconfirmations" | (numeric)                                    | the raw confirmations (number of blocks on top of this transaction's block)                                                     |
-| jsindex            | (sprout)                                     | (numeric, received only by sprout addresses) the joinsplit index                                                                |
-| jsoutindex         | (numeric, received only by sprout addresses) | the output index of the joinsplit                                                                                               |
-| outindex           | (numeric, sapling)                           | the output index                                                                                                                |
-| change             | (boolean)                                    | true if the address that received the note is also one of the sending addresses                                                 |
+| "rawconfirmations" | (numeric)                                    | the raw confirmations (number of blocks on top of this transaction's block)                                                       |
+| jsindex            | (sprout)                                     | (numeric, received only by sprout addresses) the joinsplit index                                                                  |
+| jsoutindex         | (numeric, received only by sprout addresses) | the output index of the joinsplit                                                                                                 |
+| outindex           | (numeric, sapling)                           | the output index                                                                                                                  |
+| change             | (boolean)                                    | true if the address that received the note is also one of the sending addresses                                                   |
 
 #### :pushpin: Examples:
 
@@ -3992,19 +3992,19 @@ Results are an array of Objects, each of which has:
 
 An array of json objects, each having the properties below.
 
-| Structure          | Type                                          | Description                                                                                                                     |
-| ------------------ | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| txid               | (string)                                      | the transaction id                                                                                                              |
-| jsindex            | (numeric)                                     | the joinsplit index                                                                                                             |
-| jsoutindex         | (numeric, only returned on sprout addresses)  | the output index of the joinsplit                                                                                               |
-| outindex           | (numeric, only returned on sapling addresses) | the output index                                                                                                                |
+| Structure          | Type                                          | Description                                                                                                                       |
+| ------------------ | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| txid               | (string)                                      | the transaction id                                                                                                                |
+| jsindex            | (numeric)                                     | the joinsplit index                                                                                                               |
+| jsoutindex         | (numeric, only returned on sprout addresses)  | the output index of the joinsplit                                                                                                 |
+| outindex           | (numeric, only returned on sapling addresses) | the output index                                                                                                                  |
 | "confirmations"    | (numeric)                                     | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
-| "rawconfirmations" | (numeric)                                     | the raw confirmations (number of blocks on top of this transaction's block)                                                     |  |
-| spendable          | (boolean)                                     | true if note can be spent by wallet, false if note has zero confirmations, false if address is watchonly                        |
-| address            | (string)                                      | the shielded address                                                                                                            |
-| amount             | (numeric)                                     | the amount of value in the note                                                                                                 |
-| memo               | (string)                                      | hexademical string representation of memo field                                                                                 |
-| change             | (boolean)                                     | true if the address that received the note is also one of the sending addresses                                                 |
+| "rawconfirmations" | (numeric)                                     | the raw confirmations (number of blocks on top of this transaction's block)                                                       |  |
+| spendable          | (boolean)                                     | true if note can be spent by wallet, false if note has zero confirmations, false if address is watchonly                          |
+| address            | (string)                                      | the shielded address                                                                                                              |
+| amount             | (numeric)                                     | the amount of value in the note                                                                                                   |
+| memo               | (string)                                      | hexademical string representation of memo field                                                                                   |
+| change             | (boolean)                                     | true if the address that received the note is also one of the sending addresses                                                   |
 
 #### :pushpin: Examples:
 
@@ -4113,14 +4113,14 @@ If a special string is given, any given addresses of that type will be ignored
 
 | Structure                   | Type      | Description                                                                         |
 | --------------------------- | --------- | ----------------------------------------------------------------------------------- |
-| "remainingUTXOs"            | (numeric) | the number of utxos still available for merging                                         |
-| "remainingTransparentValue" | (numeric) | the value of utxos still available for merging                                          |
-| "remainingNotes"            | (numeric) | the number of notes still available for merging                                         |
-| "remainingShieldedValue"    | (numeric) | the value of notes still available for merging                                          |
-| "mergingUTXOs"              | (numeric) | the number of utxos being merged                                                        |
-| "mergingTransparentValue"   | (numeric) | the value of utxos being merged                                                         |
-| "mergingNotes"              | (numeric) | the number of notes being merged                                                        |
-| "mergingShieldedValue"      | (numeric) | the value of notes being merged                                                         |
+| "remainingUTXOs"            | (numeric) | the number of utxos still available for merging                                     |
+| "remainingTransparentValue" | (numeric) | the value of utxos still available for merging                                      |
+| "remainingNotes"            | (numeric) | the number of notes still available for merging                                     |
+| "remainingShieldedValue"    | (numeric) | the value of notes still available for merging                                      |
+| "mergingUTXOs"              | (numeric) | the number of utxos being merged                                                    |
+| "mergingTransparentValue"   | (numeric) | the value of utxos being merged                                                     |
+| "mergingNotes"              | (numeric) | the number of notes being merged                                                    |
+| "mergingShieldedValue"      | (numeric) | the value of notes being merged                                                     |
 | "opid"                      | (string)  | an operationid to pass to `z_getoperationstatus` to get the result of the operation |
 
 #### :pushpin: Examples:
@@ -4254,10 +4254,10 @@ The RPC call `listlockunspent` can be used to return a list of locked utxos. The
 
 | Structure        | Type      | Description                                                                       |
 | ---------------- | --------- | --------------------------------------------------------------------------------- |
-| "remainingUTXOs" | (numeric) | the number of coinbase utxos still available for shielding                            |
-| "remainingValue" | (numeric) | the value of coinbase utxos still available for shielding                             |
-| "shieldingUTXOs" | (numeric) | the number of coinbase utxos being shielded                                           |
-| "shieldingValue" | (numeric) | the value of coinbase utxos being shielded                                            |
+| "remainingUTXOs" | (numeric) | the number of coinbase utxos still available for shielding                        |
+| "remainingValue" | (numeric) | the value of coinbase utxos still available for shielding                         |
+| "shieldingUTXOs" | (numeric) | the number of coinbase utxos being shielded                                       |
+| "shieldingValue" | (numeric) | the value of coinbase utxos being shielded                                        |
 | "opid"           | (string)  | an operationid to pass to z_getoperationstatus to get the result of the operation |
 
 #### :pushpin: Examples:
@@ -4326,11 +4326,22 @@ Response:
 
 **zcbenchmark benchmarktype samplecount**
 
-The `zcbenchmark` method runs a benchmark of the selected benchmarktype`. This benchmark is calculated `samplecount` times. 
+The `zcbenchmark` method runs a benchmark of the selected benchmarktype. This benchmark is calculated `samplecount` times.
 
 When finished, the method returns the running times of each sample.
 
-<!--Gcharang, can you please insert any missing info here? Arguments? Response?-->
+### Arguments:
+
+| Structure       | Type               | Description                   |
+| --------------- | ------------------ | ----------------------------- |
+| "benchmarktype" | (string, required) | the type of the benchmark     |
+| "samplecount"   | (numeric)          | the number of samples to take |
+
+### Response:
+
+| Structure     | Type      | Description                                          |
+| ------------- | --------- | ---------------------------------------------------- |
+| "runningtime" | (numeric) | the time it took to run the selected `benchmarktype` |
 
 Output:
 
