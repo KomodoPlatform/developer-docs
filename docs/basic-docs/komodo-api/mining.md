@@ -60,23 +60,29 @@ Response:
 
 **getblocktemplate ( "jsonrequestobject" )**
 
-The `getblocktemplate` method returns data that is necessary to construct a block.
-
 ::: tip
 See <a href="https://en.bitcoin.it/wiki/BIP_0022">the Bitcoin wiki</a> for the full specification.
 :::
 
-::: tip Note for mining asset chains whose coinbase transaction changes frequently
-
-- There are many features in the Komodo Ecosystem that can make an asset chain's daemon produce non-standard coinbase transactions. Examples include an assetchain parameter that creates new coins for a specific pubkey in every block or a CC module that adds outputs to the coinbase transaction.
-- This can be dealt using a mode called `disablecb`
-  - Usage: `./komodo-cli getblocktemplate '{"mode":"disablecb"}'`
-- The block template produced using this mode doesn't have the `"coinbasetxn": { ... } json object` but adds the coinbase transction to the `"transactions":[ ... ] array` just like a regular transaction.
-- Now the pool software can use the `"transactions":[ ... ] array` to create a block and take fees in the payment processor. The `knomp` [fork](https://github.com/blackjok3rtt/knomp) by [@blackjok3rtt](https://github.com/blackjok3rtt) uses this mode.
-
-:::
+The `getblocktemplate` method returns data that is necessary to construct a block.
 
 If the request parameters include a `mode` key, it is used to explicitly select between the default 'template' request, a 'proposal' or 'disablecb'.
+
+#### A Note on Unique Mining Circumstances
+
+There are many features in the Komodo Ecosystem that can make an asset chain's daemon produce non-standard coinbase transactions. Examples include an assetchain parameter that creates new coins for a specific pubkey in every block or a CC module that adds outputs to the coinbase transaction.
+
+This can be dealt using a mode called `disablecb`
+
+Usage: 
+
+```bash
+./komodo-cli getblocktemplate '{"mode":"disablecb"}'
+```
+
+The block template produced using this mode doesn't have the `"coinbasetxn": { ... }` json object but adds the coinbase transction to the `"transactions":[ ... ]` array, just like a regular transaction.
+
+Now the pool software can use the `"transactions":[ ... ]` array to create a block and take fees in the payment processor. The `knomp` [fork](https://github.com/blackjok3rtt/knomp) by [@blackjok3rtt](https://github.com/blackjok3rtt) uses this mode.
 
 ### Arguments:
 
@@ -102,7 +108,7 @@ If the request parameters include a `mode` key, it is used to explicitly select 
 | "fee"                  | (numeric)          | the difference in value between transaction inputs and outputs in Satoshis; for coinbase transactions, this is the negative number of the total collected block fees, not including the block subsidy; if a key is not present, the fee is unknown and clients MUST NOT assume it is not present |
 | "sigops"               | (numeric)          | the total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.                                                                                                                   |
 | "required"             | (boolean)          | if provided and true, this transaction must be in the final block                                                                                                                                                                                                                                |
-| "coinbasetxn": { ... } | (json object)      | information for coinbase transaction                                                                                                                                                                                                                                                             |
+| "coinbasetxn": { ... } | (json object)      | information for the coinbase transaction                                                                                                                                                                                                                                                             |
 | "longpollid"           | (string)           | the lastseen longpollid when this response was sent by the server                                                                                                                                                                                                                                |
 | "data"                 | (string)           | transaction data encoded in hexadecimal (byte-for-byte)                                                                                                                                                                                                                                          |
 | "hash"                 | (string)           | the hash/id encoded in little-endian hexadecimal                                                                                                                                                                                                                                                 |
@@ -120,7 +126,7 @@ If the request parameters include a `mode` key, it is used to explicitly select 
 | "sigoplimit"           | (numeric)          | the limit of sigops in blocks                                                                                                                                                                                                                                                                    |
 | "sizelimit"            | (numeric)          | the limit of block size                                                                                                                                                                                                                                                                          |
 | "curtime"              | (numeric)          | current timestamp in seconds since epoch (Jan 1 1970 GMT)                                                                                                                                                                                                                                        |
-| "bits"                 | (string)           | compressed target of next block                                                                                                                                                                                                                                                                  |
+| "bits"                 | (string)           | the compressed target of the next block                                                                                                                                                                                                                                                                  |
 | "height"               | (numeric)          | the height of the next block                                                                                                                                                                                                                                                                     |
 
 #### :pushpin: Examples:
@@ -233,7 +239,7 @@ This is the same information shown on the metrics screen (if enabled).
 
 | Structure | Type      | Description                  |
 | --------- | --------- | ---------------------------- |
-| "data"    | (numeric) | solutions per second average |
+| "data"    | (numeric) | the solutions-per-second average |
 
 #### :pushpin: Examples:
 
@@ -294,7 +300,7 @@ The `getmininginfo` method returns a json object containing mining-related infor
 | "networksolps"     | (numeric) | the estimated network solution rate (solutions per second)                                                                                                                             |
 | "pooledtx":        |           |
 | "testnet"          | (boolean) | if using testnet or not                                                                                                                                                                |
-| "chain"            | (string)  | current network name as defined in BIP70 (main, test, regtest)                                                                                                                         |
+| "chain"            | (string)  | the current network name as defined in BIP70 (main, test, regtest)                                                                                                                         |
 
 #### :pushpin: Examples:
 
@@ -376,14 +382,14 @@ Pass in `height` to estimate the network speed at the time when a certain block 
 
 | Structure | Type                             | Description                                                                              |
 | --------- | -------------------------------- | ---------------------------------------------------------------------------------------- |
-| blocks    | (numeric, optional, default=120) | the number of blocks (use -1 to calculate over the relevant difficulty averaging window) |
-| height    | (numeric, optional, default=-1)  | to estimate at the time of the given height                                              |
+| blocks    | (numeric, optional, default=120) | the number of blocks (use `-1` to calculate over the relevant difficulty averaging window) |
+| height    | (numeric, optional, default=-1)  | to estimate at the time of the given height <!--I don't understand this. Can you please provide more detail?-->                                              |
 
 ### Response:
 
 | Structure | Type      | Description                    |
 | --------- | --------- | ------------------------------ |
-| data      | (numeric) | solutions per second estimated |
+| data      | (numeric) | the solutions-per-second estimate |
 
 #### :pushpin: Examples:
 
@@ -430,7 +436,7 @@ Pass in `height` to estimate the network speed at the time when a certain block 
 
 | Structure | Type                             | Description                                                                                     |
 | --------- | -------------------------------- | ----------------------------------------------------------------------------------------------- |
-| blocks    | (numeric, optional, default=120) | the number of blocks; use -1 to calculate according to the relevant difficulty averaging window |
+| blocks    | (numeric, optional, default=120) | the number of blocks; use `-1` to calculate according to the relevant difficulty averaging window |
 | height    | (numeric, optional, default=-1)  | to estimate at the time of the given height                                                     |
 
 ### Response:
@@ -553,11 +559,11 @@ Note: for more information on <b>submitblock</b> parameters and results, see <a 
 
 | Structure                | Type | Description                                                                      |
 | ------------------------ | ---- | -------------------------------------------------------------------------------- |
-| "duplicate"              |      | node already has valid copy of block                                             |
-| "duplicate-invalid"      |      | node already has block, but it is invalid                                        |
-| "duplicate-inconclusive" |      | node already has block but has not validated it                                  |
-| "inconclusive"           |      | node has not validated the block, it may not be on the node's current best chain |
-| "rejected"               |      | block was rejected as invalid                                                    |
+| "duplicate"              |      | the node already has a valid copy of the block                                             |
+| "duplicate-invalid"      |      | the node already has the block, but it is invalid                                        |
+| "duplicate-inconclusive" |      | the node already has the block but has not validated it                                  |
+| "inconclusive"           |      | the node has not validated the block, it may not be on the node's current best chain |
+| "rejected"               |      | the block was rejected as invalid                                                    |
 
 #### :pushpin: Examples:
 

@@ -16,16 +16,16 @@ The `z_getpaymentdisclosure` method generates a payment disclosure for a given j
 
 | Structure      | Type               | Description |
 | -------------- | ------------------ | ----------- |
-| "txid"         | (string, required) |
-| "js_index"     | (string, required) |
-| "output_index" | (string, required) |
-| "message"      | (string, optional) |
+| "txid"         | (string, required) |<!--need to fill in this table-->|
+| "js_index"     | (string, required) ||
+| "output_index" | (string, required) ||
+| "message"      | (string, optional) ||
 
 ### Response:
 
 | Structure           | Type     | Description                         |
 | ------------------- | -------- | ----------------------------------- |
-| "paymentdisclosure" | (string) | hex data string, with "zpd:" prefix |
+| "paymentdisclosure" | (string) | a hex data string, with a "zpd:" prefix |
 
 #### :pushpin: Examples:
 
