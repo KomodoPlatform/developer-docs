@@ -68,7 +68,7 @@ module.exports = {
             ["/basic-docs/cryptoconditions/cc-oracles.md", "Oracles"],
             ["/basic-docs/cryptoconditions/cc-rewards.md", "Rewards"],
             ["/basic-docs/cryptoconditions/cc-rogue.md", "Rogue"],
-            ["/basic-docs/cryptoconditions/cc-tokens.md", "Tokens"] 
+            ["/basic-docs/cryptoconditions/cc-tokens.md", "Tokens"]
           ]
         },
         {
@@ -133,7 +133,7 @@ module.exports = {
           ]
         },
       ],
-      "/": ["", "/basic-docs/"]
+      "/": ["", "/basic-docs/start-here/introduction.md"]
     }
   }
 };
