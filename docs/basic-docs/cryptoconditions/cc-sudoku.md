@@ -8,9 +8,9 @@ Sudoku CC is based on the classic game, Sudoku. To learn more about how Sudoku i
 
 [Link to Sudoku Wikipedia article](https://en.wikipedia.org/wiki/Sudoku)
 
-The procedures to launch and finish a game require the execution of various methods (rpcs). To make the game more easy to start and finish for players who are not comfortable with the terminal, the Komodo team has created a Terminal User Interface (TUI).
+The procedures to launch and finish a game require the execution of various methods (rpcs). By design, the Sudoku CC module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must  pass trough the Sudoku CC RPC captcha protection, as this deters bots.
 
-The following installation and walkthrough tutorials can assist the reader in testing Sudoku. For more information, please reach out to our community on [Discord](https://komodoplatform.com/discord). The #cc-sudoku channel is available for questions and assistance.
+The following installation and walkthrough tutorials can assist the reader in setting up and playing the Sudoku game. For more information, please reach out to our community on [Discord](https://komodoplatform.com/discord). The #cc-sudoku channel is available for questions and assistance.
 
 #### Sudoku CC Module Flow
 
@@ -24,9 +24,15 @@ The following installation and walkthrough tutorials can assist the reader in te
 
 ### Requirements
 
-Sudoku is currently playable on modern MacOS and Linux machines.
+Sudoku is currently playable on Linux machines.
 
-Windows is not yet available. Please ask on our #cc-sudoku channel on [Discord](https://komodoplatform.com/discord) for updates.
+OSX and Windows compatible bundles will be ready as soon as possible. Please ask on our #cc-sudoku channel on [Discord](https://komodoplatform.com/discord) for updates.
+
+The Komodo Sudoku software bundle (also called "Komodoku") for Ubunutu Linux comes complete with all necessary software. To download the bundle, please visit the link below:
+
+[Link to "Komodoku" Software Bundle](https://github.com/tonymorony/Komodoku/releases)
+
+To manually compile the software, follow the instructions below. 
 
 ### Install Dependencies
 
@@ -36,13 +42,14 @@ Windows is not yet available. Please ask on our #cc-sudoku channel on [Discord](
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libgtest-dev libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate software-properties-common curl libcurl4-gnutls-dev cmake clang libsodium-dev -y
 ```
+<!--
 
 #### macOS (OSX)
 
 Use the terminal to ensure the MacOS XCode tools are installed:
 
 ```bash
-xcode-select --install
+xcode-select ####Remote later, this line is causing formatting issues ##-#-#install
 ```
 
 Ensure the latest version of `brew` is installed. If necessary, execute the following command:
@@ -65,6 +72,8 @@ brew install coreutils
 brew install wget
 ```
 
+-->
+
 ### Clone & Compile Komodo
 
 #### Linux
@@ -74,9 +83,20 @@ cd ~
 git clone https://github.com/jl777/komodo
 cd komodo
 git checkout FSM
+make clean
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh -j$(nproc)
 ```
+
+Wait for the build process to finish, and then continue with the following commands:
+
+```bash
+cd src/cc
+./makecclib
+cd ../..
+make -j$(nproc)
+```
+<!--
 
 #### MacOS
 
@@ -93,13 +113,25 @@ git checkout FSM
 Change the `8` in the `-j8` portion of the last command to any number of processor threads desired and/or appropriate for your machine.
 :::
 
+-->
+
 ### Update `komodod`
 
 ```bash
 cd ~/komodo
 git checkout FSM
 git pull
+make clean
 ./zcutil/build.sh -j$(nproc)
+```
+
+Wait for the build process to finish, and then continue with the following commands:
+
+```bash
+cd src/cc
+./makecclib
+cd ../..
+make -j$(nproc)
 ```
 
 ### Set `pubkey` value
@@ -138,7 +170,7 @@ Use the `validateaddress` method with the address.
 
 The `validateaddress` method will return information similar to the following:
 
-```JSON
+```json
 {
   "isvalid": true,
   "address": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
@@ -171,7 +203,7 @@ Set the pubkey for the SUDOKU asset chain.
 
 Response:
 
-```JSON
+```json
 {
   "address": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
   "ismine": true,
@@ -189,9 +221,15 @@ For example:
 ./komodod -ac_name=SUDOKU -ac_supply=1000000 -pubkey=02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2 -addnode=5.9.102.210 -gen -genproclimit=1 -ac_cclib=sudoku -ac_perc=10000000 -ac_reward=100000000 -ac_cc=60000 -ac_script=2ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc &
 ```
 
-### Install Sudoku Terminal User Interface (TUI)
+### Install Sudoku Graphical User Interface (GUI)
 
-The Komodo team offers a Terminal User Interface (TUI) to assist the user in visualizing the game. The TUI is optional, but recommended for most players.
+The Komodo team offers an unofficial graphical user interface (GUI) to assist the user with Sudoku-puzzle solving vizualization. By design, the Sudoku CC module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must  pass trough the Sudoku CC RPC captcha protection, as this deters bots.
+
+Downlow the portable GUI bundle from the following lin: 
+
+[Link to GUI Software Bundle](https://github.com/tonymorony/Komodoku/releases)
+
+To manually compile the GUI from source code, follow the steps below. Please note that the GUI is based on `python2`.
 
 #### Linux
 
@@ -202,22 +240,26 @@ sudo apt-get install python-pygame libgnutls28-dev
 pip install requests wheel slick-bitcoinrpc pygame
 ```
 
-##### Install the TUI
+##### Install the GUI
 
 ```bash
 git clone https://github.com/tonymorony/Komodoku
 cd Komodoku
 ```
 
-#### Start Sudoku TUI
+#### Start Sudoku GUI
 
 ```bash
 python Sudoku.py
 ```
 
-#### MacOS (OSX)
+<!-- 
 
-<!--Need this-->
+#### MacOS (OSX)
+there is no compatible daemon right now - so manual installaction on OSX don' have much.
+OSX dependencies might be quite tricky part depends of exact OSX version - so I'll just recommend to use portable bundle when it'll be ready
+
+-->
 
 ## gen
 
@@ -229,26 +271,31 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 #### Arguments:
 
-| Name        | Type | Description |
-| ----------- | ---- | ----------- |
-| (need this) |      |             |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| (none) | | |
 
 #### Response:
 
-| Name                                 | Type                 | Description                                                                                         |
-| ------------------------------------ | -------------------- | --------------------------------------------------------------------------------------------------- |
-| (solved Sudoku puzzle, visualized)   | (string, multi-line) | an ASCII-character representation of the generated Sudoku puzzle, with all solutions in place       |
+Daemon `stdout`:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| (solved Sudoku puzzle, visualized) | (string, multi-line) | an ASCII-character representation of the generated Sudoku puzzle, with all solutions in place |
 | (unsolved Sudoku puzzle, visualized) | (string, multi-line) | an ASCII-character representation of the generated Sudoku puzzle, with numbers removed for gameplay |
 | (numbers remaining)                  | (string)             | a description of how many numbers are remaining to solve in the Sudoku puzzle                       |
 | (Sudoku Puzzle - integer)            | (number, multi-line) | a multi-line number-based representation of the solved Sudoku puzzle; no visual embellishments      |
-
-|
 | solve | (number) | a number-based concatenated representation of the unsolved Sudoku puzzle; `0`'s represent empty spaces in the puzzle |
-| score | (string) | `score` returns three values: the reward provided to the first node to submit the correct solution, the solution in concatenated format, the number of numbers left to fill |  
+| score | (string) | `score` returns three values: the difficulty of the puzzle calculated by the generator, the solution in concatenated format, the number of numbers left to fill |  
+
+JSON output:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
 | result | (string) | whether the command executed successfully |
 | name | (string) | name of the module |
 | method | (string) | name of the method |
-| srand | (number) | |
+| srand | (number) | the seed of the non-blockchain based puzzle that is creating RNG <!-- I don't know what RNG is, so I don't know how to format this; if the description currently looks good to you, Tony, then it's probably okay --> |
 | amount | (number) | the reward provided to the first node to submit the correct solution |
 | hex | (string) | a `hex` value representing the encoded data; this must be broadcast using `sendrawtransaction` |
 | txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` |
@@ -261,9 +308,9 @@ Command:
 ./komodo-cli -ac_name=SUDOKU cclib gen 17
 ```
 
-Response:
+Response (daemon `stdout`):
 
-```json
+```bash
 -----------------------------------
 | 2 : 5 : 7 | 1 : 3 : 6 | 9 : 8 : 4 |
 |- - - - - -|- - - - - -|- - - - - -|
@@ -282,7 +329,8 @@ Response:
 | 9 : 1 : 2 | 7 : 4 : 5 | 8 : 6 : 3 |
 |- - - - - -|- - - - - -|- - - - - -|
 | 5 : 4 : 8 | 3 : 6 : 2 | 1 : 7 : 9 |
------------------------------------ -----------------------------------
+----------------------------------- 
+-----------------------------------
 | 2 : 5 : | 1 : : | : 8 : 4 |
 |- - - - - -|- - - - - -|- - - - - -|
 | : 9 : | : 5 : | 3 : 2 : |
@@ -300,7 +348,8 @@ Response:
 | : : | 7 : : | : : |
 |- - - - - -|- - - - - -|- - - - - -|
 | 5 : : | : : 2 | : : |
------------------------------------ *** 26 numbers left ***
+----------------------------------- 
+*** 26 numbers left ***
 257136984
 891457326
 364928715
@@ -312,6 +361,11 @@ Response:
 548362179
 solve: 250100084090050320304028010009000001020600007100003040000010000000700000500002000
 1:1 score: 898 257136984891457326364928715689574231423681597175293648736819452912745863548362179 26
+```
+
+Response (JSON):
+
+```JSON
 {
    "result":"success",
    "name":"sudoku",
@@ -331,23 +385,23 @@ The `txidinfo` method returns information about the indicated `puzzle_txid` puzz
 
 #### Arguments:
 
-| Name        | Type | Description |
-| ----------- | ---- | ----------- |
-| (need this) |      |             |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| puzzle_txid | (string) | the unique transaction id of the requested puzzle, as returned from the broadcast hex of the [gen](../cryptoconditions/cc-sudoku.html#gen) method  |
 
 #### Response:
 
-| Name       | Type     | Description                                                                                       |
-| ---------- | -------- | ------------------------------------------------------------------------------------------------- |
-| result     | (string) | whether the command executed successfully                                                         |
-| txid       | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` |
-| result     | (string) | whether the command executed successfully                                                         |
-| height     | (number) | the block height at which the puzzle was generated                                                |
-| sudokuaddr | (string) | the CC address that owns this puzzle and will distribute the reward                               |
-| amount     | (number) | the reward provided to the first node to submit the correct solution                              |
-| unsolved   | (string) | the unsolved puzzle, provided in concatenated form                                                |
-| name       | (string) | name of the module                                                                                |
-| method     | (string) | name of the method                                                                                |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| result | (string) | whether the command executed successfully |
+| txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` | 
+| result | (string) | whether the command executed successfully |
+| height | (number) | the block height at which the puzzle was generated |
+| sudokuaddr | (string) | the CC address that owns this puzzle funds and will distribute the reward |
+| amount | (number) | the reward provided to the first node to submit the correct solution |
+| unsolved | (string) | the unsolved puzzle, provided in concatenated form, filling playing field from left to right horizontally, and from top to bottom vertically |
+| name | (string) | name of the module |
+| method | (string) | name of the method |
 
 #### :pushpin: Examples:
 
@@ -381,9 +435,9 @@ The `pending` method returns a complete list of all unsolved puzzles on the asse
 
 #### Arguments:
 
-| Name        | Type | Description |
-| ----------- | ---- | ----------- |
-| (need this) |      |             |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| (none) | | |
 
 #### Response:
 
@@ -446,29 +500,33 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 #### Arguments:
 
-| Name     | Type     | Description                                                                                                                                                         |
-| -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| txid     | (string) | a transaction id representing the generation of this puzzle, also called the `puzzle_txid`                                                                          |
-| solution | (number) | the proposed solution, provided in a concatenated format                                                                                                            |
-| tX...    | (time)   | there are `81` total `t...` arguments. `X` is the index of the indicated argument. The argument is a timestamp representing the time at which `X` number was solved |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| txid | (string) | a transaction id representing the generation of this puzzle, also called the `puzzle_txid` | 
+| solution | (numeric string) | the proposed solution, provided in a concatenated format |
+| tX... | (81 UNIX timestamps separated by comma) | there are `81` total `t...` arguments. `X` is the index of the indicated argument. The argument is a timestamp representing the time at which `X` number was inputed. Timestamp value should be 0 for numbers which were already known |
 
 #### Response:
 
-| Name                    | Type     | Description                                                                                                                                                                                                                                     |
-| ----------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name                    | (string) | name of the module                                                                                                                                                                                                                              |
-| hex                     | (string) | a `hex` value representing the encoded data; this must be broadcast using `sendrawtransaction`                                                                                                                                                  |
-| txid                    | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid`                                                                                                                                               |
-| amount                  | (number) | the reward provided to the first node to submit the correct solution                                                                                                                                                                            |
-| result                  | (string) | whether the command executed successfully                                                                                                                                                                                                       |
-| sudokuaddr              | (string) | the CC address that owns this puzzle and will distribute the reward                                                                                                                                                                             |
-| method                  | (string) | name of the method                                                                                                                                                                                                                              |
-| solved                  | (string) | this returns three values: the block height at which the puzzle was solved, the amount of coins rewarded, the CC address that submitted the correct solution                                                                                    |
-| solution                | (number) | this contains three values: a number-based concatenated representation of the solved puzzle; `0`'s represent empty spaces in the Sudoku puzzle, the total score for solving this puzzle, a string representing the concatenated unsolved puzzle |
-| score breakdown         | (string) | the respective value of each number, contributed towards the total score for solving this puzzle                                                                                                                                                |
-| statistics              | (string) | basic statistics regarding the provided solution                                                                                                                                                                                                |
-| statement of acceptance | (string) | a statement accepting (or rejecting) the proposed solution                                                                                                                                                                                      |
-| solution_txid           | (string) | a unique transaction id for proposed solution                                                                                                                                                                                                   |
+JSON output:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| name | (string) | name of the module |
+| hex | (string) | a `hex` value representing the encoded data; this must be broadcast using `sendrawtransaction` |
+| txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` | 
+| amount | (number) | the reward provided to the first node to submit the correct solution |
+| result | (string) | whether the command executed successfully |
+| sudokuaddr | (string) | the CC address that owns this puzzle reward and will distribute the reward |
+| method | (string) | name of the method |
+
+Daemon `stdout`:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| solved | (string) | this returns three values: the block height at which the puzzle was solved, the amount of coins rewarded, the solution txid |
+| solution | (number) | this contains three values: a number-based concatenated representation of the solved puzzle; a string representing the concatenated unsolved puzzle; the total score for solving this puzzle | 
+| statistics | (string) | information which helps this CC devloper to detect was puzzle solved by robot or human | 
 
 #### :pushpin: Examples:
 
@@ -478,7 +536,7 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib solution 17 [%22b5d7e2b50ace182e0ab7b5a18875818fa8e56b937689376bc5bdc8727b78ad52%22,%22157392864829461357436587129795634218381279645642815973978146532563728491214953786%22,1552297383,1552297384,1552297386,0,1552297387,0,0,1552297389,1552297389,1552297391,0,1552297392,1552297394,1552297396,1552297396,1552297397,1552297398,1552297399,1552297401,1552297402,1552297403,1552297404,1552297405,1552297407,1552297408,1552297409,1552297410,1552297412,1552297413,0,1552297415,1552297416,1552297417,0,0,1552297419,0,1552297422,1552297423,1552297424,1552297429,0,1552297431,0,1552297432,1552297435,1552297436,1552297437,1552297439,0,1552297440,1552297441,1552297443,0,1552297445,0,0,1552297446,1552297447,0,1552297449,0,1552297451,0,1552297453,0,1552297455,0,0,0,1552297457,0,1552297458,1552297459,0,0,1552297460,0,1552297462,1552297462,0]
 ```
 
-Response:
+Response (JSON output):
 
 ```bash
 {
@@ -490,9 +548,12 @@ Response:
    'sudokuaddr':'RWXsjC1zc7zGqsxa2YdL9zS7G3PwN5xc9m',
    'method':'solution'
 }
+```
+
+Response (Daemon stdout):
+
+```bash
 SOLVED ht.58521 100.00000000 4c3fb21e60ef0af863da43c5ebbdf38651f080a3fff1c04855fc42857479f9e5
 157392864829461357436587129795634218381279645642815973978146532563728491214953786 score.55 ---3-28---2------------------5---21-3----9-4-----1---3-78--6-3-5-3-284-1--49-3--6
 1 2 1 2 0 2 1 2 2 0 1 1 1 2 1 1 1 1 2 1 1 1 2 1 2 1 1 2 3 1 1 5 2 1 3 1 1 2 1 1 2 2 1 1 4 2 2 2 1 1 1 2 0 100 solvetime.179 n.55 avetime.3 variance.177 vs ave2 9
-Solution accepted!
-4c3fb21e60ef0af863da43c5ebbdf38651f080a3fff1c04855fc42857479f9e5
 ```

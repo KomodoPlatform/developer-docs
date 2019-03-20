@@ -74,7 +74,7 @@ There are many features in the Komodo Ecosystem that can make an asset chain's d
 
 This can be dealt using a mode called `disablecb`
 
-Usage: 
+Usage:
 
 ```bash
 ./komodo-cli getblocktemplate '{"mode":"disablecb"}'
@@ -108,7 +108,7 @@ Now the pool software can use the `"transactions":[ ... ]` array to create a blo
 | "fee"                  | (numeric)          | the difference in value between transaction inputs and outputs in Satoshis; for coinbase transactions, this is the negative number of the total collected block fees, not including the block subsidy; if a key is not present, the fee is unknown and clients MUST NOT assume it is not present |
 | "sigops"               | (numeric)          | the total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.                                                                                                                   |
 | "required"             | (boolean)          | if provided and true, this transaction must be in the final block                                                                                                                                                                                                                                |
-| "coinbasetxn": { ... } | (json object)      | information for the coinbase transaction                                                                                                                                                                                                                                                             |
+| "coinbasetxn": { ... } | (json object)      | information for the coinbase transaction                                                                                                                                                                                                                                                         |
 | "longpollid"           | (string)           | the lastseen longpollid when this response was sent by the server                                                                                                                                                                                                                                |
 | "data"                 | (string)           | transaction data encoded in hexadecimal (byte-for-byte)                                                                                                                                                                                                                                          |
 | "hash"                 | (string)           | the hash/id encoded in little-endian hexadecimal                                                                                                                                                                                                                                                 |
@@ -126,7 +126,7 @@ Now the pool software can use the `"transactions":[ ... ]` array to create a blo
 | "sigoplimit"           | (numeric)          | the limit of sigops in blocks                                                                                                                                                                                                                                                                    |
 | "sizelimit"            | (numeric)          | the limit of block size                                                                                                                                                                                                                                                                          |
 | "curtime"              | (numeric)          | current timestamp in seconds since epoch (Jan 1 1970 GMT)                                                                                                                                                                                                                                        |
-| "bits"                 | (string)           | the compressed target of the next block                                                                                                                                                                                                                                                                  |
+| "bits"                 | (string)           | the compressed target of the next block                                                                                                                                                                                                                                                          |
 | "height"               | (numeric)          | the height of the next block                                                                                                                                                                                                                                                                     |
 
 #### :pushpin: Examples:
@@ -237,8 +237,8 @@ This is the same information shown on the metrics screen (if enabled).
 
 ### Response:
 
-| Structure | Type      | Description                  |
-| --------- | --------- | ---------------------------- |
+| Structure | Type      | Description                      |
+| --------- | --------- | -------------------------------- |
 | "data"    | (numeric) | the solutions-per-second average |
 
 #### :pushpin: Examples:
@@ -300,7 +300,7 @@ The `getmininginfo` method returns a json object containing mining-related infor
 | "networksolps"     | (numeric) | the estimated network solution rate (solutions per second)                                                                                                                             |
 | "pooledtx":        |           |
 | "testnet"          | (boolean) | if using testnet or not                                                                                                                                                                |
-| "chain"            | (string)  | the current network name as defined in BIP70 (main, test, regtest)                                                                                                                         |
+| "chain"            | (string)  | the current network name as defined in BIP70 (main, test, regtest)                                                                                                                     |
 
 #### :pushpin: Examples:
 
@@ -380,15 +380,15 @@ Pass in `height` to estimate the network speed at the time when a certain block 
 
 ### Arguments:
 
-| Structure | Type                             | Description                                                                              |
-| --------- | -------------------------------- | ---------------------------------------------------------------------------------------- |
+| Structure | Type                             | Description                                                                                |
+| --------- | -------------------------------- | ------------------------------------------------------------------------------------------ |
 | blocks    | (numeric, optional, default=120) | the number of blocks (use `-1` to calculate over the relevant difficulty averaging window) |
-| height    | (numeric, optional, default=-1)  | to estimate at the time of the given height <!--I don't understand this. Can you please provide more detail?-->                                              |
+| height    | (numeric, optional, default=-1)  | the block height that corresponds to the requested data                                                |
 
 ### Response:
 
-| Structure | Type      | Description                    |
-| --------- | --------- | ------------------------------ |
+| Structure | Type      | Description                       |
+| --------- | --------- | --------------------------------- |
 | data      | (numeric) | the solutions-per-second estimate |
 
 #### :pushpin: Examples:
@@ -434,10 +434,10 @@ Pass in `height` to estimate the network speed at the time when a certain block 
 
 ### Arguments:
 
-| Structure | Type                             | Description                                                                                     |
-| --------- | -------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Structure | Type                             | Description                                                                                       |
+| --------- | -------------------------------- | ------------------------------------------------------------------------------------------------- |
 | blocks    | (numeric, optional, default=120) | the number of blocks; use `-1` to calculate according to the relevant difficulty averaging window |
-| height    | (numeric, optional, default=-1)  | to estimate at the time of the given height                                                     |
+| height    | (numeric, optional, default=-1)  | the block height that corresponds to the requested data                                                |
 
 ### Response:
 
@@ -557,11 +557,11 @@ Note: for more information on <b>submitblock</b> parameters and results, see <a 
 
 ### Response:
 
-| Structure                | Type | Description                                                                      |
-| ------------------------ | ---- | -------------------------------------------------------------------------------- |
-| "duplicate"              |      | the node already has a valid copy of the block                                             |
-| "duplicate-invalid"      |      | the node already has the block, but it is invalid                                        |
-| "duplicate-inconclusive" |      | the node already has the block but has not validated it                                  |
+| Structure                | Type | Description                                                                          |
+| ------------------------ | ---- | ------------------------------------------------------------------------------------ |
+| "duplicate"              |      | the node already has a valid copy of the block                                       |
+| "duplicate-invalid"      |      | the node already has the block, but it is invalid                                    |
+| "duplicate-inconclusive" |      | the node already has the block but has not validated it                              |
 | "inconclusive"           |      | the node has not validated the block, it may not be on the node's current best chain |
 | "rejected"               |      | the block was rejected as invalid                                                    |
 
