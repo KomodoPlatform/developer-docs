@@ -206,7 +206,7 @@ Subscribe to the oracle using [oraclessubscribe](../cryptoconditions/cc-oracles.
 The frequency of data-publishing transactions we can perform in a block is equal to the number of active subscriptions committed to the oracle. Therefore, we must have at least one subscription for the oracle to allow publishing.
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD oraclessubscribe insert_oracleid insert_publisherpubkey insert_data_fee_in_coins
+./komodo-cli -ac_name=HELLOWORLD oraclessubscribe insert_oracleid insert_publisherpubkey insert_amount_of_funds_to_add
 ```
 
 This returns a hex value (not shown for brevity), which we now broadcast:
@@ -341,17 +341,18 @@ Wait for the transaction to be mined. Once confirmed, execute the [gettransactio
 ./komodo-cli gettransaction insert_cointxid
 ```
 
-In the returned results there is a property, `blockindex`, that describes the the height of the block that contains this address. Copy the `blockindex` to the text editor.
-
+Via the returned information from the `gettransaction` method, we can verify the addresses were correct by looking at the `vout` properties. Store the `hex` value at the bottom to the text editor for later.
 There is also a property, `hex`. Transfer this value to the text editor as well.
 
-Also, via the returned information from the `gettransaction` method, we can verify that the addresses were correct by looking at the `vout` properties. There should be two, and change.
+In the returned results there is also a `blockhash` value, which we can use to find out the height of the block which contains the `cointtxid` by using the method below. 
+
+/komodo-cli getblock insert_cointxid | jq '.height'
 
 Next, execute the following command for more information:
 
 ```bash
-./komodo-cli gettxoutproof insert_cointxid
-```
+ ./komodo-cli gettxoutproof '["insert_cointxid"]' 
+ ```
 
 This returns a `proof` value. Transfer this to the text editor.
 
@@ -362,7 +363,7 @@ The `gatewaysdeposit` method broadcasts the relevant data on the asset chain so 
 Here is the information we need for this call:
 
 - `BINDTXID`: our bindtxid
-- `HEIGHT`: the `blockindex` value of our `cointxid` transaction
+- `HEIGHT`: the `height` value of the `blockhash` containing the `cointxid` transaction
 - `COIN`: KMD for this example
 - `COINTXID`: the `cointxid` returned from `z_sendmany`
 - `CLAIMVOUT`: the `vout` of the claim (this value should be 0, as it is our first use)
@@ -777,7 +778,7 @@ Response:
 Command:
 
 ```bash
-./komodo-cli z_sendmany "RFUL6arBgucq9TUPvTaUTnpQ2DkrcxtSxx" '[{"address":"RBm4FN3JhjhbVFaGKJ8DQgtgPHKXvhFMs3","amount":0.0001}{"address":"RXEXoa1nRmKhMbuZovpcYwQMsicwzccZBp","amount":0.1}]'
+./komodo-cli z_sendmany "RFUL6arBgucq9TUPvTaUTnpQ2DkrcxtSxx" '[{"address":"RBm4FN3JhjhbVFaGKJ8DQgtgPHKXvhFMs3","amount":0.0001},{"address":"RXEXoa1nRmKhMbuZovpcYwQMsicwzccZBp","amount":0.1}]'
 ```
 
 Response:
