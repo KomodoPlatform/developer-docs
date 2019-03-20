@@ -71,7 +71,7 @@ To understand why a CEX may wish to implement decentralized technologies within 
 | Type | Summary | Examples |
 | ---- | ------- | -------- |
 | Decentralized Gateway | A decentralized network of gateway keepers hold user funds in escrow and issue IOUs for trading | InstantDEX, Bitshares, Binance DEX |
-| On-Chain Token Exchange | Tokens created on the parent blockchain and are traded within the blockchain consensus rules; can extend to also become a decentralized gateway | EtherDelta, 0x |
+| On-Chain Token Exchange | Tokens created on the parent blockchain are traded within the consensus rules; by adding gateway nodes, this can also extend to become a decentralized gateway | EtherDelta, 0x |
 | Non-Custodial Exchange | A centralized website arranges for a moderately secure, but non-decentralized trade between liqiduity providers and purchasers; no order book, limited control over user funds | ShapeShift, Changelly |
 
 A decentralized gateway can be thought of as a cryptocurrency holding station that is owned and controlled by several different parties. The gateway performs two functions: it holds the assets that users send to it, and it issues IOUs.
@@ -90,13 +90,12 @@ In many ways, this popular DEX model is an improvement over the CEX model, and t
 | Pros | Cons |
 | ---- | ---- |
 | Tokens can be issued for any asset, including both cryptocurrency and fiat | When decentralized, requires a wide network of trustworthy and technically proficient gateway nodes (business partners) |
-| Users maintain ownership over their IOUs at all times, limiting attackers' capabilities | All assets are still in the ownership of a smaller group of people, albeit somewhat decentralized |
 | Users maintain ownership over their IOUs at all times, limiting attackers' capabilities | All true assets are still in the ownership of a small group of people, albeit somewhat decentralized, and therefore susceptible to attacks, errors, and corruption |
 | IOUs are on-chain, and therefore buying and selling funds can be performed at high speeds | Maintenance and improvements to the DEX are highly technical, time consuming, and cost prohibitive |
 
 For a developer and entrepreneur, the DEX method is more secure than the CEX model, but there remain many difficulties on technical and political levels. The entrepreneur must find trustworthy partners to be co-owners of the multi-signature address. The developer must ensure that their partners' infrastructure and other technical contributions are secure, as a failure by the partners can reflect poorly on the developer and entrepreneur's own brand.
 
-Furthermore, from the user's perspective, the primary danger persists in this DEX model. Once the user sends their assets to the gateway, the user loses control and responsibility over their funds.
+Furthermore, from the user's perspective, the primary danger persists in this DEX model. Once the user sends their assets to the gateway, the user loses control and responsibility over their true assets.
 
 ## Atomic Swaps are a Significantly Superior Basis for Exchange
 
@@ -104,9 +103,9 @@ What if there was a way to trade different types of cryptocurrencies without the
 
 This is the idea of an atomic swap. It is simply a trade of assets between two users where, assuming both behave honestly, ownership over the assets is not released until both sides are secure in receiving a fair outcome. If one side tries to cheat or makes any kind of mistake, they cannot receive a financial reward from it, and the non-offending side cannot be penalized or lose their funds.
 
-An atomic swap can do everything else that both the decentralized-gateway model and the centralized-exchange model can do. Atomic swaps can be conducted quickly; users may form networks of high liquidity trading; nearly all types of cryptocurrencies can be exchanged.
+An atomic swap can do everything else that both the DEX and CEX models can do. Atomic swaps can be conducted quickly; users may form networks of high liquidity trading; nearly all types of cryptocurrencies can be exchanged.
 
-However, the nature of an atomic swap is unique in comparison with the opposing models, as the latter require third-party intervention.
+However, the nature of an atomic swap is unique in comparison with the opposing models, as an atomic swap does not require third-party intervention. This can provide simplicity for both the user, the entrepreneur, and even the developer. Depending on the application, the cost may also be dramatically cheaper, as far less infrastructure and manpower is required.
 
 -- graphic title: Technical Comparisons --
 | Capability | Atomic Swap | Decentralized Gateway | Centralized Exchange |
