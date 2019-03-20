@@ -144,30 +144,18 @@ The library is loaded at runtime using the [-ac_cclib](../installations/asset-ch
 
 ### Response:
 
-| Name            | Type                    | Description                                                                                                                                               |
-| --------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result          | (string)                | whether the command executed successfully                                                                                                                 |
-| CClib           | (string)                | the name of the given CClibrary                                                                                                                           |
-| methods         | (array of json objects) | an array containing json objects, each of which describe a method of a module                                                                             |
-| evalcode        | (decimal number)        | the `EVALCODE` of the given CryptoConditions module                                                                                                       |
-| funcid          | (character)             | this value is a mnemonic for all generated transactions; if the provided method does not generate a transaction, this value is a single character that has no relevant meaning |
-| name            | (string)                | the name of the CryptoConditions module                                                                                                                   |
-| method          | (string)                | the name of the method                                                                                                                                    |
-| help            | (string)                | help for the method, including a description of the method's arguments                                                                                    |
-| params_required | (decimal number)        | the number of parameters that are required for the method to succeed                                                                                      |
-| params_max      | (decimal number)        | the maximum number of parameters the method can accept                                                                                                    |
-
-<!--FIXME
-for the "funcid" in the above table, the description:
-
-as it is currently the last part says that if the method doesn't generate txn then its a mnemonic. but, its a mnemonic if the method creates a txn but this mnemovic is stored in the opreturn that is the difference
-```
-for methods that generate a transaction, this is the `funcid` in the `opreturn`; for methods that do not generate a transaction, this value is a just a mnemonic , i.e., its just one character and useful for nothing.
-```
- this needs to be written more coherently
-
-Sidd: How is that?
--->
+| Name            | Type                    | Description                                                                                                                                                                                       |
+| --------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result          | (string)                | whether the command executed successfully                                                                                                                                                         |
+| CClib           | (string)                | the name of the given CClibrary                                                                                                                                                                   |
+| methods         | (array of json objects) | an array containing json objects, each of which describe a method of a module                                                                                                                     |
+| evalcode        | (decimal number)        | the `EVALCODE` of the given CryptoConditions module                                                                                                                                               |
+| funcid          | (character)             | this value is a mnemonic in the `OP_RETURN` for all generated transactions; if the provided method does not generate a transaction, this value is a single character that has no relevant meaning |
+| name            | (string)                | the name of the CryptoConditions module                                                                                                                                                           |
+| method          | (string)                | the name of the method                                                                                                                                                                            |
+| help            | (string)                | help for the method, including a description of the method's arguments                                                                                                                            |
+| params_required | (decimal number)        | the number of parameters that are required for the method to succeed                                                                                                                              |
+| params_max      | (decimal number)        | the maximum number of parameters the method can accept                                                                                                                                            |
 
 #### :pushpin: Examples:
 
