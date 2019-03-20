@@ -383,12 +383,7 @@ Pass in `height` to estimate the network speed at the time when a certain block 
 | Structure | Type                             | Description                                                                                |
 | --------- | -------------------------------- | ------------------------------------------------------------------------------------------ |
 | blocks    | (numeric, optional, default=120) | the number of blocks (use `-1` to calculate over the relevant difficulty averaging window) |
-| height    | (numeric, optional, default=-1)  | to estimate at the time of the given height                                                |
-
-<!--
-I don't understand this. Can you please provide more detail?
-detail: estimated network solutions per second when the height of the chain was `height`
--->
+| height    | (numeric, optional, default=-1)  | the block height that corresponds to the requested data                                                |
 
 ### Response:
 
@@ -442,7 +437,7 @@ Pass in `height` to estimate the network speed at the time when a certain block 
 | Structure | Type                             | Description                                                                                       |
 | --------- | -------------------------------- | ------------------------------------------------------------------------------------------------- |
 | blocks    | (numeric, optional, default=120) | the number of blocks; use `-1` to calculate according to the relevant difficulty averaging window |
-| height    | (numeric, optional, default=-1)  | to estimate at the time of the given height                                                       |
+| height    | (numeric, optional, default=-1)  | the block height that corresponds to the requested data                                                |
 
 ### Response:
 
