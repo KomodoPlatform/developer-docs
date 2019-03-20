@@ -8,9 +8,9 @@ Sudoku CC is based on the classic game, Sudoku. To learn more about how Sudoku i
 
 [Link to Sudoku Wikipedia article](https://en.wikipedia.org/wiki/Sudoku)
 
-The procedures to launch and finish a game require the execution of various methods (rpcs). By it's design SudokuCC not supposing gaming process without GUI usage, because UNIX timestamp for each event of number input is needed to pass trough the SudokuCC RPC captcha protection.
+The procedures to launch and finish a game require the execution of various methods (rpcs). By design, the Sudoku CC module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must  pass trough the Sudoku CC RPC captcha protection, as this deters bots.
 
-The following installation and walkthrough tutorials can assist the reader in playing blockchain based Sudoku game. For more information, please reach out to our community on [Discord](https://komodoplatform.com/discord). The #cc-sudoku channel is available for questions and assistance.
+The following installation and walkthrough tutorials can assist the reader in setting up and playing the Sudoku game. For more information, please reach out to our community on [Discord](https://komodoplatform.com/discord). The #cc-sudoku channel is available for questions and assistance.
 
 #### Sudoku CC Module Flow
 
@@ -28,9 +28,11 @@ Sudoku is currently playable on Linux machines.
 
 OSX and Windows compatible bundles will be ready as soon as possible. Please ask on our #cc-sudoku channel on [Discord](https://komodoplatform.com/discord) for updates.
 
-Komodoku Ubuntu bundle with precompiled daemon compatible with SUDOKU assetchain and portable Sudoku GUI can be downloaded [here](https://github.com/tonymorony/Komodoku/releases)
+The Komodo Sudoku software bundle (also called "Komodoku") for Ubunutu Linux comes complete with all necessary software. To download the bundle, please visit the link below:
 
-If you want to сompile daemon by yourself please follow instructions down below. 
+[Link to "Komodoku" Software Bundle](https://github.com/tonymorony/Komodoku/releases)
+
+To manually compile the software, follow the instructions below. 
 
 ### Install Dependencies
 
@@ -41,12 +43,13 @@ sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libgtest-dev libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate software-properties-common curl libcurl4-gnutls-dev cmake clang libsodium-dev -y
 ```
 <!--
+
 #### macOS (OSX)
 
 Use the terminal to ensure the MacOS XCode tools are installed:
 
 ```bash
-xcode-select --install
+xcode-select ####Remote later, this line is causing formatting issues ##-#-#install
 ```
 
 Ensure the latest version of `brew` is installed. If necessary, execute the following command:
@@ -68,6 +71,7 @@ brew install protobuf
 brew install coreutils
 brew install wget
 ```
+
 -->
 
 ### Clone & Compile Komodo
@@ -84,7 +88,7 @@ make clean
 ./zcutil/build.sh -j$(nproc)
 ```
 
-Then:
+Wait for the build process to finish, and then continue with the following commands:
 
 ```bash
 cd src/cc
@@ -93,6 +97,7 @@ cd ../..
 make -j$(nproc)
 ```
 <!--
+
 #### MacOS
 
 ```bash
@@ -107,6 +112,7 @@ git checkout FSM
 ::: tip
 Change the `8` in the `-j8` portion of the last command to any number of processor threads desired and/or appropriate for your machine.
 :::
+
 -->
 
 ### Update `komodod`
@@ -119,7 +125,8 @@ make clean
 ./zcutil/build.sh -j$(nproc)
 ```
 
-Then:
+Wait for the build process to finish, and then continue with the following commands:
+
 ```bash
 cd src/cc
 ./makecclib
@@ -163,7 +170,7 @@ Use the `validateaddress` method with the address.
 
 The `validateaddress` method will return information similar to the following:
 
-```JSON
+```json
 {
   "isvalid": true,
   "address": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
@@ -196,7 +203,7 @@ Set the pubkey for the SUDOKU asset chain.
 
 Response:
 
-```JSON
+```json
 {
   "address": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
   "ismine": true,
@@ -214,13 +221,15 @@ For example:
 ./komodod -ac_name=SUDOKU -ac_supply=1000000 -pubkey=02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2 -addnode=5.9.102.210 -gen -genproclimit=1 -ac_cclib=sudoku -ac_perc=10000000 -ac_reward=100000000 -ac_cc=60000 -ac_script=2ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc &
 ```
 
-### Install Sudoku GUI
+### Install Sudoku Graphical User Interface (GUI)
 
-The Komodo team offers a GUI to assist the user with Sudoku puzzle solving vizualization. By it's design SudokuCC not supposing solving without GUI because UNIX timestamp for each event of number input is needed to pass the RPC captcha protection.
+The Komodo team offers an unofficial graphical user interface (GUI) to assist the user with Sudoku-puzzle solving vizualization. By design, the Sudoku CC module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must  pass trough the Sudoku CC RPC captcha protection, as this deters bots.
 
-It's recommended to download portable GUI from [bundle](https://github.com/tonymorony/Komodoku/releases)
+Downlow the portable GUI bundle from the following lin: 
 
-Also, you can manually install dependencies for developer version (please note that GUI written on python2):
+[Link to GUI Software Bundle](https://github.com/tonymorony/Komodoku/releases)
+
+To manually compile the GUI from source code, follow the steps below. Please note that the GUI is based on `python2`.
 
 #### Linux
 
@@ -245,10 +254,13 @@ python Sudoku.py
 ```
 
 <!-- 
+
 #### MacOS (OSX)
 there is no compatible daemon right now - so manual installaction on OSX don' have much.
 OSX dependencies might be quite tricky part depends of exact OSX version - so I'll just recommend to use portable bundle when it'll be ready
+
 -->
+
 ## gen
 
 **cclib gen 17**
@@ -265,7 +277,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 #### Response:
 
-Daemon stdout prints
+Daemon `stdout`:
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
@@ -273,19 +285,17 @@ Daemon stdout prints
 | (unsolved Sudoku puzzle, visualized) | (string, multi-line) | an ASCII-character representation of the generated Sudoku puzzle, with numbers removed for gameplay |
 | (numbers remaining)                  | (string)             | a description of how many numbers are remaining to solve in the Sudoku puzzle                       |
 | (Sudoku Puzzle - integer)            | (number, multi-line) | a multi-line number-based representation of the solved Sudoku puzzle; no visual embellishments      |
-
-|
 | solve | (number) | a number-based concatenated representation of the unsolved Sudoku puzzle; `0`'s represent empty spaces in the puzzle |
-| score | (string) | `score` returns three values: difficulty of puzzle calculated by generator, the solution in concatenated format, the number of numbers left to fill |  
+| score | (string) | `score` returns three values: the difficulty of the puzzle calculated by the generator, the solution in concatenated format, the number of numbers left to fill |  
 
-JSON output
+JSON output:
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | result | (string) | whether the command executed successfully |
 | name | (string) | name of the module |
 | method | (string) | name of the method |
-| srand | (number) | seed of non-blockchain based puzzle creating RNG |
+| srand | (number) | the seed of the non-blockchain based puzzle that is creating RNG <!-- I don't know what RNG is, so I don't know how to format this; if the description currently looks good to you, Tony, then it's probably okay --> |
 | amount | (number) | the reward provided to the first node to submit the correct solution |
 | hex | (string) | a `hex` value representing the encoded data; this must be broadcast using `sendrawtransaction` |
 | txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` |
@@ -298,9 +308,7 @@ Command:
 ./komodo-cli -ac_name=SUDOKU cclib gen 17
 ```
 
-Response:
-
-Komodo daemon STDOUT
+Response (daemon `stdout`):
 
 ```bash
 -----------------------------------
@@ -354,7 +362,8 @@ Komodo daemon STDOUT
 solve: 250100084090050320304028010009000001020600007100003040000010000000700000500002000
 1:1 score: 898 257136984891457326364928715689574231423681597175293648736819452912745863548362179 26
 ```
-JSON output
+
+Response (JSON):
 
 ```JSON
 {
@@ -378,7 +387,7 @@ The `txidinfo` method returns information about the indicated `puzzle_txid` puzz
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| puzzle_txid | (string) | displaying information about puzzle generated by puzzle_txid transaction |
+| puzzle_txid | (string) | the unique transaction id of the requested puzzle, as returned from the broadcast hex of the [gen](../cryptoconditions/cc-sudoku.html#gen) method  |
 
 #### Response:
 
@@ -511,7 +520,7 @@ JSON output:
 | sudokuaddr | (string) | the CC address that owns this puzzle reward and will distribute the reward |
 | method | (string) | name of the method |
 
-Daemon stdout prints:
+Daemon `stdout`:
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
@@ -527,9 +536,7 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib solution 17 [%22b5d7e2b50ace182e0ab7b5a18875818fa8e56b937689376bc5bdc8727b78ad52%22,%22157392864829461357436587129795634218381279645642815973978146532563728491214953786%22,1552297383,1552297384,1552297386,0,1552297387,0,0,1552297389,1552297389,1552297391,0,1552297392,1552297394,1552297396,1552297396,1552297397,1552297398,1552297399,1552297401,1552297402,1552297403,1552297404,1552297405,1552297407,1552297408,1552297409,1552297410,1552297412,1552297413,0,1552297415,1552297416,1552297417,0,0,1552297419,0,1552297422,1552297423,1552297424,1552297429,0,1552297431,0,1552297432,1552297435,1552297436,1552297437,1552297439,0,1552297440,1552297441,1552297443,0,1552297445,0,0,1552297446,1552297447,0,1552297449,0,1552297451,0,1552297453,0,1552297455,0,0,0,1552297457,0,1552297458,1552297459,0,0,1552297460,0,1552297462,1552297462,0]
 ```
 
-Response:
-
-JSON output
+Response (JSON output):
 
 ```bash
 {
@@ -543,7 +550,7 @@ JSON output
 }
 ```
 
-Daemon stdout prints
+Response (Daemon stdout):
 
 ```bash
 SOLVED ht.58521 100.00000000 4c3fb21e60ef0af863da43c5ebbdf38651f080a3fff1c04855fc42857479f9e5
