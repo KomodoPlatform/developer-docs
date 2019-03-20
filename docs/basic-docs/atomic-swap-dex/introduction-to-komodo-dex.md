@@ -1,5 +1,7 @@
 # Introduction to Komodo's DEX Software
 
+--Introductory graphic--
+
 One of Komodo's blockchain tools is an atomic-swap powered, decentralized exchange (DEX).
 
 Komodo’s DEX software is entirely separate from the `komodod` software that powers the rest of Komodo.
@@ -50,7 +52,14 @@ Furthermore, this database holds the assets of thousands of other users. Having 
 
 A CEX has several challenges to consider as a result of this danger. From a legal perspective, [the infamous Mt. Gox case](https://www.coindesk.com/mississippi-doctors-sued-mt-gox-for-bitcoin-loss-now-worth-135-million) illustrates how users may attempt to hold the CEX liabile in the event of a theft. A CEX may struggle to find an insurance provider that will protect them. Also, compared to fiat currency, government authorities can do little to assist in recovering stolen funds.
 
---Pro and Con Table--
+| (extend<--) | The Centralized Exchange | (-->extend) |
+| Perspective | Pros  | Cons |
+| ----------- | ----- | ---- |
+| User | The IOU exchange process is high-speed, simple, and often has a pleasant interface | Compromising the user's individual account is achievable for a determined hacker, and there are effectively no methods to recover funds stolen from a CEX |
+| User | Because the CEX model has many users, a CEX is more likely to achieve high liquidity | The high user population motivates sophisicated attackers to compromise all funds held on the site |
+| User | A large CEX can handle the complexities of owning and maintaining cryptocurrencies | Once a user gives up control over their funds to the CEX, they can only trust that they will receive them in return |
+| Exchange Owner | Without decentralization, business development is often faster | In holding thousands of user's personal funds, the exchange owners assume an enormous amount of liability |
+| Exchange Owner | The automated aspect of cryptocurrency allows for fast profits through small fees | The owner must be wary of thieves even among their own employees |
 
 In light of these concerns, many reputable and established CEX's are turning to decentralized technologies. For example, Binance, one of the most popular CEX's on the Internet, [is moving swiftly into decentralized technology](https://www.theblockcrypto.com/2019/02/07/binance-moves-away-from-ethereum-as-it-prepares-to-launch-dex/) to enhance both security and functionality for their users.
 
@@ -58,11 +67,18 @@ In light of these concerns, many reputable and established CEX's are turning to 
 
 To understand why a CEX may wish to implement decentralized technologies within their environment, one must first understand how a typical decentralize exchange (DEX) works. There are many types of DEX's, each having a unique technical structure. Perhaps the most popular and earliest methods of conducting a DEX is a decentralized gateway.
 
---table showing several different types of DEXs, and perhaps a paragraph to summarize the ideas of the others--
+| (<-- extend) | Types of DEX's | (extend-->) | (extend-->) |
+| Type | Pros | Cons | Examples |
+| ---- | ---- | ---- | -------- |
+| Decentralized Gateway | A decentralized network of gateway keepers hold user funds in escrow and issue IOUs for trading | InstantDEX, Bitshares, Binance DEX |
+| On-Chain Token Exchange | Assuming standard blockchain technology, the technical requirements and maintenance are relatively low |  Requires additional technology and gateway nodes, or other forms of human stewardship, to connect with external blockchains | EtherDelta, 0x |
+| (^-- extend) | Exists as part of an existing on-chain community, and can therefore find a ready user base | Technology is limited to only the features the parent blockchain developers provide | (^-- extend) |
+| Non-Custodial Exchange | Very little liability for customer funds | As this technology is mostly centralized, it is likely subject to many existing regulations | ShapeShift, Changelly |
+| (^-- extend) | Normal website (HTML5) technology provides most necessities | No order book | (^-- extend) |
 
-A decentralized gateway can be thought of as a cryptocurrency holding station that is owned and controlled by several different parties. The gateway performs two functions: it holds the assets that users send to it, and it issues IOUs the users who send funds to it.
+A decentralized gateway can be thought of as a cryptocurrency holding station that is owned and controlled by several different parties. The gateway performs two functions: it holds the assets that users send to it, and it issues IOUs.
 
-The IOUs issued to the user do not derive from a centralized database, but rather, they are managed through a blockchain. The user maintains control over the private keys to their IOUs at all times. While this is not as secure as having access to the private keys to the true digital assets, it does provide some protection. Assuming the user knows how to secure their private keys, when the user is offline their IOUs are not vulnerable to attackers. This is one improvement over the CEX model. 
+The IOUs issued to the user do not derive from a centralized database. Rather, they are managed through a blockchain. The user maintains control over the private keys to their IOUs at all times. While this is not as secure as having access to the private keys to the true digital assets, it does provide some protection. Assuming the user knows how to secure their private keys, when the user is offline their IOUs are not vulnerable to attackers. This is one improvement over the CEX model. 
 
 The user trades their IOUs with other users in much the same way as on a CEX. When a user is finished trading, they send their IOUs back to the gateway, and with this transaction they include an external address to which they would like their funds withdrawn.
 
@@ -72,7 +88,13 @@ Because a multi-signature address requires several different parties to sign the
 
 In many ways, this popular DEX model is an improvement over the CEX model, and this is why many CEX's are expanding into this territory. Users have control over their IOUs, making them responsible for individual attacks, rather than the exchange owners. The risk of an exchange-wide attack is also shared across multiple parties.
 
--- pro and con table of DEX gateway --
+| (<-- extend) | Types of DEX's | (extend-->) | (extend-->) |
+| Type | Pros | Cons | Examples |
+| ---- | ---- | ---- | -------- |
+| Decentralized Gateway | Tokens can be issued for any asset, including both cryptocurrency and fiat | When decentralized, requires a wide network of trustworthy and technically proficient gateway nodes (business partners) | InstantDEX, Bitshares, Binance DEX |
+| (^-- extend) | Users maintain ownership over their IOUs at all times, limiting attackers' capabilities | All assets are still in the ownership of a smaller group of people, albeit somewhat decentralized | (^-- extend) |
+| (^-- extend) | Users maintain ownership over their IOUs at all times, limiting attackers' capabilities | All true assets are still in the ownership of a small group of people, albeit somewhat decentralized, and therefore susceptible to attacks, errors, and corruption | (^-- extend) |
+| (^-- extend) | IOUs are on-chain, and therefore buying and selling funds can be performed at high speeds | Maintenance and improvements to the DEX are highly technical, time consuming, and cost prohibitive | (^-- extend) |
 
 For a developer and entrepreneur, the DEX method is more secure than the CEX model, but there remain many difficulties on technical and political levels. The entrepreneur must find trustworthy partners to be co-owners of the multi-signature address. The developer must ensure that their partners' infrastructure and other technical contributions are secure, as a failure by the partners can reflect poorly on the developer and entrepreneur's own brand.
 
