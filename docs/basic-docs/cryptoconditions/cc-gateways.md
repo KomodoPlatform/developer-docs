@@ -341,8 +341,7 @@ Wait for the transaction to be mined. Once confirmed, execute the [gettransactio
 ./komodo-cli gettransaction insert_cointxid
 ```
 
-Via the returned information from the `gettransaction` method, we can verify the addresses were correct by looking at the `vout` properties. Store the `hex` value at the bottom to the text editor for later.
-There is also a property, `hex`. Transfer this value to the text editor as well.
+Via the returned information from the `gettransaction` method, we can verify the addresses were correct by looking at the `vout` properties. At the bottom, there is a `hex` value. Copy the value to the text editor for later.
 
 In the returned results there is also a `blockhash` value, which we can use to find out the height of the block which contains the `cointtxid` by using the method below. 
 
