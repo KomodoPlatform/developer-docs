@@ -26,16 +26,16 @@ Each `coin` can be enabled only once, and in either Electrum or Native mode. The
 
 #### Notes on the mm2 Parameter
 
-For each `coin`, Komodo software requires the user/developer to set the `mm2` parameter. This can be achieved either in the [coins](../atomic-swap-dex/dex-walkthrough.md#setting-up-coin-list) for more deatails), or via the [electrum](../atomic-swap-dex/dex-api.html#electrum) and [enable](../atomic-swap-dex/dex-api.html#enable) methods.
+For each `coin`, Komodo software requires the user/developer to set the `mm2` parameter. This can be achieved either in the [coins](../atomic-swap-dex/dex-walkthrough.md#setting-up-coin-list) for more details), or via the [electrum](../atomic-swap-dex/dex-api.html#electrum) and [enable](../atomic-swap-dex/dex-api.html#enable) methods.
 
 The value of the `mm2` parameter informs the software as to whether the `coin` is expected to function.
 
 - `0` = `non-functioning`
 - `1` = `functioning`
 
-When enabling new coins, refer to the configurations in the repository linked below. If the `mm2` parameter is not set in the repository, the coin has not yet been tested with Komodo DEX software. 
-
-[Repository of Komodo DEX software coin configurations](https://github.com/jl777/coins)
+::: tip
+GUI software developers may refer to the[jl777/coins file in this link](https://github.com/jl777/coins) for the default coin json configuration.
+:::
 
 Volunteers are welcome to test coins with Komodo DEX software at any time. After testing a coin, please create a pull request with the desired coin configuration and successful swap details using the guide linked below.
 
