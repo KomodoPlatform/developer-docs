@@ -26,7 +26,7 @@ Each `coin` can be enabled only once, and in either Electrum or Native mode. The
 
 #### Notes on the mm2 Parameter
 
-For each `coin`, Komodo software requires the user/developer to set the `mm2` parameter. This can be achieved either in the `COIN.conf` file of the `~/.komodo/COIN` directory, or via the [electrum](../atomic-swap-dex/dex-api.html#electrum) and [enable](../atomic-swap-dex/dex-api.html#enable) methods.
+For each `coin`, Komodo software requires the user/developer to set the `mm2` parameter. This can be achieved either in the [coins](../atomic-swap-dex/dex-walkthrough.md#setting-up-coin-list) for more deatails), or via the [electrum](../atomic-swap-dex/dex-api.html#electrum) and [enable](../atomic-swap-dex/dex-api.html#enable) methods.
 
 The value of the `mm2` parameter informs the software as to whether the `coin` is expected to function.
 
@@ -44,7 +44,7 @@ Volunteers are welcome to test coins with Komodo DEX software at any time. After
 
 ##### Examples of the Parameter Settings
 
-Set the value of the `mm2` parameter in the `COIN.conf` file as follows:
+Set the value of the `mm2` parameter in the [coins](../atomic-swap-dex/dex-walkthrough.md#setting-up-coin-list) file as follows:
 
 ```bash
 mm2=1
@@ -58,7 +58,7 @@ For terminal interface examples, see the examples section below.
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin you want to enable |
 | urls      | array of strings | the urls of Electrum servers to which you want to connect |
-| mm2       | number (required if not set in the `COIN.conf` file) | this property informs the Komodo DEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
+| mm2       | number (required if not set in the `coins` file) | this property informs the Komodo DEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
 
 ::: warning Note
 If the connection to at least one of the provided `urls` fails for any reason the software will not enable the coin. Instead, the software will return an error.
@@ -145,7 +145,7 @@ To use Komodo DEX software on another Ethereum-based network, such as the Kovan 
 | coin      | string | the name of the coin the user desires to enable |
 | urls      | array of strings (required for ETH/ERC20) | urls of Ethereum RPC nodes to which the user desires to connect |
 | swap_contract_address | string (required for ETH/ERC20) | address of etomic swap smart contract |
-| mm2       | number (required if not set in the `COIN.conf` file) | this property informs the Komodo DEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
+| mm2       | number (required if not set in the `coins` file) | this property informs the Komodo DEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
 
 ### Response:
 

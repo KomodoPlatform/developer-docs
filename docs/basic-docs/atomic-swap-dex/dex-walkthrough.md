@@ -18,6 +18,10 @@ Let's set up a file in the `~/KomodoPlatform/target/debug` directory to import t
 
 Save this file. MM2 will search for it automatically on launch.
 
+::: tip
+The `jl777/coins` file in [this linked repository](https://github.com/jl777/coins) contains instructions for the standard `coins` file setup.
+:::
+
 #### RPC password 
 
 We also need to choose a password. 
