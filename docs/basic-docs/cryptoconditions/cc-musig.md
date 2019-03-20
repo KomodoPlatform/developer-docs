@@ -3,7 +3,7 @@
 ## Introduction
 
 ::: tip Notice
-The MuSig module is in the final stages of testing. If you would like to use MuSig on a production-level asset chain, please reach out to the Komodo team on [Discord](https://komodoplatform.com/discord)
+The MuSig module is an experimental feature. It is provided as a demonstration of CryptoConditions capabilities and of the MuSig concept. If you would like to use MuSig on a production-level asset chain, please reach out to the Komodo team on [Discord](https://komodoplatform.com/discord)
 :::
 
 The MuSig CryptoConditions (CC) module implements a new type of multi-signature functionality. MuSig allows a blockchain to process multi-signature transactions in a more data-efficient manner. MuSig also keeps private the number of signers partaking in a multi-signature transaction.
