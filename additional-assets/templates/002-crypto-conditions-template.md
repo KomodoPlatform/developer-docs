@@ -1,3 +1,5 @@
+(Note: Please ensure that you have read the introduction to the technical-documentation templates before using this template: [link](https://github.com/KomodoPlatform/developer-docs/blob/dev/additional-assets/templates/001-Style-Guide.md))
+
 # Introduction
 
 The Insert_Module CryptoConditions (CC) module ...
