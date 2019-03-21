@@ -4,10 +4,10 @@ The Insert_Module CryptoConditions (CC) module ...
 
 ::: tip
 An optional tip. Please avoid using tips as much as possible.
-Highly important tip, such as a request to reach out to the team before using on a production chain, because no one has yet used the module in production
+Highly important tips, such as a request to reach out to the team before using the module on a production chain due to its experimental nature, or something similar
 :::
 
-Explain the module at a general level. Try to explain it like you are to someone who is a new customer, and may only be lightly familiar with coding and/or blockchain.
+Explain the module at a general level. Try to explain it as though you are talking toa new customer, who may only be lightly familiar with coding and/or blockchain.
 
 Some questions to consider (you do not have to answer all of them, and you can answer questions not present here in the introduction):
 
@@ -21,7 +21,7 @@ What problem does this module solve?
 
 Can you visualize in your head a customer using this feature? Why are they interested? Carry on a conversation with them in your head, as though you are trying to get them to use the feature. What points did you have to use to get them to make a purchase? Write down those notes here.
 
-Are there any general technical points that you need to make? Is there something unique about the way that you use this model that needs to be mentioned here, and not in the Installation/Walkthrough/Other/RPC's sections?
+Are there any general technical points that you need to make? Is there something unique about the way that you use this module that needs to be mentioned here, and not in the Installation/Walkthrough/Other/RPC's sections?
 
 Read through some of the existing CC documentation on developers.komodoplatform.com and see if your explanation is somewhere on par with what we already have.
 
@@ -31,14 +31,14 @@ Any additional tips or after thoughts. Again, try to avoid using these, if at al
 
 ### [Insert Module Name] Flow
 
-* Insert first step here [insert relevant links to relevant method here](../), and try to keep this and all others to one or two sentences 
+* Insert first step here [insert relevant links to relevant method here](https://www.youtube.com/watch?v=C4_KDf4xhU8), and try to keep this and all others to one or two sentences 
 * Add any additional notes about this here
 * Capitalize the first letter of each point, but do not include a period at the end of each bullet point
 * If you need to use two sentences, here is a method. Put a period after the first sentence, but end the second sentence with no period
 * Avoid adding a preamble to your sentence. Rather, get right to the point, such as:
-  * Create a new contract using the [insert_method](../) method
+  * Create a new contract using the [insert_method](https://en.wikipedia.org/wiki/Le_Morte_d%27Arthur) method
 * Continues...
-* Using the `backticks` for data-related content, but don't use them when you are making a [data_related](../) link
+* Use the `backticks` for data-related content, but don't use them when you are making a [data_related](https://ncase.me/trust/) link
 
 ## Installation
 
@@ -55,13 +55,13 @@ Any additional notes about requirements? Is there somewhere I can go to find out
 
 ### Software Bundles Installation 
 
-Tell me about software bundles. Pretend I don't know too much about computers or Komodo. What am I downloading? Is it going to work via one simple download?
+Tell me about software bundles. Pretend I don't know too much about computers or Komodo. I might be a community member who is a bit technically challenged. What am I downloading? Is it going to work via one simple download?
 
 Tell me here that I'm going to download a link below.
 
 [Link to Software Bundle Here](https://www.youtube.com/watch?v=heJmw-Dsp0A)
 
-Pretend I'm a beginner with computers. Should you tell me here that I don't need to read the next section, that I don't need to manually compile anything?
+Should you tell me here that I don't need to read the next section, that I don't need to manually compile anything unless I really want to?
 
 ### Manually Compiling Software
 
@@ -73,9 +73,9 @@ Do you need to give me a broad overview of what I'm doing, so that if I get lost
 
 #### Step One: Describe It
 
-Keep in mind, triple headings ### show up in search results, but #### quadruple headings don't. We don't want our users to see headings for an installation walkthrough in the search results when they're actually searching for a method. So, keep those headings either to #### quadruple, or don't mention the name of a method (rpc) unless you are 100% certain you need to.
+Keep in mind, triple headings ### show up in search results, but #### quadruple headings don't. We don't want our users to see headings for an installation walkthrough in the search results when they're actually searching for a method. So, keep those headings either to #### quadruple, or don't mention the name of a method (rpc) in a heading unless you are 100% certain you need to.
 
-Pretend I'm not too good with programming. Should you tell me here that I need to execute each line of the following code individually?
+Pretend I'm not too good with programming, and maybe I'm new to Ubuntu Linux. Terminals are a new thing for me, although I'm a smart guy and can figure them out. Should you tell me here that I need to execute each line of the following code individually?
 
 ```bash
 cd to whatever here
@@ -188,7 +188,7 @@ And if there is any output that is extremely, extremely long (like a `hex` value
 
             ... (omitted for brevity) ..
 
-        }
+        },
 
     ... (omitted for brevity) ..
 
@@ -239,7 +239,9 @@ I don't know who is reading each paragraph. Any user can show up on any page of 
 
 Trying to reexplain the word, "rpc", each time would be annoying and cumbersome. The word "method" just gets the job done, and no one complains, so stick with that.
 
-Also, note that I rarely skip articles, like "a" and "the". Why? Because if they are not used in a homogenous format, anyone can become confused. Since we have people writing on the team who come from all over the world, everyone approaches these articles differently. It is best to just use them everywhere they would normally belong, and skip them only if it is truly, truly awkard.
+See how I try to keep each paragraph limited to one to three sentences? Internet readers have low attention spans. Give them a breath of air frequently by not making any paragraph too long. Exceptions (such as this one) are okay, but keep them limited.
+
+Also, note that I rarely skip articles, like "a" and "the". Why? Because if they are not used in a homogenous format, anyone can become confused. Since we have people writing on the team who come from all over the world, everyone approaches these articles differently. For the foreseeable, we should just use them everywhere they would normally belong, and skip them only if it is truly, truly awkard.
 
 #### Another Section
 
@@ -265,11 +267,12 @@ Again, try to avoid adding tips. But if you have to, see if you can add them at 
 | response | (array of json objects) | start each description with a lower case letter; if you need to use two sentences, see if you can do it with that semi-colon (`;`) instead |
 | response | (string) | if you have to use more than two sentences. Go ahead and use a period. It's okay, although I do try to avoid this. However, never end a description with a period |
 | response | (number) | when referring to a key, such as `response` to the left, I will often use the word property, just because that's how I started the docs and I never fixed it |
+| response | (number) | also, I use the word "value" to describe... the value |
 | response | (number) | i try to keep things as consistent as possible; again, consistency helps a customer move quickly through the docs without having to relearn the format |
-| response | (string) | it's okay to use [links](https://en.wikipedia.org/wiki/Nobody_for_President) and `highlights`, but again, don't combine them together |
+| response | (string) | it's okay to use [links](https://en.wikipedia.org/wiki/Nobody_for_President) and `highlights` in the description, but again, don't combine them together |
 
 ::: tip
-Do you really need to put a tip here? Really? Make sure you do. Most likely, you don't, but there has been maybe one or two exceptions.
+Do you really need to put a tip here? Really? Make sure you do. Most likely, you don't, but there have been maybe one or two exceptions.
 :::
 
 #### :pushpin: Examples:
@@ -285,7 +288,7 @@ Response:
 ```json
 {
     "because": "the examples should speak for themselves",
-    "we": "put these here as a last resort, in case absolutely nothing else makes sense in anything else we said"
+    "we": "put these here as a last resort, in case absolutely nothing else makes sense in anything we said"
 }
 ```
 
@@ -294,14 +297,12 @@ Response:
 **sterlized method parameters**
 
 Same as above.
- 
-When you get to the last method (rpc), just end the docs. No need for any final conclusion. The user is going to be hopping back and forth throughout the docs, so there's no need to say goodbye.
 
 Do note that in the method name above, `## methodname`, we didn't capitalize it, nor did we include any parameters in it. 
 
 Also, note below that if you don't have any arguments or responses, you need to say so. Otherwise, the reader will think that you forgot to add them and they'll get confused.
 
-You can skip examples if there is nothing to show, but not if there is something to show.
+When you get to the last method (rpc), just end the docs. No need for any final conclusion. The user is going to be hopping back and forth throughout the docs, so there's no need to say goodbye.
 
 #### Arguments:
 
@@ -315,3 +316,11 @@ You can skip examples if there is nothing to show, but not if there is something
 | ---- | ---- | ----------- |
 
 | (none) | | | 
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+You can skip the Response aspect of the examples if there is truly nothing to show, but try to avoid skipping the Command aspect
+```

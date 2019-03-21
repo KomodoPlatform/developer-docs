@@ -8,9 +8,9 @@ In beginning the process of creating templates for Komodo, I realize that we are
 
 It is the nature of startups that they should be chaotic. Chaos is required for creativity, and one can argue that Komodo is creative at heart, if nothing else.
 
-As any company grows in size and seeks to serve a customer, and thereby create profit, Chaos can become a hinderance. Customers do not want to hand money to a company and receive a chaotic result. Rather, they want predictability.For the customer to be satisfied, Chaos must take a few steps back and allow room for Procedure to enter the picture.
+As any company grows in size and seeks to serve a customer, and thereby create profit, Chaos can become a hinderance. Customers do not want to hand money to a company and receive a chaotic result. Rather, they want predictability. For the customer to be satisfied, Chaos must take a few steps back and allow room for Procedure to enter the picture.
 
-For this reason, in creating templates for technical documentation I feel a sense of responsibility to make a few things clear.
+For this reason, in creating templates for technical documentation I feel a sense of responsibility to make a few things clear, before we start writing down procedures.
 
 We are, at heart, a creative company. With every existing customer of whom I am aware, they are primarily excited about Komodo because of our creativity. They wouldn't mind having more a more predictable procedure as a part of their experience with us, but without the creativity, they may lose interest and go elsewhere.
 
@@ -93,7 +93,7 @@ The developer and tester are often the first to write down information about any
 
 They are not required to be professional writers as a part of their job. They are welcome to write with untrained English and amateur writing skills, so long as the raw documentation is basically understandable and pleasantly formatted.
 
-On the other hand, the developer and testers are required to ensure that all necessary information is documented. No one will know what a feature is for, nor how it can be used, if the author of the feature's code does not take time to thoroughly explain it, or to delegate a tester or other team member to assist in this endeavor.
+On the other hand, the developer and testers are required to ensure that all necessary information is documented. No one will know what a feature is for, nor how it can be used, if the author of the feature does not take time to thoroughly explain it, or to delegate a tester or other team member to assist in this endeavor.
 
 Their first attempt at an explanation can include elements such as: 
 
@@ -108,7 +108,7 @@ Their first attempt at an explanation can include elements such as:
     - A table showcasing the arguments it makes
     - Detailed examples showing the feature's use cases, including both terminal and curl input and output
 - Tables of information about different values the feature can accept or produce
-- Guidlines showing how the feature functions in different situations 
+- Guidelines showing how the feature functions in different situations 
 
 Often, as a part of this development process, developers and testers need to reach out to the immmediate community for trial and testing. This is a normal and important part of the Komodo team effort.
 
@@ -121,15 +121,23 @@ When performing these trials and tests, the developer and tester may create and 
 - Google Docs
 - Discord
 
-::: tip What do we mean by "quiet"?
-_By "quiet," we mean that these documents should not be posted on outlets that are intended and used for viral social disbursal. For example, websites that are discouraged include: Twitter, Facebook, Reddit. The reason developers and testers should not post documentation on these websites is that these are outlets that are considered to be meant for "announcements." Posting here can give the mistaken impression to others in the industry that something a developer or tester said was given as a professional marketing announcement. This should be avoided. Developers who wish to publicly clarify specifically when and how a new feature was added should instead reach out to Komodo's marketing team for assistance._ 
-:::
+#### A Quick Note About Website Postings
+
+One might ask, what do we mean when we say, "quiet"?
+
+By "quiet," we mean that these documents should not be posted on outlets that are intended and used for viral social disbursal. For example, websites that are discouraged include: Twitter, Facebook, Reddit. 
+
+The reason developers and testers should not post documentation on these websites is that these are outlets that are considered to be meant for "announcements." Posting here can give the mistaken impression to others in the industry that something a developer or tester said was given as a professional marketing announcement. This should be avoided. 
+
+Developers who wish to publicly clarify specifically when and how a new feature was added should instead reach out to Komodo's marketing team for assistance. 
+
+#### Continuing on with the Discussion
 
 As the developer and tester near completion of this phase of their work, they can begin looking through Komodo's existing documentation templates to ensure that they have noted as much required and relevant information as possible. 
 
 The templates are provided as a guideline and to speed up the process. If at any point in time the developer or tester feels that the templates either do not fit for the current feature, or otherwise are limiting their creative process, the templates should not be seen as an obstacle. The templates exist to help the creative process, not to hinder it, and if they are not helping, they can be set aside.
 
-On the other hand, if the raw documentation is being created for an existing feature that is already present on the developers.komodoplatform.com website, then it is often very helpful if the raw documentation is created as a pull request over the existing documentation. In these cases, the process of adding documentation is dramatically enhanced for both the developer/tester and writer/steward if the developer/tester simply writes their changes directly into the relevant section of the documentation. 
+On the other hand, if the raw documentation is being created for an existing feature that is already present on the developers.komodoplatform.com website, then it is often very helpful if the raw documentation is created as a pull request over the existing documentation. In these cases, the process of adding documentation is dramatically enhanced for both the developer/tester and writer/steward if the developer/tester simply writes their corrections directly into the relevant section of the documentation.
 
 Once a thorough and detailed effort to create raw documentation for this feature is created, and once the feature's code is in a state of general reliability, the next step in the process begins. Here, the developer calls on the writers and other technical-documentation stewards to begin editing and adding these documents to the existing body of documentation.
 
@@ -141,11 +149,13 @@ We are not a large team, and we must allocate our resources intelligently.
 
 It is the responsibility of the developer and tester to determine whether a raw document needs to be pushed into a final form, or whether it can be placed in an unpolished location for the foreseeable future.
 
-For example, the Komodo developers maintain on Github a list of COIN configurations, and also of specific combinations of assets-chain launch parameters, that have not yet been added to the public facing website (via developers.komodoplatform.com). 
+For example, the Komodo developers maintain on Github a list of COIN configurations, and also of specific combinations of assets-chain launch parameters, that have not yet been added to the public facing website (via developers.komodoplatform.com).
 
-No complaints have arisen from this situation, and therefore it may never be necessary to attempt to maintain these in a more public facing location. 
+No complaints have arisen from this situation, and therefore it may never be necessary to attempt to maintain these in a more public-facing location. 
 
 Because the developers know the features most thoroughly, it is largely up to them to decide which aspects can remain non-professionally documented, and which should be pushed forward.
+
+Do keep in mind the general principle of design: less is more.
 
 ### Turning Raw Documentation Into a Final Product
 
@@ -187,11 +197,11 @@ The developer must then read the request, ask any additional questions, stop oth
 
 Once they're done, they then write yet another message and pass the raw documentation back.
 
-This is a normal part of the creative process, and indeed it is included in the task outlines above. However, it is important to note that the aspect of passing the task back and forth is very time consuming. 
+This is an understandable part of the creative process, and indeed it is included in the task outlines above. However, it is important to note that the aspect of passing the task back and forth is very time consuming. 
 
 When it can be avoided, team members should make reasonable efforts to do so. 
 
-Likewise, if a writer does not adequately read the raw material before asking questions of the developer, the writer can also cause the developer to spend time inefficiently. 
+Likewise, if a writer does not adequately read the raw material before asking questions of the developer, the writer can also cause the developer to spend time inefficiently answering questions that were already answered. 
 
 An ideal scenario is as follows:
 
@@ -200,6 +210,7 @@ An ideal scenario is as follows:
 - The developer and tester open the feature up to the community, and use the testing process to improve the raw documentation
 - In finalizing the raw documentation, the developer and tester consult the templates to check if there is more information that can be added
 - If necessary, the developer and tester can format their raw content into the templates to ensure that no information is missing
+  - This also may help during the community testing phase, as the templates do help to clarify the walkthrough process and other elements
 - The developer/tester pass the raw documentation on to the writer and other technical-documentation stewards
 - At this point, the developer and tester move on to other tasks
 - The writer and steward read the raw documentation in detail
@@ -208,7 +219,7 @@ An ideal scenario is as follows:
 - If at any point the writer and steward discover an error or missing information that inhibits their ability to continue using the software while performing their work, they are free to abandon the software and continue working only from the raw material alone
 - Once the writer or steward has finished creating their questions, they present all of their questions and concerns in a single document or message to the developer or tester
 - While waiting for the developer/tester to read and respond to the message, the writer and steward should move on to other tasks
-- On a time table determined by the developer and tester, these team members address all questions in one batch process
+- Assuming the matter is not pressing, then on a time table determined by the developer and tester, these team members address all questions in one batch process
 - When they are finished, they pass their notes back to the writer and/or steward, and then resume work
 - There is likely a short conversation here to help clarify any missing points
 - From here, the writer and steward should be in a position to push the documentation to the final form, and they do so
@@ -217,7 +228,7 @@ An ideal scenario is as follows:
 - The developer and tester read through the entire document to ensure that nothing was changed in any manner that would adversely affect the nature of the feature
 - The developer and tester answer any final questions, perhaps with a brief conversation with the writer
 - The writer/steward makes any final changes, and then pushes the content to the public-facing website
-- At this point, the documentation should be finished
+- At this point, the feature's documentation should be finished
 
 Naturally, one concern a developer has at this point is that of changes that occur as a result of customer and audience adoption. 
 
@@ -225,11 +236,11 @@ There are two types of changes: Those that are "Mission Critical", and those tha
 
 Changes that are mission critical are those that could cause a customer to be frustrated, or even for a customer to lose funds. If information is inaccurate and will lead a customer astray, this is "Mission "Critical."
 
-On the other hand, a change that is not mission critical could be information that should have been aded, but the lack of information would not cause the customer any degree of frustration.
+On the other hand, a change that is not mission critical could be information that should have been added, but the lack thereof would not cause the customer any degree of frustration.
 
-Mission Critical changes should be dealt with immediately. All parties involved, both developers/testers and writers/stewards, whenever there is an error. It is a team effort, and any non-emergency-related tasks should be dropped until the customer experience is improved.
+Mission Critical changes should be dealt with immediately. All parties involved, both developers/testers and writers/stewards, are equally responsible whenever there is an error. It is a team effort, and any non-emergency-related tasks should be dropped until the customer experience is corrected.
 
-Non-mission critical changes only require a simple pull request on Github with the proposed corrections. The writer/steward will fix this at their leisure and include the changes in the next update.
+Non-mission critical changes only require a simple pull request on Github with the proposed corrections. The developer/tester should write right over the top of any errors, and only use aside comments, such as `FIXME` statements, as a last resort or for questions. The writer/steward will fix this at their leisure and include the changes in the next appropriate update.
 
 ### Tips and Warnings
 
@@ -237,11 +248,11 @@ If the reader is at all familiar with the world of the creative arts, s/he will 
 
 In the world of painters, the trick to gain the audience's attention is to put a "highlight", that is, a small speck of almost-white paint, in a spot where they want the audience to look.
 
-When an amateur places these highlights everywhere throughout the painting, it becomese painful to look at.
+When an amateur places these highlights everywhere throughout the painting, it becomes painful to look at.
 
 A more experienced painter can come along and remove these highlights, and thereby dramatically improve the overall effect.
 
-The same creative issues exist with music (high and loud notes), creative writing (exclamation points!), dance (leaps and fast movements).
+The same creative issues exist with music (high and loud notes), creative writing (exclamation points!), dance (leaps and fast movements), and other creative arts.
 
 By reducing the number of times we seek to rapidly grab the audience's attention, we increase their appreciation of the few moments when we do. 
 
@@ -253,7 +264,7 @@ Try to keep the total number of tips in any document as low as you possible can.
 
 When tempted to make a tip, ask yourself a few questions:
 
-Can this go instead go in a different section, such as the walkthrough, or must this content go here?
+Can this instead go in a different section, such as the walkthrough, or must this content go here?
 
 Can I make this a small (###, ####, or #####) highlighted section of its own instead?
 
@@ -261,7 +272,7 @@ Do I really need to have this separate from other relevant information, or can I
 
 Do I want the reader to feel alarmed while reading this? Or can I communicate this in a way that does not jolt them out of their comfort?
 
-Can I make this tip, or warning, very very short, and then encourage the reader to read another section elsewhere for more information? 
+Can I make this tip, or warning, very, very short, and then encourage the reader to read another section elsewhere for more information? 
 
 ### Final Notes
 
