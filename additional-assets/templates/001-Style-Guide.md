@@ -240,7 +240,7 @@ On the other hand, a change that is not mission critical could be information th
 
 Mission Critical changes should be dealt with immediately. All parties involved, both developers/testers and writers/stewards, are equally responsible whenever there is an error. It is a team effort, and any non-emergency-related tasks should be dropped until the customer experience is corrected.
 
-Non-mission critical changes only require a simple pull request on Github with the proposed corrections. The developer/tester should write right over the top of any errors, and only use aside comments, such as `FIXME` statements, as a last resort or for questions. The writer/steward will fix this at their leisure and include the changes in the next appropriate update.
+Non-mission critical changes only require a simple pull request on Github with the proposed corrections. The developer/tester should write right over the top of any errors, and only use aside comments, such as `<!--FIXME-->` statements, as a last resort or for questions. The writer/steward will fix this at their leisure and include the changes in the next appropriate update.
 
 ### Tips and Warnings
 

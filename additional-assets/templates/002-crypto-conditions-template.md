@@ -7,7 +7,7 @@ An optional tip. Please avoid using tips as much as possible.
 Highly important tips, such as a request to reach out to the team before using the module on a production chain due to its experimental nature, or something similar
 :::
 
-The Insert_Module CryptoConditions (CC) module ...
+The Insert_Module CryptoConditions (CC) module ... does what?
 
 Explain the module at a general level. Try to explain it as though you are talking toa new customer, who may only be lightly familiar with coding and/or blockchain.
 
@@ -39,7 +39,6 @@ Any additional tips or after thoughts. Again, try to avoid using these, if at al
 * If you need to use two sentences, here is a method. Put a period after the first sentence, but end the second sentence with no period
 * Avoid adding a preamble to your sentence. Rather, get right to the point, such as:
   * Create a new contract using the [insert_method](https://en.wikipedia.org/wiki/Le_Morte_d%27Arthur) method
-* Continues...
 * Use the `backticks` for data-related content, but don't use them when you are making a [data_related](https://ncase.me/trust/) link
 
 ## Installation
@@ -243,7 +242,7 @@ Trying to reexplain the word, "rpc", each time would be annoying and cumbersome.
 
 See how I try to keep each paragraph limited to one to three sentences? Internet readers have low attention spans. Give them a breath of air frequently by not making any paragraph too long. Exceptions (such as this one) are okay, but keep them limited.
 
-Also, note that I rarely skip articles, like "a" and "the". Why? Because if they are not used in a homogenous format, anyone can become confused. Since we have people writing on the team who come from all over the world, everyone approaches these articles differently. For the foreseeable, we should just use them everywhere they would normally belong, and skip them only if it is truly, truly awkard.
+Also, note that I rarely skip articles, like "a" and "the". Why? Because if they are not used in a homogenous format, anyone can become confused. Since we have people writing on the team who come from all over the world, everyone approaches these articles differently. For the foreseeable future, we should just use them everywhere they would normally belong, and skip them only if it is truly, truly awkard.
 
 #### Another Section
 
