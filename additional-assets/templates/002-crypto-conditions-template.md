@@ -2,12 +2,12 @@
 
 # Introduction
 
-The Insert_Module CryptoConditions (CC) module ...
-
 ::: tip
 An optional tip. Please avoid using tips as much as possible.
 Highly important tips, such as a request to reach out to the team before using the module on a production chain due to its experimental nature, or something similar
 :::
+
+The Insert_Module CryptoConditions (CC) module ...
 
 Explain the module at a general level. Try to explain it as though you are talking toa new customer, who may only be lightly familiar with coding and/or blockchain.
 
