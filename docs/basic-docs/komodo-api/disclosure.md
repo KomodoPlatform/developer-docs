@@ -14,18 +14,18 @@ The `z_getpaymentdisclosure` method generates a payment disclosure for a given j
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"txid"                                       |(string, required)           |
-"js_index"                                   |(string, required)           |
-"output_index"                               |(string, required)           |
-"message"                                    |(string, optional)           |
+| Structure      | Type               | Description |
+| -------------- | ------------------ | ----------- |
+| "txid"         | (string, required) |<!--need to fill in this table-->|
+| "js_index"     | (string, required) ||
+| "output_index" | (string, required) ||
+| "message"      | (string, optional) ||
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"paymentdisclosure"                          |(string)                     |hex data string, with "zpd:" prefix
+| Structure           | Type     | Description                         |
+| ------------------- | -------- | ----------------------------------- |
+| "paymentdisclosure" | (string) | a hex data string, with a "zpd:" prefix |
 
 #### :pushpin: Examples:
 
@@ -51,7 +51,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 Response:
 
-
 ```
 (currently disabled)
 ```
@@ -68,15 +67,15 @@ EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"paymentdisclosure"                          |(string, required)           |hex data string, with "zpd:" prefix
+| Structure           | Type               | Description                         |
+| ------------------- | ------------------ | ----------------------------------- |
+| "paymentdisclosure" | (string, required) | hex data string, with "zpd:" prefix |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(currently disabled)                         |                             |
+| Structure            | Type | Description |
+| -------------------- | ---- | ----------- |
+| (currently disabled) |      |
 
 #### :pushpin: Examples:
 

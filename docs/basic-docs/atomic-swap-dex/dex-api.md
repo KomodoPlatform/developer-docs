@@ -8,32 +8,60 @@ This API documentation currently only features RPC methods that are available in
 
 **electrum coin urls (mm2)**
 
-::: warning Note
-This command must be executed at the initiation of each MM2 instance.
+::: warning Important
+
+This command must be executed at the initiation of each MM2 instance. Also, Komodo DEX software requires the `mm2` parameter to be set for each `coin`; the methods to activate the parameter vary. See below for further information.
+
 :::
 
-::: warning Note
-MM2 requires `mm2` parameter to be set in coins config or in `electrum/enable` requests. This lets MM2 know that coin is `expected` to work. [more info](dex-walkthrough.md#setting-up-coin-list)  
+::: tip
+
+Electrum mode is available for utxo-based coins only; this includes Bitcoin and Bitcoin-based forks. Electrum mode is not available for ETH/ERC20.
+
 :::
 
-The `electrum` method enables a `coin` by connecting the user's MM2 instance to the `coin` blockchain using electrum technology (e.g. lite mode).
+The `electrum` method enables a `coin` by connecting the user's software instance to the `coin` blockchain using electrum technology (e.g. lite mode). This allows the user to avoid syncing the entire blockchain to their local machine.
 
-This allows the user to avoid syncing the entire blockchain to their local machine.
+Each `coin` can be enabled only once, and in either Electrum or Native mode. The DEX software does not allow a `coin` to be active in both modes at once.  
 
-Each `coin` can be enabled only once, and in either Electrum or Native mode. It's not possible to use both modes at once.  
+#### Notes on the mm2 Parameter
 
-Electrum mode is available for utxo-based coins only (BTC and forks). It's not available for ETH/ERC20.
+For each `coin`, Komodo software requires the user/developer to set the `mm2` parameter. This can be achieved either in the [coins](../atomic-swap-dex/dex-walkthrough.md#setting-up-coin-list) for more details), or via the [electrum](../atomic-swap-dex/dex-api.html#electrum) and [enable](../atomic-swap-dex/dex-api.html#enable) methods.
+
+The value of the `mm2` parameter informs the software as to whether the `coin` is expected to function.
+
+- `0` = `non-functioning`
+- `1` = `functioning`
+
+::: tip
+GUI software developers may refer to the[jl777/coins file in this link](https://github.com/jl777/coins) for the default coin json configuration.
+:::
+
+Volunteers are welcome to test coins with Komodo DEX software at any time. After testing a coin, please create a pull request with the desired coin configuration and successful swap details using the guide linked below.
+
+[Guide to Submitting Coin Test Results](https://github.com/jl777/coins#0-the-coin-must-be-tested-with-barterdex-atomic-swaps)
+
+
+##### Examples of the Parameter Settings
+
+Set the value of the `mm2` parameter in the [coins](../atomic-swap-dex/dex-walkthrough.md#setting-up-coin-list) file as follows:
+
+```bash
+mm2=1
+```
+
+For terminal interface examples, see the examples section below.
 
 ### Arguments:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin you want to enable |
-| urls      | array of strings | the urls of coin Electrum servers to which you want to connect |
-| mm2       | number | let MM2 know that coin is `expected` to work |
+| urls      | array of strings | the urls of Electrum servers to which you want to connect |
+| mm2       | number (required if not set in the `coins` file) | this property informs the Komodo DEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
 
 ::: warning Note
-If the connection to at least one of the provided `urls` fails for any reason, MM2 will not enable the coin and will return an error.
+If the connection to at least one of the provided `urls` fails for any reason the software will not enable the coin. Instead, the software will return an error.
 :::
 
 ### Response:
@@ -44,6 +72,7 @@ If the connection to at least one of the provided `urls` fails for any reason, M
 | balance   | number    | the amount of `coin` the user holds in their wallet |
 | result    | string    | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
+<!-- Artem, can you please provide updated examples below?-->
 #### :pushpin: Examples:
 
 Command:
@@ -54,14 +83,16 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 Response (Success):
 
-```bash
+```json
 {
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": 10,
   "result": "success"
 }
 ```
+
 Response (Error):
+
 ```bash
 {
   "error":"lp_coins:829] lp_coins:786] utxo:951] rpc_clients:557] rpc_clients:384] electrum4.cipig.net:10025 error Custom { kind: Other, error: StringError(\"failed to lookup address information: Name or service not known\") }"
@@ -72,17 +103,40 @@ Response (Error):
 
 **enable coin (urls swap_contract_address mm2)**
 
-::: warning Note
-MM2 requires `mm2` parameter to be set in coins config or in `electrum/enable` requests. This lets MM2 know that coin is `expected` to work. [more info](dex-walkthrough.md#setting-up-coin-list)  
+::: warning Important
+
+Komodo DEX software requires the `mm2` parameter to be set for each `coin`; the methods to activate the parameter vary. See below for further information.
+
 :::
 
-The `enable` method enables a coin by connecting your MM2 instance to the `coin` blockchain using the `native` coin daemon (e.g. komodod for KMD).
+The `enable` method enables a coin by connecting the user's software instance to the `coin` blockchain using the `native` coin daemon.
 
-Each coin can be enabled only once, and in either Electrum or Native mode. It is not possible to use both modes at once.  
+Each `coin` can be enabled only once, and in either Electrum or Native mode. The DEX software does not allow a `coin` to be active in both modes at once.  
 
 For utxo-based coins the daemon of this blockchain must also be running on the user's machine for `enable` to function.  
 
 ETH/ERC20 coins are also enabled by the `enable` method, but a local installation of an ETH node is not required.  
+
+#### Notes on the mm2 Parameter
+
+Please refer to the `mm2` explanatory section in the `electrum` method for information about setting the `mm2` parameter and testing new coins.
+
+[Link to `mm2` explanatory section](../atomic-swap-dex/dex-api.html#notes-on-the-mm2-parameter)
+
+For terminal interface examples using the `mm2` parameter with the `enable` method, see the examples section below.
+
+#### Using Komodo DEX Software on an ETH-Based Network
+
+The following information can assist the user/developer in connecting Komodo DEX software to the Ethereum network:
+
+- Swap smart contract on the ETH mainnet: [0x8500AFc0bc5214728082163326C2FF0C73f4a871](https://etherscan.io/address/0x8500AFc0bc5214728082163326C2FF0C73f4a871) 
+  - Main-net node maintained by the Komodo team: <b>http://195.201.0.6:8555</b>  
+- Swap smart contract on the Ropsten testnet: [0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94](https://ropsten.etherscan.io/address/0x7bc1bbdd6a0a722fc9bffc49c921b685ecb84b94) 
+  - Ropsten node maintained by the Komodo team: <b>http://195.201.0.6:8545</b> 
+
+To use Komodo DEX software on another Ethereum-based network, such as the Kovan testnet or ETC, deploy the Etomic swap contract code from the repository linked below. Use of this code requires either an ETH node setup or access to a public service such as [Infura.](https://infura.io/)
+
+[Link to repository code for Ethereum-based networks](https://github.com/artemii235/etomic-swap)
 
 ### Arguments:
 
@@ -91,7 +145,7 @@ ETH/ERC20 coins are also enabled by the `enable` method, but a local installatio
 | coin      | string | the name of the coin the user desires to enable |
 | urls      | array of strings (required for ETH/ERC20) | urls of Ethereum RPC nodes to which the user desires to connect |
 | swap_contract_address | string (required for ETH/ERC20) | address of etomic swap smart contract |
-| mm2       | number | let MM2 know that coin is `expected` to work |
+| mm2       | number (required if not set in the `coins` file) | this property informs the Komodo DEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
 
 ### Response:
 
@@ -101,10 +155,10 @@ ETH/ERC20 coins are also enabled by the `enable` method, but a local installatio
 | balance   | number    | the amount of `coin` the user holds in their wallet |
 | result    | string    | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
-
+<!-- Artem, can you please provide updated examples below?-->
 #### :pushpin: Examples:
 
-Command (For BTC Fork):
+Command (for Bitcoin-based blockchains):
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\"}"
@@ -112,7 +166,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 Response:
 
-```bash
+```json
 {
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": 10,
@@ -120,21 +174,7 @@ Response:
 }
 ```
 
-::: tip
-- Swap smart contract on ETH mainnet: [0x8500AFc0bc5214728082163326C2FF0C73f4a871](https://etherscan.io/address/0x8500AFc0bc5214728082163326C2FF0C73f4a871) 
-Main-net node maintained by MM2 team: <b>http://195.201.0.6:8555</b>  
-:::
-
-::: tip
-- Swap smart contract on Ropsten testnet: [0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94](https://ropsten.etherscan.io/address/0x7bc1bbdd6a0a722fc9bffc49c921b685ecb84b94) 
-Ropsten node maintained by MM2 team: <b>http://195.201.0.6:8545</b> 
-:::
-
-::: tip
-To use MM2 on other Ethereum networks (such as the Kovan testnet or ETC), deploy the Etomic swap contract code from [this repository.](https://github.com/artemii235/etomic-swap) This requires an ETH node setup, or access to a public service such as [Infura.](https://infura.io/)
-:::
-
-Command (For ETH and ERC20 forks):
+Command (for Ethereum and ERC20-based blockchains):
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\"}"
@@ -142,7 +182,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 Response:
 
-```bash
+```json
 {
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": 50,
@@ -181,7 +221,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 Response:
 
-```bash
+```json
 {
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": 10,
@@ -211,18 +251,18 @@ The `orderbook` method requests from the network the currently available orders 
 | numbids | number | the number of outstanding bids |
 | biddepth | number | `deprecated` |
 | asks | array | an array of objects containing outstanding asks (from Bob nodes) |
-| coin | string | name of the `base` coin; the user desires this |
-| address | string | address offering the trade |
-| price | number | asking price of `rel` coin the user will sell per every 1 unit of `base` coin |
+| coin | string | the name of the `base` coin; the user desires this |
+| address | string | the address offering the trade |
+| price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
 | numutxos | number | `deprecated` the number of utxos the offer provider has in their wallet |
 | avevolume | number | `deprecated` the average volume of `coin` per utxo |
 | maxvolume | number | the total amount of `base` coins the offer provider has in their wallet |
 | depth | number | `deprecated` |
 | pubkey | string | the pubkey of the offer provider |
 | age | number | the age of the offer |
-| zcredits | number | zeroconf deposit amount |
-| numasks | number | total number of asks |
-| askdepth | number | depth of the ask requests |
+| zcredits | number | the zeroconf deposit amount |
+| numasks | number | the total number of asks |
+| askdepth | number | the depth of the ask requests |
 | base | string | the name of the coin the user desires to receive |
 | rel | string | the name of the coin the user will trade |
 | timestamp | number | the timestamp of the orderbook request |
@@ -238,7 +278,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 Response:
 
-```bash
+```json
 {
   "bids": [],
   "numbids": 0,
@@ -293,21 +333,21 @@ MM2 will set the `timeout` value by default, but the user may override by giving
 | swaps | array | an array of swap ids; indicates current ongoing swaps |
 | netamounts | array | `deprecated, will be removed` |
 | pending |  object | an object containing the swap information |
-| pending.uuid | string | pending swap uuid, same as request uuid |
+| pending.uuid | string | the pending swap uuid -- same as request uuid |
 | pending.expiration | number | indicates the time at which the swap expires |
 | pending.timeleft | number | indicates the amount of time remaining before the swap times out |
-| pending.tradeid | number | unique id of this trade on this network |
-| pending.requestid | number | unique id of this trade request |
+| pending.tradeid | number | the unique id of this trade on this network |
+| pending.requestid | number | the unique id of this trade request |
 | pending.quoteid | number | `deprecated, will be removed` |
-| pending.bob | string | `deprecated, will be removed`; name of the coin bob is trading, same as `base` |
-| pending.base | string | name of the `base` coin the user desires |
+| pending.bob | string | `deprecated, will be removed`; the name of the coin bob is trading, same as `base` |
+| pending.base | string | the name of the `base` coin the user desires |
 | pending.basevalue | number | the value of `base` coin to be exchanged | 
-| pending.alice | string | `deprecated, will be removed`; name of the coin alice is trading, same as `rel` |
-| pending.rel | string | name of the `rel` coin the user is trading |
+| pending.alice | string | `deprecated, will be removed`; the name of the coin alice is trading, same as `rel` |
+| pending.rel | string | the name of the `rel` coin the user is trading |
 | pending.relvalue | number | the value of `rel` coin to be exchanged |
 | pending.desthash | string | `deprecated, will be renamed`; taker (alice) curve25519 pubkey |
 | pending.aliceid | number | `deprecated, will be removed or renamed`; alice's unique id on this network |
-| uuid | string | request uuid |
+| uuid | string | the request uuid |
 
 #### :pushpin: Examples:
 
@@ -319,7 +359,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 Response (success):
 
-```bash
+```json
 {
   "result": "success",
   "swaps": [
@@ -359,7 +399,7 @@ Response (success):
 
 Response (error):
 
-```bash
+```json
 {"error":"rpc:278] utxo:884] REL balance 12.88892991 is too low, required 21.15"}
 ```
 
@@ -369,7 +409,7 @@ Response (error):
 
 The `sell` method issues a sell request and attempts to match an order from the orderbook based on the provided arguments.
 
-MM2 will set the `timeout` value by default, but the user may override by giving a value.
+Komodo software will set the `timeout` value by default, but the user may override by giving a value.
 
 ### Arguments:
 
@@ -393,18 +433,18 @@ MM2 will set the `timeout` value by default, but the user may override by giving
 | pending.uuid | string | pending swap uuid, same as request uuid |
 | pending.expiration | number | indicates the time at which the swap expires |
 | pending.timeleft | number | indicates the amount of time remaining before the swap times out |
-| pending.tradeid | number | unique id of this trade on this network |
-| pending.requestid | number | unique id of this trade request |
+| pending.tradeid | number | the unique id of this trade on this network |
+| pending.requestid | number | the unique id of this trade request |
 | pending.quoteid | number | `deprecated, will be removed` |
-| pending.bob | string | `deprecated, will be removed`, name of the coin bob is trading, same as `base` |
-| pending.base | string | name of the `base` coin the user desires |
+| pending.bob | string | `deprecated, will be removed`, the name of the coin bob is trading, same as `base` |
+| pending.base | string | the name of the `base` coin the user desires |
 | pending.basevalue | number | the value of `base` coin to be exchanged | 
-| pending.alice | string | `deprecated, will be removed`, name of the coin alice is trading, same as `rel` |
-| pending.rel | string | name of the `rel` coin the user is trading |
+| pending.alice | string | `deprecated, will be removed`, the name of the coin alice is trading, same as `rel` |
+| pending.rel | string | the name of the `rel` coin the user is trading |
 | pending.relvalue | number | the value of `rel` coin to be exchanged |
-| pending.desthash | string | `deprecated, will be renamed` taker (alice) curve25519 pubkey |
+| pending.desthash | string | `deprecated, will be renamed` the taker's (alice) curve25519 pubkey |
 | pending.aliceid | number | `deprecated, will be removed or renamed` alice's unique id on this network |
-| uuid | string | request uuid |
+| uuid | string | the request uuid |
 
 #### :pushpin: Examples:
 
@@ -416,7 +456,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 Response (success):
 
-```bash
+```json
 {
 "result":"success",
 "swaps":[[185307610, 3224582451], [1966701661, 660662362], [1689278922, 1884083697]],
@@ -442,7 +482,7 @@ Response (success):
 
 Response (error):
 
-```bash
+```json
 {"error":"rpc:278] utxo:884] REL balance 12.88892991 is too low, required 21.15"}
 ```
 
@@ -485,13 +525,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 Response (success):
 
-```bash
+```json
 {"result":"success"}
 ```
 
 Response (error):
 
-```bash
+```json
 {"error":"Rel coin REL is not found"}
 ```
 
@@ -555,7 +595,7 @@ This method generates a raw transaction which should then be broadcast using [se
 | from      | string    | coins will be withdrawn from this address |
 | to        | string    | coins with be withdrawn to this address |
 | amount    | number    | the amount of coins to be withdrawn |
-| fee_details | object    | fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details |
+| fee_details | object    | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details |
 
 
 #### :pushpin: Examples:
@@ -568,7 +608,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"K
 
 Response (success):
 
-```bash
+```json
 {
     "tx_hex":"0400008085202f8903d6a5b976db5e5c9e8f9ead50713b25f22cd061edc8ff0ff1049fd2cd775ba087000000006a473044022023b228a198d0845320b91471152727aa192831e37e1e909777660ea81d2cec930220634992c2a37e4439b92cf5b866bccec0f0e343fa2601cc441535faa2cebc2b11012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffffd04d4e07ac5dacd08fb76e08d2a435fc4fe2b16eb0158695c820b44f42f044cb010000006b483045022100c4b0bab86626124cb2eba8b0ed76870a75564dba0d4efc347799e5bbf162d48702206b673f63d9505d6d06e9c8e3f52f683a04f1323b5cd527d589ced18697cac83d012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff230946ea9795558bcdecda5e56b3ff823664e2f4627faedb0e6edf2961a1079c010000006a47304402201e8afe0429897cbf2fb45261985d75489cfce41d21034da8eb7962e1d7b8aa8102200273c6d337de43af8b188da303ff622c645b4c2149e62888af2202d1ed362a2f012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200ca9a3b000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac1f9abe2d000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000",
     "from":"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
@@ -588,7 +628,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"E
 
 Response (success):
 
-```bash
+```json
 {
     "tx_hex":"f86d820a4c843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa29888ac7230489e80000801ca00813afcd3661b62879aa01e1b90f3cbb8c355a318aa3a020c1da21d6b19ea1d6a01492bf4698105f5d81c4ebcce4913cb026a323b9b34b5896a562ea19524728c8",
     "from":"0xbab36286672fbdc7b250804bf6d14be0df69fa29",
@@ -632,7 +672,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"send_raw_transaction\",
 
 Response (success):
 
-```bash
+```json
 {
     "tx_hash":"0b024ea6997e16387c0931de9f203d534c6b2b8500e4bda2df51a36b52a3ef33",
 }

@@ -10,16 +10,16 @@ The `addnode` method attempts to add or remove a node from the addnode list, or 
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"node"                                       |(string, required)           |the node (see [`getpeerinfo`](../komodo-api/network.html#getpeerinfo) for nodes)
-"command"                                    |(string, required)           |'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once
+| Structure | Type               | Description                                                                                                             |
+| --------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| "node"    | (string, required) | the node (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes)                                          |
+| "command" | (string, required) | 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -57,15 +57,15 @@ The `clearbanned` method clears all banned IPs.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -105,15 +105,15 @@ Use `getpeerinfo` to determine the result.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"node"                                       |(string, required)           |the node's address (see [`getpeerinfo`](../komodo-api/network.html#getpeerinfo) for nodes)
+| Structure | Type               | Description                                                                              |
+| --------- | ------------------ | ---------------------------------------------------------------------------------------- |
+| "node"    | (string, required) | the node's address (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes) |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -157,20 +157,20 @@ Nodes added via <b>onetry</b> are not listed here.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-dns                                          |(boolean, required)          |if false, only a list of added nodes will be provided; otherwise, connection information is also provided
-"node"                                       |(string, optional)           |if provided, the method returns information about this specific node; otherwise, all nodes are returned
+| Structure | Type                | Description                                                                                               |
+| --------- | ------------------- | --------------------------------------------------------------------------------------------------------- |
+| dns       | (boolean, required) | if false, only a list of added nodes will be provided; otherwise, connection information is also provided |
+| "node"    | (string, optional)  | if provided, the method returns information about this specific node; otherwise, all nodes are returned   |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"addednode"                                  |(string)                     |the node ip address
-"connected"                                  |(boolean)                    |if connected
-"addresses" : [ ... ]                        |(array of jsons)             |
-"address"                                    |(string)                     |the server host and port
-"connected"                                  |(string)                     |"connected" accepts two possible values: "inbound" or "outbound"
+| Structure             | Type             | Description                                                      |
+| --------------------- | ---------------- | ---------------------------------------------------------------- |
+| "addednode"           | (string)         | the node ip address                                              |
+| "connected"           | (boolean)        | if connected                                                     |
+| "addresses" : [ ... ] | (array of jsons) |
+| "address"             | (string)         | the server host and port                                         |
+| "connected"           | (string)         | "connected" accepts two possible values: "inbound" or "outbound" |
 
 #### :pushpin: Examples:
 
@@ -257,15 +257,15 @@ The `getconnectioncount` method returns the number of connections to other nodes
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-n                                            |(numeric)                    |the connection count
+| Structure | Type      | Description          |
+| --------- | --------- | -------------------- |
+| n         | (numeric) | the connection count |
 
 #### :pushpin: Examples:
 
@@ -311,17 +311,17 @@ This method is applicable only to the KMD mainnet.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"version"                                    |(numeric)                    |the server version
-"subversion"                                 |(string)                     |the server sub-version string (i.e. "/MagicBean:x.y.z[-v]/")
-"deprecationheight"                          |(numeric)                    |the block height at which this version will deprecate and shut down (unless [`disabledeprecation`](https://z.cash/blog/new-release-1-1-2/) is set)
+| Structure           | Type      | Description                                                                                                                                      |
+| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| "version"           | (numeric) | the server version                                                                                                                               |
+| "subversion"        | (string)  | the server sub-version string (i.e. "/MagicBean:x.y.z[-v]/")                                                                                     |
+| "deprecationheight" | (numeric) | the block height at which this version will deprecate and shut down (unless [disabledeprecation](https://z.cash/blog/new-release-1-1-2/) is set) |
 
 #### :pushpin: Examples:
 
@@ -371,17 +371,17 @@ The `getnettotals` method returns information about network traffic, including b
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"totalbytesrecv"                             |(numeric)                    |total bytes received
-"totalbytessent"                             |(numeric)                    |total bytes sent
-"timemillis"                                 |(numeric)                    |total cpu time
+| Structure        | Type      | Description          |
+| ---------------- | --------- | -------------------- |
+| "totalbytesrecv" | (numeric) | total bytes received |
+| "totalbytessent" | (numeric) | total bytes sent     |
+| "timemillis"     | (numeric) | total cpu time       |
 
 #### :pushpin: Examples:
 
@@ -431,32 +431,31 @@ The `getnetworkinfo` method returns an object containing various state info rega
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"version"                                    |(numeric)                    |the server version
-"subversion"                                 |(string)                     |the server subversion string (i.e. "/MagicBean:x.y.z[-v]/")
-"protocolversion"                            |(numeric)                    |the protocol version
-"localservices"                              |(string)                     |the services we offer to the network
-"timeoffset"                                 |(numeric)                    |the time offset
-"connections"                                |(numeric)                    |the number of connections
-"networks": [ ... ]                          |(array of jsons)             |information per network
-"name"                                       |(string)                     |network (ipv4, ipv6 or onion)
-"limited"                                    |(boolean)                    |whether the network is limited using -onlynet
-"reachable"                                  |(boolean)                    |whether the network is reachable
-"proxy"                                      |(string)                     |(submitted as "host:port") the proxy that is used for this network, or empty if none
-"relayfee"                                   |(numeric)                    |minimum relay fee for non-free transactions in COIN/kB
-"localaddresses": [ ... ]                    |(array of jsons)             |list of local addresses
-"address"                                    |(string)                     |network address
-"port"                                       |(numeric)                    |network port
-"score"                                      |(numeric)                    |relative score
-"warnings"                                   |(string)                     |any network warnings (such as alert messages)
-
+| Structure                 | Type             | Description                                                                          |
+| ------------------------- | ---------------- | ------------------------------------------------------------------------------------ |
+| "version"                 | (numeric)        | the server version                                                                   |
+| "subversion"              | (string)         | the server subversion string (i.e. "/MagicBean:x.y.z[-v]/")                          |
+| "protocolversion"         | (numeric)        | the protocol version                                                                 |
+| "localservices"           | (string)         | the services we offer to the network                                                 |
+| "timeoffset"              | (numeric)        | the time offset                                                                      |
+| "connections"             | (numeric)        | the number of connections                                                            |
+| "networks": [ ... ]       | (array of jsons) | information per network                                                              |
+| "name"                    | (string)         | network (ipv4, ipv6 or onion)                                                        |
+| "limited"                 | (boolean)        | whether the network is limited using -onlynet                                        |
+| "reachable"               | (boolean)        | whether the network is reachable                                                     |
+| "proxy"                   | (string)         | (submitted as "host:port") the proxy that is used for this network, or empty if none |
+| "relayfee"                | (numeric)        | minimum relay fee for non-free transactions in COIN/kB                               |
+| "localaddresses": [ ... ] | (array of jsons) | list of local addresses                                                              |
+| "address"                 | (string)         | network address                                                                      |
+| "port"                    | (numeric)        | network port                                                                         |
+| "score"                   | (numeric)        | relative score                                                                       |
+| "warnings"                | (string)         | any network warnings (such as alert messages)                                        |
 
 #### :pushpin: Examples:
 
@@ -499,9 +498,8 @@ Response:
       "proxy_randomize_credentials": false
     }
   ],
-  "relayfee": 0.00000100,
-  "localaddresses": [
-  ],
+  "relayfee": 0.000001,
+  "localaddresses": [],
   "warnings": ""
 }
 ```
@@ -548,7 +546,7 @@ Response:
         "proxy_randomize_credentials": false
       }
     ],
-    "relayfee": 1e-06,
+    "relayfee": 1e-6,
     "localaddresses": [],
     "warnings": ""
   },
@@ -565,35 +563,35 @@ The `getpeerinfo` method returns data about each connected network node as a jso
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"id"                                         |(numeric)                    |peer index
-"addr":,                                     |(string)                     |the ip address and port of the peer ("host:port")
-"addrlocal"                                  |(string)                     |local address ("ip:port")
-"services"                                   |(string)                     |the services offered
-"lastsend"                                   |(numeric)                    |the time in seconds since epoch (Jan 1 1970 GMT) of the last send
-"lastrecv"                                   |(numeric)                    |the time in seconds since epoch (Jan 1 1970 GMT) of the last receive
-"bytessent"                                  |(numeric)                    |the total bytes sent
-"bytesrecv"                                  |(numeric)                    |the total bytes received
-"conntime"                                   |(numeric)                    |the connection time in seconds since epoch (Jan 1 1970 GMT)
-"timeoffset"                                 |(numeric)                    |the time offset in seconds
-"pingtime"                                   |(numeric)                    |ping time
-"pingwait"                                   |(numeric)                    |ping wait
-"version"                                    |(numeric)                    |the peer version, such as 170002
-"subver"                                     |(string)                     |the string version (i.e. "/MagicBean:x.y.z[-v]/")
-"inbound"                                    |(boolean)                    |inbound (true) or outbound (false)
-"startingheight"                             |(numeric)                    |the starting height (block) of the peer
-"banscore"                                   |(numeric)                    |the ban score
-"synced_headers"                             |(numeric)                    |the last header we have in common with this peer
-"synced_blocks"                              |(numeric)                    |the last block we have in common with this peer
-"inflight": [ ... ]                          |(array)                      |
-number                                       |(numeric)                    |the block height requested from this peer
+| Structure           | Type      | Description                                                          |
+| ------------------- | --------- | -------------------------------------------------------------------- |
+| "id"                | (numeric) | peer index                                                           |
+| "addr":,            | (string)  | the ip address and port of the peer ("host:port")                    |
+| "addrlocal"         | (string)  | local address ("ip:port")                                            |
+| "services"          | (string)  | the services offered                                                 |
+| "lastsend"          | (numeric) | the time in seconds since epoch (Jan 1 1970 GMT) of the last send    |
+| "lastrecv"          | (numeric) | the time in seconds since epoch (Jan 1 1970 GMT) of the last receive |
+| "bytessent"         | (numeric) | the total bytes sent                                                 |
+| "bytesrecv"         | (numeric) | the total bytes received                                             |
+| "conntime"          | (numeric) | the connection time in seconds since epoch (Jan 1 1970 GMT)          |
+| "timeoffset"        | (numeric) | the time offset in seconds                                           |
+| "pingtime"          | (numeric) | ping time                                                            |
+| "pingwait"          | (numeric) | ping wait                                                            |
+| "version"           | (numeric) | the peer version, such as 170002                                     |
+| "subver"            | (string)  | the string version (i.e. "/MagicBean:x.y.z[-v]/")                    |
+| "inbound"           | (boolean) | inbound (true) or outbound (false)                                   |
+| "startingheight"    | (numeric) | the starting height (block) of the peer                              |
+| "banscore"          | (numeric) | the ban score                                                        |
+| "synced_headers"    | (numeric) | the last header we have in common with this peer                     |
+| "synced_blocks"     | (numeric) | the last block we have in common with this peer                      |
+| "inflight": [ ... ] | (array)   |
+| number              | (numeric) | the block height requested from this peer                            |
 
 #### :pushpin: Examples:
 
@@ -626,8 +624,7 @@ Response:
     "banscore": 45,
     "synced_headers": 1007671,
     "synced_blocks": 1007671,
-    "inflight": [
-    ],
+    "inflight": [],
     "whitelisted": false
   }
 ]
@@ -682,17 +679,16 @@ The `listbanned` method lists all banned IP addresses and subnets.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address/subnet that is banned
-"banned_until"                               |(numeric)                    |the timestamp, at which point the ban will be removed
-
+| Structure      | Type      | Description                                           |
+| -------------- | --------- | ----------------------------------------------------- |
+| "address"      | (string)  | the address/subnet that is banned                     |
+| "banned_until" | (numeric) | the timestamp, at which point the ban will be removed |
 
 #### :pushpin: Examples:
 
@@ -752,15 +748,15 @@ Use <b>getpeerinfo</b> to see <b>ping</b> results.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 #### :pushpin: Examples:
 
@@ -802,18 +798,18 @@ The `setban` method attempts to add or remove an IP address (and subnet, if indi
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"ip(/netmask)"                               |(string, ip required)        |the IP/subnet (see `getpeerinfo` for nodes ip) with an optional netmask (default is /32 = single ip)
-"command"                                    |(string, required)           |use "add" to add an IP/subnet to the list, or "remove" to remove an IP/subnet from the list
-bantime                                      |(numeric, optional)          |indicates how long (in seconds) the ip is banned (or until when, if [absolute] is set). 0 or empty means the ban is using the default time of 24h, which can also be overwritten using the -bantime runtime parameter.
-absolute                                     |(boolean, optional)          |if set to true, the bantime must be an absolute timestamp (in seconds) since epoch (Jan 1 1970 GMT)
+| Structure      | Type                  | Description                                                                                                                                                                                                            |
+| -------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "ip(/netmask)" | (string, ip required) | the IP/subnet (see `getpeerinfo` for nodes ip) with an optional netmask (default is /32 = single ip)                                                                                                                   |
+| "command"      | (string, required)    | use "add" to add an IP/subnet to the list, or "remove" to remove an IP/subnet from the list                                                                                                                            |
+| bantime        | (numeric, optional)   | indicates how long (in seconds) the ip is banned (or until when, if [absolute] is set). 0 or empty means the ban is using the default time of 24h, which can also be overwritten using the -bantime runtime parameter. |
+| absolute       | (boolean, optional)   | if set to true, the bantime must be an absolute timestamp (in seconds) since epoch (Jan 1 1970 GMT)                                                                                                                    |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ::: tip
 Use <b>listbanned</b> to view results.

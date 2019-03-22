@@ -1,18 +1,20 @@
 # Contract Module: Dice
 
+## Introduction
+
 The `dice` module allows for a decentralized `dice` game on a blockchain. The `dice` module is essentially a simple, but fully functional decentralized application (dApp).
 
 It is also useful as a demonstration to show how Crypto Conditions based contracts can leverage provably random entropy to enable blockchain-enforced real-time gameplay.
 
 `dice` is a simple gambling game, where one node creates a "house" contract, with seed funds and other parameters, and other users place bets within the indicated parameters. Winners and losers are determined through blockchain technology. This technology includes on-chain, consensus based, provably random entropy that derives from the activity of both the "house" and the users.
 
-The "house" node should be running the [`dicestatus`](../cryptoconditions/cc-dice.html#dicestatus) method at a regular frequency. This method resolves unfinished bets and generates new entropy utxos for the "house" contract.
+The "house" node should be running the [dicestatus](../cryptoconditions/cc-dice.html#dicestatus) method at a regular frequency. This method resolves unfinished bets and generates new entropy utxos for the "house" contract.
 
-To create a "house" contract, use [`dicefund`](../cryptoconditions/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [`diceaddfunds`](../cryptoconditions/cc-dice.html#diceaddfunds).
+To create a "house" contract, use [dicefund](../cryptoconditions/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [diceaddfunds.](../cryptoconditions/cc-dice.html#diceaddfunds)
 
-Once the contract is created and funded, users can place a bet using [`dicebet`](../cryptoconditions/cc-dice.html#dicebet).
+Once the contract is created and funded, users can place a bet using [dicebet.](../cryptoconditions/cc-dice.html#dicebet)
 
-Anyone can execute a [`dicefinish`](../cryptoconditions/cc-dice.html#dicefinish) RPC after the contract's time expires. This prevents the "house" node from cheating by going offline.
+Anyone can execute a [dicefinish](../cryptoconditions/cc-dice.html#dicefinish) RPC after the contract's time expires. This prevents the "house" node from cheating by going offline.
 
 ## diceaddfunds
 
@@ -22,13 +24,13 @@ The `diceaddfunds` method adds funds to the desired `dice` contract.
 
 Only the owner of the `dice` contract is able to add funds.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
 | Structure   | Type     | Description                                                       |
 | ----------- | -------- | ----------------------------------------------------------------- |
-| name        | (string) | name of your dice contract                                        |
+| name        | (string) | the name of the user's dice contract                                    |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
 | amount      | (number) | the amount of funds you want to add to your dice from your wallet |
 
@@ -163,8 +165,8 @@ The `diceaddress` method takes either your pubkey or a pubkey that you provide a
 | result         | (string) | whether the diceaddress method was successful                                                                                  |
 | DiceCCaddress  | (string) | taking the dice contract's EVAL code as a modifier, this is the public address that corresponds to the dice contract's privkey |
 | Dicemarker     | (string) | the unmodified public address generated from the dice contract's privkey                                                       |
-| DiceCCassets   | (string) | the internal address (this is not related to the usage of dice)                                                                                |
-| GatewaysPubkey | (string) | the global pubkey for this Gateways CC module                                                                                       |
+| DiceCCassets   | (string) | the internal address; this value is not related to the usage of the Dice CC module                                                                |
+| GatewaysPubkey | (string) | the global pubkey for this Gateways CC module                                                                                  |
 | myCCaddress    | (string) | taking the dice contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                         |
 | myaddress      | (string) | the public address of the pubkey used to launch the chain                                                                      |
 
@@ -196,23 +198,23 @@ Response:
 
 The `dicebet` method places a bet on the indicated `dice` contract.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
-| Structure   | Type     | Description                                                       |
-| ----------- | -------- | ----------------------------------------------------------------- |
-| name        | (string) | the name of the dice contract you want to place your bet              |
-| fundingtxid | (string) | the txid of the transaction that created and funded this contract |
-| amount      | (number) | the amount you want to place bet                                      |
-| odds        | (number) | specify your odds                                                 |
+| Structure   | Type     | Description                                                             |
+| ----------- | -------- | ----------------------------------------------------------------------- |
+| name        | (string) | the name of the dice contract for which the user desires to place a bet |
+| fundingtxid | (string) | the txid of the transaction that created and funded this contract       |
+| amount      | (number) | the amount the user dires to place as a bet                             |
+| odds        | (number) | specify the user's odds                                                 |
 
 ### Response:
 
 | Structure | Type     | Description                                                                                            |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------ |
 | "result"  | (string) | whether the dicebet command executed successfully                                                      |
-| "hex"     | (string) | the data of your transaction, in a raw hex-encoded format; you must now broadcast this raw transaction |
+| "hex"     | (string) | the data of the user's transaction, in a raw hex-encoded format; broadcast this using `sendrawtransaction` |
 
 #### :pushpin: Examples:
 
@@ -357,7 +359,7 @@ The `dicefinish` method rebroadcasts a bet that has already been broadcasted.
 
 If the returned `hex` value is `0` the bet is finished.
 
-If the returned `hex` value is not `0`, the `hex` value should be broadcast with [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction). If the bet has not finished or is stuck, the `hex` will have a value.
+If the returned `hex` value is not `0`, the `hex` value should be broadcast with [sendrawtransaction.](../komodo-api/rawtransactions.html#sendrawtransaction) If the bet has not finished or is stuck, the `hex` will have a value.
 
 ### Arguments:
 
@@ -397,7 +399,7 @@ Response:
 
 The `dicefund` method creates and funds a dice contract.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 Ideally, the dice creator node should be online throughout the contract's life, to determine `winning bid` or `losing bid`.
 
@@ -411,19 +413,19 @@ The `maxodds` property must be between 1 and 9999.
 
 | Structure     | Type     | Description                                                                              |
 | ------------- | -------- | ---------------------------------------------------------------------------------------- |
-| name          | (string) | name of your dice contract                                                               |
-| funds         | (number) | the amount of funds you want to start with                                               |
-| maxbet        | (number) | maximum amount allowed for a bet                                                           |
-| minbet        | (number) | minimum amount allowed for a bet                                                           |
+| name          | (string) | the name of the user's dice contract                                                               |
+| funds         | (number) | the amount of funds with which the user desires to start                                               |
+| maxbet        | (number) | the maximum amount allowed for a bet                                                           |
+| minbet        | (number) | the minimum amount allowed for a bet                                                           |
 | maxodds       | (number) | the largest odds an end-user can use for betting                                         |
-| timeoutblocks | (number) | the many blocks before the contract times out and pays the automatically declared winner |
+| timeoutblocks | (number) | the number of blocks before the contract times out and pays the automatically declared winner |
 
 ### Response:
 
 | Structure | Type     | Description                                                                                                              |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------ |
 | result    | (string) | whether the command executed successfully                                                                                |
-| hex       | (string) | the data of the transaction in raw hex-encoded format; you should broadcast this hex with the sendrawtransaction command |
+| hex       | (string) | the data of the transaction in raw hex-encoded format; broadcast this using the sendrawtransaction method |
 
 #### :pushpin: Examples:
 
@@ -619,7 +621,7 @@ The `diceinfo` method looks up information about the specific `dice` contract re
 
 A `fundingtxid` is the txid of the transaction that created and funded the relevant contract.
 
-Use the [`dicelist`](../cryptoconditions/cc-dice.html#dicelist) method to discover a list of available `fundingtxid` hashes on the asset chain.
+Use the [dicelist](../cryptoconditions/cc-dice.html#dicelist) method to discover a list of available `fundingtxid` hashes on the asset chain.
 
 ### Arguments:
 
@@ -683,9 +685,7 @@ A `fundingtxid` is the txid of the transaction that created and funded the relev
 
 | Structure   | Type     | Description                                                               |
 | ----------- | -------- | ------------------------------------------------------------------------- |
-| [           |          |
 | fundingtxid | (string) | the txid of the transaction that created and funded the relevant contract |
-| ]           |          |
 
 #### :pushpin: Examples:
 

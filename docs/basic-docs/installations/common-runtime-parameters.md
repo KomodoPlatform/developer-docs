@@ -75,7 +75,7 @@ komodod -addressindex=1
 
 Using `addressindex` as a default value in the coin's .conf file:
 
-```
+```bash
 addressindex=1
 ```
 
@@ -101,7 +101,7 @@ Depending on the size and state of the chain you are re-indexing, this parameter
 
 Using reindex as a runtime parameter:
 
-```
+```bash
 komodod -reindex
 ```
 
@@ -119,13 +119,13 @@ The <b>reindex</b> parameter is not a viable alternative method for re-syncing t
 
 Using timestampindex as a runtime parameter:
 
-```
+```bash
 ./komodod -timestampindex=1
 ```
 
 Using timestampindex as a default value in the coin's .conf file:
 
-```
+```bash
 timestampindex=1
 ```
 
@@ -145,13 +145,13 @@ The <b>reindex</b> parameter is not a viable alternative method for re-syncing t
 
 Using spentindex as a runtime parameter:
 
-```
+```bash
 komodod -spentindex=1
 ```
 
 Using spentindex as a default value in the coin's `.conf` file:
 
-```
+```bash
 spentindex=1
 ```
 
@@ -171,7 +171,7 @@ komodod -ac_name=TEST -regtest
 
 Using regtest as a default value in the coin's .conf file:
 
-```
+```bash
 regtest=0
 ```
 
@@ -183,13 +183,13 @@ regtest=0
 
 Using bantime as a runtime parameter:
 
-```
+```bash
 komodod -bantime=100000
 ```
 
 Using bantime as a default value in the coin's .conf file:
 
-```
+```bash
 bantime=100000
 ```
 
@@ -215,7 +215,7 @@ komodod -proxy=127.0.0.1:9050
 
 Using proxy as a default value in the coin's `.conf` file:
 
-```
+```bash
 proxy=127.0.0.1:9050
 ```
 
@@ -235,7 +235,7 @@ komodod -bind=127.0.0.1:9050
 
 Using bind as a default value in the coin's `.conf` file:
 
-```
+```bash
 bind=127.0.0.1:9050
 ```
 
@@ -255,7 +255,7 @@ komodod -whitebind=127.0.0.1:9050
 
 Using whitebind as a default value in the coin's `.conf` file:
 
-```
+```bash
 whitebind=127.0.0.1:9050
 ```
 
@@ -263,7 +263,7 @@ whitebind=127.0.0.1:9050
 
 `addnode` tells the daemon which nodes are trusted to act as seed nodes. After connecting to a node via `addnode`, the trusted node will send your node the list of all nodes that it is connected to, and your node will then connect to these additional nodes until [the max limit](../installations/common-runtime-parameters.html#maxconnections) is reached.
 
-This contrasts from the [`connect`](../installations/common-runtime-parameters.html#connect) runtime parameter, as the latter does not attempt to connect your node to additional nodes.
+This contrasts from the [connect](../installations/common-runtime-parameters.html#connect) runtime parameter, as the latter does not attempt to connect your node to additional nodes.
 
 If you are behind a firewall or are having issues connecting to the network, `addnode` is a stronger option.
 
@@ -279,7 +279,7 @@ The p2p port must not be blocked by a firewall. If the computers do not have pub
 
 Using addnode as a default value in the coin's `.conf` file:
 
-```
+```bash
 addnode=69.164.218.197
 ```
 
@@ -287,13 +287,13 @@ addnode=69.164.218.197
 
 `connect` connects the `komodod` server to a trusted peer node, but not to request or add any additional nodes.
 
-Please refer to the [`addnode`](../installations/common-runtime-parameters.html#addnode) parameter entry for more information.
+Please refer to the [addnode](../installations/common-runtime-parameters.html#addnode) parameter entry for more information.
 
 #### :pushpin: Examples:
 
 Using connect as a default value in the coin's .conf file:
 
-```
+```bash
 connect=69.164.218.197
 ```
 
@@ -301,20 +301,28 @@ connect=69.164.218.197
 
 `gen` instructs the daemon to attempt to generate new blocks, and thereby mine new coins.
 
-See also [`setgenerate`](../komodo-api/generate.html#setgenerate).
+See also [setgenerate](../komodo-api/generate.html#setgenerate).
+
+::: warning
+This parameter should be avoided. Instead, start the daemon without the `-gen` parameter. Once the asset chain is launched, wait until the blockchain is synced to the current block and then execute the [setgenerate](../komodo-api/generate.html#setgenerate) method. The sync status of the blockchain can be found by executing the [getinfo](../komodo-api/control.html#getinfo) method and comparing the `blocks` and `longestchain` properties.
+:::
+
+::: tip
+
+- If the `genproclimit` property is not specified after the `gen` option, the daemon mines using 1 thread.
+- To mine using all available threads, use: `-genproclimit=-1`
+  :::
+
+::: tip
+`gen=0` in the .conf file on an asset chain where `ac_staked` is enabled sets the daemon to stake using all available coins
+:::
 
 #### :pushpin: Examples:
 
-Using gen as a runtime parameter:
+Using gen as a runtime parameter to mine using 4 threads:
 
 ```bash
-komodod -gen
-```
-
-Using gen as a default value in the coin's .conf file:
-
-```
-gen=0
+./komodod -gen -genproclimit=4
 ```
 
 ## listen
@@ -331,7 +339,7 @@ komodod -listen=1
 
 Using listen as a default value in the coin's `.conf` file:
 
-```
+```bash
 listen=1
 ```
 
@@ -349,7 +357,7 @@ komodod -maxconnections=NUMBER
 
 Using maxconnections as a default value in the coin's .conf file:
 
-```
+```bash
 maxconnections=NUMBER
 ```
 
@@ -367,7 +375,7 @@ komodod -server=1
 
 Using server as a default value in the coin's .conf file:
 
-```
+```bash
 server=1
 ```
 
@@ -391,7 +399,7 @@ komodod -rpcbind=127.0.0.1:9704
 
 Using rpcbind as a default value in the coin's .conf file:
 
-```
+```bash
 rpcbind=127.0.0.1:9704
 ```
 
@@ -409,7 +417,7 @@ komodod -rpcclienttimeout=SECONDS
 
 Using rpcclienttimeout as a default value in the coin's .conf file:
 
-```
+```bash
 rpcclientttimeout=SECONDS
 ```
 
@@ -429,7 +437,7 @@ Opening up the RPC port to hosts outside your local trusted network is NOT RECOM
 
 Using rpcallowip as a default value in the coin's .conf file:
 
-```
+```bash
   rpcallowip=10.1.1.34/255.255.255.0
   rpcallowip=1.2.3.4/24
   rpcallowip=2001:db8:85a3:0:0:8a2e:370:7334/96
@@ -443,7 +451,7 @@ Using rpcallowip as a default value in the coin's .conf file:
 
 Using rpcport as a default value in the coin's `.conf` file:
 
-```
+```bash
 rpcport=8232
 ```
 
@@ -459,7 +467,7 @@ We DO NOT RECOMMEND that the average user set this value to anything other than 
 
 Using rpcconnect as a default value in the coin's `.conf` file:
 
-```
+```bash
 rpcconnect=127.0.0.1
 ```
 
@@ -471,20 +479,24 @@ rpcconnect=127.0.0.1
 
 Using sendfreetransactions as a default value in the coin's .conf file:
 
-```
+```bash
 sendfreetransactions=0
 ```
 
 ## genproclimit
 
-`genproclimit` sets the number of threads to be used for mining. To initiate all cores, use the value `-1`.
+`genproclimit` sets the number of threads to be used for mining. To use all the available processors, use the value `-1`.
+
+::: tip
+Setting `genproclimit=0` instructs the daemon to stake (if possible) using all available coins.
+:::
 
 #### :pushpin: Examples:
 
-Using genproclimit as a default value in the coin's .conf file:
+Using genproclimit as a default value in the coin's .conf file, to mine using 2 threads:
 
-```
-genproclimit=1
+```bash
+genproclimit=2
 ```
 
 ## keypool
@@ -495,7 +507,7 @@ genproclimit=1
 
 Using keypool as a default value in the coin's .conf file:
 
-```
+```bash
 keypool=100
 ```
 
@@ -519,13 +531,13 @@ komodod -rewind=777777
 
 Using stopat as a runtime parameter:
 
-```
+```bash
 komodod -stopat=1000000
 ```
 
 ## pubkey
 
-`pubkey` sets an address to use as a change address for all transactions. This value must be set to a 33 byte pubkey. All mined coins will also be sent to this address. We recommend that the user ensure they own the corresponding `privkey` of their chosen `pubkey`, lest their funds be sent to a `pubkey` they do not own or control.
+`pubkey` sets an address to use as a change address for all transactions. This value must be set to a 33 byte pubkey. All mined/staked coins will also be sent to this address. We recommend that the user ensure they own the corresponding `privkey` of their chosen `pubkey`, lest their funds be sent to a `pubkey` they do not own or control.
 
 The `pubkey` parameter is required for all Crypto Conditions (CC) smart-contract enabled chains. All smart-contract transactions will utilize the `pubkey` as an integral property.
 
@@ -533,13 +545,13 @@ The `pubkey` parameter is required for all Crypto Conditions (CC) smart-contract
 
 Using pubkey as a default value in the coin's `.conf` file:
 
-```
+```bash
 pubkey=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 ```
 
 Using pubkey as a startup parameter:
 
-```
+```bash
 -pubkey=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 ```
 
@@ -551,7 +563,7 @@ Using pubkey as a startup parameter:
 
 Using exchange as a default value in the coin's .conf file:
 
-```
+```bash
 exchange=1
 ```
 
@@ -563,7 +575,7 @@ exchange=1
 
 Using donation as a default value in the coin's .conf file:
 
-```
+```bash
 donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 ```
 
@@ -575,6 +587,6 @@ donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 
 Using exportdir as a default value in the coin's `.conf` file:
 
-```
+```bash
 exportdir=/home/myusername/mydirectory
 ```

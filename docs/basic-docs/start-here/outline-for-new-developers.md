@@ -206,11 +206,11 @@ After you have your asset chain running on both nodes, we recommend executing so
 
 Here are links to some simple and common rpc examples:
 
-[`getnewaddress`](../komodo-api/wallet.html#getnewaddress)
+[getnewaddress](../komodo-api/wallet.html#getnewaddress)
 
-[`sendtoaddress`](../komodo-api/wallet.html#sendtoaddress)
+[sendtoaddress](../komodo-api/wallet.html#sendtoaddress)
 
-[`getinfo`](../komodo-api/control.html#getinfo)
+[getinfo](../komodo-api/control.html#getinfo)
 
 As Komodo is downstream from both [Bitcoin](https://bitcoin.org) and [Zcash](https://z.cash), essentially all of the commands that are available on those two upstream blockchains are also available here.
 
@@ -224,7 +224,7 @@ For example, you can learn how to make asset chains that are more complicated in
 
 Once you understand the concept, you can test a few asset-chain tricks -- like making your asset chain's consensus mechanism [a mix between Proof of Work and Proof of Stake](../installations/asset-chain-parameters.html#ac-staked).
 
-Or, you could make your asset chain suitable for a rapid mining period, followed by complete blockchain disposal. Use parameters such as [`ac_end`](../installations/asset-chain-parameters.html#ac-end), [`ac_reward`](../installations/asset-chain-parameters.html#ac-reward), [`ac_decay`](../installations/asset-chain-parameters.html#ac-decay), and [`ac_perc`](../installations/asset-chain-parameters.html#ac-perc) for this effect.
+Or, you could make your asset chain suitable for a rapid mining period, followed by complete blockchain disposal. Use parameters such as [ac_end](../installations/asset-chain-parameters.html#ac-end), [ac_reward](../installations/asset-chain-parameters.html#ac-reward), [ac_decay](../installations/asset-chain-parameters.html#ac-decay), and [ac_perc](../installations/asset-chain-parameters.html#ac-perc) for this effect.
 
 ## Discover CC Smart Contracts
 
