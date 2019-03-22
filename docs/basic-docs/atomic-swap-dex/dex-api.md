@@ -34,7 +34,7 @@ The value of the `mm2` parameter informs the software as to whether the `coin` i
 - `1` = `functioning`
 
 ::: tip
-GUI software developers may refer to the[jl777/coins file in this link](https://github.com/jl777/coins) for the default coin json configuration.
+GUI software developers may refer to the `coins` file [in this link](https://github.com/jl777/coins) for the default coin json configuration.
 :::
 
 Volunteers are welcome to test coins with Komodo DEX software at any time. After testing a coin, please create a pull request with the desired coin configuration and successful swap details using the guide linked below.
