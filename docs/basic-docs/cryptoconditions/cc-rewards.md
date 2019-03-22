@@ -562,13 +562,15 @@ If the original `txid` is lost, it is possible to find it again by either rebroa
 
 An error similar to the one below prints in the console:
 
-`APR 5.00000000 minseconds.86400 maxseconds.864000 mindeposit 10.00000000`
+```
+APR 5.00000000 minseconds.86400 maxseconds.864000 mindeposit 10.00000000
 
-`duration 74628 < minseconds 86400`
+duration 74628 < minseconds 86400
 
-`reward 0 is <= the transaction fee`
+reward 0 is <= the transaction fee
 
-`amount 200.00000000 -> reward 0.00000000`
+amount 200.00000000 -> reward 0.00000000
+```
 
 ### Arguments:
 
