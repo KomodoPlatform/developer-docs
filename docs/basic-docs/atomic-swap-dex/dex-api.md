@@ -72,7 +72,6 @@ If the connection to at least one of the provided `urls` fails for any reason th
 | balance   | number    | the amount of `coin` the user holds in their wallet |
 | result    | string    | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
-<!-- Artem, can you please provide updated examples below?-->
 #### :pushpin: Examples:
 
 Command:
@@ -85,6 +84,7 @@ Response (Success):
 
 ```json
 {
+  "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": 10,
   "result": "success"
@@ -96,6 +96,31 @@ Response (Error):
 ```bash
 {
   "error":"lp_coins:829] lp_coins:786] utxo:951] rpc_clients:557] rpc_clients:384] electrum4.cipig.net:10025 error Custom { kind: Other, error: StringError(\"failed to lookup address information: Name or service not known\") }"
+}
+```
+
+Command (With `mm2` argument):
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"urls\":[\"electrum1.cipig.net:10022\",\"electrum2.cipig.net:10022\",\"electrum3.cipig.net:10022\"],\"mm2\":1}"
+```
+
+Response (Success):
+
+```bash
+{
+  "coin": "HELLOWORLD",
+  "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+  "balance": 10,
+  "result": "success"
+}
+```
+
+Response (Error, `mm2` is not set):
+
+```bash
+{
+  "error":"lp_coins:943] lp_coins:693] mm2 param is not set neither in coins config nor enable request, assuming that coin is not supported"
 }
 ```
 
@@ -155,7 +180,6 @@ To use Komodo DEX software on another Ethereum-based network, such as the Kovan 
 | balance   | number    | the amount of `coin` the user holds in their wallet |
 | result    | string    | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
-<!-- Artem, can you please provide updated examples below?-->
 #### :pushpin: Examples:
 
 Command (for Bitcoin-based blockchains):
@@ -168,6 +192,7 @@ Response:
 
 ```json
 {
+  "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": 10,
   "result": "success"
@@ -184,9 +209,35 @@ Response:
 
 ```json
 {
+  "coin": "ETH",
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": 50,
   "result": "success"
+}
+```
+
+Command (With `mm2` argument):
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\",\"mm2\":1}"
+```
+
+Response (Success):
+
+```bash
+{
+  "coin": "HELLOWORLD",
+  "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+  "balance": 10,
+  "result": "success"
+}
+```
+
+Response (Error, `mm2` is not set):
+
+```bash
+{
+  "error":"lp_coins:943] lp_coins:693] mm2 param is not set neither in coins config nor enable request, assuming that coin is not supported"
 }
 ```
 
