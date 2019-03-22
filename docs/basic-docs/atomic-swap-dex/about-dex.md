@@ -44,7 +44,7 @@ With MM2, each node is a full standalone p2p solution (e.g. there are no longer 
 
 ## MarketMaker 2.0 for Mobile (New!)
 
-Komodo is pleased to announce that MarketMaker 2.0 is available on compatible Android and iOS devices.
+Komodo is pleased to announce that MarketMaker 2.0 is preparing for release on compatible Android and iOS devices. The software is currently undergoing quality tests and external reviews before publication.
 
 Notable aspects of the Mobile MM2 software include:
 
@@ -53,3 +53,5 @@ Notable aspects of the Mobile MM2 software include:
 - Integrates seamlessly with the desktop MarketMaker 2.0 software
 
 Through the Komodo API, mobile-device developers can integrate MM2 for Mobile into other software packages.
+
+Please reach out to our team on [Discord](https://komodoplatform.com/discord) to be involved with the software release.
