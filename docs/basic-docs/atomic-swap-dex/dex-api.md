@@ -34,7 +34,7 @@ The value of the `mm2` parameter informs the software as to whether the `coin` i
 - `1` = `functioning`
 
 ::: tip
-GUI software developers may refer to the[jl777/coins file in this link](https://github.com/jl777/coins) for the default coin json configuration.
+GUI software developers may refer to the `coins` file [in this link](https://github.com/jl777/coins) for the default coin json configuration.
 :::
 
 Volunteers are welcome to test coins with Komodo DEX software at any time. After testing a coin, please create a pull request with the desired coin configuration and successful swap details using the guide linked below.
@@ -72,7 +72,6 @@ If the connection to at least one of the provided `urls` fails for any reason th
 | balance   | number    | the amount of `coin` the user holds in their wallet |
 | result    | string    | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
-<!-- Artem, can you please provide updated examples below?-->
 #### :pushpin: Examples:
 
 Command:
@@ -85,6 +84,7 @@ Response (Success):
 
 ```json
 {
+  "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": 10,
   "result": "success"
@@ -96,6 +96,31 @@ Response (Error):
 ```bash
 {
   "error":"lp_coins:829] lp_coins:786] utxo:951] rpc_clients:557] rpc_clients:384] electrum4.cipig.net:10025 error Custom { kind: Other, error: StringError(\"failed to lookup address information: Name or service not known\") }"
+}
+```
+
+Command (With `mm2` argument):
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"urls\":[\"electrum1.cipig.net:10022\",\"electrum2.cipig.net:10022\",\"electrum3.cipig.net:10022\"],\"mm2\":1}"
+```
+
+Response (Success):
+
+```bash
+{
+  "coin": "HELLOWORLD",
+  "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+  "balance": 10,
+  "result": "success"
+}
+```
+
+Response (Error, `mm2` is not set):
+
+```bash
+{
+  "error":"lp_coins:943] lp_coins:693] mm2 param is not set neither in coins config nor enable request, assuming that coin is not supported"
 }
 ```
 
@@ -155,7 +180,6 @@ To use Komodo DEX software on another Ethereum-based network, such as the Kovan 
 | balance   | number    | the amount of `coin` the user holds in their wallet |
 | result    | string    | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
-<!-- Artem, can you please provide updated examples below?-->
 #### :pushpin: Examples:
 
 Command (for Bitcoin-based blockchains):
@@ -168,6 +192,7 @@ Response:
 
 ```json
 {
+  "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": 10,
   "result": "success"
@@ -184,9 +209,35 @@ Response:
 
 ```json
 {
+  "coin": "ETH",
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": 50,
   "result": "success"
+}
+```
+
+Command (With `mm2` argument):
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\",\"mm2\":1}"
+```
+
+Response (Success):
+
+```bash
+{
+  "coin": "HELLOWORLD",
+  "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
+  "balance": 10,
+  "result": "success"
+}
+```
+
+Response (Error, `mm2` is not set):
+
+```bash
+{
+  "error":"lp_coins:943] lp_coins:693] mm2 param is not set neither in coins config nor enable request, assuming that coin is not supported"
 }
 ```
 
