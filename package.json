@@ -16,6 +16,6 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "vuetify": "^1.3.9"
+    "vuetify": "^1.5.0"
   }
 }

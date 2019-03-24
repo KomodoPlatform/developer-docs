@@ -2,6 +2,23 @@
 
 The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
+<!-- These work for KMDLabs chains now, must revisit after they are modded to work for KMD
+## getnotarysendmany
+
+**getnotarysendmany**
+
+The `getnotarysendmany` method returns a sendmany JSON array with Raddresses of the current notaries.
+
+
+
+Examples:
+
+> komodo-cli getnotarysendmany 10
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnotarysendmany", "params": [10] }' -H 'content-type: text/plain;' http://127.0.0.1:7771/
+
+## getiguanajson
+-->
+
 ## getinfo
 
 **getinfo**

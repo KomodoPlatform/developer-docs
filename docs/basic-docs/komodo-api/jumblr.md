@@ -4,26 +4,35 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## Basic Instructions
 
-* Install Komodo following the [installation guides](../installations/basic-instructions.html#installing-basic-komodo-software) and change into the `komodod` subdirectory using: 
+- Install Komodo following the [installation guides](../installations/basic-instructions.html#installing-basic-komodo-software) and change into the `komodod` subdirectory using:
+
 ```bash
 cd ~/komodo/src
 ```
-* Start the daemon: 
+
+- Start the daemon:
+
 ```bash
 ./komodod &
 ```
-* Designate a KMD address with at least 10.024 KMD funds: 
+
+- Designate a KMD address with at least 10.024 KMD funds:
+
 ```bash
 ./komodo-cli jumblr_deposit KMD_address
 ```
+
 ::: tip
 The jumblr process continues until there are less than ~ 10.024 KMD in the deposit address.
 :::
-* Designate a destination address for your funds. This should be a transparent address that you are keeping secret: 
+
+- Designate a destination address for your funds. This should be a transparent address that you are keeping secret:
+
 ```bash
 komodo-cli jumblr_secret destination_KMD_address
 ```
-* Leave your node running until the balance in your first address reaches below 10.024 KMD and the destination address receives the correct amount.
+
+- Leave your node running until the balance in your first address reaches below 10.024 KMD and the destination address receives the correct amount.
 
 ::: warning
 Jumblr is created to be resistant against time-based analysis. Because of this, Jumblr is purposefully designed not to be fast. You will need to leave your node running for several hours for the process to finish.
@@ -57,16 +66,15 @@ While shielded z_address technology is available on all KMD-based asset chains, 
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"depositaddress"                             |(string, required)           |the address from which Jumblr will withdraw funds
-
+| Structure        | Type               | Description                                       |
+| ---------------- | ------------------ | ------------------------------------------------- |
+| "depositaddress" | (string, required) | the address from which Jumblr will withdraw funds |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |             |
 
 #### :pushpin: Examples:
 
@@ -94,16 +102,15 @@ See also <b>jumblr_resume</b>.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |             |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |             |
 
 #### :pushpin: Examples:
 
@@ -131,16 +138,15 @@ See also <b>jumblr_pause</b>.
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
-
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |             |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |             |
 
 #### :pushpin: Examples:
 
@@ -164,15 +170,15 @@ The `jumblr_secret` method indicates to Jumblr the final t destination address. 
 
 ### Arguments:
 
-Structure|Type|Description
----------|----|-----------
-"secretaddress"                              |(string, required)           |the destination transparent address
+| Structure       | Type               | Description                         |
+| --------------- | ------------------ | ----------------------------------- |
+| "secretaddress" | (string, required) | the destination transparent address |
 
 ### Response:
 
-Structure|Type|Description
----------|----|-----------
-(none)                                       |                             |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |             |
 
 #### :pushpin: Examples:
 

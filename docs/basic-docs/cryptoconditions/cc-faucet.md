@@ -1,8 +1,10 @@
 # Contract Module: Faucet
 
-The `faucet` module enables anyone to fund an on-chain faucet on any chain where contracts are [enabled](../installations/asset-chain-parameters.html#summary-of-ac-cc). An asset chain may have only one on-chain `faucet`.
+## Introduction
 
-To receive funds from a `faucet`, the [`faucetget`](../cryptoconditions/cc-faucet.html#faucetget) RPC can be executed by anyone on the asset chain, as long as their public address satisfies a few constraints. Their daemon's pubkey ( corresponding to the address) must have no history of funds or transactions, and an address can claim faucet funds only once on a chain. The call also requires the node to perform a small PoW calculation; this deters leechers.
+The `faucet` module enables anyone to fund an on-chain faucet on any chain where contracts are [enabled.](../installations/asset-chain-parameters.html#summary-of-ac-cc) An asset chain may have only one on-chain `faucet`.
+
+To receive funds from a `faucet`, the [faucetget](../cryptoconditions/cc-faucet.html#faucetget) method can be executed by anyone on the asset chain, as long as their public address satisfies a few constraints. Their daemon's pubkey (corresponding to the address) must have no history of funds or transactions, and an address can claim faucet funds only once on a chain. The call also requires the node to perform a small PoW calculation; this deters leechers.
 
 When `faucetget` is executed, the on-chain `faucet` sends 0.1 coins to the address that corresponds to the node's pubkey. This requires about 30 seconds of CPU time.
 
@@ -23,9 +25,9 @@ The `faucetaddress` method returns the CC address information for the specified 
 | Structure       | Type     | Description                                                                                                                          |
 | --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | FaucetCCaddress | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the public address that corresponds to the faucet contract's privkey |
-| Faucetmarker    | (string) | the internal address (not related to usage of faucet)                                                                                      |
-| FaucetCCassets  | (string) | the internal address (not related to usage of faucet)                                                                                      |
-| GatewaysPubkey  | (string) | the global pubkey for this Gateways contract module                                                                                             |
+| Faucetmarker    | (string) | the internal address (not related to usage of faucet)                                                                                |
+| FaucetCCassets  | (string) | the internal address (not related to usage of faucet)                                                                                |
+| GatewaysPubkey  | (string) | the global pubkey for this Gateways contract module                                                                                  |
 | CCaddress       | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the CC address from the pubkey of the user                           |
 | myCCaddress     | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the CC address from the pubkey of the user                           |
 | myaddress       | (string) | the unmodified public address of the pubkey used to launch the chain                                                                 |
@@ -59,7 +61,7 @@ Response:
 
 The `faucetfund` method funds the on-chain faucet.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments:
 
@@ -163,7 +165,7 @@ Response from Step 3
 
 The `faucetget` method requests the `faucet` contract to send coins.
 
-The method returns a hex value which must then be broadcast using the [`sendrawtransaction`](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 The `faucetget` command yields 0.1 coins and requires about 30 seconds of CPU time to execute.
 

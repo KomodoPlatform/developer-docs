@@ -84,6 +84,10 @@ Follow this link to find information on [accessing the coin daemon remotely](../
 Typically, a blockchain is vulnerable to double-spend attacks when its hash power is low. A Komodo-based blockchain can be secured against such attacks by enabling the dPoW security service. Please reach out to us when you are ready to purchase.
 :::
 
+## List of Asset-Chain Launch Parameters in the Komodo Ecosystem
+
+A list of launch parameters for all chains in the Komodo ecosystem is found [at this linked repository.](https://github.com/jl777/komodo/blob/master/src/assetchains.old)
+
 ## Komodo's Native DEX: BarterDEX
 
 Komodo offers a native decentralized-exchange (DEX) compatibility through our software, BarterDEX. This software is separate from `komodod` and `komodo-cli`.

@@ -6,7 +6,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 **getaddressbalance '{ "addresses" : [ "address" , ... ] }'**
 
-The `getaddressbalance` method returns the confirmed balance for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressbalance` method returns the confirmed balance for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments:
 
@@ -65,7 +65,7 @@ Response:
 
 **getaddressdeltas '{ "addresses" : [ "address" , ... ] , "start": start, "end": end, "chainInfo": boolean }'**
 
-The `getaddressdeltas` method returns all confirmed balance changes of an address. The user can optionally limit the response to a given interval of blocks. The method requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressdeltas` method returns all confirmed balance changes of an address. The user can optionally limit the response to a given interval of blocks. The method requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
@@ -208,7 +208,7 @@ Response:
 
 **getaddressmempool '{ "addresses" : [ "address" , ... ] }'**
 
-The `getaddressmempool` method returns all mempool deltas for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressmempool` method returns all mempool deltas for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
@@ -282,7 +282,7 @@ Response:
 
 **getaddresstxids '{ "addresses" : [ "address" , ... ] }'**
 
-The `getaddresstxids` method returns the txids for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddresstxids` method returns the txids for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
@@ -342,9 +342,9 @@ Response:
 
 ## getaddressutxos
 
-**getaddressutxos '{ "addresses" : [ "address" , ... ] }'**
+**getaddressutxos '{ "addresses" : [ "address" , ... ], "chaininfo" }'**
 
-The `getaddressutxos` method returns all unspent outputs for an address. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressutxos` method returns all unspent outputs for an address. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
@@ -465,6 +465,142 @@ Response:
     ],
     "hash": "0dd66ee1f151c38f73843378c08715ee3f4d3cf2888783e2846b81c057987084",
     "height": 398
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+## getsnapshot
+
+**getsnapshot top**
+
+The `getsnapshot` method returns a snapshot of addresses and their amounts at the asset chain's current height. 
+
+The method requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+
+### Arguments
+
+| Structure | Type               | Description                                          |
+| --------- | ------------------ | ---------------------------------------------------- |
+| "top"     | (number, optional) | Only return this many addresses, i.e. top N richlist |
+
+### Response
+
+| Structure         | Type             | Description                                         |
+| ----------------- | ---------------- | --------------------------------------------------- |
+| "addresses"       | (array of jsons) | the array containing the address and amount details |
+| "addr"            | (string)         | an address                                          |
+| "amount"          | (number)         | the amount of coins in the above address            |
+| "total"           | (numeric)        | the total amount in snapshot                        |
+| "average"         | (numeric)        | the average amount in each address                  |
+| "utxos"           | (number)         | the total number of UTXOs in snapshot               |
+| "total_addresses" | (number)         | the total number of addresses in snapshot,          |
+| "start_height"    | (number)         | the block height snapshot began                     |
+| "ending_height"   | (number)         | the block height snapshot finished,                 |
+| "start_time"      | (number)         | the unix epoch time snapshot started                |
+| "end_time"        | (number)         | the unix epoch time snapshot finished               |
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+./komodo-cli getsnapshot 5
+```
+
+Response:
+
+```json
+{
+  "start_time": 1552473201,
+  "addresses": [
+    {
+      "addr": "RRyyejME7LRTuvdziWsXkAbSW1fdiohGwK",
+      "amount": "6193787.46198546",
+      "segid": 13
+    },
+    {
+      "addr": "RNaNh2fDvnoimuFGSFtp2c6xb5pN7mMWQV",
+      "amount": "6169247.09074260",
+      "segid": 44
+    },
+    {
+      "addr": "RTu3JZZKLJTcfNwBa19dWRagEfQq49STqC",
+      "amount": "5124337.23955756",
+      "segid": 61
+    },
+    {
+      "addr": "RBpEnyzuQNj1hNdAG1pKLALpAWEUS67PBj",
+      "amount": "3029259.10629025",
+      "segid": 24
+    },
+    {
+      "addr": "RCyANUW2H5985zk8p6NHJfPyNBXnTVzGDh",
+      "amount": "2700034.72826615",
+      "segid": 48
+    }
+  ],
+  "total": 23216665.62684202,
+  "average": 4643333,
+  "utxos": 2416430,
+  "total_addresses": 5,
+  "ignored_addresses": 31,
+  "start_height": 1266933,
+  "ending_height": 1266933,
+  "end_time": 1552473348
+}
+```
+
+You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getsnapshot", "params": ["5"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+Response:
+
+```json
+{
+  "result": {
+    "start_time": 1552473714,
+    "addresses": [
+      {
+        "addr": "RRyyejME7LRTuvdziWsXkAbSW1fdiohGwK",
+        "amount": "6193787.46198546",
+        "segid": 13
+      },
+      {
+        "addr": "RNaNh2fDvnoimuFGSFtp2c6xb5pN7mMWQV",
+        "amount": "6169247.09074260",
+        "segid": 44
+      },
+      {
+        "addr": "RTu3JZZKLJTcfNwBa19dWRagEfQq49STqC",
+        "amount": "5124337.23955756",
+        "segid": 61
+      },
+      {
+        "addr": "RBpEnyzuQNj1hNdAG1pKLALpAWEUS67PBj",
+        "amount": "3029259.10629025",
+        "segid": 24
+      },
+      {
+        "addr": "RCyANUW2H5985zk8p6NHJfPyNBXnTVzGDh",
+        "amount": "2700034.72826615",
+        "segid": 48
+      }
+    ],
+    "total": 23216665.62684202,
+    "average": 4643333,
+    "utxos": 2416443,
+    "total_addresses": 5,
+    "ignored_addresses": 31,
+    "start_height": 1266941,
+    "ending_height": 1266941,
+    "end_time": 1552473829
   },
   "error": null,
   "id": "curltest"

@@ -32,11 +32,11 @@ yarn docs:dev
 
 HTML output is displayed at http://localhost:8080
 
->Edit the markdown files in the directory `docs`
+>Edit the markdown files in the directory `docs` and save the file.
 
-If the changes are not reflected right away, refresh the page.
+If the changes are not reflected at http://localhost:8080 right away, refresh the page.
 
-Exit the dev mode by doing `CTRL + C` in the same terminal `yarn docs:dev` has been done.
+Exit the dev mode by using `CTRL + C` in the same terminal `yarn docs:dev` has been run.
 
 Issuing the build command while the above dev command is active might cause the build to fail with errors.
 
@@ -56,7 +56,7 @@ To deploy to gh-pages at `https://<USERNAME>.github.io/developer-docs`
 ./deploy.sh
 ```
 
-The above script uses your `git <USERNAME>` from the global git configuration of your system.
+The above script uses your **git** `<USERNAME>` from the global git configuration of your system.
 
 ## Using Docker:
 

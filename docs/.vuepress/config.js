@@ -47,7 +47,7 @@ module.exports = {
             ],
             [
               "/basic-docs/installations/asset-chain-parameters.md",
-              "Custom Parameters for Asset Chains"
+              "Custom Asset Chains Parameters"
             ]
           ]
         },
@@ -63,8 +63,12 @@ module.exports = {
             ["/basic-docs/cryptoconditions/cc-dice.md", "Dice"],
             ["/basic-docs/cryptoconditions/cc-faucet.md", "Faucet"],
             ["/basic-docs/cryptoconditions/cc-gateways.md", "Gateways"],
+            ["/basic-docs/cryptoconditions/cc-heir.md", "Heir"],
+            ["/basic-docs/cryptoconditions/cc-musig.md", "MuSig"],
             ["/basic-docs/cryptoconditions/cc-oracles.md", "Oracles"],
             ["/basic-docs/cryptoconditions/cc-rewards.md", "Rewards"],
+            ["/basic-docs/cryptoconditions/cc-rogue.md", "Rogue"],
+            ["/basic-docs/cryptoconditions/cc-sudoku.md", "Sudoku"],
             ["/basic-docs/cryptoconditions/cc-tokens.md", "Tokens"]
           ]
         },
@@ -74,6 +78,7 @@ module.exports = {
           children: [
             ["/basic-docs/komodo-api/address.md", "Address"],
             ["/basic-docs/komodo-api/blockchain.md", "Blockchain"],
+            ["/basic-docs/komodo-api/cclib.md", "CC Lib"],
             ["/basic-docs/komodo-api/control.md", "Control"],
             ["/basic-docs/komodo-api/disclosure.md", "Disclosure"],
             ["/basic-docs/komodo-api/generate.md", "Generate"],
@@ -129,7 +134,7 @@ module.exports = {
           ]
         },
       ],
-      "/": ["", "/basic-docs/"]
+      "/": ["", "/basic-docs/start-here/introduction.md"]
     }
   }
 };
