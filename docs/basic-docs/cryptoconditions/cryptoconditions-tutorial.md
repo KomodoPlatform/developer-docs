@@ -1,4 +1,38 @@
-# Build a New CC Module
+# How to Build a New Fluidity Module
+
+## Introduction
+
+The following content and tutorials are provided for advanced developers desiring to discover and capitalize on deeper levels of potential in Komodo software. The content focuses around Komodo's framework for building blockchain-based decentralized applications (dApps). This framework is called, Fluidity.
+
+#### Assumptions for this Content
+
+This discussion is geared towards developers who have a strong understanding of the C/C++ languages, and who understand the core fundamentals of blockchain engineering.
+
+Experienced C/C++ developers who are new to blockchain technology should first read the seminal textbook, [Mastering Bitcoin,](https://bitcoinbook.info/) before approaching Fluidity.
+
+Also, experienced developers who write in other languages, such as Python, JavaScript, or Solidity, may find value in skimming this discussion to understand key concepts at a high level. At this time, the Fluidity framework has not expanded to include other languages, but Komodo may expand this offering in the forseeable future. Therefore, these developers should communicate often with the Komodo team on [Discord.](https://komodoplatform.com/discord)
+
+Developers of all languages and of all experience levels are welcome to use the library and API commands that are built on the Fluidity framework. For example, the MuSig Fluidity module is built on the Fluidity framework. This module allows a developer of JavaScript or Python dApps to quickly and easily implement Schnorr-based multi-signatures into their software, without requiring any in-depth knowledge of this complex technology.
+
+The Komodo team is actively working to increase the existing library of Fluidity modules. If the reader requires a certain type of blockchain dApp functionality that Fluidity would allow, but lacks the required knowledge necessary to build this module, Komodo invites this reader to contact the support team for assistance. It is possible that the Komodo dev team will be willing to assist in the creation of this module, depending on the complexity and nature of the project. 
+
+#### What Fluidity Is, and What It is Not
+
+Fluidity is a framework for making decentralized applications (dApps). The framework is built in the C and C++ languages. The reader may better understand the purpose and use case of Fluidity by first understanding the key problem that Fluidity solves. 
+
+
+
+
+Fluidity itself is not a standalone programming language. This is in contast to other popular blockchain platforms, such as Ethereum, where the creation of decentralized applications requires a unique programming language, such as Solidity.
+
+
+
+#### Knowledge Requirements Before Attempting to Use Fluidity
+
+At this time, the creation of a new Fluidity module is only achievable among experienced C/C++ developers, and who possess a working knowledge of the principles of blockchain engineering. 
+
+Those who are not experienced developers, or who work on high-level languages, such as JavaScript and Python, may still take advantage of the Fluidity 
+
 
 (Notes)
 
