@@ -55,3 +55,13 @@ Notable aspects of the Mobile MM2 software include:
 Through the Komodo API, mobile-device developers can integrate MM2 for Mobile into other software packages.
 
 Please reach out to our team on [Discord](https://komodoplatform.com/discord) to be involved with the software release.
+
+## Add Your Coin to MarketMaker 2.0
+
+All coins that are built on the BTC and ETH core softwares can be added to MarketMaker 2.0 (MM2) quickly and simply. Coins built on other software frameworks may be able to be added as well, depending on specific details. For more information, please reach out to our team on Discord.
+
+To add your BTC or ETH-based coin to MM2, first follow the linked checklist below:
+
+[Link to checklist for adding coin to MM2](https://github.com/jl777/coins#0-the-coin-must-be-tested-with-barterdex-atomic-swaps)
+
+Upon completing the checklist, please submit your proposed coin configuration files to the same repository with a pull request. 
