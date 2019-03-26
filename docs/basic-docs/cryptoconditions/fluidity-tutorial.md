@@ -2,28 +2,43 @@
 
 ## Introduction
 
-The following content and tutorials are provided for advanced developers desiring to discover and capitalize on deeper levels of potential in Komodo software. The content focuses around Komodo's framework for building blockchain-based decentralized applications (dApps). This framework is called, Fluidity.
+The following content and tutorial are provided for advanced developers desiring to discover and capitalize on deeper levels of potential in Komodo software. The content focuses around Komodo's framework for building blockchain-based decentralized applications (dApps). This framework is called, Fluidity.
 
 #### Assumptions for this Content
 
-This discussion is geared towards developers who have a strong understanding of the C/C++ languages, and who understand the core fundamentals of blockchain engineering.
+This discussion is intended for developers who have a strong understanding of the C/C++ languages and who understand the core fundamentals of blockchain engineering. 
 
-Experienced C/C++ developers who are new to blockchain technology should first read the seminal textbook, [Mastering Bitcoin,](https://bitcoinbook.info/) before approaching Fluidity.
+Experienced C/C++ developers who are new to blockchain technology should first study the seminal textbook, [Mastering Bitcoin,](https://bitcoinbook.info/) before approaching the Fluidity framework.
 
-Also, experienced developers who write in other languages, such as Python, JavaScript, or Solidity, may find value in skimming this discussion to understand key concepts at a high level. At this time, the Fluidity framework has not expanded to include other languages, but Komodo may expand this offering in the forseeable future. Therefore, these developers should communicate often with the Komodo team on [Discord.](https://komodoplatform.com/discord)
+Also, experienced developers who write in other languages, such as Python, JavaScript, or Solidity, may find value in skimming this discussion to understand key concepts at a high level. At this time, the Fluidity framework has not expanded to include other languages, but Komodo may change this offering in the forseeable future. Therefore, these developers should communicate often with the Komodo team on [Discord.](https://komodoplatform.com/discord)
 
-Developers of all languages and of all experience levels are welcome to use the library and API commands that are built on the Fluidity framework. For example, the MuSig Fluidity module is built on the Fluidity framework. This module allows a developer of JavaScript or Python dApps to quickly and easily implement Schnorr-based multi-signatures into their software, without requiring any in-depth knowledge of this complex technology.
+#### Note for Other Developers
 
-The Komodo team is actively working to increase the existing library of Fluidity modules. If the reader requires a certain type of blockchain dApp functionality that Fluidity would allow, but lacks the required knowledge necessary to build this module, Komodo invites this reader to contact the support team for assistance. It is possible that the Komodo dev team will be willing to assist in the creation of this module, depending on the complexity and nature of the project. 
+While creating a Fluidity module from the ground up requires a high level of specific blockchain and coding knowledge, developers who do not have this specific knowledge may still benefit from the Fluidity framework.
 
-#### What Fluidity Is, and What It is Not
+Each module built on the Fluidity framework can be designed to have API commands that can be called quickly and easily from other software and programming languages. Most Fluidity modules that are added to the core `komodod` software have their API documentation added to this website.
 
-Fluidity is a framework for making decentralized applications (dApps). The framework is built in the C and C++ languages. The reader may better understand the purpose and use case of Fluidity by first understanding the key problem that Fluidity solves. 
+For example, consider the MuSig CC module. This module relies on the Fluidity framework to enable a complicated technology called Schnorr Signatures, which are a new method for creating multi-signature blockchain transactions. The API for this module allows any developer of essentially any skill level to adopt the MuSig functionality into the developer's software without having to gain an in-depth understanding of Schnorr technology.
 
+[See the MuSig module documentation here](../cryptoconditions/cc-musig.html#introduction)
 
+As the library of available modules grows, so too do the advantages to the many types of developers in the Komodo ecosystem. For this reason, members of the Komodo community express gratitude to developers who build and share CC modules via open-source ideology.
 
+## What Fluidity Is, and What It Is Not
 
-Fluidity itself is not a standalone programming language. This is in contast to other popular blockchain platforms, such as Ethereum, where the creation of decentralized applications requires a unique programming language, such as Solidity.
+Fluidity is a framework for making decentralized applications (dApps). The framework is built in the C and C++ languages. The reader may better understand the purpose and use case of Fluidity by first understanding the key problem that Fluidity solves. To understand this problem, the discussion first turns to the core aspect of blockchain that makes this technology useful: the consensus mechanism. 
+
+In looking through the many innovations occuring within the blockchain industry at this time, an observant researcher can quickly discover that most ideas that are touted as "new" and "novel" are, in fact, old ideas. For example, the idea of a "smart contract," was explored as early as the 1980's by computer-science academics. Yet another example can be found in the early proposals of z-transaction technology and zk-SNARKS, which Komodo now offers for privacy.  
+
+The reason the world never heard of these technologies until recently is that these technologies were useless without a consensus mechanism. Without a method whereby a user could prove for themselves, without having to trust their fellow users, whether the code executed properly, no smart-contract code nor zk-SNARK could ever be considered safe to use for real value. When the developer who took the name, "Satoshi Nakamoto," created the first functioning consensus mechanism, everything changed.
+
+<!--Sidd: I need to add more specifics. This is all too general.-->
+
+As the reader is no doubt already aware, creating a new consensus mechanism is not an easy task. Prior to the birth of Bitcoin there were hundreds of intelligent researchers and academics in small circles of the world of cryptography and academia, searching for the proper combination of cryptography and code. The arrival of Satoshi Nakamoto's consensus mechanism provided the first viable answer.
+
+While Bitcoin's first consensus mechanism 
+
+If this were easy, the world would have thousands of well functioning consensus mechanisms already. The name "Bit Fluidity itself is not a standalone programming language. This is in contast to other popular blockchain platforms, such as Ethereum, where the creation of decentralized applications requires a unique programming language, such as Solidity.
 
 
 
