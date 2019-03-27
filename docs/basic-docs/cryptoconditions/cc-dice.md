@@ -355,7 +355,7 @@ Response from Step 3:
 
 **dicefinish name fundingtxid bettxid**
 
-The `dicefinish` method rebroadcasts a bet that has already been broadcasted.
+The `dicefinish` method rebroadcasts a bet that was previously broadcast.
 
 If the returned `hex` value is `0` the bet is finished.
 
@@ -617,7 +617,7 @@ Response from Step 3:
 
 **diceinfo fundingtxid**
 
-The `diceinfo` method looks up information about the specific `dice` contract refered by the relevant `fundingtxid`.
+The `diceinfo` method looks up information about the specific `dice` contract referred by the relevant `fundingtxid`.
 
 A `fundingtxid` is the txid of the transaction that created and funded the relevant contract.
 
@@ -641,7 +641,7 @@ Use the [dicelist](../cryptoconditions/cc-dice.html#dicelist) method to discover
 | "maxbet"        | (number) | the maximum bet amount this contract accepts                                                        |
 | "maxodds"       | (number) | the maximum odds the contract accepts                                                               |
 | "timeoutblocks" | (number) | the number of blocks before the contract allows an automatically declared winner and the bet closes |
-| "funding"       | (nubmer) | the current amount of funds in the contract                                                         |
+| "funding"       | (number) | the current amount of funds in the contract                                                         |
 
 #### :pushpin: Examples:
 
