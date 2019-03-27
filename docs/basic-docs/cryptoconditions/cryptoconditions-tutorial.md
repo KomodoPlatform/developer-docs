@@ -83,7 +83,7 @@ Also of note is the simplicity of CC architecture. All new code is contained in 
 
 The ability to adopt the ideas of others quickly, while maintaining the accomplishments, security, and compatibilities of one's predecessors, makes CryptoConditions a wise choice for experienced developers who wish to maintain a long-term course of productivity and creativity in their work.
 
-### Everything Below Here is Not Developed, Don't Bother Reading
+## (Outline) Sketch for the Next Sections
 
 In this section, the reader will learn more about CryptoConditions through hands-on participation.
 
