@@ -6,7 +6,7 @@ The following content and tutorial are provided for advanced developers desiring
 
 #### Assumptions for this Content
 
-This discussion is intended for developers who have a strong understanding of the C/C++ languages and who understand the core fundamentals of blockchain engineering, as these are prerequisites for use of the Fuidity framework. 
+This discussion is intended for developers who have a strong understanding of the C/C++ languages and who understand the core fundamentals of blockchain engineering, as these are prerequisites for use of the CryptoConditions framework. 
 
 Experienced C/C++ developers who are new to blockchain technology should first study the seminal textbook, [Mastering Bitcoin,](https://bitcoinbook.info/) before approaching the CC framework.
 
