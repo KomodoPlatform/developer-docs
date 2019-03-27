@@ -15,7 +15,7 @@ Using an established `gateways` contract is not considered difficult. However, s
 In this tutorial, we will create a gateway that can serve to represent KMD. The following are the steps in the gateway-creation process:
 
 - Create a new asset chain and provide representative tokens
-- Prepare a special oracle to monitor Komodo's chainstate
+- Prepare a special oracle to monitor Komodo's chain state
 - Bind the tokens and the oracle to our gateway
 - Deposit KMD into the gateway
 - Exchange tokens with other tokens on-chain
@@ -411,7 +411,7 @@ Broadcast the returned hex value:
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_data
 ```
 
-Once this transaction is successfully confirmed, the gateway will credit tokens to our indicated pubkey. These tokens are now usable as regular TokenCC tokens.
+Once this transaction is successfully confirmed, the gateway will credit tokens to our indicated pubkey. These tokens are now usable as regular Token CC tokens.
 
 ::: warning Note
 For the claim to process successfully, the deposit and bind transaction must be confirmed first. This requires either 101 confirmations, or if the chain has dPoW, 1 notarization.
@@ -458,7 +458,7 @@ Information for the next command:
 
 Once executed, the remaining portion of the withdrawal process should happen automatically.
 
-Congratulations, you have successfully completed the cycle of the `gateways` CryptoConditions module.
+Congratulations, you have successfully completed the cycle of the Gateways CC module.
 
 ## Full Example
 
@@ -635,7 +635,7 @@ Response:
 }
 ```
 
-Commmand:
+Command:
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000101069d6ef8a20a726959a9802151f3367558a3e2360bb5620cf269c5949777430000000048473044022065e97dc3e0f8aee9c6bc041c728c18ab021c174b8570a8c332a170ec7a94773f022023c19d04002940298ae961d1c155e889df29ae9976bb61cfebd87715de3d7fbf01ffffffff031027000000000000302ea22c802091abda62a548f9c7f5beb19d16f01714ae3d4e526f3266fc8d347d6123f3d77b8103120c008203000401cce051724e180900002321024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0ac0000000000000000796a4c76f142034b4d443c5500bff603b64f309e344e34b10fd2053db59788909914f8488a7f73ddddc2165d3100e1f5050000000001010121024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0407eab204e0889bab53c76e8a1b399a79e0ff1205ed044b8af09c22744632b9e00000000
