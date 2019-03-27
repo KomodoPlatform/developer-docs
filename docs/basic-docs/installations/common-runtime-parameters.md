@@ -107,7 +107,7 @@ komodod -reindex
 
 ## timestampindex
 
-`timestampindex` instructs a KMD-based coin daemon to maintain a timestamp index for all blockhashes.
+`timestampindex` instructs a KMD-based coin daemon to maintain a timestamp index for all block hashes.
 
 We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
@@ -423,14 +423,14 @@ rpcclientttimeout=SECONDS
 
 ## rpcallowip
 
-`rpcallowip` tells the daemon which ip addresses are acceptable for receiving RPC commands.
+`rpcallowip` tells the daemon which ip addresses are acceptable for receiving rpc commands.
 
-By default, only RPC connections from localhost are allowed.
+By default, only rpc connections from localhost are allowed.
 
 Specify as many `rpcallowip=` settings as you like to allow connections from other hosts, either as a single IPv4/IPv6 or with a subnet specification.
 
 ::: warning
-Opening up the RPC port to hosts outside your local trusted network is NOT RECOMMENDED. The rpcpassword is transmitted over the network unencrypted. Also note that anyone that can authenticate on the RPC port can steal your keys and take over the server. [For more information click here](https://github.com/zcash/zcash/issues/1497).
+Opening up the rpc port to hosts outside your local trusted network is NOT RECOMMENDED. The rpcpassword is transmitted over the network unencrypted. Also note that anyone that can authenticate on the rpc port can steal your keys and take over the server. [For more information click here](https://github.com/zcash/zcash/issues/1497).
 :::
 
 #### :pushpin: Examples:
@@ -445,7 +445,7 @@ Using rpcallowip as a default value in the coin's .conf file:
 
 ## rpcport
 
-`rpcport` tells the daemon to listen for RPC connections on the indicated TCP port.
+`rpcport` tells the daemon to listen for rpc connections on the indicated TCP port.
 
 #### :pushpin: Examples:
 
@@ -457,7 +457,7 @@ rpcport=8232
 
 ## rpcconnect
 
-`rpcconnect` allows the user to connect to `komodod` and send RPC commands from a host. By default, it is set to localhost.
+`rpcconnect` allows the user to connect to `komodod` and send rpc commands from a host. By default, it is set to localhost.
 
 ::: warning
 We DO NOT RECOMMEND that the average user set this value to anything other than the localhost, as it can grant access to a foreign party, who are then able to take control over komodod and all funds in your wallet.dat file.
