@@ -79,7 +79,7 @@ Komodo's engineers chose not to spend energy building a new CM, but rather they 
 
 The time between project initiation and releasing a beta version for community testing was approximately one weekend. Only one core developer's attention was required. The Komodo daemon remains compatible with all other software features as before, able to quickly adopt new ideas from others in the open-source community as soon as they arrive. At the same time, users who desire Quantum-Proofing for their long-term financial interests have a CC tool readily available, and they can rely on the established CM. 
 
-Also of note is the simplicity of the CC solution. All new code is included in the optional library of the core software. The Komodo daemon has no need of an external VM. This prevents adding unnecessary baggage to both the developer and the core engineers, while offering all the capabilities of a VM-based blockchain -- and possibly more.
+Also of note is the simplicity of CC architecture. All new code is included as an optional library for the core software, and is included during compilation only in participating blockchains. The Komodo daemon has no need of an external VM. This eliminates what would otherwises be unnecessary baggage for the developer and the core engineers, and yet the daemon offers all the capabilities of a VM-based blockchain -- and arguably more.
 
 The ability to adopt the ideas of others quickly, while maintaining the accomplishments, security, and compatibilities of one's predecessors, makes CryptoConditions a wise choice for experienced developers who wish to maintain a long-term course of productivity and creativity in their work.
 
