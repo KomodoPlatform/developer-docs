@@ -24,13 +24,13 @@ For example, consider the MuSig CC module. This module relies on the CC framewor
 
 As the library of available modules grows, so too do the advantages to the many types of developers in the Komodo ecosystem. For this reason, members of the Komodo community express gratitude to the more experienced blockchain developers who build and share CC modules via open-source ideology.
 
-## Understanding CryptoConditions on a Conceptual Level
+## Conceptual Explanation
 
 CryptoConditions is a framework for making decentralized applications (dApps). The framework is built in the C and C++ languages. The reader may better understand the purpose and use case of CC by first understanding the key problem that CC solves. 
 
 ### A Consensus Mechanism Is Not Readily Malleable
 
-Adding new code into a blockchain's consensus mechanism (CM) is a challenging task. Creating an entirely new CM is more difficult by an order of magnitude. Yet, despite these facts, often when an experienced developer first approaches blockchain technology with an intent to create something new, their initial impulse is to dive directly into the CM itself. As time passes, the developer can come to realization that they are attempting to solve a problem that is too large for any one person.
+Adding new code into a blockchain's consensus mechanism (CM) is a challenging task. Creating an entirely new CM is more difficult by an order of magnitude. Yet, despite these facts, often when an experienced developer first approaches blockchain technology with creative intent, their initial impulse is to dive directly into the CM itself. As time passes, the developer can come to realization that they are attempting to solve a problem that is too large for any one person.
 
 Consider the Bitcoin consensus mechanism. This protocol is approximately ten years old and receives perhaps more attention than all other blockchain protocols combined. Every year, thousands upon thousands of the world's most intelligent developers, mathematicians, and cryptographers pour over the intricacies of this profitable technology. Yet, despite all this valuable insight, mistakes in the code continue to reveal themselves: in 2018, the Bitcoin Core and Bitcoin Cash teams together [discovered a flaw in the code](https://www.coindesk.com/the-latest-bitcoin-bug-was-so-bad-developers-kept-its-full-details-a-secret) that would have allowed a malicious user to print an arbitrary number of new Bitcoins. 
 
@@ -44,7 +44,7 @@ For those few projects that create a useful new consensus mechanism, a new chall
 
 In light of these challenges, the blockchain engineer finds themselves confronted with a paradox. The engineer desires to create something new, and at the same time, they cannot easily change the core software. 
 
-### A Popular, but Flawed Solution: The Decentralized Virtual Machine
+### A Popular, But Flawed Solution: The Decentralized Virtual Machine
 
 A popular solution to this paradox is to associate the consensus mechanism (CM) with a virtual machine (VM). This method was made popular by the Ethereum project. In this model, the CM's design can be similar to existing and stable CM's, but it has one difference. The CM listens to instructions given by an external VM that is decentralized across all validating nodes. While code inside the VM can be arbitrary, the CM does not listen to the code's execution. Instead, the CM only listens to the same data as before: the history of transactions, and a small amount of associated meta data. 
 
