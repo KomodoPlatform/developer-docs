@@ -22,7 +22,7 @@ Requerement: the source and destination chains should have the equal CCid parame
 MoMoM notarised migration API allows the migration of coin or token value based on Komodo's highly scalable notarisation process when
 elected and trusted notary nodes store fingeprints (what is called MoM, merkle root of merkle roots) of assets blockchains' blocks
 in the main komodo chain and after that, fingerprints of fingerprints (what is called MoMoM, 'merkle root of merkle roots of merkle roots') are delivered back into the assets chain (as back notarisations)
-(more about the notarisation process is here: <https://komodoplatform.com/komodo-platforms-new-scalability-tech/>).
+(more about the notarisation process is here: `<https://komodoplatform.com/komodo-platforms-new-scalability-tech/`>).
 
 The workflow of the MoMoM value migration is following:
 
@@ -300,7 +300,7 @@ For the block hash returns notarisation transactions within the block.
 
 ### Response:
 
-returns array of pairs of values <notarisation txid> <notarisation data in hex>
+returns array of pairs of values `<notarisation txid`> `<notarisation data in hex`>
 
 ## scanNotarisationsDB
 
@@ -318,7 +318,7 @@ Scans notarisations db backwards from the block height for a notarisation of giv
 
 ### Response:
 
-returns array of <notarisation txid> <notarisation data in hex>
+returns array of `<notarisation txid`> `<notarisation data in hex`>
 
 # User API
 
