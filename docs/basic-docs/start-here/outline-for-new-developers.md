@@ -182,7 +182,7 @@ The next step is to install the software on your machine.
 
 Now that you have `komodod` and `komodo-cli` installed, [skim briefly through the instructions on how to interact with a Komodo-based daemon, linked here](../installations/basic-instructions.html#interacting-with-komodo-chains).
 
-You'll come back to this section later, once you're ready to execute rpc calls, API commands, and runtime parameters.
+You'll come back to this section later, once you're ready to execute API commands and runtime parameters.
 
 ::: tip
 You do not need to launch or sync the main Komodo chain (KMD), and you do not need to own any KMD to test an asset chain.
@@ -200,7 +200,7 @@ For example:
 
 `./komodod -ac_name=HELLOWORLD -ac_supply=777777 &`
 
-## Execute Elementary RPC Calls
+## Execute Elementary RPC's
 
 After you have your asset chain running on both nodes, we recommend executing some basic rpc calls in the terminal.
 
