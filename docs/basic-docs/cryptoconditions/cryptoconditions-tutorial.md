@@ -79,12 +79,60 @@ Komodo's engineers chose not to spend energy building a new CM, but rather they 
 
 The time between project initiation and releasing a beta version for community testing was approximately one weekend. Only one core developer's attention was required. The Komodo daemon remains compatible with all other software features as before, able to quickly adopt new ideas from others in the open-source community as soon as they arrive. At the same time, users who desire Quantum-Proofing for their long-term financial interests have a CC tool readily available, and they can rely on the established CM. 
 
-Also of note is the simplicity of CC architecture. All new code is included as an optional library for the core software, and is included during compilation only in participating blockchains. The Komodo daemon has no need of an external VM. This eliminates what would otherwises be unnecessary baggage for the developer and the core engineers, and yet the daemon offers all the capabilities of a VM-based blockchain -- and arguably more.
+Also of note is the simplicity of CC architecture. All new code is contained in an optional library for the core software, and is included during compilation only in participating blockchains. The Komodo daemon has no need of an external VM. This eliminates what would otherwises be unnecessary baggage for the developer and the core engineers, and yet the daemon offers all the capabilities of a VM-based blockchain -- and arguably more.
 
 The ability to adopt the ideas of others quickly, while maintaining the accomplishments, security, and compatibilities of one's predecessors, makes CryptoConditions a wise choice for experienced developers who wish to maintain a long-term course of productivity and creativity in their work.
 
 ### Everything Below Here is Not Developed, Don't Bother Reading
 
+In this section, the reader will learn more about CryptoConditions through hands-on participation.
+
+The agenda for this tutorial is the following:
+
+    item 1
+    item 2..."
+
+Make sure they're oriented, and then away we go with the tutorial.
+
+I haven't looked at your stuff in depth yet. From the quick skim, it does look like you've got it very well laid out. I appreciate how you take the time to speak slowly to the reader, making sure each step of the journey is covered with an appropriate explanation.
+
+Once you and gcharang have all the necessary information put together, I'll edit it and write that final outro section.
+
+If you can think of a few ideas for what we should leave our reader with, that would be great.
+
+I was thinking something along the lines of,
+
+"Now that the reader is introduced to CryptoConditions, the journey from here is entirely of in the realms of the imagination.
+
+The reader may find insight by observing the manner in which other CC modules function. The Rogue CC module displays how different softwares can be combined into one CC module. The pieces of the Rogue module include the following:
+
+    Customized CC code in this repository:
+        Link to Repository
+        These files in particular are of note:
+            File 1: Link
+            File 2: Link
+    A combination with the Oracles CC module
+        To learn more about the Oracles CC module, look here:
+            Link to Oracles Documentation here
+        Observe how the oracle is integrated into the Rogue Module this file here:
+            File: Link
+        The reader may see the oracle itself by installing the Rogue asset chain and executing an RPC to call the Oracle's oracle_txid
+            Link to installation instructions for Rogue
+            Link to RPC that returns oracle txid
+        The reader may see the publisher that receives and publishes data by executing this call
+            Link to RPC, and possibly an example of the cli command
+    An implementation of this old-school Rogue softwares
+        Link to Rogue software installation that we borrowed
+        Link to manual
+    Anything else Rogue took
+
+S
+13:17
+These open-source softwares, in combination with the customized CC code from a trained Komodo developer, swiftly created a new CC module that displays how CC can be used in the gaming industry.
+
+CC is also useful in many other industries. The Komodo team looks forward to discovering what the community creates. Please reach out to the Komodo team on Discord with questions and discoveries, and please reach out to the marketing team for assistance in displaying new ideas."
+
+## Other Content Not Developed
 Today, in looking through the many innovations occuring within the blockchain industry, an observant researcher can quickly discover that many ideas that are touted as "new" and "novel" are, in fact, old ideas. For example, the idea of a "smart contract" was explored as early as the 1980's by computer-science academics. Yet another example can be found in the early proposals of the complicated "zk-SNARKS" technology, which Komodo now offers for privacy-based transactions. 
 
 <!--link instead for zk-SNARKS-->
