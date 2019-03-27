@@ -25,6 +25,12 @@ The Heir CC module accepts both coins and tokens. These can be the base coin of 
 - To retrieve a list of all funding plans on the asset chain, use [heirlist](../cryptoconditions/cc-heir.html#heirlist)
 - To output Heir CC addresses, use [heiraddress](../cryptoconditions/cc-heir.html#heiraddress)
 
+<!--The image below needs to be adjusted via @808 before it can be added to the live site:
+
+![sequence diagram of this CC](/heirCC-with-labels.png)
+
+-->
+
 ::: warning
 If an owner of an Heir CC address seeking to add funds to their account avoids the normal methods (the RPC provided) and instead manually creates a utxo contribution, this utxo will not follow the normal patterns. Specifically, if the owner manually creates a contribution utxo that derives from both the owner pubkey and also from another pubkey, this utxo will not affect the `inactivitytime` calculation. Instead of resetting the `inactivitytime`, the utxo will count only as a donation.
 :::

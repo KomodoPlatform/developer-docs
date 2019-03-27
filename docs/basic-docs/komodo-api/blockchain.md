@@ -35,7 +35,7 @@ To use this method for large block heights, first execute the method for a small
 Command:
 
 ```bash
-komodo-cli coinsupply 80000
+./komodo-cli coinsupply 80000
 ```
 
 Response:

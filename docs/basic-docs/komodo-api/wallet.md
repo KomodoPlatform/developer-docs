@@ -792,7 +792,7 @@ The `gettransaction` method queries detailed information about transaction `txid
 | "vout"                  | (numeric)               | the vout value                                                                                                                    |
 | "vjoinsplit" : [ ... ]  | (array of json objects) |
 | "anchor"                | (string)                | merkle root of note commitment tree                                                                                               |
-| "nullifiers" : [ ... ]  | (array of strings)      |
+| "nullifiers" : [ ... ]  | (array of strings)      | <!--Need these? If not, let's leave a comment here saying why they're not needed, so that next time we don't forget. -->
 | "hex"                   | (string)                |
 | "commitments" : [ ... ] | (array of strings)      |
 | "hex"                   | (string)                |
@@ -800,7 +800,7 @@ The `gettransaction` method queries detailed information about transaction `txid
 | "hex"                   | (string)                |
 | "vpub_old"              | (numeric)               | the amount removed from the transparent value pool                                                                                |
 | "vpub_new"              | (numeric)               | the amount added to the transparent value pool                                                                                    |
-| "hex"                   | (string)                | raw data for transaction                                                                                                          |
+| "hex"                   | (string)                | transaction data translated into hex                                                                                                          |
 
 #### :pushpin: Examples:
 
@@ -1520,7 +1520,7 @@ The `listreceivedbyaccount` method lists balances by account.
 
 | Structure           | Type      | Description                                                                                                                       |
 | ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| "involvesWatchonly" | (bool)    | only returned if imported addresses were involved in transaction                                                                  |
+| "involvesWatchonly" | (bool)    | only returned if the imported addresses were involved in the transaction                                                                  |
 | "account"           | (string)  | the account name of the receiving account                                                                                         |
 | "amount"            | (numeric) | the total amount received by addresses with this account                                                                          |
 | "confirmations"     | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
