@@ -223,9 +223,9 @@ For example:
 
 ### Install Sudoku Graphical User Interface (GUI)
 
-The Komodo team offers an unofficial graphical user interface (GUI) to assist the user with Sudoku-puzzle solving vizualization. By design, the Sudoku CC module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must  pass trough the Sudoku CC RPC captcha protection, as this deters bots.
+The Komodo team offers an unofficial graphical user interface (GUI) to assist the user with Sudoku-puzzle solving visualization. By design, the Sudoku CC module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must  pass trough the Sudoku CC RPC captcha protection, as this deters bots.
 
-Downlow the portable GUI bundle from the following lin: 
+Download the portable GUI bundle from the following link: 
 
 [Link to GUI Software Bundle](https://github.com/tonymorony/Komodoku/releases)
 
@@ -494,7 +494,7 @@ Response:
 
 The `solution` method submits the proposed `solution` to the blockchain for the indicated `puzzle_txid` puzzle.
 
-The `t0...` values represent the timestamp at which the solution was found for each number. Prefilled cells have an automated timestamp of `tX=0`, where `X` is the index of the puzzle number.
+The `t0...` values represent the timestamp at which the solution was found for each number. Pre-filled cells have an automated timestamp of `tX=0`, where `X` is the index of the puzzle number.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
@@ -504,7 +504,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | ---- | ---- | ----------- |
 | txid | (string) | a transaction id representing the generation of this puzzle, also called the `puzzle_txid` | 
 | solution | (numeric string) | the proposed solution, provided in a concatenated format |
-| tX... | (81 UNIX timestamps separated by comma) | there are `81` total `t...` arguments. `X` is the index of the indicated argument. The argument is a timestamp representing the time at which `X` number was inputed. Timestamp value should be 0 for numbers which were already known |
+| tX... | (81 UNIX timestamps separated by comma) | there are `81` total `t...` arguments. `X` is the index of the indicated argument. The argument is a timestamp representing the time at which `X` number was input. Timestamp value should be 0 for numbers which were already known |
 
 #### Response:
 
@@ -526,7 +526,7 @@ Daemon `stdout`:
 | ---- | ---- | ----------- |
 | solved | (string) | this returns three values: the block height at which the puzzle was solved, the amount of coins rewarded, the solution txid |
 | solution | (number) | this contains three values: a number-based concatenated representation of the solved puzzle; a string representing the concatenated unsolved puzzle; the total score for solving this puzzle | 
-| statistics | (string) | information which helps this CC devloper to detect was puzzle solved by robot or human | 
+| statistics | (string) | information which helps this CC developer to detect was puzzle solved by robot or human | 
 
 #### :pushpin: Examples:
 

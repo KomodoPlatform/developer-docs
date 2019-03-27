@@ -725,7 +725,7 @@ Response:
 
 The user executes `oraclessubscribe` to subscribe to a publisher of an oracle plan.
 
-Every publisher must have at least one subscriber before the [oraclesdata](../cryptoconditions/cc-oracles.html#oraclesdata) can succesfully execute.
+Every publisher must have at least one subscriber before the [oraclesdata](../cryptoconditions/cc-oracles.html#oraclesdata) can successfully execute.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
