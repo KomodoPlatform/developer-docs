@@ -7,7 +7,7 @@ module.exports = {
     repo: 'komodoplatform/developer-docs',
     // Customising the header label
     // Defaults to "GitHub"/"GitLab"/"Bitbucket" depending on `themeConfig.repo`
-    repoLabel: 'Contribute!',
+    repoLabel: 'Contribute',
 
     // Optional options for generating "Edit this page" link
 
@@ -20,7 +20,7 @@ module.exports = {
     // defaults to false, set to true to enable
     editLinks: true,
     // custom text for edit link. Defaults to "Edit this page"
-    editLinkText: 'Help us improve this page!',
+    editLinkText: 'Suggest an improvement for this page',
     lastUpdated: 'Last Updated',
     nav: [{
         text: "Start Here",
@@ -77,7 +77,6 @@ module.exports = {
               "/basic-docs/cryptoconditions/cryptoconditions-instructions.md",
               "Instructions for Crypto Conditions"
             ],
-            ["/basic-docs/cryptoconditions/cryptoconditions-tutorial.md", "How to Build a Custom Module"],
             ["/basic-docs/cryptoconditions/cc-channels.md", "Channels"],
             ["/basic-docs/cryptoconditions/cc-dice.md", "Dice"],
             ["/basic-docs/cryptoconditions/cc-faucet.md", "Faucet"],
