@@ -162,14 +162,14 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `help` method lists all commands, or all information for a specified command.
 
-### Arguments:
+### Arguments
 
 | Structure | Type               | Description                      |
 | --------- | ------------------ | -------------------------------- |
 | "command" | (string, optional) | the command requiring assistance |
 
 
-<collapse-text hidden title="Response">
+### Response
 
 
 | Structure | Type               | Description                      |
@@ -184,17 +184,10 @@ Command:
 ./komodo-cli help
 ```
 
-</collapse-text>
-
-
-
 <collapse-text hidden title="Response">
 
 
-```
-
-</collapse-text>
-
+```bash
 == Addressindex ==
 getaddressbalance
 getaddressdeltas
@@ -222,6 +215,8 @@ getdifficulty
 ........ (other responses omitted for brevity)
 ```
 
+</collapse-text>
+
 Command:
 
 ```bash
@@ -232,10 +227,7 @@ Command:
 <collapse-text hidden title="Response">
 
 
-```
-
-</collapse-text>
-
+```bash
 Returns the balance for an address(es) (requires addressindex to be enabled).
 
 Arguments:
@@ -257,6 +249,8 @@ Examples:
 > komodo-cli getaddressbalance '{"addresses": ["RY5LccmGiX9bUHYGtSWQouNy1yFhc5rM87"]}'
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["RY5LccmGiX9bUHYGtSWQouNy1yFhc5rM87"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:7771/
 ```
+
+</collapse-text>
 
 ## stop
 

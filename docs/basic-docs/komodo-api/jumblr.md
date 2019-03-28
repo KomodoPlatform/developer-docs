@@ -84,16 +84,13 @@ Command:
 ./komodo-cli jumblr_deposit RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ## jumblr_pause
 
@@ -125,16 +122,13 @@ Command:
 ./komodo-cli jumblr_pause
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ## jumblr_resume
 
@@ -166,16 +160,13 @@ Command:
 ./komodo-cli jumblr_resume
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ## jumblr_secret
 
@@ -203,13 +194,10 @@ Command:
 ./komodo-cli jumbr_secret "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-

@@ -29,9 +29,7 @@ Command:
 ./komodo-cli getaddressbalance '{"addresses":["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -41,7 +39,6 @@ Command:
 ```
 
 </collapse-text>
-
 
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -101,9 +98,7 @@ Command:
 ./komodo-cli getaddressdeltas '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -120,16 +115,13 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli getaddressdeltas '{"addresses":["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"],"start":1,"end":200,"chainInfo":true}'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -156,7 +148,6 @@ Command:
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -165,9 +156,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -188,7 +177,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -197,9 +185,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"],"start":1,"end":200,"chainInfo":true}]}' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -229,7 +215,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## getaddressmempool
 
@@ -263,9 +248,7 @@ Command:
 ./komodo-cli getaddressmempool '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -281,7 +264,6 @@ Command:
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -290,9 +272,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressmempool", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -313,7 +293,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## getaddresstxids
 
@@ -340,12 +319,10 @@ The `getaddresstxids` method returns the txids for an address, or addresses. It 
 Command:
 
 ```bash
-	komodo-cli getaddresstxids '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb","RQUAkqRiRMqxcNrB29B4duTK4qkqfV9HVJ"]}'
+./komodo-cli getaddresstxids '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb","RQUAkqRiRMqxcNrB29B4duTK4qkqfV9HVJ"]}'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
   [
@@ -359,7 +336,6 @@ Command:
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -368,9 +344,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddresstxids", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -385,7 +359,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## getaddressutxos
 
@@ -419,9 +392,7 @@ Command:
 ./komodo-cli getaddressutxos '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -438,7 +409,6 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
@@ -446,9 +416,7 @@ Command:
 
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -469,7 +437,6 @@ Command:
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -478,9 +445,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -501,7 +466,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -510,9 +474,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"], "chainInfo": true}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -536,7 +498,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## getsnapshot
 
@@ -576,9 +537,7 @@ Command:
 ./komodo-cli getsnapshot 5
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -623,7 +582,6 @@ Command:
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -632,9 +590,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getsnapshot", "params": ["5"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -682,4 +638,3 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-

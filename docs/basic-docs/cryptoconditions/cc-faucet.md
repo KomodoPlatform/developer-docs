@@ -40,9 +40,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD faucetaddress 03336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -58,7 +56,6 @@ Command:
 ```
 
 </collapse-text>
-
 
 ## faucetfund
 
@@ -89,9 +86,7 @@ Step 1: Specify faucet amount and get the raw transaction HEX value
 ./komodo-cli -ac_name=HELLOWORLD faucetfund 100
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -102,23 +97,19 @@ Step 1: Specify faucet amount and get the raw transaction HEX value
 
 </collapse-text>
 
-
 Step 2: Broadcast/send raw transaction
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000013c34d14c6a32219f4b633a1fe01f5826b3bd7b4cbe01c20cfc0c29138d9c99720100000049483045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf4885259501ffffffff0200e40b5402000000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cce06d66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000
 ```
 
-
 <collapse-text hidden title="Response">
 
-
+```bash
+f2baf8d9a1eaf42bb1a85462b5699ffc0f04e8c54aafc4661767df96be9022b7
 ```
 
 </collapse-text>
-
-    f2baf8d9a1eaf42bb1a85462b5699ffc0f04e8c54aafc4661767df96be9022b7
-```
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -126,9 +117,7 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 ./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 01000000013c34d14c6a32219f4b633a1fe01f5826b3bd7b4cbe01c20cfc0c29138d9c99720100000049483045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf4885259501ffffffff0200e40b5402000000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cce06d66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -178,7 +167,6 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 </collapse-text>
 
-
 ## faucetget
 
 ### faucetget
@@ -210,9 +198,7 @@ Step 1: Use faucetget and get the raw HEX value
 ./komodo-cli -ac_name=HELLOWORLD faucetget
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -223,24 +209,20 @@ Step 1: Use faucetget and get the raw HEX value
 
 </collapse-text>
 
-
 Step 2: Broadcast/send the raw transaction
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000010941cea65a560aeae02f0d49770965490bd99eeac4185f25075685da58e99d40000000007b4c79a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001ffffffff02b077a43018090000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc00e1f50500000000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000
 ```
 
-
 <collapse-text hidden title="Response">
 
-
-```
-
-</collapse-text>
-
+```bash
 faucetget validated
 64760e66c49df97eea14896ecdd505d2d78ea214eb583c8a6a0ac863b2b989b3
 ```
+
+</collapse-text>
 
 Step 3: Decode the raw transaction (optional to check if the value are sane)
 
@@ -248,9 +230,7 @@ Step 3: Decode the raw transaction (optional to check if the value are sane)
 ./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 01000000010941cea65a560aeae02f0d49770965490bd99eeac4185f25075685da58e99d40000000007b4c79a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001ffffffff02b077a43018090000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc00e1f50500000000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -300,7 +280,6 @@ Step 3: Decode the raw transaction (optional to check if the value are sane)
 
 </collapse-text>
 
-
 ## faucetinfo
 
 ### faucetinfo
@@ -329,9 +308,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD faucetinfo
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -342,4 +319,3 @@ Command:
 ```
 
 </collapse-text>
-

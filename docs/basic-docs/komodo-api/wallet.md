@@ -39,16 +39,13 @@ Command:
 ./komodo-cli addmultisigaddress 2 '["RSWwtqsNr9mW21UXRm6Lz4AzQnj4pVzzkp","RW8d8EChHTooVbwF3reqHYgkzWCnJFLXgh"]'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 bLz2YZ7Mm8MgPc9mPNiFqhjFPbFZU4WUD5
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -58,9 +55,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addmultisigaddress", "params": [2, ["RL4CuA2MSAbBiqJKQEr2TKnKT2fSwK99mG","RBYVFCxpJdLgvUixhguxzuH1TJpoNLYCJ6"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -71,7 +66,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## backupwallet
 
@@ -97,11 +91,19 @@ This method requires that the coin daemon have the <b>exportdir</b> runtime para
 
 #### :pushpin: Examples:
 
+Command:
+
 ```bash
 ./komodo-cli backupwallet "mybackupdata"
+```
 
+<collapse-text hidden title="Response">
+
+```bash
 /home/myusername/myexportdir/mybackupdata
 ```
+
+</collapse-text>
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -111,9 +113,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "backupwallet", "params": ["backupdata"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -124,7 +124,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## dumpprivkey
 
@@ -156,16 +155,13 @@ Command:
 ./komodo-cli dumpprivkey "RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 DONOTUSExxxxxxxxxxxxxxxxxxxx4KkCmRnnSg7iXvAUjoYivC8K
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -175,9 +171,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumpprivkey", "params": ["RTcwYaQPDVN7V9SdfFHARWnoB7vcpSfdvs"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -188,7 +182,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## dumpwallet
 
@@ -222,16 +215,13 @@ Command:
 ./komodo-cli dumpwallet "test"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 /home/myusername/myexportdir/test
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -241,9 +231,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumpwallet", "params": ["test"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -254,7 +242,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## encryptwallet
 
@@ -296,16 +283,13 @@ Command:
 ./komodo-cli encryptwallet "mypassphrase"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.
 ```
 
 </collapse-text>
-
 
 ##### Unlock the wallet for 60 seconds
 
@@ -315,16 +299,13 @@ Command:
 ./komodo-cli walletpassphrase "mypassphrase" 60
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (disabled)
 ```
 
 </collapse-text>
-
 
 ##### Lock the wallet again by removing the passphrase:
 
@@ -334,16 +315,13 @@ Command:
 ./komodo-cli walletlock
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (No response)
 ```
 
 </collapse-text>
-
 
 As a json rpc call:
 
@@ -353,20 +331,17 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "encryptwallet", "params": ["mypassphrase"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
 
-
-```bash
+```json
 {
-    "result":"wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.",
-    "error":null,
-    "id":"curltest"
+  "result": "wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.",
+  "error": null,
+  "id": "curltest"
 }
 ```
 
 </collapse-text>
-
 
 ## getaccount
 
@@ -394,16 +369,13 @@ Command:
 ./komodo-cli getaccount "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -413,16 +385,13 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaccount", "params": ["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 ## getaccountaddress
 
@@ -454,16 +423,13 @@ Command:
 ./komodo-cli getaccountaddress
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -473,16 +439,13 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaccountaddress", "params": ["myaccount"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 ## getaddressesbyaccount
 
@@ -514,16 +477,13 @@ Command:
 ./komodo-cli getaddressesbyaccount "tabby"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -533,16 +493,13 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbyaccount", "params": ["tabby"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 ## getbalance
 
@@ -576,19 +533,15 @@ Command:
 
 ```bash
 ./komodo-cli getbalance
-
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 10.05000000
 ```
 
 </collapse-text>
-
 
 The total amount in the wallet where at least five blocks are confirmed:
 
@@ -598,16 +551,13 @@ Command:
 ./komodo-cli getbalance "*" 5
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 10.05000000
 ```
 
 </collapse-text>
-
 
 As a json rpc call:
 
@@ -617,9 +567,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getbalance", "params": ["", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -630,7 +578,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## getbalance64
 
@@ -668,16 +615,13 @@ Command:
 ./komodo-cli getnewaddress
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 "RYDuQ2oQCCz1PQNxUQTDAaRinWKiCoT2E6"
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -687,9 +631,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnewaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -700,7 +642,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## getrawchangeaddress
 
@@ -732,16 +673,13 @@ Command:
 ./komodo-cli getrawchangeaddress
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 RS8oqzbjShKhftmuk2RpRmHH2hTAukp6yP
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -751,9 +689,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -764,7 +700,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## getreceivedbyaccount
 
@@ -797,16 +732,13 @@ Command:
 ./komodo-cli getreceivedbyaccount ""
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 ## getreceivedbyaddress
 
@@ -835,16 +767,13 @@ Command:
 ./komodo-cli getreceivedbyaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 10.0500000
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -852,16 +781,13 @@ Command:
 ./komodo-cli getreceivedbyaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN" 0
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 10.0500000
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -869,16 +795,13 @@ Command:
 ./komodo-cli getreceivedbyaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN" 6
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 10.0500000
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -888,9 +811,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getreceivedbyaddress", "params": ["RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -901,7 +822,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## gettransaction
 
@@ -937,7 +857,7 @@ The `gettransaction` method queries detailed information about transaction `txid
 | "vout"                  | (numeric)               | the vout value                                                                                                                    |
 | "vjoinsplit" : [ ... ]  | (array of json objects) |
 | "anchor"                | (string)                | merkle root of note commitment tree                                                                                               |
-| "nullifiers" : [ ... ]  | (array of strings)      | <!--Need these? If not, let's leave a comment here saying why they're not needed, so that next time we don't forget. -->
+| "nullifiers" : [ ... ]  | (array of strings)      | <!--Need these? If not, let's leave a comment here saying why they're not needed, so that next time we don't forget. -->          |
 | "hex"                   | (string)                |
 | "commitments" : [ ... ] | (array of strings)      |
 | "hex"                   | (string)                |
@@ -945,7 +865,7 @@ The `gettransaction` method queries detailed information about transaction `txid
 | "hex"                   | (string)                |
 | "vpub_old"              | (numeric)               | the amount removed from the transparent value pool                                                                                |
 | "vpub_new"              | (numeric)               | the amount added to the transparent value pool                                                                                    |
-| "hex"                   | (string)                | transaction data translated into hex                                                                                                          |
+| "hex"                   | (string)                | transaction data translated into hex                                                                                              |
 
 #### :pushpin: Examples:
 
@@ -955,9 +875,7 @@ Command:
 ./komodo-cli gettransaction "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -988,7 +906,6 @@ Command:
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -996,9 +913,7 @@ Command:
 ./komodo-cli gettransaction "34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a" true
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -1029,7 +944,6 @@ Command:
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -1039,9 +953,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettransaction", "params": ["34efdb82ec718dede04feccecdc44f119cb7263f11c56ec3d7bf6234c9d0e27a"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -1077,7 +989,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
-
 ## getunconfirmedbalance
 
 ### getunconfirmedbalance
@@ -1104,16 +1015,13 @@ Command:
 ./komodo-cli getunconfirmedbalance
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 10.05000000
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -1123,9 +1031,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getunconfirmedbalance", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -1136,7 +1042,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## getwalletinfo
 
@@ -1162,7 +1067,7 @@ The `getwalletinfo` method returns an object containing various information abou
 | "keypoololdest"       | (numeric) | the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool                                                |
 | "keypoolsize"         | (numeric) | how many new keys are pre-generated                                                                                                    |
 | "unlocked_until"      | (numeric) | the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked |
-| "paytxfee"            | (numeric) | the transaction fee configuration, given as the relevant COIN per KB                                                               |
+| "paytxfee"            | (numeric) | the transaction fee configuration, given as the relevant COIN per KB                                                                   |
 
 #### :pushpin: Examples:
 
@@ -1172,9 +1077,7 @@ Command:
 ./komodo-cli getwalletinfo
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -1191,7 +1094,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -1200,9 +1102,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getwalletinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -1222,7 +1122,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## importaddress
 
@@ -1258,16 +1157,13 @@ Command:
 ./komodo-cli importaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -1275,16 +1171,13 @@ Command:
 ./komodo-cli importaddress "RJSDZjp7kjBNhHsbECDE1jwYNK7af41pZN" "testing" false
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -1294,9 +1187,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importaddress", "params": ["R9z796AehK5b6NCPeVkGUHSpJnawerf8oP", "testing", false] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -1307,7 +1198,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## importprivkey
 
@@ -1345,9 +1235,7 @@ Command:
 ./komodo-cli importprivkey "DONOTUSExxxxxxxxxxxxxxxxxxxxj4Xu9jjinhLpffhdtoKg5gar2"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 R9z796AehK5b6NCPeVkGUHSpJnawerf8oP
@@ -1355,23 +1243,19 @@ R9z796AehK5b6NCPeVkGUHSpJnawerf8oP
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli importprivkey "DONOTUSExxxxxxxxxxxxxxxxxxxxj4Xu9jjinhLpffhdtoKg5gar2" "testing" false
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 RFtA32tttJm89VWRWPCQtV8bkQ1FvE1MBG
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -1381,9 +1265,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importprivkey", "params": ["UwibHKsYfiM19BXQmcUwAfw331GzGQK8aoPqqYEbyoPrzc2965nE", "testing", false] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -1394,7 +1276,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## importwallet
 
@@ -1422,16 +1303,13 @@ Command:
 ./komodo-cli importwallet "path/to/exportdir/nameofbackup"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -1441,9 +1319,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importwallet", "params": ["path/to/exportdir/nameofbackup"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -1454,7 +1330,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## keypoolrefill
 
@@ -1482,16 +1357,13 @@ Command:
 ./komodo-cli keypoolrefill
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -1499,16 +1371,13 @@ Command:
 ./komodo-cli keypoolrefill 100
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -1518,9 +1387,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "keypoolrefill", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -1531,7 +1398,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## listaccounts
 
@@ -1564,16 +1430,13 @@ Command:
 ./komodo-cli listaccounts 6
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -1583,16 +1446,13 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listaccounts", "params": [6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 ## listaddressgroupings
 
@@ -1622,9 +1482,7 @@ Command:
 ./komodo-cli listaddressgroupings
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 (note how there are two separate, unique groupings of addresses)
 
@@ -1657,7 +1515,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -1666,9 +1523,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listaddressgroupings", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -1686,7 +1541,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## listlockunspent
 
@@ -1719,9 +1573,7 @@ Command:
 ./komodo-cli listlockunspent
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -1734,7 +1586,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -1743,9 +1594,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listlockunspent", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -1761,7 +1610,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## listreceivedbyaccount
 
@@ -1785,7 +1633,7 @@ The `listreceivedbyaccount` method lists balances by account.
 
 | Structure           | Type      | Description                                                                                                                       |
 | ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| "involvesWatchonly" | (bool)    | only returned if the imported addresses were involved in the transaction                                                                  |
+| "involvesWatchonly" | (bool)    | only returned if the imported addresses were involved in the transaction                                                          |
 | "account"           | (string)  | the account name of the receiving account                                                                                         |
 | "amount"            | (numeric) | the total amount received by addresses with this account                                                                          |
 | "confirmations"     | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
@@ -1799,9 +1647,7 @@ Command:
 ./komodo-cli listreceivedbyaccount
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -1816,16 +1662,13 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli listreceivedbyaccount 6 true
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -1840,7 +1683,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -1849,9 +1691,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbyaccount", "params": [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -1869,7 +1709,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## listreceivedbyaddress
 
@@ -1904,9 +1743,7 @@ Command:
 ./komodo-cli listreceivedbyaddress
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -1925,16 +1762,13 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli listreceivedbyaddress 6 true
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -1969,7 +1803,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -1978,9 +1811,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbyaddress", "params": [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -2018,7 +1849,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## listsinceblock
 
@@ -2065,9 +1895,7 @@ Command:
 ./komodo-cli listsinceblock
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -2098,16 +1926,13 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli listsinceblock "029f11d80ef9765602235e1bc9727e3eb6ba20839319f761fee920d63401e327" 6
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -2138,7 +1963,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -2147,9 +1971,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listsinceblock", "params": ["029f11d80ef9765602235e1bc9727e3eb6ba20839319f761fee920d63401e327", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -2183,7 +2005,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## listtransactions
 
@@ -2229,9 +2050,7 @@ Command:
 ./komodo-cli listtransactions
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -2262,7 +2081,6 @@ Command:
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -2270,9 +2088,7 @@ Command:
 ./komodo-cli listtransactions "*" 20 100
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -2303,7 +2119,6 @@ Command:
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -2313,9 +2128,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listtransactions", "params": ["*", 20, 100] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -2348,7 +2161,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## listunspent
 
@@ -2386,9 +2198,7 @@ Command:
 ./komodo-cli listunspent
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -2410,16 +2220,13 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli listunspent 6 9999999 '["RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu","RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"]'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -2452,7 +2259,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -2461,9 +2267,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [6, 9999999, ["RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu","RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -2500,7 +2304,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
-
 ## lockunspent
 
 ### lockunspent unlock [{ "txid": "txid", "vout": n }, ... ]
@@ -2533,16 +2336,13 @@ Command:
 ./komodo-cli lockunspent false '[{"txid":"d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd","vout":0}]'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 true
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -2552,9 +2352,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "lockunspent", "params": [false, [{"txid":"d7ba45296c66e16eb61f27a4eef8848c7f5579fe801f277c1b0e074a4f47d6fd","vout":0}]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -2565,7 +2363,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## move
 
@@ -2601,16 +2398,13 @@ Command:
 ./komodo-cli move "" "tabby" 0.01
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -2618,16 +2412,13 @@ Command:
 ./komodo-cli move "timotei" "akiko" 0.01 6 "happy birthday!"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -2637,16 +2428,13 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "move", "params": ["timotei", "akiko", 0.01, 6, "happy birthday!"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 ## resendwallettransactions
 
@@ -2674,9 +2462,7 @@ Command:
 ./komodo-cli resendwallettransactions
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 [
@@ -2686,7 +2472,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -2695,9 +2480,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "resendwallettransactions", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -2710,7 +2493,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## sendfrom
 
@@ -2747,16 +2529,13 @@ Command:
 ./komodo-cli sendfrom "" "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu" 0.01
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -2764,16 +2543,13 @@ Command:
 ./komodo-cli sendfrom "tabby" "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu" 0.01 6 "donation" "seans outpost"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -2783,16 +2559,13 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendfrom", "params": ["tabby", "RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu", 0.01, 6, "donation", "seans outpost"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 ## sendmany
 
@@ -2825,9 +2598,7 @@ Command:
 ./komodo-cli sendmany "" '{"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 e39b046f0e30bd2a80c64ec78d902107858c8f0d55097d7f2293df1c9a4496ae
@@ -2835,16 +2606,13 @@ e39b046f0e30bd2a80c64ec78d902107858c8f0d55097d7f2293df1c9a4496ae
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli sendmany "" '{"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}' 6 "testing"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 3829164d8a68d9b7c2c89efe419eca77e37883318b7187b7e000e80e8138a370
@@ -2852,23 +2620,19 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli sendmany "" '{"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}' 1 "" '["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ","RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu"]'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 1813a39247913abf73af10ed51537234fe4e58eb5cfc4f49ac4fbcdecb42b4b4
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -2878,9 +2642,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendmany", "params": ["", {"RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ":0.01,"RPS3xTZCzr6aQfoMw5Bu1rpQBF6iVCWsyu":0.02}, 6, "testing"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -2891,7 +2653,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## sendtoaddress
 
@@ -2923,9 +2684,7 @@ Command:
 ./komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 cc23924c007adc98b8ea5b9b8b47638e080aa469eb9738b976def487a44f467b
@@ -2933,16 +2692,13 @@ cc23924c007adc98b8ea5b9b8b47638e080aa469eb9738b976def487a44f467b
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1 "donation" "seans outpost"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 86948c27dc63be415b235c5b3ed807c1e07d9a2cac252f58734add700c55fe18
@@ -2950,23 +2706,19 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli sendtoaddress "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" 0.1 "" "" true
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 c5727cafd7d6dfc888d4a0596dc58bfafb24859e29f827e1bf1443037d8461fc
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -2976,9 +2728,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendtoaddress", "params": ["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ", 0.1, "donation", "seans outpost"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -2989,7 +2739,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## setaccount
 
@@ -3016,16 +2765,13 @@ Command:
 ./komodo-cli setaccount "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "tabby"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -3035,16 +2781,13 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setaccount", "params": ["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ", "tabby"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (deprecated)
 ```
 
 </collapse-text>
-
 
 ## setpubkey
 
@@ -3080,9 +2823,7 @@ Command:
 ./komodo-cli setpubkey 0260801166cebdc9be1e3460ba9e4959fb29feee7725f565ffc296fa4636aa706f
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 {
@@ -3094,7 +2835,6 @@ Command:
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -3103,9 +2843,7 @@ Command:
 curl --user myrpuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setpubkey", "params": ["02f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193e"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 {
@@ -3120,7 +2858,6 @@ curl --user myrpuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlt
 ```
 
 </collapse-text>
-
 
 ## settxfee
 
@@ -3148,16 +2885,13 @@ Command:
 ./komodo-cli settxfee 0.00001
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 true
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -3167,9 +2901,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "settxfee", "params": [0.00001] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -3180,7 +2912,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## signmessage
 
@@ -3211,16 +2942,13 @@ Command:
 ./komodo-cli signmessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "my message"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=
 ```
 
 </collapse-text>
-
 
 Verify the signature:
 
@@ -3230,16 +2958,13 @@ Command:
 ./komodo-cli verifymessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=" "my message"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 true
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -3249,9 +2974,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signmessage", "params": ["RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ", "my message"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -3262,7 +2985,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## walletlock
 
@@ -3298,16 +3020,13 @@ Command:
 ./komodo-cli walletlock
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ## walletpassphrase
 
@@ -3346,16 +3065,13 @@ Command:
 ./komodo-cli walletpassphrase
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ## walletpassphrasechange
 
@@ -3392,16 +3108,13 @@ Command:
 ./komodo-cli walletpassphrasechange "oldpassphrase" "newpassphrase"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ## z_exportkey
 
@@ -3433,16 +3146,13 @@ Command:
 ./komodo-cli z_exportkey "ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 DONOTUSExxxxxxxxxxxxxxxxV6EyPpaZFVDsqeNB6k8eoLFERdag
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -3452,9 +3162,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_exportkey", "params": ["ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -3465,7 +3173,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_exportviewingkey
 
@@ -3497,16 +3204,13 @@ Command:
 ./komodo-cli z_exportviewingkey "ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 ZiVtf1yjjR9DeDNNgd4kvRgS1oovQwfK6xt2csfhTwpbUVjnC9RrEeuVkAfJrxN1jDR3d7vR6XmLne4vC9SCYR5F9XMzW19VJ
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -3516,9 +3220,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_exportviewingkey", "params": ["ztffWAUUY9PnLiBVXY2pnX67kfm71SevtPC5d9LLM3xZqehy4XxV1FeyxPWcHGTiCd7GtQ17gk5jDTQxhHB13K1A7HT6hZH"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -3529,7 +3231,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_exportwallet
 
@@ -3557,16 +3258,13 @@ Command:
 ./komodo-cli z_exportwallet "test"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 /home/myusername/mydirectory/test
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -3576,9 +3274,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_exportwallet", "params": ["test"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -3589,7 +3285,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_getbalance
 
@@ -3625,16 +3320,13 @@ Command:
 ./komodo-cli z_getbalance "ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 0.01980000
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -3642,16 +3334,13 @@ Command:
 ./komodo-cli z_getbalance "ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn" 5
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 0.01980000
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -3661,9 +3350,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_getbalance", "params": ["ztfF6SFBfq2qha73dAgsXnL86F8air32CXKxJg8aYtEPJFdLcw4y3zWzBasocnx1V9GLnnFeKnkPvkScjNkQBfWn2kBDmkn", 5] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -3674,7 +3361,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_getnewaddress
 
@@ -3702,16 +3388,13 @@ Command:
 ./komodo-cli z_getnewaddress
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 ztbUD83kXgHt3A1M282wFvT9Ms6SiBCd6GSbQbPa2C7UtPojVZjPENytFqu7JxgnsgL9EN42xWnyhhzniHYSRJDnEPTgo3Y
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -3721,9 +3404,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_getnewaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -3734,7 +3415,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_getoperationresult
 
@@ -3779,9 +3459,7 @@ Command:
 ./komodo-cli z_getoperationresult '["opid-6e581ee5-4e90-4e70-8961-f95d8d28748c"]'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -3811,7 +3489,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -3820,9 +3497,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_getoperationresult", "params": [["opid-6a9da0dd-a950-4d95-848c-d3c18e44be03"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -3855,7 +3530,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_getoperationstatus
 
@@ -3896,9 +3570,7 @@ Command:
 ./komodo-cli z_getoperationstatus
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -3928,16 +3600,13 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli z_getoperationstatus '["opid-47e12224-8477-4cd4-852d-d8c3ddbc6375"]'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -3963,7 +3632,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -3972,9 +3640,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_getoperationstatus", "params": [["opid-47e12224-8477-4cd4-852d-d8c3ddbc6375"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -4007,7 +3673,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_gettotalbalance
 
@@ -4047,9 +3712,7 @@ Command:
 ./komodo-cli z_gettotalbalance
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -4061,7 +3724,6 @@ Command:
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -4069,9 +3731,7 @@ Command:
 ./komodo-cli z_gettotalbalance 5
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -4083,7 +3743,6 @@ Command:
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -4093,9 +3752,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_gettotalbalance", "params": [5] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -4111,7 +3768,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_importkey
 
@@ -4153,16 +3809,13 @@ Command:
 ./komodo-cli z_importkey DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -4170,16 +3823,13 @@ Command:
 ./komodo-cli z_importkey DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK whenkeyisnew 30000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -4187,16 +3837,13 @@ Command:
 ./komodo-cli z_importkey DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK yes 20000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -4206,9 +3853,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_importkey", "params": ["DONOTUSExxxxxxxxxxxxxxxxBP6ipkmBxmEQbugcCQ16vUaWGFK", "no"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -4219,7 +3864,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_importviewingkey
 
@@ -4261,16 +3905,13 @@ Command:
 ./komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -4278,16 +3919,13 @@ Command:
 ./komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja" no
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -4295,16 +3933,13 @@ Command:
 ./komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja" whenkeyisnew 30000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -4312,16 +3947,13 @@ Command:
 ./komodo-cli z_importviewingkey "ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja" yes 20000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -4331,16 +3963,13 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_importviewingkey", "params": ["ZiVtfYkeyRY3y8Wykm5zjLcnssEkVrkej6j3kQ5B1AE2qp2F3VsKzpoXTzD82hrvMjWB9WxCHbXXrXax2ceyHLWrnQDaMrMja", "no"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ## z_importwallet
 
@@ -4372,16 +4001,13 @@ Command:
 ./komodo-cli z_importwallet "/mydirectory/nameofbackup"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -4391,9 +4017,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_importwallet", "params": ["/mydirectory/nameofbackup"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -4404,7 +4028,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_listaddresses
 
@@ -4436,9 +4059,7 @@ Command:
 ./komodo-cli z_listaddresses
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -4449,7 +4070,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -4458,9 +4078,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_listaddresses", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -4474,7 +4092,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_listoperationids
 
@@ -4502,9 +4119,7 @@ Command:
 ./komodo-cli z_listoperationids
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 [
@@ -4515,16 +4130,13 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli z_listoperationids "success"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 [
@@ -4534,7 +4146,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -4543,9 +4154,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_listoperationids", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -4559,7 +4168,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_listreceivedbyaddress
 
@@ -4598,9 +4206,7 @@ Command:
 ./komodo-cli z_listreceivedbyaddress "zs1wqykmk74mv2ezjscpxsgzrn4fasqwh50tgk0ym64m45c5yw5fjtpkps64gle963veqzuj04872z"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 [
@@ -4618,7 +4224,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -4627,17 +4232,14 @@ Command:
 curl --user rpcuser:rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_listreceivedbyaddress", "params": ["zs1umhaattx6lna933m9zwfqlmkm2qj49hpa9lnymtj5h5c7cwtd3evfpu29hppprax9cs45fzeyqg"] }' -H 'content-type: text/plain;' http://127.0.0.1:rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
 
-
-```
-
-</collapse-text>
-
+```json
 blockHash 0a4f15fe5425ef8bc6eb84e7bc3625c1ceccb3e49132b696a1841ab17a75a705 height 55200
 {"result":[{"txid":"23d33c0c12ba2224b2c9c252e304f491bf76ca05670c8f00d48300776c10850f","amount":100.00000000,"memo":"f600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","outindex":0,"rawconfirmations":1,"confirmations":1,"change":false}],"error":null,"id":"curltest"}
 ```
+
+</collapse-text>
 
 ## z_listunspent
 
@@ -4689,9 +4291,7 @@ Command:
 ./komodo-cli z_listunspent
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 [
@@ -4711,16 +4311,13 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli -ac_name=BEER z_listunspent 1 100 false "[\"zs1wqykmk74mv2ezjscpxsgzrn4fasqwh50tgk0ym64m45c5yw5fjtpkps64gle963veqzuj04872z\"]"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 [
@@ -4740,7 +4337,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -4749,9 +4345,7 @@ Command:
 curl --user rpcuser:rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_listunspent", "params": [1, 9999999, false, ["zs1umhaattx6lna933m9zwfqlmkm2qj49hpa9lnymtj5h5c7cwtd3evfpu29hppprax9cs45fzeyqg"] ] }' -H 'content-type: text/plain;' http://127.0.0.1:rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 blockHash 0a4f15fe5425ef8bc6eb84e7bc3625c1ceccb3e49132b696a1841ab17a75a705 height 55200
@@ -4759,7 +4353,6 @@ blockHash 0a4f15fe5425ef8bc6eb84e7bc3625c1ceccb3e49132b696a1841ab17a75a705 heigh
 ```
 
 </collapse-text>
-
 
 ## z_mergetoaddress
 
@@ -4821,16 +4414,13 @@ Command:
 ./komodo-cli z_mergetoaddress '["t1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd"]' ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (disabled)
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -4840,16 +4430,13 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_mergetoaddress", "params": [["t1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd"], "ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (disabled)
 ```
 
 </collapse-text>
-
 
 ## z_sendmany
 
@@ -4885,9 +4472,7 @@ Command:
 ./komodo-cli z_sendmany "RUX5vGkxJCKBPGm8b97VUumt2aHkuCjp8e" '[{"address":"RVEsww91UBdUNGyCC1GjDVuvJShEei2kj4","amount":0.01}]'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 opid-ad947755-b348-4842-90ca-0f0c71d13d34
@@ -4895,16 +4480,13 @@ opid-ad947755-b348-4842-90ca-0f0c71d13d34
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli z_sendmany "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns" '[{"address":"ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3","amount":0.01}]'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 opid-cdd6af37-88a2-44d7-9630-d54d21f8b1c4
@@ -4912,23 +4494,19 @@ opid-cdd6af37-88a2-44d7-9630-d54d21f8b1c4
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli z_sendmany "ztci8RzNSo2pdiDpAeHpz9Rp91hq12Mn7zcFfBR8Jjs2ydZUCTw8rLZzkVP888M4vGezpZVfsTR8orgxYK3N8gdgbBzakx3" '[{"address":"ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP","amount":0.0099}]'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 opid-3c3d6f25-f333-4898-8a50-06f4012cf975
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -4938,9 +4516,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_sendmany", "params": ["RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns", [{"address": "ztfaW34Gj9FrnGUEf833ywDVL62NWXBM81u6EQnM6VR45eYnXhwztecW1SjxA7JrmAXKJhxhj3vDNEpVCQoSvVoSpmbhtjf" ,"amount": 0.01}]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 {
@@ -4951,7 +4527,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## z_shieldcoinbase
 
@@ -4988,9 +4563,7 @@ Command:
 ./komodo-cli z_shieldcoinbase "RXN2rxidK4cwzRL44UTnWvQjjvLdoMmCpU" "ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -5004,16 +4577,13 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli z_shieldcoinbase "REyaj53EB2nwUnsmVyn8JHCcquKf1zYkEP" "ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP" 0.0001 50
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -5027,7 +4597,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -5036,9 +4605,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_shieldcoinbase", "params": ["RWRSfEYcfLv3yy9mhAuKHQTMCs9fArpPiH", "ztYMDvwUqi5FZLQy4so71ZGHXk2fDtEYU9HNns9DNYjXJr9PEzSL8Dq8NcdiRijsgCm4r3nNWA6dUrqW9suGd2F7uuj2BhP"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -5055,7 +4622,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## zcbenchmark
 
@@ -5078,7 +4644,7 @@ When finished, the method returns the running times of each sample.
 | ------------- | --------- | ---------------------------------------------------- |
 | "runningtime" | (numeric) | the time it took to run the selected `benchmarktype` |
 
-Output:
+<collapse-text hidden title="Output">
 
 ```json
 [
@@ -5091,6 +4657,8 @@ Output:
   ...
 ]
 ```
+
+</collapse-text>
 
 ## zcrawjoinsplit
 
@@ -5113,7 +4681,7 @@ enc2 to the appropriate recipients, as well as signing rawtxout and
 ensuring it is mined. (A future RPC call will deliver the confidential
 payments in-band on the blockchain.)
 
-Output:
+<collapse-text hidden title="Output">
 
 ```json
 {
@@ -5122,6 +4690,8 @@ Output:
   "rawtxn": rawtxout
 }
 ```
+
+</collapse-text>
 
 ## zcrawkeygen
 
@@ -5133,7 +4703,7 @@ DEPRECATED.
 
 the `zcrawkeygen` method generates a zcaddr which can send and receive confidential values.
 
-Output:
+<collapse-text hidden title="Output">
 
 ```json
 {
@@ -5142,6 +4712,8 @@ Output:
   "zcviewingkey": zcviewingkey
 }
 ```
+
+</collapse-text>
 
 ## zcrawreceive zcsecretkey encryptednote
 
@@ -5154,7 +4726,7 @@ DEPRECATED.
 Decrypts `encryptednote` and checks if the coin commitments
 are in the blockchain as indicated by the "exists" result.
 
-Output:
+<collapse-text hidden title="Output">
 
 ```json
 {
@@ -5163,6 +4735,8 @@ Output:
   "exists": exists
 }
 ```
+
+</collapse-text>
 
 ## zcsamplejoinsplit
 
