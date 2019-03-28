@@ -7,7 +7,7 @@ module.exports = {
     repo: 'komodoplatform/developer-docs',
     // Customising the header label
     // Defaults to "GitHub"/"GitLab"/"Bitbucket" depending on `themeConfig.repo`
-    repoLabel: 'Contribute',
+    repoLabel: 'Github',
 
     // Optional options for generating "Edit this page" link
 
