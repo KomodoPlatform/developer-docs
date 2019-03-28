@@ -21,7 +21,7 @@ The `getaddressbalance` method returns the confirmed balance for an address, or 
 | "balance"  | (number) | the current confirmed balance in satoshis                          |
 | "received" | (number) | the total confirmed number of satoshis received (including change) |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -46,7 +46,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+<collapse-text hidden title="Response">
 
 ```json
 {
@@ -58,6 +58,8 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
 
 ## getaddressdeltas
 
@@ -475,14 +477,14 @@ Response:
 
 **getsnapshot top**
 
-The `getsnapshot` method returns a snapshot of addresses and their amounts at the asset chain's current height. 
+The `getsnapshot` method returns a snapshot of addresses and their amounts at the asset chain's current height.
 
 The method requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
-| Structure | Type               | Description                                          |
-| --------- | ------------------ | ---------------------------------------------------- |
+| Structure | Type               | Description                                           |
+| --------- | ------------------ | ----------------------------------------------------- |
 | "top"     | (number, optional) | Only return this many addresses, i.e. top N rich list |
 
 ### Response

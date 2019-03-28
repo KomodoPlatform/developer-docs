@@ -1,6 +1,6 @@
 <template>
   <div class="collapsed">
-    <button @click="toggle()">{{ vHidden ? 'Show' : 'Hide' }}</button><strong> {{ vTitle }}</strong>
+    <button @click="toggle()">{{ vHidden ? 'Show ' + vTitle : 'Hide ' + vTitle + ':' }}</button>
     <div v-show="!vHidden"><slot></slot></div>
   </div>
 </template>
