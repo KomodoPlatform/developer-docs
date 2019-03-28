@@ -63,6 +63,8 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 ## getaddressdeltas
 
+### getaddressdeltas '{ "addresses" : [ "address" , ... ] }'
+
 ### getaddressdeltas '{ "addresses" : [ "address" , ... ] , "start": start, "end": end, "chainInfo": boolean }'
 
 The `getaddressdeltas` method returns all confirmed balance changes of an address. The user can optionally limit the response to a given interval of blocks. The method requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.

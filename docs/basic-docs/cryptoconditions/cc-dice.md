@@ -18,7 +18,7 @@ Anyone can execute a [dicefinish](../cryptoconditions/cc-dice.html#dicefinish) R
 
 ## diceaddfunds
 
-**diceaddfunds name fundingtxid amount**
+### diceaddfunds name fundingtxid amount
 
 The `diceaddfunds` method adds funds to the desired `dice` contract.
 
@@ -148,7 +148,7 @@ Response from Step 3:
 
 ## diceaddress
 
-**diceaddress (pubkey)**
+### diceaddress (pubkey)
 
 The `diceaddress` method takes either your pubkey or a pubkey that you provide and returns the smart-contract address for the `dice` smart contract.
 
@@ -194,7 +194,7 @@ Response:
 
 ## dicebet
 
-**dicebet name fundingtxid amount odds**
+### dicebet name fundingtxid amount odds
 
 The `dicebet` method places a bet on the indicated `dice` contract.
 
@@ -353,7 +353,7 @@ Response from Step 3:
 
 ## dicefinish
 
-**dicefinish name fundingtxid bettxid**
+### dicefinish name fundingtxid bettxid
 
 The `dicefinish` method rebroadcasts a bet that was previously broadcast.
 
@@ -395,7 +395,7 @@ Response:
 
 ## dicefund
 
-**dicefund name funds minbet maxbet maxodds timeoutblocks**
+### dicefund name funds minbet maxbet maxodds timeoutblocks
 
 The `dicefund` method creates and funds a dice contract.
 
@@ -615,7 +615,7 @@ Response from Step 3:
 
 ## diceinfo
 
-**diceinfo fundingtxid**
+### diceinfo fundingtxid
 
 The `diceinfo` method looks up information about the specific `dice` contract referred by the relevant `fundingtxid`.
 
@@ -669,7 +669,7 @@ Response:
 
 ## dicelist
 
-**dicelist**
+### dicelist
 
 The `dicelist` method displays the total list of `fundingtxid`'s of all `dice` contracts available on the asset chain.
 
@@ -705,7 +705,7 @@ Response:
 
 ## dicestatus
 
-**dicestatus name fundingtxid bettxid**
+### dicestatus name fundingtxid bettxid
 
 The `dicestatus` method prints the status of a `dicebet` and returns whether the `bettxid` received a winning or losing result.
 

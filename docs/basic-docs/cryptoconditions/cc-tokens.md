@@ -10,7 +10,7 @@ For example, if you desire to create a one-of-a-kind token, use 1 satoshi in its
 
 ## tokenaddress
 
-**tokenaddress (pubkey)**
+### tokenaddress (pubkey)
 
 The `tokenaddress` method returns information about a token address according to a specific `pubkey`. If no `pubkey` is provided, the `pubkey` used to the launch the daemon is the default.
 
@@ -54,7 +54,7 @@ Response:
 
 ## tokenask
 
-**tokenask numtokens tokenid price**
+### tokenask numtokens tokenid price
 
 The `tokenask` method posts a public ask order.
 
@@ -106,7 +106,7 @@ Response from Step 2:
 
 ## tokenbalance
 
-**tokenbalance tokenid (pubkey)**
+### tokenbalance tokenid (pubkey)
 
 The `tokenbalanced` method checks the token balance according to a provided `pubkey`. If no `pubkey` is provided, the `pubkey` used the launch the daemon is the default.
 
@@ -164,7 +164,7 @@ Response:
 
 ## tokenbid
 
-**tokenbid numtokens tokenid price**
+### tokenbid numtokens tokenid price
 
 The `tokenbid` method posts a public bid order.
 
@@ -217,7 +217,7 @@ Response:
 
 ## tokencancelask
 
-**tokencancelask tokenid asktxid**
+### tokencancelask tokenid asktxid
 
 The `tokencancelask` method cancels a specific `ask`/`sell` order that you created.
 
@@ -344,7 +344,7 @@ Response:
 
 ## tokencancelbid
 
-**tokencancelbid tokenid bidtxid**
+### tokencancelbid tokenid bidtxid
 
 The `tokencancelbid` method cancels a specific `bid`/`buy` order that you created.
 
@@ -471,7 +471,7 @@ Response from Step 3:
 
 ## tokencreate
 
-**tokencreate name supply description**
+### tokencreate name supply description
 
 The `tokencreate` method creates a new token.
 
@@ -607,7 +607,7 @@ Response:
 
 ## tokenfillask
 
-**tokenfillask tokenid asktxid fillamount**
+### tokenfillask tokenid asktxid fillamount
 
 The `tokenfillask` method fills an existing ask.
 
@@ -668,7 +668,7 @@ Step 3: Wait for the transaction to be confirmed
 
 ## tokenfillbid
 
-**tokenfillbid tokenid bidtxid fillamount**
+### tokenfillbid tokenid bidtxid fillamount
 
 The `tokenfillbid` method fills an existing ask.
 
@@ -729,7 +729,7 @@ Step 3: Wait for the transaction to be confirmed
 
 ## tokeninfo
 
-**tokeninfo tokenid**
+### tokeninfo tokenid
 
 The `tokeninfo` method reveals information about any token.
 
@@ -773,7 +773,7 @@ Response:
 
 ## tokenlist
 
-**tokenlist**
+### tokenlist
 
 The `tokenlist` method lists all available tokens on the asset chain.
 
@@ -816,7 +816,7 @@ Response:
 
 ## tokenorders
 
-**tokenorders (tokenid)**
+### tokenorders (tokenid)
 
 The `tokenorders` method displays the public on-chain orderbook for a specific token. If no `tokenid` is provided, it displays the on-chain orderbook for all available tokens.
 
@@ -980,7 +980,7 @@ Response:
 
 ## tokentransfer
 
-**tokentransfer tokenid destpubkey amount**
+### tokentransfer tokenid destpubkey amount
 
 The `tokentransfer` method transfers tokens from one cc address to another.
 

@@ -19,7 +19,7 @@ There can be many `rewards` plans active at any given time.
 
 ## rewardsaddfunding
 
-**rewardsaddfunding name fundingtxid amount**
+### rewardsaddfunding name fundingtxid amount
 
 The `rewardsaddfunding` method adds funds to a rewards plan.
 
@@ -136,7 +136,7 @@ Response:
 
 ## rewardsaddress
 
-**rewardsaddress (pubkey)**
+### rewardsaddress (pubkey)
 
 The `rewardsaddress` method returns info about the `rewards` plan associated with the given `pubkey`. If no `pubkey` is provided, the `pubkey` used to launch the daemon is used.
 
@@ -184,7 +184,7 @@ Response:
 
 ## rewardscreatefunding
 
-**rewardscreatefunding name amount APR mindays maxdays mindeposit**
+### rewardscreatefunding name amount APR mindays maxdays mindeposit
 
 The `rewardscreatefunding` method creates a new `rewards` plan.
 
@@ -322,7 +322,7 @@ Response from Step 3:
 
 ## rewardsinfo
 
-**rewardsinfo fundingtxid**
+### rewardsinfo fundingtxid
 
 The `rewardsinfo` method returns information about specific `rewards` plan.
 
@@ -373,7 +373,7 @@ Response:
 
 ## rewardslist
 
-**rewardslist**
+### rewardslist
 
 The `rewardslist` method lists the `fundingtxid`'s of all the rewards contracts available on the asset chain.
 
@@ -408,7 +408,7 @@ Response:
 
 ## rewardslock
 
-**rewardslock name fundingtxid amount**
+### rewardslock name fundingtxid amount
 
 The `rewardslock` method commits your desired amount of funds into the specified rewards plan. They remain locked until the minimum number of seconds/days passes.
 
@@ -541,7 +541,7 @@ Response from Step 3:
 
 ## rewardsunlock
 
-**rewardsunlock name fundingtxid (txid)**
+### rewardsunlock name fundingtxid (txid)
 
 The `rewardsunlock` method unlocks your funds from a specific rewards plan after the minimum lock time is met. If `txid` is not provided, `rewardsunlock` unlocks all funds in the `fundingtxid` plan.
 

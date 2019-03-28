@@ -1018,7 +1018,7 @@ Response:
 
 ## gatewaysaddress
 
-**gatewaysaddress**
+### gatewaysaddress
 
 The `gatewaysaddress` method returns information about the on-chain gateway.
 
@@ -1064,7 +1064,7 @@ Response:
 
 ## gatewaysbind
 
-**gatewaysbind tokenid oracletxid coin tokensupply M N pubkey(s) pubtype p2shtype wiftype [taddr]**
+### gatewaysbind tokenid oracletxid coin tokensupply M N pubkey(s) pubtype p2shtype wiftype [taddr]
 
 The `gatewaysbind` method binds the provided sources into a new gateway.
 
@@ -1129,12 +1129,12 @@ This is the `bindtxid` for the gateway.
 <!--FIXME new RPC added
 ## gatewayscompletesigning
 
-**gatewayscompletesigning withdrawtxid coin hex**
+### gatewayscompletesigning withdrawtxid coin hex
 -->
 
 ## gatewaysclaim
 
-**gatewaysclaim bindtxid coin deposittxid destpub amount**
+### gatewaysclaim bindtxid coin deposittxid destpub amount
 
 The `gatewaysclaim` method allows the owner of the `deposittxid` to claim their on-chain proxy tokens. This method can only be executed by the owner of the `pubkey` that was used to launch the daemon from which the `gatewaysdeposit` call was executed.
 
@@ -1190,7 +1190,7 @@ Response from Step Two:
 
 ## gatewaysdeposit
 
-**gatewaysdeposit bindtxid height coin cointxid claimvout deposithex proof destpub amount**
+### gatewaysdeposit bindtxid height coin cointxid claimvout deposithex proof destpub amount
 
 The `gatewaysdeposit` method is used to alert the gateway of the completed deposit of the foreign (off-chain) asset.
 
@@ -1252,7 +1252,7 @@ Response:
 
 ## gatewaysexternaladdress
 
-**gatewaysexternaladdress bindtxid pubkey**
+### gatewaysexternaladdress bindtxid pubkey
 
 The `gatewaysexternaladdress` method returns the address on the external chain for the gateways associated with the given `pubkey` and `bindtxid` values.
 
@@ -1289,7 +1289,7 @@ Response:
 
 ## gatewaysdumpprivkey
 
-**gatewaysdumpprivkey bindtxid address**
+### gatewaysdumpprivkey bindtxid address
 
 The `gatewaysdumpprivkey` method returns the private key for the given `address` and `bindtxid`.
 
@@ -1328,7 +1328,7 @@ Response:
 
 ## gatewaysinfo
 
-**gatewaysinfo bindtxid**
+### gatewaysinfo bindtxid
 
 The `gatewaysinfo` method returns information about the `bindtxid` gateway.
 
@@ -1386,7 +1386,7 @@ Response:
 
 ## gatewayslist
 
-**gatewayslist**
+### gatewayslist
 
 The `gatewayslist` method displays a list of `bindtxids` for the available gateways.
 
@@ -1429,7 +1429,7 @@ gatewaysprocessed bindtxid coin
 
 ## gatewayswithdraw
 
-**gatewayswithdraw bindtxid coin withdrawpub amount**
+### gatewayswithdraw bindtxid coin withdrawpub amount
 
 The `gatewayswithdraw` method sends proxy tokens in the gateways `pubkey`. The gateway then sends the foreign assets to the indicated foreign `withdrawpub` pubkey.
 

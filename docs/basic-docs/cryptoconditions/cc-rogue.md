@@ -823,7 +823,7 @@ The `tokentxid` is created at the character's initial creation and does not chan
 
 ## newgame
 
-**cclib newgame 17 '[maxplayers, buyin]'**
+### cclib newgame 17 '[maxplayers, buyin]'
 
 The `newgame` method creates a new game.
 
@@ -874,7 +874,7 @@ Response:
 
 ## gameinfo
 
-**cclib gameinfo 17 '["gametxid"]'**
+### cclib gameinfo 17 '["gametxid"]'
 
 The `gameinfo` method returns relevant information about the indicated `gametxid` game.
 
@@ -936,7 +936,7 @@ Response:
 
 ## pending
 
-**cclib pending 17**
+### cclib pending 17
 
 The `pending` method displays a list of unfinished games on the asset chain.
 
@@ -986,7 +986,7 @@ Response:
 
 ## register
 
-**cclib register 17 '["gametxid"(,"playertxid")]'**
+### cclib register 17 '["gametxid"(,"playertxid")]'
 
 The `register` method registers your character for a game.
 
@@ -1039,7 +1039,7 @@ Response:
 
 ## keystrokes
 
-**cclib keystrokes 17 '["gametxid","keystrokes"]'**
+### cclib keystrokes 17 '["gametxid","keystrokes"]'
 
 The `keystrokes` method executes the indicated `keystroke` for the indicated `gametxid`.
 
@@ -1101,7 +1101,7 @@ Response:
 
 ## bailout
 
-**cclib bailout 17 '["gametxid"]'**
+### cclib bailout 17 '["gametxid"]'
 
 The `bailout` method allows a user to withdraw their character from the game.
 
@@ -1169,7 +1169,7 @@ Response:
 
 ## highlander
 
-**cclib highlander 17 '["gametxid"]'**
+### cclib highlander 17 '["gametxid"]'
 
 The `highlander` method allows a character to exit the game and claim the `buyin` prize funds.
 
@@ -1235,7 +1235,7 @@ Response:
 
 ## playerinfo
 
-**cclib playerinfo 17 '["playertxid"]'**
+### cclib playerinfo 17 '["playertxid"]'
 
 The `playerinfo` method displays information about the currently active character.
 
@@ -1322,7 +1322,7 @@ Response:
 
 ## players
 
-**cclib players 17**
+### cclib players 17
 
 The `players` method displays a list of all `playertxid` transaction ids held in the user's current `pubkey`.
 
@@ -1366,7 +1366,7 @@ Response:
 
 ## games
 
-**cclib games 17**
+### cclib games 17
 
 The `games` method displays a list of the user's unfinished and finished games.
 
@@ -1426,7 +1426,7 @@ Response:
 
 ## setname
 
-**cclib setname 17 '["pname"]'**
+### cclib setname 17 '["pname"]'
 
 The `setname` method sets the name of a character. 
 
@@ -1468,7 +1468,7 @@ Response:
 
 ## extract
 
-**cclib extract 17 '["gametxid","pubkey"]'**
+### cclib extract 17 '["gametxid","pubkey"]'
 
 The `extract` method allows the user extract the complete history of a game. This allows the user to view a replay of the game.
 

@@ -17,7 +17,7 @@ Those who publish data to an oracle are called publishers. There is a fee-based 
 
 ## oraclesaddress
 
-**oraclesaddress (pubkey)**
+### oraclesaddress (pubkey)
 
 The `oraclesaddress` method displays the oracle address for a specific pubkey.
 
@@ -65,7 +65,7 @@ Response:
 
 ## oraclescreate
 
-**oraclescreate name description format**
+### oraclescreate name description format
 
 The `oraclescreate` method creates a new oracle.
 
@@ -208,7 +208,7 @@ Response from Step 3:
 
 ## oraclesdata
 
-**oraclesdata oracletxid hexstr**
+### oraclesdata oracletxid hexstr
 
 The `oraclesdata` method publishes data to an oracle.
 
@@ -419,7 +419,7 @@ Response:
 
 ## oraclesinfo
 
-**oraclesinfo oracletxid**
+### oraclesinfo oracletxid
 
 The `oraclesinfo` method displays information about a specific oracle using `oracletxid`. 
 
@@ -482,7 +482,7 @@ Response:
 
 ## oraclelist
 
-**oracleslist**
+### oracleslist
 
 The `oraclelist` method lists all available oracle contracts on the asset chain.
 
@@ -542,7 +542,7 @@ Response:
 
 ## oraclesregister
 
-**oraclesregister oracletxid datafee**
+### oraclesregister oracletxid datafee
 
 A user executes the `oraclesregister` method to register as a data publisher for an existing oracle contract.
 
@@ -680,7 +680,7 @@ Response from Step 3:
 
 ## oraclessamples
 
-**oraclessamples oracletxid batonutxo num**
+### oraclessamples oracletxid batonutxo num
 
 The `oraclessample` method fetches data samples from a publisher.
 
@@ -721,7 +721,7 @@ Response:
 
 ## oraclessubscribe
 
-**oraclessubscribe oracletxid publisher amount**
+### oraclessubscribe oracletxid publisher amount
 
 The user executes `oraclessubscribe` to subscribe to a publisher of an oracle plan.
 

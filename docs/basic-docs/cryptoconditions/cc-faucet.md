@@ -10,7 +10,7 @@ When `faucetget` is executed, the on-chain `faucet` sends 0.1 coins to the addre
 
 ## faucetaddress
 
-**faucetaddress [pubkey]**
+### faucetaddress [pubkey]
 
 The `faucetaddress` method returns the CC address information for the specified pubkey. If no pubkey is provided, the method returns information for the pubkey used to launch the daemon.
 
@@ -57,7 +57,7 @@ Response:
 
 ## faucetfund
 
-**faucetfund amount**
+### faucetfund amount
 
 The `faucetfund` method funds the on-chain faucet.
 
@@ -161,7 +161,7 @@ Response from Step 3
 
 ## faucetget
 
-**faucetget**
+### faucetget
 
 The `faucetget` method requests the `faucet` contract to send coins.
 
@@ -268,7 +268,7 @@ Response from Step 3:
 
 ## faucetinfo
 
-**faucetinfo**
+### faucetinfo
 
 The `faucetinfo` method displays the balance of funds in the chain's faucet.
 

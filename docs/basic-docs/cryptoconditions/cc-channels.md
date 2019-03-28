@@ -19,7 +19,7 @@ When a payment is executed properly with `channels`, as soon as it enters the me
 
 ## channelsaddress
 
-**channelsaddress pubkey**
+### channelsaddress pubkey
 
 The `channelsaddress` method displays the various addresses and their balances for a specified pubkey.
 
@@ -79,7 +79,7 @@ Response:
 
 ## channelsclose
 
-**channelsclose open_txid**
+### channelsclose open_txid
 
 The `channelsclose` method marks a specific channel as closed, meaning that no additional payments will be added to the channel.
 
@@ -133,7 +133,7 @@ Response from Step 2: (Save this txid to reclaim your funds using channelsrefund
 
 ## channelsinfo
 
-**channelsinfo (open_tx_id)**
+### channelsinfo (open_tx_id)
 
 The `channelsinfo` method fetches info about channels that are relevant to the user, either as sender or receiver.
 
@@ -191,7 +191,7 @@ Response:
 
 ## channelsopen
 
-**channelsopen destination_pubkey total_number_of_payments payment_size**
+### channelsopen destination_pubkey total_number_of_payments payment_size
 
 The `channelsopen` method opens a channel between two public keys (sender and receiver).
 
@@ -245,7 +245,7 @@ Response from Step 2 (this is the unique identifying channel_tx_id):
 
 ## channelspayment
 
-**channelspayment open_tx_id payment_amount (secret)**
+### channelspayment open_tx_id payment_amount (secret)
 
 The `channelspayment` method sends a payment in a channel to the receiver.
 
@@ -311,7 +311,7 @@ Check that the transaction is confirmed:
 
 ## channelsrefund
 
-**channelsrefund open_tx_id close_tx_id**
+### channelsrefund open_tx_id close_tx_id
 
 The `channelsrefund` method withdraws funds directly to the CC address of the channel creator.
 

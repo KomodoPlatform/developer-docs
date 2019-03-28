@@ -21,7 +21,7 @@ A complete walkthrough
 
 ## Method 1
 
-**method 1**
+### method 1
 
 Description
 

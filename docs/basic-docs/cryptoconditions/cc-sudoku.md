@@ -263,7 +263,7 @@ OSX dependencies might be quite tricky part depends of exact OSX version - so I'
 
 ## gen
 
-**cclib gen 17**
+### cclib gen 17
 
 The generate method creates a new Sudoku puzzle.
 
@@ -349,7 +349,7 @@ Response (daemon `stdout`):
 |- - - - - -|- - - - - -|- - - - - -|
 | 5 : : | : : 2 | : : |
 ----------------------------------- 
-*** 26 numbers left ***
+###  26 numbers left 
 257136984
 891457326
 364928715
@@ -379,7 +379,7 @@ Response (JSON):
 
 ## txidinfo
 
-**cclib txidinfo 17 '["puzzle_txid"]'**
+### cclib txidinfo 17 '["puzzle_txid"]'
 
 The `txidinfo` method returns information about the indicated `puzzle_txid` puzzle.
 
@@ -429,7 +429,7 @@ Response:
 
 ## pending
 
-**cclib pending 17**
+### cclib pending 17
 
 The `pending` method returns a complete list of all unsolved puzzles on the asset chain.
 
@@ -490,7 +490,7 @@ Response:
 
 ## solution
 
-**cclib solution 17 '["puzzle_txid","solution",t0,t1,t2,...]'**
+### cclib solution 17 '["puzzle_txid","solution",t0,t1,t2,...]'
 
 The `solution` method submits the proposed `solution` to the blockchain for the indicated `puzzle_txid` puzzle.
 

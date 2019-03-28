@@ -37,7 +37,7 @@ If an owner of an Heir CC address seeking to add funds to their account avoids t
 
 ## heirfund
 
-**heirfund txfee amount name heirpubkey inactivitytime memo ( tokenid )**
+### heirfund txfee amount name heirpubkey inactivitytime memo ( tokenid )
 
 The `heirfund` method creates a new Heir CC funding plan.
 
@@ -211,7 +211,7 @@ Response:
 
 ## heiradd
 
-**heiradd txfee amount fundingtxid**
+### heiradd txfee amount fundingtxid
 
 The `heiradd` method adds more funds to the Heir CC plan.
 
@@ -374,7 +374,7 @@ Response:
 
 ## heirclaim
 
-**heirclaim txfee amount fundingtxid**
+### heirclaim txfee amount fundingtxid
 
 The `heirclaim` method allows the owner to claim funds from the plan.
 
@@ -430,7 +430,7 @@ f0f7f536a261ee8e02fb592d81305b6052939a510e3e3435280b0bad454626c7
 
 ## heirinfo
 
-**heirinfo fundingtxid**
+### heirinfo fundingtxid
 
 The `heirinfo` method returns detailed information about the funding plan.
 
@@ -489,7 +489,7 @@ Response:
 
 ## heirlist
 
-**heirlist**
+### heirlist
 
 The `heirlist` method outputs a list of all available `fundingtxid`'s on the asset chain.
 
@@ -521,7 +521,7 @@ Response:
 
 ## heiraddress
 
-**heiraddress pubkey**
+### heiraddress pubkey
 
 The `heiraddress` method shows the owner's addresses and balances for the Heir CC plan.
 
