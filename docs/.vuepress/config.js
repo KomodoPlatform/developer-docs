@@ -77,6 +77,10 @@ module.exports = {
               "/basic-docs/cryptoconditions/cryptoconditions-instructions.md",
               "Instructions for CryptoConditions"
             ],
+            [
+              "/basic-docs/cryptoconditions/cryptoconditions-tutorial.md",
+              "Build a Custom CC Module"
+            ],
             ["/basic-docs/cryptoconditions/cc-channels.md", "Channels"],
             ["/basic-docs/cryptoconditions/cc-dice.md", "Dice"],
             ["/basic-docs/cryptoconditions/cc-faucet.md", "Faucet"],
