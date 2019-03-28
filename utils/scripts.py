@@ -66,12 +66,12 @@
 #            text = 'curl --url "http://127.0.0.1:7783" --data ' + text + "\n"
 #            g.write(text)
 
-#from slickrpc import Proxy
-#import os
-#import re
-#import json
-#import sys
-#import platform
+# from slickrpc import Proxy
+# import os
+# import re
+# import json
+# import sys
+# import platform
 # try:
 #    import urlparse
 # except:
@@ -112,7 +112,7 @@
 #    return Proxy(conf_file=coin_config_file), rpcport, "http://" + rpcuser + ":" + rpcpassword + "@127.0.0.1:" + str(rpcport)
 #
 #
-#komodo, rpcport, service_url = def_credentials("ROGUE")
+# komodo, rpcport, service_url = def_credentials("ROGUE")
 #
 #
 # def url_to_conf(service_url):
@@ -137,7 +137,7 @@
 #        'vout': 0}], {'address': 0.01})
 
 
-#import os
+# import os
 # for filename in os.listdir('../docs/basic-docs/cryptoconditions/'):
 #    with open('../docs/basic-docs/cryptoconditions/'+filename, "r") as f, open(filename, 'w+') as g:
 #        for currLine in f:
@@ -145,3 +145,17 @@
 #                g.write('### '+currLine.strip("*\n") + '\n')
 #            else:
 #                g.write(currLine)
+
+import os
+for filename in os.listdir('../docs/basic-docs/cryptoconditions/'):
+    with open('../docs/basic-docs/cryptoconditions/'+filename, "r") as f, open(filename, 'w+') as g:
+        flag = 0
+        for currLine in f:
+            if currLine.startswith("Response"):
+                flag = 1
+                g.write('\n<collapse-text hidden title="Response">\n\n')
+            elif flag == 1 and currLine == "```\n":
+                g.write("```\n" + "\n" + "</collapse-text>\n\n")
+                flag = 0
+            else:
+                g.write(currLine)

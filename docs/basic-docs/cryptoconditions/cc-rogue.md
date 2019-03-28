@@ -197,7 +197,9 @@ Set the pubkey for the ROGUE asset chain.
 ./komodo-cli -ac_name=ROGUE setpubkey 02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -206,6 +208,9 @@ Response:
   "pubkey": "02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2"
 }
 ```
+
+</collapse-text>
+
 
 The pubkey is now set.
 
@@ -259,7 +264,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib newgame 17 "[1]"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -273,6 +280,9 @@ Response:
   "result": "success"
 }
 ```
+
+</collapse-text>
+
 
 The ROGUE software currently broadcasts the `hex` value automatically. It is not necessary to use the `sendrawtransaction` method.
 
@@ -288,7 +298,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -310,6 +322,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 In the returned json object, observe the `run` value. This lists the specific command that must be executed in the terminal to register the game.
 
 #### Step 4
@@ -320,7 +335,9 @@ Register the `gametxid` using the [register](../cryptoconditions/cc-rogue.html#r
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -335,6 +352,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 
 #### Step 5
 
@@ -344,7 +364,9 @@ Check the game's current state again using the [gameinfo](../cryptoconditions/cc
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -374,6 +396,9 @@ Response:
   ]
 }
 ```
+
+</collapse-text>
+
 
 Note that the `gameinfo` method now returned a `seed` value, as well as player data.
 
@@ -457,7 +482,9 @@ Execute the [newgame](../cryptoconditions/cc-rogue.html#newgame) method on `play
 ./komodo-cli -ac_name=ROGUE cclib newgame 17 '["2","0.1"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -472,6 +499,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 Save the returned `txid` value for future use. This is our `gametxid`.
 
 Use the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method to check information about the game:
@@ -480,7 +510,9 @@ Use the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method to check i
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -502,6 +534,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 As shown in the returned json object, the game has a `maxplayers` value of `2` and an `openslots` value of `0`, as no players have joined.
 
 Note that the `gameheight` value is `54265`. This is the block height at which the `gametxid` was created. 
@@ -520,7 +555,9 @@ The player also includes the `gametxid` as the first argument of the `register` 
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde","8005f81a604df6bbfae91dc8252505df43edbdf06492a2201362cb42dba4d8f2"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -535,13 +572,18 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 In our example, the `player2` node does not have a character from a previous game, and therefore `player2` executes the `register` method with only the `gametxid`.
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -556,6 +598,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 Wait until the `txid` values returned on both nodes are mined. (Use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to check the transaction's status.)
 
 After the transactions are mined, use the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method to check the game's status again:
@@ -564,7 +609,9 @@ After the transactions are mined, use the [gameinfo](../cryptoconditions/cc-rogu
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -636,6 +683,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 The `openslots` value is now `0`, as `2` players have joined. 
 
 Note also that the `start` block height has past, and therefore the `seed` value is available.
@@ -660,7 +710,9 @@ To exit, `player1` executes the [bailout](../cryptoconditions/cc-rogue.html#bail
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -674,6 +726,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 With the `bailout` transaction mined, the `gameinfo` method now returns updated information:
 
 Command:
@@ -682,7 +737,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -718,6 +775,9 @@ Response:
 
 ```
 
+</collapse-text>
+
+
 Note that the `alive` property has a value of `1`, indicating that the `player1` character has left and the `player2` character remains. Also note that in the `players` array, the first json object (which describes the `player1` node) has a `status` of `finished`.
 
 Since `player1` left early, `player2` is the last character standing. The [highlander](../cryptoconditions/cc-rogue.html#highlander) method is now available to him.
@@ -730,7 +790,9 @@ With the exit process in motion, `player2` executes the `highlander` method:
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -743,6 +805,9 @@ Response:
   "result": "success"
 }
 ```
+
+</collapse-text>
+
 
 The multi-player game is now finished. The `player2` node received the `highlander` prize, including the total `buyin` amount and an increased conversion rate of in-game gold to `ROGUE` coins.
 
@@ -857,7 +922,9 @@ Command for a single-player training game:
 ./komodo-cli -ac_name=ROGUE cclib newgame 17 "[1]"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -871,6 +938,9 @@ Response:
   "result": "success"
 }
 ```
+
+</collapse-text>
+
 
 ## gameinfo
 
@@ -912,7 +982,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -933,6 +1005,9 @@ Response:
   "players": []
 }
 ```
+
+</collapse-text>
+
 
 ## pending
 
@@ -964,7 +1039,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib pending 17
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -983,6 +1060,9 @@ Response:
   "numpending": 175
 }
 ```
+
+</collapse-text>
+
 
 ## register
 
@@ -1022,7 +1102,9 @@ Command (registration without player):
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -1036,6 +1118,9 @@ Response:
   "result": "success"
 }
 ```
+
+</collapse-text>
+
 
 ## keystrokes
 
@@ -1079,7 +1164,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib keystrokes 17 '["777ba510824b467e9ddfb00a075e9cd5c6f73d1fa6f772b1a22563502def25ee","6a68686868686866686820686868682068686868206868666868686c6c6c6c6a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a68666b"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 {
@@ -1098,6 +1185,9 @@ Response:
    "id":"jl777"
 }
 ```
+
+</collapse-text>
+
 
 ## bailout
 
@@ -1153,7 +1243,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["39b65c12e37f6338b2daf8b7d8d6e1b6c083622590cb7a318daadabc785b73f0"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 {
@@ -1166,6 +1258,9 @@ Response:
   "result": "success"
 }
 ```
+
+</collapse-text>
+
 
 ## highlander
 
@@ -1219,7 +1314,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 '["b94a0c14604df04a994e8fde610af7ddede76a62e1e3d86bbdac18e695662301"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 {
@@ -1232,6 +1329,9 @@ Response:
   "txid": "txid"
 }
 ```
+
+</collapse-text>
+
 
 ## playerinfo
 
@@ -1288,7 +1388,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib playerinfo 17 '["cf2ae0997e24f100aa9da3cda747105e3134a102da69630d6d1683a6f0f7b0ab"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 "{
@@ -1320,6 +1422,9 @@ Response:
 }"
 ```
 
+</collapse-text>
+
+
 ## players
 
 ### cclib players 17
@@ -1349,7 +1454,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib players 17
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -1363,6 +1470,9 @@ Response:
   "numplayerdata": 3
 }
 ```
+
+</collapse-text>
+
 
 ## games
 
@@ -1394,7 +1504,9 @@ Command:
  ./komodo-cli -ac_name=ROGUE cclib games 17
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -1423,6 +1535,9 @@ Response:
   "numgames": 140
 }
 ```
+
+</collapse-text>
+
 
 ## setname
 
@@ -1455,7 +1570,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib setname 17 '["SuperMegaWarrior"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -1465,6 +1582,9 @@ Response:
   "pname": "SuperMegaWarrior"
 }
 ```
+
+</collapse-text>
+
 
 ## extract
 
@@ -1503,7 +1623,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib extract 17 '["6bb0efcb14cd5101a4d8d8865c6a93162aa9480c5d3e0ce33902193cebdc4c39","0325151cf0f7321d0cde232898c5adc6b60f32df71b79af3a49d10020d42925ae9"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 {
@@ -1520,3 +1642,6 @@ Response:
   "replay": "cc/rogue/rogue 4344864534442616921"
 }
 ```
+
+</collapse-text>
+

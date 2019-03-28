@@ -48,7 +48,9 @@ Step 1: Create a raw transaction and get the HEX value
 ./komodo-cli -ac_name=HELLOWORLD rewardsaddfunding FREE e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd 100
 ```
 
-Response from Step 1:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -57,15 +59,23 @@ Response from Step 1:
 }
 ```
 
+</collapse-text>
+
+
 Step 2: Broadcast raw transaction
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0100000001bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e00200000048473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401ffffffff0300e40b5402000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401ccd05eefb1fe080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
 ```
 
-Response from Step 2:
+
+<collapse-text hidden title="Response">
+
 
 ```
+
+</collapse-text>
+
 008ca94eebce8dbfa91491028c8861016ad4c25240f9ddc5616f2fb0853da580
 ```
 
@@ -75,7 +85,9 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 ./komodo-cli -ac_name=ATEST decoderawtransaction 0100000001bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e00200000048473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401ffffffff0300e40b5402000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401ccd05eefb1fe080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -134,6 +146,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## rewardsaddress
 
 ### rewardsaddress (pubkey)
@@ -167,7 +182,9 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD rewardsaddress 03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -181,6 +198,9 @@ Response:
   "myaddress": "RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"
 }
 ```
+
+</collapse-text>
+
 
 ## rewardscreatefunding
 
@@ -222,7 +242,9 @@ Step 1: Create raw transaction HEX using your own parameter
 ./komodo-cli -ac_name=HELLOWORLD rewardscreatefunding FREE 1000 5 1 10 10
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -231,17 +253,25 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 Step 2: Broadcast/send the raw hex/transaction. This will output the txid which is the fundingtxid, also called the rewards plan id.
 
 ```bash
 ./komodo-cli -ac_name=ATEST sendrawtransaction 010000000104f2435046f3ad452e76e53ec01429ae4f49d3322e8cc96da96b9e35d6ada70e0000000049483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ace069fb0501090000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000
 ```
 
-Response from Step 2:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd
 ```
+
+</collapse-text>
+
 
 Step 3: Decode the raw transaction (optional to check if the values are sane)
 
@@ -249,7 +279,9 @@ Step 3: Decode the raw transaction (optional to check if the values are sane)
 ./komodo-cli -ac_name=ATEST decoderawtransaction 010000000104f2435046f3ad452e76e53ec01429ae4f49d3322e8cc96da96b9e35d6ada70e0000000049483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ace069fb0501090000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000
 ```
 
-Response from Step 3:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -320,6 +352,9 @@ Response from Step 3:
 }
 ```
 
+</collapse-text>
+
+
 ## rewardsinfo
 
 ### rewardsinfo fundingtxid
@@ -354,7 +389,9 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD rewardsinfo e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -370,6 +407,9 @@ Response:
   "locked": "200.00000000"
 }
 ```
+
+</collapse-text>
+
 
 ## rewardslist
 
@@ -398,13 +438,18 @@ Command:
 
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 [
   "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd"
 ]
 ```
+
+</collapse-text>
+
 
 ## rewardslock
 
@@ -441,7 +486,9 @@ Step 1: Create raw transaction
 ./komodo-cli -ac_name=HELLOWORLD rewardslock FREE e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd 200
 ```
 
-Response from Step 1:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -450,17 +497,25 @@ Response from Step 1:
 }
 ```
 
+</collapse-text>
+
+
 Step 2: Broadcast raw transaction
 
 ```bash
 ./komodo-cli -ac_name=ATEST sendrawtransaction 010000000180a53d85b02f6f61c5ddf94052c2d46a0161888c029114a9bf8dceeb4ea98c000100000049483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701ffffffff0400c817a804000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acb048d709fa080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
 ```
 
-Response from Step 2:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263
 ```
+
+</collapse-text>
+
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -468,7 +523,9 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 ./komodo-cli -ac_name=ATEST decoderawtransaction 010000000180a53d85b02f6f61c5ddf94052c2d46a0161888c029114a9bf8dceeb4ea98c000100000049483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701ffffffff0400c817a804000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acb048d709fa080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
 ```
 
-Response from Step 3:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -539,6 +596,9 @@ Response from Step 3:
 }
 ```
 
+</collapse-text>
+
+
 ## rewardsunlock
 
 ### rewardsunlock name fundingtxid (txid)
@@ -595,7 +655,9 @@ Step 1: Create raw transaction
 ./komodo-cli -ac_name=HELLOWORLD rewardsunlock FREE e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd 494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263
 ```
 
-Response from Step 1:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -604,17 +666,25 @@ Response from Step 1:
 }
 ```
 
+</collapse-text>
+
+
 Step 2: Broadcast raw transaction
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000026302ec1859929dea83001708971d62f30fe5624745e0fdb93db79ab18a4e4c49000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001ffffffff45fc2d61dd7bf709409c3e5b9021ebd6191901a2a43fa7ed2704c03aa0d3a682000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001ffffffff0349f04c4817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cca79841a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
 ```
 
-Response from Step 2:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 7a69605f5ecfeb0613c8573cbc4ae2471698a65b60c983ec21fb41f09975c000
 ```
+
+</collapse-text>
+
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -622,7 +692,9 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 ./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 01000000026302ec1859929dea83001708971d62f30fe5624745e0fdb93db79ab18a4e4c49000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001ffffffff45fc2d61dd7bf709409c3e5b9021ebd6191901a2a43fa7ed2704c03aa0d3a682000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001ffffffff0349f04c4817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cca79841a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
 ```
 
-Response from Step 3:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -689,3 +761,6 @@ Response from Step 3:
   "vjoinsplit": []
 }
 ```
+
+</collapse-text>
+
