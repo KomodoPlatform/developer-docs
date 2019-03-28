@@ -1,4 +1,4 @@
-# Crypto Conditions Instructions
+# CryptoConditions Instructions
 
 ## Understanding the Types of Addresses
 
@@ -10,9 +10,9 @@ When using CryptoConditions, however, there are a few new types of addresses to 
 
 ## Creating and Launching With a Pubkey
 
-The first address you must understand is the pubkey. Any user using a Crypto Conditions based contract must have a pubkey indicated in their daemon. This forms the basis for all addresses related to various contract modules.
+The first address you must understand is the pubkey. Any user using a CryptoConditions based contract must have a pubkey indicated in their daemon. This forms the basis for all addresses related to various contract modules.
 
-Typically, each contract module will take the pubkey, combine it with a unique and contract-specific number called the `EVAL code`, and create a new [Base58Check](https://en.bitcoin.it/wiki/Base58Check_encoding) encoded address from it. This `Base58Check` encoded address will be the address you use for interacting with the specific Crypto Conditions-based contract.
+Typically, each contract module will take the pubkey, combine it with a unique and contract-specific number called the `EVAL code`, and create a new [Base58Check](https://en.bitcoin.it/wiki/Base58Check_encoding) encoded address from it. This `Base58Check` encoded address will be the address you use for interacting with the specific CryptoConditions-based contract.
 
 To get a pubkey, launch the chain with the normal launch parameters and execute the [getnewaddress](../komodo-api/wallet.html#getnewaddress) rpc call.
 
