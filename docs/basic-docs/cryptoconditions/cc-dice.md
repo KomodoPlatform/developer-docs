@@ -6,7 +6,7 @@ The `dice` module allows for a decentralized `dice` game on a blockchain. The `d
 
 It is also useful as a demonstration to show how Crypto Conditions based contracts can leverage provably random entropy to enable blockchain-enforced real-time gameplay.
 
-`dice` is a simple gambling game, where one node creates a "house" contract, with seed funds and other parameters, and other users place bets within the indicated parameters. Winners and losers are determined through blockchain technology. This technology includes on-chain, consensus based, provably random entropy that derives from the activity of both the "house" and the users.
+The Dice CC module is a simple gambling game, where one node creates a "house" contract, with seed funds and other parameters, and other users place bets within the indicated parameters. Winners and losers are determined through blockchain technology. This technology includes on-chain, consensus based, provably random entropy that derives from the activity of both the "house" and the users.
 
 The "house" node should be running the [dicestatus](../cryptoconditions/cc-dice.html#dicestatus) method at a regular frequency. This method resolves unfinished bets and generates new entropy utxos for the "house" contract.
 
