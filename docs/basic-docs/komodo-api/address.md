@@ -483,7 +483,7 @@ The method requires [addressindex](../installations/common-runtime-parameters.ht
 
 | Structure | Type               | Description                                          |
 | --------- | ------------------ | ---------------------------------------------------- |
-| "top"     | (number, optional) | Only return this many addresses, i.e. top N richlist |
+| "top"     | (number, optional) | Only return this many addresses, i.e. top N rich list |
 
 ### Response
 
