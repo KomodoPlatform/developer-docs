@@ -56,7 +56,7 @@ Designate your secret destination address.
 
 ## jumblr_deposit
 
-**jumblr_deposit "depositaddress"**
+### jumblr_deposit "depositaddress"
 
 The `jubmlr_deposit` method indicates the address from which Jumblr should withdraw funds. There should be at least 10.024 KMD in this address. Jumblr will withdraw funds in increments of 10, 100, or 7770 KMD.
 
@@ -92,7 +92,7 @@ Response:
 
 ## jumblr_pause
 
-**jumblr_pause**
+### jumblr_pause
 
 The `jumblr_pause` method instructs Jumblr to temporarily pause the privacy-shielding process.
 
@@ -128,7 +128,7 @@ Response:
 
 ## jumblr_resume
 
-**jumblr_resume**
+### jumblr_resume
 
 The `jumblr_resume` method instructs Jumblr to resume the privacy-shielding process.
 
@@ -164,7 +164,7 @@ Response:
 
 ## jumblr_secret
 
-**jumblr_secret "secretaddress"**
+### jumblr_secret "secretaddress"
 
 The `jumblr_secret` method indicates to Jumblr the final t destination address. This should be a separate t address that has no connection to the `wallet.dat` file of your `jumblr_deposit` address. Ideally, you should only access the final `jumblr_secret` address via a separate node, and with other layers of privacy (VPN, Tor, etc.).
 

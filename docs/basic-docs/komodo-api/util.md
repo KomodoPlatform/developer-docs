@@ -4,7 +4,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## createmultisig
 
-**createmultisig nrequired [ "key", ... ]**
+### createmultisig nrequired [ "key", ... ]
 
 The `createmultisig` method creates a multi-signature address with `n` signature(s) of `m` key(s) required. The method returns a json object with the address and redeemScript.
 
@@ -63,7 +63,7 @@ Response:
 
 ## decodeccopret
 
-**decodeccopret scriptPubKey**
+### decodeccopret scriptPubKey
 
 The `decodeccopret` method decodes the OP RETURN data from a CC transaction to output the `EVALCODE` and `function id` of the method that produced the transaction.
 
@@ -143,7 +143,7 @@ Response:
 
 ## estimatefee
 
-**estimatefee nblocks**
+### estimatefee nblocks
 
 The `estimatefee` method estimates the approximate fee per kilobyte. The method is needed for a transaction to begin confirmation within `nblocks` blocks.
 
@@ -177,7 +177,7 @@ Response:
 
 ## estimatepriority
 
-**estimatepriority nblocks**
+### estimatepriority nblocks
 
 The `estimatepriority` method estimates the approximate priority of a zero-fee transaction, when it needs to begin confirmation within `nblocks` blocks.
 
@@ -211,7 +211,7 @@ Response:
 
 ## invalidateblock
 
-**invalidateblock "hash"**
+### invalidateblock "hash"
 
 The `invalidateblock` method permanently marks a block as invalid, as if it violated a consensus rule.
 
@@ -261,7 +261,7 @@ Response:
 
 ## reconsiderblock
 
-**reconsiderblock "hash"**
+### reconsiderblock "hash"
 
 The `reconsiderblock` method removes invalidity status of a block and its descendants, reconsidering them for activation. This can be used to undo the effects of the `invalidateblock` method.
 
@@ -293,7 +293,7 @@ Response:
 
 ## txnotarizedconfirmed
 
-**txnotarizedconfirmed txid**
+### txnotarizedconfirmed txid
 
 The `txnotarizedconfirmed` method returns information about a transaction's state of confirmation. 
 
@@ -331,7 +331,7 @@ Response:
 
 ## validateaddress
 
-**validateaddress "komodoaddress"**
+### validateaddress "komodoaddress"
 
 The `validateaddress` method returns information about the given address.
 
@@ -381,7 +381,7 @@ Response:
 
 ## verifymessage
 
-**verifymessage "address" "signature" "message"**
+### verifymessage "address" "signature" "message"
 
 The `verifymessage` method verifies a signed message.
 
@@ -435,7 +435,7 @@ true
 
 ## z_validateaddress
 
-**z_validateaddress "zaddr"**
+### z_validateaddress "zaddr"
 
 The `z_validateaddress` method returns information about the given z address.
 

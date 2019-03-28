@@ -4,7 +4,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## generate
 
-**generate numblocks**
+### generate numblocks
 
 ::: tip
 This function can only be used in the <b>regtest</b> mode (for testing purposes).
@@ -43,7 +43,7 @@ Response:
 
 ## getgenerate
 
-**getgenerate**
+### getgenerate
 
 The `getgenerate` method returns a boolean value indicating the server's mining status.
 
@@ -99,7 +99,7 @@ Response:
 
 ## setgenerate
 
-**setgenerate generate ( genproclimit )**
+### setgenerate generate ( genproclimit )
 
 The `setgenerate` method allows the user to set the `generate` property in the coin daemon to `true` or `false`, thus turning generation (mining/staking) on or off.
 

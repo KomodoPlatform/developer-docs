@@ -5,7 +5,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 <!-- These work for KMDLabs chains now, must revisit after they are modded to work for KMD
 ## getnotarysendmany
 
-**getnotarysendmany**
+### getnotarysendmany
 
 The `getnotarysendmany` method returns a sendmany JSON array with Raddresses of the current notaries.
 
@@ -21,7 +21,7 @@ Examples:
 
 ## getinfo
 
-**getinfo**
+### getinfo
 
 The `getinfo` method returns an object containing various state info.
 
@@ -148,7 +148,7 @@ Response:
 
 ## help
 
-**help ( "command" )**
+### help ( "command" )
 
 The `help` method lists all commands, or all information for a specified command.
 
@@ -235,7 +235,7 @@ Examples:
 
 ## stop
 
-**stop**
+### stop
 
 The `stop` method instructs the coin daemon to shut down.
 

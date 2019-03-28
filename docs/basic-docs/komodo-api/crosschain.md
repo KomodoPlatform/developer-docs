@@ -34,7 +34,7 @@ The workflow of the MoMoM value migration is following:
 
 ## migrate_createburntransaction
 
-**migrate_createburntransaction destChain destAddress amount [tokenid]**
+### migrate_createburntransaction destChain destAddress amount [tokenid]
 
 The `migrate_createburntransaction` method creates a transaction burning some amount of coins or tokens. The methods also creates payouts object used for creating an import transaction for the burned amount of value. This method should be called on the source chain.
 The method returns a created burn transaction which should be send to the source chain with `sendrawtransaction` method.
@@ -66,7 +66,7 @@ Note: this method supports only coins (tokens are not supported).
 
 ## migrate_converttoexport
 
-**migrate_converttoexport burntx**
+### migrate_converttoexport burntx
 
 The `migrate_converttoexport` method adds OP_RETURN object to the passed transaction.
 The other returned value `payouts` should be passed to the next method `migrate_createimporttransaction`.
@@ -91,7 +91,7 @@ Because the burn transaction is stored in import transaction OP_RETURN vout whic
 
 ## migrate_createimporttransaction
 
-**migrate_createimporttransaction burntx payouts [notaryTxid1]...[notaryTxidN]**
+### migrate_createimporttransaction burntx payouts [notaryTxid1]...[notaryTxidN]
 
 The `migrate_createimporttransaction` method performs a initial step in creating an import transaction. This method should be called on the source chain.
 The method returns a created import transaction in hex. This string should be passed into the `migrate_completeimporttransaction` method on the main KMD chain to be extended with MoMoM proof object.
@@ -118,7 +118,7 @@ Or errors may be returned. In case of errors it might be necessary to wait for s
 
 ## migrate_completeimporttransaction
 
-**migrate_completeimporttransaction importtx**
+### migrate_completeimporttransaction importtx
 
 The `migrate_completeimporttransaction` method performs the finalizing step in creating an import transaction. This method should be called on the KMD chain.
 The method returns the import transaction in hex updated with MoMoM proof object which would confirm that the burn transaction exists in the source chain.
@@ -152,7 +152,7 @@ The worflow:
 
 ## migrate_checkburntransactionsource
 
-**migrate_checkburntransactionsource burntx**
+### migrate_checkburntransactionsource burntx
 
 The `migrate_checkburntransactionsource` method allows to a notary operator to check the burn transaction structure and verify its presence in the source chain.
 
@@ -174,7 +174,7 @@ The `migrate_checkburntransactionsource` method allows to a notary operator to c
 
 ## migrate_createnotaryapprovaltransaction
 
-**migrate_createnotaryapprovaltransaction burntxid txoutproof**
+### migrate_createnotaryapprovaltransaction burntxid txoutproof
 
 A notary operator uses the `migrate_createnotaryapprovaltransaction` method to create an approval transaction in the destination chain with the proof of the burn transaction existence in the source chain.
 Returned notary transaction should be sent to the destination chain with `sendrawtransaction` method
@@ -203,7 +203,7 @@ Then, after the source transaction is mined, the import transactions also should
 
 ## selfimport
 
-**selfimport destAddress amount**
+### selfimport destAddress amount
 
 ### Arguments:
 
@@ -225,7 +225,7 @@ Several methods are used by notary nodes to get block chain 'fingerprints' and n
 
 ## calc_MoM
 
-**calc_MoM height MoMdepth**
+### calc_MoM height MoMdepth
 
 The `calc_MoM` method calculates merkle root of blocks' merkle roots (MoM) value starting from the block of the appointed height for the passed depth. This method should be run on an asset chain.
 
@@ -247,7 +247,7 @@ The `calc_MoM` method calculates merkle root of blocks' merkle roots (MoM) value
 
 ## MoMoMdata
 
-**MoMoMdata symbol kmdheight ccid**
+### MoMoMdata symbol kmdheight ccid
 
 The `MoMoMdata` method calculates merkle root of merkle roots of blocks' merkle roots (MoMoM) value starting from the block of the appointed height for the data of the chain with passed name and ccid. The method should be run on the KMD chain.
 
@@ -272,7 +272,7 @@ The `MoMoMdata` method calculates merkle root of merkle roots of blocks' merkle 
 
 ## assetchainproof
 
-**assetchainproof txid**
+### assetchainproof txid
 
 For given transaction id the `assetchainproof` method scans the chain for the back MoM notarisation for this transaction and returns a proof object with MoM branch. Scanning is performed from the height upto the chain tip but no more than 1440 blocks.
 
@@ -288,7 +288,7 @@ for a txid returns a proof object with MoM branch in hex.
 
 ## getNotarisationsForBlock
 
-**getNotarisationsForBlock blockHash**
+### getNotarisationsForBlock blockHash
 
 For the block hash returns notarisation transactions within the block.
 
@@ -304,7 +304,7 @@ returns array of pairs of values `<notarisation txid`> `<notarisation data in he
 
 ## scanNotarisationsDB
 
-**scanNotarisationsDB blockHeight symbol [blocksLimit=1440]**
+### scanNotarisationsDB blockHeight symbol [blocksLimit=1440]
 
 Scans notarisations db backwards from the block height for a notarisation of given symbol.
 
@@ -326,7 +326,7 @@ There are some utility methods for getting information about burn transactions o
 
 ## getimports
 
-**getimports hash|height**
+### getimports hash|height
 
 The `getimports` lists import transactions in the chain's block appointed by a block number or block hash parameter.
 
@@ -353,7 +353,7 @@ The `getimports` lists import transactions in the chain's block appointed by a b
 
 ## getwalletburntransaction
 
-**getwalletburntransactions**
+### getwalletburntransactions
 
 The `getwalletburntransactions` lists burn transactions in the current wallet.
 

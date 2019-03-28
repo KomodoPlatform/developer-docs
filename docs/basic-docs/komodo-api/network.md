@@ -4,7 +4,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## addnode
 
-**addnode "node" "add|remove|onetry"**
+### addnode "node" "add|remove|onetry"
 
 The `addnode` method attempts to add or remove a node from the addnode list, or to make a single attempt to connect to a node.
 
@@ -51,7 +51,7 @@ Response:
 
 ## clearbanned
 
-**clearbanned**
+### clearbanned
 
 The `clearbanned` method clears all banned IPs.
 
@@ -97,7 +97,7 @@ Response:
 
 ## disconnectnode
 
-**disconnectnode "node"**
+### disconnectnode "node"
 
 The `disconnectnode` method instructs the daemon to immediately disconnect from the specified node.
 
@@ -145,7 +145,7 @@ Response:
 
 ## getaddednodeinfo
 
-**getaddednodeinfo dns ( "node" )**
+### getaddednodeinfo dns ( "node" )
 
 The `getaddednodeinfo` method returns information about the given added node, or all added nodes.
 
@@ -251,7 +251,7 @@ Response:
 
 ## getconnectioncount
 
-**getconnectioncount**
+### getconnectioncount
 
 The `getconnectioncount` method returns the number of connections to other nodes.
 
@@ -301,7 +301,7 @@ Response:
 
 ## getdeprecationinfo
 
-**getdeprecationinfo**
+### getdeprecationinfo
 
 The `getdeprecationinfo` method returns an object containing current version and deprecation block height.
 
@@ -365,7 +365,7 @@ Response:
 
 ## getnettotals
 
-**getnettotals**
+### getnettotals
 
 The `getnettotals` method returns information about network traffic, including bytes in, bytes out, and current time.
 
@@ -425,7 +425,7 @@ Response:
 
 ## getnetworkinfo
 
-**getnetworkinfo**
+### getnetworkinfo
 
 The `getnetworkinfo` method returns an object containing various state info regarding p2p networking.
 
@@ -557,7 +557,7 @@ Response:
 
 ## getpeerinfo
 
-**getpeerinfo**
+### getpeerinfo
 
 The `getpeerinfo` method returns data about each connected network node as a json array of objects.
 
@@ -673,7 +673,7 @@ Response:
 
 ## listbanned
 
-**listbanned**
+### listbanned
 
 The `listbanned` method lists all banned IP addresses and subnets.
 
@@ -734,7 +734,7 @@ Response:
 
 ## ping
 
-**ping**
+### ping
 
 The `ping` method requests that a ping be sent to all other nodes, to measure ping time.
 
@@ -792,7 +792,7 @@ Response:
 
 ## setban
 
-**setban "ip(/netmask)" "add|remove" (bantime) (absolute)**
+### setban "ip(/netmask)" "add|remove" (bantime) (absolute)
 
 The `setban` method attempts to add or remove an IP address (and subnet, if indicated) from the banned list.
 

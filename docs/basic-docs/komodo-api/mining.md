@@ -4,7 +4,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## getblocksubsidy
 
-**getblocksubsidy height_number**
+### getblocksubsidy height_number
 
 The `getblocksubsidy` method returns the block-subsidy reward. The resulting calculation takes into account the mining slow start. This method can be used in conjunction with custom mining rewards designed by the developers of a KMD-based asset chain.
 
@@ -58,7 +58,7 @@ Response:
 
 ## getblocktemplate
 
-**getblocktemplate ( "jsonrequestobject" )**
+### getblocktemplate ( "jsonrequestobject" )
 
 ::: tip
 See <a href="https://en.bitcoin.it/wiki/BIP_0022">the Bitcoin wiki</a> for the full specification.
@@ -221,7 +221,7 @@ Response:
 
 ## getlocalsolps
 
-**getlocalsolps**
+### getlocalsolps
 
 The `getlocalsolps` method returns the average local solutions per second since this node was started.
 
@@ -275,7 +275,7 @@ Response:
 
 ## getmininginfo
 
-**getmininginfo**
+### getmininginfo
 
 The `getmininginfo` method returns a json object containing mining-related information.
 
@@ -366,7 +366,7 @@ Response:
 
 ## getnetworkhashps
 
-**getnetworkhashps ( blocks height )**
+### getnetworkhashps ( blocks height )
 
 ::: warning
 DEPRECATED: Use <b>getnetworksolps</b> instead.
@@ -425,7 +425,7 @@ Response:
 
 ## getnetworksolps
 
-**getnetworksolps ( blocks height )**
+### getnetworksolps ( blocks height )
 
 The `getnetworksolps` method returns the estimated network solutions per second based on the last `n` blocks.
 
@@ -479,7 +479,7 @@ Response:
 
 ## prioritisetransaction
 
-**prioritisetransaction "transaction_id" priority_delta fee_delta**
+### prioritisetransaction "transaction_id" priority_delta fee_delta
 
 The `prioritisetransaction` method instructs the daemon to accept the indicated transaction into mined blocks at a higher (or lower) priority. The transaction selection algorithm considers the transaction as it would have a higher priority.
 
@@ -535,7 +535,7 @@ Response:
 
 ## submitblock
 
-**submitblock "hexdata" ( "jsonparametersobject" )**
+### submitblock "hexdata" ( "jsonparametersobject" )
 
 The `submitblock` method instructs the daemon to propose a new block to the network.
 

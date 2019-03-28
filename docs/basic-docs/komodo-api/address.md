@@ -4,7 +4,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## getaddressbalance
 
-**getaddressbalance '{ "addresses" : [ "address" , ... ] }'**
+### getaddressbalance '{ "addresses" : [ "address" , ... ] }'
 
 The `getaddressbalance` method returns the confirmed balance for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
@@ -63,7 +63,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 ## getaddressdeltas
 
-**getaddressdeltas '{ "addresses" : [ "address" , ... ] , "start": start, "end": end, "chainInfo": boolean }'**
+### getaddressdeltas '{ "addresses" : [ "address" , ... ] , "start": start, "end": end, "chainInfo": boolean }'
 
 The `getaddressdeltas` method returns all confirmed balance changes of an address. The user can optionally limit the response to a given interval of blocks. The method requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
@@ -206,7 +206,7 @@ Response:
 
 ## getaddressmempool
 
-**getaddressmempool '{ "addresses" : [ "address" , ... ] }'**
+### getaddressmempool '{ "addresses" : [ "address" , ... ] }'
 
 The `getaddressmempool` method returns all mempool deltas for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
@@ -280,7 +280,7 @@ Response:
 
 ## getaddresstxids
 
-**getaddresstxids '{ "addresses" : [ "address" , ... ] }'**
+### getaddresstxids '{ "addresses" : [ "address" , ... ] }'
 
 The `getaddresstxids` method returns the txids for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
@@ -342,7 +342,7 @@ Response:
 
 ## getaddressutxos
 
-**getaddressutxos '{ "addresses" : [ "address" , ... ], "chaininfo" }'**
+### getaddressutxos '{ "addresses" : [ "address" , ... ], "chaininfo" }'
 
 The `getaddressutxos` method returns all unspent outputs for an address. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
@@ -473,7 +473,7 @@ Response:
 
 ## getsnapshot
 
-**getsnapshot top**
+### getsnapshot top
 
 The `getsnapshot` method returns a snapshot of addresses and their amounts at the asset chain's current height.
 

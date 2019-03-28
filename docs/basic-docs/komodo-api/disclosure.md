@@ -8,7 +8,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always fails.
 :::
 
-**z_getpaymentdisclosure transaction js_index output_index ("message")**
+### z_getpaymentdisclosure transaction js_index output_index ("message")
 
 The `z_getpaymentdisclosure` method generates a payment disclosure for a given joinsplit output.
 
@@ -57,7 +57,7 @@ Response:
 
 ## z_validatepaymentdisclosure
 
-**z_validatepaymentdisclosure "paymentdisclosure"**
+### z_validatepaymentdisclosure "paymentdisclosure"
 
 The `z_validatepaymentdisclosure` method validates a payment disclosure.
 

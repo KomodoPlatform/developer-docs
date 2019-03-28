@@ -4,7 +4,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## createrawtransaction
 
-**createrawtransaction '[{ "txid": "id_string", "vout": number }, ... ]' '{ "address": amount, ... }'**
+### createrawtransaction '[{ "txid": "id_string", "vout": number }, ... ]' '{ "address": amount, ... }'
 
 The `createrawtransaction` method creates a transaction, spending the given inputs and sending to the given addresses. The method returns a hex-encoded raw transaction.
 
@@ -62,7 +62,7 @@ Response:
 
 ## decoderawtransaction
 
-**decoderawtransaction "hexstring"**
+### decoderawtransaction "hexstring"
 
 The `decoderawtransaction` method returns a json object representing the serialized, hex-encoded transaction.
 
@@ -211,7 +211,7 @@ Response:
 
 ## decodescript
 
-**decodescript "hex"**
+### decodescript "hex"
 
 The `decodescript` method decodes a hex-encoded script.
 
@@ -275,7 +275,7 @@ Response:
 
 ## fundrawtransaction
 
-**fundrawtransaction "hexstring"**
+### fundrawtransaction "hexstring"
 
 The `fundrawtransaction` method adds inputs to a transaction until it has enough `in` value to meet its `out` value. This will not modify existing inputs, and will add one `change` output to the outputs.
 
@@ -368,7 +368,7 @@ a44feb2e788d0332e283d8ca69c6a20999944dccac93246cbf9b36d841b08c95
 
 ## getrawtransaction
 
-**getrawtransaction "transaction_id" ( verbose )**
+### getrawtransaction "transaction_id" ( verbose )
 
 The `getrawtransaction` method returns the raw transaction data.
 
@@ -607,7 +607,7 @@ Response:
 
 ## sendrawtransaction
 
-**sendrawtransaction "hexstring" ( allowhighfees )**
+### sendrawtransaction "hexstring" ( allowhighfees )
 
 The `sendrawtransction` method submits raw transaction (serialized, hex-encoded) to local nodes and the network.
 
@@ -693,7 +693,7 @@ Response:
 
 ## signrawtransaction
 
-**signrawtransaction "hexstring" ( [{ "txid": "id", "vout": n, "scriptPubKey": "hex", "redeemScript": "hex" }, ... ][ "privatekey1", ... ] sighashtype )**
+### signrawtransaction "hexstring" ( [{ "txid": "id", "vout": n, "scriptPubKey": "hex", "redeemScript": "hex" }, ... ][ "privatekey1", ... ] sighashtype )
 
 The `signrawtransaction` method signs inputs for a raw transaction (serialized, hex-encoded). The second optional argument (may be `null`) is an array of previous transaction outputs that this transaction depends on, but may not yet be in the block chain. The third optional argument (may be `null`) is an array of base58-encoded private keys that, if given, will be the only keys used to sign the transaction.
 

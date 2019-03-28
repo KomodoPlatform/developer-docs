@@ -4,7 +4,7 @@ The following methods interact with CryptoConditions modules that make use of th
 
 ## cclib
 
-**cclib insert_method insert_evalcode \\"[%22json_string%22, json_integer, ... ]\\"**
+### cclib insert_method insert_evalcode \\"[%22json_string%22, json_integer, ... ]\\"
 
 The `cclib` method allows the user to interact with the dynamic CryptoConditions module associated with `evalcode`.
 
@@ -74,7 +74,7 @@ Response:
 
 ## cclibaddress
 
-**cclibaddress evalcode pubkey**
+### cclibaddress evalcode pubkey
 
 The `cclibaddress` method returns information about the addresses related to the specified `pubkey`, and according to the CryptoConditions module associated with the specified `evalcode`. If no `pubkey` is provided, the `pubkey` used to the launch the daemon is the default.
 
@@ -130,7 +130,7 @@ Response:
 
 ## cclibinfo
 
-**cclibinfo**
+### cclibinfo
 
 The `cclibinfo` method displays all the methods of all the modules that are available in the current library.
 

@@ -4,7 +4,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## coinsupply
 
-**coinsupply height**
+### coinsupply height
 
 The `coinsupply` method returns the coin supply information for the indicated block `height`. If no height is given, the method defaults to the blockchain's current height.
 
@@ -80,7 +80,7 @@ Response:
 
 ## getbestblockhash
 
-**getbestblockhash**
+### getbestblockhash
 
 The `getbestblockhash` method returns the hash of the best (tip) block in the longest block chain.
 
@@ -130,7 +130,7 @@ Response:
 
 ## getblock
 
-**getblock hash|height ( verbose )**
+### getblock hash|height ( verbose )
 
 The `getblock` method returns the block's relevant state information.
 
@@ -483,7 +483,7 @@ Response:
 
 ## getblockchaininfo
 
-**getblockchaininfo**
+### getblockchaininfo
 
 The `getblockchaininfo` method returns a json object containing state information about blockchain processing.
 
@@ -650,7 +650,7 @@ Response:
 
 ## getblockcount
 
-**getblockcount**
+### getblockcount
 
 The `getblockcount` method returns the number of blocks in the best valid block chain.
 
@@ -700,7 +700,7 @@ Response:
 
 ## getblockhash
 
-**getblockhash index**
+### getblockhash index
 
 The `getblockhash` method returns the hash of the indicated block index, according to the best blockchain at the time provided.
 
@@ -750,7 +750,7 @@ Response:
 
 ## getblockhashes
 
-**getblockhashes high low '{"noOrphans": bool, "logicalTimes": bool}'**
+### getblockhashes high low '{"noOrphans": bool, "logicalTimes": bool}'
 
 The `getblockhashes` method returns an array of hashes of blocks within the timestamp range provided.
 
@@ -842,7 +842,7 @@ Response:
 
 ## getblockheader
 
-**getblockheader "hash" ( verbose )**
+### getblockheader "hash" ( verbose )
 
 The `getblockheader` method returns information about the indicated block.
 
@@ -958,7 +958,7 @@ Response:
 
 ## getchaintips
 
-**getchaintips**
+### getchaintips
 
 The `getchaintips` method returns information about all known tips in the block tree, including the main chain and any orphaned branches.
 
@@ -1039,7 +1039,7 @@ Response:
 
 ## getchaintxstats
 
-**getchaintxstats nblocks blockhash**
+### getchaintxstats nblocks blockhash
 
 The method `getchaintxstats` returns statistics about the total number and rate of transactions in the chain.
 
@@ -1112,7 +1112,7 @@ Response:
 
 ## getdifficulty
 
-**getdifficulty**
+### getdifficulty
 
 The `getdifficulty` method returns the proof-of-work difficulty as a multiple of the minimum difficulty.
 
@@ -1162,7 +1162,7 @@ Response:
 
 ## getlastsegidstakes
 
-**getlastsegidstakes depth**
+### getlastsegidstakes depth
 
 The `getlastsegidstakes` method returns an object containing the number of blocks staked by each segid in the last `X` number of blocks, where the value of `X` is equal to the indicated `depth`.
 
@@ -1255,7 +1255,7 @@ Response:
 
 ## getmempoolinfo
 
-**getmempoolinfo**
+### getmempoolinfo
 
 The `getmempoolinfo` method returns details on the active state of the transaction memory pool.
 
@@ -1315,7 +1315,7 @@ Response:
 
 ## getrawmempool
 
-**getrawmempool ( verbose )**
+### getrawmempool ( verbose )
 
 The `getrawmempool` method returns all transaction ids in the memory pool as a json array of transaction ids.
 
@@ -1401,7 +1401,7 @@ Response:
 
 ## getspentinfo
 
-**getspentinfo '{"txid": "txid_string", "index"}'**
+### getspentinfo '{"txid": "txid_string", "index"}'
 
 The `getspentinfo` method returns the transaction id and index where the given output is spent.
 
@@ -1463,7 +1463,7 @@ Response:
 
 ## gettxout
 
-**gettxout "txid_string" vout_number ( includemempool_bool )**
+### gettxout "txid_string" vout_number ( includemempool_bool )
 
 The `gettxout` method returns details about an unspent transaction output.
 
@@ -1555,7 +1555,7 @@ Response:
 
 ## gettxoutproof
 
-**gettxoutproof '["transaction_id", ... ]' ( "blockhash_string" )**
+### gettxoutproof '["transaction_id", ... ]' ( "blockhash_string" )
 
 The `gettxoutproof` method returns a hex-encoded proof showing that the indicated transaction was included in a block.
 
@@ -1592,7 +1592,7 @@ Response:
 
 ## gettxoutsetinfo
 
-**gettxoutsetinfo**
+### gettxoutsetinfo
 
 The `gettxoutsetinfo` method returns statistics about the unspent transaction output set.
 
@@ -1668,7 +1668,7 @@ Response:
 
 ## kvsearch
 
-**kvsearch "key_string"**
+### kvsearch "key_string"
 
 The `kvsearch` method searches for a key stored via the [kvupdate](../komodo-api/blockchain.html#kvupdate) command.
 
@@ -1753,7 +1753,7 @@ Response:
 
 ## kvupdate
 
-**kvupdate "key_string" "value_string" days "passphrase_string"**
+### kvupdate "key_string" "value_string" days "passphrase_string"
 
 The `kvupdate` method stores a key/value pair via OP_RETURN.
 
@@ -1843,7 +1843,7 @@ Response:
 
 ## minerids
 
-**minerids height**
+### minerids height
 
 The `minerids` method returns information about the notary nodes and external miners at a specific block height. The response will calculate results according to the 2000 blocks proceeding the indicated "height" block.
 
@@ -1929,11 +1929,11 @@ Response:
 
 ## notaries
 
-**notaries height timestamp**
+### notaries height timestamp
 
-**notaries height**
+### notaries height
 
-**notaries timestamp**
+### notaries timestamp
 
 The `notaries` method returns the public key, BTC address, and KMD address for each Komodo notary node.
 
@@ -2016,7 +2016,7 @@ Response:
 
 ## verifychain
 
-**verifychain ( checklevel numblocks )**
+### verifychain ( checklevel numblocks )
 
 The `verifychain` method verifies the coin daemon's blockchain database.
 
@@ -2071,7 +2071,7 @@ Response:
 
 ## verifytxoutproof
 
-**verifytxoutproof "proof_string"**
+### verifytxoutproof "proof_string"
 
 The `verifytxoutproof` method verifies that a proof points to a transaction in a block. It returns the transaction to which the proof is committed, or it will throw an rpc error if the block is not in the current best chain.
 

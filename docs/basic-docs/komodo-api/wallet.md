@@ -4,7 +4,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## addmultisigaddress
 
-**addmultisigaddress nrequired [ "key", ... ] \( "account" )**
+### addmultisigaddress nrequired [ "key", ... ] \( "account" )
 
 The `addmultisigaddress` method adds a multi-signature address to the wallet, where `nrequired` indicates the number of keys (out of the total provided) required to execute a transaction.
 
@@ -65,7 +65,7 @@ Response:
 
 ## backupwallet
 
-**backupwallet "destination"**
+### backupwallet "destination"
 
 The `backupwallet` method safely copies the `wallet.dat` file to the indicated destination. The `destination` input accepts only alphanumeric characters.
 
@@ -113,7 +113,7 @@ Response:
 
 ## dumpprivkey
 
-**dumpprivkey "address"**
+### dumpprivkey "address"
 
 The `dumpprivkey` method reveals the private key corresponding to the indicated `address`.
 
@@ -167,7 +167,7 @@ Response:
 
 ## dumpwallet
 
-**dumpwallet "filename"**
+### dumpwallet "filename"
 
 The `dumpwallet` method dumps all transparent-address wallet keys into a file, using a human-readable format.
 
@@ -223,7 +223,7 @@ Response:
 
 ## encryptwallet
 
-**encryptwallet "passphrase"**
+### encryptwallet "passphrase"
 
 ::: warning
 Using the `encryptwallet` method will shutdown the Komodo daemon (`komodod`).
@@ -315,7 +315,7 @@ Response:
 
 ## getaccount
 
-**getaccount "address"**
+### getaccount "address"
 
 The `getaccount` method returns the account associated with the given address.
 
@@ -361,7 +361,7 @@ Response:
 
 ## getaccountaddress
 
-**getaccountaddress "account"**
+### getaccountaddress "account"
 
 ::: tip
 DEPRECATED
@@ -411,7 +411,7 @@ Response:
 
 ## getaddressesbyaccount
 
-**getaddressesbyaccount "account"**
+### getaddressesbyaccount "account"
 
 ::: tip
 DEPRECATED
@@ -461,7 +461,7 @@ Response:
 
 ## getbalance
 
-**getbalance ( "account" minconf includeWatchonly )**
+### getbalance ( "account" minconf includeWatchonly )
 
 The `getbalance` method returns the server's total available balance.
 
@@ -534,7 +534,7 @@ Response:
 
 ## getbalance64
 
-**getbalance64**
+### getbalance64
 
 ::: tip
 This method is part of the new <b>ac_staked</b> functionality.
@@ -544,7 +544,7 @@ The `getbalance64` method is used only on asset chains that are utilizing the `a
 
 ## getnewaddress
 
-**getnewaddress ( "account" )**
+### getnewaddress ( "account" )
 
 The `getnewaddress` method returns a new address for receiving payments.
 
@@ -594,7 +594,7 @@ Response:
 
 ## getrawchangeaddress
 
-**getrawchangeaddress**
+### getrawchangeaddress
 
 The `getrawchangeaddress` returns a new address that can be used to receive change.
 
@@ -648,7 +648,7 @@ Response:
 
 ## getreceivedbyaccount
 
-**getreceivedbyaccount "account" ( minconf )**
+### getreceivedbyaccount "account" ( minconf )
 
 ::: tip
 DEPRECATED
@@ -685,7 +685,7 @@ Response:
 
 ## getreceivedbyaddress
 
-**getreceivedbyaddress "address" ( minconf )**
+### getreceivedbyaddress "address" ( minconf )
 
 The `getreceivedbyaddress` method returns the total amount received by the given `address` in transactions with at least `minconf` confirmations.
 
@@ -760,7 +760,7 @@ Response:
 
 ## gettransaction
 
-**gettransaction "txid" ( includeWatchonly )**
+### gettransaction "txid" ( includeWatchonly )
 
 The `gettransaction` method queries detailed information about transaction `txid`. This command applies only to `txid`'s that are in the user's local wallet.
 
@@ -920,7 +920,7 @@ Response:
 
 ## getunconfirmedbalance
 
-**getunconfirmedbalance**
+### getunconfirmedbalance
 
 The `getunconfirmedbalance` method returns the server's total unconfirmed balance.
 
@@ -970,7 +970,7 @@ Response:
 
 ## getwalletinfo
 
-**getwalletinfo**
+### getwalletinfo
 
 The `getwalletinfo` method returns an object containing various information about the wallet state.
 
@@ -1046,7 +1046,7 @@ Response:
 
 ## importaddress
 
-**importaddress "address" ( "label" rescan )**
+### importaddress "address" ( "label" rescan )
 
 The `importaddress` method adds an address or script (in hex) that can be watched as if it were in your wallet, although it cannot be used to spend.
 
@@ -1116,7 +1116,7 @@ Response:
 
 ## importprivkey
 
-**importkey "komodoprivkey" ( "label" rescan )**
+### importkey "komodoprivkey" ( "label" rescan )
 
 The `importprivkey` method adds a private key to your wallet.
 
@@ -1188,7 +1188,7 @@ Response:
 
 ## importwallet
 
-**importwallet "filename"**
+### importwallet "filename"
 
 The `importwallet` method imports transparent-address keys from a wallet-dump file (see [dumpwallet](../komodo-api/wallet.html#dumpwallet)).
 
@@ -1238,7 +1238,7 @@ Response:
 
 ## keypoolrefill
 
-**keypoolrefill ( newsize )**
+### keypoolrefill ( newsize )
 
 The `keypoolrefill` method refills the keypool.
 
@@ -1300,7 +1300,7 @@ Response:
 
 ## listaccounts
 
-**listaccounts ( minconf includeWatchonly )**
+### listaccounts ( minconf includeWatchonly )
 
 ::: tip
 DEPRECATED
@@ -1351,7 +1351,7 @@ Response:
 
 ## listaddressgroupings
 
-**listaddressgroupings**
+### listaddressgroupings
 
 The `listaddressgroupings` method lists groups of addresses which have had their common ownership made public by common use as inputs or as the resulting change in past transactions.
 
@@ -1435,7 +1435,7 @@ Response:
 
 ## listlockunspent
 
-**listlockunspent**
+### listlockunspent
 
 The `listlockunspent` method returns a list of temporarily non-spendable outputs.
 
@@ -1500,7 +1500,7 @@ Response:
 
 ## listreceivedbyaccount
 
-**listreceivedbyaccount ( minconf includeempty includeWatchonly )**
+### listreceivedbyaccount ( minconf includeempty includeWatchonly )
 
 ::: warning
 DEPRECATED
@@ -1593,7 +1593,7 @@ Response:
 
 ## listreceivedbyaddress
 
-**listreceivedbyaddress ( minconf includeempty includeWatchonly)**
+### listreceivedbyaddress ( minconf includeempty includeWatchonly)
 
 The `listreceivedbyaddress` method lists balances by receiving address.
 
@@ -1727,7 +1727,7 @@ Response:
 
 ## listsinceblock
 
-**listsinceblock ( "blockhash" target-confirmations includeWatchonly )**
+### listsinceblock ( "blockhash" target-confirmations includeWatchonly )
 
 The `listsinceblock` method queries all transactions in blocks since block `blockhash`, or all transactions if `blockhash` is omitted.
 
@@ -1877,7 +1877,7 @@ Response:
 
 ## listtransactions
 
-**listtransactions ( "account" count from includeWatchonly )**
+### listtransactions ( "account" count from includeWatchonly )
 
 The `listtransactions` method returns up to `count` most recent transactions skipping the first `from` transactions for `account`.
 
@@ -2027,7 +2027,7 @@ Response:
 
 ## listunspent
 
-**listunspent ( minconf maxconf ["address", ... ] )**
+### listunspent ( minconf maxconf ["address", ... ] )
 
 The `listunspent` method returns an array of unspent transaction outputs, with a range between `minconf` and `maxconf` (inclusive) confirmations. The method can, optionally, filter to only include `txouts` paid to specified addresses.
 
@@ -2163,7 +2163,7 @@ Response:
 
 ## lockunspent
 
-**lockunspent unlock [{ "txid": "txid", "vout": n }, ... ]**
+### lockunspent unlock [{ "txid": "txid", "vout": n }, ... ]
 
 The `lockunspent` method locks (unlock = `false`) or unlocks (unlock = `true`) specified transaction outputs. A locked transaction output will not be chosen by automatic coin selection, when spending the relevant coin. The locks are stored in memory only; at runtime a node always starts with zero locked outputs, and the locked output list is always cleared when a node stops or fails.
 
@@ -2219,7 +2219,7 @@ Response:
 
 ## move
 
-**move "fromaccount" "toaccount" amount ( minconf "comment" )**
+### move "fromaccount" "toaccount" amount ( minconf "comment" )
 
 ::: tip
 DEPRECATED
@@ -2285,7 +2285,7 @@ Response:
 
 ## resendwallettransactions
 
-**resendwallettransactions**
+### resendwallettransactions
 
 The `resendwallettransactions` method immediately re-broadcasts unconfirmed wallet transactions to all peers. This method is intended only for testing; the wallet code periodically re-broadcasts automatically.
 
@@ -2339,7 +2339,7 @@ Response:
 
 ## sendfrom
 
-**sendfrom "account" "address" amount ( minconf "comment" "comment-to" )**
+### sendfrom "account" "address" amount ( minconf "comment" "comment-to" )
 
 ::: tip
 DEPRECATED: Use <b>sendtoaddress</b> instead.
@@ -2406,7 +2406,7 @@ Response:
 
 ## sendmany
 
-**sendmany "account" { "address": amount, ... } ( minconf "comment" [ "address", ... ] )**
+### sendmany "account" { "address": amount, ... } ( minconf "comment" [ "address", ... ] )
 
 The `sendmany` method can send multiple transactions at once. Amounts are double-precision floating point numbers.
 
@@ -2485,7 +2485,7 @@ Response:
 
 ## sendtoaddress
 
-**sendtoaddress "address" amount ( "comment" "comment-to" subtractfeefromamount )**
+### sendtoaddress "address" amount ( "comment" "comment-to" subtractfeefromamount )
 
 The `sendtoaddress` method sends an amount to a given address. The amount is real and is rounded to the nearest 0.00000001.
 
@@ -2563,7 +2563,7 @@ Response:
 
 ## setaccount
 
-**setaccount "address" "account"**
+### setaccount "address" "account"
 
 ::: tip Notice
 DEPRECATED
@@ -2608,7 +2608,7 @@ Response:
 
 ## setpubkey
 
-**setpubkey pubkey**
+### setpubkey pubkey
 
 The `setpubkey` method sets the indicated `pubkey`. This method can be used in place of the [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter, when necessary.
 
@@ -2674,7 +2674,7 @@ Response:
 
 ## settxfee
 
-**settxfee amount**
+### settxfee amount
 
 The `settxfee` method sets the transaction fee per kB.
 
@@ -2724,7 +2724,7 @@ Response:
 
 ## signmessage
 
-**signmessage "address" "message"**
+### signmessage "address" "message"
 
 The `signmessage` method signs a message via the private key of an address.
 
@@ -2791,7 +2791,7 @@ Response:
 
 ## walletlock
 
-**walletlock**
+### walletlock
 
 ::: tip
 The `walletlock` method is neither active nor visible in the `help` method until the [encryptwallet](../komodo-api/wallet.html#encryptwallet) passphrase is set.
@@ -2831,7 +2831,7 @@ Response:
 
 ## walletpassphrase
 
-**walletpassphrase "passphrase" (timeout)**
+### walletpassphrase "passphrase" (timeout)
 
 ::: tip
 The `walletpassphrase` method is neither active nor visible in the `help` method until the [encryptwallet](../komodo-api/wallet.html#encryptwallet) passphrase is set.
@@ -2874,7 +2874,7 @@ Response:
 
 ## walletpassphrasechange
 
-**walletpassphrasechange "oldpassphrase" "newpassphrase"**
+### walletpassphrasechange "oldpassphrase" "newpassphrase"
 
 ::: tip
 The `walletpassphrasechange` method is neither active nor visible in the `help` method until the [encryptwallet](../komodo-api/wallet.html#encryptwallet) passphrase is set.
@@ -2915,7 +2915,7 @@ Response:
 
 ## z_exportkey
 
-**z_exportkey "z_address"**
+### z_exportkey "z_address"
 
 The `z_exportkey` method reveals the private z_key corresponding to `z_address`.
 
@@ -2969,7 +2969,7 @@ Response:
 
 ## z_exportviewingkey
 
-**z_exportviewingkey "z_address"**
+### z_exportviewingkey "z_address"
 
 The `z_exportviewingkey` method reveals the viewing key corresponding to `z_address`.
 
@@ -3023,7 +3023,7 @@ Response:
 
 ## z_exportwallet
 
-**z_exportwallet "filename"**
+### z_exportwallet "filename"
 
 The `z_exportwallet` method exports all wallet keys, including both t address and z address types, in a human-readable format. Overwriting an existing file is not permitted.
 
@@ -3073,7 +3073,7 @@ Response:
 
 ## z_getbalance
 
-**z_getbalance "address" ( minconf )**
+### z_getbalance "address" ( minconf )
 
 The `z_getbalance` method returns the balance of a t address or z address belonging to the node’s wallet.
 
@@ -3143,7 +3143,7 @@ Response:
 
 ## z_getnewaddress
 
-**z_getnewaddress**
+### z_getnewaddress
 
 The `z_getnewaddress` method returns a new z_address for receiving payments.
 
@@ -3193,7 +3193,7 @@ Response:
 
 ## z_getoperationresult
 
-**z_getoperationresult ([ "operationid", ... ])**
+### z_getoperationresult ([ "operationid", ... ])
 
 The `z_getoperationresult` method retrieves the result and status of an operation which has finished, and then removes the operation from memory.
 
@@ -3304,7 +3304,7 @@ Response:
 
 ## z_getoperationstatus
 
-**z_getoperationstatus ([ "operationid", ... ])**
+### z_getoperationstatus ([ "operationid", ... ])
 
 The `z_getoperationstatus` message queries the operation status and any associated result or error data of any `operationid` stored in local memory. The operation will remain in memory (unlike `z_getoperationresult`, which removes the data from the local memory).
 
@@ -3441,7 +3441,7 @@ Response:
 
 ## z_gettotalbalance
 
-**z_gettotalbalance ( minconf includeWatchonly )**
+### z_gettotalbalance ( minconf includeWatchonly )
 
 The `z_gettotalbalance` method returns the total value of funds, including both transparent and private, stored in the node’s wallet.
 
@@ -3530,7 +3530,7 @@ Response:
 
 ## z_importkey
 
-**z_importkey "z_privatekey" ( rescan startHeight )**
+### z_importkey "z_privatekey" ( rescan startHeight )
 
 The `z_importkey` method imports `z_privatekey` to your wallet.
 
@@ -3618,7 +3618,7 @@ Response:
 
 ## z_importviewingkey
 
-**z_importviewingkey "viewing_key" ( rescan startHeight )**
+### z_importviewingkey "viewing_key" ( rescan startHeight )
 
 The `z_importviewingkey` adds a viewing key to your wallet. This method allows you to view the balance in a z address that otherwise does not belong to your wallet.
 
@@ -3714,7 +3714,7 @@ Response:
 
 ## z_importwallet
 
-**z_importwallet "filename"**
+### z_importwallet "filename"
 
 The `z_importwallet` method imports t address and z address keys from a wallet export file.
 
@@ -3768,7 +3768,7 @@ Response:
 
 ## z_listaddresses
 
-**z_listaddresses ( includeWatchonly )**
+### z_listaddresses ( includeWatchonly )
 
 The `z_listaddresses` method returns the list of z addresses belonging to the wallet.
 
@@ -3828,7 +3828,7 @@ Response:
 
 ## z_listoperationids
 
-**z_listoperationids**
+### z_listoperationids
 
 The `z_listoperationids` method returns the list of operation ids currently known to the wallet.
 
@@ -3898,7 +3898,7 @@ Response:
 
 ## z_listreceivedbyaddress
 
-**z_listreceivedbyaddress "address" ( minconf )**
+### z_listreceivedbyaddress "address" ( minconf )
 
 The `z_listreceivedbyaddress` method returns a list of amounts received by a z address belonging to the node’s wallet.
 
@@ -3966,7 +3966,7 @@ blockHash 0a4f15fe5425ef8bc6eb84e7bc3625c1ceccb3e49132b696a1841ab17a75a705 heigh
 
 ## z_listunspent
 
-**z_listunspent ( minconf maxconf includeWatchonly ["zaddr", ...] )**
+### z_listunspent ( minconf maxconf includeWatchonly ["zaddr", ...] )
 
 The `z_listunspent` method returns an array of unspent shielded notes.
 
@@ -4073,7 +4073,7 @@ blockHash 0a4f15fe5425ef8bc6eb84e7bc3625c1ceccb3e49132b696a1841ab17a75a705 heigh
 
 ## z_mergetoaddress
 
-**z_mergetoaddress [ "fromaddress", ... ] "toaddress" ( fee ) ( transparent_limit ) ( shielded_limit ) ( memo )**
+### z_mergetoaddress [ "fromaddress", ... ] "toaddress" ( fee ) ( transparent_limit ) ( shielded_limit ) ( memo )
 
 ::: warning
 CAUTION: <b>z_mergetoaddress</b> is DISABLED but can be enabled as an experimental feature.
@@ -4153,7 +4153,7 @@ Response:
 
 ## z_sendmany
 
-**z_sendmany "fromaddress" [ { "address": ..., "amount": ... }, ... ] \( minconf ) ( fee )**
+### z_sendmany "fromaddress" [ { "address": ..., "amount": ... }, ... ] \( minconf ) ( fee )
 
 The `z_sendmany` method sends one or more transactions at once, and allows for sending transactions of types `t --> t`, `t --> z`, `z --> z`, `z --> t`. It is the principle method for dealing with shielded `z` transactions in the Komodo ecosystem.
 
@@ -4235,7 +4235,7 @@ Response:
 
 ## z_shieldcoinbase
 
-**z_shieldcoinbase "fromaddress" "tozaddress" ( fee ) ( limit )**
+### z_shieldcoinbase "fromaddress" "tozaddress" ( fee ) ( limit )
 
 The `z_shieldcoinbase` method shields transparent coinbase funds by sending the funds to a shielded z address. This is an asynchronous operation and utxos selected for shielding will be locked. If there is an error, they are unlocked.
 
@@ -4324,7 +4324,7 @@ Response:
 
 ## zcbenchmark
 
-**zcbenchmark benchmarktype samplecount**
+### zcbenchmark benchmarktype samplecount
 
 The `zcbenchmark` method runs a benchmark of the selected `benchmarktype`. This benchmark is calculated `samplecount` times.
 
@@ -4359,7 +4359,7 @@ Output:
 
 ## zcrawjoinsplit
 
-**zcrawjoinsplit rawtx inputs outputs vpub_old vpub_new**
+### zcrawjoinsplit rawtx inputs outputs vpub_old vpub_new
 
 ::: warning
 DEPRECATED.
@@ -4390,7 +4390,7 @@ Output:
 
 ## zcrawkeygen
 
-**zcrawkeygen**
+### zcrawkeygen
 
 ::: warning
 DEPRECATED.
@@ -4410,7 +4410,7 @@ Output:
 
 ## zcrawreceive zcsecretkey encryptednote
 
-**zcrawreceive zcsecretkey encryptednote**
+### zcrawreceive zcsecretkey encryptednote
 
 ::: warning
 DEPRECATED.
