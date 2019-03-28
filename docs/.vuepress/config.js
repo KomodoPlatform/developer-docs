@@ -43,7 +43,7 @@ module.exports = {
             ],
             [
               "/basic-docs/start-here/cc-overview.md",
-              "Overview of Crypto Conditions (Smart Contracts)"
+              "Overview of CryptoConditions"
             ]
           ]
         },
@@ -70,12 +70,16 @@ module.exports = {
           ]
         },
         {
-          title: "Crypto Conditions (Smart Contracts)",
+          title: "CryptoConditions",
           collapsable: true,
           children: [
             [
               "/basic-docs/cryptoconditions/cryptoconditions-instructions.md",
-              "Instructions for Crypto Conditions"
+              "Instructions for CryptoConditions"
+            ],
+            [
+                "/basic-docs/cryptoconditions/cryptoconditions-tutorial.md",
+                "Build a Custom CC Module"
             ],
             ["/basic-docs/cryptoconditions/cc-channels.md", "Channels"],
             ["/basic-docs/cryptoconditions/cc-dice.md", "Dice"],
