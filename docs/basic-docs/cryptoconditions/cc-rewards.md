@@ -138,7 +138,7 @@ Response:
 
 **rewardsaddress (pubkey)**
 
-The `rewardsaddress` method returns info about the a `rewards` plan associated with the given `pubkey`. If no `pubkey` is provided, the `pubkey` used to launch the daemon is used.
+The `rewardsaddress` method returns info about the `rewards` plan associated with the given `pubkey`. If no `pubkey` is provided, the `pubkey` used to launch the daemon is used.
 
 ### Arguments:
 

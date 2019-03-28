@@ -992,7 +992,7 @@ The `getwalletinfo` method returns an object containing various information abou
 | "keypoololdest"       | (numeric) | the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool                                                |
 | "keypoolsize"         | (numeric) | how many new keys are pre-generated                                                                                                    |
 | "unlocked_until"      | (numeric) | the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked |
-| "paytxfee"            | (numeric) | the transaction fee configuration, denotated as the relevant COIN per KB                                                               |
+| "paytxfee"            | (numeric) | the transaction fee configuration, given as the relevant COIN per KB                                                               |
 
 #### :pushpin: Examples:
 
@@ -2612,7 +2612,7 @@ Response:
 
 The `setpubkey` method sets the indicated `pubkey`. This method can be used in place of the [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter, when necessary.
 
-Visit the section [pubkey](../installations/common-runtime-parameters.html#pubkey) to understand when it is essential to set a pubkey and the consequesces of setting it.
+Visit the section [pubkey](../installations/common-runtime-parameters.html#pubkey) to understand when it is essential to set a pubkey and the consequences of setting it.
 
 ::: warning
 This method works only once per daemon start. It can't be used to change the pubkey that has already been set.
@@ -4003,7 +4003,7 @@ An array of json objects, each having the properties below.
 | spendable          | (boolean)                                     | true if note can be spent by wallet, false if note has zero confirmations, false if address is watchonly                          |
 | address            | (string)                                      | the shielded address                                                                                                              |
 | amount             | (numeric)                                     | the amount of value in the note                                                                                                   |
-| memo               | (string)                                      | hexademical string representation of memo field                                                                                   |
+| memo               | (string)                                      | hexadecimal string representation of memo field                                                                                   |
 | change             | (boolean)                                     | true if the address that received the note is also one of the sending addresses                                                   |
 
 #### :pushpin: Examples:
@@ -4326,7 +4326,7 @@ Response:
 
 **zcbenchmark benchmarktype samplecount**
 
-The `zcbenchmark` method runs a benchmark of the selected benchmarktype. This benchmark is calculated `samplecount` times.
+The `zcbenchmark` method runs a benchmark of the selected `benchmarktype`. This benchmark is calculated `samplecount` times.
 
 When finished, the method returns the running times of each sample.
 
@@ -4368,7 +4368,7 @@ DEPRECATED.
 - inputs: a JSON object mapping {note: zcsecretkey, ...}
 - outputs: a JSON object mapping {zcaddr: value, ...}
 
-Splices a joinsplit into rawtx. Inputs are unilaterally confidential.
+Splices a joinsplit into a raw transaction. Inputs are unilaterally confidential.
 Outputs are confidential between sender/receiver. The vpub_old and
 vpub_new values are globally public and move transparent value into
 or out of the confidential value store, respectively.
@@ -4416,7 +4416,7 @@ Output:
 DEPRECATED.
 :::
 
-Decrypts encryptednote and checks if the coin commitments
+Decrypts `encryptednote` and checks if the coin commitments
 are in the blockchain as indicated by the "exists" result.
 
 Output:

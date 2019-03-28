@@ -220,7 +220,7 @@ cd ~/komodo/src
 
 #### Installing the TUI (Optional)
 
-Komodo offers an unofficial Terminal User Interface (TUI) to allow players to launch and conclude a game without having to interact with the module's api commands. The TUI software is provided for testing and ease-of-use purposes only.
+Komodo offers an unofficial Terminal User Interface (TUI) to allow players to launch and conclude a game without having to interact with the module's API commands. The TUI software is provided for testing and ease-of-use purposes only.
 
 Use of the TUI is optional, but recommended for most players.
 
@@ -512,7 +512,7 @@ Also note that the `start` value is `54270`. This is the block height at which t
 
 For our example, `player1` would like to use an existing character that survived a previous game. This allows `player1` to start with all the advantages this character achieved previously, including character statistics and items.
 
-To activate the existing characer, `player1` includes the associated `playertxid` for the character when executing the [register](../cryptoconditions/cc-rogue.html#register) method. (The `playertxid` values of any `pubkey` can be found using the [players](../cryptoconditions/cc-rogue.html#players) method.)
+To activate the existing character, `player1` includes the associated `playertxid` for the character when executing the [register](../cryptoconditions/cc-rogue.html#register) method. (The `playertxid` values of any `pubkey` can be found using the [players](../cryptoconditions/cc-rogue.html#players) method.)
 
 The player also includes the `gametxid` as the first argument of the `register` method.
 
@@ -797,7 +797,7 @@ If a player successfully uses either the [highlander](../cryptoconditions/cc-rog
 
 #### Recalling an Existing Character
 
-When either of these methods are executed, the returned response includes a `playertxid` transaction id. The `playertxid` represents the state of this character at the completion of the game. It is used as an argument for the [register](../cryptoconditions/cc-rogue.html#register) method when recalling the character, items, and achieved characterstics into a future game. 
+When either of these methods are executed, the returned response includes a `playertxid` transaction id. The `playertxid` represents the state of this character at the completion of the game. It is used as an argument for the [register](../cryptoconditions/cc-rogue.html#register) method when recalling the character, items, and achieved characteristics into a future game. 
 
 The `playertxid` value changes with each game, and therefore only the most recent `playertxid` for a character should be used. To see a complete list of current `playertxid` values belonging to the user's `pubkey`, use the [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) method. 
 
@@ -1062,7 +1062,7 @@ After a game concludes the complete list of keystrokes can be found in the `~/ko
 | name        | (string) | the name of the module                                                                                                                                                     |
 | method      | (string) | the name of the method                                                                                                                                                     |
 | gametxid    | (string) | the unique `gametxid` transaction id that identifies this game                                                                                                             |
-| keystrokes | (string) | the desired keystrokes, provided in ASCII format and contactenated into a single string                          |
+| keystrokes | (string) | the desired keystrokes, provided in ASCII format and concatenated into a single string                          |
 | batontxid | (string) | the unique `batontxid` transaction id; this value is useful for tracing the route of a utxo/token through the blockchain database |
 | playertxid   | (string)           | the unique identifying transaction id of this player                                                    |
 | hex        | (string)         | a `hex` value containing the relevant game data; this value is broadcast automatically |

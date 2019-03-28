@@ -414,7 +414,7 @@ This method relies on the <b>txindex</b> runtime parameter, which is enabled by 
 | "asm"                   | (string)                                       | the asm                                                                                                                         |
 | "hex"                   | (string)                                       | the hex                                                                                                                         |
 | "reqSigs"               | (numeric)                                      | the required sigs                                                                                                               |
-| "type"                  | (string)                                       | the type, eg 'pubkeyhash'                                                                                                       |
+| "type"                  | (string)                                       | the type, e.g. 'pubkeyhash'                                                                                                       |
 | "addresses" : [ ... ]   | (array of strings)                             |
 | "address"               | (string)                                       | the address                                                                                                                     |
 | "vjoinsplit" : [ ... ]  | (array of json objects, only for version >= 2) |

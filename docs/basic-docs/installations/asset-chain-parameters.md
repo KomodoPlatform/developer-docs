@@ -231,7 +231,7 @@ Use the [getblocksubsidy](../komodo-api/mining.html#getblocksubsidy) rpc method 
 
 ## ac_perc
 
-The `ac_perc` parameter has two different functionailites depending on the configuation of the chain params.
+The `ac_perc` parameter has two different functionalities depending on the configuration of the chain parameters.
 
 #### ac_perc without ac_founders
 When `ac_perc` is used without [-ac_founders](../installations/asset-chain-parameters.html#ac-founders) the chain will follow an inflation tax model. In this model, the `-ac_perc` parameter is the percentage added to the block reward, and the transactions that allocate these rewards are sent to the `-ac_pubkey` address. Naturally, for this configuration to function the `-ac_pubkey` parameter must be included.
@@ -241,7 +241,7 @@ For example, if `-ac_reward=100000000` and `-ac_perc=10000000`, for each block m
 The maximum amount of coins created via this method across all transactions per block is capped at `(1000000 * <percentage>)`.
 
 ::: tip
-Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding pubkey. This only affects a miner trying to use a stratum. Team member, [Blackjok3r](https://github.com/blackjok3rtt/), developed a coinbase overide method for this purpose. Please see [this repo](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode) for details.
+Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding pubkey. This only affects a miner trying to use a stratum. Team member, [Blackjok3r](https://github.com/blackjok3rtt/), developed a coinbase-override method for this purpose. Please see [this repo](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode) for details.
 :::
 
 #### ac_perc with ac_founders
@@ -312,7 +312,7 @@ After the first `100000` blocks, the rewards from `ac_staked` are no longer incl
 
 ## ac_script
 
-The `ac_script` parameter enables the `ac_founders` reward to be sent to a multisig address or any p2sh address. If this parameter is used, block 1 (the "premine") will be mined to the `ac_script` address.
+The `ac_script` parameter enables the `ac_founders` reward to be sent to a multi-signature address or any p2sh address. If this parameter is used, block 1 (the "premine") will be mined to the `ac_script` address.
 
 This parameter requires that `ac_founders` also be active. If `ac_script` is set, `ac_pubkey` must not be.
 
@@ -320,7 +320,7 @@ This parameter requires that `ac_founders` also be active. If `ac_script` is set
 
 #### Finding the `"scriptPubKey"`:
 
-To find the `"scriptPubKey"` value, first create a multisig address with the [createmultisig](../komodo-api/util.html#createmultisig) command.
+To find the `"scriptPubKey"` value, first create a multi-signature address with the [createmultisig](../komodo-api/util.html#createmultisig) command.
 
 Command:
 
@@ -546,7 +546,7 @@ A 777777-coin pre-mine, a 1000-coin block reward, the block reward decreases by 
 
 ## ac_public
 
-If `ac_public` is set to `1`, zk-SNARKs are disabled, and all z address functionalilty is disabled. Therefore, all transactions on the blockchain are public.
+If `ac_public` is set to `1`, zk-SNARKs are disabled, and all z address functionality is disabled. Therefore, all transactions on the blockchain are public.
 
 #### :pushpin: Examples:
 
@@ -576,7 +576,7 @@ A private-only asset chain.
 
 The `ac_sapling` parameter adjusts the block height of an asset chain's default sapling activation. (Sapling is an upstream privacy technology provided by [Zcash](https://z.cash/), of which Komodo is a fork.)
 
-By default, sapling will activate at block 61 on a newly created assetchain.
+By default, sapling will activate at block 61 on a newly created asset chain.
 
 This can also be used to activate sapling prior to block 61. (Activating sapling prior to block 61 should not be done on a chain intended for production use.)
 
@@ -676,5 +676,5 @@ When `-ac_cc` is set, but `-ac_ccenable` is not, all CryptoConditions modules ar
 :::
 
 ::: warning
-If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the evalcodes in the `libcc.so` will not disable CryptoConditions RPC calls. Therefore, there remains a risk that a disabled RPC call can still be used to create a utxo, which will then be unspendable.
+If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the evalcodes in the `libcc.so` will not disable CryptoConditions RPC calls. Therefore, there remains a risk that a disabled RPC call can still be used to create a utxo, which will then be non-spendable.
 :::

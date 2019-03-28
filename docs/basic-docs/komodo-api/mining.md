@@ -70,7 +70,7 @@ If the request parameters include a `mode` key, it is used to explicitly select 
 
 #### A Note on Unique Mining Circumstances
 
-There are many features in the Komodo Ecosystem that can make an asset chain's daemon produce non-standard coinbase transactions. Examples include an assetchain parameter that creates new coins for a specific pubkey in every block or a CC module that adds outputs to the coinbase transaction.
+There are many features in the Komodo Ecosystem that can make an asset chain's daemon produce non-standard coinbase transactions. Examples include an asset chain parameter that creates new coins for a specific pubkey in every block or a CC module that adds outputs to the coinbase transaction.
 
 This can be dealt using a mode called `disablecb`
 
@@ -80,7 +80,7 @@ Usage:
 ./komodo-cli getblocktemplate '{"mode":"disablecb"}'
 ```
 
-The block template produced using this mode doesn't have the `"coinbasetxn": { ... }` json object but adds the coinbase transction to the `"transactions":[ ... ]` array, just like a regular transaction.
+The block template produced using this mode doesn't have the `"coinbasetxn": { ... }` json object but adds the coinbase transaction to the `"transactions":[ ... ]` array, just like a regular transaction.
 
 Now the pool software can use the `"transactions":[ ... ]` array to create a block and take fees in the payment processor. The `knomp` [fork](https://github.com/blackjok3rtt/knomp) by [@blackjok3rtt](https://github.com/blackjok3rtt) uses this mode.
 
@@ -374,7 +374,7 @@ DEPRECATED: Use <b>getnetworksolps</b> instead.
 
 The `getnetworkhashps` method returns the estimated network solutions per second based on the last `n` blocks.
 
-Pass in `blocks` value to override the default number of blocks. Passing in `-1` will return a value based on the average hashps of the relevant difficulty window.
+Pass in `blocks` value to override the default number of blocks. Passing in `-1` will return a value based on the average `hashps` of the relevant difficulty window.
 
 Pass in `height` to estimate the network speed at the time when a certain block was found.
 
