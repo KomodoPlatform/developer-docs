@@ -31,7 +31,9 @@ Command:
 ./komodo-cli createmultisig 2 "[\"RJnVEQgucK1iwiRjfTZmreXkF49KgTErDn\",\"RCVyjn9MQ8Tw6YRJnDcsx67kfsmfUgLdfw\"]"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -39,6 +41,9 @@ Response:
   "redeemScript": "52210384c0db4f1eaa142a2745742b942f989375dbec32c55310a793225bb5c43cdc9821021f527b7269ab18da85a50b7f45f572e8b017fce476de06cb80a2550ee7d4b11652ae"
 }
 ```
+
+</collapse-text>
+
 
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -48,7 +53,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createmultisig", "params": [2, ["RJnVEQgucK1iwiRjfTZmreXkF49KgTErDn","RCVyjn9MQ8Tw6YRJnDcsx67kfsmfUgLdfw"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -60,6 +67,9 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+
 
 ## decodeccopret
 
@@ -101,7 +111,9 @@ Command:
 ./komodo-cli decodeccopret 6a2412782103d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -115,6 +127,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -123,7 +138,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decodeccopret", "params": ["6a2412782103d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -140,6 +157,9 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+
 
 ## estimatefee
 
@@ -169,11 +189,16 @@ Command:
 ./komodo-cli estimatefee 6
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 0.00019376
 ```
+
+</collapse-text>
+
 
 ## estimatepriority
 
@@ -203,11 +228,16 @@ Command:
 ./komodo-cli estimatepriority 6
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 -1
 ```
+
+</collapse-text>
+
 
 ## invalidateblock
 
@@ -235,11 +265,16 @@ Command:
 ./komodo-cli invalidateblock "02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -249,7 +284,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "invalidateblock", "params": ["02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -258,6 +295,9 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+
 
 ## reconsiderblock
 
@@ -285,11 +325,16 @@ Command:
 ./komodo-cli reconsiderblock "02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 ## txnotarizedconfirmed
 
@@ -321,13 +366,18 @@ Command:
 ./komodo-cli txnotarizedconfirmed ce1e3df1fb24ab3301b4032c3a0af466ca03b9365f8c649511bdd72f5519fecb
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
   "result": true
 }
 ```
+
+</collapse-text>
+
 
 ## validateaddress
 
@@ -362,7 +412,9 @@ Command:
 ./komodo-cli validateaddress "RDNC9mLrN48pVGDQ5jSoPb2nRsUPJ5t2R7"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -378,6 +430,9 @@ Response:
   "account": ""
 }
 ```
+
+</collapse-text>
+
 
 ## verifymessage
 
@@ -413,11 +468,16 @@ Command:
 ./komodo-cli signmessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "my message"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=
 ```
+
+</collapse-text>
+
 
 Verify the signature:
 
@@ -427,11 +487,16 @@ Command:
 ./komodo-cli verifymessage "RBtNBJjWKVKPFG4To5Yce9TWWmc2AenzfZ" "H1y0mn/wRv56r1bcfkbQtzjG6XeWSelAsyayBuCwEL9XGXs7ieU55dryt/cFWM9gnRFI7gS01AByuSqRs+o/AZs=" "my message"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 true
 ```
+
+</collapse-text>
+
 
 ## z_validateaddress
 
@@ -463,7 +528,9 @@ Command:
 ./komodo-cli z_validateaddress "zcWsmqT4X2V4jgxbgiCzyrAfRT1vi1F4sn7M5Pkh66izzw8Uk7LBGAH3DtcSMJeUb2pi3W4SQF8LMKkU2cUuVP68yAGcomL"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -474,3 +541,6 @@ Response:
   "ismine": true
 }
 ```
+
+</collapse-text>
+

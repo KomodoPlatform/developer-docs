@@ -147,8 +147,8 @@
 #                g.write(currLine)
 
 import os
-for filename in os.listdir('../docs/basic-docs/cryptoconditions/'):
-    with open('../docs/basic-docs/cryptoconditions/'+filename, "r") as f, open(filename, 'w+') as g:
+for filename in os.listdir('../docs/basic-docs/komodo-api/'):
+    with open('../docs/basic-docs/komodo-api/'+filename, "r") as f, open(filename, 'w+') as g:
         flag = 0
         for currLine in f:
             if currLine.startswith("Response"):

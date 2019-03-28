@@ -32,7 +32,9 @@ Command:
 ./komodo-cli generate 2
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 [
@@ -40,6 +42,9 @@ Response:
   "00d29a2b7dec52baa9ab8e4264363f32b4989eef7dbb0a9932fbc11274195b5a"
 ]
 ```
+
+</collapse-text>
+
 
 ## getgenerate
 
@@ -73,11 +78,16 @@ Command:
 ./komodo-cli getgenerate
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 false
 ```
+
+</collapse-text>
+
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -87,7 +97,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getgenerate", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -96,6 +108,9 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+
 
 ## setgenerate
 
@@ -132,11 +147,16 @@ Command:
 ./komodo-cli setgenerate true -1
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 ##### Activate staking:
 
@@ -146,11 +166,16 @@ Command:
 ./komodo-cli setgenerate true 0
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 ##### Activate mining with 4 threads:
 
@@ -160,11 +185,16 @@ Command:
 ./komodo-cli setgenerate true 4
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 ##### Check the setting:
 
@@ -174,11 +204,16 @@ Command:
 ./komodo-cli getgenerate
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 true
 ```
+
+</collapse-text>
+
 
 ##### Turn off generation:
 
@@ -188,11 +223,16 @@ Command:
 ./komodo-cli setgenerate false
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 ##### Turning the setting on via json rpc:
 
@@ -202,7 +242,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setgenerate", "params": [true, 1] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -211,3 +253,6 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+

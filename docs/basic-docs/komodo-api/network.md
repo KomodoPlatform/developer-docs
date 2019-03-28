@@ -29,11 +29,16 @@ Command:
 ./komodo-cli addnode "192.168.0.6:8233" "onetry"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -43,11 +48,16 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addnode", "params": ["192.168.0.6:8233", "onetry"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 ## clearbanned
 
@@ -75,11 +85,16 @@ Command:
 ./komodo-cli clearbanned
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -89,11 +104,16 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "clearbanned", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 ## disconnectnode
 
@@ -123,11 +143,16 @@ Command:
 ./komodo-cli disconnectnode "192.168.0.6:8233"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -137,11 +162,16 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "disconnectnode", "params": ["192.168.0.6:8233"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 ## getaddednodeinfo
 
@@ -180,7 +210,9 @@ Command:
 ./komodo-cli getaddednodeinfo true
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 [
@@ -197,13 +229,18 @@ Response:
 ]
 ```
 
+</collapse-text>
+
+
 Command:
 
 ```bash
 ./komodo-cli getaddednodeinfo true "78.47.205.239"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 [
@@ -220,6 +257,9 @@ Response:
 ]
 ```
 
+</collapse-text>
+
+
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -228,7 +268,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddednodeinfo", "params": [true, "78.47.205.239"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -248,6 +290,9 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+
 
 ## getconnectioncount
 
@@ -275,11 +320,16 @@ Command:
 ./komodo-cli getconnectioncount
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 10
 ```
+
+</collapse-text>
+
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -289,7 +339,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getconnectioncount", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -298,6 +350,9 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+
 
 ## getdeprecationinfo
 
@@ -331,7 +386,9 @@ Command:
 ./komodo-cli getdeprecationinfo
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -341,6 +398,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -349,7 +409,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getdeprecationinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -362,6 +424,9 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+
 
 ## getnettotals
 
@@ -391,7 +456,9 @@ Command:
 ./komodo-cli getnettotals
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -401,6 +468,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -409,7 +479,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnettotals", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -422,6 +494,9 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+
 
 ## getnetworkinfo
 
@@ -465,7 +540,9 @@ Command:
 ./komodo-cli getnetworkinfo
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -504,6 +581,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -512,7 +592,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworkinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -554,6 +636,9 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+
 
 ## getpeerinfo
 
@@ -601,7 +686,9 @@ Command:
 ./komodo-cli getpeerinfo
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 [
@@ -630,6 +717,9 @@ Response:
 ]
 ```
 
+</collapse-text>
+
+
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -638,7 +728,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getpeerinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -671,6 +763,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## listbanned
 
 ### listbanned
@@ -698,7 +793,9 @@ Command:
 ./komodo-cli listbanned
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 [
@@ -709,6 +806,9 @@ Response:
 ]
 ```
 
+</collapse-text>
+
+
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -717,7 +817,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listbanned", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -731,6 +833,9 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+
 
 ## ping
 
@@ -766,11 +871,16 @@ Command:
 ./komodo-cli ping
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -780,7 +890,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "ping", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -789,6 +901,9 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+
 
 ## setban
 
@@ -823,11 +938,16 @@ Command:
 ./komodo-cli setban "192.168.0.6" "add" 86400
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 Command:
 
@@ -835,11 +955,16 @@ Command:
 ./komodo-cli setban "192.168.0.0/24" "add"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -849,8 +974,13 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setban", "params": ["78.47.205.239", "add", 86400] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 (none)
 ```
+
+</collapse-text>
+

@@ -60,7 +60,9 @@ Command:
 ./komodo-cli getinfo
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -97,6 +99,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -105,7 +110,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -146,6 +153,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## help
 
 ### help ( "command" )
@@ -158,7 +168,9 @@ The `help` method lists all commands, or all information for a specified command
 | --------- | ------------------ | -------------------------------- |
 | "command" | (string, optional) | the command requiring assistance |
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 | Structure | Type               | Description                      |
 | --------- | ------------------ | -------------------------------- |
@@ -172,9 +184,17 @@ Command:
 ./komodo-cli help
 ```
 
-Response:
+</collapse-text>
+
+
+
+<collapse-text hidden title="Response">
+
 
 ```
+
+</collapse-text>
+
 == Addressindex ==
 getaddressbalance
 getaddressdeltas
@@ -208,9 +228,14 @@ Command:
 ./komodo-cli help getaddressbalance
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```
+
+</collapse-text>
+
 Returns the balance for an address(es) (requires addressindex to be enabled).
 
 Arguments:
@@ -266,8 +291,13 @@ Command:
 ./komodo-cli stop
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 "Komodo server stopping"
 ```
+
+</collapse-text>
+
