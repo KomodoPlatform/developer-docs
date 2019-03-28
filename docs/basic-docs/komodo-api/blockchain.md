@@ -12,13 +12,13 @@ The `coinsupply` method returns the coin supply information for the indicated bl
 To use this method for large block heights, first execute the method for a small block height, such as `1000`. Then execute the method for an incrementally higher block height, such as `10000`. Continue increasing the height until reaching the desired height.
 :::
 
-### Arguments:
+### Arguments
 
 | Structure | Type                | Description              |
 | --------- | ------------------- | ------------------------ |
 | "height"  | (integer, optional) | the desired block height |
 
-### Response:
+### Response
 
 | Structure | Type      | Description                                                   |
 | --------- | --------- | ------------------------------------------------------------- |
@@ -30,7 +30,7 @@ To use this method for large block heights, first execute the method for a small
 | "sprout"  | (float)   | the sprout coin supply (in `zc`addrs)                         |
 | "total"   | (float)   | the total coin supply, i.e. `sum of supply + zfunds`          |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -88,19 +88,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getbestblockhash` method returns the hash of the best (tip) block in the longest block chain.
 
-### Arguments:
+### Arguments
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
-### Response:
+### Response
 
 | Structure | Type     | Description                 |
 | --------- | -------- | --------------------------- |
 | "hex"     | (string) | the block hash, hex encoded |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -144,14 +144,14 @@ The `getblock` method returns the block's relevant state information.
 
 The verbose input is optional. The default value is true, and it will return a json object with information about the indicated block. If verbose is `false`, the command returns a string that is serialized hex-encoded data for the indicated block.
 
-### Arguments:
+### Arguments
 
 | Structure        | Type                              | Description                                                |
 | ---------------- | --------------------------------- | ---------------------------------------------------------- |
 | hash `OR` height | string `OR` number, respectively  | the block hash `OR` the block height                       |
 | verbose          | (boolean, optional, default=true) | true returns a json object, false returns hex-encoded data |
 
-### Response (verbose = true):
+### Response (verbose = true)
 
 | Structure                       | Type               | Description                                                                                                                       |
 | ------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -170,13 +170,13 @@ The verbose input is optional. The default value is true, and it will return a j
 | "previousblockhash"             | (string)           | the hash of the previous block                                                                                                    |
 | "nextblockhash"                 | (string)           | the hash of the next block                                                                                                        |
 
-### Response:
+### Response
 
 | Structure | Type     | Description                                                           |
 | --------- | -------- | --------------------------------------------------------------------- |
 | "data"    | (string) | a string that is serialized, hex-encoded data for the indicated block |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -517,13 +517,13 @@ When the chain tip is at the last block before a network upgrade activation, the
 
 [getblockchaininfo](../komodo-api/blockchain.html#getblockchaininfo) now returns a new size_on_disk key, which is the size of the blockchain, on disk, in bytes.
 
-### Arguments:
+### Arguments
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Structure              | Type      | Description                                                                                                                                       |
 | ---------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -556,7 +556,7 @@ When the chain tip is at the last block before a network upgrade activation, the
 | "chaintip"             | (string)  | branch ID used to validate the current chain tip                                                                                                  |
 | "nextblock"            | (string)  | branch ID under which the next block will be validated                                                                                            |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -682,19 +682,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getblockcount` method returns the number of blocks in the best valid block chain.
 
-### Arguments:
+### Arguments
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Structure | Type      | Description             |
 | --------- | --------- | ----------------------- |
 | data      | (numeric) | the current block count |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -736,19 +736,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getblockhash` method returns the hash of the indicated block index, according to the best blockchain at the time provided.
 
-### Arguments:
+### Arguments
 
 | Structure | Type                | Description     |
 | --------- | ------------------- | --------------- |
 | index     | (numeric, required) | the block index |
 
-### Response:
+### Response
 
 | Structure | Type     | Description    |
 | --------- | -------- | -------------- |
 | "hash"    | (string) | the block hash |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -792,7 +792,7 @@ The `getblockhashes` method returns an array of hashes of blocks within the time
 
 The method requires [timestampindex](../installations/common-runtime-parameters.html#timestampindex) to be enabled.
 
-### Arguments:
+### Arguments
 
 | Structure      | Type                | Description                                                                                |
 | -------------- | ------------------- | ------------------------------------------------------------------------------------------ |
@@ -802,7 +802,7 @@ The method requires [timestampindex](../installations/common-runtime-parameters.
 | "noOrphans"    | (boolean)           | a value of `true` implies that the method will only include blocks on the main chain       |
 | "logicalTimes" | (boolean)           | a value of `true` implies that the method will only include logical timestamps with hashes |
 
-### Response:
+### Response
 
 | Structure   | Type      | Description           |
 | ----------- | --------- | --------------------- |
@@ -810,7 +810,7 @@ The method requires [timestampindex](../installations/common-runtime-parameters.
 | "blockhash" | (string)  | the block hash        |
 | "logicalts" | (numeric) | the logical timestamp |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -890,14 +890,14 @@ The `getblockheader` method returns information about the indicated block.
 
 The verbose input is optional. If verbose is false, the method returns a string that is serialized, hex-encoded data for the indicated blockheader. If verbose is true, the method returns a json object with information about the indicated blockheader.
 
-### Arguments:
+### Arguments
 
 | Structure | Type                              | Description                                                |
 | --------- | --------------------------------- | ---------------------------------------------------------- |
 | "hash"    | (string, required)                | the block hash                                             |
 | verbose   | (boolean, optional, default=true) | true returns a json object, false returns hex-encoded data |
 
-### Response (verbose = `true`):
+### Response (verbose = `true`)
 
 | Structure           | Type      | Description                                                                                                                       |
 | ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -914,13 +914,13 @@ The verbose input is optional. If verbose is false, the method returns a string 
 | "previousblockhash" | (string)  | the hash of the previous block                                                                                                    |
 | "nextblockhash"     | (string)  | the hash of the next block                                                                                                        |
 
-### Response (verbose = `false`):
+### Response (verbose = `false`)
 
 | Structure | Type     | Description                                                          |
 | --------- | -------- | -------------------------------------------------------------------- |
 | "data"    | (string) | a string that is serialized hex-encoded data for the indicated block |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1010,13 +1010,13 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getchaintips` method returns information about all known tips in the block tree, including the main chain and any orphaned branches.
 
-### Arguments:
+### Arguments
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Structure   | Type      | Description                                                   |
 | ----------- | --------- | ------------------------------------------------------------- |
@@ -1029,7 +1029,7 @@ The `getchaintips` method returns information about all known tips in the block 
 | "branchlen" | (numeric) | the length of the branch connecting the tip to the main chain |
 | "status"    | (string)  | the status of the chain                                       |
 
-### Possible values for the returned status property:
+### Possible values for the returned status property
 
 | Status          | Description                                                                   |
 | --------------- | ----------------------------------------------------------------------------- |
@@ -1039,7 +1039,7 @@ The `getchaintips` method returns information about all known tips in the block 
 | "valid-fork"    | this branch is not part of the active chain, but is fully validated           |
 | "active"        | this is the tip of the active main chain, which is certainly valid            |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1095,14 +1095,14 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The method `getchaintxstats` returns statistics about the total number and rate of transactions in the chain.
 
-### Arguments:
+### Arguments
 
 | Structure | Type                | Description                                   |
 | --------- | ------------------- | --------------------------------------------- |
 | nblocks   | (numeric, optional) | the number of blocks in the averaging window. |
 | blockhash | (string, optional)  | the hash of the block which ends the window   |
 
-### Response:
+### Response
 
 | Structure                 | Type      | Description                                                                                                         |
 | ------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -1114,7 +1114,7 @@ The method `getchaintxstats` returns statistics about the total number and rate 
 | "window_interval"         | (numeric) | the elapsed time in the window in seconds; this value is only returned if `window_block_count` is > 0.              |
 | "txrate"                  | (numeric) | the average rate of transactions per second in the window; this value is only returned if `window_interval` is > 0. |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1172,19 +1172,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getdifficulty` method returns the proof-of-work difficulty as a multiple of the minimum difficulty.
 
-### Arguments:
+### Arguments
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Structure | Type      | Description                                                          |
 | --------- | --------- | -------------------------------------------------------------------- |
 | number    | (numeric) | the proof-of-work difficulty as a multiple of the minimum difficulty |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1230,13 +1230,13 @@ The `getlastsegidstakes` method returns an object containing the number of block
 Only applies to `-ac_staked` asset chains
 :::
 
-### Arguments:
+### Arguments
 
 | Structure | Type                | Description                                                                          |
 | --------- | ------------------- | ------------------------------------------------------------------------------------ |
 | depth     | (numeric, required) | the number of blocks to scan, starting from the current height and working backwards |
 
-### Response:
+### Response
 
 | Structure | Type          | Description                                                                                                |
 | --------- | ------------- | ---------------------------------------------------------------------------------------------------------- |
@@ -1246,7 +1246,7 @@ Only applies to `-ac_staked` asset chains
 | "SegIds"  | (json object) | the json containing the data of number of blocks in each `SegId`                                           |
 | "n"       | (numeric)     | the number of blocks staked from `SegId n` in the last X blocks, where X is equal to the indicated `depth` |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1323,13 +1323,13 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getmempoolinfo` method returns details on the active state of the transaction memory pool.
 
-### Arguments:
+### Arguments
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
-### Response:
+### Response
 
 | Structure | Type      | Description                            |
 | --------- | --------- | -------------------------------------- |
@@ -1337,7 +1337,7 @@ The `getmempoolinfo` method returns details on the active state of the transacti
 | "bytes"   | (numeric) | the sum of all transaction sizes       |
 | "usage"   | (numeric) | the total memory usage for the mempool |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1389,19 +1389,19 @@ The `getrawmempool` method returns all transaction ids in the memory pool as a j
 
 The verbose input is optional and is false by default. When it is true, the method instead returns a json object with various related data.
 
-### Arguments:
+### Arguments
 
 | Structure | Type                               | Description                                                       |
 | --------- | ---------------------------------- | ----------------------------------------------------------------- |
 | verbose   | (boolean, optional, default=false) | true for a json object, false for a json array of transaction ids |
 
-### Response (verbose = `false`):
+### Response (verbose = `false`)
 
 | Structure        | Type     | Description        |
 | ---------------- | -------- | ------------------ |
 | "transaction_id" | (string) | the transaction id |
 
-### Response (verbose = `true`):
+### Response (verbose = `true`)
 
 | Structure                  | Type          | Description                                                             |
 | -------------------------- | ------------- | ----------------------------------------------------------------------- |
@@ -1415,7 +1415,7 @@ The verbose input is optional and is false by default. When it is true, the meth
 | "depends": { ... }         | (array)       | unconfirmed transactions used as inputs for this transaction            |
 | "transaction_id"           | (string)      | the parent transaction id                                               |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1479,21 +1479,21 @@ The `getspentinfo` method returns the transaction id and index where the given o
 
 The method requires [spentindex](../installations/common-runtime-parameters.html#spentindex) to be enabled.
 
-### Arguments:
+### Arguments
 
 | Structure | Type     | Description                          |
 | --------- | -------- | ------------------------------------ |
 | "txid"    | (string) | the hex string of the transaction id |
 | "index"   | (number) | the output's index                   |
 
-### Response:
+### Response
 
 | Structure | Type     | Description              |
 | --------- | -------- | ------------------------ |
 | "txid"    | (string) | the transaction id       |
 | "index"   | (number) | the spending input index |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1543,7 +1543,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `gettxout` method returns details about an unspent transaction output.
 
-### Arguments:
+### Arguments
 
 | Structure      | Type                | Description                    |
 | -------------- | ------------------- | ------------------------------ |
@@ -1551,7 +1551,7 @@ The `gettxout` method returns details about an unspent transaction output.
 | vout           | (numeric, required) | the vout value                 |
 | includemempool | (boolean, optional) | whether to include the mempool |
 
-### Response:
+### Response
 
 | Structure          | Type               | Description                                                                                                                       |
 | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -1569,7 +1569,7 @@ The `gettxout` method returns details about an unspent transaction output.
 | "version"          | (numeric)          | the version                                                                                                                       |
 | "coinbase"         | (boolean)          | whether this is a coinbase transaction                                                                                            |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1643,20 +1643,20 @@ The `gettxoutproof` method returns a hex-encoded proof showing that the indicate
 The <b>gettxoutproof</b> method relies on the <b>txindex</b> runtime parameter. This parameter is enabled by default on all KMD-based blockchains, and should never be disabled.
 :::
 
-### Arguments:
+### Arguments
 
 | Structure   | Type               | Description                                                                       |
 | ----------- | ------------------ | --------------------------------------------------------------------------------- |
 | "txid"      | (string)           | a transaction hash                                                                |
 | "blockhash" | (string, optional) | if specified, the method looks for the relevant transaction id in this block hash |
 
-### Response:
+### Response
 
 | Structure | Type     | Description                                                   |
 | --------- | -------- | ------------------------------------------------------------- |
 | "data"    | (string) | a string that is a serialized, hex-encoded data for the proof |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1682,13 +1682,13 @@ The `gettxoutsetinfo` method returns statistics about the unspent transaction ou
 Note this call may take a long time to complete, depending on the state of your blockchain.
 :::
 
-### Arguments:
+### Arguments
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Structure          | Type      | Description                       |
 | ------------------ | --------- | --------------------------------- |
@@ -1700,7 +1700,7 @@ Note this call may take a long time to complete, depending on the state of your 
 | "hash_serialized"  | (string)  | the serialized hash               |
 | "total_amount"     | (numeric) | the total amount                  |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1762,13 +1762,13 @@ The `kvsearch` method searches for a key stored via the [kvupdate](../komodo-api
 This feature is only available for asset chains.
 :::
 
-### Arguments:
+### Arguments
 
 | Structure | Type               | Description                                            |
 | --------- | ------------------ | ------------------------------------------------------ |
 | key       | (string, required) | the key for which the user desires to search the chain |
 
-### Response:
+### Response
 
 | Structure       | Type      | Description                                               |
 | --------------- | --------- | --------------------------------------------------------- |
@@ -1783,7 +1783,7 @@ This feature is only available for asset chains.
 | "value"         | (string)  | the stored value                                          |
 | "valuesize"     | (string)  | the amount of characters stored                           |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1851,7 +1851,7 @@ The `kvupdate` method stores a key/value pair via OP_RETURN.
 This feature is available only for asset chains. The maximum value memory size is 8kB.
 :::
 
-### Arguments:
+### Arguments
 
 | Structure    | Type                | Description                                                            |
 | ------------ | ------------------- | ---------------------------------------------------------------------- |
@@ -1860,7 +1860,7 @@ This feature is available only for asset chains. The maximum value memory size i
 | "days"       | (numeric, required) | amount of days before the key expires (1440 blocks/day); minimum 1 day |
 | "passphrase" | (string, optional)  | passphrase required to update this key                                 |
 
-### Response:
+### Response
 
 | Structure    | Type      | Description                               |
 | ------------ | --------- | ----------------------------------------- |
@@ -1875,7 +1875,7 @@ This feature is available only for asset chains. The maximum value memory size i
 | "fee"        | (string)  | the transaction fee paid to store the key |
 | "txid"       | (string)  | the transaction id                        |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1941,13 +1941,13 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `minerids` method returns information about the notary nodes and external miners at a specific block height. The response will calculate results according to the 2000 blocks proceeding the indicated "height" block.
 
-### Arguments:
+### Arguments
 
 | Structure | Type     | Description                    |
 | --------- | -------- | ------------------------------ |
 | heights   | (number) | the block height for the query |
 
-### Response:
+### Response
 
 | Structure    | Type     | Description                               |
 | ------------ | -------- | ----------------------------------------- |
@@ -1957,7 +1957,7 @@ The `minerids` method returns information about the notary nodes and external mi
 | "pubkey"     | (string) | the public signing key of the notary node |
 | "blocks"     | (number) |                                           |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -2037,14 +2037,14 @@ The `notaries` method returns the public key, BTC address, and KMD address for e
 
 Either or both of the height and timestamp parameters will suffice.
 
-### Arguments:
+### Arguments
 
 | Structure | Type     | Description                                      |
 | --------- | -------- | ------------------------------------------------ |
 | height    | (number) | the block height desired for the query           |
 | timestamp | (number) | the timestamp of the block desired for the query |
 
-### Response:
+### Response
 
 | Structure           | Type     | Description                                                                                                                           |
 | ------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -2056,7 +2056,7 @@ Either or both of the height and timestamp parameters will suffice.
 | "height"            | (number) | the block height number at which the notary-node information applies                                                                  |
 | "timestamp"         | (number) | the timestamp at which the notary-node information applies                                                                            |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -2126,20 +2126,20 @@ The `verifychain` method verifies the coin daemon's blockchain database.
 Depending on the state of your blockchain database and daemon, this call can take a prolonged period of time to complete.
 :::
 
-### Arguments:
+### Arguments
 
 | Structure  | Type                                    | Description                                      |
 | ---------- | --------------------------------------- | ------------------------------------------------ |
 | checklevel | (numeric, optional, 0-4, default=3)     | indicates the thoroughness of block verification |
 | numblocks  | (numeric, optional, default=288, 0=all) | indicates the number of blocks to verify         |
 
-### Response:
+### Response
 
 | Structure  | Type      | Description                             |
 | ---------- | --------- | --------------------------------------- |
 | true/false | (boolean) | whether the verification was successful |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -2181,19 +2181,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `verifytxoutproof` method verifies that a proof points to a transaction in a block. It returns the transaction to which the proof is committed, or it will throw an rpc error if the block is not in the current best chain.
 
-### Arguments:
+### Arguments
 
 | Structure      | Type               | Description                                      |
 | -------------- | ------------------ | ------------------------------------------------ |
 | "proof_string" | (string, required) | the hex-encoded proof generated by gettxoutproof |
 
-### Response:
+### Response
 
 | Structure | Type     | Description                                                                                |
 | --------- | -------- | ------------------------------------------------------------------------------------------ |
 | "txid"    | (string) | the transaction ids to which the proof commits; the array is empty if the proof is invalid |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 

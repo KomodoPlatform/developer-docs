@@ -20,7 +20,7 @@ The `getblocksubsidy` method returns the block-subsidy reward. The resulting cal
 | --------- | --------- | ------------------------ |
 | "miner"   | (numeric) | the mining reward amount |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -133,7 +133,7 @@ Now the pool software can use the `"transactions":[ ... ]` array to create a blo
 | "bits"                 | (string)           | the compressed target of the next block                                                                                                                                                                                                                                                          |
 | "height"               | (numeric)          | the height of the next block                                                                                                                                                                                                                                                                     |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -237,19 +237,19 @@ The `getlocalsolps` method returns the average local solutions per second since 
 This is the same information shown on the metrics screen (if enabled).
 :::
 
-### Arguments:
+### Arguments
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Structure | Type      | Description                      |
 | --------- | --------- | -------------------------------- |
 | "data"    | (numeric) | the solutions-per-second average |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -291,13 +291,13 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getmininginfo` method returns a json object containing mining-related information.
 
-### Arguments:
+### Arguments
 
 | Structure | Type   | Description |
 | --------- | ------ | ----------- |
 | (none)    | (none) |
 
-### Response:
+### Response
 
 | Structure          | Type      | Description                                                                                                                                                                            |
 | ------------------ | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -314,7 +314,7 @@ The `getmininginfo` method returns a json object containing mining-related infor
 | "testnet"          | (boolean) | if using testnet or not                                                                                                                                                                |
 | "chain"            | (string)  | the current network name as defined in BIP70 (main, test, regtest)                                                                                                                     |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -394,20 +394,20 @@ Pass in `blocks` value to override the default number of blocks. Passing in `-1`
 
 Pass in `height` to estimate the network speed at the time when a certain block was found.
 
-### Arguments:
+### Arguments
 
 | Structure | Type                             | Description                                                                                |
 | --------- | -------------------------------- | ------------------------------------------------------------------------------------------ |
 | blocks    | (numeric, optional, default=120) | the number of blocks (use `-1` to calculate over the relevant difficulty averaging window) |
 | height    | (numeric, optional, default=-1)  | the block height that corresponds to the requested data                                    |
 
-### Response:
+### Response
 
 | Structure | Type      | Description                       |
 | --------- | --------- | --------------------------------- |
 | data      | (numeric) | the solutions-per-second estimate |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -452,20 +452,20 @@ The `getnetworksolps` method returns the estimated network solutions per second 
 Pass in `blocks` to override the default number of blocks. Use -1 to calculate according to the relevant difficulty averaging window.
 Pass in `height` to estimate the network speed at the time when a certain block was found.
 
-### Arguments:
+### Arguments
 
 | Structure | Type                             | Description                                                                                       |
 | --------- | -------------------------------- | ------------------------------------------------------------------------------------------------- |
 | blocks    | (numeric, optional, default=120) | the number of blocks; use `-1` to calculate according to the relevant difficulty averaging window |
 | height    | (numeric, optional, default=-1)  | the block height that corresponds to the requested data                                           |
 
-### Response:
+### Response
 
 | Structure | Type      | Description                     |
 | --------- | --------- | ------------------------------- |
 | data      | (numeric) | solutions per second, estimated |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -511,7 +511,7 @@ The `prioritisetransaction` method instructs the daemon to accept the indicated 
 This method is inherited from the original Bitcoin protocol, of which KMD is a fork (via Zcash). For more examples regarding this method, please see <a href="https://bitcoincore.org/en/doc/0.16.1/rpc/mining/prioritisetransaction/">the linked documentation</a>.
 :::
 
-### Arguments:
+### Arguments
 
 | Structure        | Type                | Description                                                                                                                                                                                                           |
 | ---------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -519,13 +519,13 @@ This method is inherited from the original Bitcoin protocol, of which KMD is a f
 | priority_delta   | (numeric, required) | the priority to add or subtract (if negative). The transaction selection algorithm assigns the tx a higher or lower priority. The transaction priority calculation: `coinage * value_in_satoshis / txsize`            |
 | fee_delta        | (numeric, required) | the fee value in satoshis to add or subtract (if negative); the fee is not actually paid, only the algorithm for selecting transactions into a block considers the transaction as if it paid a higher (or lower) fee. |
 
-### Response:
+### Response
 
 | Structure | Type      | Description  |
 | --------- | --------- | ------------ |
 | true      | (boolean) | returns true |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -575,7 +575,7 @@ The <b>jsonparametersobject</b> parameter is currently ignored. See <a href="htt
 Note: for more information on <b>submitblock</b> parameters and results, see <a href="https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki#block-submission">the linked documentation</a>.
 :::
 
-### Arguments:
+### Arguments
 
 | Structure                        | Type                         | Description                                                           |
 | -------------------------------- | ---------------------------- | --------------------------------------------------------------------- |
@@ -583,7 +583,7 @@ Note: for more information on <b>submitblock</b> parameters and results, see <a 
 | "jsonparametersobject" : { ... } | (string, optional)           | object of optional parameters                                         |
 | "workid"                         | (string, sometimes optional) | if the server provides a workid, it MUST be included with submissions |
 
-### Response:
+### Response
 
 | Structure                | Type | Description                                                                          |
 | ------------------------ | ---- | ------------------------------------------------------------------------------------ |
@@ -593,7 +593,7 @@ Note: for more information on <b>submitblock</b> parameters and results, see <a 
 | "inconclusive"           |      | the node has not validated the block, it may not be on the node's current best chain |
 | "rejected"               |      | the block was rejected as invalid                                                    |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 

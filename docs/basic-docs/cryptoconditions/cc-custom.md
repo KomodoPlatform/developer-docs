@@ -50,16 +50,15 @@ From the top, the comments provide a nice summary of what our custom cclib will 
 
 One is referenced externally (`MYCCLIBNAME`) at komodo start. The other internally (`MYCCNAME`) when programming for function name prefixes.
 
-```cpp
+````cpp
 std::string MYCCLIBNAME = (char *)"customcc";
-#define MYCCNAME "custom"
-```
+#define MYCCNAME "custom"```
 
 `MYCCLIBNAME` This is the name of the loadable library module being created. Here it is "customcc". This is what is used on the command line to load your custom consensus when [starting your custom blockchain](/basic-docs/installations/creating-asset-chains.html) on a komodo server.
 
 ```bash
 komodod -ac_name=CUSTOM -ac_cc=1 -ac_cclib=customcc ...
-```
+````
 
 The `MYCCNAME` is the prefix for RPC calls and standard consensus functions (e.g. `validate`).
 The naming convention used for building a custom consensus library follows:
@@ -70,10 +69,8 @@ For example `custom_validate`.
 
 ### Declaration of constants
 
-```cpp
-#define EVAL_CUSTOM (EVAL_FAUCET2+1)
-#define CUSTOM_TXFEE 10000
-```
+````cpp
+#define EVAL_CUSTOM (EVAL_FAUCET2+1)#define CUSTOM_TXFEE 10000```
 
 The `EVAL_FAUCET2` is a constant (footnote: 1a & 1b) (`0x10` or decimal 16). These `EVAL_...` constants are identifiers. They are used to route the validation code. The low-level bitcoin script in Komodo has a new op*code called `OP_CHECKCRYPTOCONDITION`. When any node on the network needs to validate this `OP_CHECKCRYPTOCONDITION` op_code, it looks up which `EVAL*...` code it is.
 
@@ -82,13 +79,12 @@ Custom consensus starts at `EVAL_FAUCET2` and add `+1` to it for your customcc l
 The `CUSTOM_TXFEE` is the default transaction fee for this type of transaction. The default txfee for this `EVAL_...` code consensus is `10000` assetoshis (0.0001).
 
 ### Declarations of the RPC calls
-
 This is the way 3rd party developers (e.g. front-end developers) and command-line users will interact with your custom crypto condition. For example commands like `komodo-cli -ac_name=CUSTOM custom_func0` and `komodo-cli -ac_name=CUSTOM custom_func1`.
 
 ```cpp
 { (char *)MYCCNAME, (char *)"func0", (char *)"<parameter help>", 1, 1, '0', EVAL_CUSTOM },
 { (char *)MYCCNAME, (char *)"func1", (char *)"<no args>", 0, 0, '1', EVAL_CUSTOM },
-```
+````
 
 The declarations for the functions in customcc.cpp - func0 and func1
 
@@ -121,8 +117,7 @@ The following code is part of the automatic wiring that allows a developer to us
 The custom dispatch is used for dispatching the RPC function declared earlier.
 
 ```cpp
-#define CUSTOM_DISPATCH \
-if ( cp->evalcode == EVAL_CUSTOM ) \
+#define CUSTOM_DISPATCH \if ( cp->evalcode == EVAL_CUSTOM ) \
 { \
     if ( strcmp(method,"func0") == 0 ) \
         return(custom_func0(txfee,cp,params)); \

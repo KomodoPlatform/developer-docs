@@ -6,14 +6,13 @@ Introduction here
 
 ### CC Assets Workflow
 
-* Workflow here
+- Workflow here
 
 ## Installation
 
 ### Requirements
 
-### Installation
-Installation here
+### InstallationInstallation here
 
 ## Walkthrough
 
@@ -25,9 +24,8 @@ A complete walkthrough
 
 Description
 
-#### Arguments:
+#### Arguments
 
-#### Response:
+#### Response
 
-#### :pushpin: Examples:
-
+#### :pushpin: Examples

@@ -14,13 +14,13 @@ When `faucetget` is executed, the on-chain `faucet` sends 0.1 coins to the addre
 
 The `faucetaddress` method returns the CC address information for the specified pubkey. If no pubkey is provided, the method returns information for the pubkey used to launch the daemon.
 
-### Arguments:
+### Arguments
 
 | Structure | Type               | Description                                                                                       |
 | --------- | ------------------ | ------------------------------------------------------------------------------------------------- |
 | pubkey    | (string, optional) | the desired pubkey; the method uses the pubkey used to launch the daemon if no pubkey is provided |
 
-### Response:
+### Response
 
 | Structure       | Type     | Description                                                                                                                          |
 | --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
@@ -32,7 +32,7 @@ The `faucetaddress` method returns the CC address information for the specified 
 | myCCaddress     | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the CC address from the pubkey of the user                           |
 | myaddress       | (string) | the unmodified public address of the pubkey used to launch the chain                                                                 |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -65,20 +65,20 @@ The `faucetfund` method funds the on-chain faucet.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-### Arguments:
+### Arguments
 
 | Structure | Type     | Description                                                            |
 | --------- | -------- | ---------------------------------------------------------------------- |
 | amount    | (number) | the amount to add to the faucet, taken from the user's available funds |
 
-### Response:
+### Response
 
 | Structure | Type     | Description                                                                                                               |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
 | result    | (string) | whether the command executed successfully                                                                                 |
 | hex       | (string) | the data in hex-encoded format; you must broadcast this hex using the`sendrawtransaction` RPC for the command to complete |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Specify faucet amount and get the raw transaction HEX value
 
@@ -177,20 +177,20 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 The `faucetget` command yields 0.1 coins and requires about 30 seconds of CPU time to execute.
 
-### Arguments:
+### Arguments
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Structure | Type     | Description                                                                                                      |
 | --------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
 | result    | (string) | whether the command executed successfully                                                                        |
 | hex       | (string) | the data in hex-encoded format; you must broadcast this hex using sendrawtransaction for the command to complete |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Use faucetget and get the raw HEX value
 
@@ -286,13 +286,13 @@ Step 3: Decode the raw transaction (optional to check if the value are sane)
 
 The `faucetinfo` method displays the balance of funds in the chain's faucet.
 
-### Arguments:
+### Arguments
 
 | Structure | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Structure | Type     | Description                                 |
 | --------- | -------- | ------------------------------------------- |
@@ -300,7 +300,7 @@ The `faucetinfo` method displays the balance of funds in the chain's faucet.
 | name      | (string) | the name of the faucet contract             |
 | funding   | (number) | the amount of funds available in the faucet |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 

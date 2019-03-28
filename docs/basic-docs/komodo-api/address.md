@@ -90,7 +90,7 @@ The `getaddressdeltas` method returns all confirmed balance changes of an addres
 | "height"   | (number) | the block height                  |
 | "address"  | (string) | the address                       |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -240,7 +240,7 @@ The `getaddressmempool` method returns all mempool deltas for an address, or add
 | "prevtxid"  | (string) | the previous txid (if spending)                        |
 | "prevout"   | (string) | the previous transaction output index (if spending)    |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -314,7 +314,7 @@ The `getaddresstxids` method returns the txids for an address, or addresses. It 
 | ---------------- | -------- | ------------------ |
 | "transaction_id" | (string) | the transaction id |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -384,7 +384,7 @@ The `getaddressutxos` method returns all unspent outputs for an address. It requ
 | "script"      | (string) | the script hex encoded               |
 | "satoshis"    | (number) | the number of satoshis of the output |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -529,7 +529,7 @@ The method requires [addressindex](../installations/common-runtime-parameters.ht
 | "start_time"      | (number)         | the unix epoch time snapshot started                |
 | "end_time"        | (number)         | the unix epoch time snapshot finished               |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
