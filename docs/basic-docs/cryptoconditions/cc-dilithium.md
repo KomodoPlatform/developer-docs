@@ -81,8 +81,7 @@ It is important to [backup](../komodo-api/wallet.html#dumpprivkey) the private k
 Run the following commands in your terminal.
 
 ```bash
-rand=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 24 | head -n 1)
-./komodo-cli -ac_name=MUSIG cclib keypair 19 "[%22$rand%22]"
+./komodo-cli -ac_name=MUSIG cclib keypair 19 "[%22rand%22]"
 ```
 
 Learn about the `%22`s in the second command here: [CC Lib Formatting](../komodo-api/cclib.html#cclib-formatting)
