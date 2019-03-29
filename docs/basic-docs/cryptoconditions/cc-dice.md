@@ -28,7 +28,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                       |
 | ----------- | -------- | ----------------------------------------------------------------- |
 | name        | (string) | the name of the user's dice contract                              |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
@@ -36,10 +36,10 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -160,13 +160,13 @@ The `diceaddress` method takes either your pubkey or a pubkey that you provide a
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | -------------------------------------------------------------------------------------- |
-| pubkey    | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
+| Name   | Type               | Description                                                                            |
+| ------ | ------------------ | -------------------------------------------------------------------------------------- |
+| pubkey | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
 
 ### Response
 
-| Name | Type | Description | 
+| Name           | Type     | Description                                                                                                                    |
 | -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | result         | (string) | whether the diceaddress method was successful                                                                                  |
 | DiceCCaddress  | (string) | taking the dice contract's EVAL code as a modifier, this is the public address that corresponds to the dice contract's privkey |
@@ -210,7 +210,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                             |
 | ----------- | -------- | ----------------------------------------------------------------------- |
 | name        | (string) | the name of the dice contract for which the user desires to place a bet |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract       |
@@ -219,10 +219,10 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------------- |
-| "result"  | (string) | whether the dicebet command executed successfully                                                          |
-| "hex"     | (string) | the data of the user's transaction, in a raw hex-encoded format; broadcast this using `sendrawtransaction` |
+| Name     | Type     | Description                                                                                                |
+| -------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| "result" | (string) | whether the dicebet command executed successfully                                                          |
+| "hex"    | (string) | the data of the user's transaction, in a raw hex-encoded format; broadcast this using `sendrawtransaction` |
 
 #### :pushpin: Examples
 
@@ -377,7 +377,7 @@ If the returned `hex` value is not `0`, the `hex` value should be broadcast with
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                       |
 | ----------- | -------- | ----------------------------------------------------------------- |
 | name        | (string) | the name of the dice contract                                     |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
@@ -385,10 +385,10 @@ If the returned `hex` value is not `0`, the `hex` value should be broadcast with
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| result    | (string) | whether the command executed successfully                                                                                                                                                                                                  |
-| hex       | (string) | if the contract is already finished, the resulting hex is 0; if the contract is not finished, the value of hex will be a rawtransaction that the user can broadcast to let the blockchain automatically declare a winner and close the bet |
+| Name   | Type     | Description                                                                                                                                                                                                                                |
+| ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| result | (string) | whether the command executed successfully                                                                                                                                                                                                  |
+| hex    | (string) | if the contract is already finished, the resulting hex is 0; if the contract is not finished, the value of hex will be a rawtransaction that the user can broadcast to let the blockchain automatically declare a winner and close the bet |
 
 #### :pushpin: Examples
 
@@ -427,7 +427,7 @@ The `maxodds` property must be between 1 and 9999.
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name          | Type     | Description                                                                                   |
 | ------------- | -------- | --------------------------------------------------------------------------------------------- |
 | name          | (string) | the name of the user's dice contract                                                          |
 | funds         | (number) | the amount of funds with which the user desires to start                                      |
@@ -438,10 +438,10 @@ The `maxodds` property must be between 1 and 9999.
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | --------------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command executed successfully                                                                 |
-| hex       | (string) | the data of the transaction in raw hex-encoded format; broadcast this using the sendrawtransaction method |
+| Name   | Type     | Description                                                                                               |
+| ------ | -------- | --------------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command executed successfully                                                                 |
+| hex    | (string) | the data of the transaction in raw hex-encoded format; broadcast this using the sendrawtransaction method |
 
 #### :pushpin: Examples
 
@@ -647,13 +647,13 @@ Use the [dicelist](../cryptoconditions/cc-dice.html#dicelist) method to discover
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                       |
 | ----------- | -------- | ----------------------------------------------------------------- |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
 
 ### Response
 
-| Name | Type | Description | 
+| Name            | Type     | Description                                                                                         |
 | --------------- | -------- | --------------------------------------------------------------------------------------------------- |
 | "result"        | (string) | whether the command executed successfully                                                           |
 | "fundingtxid"   | (string) | the txid of the transaction that created and funded this contract                                   |
@@ -701,13 +701,13 @@ A `fundingtxid` is the txid of the transaction that created and funded the relev
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                               |
 | ----------- | -------- | ------------------------------------------------------------------------- |
 | fundingtxid | (string) | the txid of the transaction that created and funded the relevant contract |
 
@@ -737,7 +737,7 @@ The `dicestatus` method prints the status of a `dicebet` and returns whether the
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                       |
 | ----------- | -------- | ----------------------------------------------------------------- |
 | name        | (string) | the name of the dice contract                                     |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
@@ -745,10 +745,10 @@ The `dicestatus` method prints the status of a `dicebet` and returns whether the
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------- |
-| result    | (string) | whether the command executed successfully      |
-| status    | (string) | the result of the bet for the relevant bettxid |
+| Name   | Type     | Description                                    |
+| ------ | -------- | ---------------------------------------------- |
+| result | (string) | whether the command executed successfully      |
+| status | (string) | the result of the bet for the relevant bettxid |
 
 #### :pushpin: Examples
 

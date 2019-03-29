@@ -29,13 +29,13 @@ The global addresses are not used in the Channels CC module. For more informatio
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | ---------------------- |
-| pubkey    | (string, required) | the destination pubkey |
+| Name   | Type               | Description            |
+| ------ | ------------------ | ---------------------- |
+| pubkey | (string, required) | the destination pubkey |
 
 ### Response
 
-| Name | Type | Description | 
+| Name                        | Type      | Description                                                                                                                                                                                                                                                                                                                                                     |
 | --------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result                      | (string)  | whether the method executed successfully                                                                                                                                                                                                                                                                                                                        |
 | ChannelsCCAddress           | (string)  | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                                                                                                                                                                                                            |
@@ -93,16 +93,16 @@ The `sendrawtransaction` method then returns a `txid` which is used in the [chan
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name      | Type     | Description                                                                |
 | --------- | -------- | -------------------------------------------------------------------------- |
 | open_txid | (string) | the unique identifying txid that is created when a channel is first opened |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -145,17 +145,17 @@ If no `open_tx_id` argument is included, the method returns a list of all channe
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name      | Type               | Description                                                                |
 | --------- | ------------------ | -------------------------------------------------------------------------- |
 | open_txid | (string, optional) | the unique identifying txid that is created when a channel is first opened |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command executed successfully                                                                                                           |
-| name      | (string) | the name of the channel                                                                                                                             |
-| Open:     | (string) | a channel and its relevant information: address of the destination pubkey, number of payments, denomination per payment, and the channel open_tx_id |
+| Name   | Type     | Description                                                                                                                                         |
+| ------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command executed successfully                                                                                                           |
+| name   | (string) | the name of the channel                                                                                                                             |
+| Open:  | (string) | a channel and its relevant information: address of the destination pubkey, number of payments, denomination per payment, and the channel open_tx_id |
 
 #### :pushpin: Examples
 
@@ -209,7 +209,7 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name                     | Type     | Description                                             |
 | ------------------------ | -------- | ------------------------------------------------------- |
 | destination_pubkey       | (string) | the public key of the intended recipient of the channel |
 | total_number_of_payments | (number) | the total number of payments to allocate in the channel |
@@ -217,10 +217,10 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -273,7 +273,7 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name                     | Type     | Description                                             |
 | ------------------------ | -------- | ------------------------------------------------------- |
 | destination_pubkey       | (string) | the public key of the intended recipient of the channel |
 | total_number_of_payments | (number) | the total number of payments to allocate in the channel |
@@ -281,10 +281,10 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -337,7 +337,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name                     | Type     | Description                                             |
 | ------------------------ | -------- | ------------------------------------------------------- |
 | destination_pubkey       | (string) | the public key of the intended recipient of the channel |
 | total_number_of_payments | (number) | the total number of payments to allocate in the channel |
@@ -345,10 +345,10 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 

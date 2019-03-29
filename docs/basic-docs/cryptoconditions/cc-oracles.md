@@ -23,13 +23,13 @@ The `oraclesaddress` method displays the oracle address for a specific pubkey.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | -------------------------------------------------------------------------------------- |
-| pubkey    | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
+| Name   | Type               | Description                                                                            |
+| ------ | ------------------ | -------------------------------------------------------------------------------------- |
+| pubkey | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
 
 ### Response
 
-| Name | Type | Description | 
+| Name             | Type     | Description                                                                                                          |
 | ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
 | result           | (string) | whether the method executed successfully                                                                             |
 | OraclesCCaddress | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
@@ -75,7 +75,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                                                                                      |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | name        | (string) | the desired name of the oracle contract                                                                                          |
 | description | (string) | the description of the oracle                                                                                                    |
@@ -106,10 +106,10 @@ If data to be submitted is larger than `8KB`, break it into chunks of size `8KB`
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command succeeded                                                                        |
-| hex       | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name   | Type     | Description                                                                                          |
+| ------ | -------- | ---------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command succeeded                                                                        |
+| hex    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -266,17 +266,17 @@ An example script that can be used to produce data for an oracle of type `S` is 
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name       | Type     | Description                                                                                                                                                   |
 | ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | oracletxid | (string) | the unique identifying transaction id of the oracle                                                                                                           |
 | hexstring  | (string) | the first half of the string indicates the length of the string in bytes, the second half of the string is the data, typically provided in hex-encoded format |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command succeeded                                                                        |
-| hex       | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name   | Type     | Description                                                                                          |
+| ------ | -------- | ---------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command succeeded                                                                        |
+| hex    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -442,13 +442,13 @@ For a list of all `oracletxid`'s available on the asset chain, see the [oraclesl
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name       | Type     | Description                                         |
 | ---------- | -------- | --------------------------------------------------- |
 | oracletxid | (string) | the unique identifying transaction id of the oracle |
 
 ### Response
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                                                                                                             |
 | ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result      | (string) | whether the command executed successfully                                                                                                               |
 | txid        | (string) | the unique txid, or oracletxid, that identifies the oracle                                                                                              |
@@ -505,13 +505,13 @@ The `oraclelist` method lists all available oracle contracts on the asset chain.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
+| Name       | Type               | Description                          |
 | ---------- | ------------------ | ------------------------------------ |
 | oracletxid | (array of strings) | the unique identifying oracletxid(s) |
 
@@ -579,17 +579,17 @@ After the transaction confirms, use `oraclesinfo` to output registration informa
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name       | Type      | Description                                                                                 |
 | ---------- | --------- | ------------------------------------------------------------------------------------------- |
 | oracletxid | (string)  | the unique identifying transaction id of the oracle                                         |
 | datafee    | (numbers) | the fee required of a subscriber for each data point the publisher publishes in this oracle |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -713,7 +713,7 @@ The user indicates the desired publisher by inserting the `batonutxo` by the pub
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name       | Type     | Description                                                               |
 | ---------- | -------- | ------------------------------------------------------------------------- |
 | oracletxid | (string) | the unique identifying transaction id of the oracle contract              |
 | batonutxo  | (string) | the baton transaction id, which can be found using the oraclesinfo method |
@@ -721,7 +721,7 @@ The user indicates the desired publisher by inserting the `batonutxo` by the pub
 
 ### Response
 
-| Name | Type | Description | 
+| Name          | Type               | Description                               |
 | ------------- | ------------------ | ----------------------------------------- |
 | result        | (string)           | whether the command executed successfully |
 | samples:      | (array of strings) |
@@ -764,7 +764,7 @@ If the **datafee** is 10 COINS and the `amount` submitted is 1000 COINS, the pub
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name       | Type     | Description                                                                                                                                           |
 | ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | oracletxid | (string) | the unique identifying transaction id of the oracle                                                                                                   |
 | publisher  | (string) | the unique publisher id, which can be found using the oraclesinfo method                                                                              |
@@ -772,10 +772,10 @@ If the **datafee** is 10 COINS and the `amount` submitted is 1000 COINS, the pub
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command succeeded                                                                        |
-| hex       | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name   | Type     | Description                                                                                          |
+| ------ | -------- | ---------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command succeeded                                                                        |
+| hex    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
