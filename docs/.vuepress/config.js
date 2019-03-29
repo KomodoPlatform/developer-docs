@@ -103,6 +103,10 @@ module.exports = {
               "/basic-docs/cryptoconditions/cryptoconditions-instructions.md",
               "Instructions for Crypto Conditions"
             ],
+            [
+              "/basic-docs/cryptoconditions/activate-cc-assetchain.md",
+              "Activate CryptoConditions on an Existing Komodo Assetchain"
+            ],
             ["/basic-docs/cryptoconditions/cc-channels.md", "Channels"],
             ["/basic-docs/cryptoconditions/cc-dice.md", "Dice"],
             ["/basic-docs/cryptoconditions/cc-dilithium.md", "Dilithium"],
