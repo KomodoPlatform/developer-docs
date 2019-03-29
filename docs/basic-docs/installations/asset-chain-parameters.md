@@ -54,7 +54,7 @@ If both `ac_reward` and `ac_staked` are not set, the default block reward will b
 
 Komodo recommends that `ac_reward` be included in all asset chains. This prevents the asset chain from becoming an on-demand blockchain, and therefore this increases the asset chain's security.
 
-To make an asset chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The asset chain's first block will reward only the `-ac_supply` value, after which the `ac_reward` value will be `0`. 
+To make an asset chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The asset chain's first block will reward only the `-ac_supply` value, after which the `ac_reward` value will be `0`.
 
 #### :pushpin: Examples:
 
@@ -82,9 +82,9 @@ This parameter sets the average time (in seconds) by which a new block should be
 
 If this parameter is not included, the default value is `ac_blocktime=60`.
 
-When the value of `ac_blocktime` is less than `60`, the asset chain's block time will stabilize within less than twelve hours after launch. If the asset chain's `ac_blocktime` value is greater than `60`, the asset chain's block time can require several days to stabilize. 
+When the value of `ac_blocktime` is less than `60`, the asset chain's block time will stabilize within less than twelve hours after launch. If the asset chain's `ac_blocktime` value is greater than `60`, the asset chain's block time can require several days to stabilize.
 
-When the value of `ac_blocktime` is less than `12` seconds (a high speed asset chain), the variances in network quality between consensus nodes (miners and stakers) can create difficulties in achieving a stable blockchain consensus. High-speed asset chains may function effectively on a LAN or other stable network, but Komodo recommends caution when attempting to manage a high-speed asset chain on the public Internet. 
+When the value of `ac_blocktime` is less than `12` seconds (a high speed asset chain), the variances in network quality between consensus nodes (miners and stakers) can create difficulties in achieving a stable blockchain consensus. High-speed asset chains may function effectively on a LAN or other stable network, but Komodo recommends caution when attempting to manage a high-speed asset chain on the public Internet.
 
 #### :pushpin: Examples:
 
@@ -124,11 +124,11 @@ A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases b
 
 The `ac_ccactivate` launch parameter allows for the activation of CryptoConditions (CC) on an existing Komodo-based asset chain wherein CC was not originally enabled.
 
-Add the `ac_ccactivate` parameter to the existing launch command for the asset chain and set the value equal to a future block height. When this block height is reached, CC will be available on the asset chain. 
+Add the `ac_ccactivate` parameter to the existing launch command for the asset chain and set the value equal to a future block height. When this block height is reached, CC will be available on the asset chain.
 
 This change requires a hard fork of the asset chain. If the asset chain is receiving Komodo's dPoW security service, the notary nodes must relaunch their asset-chain daemons with the new launch parameter. All nodes must also update their daemons in the same manner.
 
-By default, `ac_ccactivate` uses the default `ac_cc` value of `ac_cc=2`. It is not necessary to further specify `ac_cc` in the launch parameters, unless a value other than `2` is required. 
+By default, `ac_ccactivate` uses the default `ac_cc` value of `ac_cc=2`. It is not necessary to further specify `ac_cc` in the launch parameters, unless a value other than `2` is required.
 
 #### :pushpin: Example:
 
@@ -181,6 +181,7 @@ A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decrea
 ```
 
 ## ac_eras
+
 The `ac_eras` parameter allows the value of a chain's block reward to vary over time.
 
 Each different time interval is called an "era" and a chain can have at most three eras.
@@ -234,6 +235,7 @@ Use the [getblocksubsidy](../komodo-api/mining.html#getblocksubsidy) rpc method 
 The `ac_perc` parameter has two different functionalities depending on the configuration of the chain parameters.
 
 #### ac_perc without ac_founders
+
 When `ac_perc` is used without [-ac_founders](../installations/asset-chain-parameters.html#ac-founders) the chain will follow an inflation tax model. In this model, the `-ac_perc` parameter is the percentage added to the block reward, and the transactions that allocate these rewards are sent to the `-ac_pubkey` address. Naturally, for this configuration to function the `-ac_pubkey` parameter must be included.
 
 For example, if `-ac_reward=100000000` and `-ac_perc=10000000`, for each block mined the miner receives 100000000 satoshis (1 coin), and the owner of the `-ac_pubkey` address receives 10000000 satoshis (0.1 coin, which is 10% of the miner's reward). The amount sent to the pubkey is not taken from the user, rather it is created at this point. Therefore, each transaction inflates the overall coin supply.
@@ -252,7 +254,7 @@ Please see the [-ac_founders](../installations/asset-chain-parameters.html#ac-fo
 
 This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
 
-Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW. 
+Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW.
 
 For the first `100000` blocks, the `pubkey` address receives at least 1 coin for every mined block (an additional 10% above the block reward). The pubkey address also receives at least an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block. The extra amount sent to the `pubkey` address derives from blocks that are mined via `ac_staked`, the rewards of which are calculated into `ac_perc`.
 
@@ -266,7 +268,7 @@ After the first `100000` blocks, the rewards from `ac_staked` are no longer incl
 
 The `ac_founders` parameter creates a "founder's reward."
 
-This parameter requires [ac_perc](../installations/asset-chain-parameters.html#ac-perc). If the `ac_perc` value is not declared, the `ac_founders` value defaults to `35%`.  Also, either [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) OR [ac_script](../installations/asset-chain-parameters.html#ac-script) must be set.
+This parameter requires [ac_perc](../installations/asset-chain-parameters.html#ac-perc). If the `ac_perc` value is not declared, the `ac_founders` value defaults to `35%`. Also, either [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) OR [ac_script](../installations/asset-chain-parameters.html#ac-script) must be set.
 
 The `ac_perc` value determines the percentage of block rewards paid to the founder. These rewards are not paid out immediately, but rather according to the `ac_founders` setting.
 
@@ -300,7 +302,7 @@ The `pubkey` must be a 66 character string (a compressed pubkey). You can find t
 
 This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
 
-Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW. 
+Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW.
 
 For the first `100000` blocks, the `pubkey` address receives at least 1 coin for every mined block (an additional 10% above the block reward). The pubkey address also receives at least an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block. The extra amount sent to the `pubkey` address derives from blocks that are mined via `ac_staked`, the rewards of which are calculated into `ac_perc`.
 
@@ -329,6 +331,7 @@ komodo-cli -ac_name=EXAMPLE createmultisig 2 "[\"RMnZJpfLbFHUxMS3HM5gkvtFKeduhr9
 ```
 
 Response:
+
 ```
 {
 	"address": "bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV",
@@ -389,11 +392,11 @@ The `ac_cc` parameter sets the network cluster on which the chain can interact w
 
 Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one asset chain can be directly transferred to any other asset chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
 
-
 Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, cross-chain transaction validation and its dependent features, including cross-chain fungibility, require notarization.
+
 ### ac_cc=0
 
-Setting `ac_cc=0` disables CryptoConditions on the asset chain entirely. 
+Setting `ac_cc=0` disables CryptoConditions on the asset chain entirely.
 
 ::: tip
 It is better to <b>NOT</b> use `ac_cc=0` for an asset chain where CryptoConditions should not be enabled. Omitting the `ac_cc` parameter altogether will achieve the same result.
@@ -420,12 +423,13 @@ For example, an asset chain set to `ac_cc=201` in its parameters can interact wi
 ### Summary of `ac_cc`
 
 ::: tip Consider a chain with -ac_cc=N
-* If <b>N = 0</b>, CryptoConditions is disabled
-* If <b>N > 0</b>, CryptoConditions is enabled
-* If <b>N = 1</b>, on-chain CryptoConditions is active, cross-chain validation is disabled
-* If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in each asset chain are non-fungible across chains.
-* If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
-:::
+
+- If <b>N = 0</b>, CryptoConditions is disabled
+- If <b>N > 0</b>, CryptoConditions is enabled
+- If <b>N = 1</b>, on-chain CryptoConditions is active, cross-chain validation is disabled
+- If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in each asset chain are non-fungible across chains.
+- If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
+  :::
 
 #### :pushpin: Examples:
 
@@ -461,14 +465,14 @@ Measurements of the `PoS:PoW` ratio are approximate; the PoW difficulty will aut
 
 When creating a chain with the `ac_staked` parameter, the creation process is slightly different.
 
-* Start both the first and second nodes **without** `-gen -genproclimit=0`.
-* Once both are connected, execute `setgenerate true 1` on the node that should receive the pre-mine.
-* Observe the debug.log by executing `tail -f ~/.komodo/<CHAIN>/debug.log`
-* Wait for the asset chain to mine two blocks
-* Execute `setgenerate false` to stop mining
-* All of the coins (including the pre-mine) are now located on the node that mined two blocks. Do not split them with a normal transaction. Rather, split them using this tool: [link](https://github.com/KMDLabs/pos64staker).
-* Send coins to the other node, and on both nodes use the `generate` method to begin staking.
-* Use the [getbalance64](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10.
+- Start both the first and second nodes **without** `-gen -genproclimit=0`.
+- Once both are connected, execute `setgenerate true 1` on the node that should receive the pre-mine.
+- Observe the debug.log by executing `tail -f ~/.komodo/<CHAIN>/debug.log`
+- Wait for the asset chain to mine two blocks
+- Execute `setgenerate false` to stop mining
+- All of the coins (including the pre-mine) are now located on the node that mined two blocks. Do not split them with a normal transaction. Rather, split them using this tool: [link](https://github.com/KMDLabs/pos64staker).
+- Send coins to the other node, and on both nodes use the `generate` method to begin staking.
+- Use the [getbalance64](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10.
 
 Following the above instructions will ensure that the asset chain is stable.
 
@@ -582,7 +586,6 @@ This can also be used to activate sapling prior to block 61. (Activating sapling
 
 To delay sapling activation, set `ac_sapling` to a block height far in the future. For example, `-ac_sapling=5000000` will delay sapling activation to block `5000000`. At block `5000000` sapling will be activated.
 
-
 ## ac_timelock...
 
 **-ac_timeunlockgte=satoshis -ac_timelockfrom=height -ac_timelockto=height**
@@ -591,7 +594,7 @@ The `ac_timelock...` parameters enforce "coinbase locking".
 
 In coinbase locking, the asset chain's block-reward feature behaves in a different manner compared to a default asset chain. Any block reward that is greater than or equal to the `ac_timeunlockgte` satoshi amount is temporarily locked. It will be unlocked (and therefore spendable) on a random block between the `ac_timelockfrom` and `ac_timelockto` heights.
 
-The random unlock time for each reward is independent of the unlock time of other rewards.  
+The random unlock time for each reward is independent of the unlock time of other rewards.
 
 For example:
 
@@ -643,7 +646,7 @@ The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` doe
 
 ## ac_cclib
 
-The `ac_cclib` parameter is used in conjunction with various CryptoConditions modules. 
+The `ac_cclib` parameter is used in conjunction with various CryptoConditions modules.
 
 Typically, the asset chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each CryptoConditions module in question. Once the asset chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
 
@@ -651,7 +654,7 @@ Typically, the asset chain that uses the `ac_cclib` parameter will have a unique
 -ac_cclib=desired_CC_module
 ```
 
-Each CC module uses the `ac_cclib` parameter differently, and therefore the reader should refer to the desired CryptoConditions module for further instructions.  
+Each CC module uses the `ac_cclib` parameter differently, and therefore the reader should refer to the desired CryptoConditions module for further instructions.
 
 ## ac_ccenable
 
@@ -663,9 +666,29 @@ The `ac_ccenable` parameter restricts the asset chain so that only indicated Cry
 
 To indicate which CryptoConditions modules should be available, insert each module's eval code in decimal and separated by commas. A list of all eval codes can be found [here](https://github.com/jl777/komodo/blob/master/src/cc/eval.h).
 
+For a quick reference, see:
+
+| Name of the module | EvalCode |
+| ------------------ | -------- |
+| ASSETS             | 227      |
+| FAUCET             | 228      |
+| REWARDS            | 229      |
+| DICE               | 230      |
+| FSM                | 231      |
+| AUCTION            | 232      |
+| LOTTO              | 233      |
+| HEIR               | 234      |
+| CHANNELS           | 235      |
+| ORACLES            | 236      |
+| PRICES             | 237      |
+| PEGS               | 238      |
+| TRIGGERS           | 239      |
+| PAYMENTS           | 240      |
+| GATEWAYS           | 241      |
+
 For example, the following parameters create an asset chain where only the `faucet` and `rewards` modules are active:
 
-```
+```bash
 komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable=228,229
 ```
 
