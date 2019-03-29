@@ -415,8 +415,8 @@ The `maxodds` property must be between 1 and 9999.
 | ------------- | -------- | ---------------------------------------------------------------------------------------- |
 | name          | (string) | the name of the user's dice contract                                                               |
 | funds         | (number) | the amount of funds with which the user desires to start                                               |
-| maxbet        | (number) | the maximum amount allowed for a bet                                                           |
 | minbet        | (number) | the minimum amount allowed for a bet                                                           |
+| maxbet        | (number) | the maximum amount allowed for a bet                                                           |
 | maxodds       | (number) | the largest odds an end-user can use for betting                                         |
 | timeoutblocks | (number) | the number of blocks before the contract times out and pays the automatically declared winner |
 
