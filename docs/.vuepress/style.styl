@@ -1,0 +1,26 @@
+.introductoryImage {
+    padding: 1rem;
+    float: right;
+    width: 40%;
+}
+
+.mobileIntroductoryImage {
+    visibility: hidden;
+    width: 0%;
+}
+
+@media (max-width: 749px) {
+
+    .introductoryImage {
+        visibility: hidden;
+        width: 0%;
+    }
+
+    .mobileIntroductoryImage {
+        visibility: visible;
+        width: 100%;
+    }
+}
+
+@media (max-width: 419px) {
+}
