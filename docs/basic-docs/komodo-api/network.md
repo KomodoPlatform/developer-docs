@@ -4,24 +4,24 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## addnode
 
-### addnode "node" "add|remove|onetry"
+**addnode "node" "add|remove|onetry"**
 
 The `addnode` method attempts to add or remove a node from the addnode list, or to make a single attempt to connect to a node.
 
-### Arguments
+### Arguments:
 
-| Name      | Type               | Description                                                                                                             |
+| Structure | Type               | Description                                                                                                             |
 | --------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 | "node"    | (string, required) | the node (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes)                                          |
 | "command" | (string, required) | 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once |
 
-### Response
+### Response:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -29,13 +29,11 @@ Command:
 ./komodo-cli addnode "192.168.0.6:8233" "onetry"
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```bash
 (none)
 ```
-
-</collapse-text>
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -45,33 +43,31 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addnode", "params": ["192.168.0.6:8233", "onetry"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```bash
 (none)
 ```
 
-</collapse-text>
-
 ## clearbanned
 
-### clearbanned
+**clearbanned**
 
 The `clearbanned` method clears all banned IPs.
 
-### Arguments
+### Arguments:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
-### Response
+### Response:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -79,13 +75,11 @@ Command:
 ./komodo-cli clearbanned
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```bash
 (none)
 ```
-
-</collapse-text>
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -95,35 +89,33 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "clearbanned", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```bash
 (none)
 ```
 
-</collapse-text>
-
 ## disconnectnode
 
-### disconnectnode "node"
+**disconnectnode "node"**
 
 The `disconnectnode` method instructs the daemon to immediately disconnect from the specified node.
 
 Use `getpeerinfo` to determine the result.
 
-### Arguments
+### Arguments:
 
-| Name   | Type               | Description                                                                              |
-| ------ | ------------------ | ---------------------------------------------------------------------------------------- |
-| "node" | (string, required) | the node's address (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes) |
+| Structure | Type               | Description                                                                              |
+| --------- | ------------------ | ---------------------------------------------------------------------------------------- |
+| "node"    | (string, required) | the node's address (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes) |
 
-### Response
+### Response:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -131,13 +123,11 @@ Command:
 ./komodo-cli disconnectnode "192.168.0.6:8233"
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```bash
 (none)
 ```
-
-</collapse-text>
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -147,17 +137,15 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "disconnectnode", "params": ["192.168.0.6:8233"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```bash
 (none)
 ```
 
-</collapse-text>
-
 ## getaddednodeinfo
 
-### getaddednodeinfo dns ( "node" )
+**getaddednodeinfo dns ( "node" )**
 
 The `getaddednodeinfo` method returns information about the given added node, or all added nodes.
 
@@ -167,16 +155,16 @@ If `dns` is set to `false`, only a list of added nodes is returned. Otherwise, c
 Nodes added via <b>onetry</b> are not listed here.
 :::
 
-### Arguments
+### Arguments:
 
-| Name   | Type                | Description                                                                                               |
-| ------ | ------------------- | --------------------------------------------------------------------------------------------------------- |
-| dns    | (boolean, required) | if false, only a list of added nodes will be provided; otherwise, connection information is also provided |
-| "node" | (string, optional)  | if provided, the method returns information about this specific node; otherwise, all nodes are returned   |
+| Structure | Type                | Description                                                                                               |
+| --------- | ------------------- | --------------------------------------------------------------------------------------------------------- |
+| dns       | (boolean, required) | if false, only a list of added nodes will be provided; otherwise, connection information is also provided |
+| "node"    | (string, optional)  | if provided, the method returns information about this specific node; otherwise, all nodes are returned   |
 
-### Response
+### Response:
 
-| Name                  | Type             | Description                                                      |
+| Structure             | Type             | Description                                                      |
 | --------------------- | ---------------- | ---------------------------------------------------------------- |
 | "addednode"           | (string)         | the node ip address                                              |
 | "connected"           | (boolean)        | if connected                                                     |
@@ -184,7 +172,7 @@ Nodes added via <b>onetry</b> are not listed here.
 | "address"             | (string)         | the server host and port                                         |
 | "connected"           | (string)         | "connected" accepts two possible values: "inbound" or "outbound" |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -192,7 +180,7 @@ Command:
 ./komodo-cli getaddednodeinfo true
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 [
@@ -209,15 +197,13 @@ Command:
 ]
 ```
 
-</collapse-text>
-
 Command:
 
 ```bash
 ./komodo-cli getaddednodeinfo true "78.47.205.239"
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 [
@@ -234,8 +220,6 @@ Command:
 ]
 ```
 
-</collapse-text>
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -244,7 +228,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddednodeinfo", "params": [true, "78.47.205.239"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -265,27 +249,25 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 }
 ```
 
-</collapse-text>
-
 ## getconnectioncount
 
-### getconnectioncount
+**getconnectioncount**
 
 The `getconnectioncount` method returns the number of connections to other nodes.
 
-### Arguments
+### Arguments:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
-### Response
+### Response:
 
-| Name | Type      | Description          |
-| ---- | --------- | -------------------- |
-| n    | (numeric) | the connection count |
+| Structure | Type      | Description          |
+| --------- | --------- | -------------------- |
+| n         | (numeric) | the connection count |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -293,13 +275,11 @@ Command:
 ./komodo-cli getconnectioncount
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```bash
 10
 ```
-
-</collapse-text>
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -309,7 +289,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getconnectioncount", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -319,11 +299,9 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 }
 ```
 
-</collapse-text>
-
 ## getdeprecationinfo
 
-### getdeprecationinfo
+**getdeprecationinfo**
 
 The `getdeprecationinfo` method returns an object containing current version and deprecation block height.
 
@@ -331,21 +309,21 @@ The `getdeprecationinfo` method returns an object containing current version and
 This method is applicable only to the KMD main net.
 :::
 
-### Arguments
+### Arguments:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
-### Response
+### Response:
 
-| Name                | Type      | Description                                                                                                                                      |
+| Structure           | Type      | Description                                                                                                                                      |
 | ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | "version"           | (numeric) | the server version                                                                                                                               |
 | "subversion"        | (string)  | the server sub-version string (i.e. "/MagicBean:x.y.z[-v]/")                                                                                     |
 | "deprecationheight" | (numeric) | the block height at which this version will deprecate and shut down (unless [disabledeprecation](https://z.cash/blog/new-release-1-1-2/) is set) |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -353,7 +331,7 @@ Command:
 ./komodo-cli getdeprecationinfo
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -363,8 +341,6 @@ Command:
 }
 ```
 
-</collapse-text>
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -373,7 +349,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getdeprecationinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -387,29 +363,27 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 }
 ```
 
-</collapse-text>
-
 ## getnettotals
 
-### getnettotals
+**getnettotals**
 
 The `getnettotals` method returns information about network traffic, including bytes in, bytes out, and current time.
 
-### Arguments
+### Arguments:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
-### Response
+### Response:
 
-| Name             | Type      | Description          |
+| Structure        | Type      | Description          |
 | ---------------- | --------- | -------------------- |
 | "totalbytesrecv" | (numeric) | total bytes received |
 | "totalbytessent" | (numeric) | total bytes sent     |
 | "timemillis"     | (numeric) | total cpu time       |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -417,7 +391,7 @@ Command:
 ./komodo-cli getnettotals
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -427,8 +401,6 @@ Command:
 }
 ```
 
-</collapse-text>
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -437,7 +409,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnettotals", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -451,23 +423,21 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 }
 ```
 
-</collapse-text>
-
 ## getnetworkinfo
 
-### getnetworkinfo
+**getnetworkinfo**
 
 The `getnetworkinfo` method returns an object containing various state info regarding p2p networking.
 
-### Arguments
+### Arguments:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
-### Response
+### Response:
 
-| Name                      | Type             | Description                                                                          |
+| Structure                 | Type             | Description                                                                          |
 | ------------------------- | ---------------- | ------------------------------------------------------------------------------------ |
 | "version"                 | (numeric)        | the server version                                                                   |
 | "subversion"              | (string)         | the server subversion string (i.e. "/MagicBean:x.y.z[-v]/")                          |
@@ -487,7 +457,7 @@ The `getnetworkinfo` method returns an object containing various state info rega
 | "score"                   | (numeric)        | relative score                                                                       |
 | "warnings"                | (string)         | any network warnings (such as alert messages)                                        |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -495,7 +465,7 @@ Command:
 ./komodo-cli getnetworkinfo
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -534,8 +504,6 @@ Command:
 }
 ```
 
-</collapse-text>
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -544,7 +512,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworkinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -587,23 +555,21 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 }
 ```
 
-</collapse-text>
-
 ## getpeerinfo
 
-### getpeerinfo
+**getpeerinfo**
 
 The `getpeerinfo` method returns data about each connected network node as a json array of objects.
 
-### Arguments
+### Arguments:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
-### Response
+### Response:
 
-| Name                | Type      | Description                                                          |
+| Structure           | Type      | Description                                                          |
 | ------------------- | --------- | -------------------------------------------------------------------- |
 | "id"                | (numeric) | peer index                                                           |
 | "addr":,            | (string)  | the ip address and port of the peer ("host:port")                    |
@@ -627,7 +593,7 @@ The `getpeerinfo` method returns data about each connected network node as a jso
 | "inflight": [ ... ] | (array)   |
 | number              | (numeric) | the block height requested from this peer                            |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -635,7 +601,7 @@ Command:
 ./komodo-cli getpeerinfo
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 [
@@ -664,8 +630,6 @@ Command:
 ]
 ```
 
-</collapse-text>
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -674,7 +638,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getpeerinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -707,28 +671,26 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 }
 ```
 
-</collapse-text>
-
 ## listbanned
 
-### listbanned
+**listbanned**
 
 The `listbanned` method lists all banned IP addresses and subnets.
 
-### Arguments
+### Arguments:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
-### Response
+### Response:
 
-| Name           | Type      | Description                                           |
+| Structure      | Type      | Description                                           |
 | -------------- | --------- | ----------------------------------------------------- |
 | "address"      | (string)  | the address/subnet that is banned                     |
 | "banned_until" | (numeric) | the timestamp, at which point the ban will be removed |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -736,7 +698,7 @@ Command:
 ./komodo-cli listbanned
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 [
@@ -747,8 +709,6 @@ Command:
 ]
 ```
 
-</collapse-text>
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -757,7 +717,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listbanned", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -772,11 +732,9 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 }
 ```
 
-</collapse-text>
-
 ## ping
 
-### ping
+**ping**
 
 The `ping` method requests that a ping be sent to all other nodes, to measure ping time.
 
@@ -788,19 +746,19 @@ The `ping` command is handled in queue with all other commands, so it measures p
 Use <b>getpeerinfo</b> to see <b>ping</b> results.
 :::
 
-### Arguments
+### Arguments:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
-### Response
+### Response:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -808,13 +766,11 @@ Command:
 ./komodo-cli ping
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```bash
 (none)
 ```
-
-</collapse-text>
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -824,7 +780,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "ping", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -834,34 +790,32 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 }
 ```
 
-</collapse-text>
-
 ## setban
 
-### setban "ip(/netmask)" "add|remove" (bantime) (absolute)
+**setban "ip(/netmask)" "add|remove" (bantime) (absolute)**
 
 The `setban` method attempts to add or remove an IP address (and subnet, if indicated) from the banned list.
 
-### Arguments
+### Arguments:
 
-| Name           | Type                  | Description                                                                                                                                                                                                            |
+| Structure      | Type                  | Description                                                                                                                                                                                                            |
 | -------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "ip(/netmask)" | (string, ip required) | the IP/subnet (see `getpeerinfo` for nodes ip) with an optional netmask (default is /32 = single ip)                                                                                                                   |
 | "command"      | (string, required)    | use "add" to add an IP/subnet to the list, or "remove" to remove an IP/subnet from the list                                                                                                                            |
 | bantime        | (numeric, optional)   | indicates how long (in seconds) the ip is banned (or until when, if [absolute] is set). 0 or empty means the ban is using the default time of 24h, which can also be overwritten using the -bantime runtime parameter. |
 | absolute       | (boolean, optional)   | if set to true, the bantime must be an absolute timestamp (in seconds) since epoch (Jan 1 1970 GMT)                                                                                                                    |
 
-### Response
+### Response:
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
+| Structure | Type | Description |
+| --------- | ---- | ----------- |
+| (none)    |      |
 
 ::: tip
 Use <b>listbanned</b> to view results.
 :::
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -869,13 +823,11 @@ Command:
 ./komodo-cli setban "192.168.0.6" "add" 86400
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```bash
 (none)
 ```
-
-</collapse-text>
 
 Command:
 
@@ -883,13 +835,11 @@ Command:
 ./komodo-cli setban "192.168.0.0/24" "add"
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```bash
 (none)
 ```
-
-</collapse-text>
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -899,10 +849,8 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setban", "params": ["78.47.205.239", "add", 86400] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```bash
 (none)
 ```
-
-</collapse-text>
