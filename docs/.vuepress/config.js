@@ -320,7 +320,7 @@ module.exports = {
           collapsable: true,
           children: [
             [
-              "/komodo/npm-module-komodo-reward.md",
+              "/komodo/npm-module-komodo-rewards.md",
               "NPM module to calculate Komodo Rewards"
             ],
             [
