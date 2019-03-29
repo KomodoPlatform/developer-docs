@@ -43,7 +43,7 @@ The hex value of the burn transaction along with the other returned value `payou
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name          | Type                | Description                                                                                                                                                                                                                          |
 | ------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | "destChain"   | (string, required)  | the destination chain name                                                                                                                                                                                                           |
 | "destAddress" | (string, required)  | address on the destination chain where coins are to be sent or pubkey if tokens are to be sent                                                                                                                                       |
@@ -52,7 +52,7 @@ The hex value of the burn transaction along with the other returned value `payou
 
 ### Response
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                                                              |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------- |
 | "payouts"   | (string) | a hex string of the created payouts (to be passed into migrate_createimporttransaction rpc method later) |
 | "BurnTxHex" | (string) | a hex string of the created burn transaction                                                             |
@@ -73,14 +73,14 @@ The other returned value `payouts` should be passed to the next method `migrate_
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type               | Description                 |
 | ----------- | ------------------ | --------------------------- |
 | "burntx"    | (string, required) | the burn transaction in hex |
 | "destChain" | (string, required) | the destination chain name  |
 
 ### Response
 
-| Name | Type | Description | 
+| Name       | Type     | Description                                                                                              |
 | ---------- | -------- | -------------------------------------------------------------------------------------------------------- |
 | "payouts"  | (string) | a hex string of the created payouts (to be passed into migrate_createimporttransaction rpc method later) |
 | "exportTx" | (string) | a hex string of the returned burn transaction                                                            |
@@ -99,7 +99,7 @@ For MoMoM backup solution (see later) the created import transaction is not pass
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name          | Type               | Description                                                                                    |
 | ------------- | ------------------ | ---------------------------------------------------------------------------------------------- |
 | "burntx"      | (string, required) | burn transaction in hex created on the previous step                                           |
 | "payouts"     | (string, required) | payouts object in hex created on the previous step and used for creating an import transaction |
@@ -110,7 +110,7 @@ For MoMoM backup solution (see later) the created import transaction is not pass
 
 ### Response
 
-| Name | Type | Description | 
+| Name          | Type     | Description                                    |
 | ------------- | -------- | ---------------------------------------------- |
 | "ImportTxHex" | (string) | a hex string of the created import transaction |
 
@@ -127,14 +127,14 @@ In case of errors which may be returned while sending the import transaction it 
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name       | Type               | Description                                                       |
 | ---------- | ------------------ | ----------------------------------------------------------------- |
 | "importtx" | (string, required) | burn transaction in hex created on the previous step              |
 | "offset"   | (string, optional) | offset of the current kmd blockchain height to search for a MoMoM |
 
 ### Response
 
-| Name | Type | Description | 
+| Name          | Type     | Description                                                        |
 | ------------- | -------- | ------------------------------------------------------------------ |
 | "ImportTxHex" | (string) | import transaction in hex extended with MoMoM proof of the burn tx |
 
@@ -158,13 +158,13 @@ The `migrate_checkburntransactionsource` method allows to a notary operator to c
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | --------------------------- |
-| "burntx"  | (string, required) | the burn transaction in hex |
+| Name     | Type               | Description                 |
+| -------- | ------------------ | --------------------------- |
+| "burntx" | (string, required) | the burn transaction in hex |
 
 ### Response
 
-| Name | Type | Description | 
+| Name           | Type               | Description                                             |
 | -------------- | ------------------ | ------------------------------------------------------- |
 | "sourceSymbol" | (string)           | source chain name                                       |
 | "targetSymbol" | (string)           | target chain name                                       |
@@ -181,14 +181,14 @@ Returned notary transaction should be sent to the destination chain with `sendra
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name         | Type               | Description                                 |
 | ------------ | ------------------ | ------------------------------------------- |
 | "burntxid"   | (string, required) | the burn transaction id                     |
 | "txoutproof" | (string, required) | the proof of the burn transaction existence |
 
 ### Response
 
-| Name | Type | Description | 
+| Name          | Type     | Description                        |
 | ------------- | -------- | ---------------------------------- |
 | "NotaryTxHex" | (string) | notary approval transaction in hex |
 
@@ -207,14 +207,14 @@ Then, after the source transaction is mined, the import transactions also should
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name          | Type               | Description                                |
 | ------------- | ------------------ | ------------------------------------------ |
 | "destAddress" | (string, required) | address where created coins should be sent |
 | "amount"      | (number, required) | amount in coins to create                  |
 
 ### Response
 
-| Name | Type | Description | 
+| Name          | Type     | Description               |
 | ------------- | -------- | ------------------------- |
 | "SourceTxHex" | (string) | source transaction in hex |
 | "ImportTxHex" | (string) | import transaction in hex |
@@ -231,14 +231,14 @@ The `calc_MoM` method calculates merkle root of blocks' merkle roots (MoM) value
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name       | Type               | Description                                    |
 | ---------- | ------------------ | ---------------------------------------------- |
 | "height"   | (number, required) | block height from which MoM calculation begins |
 | "MoMdepth" | (number, required) | number of blocks to include in MoM calculation |
 
 ### Response
 
-| Name | Type | Description | 
+| Name       | Type     | Description                                    |
 | ---------- | -------- | ---------------------------------------------- |
 | "coin"     | (string) | chain name                                     |
 | "height"   | (string) | starting block height                          |
@@ -253,7 +253,7 @@ The `MoMoMdata` method calculates merkle root of merkle roots of blocks' merkle 
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type               | Description                                         |
 | ----------- | ------------------ | --------------------------------------------------- |
 | "symbol"    | (string, required) | chain name for which data MoMoM value is calculated |
 | "kmdheight" | (number, required) | number of blocks to include in MoM calculation      |
@@ -261,7 +261,7 @@ The `MoMoMdata` method calculates merkle root of merkle roots of blocks' merkle 
 
 ### Response
 
-| Name | Type | Description | 
+| Name               | Type     | Description                                               |
 | ------------------ | -------- | --------------------------------------------------------- |
 | "coin"             | (string) | chain name                                                |
 | "kmdheight"        | (string) | starting block height                                     |
@@ -278,9 +278,9 @@ For given transaction id the `assetchainproof` method scans the chain for the ba
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | --------------------------------------------------- |
-| "txid"    | (string, required) | transaction id for which a proof object is returned |
+| Name   | Type               | Description                                         |
+| ------ | ------------------ | --------------------------------------------------- |
+| "txid" | (string, required) | transaction id for which a proof object is returned |
 
 ### Response
 
@@ -294,7 +294,7 @@ For the block hash returns notarisation transactions within the block.
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type               | Description                                 |
 | ----------- | ------------------ | ------------------------------------------- |
 | "blockHash" | (string, required) | block hash where notarisations are searched |
 
@@ -310,7 +310,7 @@ Scans notarisations db backwards from the block height for a notarisation of giv
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name          | Type               | Description                                                |
 | ------------- | ------------------ | ---------------------------------------------------------- |
 | "blockHeight" | (number, required) | starting block height where notarisations are searched     |
 | "symbol"      | (string, required) | chain name for which notarisations are searched            |
@@ -332,13 +332,13 @@ The `getimports` lists import transactions in the chain's block appointed by a b
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name             | Type                         | Description                                             |
 | ---------------- | ---------------------------- | ------------------------------------------------------- |
 | "hash or height" | (string or number, required) | block's hash or height to search import transactions in |
 
 ### Response
 
-| Name | Type | Description | 
+| Name             | Type              | Description                                   |
 | ---------------- | ----------------- | --------------------------------------------- |
 | "transaction id" | (string)          | import transaction id                         |
 | "amount"         | (number)          | import transaction value in coins             |
@@ -363,7 +363,7 @@ none
 
 ### Response
 
-| Name | Type | Description | 
+| Name           | Type               | Description                    |
 | -------------- | ------------------ | ------------------------------ |
 | "txid"         | (string)           | burn transaction id            |
 | "burnedAmount" | (number)           | burned value in coins          |

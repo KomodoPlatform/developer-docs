@@ -14,7 +14,7 @@ The `z_getpaymentdisclosure` method generates a payment disclosure for a given j
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name           | Type               | Description                       |
 | -------------- | ------------------ | --------------------------------- |
 | "txid"         | (string, required) | <!--need to fill in this table--> |
 | "js_index"     | (string, required) |                                   |
@@ -23,7 +23,7 @@ The `z_getpaymentdisclosure` method generates a payment disclosure for a given j
 
 ### Response
 
-| Name | Type | Description | 
+| Name                | Type     | Description                             |
 | ------------------- | -------- | --------------------------------------- |
 | "paymentdisclosure" | (string) | a hex data string, with a "zpd:" prefix |
 
@@ -71,13 +71,13 @@ EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name                | Type               | Description                         |
 | ------------------- | ------------------ | ----------------------------------- |
 | "paymentdisclosure" | (string, required) | hex data string, with "zpd:" prefix |
 
 ### Response
 
-| Name | Type | Description | 
+| Name                 | Type | Description |
 | -------------------- | ---- | ----------- |
 | (currently disabled) |      |
 

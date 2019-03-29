@@ -10,16 +10,16 @@ The `addnode` method attempts to add or remove a node from the addnode list, or 
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name      | Type               | Description                                                                                                             |
 | --------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 | "node"    | (string, required) | the node (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes)                                          |
 | "command" | (string, required) | 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 #### :pushpin: Examples
 
@@ -61,15 +61,15 @@ The `clearbanned` method clears all banned IPs.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 #### :pushpin: Examples
 
@@ -113,15 +113,15 @@ Use `getpeerinfo` to determine the result.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | ---------------------------------------------------------------------------------------- |
-| "node"    | (string, required) | the node's address (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes) |
+| Name   | Type               | Description                                                                              |
+| ------ | ------------------ | ---------------------------------------------------------------------------------------- |
+| "node" | (string, required) | the node's address (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes) |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 #### :pushpin: Examples
 
@@ -169,14 +169,14 @@ Nodes added via <b>onetry</b> are not listed here.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------- | --------------------------------------------------------------------------------------------------------- |
-| dns       | (boolean, required) | if false, only a list of added nodes will be provided; otherwise, connection information is also provided |
-| "node"    | (string, optional)  | if provided, the method returns information about this specific node; otherwise, all nodes are returned   |
+| Name   | Type                | Description                                                                                               |
+| ------ | ------------------- | --------------------------------------------------------------------------------------------------------- |
+| dns    | (boolean, required) | if false, only a list of added nodes will be provided; otherwise, connection information is also provided |
+| "node" | (string, optional)  | if provided, the method returns information about this specific node; otherwise, all nodes are returned   |
 
 ### Response
 
-| Name | Type | Description | 
+| Name                  | Type             | Description                                                      |
 | --------------------- | ---------------- | ---------------------------------------------------------------- |
 | "addednode"           | (string)         | the node ip address                                              |
 | "connected"           | (boolean)        | if connected                                                     |
@@ -275,15 +275,15 @@ The `getconnectioncount` method returns the number of connections to other nodes
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | --------- | -------------------- |
-| n         | (numeric) | the connection count |
+| Name | Type      | Description          |
+| ---- | --------- | -------------------- |
+| n    | (numeric) | the connection count |
 
 #### :pushpin: Examples
 
@@ -333,13 +333,13 @@ This method is applicable only to the KMD main net.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
+| Name                | Type      | Description                                                                                                                                      |
 | ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | "version"           | (numeric) | the server version                                                                                                                               |
 | "subversion"        | (string)  | the server sub-version string (i.e. "/MagicBean:x.y.z[-v]/")                                                                                     |
@@ -397,13 +397,13 @@ The `getnettotals` method returns information about network traffic, including b
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
+| Name             | Type      | Description          |
 | ---------------- | --------- | -------------------- |
 | "totalbytesrecv" | (numeric) | total bytes received |
 | "totalbytessent" | (numeric) | total bytes sent     |
@@ -461,13 +461,13 @@ The `getnetworkinfo` method returns an object containing various state info rega
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
+| Name                      | Type             | Description                                                                          |
 | ------------------------- | ---------------- | ------------------------------------------------------------------------------------ |
 | "version"                 | (numeric)        | the server version                                                                   |
 | "subversion"              | (string)         | the server subversion string (i.e. "/MagicBean:x.y.z[-v]/")                          |
@@ -597,13 +597,13 @@ The `getpeerinfo` method returns data about each connected network node as a jso
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
+| Name                | Type      | Description                                                          |
 | ------------------- | --------- | -------------------------------------------------------------------- |
 | "id"                | (numeric) | peer index                                                           |
 | "addr":,            | (string)  | the ip address and port of the peer ("host:port")                    |
@@ -717,13 +717,13 @@ The `listbanned` method lists all banned IP addresses and subnets.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
+| Name           | Type      | Description                                           |
 | -------------- | --------- | ----------------------------------------------------- |
 | "address"      | (string)  | the address/subnet that is banned                     |
 | "banned_until" | (numeric) | the timestamp, at which point the ban will be removed |
@@ -790,15 +790,15 @@ Use <b>getpeerinfo</b> to see <b>ping</b> results.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 #### :pushpin: Examples
 
@@ -844,7 +844,7 @@ The `setban` method attempts to add or remove an IP address (and subnet, if indi
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name           | Type                  | Description                                                                                                                                                                                                            |
 | -------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "ip(/netmask)" | (string, ip required) | the IP/subnet (see `getpeerinfo` for nodes ip) with an optional netmask (default is /32 = single ip)                                                                                                                   |
 | "command"      | (string, required)    | use "add" to add an IP/subnet to the list, or "remove" to remove an IP/subnet from the list                                                                                                                            |
@@ -853,9 +853,9 @@ The `setban` method attempts to add or remove an IP address (and subnet, if indi
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ::: tip
 Use <b>listbanned</b> to view results.

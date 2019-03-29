@@ -66,15 +66,15 @@ While shielded z_address technology is available on all KMD-based asset chains, 
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name             | Type               | Description                                       |
 | ---------------- | ------------------ | ------------------------------------------------- |
 | "depositaddress" | (string, required) | the address from which Jumblr will withdraw funds |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### :pushpin: Examples
 
@@ -104,15 +104,15 @@ See also <b>jumblr_resume</b>.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### :pushpin: Examples
 
@@ -142,15 +142,15 @@ See also <b>jumblr_pause</b>.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### :pushpin: Examples
 
@@ -176,15 +176,15 @@ The `jumblr_secret` method indicates to Jumblr the final t destination address. 
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name            | Type               | Description                         |
 | --------------- | ------------------ | ----------------------------------- |
 | "secretaddress" | (string, required) | the destination transparent address |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### :pushpin: Examples
 

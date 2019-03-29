@@ -14,13 +14,13 @@ The `generate` method instructs the coin daemon to immediately mine the indicate
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name      | Type      | Description                              |
 | --------- | --------- | ---------------------------------------- |
 | numblocks | (numeric) | the desired number of blocks to generate |
 
 ### Response
 
-| Name | Type | Description | 
+| Name        | Type    | Description                |
 | ----------- | ------- | -------------------------- |
 | blockhashes | (array) | hashes of blocks generated |
 
@@ -57,13 +57,13 @@ See also <b>gen</b>.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------ | ----------- |
-| (none)    | (none) |
+| Name   | Type   | Description |
+| ------ | ------ | ----------- |
+| (none) | (none) |
 
 ### Response
 
-| Name | Type | Description | 
+| Name       | Type      | Description                                           |
 | ---------- | --------- | ----------------------------------------------------- |
 | true/false | (boolean) | indicates whether the server is set to generate coins |
 
@@ -117,16 +117,16 @@ See also the [getgenerate](../komodo-api/generate.html#getgenerate) method to qu
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name         | Type                | Description                                                                     |
 | ------------ | ------------------- | ------------------------------------------------------------------------------- |
 | generate     | (boolean, required) | set to true to turn on generation; set to off to turn off generation            |
 | genproclimit | (numeric, optional) | set the processor limit for when generation is on; use value "-1" for unlimited |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ------ | ----------- |
-| (none)    | (none) |
+| Name   | Type   | Description |
+| ------ | ------ | ----------- |
+| (none) | (none) |
 
 #### :pushpin: Examples
 

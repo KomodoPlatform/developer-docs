@@ -10,7 +10,7 @@ The `createmultisig` method creates a multi-signature address with `n` signature
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name            | Type                | Description                                                            |
 | --------------- | ------------------- | ---------------------------------------------------------------------- |
 | number_required | (numeric, required) | the number of required signatures out of the `n` key(s) or address(es) |
 | "keys"          | (string, required)  | a json array of keys which are addresses or hex-encoded public keys    |
@@ -18,7 +18,7 @@ The `createmultisig` method creates a multi-signature address with `n` signature
 
 ### Response
 
-| Name | Type | Description | 
+| Name           | Type     | Description                                           |
 | -------------- | -------- | ----------------------------------------------------- |
 | "address"      | (string) | the value of the new multisig address                 |
 | "redeemScript" | (string) | the string value of the hex-encoded redemption script |
@@ -84,13 +84,13 @@ The OP RETURN data from a CC transaction can be found by following these steps:
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name         | Type     | Description                                                                                                            |
 | ------------ | -------- | ---------------------------------------------------------------------------------------------------------------------- |
 | scriptPubKey | (string) | the hex-string format `scriptPubKey` of the `type` : `nulldata` in the `vout` of a transaction produced by a CC module |
 
 ### Response
 
-| Name | Type | Description | 
+| Name      | Type                 | Description                                                   |
 | --------- | -------------------- | ------------------------------------------------------------- |
 | result    | (string)             | whether the call succeeded                                    |
 | OpRets    | (json)               | a json containing the keys `EVALCODE` and `function id`       |
@@ -159,15 +159,15 @@ The value `-1.0` is returned if not enough transactions and blocks have been obs
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | --------- | ---------------------------------------------------------- |
-| nblocks   | (numeric) | the number of blocks within which the fee should be tested |
+| Name    | Type      | Description                                                |
+| ------- | --------- | ---------------------------------------------------------- |
+| nblocks | (numeric) | the number of blocks within which the fee should be tested |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | --------- | ----------------- |
-| n         | (numeric) | the estimated fee |
+| Name | Type      | Description       |
+| ---- | --------- | ----------------- |
+| n    | (numeric) | the estimated fee |
 
 #### :pushpin: Examples
 
@@ -195,15 +195,15 @@ The value `-1.0` is returned if not enough transactions and blocks have been obs
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | --------- | --------------------------------------------------------------------------------- |
-| nblocks   | (numeric) | a statement indicating within how many blocks the transaction should be confirmed |
+| Name    | Type      | Description                                                                       |
+| ------- | --------- | --------------------------------------------------------------------------------- |
+| nblocks | (numeric) | a statement indicating within how many blocks the transaction should be confirmed |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | --------- | ---------------------- |
-| n         | (numeric) | the estimated priority |
+| Name | Type      | Description            |
+| ---- | --------- | ---------------------- |
+| n    | (numeric) | the estimated priority |
 
 #### :pushpin: Examples
 
@@ -229,15 +229,15 @@ The `invalidateblock` method permanently marks a block as invalid, as if it viol
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | ---------------------------------------- |
-| hash      | (string, required) | the hash of the block to mark as invalid |
+| Name | Type               | Description                              |
+| ---- | ------------------ | ---------------------------------------- |
+| hash | (string, required) | the hash of the block to mark as invalid |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 #### :pushpin: Examples
 
@@ -283,15 +283,15 @@ The `reconsiderblock` method removes invalidity status of a block and its descen
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | ----------------------------------- |
-| hash      | (string, required) | the hash of the block to reconsider |
+| Name | Type               | Description                         |
+| ---- | ------------------ | ----------------------------------- |
+| hash | (string, required) | the hash of the block to reconsider |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 #### :pushpin: Examples
 
@@ -321,15 +321,15 @@ If the chain does not have dPoW, the method returned `true` if the confirmation 
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | ------------------ |
-| "txid"    | (string, required) | the transaction id |
+| Name   | Type               | Description        |
+| ------ | ------------------ | ------------------ |
+| "txid" | (string, required) | the transaction id |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| "result"  | (boolean) | whether the transaction is confirmed, for dPoW-based chains; for non-dPoW chains, the value indicates whether the transaction has `60` or more confirmations |
+| Name     | Type      | Description                                                                                                                                                  |
+| -------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| "result" | (boolean) | whether the transaction is confirmed, for dPoW-based chains; for non-dPoW chains, the value indicates whether the transaction has `60` or more confirmations |
 
 #### :pushpin: Examples
 
@@ -357,13 +357,13 @@ The `validateaddress` method returns information about the given address.
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name      | Type               | Description             |
 | --------- | ------------------ | ----------------------- |
 | "address" | (string, required) | the address to validate |
 
 ### Response
 
-| Name | Type | Description | 
+| Name           | Type      | Description                                                                               |
 | -------------- | --------- | ----------------------------------------------------------------------------------------- |
 | "isvalid"      | (boolean) | indicates whether the address is valid. If it is not, this is the only property returned. |
 | "address"      | (string)  | the address validated                                                                     |
@@ -413,7 +413,7 @@ See also <b>signmessage</b>.
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type               | Description                                              |
 | ----------- | ------------------ | -------------------------------------------------------- |
 | "address"   | (string, required) | the address to use for the signature                     |
 | "signature" | (string, required) | the signature provided by the signer in base 64 encoding |
@@ -421,7 +421,7 @@ See also <b>signmessage</b>.
 
 ### Response
 
-| Name | Type | Description | 
+| Name       | Type      | Description                                 |
 | ---------- | --------- | ------------------------------------------- |
 | true/false | (boolean) | indicates whether the signature is verified |
 
@@ -467,13 +467,13 @@ The `z_validateaddress` method returns information about the given z address.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | ------------------------- |
-| "zaddr"   | (string, required) | the z address to validate |
+| Name    | Type               | Description               |
+| ------- | ------------------ | ------------------------- |
+| "zaddr" | (string, required) | the z address to validate |
 
 ### Response
 
-| Name | Type | Description | 
+| Name              | Type      | Description                                                                        |
 | ----------------- | --------- | ---------------------------------------------------------------------------------- |
 | "isvalid"         | (boolean) | indicates whether the address is valid; if not, this is the only property returned |
 | "address"         | (string)  | the z address validated                                                            |
