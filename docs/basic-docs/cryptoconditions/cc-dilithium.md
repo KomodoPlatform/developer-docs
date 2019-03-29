@@ -84,9 +84,14 @@ Run the following commands in your terminal.
 ./komodo-cli -ac_name=MUSIG cclib keypair 19 "[%22rand%22]"
 ```
 
-Learn about the `%22`s in the second command here: [CC Lib Formatting](../komodo-api/cclib.html#cclib-formatting)
+Learn about the `%22`s in the command here: [CC Lib Formatting](../komodo-api/cclib.html#cclib-formatting)
 
-The first command generates a random string , the second command generates a Dilithium keypair using the random string.
+This command generates a Dilithium keypair using a random seed.
+
+<!--
+FIXME
+more details about "rand" and anything else that can be used in its place
+-->
 
 <collapse-text hidden title="Response">
 
