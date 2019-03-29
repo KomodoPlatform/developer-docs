@@ -24,7 +24,7 @@ Komodo currently only works on Linux. To setup Komodo Notary Node be sure you ha
 
 ### Operating System
 
-Ubuntu x64 - _14.04 or 16.04_ minimal installation with Openssh server. _This tutorial has been successfully tested with 14.04 and 16.04_.
+Debian/Ubuntu x64 LTS minimal installation with Openssh server. _This tutorial has been successfully tested with 14.04 and 16.04_.
 
 ### Security
 
@@ -34,7 +34,7 @@ _Before doing anything further, please ensure that your server is secure._
 
 - Install [Fail2ban](https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-14-04).
 
-- Create an unprivileged user and [install a SSH key](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04)
+- Create an unprivileged user and [install a SSH key](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04)
 
 - Please run processes as an unprivileged user and use sudo where necessary
 
@@ -77,14 +77,62 @@ sudo make install
 sudo ldconfig
 ```
 
-### Installing `bitcoind`
+### Compiling `bitcoind`
 
-Let us first install Bitcoind, because it takes some time to sync it all up (around 12 hours)
+Let us first compile Bitcoind, because it takes some time to sync it all up (around 12 hours)
+
+##### Clone Bitcoin source-code and checkout version 16.x
 
 ```bash
-sudo add-apt-repository ppa:bitcoin/bitcoin
-sudo apt-get update
-sudo apt-get install bitcoind
+cd ~
+git clone https://github.com/bitcoin/bitcoin
+cd bitcoin
+git checkout 0.16
+```
+
+##### Create a build script called `build.sh` inside the `bitcoin` dir for easy compiling and put the contents below in the script
+
+```bash
+#!/bin/bash
+berkeleydb () {
+    BITCOIN_ROOT=$(pwd)
+    BITCOIN_PREFIX="${BITCOIN_ROOT}/db4"
+    mkdir -p $BITCOIN_PREFIX
+    wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
+    echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
+    tar -xzvf db-4.8.30.NC.tar.gz
+    cd db-4.8.30.NC/build_unix/
+
+    ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$BITCOIN_PREFIX
+
+    make install
+    cd $BITCOIN_ROOT
+}
+
+buildBITCOIN () {
+    git pull
+    make clean
+    ./autogen.sh
+    ./configure LDFLAGS="-L${BITCOIN_PREFIX}/lib/" CPPFLAGS="-I${BITCOIN_PREFIX}/include/" --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --enable-static --disable-shared
+    make -j$(nproc)
+}
+
+cd ~/bitcoin
+berkeleydb
+buildBITCOIN
+```
+
+##### Make the script executable and run the script
+
+```bash
+chmod +x build.sh
+./build.sh
+```
+##### Symlink the binaries
+
+```bash
+sudo ln -sf /home/$USER/bitcoin/src/bitcoin-cli /usr/local/bin/bitcoin-cli
+sudo ln -sf /home/$USER/bitcoin/src/bitcoind /usr/local/bin/bitcoind
 ```
 
 Let's create folder `.bitcoin`
@@ -158,22 +206,19 @@ nano komodo.conf
 Add the following lines to the komodo.conf file (replace rpcuser and rpcpassword)
 
 ```bash
-rpcuser=bitcoinrpc
-rpcpassword=password
+rpcuser=usernameChangeItToSomethingSecure
+rpcpassword=passwordChangeItToSomethingSecure
 txindex=1
+server=1
+daemon=1
+rpcworkqueue=256
 ```
 
-Now let's start the mining process. Use `CTRL-C` to get out when you miss your cursor
+Now let's start the Komodo daemon. Use `CTRL-C` to get out when you miss your cursor
 
 ```bash
-cd ~
-cd komodo
-```
-
-To start the daemon to import btcdwif later on this setup
-
-```bash
-./src/komodod &
+cd ~/komodo/src
+./komodod &
 ```
 
 ### Komodo is now performing the initial blockchain download
@@ -183,13 +228,13 @@ Here are some additional commands which will be handy in the future
 This will get the stats:
 
 ```bash
-./src/komodo-cli getinfo
+./komodo-cli getinfo
 ```
 
 To stop the daemon:
 
 ```bash
-./src/komodo-cli stop
+./komodo-cli stop
 ```
 
 To view komodod output (very handy):
@@ -201,7 +246,7 @@ tail -f ~/.komodo/debug.log
 To view all commands
 
 ```bash
-./src/komodo-cli help
+./komodo-cli help
 ```
 
 ## Setting up SuperNET/Iguana
