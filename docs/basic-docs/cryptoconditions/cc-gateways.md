@@ -1088,13 +1088,13 @@ The `gatewaysaddress` method returns information about the on-chain gateway.
 
 ### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
 ### Response
 
-| Structure           | Type     | Description                                                                                                          |
+| Name | Type | Description | 
 | ------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
 | "result"            | (string) | whether the command executed successfully                                                                            |
 | "GatewaysCCaddress" | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
@@ -1136,7 +1136,7 @@ The `gatewaysbind` method binds the provided sources into a new gateway.
 
 ### Arguments
 
-| Structure   | Type     | Description                                                                                                   |
+| Name | Type | Description | 
 | ----------- | -------- | ------------------------------------------------------------------------------------------------------------- |
 | tokenid     | (string) | the `tokenid` that the gateway will control as a proxy of foreign (off-chain) assets                          |
 | oracletxid  | (string) | the `oracletxid` under which the gateway should be created                                                    |
@@ -1152,7 +1152,7 @@ The `gatewaysbind` method binds the provided sources into a new gateway.
 
 ### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -1210,7 +1210,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Structure   | Type     | Description                                                                                      |
+| Name | Type | Description | 
 | ----------- | -------- | ------------------------------------------------------------------------------------------------ |
 | bindtxid    | (string) | the `bindtxid` of the gateway                                                                    |
 | coin        | (string) | the name of the proxy token                                                                      |
@@ -1220,7 +1220,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -1272,7 +1272,7 @@ The `sendrawtransaction` method then returns a `txid` which serves as the **depo
 
 ### Arguments
 
-| Structure  | Type     | Description                                                                                                          |
+| Name | Type | Description | 
 | ---------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
 | bindtxid   | (string) | the bindtxid of the gateway                                                                                          |
 | height     | (number) | the block height of the `txid` wherein the funds were sent to the foreign-asset gateway pubkey                       |
@@ -1286,7 +1286,7 @@ The `sendrawtransaction` method then returns a `txid` which serves as the **depo
 
 ### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -1334,14 +1334,14 @@ The `gatewaysexternaladdress` method returns the address on the external chain f
 
 ### Arguments
 
-| Structure | Type     | Description                                                       |
+| Name | Type | Description | 
 | --------- | -------- | ----------------------------------------------------------------- |
 | bindtxid  | (string) | the `bindtxid` for the associated gateway                         |
 | pubkey    | (string) | the `pubkey` needed to generate the address on the external chain |
 
 ### Response
 
-| Structure | Type     | Description                               |
+| Name | Type | Description | 
 | --------- | -------- | ----------------------------------------- |
 | result    | (string) | whether the command executed successfully |
 | address   | (string) | the address for the given pubkey          |
@@ -1375,14 +1375,14 @@ The private key is returned in the wif format of the associated external chain.
 
 ### Arguments
 
-| Structure | Type     | Description                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------- |
 | bindtxid  | (string) | the `bindtxid` for the associated gateway            |
 | address   | (string) | the `address` for which the private key is requested |
 
 ### Response
 
-| Structure | Type     | Description                               |
+| Name | Type | Description | 
 | --------- | -------- | ----------------------------------------- |
 | result    | (string) | whether the command executed successfully |
 | privkey   | (string) | the private key                           |
@@ -1414,13 +1414,13 @@ The `gatewaysinfo` method returns information about the `bindtxid` gateway.
 
 ### Arguments
 
-| Structure | Type     | Description                               |
+| Name | Type | Description | 
 | --------- | -------- | ----------------------------------------- |
 | bindtxid  | (string) | the `bindtxid` for the associated gateway |
 
 ### Response
 
-| Structure   | Type     | Description                                                                                |
+| Name | Type | Description | 
 | ----------- | -------- | ------------------------------------------------------------------------------------------ |
 | result      | (string) | whether the command executed successfully                                                  |
 | name        | (string) | the name of the command                                                                    |
@@ -1474,13 +1474,13 @@ The `gatewayslist` method displays a list of `bindtxids` for the available gatew
 
 ### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response
 
-| Structure | Type     | Description                          |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------ |
 | bindtxid  | (string) | the bindtxid of an available gateway |
 
@@ -1519,7 +1519,7 @@ The `gatewayswithdraw` method sends proxy tokens in the gateways `pubkey`. The g
 
 ### Arguments
 
-| Structure   | Type     | Description                                                                                                                  |
+| Name | Type | Description | 
 | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | bindtxid    | (string) | the `bindtxid` of the gateway                                                                                                |
 | coin        | (string) | the name of the asset                                                                                                        |
@@ -1528,7 +1528,7 @@ The `gatewayswithdraw` method sends proxy tokens in the gateways `pubkey`. The g
 
 ### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |

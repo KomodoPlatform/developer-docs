@@ -45,7 +45,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Structure      | Type               | Description                                                                                                                                      |
+| Name | Type | Description | 
 | -------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | txfee          | (number)           | the transaction fee in satoshis, defaults to 10000 satoshis when set to `0`                                                                      |
 | amount         | (number)           | the initial funding amount, in coins or tokens (this parameter is considered to be the amount of tokens if the (tokenid) parameter is present)   |
@@ -64,7 +64,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -233,7 +233,7 @@ Use the [<b>heirlist</b>](../cryptoconditions/cc-heir.html#heirlist) method to f
 
 ### Arguments
 
-| Structure   | Type     | Description                                                                                                                                                                                  |
+| Name | Type | Description | 
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
 | amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
@@ -241,7 +241,7 @@ Use the [<b>heirlist</b>](../cryptoconditions/cc-heir.html#heirlist) method to f
 
 ### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -398,7 +398,7 @@ Use the [<b>heirlist</b>](../cryptoconditions/cc-heir.html#heirlist) method to f
 
 ### Arguments
 
-| Structure   | Type     | Description                                                                                                                                                                                  |
+| Name | Type | Description | 
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
 | amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
@@ -406,7 +406,7 @@ Use the [<b>heirlist</b>](../cryptoconditions/cc-heir.html#heirlist) method to f
 
 ### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -456,13 +456,13 @@ Use the [<b>heirlist</b>](../cryptoconditions/cc-heir.html#heirlist) method to f
 
 ### Arguments
 
-| Structure   | Type     | Description                                                                                                     |
+| Name | Type | Description | 
 | ----------- | -------- | --------------------------------------------------------------------------------------------------------------- |
 | fundingtxid | (string) | the transaction id returned from the original [heirfund](../cryptoconditions/cc-heir.html#heirfund) transaction |
 
 ### Response
 
-| Structure             | Type      | Description                                                                                                                            |
+| Name | Type | Description | 
 | --------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | fundingtxid           | (string)  | the id of the funding plan, the txid of [heirfund](../cryptoconditions/cc-heir.html#heirfund) transaction                              |
 | name                  | (string)  | the name of the heir plan                                                                                                              |
@@ -513,13 +513,13 @@ The `heirlist` method outputs a list of all available `fundingtxid`'s on the ass
 
 ### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    | ---- | ----        |
 
 ### Response
 
-| Structure   | Type               | Description                                                |
+| Name | Type | Description | 
 | ----------- | ------------------ | ---------------------------------------------------------- |
 | fundingtxid | (array of strings) | an array containing all `fundingtxid`'s on the asset chain |
 
@@ -554,13 +554,13 @@ The `heiraddress` method shows the owner's addresses and balances for the Heir C
 
 ### Arguments
 
-| Structure | Type     | Description                        |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------- |
 | pubkey    | (string) | the heir's pubkey (in hexademical) |
 
 ### Response
 
-| Structure                 | Type     | Description                                                                                                                                                                                                                                                                                                                                                      |
+| Name | Type | Description | 
 | ------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result                    | (string) | whether the method executed successfully                                                                                                                                                                                                                                                                                                                         |
 | HeirCCaddress             | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                                                                                                                                                                                                             |
