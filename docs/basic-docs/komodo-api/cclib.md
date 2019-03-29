@@ -4,7 +4,7 @@ The following methods interact with CryptoConditions modules that make use of th
 
 ## cclib
 
-### cclib insert_method insert_evalcode \\"[%22json_string%22, json_integer, ... ]\\"
+**cclib insert_method insert_evalcode \\"[%22json_string%22, json_integer, ... ]\\"**
 
 The `cclib` method allows the user to interact with the dynamic CryptoConditions module associated with `evalcode`.
 
@@ -40,7 +40,7 @@ Script format:
 The [cclibinfo](../komodo-api/cclib.html#cclibinfo) method returns a complete list of available methods and their parameters for each unique `evalcode`.
 :::
 
-### Arguments
+### Arguments:
 
 | Name        | Type             | Description                                                       |
 | ----------- | ---------------- | ----------------------------------------------------------------- |
@@ -48,13 +48,13 @@ The [cclibinfo](../komodo-api/cclib.html#cclibinfo) method returns a complete li
 | evalcode    | (decimal number) | the `EVALCODE` of the module of interest                          |
 | json_params | (array)          | the parameters to be supplied to the method, provided as an array |
 
-### Response
+### Response:
 
 | Name                        | Type | Description |
 | --------------------------- | ---- | ----------- |
 | (each `EVALCODE` is unique) |      |             |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -62,7 +62,7 @@ Command:
 ./komodo-cli -ac_name=MUSIG cclib combine 18 \"[%220225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a%22,%2202d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567%22]\"
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -72,22 +72,20 @@ Command:
 }
 ```
 
-</collapse-text>
-
 ## cclibaddress
 
-### cclibaddress evalcode pubkey
+**cclibaddress evalcode pubkey**
 
 The `cclibaddress` method returns information about the addresses related to the specified `pubkey`, and according to the CryptoConditions module associated with the specified `evalcode`. If no `pubkey` is provided, the `pubkey` used to the launch the daemon is the default.
 
-### Arguments
+### Arguments:
 
 | Name     | Type               | Description                                                 |
 | -------- | ------------------ | ----------------------------------------------------------- |
 | evalcode | (decimal number)   | the `EVALCODE` of the module of interest                    |
 | pubkey   | (string, optional) | the public key related to the requested address information |
 
-### Response
+### Response:
 
 | Name                   | Type     | Description                                                                                                                         |
 | ---------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -103,7 +101,7 @@ The `cclibaddress` method returns information about the addresses related to the
 | myCCbalance            | (number) | the amount of coins in `myCCaddress`                                                                                                |
 | mybalance              | (number) | the amount of coins in `myAddress`                                                                                                  |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -111,7 +109,7 @@ Command:
 ./komodo-cli -ac_name=MUSIG cclibaddress 18 0225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -130,23 +128,21 @@ Command:
 }
 ```
 
-</collapse-text>
-
 ## cclibinfo
 
-### cclibinfo
+**cclibinfo**
 
 The `cclibinfo` method displays all the methods of all the modules that are available in the current library.
 
 The library is loaded at runtime using the [-ac_cclib](../installations/asset-chain-parameters.html#ac-cclib) parameter.
 
-### Arguments
+### Arguments:
 
 | Name   | Type | Description |
 | ------ | ---- | ----------- |
 | (none) |      |             |
 
-### Response
+### Response:
 
 | Name            | Type                    | Description                                                                                                                                                                                       |
 | --------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -161,7 +157,7 @@ The library is loaded at runtime using the [-ac_cclib](../installations/asset-ch
 | params_required | (decimal number)        | the number of parameters that are required for the method to succeed                                                                                                                              |
 | params_max      | (decimal number)        | the maximum number of parameters the method can accept                                                                                                                                            |
 
-#### :pushpin: Examples
+#### :pushpin: Examples:
 
 Command:
 
@@ -169,7 +165,7 @@ Command:
 ./komodo-cli -ac_name=MUSIG cclibinfo
 ```
 
-<collapse-text hidden title="Response">
+Response:
 
 ```json
 {
@@ -206,5 +202,3 @@ Command:
 .....
 }
 ```
-
-</collapse-text>
