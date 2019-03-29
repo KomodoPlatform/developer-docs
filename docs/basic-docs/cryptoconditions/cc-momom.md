@@ -6,14 +6,13 @@ Introduction here
 
 ### CC MoMoM Workflow
 
-* Workflow here
+- Workflow here
 
 ## Installation
 
 ### Requirements
 
-### Installation
-Installation here
+### InstallationInstallation here
 
 ## Walkthrough
 
@@ -21,12 +20,12 @@ A complete walkthrough
 
 ## Method 1
 
-**method 1**
+### method 1
 
 Description
 
-#### Arguments:
+#### Arguments
 
-#### Response:
+#### Response
 
-#### :pushpin: Examples:
+#### :pushpin: Examples

@@ -4,9 +4,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 <!-- These work for KMDLabs chains now, must revisit after they are modded to work for KMD
 ## getnotarysendmany
-
-**getnotarysendmany**
-
+### getnotarysendmany
 The `getnotarysendmany` method returns a sendmany JSON array with Raddresses of the current notaries.
 
 
@@ -16,24 +14,23 @@ Examples:
 > komodo-cli getnotarysendmany 10
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnotarysendmany", "params": [10] }' -H 'content-type: text/plain;' http://127.0.0.1:7771/
 
-## getiguanajson
--->
+## getiguanajson-->
 
 ## getinfo
 
-**getinfo**
+### getinfo
 
 The `getinfo` method returns an object containing various state info.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
-### Response:
+### Response
 
-| Structure         | Type               | Description                                                                                                                            |
+| Name              | Type               | Description                                                                                                                            |
 | ----------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
 | "version"         | (numeric)          | the server version                                                                                                                     |
 | "protocolversion" | (numeric)          | the protocol version                                                                                                                   |
@@ -52,7 +49,7 @@ The `getinfo` method returns an object containing various state info.
 | "relayfee"        | (numeric)          | minimum relay fee for non-free transactions in COIN/kB                                                                                 |
 | "errors"          | (string)           | any error messages                                                                                                                     |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -60,7 +57,7 @@ Command:
 ./komodo-cli getinfo
 ```
 
-Response:
+<collapse-text hidden title="Response">
 
 ```json
 {
@@ -97,6 +94,8 @@ Response:
 }
 ```
 
+</collapse-text>
+
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -105,7 +104,7 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+<collapse-text hidden title="Response">
 
 ```json
 {
@@ -146,25 +145,27 @@ Response:
 }
 ```
 
+</collapse-text>
+
 ## help
 
-**help ( "command" )**
+### help ( "command" )
 
 The `help` method lists all commands, or all information for a specified command.
 
-### Arguments:
+### Arguments
 
-| Structure | Type               | Description                      |
+| Name      | Type               | Description                      |
 | --------- | ------------------ | -------------------------------- |
 | "command" | (string, optional) | the command requiring assistance |
 
-Response:
+### Response
 
-| Structure | Type               | Description                      |
+| Name      | Type               | Description                      |
 | --------- | ------------------ | -------------------------------- |
 | "command" | (string, optional) | the command requiring assistance |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -172,9 +173,9 @@ Command:
 ./komodo-cli help
 ```
 
-Response:
+<collapse-text hidden title="Response">
 
-```
+```bash
 == Addressindex ==
 getaddressbalance
 getaddressdeltas
@@ -202,15 +203,17 @@ getdifficulty
 ........ (other responses omitted for brevity)
 ```
 
+</collapse-text>
+
 Command:
 
 ```bash
 ./komodo-cli help getaddressbalance
 ```
 
-Response:
+<collapse-text hidden title="Response">
 
-```
+```bash
 Returns the balance for an address(es) (requires addressindex to be enabled).
 
 Arguments:
@@ -233,9 +236,11 @@ Examples:
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["RY5LccmGiX9bUHYGtSWQouNy1yFhc5rM87"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:7771/
 ```
 
+</collapse-text>
+
 ## stop
 
-**stop**
+### stop
 
 The `stop` method instructs the coin daemon to shut down.
 
@@ -245,20 +250,20 @@ The amount of time it takes to shut down the chain will vary depending on the ch
 Forcefully stopping the chain should be avoided, as it may cause a corruption in the local database. In the event of a corrupted database, the user will need to <b>resync</b>.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
-### Response:
+### Response
 
-| Structure                     | Type | Description |
+| Name                          | Type | Description |
 | ----------------------------- | ---- | ----------- |
 | Komodo server stopping        |      |
 | [COIN] Komodo server stopping |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -266,8 +271,10 @@ Command:
 ./komodo-cli stop
 ```
 
-Response:
+<collapse-text hidden title="Response">
 
 ```bash
 "Komodo server stopping"
 ```
+
+</collapse-text>

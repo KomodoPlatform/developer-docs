@@ -40,7 +40,7 @@ Jumblr is created to be resistant against time-based analysis. Because of this, 
 
 For a more detailed description of Jumblr, please read Section IV of our [whitepaper](https://komodoplatform.com/whitepaper).
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Designate your deposit address.
 
@@ -56,7 +56,7 @@ Designate your secret destination address.
 
 ## jumblr_deposit
 
-**jumblr_deposit "depositaddress"**
+### jumblr_deposit "depositaddress"
 
 The `jubmlr_deposit` method indicates the address from which Jumblr should withdraw funds. There should be at least 10.024 KMD in this address. Jumblr will withdraw funds in increments of 10, 100, or 7770 KMD.
 
@@ -64,19 +64,19 @@ The `jubmlr_deposit` method indicates the address from which Jumblr should withd
 While shielded z_address technology is available on all KMD-based asset chains, the Jumblr engine and methods are only available on the KMD mainnet.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure        | Type               | Description                                       |
+| Name             | Type               | Description                                       |
 | ---------------- | ------------------ | ------------------------------------------------- |
 | "depositaddress" | (string, required) | the address from which Jumblr will withdraw funds |
 
-### Response:
+### Response
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -84,15 +84,17 @@ Command:
 ./komodo-cli jumblr_deposit RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb
 ```
 
-Response:
+<collapse-text hidden title="Response">
 
 ```bash
 (none)
 ```
 
+</collapse-text>
+
 ## jumblr_pause
 
-**jumblr_pause**
+### jumblr_pause
 
 The `jumblr_pause` method instructs Jumblr to temporarily pause the privacy-shielding process.
 
@@ -100,19 +102,19 @@ The `jumblr_pause` method instructs Jumblr to temporarily pause the privacy-shie
 See also <b>jumblr_resume</b>.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
-### Response:
+### Response
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -120,15 +122,17 @@ Command:
 ./komodo-cli jumblr_pause
 ```
 
-Response:
+<collapse-text hidden title="Response">
 
 ```bash
 (none)
 ```
 
+</collapse-text>
+
 ## jumblr_resume
 
-**jumblr_resume**
+### jumblr_resume
 
 The `jumblr_resume` method instructs Jumblr to resume the privacy-shielding process.
 
@@ -136,19 +140,19 @@ The `jumblr_resume` method instructs Jumblr to resume the privacy-shielding proc
 See also <b>jumblr_pause</b>.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
-### Response:
+### Response
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -156,31 +160,33 @@ Command:
 ./komodo-cli jumblr_resume
 ```
 
-Response:
+<collapse-text hidden title="Response">
 
 ```bash
 (none)
 ```
 
+</collapse-text>
+
 ## jumblr_secret
 
-**jumblr_secret "secretaddress"**
+### jumblr_secret "secretaddress"
 
 The `jumblr_secret` method indicates to Jumblr the final t destination address. This should be a separate t address that has no connection to the `wallet.dat` file of your `jumblr_deposit` address. Ideally, you should only access the final `jumblr_secret` address via a separate node, and with other layers of privacy (VPN, Tor, etc.).
 
-### Arguments:
+### Arguments
 
-| Structure       | Type               | Description                         |
+| Name            | Type               | Description                         |
 | --------------- | ------------------ | ----------------------------------- |
 | "secretaddress" | (string, required) | the destination transparent address |
 
-### Response:
+### Response
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -188,8 +194,10 @@ Command:
 ./komodo-cli jumbr_secret "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns"
 ```
 
-Response:
+<collapse-text hidden title="Response">
 
 ```bash
 (none)
 ```
+
+</collapse-text>
