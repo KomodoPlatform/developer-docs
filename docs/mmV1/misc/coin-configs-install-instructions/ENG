@@ -1,0 +1,42 @@
+{\"coin\":\"ENG\",\"name\":\"enigma-project\",\"etomic\":\"0xf0ee6b27b759c9893ce4f094b49ad28fd15a23e4\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ENG\"}"
+
+home
+      "height" : -1,
+      "installed" : false,
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "status" : "active",
+      "coin" : "ENG",
+      "pubtype" : 0,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "balance" : 0
+
+hetzner
+      "txfee" : 1000,
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:80",
+      "installed" : false,
+      "height" : -1,
+      "status" : "active",
+      "balance" : 17.78,
+      "smartaddress" : "0x98298409c949135eed89233d04c2cfef984baff5",
+      "coin" : "ENG",
+      "wiftype" : 188
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"ENG\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"ENG\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Enigma (ENG)
+SWAP completed! 452881085-3657306391 {"uuid":"fb12353a0beb205489c240bedf404c957f6790b119db20deb4aea3a3848eece3","expiration":1531324954,"tradeid":0,"requestid":452881085,"quoteid":3657306391,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"ENG","bobtomic":"0xf0ee6b27b759c9893ce4f094b49ad28fd15a23e4","etomicsrc":"0x98298409c949135eed89233d04c2cfef984baff5","srcamount":0.73363211,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"331188198228492289","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531310023,"bobdeposit":"5241ddd801a3fba5deaa0ee55e3888c9bbce371529e1de6dde356ee46aef8669","alicepayment":"fbe5e864a0360bddf82dd70137580305c097b193705e80d2be2e03c7d6c1731b","bobpayment":"573be61e577e22b6f13624651e629a91e921d27cb159245e05b265c1ac73d22f","paymentspent":"bab099f048f4e15e063fc7645bd2a655f2f1a0c1703f6546e91b0aa233831529","Apaymentspent":"5c72a6d13582ee7e97420c6add94d5e430924bb0ecb09230f928d82549dad512","depositspent":"500c88140e16a1a89c2a12a85e06180da288c0d037b44eb713850644e8f0f217","alicedexfee":"bf87b74daf19e710e09bfab276a8145ad25e551ee6d68fa9f710a77331317941","method":"tradestatus","finishtime":1531310023}
+bobdeposit https://etherscan.io/tx/0xa0cbe959b60875b73a4674d315a31acb288afba30f9e6d971c6d71476c27c989
+alicepayment https://kmdexplorer.ru/tx/fbe5e864a0360bddf82dd70137580305c097b193705e80d2be2e03c7d6c1731b
+bobpayment https://etherscan.io/tx/0xa101e146232aca3bd01f8fe0c7dde94e0d616eaa766fbe34ce8d27178b82d51c
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ENG\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"enigma-project\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ENG\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"enigma-project\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ENG\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"enigma-project\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ENG\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"enigma-project\",\"refrel\":\"coinmarketcap\"}"

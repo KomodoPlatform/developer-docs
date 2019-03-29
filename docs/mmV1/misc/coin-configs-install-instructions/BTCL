@@ -1,0 +1,39 @@
+{\"coin\":\"BTCL\",\"name\":\"btclite\",\"etomic\":\"0x5acd19b9c91e596b1f062f18e3d02da7ed8d1e50\",\"rpcport\":80}
+https://bitcointalk.org/index.php?topic=2471229.0
+
+home
+      "rpc" : "127.0.0.1:80",
+      "balance" : 0,
+      "p2shtype" : 85,
+      "coin" : "BTCL",
+      "installed" : false,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "pubtype" : 0,
+      "txfee" : 1000,
+      "wiftype" : 188,
+      "status" : "active",
+      "height" : -1
+
+contabo
+      "txfee" : 1000,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "installed" : false,
+      "wiftype" : 188,
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "coin" : "BTCL",
+      "height" : -1,
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "balance" : 0
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"BTCL\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"BTCL\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1.2}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BTCL\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BTCL\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+BTC Lite (BTCL)
+SWAP completed! 335678143-1360712871 {"expiration":1522514170,"tradeid":0,"requestid":335678143,"quoteid":1360712871,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"BTCL","bobtomic":"0x5acd19b9c91e596b1f062f18e3d02da7ed8d1e50","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.69072005,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"13822459659570511873","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.69073005, 0.08010000, 0.69074005, 0.08011000, 0.77708005, 0, 0, 0.77707005, 0, 0, 0],"result":"success","status":"finished","finishtime":1522498824,"bobdeposit":"7c58122a2474eb289370bf2241218c5222ca7f8d570c887b20b5c872878880ce","alicepayment":"0ef8a80fa2b5cad3a0b5a24b9b9a2b90c1d3d6e6251d922002241dba8d927180","bobpayment":"941555a0ab9dee41b60c50491924a650ea20343b9e08bab3be5004647678d694","paymentspent":"91cc769dc3a9503b63cab48dd2442c41124c562ed4c5742d7a0d281bcecc8e6c","Apaymentspent":"04234ba503174e84ef2bd94a66c04d4de1a831051830f20a1f4590e2297f4f6b","depositspent":"e1334882ece975ef829841a0285f12f9febf65c6732db1bc8ac1b3287c4f6685","method":"tradestatus","finishtime":1522498824}
+bobdeposit https://etherscan.io/tx/0xa5353afea1b54d2e542001c175ca4785b01f92ea5825580e5afbebb69fc8f7ae
+alicepayment https://kmd.explorer.supernet.org/tx/0ef8a80fa2b5cad3a0b5a24b9b9a2b90c1d3d6e6251d922002241dba8d927180
+bobpayment https://etherscan.io/tx/0x952c73ecc2fabca29c6218f09bb63c8d747842d4b57c2e99beb0506e3126a99e

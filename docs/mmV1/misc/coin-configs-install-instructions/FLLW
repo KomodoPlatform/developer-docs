@@ -1,0 +1,42 @@
+{\"coin\":\"FLLW\",\"name\":\"followcoin\",\"etomic\":\"0x0200412995f1bafef0d3f97c4e28ac2515ec1ece\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"FLLW\"}"
+
+home
+      "installed" : false,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "coin" : "FLLW",
+      "balance" : 0,
+      "wiftype" : 188,
+      "height" : -1,
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "txfee" : 1000
+
+contabo
+      "wiftype" : 188,
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "height" : -1,
+      "pubtype" : 0,
+      "status" : "active",
+      "txfee" : 1000,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "coin" : "FLLW",
+      "balance" : 0,
+      "installed" : false
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"FLLW\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":50}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"FLLW\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"FLLW\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+FollowCoin (FLLW)
+SWAP completed! 2396193931-3843239979 {"uuid":"264f0a478edae523006bd77d763cc56b0f4dcf1a5e2698dda7262d290d0ec3ef","expiration":1527306963,"tradeid":0,"requestid":2396193931,"quoteid":3843239979,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"FLLW","bobtomic":"0x0200412995f1bafef0d3f97c4e28ac2515ec1ece","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.76006859,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"1109095903541854209","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.76007859, 0.08010000, 0.76008859, 0.08011000, 0.85509716, 0, 0, 0.85508716, 0, 0, 0],"result":"success","status":"finished","finishtime":1527292222,"bobdeposit":"170bb44499e7c844633657054a2a64e0abada3580af7f655f045fc3e3c5c1795","alicepayment":"99d83f76325a08936b99d693243c2b8c5f3e5f345cef2027dc2a111a5fa0edae","bobpayment":"728383be666e9a28a067eac4b0238927ebd8cba556d2de810dcd6ab9fe511303","paymentspent":"18d7b73bc1f31c6b733d13f175670340a62e7e056026fa94ad3111d19bce03c2","Apaymentspent":"6c183caa3bee04ece41dd0eb7cd1e3d960c57ee21b6112011d7f8d6deb12c25d","depositspent":"7a29fccd7796e11567c98808e29b94a14bc351e4f368dec9d6bcef234f0c2902","method":"tradestatus","finishtime":1527292222}
+bobdeposit https://etherscan.io/tx/0xb16c36469bb3795186d2728702882a52da32fe58d6d7fffed6b795f07ff0787c
+alicepayment https://kmdexplorer.ru/tx/99d83f76325a08936b99d693243c2b8c5f3e5f345cef2027dc2a111a5fa0edae
+bobpayment https://etherscan.io/tx/0x885f10d80ff6bf11765c3981aa96745b29f83464d13fca39a307f3e01489234c
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"FLLW\",\"fixed\":0.1}"

@@ -1,0 +1,80 @@
+https://bitcointalk.org/index.php?topic=2627897.0
+https://github.com/polispay/polis
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,55);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,56);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,60);
+
+{\"coin\":\"POLIS\",\"name\":\"polis\",\"confpath\":\"${HOME#}/.poliscore/polis.conf\",\"rpcport\":24127,\"pubtype\":55,\"p2shtype\":56,\"wiftype\":60,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/polispay/polis
+cd polis
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/polis*
+mkdir ~/.poliscore
+echo "server=1" >> ~/.poliscore/polis.conf
+echo "txindex=1" >> ~/.poliscore/polis.conf
+echo "listen=0" >> ~/.poliscore/polis.conf
+echo "listenonion=0" >> ~/.poliscore/polis.conf
+echo "rpcuser=barterpolis" >> ~/.poliscore/polis.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.poliscore/polis.conf
+echo "rpcport=4127" >> ~/.poliscore/polis.conf
+echo "rpcworkqueue=64" >> ~/.poliscore/polis.conf
+echo "rpcthreads=16" >> ~/.poliscore/polis.conf
+echo "litemode=1" >> ~/.poliscore/polis.conf
+chmod 0600 ~/.poliscore/polis.conf
+polisd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"POLIS\"}"
+
+home
+      "wiftype" : 60,
+      "p2shtype" : 56,
+      "smartaddress" : "PWE7TmoLPtDGj2xHfgtsdQpTbNoUqvjxoq",
+      "rpc" : "127.0.0.1:4127",
+      "installed" : true,
+      "txfee" : 10000,
+      "balance" : 0,
+      "KMDvalue" : 0,
+      "coin" : "POLIS",
+      "pubtype" : 55,
+      "height" : 130438,
+      "status" : "active"
+
+contabo
+      "height" : 130438,
+      "status" : "active",
+      "txfee" : 10000,
+      "balance" : 0,
+      "installed" : true,
+      "rpc" : "127.0.0.1:4127",
+      "KMDvalue" : 0,
+      "smartaddress" : "PASxz8RbzZMFuP6Wrz9yxARHqFyagJDp2k",
+      "wiftype" : 60,
+      "pubtype" : 55,
+      "coin" : "POLIS",
+      "p2shtype" : 56
+
+polis-cli sendtoaddress "PASxz8RbzZMFuP6Wrz9yxARHqFyagJDp2k" 1
+"fee": -0.00000226
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"POLIS\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"POLIS\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Polis (POLIS)
+SWAP completed! 809722347-4185700489 {"uuid":"827f9bc34cd6a232ede24cd1437ee99e7c4ca3a973a201eb8a34555a18656399","expiration":1530406214,"tradeid":0,"requestid":809722347,"quoteid":4185700489,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"POLIS","srcamount":0.77960198,"bobtxfee":0.00010000,"alice":"KMD","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"10819938367336873985","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.77970198, 0.08010000, 0.77980198, 0.08011000, 0.87725222, 0, 0, 0.87715222, 0, 0, 0],"result":"success","status":"finished","finishtime":1530391013,"bobdeposit":"746179890c7cb6b10fe4fef1c835c51a648bba087d52903d9d889d84779b1b9b","alicepayment":"2aa3cdc0000936f8fb2a5285e852a57f128913edea4d562433975fe84f6e6a8c","bobpayment":"f64ae4b56b43ab9017ccc767c16b9d9cdf438ed83de94ba0629f1213b5ecba72","paymentspent":"719ce2b32dec51ada9ae4de6f48c40413ae23ce8d593229f305c86ef1f071605","Apaymentspent":"5668ceacca0f8a26a55dffdc7f26f27a11e4b3a60e1bdaaccf7a82244e3a2f15","depositspent":"f42e2fb2a1cd42089c90e9d88f0516bcb7dc6bb8f17936f839f8caa3082b2569","method":"tradestatus","finishtime":1530391013}
+bobdeposit https://explorer.polispay.org/tx/746179890c7cb6b10fe4fef1c835c51a648bba087d52903d9d889d84779b1b9b
+alicepayment https://kmdexplorer.ru/tx/2aa3cdc0000936f8fb2a5285e852a57f128913edea4d562433975fe84f6e6a8c
+bobpayment https://explorer.polispay.org/tx/f64ae4b56b43ab9017ccc767c16b9d9cdf438ed83de94ba0629f1213b5ecba72
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"POLIS\",\"rel\":\"BCH\",\"margin\":0.11,\"refbase\":\"polis\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"POLIS\",\"rel\":\"BTC\",\"margin\":0.11,\"refbase\":\"polis\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"POLIS\",\"rel\":\"KMD\",\"margin\":0.11,\"refbase\":\"polis\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"POLIS\",\"rel\":\"LTC\",\"margin\":0.11,\"refbase\":\"polis\",\"refrel\":\"coinmarketcap\"}"

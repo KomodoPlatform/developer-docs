@@ -1,0 +1,46 @@
+https://bitcointalk.org/index.php?topic=2669586
+
+{\"coin\":\"MAN\",\"name\":\"matrix-ai-network\",\"etomic\":\"0xe25bcec5d3801ce3a794079bf94adf1b8ccd802d\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MAN\"}"
+
+home
+      "height" : -1,
+      "txfee" : 1000,
+      "balance" : 0,
+      "rpc" : "127.0.0.1:80",
+      "wiftype" : 188,
+      "installed" : false,
+      "coin" : "MAN",
+      "pubtype" : 0,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "p2shtype" : 85,
+      "status" : "active"
+
+contabo
+      "pubtype" : 0,
+      "coin" : "MAN",
+      "status" : "active",
+      "balance" : 32.8112,
+      "rpc" : "127.0.0.1:80",
+      "wiftype" : 188,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "installed" : false,
+      "height" : -1,
+      "txfee" : 1000,
+      "p2shtype" : 85
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"MAN\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"MAN\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"MAN\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Matrix AI Network (MAN)
+SWAP completed! 675962970-1130899212 {"uuid":"a995138683c48236cc9d8b036bc068f9f279e1699956624b5ae62ead952667dd","expiration":1531277772,"tradeid":0,"requestid":675962970,"quoteid":1130899212,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"MAN","bobtomic":"0xe25bcec5d3801ce3a794079bf94adf1b8ccd802d","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.72436011,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"4135052055263379457","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531263218,"bobdeposit":"8a3b5b32bc6830b39258623fcc2ca3a352b1d8cec25db8ef76077a6ab8bc29ac","alicepayment":"f18d974060672612ca365508138504777df1d73b6a1759ff921cf421a8e5651b","bobpayment":"4bd6b1246dd9de3ecbbff8d939c7fd5c97797dbf4a6ec479a7104a56833cdc38","paymentspent":"87aa4224723ed4793bcb2c67f50f672b276853a21f25a51f65fef6015b640684","Apaymentspent":"c3beb57cba2caaffaa7458886e735a04ce27185df7fe79103de87de8a5cc2932","depositspent":"ab69234073a4e57813089a2285d1cc937e0650251d97cc9c5788752767e87846","alicedexfee":"77b11e82e484835dbcf4413636f927fa56e6d0b6e6255ab2a17887ffd7bc2e2b","method":"tradestatus","finishtime":1531263218}
+bobdeposit https://etherscan.io/tx/0x46a90036cb87f474abb0a2e185e9b0c6cf24b009d958b4cc99131dbb94f5adc4
+alicepayment https://kmdexplorer.ru/tx/f18d974060672612ca365508138504777df1d73b6a1759ff921cf421a8e5651b
+bobpayment https://etherscan.io/tx/0x1d41fe19122f02ccbb634c45020f17ac53430ccc39d0be01eb39bbbaeb5b16f9
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MAN\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"matrix-ai-network\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MAN\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"matrix-ai-network\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MAN\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"matrix-ai-network\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MAN\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"matrix-ai-network\",\"refrel\":\"coinmarketcap\"}"

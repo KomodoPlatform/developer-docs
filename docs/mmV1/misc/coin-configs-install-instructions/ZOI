@@ -1,0 +1,75 @@
+https://bitcointalk.org/index.php?topic=2085112.0
+https://github.com/zoinofficial/zoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector < unsigned char > (1, 80);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector < unsigned char > (1, 7);
+base58Prefixes[SECRET_KEY] = std::vector < unsigned char > (1, 208);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 1000;
+
+{\"coin\":\"ZOI\",\"name\":\"zoin\",\"rpcport\":8255,\"pubtype\":80,\"p2shtype\":7,\"wiftype\":208,\"txfee\":1000}
+
+
+cd ~/wallets
+git clone https://github.com/zoinofficial/zoin
+cd zoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/zoin*
+mkdir ~/.zoin
+echo "server=1" >> ~/.zoin/zoin.conf
+echo "txindex=1" >> ~/.zoin/zoin.conf
+echo "listen=0" >> ~/.zoin/zoin.conf
+echo "listenonion=0" >> ~/.zoin/zoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.zoin/zoin.conf
+echo "rpcuser=barterzoi" >> ~/.zoin/zoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.zoin/zoin.conf
+chmod 0600 ~/.zoin/zoin.conf
+zoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ZOI\"}"
+
+home
+      "status" : "active",
+      "balance" : 0,
+      "rpc" : "127.0.0.1:8255",
+      "txfee" : 10000,
+      "smartaddress" : "ZZgC5VFY9PoBAsSTHBDqkYd8KzF4bAUSaV",
+      "p2shtype" : 7,
+      "KMDvalue" : 0,
+      "installed" : true,
+      "coin" : "ZOI",
+      "pubtype" : 80,
+      "wiftype" : 208,
+      "height" : 232754
+
+contabo
+      "installed" : true,
+      "coin" : "ZOI",
+      "p2shtype" : 7,
+      "txfee" : 10000,
+      "KMDvalue" : 0,
+      "height" : 232737,
+      "pubtype" : 80,
+      "smartaddress" : "ZDu3bqsok4wAMDagUUUx5JDxZsRAUSVZY2",
+      "status" : "active",
+      "wiftype" : 208,
+      "balance" : 0,
+      "rpc" : "127.0.0.1:8255"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ZOI\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"zoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ZOI\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"zoin\",\"refrel\":\"coinmarketcap\"}"
+
+
+zoin-cli sendtoaddress "ZDu3bqsok4wAMDagUUUx5JDxZsRAUSVZY2" 1
+zoin-cli sendtoaddress "ZDu3bqsok4wAMDagUUUx5JDxZsRAUSVZY2" 1.2
+"fee": 0.00000000,
+
+zoin-cli sendtoaddress "ZDu3bqsok4wAMDagUUUx5JDxZsRAUSVZY2" 3.59 "" "" true
+

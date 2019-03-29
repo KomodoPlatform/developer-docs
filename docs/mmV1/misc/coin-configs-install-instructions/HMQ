@@ -1,0 +1,43 @@
+{\"coin\":\"HMQ\",\"name\":\"humaniq\",\"etomic\":\"0xcbCC0F036ED4788F63FC0fEE32873d6A7487b908\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HMQ\"}"
+
+home
+      "balance" : 0,
+      "pubtype" : 0,
+      "txfee" : 1000,
+      "height" : -1,
+      "p2shtype" : 85,
+      "installed" : false,
+      "status" : "active",
+      "rpc" : "127.0.0.1:80",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "coin" : "HMQ",
+      "wiftype" : 188
+
+contabo
+      "p2shtype" : 85,
+      "status" : "active",
+      "height" : -1,
+      "installed" : false,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "coin" : "HMQ",
+      "wiftype" : 188,
+      "balance" : 99.99,
+      "pubtype" : 0
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"HMQ\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"HMQ\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HMQ\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Humaniq (HMQ)
+SWAP completed! 280995991-3494239671 {"uuid":"b73a875d5828c8f9f7ba577f88758469de08617a26f2b20740091f9521f70bf8","expiration":1528570468,"tradeid":0,"requestid":280995991,"quoteid":3494239671,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"HMQ","bobtomic":"0xcbCC0F036ED4788F63FC0fEE32873d6A7487b908","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.76441281,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"1834910391106142209","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.76442281, 0.08010000, 0.76443281, 0.08011000, 0.85998441, 0, 0, 0.85997441, 0, 0, 0],"result":"success","status":"finished","finishtime":1528555581,"bobdeposit":"0a89cdab95a56adf7e9fcf1b344331fadb56d7d88641b25fd5e45d16676b89ba","alicepayment":"fa141f4a3806ed45bb671b35e746df555cb9d0cc34039e247e291a292cdce1b4","bobpayment":"6a4e9c9fef2d1738808b2a005694c2b81a732984fd5c8fe3880c307929be5fd1","paymentspent":"9eed3cde1036dd36234c64fe3e5b360f1cc4f4094f7e7e3b258add5952a8f19e","Apaymentspent":"f8f2dc5aaf95a2e5d3ecc28359920997e718b171f5920671c22d28da89dc1ec3","depositspent":"f8d3439b1ccb61b72f81ba9572a446d56ecc2ac70326fad51694e417bd3a239f","method":"tradestatus","finishtime":1528555581}
+bobdeposit https://etherscan.io/tx/0x45b98c0477aa12725440306cc633c344fdad43c267da450d9c20c0d49fab8159
+alicepayment https://kmdexplorer.ru/tx/fa141f4a3806ed45bb671b35e746df555cb9d0cc34039e247e291a292cdce1b4
+bobpayment https://etherscan.io/tx/0x79a4535d40e113121d0118ee2ae55140a4ac0f9670d5b68b19a795e1a297cfee
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"HMQ\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"humaniq\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"HMQ\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"humaniq\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"HMQ\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"humaniq\",\"refrel\":\"coinmarketcap\"}"

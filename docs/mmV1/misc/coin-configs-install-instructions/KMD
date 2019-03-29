@@ -1,0 +1,215 @@
+
+cd ~/wallets
+git clone https://github.com/jl777/komodo
+cd komodo
+git checkout dev
+#./zcutil/fetch-params.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./zcutil/build.sh -j2
+strip src/komodod src/komodo-cli src/komodo-tx
+sudo cp src/komodod src/komodo-cli /usr/local/bin/
+mkdir ~/.komodo
+echo "server=1" >> ~/.komodo/komodo.conf
+echo "txindex=1" >> ~/.komodo/komodo.conf
+echo "listen=0" >> ~/.komodo/komodo.conf
+echo "listenonion=0" >> ~/.komodo/komodo.conf
+echo "rpcuser=barterkmd" >> ~/.komodo/komodo.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/komodo.conf
+echo "rpcworkqueue=64" >> ~/.komodo/komodo.conf
+echo "rpcthreads=16" >> ~/.komodo/komodo.conf
+chmod 0600 ~/.komodo/komodo.conf
+komodod -daemon
+
+----- assets ----
+
+mkdir ~/.komodo/MNZ
+echo "server=1" >> ~/.komodo/MNZ/MNZ.conf
+echo "txindex=1" >> ~/.komodo/MNZ/MNZ.conf
+echo "listen=0" >> ~/.komodo/MNZ/MNZ.conf
+echo "listenonion=1" >> ~/.komodo/MNZ/MNZ.conf
+echo "rpcport=14337" >> ~/.komodo/MNZ/MNZ.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.komodo/MNZ/MNZ.conf
+echo "rpcuser=bartermnz" >> ~/.komodo/MNZ/MNZ.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/MNZ/MNZ.conf
+chmod 0600 ~/.komodo/MNZ/MNZ.conf
+komodod -ac_name=MNZ -ac_supply=257142858 -addnode=51.15.138.138 -daemon
+
+mkdir ~/.komodo/REVS
+echo "server=1" >> ~/.komodo/REVS/REVS.conf
+echo "txindex=1" >> ~/.komodo/REVS/REVS.conf
+echo "listen=0" >> ~/.komodo/REVS/REVS.conf
+echo "listenonion=1" >> ~/.komodo/REVS/REVS.conf
+echo "rpcport=10196" >> ~/.komodo/REVS/REVS.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.komodo/REVS/REVS.conf
+echo "rpcuser=barterrevs" >> ~/.komodo/REVS/REVS.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/REVS/REVS.conf
+chmod 0600 ~/.komodo/REVS/REVS.conf
+komodod -ac_name=REVS -ac_supply=1300000 -addnode=78.47.196.146 -daemon
+
+mkdir ~/.komodo/JUMBLR
+echo "server=1" >> ~/.komodo/JUMBLR/JUMBLR.conf
+echo "txindex=1" >> ~/.komodo/JUMBLR/JUMBLR.conf
+echo "listen=0" >> ~/.komodo/JUMBLR/JUMBLR.conf
+echo "listenonion=1" >> ~/.komodo/JUMBLR/JUMBLR.conf
+echo "rpcport=15106" >> ~/.komodo/JUMBLR/JUMBLR.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.komodo/JUMBLR/JUMBLR.conf
+echo "rpcuser=barterjumblr" >> ~/.komodo/JUMBLR/JUMBLR.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/JUMBLR/JUMBLR.conf
+chmod 0600 ~/.komodo/JUMBLR/JUMBLR.conf
+komodod -ac_name=JUMBLR -ac_supply=999999 -addnode=78.47.196.146 -daemon
+
+mkdir ~/.komodo/COQUI
+echo "server=1" >> ~/.komodo/COQUI/COQUI.conf
+echo "txindex=1" >> ~/.komodo/COQUI/COQUI.conf
+echo "listen=0" >> ~/.komodo/COQUI/COQUI.conf
+echo "listenonion=1" >> ~/.komodo/COQUI/COQUI.conf
+echo "rpcport=14276" >> ~/.komodo/COQUI/COQUI.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.komodo/COQUI/COQUI.conf
+echo "rpcuser=bartercoqui" >> ~/.komodo/COQUI/COQUI.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/COQUI/COQUI.conf
+chmod 0600 ~/.komodo/COQUI/COQUI.conf
+komodod -ac_name=COQUI -ac_supply=72000000 -addnode=78.47.196.146 -daemon
+
+mkdir ~/.komodo/WLC
+echo "server=1" >> ~/.komodo/WLC/WLC.conf
+echo "txindex=1" >> ~/.komodo/WLC/WLC.conf
+echo "listen=0" >> ~/.komodo/WLC/WLC.conf
+echo "listenonion=1" >> ~/.komodo/WLC/WLC.conf
+echo "rpcport=12167" >> ~/.komodo/WLC/WLC.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.komodo/WLC/WLC.conf
+echo "rpcuser=barterwlc" >> ~/.komodo/WLC/WLC.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/WLC/WLC.conf
+chmod 0600 ~/.komodo/WLC/WLC.conf
+komodod -ac_name=WLC -ac_supply=210000000 -addnode=148.251.190.89 -daemon
+
+mkdir ~/.komodo/SUPERNET
+echo "server=1" >> ~/.komodo/SUPERNET/SUPERNET.conf
+echo "txindex=1" >> ~/.komodo/SUPERNET/SUPERNET.conf
+echo "listen=0" >> ~/.komodo/SUPERNET/SUPERNET.conf
+echo "listenonion=1" >> ~/.komodo/SUPERNET/SUPERNET.conf
+echo "proxy=127.0.0.1:9050" >> ~/.komodo/SUPERNET/SUPERNET.conf
+echo "rpcport=11341" >> ~/.komodo/SUPERNET/SUPERNET.conf
+echo "rpcuser=bartersupernet" >> ~/.komodo/SUPERNET/SUPERNET.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/SUPERNET/SUPERNET.conf
+chmod 0600 ~/.komodo/SUPERNET/SUPERNET.conf
+komodod -ac_name=SUPERNET -ac_supply=816061 -addnode=78.47.196.146 -daemon
+
+mkdir ~/.komodo/DEX
+echo "server=1" >> ~/.komodo/DEX/DEX.conf
+echo "txindex=1" >> ~/.komodo/DEX/DEX.conf
+echo "listen=0" >> ~/.komodo/DEX/DEX.conf
+echo "listenonion=1" >> ~/.komodo/DEX/DEX.conf
+echo "proxy=127.0.0.1:9050" >> ~/.komodo/DEX/DEX.conf
+echo "rpcport=11890" >> ~/.komodo/DEX/DEX.conf
+echo "rpcuser=barterdex" >> ~/.komodo/DEX/DEX.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/DEX/DEX.conf
+chmod 0600 ~/.komodo/DEX/DEX.conf
+komodod -ac_name=DEX -ac_supply=999999 -addnode=78.47.196.146 -daemon
+
+mkdir ~/.komodo/PANGEA
+echo "server=1" >> ~/.komodo/PANGEA/PANGEA.conf
+echo "txindex=1" >> ~/.komodo/PANGEA/PANGEA.conf
+echo "listen=0" >> ~/.komodo/PANGEA/PANGEA.conf
+echo "listenonion=1" >> ~/.komodo/PANGEA/PANGEA.conf
+echo "proxy=127.0.0.1:9050" >> ~/.komodo/PANGEA/PANGEA.conf
+echo "rpcport=14068" >> ~/.komodo/PANGEA/PANGEA.conf
+echo "rpcuser=barterpangea" >> ~/.komodo/PANGEA/PANGEA.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/PANGEA/PANGEA.conf
+chmod 0600 ~/.komodo/PANGEA/PANGEA.conf
+komodod -ac_name=PANGEA -ac_supply=999999 -addnode=78.47.196.146 -daemon
+
+mkdir ~/.komodo/BET
+echo "server=1" >> ~/.komodo/BET/BET.conf
+echo "txindex=1" >> ~/.komodo/BET/BET.conf
+echo "listen=0" >> ~/.komodo/BET/BET.conf
+echo "listenonion=1" >> ~/.komodo/BET/BET.conf
+echo "proxy=127.0.0.1:9050" >> ~/.komodo/BET/BET.conf
+echo "rpcport=14250" >> ~/.komodo/BET/BET.conf
+echo "rpcuser=barterbet" >> ~/.komodo/BET/BET.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/BET/BET.conf
+chmod 0600 ~/.komodo/BET/BET.conf
+komodod -ac_name=BET -ac_supply=999999 -addnode=78.47.196.146 -daemon
+
+mkdir ~/.komodo/CRYPTO
+echo "server=1" >> ~/.komodo/CRYPTO/CRYPTO.conf
+echo "txindex=1" >> ~/.komodo/CRYPTO/CRYPTO.conf
+echo "listen=0" >> ~/.komodo/CRYPTO/CRYPTO.conf
+echo "listenonion=1" >> ~/.komodo/CRYPTO/CRYPTO.conf
+echo "proxy=127.0.0.1:9050" >> ~/.komodo/CRYPTO/CRYPTO.conf
+echo "rpcport=8516" >> ~/.komodo/CRYPTO/CRYPTO.conf
+echo "rpcuser=bartercrypto" >> ~/.komodo/CRYPTO/CRYPTO.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/CRYPTO/CRYPTO.conf
+chmod 0600 ~/.komodo/CRYPTO/CRYPTO.conf
+komodod -ac_name=CRYPTO -ac_supply=999999 -addnode=78.47.196.146 -daemon
+
+mkdir ~/.komodo/HODL
+echo "server=1" >> ~/.komodo/HODL/HODL.conf
+echo "txindex=1" >> ~/.komodo/HODL/HODL.conf
+echo "listen=0" >> ~/.komodo/HODL/HODL.conf
+echo "listenonion=1" >> ~/.komodo/HODL/HODL.conf
+echo "proxy=127.0.0.1:9050" >> ~/.komodo/HODL/HODL.conf
+echo "rpcport=14431" >> ~/.komodo/HODL/HODL.conf
+echo "rpcuser=barterhodl" >> ~/.komodo/HODL/HODL.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/HODL/HODL.conf
+chmod 0600 ~/.komodo/HODL/HODL.conf
+komodod -ac_name=HODL -ac_supply=9999999 -addnode=78.47.196.146 -daemon
+
+mkdir ~/.komodo/MSHARK
+echo "server=1" >> ~/.komodo/MSHARK/MSHARK.conf
+echo "txindex=1" >> ~/.komodo/MSHARK/MSHARK.conf
+echo "listen=0" >> ~/.komodo/MSHARK/MSHARK.conf
+echo "listenonion=1" >> ~/.komodo/MSHARK/MSHARK.conf
+echo "rpcport=8846" >> ~/.komodo/MSHARK/MSHARK.conf
+echo "rpcuser=bartermshark" >> ~/.komodo/MSHARK/MSHARK.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/MSHARK/MSHARK.conf
+chmod 0600 ~/.komodo/MSHARK/MSHARK.conf
+komodod -ac_name=MSHARK -ac_supply=1400000 -addnode=78.47.196.146 -daemon
+
+mkdir ~/.komodo/BOTS
+echo "server=1" >> ~/.komodo/BOTS/BOTS.conf
+echo "txindex=1" >> ~/.komodo/BOTS/BOTS.conf
+echo "listen=0" >> ~/.komodo/BOTS/BOTS.conf
+echo "listenonion=1" >> ~/.komodo/BOTS/BOTS.conf
+echo "rpcport=11964" >> ~/.komodo/BOTS/BOTS.conf
+echo "rpcuser=barterbots" >> ~/.komodo/BOTS/BOTS.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/BOTS/BOTS.conf
+chmod 0600 ~/.komodo/BOTS/BOTS.conf
+komodod -ac_name=BOTS -ac_supply=999999 -addnode=78.47.196.146 -daemon
+
+mkdir ~/.komodo/BTCH
+echo "server=1" >> ~/.komodo/BTCH/BTCH.conf
+echo "txindex=1" >> ~/.komodo/BTCH/BTCH.conf
+echo "listen=0" >> ~/.komodo/BTCH/BTCH.conf
+echo "listenonion=0" >> ~/.komodo/BTCH/BTCH.conf
+echo "rpcport=8801" >> ~/.komodo/BTCH/BTCH.conf
+echo "rpcuser=barterbtch" >> ~/.komodo/BTCH/BTCH.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/BTCH/BTCH.conf
+chmod 0600 ~/.komodo/BTCH/BTCH.conf
+komodod -ac_name=BTCH -ac_supply=20998641 -addnode=78.47.196.146 -daemon
+
+mkdir ~/.komodo/BNTN
+echo "server=1" >> ~/.komodo/BNTN/BNTN.conf
+echo "txindex=1" >> ~/.komodo/BNTN/BNTN.conf
+echo "listen=0" >> ~/.komodo/BNTN/BNTN.conf
+echo "listenonion=0" >> ~/.komodo/BNTN/BNTN.conf
+echo "rpcport=14358" >> ~/.komodo/BNTN/BNTN.conf
+echo "rpcuser=barterbntn" >> ~/.komodo/BNTN/BNTN.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/BNTN/BNTN.conf
+chmod 0600 ~/.komodo/BNTN/BNTN.conf
+komodod -ac_name=BNTN -ac_supply=500000000 -addnode=94.130.169.205 -daemon
+
+mkdir ~/.komodo/KV
+echo "server=1" >> ~/.komodo/KV/KV.conf
+echo "txindex=1" >> ~/.komodo/KV/KV.conf
+echo "listen=0" >> ~/.komodo/KV/KV.conf
+echo "listenonion=1" >> ~/.komodo/KV/KV.conf
+echo "rpcport=8299" >> ~/.komodo/KV/KV.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.komodo/KV/KV.conf
+echo "rpcuser=barterkv" >> ~/.komodo/KV/KV.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/KV/KV.conf
+chmod 0600 ~/.komodo/KV/KV.conf
+komodod -ac_name=KV -ac_supply=1000000 -addnode=78.47.196.146 -daemon
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"OOT\",\"rel\":\"BCH\",\"margin\":0.3,\"refbase\":\"utrum\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"OOT\",\"rel\":\"BTC\",\"margin\":0.3,\"refbase\":\"utrum\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"OOT\",\"rel\":\"KMD\",\"margin\":0.3,\"refbase\":\"utrum\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"OOT\",\"rel\":\"LTC\",\"margin\":0.3,\"refbase\":\"utrum\",\"refrel\":\"coinmarketcap\"}"

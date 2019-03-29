@@ -1,0 +1,72 @@
+https://bitcointalk.org/index.php?topic=3208091.0
+https://github.com/Pigeoncoin/pigeoncoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,55); // changed 60 to 55
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,122); // changed 122 to 123
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
+
+{\"coin\":\"PGN\",\"name\":\"pigeon\",\"rpcport\":8756,\"pubtype\":55,\"p2shtype\":122,\"wiftype\":128,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/Pigeoncoin/pigeoncoin
+cd pigeoncoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/pigeon*
+mkdir ~/.pigeon
+echo "server=1" >> ~/.pigeon/pigeon.conf
+echo "txindex=1" >> ~/.pigeon/pigeon.conf
+echo "listen=0" >> ~/.pigeon/pigeon.conf
+echo "listenonion=0" >> ~/.pigeon/pigeon.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.pigeon/pigeon.conf
+echo "rpcuser=barterpgn" >> ~/.pigeon/pigeon.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.pigeon/pigeon.conf
+chmod 0600 ~/.pigeon/pigeon.conf
+pigeond -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"PGN\"}"
+
+home
+      "height" : 39914,
+      "rpc" : "127.0.0.1:8756",
+      "txfee" : 10000,
+      "balance" : 0,
+      "smartaddress" : "PWE7TmoLPtDGj2xHfgtsdQpTbNoUqvjxoq",
+      "pubtype" : 55,
+      "wiftype" : 128,
+      "KMDvalue" : 0,
+      "installed" : true,
+      "coin" : "PGN",
+      "status" : "active",
+      "p2shtype" : 122
+
+contabo
+      "height" : 37826,
+      "smartaddress" : "PASxz8RbzZMFuP6Wrz9yxARHqFyagJDp2k",
+      "wiftype" : 128,
+      "installed" : true,
+      "balance" : 0,
+      "coin" : "PGN",
+      "pubtype" : 55,
+      "rpc" : "127.0.0.1:8756",
+      "KMDvalue" : 0,
+      "txfee" : 10000,
+      "p2shtype" : 122,
+      "status" : "active"
+
+pigeon-cli sendtoaddress "PASxz8RbzZMFuP6Wrz9yxARHqFyagJDp2k" 1
+"fee": -0.00005983
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"PGN\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"PGN\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Pigeon (PGN)
+SWAP completed! 858424810-2858669228 {"expiration":1523205165,"tradeid":0,"requestid":858424810,"quoteid":2858669228,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"PGN","srcamount":0.75326032,"bobtxfee":0.00010000,"alice":"KMD","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"12849349922411905025","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.75336032, 0.08010000, 0.75346032, 0.08011000, 0.84761786, 0, 0, 0.84751786, 0, 0, 0],"result":"success","status":"finished","finishtime":1523189885,"bobdeposit":"4c12465877e2cc1f8f1e9c9e4abb9bbf062c4884544196f014ffafda1f07ee5a","alicepayment":"831168d5a9cdd581f7362b3a23b13ad200eec717589076fafebe1e4d708daefc","bobpayment":"b26cc114d4230cce782115faf71676ae335ab000a374467e88aafc39f75aee4f","paymentspent":"a7bd81a0bbcd4a2c5402f99baaf7adcc0e842826fa0de079999df2869cc606c8","Apaymentspent":"17d6a859cca3f29db7b8677f829ec3efea2acb8ca8d9a43bfc6694f2ed584c3d","depositspent":"91b7fa86fb27586b2da1c3ed6bc138fe5256a60f577fd57dba919a57c4d284c3","method":"tradestatus","finishtime":1523189885}
+bobdeposit http://explorer.pigeoncoin.org/tx/4c12465877e2cc1f8f1e9c9e4abb9bbf062c4884544196f014ffafda1f07ee5a
+alicepayment https://kmd.explorer.supernet.org/tx/831168d5a9cdd581f7362b3a23b13ad200eec717589076fafebe1e4d708daefc
+bobpayment http://explorer.pigeoncoin.org/tx/b26cc114d4230cce782115faf71676ae335ab000a374467e88aafc39f75aee4f

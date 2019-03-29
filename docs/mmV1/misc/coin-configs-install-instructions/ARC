@@ -1,0 +1,68 @@
+https://bitcointalk.org/index.php?topic=1139923
+https://github.com/ArcticCore/arcticcoin
+
+
+src/chainparams.cpp
+// ArcticCoin addresses start with 'A'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,23);
+// ArcticCoin script addresses start with '4'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,8);
+// ArcticCoin private keys start with '7' or 'X'
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,176);
+
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 10000; // was 1000
+
+{\"coin\":\"ARC\",\"name\":\"arcticcoin\",\"confpath\":\"${HOME#}/.arcticcore/arcticcoin.conf\",\"rpcport\":7208,\"pubtype\":23,\"p2shtype\":8,\"wiftype\":176,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/ArcticCore/arcticcoin
+cd arcticcoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/arcticcoin*
+mkdir ~/.arcticcore
+echo "server=1" >> ~/.arcticcore/arcticcoin.conf
+echo "litemode=1" >> ~/.arcticcore/arcticcoin.conf
+echo "listen=0" >> ~/.arcticcore/arcticcoin.conf
+echo "listenonion=1" >> ~/.arcticcore/arcticcoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.arcticcore/arcticcoin.conf
+echo "rpcuser=barterarc" >> ~/.arcticcore/arcticcoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.arcticcore/arcticcoin.conf
+echo "rpcworkqueue=64" >> ~/.arcticcore/arcticcoin.conf
+echo "rpcthreads=16" >> ~/.arcticcore/arcticcoin.conf
+chmod 0600 ~/.arcticcore/arcticcoin.conf
+arcticcoind -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ARC\"}"
+
+home
+   {
+      "p2shtype" : 8,
+      "pubtype" : 23,
+      "smartaddress" : "AdQoxJG7g7PEZAVWtGEg7Q7HTEZJ4iowVJ",
+      "wiftype" : 176,
+      "txfee" : 10000,
+      "rpc" : "127.0.0.1:7208",
+      "coin" : "ARC",
+      "status" : "active"
+   },
+
+contabo
+   {
+      "status" : "active",
+      "pubtype" : 23,
+      "wiftype" : 176,
+      "rpc" : "127.0.0.1:7208",
+      "coin" : "ARC",
+      "p2shtype" : 8,
+      "smartaddress" : "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf",
+      "txfee" : 10000
+   },
+
+arcticcoin-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 9.99956154
+"fee": -0.00003840,

@@ -1,0 +1,72 @@
+https://bitcointalk.org/index.php?topic=2752467.0
+https://github.com/RavenProject/Ravencoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,60);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,122);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 1000;
+
+{\"coin\":\"RVN\",\"name\":\"raven\",\"rpcport\":8766,\"pubtype\":60,\"p2shtype\":122,\"wiftype\":128,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/RavenProject/Ravencoin
+cd Ravencoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/raven*
+mkdir ~/.raven
+echo "server=1" >> ~/.raven/raven.conf
+echo "txindex=1" >> ~/.raven/raven.conf
+echo "listen=0" >> ~/.raven/raven.conf
+echo "listenonion=0" >> ~/.raven/raven.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.raven/raven.conf
+echo "rpcuser=barterrvn" >> ~/.raven/raven.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.raven/raven.conf
+chmod 0600 ~/.raven/raven.conf
+ravend -daemon
+raven-cli setgenerate false
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"RVN\"}"
+
+home
+      "pubtype" : 60,
+      "txfee" : 10000,
+      "rpc" : "127.0.0.1:8766",
+      "installed" : true,
+      "coin" : "RVN",
+      "smartaddress" : "RWv8PKHmwnXepCeinnZU43BPju6CN8rkcM",
+      "wiftype" : 128,
+      "p2shtype" : 122,
+      "balance" : 0,
+      "status" : "active",
+      "height" : 103780,
+      "KMDvalue" : 0
+
+contabo
+      "p2shtype" : 122,
+      "balance" : 0,
+      "coin" : "RVN",
+      "wiftype" : 128,
+      "pubtype" : 60,
+      "smartaddress" : "RB8yufv3YTfdzYnwz5paNnnDynGJG6WsqD",
+      "rpc" : "127.0.0.1:8766",
+      "txfee" : 10000,
+      "installed" : true,
+      "KMDvalue" : 0,
+      "status" : "active",
+      "height" : 103766
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RVN\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"ravencoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RVN\",\"rel\":\"BTC\",\"margin\":0.07,\"refbase\":\"ravencoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RVN\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"ravencoin\",\"refrel\":\"coinmarketcap\"}"
+
+raven-cli sendtoaddress "RB8yufv3YTfdzYnwz5paNnnDynGJG6WsqD" 1
+"fee": -0.00014993

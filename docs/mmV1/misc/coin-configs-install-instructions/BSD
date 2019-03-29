@@ -1,0 +1,69 @@
+https://bitcointalk.org/index.php?topic=1370307
+https://github.com/LIMXTEC/BitSend
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,102);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
+
+src/validation.h
+DEFAULT_MIN_RELAY_TX_FEE = 10000;
+DEFAULT_BLOCK_MIN_TX_FEE = 1000;
+DEFAULT_INCREMENTAL_RELAY_FEE = 1000;
+DUST_RELAY_TX_FEE = 1000;
+DEFAULT_FALLBACK_FEE = 20000;
+DEFAULT_TRANSACTION_MINFEE = 1000;
+WALLET_INCREMENTAL_RELAY_FEE = 5000;
+
+{\"coin\":\"BSD\",\"name\":\"bitsend\",\"rpcport\":8800,\"pubtype\":102,\"p2shtype\":5,\"wiftype\":204,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/LIMXTEC/BitSend
+cd BitSend
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/bitsend*
+mkdir ~/.bitsend
+echo "server=1" >> ~/.bitsend/bitsend.conf
+echo "litemode=1" >> ~/.bitsend/bitsend.conf
+echo "listen=0" >> ~/.bitsend/bitsend.conf
+echo "listenonion=1" >> ~/.bitsend/bitsend.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.bitsend/bitsend.conf
+echo "rpcuser=barterbsd" >> ~/.bitsend/bitsend.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.bitsend/bitsend.conf
+chmod 0600 ~/.bitsend/bitsend.conf
+bitsendd -daemon
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BSD\"}"
+
+home
+   {
+      "p2shtype" : 5,
+      "rpc" : "127.0.0.1:8800",
+      "coin" : "BSD",
+      "wiftype" : 204,
+      "status" : "active",
+      "txfee" : 10000,
+      "smartaddress" : "iR7TjsosmMzTAQWMpQYrRJcSB5upBVhyBc",
+      "pubtype" : 102
+   },
+
+contabo
+   {
+      "smartaddress" : "i5LKGES9N38SLkeb1hoxk4DGQy5v3D5nFp",
+      "wiftype" : 204,
+      "pubtype" : 102,
+      "rpc" : "127.0.0.1:8800",
+      "status" : "active",
+      "txfee" : 10000,
+      "p2shtype" : 5,
+      "coin" : "BSD"
+   },
+
+bitsend-cli sendtoaddress "i5LKGES9N38SLkeb1hoxk4DGQy5v3D5nFp" 4.29704741
+"fee": -0.00004520,

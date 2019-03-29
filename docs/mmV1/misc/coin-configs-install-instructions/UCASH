@@ -1,0 +1,43 @@
+{\"coin\":\"UCASH\",\"name\":\"ucash\",\"etomic\":\"0x92e52a1a235d9a103d970901066ce910aacefd37\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"UCASH\"}"
+
+home
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "rpc" : "127.0.0.1:80",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "height" : -1,
+      "status" : "active",
+      "coin" : "UCASH",
+      "balance" : 0,
+      "txfee" : 1000,
+      "installed" : false,
+      "p2shtype" : 85
+
+contabo
+      "coin" : "UCASH",
+      "txfee" : 1000,
+      "height" : -1,
+      "balance" : 1000,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "installed" : false,
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "wiftype" : 188,
+      "status" : "active",
+      "pubtype" : 0
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"UCASH\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"UCASH\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"UCASH\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+U.CASH (UCASH)
+SWAP completed! 2229249840-1158118761 {"uuid":"731d6b943d291744f6ca3de945b7dd238053eb66f62ff7d66a0214e1dc4f4b56","expiration":1528521887,"tradeid":0,"requestid":2229249840,"quoteid":1158118761,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"UCASH","bobtomic":"0x92e52a1a235d9a103d970901066ce910aacefd37","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.78077556,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"6352336343929651201","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.78078556, 0.08010000, 0.78079556, 0.08011000, 0.87839250, 0, 0, 0.87838250, 0, 0, 0],"result":"success","status":"finished","finishtime":1528506722,"bobdeposit":"c69c18a171d0b5ee117d87a3348543302d60e6f6da53389f3cdbb5a15860f1f1","alicepayment":"db8c5910b5fdadfee1dc644190921525be0fb90e0c808684d8df1bc86ffc9dcf","bobpayment":"b794319fc7b0597c2af6785829b439ce26d7b937ad856bc10a7d44ad60b2f1df","paymentspent":"01ae937caa9f87af621601111be412d3f7f93e6913bc17fadf30aa919e993fb3","Apaymentspent":"03d59b32935777ae1cc970b24fd811ada61f8615c1b4d0c66f9231055af0a427","depositspent":"705e99b54e2c78cb9ef87e91c83ce3b9e07436cfddb4f4d628ff03e01d6cb492","method":"tradestatus","finishtime":1528506722}
+bobdeposit https://etherscan.io/tx/0x54db41878c0a4030cdeb9dc19e541f00bb86ebf5c839b1af9c918d29ac44306a
+alicepayment https://kmdexplorer.ru/tx/db8c5910b5fdadfee1dc644190921525be0fb90e0c808684d8df1bc86ffc9dcf
+bobpayment https://etherscan.io/tx/0x32b9fa56bfffe87555c2e81b7a46aeaed75d1e4e181f9966085587cf4fe8b764
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"UCASH\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"ucash\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"UCASH\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"ucash\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"UCASH\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"ucash\",\"refrel\":\"coinmarketcap\"}"

@@ -1,0 +1,49 @@
+
+
+cd ~/wallets
+git clone https://github.com/bitcoin/bitcoin -b 0.15
+cd bitcoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq --enable-experimental-asm
+#--with-gui=qt5
+make -j4
+sudo make install
+sudo strip /usr/local/bin/bitcoin*
+mkdir ~/.bitcoin
+echo "server=1" >> ~/.bitcoin/bitcoin.conf
+echo "txindex=1" >> ~/.bitcoin/bitcoin.conf
+echo "rpcworkqueue=64" >> ~/.bitcoin/bitcoin.conf
+echo "rpcthreads=16" >> ~/.bitcoin/bitcoin.conf
+echo "rpcuser=barterbtc" >> ~/.bitcoin/bitcoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.bitcoin/bitcoin.conf
+echo "onion=127.0.0.1:9050" >> ~/.bitcoin/bitcoin.conf
+echo "listen=1" >> ~/.bitcoin/bitcoin.conf
+echo "listenonion=1" >> ~/.bitcoin/bitcoin.conf
+echo "bind=127.0.0.1" >> ~/.bitcoin/bitcoin.conf
+chmod 0600 ~/.bitcoin/bitcoin.conf
+bitcoind -daemon
+
+home
+   {
+      "txfee" : 0,
+      "smartaddress" : "1NdwJoQVLxj5kCHXKcaLxWrByddbgyHofb",
+      "wiftype" : 128,
+      "p2shtype" : 5,
+      "status" : "active",
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:8332",
+      "coin" : "BTC"
+   },
+
+contabo
+   {
+      "txfee" : 0,
+      "wiftype" : 128,
+      "status" : "active",
+      "rpc" : "127.0.0.1:8332",
+      "p2shtype" : 5,
+      "smartaddress" : "12rnqA2kwds4vYRkWuqTHGT2DWohY8reoj",
+      "coin" : "BTC",
+      "pubtype" : 0
+   },
+

@@ -1,0 +1,37 @@
+{\"coin\":\"KNC\",\"name\":\"kyber-network\",\"etomic\":\"0xdd974D5C2e2928deA5F71b9825b8b646686BD200\",\"rpcport\":80}
+
+home
+      "coin" : "KNC",
+      "height" : -1,
+      "pubtype" : 0,
+      "installed" : false,
+      "txfee" : 1000,
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "balance" : 0,
+      "wiftype" : 188,
+      "status" : "active",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c"
+
+contabo
+      "installed" : false,
+      "height" : -1,
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "wiftype" : 188,
+      "balance" : 0,
+      "txfee" : 1000,
+      "status" : "active",
+      "pubtype" : 0,
+      "coin" : "KNC",
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"KNC\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"KNC\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"KNC\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Kyber Network (KNC)
+SWAP completed! 3817497114-1940750085 {"expiration":1523078935,"tradeid":0,"requestid":3817497114,"quoteid":1940750085,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"KNC","bobtomic":"0xdd974D5C2e2928deA5F71b9825b8b646686BD200","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.75719978,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"10537249637034819585","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.75720978, 0.08010000, 0.75721978, 0.08011000, 0.85186975, 0, 0, 0.85185975, 0, 0, 0],"result":"success","status":"finished","finishtime":1523063914,"bobdeposit":"9286a4ff4945cb57196b2756d81bd58f73662832d7c8d41a6f141fda333f73a5","alicepayment":"deac0eebaae1ff0f36b3d8150e61d5183ebaa5f43808a66b7243a4960394764a","bobpayment":"bb54b774f9c3163b1546d4411be80cef91551225c69c41e15c0be692fa414c29","paymentspent":"2db509b010ef48d0e49456bfb53afc5476641ce909fd3294e4e036ff74b376e5","Apaymentspent":"f5f0d86946f44b18e2000c4c8b7db1a69219e7daa42ad4da5361fbaf83266221","depositspent":"a8777f2d5470e88a02a8efcb69e06ac4a470d0814077d62954fbf06e89f2a878","method":"tradestatus","finishtime":1523063914}
+bobdeposit https://etherscan.io/tx/0xcd62e8797b1f185d01257edb3287b50808c86d10796cd1dc946f030ecbac384a
+alicepayment https://kmd.explorer.supernet.org/tx/deac0eebaae1ff0f36b3d8150e61d5183ebaa5f43808a66b7243a4960394764a
+bobpayment https://etherscan.io/tx/0x6bc09d0c9a61549cdfac994847c3a6d16ea3443d1af71224a74672f647ae1a94

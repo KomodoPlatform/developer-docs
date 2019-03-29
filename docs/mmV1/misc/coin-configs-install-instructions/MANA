@@ -1,0 +1,44 @@
+{\"coin\":\"MANA\",\"name\":\"decentraland\",\"etomic\":\"0x0F5D2fB29fb7d3CFeE444a200298f468908cC942\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MANA\"}"
+
+home
+      "pubtype" : 0,
+      "height" : -1,
+      "p2shtype" : 85,
+      "txfee" : 1000,
+      "wiftype" : 188,
+      "coin" : "MANA",
+      "rpc" : "127.0.0.1:80",
+      "balance" : 0,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "installed" : false,
+      "status" : "active"
+
+contabo
+      "status" : "active",
+      "installed" : false,
+      "txfee" : 1000,
+      "height" : -1,
+      "rpc" : "127.0.0.1:80",
+      "coin" : "MANA",
+      "wiftype" : 188,
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "balance" : 184.8
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"MANA\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"MANA\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"MANA\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Decentraland (MANA)
+SWAP completed! 3617541466-4086203384 {"uuid":"b68454ba8b7dfb558fd15ce1650fcfee50e3e88bb842fa5ae96106dd3f8661da","expiration":1531198801,"tradeid":0,"requestid":3617541466,"quoteid":4086203384,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"MANA","bobtomic":"0x0F5D2fB29fb7d3CFeE444a200298f468908cC942","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.70033548,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"15453045455526756353","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531183862,"bobdeposit":"6e22dea1f8728d50628b370943dcaa463e1f846062ec502171debffb16df2fb1","alicepayment":"221650b85a019c7b7eaf0d178104e57af17461f148e52fdfabbbaf7037c6b7ee","bobpayment":"2460f129d2e2b496c37678beef41e4c5a2751653f1ba9f4a92c0ec7becfc2052","paymentspent":"d678262c8b7ee26dcc13a49bc0cfe564f1f0f6ff3a76dbbbfb8263f171d0bc78","Apaymentspent":"a5a67d5ac3ff44f5b58e5d32dca3287944151b8dff66184194994659099c5a24","depositspent":"be4863e59a67e478c959fd061ac02b7d803d363da078cd0dbf9a1b0da43888c9","alicedexfee":"bacf4709ea8400a99ae490c32fa1982ea31e2b25deb09f31fdf47b017b9dd22b","method":"tradestatus","finishtime":1531183862}
+bobdeposit https://etherscan.io/tx/0x5c579ee795a8e68c8c24be37d907ae0017e08d0a4ab20adc97efd0a45d731173
+alicepayment https://kmdexplorer.ru/tx/221650b85a019c7b7eaf0d178104e57af17461f148e52fdfabbbaf7037c6b7ee
+bobpayment https://etherscan.io/tx/0x8ef7c6a89e2a7043bd6e104c7f50a7a41cdd37e9805746a0324615ba99e6f81a
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MANA\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"decentraland\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MANA\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"decentraland\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MANA\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"decentraland\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MANA\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"decentraland\",\"refrel\":\"coinmarketcap\"}"

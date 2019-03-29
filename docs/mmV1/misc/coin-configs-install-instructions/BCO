@@ -1,0 +1,80 @@
+https://bitcointalk.org/index.php?topic=2015949.0
+https://github.com/CryptoBridge/bridgecoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,27);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,50);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,176);
+
+src/wallet/wallet.h
+DEFAULT_FALLBACK_FEE = 200000;
+DEFAULT_TRANSACTION_MINFEE = 100000;
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 100000;
+
+{\"coin\":\"BCO\",\"name\":\"bridgecoin\",\"rpcport\":6332,\"pubtype\":27,\"p2shtype\":5,\"wiftype\":176,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/CryptoBridge/bridgecoin
+cd bridgecoin
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/bridgecoin*
+mkdir ~/.bridgecoin
+echo "server=1" >> ~/.bridgecoin/bridgecoin.conf
+echo "txindex=1" >> ~/.bridgecoin/bridgecoin.conf
+echo "listen=0" >> ~/.bridgecoin/bridgecoin.conf
+echo "listenonion=0" >> ~/.bridgecoin/bridgecoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.bridgecoin/bridgecoin.conf
+echo "rpcuser=barterbco" >> ~/.bridgecoin/bridgecoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.bridgecoin/bridgecoin.conf
+addnode=167.114.103.43:6333
+addnode=144.76.64.238:6333
+addnode=173.212.245.112:6333
+addnode=176.9.24.230:6333
+addnode=178.63.104.7:6333
+addnode=45.79.151.135:6333
+addnode=61.164.253.37:6333
+chmod 0600 ~/.bridgecoin/bridgecoin.conf
+bridgecoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BCO\"}"
+
+home
+      "KMDvalue" : 0,
+      "height" : 183747,
+      "txfee" : 100000,
+      "balance" : 0,
+      "coin" : "BCO",
+      "rpc" : "127.0.0.1:6332",
+      "pubtype" : 27,
+      "smartaddress" : "CEmDtjTGWqEjpu3rywZx3uCRyFb4xpGc2d",
+      "status" : "active",
+      "wiftype" : 176,
+      "p2shtype" : 5,
+      "installed" : true
+
+contabo
+      "rpc" : "127.0.0.1:6332",
+      "height" : 183747,
+      "balance" : 0,
+      "p2shtype" : 5,
+      "installed" : true,
+      "txfee" : 100000,
+      "status" : "active",
+      "pubtype" : 27,
+      "smartaddress" : "Btz5R65Y7WNj1FC6BEq4NeoGD8mAjS6FuV",
+      "coin" : "BCO",
+      "KMDvalue" : 0,
+      "wiftype" : 176
+
+bridgecoin-cli sendtoaddress "Btz5R65Y7WNj1FC6BEq4NeoGD8mAjS6FuV" 1
+bridgecoin-cli sendtoaddress "Btz5R65Y7WNj1FC6BEq4NeoGD8mAjS6FuV" 1.2
+"fee": -0.00045200
+

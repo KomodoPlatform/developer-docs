@@ -1,0 +1,43 @@
+{\"coin\":\"VEN\",\"name\":\"vechain\",\"etomic\":\"0xd850942ef8811f2a866692a623011bde52a462c1\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"VEN\"}"
+
+home
+      "rpc" : "127.0.0.1:80",
+      "coin" : "VEN",
+      "wiftype" : 188,
+      "balance" : 0,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "height" : -1,
+      "txfee" : 1000,
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "installed" : false
+
+contabo
+      "installed" : false,
+      "status" : "active",
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "height" : -1,
+      "coin" : "VEN",
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "balance" : 0,
+      "wiftype" : 188
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"VEN\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"VEN\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1.2}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"VEN\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"VEN\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+VeChain (VEN)
+SWAP completed! 1078283746-2574623763 {"uuid":"a2806251ab0d25cedd3a2264ff2d9b2c6f6a74ddb4dd79e04e8e88a853da1575","expiration":1526850610,"tradeid":0,"requestid":1078283746,"quoteid":2574623763,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"VEN","bobtomic":"0xd850942ef8811f2a866692a623011bde52a462c1","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.77474504,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"4267153372905799681","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.77475504, 0.08010000, 0.77476504, 0.08011000, 0.87160817, 0, 0, 0.87159817, 0, 0, 0],"result":"success","status":"finished","finishtime":1526835502,"bobdeposit":"3cf5b81a8fe2c0da81333250b1482cec171a8f7345370fa103decc14aa546892","alicepayment":"0d4835833095f5db56814b6719bdfdb291da2b09466dff8aeced88dcd6309864","bobpayment":"2495230a1f12daf87901db6fcc68158901cd4a9fc3dc90dbf685d40ef992be8c","paymentspent":"226aa819e319f7c376745953bdc5aa3e9b2b97ed7070b5d639ec780bbd552931","Apaymentspent":"b8ede3c867f1ffd36f78812cb397e9cac848c64a1eff6e691ea4a5dac5903e1a","depositspent":"4931ba47b0361e95c5986c00bd1216f5479f7b914f06c4a0ac86e841672599d8","method":"tradestatus","finishtime":1526835502}
+bobdeposit https://etherscan.io/tx/0x35ef31f377c2b35f14bd12e10f527690896350a2374547d82a76040707061136
+alicepayment https://kmdexplorer.ru/tx/0d4835833095f5db56814b6719bdfdb291da2b09466dff8aeced88dcd6309864
+bobpayment https://etherscan.io/tx/0x004996d6466c5c0b98f7372b44c49d3fbca190cce41a14438b058a0b95591816
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"VEN\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"vechain\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"VEN\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"vechain\",\"refrel\":\"coinmarketcap\"}"

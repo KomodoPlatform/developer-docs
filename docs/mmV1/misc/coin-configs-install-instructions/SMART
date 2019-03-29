@@ -1,0 +1,78 @@
+https://bitcointalk.org/index.php?topic=2560430.0
+https://github.com/SmartCash/smartcash
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,18);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,191);
+
+src/wallet/wallet.h
+static const CAmount DEFAULT_FALLBACK_FEE = 20000;
+static const CAmount DEFAULT_TRANSACTION_MINFEE = 1000;
+src/primitives/transaction.cpp
+nMinFee = 100000;
+
+{\"coin\":\"SMART\",\"name\":\"smartcash\",\"rpcport\":9679,\"pubtype\":63,\"p2shtype\":18,\"wiftype\":191,\"txfee\":200000}
+
+
+cd ~/wallets
+git clone https://github.com/SmartCash/smartcash
+cd smartcash
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/smartcash*
+mkdir ~/.smartcash
+echo "server=1" >> ~/.smartcash/smartcash.conf
+echo "txindex=1" >> ~/.smartcash/smartcash.conf
+echo "listen=0" >> ~/.smartcash/smartcash.conf
+echo "listenonion=1" >> ~/.smartcash/smartcash.conf
+echo "litemode=1" >> ~/.smartcash/smartcash.conf
+echo "smartnode=0" >> ~/.smartcash/smartcash.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.smartcash/smartcash.conf
+echo "rpcuser=bartersmart" >> ~/.smartcash/smartcash.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.smartcash/smartcash.conf
+chmod 0600 ~/.smartcash/smartcash.conf
+smartcashd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SMART\"}"
+
+home
+      "installed" : true,
+      "p2shtype" : 18,
+      "status" : "active",
+      "coin" : "SMART",
+      "smartaddress" : "SivwLeBe5KvHGW4ys3ZRWQzkdQs2VPeSYQ",
+      "KMDvalue" : 0,
+      "height" : 357736,
+      "txfee" : 200000,
+      "pubtype" : 63,
+      "wiftype" : 191,
+      "balance" : 0,
+      "rpc" : "127.0.0.1:9679"
+
+contabo
+      "installed" : true,
+      "rpc" : "127.0.0.1:9679",
+      "p2shtype" : 18,
+      "height" : 359030,
+      "smartaddress" : "SP9nrzoug14GSrDD4LpXqAbasJ38Pmk8Hw",
+      "balance" : 0,
+      "pubtype" : 63,
+      "wiftype" : 191,
+      "coin" : "SMART",
+      "status" : "active",
+      "txfee" : 200000,
+      "KMDvalue" : 0
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SMART\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"smartcash\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SMART\",\"rel\":\"BTC\",\"margin\":0.07,\"refbase\":\"smartcash\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SMART\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"smartcash\",\"refrel\":\"coinmarketcap\"}"
+
+smartcash-cli sendtoaddress "SP9nrzoug14GSrDD4LpXqAbasJ38Pmk8Hw" 1
+smartcash-cli sendtoaddress "SP9nrzoug14GSrDD4LpXqAbasJ38Pmk8Hw" 1.2
+"fee": -0.00100000

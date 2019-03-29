@@ -1,0 +1,70 @@
+https://bitcointalk.org/index.php?topic=1809920.0
+https://github.com/creativechain/creativechain-core
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,28);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+//base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,50);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,176);
+
+src/wallet/wallet.h
+DEFAULT_FALLBACK_FEE = 200000;
+DEFAULT_TRANSACTION_MINFEE = 100000;
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 100000;
+
+{\"coin\":\"CREA\",\"name\":\"creativecoin\",\"rpcport\":17711,\"pubtype\":28,\"p2shtype\":5,\"wiftype\":176,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/creativechain/creativechain-core
+cd creativechain-core
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/creativecoin*
+mkdir ~/.creativecoin
+echo "server=1" >> ~/.creativecoin/creativecoin.conf
+echo "listen=0" >> ~/.creativecoin/creativecoin.conf
+echo "listenonion=1" >> ~/.creativecoin/creativecoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.creativecoin/creativecoin.conf
+echo "rpcuser=bartercrea" >> ~/.creativecoin/creativecoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.creativecoin/creativecoin.conf
+chmod 0600 ~/.creativecoin/creativecoin.conf
+creativecoind -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"CREA\"}"
+
+home
+   {
+      "smartaddress" : "Ce6psqkZE1hceLBx1MuGY2UDbkr1g332ip",
+      "p2shtype" : 5,
+      "pubtype" : 28,
+      "rpc" : "127.0.0.1:17711",
+      "wiftype" : 176,
+      "status" : "active",
+      "coin" : "CREA",
+      "txfee" : 100000
+   },
+
+contabo
+   {
+      "rpc" : "127.0.0.1:17711",
+      "wiftype" : 176,
+      "coin" : "CREA",
+      "pubtype" : 28,
+      "smartaddress" : "CJKgQCNppgqbpgLBCfANrn53qe27TDpF99",
+      "p2shtype" : 5,
+      "txfee" : 100000,
+      "status" : "active"
+   },
+
+creativecoin-cli sendtoaddress "CJKgQCNppgqbpgLBCfANrn53qe27TDpF99" 0.77760212
+"fee": -0.00045000,
+creativecoin-cli sendtoaddress "CJKgQCNppgqbpgLBCfANrn53qe27TDpF99" 0.23104064
+"fee": -0.00104200,
+creativecoin-cli sendtoaddress "CaL4JtSgu4hgMG8nZJ7Kfn9gdtZV1w7cad" 149.7
+"fee": -0.00452000

@@ -1,0 +1,69 @@
+https://bitcointalk.org/index.php?topic=1720632.0
+https://github.com/qtumproject/qtum
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,58);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,50);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 400000;
+
+{\"coin\":\"QTUM\",\"name\":\"qtum\",\"rpcport\":3889,\"pubtype\":58,\"p2shtype\":50,\"wiftype\":128,\"txfee\":400000}
+
+
+cd ~/wallets
+git clone https://github.com/qtumproject/qtum --recursive
+cd qtum
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/qtum*
+mkdir ~/.qtum
+echo "server=1" >> ~/.qtum/qtum.conf
+echo "txindex=1" >> ~/.qtum/qtum.conf
+echo "staking=0" >> ~/.qtum/qtum.conf
+echo "listen=0" >> ~/.qtum/qtum.conf
+echo "listenonion=1" >> ~/.qtum/qtum.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.qtum/qtum.conf
+echo "rpcuser=barterqtum" >> ~/.qtum/qtum.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.qtum/qtum.conf
+chmod 0600 ~/.qtum/qtum.conf
+qtumd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"QTUM\"}"
+
+home
+      "smartaddress" : "QiEvR6hCXRbuBLNYjwtq5ndpUtaJyDyWXD",
+      "rpc" : "127.0.0.1:3889",
+      "txfee" : 400000,
+      "installed" : true,
+      "height" : 40710,
+      "wiftype" : 128,
+      "coin" : "QTUM",
+      "pubtype" : 58,
+      "p2shtype" : 50,
+      "status" : "active",
+      "KMDvalue" : 0,
+      "balance" : 0
+
+contabo
+      "coin" : "QTUM",
+      "installed" : true,
+      "KMDvalue" : 0,
+      "status" : "active",
+      "smartaddress" : "QNTmwTKU86jtMgWmwF9wQYEeimkQpXsi4Q",
+      "pubtype" : 58,
+      "rpc" : "127.0.0.1:3889",
+      "txfee" : 400000,
+      "balance" : 0,
+      "height" : 40691,
+      "p2shtype" : 50,
+      "wiftype" : 128
+
+qtum-cli sendtoaddress "QNTmwTKU86jtMgWmwF9wQYEeimkQpXsi4Q" 1
+qtum-cli sendtoaddress "QNTmwTKU86jtMgWmwF9wQYEeimkQpXsi4Q" 1.2
+"fee": -0.00114401

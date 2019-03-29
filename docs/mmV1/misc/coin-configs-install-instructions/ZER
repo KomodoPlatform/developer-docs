@@ -1,0 +1,67 @@
+https://bitcointalk.org/index.php?topic=1796036.0
+https://github.com/zerocurrency/zero
+https://github.com/zerocurrencycoin/Zero
+
+
+src/chainparams.cpp
+// guarantees the first 2 characters, when base58 encoded, are "t1"
+base58Prefixes[PUBKEY_ADDRESS]     = {0x1C,0xB8};
+// guarantees the first 2 characters, when base58 encoded, are "t3"
+base58Prefixes[SCRIPT_ADDRESS]     = {0x1C,0xBD};
+// the first character, when base58 encoded, is "5" or "K" or "L" (as in Bitcoin)
+base58Prefixes[SECRET_KEY]         = {0x80};
+
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 100;
+
+{\"coin\":\"ZER\",\"name\":\"zero\",\"rpcport\":23801,\"taddr\":28,\"pubtype\":184,\"p2shtype\":189,\"wiftype\":128,\"txfee\":1000}
+
+
+cd ~/wallets
+git clone https://github.com/zerocurrencycoin/Zero
+cd Zero
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./zcutil/build.sh --disable-tests --disable-rust -j4
+sudo cp src/zcashd /usr/local/bin/zerod
+sudo cp src/zcash-cli /usr/local/bin/zero-cli
+sudo strip /usr/local/bin/zero*
+mkdir ~/.zero
+echo "server=1" >> ~/.zero/zero.conf
+echo "listen=0" >> ~/.zero/zero.conf
+echo "listenonion=1" >> ~/.zero/zero.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.zero/zero.conf
+echo "rpcuser=barterzer" >> ~/.zero/zero.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.zero/zero.conf
+echo "addnode=35.164.216.74" >> ~/.zero/zero.conf
+echo "addnode=94.176.235.178" >> ~/.zero/zero.conf
+chmod 0600 ~/.zero/zero.conf
+zerod -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ZER\"}"
+
+home
+   {
+      "p2shtype" : 189,
+      "rpc" : "127.0.0.1:23801",
+      "wiftype" : 128,
+      "coin" : "ZER",
+      "smartaddress" : "t1fWYK8pdKHWgLqLRG3PU6Kx7EHpgVRNjCU",
+      "pubtype" : 184,
+      "status" : "active",
+      "txfee" : 1000
+   },
+
+contabo
+   {
+      "smartaddress" : "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH",
+      "wiftype" : 128,
+      "status" : "active",
+      "coin" : "ZER",
+      "rpc" : "127.0.0.1:23801",
+      "txfee" : 1000,
+      "pubtype" : 184,
+      "p2shtype" : 189
+   },
+
+zero-cli sendtoaddress "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH" 1.99950773
+"fee": -0.00000226,

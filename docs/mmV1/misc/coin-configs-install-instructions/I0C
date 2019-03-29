@@ -1,0 +1,66 @@
+https://bitcointalk.org/index.php?topic=624935.0
+https://github.com/domob1812/i0coin/tree/0.12
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,105);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
+
+src/wallet/wallet.h
+DEFAULT_FALLBACK_FEE = 20000;
+DEFAULT_TRANSACTION_MINFEE = 1000;
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 1000;
+
+{\"coin\":\"I0C\",\"name\":\"i0coin\",\"rpcport\":7332,\"pubtype\":105,\"p2shtype\":5,\"wiftype\":128,\"txfee\":1000}
+
+
+cd ~/wallets
+git clone https://github.com/domob1812/i0coin -b 0.12
+cd i0coin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/i0coin*
+mkdir ~/.i0coin
+echo "server=1" >> ~/.i0coin/i0coin.conf
+echo "listen=0" >> ~/.i0coin/i0coin.conf
+echo "listenonion=1" >> ~/.i0coin/i0coin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.i0coin/i0coin.conf
+echo "rpcuser=barteri0c" >> ~/.i0coin/i0coin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.i0coin/i0coin.conf
+chmod 0600 ~/.i0coin/i0coin.conf
+i0coind -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"I0C\"}"
+
+home
+   {
+      "rpc" : "127.0.0.1:7332",
+      "p2shtype" : 5,
+      "txfee" : 1000,
+      "pubtype" : 105,
+      "smartaddress" : "jd8GhChjtuP5chvctfYosgRo4bgeRT8Nyr",
+      "status" : "active",
+      "estimatedrate" : 20,
+      "wiftype" : 128,
+      "coin" : "I0C"
+   },
+
+contabo
+   {
+      "smartaddress" : "jHM8DZL1VaX4o44r5xovCS2dJUrkCMNT2Y",
+      "coin" : "I0C",
+      "status" : "active",
+      "pubtype" : 105,
+      "p2shtype" : 5,
+      "rpc" : "127.0.0.1:7332",
+      "wiftype" : 128,
+      "txfee" : 1000
+   },
+
+i0coin-cli sendtoaddress "jHM8DZL1VaX4o44r5xovCS2dJUrkCMNT2Y" 9.99966488
+"fee": -0.00004500,

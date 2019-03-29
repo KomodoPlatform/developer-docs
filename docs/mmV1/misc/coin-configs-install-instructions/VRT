@@ -1,0 +1,69 @@
+https://bitcointalk.org/index.php?topic=2983251
+https://github.com/VirtusPay/virtus
+https://virtus.blockxplorer.info/
+
+
+src/chainparams.cpp
+// Virtus addresses start with 'V'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,70);
+// Virtus script addresses start with '7'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,16);
+// Virtus private keys start with '7' or 'X'
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
+
+{\"coin\":\"VRT\",\"name\":\"virtus\",\"confpath\":\"${HOME#}/.virtuscore/virtus.conf\",\"rpcport\":13880,\"pubtype\":70,\"p2shtype\":16,\"wiftype\":204,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/VirtusPay/virtus
+cd virtus
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/virtus*
+mkdir ~/.virtuscore
+echo "server=1" >> ~/.virtuscore/virtus.conf
+echo "txindex=1" >> ~/.virtuscore/virtus.conf
+echo "litemode=1" >> ~/.virtuscore/virtus.conf
+echo "listen=0" >> ~/.virtuscore/virtus.conf
+echo "listenonion=0" >> ~/.virtuscore/virtus.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.virtuscore/virtus.conf
+echo "rpcuser=bartervrt" >> ~/.virtuscore/virtus.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.virtuscore/virtus.conf
+chmod 0600 ~/.virtuscore/virtus.conf
+virtusd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"VRT\"}"
+
+home
+      "KMDvalue" : 0,
+      "installed" : true,
+      "p2shtype" : 16,
+      "pubtype" : 70,
+      "status" : "active",
+      "balance" : 0,
+      "txfee" : 10000,
+      "height" : 43165,
+      "smartaddress" : "VYJAEQGf3bAQzY3b2yteuHuG2wfdXZB5a8",
+      "rpc" : "127.0.0.1:13880",
+      "coin" : "VRT",
+      "wiftype" : 204
+
+contabo
+      "coin" : "VRT",
+      "smartaddress" : "VCX1kktveGJQAtBpEH9mE3W6GpqjJKXyjf",
+      "balance" : 0,
+      "KMDvalue" : 0,
+      "rpc" : "127.0.0.1:13880",
+      "height" : 43161,
+      "txfee" : 10000,
+      "wiftype" : 204,
+      "p2shtype" : 16,
+      "status" : "active",
+      "installed" : true,
+      "pubtype" : 70
+
+virtus-cli sendtoaddress "VCX1kktveGJQAtBpEH9mE3W6GpqjJKXyjf" 1
+"fee": -0.00000226

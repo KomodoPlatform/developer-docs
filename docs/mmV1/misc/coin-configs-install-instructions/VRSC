@@ -1,0 +1,32 @@
+https://bitcointalk.org/index.php?topic=4070404.0
+https://github.com/VerusCoin/VerusCoin
+
+
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,60);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,85);
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,188);
+
+
+{\"coin\":\"VRSC\",\"asset\":\"VRSC\",\"rpcport\":27486}
+
+
+cd ~/wallets
+git clone https://github.com/VerusCoin/VerusCoin
+cd VerusCoin
+git checkout dev
+git pull
+#./zcutil/fetch-params.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./zcutil/build.sh
+strip src/komodod src/komodo-cli src/komodo-tx
+sudo cp src/komodod /usr/local/bin/verusd
+sudo cp src/komodo-cli /usr/local/bin/verus-cli
+mkdir ~/.komodo/VRSC
+echo "server=1" >> ~/.komodo/VRSC/VRSC.conf
+echo "txindex=1" >> ~/.komodo/VRSC/VRSC.conf
+echo "listen=0" >> ~/.komodo/VRSC/VRSC.conf
+echo "rpcport=27486" >> ~/.komodo/VRSC/VRSC.conf
+echo "rpcuser=bartervrsc" >> ~/.komodo/VRSC/VRSC.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.komodo/VRSC/VRSC.conf
+chmod 0600 ~/.komodo/VRSC/VRSC.conf
+verusd -ac_name=VRSC -ac_algo=verushash -ac_cc=1 -ac_veruspos=50 -ac_supply=0 -ac_eras=3 -ac_reward=0,38400000000,2400000000 -ac_halving=1,43200,1051920 -ac_decay=100000000,0,0 -ac_end=10080,226080,0 -ac_timelockgte=19200000000 -ac_timeunlockfrom=129600 -ac_timeunlockto=1180800 -addnode=185.25.48.236 -addnode=185.64.105.111 -daemon
+

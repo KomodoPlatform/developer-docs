@@ -1,0 +1,44 @@
+{\"coin\":\"MGO\",\"name\":\"mobilego\",\"etomic\":\"0x40395044Ac3c0C57051906dA938B54BD6557F212\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MGO\"}"
+
+home
+      "p2shtype" : 85,
+      "status" : "active",
+      "rpc" : "127.0.0.1:80",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "txfee" : 1000,
+      "wiftype" : 188,
+      "balance" : 0,
+      "installed" : false,
+      "height" : -1,
+      "coin" : "MGO",
+      "pubtype" : 0
+
+contabo
+      "p2shtype" : 85,
+      "balance" : 0,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "txfee" : 1000,
+      "height" : -1,
+      "installed" : false,
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:80",
+      "coin" : "MGO",
+      "status" : "active",
+      "wiftype" : 188
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"MGO\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"MGO\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1.2}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"MGO\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"MGO\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+MobileGo (MGO)
+SWAP completed! 4067778827-135016750 {"uuid":"67b19c28b7af784740dd25d414835dfda863802054913d894ad4c739d5ed7f2c","expiration":1526634781,"tradeid":0,"requestid":4067778827,"quoteid":135016750,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"MGO","bobtomic":"0x40395044Ac3c0C57051906dA938B54BD6557F212","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.68133671,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"18008505478234963969","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.68134671, 0.08010000, 0.68135671, 0.08011000, 0.76652379, 0, 0, 0.76651379, 0, 0, 0],"result":"success","status":"finished","finishtime":1526619730,"bobdeposit":"fad59811692c6f026d60afcb665f0ec47b991e482d606e43dcff68aba998933b","alicepayment":"e5eed08cab6322af6bd09a06c23f232fd63b2dfd538bb3bdd00312d3992c00d6","bobpayment":"1b0e659b2f2c950deab5eb0a6c078458498dd370cc7989a0d5df5ef03edf5205","paymentspent":"55f4461d830a3b9350291fdf5e6a8a72b11de5f582a9e0a4be35fac8ed841e31","Apaymentspent":"496d0868fd0dd8722b7555e06ba866d0024f12a430aca407754a5f2c215d614e","depositspent":"90f148aa30907d63c235d2586c259fd6c1af3a4a8d2c1ff4c9fe4a8c87ddb324","method":"tradestatus","finishtime":1526619730}
+bobdeposit https://etherscan.io/tx/0x67e0747d1dd17d4494134a91ebbec1ef89e5055ef24d9f041597f92ea779693c
+alicepayment https://kmdexplorer.ru/tx/e5eed08cab6322af6bd09a06c23f232fd63b2dfd538bb3bdd00312d3992c00d6
+bobpayment https://etherscan.io/tx/0x1368c18742c254e554289287d7677ce0d5b25da7462b809de89fb603ec6e840f
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MGO\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"mobilego\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MGO\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"mobilego\",\"refrel\":\"coinmarketcap\"}"
+

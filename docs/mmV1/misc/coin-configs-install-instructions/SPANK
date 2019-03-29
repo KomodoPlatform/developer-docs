@@ -1,0 +1,44 @@
+{\"coin\":\"SPANK\",\"name\":\"spankchain\",\"etomic\":\"0x42d6622dece394b54999fbd73d108123806f6a18\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SPANK\"}"
+
+home
+      "rpc" : "127.0.0.1:80",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "txfee" : 1000,
+      "pubtype" : 0,
+      "height" : -1,
+      "installed" : false,
+      "status" : "active",
+      "wiftype" : 188,
+      "coin" : "SPANK",
+      "p2shtype" : 85,
+      "balance" : 0
+
+contabo
+      "p2shtype" : 85,
+      "height" : -1,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "coin" : "SPANK",
+      "pubtype" : 0,
+      "installed" : false,
+      "status" : "active",
+      "balance" : 50.99,
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "rpc" : "127.0.0.1:80"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"SPANK\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"SPANK\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"SPANK\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+SpankChain (SPANK)
+SWAP completed! 970704500-371382975 {"warning":"swaps in critical section, dont exit now","critical":1531086634,"endcritical":1531083193,"uuid":"6aca3b010be1ebc0e69323a522944cab998663ed4727537431262631d9da5cda","expiration":1531097934,"tradeid":0,"requestid":970704500,"quoteid":371382975,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"SPANK","bobtomic":"0x42d6622dece394b54999fbd73d108123806f6a18","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.73632501,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"1711825761501708289","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531086710,"bobdeposit":"e72b9356974b9b6b0c5bf38ac9ca9e148f17877bf77658b6e151a919e4ffba96","alicepayment":"9566f942a04a087fedf2034f1ced04ec6e8967741ace167e6c28cb4369c640fc","bobpayment":"e23cc38f6060b6bdc904d7a8e906ec579a2d56a2e760e295a1e6fa2280e41d54","paymentspent":"2bd9f558cd28effd212a1ed83396a5de66c592ccbe96a451bb39a45b9f8521a2","Apaymentspent":"aa7721ed456312faea7e681c853df09c548e1329fd05a37a0008e52e549e4188","depositspent":"6aa87d1c996ffd99c5aa9411ee71fa4a8cd6121a2420a236b886a049594708aa","alicedexfee":"94e87f5a5c4e48de8cac9392c747b83946b2e1330d6637048400f7d217420181","method":"tradestatus","finishtime":1531086710}
+bobdeposit https://etherscan.io/tx/0xa3348511c1d93547e7cf3d7e7de9b8eb228e8f0405614093012c6d4e27733130
+alicepayment https://kmdexplorer.ru/tx/9566f942a04a087fedf2034f1ced04ec6e8967741ace167e6c28cb4369c640fc
+bobpayment https://etherscan.io/tx/0x63cf4c6ab3c97574a7c223ca4c5dd65b8a07bfe9d676274b4d151a0e500cc8c9
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SPANK\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"spankchain\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SPANK\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"spankchain\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SPANK\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"spankchain\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SPANK\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"spankchain\",\"refrel\":\"coinmarketcap\"}"

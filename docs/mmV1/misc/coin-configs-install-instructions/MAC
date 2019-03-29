@@ -1,0 +1,73 @@
+https://bitcointalk.org/index.php?topic=1693210.0
+https://github.com/machinecoin-project/machinecoin-core
+
+
+src/chainparams.cpp
+nDefaultPort = 40333;
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,50); // Machinecoin M
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5); // Machinecoin 3
+base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1,178); // Machinecoin 2
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 1000;
+src/validation.h
+DEFAULT_MIN_RELAY_TX_FEE = 100000;
+
+{\"coin\":\"MAC\",\"name\":\"machinecoin\",\"rpcport\":40332,\"pubtype\":50,\"p2shtype\":5,\"wiftype\":178,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/machinecoin-project/machinecoin-core
+cd machinecoin-core
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/machinecoin*
+mkdir ~/.machinecoin
+echo "server=1" >> ~/.machinecoin/machinecoin.conf
+echo "txindex=1" >> ~/.machinecoin/machinecoin.conf
+echo "litemode=1" >> ~/.machinecoin/machinecoin.conf
+echo "listen=0" >> ~/.machinecoin/machinecoin.conf
+echo "listenonion=0" >> ~/.machinecoin/machinecoin.conf
+echo "rpcuser=bartermac" >> ~/.machinecoin/machinecoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.machinecoin/machinecoin.conf
+echo "rpcworkqueue=64" >> ~/.machinecoin/machinecoin.conf
+echo "rpcthreads=16" >> ~/.machinecoin/machinecoin.conf
+chmod 0600 ~/.machinecoin/machinecoin.conf
+machinecoind -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MAC\"}"
+
+home
+   {
+      "smartaddress" : "MVY6YEJtqyttdsFrYbEHCnTXSrWmGgKB2q",
+      "p2shtype" : 5,
+      "rpc" : "127.0.0.1:40332",
+      "wiftype" : 178,
+      "status" : "active",
+      "pubtype" : 50,
+      "txfee" : 50000,
+      "coin" : "MAC"
+   },
+
+contabo
+   {
+      "pubtype" : 50,
+      "wiftype" : 178,
+      "status" : "active",
+      "coin" : "MAC",
+      "rpc" : "127.0.0.1:40332",
+      "p2shtype" : 5,
+      "txfee" : 50000,
+      "smartaddress" : "M9kx4awASf2spDQ5jtVPXY4Mgjgs9Kmozi"
+   },
+
+machinecoin-cli sendtoaddress "M9kx4awASf2spDQ5jtVPXY4Mgjgs9Kmozi" 13.66828688
+"fee": -0.00067000
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"POLIS\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"POLIS\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+

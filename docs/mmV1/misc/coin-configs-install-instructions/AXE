@@ -1,0 +1,76 @@
+https://github.com/AXErunners/axe
+
+
+src/chainparams.cpp
+// Axe addresses start with 'P'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,55);
+// Axe script addresses start with '7'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,16);
+// Axe private keys start with '7' or 'X'
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
+
+{\"coin\":\"AXE\",\"name\":\"axe\",\"confpath\":\"${HOME#}/.axecore/axe.conf\",\"rpcport\":9337,\"pubtype\":55,\"p2shtype\":16,\"wiftype\":204,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/AXErunners/axe
+cd axe
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/axe*
+mkdir ~/.axecore
+echo "server=1" >> ~/.axecore/axe.conf
+echo "txindex=1" >> ~/.axecore/axe.conf
+echo "litemode=1" >> ~/.axecore/axe.conf
+echo "rpcport=9338" >> ~/.axecore/axe.conf
+echo "listen=0" >> ~/.axecore/axe.conf
+echo "listenonion=0" >> ~/.axecore/axe.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.axecore/axe.conf
+echo "rpcuser=barteraxe" >> ~/.axecore/axe.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.axecore/axe.conf
+chmod 0600 ~/.axecore/axe.conf
+axed -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"AXE\"}"
+
+home
+      "wiftype" : 204,
+      "rpc" : "127.0.0.1:9338",
+      "coin" : "AXE",
+      "p2shtype" : 16,
+      "txfee" : 10000,
+      "KMDvalue" : 0,
+      "height" : 37855,
+      "status" : "active",
+      "pubtype" : 55,
+      "balance" : 0,
+      "installed" : true,
+      "smartaddress" : "PWE7TmoLPtDGj2xHfgtsdQpTbNoUqvjxoq"
+
+contabo
+      "balance" : 0,
+      "rpc" : "127.0.0.1:9338",
+      "pubtype" : 55,
+      "smartaddress" : "PASxz8RbzZMFuP6Wrz9yxARHqFyagJDp2k",
+      "status" : "active",
+      "wiftype" : 204,
+      "installed" : true,
+      "p2shtype" : 16,
+      "txfee" : 10000,
+      "coin" : "AXE",
+      "KMDvalue" : 0,
+      "height" : 37853
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"AXE\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"AXE\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+AXE
+SWAP completed! 1115357564-566855785 {"expiration":1523050557,"tradeid":0,"requestid":1115357564,"quoteid":566855785,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"AXE","srcamount":0.69700355,"bobtxfee":0.00010000,"alice":"KMD","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"9865619195785248769","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.69710355, 0.08010000, 0.69720355, 0.08011000, 0.78432899, 0, 0, 0.78422899, 0, 0, 0],"result":"success","status":"finished","finishtime":1523035845,"bobdeposit":"cbba5bc953d9de639524910042b4b6ae342f42247107b8176c9314d0dcce9e5a","alicepayment":"8de0e4f36d31fe32eb7c880bdf6606f6960c08c3b4635193b48c7f3206769c90","bobpayment":"a2a229762561c954acf38eaf546ee65ce0fd2f6d064b8202ef1f5297c8cb2b5b","paymentspent":"c246a767e651570b2a5822e81adfdc889c405df86fb65745281ccd8465adf518","Apaymentspent":"37d4beeb6f69c0178c7b43cb181baceb949782dde20fa58ec13075f4c5debef4","depositspent":"c15625d17d379a00647888bcf95614e07704ff22c1d6769d436b3c54a9dc54c8","method":"tradestatus","finishtime":1523035845}
+bobdeposit http://207.246.65.114:3001/tx/cbba5bc953d9de639524910042b4b6ae342f42247107b8176c9314d0dcce9e5a
+alicepayment https://kmd.explorer.supernet.org/tx/8de0e4f36d31fe32eb7c880bdf6606f6960c08c3b4635193b48c7f3206769c90
+bobpayment http://207.246.65.114:3001/tx/a2a229762561c954acf38eaf546ee65ce0fd2f6d064b8202ef1f5297c8cb2b5b
+
+

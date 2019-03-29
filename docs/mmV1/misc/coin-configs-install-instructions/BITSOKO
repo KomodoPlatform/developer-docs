@@ -1,0 +1,41 @@
+{\"coin\":\"BITSOKO\",\"name\":\"bitsoko\",\"etomic\":\"0xb72627650f1149ea5e54834b2f468e5d430e67bf\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BITSOKO\"}"
+
+home
+      "wiftype" : 188,
+      "status" : "active",
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "pubtype" : 0,
+      "balance" : 0,
+      "height" : -1,
+      "installed" : false,
+      "p2shtype" : 85,
+      "coin" : "BITSOKO"
+
+contabo
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "installed" : false,
+      "status" : "active",
+      "p2shtype" : 85,
+      "balance" : 400,
+      "pubtype" : 0,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "wiftype" : 188,
+      "coin" : "BITSOKO",
+      "height" : -1
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"BITSOKO\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BITSOKO\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BITSOKO\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Bitsoko (BITSOKO)
+SWAP completed! 1202562631-3610038523 {"uuid":"698b191694d5e0ae54c225c0bb32f3aed6f63508dd916c036c0376f25b76096b","expiration":1530173692,"tradeid":0,"requestid":1202562631,"quoteid":3610038523,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"BITSOKO","bobtomic":"0xb72627650f1149ea5e54834b2f468e5d430e67bf","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.75860148,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"5912968051811090433","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1530158636,"bobdeposit":"ce9066a4b4421106a87618576e580e69be09f45c4763acdaba8ac4d152fce3ed","alicepayment":"2e229d16bc3f5a1324592a949166ec6306d7d186cb925ce9557214b84506cca5","bobpayment":"2ce335afe67b3fac5124a457a5821188ce2feccbf7412875b8565547e1a9b83a","paymentspent":"a41cfe23e6afebeadfcb10f29e6e0662329ba9c32231b4843efe0ec7f0ddfc37","Apaymentspent":"82ecfd63726721d121c753b40c3f2d68426bda57eb71f3587771360430dde028","depositspent":"420a9c8964a13aa9d00a03eefb5518ab8729caa9a3a12d22827c90ffe9f224dc","method":"tradestatus","finishtime":1530158636}
+bobdeposit https://etherscan.io/tx/0x0c8872619f5929877721354e5abb5aed8436fc4c1de4169dd1505af7ae6dedb0
+alicepayment https://kmdexplorer.ru/tx/2e229d16bc3f5a1324592a949166ec6306d7d186cb925ce9557214b84506cca5
+bobpayment https://etherscan.io/tx/0xcaa3a488d9ab2a1c51654f1faabc9c2a3a7e7523a08eddf6fdaec8cbdef7b479
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"BITSOKO\",\"fixed\":1}"

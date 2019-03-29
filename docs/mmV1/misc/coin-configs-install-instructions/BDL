@@ -1,0 +1,63 @@
+https://github.com/bitdeal/bitdeal
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,38);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,50);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,176);
+
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 100000;
+
+{\"coin\":\"BDL\",\"name\":\"bitdeal\",\"rpcport\":9332,\"pubtype\":38,\"p2shtype\":5,\"wiftype\":176,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/bitdeal/bitdeal
+cd bitdeal
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq 
+make -j4
+sudo make install
+sudo strip /usr/local/bin/bitdeal*
+mkdir ~/.bitdeal
+echo "server=1" >> ~/.bitdeal/bitdeal.conf
+echo "listen=0" >> ~/.bitdeal/bitdeal.conf
+echo "listenonion=0" >> ~/.bitdeal/bitdeal.conf
+echo "rpcport=11332" >> ~/.bitdeal/bitdeal.conf
+echo "rpcuser=barterbdl" >> ~/.bitdeal/bitdeal.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.bitdeal/bitdeal.conf
+chmod 0600 ~/.bitdeal/bitdeal.conf
+bitdeald -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BDL\"}"
+
+home
+   {
+      "rpc" : "127.0.0.1:11332",
+      "pubtype" : 38,
+      "wiftype" : 176,
+      "status" : "active",
+      "coin" : "BDL",
+      "p2shtype" : 5,
+      "txfee" : 100000,
+      "smartaddress" : "GfUrivjSKpLNpfapFZETPHC5toRSidBkFt"
+   },
+
+contabo
+   {
+      "p2shtype" : 5,
+      "status" : "active",
+      "pubtype" : 38,
+      "rpc" : "127.0.0.1:11332",
+      "wiftype" : 176,
+      "coin" : "BDL",
+      "txfee" : 100000,
+      "smartaddress" : "GKhiFHMhvVUN11j3SrVZi2nv8gbYa41Udd"
+   },
+
+bitdeal-cli sendtoaddress "GKhiFHMhvVUN11j3SrVZi2nv8gbYa41Udd" 7.16499979
+"fee": -0.00074800,
+"fee": -0.00045200,

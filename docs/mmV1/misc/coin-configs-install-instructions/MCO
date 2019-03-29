@@ -1,0 +1,43 @@
+{\"coin\":\"MCO\",\"name\":\"monaco\",\"etomic\":\"0xB63B606Ac810a52cCa15e44bB630fd42D8d1d83d\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MCO\"}"
+
+home
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "p2shtype" : 85,
+      "txfee" : 1000,
+      "balance" : 0,
+      "coin" : "MCO",
+      "height" : -1,
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "installed" : false
+
+contabo
+      "balance" : 0,
+      "status" : "active",
+      "txfee" : 1000,
+      "coin" : "MCO",
+      "installed" : false,
+      "p2shtype" : 85,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "height" : -1,
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:80",
+      "wiftype" : 188
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"MCO\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"MCO\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"MCO\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Monaco (MCO)
+SWAP completed! 613263562-1122024935 {"uuid":"8c9f812cb835a37ac732718d711a43ccd3ebde3677d03e1d4c046d8d16d57190","expiration":1528175168,"tradeid":0,"requestid":613263562,"quoteid":1122024935,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"MCO","bobtomic":"0xB63B606Ac810a52cCa15e44bB630fd42D8d1d83d","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.78077556,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"1317181454390394882","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.78078556, 0.08010000, 0.78079556, 0.08011000, 0.87839250, 0, 0, 0.87838250, 0, 0, 0],"result":"success","status":"finished","finishtime":1528160425,"bobdeposit":"6d801a486ded7c8adfef128e17fe7d207ff3e7669a9a03133ca698ec3ca8381e","alicepayment":"9aceadb2adc68d2e7d237e57adb29f13ac79a70afcad57fbe40bb8946f0dd50c","bobpayment":"d31b381197f0a43ce7f8318effab66dad4ca4fcad582055bab5b174233716d5b","paymentspent":"a461310f1a7a78eba14ca41a0004439a23972c6f3f987f16343b264aee35ed1b","Apaymentspent":"0912835fb4a0b27585b017efd751acd3fe11cb60968328907ca64bbe89b11b2b","depositspent":"b307d1448a509e4122acbb3a74e3977db49d00a7601d8cf5942b16f7a94cc459","method":"tradestatus","finishtime":1528160425}
+bobdeposit https://etherscan.io/tx/0xdb11e4af0ca7f78a53a4e3885c9160f5bb05125c2b0b9c960fca99028a4227ba
+alicepayment https://kmdexplorer.ru/tx/9aceadb2adc68d2e7d237e57adb29f13ac79a70afcad57fbe40bb8946f0dd50c
+bobpayment https://etherscan.io/tx/0xa927b0737dbf2e4b77468dc62aa1f605b73711e29344215727e9b7433688f952
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MCO\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"monaco\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MCO\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"monaco\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MCO\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"monaco\",\"refrel\":\"coinmarketcap\"}"

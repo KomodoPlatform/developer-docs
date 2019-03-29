@@ -1,0 +1,44 @@
+{\"coin\":\"ETHOS\",\"name\":\"ethos\",\"etomic\":\"0x5Af2Be193a6ABCa9c8817001F45744777Db30756\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETHOS\"}"
+
+home
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "height" : -1,
+      "coin" : "ETHOS",
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "balance" : 0,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "installed" : false
+
+contabo
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "rpc" : "127.0.0.1:80",
+      "pubtype" : 0,
+      "txfee" : 1000,
+      "wiftype" : 188,
+      "balance" : 58.99940415,
+      "height" : -1,
+      "p2shtype" : 85,
+      "status" : "active",
+      "coin" : "ETHOS",
+      "installed" : false
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"ETHOS\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"ETHOS\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"ETHOS\",\"rel\":\"KMD\",\"relvolume\":1.2,\"price\":0.12}"
+Ethos (ETHOS)
+SWAP completed! 481087108-683011771 {"uuid":"972b27f299d01bdc09ea69051ce7397b4f65e79e6de74d1b917cd7cf6264ed40","expiration":1531085846,"tradeid":0,"requestid":481087108,"quoteid":683011771,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"ETHOS","bobtomic":"0x5Af2Be193a6ABCa9c8817001F45744777Db30756","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":11.60643652,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":1.20009000,"alicetxfee":0.00001000,"aliceid":"4853712491132289025","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 1.20010000, 1.00002000, 1.20011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531072377,"bobdeposit":"f5808f7d48db765323782c8d95840c9c3ca60d087d87fe116971353abf8c29c4","alicepayment":"d28f6d738bfd963ab785c98e03b9f1f7856cea025e4a51b754aae9b99bd917c1","bobpayment":"2907ca08b3b2a1f8426d9b94ddf4dbfba53135aaffe5dff34a81d0aa22b8c258","paymentspent":"ae243d2230f10d412b79cf5a55d1e1caa0cbb31a6ccb9f8d6a0ace4ff07e51ca","Apaymentspent":"a102d583b618a8b281966dc8d0414ca526ac0948fe65e86be5143afa1e257c78","depositspent":"3f1122e0e92e6de5cc34aac82002e7585e6191c1c3bfb25eb1ba807d15cb20bb","alicedexfee":"c2a0986e9a4d88c39a55678dab568c835d96a3431c3ca67150d443de38a656b3","method":"tradestatus","finishtime":1531072377}
+bobdeposit https://etherscan.io/tx/0x258eb33c1a9c5b66113c8505d10b3633f0c47149b35cf48f5ff5c832f30d8ae0
+alicepayment https://kmdexplorer.ru/tx/d28f6d738bfd963ab785c98e03b9f1f7856cea025e4a51b754aae9b99bd917c1
+bobpayment https://etherscan.io/tx/0xe713b2efab67f4a6db399e08b97c12b7f0102ac56784a09fc2b368280b891fc2
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ETHOS\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"ethos\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ETHOS\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"ethos\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ETHOS\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"ethos\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ETHOS\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"ethos\",\"refrel\":\"coinmarketcap\"}"

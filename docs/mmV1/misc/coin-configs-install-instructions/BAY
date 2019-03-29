@@ -1,0 +1,74 @@
+https://bitcointalk.org/index.php?topic=890531
+https://github.com/dzimbeck/BitBay
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,25);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,85);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,153);
+
+main.h
+MIN_TX_FEE = 10000;
+
+{\"coin\":\"BAY\",\"name\":\"bitbay\",\"isPoS\":1,\"rpcport\":19915,\"pubtype\":25,\"p2shtype\":85,\"wiftype\":153,\"txfee\":10000}
+
+
+sudo apt-get install libssl1.0-dev
+cd ~/wallets
+git clone https://github.com/dzimbeck/BitBay
+cd BitBay/src
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" make -j4 -f makefile.unix USE_UPNP=-
+sudo cp bitbayd /usr/local/bin
+sudo strip /usr/local/bin/bitbay*
+sudo apt-get install libssl-dev
+mkdir ~/.bitbay
+echo "server=1" >> ~/.bitbay/bitbay.conf
+echo "txindex=1" >> ~/.bitbay/bitbay.conf
+echo "listen=0" >> ~/.bitbay/bitbay.conf
+echo "listenonion=0" >> ~/.bitbay/bitbay.conf
+echo "rpcport=9915" >> ~/.bitbay/bitbay.conf
+echo "rpcuser=barterbay" >> ~/.bitbay/bitbay.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.bitbay/bitbay.conf
+echo "rpcworkqueue=64" >> ~/.bitbay/bitbay.conf
+echo "rpcthreads=16" >> ~/.bitbay/bitbay.conf
+chmod 0600 ~/.bitbay/bitbay.conf
+bitbayd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BAY\"}"
+
+home
+      "height" : 1491908,
+      "pubtype" : 25,
+      "status" : "active",
+      "wiftype" : 153,
+      "balance" : 0,
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:19915",
+      "installed" : true,
+      "smartaddress" : "BS61vWrh6UJzC2mgw6uK5eeriF5BVyo2V5",
+      "coin" : "BAY",
+      "KMDvalue" : 0,
+      "txfee" : 10000
+
+contabo
+      "height" : 1491912,
+      "KMDvalue" : 0,
+      "smartaddress" : "B6JsSsUxh9SyNNuv8QARQQFgx8FHKXK1wd",
+      "coin" : "BAY",
+      "p2shtype" : 85,
+      "txfee" : 10000,
+      "balance" : 0,
+      "rpc" : "127.0.0.1:19915",
+      "installed" : true,
+      "pubtype" : 25,
+      "status" : "active",
+      "wiftype" : 153
+
+bitbayd sendtoaddress "B6JsSsUxh9SyNNuv8QARQQFgx8FHKXK1wd" 1
+bitbayd sendtoaddress "B6JsSsUxh9SyNNuv8QARQQFgx8FHKXK1wd" 1.2
+"fee" : -0.00010000
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"BAY\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"bitbay\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"BAY\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"bitbay\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"BAY\",\"rel\":\"BTC\",\"margin\":0.07,\"refbase\":\"bitbay\",\"refrel\":\"coinmarketcap\"}"

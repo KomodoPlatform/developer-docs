@@ -1,0 +1,41 @@
+{\"coin\":\"JOI\",\"name\":\"jointedu\",\"etomic\":\"0x58ded6994124b4fff298f1416aca3fc9cdba37b2\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"JOI\"}"
+
+home
+      "coin" : "JOI",
+      "height" : -1,
+      "rpc" : "127.0.0.1:80",
+      "balance" : 0,
+      "p2shtype" : 85,
+      "status" : "active",
+      "txfee" : 1000,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "wiftype" : 188,
+      "pubtype" : 0,
+      "installed" : false
+
+contabo
+      "p2shtype" : 85,
+      "installed" : false,
+      "coin" : "JOI",
+      "status" : "active",
+      "txfee" : 1000,
+      "pubtype" : 0,
+      "balance" : 200,
+      "wiftype" : 188,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "rpc" : "127.0.0.1:80",
+      "height" : -1
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"JOI\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"JOI\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"JOI\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+JointEDU (JOI)
+SWAP completed! 296737019-3274515483 {"uuid":"03d1f994e43a6644cc20d4209be18a11a996f5a7aad95aa8148090502b3d53fc","expiration":1530179396,"tradeid":0,"requestid":296737019,"quoteid":3274515483,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"JOI","bobtomic":"0x58ded6994124b4fff298f1416aca3fc9cdba37b2","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.67443483,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"11021012815808430081","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1530164167,"bobdeposit":"b947d35902aef5dfb7b445f173bf60f91b1dffcd7f8272ea639b0a5088a77551","alicepayment":"4c32b2372288248f59140ed0591b76ce0f721cdf5d768dcc98b48bc4d0df62d8","bobpayment":"584e139bc8a986a26f23b5a4153e030a869fe93492c9ebe23af8fa604b73a0af","paymentspent":"16f181103269a97899acb9d7316fb0a0bc203bf26c03cb333ce67675eed71c40","Apaymentspent":"87255647326a7f6c7ded6a0a0ca9dabbb2535fb29ca35d29990fe8dbcd75f684","depositspent":"6210046ab2a0166e4ac365b05065c842eed95c2f7dda30ed7ec8691885c73fe1","method":"tradestatus","finishtime":1530164167}
+bobdeposit https://etherscan.io/tx/0x47371e34c9b396246f5fa65518a59eb68cd45d37db3339125ba7112e253d2981
+alicepayment https://kmdexplorer.ru/tx/4c32b2372288248f59140ed0591b76ce0f721cdf5d768dcc98b48bc4d0df62d8
+bobpayment https://etherscan.io/tx/0x26a7a8ab0c159d18518ce3a8f2efe3d8fd5bfb2733971b22b9f6ff3e537305d9
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"JOI\",\"fixed\":1}"

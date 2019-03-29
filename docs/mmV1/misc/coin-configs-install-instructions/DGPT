@@ -1,0 +1,45 @@
+https://bitcointalk.org/index.php?topic=2203117.0
+
+{\"coin\":\"DGPT\",\"name\":\"digipulse\",\"etomic\":\"0xf6cFe53d6FEbaEEA051f400ff5fc14F0cBBDacA1\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"DGPT\"}"
+
+home
+      "coin" : "DGPT",
+      "balance" : 0,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "wiftype" : 188,
+      "rpc" : "127.0.0.1:80",
+      "installed" : false,
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "height" : -1,
+      "txfee" : 1000,
+      "status" : "active"
+
+contabo
+      "balance" : 0,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "pubtype" : 0,
+      "status" : "active",
+      "coin" : "DGPT",
+      "wiftype" : 188,
+      "installed" : false,
+      "p2shtype" : 85,
+      "txfee" : 1000,
+      "height" : -1,
+      "rpc" : "127.0.0.1:80"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"DGPT\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"DGPT\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1.2}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"DGPT\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"DGPT\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+DigiPulse (DGPT)
+SWAP completed! 1250827769-3333123249 {"uuid":"6b9ecd375ec38046812d065cac997a8cb666a3ef9d00d8c4c466a93309911323","expiration":1526433696,"tradeid":0,"requestid":1250827769,"quoteid":3333123249,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"DGPT","bobtomic":"0xf6cFe53d6FEbaEEA051f400ff5fc14F0cBBDacA1","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.76587193,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"17460866800354459649","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.76588193, 0.08010000, 0.76589193, 0.08011000, 0.86162592, 0, 0, 0.86161592, 0, 0, 0],"result":"success","status":"finished","finishtime":1526418360,"bobdeposit":"7e8c2bbe501a45a63c9a5ff6f41b0e6e53b22f7ca736f275963d015b5a2004fe","alicepayment":"7616040fcf117753bfc1b603460017dbc9fa49342dd7cb02086f794f895981ec","bobpayment":"d0e947c04cadc89dead52b968fb9ad0a2bb1601644d59dbc690343e982621466","paymentspent":"4abf1f0b4f0a87dc03d4249776c80f3d9bd218f577080a4371733d1b8886d5b2","Apaymentspent":"350e7cbc0505d99b3c640aea2d2c183ba703170214e1611700d054092ecfbcd6","depositspent":"db267865cc1d6a3d72c6993183c53129249075a784417b9fdbd66eeee58ac70f","method":"tradestatus","finishtime":1526418360}
+bobdeposit https://etherscan.io/tx/0xe15a0ea7cd94851dc77dd79425bb99c9cb760a7c60bbe47e2c50806708d3ece8
+alicepayment https://kmdexplorer.ru/tx/7616040fcf117753bfc1b603460017dbc9fa49342dd7cb02086f794f895981ec
+bobpayment https://etherscan.io/tx/0x1da1fd53837f0695b33ac5a273b6dcd40da2e92f27b6f286106697b603334ec4
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DGPT\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"digipulse\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DGPT\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"digipulse\",\"refrel\":\"coinmarketcap\"}"

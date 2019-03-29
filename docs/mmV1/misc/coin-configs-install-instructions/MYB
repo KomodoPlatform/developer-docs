@@ -1,0 +1,44 @@
+{\"coin\":\"MYB\",\"name\":\"mybit-token\",\"etomic\":\"0x5d60d8d7ef6d37e16ebabc324de3be57f135e0bc\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MYB\"}"
+
+home
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "height" : -1,
+      "p2shtype" : 85,
+      "installed" : false,
+      "balance" : 0,
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "coin" : "MYB",
+      "rpc" : "127.0.0.1:80"
+
+contabo
+      "installed" : false,
+      "balance" : 1.43439955,
+      "p2shtype" : 85,
+      "status" : "active",
+      "txfee" : 1000,
+      "wiftype" : 188,
+      "rpc" : "127.0.0.1:80",
+      "height" : -1,
+      "pubtype" : 0,
+      "coin" : "MYB",
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"MYB\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"MYB\",\"rel\":\"KMD\",\"price\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"MYB\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":1.2}"
+MyBit Token (MYB)
+SWAP completed! 376390437-669416087 {"uuid":"ea5e46dc0d942ae8207f3f7f1c3a3a8a101cb3cb983a7c58a16bbde1d959b497","expiration":1529989258,"tradeid":0,"requestid":376390437,"quoteid":669416087,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"MYB","bobtomic":"0x5d60d8d7ef6d37e16ebabc324de3be57f135e0bc","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.07536922,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"4359291880092401665","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1529974084,"bobdeposit":"e70b1b97f11304cf616eb460885c4a090f904c9cfd53393bc5075989748070eb","alicepayment":"c1351f399eca24b1cf3602ce9edd7a5c64923a073a2e3c055d210ccb3e93bcf8","bobpayment":"351f78d907645a778b3fb891be5d4cd311a354302f81c4ee2082cde538322de4","paymentspent":"d781b52eba9bf38de769c90f49e6099c72003f1416442e3d516a7a6bd3a3fd77","Apaymentspent":"8d59852fae74a7001459eb591640643c6218016257b087d5d48951798c4b0296","depositspent":"92be8c1858ccb0bab28f6ba28345402488b2c9061fe0cb1507cf48701518086a","method":"tradestatus","finishtime":1529974084}
+bobdeposit https://etherscan.io/tx/0x35dd5c960745f12ca6bc1d7ab3b1e2c3f1006cdd2a1d272b03b175da85e8f509
+alicepayment https://kmdexplorer.ru/tx/c1351f399eca24b1cf3602ce9edd7a5c64923a073a2e3c055d210ccb3e93bcf8
+bobpayment https://etherscan.io/tx/0xddb798224dc7e4b7723a51360f9f8a2d4f513a48a6e1189cf7baf21f27d79a2e
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MYB\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"mybit-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MYB\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"mybit-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MYB\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"mybit-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MYB\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"mybit-token\",\"refrel\":\"coinmarketcap\"}"

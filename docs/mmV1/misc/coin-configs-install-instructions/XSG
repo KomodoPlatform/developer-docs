@@ -1,0 +1,81 @@
+https://bitcointalk.org/index.php?topic=2630198.0
+https://github.com/Snowgem/Snowgem
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS]     = {0x1C,0x28};
+base58Prefixes[SCRIPT_ADDRESS]     = {0x1C,0x2D};
+base58Prefixes[SECRET_KEY]         = {0x80};
+
+{\"coin\":\"XSG\",\"name\":\"snowgem\",\"rpcport\":16112,\"taddr\":28,\"pubtype\":40,\"p2shtype\":45,\"wiftype\":128,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/Snowgem/Snowgem
+cd Snowgem
+find . -name "*.sh" -exec chmod +x {} \;
+chmod +x depends/config.guess
+chmod +x depends/config.sub
+chmod +x src/leveldb/build_detect_platform
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./zcutil/build.sh --disable-rust -j4
+sudo cp src/snowgemd src/snowgem-cli /usr/local/bin/
+sudo strip /usr/local/bin/snowgem*
+cd
+ln -s .zcash-params .snowgem-params
+mkdir ~/.snowgem
+echo "server=1" >> ~/.snowgem/snowgem.conf
+echo "txindex=1" >> ~/.snowgem/snowgem.conf
+echo "listen=0" >> ~/.snowgem/snowgem.conf
+echo "listenonion=0" >> ~/.snowgem/snowgem.conf
+echo "rpcuser=bartersng" >> ~/.snowgem/snowgem.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.snowgem/snowgem.conf
+chmod 0600 ~/.snowgem/snowgem.conf
+snowgemd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"XSG\"}"
+
+home
+      "KMDvalue" : 0,
+      "coin" : "XSG",
+      "pubtype" : 40,
+      "installed" : true,
+      "txfee" : 10000,
+      "rpc" : "127.0.0.1:16112",
+      "electrum" : "electrumsvr2.snowgem.org:50001",
+      "status" : "active",
+      "balance" : 0,
+      "smartaddress" : "s1iqgXVu95JnWaRFwjdRaGGkpbeirBhbc5o",
+      "height" : 280167,
+      "wiftype" : 128,
+      "p2shtype" : 45"
+      
+contabo
+      "coin" : "XSG",
+      "installed" : true,
+      "pubtype" : 40,
+      "smartaddress" : "s1P4Y3rXQfyvVkmQAvvggb2MeqXtx2EPtJd",
+      "balance" : 9.1485752,
+      "p2shtype" : 45,
+      "KMDvalue" : 0,
+      "rpc" : "127.0.0.1:16112",
+      "wiftype" : 128,
+      "txfee" : 10000,
+      "status" : "active",
+      "height" : 280747
+
+
+snowgem-cli sendtoaddress "s1P4Y3rXQfyvVkmQAvvggb2MeqXtx2EPtJd" 0.1
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"XSG\",\"rel\":\"KMD\",\"price\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"XSG\",\"rel\":\"KMD\",\"relvolume\":0.8,\"price\":1.2}"
+SnowGem (XSG)
+SWAP completed! 3204974197-2334118960 {"uuid":"65f0190288cc2a3f02b3027df49a5e125c1c9e787cda6bc4701efc408b78eed9","expiration":1531077242,"tradeid":0,"requestid":3204974197,"quoteid":2334118960,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"XSG","srcamount":0.73449133,"bobtxfee":0.00010000,"alice":"KMD","destamount":0.80009000,"alicetxfee":0.00001000,"aliceid":"4668293736257421313","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.73459133, 0.80010000, 0.73469133, 0.80011000, 0.82650274, 0, 0, 0.82640274, 0, 0, 0],"result":"success","status":"finished","finishtime":1531062102,"bobdeposit":"b3c9692d5c70ab548a5ab390531150f25a08fa61e902a559bc42ecc53dd6aea4","alicepayment":"14e0855539211ced13dda74d99a11dc83d626f05584a98ff6f720215b72332d0","bobpayment":"0717b26ea00305077f36760f78c8fe729de72bd4e5ccce6532453ea5c209e02e","paymentspent":"10e06414da741c61acc069349fd82d4f420faf581acdb31f9588d380a793815b","Apaymentspent":"6f3308b6dc1f72fb725c299a7c72d1c9374074c6b6c432e77b2527f89be72720","depositspent":"3b026704e3a46f1619f77ac8318617f7a9112adc72e971b9c25e3efb0b2dfbcd","alicedexfee":"dc76e619f673880848f05f6bca0b24ad7a0d8d651464947e71158e140f29256a","method":"tradestatus","finishtime":1531062102}
+bobdeposit https://explorer.snowgem.org/tx/b3c9692d5c70ab548a5ab390531150f25a08fa61e902a559bc42ecc53dd6aea4
+alicepayment https://kmdexplorer.ru/tx/14e0855539211ced13dda74d99a11dc83d626f05584a98ff6f720215b72332d0
+bobpayment https://explorer.snowgem.org/tx/0717b26ea00305077f36760f78c8fe729de72bd4e5ccce6532453ea5c209e02e
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"XSG\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"snowgem\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"XSG\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"snowgem\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"XSG\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"snowgem\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"XSG\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"snowgem\",\"refrel\":\"coinmarketcap\"}"

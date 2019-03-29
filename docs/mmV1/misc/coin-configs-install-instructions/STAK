@@ -1,0 +1,72 @@
+https://bitcointalk.org/index.php?topic=2433318.0
+https://github.com/straks/straks
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
+
+src/wallet/wallet.h
+CAmount DEFAULT_FALLBACK_FEE = 20000;
+DEFAULT_TRANSACTION_MINFEE = 1000;
+WALLET_INCREMENTAL_RELAY_FEE = 5000;
+src/validation.h
+DEFAULT_MIN_RELAY_TX_FEE = 10000; //TODO--
+
+{\"coin\":\"STAK\",\"name\":\"straks\",\"rpcport\":7574,\"pubtype\":63,\"p2shtype\":5,\"wiftype\":204,\"txfee\":10000}
+
+cd ~/wallets
+git clone https://github.com/straks/straks
+cd straks
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j2
+sudo make install
+sudo strip /usr/local/bin/straks*
+mkdir ~/.straks
+echo "server=1" >> ~/.straks/straks.conf
+echo "txindex=1" >> ~/.straks/straks.conf
+echo "litemode=1" >> ~/.straks/straks.conf
+echo "listen=0" >> ~/.straks/straks.conf
+echo "listenonion=1" >> ~/.straks/straks.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.straks/straks.conf
+echo "rpcuser=barterstak" >> ~/.straks/straks.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.straks/straks.conf
+chmod 0600 ~/.straks/straks.conf
+straksd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"STAK\"}"
+
+home
+      "wiftype" : 204,
+      "installed" : true,
+      "height" : 33332,
+      "rpc" : "127.0.0.1:7574",
+      "coin" : "STAK",
+      "txfee" : 10000,
+      "smartaddress" : "SivwLeBe5KvHGW4ys3ZRWQzkdQs2WHhHtN",
+      "balance" : 0,
+      "KMDvalue" : 0,
+      "p2shtype" : 5,
+      "pubtype" : 63,
+      "status" : "active"
+
+contabo
+      "txfee" : 10000,
+      "height" : 33332,
+      "KMDvalue" : 0,
+      "pubtype" : 63,
+      "status" : "active",
+      "rpc" : "127.0.0.1:7574",
+      "installed" : true,
+      "balance" : 0,
+      "coin" : "STAK",
+      "p2shtype" : 5,
+      "smartaddress" : "SP9nrzoug14GSrDD4LpXqAbasJ38NPWK6Y",
+      "wiftype" : 204
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"STAK\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"straks\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"STAK\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"straks\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"STAK\",\"rel\":\"BTC\",\"margin\":0.07,\"refbase\":\"straks\",\"refrel\":\"coinmarketcap\"}"

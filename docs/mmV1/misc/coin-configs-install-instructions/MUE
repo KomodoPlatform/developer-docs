@@ -1,0 +1,70 @@
+https://bitcointalk.org/index.php?topic=778322.0
+https://github.com/muecoin/MUECore
+
+
+src/chainparams.cpp
+// MonetaryUnit addresses start with '7'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,16);
+// MonetaryUnit script addresses start with 'X'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,76);
+// MonetaryUnit private keys start with 's' or 't'
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,126);
+
+src/wallet/wallet.h
+DEFAULT_FALLBACK_FEE = 20000;
+DEFAULT_TRANSACTION_MINFEE = 10000; // was 1000
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 10000;
+
+{\"confpath\":\"${HOME#}/.muecore/mue.conf\",\"coin\":\"MUE\",\"name\":\"muecore\",\"rpcport\":29683,\"pubtype\":16,\"p2shtype\":76,\"wiftype\":126,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/muecoin/MUECore
+cd MUECore
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/mue*
+mkdir ~/.muecore
+echo "server=1" >> ~/.muecore/mue.conf
+echo "litemode=1" >> ~/.muecore/mue.conf
+echo "listen=0" >> ~/.muecore/mue.conf
+echo "listenonion=1" >> ~/.muecore/mue.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.muecore/mue.conf
+echo "rpcuser=bartermue" >> ~/.muecore/mue.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.muecore/mue.conf
+chmod 0600 ~/.muecore/mue.conf
+mued -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MUE\"}"
+
+home
+   {
+      "smartaddress" : "7p3b4YB6hr96q8WuiKuSiXCn3hkh3AjsPp",
+      "pubtype" : 16,
+      "status" : "active",
+      "estimatedrate" : 20,
+      "rpc" : "127.0.0.1:29683",
+      "wiftype" : 126,
+      "txfee" : 10000,
+      "coin" : "MUE",
+      "p2shtype" : 76
+   },
+
+contabo
+   {
+      "smartaddress" : "7UGSatoNJXH61Uf8udAZ3GocHavnvKFXrW",
+      "rpc" : "127.0.0.1:29683",
+      "pubtype" : 16,
+      "txfee" : 10000,
+      "status" : "active",
+      "coin" : "MUE",
+      "p2shtype" : 76,
+      "wiftype" : 126
+   },
+
+mue-cli sendtoaddress "7UGSatoNJXH61Uf8udAZ3GocHavnvKFXrW" 4.97438338
+"fee": -0.00013380,

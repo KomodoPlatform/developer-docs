@@ -1,0 +1,41 @@
+https://bitcointalk.org/index.php?topic=1902896
+https://github.com/duality-solutions/Sequence
+
+
+src/chainparams.cpp
+// Sequence PUBKEY_ADDRESS addresses start with 'S'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63);
+// Sequence SCRIPT_ADDRESS addresses start with 'S or T'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,64);
+// Sequence SECRET_KEY start with '2'
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,170);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_FEE = MIN_TX_FEE;
+src/amount.h
+MIN_TX_FEE = CENT;
+CENT    = 100000;
+
+{\"coin\":\"SEQ\",\"name\":\"sequence\",\"rpcport\":16663,\"pubtype\":63,\"p2shtype\":64,\"wiftype\":170,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/duality-solutions/Sequence
+cd Sequence
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc
+make -j4
+sudo make install
+mkdir ~/.sequence
+echo "server=1" >> ~/.sequence/sequence.conf
+echo "listen=0" >> ~/.sequence/sequence.conf
+echo "listenonion=0" >> ~/.sequence/sequence.conf
+echo "rpcuser=barterseq" >> ~/.sequence/sequence.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.sequence/sequence.conf
+chmod 0600 ~/.sequence/sequence.conf
+sequenced -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SEQ\"}"
+
+-> 0x03 hats getan

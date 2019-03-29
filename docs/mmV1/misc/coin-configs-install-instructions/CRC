@@ -1,0 +1,76 @@
+https://bitcointalk.org/index.php?topic=2348866.0
+https://github.com/crowdcoinChain/Crowdcoin
+
+src/chainparams.cpp
+// Crowdcoin addresses start with 'C'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,28);
+// Crowdcoin script addresses start with 'c'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,88);
+// Crowdcoin private keys start with '1'
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,0);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 10000; // was 1000
+
+{\"coin\":\"CRC\",\"name\":\"crowdcoin\",\"confpath\":\"${HOME#}/.crowdcoincore/crowdcoin.conf\",\"rpcport\":11998,\"pubtype\":28,\"p2shtype\":88,\"wiftype\":0,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/crowdcoinChain/Crowdcoin
+cd Crowdcoin
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/crowdcoin*
+mkdir ~/.crowdcoincore
+echo "server=1" >> ~/.crowdcoincore/crowdcoin.conf
+echo "txindex=1" >> ~/.crowdcoincore/crowdcoin.conf
+echo "litemode=1" >> ~/.crowdcoincore/crowdcoin.conf
+echo "rpcport=11998" >> ~/.crowdcoincore/crowdcoin.conf
+echo "listen=0" >> ~/.crowdcoincore/crowdcoin.conf
+echo "listenonion=0" >> ~/.crowdcoincore/crowdcoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.crowdcoincore/crowdcoin.conf
+echo "rpcuser=bartercrc" >> ~/.crowdcoincore/crowdcoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.crowdcoincore/crowdcoin.conf
+chmod 0600 ~/.crowdcoincore/crowdcoin.conf
+crowdcoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"CRC\"}"
+
+home
+      "pubtype" : 28,
+      "wiftype" : 188,
+      "p2shtype" : 88,
+      "txfee" : 10000,
+      "KMDvalue" : 0,
+      "rpc" : "127.0.0.1:11998",
+      "installed" : true,
+      "smartaddress" : "Ce6psqkZE1hceLBx1MuGY2UDbkr1g332ip",
+      "height" : 21605,
+      "coin" : "CRC",
+      "status" : "active",
+      "balance" : 0
+
+contabo
+      "rpc" : "127.0.0.1:11998",
+      "wiftype" : 188,
+      "balance" : 0,
+      "pubtype" : 28,
+      "txfee" : 10000,
+      "smartaddress" : "CJKgQCNppgqbpgLBCfANrn53qe27TDpF99",
+      "status" : "active",
+      "installed" : true,
+      "p2shtype" : 88,
+      "height" : 21618,
+      "coin" : "CRC",
+      "KMDvalue" : 0
+
+crowdcoin-cli sendtoaddress "CJKgQCNppgqbpgLBCfANrn53qe27TDpF99" 1
+crowdcoin-cli sendtoaddress "CJKgQCNppgqbpgLBCfANrn53qe27TDpF99" 1.2
+"fee": -0.00004520
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CRC\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"crowdcoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CRC\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"crowdcoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CRC\",\"rel\":\"BTC\",\"margin\":0.05,\"refbase\":\"crowdcoin\",\"refrel\":\"coinmarketcap\"}"

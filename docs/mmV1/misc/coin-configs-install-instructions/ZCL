@@ -1,0 +1,66 @@
+https://bitcointalk.org/index.php?topic=1671982
+https://github.com/z-classic/zclassic
+
+
+src/chainparams.cpp
+// guarantees the first 2 characters, when base58 encoded, are "t1"
+base58Prefixes[PUBKEY_ADDRESS]     = {0x1C,0xB8};
+// guarantees the first 2 characters, when base58 encoded, are "t3"
+base58Prefixes[SCRIPT_ADDRESS]     = {0x1C,0xBD};
+// the first character, when base58 encoded, is "5" or "K" or "L" (as in Bitcoin)
+base58Prefixes[SECRET_KEY]         = {0x80};
+
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 100;
+
+{\"coin\":\"ZCL\",\"name\":\"zclassic\",\"rpcport\":8023,\"taddr\":28,\"pubtype\":184,\"p2shtype\":189,\"wiftype\":128,\"txfee\":1000}
+
+
+cd ~/wallets
+git clone https://github.com/z-classic/zclassic
+cd zclassic
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./zcutil/build.sh --disable-tests --disable-rust -j4
+sudo cp src/zcashd /usr/local/bin/zclassicd
+sudo cp src/zcash-cli /usr/local/bin/zclassic-cli
+sudo strip /usr/local/bin/zclassic*
+mkdir ~/.zclassic
+echo "server=1" >> ~/.zclassic/zclassic.conf
+echo "listen=0" >> ~/.zclassic/zclassic.conf
+echo "listenonion=1" >> ~/.zclassic/zclassic.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.zclassic/zclassic.conf
+echo "rpcuser=barterzcl" >> ~/.zclassic/zclassic.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.zclassic/zclassic.conf
+chmod 0600 ~/.zclassic/zclassic.conf
+zclassicd -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ZCL\"}"
+
+home
+   {
+      "rpc" : "127.0.0.1:8023",
+      "smartaddress" : "t1fWYK8pdKHWgLqLRG3PU6Kx7EHpgVRNjCU",
+      "wiftype" : 128,
+      "p2shtype" : 189,
+      "coin" : "ZCL",
+      "pubtype" : 184,
+      "status" : "active",
+      "txfee" : 1000
+   },
+
+contabo
+   {
+      "txfee" : 1000,
+      "p2shtype" : 189,
+      "rpc" : "127.0.0.1:8023",
+      "status" : "active",
+      "coin" : "ZCL",
+      "wiftype" : 128,
+      "smartaddress" : "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH",
+      "pubtype" : 184
+   },
+
+zclassic-cli sendtoaddress "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH" 0.78659249
+"fee": -0.00000226
+zclassic-cli sendtoaddress "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH" 0.94390828
+"fee": -0.00000374

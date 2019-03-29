@@ -1,0 +1,44 @@
+{\"coin\":\"CVC\",\"name\":\"civic\",\"etomic\":\"0x41e5560054824eA6B0732E656E3Ad64E20e94E45\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"CVC\"}"
+
+home
+      "status" : "active",
+      "installed" : false,
+      "coin" : "CVC",
+      "balance" : 0,
+      "height" : -1,
+      "p2shtype" : 85,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "txfee" : 1000,
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:80",
+      "wiftype" : 188
+
+contabo
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "coin" : "CVC",
+      "status" : "active",
+      "balance" : 46.95,
+      "pubtype" : 0,
+      "height" : -1,
+      "txfee" : 1000,
+      "rpc" : "127.0.0.1:80",
+      "wiftype" : 188,
+      "p2shtype" : 85,
+      "installed" : false
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"CVC\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"CVC\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"CVC\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Civic (CVC)
+SWAP completed! 1444021083-2065365212 {"uuid":"ee1d790a9e46b104b6fdd8a399559be3ed0600cc56fd836d578c4fe397d5ca23","expiration":1531271333,"tradeid":0,"requestid":1444021083,"quoteid":2065365212,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"CVC","bobtomic":"0x41e5560054824eA6B0732E656E3Ad64E20e94E45","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.77471504,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"8049754438884720641","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531256159,"bobdeposit":"02209d14d5ecc8b367fa3e6b22db820181bf7be21798194bac99187ad7c1196f","alicepayment":"6a3358e5553cb0e2bfa3d0d32fe7dd8662ec5c6b3aa1ee4cc2461cad02b5c617","bobpayment":"81767e563a58af339b9af719407a0bceb6335c400defbcdf7f60a0dd92df9e8c","paymentspent":"cb1946633288e2697fe3bc333cac7b9805eecd52970951611b66c4088e5b84d3","Apaymentspent":"204ef64acdf4f23a8d08575d3a9f12383b7d4474f13dbde764fa67cf6fe9bc9f","depositspent":"2bc8e921c57d8a9c1ebd2147f89ec02bc887896eef9deeb8cf4701af9734a3d4","alicedexfee":"5fd7ded9acc41b2663edd3eb98d553d8df6e450de75b721330617a910a65c8c6","method":"tradestatus","finishtime":1531256159}
+bobdeposit https://etherscan.io/tx/0xaf3b4a195834db50666c8e5352058cde4ac532ed7f788fe251661eca7e08c141
+alicepayment https://kmdexplorer.ru/tx/6a3358e5553cb0e2bfa3d0d32fe7dd8662ec5c6b3aa1ee4cc2461cad02b5c617
+bobpayment https://etherscan.io/tx/0x68d3e14381246ec8f7a7cea2dc172674812b186dc26f9c06e62af6adde6a5774
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CVC\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"civic\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CVC\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"civic\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CVC\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"civic\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CVC\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"civic\",\"refrel\":\"coinmarketcap\"}"

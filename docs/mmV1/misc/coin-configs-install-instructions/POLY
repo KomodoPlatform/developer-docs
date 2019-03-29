@@ -1,0 +1,44 @@
+{\"coin\":\"POLY\",\"name\":\"polymath-network\",\"etomic\":\"0x9992ec3cf6a55b00978cddf2b27bc6882d88d1ec\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"POLY\"}"
+
+home
+      "p2shtype" : 85,
+      "height" : -1,
+      "txfee" : 1000,
+      "installed" : false,
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "balance" : 0,
+      "coin" : "POLY",
+      "status" : "active",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "rpc" : "127.0.0.1:80"
+
+contabo
+      "txfee" : 1000,
+      "p2shtype" : 85,
+      "balance" : 26.97,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "status" : "active",
+      "rpc" : "127.0.0.1:80",
+      "wiftype" : 188,
+      "height" : -1,
+      "pubtype" : 0,
+      "installed" : false,
+      "coin" : "POLY"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"POLY\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"POLY\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"POLY\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Polymath (POLY)
+SWAP completed! 1594456734-1369420403 {"uuid":"f892f773157bbd32f0fdac7df3b54d43eb293b6ae3fb5c7afaafc4d5dced2e9b","expiration":1531275386,"tradeid":0,"requestid":1594456734,"quoteid":1369420403,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"POLY","bobtomic":"0x9992ec3cf6a55b00978cddf2b27bc6882d88d1ec","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.77173458,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"9184735983202271233","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531260545,"bobdeposit":"49993dda67713aabaa1296248df239157d8ccdcd9585dfbf4a7c322a3dc9c7a1","alicepayment":"9c25a2ad695635bffb258f6f733e0d80fb2f199c670642dbd1701a9eba9501b4","bobpayment":"fd046f11f85f4f55cb3bfce04a24ca6a2c70c22f08d0a310fec26a4abda1e636","paymentspent":"6c10e7ed5a578d1fea5b88808b34f3946319f9c243d7dda17ea4cd374d2f6baa","Apaymentspent":"13a065d7e85fe49fa4e0f2b7dcabb4ee5032451c63b6dde4aac948d76ee1909c","depositspent":"ed79cc3acc14b230220bcab64f36e880bb9c6e6511994fe894c5fedf8ad20b3d","alicedexfee":"b991eda7fb976459a1bbb7ee32c436440c9d43838877332bbd5d1748f11f27c3","method":"tradestatus","finishtime":1531260545}
+bobdeposit https://etherscan.io/tx/0xb9c3f14fceba0fc7ee0529713b5ed8da4cf81e08c14584d516b73a72432fd284
+alicepayment https://kmdexplorer.ru/tx/9c25a2ad695635bffb258f6f733e0d80fb2f199c670642dbd1701a9eba9501b4
+bobpayment https://etherscan.io/tx/0xb15b5cdc40a4d091e0970477f2073c4f6491f83cd616a78f996fda5b9edb7aee
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"POLY\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"polymath-network\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"POLY\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"polymath-network\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"POLY\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"polymath-network\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"POLY\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"polymath-network\",\"refrel\":\"coinmarketcap\"}"

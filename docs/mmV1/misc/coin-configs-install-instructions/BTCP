@@ -1,0 +1,68 @@
+https://bitcointalk.org/index.php?topic=2675257.0
+https://github.com/BTCPrivate/BitcoinPrivate
+
+
+src/chainparams.cpp
+// guarantees the first 2 characters, when base58 encoded, are "b1"
+base58Prefixes[PUBKEY_ADDRESS]     = {0x13,0x25};
+// guarantees the first 2 characters, when base58 encoded, are "bx"
+base58Prefixes[SCRIPT_ADDRESS]     = {0x13,0xAF};
+// the first character, when base58 encoded, is "5" or "K" or "L" (as in Bitcoin)
+base58Prefixes[SECRET_KEY]         = {0x80};
+
+{\"coin\":\"BTCP\",\"name\":\"btcprivate\",\"rpcport\":7932,\"taddr\":19,\"pubtype\":37,\"p2shtype\":175,\"wiftype\":128,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/BTCPrivate/BitcoinPrivate
+cd BitcoinPrivate
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./btcputil/build.sh --disable-tests --disable-rust -j4
+sudo cp src/btcpd /usr/local/bin/
+sudo cp src/btcp-cli /usr/local/bin/
+sudo strip /usr/local/bin/btcp*
+mkdir ~/.btcprivate
+echo "server=1" >> ~/.btcprivate/btcprivate.conf
+echo "txindex=1" >> ~/.btcprivate/btcprivate.conf
+echo "listen=0" >> ~/.btcprivate/btcprivate.conf
+echo "listenonion=0" >> ~/.btcprivate/btcprivate.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.btcprivate/btcprivate.conf
+echo "rpcuser=barterbtcp" >> ~/.btcprivate/btcprivate.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.btcprivate/btcprivate.conf
+chmod 0600 ~/.btcprivate/btcprivate.conf
+btcpd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BTCP\"}"
+
+home
+      "installed" : true,
+      "coin" : "BTCP",
+      "status" : "active",
+      "p2shtype" : 175,
+      "KMDvalue" : 0,
+      "wiftype" : 128,
+      "pubtype" : 37,
+      "balance" : 0,
+      "rpc" : "127.0.0.1:7932",
+      "txfee" : 10000,
+      "smartaddress" : "b1S78yzFV67mBsUc6Gm1KZ1psbuLfybM88D",
+      "height" : 280757
+
+contabo
+      "smartaddress" : "b16KzWLskgnuB3pkKU4GRsmRhqnWmsB6UFT",
+      "KMDvalue" : 0,
+      "coin" : "BTCP",
+      "p2shtype" : 175,
+      "txfee" : 10000,
+      "installed" : true,
+      "wiftype" : 128,
+      "rpc" : "127.0.0.1:7932",
+      "status" : "active",
+      "height" : 280757,
+      "pubtype" : 37,
+      "balance" : 1.50799324
+
+      
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"BTCP\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"bitcoin-private\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"BTCP\",\"rel\":\"BTC\",\"margin\":0.07,\"refbase\":\"bitcoin-private\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"BTCP\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"bitcoin-private\",\"refrel\":\"coinmarketcap\"}"

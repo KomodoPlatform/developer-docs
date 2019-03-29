@@ -1,0 +1,39 @@
+{\"coin\":\"TRX\",\"name\":\"tron\",\"etomic\":\"0xf230b790e05390fc8295f4d3f60332c93bed42e2\",\"rpcport\":80}
+
+home
+      "coin" : "TRX",
+      "installed" : false,
+      "status" : "active",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "rpc" : "127.0.0.1:80",
+      "wiftype" : 188,
+      "height" : -1,
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "balance" : 0,
+      "txfee" : 1000
+
+contabo
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "balance" : 0,
+      "coin" : "TRX",
+      "txfee" : 1000,
+      "status" : "active",
+      "wiftype" : 188,
+      "installed" : false,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "height" : -1,
+      "rpc" : "127.0.0.1:80"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"TRX\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"TRX\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1.2}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"TRX\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"TRX\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+TRON (TRX)
+SWAP completed! 2893984384-1014482255 {"expiration":1522403051,"tradeid":0,"requestid":2893984384,"quoteid":1014482255,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"TRX","bobtomic":"0xf230b790e05390fc8295f4d3f60332c93bed42e2","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.70653188,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"2734803039470485505","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.70654188, 0.08010000, 0.70655188, 0.08011000, 0.79486836, 0, 0, 0.79485836, 0, 0, 0],"result":"success","status":"finished","finishtime":1522387906,"bobdeposit":"50156e27c55fbbe623a132355214fc5b36d9773861a3f78c319b6415f367dd9f","alicepayment":"cfbcd021c7de90e7e788b8a27c171830df34feace58bc8b6f14d4a3b48aaa50c","bobpayment":"a6220c1053ff6697a4d7128891d2d3c661061209104b227edf7367918827477d","paymentspent":"2784323b18ecfd86517adff27d21b070191275c2f1410dbe107b11bf0234cb69","Apaymentspent":"0b8d1db693bb8753853ba1cc8aba22797ecaae40cf27277e622df288afd7e3c7","depositspent":"13d9933fd9973311d8180d11af08c87d9daeb9fc02f09efe888806b1d2dc0db1","method":"tradestatus","finishtime":1522387906}
+bobdeposit https://etherscan.io/tx/0x9d76cbb3e323f186682dda986b3a0e9a83a1e960e4830b4a1831f44b8452e828
+alicepayment https://kmd.explorer.supernet.org/tx/cfbcd021c7de90e7e788b8a27c171830df34feace58bc8b6f14d4a3b48aaa50c
+bobpayment https://etherscan.io/tx/0xe25ea62876aedeb8ebdbd296434e988c597c036ada16270c30803d83c0b069c1
+

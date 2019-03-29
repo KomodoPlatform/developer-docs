@@ -1,0 +1,64 @@
+https://bitcointalk.org/index.php?topic=1883902.0
+https://github.com/LIMXTEC/BitCore
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,0);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1,128);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 1000;
+src/validation.h
+DEFAULT_MIN_RELAY_TX_FEE = 100000;
+
+{\"coin\":\"BTX\",\"name\":\"bitcore\",\"rpcport\":8556,\"pubtype\":0,\"p2shtype\":5,\"wiftype\":128,\"txfee\":50000}
+
+
+cd ~/wallets
+git clone https://github.com/LIMXTEC/BitCore
+cd BitCore
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/bitcore*
+mkdir ~/.bitcore
+echo "server=1" >> ~/.bitcore/bitcore.conf
+echo "listen=0" >> ~/.bitcore/bitcore.conf
+echo "listenonion=1" >> ~/.bitcore/bitcore.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.bitcore/bitcore.conf
+echo "rpcuser=barterbtx" >> ~/.bitcore/bitcore.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.bitcore/bitcore.conf
+chmod 0600 ~/.bitcore/bitcore.conf
+bitcored -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BTX\"}"
+
+home
+   {
+      "smartaddress" : "1NdwJoQVLxj5kCHXKcaLxWrByddbgyHofb",
+      "p2shtype" : 5,
+      "txfee" : 1000,
+      "wiftype" : 128,
+      "status" : "active",
+      "rpc" : "127.0.0.1:8556",
+      "estimatedrate" : 20,
+      "pubtype" : 0,
+      "coin" : "BTX"
+   },
+
+contabo
+   {
+      "wiftype" : 128,
+      "coin" : "BTX",
+      "p2shtype" : 5,
+      "txfee" : 50000,
+      "rpc" : "127.0.0.1:8556",
+      "pubtype" : 0,
+      "smartaddress" : "12rnqA2kwds4vYRkWuqTHGT2DWohY8reoj",
+      "status" : "active"
+   },
+
+bitcore-cli sendtoaddress "12rnqA2kwds4vYRkWuqTHGT2DWohY8reoj" 0.58239334
+"fee": -0.00037400,

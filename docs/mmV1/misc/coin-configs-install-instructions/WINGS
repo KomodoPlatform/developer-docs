@@ -1,0 +1,42 @@
+{\"coin\":\"WINGS\",\"name\":\"wings\",\"etomic\":\"0x667088b212ce3d06a1b553a7221E1fD19000d9aF\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"WINGS\"}"
+
+home
+      "status" : "active",
+      "balance" : 0,
+      "installed" : false,
+      "rpc" : "127.0.0.1:80",
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "height" : -1,
+      "txfee" : 1000,
+      "coin" : "WINGS",
+      "p2shtype" : 85,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c"
+
+hetzner
+      "rpc" : "127.0.0.1:80",
+      "smartaddress" : "0x98298409c949135eed89233d04c2cfef984baff5",
+      "coin" : "WINGS",
+      "status" : "active",
+      "balance" : 36.65,
+      "height" : -1,
+      "pubtype" : 0,
+      "txfee" : 1000,
+      "wiftype" : 188,
+      "p2shtype" : 85,
+      "installed" : false
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"WINGS\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"WINGS\",\"rel\":\"KMD\",\"relvolume\":0.1,\"price\":0.12}"
+Wings (WINGS)
+SWAP completed! 2586681756-2489467990 {"uuid":"6585f748210a320f04a43f546713fc73cafc06f8fd684113209e3d6b03d7b9c6","expiration":1531379751,"tradeid":0,"requestid":2586681756,"quoteid":2489467990,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"WINGS","bobtomic":"0x667088b212ce3d06a1b553a7221E1fD19000d9aF","etomicsrc":"0x98298409c949135eed89233d04c2cfef984baff5","srcamount":0.86608680,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.10009000,"alicetxfee":0.00001000,"aliceid":"17776572642397454337","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.10010000, 1.00002000, 0.10011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531364781,"bobdeposit":"695824924681803f5ff029824b3de0e9f38fa80adcb830d85770bb8d9daa1223","alicepayment":"e8614526ccf2a1ea96d451b91bf0734b1e642cb0b123c9aa5a1f4a6a6ad6714d","bobpayment":"feeacf0364880b2da8323917cf683589df90f7f958501c80b83a5230a1597e04","paymentspent":"69b14a3be9f2ecd2d477c7aefb19258abc224bcc0d565ba2f233c10c1528203d","Apaymentspent":"b6537d3e9c4d82e5904bcd0d93c36cca0d4a604874951b2a83d529ea1f8a66c8","depositspent":"f0ddd3ad9a3577a536070e4093de227f5bdeb7b50f4240ed00b01287ef8668f1","alicedexfee":"143aad35397a243a6dae0c9af875afb2ae0fd7936ce7c3f9ae346932076aef57","method":"tradestatus","finishtime":1531364781}
+bobdeposit https://etherscan.io/tx/0x04ee788be9c2619dc06746af04db7918ca35b21e666efe31e9cacfc70936432c
+alicepayment https://kmdexplorer.ru/tx/e8614526ccf2a1ea96d451b91bf0734b1e642cb0b123c9aa5a1f4a6a6ad6714d
+bobpayment https://etherscan.io/tx/0xbe938562fb2b26b0f86b7757dfb307565d881ae869a67856972256b90b581268
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"WINGS\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"wings\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"WINGS\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"wings\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"WINGS\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"wings\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"WINGS\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"wings\",\"refrel\":\"coinmarketcap\"}"

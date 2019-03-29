@@ -1,0 +1,44 @@
+{\"coin\":\"DATA\",\"name\":\"streamr-datacoin\",\"etomic\":\"0x0cf0ee63788a0849fe5297f3407f701e122cc023\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"DATA\"}"
+
+home
+      "coin" : "DATA",
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "balance" : 0,
+      "status" : "active",
+      "installed" : false,
+      "height" : -1,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c"
+
+contabo
+      "coin" : "DATA",
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "height" : -1,
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "balance" : 5.29307709,
+      "installed" : false,
+      "status" : "active"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"DATA\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"DATA\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"DATA\",\"rel\":\"KMD\",\"relvolume\":0.02,\"price\":0.12}"
+Streamr DATAcoin (DATA)
+SWAP completed! 1519001203-497435306 {"uuid":"944dc16cb1d0f2ad5794fda10ae8257ccb663568bb73231696303313f173d408","expiration":1531094139,"tradeid":0,"requestid":1519001203,"quoteid":497435306,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"DATA","bobtomic":"0x0cf0ee63788a0849fe5297f3407f701e122cc023","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.17616606,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.02009000,"alicetxfee":0.00001000,"aliceid":"6748953998513668097","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.02010000, 1.00002000, 0.02011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531078989,"bobdeposit":"1ca1341f76e1f49e52f3c02a64f2e555aba9acdf3c9a79e01bf75db34cfcc684","alicepayment":"168e0f79dcc8a27f43f1b3381cbb8a7ccf55d5e6f3b1991240fa1c063f8b53b6","bobpayment":"f96f1fa1b95e4c3de20f4f26b4668cc3abd65a64eb90f30ca7df359b277a8bdb","paymentspent":"00dd105dfe2dd923d52102e0e1a02999264ac1ab73cf305c0893bfde942f206f","Apaymentspent":"dc9bfeacfdd29b7a13b29e54be751779bf8e4205e8ca3f95171b333c93636898","depositspent":"7fc861186e4cbab45092e66c0cb127ca561fd246789cbdab44cefb1bd7730b13","alicedexfee":"70563f84c3dbd09dd4caca48bcc9ae736cd1c00008181ce1005b619e0ef40242","method":"tradestatus","finishtime":1531078989}
+bobdeposit https://etherscan.io/tx/0xdf2d300e3ac4ee957b8995eb26873d22e55e98c0204b5a1f486c343d16f22d71
+alicepayment https://kmdexplorer.ru/tx/168e0f79dcc8a27f43f1b3381cbb8a7ccf55d5e6f3b1991240fa1c063f8b53b6
+bobpayment https://etherscan.io/tx/0xf2ef052e1982d9d9542639fb1e12c3bada595ac3a68ae23b7e358b24b66bf311
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DATA\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"streamr-datacoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DATA\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"streamr-datacoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DATA\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"streamr-datacoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DATA\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"streamr-datacoin\",\"refrel\":\"coinmarketcap\"}"

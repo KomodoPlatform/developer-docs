@@ -1,0 +1,69 @@
+https://bitcointalk.org/?topic=6017.0
+https://github.com/namecoin/namecoin-core
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,52);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,13);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,180);
+
+src/validation.h
+DEFAULT_MIN_RELAY_TX_FEE = COIN / 1000; => 100000
+src/amount.h
+COIN = 100000000;
+src/wallet/wallet.h
+DEFAULT_FALLBACK_FEE = 20000;
+DEFAULT_DISCARD_FEE = 10000;
+DEFAULT_TRANSACTION_MINFEE = 1000;
+WALLET_INCREMENTAL_RELAY_FEE = 5000;
+
+{\"coin\":\"NMC\",\"name\":\"namecoin\",\"rpcport\":8336,\"pubtype\":52,\"p2shtype\":13,\"wiftype\":180,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/namecoin/namecoin-core -b 0.15
+cd namecoin-core
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm
+make -j4
+sudo make install
+mkdir ~/.namecoin
+echo "server=1" >> ~/.namecoin/namecoin.conf
+echo "listen=0" >> ~/.namecoin/namecoin.conf
+echo "listenonion=1" >> ~/.namecoin/namecoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.namecoin/namecoin.conf
+echo "rpcuser=barternmc" >> ~/.namecoin/namecoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.namecoin/namecoin.conf
+echo "rpcworkqueue=64" >> ~/.namecoin/namecoin.conf
+echo "rpcthreads=16" >> ~/.namecoin/namecoin.conf
+chmod 0600 ~/.namecoin/namecoin.conf
+namecoind -daemon
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"NMC\"}"
+
+home
+   {
+      "status" : "active",
+      "pubtype" : 52,
+      "txfee" : 10000,
+      "rpc" : "127.0.0.1:8336",
+      "smartaddress" : "NJDJWSuUGLpeGjY2bRtvB316hs2ek5B4C2",
+      "wiftype" : 180,
+      "coin" : "NMC",
+      "p2shtype" : 13
+   },
+
+contabo
+   {
+      "status" : "active",
+      "coin" : "NMC",
+      "txfee" : 100000,
+      "smartaddress" : "MxSA2oXjs1xdT5gFnjA2VnbvwkCkZ3svhJ",
+      "p2shtype" : 13,
+      "pubtype" : 52,
+      "wiftype" : 180,
+      "rpc" : "127.0.0.1:8336"
+   },
+
+namecoin-cli sendtoaddress "MxSA2oXjs1xdT5gFnjA2VnbvwkCkZ3svhJ" 0.99600000
+"fee": -0.00022678,

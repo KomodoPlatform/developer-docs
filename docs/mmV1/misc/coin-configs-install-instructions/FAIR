@@ -1,0 +1,71 @@
+https://bitcointalk.org/index.php?topic=702675.0
+https://github.com/faircoin/faircoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,95);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,36);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,223);
+
+src/wallet/wallet.h
+DEFAULT_FALLBACK_FEE = 20000;
+DEFAULT_TRANSACTION_MINFEE = 1000;
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 10 * CENT;
+src/amount.h
+CENT = 1000000;
+
+{\"coin\":\"FAIR\",\"name\":\"faircoin\",\"confpath\":\"${HOME#}/.faircoin2/faircoin.conf\",\"rpcport\":40405,\"pubtype\":95,\"p2shtype\":36,\"wiftype\":223,\"txfee\":1000000}
+
+
+cd ~/wallets
+git clone https://github.com/faircoin/faircoin
+cd faircoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/faircoin*
+mkdir ~/.faircoin2
+echo "server=1" >> ~/.faircoin2/faircoin.conf
+echo "listen=0" >> ~/.faircoin2/faircoin.conf
+echo "listenonion=1" >> ~/.faircoin2/faircoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.faircoin2/faircoin.conf
+echo "rpcuser=barterfair" >> ~/.faircoin2/faircoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.faircoin2/faircoin.conf
+echo "rpcworkqueue=64" >> ~/.faircoin2/faircoin.conf
+echo "rpcthreads=16" >> ~/.faircoin2/faircoin.conf
+chmod 0600 ~/.faircoin2/faircoin.conf
+faircoind -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"FAIR\"}"
+
+home
+   {
+      "coin" : "FAIR",
+      "status" : "active",
+      "smartaddress" : "fbkEr7iro6kKSNXkeUDd2RhvmZ7DHxZ1s3",
+      "pubtype" : 95,
+      "rpc" : "127.0.0.1:40405",
+      "p2shtype" : 36,
+      "txfee" : 1000000,
+      "wiftype" : 223
+   },
+
+contabo
+   {
+      "p2shtype" : 36,
+      "coin" : "FAIR",
+      "wiftype" : 223,
+      "rpc" : "127.0.0.1:40405",
+      "smartaddress" : "fFy6NUM8PmtJcifyqmUjMBJm1SHK86Vrrp",
+      "pubtype" : 95,
+      "txfee" : 1000000,
+      "status" : "active"
+   },
+
+faircoin-cli sendtoaddress "fFy6NUM8PmtJcifyqmUjMBJm1SHK86Vrrp" 1.12657143
+"fee": -0.00225000,
+faircoin-cli sendtoaddress "fFy6NUM8PmtJcifyqmUjMBJm1SHK86Vrrp" 1.35188571
+"fee": -0.00521000,

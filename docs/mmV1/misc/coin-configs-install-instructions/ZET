@@ -1,0 +1,64 @@
+https://bitcointalk.org/index.php?topic=267545.0
+https://github.com/zetacoin/zetacoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,80);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,9);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,224);
+
+src/main.cpp
+minRelayTxFee = CFeeRate(5000);
+src/wallet/wallet.cpp
+minTxFee = CFeeRate(1000);
+src/wallet/rpcwallet.cpp
+payTxFee = CFeeRate(nAmount, 1000);
+
+{\"coin\":\"ZET\",\"name\":\"zetacoin\",\"rpcport\":11111,\"pubtype\":80,\"p2shtype\":9,\"wiftype\":224,\"txfee\":10000}
+
+cd ~/wallets
+git clone https://github.com/zetacoin/zetacoin
+cd zetacoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/zetacoin*
+mkdir ~/.zetacoin
+echo "server=1" >> ~/.zetacoin/zetacoin.conf
+echo "txindex=1" >> ~/.zetacoin/zetacoin.conf
+echo "listen=0" >> ~/.zetacoin/zetacoin.conf
+echo "listenonion=0" >> ~/.zetacoin/zetacoin.conf
+echo "rpcport=11111" >> ~/.zetacoin/zetacoin.conf
+echo "rpcuser=barterzet" >> ~/.zetacoin/zetacoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.zetacoin/zetacoin.conf
+chmod 0600 ~/.zetacoin/zetacoin.conf
+zetacoind -daemon
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ZET\"}"
+
+home
+   {
+      "status" : "active",
+      "rpc" : "127.0.0.1:11111",
+      "pubtype" : 80,
+      "wiftype" : 224,
+      "coin" : "ZET",
+      "p2shtype" : 9,
+      "txfee" : 10000,
+      "smartaddress" : "ZZgC5VFY9PoBAsSTHBDqkYd8KzF4bAUSaV"
+   },
+
+contabo
+   {
+      "coin" : "ZET",
+      "smartaddress" : "ZDu3bqsok4wAMDagUUUx5JDxZsRAUSVZY2",
+      "pubtype" : 80,
+      "wiftype" : 224,
+      "txfee" : 10000,
+      "status" : "active",
+      "p2shtype" : 9,
+      "rpc" : "127.0.0.1:11111"
+   },
+
+zetacoin-cli sendtoaddress "ZDu3bqsok4wAMDagUUUx5JDxZsRAUSVZY2" 28.85243866

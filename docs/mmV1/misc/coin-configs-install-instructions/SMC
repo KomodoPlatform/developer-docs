@@ -1,0 +1,70 @@
+https://bitcointalk.org/index.php?topic=675821
+https://github.com/psionin/smartcoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,191);
+
+src/wallet/wallet.cpp
+minTxFee = CFeeRate(1000);
+src/main.cpp
+minRelayTxFee = CFeeRate(CENT);
+src/amount.h
+CENT = 1000000
+
+{\"coin\":\"SMC\",\"name\":\"smartcoin\",\"rpcport\":58583,\"pubtype\":63,\"p2shtype\":5,\"wiftype\":191,\"txfee\":1000000}
+
+
+cd ~/wallets
+git clone https://github.com/psionin/smartcoin
+cd smartcoin
+vi src/main.cpp
+#rejected nVersion wech
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/smartcoin*
+mkdir ~/.smartcoin
+echo "server=1" >> ~/.smartcoin/smartcoin.conf
+echo "txindex=1" >> ~/.smartcoin/smartcoin.conf
+echo "listen=0" >> ~/.smartcoin/smartcoin.conf
+echo "rpcport=8583" >> ~/.smartcoin/smartcoin.conf
+echo "rpcuser=bartersmc" >> ~/.smartcoin/smartcoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.smartcoin/smartcoin.conf
+chmod 0600 ~/.smartcoin/smartcoin.conf
+smartcoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SMC\"}"
+
+home
+   {
+      "smartaddress" : "SivwLeBe5KvHGW4ys3ZRWQzkdQs2WHhHtN",
+      "coin" : "SMC",
+      "p2shtype" : 5,
+      "rpc" : "127.0.0.1:58583",
+      "status" : "active",
+      "pubtype" : 63,
+      "wiftype" : 191,
+      "txfee" : 1000000
+   },
+
+contabo
+      "rpc" : "127.0.0.1:58583",
+      "coin" : "SMC",
+      "p2shtype" : 5,
+      "KMDvalue" : 0.06282028,
+      "wiftype" : 191,
+      "txfee" : 1000000,
+      "height" : 953341,
+      "balance" : 22.89384,
+      "pubtype" : 63,
+      "smartaddress" : "SP9nrzoug14GSrDD4LpXqAbasJ38NPWK6Y",
+      "installed" : true,
+      "status" : "active"
+
+smartcoin-cli sendtoaddress "SP9nrzoug14GSrDD4LpXqAbasJ38NPWK6Y" 10.69576992
+"fee" : -0.00372000,

@@ -1,0 +1,43 @@
+{\"coin\":\"GNO\",\"name\":\"gnosis-gno\",\"etomic\":\"0x6810e776880C02933D47DB1b9fc05908e5386b96\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"GNO\"}"
+
+home
+      "wiftype" : 188,
+      "rpc" : "127.0.0.1:80",
+      "pubtype" : 0,
+      "txfee" : 1000,
+      "balance" : 0,
+      "p2shtype" : 85,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "installed" : false,
+      "height" : -1,
+      "coin" : "GNO"
+
+contabo
+      "balance" : 0,
+      "height" : -1,
+      "installed" : false,
+      "coin" : "GNO",
+      "rpc" : "127.0.0.1:80",
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "p2shtype" : 85,
+      "txfee" : 1000,
+      "status" : "active",
+      "pubtype" : 0,
+      "wiftype" : 188
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"GNO\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"GNO\",\"rel\":\"KMD\",\"price\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"GNO\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":1.2}"
+Gnosis (GNO)
+SWAP completed! 70938805-2967174275 {"uuid":"85ca3b2064c7d7c955f1af395d784f2818cd3e81475f24c24bcfa7fffbdaf721","expiration":1528211045,"tradeid":0,"requestid":70938805,"quoteid":2967174275,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"GNO","bobtomic":"0x6810e776880C02933D47DB1b9fc05908e5386b96","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.07610263,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"3022393284507598849","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.07611263, 0.08010000, 0.07612263, 0.08011000, 0.08563545, 0, 0, 0.08562545, 0, 0, 0],"result":"success","status":"finished","finishtime":1528195976,"bobdeposit":"cc9107651010503794651c7f01c302656dfc31bd59742a08603349220d2f187a","alicepayment":"800a0803589a0fa1a703e11b95d7388e0c35f9fdb12be601b9b5dedc437f7f23","bobpayment":"a54fe798ba795f11065966154b5924ee21ecbcb67828d2b675384827dab5dfd2","paymentspent":"2cee94d98d1804f685dc93d82a6514c768d787a60f99d71f2cd7815d3dbd690d","Apaymentspent":"999a8c2373b7f6ae9ed0e8fab1f39e13e547f712944689c735b6cea7873d03c5","depositspent":"ebbbc86ade76dc1c10c1e35077b5614bf157c38be3151953c8e445d1437de726","method":"tradestatus","finishtime":1528195976}
+bobdeposit https://etherscan.io/tx/0x708d10841aab90b73de917579fa22fd9e7d09fad1c73506b207f546c88f7718f
+alicepayment https://kmdexplorer.ru/tx/800a0803589a0fa1a703e11b95d7388e0c35f9fdb12be601b9b5dedc437f7f23
+bobpayment https://etherscan.io/tx/0xb8e958c8045f656b34ea6cdc3b28723581866246cd7e423be479645351bc1a2e
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"GNO\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"gnosis-gno\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"GNO\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"gnosis-gno\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"GNO\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"gnosis-gno\",\"refrel\":\"coinmarketcap\"}"

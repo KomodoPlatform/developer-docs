@@ -1,0 +1,62 @@
+https://github.com/zcash/zcash
+
+
+src/chainparams.cpp
+// guarantees the first 2 characters, when base58 encoded, are "t1"
+base58Prefixes[PUBKEY_ADDRESS]     = {0x1C,0xB8};
+// guarantees the first 2 characters, when base58 encoded, are "t3"
+base58Prefixes[SCRIPT_ADDRESS]     = {0x1C,0xBD};
+// the first character, when base58 encoded, is "5" or "K" or "L" (as in Bitcoin)
+base58Prefixes[SECRET_KEY]         = {0x80};
+
+{\"coin\":\"ZEC\",\"name\":\"zcash\",\"rpcport\":8232,\"taddr\":28,\"pubtype\":184,\"p2shtype\":189,\"wiftype\":128,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/zcash/zcash
+cd zcash
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./zcutil/build.sh -j4
+sudo cp src/zcashd src/zcash-cli /usr/local/bin/
+sudo strip /usr/local/bin/zcash*
+mkdir ~/.zcash
+echo "server=1" >> ~/.zcash/zcash.conf
+echo "txindex=1" >> ~/.zcash/zcash.conf
+echo "listen=0" >> ~/.zcash/zcash.conf
+echo "listenonion=0" >> ~/.zcash/zcash.conf
+echo "rpcuser=barterzec" >> ~/.zcash/zcash.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.zcash/zcash.conf
+echo "rpcworkqueue=64" >> ~/.zcash/zcash.conf
+echo "rpcthreads=16" >> ~/.zcash/zcash.conf
+chmod 0600 ~/.zcash/zcash.conf
+zcashd -daemon
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ZEC\"}"
+
+home
+   {
+      "wiftype" : 128,
+      "rpc" : "127.0.0.1:8232",
+      "p2shtype" : 189,
+      "coin" : "ZEC",
+      "pubtype" : 184,
+      "status" : "active",
+      "txfee" : 10000,
+      "smartaddress" : "t1fWYK8pdKHWgLqLRG3PU6Kx7EHpgVRNjCU"
+   },
+
+contabo
+   {
+      "coin" : "ZEC",
+      "wiftype" : 128,
+      "pubtype" : 184,
+      "rpc" : "127.0.0.1:8232",
+      "txfee" : 10000,
+      "p2shtype" : 189,
+      "smartaddress" : "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH",
+      "status" : "active"
+   },
+
+zcash-cli sendtoaddress "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH" 0.02905717
+"fee": -0.00009899,
+"fee": -0.00009855,

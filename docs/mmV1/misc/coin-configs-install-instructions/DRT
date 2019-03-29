@@ -1,0 +1,38 @@
+{\"coin\":\"DRT\",\"name\":\"domraider\",\"etomic\":\"0x9af4f26941677c706cfecf6d3379ff01bb85d5ab\",\"rpcport\":80}
+
+home
+     "status" : "active",
+      "p2shtype" : 85,
+      "wiftype" : 188,
+      "installed" : false,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "pubtype" : 0,
+      "balance" : 0,
+      "rpc" : "127.0.0.1:80",
+      "coin" : "DRT",
+      "height" : -1,
+      "txfee" : 1000
+
+contabo
+      "coin" : "DRT",
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "p2shtype" : 85,
+      "status" : "active",
+      "txfee" : 1000,
+      "installed" : false,
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:80",
+      "wiftype" : 188,
+      "balance" : 0,
+      "height" : -1
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"DRT\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"DRT\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1.2}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"DRT\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"DRT\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+DomRaider (DRT)
+SWAP completed! 2678844172-3898932508 {"expiration":1522378277,"tradeid":0,"requestid":2678844172,"quoteid":3898932508,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"DRT","bobtomic":"0x9af4f26941677c706cfecf6d3379ff01bb85d5ab","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.68365856,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"18104050651861090305","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.68366856, 0.08010000, 0.68367856, 0.08011000, 0.76913588, 0, 0, 0.76912588, 0, 0, 0],"result":"success","status":"finished","finishtime":1522363044,"bobdeposit":"12d084f1ac06df9b202ed7c91b5d98c2e38aead8fbb9f4e7e1616567040e41a9","alicepayment":"fab51cb883812e40ea22fa9586738ad93457383fea088099f2e7eff720d9fee7","bobpayment":"f4371bdb38e96f2f427c184ecab431d6be421067227af0ef537fdb63a72075e2","paymentspent":"7ba718e0441cc5fdbe3df6fd7786b71d9e6abf4476944db4f49f69d29aec5e57","Apaymentspent":"ae65bd3f12db656e36639dc1bb0dc3497cf29ce62c1253c125fe4a97fadc17c9","depositspent":"fdad1a7e9aebd1d4fc0ce7f01d2c8b46880094c3a08f840359548540c51c5c3e","method":"tradestatus","finishtime":1522363044}
+bobdeposit https://etherscan.io/tx/0x36b5d757d98761361c170d73d6397f74fd4ffe7e6ea4324e45d5058d2b03d0f1
+alicepayment https://kmd.explorer.supernet.org/tx/fab51cb883812e40ea22fa9586738ad93457383fea088099f2e7eff720d9fee7
+bobpayment https://etherscan.io/tx/0x2ce2436f990fa0766a191706fc9cfef7b2be29101a8b1bf1dd141b8599807f07

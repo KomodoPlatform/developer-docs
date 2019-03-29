@@ -1,0 +1,68 @@
+https://bitcointalk.org/index.php?topic=901605
+https://github.com/LIMXTEC/Europecoin-V3
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,33);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,40+128);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_FEE = 0;
+src/main.cpp
+minRelayTxFee = CFeeRate(10000);
+
+{\"coin\":\"ERC\",\"name\":\"europecoin\",\"rpcport\":11989,\"pubtype\":33,\"p2shtype\":5,\"wiftype\":168,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/LIMXTEC/Europecoin-V3
+cd Europecoin-V3
+chmod 755 autogen.sh
+chmod 755 share/genbuild.sh
+chmod 755 src/leveldb/build_detect_platform
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc
+make -j4
+sudo make install
+sudo strip /usr/local/bin/europecoin*
+mkdir ~/.europecoin
+echo "server=1" >> ~/.europecoin/europecoin.conf
+echo "listen=0" >> ~/.europecoin/europecoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.europecoin/europecoin.conf
+echo "rpcuser=bartererc" >> ~/.europecoin/europecoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.europecoin/europecoin.conf
+echo "rpcworkqueue=64" >> ~/.europecoin/europecoin.conf
+echo "rpcthreads=16" >> ~/.europecoin/europecoin.conf
+chmod 0600 ~/.europecoin/europecoin.conf
+europecoind -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ERC\"}"
+
+home
+   {
+      "pubtype" : 33,
+      "p2shtype" : 5,
+      "smartaddress" : "EenqoPEzmv1zjVtP8TZrxeq9kH8j8v4zqd",
+      "rpc" : "127.0.0.1:11989",
+      "status" : "active",
+      "coin" : "ERC",
+      "wiftype" : 168,
+      "txfee" : 10000
+   },
+
+contabo
+   {
+      "pubtype" : 33,
+      "p2shtype" : 5,
+      "txfee" : 10000,
+      "coin" : "ERC",
+      "status" : "active",
+      "rpc" : "127.0.0.1:11989",
+      "smartaddress" : "EK1hKjsGNb9yur2cKkpyHQRyzAJq3BZeJ1",
+      "wiftype" : 168
+   },
+
+europecoin-cli sendtoaddress "EK1hKjsGNb9yur2cKkpyHQRyzAJq3BZeJ1" 2.43323167
+europecoin-cli sendtoaddress "EK1hKjsGNb9yur2cKkpyHQRyzAJq3BZeJ1" 2.91987800

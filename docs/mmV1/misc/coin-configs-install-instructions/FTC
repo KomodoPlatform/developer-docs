@@ -1,0 +1,69 @@
+https://bitcointalk.org/index.php?topic=178286.0
+https://github.com/FeatherCoin/Feathercoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,14);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,142);
+
+{\"coin\":\"FTC\",\"name\":\"feathercoin\",\"rpcport\":9337,\"pubtype\":14,\"p2shtype\":5,\"wiftype\":142,\"txfee\":1000000}
+
+
+cd ~/wallets
+git clone https://github.com/FeatherCoin/Feathercoin
+cd Feathercoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq --enable-sse2
+make -j4
+sudo make install
+sudo strip /usr/local/bin/feathercoin*
+mkdir ~/.feathercoin
+echo "server=1" >> ~/.feathercoin/feathercoin.conf
+echo "txindex=1" >> ~/.feathercoin/feathercoin.conf
+echo "listen=0" >> ~/.feathercoin/feathercoin.conf
+echo "listenonion=0" >> ~/.feathercoin/feathercoin.conf
+echo "rpcuser=barterftc" >> ~/.feathercoin/feathercoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.feathercoin/feathercoin.conf
+chmod 0600 ~/.feathercoin/feathercoin.conf
+feathercoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"FTC\"}"
+
+home
+      "coin" : "FTC",
+      "KMDvalue" : 0,
+      "height" : 2134967,
+      "txfee" : 1000000,
+      "wiftype" : 142,
+      "installed" : true,
+      "p2shtype" : 5,
+      "pubtype" : 14,
+      "status" : "active",
+      "smartaddress" : "71NP6KaXHVDMCGEjfVEokGfCnhEodoAdaD",
+      "rpc" : "127.0.0.1:9337",
+      "balance" : 6.6529167
+
+contabo
+      "txfee" : 1000000,
+      "balance" : 2.2,
+      "height" : 2134966,
+      "wiftype" : 142,
+      "installed" : true,
+      "status" : "active",
+      "smartaddress" : "6fbEcgCntAMLNcNxrnVv52G32aQuZzxA7Q",
+      "pubtype" : 14,
+      "KMDvalue" : 0,
+      "rpc" : "127.0.0.1:9337",
+      "coin" : "FTC",
+      "p2shtype" : 5
+
+feathercoin-cli sendtoaddress "6fbEcgCntAMLNcNxrnVv52G32aQuZzxA7Q" 1
+feathercoin-cli sendtoaddress "6fbEcgCntAMLNcNxrnVv52G32aQuZzxA7Q" 1.2
+"fee": -0.00452000
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"FTC\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"feathercoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"FTC\",\"rel\":\"BTC\",\"margin\":0.07,\"refbase\":\"feathercoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"FTC\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"feathercoin\",\"refrel\":\"coinmarketcap\"}"
+

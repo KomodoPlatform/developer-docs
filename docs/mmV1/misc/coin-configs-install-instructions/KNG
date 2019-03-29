@@ -1,0 +1,53 @@
+BetKings (KNG)
+
+
+{\"coin\":\"KNG\",\"name\":\"kings\",\"rpcport\":44888,\"pubtype\":75,\"p2shtype\":125,\"wiftype\":203,\"txfee\":10000}
+
+
+mkdir ~/.kings
+echo "server=1" >> ~/.kings/kings.conf
+echo "txindex=1" >> ~/.kings/kings.conf
+echo "listen=0" >> ~/.kings/kings.conf
+echo "staking=0" >> ~/.kings/kings.conf
+echo "litemode=1" >> ~/.kings/kings.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.kings/kings.conf
+echo "rpcuser=barterkings" >> ~/.kings/kings.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.kings/kings.conf
+chmod 0600 ~/.kings/kings.conf
+kingsd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"KNG\"}"
+
+home
+      "installed" : true,
+      "pubtype" : 75,
+      "KMDvalue" : 0,
+      "coin" : "KNG",
+      "p2shtype" : 125,
+      "rpc" : "127.0.0.1:44888",
+      "txfee" : 10000,
+      "status" : "active",
+      "height" : 41873,
+      "wiftype" : 203,
+      "smartaddress" : "XYzB9wm6bVUo5hk2A5ZFKvGCBTxM48yfgf",
+      "balance" : 0
+
+contabo
+      "status" : "active",
+      "installed" : true,
+      "coin" : "KNG",
+      "wiftype" : 203,
+      "height" : 41877,
+      "KMDvalue" : 0,
+      "txfee" : 10000,
+      "balance" : 0,
+      "p2shtype" : 125,
+      "smartaddress" : "XDD2gJPNCAcnG3tFMNpMefs2RM8SsAPZdx",
+      "rpc" : "127.0.0.1:44888",
+      "pubtype" : 75
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"KNG\",\"fixed\":0.3}"
+
+kings-cli sendtoaddress "XDD2gJPNCAcnG3tFMNpMefs2RM8SsAPZdx" 1
+"fee" : -0.00002605

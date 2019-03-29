@@ -1,0 +1,42 @@
+{\"coin\":\"RLC\",\"name\":\"rlc\",\"etomic\":\"0x607F4C5BB672230e8672085532f7e901544a7375\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"RLC\"}"
+
+home
+      "coin" : "RLC",
+      "balance" : 0,
+      "status" : "active",
+      "pubtype" : 0,
+      "txfee" : 1000,
+      "rpc" : "127.0.0.1:80",
+      "installed" : false,
+      "wiftype" : 188,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "p2shtype" : 85,
+      "height" : -1
+
+hetzner
+      "txfee" : 1000,
+      "installed" : false,
+      "height" : -1,
+      "smartaddress" : "0x98298409c949135eed89233d04c2cfef984baff5",
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "status" : "active",
+      "coin" : "RLC",
+      "balance" : 6.39,
+      "rpc" : "127.0.0.1:80"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"RLC\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"RLC\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+iExec RLC (RLC)
+SWAP completed! 3955002174-1646866782 {"uuid":"85d4b93b8945daaa68889d6655aba4e980e87ecf7d5eee6204922685db78190e","expiration":1531378483,"tradeid":0,"requestid":3955002174,"quoteid":1646866782,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"RLC","bobtomic":"0x607F4C5BB672230e8672085532f7e901544a7375","etomicsrc":"0x98298409c949135eed89233d04c2cfef984baff5","srcamount":0.69307642,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"6282761035596103681","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531363403,"bobdeposit":"98d47b2f9fb3d91c1ed4e7b0e18aa2820d5b1831326d1e0c6aa81a1862855b1d","alicepayment":"845757136ae6d84078d76a46496ff4c2ec0986a99cab34d7af749bb183b96b48","bobpayment":"21bfd1cb7f6771dad622ee69ced9edf4daef0a63c197828db359e77e13f21613","paymentspent":"484f1b1f83567cc16b0324181dece7ba321175eaa49063fe91a843d3afe1fd26","Apaymentspent":"ab466e9f2b8e0ea0b98a7b9c0375f32347d01fef4f6d8a162957fe89c4b8e30b","depositspent":"4c7f6bbeb6a8a75797c10064f41f4bbc0ef8fb0cede89744b0876c7ead9c05ab","alicedexfee":"074aa01217812ce77803192aaab5a2fc9403a56c5f1908370ce485b6e5685e3f","method":"tradestatus","finishtime":1531363403}
+bobdeposit https://etherscan.io/tx/0x80d39f88dd8108acd2e928ce2ea521ce42955a33b1e6cd1f175754786f157d3e
+alicepayment https://kmdexplorer.ru/tx/845757136ae6d84078d76a46496ff4c2ec0986a99cab34d7af749bb183b96b48
+bobpayment https://etherscan.io/tx/0x34129df1bed1230534165d57a32bf7369289b4d68d8dfee4475c49bff902c036
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RLC\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"rlc\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RLC\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"rlc\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RLC\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"rlc\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RLC\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"rlc\",\"refrel\":\"coinmarketcap\"}"

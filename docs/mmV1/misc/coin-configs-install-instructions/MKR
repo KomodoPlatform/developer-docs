@@ -1,0 +1,44 @@
+{\"coin\":\"MKR\",\"name\":\"maker\",\"etomic\":\"0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MKR\"}"
+
+home
+      "coin" : "MKR",
+      "p2shtype" : 85,
+      "installed" : false,
+      "wiftype" : 188,
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "pubtype" : 0,
+      "height" : -1,
+      "txfee" : 1000,
+      "balance" : 0,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c"
+
+contabo
+      "height" : -1,
+      "wiftype" : 188,
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "rpc" : "127.0.0.1:80",
+      "balance" : 0,
+      "txfee" : 1000,
+      "coin" : "MKR",
+      "status" : "active",
+      "installed" : false
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"MKR\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":0.1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"MKR\",\"rel\":\"KMD\",\"price\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"MKR\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":1.2}"
+Maker (MKR)
+SWAP completed! 790823036-4146706623 {"uuid":"fd5e4926eedfc75f1fd157d74084090921079f4051a25a1fea6ed57d48252af0","expiration":1527374224,"tradeid":0,"requestid":790823036,"quoteid":4146706623,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"MKR","bobtomic":"0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.06890352,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"12213295656471494657","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.06891352, 0.08010000, 0.06892352, 0.08011000, 0.07753646, 0, 0, 0.07752646, 0, 0, 0],"result":"success","status":"finished","finishtime":1527359269,"bobdeposit":"13f81a4eff6912979aeed37dce990f1954e56f6ae57d0076fbf74f128040f2ae","alicepayment":"e6698c12db0e16b4ef342229e12631cf149f66a01a9f17044aac8c92aac58309","bobpayment":"370e4292e6eb8c1d0052ff17ffd03f6d958d7c6eff5344a2cb3d9d3c7e21e7d0","paymentspent":"9a4da1b62e4aa20d49da4bee6d4686acec2b7f382100d8614f8ec8fd19d1d584","Apaymentspent":"39c0831d512752fe31b6b53371271088a026ba5e17a68c936f38e03ddacfaff2","depositspent":"e0f17d76bc79f412f46ead6f1b58734deacbb543c49378ba9ff94b0165fe8974","method":"tradestatus","finishtime":1527359269}
+bobdeposit https://etherscan.io/tx/0x3937b398a360f7c80a0f4baff90cc9f4d6560f88f83156d061b6d6cd3be4c69e
+alicepayment https://kmdexplorer.ru/tx/e6698c12db0e16b4ef342229e12631cf149f66a01a9f17044aac8c92aac58309
+bobpayment https://etherscan.io/tx/0x79d7777b42547efe7af04a22662d70bbe1c9617937ba3beac5c703c70bdd6bc2
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MKR\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"maker\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MKR\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"maker\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MKR\",\"rel\":\"LTC\",\"margin\":0.05,\"refbase\":\"maker\",\"refrel\":\"coinmarketcap\"}"
+

@@ -1,0 +1,43 @@
+{\"coin\":\"KIN\",\"name\":\"kin\",\"etomic\":\"0x818fc6c2ec5986bc6e2cbf00939d90556ab12ce5\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"KIN\"}"
+
+home
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "installed" : false,
+      "status" : "active",
+      "coin" : "KIN",
+      "height" : -1,
+      "wiftype" : 188,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "p2shtype" : 85,
+      "balance" : 0,
+      "pubtype" : 0
+
+contabo
+      "p2shtype" : 85,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "balance" : 3990,
+      "coin" : "KIN",
+      "status" : "active",
+      "rpc" : "127.0.0.1:80",
+      "height" : -1,
+      "installed" : false
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"KIN\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"KIN\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"KIN\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Kin (KIN)
+SWAP completed! 629868832-3715157397 {"uuid":"a5985fb8eb01ae80f89f44c0b6a5b24e05438910942e602bd62d091fd2b07754","expiration":1529347429,"tradeid":0,"requestid":629868832,"quoteid":3715157397,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"KIN","bobtomic":"0x818fc6c2ec5986bc6e2cbf00939d90556ab12ce5","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.67557050,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"7828741881914851329","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1529332135,"bobdeposit":"63e7234de700b1d24db3f5fc5c29b6bc57587143a11815f0cacd4207127389b1","alicepayment":"4b130eb116de0da2b5371d880ca8346699b1005e72890c4e9f3a98c72934caf3","bobpayment":"b190bc1a4eda583cb0b0384debe022bbd8a373b164111e44f8fe5ec4aa0d7a57","paymentspent":"fba3f4acb8f5048310359ac639e664e323a8267291f603fe0cc869a269910f46","Apaymentspent":"49f79bc89f9992f2eff3710dbb5d946061ce538523ed0922838b9d5864e9d5dd","depositspent":"31996ba70e150738982ad5181c9e322ca9fb075ff44ee062cd20a6268015106f","method":"tradestatus","finishtime":1529332135}
+bobdeposit https://etherscan.io/tx/0xb6158831374999a77ee770faa86f116e0149460f463a4ad903a36920bed04bb0
+alicepayment https://kmdexplorer.ru/tx/4b130eb116de0da2b5371d880ca8346699b1005e72890c4e9f3a98c72934caf3
+bobpayment https://etherscan.io/tx/0xd1844e2aba9e995730c46b6ac0c6819cccb6eb28a9ab802869a9b315d6c3b1c1
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KIN\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"kin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KIN\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"kin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KIN\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"kin\",\"refrel\":\"coinmarketcap\"}"

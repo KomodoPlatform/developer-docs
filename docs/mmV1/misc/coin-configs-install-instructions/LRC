@@ -1,0 +1,43 @@
+{\"coin\":\"LRC\",\"name\":\"loopring\",\"etomic\":\"0xEF68e7C694F40c8202821eDF525dE3782458639f\",\"rpcport\":80,\"decimals\":18}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"LRC\"}"
+
+home
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "balance" : 0,
+      "p2shtype" : 85,
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "height" : -1,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "installed" : false,
+      "coin" : "LRC"
+
+contabo
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "wiftype" : 188,
+      "height" : -1,
+      "balance" : 0,
+      "installed" : false,
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "coin" : "LRC",
+      "txfee" : 1000
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"LRC\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"LRC\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"LRC\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Loopring (LRC)
+SWAP completed! 1416935604-4123801199 {"uuid":"c12336f7f3987b8057f4e8dfbe0a7b262a1fb25ee13896ce1df0e65a9b0a0282","expiration":1527630203,"tradeid":0,"requestid":1416935604,"quoteid":4123801199,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"LRC","bobtomic":"0xEF68e7C694F40c8202821eDF525dE3782458639f","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.77925915,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"3538462148359225345","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.77926915, 0.08010000, 0.77927915, 0.08011000, 0.87668654, 0, 0, 0.87667654, 0, 0, 0],"result":"success","status":"finished","finishtime":1527615300,"bobdeposit":"4c1910655e175f10b8e338e88401eaf7db949aaad9fb4a9a2cc6cc322cb788f7","alicepayment":"e854b73f7b57d6645972a60d794cdd0708da1da5bc438ff375ac4b585cebc927","bobpayment":"3113d2de54c8281f2d8e0e8da007de820c19d7fa372670d4ff275a16f65c8c7c","paymentspent":"4f283efcb3954e6be2b68e021afeea7224f1a6800c6021939859c0c648c46476","Apaymentspent":"c8861122e72af9d55bf4756c6c6c0809af16ee1f185a309b77e7ae6c092ce046","depositspent":"9baa3d03374d3d1cdd1247c125cc3c01f635ba84444ab6921921cc1ec55ce9c4","method":"tradestatus","finishtime":1527615300}
+bobdeposit https://etherscan.io/tx/0x018448a765c7208fcd84afc694219cbead889128d4be256b9d3790af195f89ed
+alicepayment https://kmdexplorer.ru/tx/e854b73f7b57d6645972a60d794cdd0708da1da5bc438ff375ac4b585cebc927
+bobpayment https://etherscan.io/tx/0xf20c7e809cc78cd3b3e5b16333839c39da2510fb1927ad2b266dcf94489ce5c5
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"LRC\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"loopring\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"LRC\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"loopring\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"LRC\",\"rel\":\"LTC\",\"margin\":0.05,\"refbase\":\"loopring\",\"refrel\":\"coinmarketcap\"}"

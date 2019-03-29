@@ -1,0 +1,80 @@
+https://bitcointalk.org/index.php?topic=844754.0
+https://github.com/UFOCoins/ufo
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,27);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,155);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 100000;
+
+{\"coin\":\"UFO\",\"name\":\"ufocoin\",\"confpath\":\"${HOME#}/.ufo/ufocoin.conf\",\"rpcport\":9888,\"pubtype\":27,\"p2shtype\":5,\"wiftype\":155,\"txfee\":100000}
+
+
+sudo apt-get install libssl1.0-dev
+cd ~/wallets
+git clone https://github.com/UFOCoins/ufo
+cd ufo
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/ufo*
+sudo apt-get install libssl-dev
+mkdir ~/.ufo
+echo "server=1" >> ~/.ufo/ufocoin.conf
+echo "txindex=1" >> ~/.ufo/ufocoin.conf
+echo "listen=0" >> ~/.ufo/ufocoin.conf
+echo "listenonion=0" >> ~/.ufo/ufocoin.conf
+echo "rpcuser=barterufo" >> ~/.ufo/ufocoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.ufo/ufocoin.conf
+chmod 0600 ~/.ufo/ufocoin.conf
+ufod -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"UFO\"}"
+
+home
+      "rpc" : "127.0.0.1:9888",
+      "height" : 1243717,
+      "wiftype" : 155,
+      "KMDvalue" : 0,
+      "coin" : "UFO",
+      "p2shtype" : 5,
+      "txfee" : 100000,
+      "balance" : 0,
+      "installed" : true,
+      "smartaddress" : "CEmDtjTGWqEjpu3rywZx3uCRyFb4xpGc2d",
+      "pubtype" : 27,
+      "status" : "active"
+
+contabo
+      "installed" : true,
+      "p2shtype" : 5,
+      "rpc" : "127.0.0.1:9888",
+      "wiftype" : 155,
+      "smartaddress" : "Btz5R65Y7WNj1FC6BEq4NeoGD8mAjS6FuV",
+      "height" : 1243717,
+      "txfee" : 100000,
+      "status" : "active",
+      "balance" : 0,
+      "KMDvalue" : 0,
+      "pubtype" : 27,
+      "coin" : "UFO"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"UFO\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"uniform-fiscal-object\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"UFO\",\"rel\":\"BTC\",\"margin\":0.05,\"refbase\":\"uniform-fiscal-object\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"UFO\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"uniform-fiscal-object\",\"refrel\":\"coinmarketcap\"}"
+
+ufo-cli sendtoaddress "Btz5R65Y7WNj1FC6BEq4NeoGD8mAjS6FuV" 1.2
+"fee": -0.00045000
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"UFO\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"UFO\",\"rel\":\"KMD\",\"relvolume\":0.1,\"price\":0.0004}"
+
+bobdeposit
+alicepayment
+bobpayment 
+

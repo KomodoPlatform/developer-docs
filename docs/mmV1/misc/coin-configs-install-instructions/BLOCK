@@ -1,0 +1,62 @@
+https://github.com/BlocknetDX/BlockDX
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 26);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 28);
+base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 154)
+
+"relayfee" : 0.00010000,
+
+{\"coin\":\"BLOCK\",\"name\":\"blocknetdx\",\"rpcport\":41414,\"pubtype\":26,\"p2shtype\":28,\"wiftype\":154,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/BlocknetDX/BlockDX
+cd BlockDX
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/blocknet*
+mkdir ~/.blocknetdx
+echo "server=1" >> ~/.blocknetdx/blocknetdx.conf
+echo "litemode=1" >> ~/.blocknetdx/blocknetdx.conf
+echo "staking=0" >> ~/.blocknetdx/blocknetdx.conf
+echo "listen=0" >> ~/.blocknetdx/blocknetdx.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.blocknetdx/blocknetdx.conf
+echo "rpcuser=barterblock" >> ~/.blocknetdx/blocknetdx.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.blocknetdx/blocknetdx.conf
+chmod 0600 ~/.blocknetdx/blocknetdx.conf
+blocknetdxd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BLOCK\"}"
+
+home
+   {
+      "status" : "active",
+      "coin" : "BLOCK",
+      "p2shtype" : 28,
+      "rpc" : "127.0.0.1:41414",
+      "smartaddress" : "BqRcud9yoems1TumxXEdZmveLkL8Dj9TGg",
+      "wiftype" : 154,
+      "txfee" : 10000,
+      "pubtype" : 26
+   },
+
+contabo
+   {
+      "status" : "active",
+      "txfee" : 10000,
+      "pubtype" : 26,
+      "p2shtype" : 28,
+      "coin" : "BLOCK",
+      "wiftype" : 154,
+      "rpc" : "127.0.0.1:41414",
+      "smartaddress" : "BVeURynFQKurBp419pVjtXXUadWDzXGBdG"
+   },
+
+blocknetdx-cli sendtoaddress "BqRcud9yoems1TumxXEdZmveLkL8Dj9TGg" 1.787
+"fee" : -0.00002260,
+blocknetdx-cli sendtoaddress "BqRcud9yoems1TumxXEdZmveLkL8Dj9TGg" 2.1444

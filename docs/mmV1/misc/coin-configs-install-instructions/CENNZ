@@ -1,0 +1,41 @@
+{\"coin\":\"CENNZ\",\"name\":\"centrality\",\"etomic\":\"0x1122b6a0e00dce0563082b6e2953f3a943855c1f\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CENNZ\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"centrality\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CENNZ\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"centrality\",\"refrel\":\"coinmarketcap\"}"
+
+home
+      "coin" : "CENNZ",
+      "height" : -1,
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "installed" : false,
+      "balance" : 0,
+      "txfee" : 1000,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85
+
+contabo
+      "status" : "active",
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "txfee" : 1000,
+      "height" : -1,
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "coin" : "CENNZ",
+      "installed" : false,
+      "balance" : 0
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"CENNZ\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"CENNZ\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"CENNZ\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Centrality (CENNZ)
+SWAP completed! 3886934368-1689579601 {"expiration":1523220724,"tradeid":0,"requestid":3886934368,"quoteid":1689579601,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"CENNZ","bobtomic":"0x1122b6a0e00dce0563082b6e2953f3a943855c1f","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.76587193,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"5954376764435595265","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.76588193, 0.08010000, 0.76589193, 0.08011000, 0.86162592, 0, 0, 0.86161592, 0, 0, 0],"result":"success","status":"finished","finishtime":1523205572,"bobdeposit":"e96e296b9aa3658a7165e478aa664f87ecf551b314aae10069e3e00cf930db56","alicepayment":"9020cdae0e513386fae2c2f88ea440d6df2071f10b2f1173cfde348a4eda560f","bobpayment":"bbe837f25aa5a1a55032765aa2860ce403f4fd5abddc7ba0c67683b44f5d7ae9","paymentspent":"d15c24f12f7c24971ab25731a11e4afeef5488139588c5f68bb7b63fce5f99fd","Apaymentspent":"f1f8bb8fb83278c4b570844d3efa9884e74464ad1ee4255b54ad7a9c39139e3c","depositspent":"2b1f1d71b60a3ee838a92c776b823b7bf4b38875a84859a789ab84a6e169ca9d","method":"tradestatus","finishtime":1523205572}
+bobdeposit https://etherscan.io/tx/0xc64924720104c939d209754ea2e34e79e60d8a59ba1a161924988c2520a6fe3a
+alicepayment https://kmd.explorer.supernet.org/tx/9020cdae0e513386fae2c2f88ea440d6df2071f10b2f1173cfde348a4eda560f
+bobpayment https://etherscan.io/tx/0x9cf6c72bd81f56cff16f3f8d7540944d59851e588f96c003aba4da2762e3f0bb
+

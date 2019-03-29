@@ -1,0 +1,69 @@
+https://bitcointalk.org/index.php?topic=2008578.0
+https://github.com/MyHush/hush
+
+
+src/chainparams.cpp
+// guarantees the first 2 characters, when base58 encoded, are "t1"
+base58Prefixes[PUBKEY_ADDRESS]     = {0x1C,0xB8};
+// guarantees the first 2 characters, when base58 encoded, are "t3"
+base58Prefixes[SCRIPT_ADDRESS]     = {0x1C,0xBD};
+// the first character, when base58 encoded, is "5" or "K" or "L" (as in Bitcoin)
+base58Prefixes[SECRET_KEY]         = {0x80};
+
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 100;
+
+{\"coin\":\"HUSH\",\"name\":\"hush\",\"rpcport\":8822,\"taddr\":28,\"pubtype\":184,\"p2shtype\":189,\"wiftype\":128,\"txfee\":1000}
+
+cd ~/wallets
+git clone https://github.com/MyHush/hush
+cd hush
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./zcutil/build.sh --disable-tests --disable-rust -j4
+sudo cp src/hushd src/hush-cli /usr/local/bin/
+sudo strip /usr/local/bin/hush*
+mkdir ~/.hush
+echo "server=1" >> ~/.hush/hush.conf
+echo "txindex=1" >> ~/.hush/hush.conf
+echo "listen=0" >> ~/.hush/hush.conf
+echo "listenonion=1" >> ~/.hush/hush.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.hush/hush.conf
+echo "rpcuser=barterhush" >> ~/.hush/hush.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.hush/hush.conf
+echo "rpcworkqueue=64" >> ~/.hush/hush.conf
+echo "rpcthreads=16" >> ~/.hush/hush.conf
+chmod 0600 ~/.hush/hush.conf
+hushd -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HUSH\"}"
+
+home
+   {
+      "wiftype" : 128,
+      "txfee" : 1000,
+      "coin" : "HUSH",
+      "status" : "active",
+      "smartaddress" : "t1fWYK8pdKHWgLqLRG3PU6Kx7EHpgVRNjCU",
+      "rpc" : "127.0.0.1:8822",
+      "pubtype" : 184,
+      "p2shtype" : 189
+   },
+
+contabo
+   {
+      "p2shtype" : 189,
+      "txfee" : 1000,
+      "rpc" : "127.0.0.1:8822",
+      "smartaddress" : "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH",
+      "coin" : "HUSH",
+      "pubtype" : 184,
+      "wiftype" : 128,
+      "status" : "active"
+   },
+
+hush-cli sendtoaddress "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH" 0.94518969
+hush-cli sendtoaddress "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH" 1.13422763
+"fee": -0.00000225
+"fee": -0.00000540
+hush-cli sendtoaddress "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH" 0.86755258
+"fee": -0.00000226,

@@ -1,0 +1,42 @@
+{\"coin\":\"RCN\",\"name\":\"ripio-credit-network\",\"etomic\":\"0xF970b8E36e23F7fC3FD752EeA86f8Be8D83375A6\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"RCN\"}"
+
+home
+      "height" : -1,
+      "status" : "active",
+      "p2shtype" : 85,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "rpc" : "127.0.0.1:80",
+      "installed" : false,
+      "balance" : 0,
+      "wiftype" : 188,
+      "pubtype" : 0,
+      "txfee" : 1000,
+      "coin" : "RCN"
+
+hetzner
+      "p2shtype" : 85,
+      "installed" : false,
+      "pubtype" : 0,
+      "status" : "active",
+      "smartaddress" : "0x98298409c949135eed89233d04c2cfef984baff5",
+      "coin" : "RCN",
+      "wiftype" : 188,
+      "balance" : 436.5,
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "height" : -1
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"RCN\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"RCN\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Ripio Credit Network (RCN)
+SWAP completed! 4188758412-59264982 {"uuid":"1092499947f249ca53817b00022c70fee23251dfd0d94ef5b9a3c57fb8ee2b24","expiration":1531459271,"tradeid":0,"requestid":4188758412,"quoteid":59264982,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"RCN","bobtomic":"0xF970b8E36e23F7fC3FD752EeA86f8Be8D83375A6","etomicsrc":"0x98298409c949135eed89233d04c2cfef984baff5","srcamount":0.69547933,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"13757557576456798209","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531444155,"bobdeposit":"ff794e147fc045a7eacfe7274ab48f518344ca1e77e570ce74ecbe935eac3902","alicepayment":"397c1bdce667912537d59f26f35cff12f0e6795187c9203d738bd6092911823c","bobpayment":"d909068ce2adcd101f371382a7e7be18b02aa78fd7ce9593b347ca13bd82c088","paymentspent":"33bfa7dbb2c0a27b9224f02ceab32dabf8b10d2fb2bdd980f959da9541d69447","Apaymentspent":"1356b4c23450fa9e4af5da71ed8e5270b3e27a19febad579522823da23a081d7","depositspent":"adaacb6830da0c01020782b06e7aa1ab2870e49e2e3fd30cea938a84034f96a3","alicedexfee":"3873c0279c94623c4505578aec4dfd897e78ebde8d1fbde43e6805d940e223da","method":"tradestatus","finishtime":1531444155}
+bobdeposit https://etherscan.io/tx/0x298cb1a9176a22c32a1d7dd3e7adf439f79855d1cd900d82f0e654e1277d647c
+alicepayment https://kmdexplorer.ru/tx/397c1bdce667912537d59f26f35cff12f0e6795187c9203d738bd6092911823c
+bobpayment https://etherscan.io/tx/0x9fa58b43066ad707614ca6e225fe9907bd0c16852864a09371afbe4033e85242
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RCN\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"ripio-credit-network\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RCN\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"ripio-credit-network\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RCN\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"ripio-credit-network\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RCN\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"ripio-credit-network\",\"refrel\":\"coinmarketcap\"}"

@@ -1,0 +1,37 @@
+{\"coin\":\"PAY\",\"name\":\"tenx\",\"etomic\":\"0xB97048628DB6B661D4C2aA833e95Dbe1A905B280\",\"rpcport\":80}
+
+home
+      "pubtype" : 0,
+      "txfee" : 1000,
+      "balance" : 0,
+      "p2shtype" : 85,
+      "height" : -1,
+      "installed" : false,
+      "coin" : "PAY",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "wiftype" : 188,
+      "rpc" : "127.0.0.1:80"
+
+contabo
+      "pubtype" : 0,
+      "balance" : 0,
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "height" : -1,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "status" : "active",
+      "wiftype" : 188,
+      "coin" : "PAY",
+      "installed" : false,
+      "txfee" : 1000
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"PAY\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"PAY\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"PAY\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+TenX (PAY)
+SWAP completed! 1911068323-2689699776 {"expiration":1523083590,"tradeid":0,"requestid":1911068323,"quoteid":2689699776,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"PAY","bobtomic":"0xB97048628DB6B661D4C2aA833e95Dbe1A905B280","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.76441281,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"13141206478482309121","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.76442281, 0.08010000, 0.76443281, 0.08011000, 0.85998441, 0, 0, 0.85997441, 0, 0, 0],"result":"success","status":"finished","finishtime":1523068286,"bobdeposit":"d3222176dcc4cc692a083557b51b0c1592849a02d9b3d6d959ac7e3843734bc0","alicepayment":"541a8f06ce1bcad7d39d53d9094610ab521b3a377aa5c82b6664de3618686eca","bobpayment":"756fb5ab5edcf8db09ff5751abcbb3d821a5ad431e874cffc556e53e940f3ded","paymentspent":"ba484bac21a7f47940a0195d69579719c0c4a83778f0a4df0eb2ef91727a3e8a","Apaymentspent":"a54c2a3ff828f9ed49bf6dd0f13920bfb1498ed483d712cc52fc7083ebd49008","depositspent":"e39ca99a606e9c2299131d571a290a413a002e454cd218ee611af58a8a495d6f","method":"tradestatus","finishtime":1523068286}
+bobdeposit https://etherscan.io/tx/0x1434aee4eb4d4539d6327da4c26029804685a6ae82ac562b0c40f276e59428d8
+alicepayment https://kmd.explorer.supernet.org/tx/541a8f06ce1bcad7d39d53d9094610ab521b3a377aa5c82b6664de3618686eca
+bobpayment https://etherscan.io/tx/0xbf2e6bc43c4b4c688c3c9ba0dafe793fa29da2c74962aca8c39d2dd691229ba4

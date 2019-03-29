@@ -1,0 +1,43 @@
+{\"coin\":\"BNB\",\"name\":\"binance-coin\",\"etomic\":\"0xB8c77482e45F1F44dE1745F52C74426C631bDD52\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BNB\"}"
+
+home
+      "status" : "active",
+      "balance" : 0,
+      "height" : -1,
+      "wiftype" : 188,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "installed" : false,
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "coin" : "BNB",
+      "txfee" : 1000,
+      "pubtype" : 0
+
+contabo
+      "wiftype" : 188,
+      "height" : -1,
+      "coin" : "BNB",
+      "installed" : false,
+      "balance" : 1.01,
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "status" : "active",
+      "txfee" : 1000,
+      "pubtype" : 0
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"BNB\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BNB\",\"rel\":\"KMD\",\"price\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BNB\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":1.2}"
+Binance Coin (BNB)
+SWAP completed! 2287206822-3001442527 {"uuid":"1449cbd5ad723952927b12e06d7a338a0e17e020e656e74b6918b790ee1eb315","expiration":1527633739,"tradeid":0,"requestid":2287206822,"quoteid":3001442527,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"BNB","bobtomic":"0xB8c77482e45F1F44dE1745F52C74426C631bDD52","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.07032909,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"12607321946846789633","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.07033909, 0.08010000, 0.07034909, 0.08011000, 0.07914022, 0, 0, 0.07913022, 0, 0, 0],"result":"success","status":"finished","finishtime":1527619020,"bobdeposit":"9b8e66407e95873ddd5a51398d26df8cff49f9880d16e0ba25b5e5a79bc8769e","alicepayment":"70a0542faafbc1ade9b28dfce8e29f7736a430c781a250c89b84aaa620ffa0b0","bobpayment":"f90f93214cc0a8a0061b81b4304377fc64a1e2bbcf4d2facc7812f0a2acc8a8f","paymentspent":"c9a65d09bdc32e12c4f6dfc117471238d4647352df48712a23d713f527e93b49","Apaymentspent":"294a1ed5ec032eea8bee99758d087378110bb3a0eac057e5633a6cc76610aed8","depositspent":"008ab2d79e3a5533d4fb8fa15536327d6369083b78fee077b13bad258e438514","method":"tradestatus","finishtime":1527619020}
+bobdeposit https://etherscan.io/tx/0xb5053663bc0c1f6b338f63c725fa5ce0e5f872dabe5f92ebf873d584545e1037
+alicepayment https://kmdexplorer.ru/tx/70a0542faafbc1ade9b28dfce8e29f7736a430c781a250c89b84aaa620ffa0b0
+bobpayment https://etherscan.io/tx/0x5b94b17a303d05e43711b6e7767438dbf6b6698036800d6438eb5f2990cce968
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"BNB\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"binance-coin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"BNB\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"binance-coin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"BNB\",\"rel\":\"LTC\",\"margin\":0.05,\"refbase\":\"binance-coin\",\"refrel\":\"coinmarketcap\"}"

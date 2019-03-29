@@ -1,0 +1,76 @@
+https://bitcointalk.org/index.php?topic=2291517.0
+https://github.com/innovacoin/innova
+
+
+src/chainparams.cpp
+// Innova addresses start with 'i'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,102);
+// Innova script addresses start with '9'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,20);
+// Innova private keys start with '9' or 'i' (?)
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,195);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 10000; // was 1000
+
+{\"coin\":\"INN\",\"name\":\"innova\",\"confpath\":\"${HOME#}/.innovacore/innova.conf\",\"rpcport\":8818,\"pubtype\":102,\"p2shtype\":20,\"wiftype\":195,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/innovacoin/innova
+cd innova
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/innova*
+mkdir ~/.innovacore
+echo "server=1" >> ~/.innovacore/innova.conf
+echo "txindex=1" >> ~/.innovacore/innova.conf
+echo "litemode=1" >> ~/.innovacore/innova.conf
+echo "listen=0" >> ~/.innovacore/innova.conf
+echo "listenonion=0" >> ~/.innovacore/innova.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.innovacore/innova.conf
+echo "rpcuser=barterinn" >> ~/.innovacore/innova.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.innovacore/innova.conf
+chmod 0600 ~/.innovacore/innova.conf
+innovad -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"INN\"}"
+
+home
+      "pubtype" : 102,
+      "installed" : true,
+      "txfee" : 10000,
+      "p2shtype" : 20,
+      "smartaddress" : "iR7TjsosmMzTAQWMpQYrRJcSB5upBVhyBc",
+      "wiftype" : 195,
+      "rpc" : "127.0.0.1:8818",
+      "coin" : "INN",
+      "status" : "active",
+      "balance" : 0,
+      "KMDvalue" : 0,
+      "height" : 47511
+      
+contabo
+      "txfee" : 10000,
+      "balance" : 0,
+      "status" : "active",
+      "coin" : "INN",
+      "rpc" : "127.0.0.1:8818",
+      "installed" : true,
+      "smartaddress" : "i5LKGES9N38SLkeb1hoxk4DGQy5v3D5nFp",
+      "KMDvalue" : 0,
+      "pubtype" : 102,
+      "height" : 48251,
+      "p2shtype" : 20,
+      "wiftype" : 195
+
+innova-cli sendtoaddress "i5LKGES9N38SLkeb1hoxk4DGQy5v3D5nFp" 1
+innova-cli sendtoaddress "i5LKGES9N38SLkeb1hoxk4DGQy5v3D5nFp" 1.2
+"fee": -0.00004500
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"INN\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"innova\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"INN\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"innova\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"INN\",\"rel\":\"BTC\",\"margin\":0.05,\"refbase\":\"innova\",\"refrel\":\"coinmarketcap\"}"

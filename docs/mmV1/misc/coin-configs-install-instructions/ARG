@@ -1,0 +1,74 @@
+https://bitcointalk.org/index.php?topic=1432608.0
+https://github.com/argentumproject/argentum
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,23);   // 0x17
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);    // 0x5
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,151);  // 0x97
+
+src/main.cpp
+minRelayTxFee = CFeeRate(50000);
+src/wallet/wallet.cpp
+minTxFee = CFeeRate(50000);
+
+{\"coin\":\"ARG\",\"name\":\"argentum\",\"rpcport\":13581,\"pubtype\":23,\"p2shtype\":5,\"wiftype\":151,\"txfee\":50000}
+
+
+cd ~/wallets
+git clone https://github.com/argentumproject/argentum
+cd argentum
+./autogen.sh
+#CFLAGS="-O2 -fPIC -DUSE_SSE2 -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-O2 -fPIC -DUSE_SSE2 -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/argentum*
+mkdir ~/.argentum
+echo "server=1" >> ~/.argentum/argentum.conf
+echo "txindex=1" >> ~/.argentum/argentum.conf
+echo "listen=0" >> ~/.argentum/argentum.conf
+echo "listenonion=0" >> ~/.argentum/argentum.conf
+echo "addrindex=1" >> ~/.argentum/argentum.conf
+echo "rpcuser=barterarg" >> ~/.argentum/argentum.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.argentum/argentum.conf
+echo "rpcworkqueue=64" >> ~/.argentum/argentum.conf
+echo "rpcthreads=16" >> ~/.argentum/argentum.conf
+chmod 0600 ~/.argentum/argentum.conf
+argentumd -daemon
+
+cd
+wget http://www.taur.net/mirrors/argentum/bootstrap.dat.gz
+gunzip bootstrap.dat.gz
+argentumd -daemon -loadblock=$HOME/bootstrap.dat
+rm ~/bootstrap.dat
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ARG\"}"
+
+home
+   {
+      "txfee" : 50000,
+      "coin" : "ARG",
+      "smartaddress" : "AdQoxJG7g7PEZAVWtGEg7Q7HTEZJ4iowVJ",
+      "wiftype" : 151,
+      "p2shtype" : 5,
+      "pubtype" : 23,
+      "status" : "active",
+      "rpc" : "127.0.0.1:13581"
+   },
+
+contabo
+   {
+      "status" : "active",
+      "txfee" : 50000,
+      "rpc" : "127.0.0.1:13581",
+      "coin" : "ARG",
+      "p2shtype" : 5,
+      "smartaddress" : "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf",
+      "pubtype" : 23,
+      "wiftype" : 151
+   },
+
+argentum-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 99.9979023
+"fee" : -0.00009600,

@@ -1,0 +1,42 @@
+{\"coin\":\"ICN\",\"name\":\"iconomi\",\"etomic\":\"0x888666CA69E0f178DED6D75b5726Cee99A87D698\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ICN\"}"
+
+home
+      "coin" : "ICN",
+      "wiftype" : 188,
+      "height" : -1,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "pubtype" : 0,
+      "installed" : false,
+      "txfee" : 1000,
+      "balance" : 0
+
+hetzner
+      "smartaddress" : "0x98298409c949135eed89233d04c2cfef984baff5",
+      "wiftype" : 188,
+      "height" : -1,
+      "balance" : 15.48,
+      "status" : "active",
+      "rpc" : "127.0.0.1:80",
+      "pubtype" : 0,
+      "coin" : "ICN",
+      "txfee" : 1000,
+      "installed" : false,
+      "p2shtype" : 85
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"ICN\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"ICN\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Iconomi (ICN)
+SWAP completed! 3494227049-1764501391 {"uuid":"05c4bdb9d26bf73de082f463f6ccfbf70e0ad81a8c5d51e818d5fba38427e0a3","expiration":1531376729,"tradeid":0,"requestid":3494227049,"quoteid":1764501391,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"ICN","bobtomic":"0x888666CA69E0f178DED6D75b5726Cee99A87D698","etomicsrc":"0x98298409c949135eed89233d04c2cfef984baff5","srcamount":0.67900057,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"11430268961981595649","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531361733,"bobdeposit":"49361f19b9cd4e755587d446fd3eeace283bd1e30db92dc624f2a431cf385bbe","alicepayment":"b3b8063eb9d3deba6aa91f035a57ee5d15bfcf71985660bbc6337efbe2d5d2ad","bobpayment":"53a6396a92141335d2a744473111ff5d850c69cbc2bc73ad76ab78bd0fee08f5","paymentspent":"07450ccb127d720f2c3c654575a5f15207a0d596b83038ea7dcf5c1c75583584","Apaymentspent":"78728fc0d55baa9667a5991fcd8cfe1df0c5d593b47f3f12c655547c925a50b2","depositspent":"a079009e2c45370d29e6c46a75479769be98e17b3781e53ec4f2f2c5107107d2","alicedexfee":"089e36e3387bcf3e35c054c7f22d915fabd6a5a54f7c1c2fee0b5778e2492a26","method":"tradestatus","finishtime":1531361733}
+bobdeposit https://etherscan.io/tx/0x4b6729154e386ed4a1643c7f248049ea69bb706668905dd76cd4384bbe30cd66
+alicepayment https://kmdexplorer.ru/tx/b3b8063eb9d3deba6aa91f035a57ee5d15bfcf71985660bbc6337efbe2d5d2ad
+bobpayment https://etherscan.io/tx/0x9b2b4d403450b8fcee88aefa1c7784a5594a29f754fc16a1bd0f9bde194a6ed0
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ICN\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"iconomi\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ICN\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"iconomi\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ICN\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"iconomi\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ICN\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"iconomi\",\"refrel\":\"coinmarketcap\"}"

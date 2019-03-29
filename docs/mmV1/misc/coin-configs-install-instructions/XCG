@@ -1,0 +1,77 @@
+https://github.com/cryptforall/Xchange
+
+
+src/chainparams.cpp
+// Xchange addresses start with 'X'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,76);
+// Xchange script addresses start with '7'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,16);
+// Xchange private keys start with '7' or 'X'
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
+
+{\"coin\":\"XCG\",\"name\":\"Xchange\",\"confpath\":\"${HOME#}/.Xchangecore/Xchange.conf\",\"rpcport\":9386,\"pubtype\":76,\"p2shtype\":16,\"wiftype\":204,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/cryptforall/Xchange
+cd Xchange
+find . -name "*.sh" -exec chmod +x {} \;
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/Xchange*
+mkdir ~/.Xchangecore
+echo "server=1" >> ~/.Xchangecore/Xchange.conf
+echo "txindex=1" >> ~/.Xchangecore/Xchange.conf
+echo "litemode=1" >> ~/.Xchangecore/Xchange.conf
+echo "listen=0" >> ~/.Xchangecore/Xchange.conf
+echo "listenonion=0" >> ~/.Xchangecore/Xchange.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.Xchangecore/Xchange.conf
+echo "rpcuser=barterxcg" >> ~/.Xchangecore/Xchange.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.Xchangecore/Xchange.conf
+chmod 0600 ~/.Xchangecore/Xchange.conf
+Xchanged -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"XCG\"}"
+
+home
+      "p2shtype" : 16,
+      "wiftype" : 204,
+      "height" : 3898,
+      "balance" : 0,
+      "txfee" : 10000,
+      "rpc" : "127.0.0.1:9386",
+      "pubtype" : 76,
+      "KMDvalue" : 0,
+      "installed" : true,
+      "smartaddress" : "XxKn944PJfwfu8t7BVtZp3XyoyDHjDfiSG",
+      "coin" : "XCG",
+      "status" : "active"
+
+contabo
+      "KMDvalue" : 0,
+      "wiftype" : 204,
+      "coin" : "XCG",
+      "height" : 3894,
+      "pubtype" : 76,
+      "txfee" : 10000,
+      "p2shtype" : 16,
+      "balance" : 0,
+      "smartaddress" : "XcYdfQgeuM5f5V2LNo9g8o8p3rPPbKwwCg",
+      "status" : "active",
+      "installed" : true,
+      "rpc" : "127.0.0.1:9386"
+
+
+Xchange-cli sendtoaddress "XcYdfQgeuM5f5V2LNo9g8o8p3rPPbKwwCg" 1
+"fee": -0.00000226,
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"XCG\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"XCG\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Xchange (XCG)
+SWAP completed! 1107090426-2239394066 {"expiration":1523033879,"tradeid":0,"requestid":1107090426,"quoteid":2239394066,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"XCG","srcamount":0.69219483,"bobtxfee":0.00010000,"alice":"KMD","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"8321728649220456449","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.69229483, 0.08010000, 0.69239483, 0.08011000, 0.77891918, 0, 0, 0.77881918, 0, 0, 0],"result":"success","status":"finished","finishtime":1523019210,"bobdeposit":"e46c32f874b60b833bec9679222216f20aee5606124f70be6afc9d54977c718e","alicepayment":"7666ace9e36160f5e9a825b1fb7c8f412f0a03af5a8e4e3d00c4518dbeed03b8","bobpayment":"a20b45988f9cac9a26d0d5c45266a6f594eebc8298dd1ef8c148ac64791cb18d","paymentspent":"ecb870bcb83e111690a50ab66f327c13b39715115f2f24839e789a14da4e1742","Apaymentspent":"edfda08376ef0c58915a635caeff38b04bf56d9b199a11ba912d4ccfabca9e10","depositspent":"ac7920c01e071e0d3a4dcea81dbeb36167a0985a53e602182505a4f4898327e5","method":"tradestatus","finishtime":1523019210}
+bobdeposit http://159.203.59.19:3001/tx/e46c32f874b60b833bec9679222216f20aee5606124f70be6afc9d54977c718e
+alicepayment https://kmd.explorer.supernet.org/tx/7666ace9e36160f5e9a825b1fb7c8f412f0a03af5a8e4e3d00c4518dbeed03b8
+bobpayment http://159.203.59.19:3001/tx/a20b45988f9cac9a26d0d5c45266a6f594eebc8298dd1ef8c148ac64791cb18d

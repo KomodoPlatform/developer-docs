@@ -1,0 +1,81 @@
+https://bitcointalk.org/index.php?topic=1989756.0
+https://github.com/segwit/atbcoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,23);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,83);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
+
+{\"coin\":\"ATB\",\"name\":\"atbcoin\",\"confpath\":\"${HOME#}/.ATBCoinWallet/atbcoin.conf\",\"rpcport\":8332,\"pubtype\":23,\"p2shtype\":83,\"wiftype\":128,\"txfee\":10000}
+
+
+sudo apt-get install libssl1.0-dev
+cd ~/wallets
+git clone https://github.com/segwit/atbcoin
+cd atbcoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc
+make -j4
+sudo make install
+sudo strip /usr/local/bin/atbcoin*
+sudo apt-get install libssl-dev
+mkdir ~/.ATBCoinWallet
+echo "server=1" >> ~/.ATBCoinWallet/atbcoin.conf
+echo "txindex=1" >> ~/.ATBCoinWallet/atbcoin.conf
+echo "listen=0" >> ~/.ATBCoinWallet/atbcoin.conf
+echo "listenonion=0" >> ~/.ATBCoinWallet/atbcoin.conf
+echo "rpcport=10332" >> ~/.ATBCoinWallet/atbcoin.conf
+echo "rpcuser=barteratb" >> ~/.ATBCoinWallet/atbcoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.ATBCoinWallet/atbcoin.conf
+echo "rpcworkqueue=64" >> ~/.ATBCoinWallet/atbcoin.conf
+echo "rpcthreads=16" >> ~/.ATBCoinWallet/atbcoin.conf
+chmod 0600 ~/.ATBCoinWallet/atbcoin.conf
+atbcoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ATB\"}"
+
+home
+      "p2shtype" : 83,
+      "balance" : 0,
+      "pubtype" : 23,
+      "coin" : "ATB",
+      "rpc" : "127.0.0.1:10332",
+      "smartaddress" : "AdQoxJG7g7PEZAVWtGEg7Q7HTEZJ4iowVJ",
+      "txfee" : 10000,
+      "height" : 153917,
+      "KMDvalue" : 0,
+      "installed" : true,
+      "status" : "active",
+      "wiftype" : 128
+
+contabo
+      "wiftype" : 128,
+      "p2shtype" : 83,
+      "balance" : 0,
+      "pubtype" : 23,
+      "txfee" : 10000,
+      "installed" : true,
+      "status" : "active",
+      "rpc" : "127.0.0.1:10332",
+      "KMDvalue" : 0,
+      "height" : 153912,
+      "coin" : "ATB",
+      "smartaddress" : "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf"
+
+
+atbcoin-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 1
+"fee": -0.00004520
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"ATB\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"ATB\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+ATBCoin (ATB)
+SWAP completed! 2004871572-4154542491 {"uuid":"e4fc95f691f6d84f11c4a3f8628526ab4781c285958f4eed89acbc79c1da2162","expiration":1528072881,"tradeid":0,"requestid":2004871572,"quoteid":4154542491,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"ATB","srcamount":0.67701495,"bobtxfee":0.00010000,"alice":"KMD","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"1608605376012288001","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.67711495, 0.08010000, 0.67721495, 0.08011000, 0.76184181, 0, 0, 0.76174181, 0, 0, 0],"result":"success","status":"finished","finishtime":1528057813,"bobdeposit":"5cca308181a7f8444484fec8ab503c5a7470680ff50fd77c7124c3976eb17849","alicepayment":"bf712691f776e513bd96cf501ee48259844d64fbf44048f308d2a5b2943f1281","bobpayment":"42ea1c666aa8d3f9c13dc303d4c0dff552df94323de01c8fbc8a6ef0bb213450","paymentspent":"5e073e437201e47eecfcc141abc0e102c3d7152c3b89363339ca51dc97a80a0b","Apaymentspent":"71514bf1a72f060e17342c1ff4b4c76b21936c090eb293145a2b598c3712f8de","depositspent":"719f8a2ad94466bdc090a80bda66cb4c4c4661d52a307c99749dfc86a58075cc","method":"tradestatus","finishtime":1528057813}
+bobdeposit https://explorer.atbcoin.com/tx/5cca308181a7f8444484fec8ab503c5a7470680ff50fd77c7124c3976eb17849
+alicepayment https://kmdexplorer.ru/tx/bf712691f776e513bd96cf501ee48259844d64fbf44048f308d2a5b2943f1281
+bobpayment https://explorer.atbcoin.com/tx/42ea1c666aa8d3f9c13dc303d4c0dff552df94323de01c8fbc8a6ef0bb213450
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ATB\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"atbcoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ATB\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"atbcoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ATB\",\"rel\":\"LTC\",\"margin\":0.05,\"refbase\":\"atbcoin\",\"refrel\":\"coinmarketcap\"}"

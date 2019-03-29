@@ -1,0 +1,39 @@
+{\"coin\":\"ELD\",\"name\":\"electrumdark\",\"etomic\":\"0xaaf7d4cd097317d68174215395eb02c2cca81e31\",\"rpcport\":80}
+
+home
+      "coin" : "ELD",
+      "pubtype" : 0,
+      "status" : "active",
+      "txfee" : 1000,
+      "height" : -1,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "p2shtype" : 85,
+      "installed" : false,
+      "wiftype" : 188,
+      "balance" : 0,
+      "rpc" : "127.0.0.1:80"
+
+contabo
+      "installed" : false,
+      "status" : "active",
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "wiftype" : 188,
+      "balance" : 0,
+      "height" : -1,
+      "coin" : "ELD",
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "txfee" : 1000,
+      "pubtype" : 0
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"ELD\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"ELD\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"ELD\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Electrum Dark (ELD)
+SWAP completed! 4032085511-878440257 {"expiration":1523235473,"tradeid":0,"requestid":4032085511,"quoteid":878440257,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"ELD","bobtomic":"0xaaf7d4cd097317d68174215395eb02c2cca81e31","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.76441281,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"564685694847090689","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.76442281, 0.08010000, 0.76443281, 0.08011000, 0.85998441, 0, 0, 0.85997441, 0, 0, 0],"result":"success","status":"finished","finishtime":1523220216,"bobdeposit":"1f4654986e2e5cf6945ae2b45805ed01cd27df949f2fd65cc3b96ba9a666a5c7","alicepayment":"dd8a950ffdbc8a0c64e8f42319a21161ce183f3a98e8290d92f03e1a84081fd4","bobpayment":"7d32dd44fd91109a9dfdccf17e75c22ffc1b9b604415f7ab8db7a6afbbbcc845","paymentspent":"daf730f7d4657258acbd9ce6cfd7f073e81f88f18ced4057a41e836d64c34164","Apaymentspent":"a53b7c299fbf2dbd8325269e16ec8c0974277ec0b6a257df9915c775c07b2e57","depositspent":"f5bfdda1e2744f1a515a92b20648235a9fe4c8ca64ec2a973b5a20db213f1226","method":"tradestatus","finishtime":1523220216}
+bobdeposit https://etherscan.io/tx/0x48d5918ec6a06bd6601d2b8482772dd77a189ca55c8171d6b024cec80d2a2183
+alicepayment https://kmd.explorer.supernet.org/tx/dd8a950ffdbc8a0c64e8f42319a21161ce183f3a98e8290d92f03e1a84081fd4
+bobpayment https://etherscan.io/tx/0x5bbecb1ddb8bead826e6b354398f07ff0d182f0562c0890bb7ea1e7b0115d432
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"ELD\",\"fixed\":0.1}"

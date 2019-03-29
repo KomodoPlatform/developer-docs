@@ -1,0 +1,41 @@
+{\"coin\":\"QBIT\",\"name\":\"qubitica\",\"etomic\":\"0xcb5ea3c190d8f82deadf7ce5af855ddbf33e3962\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"QBIT\"}"
+
+home
+      "coin" : "QBIT",
+      "balance" : 0,
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:80",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "p2shtype" : 85,
+      "wiftype" : 188,
+      "installed" : false,
+      "txfee" : 1000,
+      "height" : -1
+
+contabo
+      "balance" : 100,
+      "txfee" : 1000,
+      "status" : "active",
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "installed" : false,
+      "height" : -1,
+      "wiftype" : 188,
+      "coin" : "QBIT",
+      "pubtype" : 0,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"QBIT\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"QBIT\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"QBIT\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Qubitica (QBIT)
+SWAP completed! 3965745921-4011086963 {"uuid":"8d5b03faeaeadc4a2a2fb43b51e66aa5dc6c60f54c5b69c51ad1fe98757fb351","expiration":1529803803,"tradeid":0,"requestid":3965745921,"quoteid":4011086963,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"QBIT","bobtomic":"0xcb5ea3c190d8f82deadf7ce5af855ddbf33e3962","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.71659722,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"16114926155658428417","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1529788563,"bobdeposit":"7a221f45822e56419c95710164a050e8ee7cd1f2e90e2dff80a8746060a394fd","alicepayment":"673632cb69c424854bcf0ff36ebc627c5e7bc37de191d16b7466d919cb5f3bd0","bobpayment":"857bfecb69794ce94362b6d7c60dc92a5d495c23b1a898d6fb6bbd1d5898d3e8","paymentspent":"f878ca108e0bcf63c697b73af3e22b8bdc85d92b229166d8f6676bc7c74294d1","Apaymentspent":"3bdc6e1ad675749b6785d657eb52b8f0f5fb29878ee99c51c9de908233d54245","depositspent":"65a94e0d18a4e39157e7b2245df3e54be081a579930b8bc515883481b029c17f","method":"tradestatus","finishtime":1529788563}
+bobdeposit https://etherscan.io/tx/0x984ca470ebc958119b7300d8c434344cdd9318eb4dcbb3706303f6c55408cf4e
+alicepayment https://kmdexplorer.ru/tx/673632cb69c424854bcf0ff36ebc627c5e7bc37de191d16b7466d919cb5f3bd0
+bobpayment https://etherscan.io/tx/0x970e352358e39fc1a760c76c0f5689cdde8be52467aecbbded8602bd3bdb4ede
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"QBIT\",\"fixed\":1}"

@@ -1,0 +1,75 @@
+https://github.com/CommerciumBlockchain/Commercium
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<uint8_t>(1, 28);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<uint8_t>(1, 50);
+base58Prefixes[SECRET_KEY] = std::vector<uint8_t>(1, 140);
+
+{\"coin\":\"CMM\",\"name\":\"commercium\",\"rpcport\":9657,\"pubtype\":28,\"p2shtype\":50,\"wiftype\":140,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/CommerciumBlockchain/Commercium
+cd Commercium
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/commercium*
+mkdir ~/.commercium
+echo "server=1" >> ~/.commercium/commercium.conf
+echo "txindex=1" >> ~/.commercium/commercium.conf
+echo "listen=0" >> ~/.commercium/commercium.conf
+echo "listenonion=0" >> ~/.commercium/commercium.conf
+echo "rpcuser=bartercmm" >> ~/.commercium/commercium.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.commercium/commercium.conf
+echo "rpcworkqueue=64" >> ~/.commercium/commercium.conf
+echo "rpcthreads=16" >> ~/.commercium/commercium.conf
+chmod 0600 ~/.commercium/commercium.conf
+commerciumd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"CMM\"}"
+
+home
+      "status" : "active",
+      "wiftype" : 140,
+      "smartaddress" : "Ce6psqkZE1hceLBx1MuGY2UDbkr1g332ip",
+      "installed" : true,
+      "height" : 314208,
+      "balance" : 0,
+      "rpc" : "127.0.0.1:9657",
+      "p2shtype" : 50,
+      "KMDvalue" : 0,
+      "txfee" : 10000,
+      "coin" : "CMM",
+      "pubtype" : 28
+
+contabo
+      "installed" : true,
+      "smartaddress" : "CJKgQCNppgqbpgLBCfANrn53qe27TDpF99",
+      "height" : 314171,
+      "txfee" : 100000,
+      "pubtype" : 28,
+      "coin" : "CMM",
+      "rpc" : "127.0.0.1:9657",
+      "p2shtype" : 50,
+      "balance" : 0,
+      "KMDvalue" : 0,
+      "status" : "active",
+      "wiftype" : 140
+
+
+commercium-cli sendtoaddress "CJKgQCNppgqbpgLBCfANrn53qe27TDpF99" 1
+"fee": -0.00004520
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"CMM\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"CMM\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Commercium (CMM)
+SWAP completed! 2205933191-4141539607 {"uuid":"4d3f3ee4eff39eeb5429b1e038fa6a541b41c188c5d113e35f1d91f678a964b4","expiration":1527549956,"tradeid":0,"requestid":2205933191,"quoteid":4141539607,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"CMM","srcamount":0.68161425,"bobtxfee":0.00010000,"alice":"KMD","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"14091686060053757953","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.68171425, 0.08010000, 0.68181425, 0.08011000, 0.76701603, 0, 0, 0.76691603, 0, 0, 0],"result":"success","status":"finished","finishtime":1527535412,"bobdeposit":"7dceba690807add0e05a2108b1fc9bc22ab66058b219c7286dba3834732c2b4b","alicepayment":"28ccbc8eac75d3bd2ac153b78f6d4e328ce63e8f5a22a930f3baf35af288553a","bobpayment":"38164c982f64538064d467e607e8d2aed00c5e5036b3d0b16c84ea3e50ca5c10","paymentspent":"feeaf7bcbef9b5b3c8611d9aef9acd0870927d2fdb1a932c1fc32cbbed0b493e","Apaymentspent":"fb9d5e30063696264b62478ba69ac306514f32b6097e1b4913304fe56bb0e079","depositspent":"638667b10d5bc79ae3f29977bbadda83832e7b2147f40e7c0467ad9f6d365f64","method":"tradestatus","finishtime":1527535412}
+bobdeposit https://explorer.commercium.net/tx/7dceba690807add0e05a2108b1fc9bc22ab66058b219c7286dba3834732c2b4b
+alicepayment https://kmdexplorer.ru/tx/28ccbc8eac75d3bd2ac153b78f6d4e328ce63e8f5a22a930f3baf35af288553a
+bobpayment https://explorer.commercium.net/tx/38164c982f64538064d467e607e8d2aed00c5e5036b3d0b16c84ea3e50ca5c10
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"CMM\",\"fixed\":1}"

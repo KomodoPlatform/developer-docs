@@ -1,0 +1,37 @@
+{\"coin\":\"OMG\",\"name\":\"omisego\",\"etomic\":\"0xd26114cd6EE289AccF82350c8d8487fedB8A0C07\",\"rpcport\":80}
+
+home
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "txfee" : 1000,
+      "status" : "active",
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "wiftype" : 188,
+      "installed" : false,
+      "height" : -1,
+      "pubtype" : 0,
+      "balance" : 0,
+      "coin" : "OMG"
+
+contabo
+      "pubtype" : 0,
+      "balance" : 0,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "status" : "active",
+      "p2shtype" : 85,
+      "installed" : false,
+      "wiftype" : 188,
+      "height" : -1,
+      "txfee" : 1000,
+      "rpc" : "127.0.0.1:80",
+      "coin" : "OMG"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"OMG\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":0.94}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"OMG\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"OMG\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+OmiseGO (OMG)
+SWAP completed! 4003322912-3821727092 {"warning":"swaps in critical section, dont exit now","critical":1522463115,"endcritical":1522463024,"expiration":1522478419,"tradeid":0,"requestid":4003322912,"quoteid":3821727092,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"OMG","bobtomic":"0xd26114cd6EE289AccF82350c8d8487fedB8A0C07","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.68835007,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"4170398723212443649","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.68836007, 0.08010000, 0.68837007, 0.08011000, 0.77441382, 0, 0, 0.77440382, 0, 0, 0],"result":"success","status":"finished","finishtime":1522463117,"bobdeposit":"06718642fe94b31d9922899230a11cbc3565a03343403e1faddea6c5509e4fb5","alicepayment":"0e6663b8863c674fc52d834661922663941f143d5e7270759e2ead85280630e6","bobpayment":"8c882eb2e89e3468f74009074ec0ba2289abeba14ab45f61385aefed40e2d64e","paymentspent":"974047cbf49f5124132de9c12a02e1c395c9ef05512eb8e19a811e74df6c9892","Apaymentspent":"33c0f20c026b73f3af80a15713593c4a818aa178ec35c80e83828416ff8dd097","depositspent":"07e89535c1d8cc60f86c5eb44203b4e6c69278de4c84a6b2e0cbb908c18e364c","method":"tradestatus","finishtime":1522463117}
+bobdeposit https://etherscan.io/tx/0xbd89d723ece55f1ff74706f41205ccd39bed1c2178dd3ed6e5953ff3d7b0ece1
+alicepayment https://kmd.explorer.supernet.org/tx/0e6663b8863c674fc52d834661922663941f143d5e7270759e2ead85280630e6
+bobpayment https://etherscan.io/tx/0xee4fb8b31811eaaf50c510dbceaadd0df8a3d2b8c181e464fc9c48651ce3f898

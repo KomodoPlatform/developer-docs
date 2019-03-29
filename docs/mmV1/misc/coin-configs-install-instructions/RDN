@@ -1,0 +1,44 @@
+{\"coin\":\"RDN\",\"name\":\"raiden-network-token\",\"etomic\":\"0x255Aa6DF07540Cb5d3d297f0D0D4D84cb52bc8e6\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"RDN\"}"
+
+home
+      "txfee" : 1000,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "wiftype" : 188,
+      "coin" : "RDN",
+      "installed" : false,
+      "balance" : 0,
+      "status" : "active",
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "height" : -1,
+      "rpc" : "127.0.0.1:80"
+
+contabo
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "txfee" : 1000,
+      "coin" : "RDN",
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "balance" : 19.48,
+      "installed" : false,
+      "height" : -1,
+      "wiftype" : 188,
+      "status" : "active",
+      "rpc" : "127.0.0.1:80"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"RDN\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"RDN\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"RDN\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Raiden Network Token (RDN)
+SWAP completed! 1413121055-3260355402 {"uuid":"356f56950fe2fb6d88f81626e42930235c8a56657ad2318ba6fb062fc4359a50","expiration":1531284087,"tradeid":0,"requestid":1413121055,"quoteid":3260355402,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"RDN","bobtomic":"0x255Aa6DF07540Cb5d3d297f0D0D4D84cb52bc8e6","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.73095883,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"6910205143887839233","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531269162,"bobdeposit":"f87c7cdbc5c2ad4ebee0eeb7b15ae82cada59a0ff7609fe67d7cf372b84a04b4","alicepayment":"241c075379818519900f45b1b0e622c553ca6b0c6e2567d7639c29ba7548a62d","bobpayment":"423f638f662f13e33e1ebcb967a3e600852c2472d25016a4f8389c5813f9ae92","paymentspent":"b8bf5e9840a077367e8108d452cc00f01ff727215177d2bcf0bde8ec4e7f7308","Apaymentspent":"2f3c090edb87eb44caf8f836bb8795b7b949f36182decb7e48bac1232720d301","depositspent":"c4fbf1b14e935ac846694e12185552af6725b9c682840990982dae4219b573d1","alicedexfee":"e5aa7d91ecb36ab363762d8407f9f6f1bc18a2325acff16b00432837fe886a0b","method":"tradestatus","finishtime":1531269162}
+bobdeposit https://etherscan.io/tx/0x294834d80a834709dbe22a7ed4848bb9d852bbd09ec6c6d4e218d824b461ea57
+alicepayment https://kmdexplorer.ru/tx/241c075379818519900f45b1b0e622c553ca6b0c6e2567d7639c29ba7548a62d
+bobpayment https://etherscan.io/tx/0xb9cad9a7317cfc8430c88e59eedeaf635cb86010d4aa8b4db9d80be45386c2f5
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RDN\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"raiden-network-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RDN\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"raiden-network-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RDN\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"raiden-network-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RDN\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"raiden-network-token\",\"refrel\":\"coinmarketcap\"}"

@@ -1,0 +1,43 @@
+{\"coin\":\"STORJ\",\"name\":\"storj\",\"etomic\":\"0xB64ef51C888972c908CFacf59B47C1AfBC0Ab8aC\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"STORJ\"}"
+
+home
+      "rpc" : "127.0.0.1:80",
+      "coin" : "STORJ",
+      "installed" : false,
+      "balance" : 0,
+      "status" : "active",
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "height" : -1
+
+contabo
+      "pubtype" : 0,
+      "balance" : 0,
+      "status" : "active",
+      "installed" : false,
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "txfee" : 1000,
+      "height" : -1,
+      "wiftype" : 188,
+      "coin" : "STORJ",
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"STORJ\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"STORJ\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"STORJ\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Storj (STORJ)
+SWAP completed! 1855231112-3963185366 {"uuid":"00ced8ec257594e688854919aab5b1351e917f06f76f63760623807d9bb9b8bc","expiration":1528134067,"tradeid":0,"requestid":1855231112,"quoteid":3963185366,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"STORJ","bobtomic":"0xB64ef51C888972c908CFacf59B47C1AfBC0Ab8aC","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.68133671,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"15396841264434118656","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.68134671, 0.08010000, 0.68135671, 0.08011000, 0.76652379, 0, 0, 0.76651379, 0, 0, 0],"result":"success","status":"finished","finishtime":1528121304,"bobdeposit":"080a8d6bc566317b2e89c13899597bebccc8ed11326d7e06f92bf2cde543beaf","alicepayment":"2167b9a764906a30b3b11b59a7a31c2a6dda1336bcf1ab1d0dd7cb289bca9f4c","bobpayment":"3bdeda983b72435a26f57812ba88a0ec2f5180696c870011bed2109097b716d2","paymentspent":"4061c4da907d85b882d07d205e53df7cf58e2a1887e07f7aa56f3229272ad810","Apaymentspent":"5d7fb968aa31607319990ccde83011f551ecbbda3638b7c9e02c3fcf650e5082","depositspent":"e4235993777f6ce8792d65498f2fdf49beaf6ea41e1d3d3fabc9dfc3f792caca","method":"tradestatus","finishtime":1528121304}
+bobdeposit https://etherscan.io/tx/0x98c70802cd4d66fe0c0a12d273b2253bc3f8eed5540a92438663774e3db441c3
+alicepayment https://kmdexplorer.ru/tx/2167b9a764906a30b3b11b59a7a31c2a6dda1336bcf1ab1d0dd7cb289bca9f4c
+bobpayment https://etherscan.io/tx/0x17ed25c7b206449c0174a364765b2491d3f69e5409b555b45ee033325941923d
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"STORJ\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"storj\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"STORJ\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"storj\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"STORJ\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"storj\",\"refrel\":\"coinmarketcap\"}"

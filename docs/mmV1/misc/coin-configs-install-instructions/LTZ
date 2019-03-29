@@ -1,0 +1,72 @@
+https://www.litecoinz.info/
+https://bitcointalk.org/index.php?topic=2767102.0
+https://github.com/litecoinz-project/litecoinz
+
+
+src/chainparams.cpp
+// guarantees the first 2 characters, when base58 encoded, are "L1"
+base58Prefixes[PUBKEY_ADDRESS]     = {0x0A,0xB3};
+// guarantees the first 2 characters, when base58 encoded, are "L3"
+base58Prefixes[SCRIPT_ADDRESS]     = {0x0A,0xB8};
+// the first character, when base58 encoded, is "5" or "K" or "L" (as in Bitcoin)
+base58Prefixes[SECRET_KEY]         = {0x80};
+
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 100;
+
+{\"coin\":\"LTZ\",\"name\":\"litecoinz\",\"rpcport\":29332,\"taddr\":10,\"pubtype\":179,\"p2shtype\":184,\"wiftype\":128,\"txfee\":1000}
+
+
+cd ~/wallets
+git clone https://github.com/litecoinz-project/litecoinz
+cd litecoinz
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./zcutil/build.sh --disable-tests -j4
+sudo cp src/litecoinzd /usr/local/bin/litecoinzd
+sudo cp src/litecoinz-cli /usr/local/bin/litecoinz-cli
+sudo strip /usr/local/bin/litecoinz*
+cd
+ln -s .zcash-params .litecoinz-params
+mkdir ~/.litecoinz
+echo "server=1" >> ~/.litecoinz/litecoinz.conf
+echo "txindex=1" >> ~/.litecoinz/litecoinz.conf
+echo "listen=0" >> ~/.litecoinz/litecoinz.conf
+echo "listenonion=1" >> ~/.litecoinz/litecoinz.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.litecoinz/litecoinz.conf
+echo "rpcuser=barterltcz" >> ~/.litecoinz/litecoinz.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.litecoinz/litecoinz.conf
+chmod 0600 ~/.litecoinz/litecoinz.conf
+litecoinzd -daemon
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"LTZ\"}"
+
+home
+      "smartaddress" : "L1VP4DDpc45vukPAoMitH9wMzsJKGzb9gMX",
+      "height" : 19528,
+      "balance" : 0.98440227,
+      "p2shtype" : 184,
+      "KMDvalue" : 0,
+      "pubtype" : 179,
+      "status" : "active",
+      "wiftype" : 128,
+      "rpc" : "127.0.0.1:29332",
+      "installed" : true,
+      "txfee" : 1000,
+      "coin" : "LTZ"
+
+contabo
+      "pubtype" : 179,
+      "smartaddress" : "L19bujaSsem4tvjK2Z29PUgxq7BVNps2hpF",
+      "p2shtype" : 184,
+      "rpc" : "127.0.0.1:29332",
+      "txfee" : 1000,
+      "height" : 19510,
+      "wiftype" : 128,
+      "status" : "active",
+      "balance" : 0,
+      "installed" : true,
+      "coin" : "LTZ",
+      "KMDvalue" : 0
+
+litecoinz-cli sendtoaddress "L19bujaSsem4tvjK2Z29PUgxq7BVNps2hpF" 1
+"fee": -0.00000226

@@ -1,0 +1,71 @@
+https://bitcointalk.org/index.php?topic=1466445.0
+https://github.com/syscoin/syscoin2
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,0);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY]     = std::vector<unsigned char>(1,128);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 1000;
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 1000;
+
+{\"coin\":\"SYS\",\"name\":\"syscoin\",\"rpcport\":8370,\"pubtype\":0,\"p2shtype\":5,\"wiftype\":128,\"txfee\":1000}
+
+
+cd ~/wallets
+git clone https://github.com/syscoin/syscoin2
+cd syscoin2
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/syscoin*
+mkdir ~/.syscoin
+echo "server=1" >> ~/.syscoin/syscoin.conf
+echo "txindex=1" >> ~/.syscoin/syscoin.conf
+echo "listen=0" >> ~/.syscoin/syscoin.conf
+echo "listenonion=1" >> ~/.syscoin/syscoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.syscoin/syscoin.conf
+echo "rpcuser=bartersys" >> ~/.syscoin/syscoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.syscoin/syscoin.conf
+echo "rpcworkqueue=64" >> ~/.syscoin/syscoin.conf
+echo "rpcthreads=16" >> ~/.syscoin/syscoin.conf
+chmod 0600 ~/.syscoin/syscoin.conf
+syscoind -daemon
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SYS\"}"
+
+home
+   {
+      "p2shtype" : 5,
+      "rpc" : "127.0.0.1:8370",
+      "status" : "active",
+      "coin" : "SYS",
+      "smartaddress" : "1NdwJoQVLxj5kCHXKcaLxWrByddbgyHofb",
+      "txfee" : 1000,
+      "pubtype" : 0,
+      "wiftype" : 128
+   },
+
+contabo
+   {
+      "rpc" : "127.0.0.1:8370",
+      "wiftype" : 128,
+      "txfee" : 1000,
+      "pubtype" : 0,
+      "coin" : "SYS",
+      "status" : "active",
+      "p2shtype" : 5,
+      "smartaddress" : "12rnqA2kwds4vYRkWuqTHGT2DWohY8reoj"
+   },
+
+syscoin-cli sendtoaddress "12rnqA2kwds4vYRkWuqTHGT2DWohY8reoj" 5.75386666
+"fee": -0.00010400,
+syscoin-cli sendtoaddress "12rnqA2kwds4vYRkWuqTHGT2DWohY8reoj" 6.90463999
+"fee": -0.00004520,
+syscoin-cli sendtoaddress "12rnqA2kwds4vYRkWuqTHGT2DWohY8reoj" 1.7259066
+"fee": -0.00010420,

@@ -1,0 +1,83 @@
+https://bitcointalk.org/index.php?topic=2003320.0
+https://github.com/magacoin/magacoin => schissdreck
+https://github.com/kvasir39/magacoin
+
+src/wallparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,23);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,50);
+base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,50);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,176);
+
+src/wallet/wallet.h
+DEFAULT_FALLBACK_FEE = 200000;
+DEFAULT_TRANSACTION_MINFEE = 100000;
+
+{\"coin\":\"MAGA\",\"name\":\"magacoin\",\"rpcport\":5332,\"pubtype\":23,\"p2shtype\":50,\"wiftype\":176,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/kvasir39/magacoin
+cd magacoin
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc
+make -j8
+sudo make install
+mkdir ~/.magacoin
+echo "server=1" >> ~/.magacoin/magacoin.conf
+echo "txindex=1" >> ~/.magacoin/magacoin.conf
+echo "listen=0" >> ~/.magacoin/magacoin.conf
+echo "listenonion=0" >> ~/.magacoin/magacoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.magacoin/magacoin.conf
+echo "rpcuser=bartermaga" >> ~/.magacoin/magacoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.magacoin/magacoin.conf
+chmod 0600 ~/.magacoin/magacoin.conf
+magacoind -daemon
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MAGA}"
+
+home
+   {
+      "smartaddress" : "AdQoxJG7g7PEZAVWtGEg7Q7HTEZJ4iowVJ",
+      "txfee" : 100000,
+      "wiftype" : 176,
+      "pubtype" : 23,
+      "p2shtype" : 50,
+      "coin" : "MAGA",
+      "status" : "active",
+      "height" : 57667,
+      "rpc" : "127.0.0.1:5332"
+   },
+
+contabo
+   {
+      "txfee" : 100000,
+      "status" : "inactive",
+      "wiftype" : 176,
+      "rpc" : "127.0.0.1:5332",
+      "coin" : "MAGA",
+      "smartaddress" : "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf",
+      "height" : 0,
+      "p2shtype" : 50,
+      "pubtype" : 23
+   },
+
+magacoin-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 1
+magacoin-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 1.2
+
+magacoin-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 1
+magacoin-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 1.2
+
+magacoin-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 10
+magacoin-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 12
+
+magacoin-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 10
+magacoin-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 12
+
+magacoin-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 20
+magacoin-cli sendtoaddress "AHdfUetPGnXDjWdk5ZVnS9i7h7jPsuzcQf" 24
+
+"fee": -0.00045000
+
+
+

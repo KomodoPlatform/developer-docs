@@ -1,0 +1,78 @@
+https://bitcointalk.org/index.php?topic=2545143
+https://github.com/Mktcoin-official/Mktcoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,110);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,115);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,238);
+
+{\"coin\":\"MLM\",\"name\":\"mktcoin\",\"rpcport\":9276,\"pubtype\":110,\"p2shtype\":115,\"wiftype\":238,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/Mktcoin-official/Mktcoin
+cd Mktcoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j2
+sudo make install
+sudo strip /usr/local/bin/mktcoin*
+mkdir ~/.mktcoin
+echo "server=1" >> ~/.mktcoin/mktcoin.conf
+echo "txindex=1" >> ~/.mktcoin/mktcoin.conf
+echo "listen=0" >> ~/.mktcoin/mktcoin.conf
+echo "listenonion=0" >> ~/.mktcoin/mktcoin.conf
+echo "rpcuser=bartermlm" >> ~/.mktcoin/mktcoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.mktcoin/mktcoin.conf
+echo "rpcworkqueue=64" >> ~/.mktcoin/mktcoin.conf
+echo "rpcthreads=16" >> ~/.mktcoin/mktcoin.conf
+chmod 0600 ~/.mktcoin/mktcoin.conf
+mktcoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MLM\"}"
+
+home
+      "p2shtype" : 115,
+      "smartaddress" : "mdpHckCBSohThsd41mDQJJnjD7yMyHWrie",
+      "coin" : "MLM",
+      "KMDvalue" : 0,
+      "pubtype" : 110,
+      "rpc" : "127.0.0.1:9276",
+      "status" : "active",
+      "balance" : 0,
+      "txfee" : 10000,
+      "wiftype" : 238,
+      "height" : 282756,
+      "installed" : true
+
+contabo
+      "rpc" : "127.0.0.1:9276",
+      "installed" : true,
+      "txfee" : 10000,
+      "wiftype" : 238,
+      "balance" : 0,
+      "status" : "active",
+      "p2shtype" : 115,
+      "pubtype" : 110,
+      "smartaddress" : "mJ3996pT3UqStDmHD4UWd4PZT19ToVdUKe",
+      "height" : 282756,
+      "coin" : "MLM",
+      "KMDvalue" : 0
+
+
+mktcoin-cli sendtoaddress "mJ3996pT3UqStDmHD4UWd4PZT19ToVdUKe" 1
+"fee": -0.00004520
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"MLM\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"MLM\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+MktCoin (MLM)
+SWAP completed! 2422942281-1293978842 {"uuid":"f6bfeade598d20160d86d5ceaf88eb785a8daaed82facf0e40dd8c06f874d72b","expiration":1528648623,"tradeid":0,"requestid":2422942281,"quoteid":1293978842,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"MLM","srcamount":0.69100301,"bobtxfee":0.00010000,"alice":"KMD","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"18324871027314065409","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.69110301, 0.08010000, 0.69120301, 0.08011000, 0.77757838, 0, 0, 0.77747838, 0, 0, 0],"result":"success","status":"finished","finishtime":1528633470,"bobdeposit":"1cf88d61aaf56381da64464a9e03863d16eff3df2ccbf4e8e842cdc63038477d","alicepayment":"b5f321ccdb9629afe346ef2e44b950b91517294296a10214e8f2ca929f415f9e","bobpayment":"aac7d0ef81f15cb3804fd3715d2d8e5a40af58b8cb80330edb531af5e4b2fc1c","paymentspent":"85a3c2713e32e4e569adb07a5e44680ebf08d9cbd2e977e97ff6c49eb4374c40","Apaymentspent":"bb236ee46892bf08b6deb40a58feb03e5ad1bb5c996983585346000a9765c650","depositspent":"0882a35e785812b04e0437703ff782b56eaeb6e993b62296e5dd6d0b2914b799","method":"tradestatus","finishtime":1528633470}
+bobdeposit https://info.mktcoin.org/tx/1cf88d61aaf56381da64464a9e03863d16eff3df2ccbf4e8e842cdc63038477d
+alicepayment https://kmdexplorer.ru/tx/b5f321ccdb9629afe346ef2e44b950b91517294296a10214e8f2ca929f415f9e
+bobpayment https://info.mktcoin.org/tx/aac7d0ef81f15cb3804fd3715d2d8e5a40af58b8cb80330edb531af5e4b2fc1c
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MLM\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"mktcoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MLM\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"mktcoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MLM\",\"rel\":\"LTC\",\"margin\":0.07,\"refbase\":\"mktcoin\",\"refrel\":\"coinmarketcap\"}"

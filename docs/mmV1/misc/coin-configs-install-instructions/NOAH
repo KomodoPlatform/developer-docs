@@ -1,0 +1,42 @@
+{\"coin\":\"NOAH\",\"name\":\"noah-coin\",\"etomic\":\"0x58a4884182d9e835597f405e5f258290e46ae7c2\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"NOAH\"}"
+
+home
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "p2shtype" : 85,
+      "coin" : "NOAH",
+      "status" : "active",
+      "wiftype" : 188,
+      "pubtype" : 0,
+      "balance" : 0,
+      "height" : -1,
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "installed" : false
+
+hetzner
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "status" : "active",
+      "pubtype" : 0,
+      "coin" : "NOAH",
+      "txfee" : 1000,
+      "height" : -1,
+      "balance" : 3858.52783172,
+      "smartaddress" : "0x98298409c949135eed89233d04c2cfef984baff5",
+      "wiftype" : 188,
+      "installed" : false
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"NOAH\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"NOAH\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Noah Coin (NOAH)
+SWAP completed! 2909464325-3863172186 {"uuid":"f2b96e3ff993dbdfd448e49395b1625589d70ac966b17e9128eb9a580a13c423","expiration":1531490710,"tradeid":0,"requestid":2909464325,"quoteid":3863172186,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"NOAH","bobtomic":"0x58a4884182d9e835597f405e5f258290e46ae7c2","etomicsrc":"0x98298409c949135eed89233d04c2cfef984baff5","srcamount":0.75432255,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"5516087953209098241","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531475562,"bobdeposit":"e197301ea42c9aa6e703d7c897fc1aa4036df9e8629687b3834be39f817a10d0","alicepayment":"c403dc7d6d7ab8c21ba0a242d0f936344986db4f4919eedcfb6febf6548f0139","bobpayment":"9a992d47f01f87757ca9d442c161fb83476b4e5e713126f0720fe0cb2fbff73e","paymentspent":"259d2c9413c920e615b9c6c88a09c94d5e73b4c3d43fb08468b6b53262eb7323","Apaymentspent":"f5a3b84eb84d9bc38f30d739a31f9274c85d2441cc4607973e24940800433679","depositspent":"d22d5f55cfa7b25ce6cc5f07494eb9512f5d9b44311378b0764503fa155d8fcc","alicedexfee":"5d822f91b82bdec8ecd38cf5556e1e5faac5dcba92970c75d6c56dca7fcc7343","method":"tradestatus","finishtime":1531475562}
+bobdeposit https://etherscan.io/tx/0xd1e6750f565368e03ba6f3db2e3de8d0ddd9c43b2f5c202b2dd6ee3f7a4a56d6
+alicepayment https://kmdexplorer.ru/tx/c403dc7d6d7ab8c21ba0a242d0f936344986db4f4919eedcfb6febf6548f0139
+bobpayment https://etherscan.io/tx/0x82aa373c6574f4ca0c3fe75327f0c5aabc9fb0fc1d5b838f0f2369264d409935
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"NOAH\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"noah-coin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"NOAH\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"noah-coin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"NOAH\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"noah-coin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"NOAH\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"noah-coin\",\"refrel\":\"coinmarketcap\"}"

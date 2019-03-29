@@ -1,0 +1,43 @@
+{\"coin\":\"SRN\",\"name\":\"sirin-labs-token\",\"etomic\":\"0x68d57c9a1c35f63e2c83ee8e49a64e9d70528d25\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SRN\"}"
+
+home
+      "height" : -1,
+      "p2shtype" : 85,
+      "wiftype" : 188,
+      "installed" : false,
+      "txfee" : 1000,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "balance" : 0,
+      "rpc" : "127.0.0.1:80",
+      "pubtype" : 0,
+      "coin" : "SRN"
+
+contabo
+      "coin" : "SRN",
+      "p2shtype" : 85,
+      "installed" : false,
+      "balance" : 0,
+      "txfee" : 1000,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "rpc" : "127.0.0.1:80",
+      "height" : -1,
+      "status" : "active",
+      "wiftype" : 188,
+      "pubtype" : 0
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"SRN\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"SRN\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"SRN\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+SIRIN LABS Token (SRN)
+SWAP completed! 1603632511-2438694354 {"uuid":"96e1a55095c67da3907e6f5680c4abf07f047557a259efdf975610faf55bfffe","expiration":1528028860,"tradeid":0,"requestid":1603632511,"quoteid":2438694354,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"SRN","bobtomic":"0x68d57c9a1c35f63e2c83ee8e49a64e9d70528d25","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.69550933,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"12122049632554450945","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.69551933, 0.08010000, 0.69552933, 0.08011000, 0.78246799, 0, 0, 0.78245799, 0, 0, 0],"result":"success","status":"finished","finishtime":1528016673,"bobdeposit":"84e3bd77271a8786be9132378b792ac06d71162d5e028c621428a0532cb03631","alicepayment":"139c6f16b9142798a73ee6c7bc9c008c09da2309432b2d991652f5165f25a6ad","bobpayment":"23fc7a680b52bf25dd52c13dc55b01616f142ef586abcdfa643830d20e51a393","paymentspent":"4897f842851fc438f4f615e9860e33404e1eb21cc7dfc1346a9ff04a981b6c8c","Apaymentspent":"f2aba9ad67bb53c7a3bc6effcf6ed6290d06b6c04285cd5bf7438c87bbf446cd","depositspent":"b7b795f95d49c5ff62ba2da019157668018365f9e83478b6c7a2db4c1e9cc242","method":"tradestatus","finishtime":1528016673}
+bobdeposit https://etherscan.io/tx/0x43a64d5cbb34fd3c3ece8da4c9271a7ff107e962fe213abaed48e251d54352ec
+alicepayment https://kmdexplorer.ru/tx/139c6f16b9142798a73ee6c7bc9c008c09da2309432b2d991652f5165f25a6ad
+bobpayment https://etherscan.io/tx/0x28bec0d968f37149d3a4b4b8a8ff5a531a2c4c7cf55b197f9099689c76a262da
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SRN\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"sirin-labs-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SRN\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"sirin-labs-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SRN\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"sirin-labs-token\",\"refrel\":\"coinmarketcap\"}"

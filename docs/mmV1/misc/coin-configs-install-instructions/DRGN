@@ -1,0 +1,42 @@
+{\"coin\":\"DRGN\",\"name\":\"dragonchain\",\"etomic\":\"0x419c4db4b9e25d6db2ad9691ccb832c8d9fda05e\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"DRGN\"}"
+
+home
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "installed" : false,
+      "status" : "active",
+      "pubtype" : 0,
+      "txfee" : 1000,
+      "coin" : "DRGN",
+      "wiftype" : 188,
+      "height" : -1,
+      "balance" : 0
+
+contabo
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "height" : -1,
+      "p2shtype" : 85,
+      "txfee" : 1000,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "coin" : "DRGN",
+      "installed" : false,
+      "balance" : 0,
+      "status" : "active",
+      "rpc" : "127.0.0.1:80"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"DRGN\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"DRGN\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"DRGN\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Dragonchain (DRGN)
+SWAP completed! 3999859836-40469150 {"uuid":"61962763033c0b464a35ad6286ec52561fc04508239b1713e0624acdcf13c962","expiration":1526620510,"tradeid":0,"requestid":3999859836,"quoteid":40469150,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"DRGN","bobtomic":"0x419c4db4b9e25d6db2ad9691ccb832c8d9fda05e","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.74043164,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"1839037208919212033","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.74044164, 0.08010000, 0.74045164, 0.08011000, 0.83300559, 0, 0, 0.83299559, 0, 0, 0],"result":"success","status":"finished","finishtime":1526605370,"bobdeposit":"ca73248cec005b1fbe0f918538312a1f39ccc4d199589613659efcb2c42274ef","alicepayment":"0f11b30e87d287a2c20129b8c7b4ec0b4e41be3728a02570cbd55291ba2953d4","bobpayment":"a71500d18270442be897842bf25e956cf06451a7de12e8a466636fe57e7087e3","paymentspent":"def1eeff364da01990b737536962970dc04d817a9b6229a2998cfa8fecac9c96","Apaymentspent":"c233cd3221a15bf4b150be645da41a623c325c46e761974c37309397200e2d9b","depositspent":"7899b80ede4d9a644f4305827ef04eb4ee1f695fd6a523ee6078a79c9269877f","method":"tradestatus","finishtime":1526605370}
+bobdeposit https://etherscan.io/tx/0xcb69ff79f8f81733a23bc89a762ac424e88078992a93871ac156aab7960e6201
+alicepayment https://kmdexplorer.ru/tx/0f11b30e87d287a2c20129b8c7b4ec0b4e41be3728a02570cbd55291ba2953d4
+bobpayment https://etherscan.io/tx/0x317d8a5cb9e775b21f709abc811132aef14a91b849c8ba446eeb4a51b26563fd
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DRGN\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"dragonchain\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DRGN\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"dragonchain\",\"refrel\":\"coinmarketcap\"}"

@@ -1,0 +1,72 @@
+https://bitcointalk.org/index.php?topic=421615.0
+https://github.com/dashpay/dash
+
+
+src/chainparams.cpp
+// Dash addresses start with 'X'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,76);
+// Dash script addresses start with '7'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,16);
+// Dash private keys start with '7' or 'X'
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 10000; // was 1000
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = 10000; // was 1000
+
+{\"confpath\":\"${HOME#}/.dashcore/dash.conf\",\"coin\":\"DASH\",\"name\":\"dashcore\",\"rpcport\":9998,\"pubtype\":76,\"p2shtype\":16,\"wiftype\":204,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/dashpay/dash
+cd dash
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/dash*
+mkdir ~/.dashcore
+echo "server=1" >> ~/.dashcore/dash.conf
+echo "txindex=1" >> ~/.dashcore/dash.conf
+echo "litemode=1" >> ~/.dashcore/dash.conf
+echo "listen=0" >> ~/.dashcore/dash.conf
+echo "listenonion=1" >> ~/.dashcore/dash.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.dashcore/dash.conf
+echo "rpcuser=barterdash" >> ~/.dashcore/dash.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.dashcore/dash.conf
+echo "rpcworkqueue=64" >> ~/.dashcore/dash.conf
+echo "rpcthreads=16" >> ~/.dashcore/dash.conf
+chmod 0600 ~/.dashcore/dash.conf
+dashd -daemon
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"DASH\"}"
+
+home
+   {
+      "txfee" : 10000,
+      "coin" : "DASH",
+      "p2shtype" : 16,
+      "smartaddress" : "XxKn944PJfwfu8t7BVtZp3XyoyDHjDfiSG",
+      "pubtype" : 76,
+      "rpc" : "127.0.0.1:9998",
+      "estimatedrate" : 20,
+      "status" : "active",
+      "wiftype" : 204
+   },
+
+contabo
+   {
+      "wiftype" : 204,
+      "pubtype" : 76,
+      "txfee" : 10000,
+      "status" : "active",
+      "p2shtype" : 16,
+      "rpc" : "127.0.0.1:9998",
+      "smartaddress" : "XcYdfQgeuM5f5V2LNo9g8o8p3rPPbKwwCg",
+      "coin" : "DASH"
+   },
+
+dash-cli sendtoaddress "XcYdfQgeuM5f5V2LNo9g8o8p3rPPbKwwCg" 0.06440722
+dash-cli sendtoaddress "XcYdfQgeuM5f5V2LNo9g8o8p3rPPbKwwCg" 0.07728866
+dash-cli sendtoaddress "XcYdfQgeuM5f5V2LNo9g8o8p3rPPbKwwCg" 0.01924612

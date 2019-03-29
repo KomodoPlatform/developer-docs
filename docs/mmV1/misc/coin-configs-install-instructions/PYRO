@@ -1,0 +1,82 @@
+https://github.com/pyrocoindev/pyro
+https://bitcointalk.org/index.php?topic=3076664.0
+http://explorer.pyro.solutions/
+
+
+src/chainparams.cpp
+// PYRO addresses start with 'P'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,55);
+// PYRO script addresses start with '5'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,10);
+// PYRO private keys start with '5' or 'P' (?)
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,198);
+
+{\"coin\":\"PYRO\",\"name\":\"pyro\",\"confpath\":\"${HOME#}/.pyrocore/pyro.conf\",\"rpcport\":9696,\"pubtype\":55,\"p2shtype\":10,\"wiftype\":198,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/pyrocoindev/pyro
+cd pyro
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/pyro*
+mkdir ~/.pyrocore
+echo "server=1" >> ~/.pyrocore/pyro.conf
+echo "txindex=1" >> ~/.pyrocore/pyro.conf
+echo "litemode=1" >> ~/.pyrocore/pyro.conf
+echo "listen=0" >> ~/.pyrocore/pyro.conf
+echo "listenonion=0" >> ~/.pyrocore/pyro.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.pyrocore/pyro.conf
+echo "rpcuser=barterpyro" >> ~/.pyrocore/pyro.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.pyrocore/pyro.conf
+chmod 0600 ~/.pyrocore/pyro.conf
+pyrod -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"PYRO\"}"
+
+home
+      "wiftype" : 198,
+      "coin" : "PYRO",
+      "rpc" : "127.0.0.1:9696",
+      "height" : 19526,
+      "p2shtype" : 10,
+      "KMDvalue" : 0,
+      "balance" : 0,
+      "installed" : true,
+      "txfee" : 10000,
+      "pubtype" : 55,
+      "smartaddress" : "PWE7TmoLPtDGj2xHfgtsdQpTbNoUqvjxoq",
+      "status" : "active"
+
+contabo
+      "txfee" : 10000,
+      "wiftype" : 198,
+      "installed" : true,
+      "coin" : "PYRO",
+      "smartaddress" : "PASxz8RbzZMFuP6Wrz9yxARHqFyagJDp2k",
+      "pubtype" : 55,
+      "KMDvalue" : 0,
+      "rpc" : "127.0.0.1:9696",
+      "height" : 19530,
+      "balance" : 0,
+      "p2shtype" : 10,
+      "status" : "active"
+
+pyro-cli sendtoaddress "PASxz8RbzZMFuP6Wrz9yxARHqFyagJDp2k" 1
+"fee": -0.00004520
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"PYRO\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"PYRO\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Pyro (PYRO)
+SWAP completed! 889511044-393187238 {"uuid":"cab2b988b75c7c296ac108b0e2fcf7b73616416e2bf82fdd09364c62277a6378","expiration":1523365666,"tradeid":0,"requestid":889511044,"quoteid":393187238,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"PYRO","srcamount":0.71183935,"bobtxfee":0.00010000,"alice":"KMD","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"13031789253123637249","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.71193935, 0.08010000, 0.71203935, 0.08011000, 0.80101926, 0, 0, 0.80091926, 0, 0, 0],"result":"success","status":"finished","finishtime":1523351030,"bobdeposit":"baaba21ae69ec0d48d4d4ce5ecf9c487ee139beab1bd3cf0a553d53ff8b71a83","alicepayment":"d7f7c6bf8929505eaedd6fc8fd54805dcacc6852c2b27185851cf8312ecdcce3","bobpayment":"4ac26f2786725d1bc92b49a98615181800ffe5520b8f801e602045271854ff83","paymentspent":"b018bdbc4b14f2ce08c04b8b1a301b085c21f237c5e97460f309dbda700880c9","Apaymentspent":"e6c34653d6c4a55b5dde425ebfc4fdb67cdc56d9e2b636a380a2717feba0bab0","depositspent":"838c7f3b66b7eaaae4b5405d47ecb1fc3dd82bf6c527a7e60e62c297f09d5763","method":"tradestatus","finishtime":1523351030}
+bobdeposit http://138.68.246.198:3001/tx/baaba21ae69ec0d48d4d4ce5ecf9c487ee139beab1bd3cf0a553d53ff8b71a83
+alicepayment https://kmd.explorer.supernet.org/tx/d7f7c6bf8929505eaedd6fc8fd54805dcacc6852c2b27185851cf8312ecdcce3
+bobpayment http://138.68.246.198:3001/tx/4ac26f2786725d1bc92b49a98615181800ffe5520b8f801e602045271854ff83
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"withdraw\",\"coin\":\"PYRO\",\"outputs\":[{\"PASxz8RbzZMFuP6Wrz9yxARHqFyagJDp2k\":0.69710355}]}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sendrawtransaction\",\"coin\":\"PYRO\",\"signedtx\":\"$1\"}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"PYRO\",\"fixed\":0.1}"

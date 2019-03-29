@@ -1,0 +1,43 @@
+{\"coin\":\"SAN\",\"name\":\"santiment\",\"etomic\":\"0x7C5A0CE9267ED19B22F8cae653F198e3E8daf098\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SAN\"}"
+
+home
+      "coin" : "SAN",
+      "wiftype" : 188,
+      "balance" : 0,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "installed" : false,
+      "txfee" : 1000,
+      "height" : -1,
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "status" : "active"
+
+contabo
+      "p2shtype" : 85,
+      "coin" : "SAN",
+      "height" : -1,
+      "installed" : false,
+      "balance" : 3.95,
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "pubtype" : 0
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"SAN\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"SAN\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"SAN\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Santiment Network Token (SAN)
+SWAP completed! 263997050-308327659 {"uuid":"6de96b35e2b4023c212cf09760bb1a862eca4888b0401189c5d94a3f5493e5ff","expiration":1528491151,"tradeid":0,"requestid":263997050,"quoteid":308327659,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"SAN","bobtomic":"0x7C5A0CE9267ED19B22F8cae653F198e3E8daf098","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.77774861,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"14027358932782481409","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.77775861, 0.08010000, 0.77776861, 0.08011000, 0.87498718, 0, 0, 0.87497718, 0, 0, 0],"result":"success","status":"finished","finishtime":1528475998,"bobdeposit":"cada5f338bee90c9ff7073d3751d2595668745facebfe3fbdf424f1aa66589c9","alicepayment":"e4040ec04ad87727daa9e5306d18fba04a51e04c6be6bfcfd592dfba3cde9307","bobpayment":"f3d559abda7b23c74096fb8c3f5478102136b64426c73136013dd905f3df7b04","paymentspent":"405331594bce3f7f7252569f48c0101be7bf14d9161363a4b6e813f57120aeb7","Apaymentspent":"12582978d76cab25693671d67703db9be75849ca75c8b1b0393aee734ce6fb22","depositspent":"ea76d69b63c7e90f385bdf874fb25f0f3adc4883619c916c0aa8da1b1a3e34e4","method":"tradestatus","finishtime":1528475998}
+bobdeposit https://etherscan.io/tx/0x2da340a4fc1c81feeaaaef570f64b8452e89a3e87da97fb7135b4e217fe6bf71
+alicepayment https://kmdexplorer.ru/tx/e4040ec04ad87727daa9e5306d18fba04a51e04c6be6bfcfd592dfba3cde9307
+bobpayment https://etherscan.io/tx/0x46729c1cdd7cfdc73fde73ba26f617564d10b0d7c08d2cec0d79ad1c59684225
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SAN\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"santiment\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SAN\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"santiment\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SAN\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"santiment\",\"refrel\":\"coinmarketcap\"}"

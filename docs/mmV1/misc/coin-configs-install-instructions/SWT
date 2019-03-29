@@ -1,0 +1,43 @@
+{\"coin\":\"SWT\",\"name\":\"swarm-city\",\"etomic\":\"0xB9e7F8568e08d5659f5D29C4997173d84CdF2607\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SWT\"}"
+
+home
+      "balance" : 0,
+      "installed" : false,
+      "height" : -1,
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "pubtype" : 0,
+      "txfee" : 1000,
+      "status" : "active",
+      "coin" : "SWT",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "wiftype" : 188
+
+contabo
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "status" : "active",
+      "coin" : "SWT",
+      "p2shtype" : 85,
+      "txfee" : 1000,
+      "pubtype" : 0,
+      "height" : -1,
+      "rpc" : "127.0.0.1:80",
+      "balance" : 0,
+      "wiftype" : 188,
+      "installed" : false
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"SWT\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"SWT\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"SWT\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Swarm City (SWT)
+SWAP completed! 1233544006-1987155967 {"uuid":"de3efe77996ef643efcfab9761059b765a89e2f6c3ca1f11a48430de8ab1bba4","expiration":1528842385,"tradeid":0,"requestid":1233544006,"quoteid":1987155967,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"SWT","bobtomic":"0xB9e7F8568e08d5659f5D29C4997173d84CdF2607","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.67903057,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"13915678367335710721","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.67904057, 0.08010000, 0.67905057, 0.08011000, 0.76392939, 0, 0, 0.76391939, 0, 0, 0],"result":"success","status":"finished","finishtime":1528827088,"bobdeposit":"d6ebbb4abc3607c16aef12c335a0487ea2b481282403dac39662710458b40694","alicepayment":"2de85679d08643528c58beaaa0743e2a127611c859a9134dfd56572641aeb27f","bobpayment":"570f5a9445b60018bd45a20cc9519fc3dd86f537d739bec8f07b99c495995272","paymentspent":"d58ffcfc78137cbb795ecd2a3302c3cbb39e9bed575dffa2e32a474795d683f6","Apaymentspent":"6bf6d1d9cc68fd386058efa478b2116360fb6478f9b7a99100fb582e42983123","depositspent":"7361f3db9a06f038c7b315b2d8c93e3a4db0e0cbecac6db4da76968710620d82","method":"tradestatus","finishtime":1528827088}
+bobdeposit https://etherscan.io/tx/0xeb18a6ff004f7618691299150791e3e7977e5d8512a40486a4df6e0937ac0a77
+alicepayment https://kmdexplorer.ru/tx/2de85679d08643528c58beaaa0743e2a127611c859a9134dfd56572641aeb27f
+bobpayment https://etherscan.io/tx/0xd2b59e636f758a37523ee1091cb33b14ce80a1aca72d3efd4cf3a5176eb66409
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SWT\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"swarm-city\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SWT\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"swarm-city\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SWT\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"swarm-city\",\"refrel\":\"coinmarketcap\"}"

@@ -1,0 +1,41 @@
+{\"coin\":\"HYD\",\"name\":\"hydra\",\"etomic\":\"0xD233495C48EB0143661fFC8458EAfc21b633f97f\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HYD\"}"
+
+home
+      "txfee" : 1000,
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "coin" : "HYD",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "balance" : 0,
+      "installed" : false,
+      "height" : -1,
+      "pubtype" : 0,
+      "status" : "active",
+      "wiftype" : 188
+
+contabo
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "balance" : 0,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "height" : -1,
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "installed" : false,
+      "coin" : "HYD",
+      "status" : "active",
+      "p2shtype" : 85
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"HYD\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"HYD\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HYD\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Hydra (HYD)
+SWAP completed! 3233497964-3122270960 {"uuid":"71893671e3b4b057dc572ab35770d6303dae42d0a6607c766c20dbfe8d7b015e","expiration":1527212649,"tradeid":0,"requestid":3233497964,"quoteid":3122270960,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"HYD","bobtomic":"0xD233495C48EB0143661fFC8458EAfc21b633f97f","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.72308463,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"15632618567521533953","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.72309463, 0.08010000, 0.72310463, 0.08011000, 0.81349020, 0, 0, 0.81348020, 0, 0, 0],"result":"success","status":"finished","finishtime":1527197588,"bobdeposit":"6706016c0d77068e3415c007c6ea4be6b5399be42261738fe54de8bf2cede644","alicepayment":"2997d97997cae522ae59534a6e6a304b5b4211b4883801603f1310c967acd359","bobpayment":"48b5187cde817c9f613f36b6cd1540719d9e24a9bd4acfd242a20b0682b59f1f","paymentspent":"bf5a44f798691c1e89f75cc23d1965e9c7d659cec93bce4c9a69ef4279e94275","Apaymentspent":"1d48bea16ba3a7dc565cd14789cf2fa7b20669069e4ef1d71b4d75c942c3bdf4","depositspent":"d28a1b91319c66e53c2c88b08aac4660831bd4231cbe1619d188a42b7c5c0315","method":"tradestatus","finishtime":1527197588}
+bobdeposit https://etherscan.io/tx/0x86447dc7d8799cdabc238bed42303c6df4151f98b01bba21abfc000cc8260429
+alicepayment https://kmdexplorer.ru/tx/2997d97997cae522ae59534a6e6a304b5b4211b4883801603f1310c967acd359
+bobpayment https://etherscan.io/tx/0x07944c1c67d6bac5f22465ab85d4ff2f98c77b77d657daf61d867f56a74e16bd
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"HYD\",\"fixed\":0.1}"

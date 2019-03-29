@@ -1,0 +1,43 @@
+{\"coin\":\"MTL\",\"name\":\"metal\",\"etomic\":\"0xF433089366899D83a9f26A773D59ec7eCF30355e\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MTL\"}"
+
+home
+      "txfee" : 1000,
+      "rpc" : "127.0.0.1:80",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "p2shtype" : 85,
+      "balance" : 0,
+      "installed" : false,
+      "status" : "active",
+      "height" : -1,
+      "wiftype" : 188,
+      "pubtype" : 0,
+      "coin" : "MTL"
+
+contabo
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:80",
+      "wiftype" : 188,
+      "installed" : false,
+      "p2shtype" : 85,
+      "status" : "active",
+      "height" : -1,
+      "balance" : 39.6,
+      "coin" : "MTL",
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "txfee" : 1000
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"MTL\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"MTL\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"MTL\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Metal (MTL)
+SWAP completed! 4099900616-2509948373 {"uuid":"c750ecdf01ac605d15ea751774f91a7922b53f15a54a27ce146435db30cf812c","expiration":1529353352,"tradeid":0,"requestid":4099900616,"quoteid":2509948373,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"MTL","bobtomic":"0xF433089366899D83a9f26A773D59ec7eCF30355e","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.67105061,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"7837338070286336001","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1529338273,"bobdeposit":"9fe902512a220ab71196e6a0aec1c40da3f49d16cbd4c3271f97774d33321066","alicepayment":"6835f22b6115c50e135784d09c6c76429b11640157143e41eba0af25b7e79891","bobpayment":"c8edf5745078a312d274fdfbfbabc504888273ab06032875f4d21688e40fd6ec","paymentspent":"eda45401f2114830ae3d1e3816438c7db6c70f0c3c502945586e87108d4d5518","Apaymentspent":"840619fcd90a724b55b1db2434b62bd7c49781e565107414924b715daa008702","depositspent":"2ec3b71237ea3305927b303b8f2fbf88c7d81ab8238ebc57585b731ad82113d9","method":"tradestatus","finishtime":1529338273}
+bobdeposit https://etherscan.io/tx/0xc1956da4f237096b297318f1c999a241d2999ce244bd55452c54a5d5b4dd6ed6
+alicepayment https://kmdexplorer.ru/tx/6835f22b6115c50e135784d09c6c76429b11640157143e41eba0af25b7e79891
+bobpayment https://etherscan.io/tx/0x5df70f43698aa93ea16af7c0a45e1faf70023d8b5ddc783d38a176b2ea1d44c5
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MTL\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"metal\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MTL\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"metal\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MTL\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"metal\",\"refrel\":\"coinmarketcap\"}"

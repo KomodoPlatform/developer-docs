@@ -1,0 +1,71 @@
+https://bitcointalk.org/index.php?topic=1847292.0
+https://github.com/minexcoin/minexcoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,75);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 1000;
+
+{\"coin\":\"MNX\",\"name\":\"Minexcoin\",\"rpcport\":17786,\"pubtype\":75,\"p2shtype\":5,\"wiftype\":128,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/minexcoin/minexcoin
+cd minexcoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/minexcoin*
+mkdir ~/.Minexcoin
+echo "server=1" >> ~/.Minexcoin/Minexcoin.conf
+echo "txindex=1" >> ~/.Minexcoin/Minexcoin.conf
+echo "listen=0" >> ~/.Minexcoin/Minexcoin.conf
+echo "listenonion=0" >> ~/.Minexcoin/Minexcoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.Minexcoin/Minexcoin.conf
+echo "rpcuser=bartermnx" >> ~/.Minexcoin/Minexcoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.Minexcoin/Minexcoin.conf
+chmod 0600 ~/.Minexcoin/Minexcoin.conf
+minexcoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MNX\"}"
+
+home
+      "smartaddress" : "XYzB9wm6bVUo5hk2A5ZFKvGCBTxM48yfgf",
+      "installed" : true,
+      "txfee" : 10000,
+      "balance" : 0,
+      "p2shtype" : 5,
+      "rpc" : "127.0.0.1:17786",
+      "coin" : "MNX",
+      "height" : 94033,
+      "KMDvalue" : 0,
+      "pubtype" : 75,
+      "wiftype" : 128,
+      "status" : "active"
+
+contabo
+      "height" : 94033,
+      "balance" : 0.22,
+      "pubtype" : 75,
+      "txfee" : 10000,
+      "p2shtype" : 5,
+      "smartaddress" : "XDD2gJPNCAcnG3tFMNpMefs2RM8SsAPZdx",
+      "coin" : "MNX",
+      "status" : "active",
+      "wiftype" : 128,
+      "KMDvalue" : 0,
+      "rpc" : "127.0.0.1:17786",
+      "installed" : true
+
+minexcoin-cli sendtoaddress "XDD2gJPNCAcnG3tFMNpMefs2RM8SsAPZdx" 0.1
+"fee": -0.00004520
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MNX\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"minexcoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"MNX\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"minexcoin\",\"refrel\":\"coinmarketcap\"}"
+

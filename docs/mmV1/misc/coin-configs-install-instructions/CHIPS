@@ -1,0 +1,44 @@
+https://bitcointalk.org/index.php?topic=2078449
+https://github.com/jl777/chips3
+https://github.com/jl777/chipsln
+
+
+{\"coin\":\"CHIPS\", \"name\": \"chips\", \"rpcport\":57776,\"pubtype\":60, \"p2shtype\":85, \"wiftype\":188, \"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/jl777/chips3
+cd chips3
+git checkout dev
+git pull
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq --enable-experimental-asm
+make -j4
+sudo make install
+sudo strip /usr/local/bin/chips*
+mkdir ~/.chips
+echo "server=1" >> ~/.chips/chips.conf
+echo "txindex=1" >> ~/.chips/chips.conf
+echo "listen=0" >> ~/.chips/chips.conf
+echo "listenonion=0" >> ~/.chips/chips.conf
+echo "rpcuser=barterchips" >> ~/.chips/chips.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.chips/chips.conf
+echo "rpcworkqueue=64" >> ~/.chips/chips.conf
+echo "rpcthreads=16" >> ~/.chips/chips.conf
+chmod 0600 ~/.chips/chips.conf
+chipsd -addnode=5.9.253.195 -daemon
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"CHIPS\"}"
+
+contabo
+   {
+      "smartaddress" : "RB8yufv3YTfdzYnwz5paNnnDynGJG6WsqD",
+      "p2shtype" : 85,
+      "wiftype" : 188,
+      "rpc" : "127.0.0.1:57776",
+      "status" : "active",
+      "coin" : "CHIPS",
+      "pubtype" : 60,
+      "txfee" : 10000
+   },

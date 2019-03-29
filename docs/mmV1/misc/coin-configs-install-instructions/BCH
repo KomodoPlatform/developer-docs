@@ -1,0 +1,73 @@
+https://bitcointalk.org/index.php?topic=2040221.0
+https://github.com/Bitcoin-ABC/bitcoin-abc
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 0);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 5);
+base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 128);
+
+src/validation.h
+DEFAULT_MIN_RELAY_TX_FEE = 1000
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 1000;
+
+{\"coin\":\"BCH\",\"name\":\"bch\",\"rpcport\":33333,\"pubtype\":0,\"p2shtype\":5,\"wiftype\":128,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/Bitcoin-ABC/bitcoin-abc
+cd bitcoin-abc
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j2
+sudo cp src/bitcoind /usr/local/bin/bchd
+sudo cp src/bitcoin-cli /usr/local/bin/bch-cli
+sudo strip /usr/local/bin/bch*
+mkdir ~/.bch
+echo "server=1" >> ~/.bch/bch.conf
+echo "txindex=1" >> ~/.bch/bch.conf
+echo "listen=0" >> ~/.bch/bch.conf
+echo "listenonion=0" >> ~/.bch/bch.conf
+echo "rpcport=33333" >> ~/.bch/bch.conf
+echo "rpcuser=barterbch" >> ~/.bch/bch.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.bch/bch.conf
+echo "rpcworkqueue=64" >> ~/.bch/bch.conf
+echo "rpcthreads=16" >> ~/.bch/bch.conf
+chmod 0600 ~/.bch/bch.conf
+bchd -daemon -datadir=$HOME/.bch -conf=bch.conf
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BCH\"}"
+
+home
+      "txfee" : 10000,
+      "status" : "active",
+      "rpc" : "127.0.0.1:33333",
+      "smartaddress" : "1NdwJoQVLxj5kCHXKcaLxWrByddbgyHofb",
+      "installed" : true,
+      "coin" : "BCH",
+      "pubtype" : 0,
+      "balance" : 0,
+      "wiftype" : 128,
+      "KMDvalue" : 0,
+      "height" : 508462,
+      "p2shtype" : 5
+
+contabo
+      "KMDvalue" : 0,
+      "status" : "active",
+      "balance" : 0,
+      "txfee" : 10000,
+      "wiftype" : 128,
+      "height" : 508487,
+      "installed" : true,
+      "pubtype" : 0,
+      "smartaddress" : "12rnqA2kwds4vYRkWuqTHGT2DWohY8reoj",
+      "rpc" : "127.0.0.1:33333",
+      "p2shtype" : 5,
+      "coin" : "BCH"
+
+
+bch-cli -datadir=$HOME/.bch -conf=bch.conf sendtoaddress "12rnqA2kwds4vYRkWuqTHGT2DWohY8reoj" 0.01
+"fee": -0.00000230

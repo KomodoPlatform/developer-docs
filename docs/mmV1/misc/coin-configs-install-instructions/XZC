@@ -1,0 +1,70 @@
+https://bitcointalk.org/index.php?topic=1638450
+https://github.com/zcoinofficial/zcoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector < unsigned char > (1, 82);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector < unsigned char > (1, 7);
+base58Prefixes[SECRET_KEY] = std::vector < unsigned char > (1, 210);
+
+src/wallet/wallet.h
+DEFAULT_FALLBACK_FEE = 20000;
+DEFAULT_TRANSACTION_MINFEE = 1000;
+src/main.h
+DEFAULT_MIN_RELAY_TX_FEE = CENT / 10; //0.00100000 zcoin,
+
+{\"coin\":\"XZC\",\"name\":\"zcoin\",\"rpcport\":8888,\"pubtype\":82,\"p2shtype\":7,\"wiftype\":210,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/zcoinofficial/zcoin
+cd zcoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/zcoin*
+mkdir ~/.zcoin
+echo "server=1" >>~/.zcoin/zcoin.conf
+echo "txindex=1" >> ~/.zcoin/zcoin.conf
+echo "listen=0" >> ~/.zcoin/zcoin.conf
+echo "listenonion=0" >> ~/.zcoin/zcoin.conf
+echo "rpcuser=barterxzc" >> ~/.zcoin/zcoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.zcoin/zcoin.conf
+chmod 0600 ~/.zcoin/zcoin.conf
+zcoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"XZC\"}"
+
+home
+      "installed" : true,
+      "KMDvalue" : 0,
+      "p2shtype" : 7,
+      "txfee" : 100000,
+      "pubtype" : 82,
+      "wiftype" : 210,
+      "smartaddress" : "aNMQ3hr7ZkivojidL1tUioAhazkx4kNDjU",
+      "height" : 64758,
+      "balance" : 0,
+      "coin" : "XZC",
+      "rpc" : "127.0.0.1:8888",
+      "status" : "active"
+
+contabo
+      "status" : "active",
+      "p2shtype" : 7,
+      "rpc" : "127.0.0.1:8888",
+      "installed" : true,
+      "coin" : "XZC",
+      "txfee" : 100000,
+      "balance" : 0,
+      "pubtype" : 82,
+      "height" : 64755,
+      "wiftype" : 210,
+      "smartaddress" : "a2aFa4UPARruz5rrXK9b3YmXpsw3uVVYEq",
+      "KMDvalue" : 0
+      
+zcoin-cli sendtoaddress "a2aFa4UPARruz5rrXK9b3YmXpsw3uVVYEq" 0.1
+zcoin-cli sendtoaddress "a2aFa4UPARruz5rrXK9b3YmXpsw3uVVYEq" 0.12
+"fee": 0.00000000

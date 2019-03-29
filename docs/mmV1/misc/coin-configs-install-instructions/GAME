@@ -1,0 +1,75 @@
+https://bitcointalk.org/index.php?topic=1266597
+https://github.com/gamecredits-project/GameCredits
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,38); // G
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5); // 3
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,166); // R
+
+{\"coin\":\"GAME\",\"name\":\"gamecredits\",\"rpcport\":40001,\"pubtype\":38,\"p2shtype\":5,\"wiftype\":166,\"txfee\":1000000}
+
+
+sudo apt-get install libssl1.0-dev
+cd ~/wallets
+git clone https://github.com/gamecredits-project/GameCredits
+cd GameCredits
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq --enable-experimental-asm
+make -j4
+sudo make install
+sudo strip /usr/local/bin/gamecredits*
+sudo apt-get install libssl-dev
+mkdir ~/.gamecredits
+echo "server=1" >> ~/.gamecredits/gamecredits.conf
+echo "txindex=1" >> ~/.gamecredits/gamecredits.conf
+echo "listen=0" >> ~/.gamecredits/gamecredits.conf
+echo "listenonion=0" >> ~/.gamecredits/gamecredits.conf
+echo "rpcuser=bartergame" >> ~/.gamecredits/gamecredits.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.gamecredits/gamecredits.conf
+echo "rpcworkqueue=64" >> ~/.gamecredits/gamecredits.conf
+echo "rpcthreads=16" >> ~/.gamecredits/gamecredits.conf
+chmod 0600 ~/.gamecredits/gamecredits.conf
+gamecreditsd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"GAME\"}"
+
+home
+      "coin" : "GAME",
+      "rpc" : "127.0.0.1:40001",
+      "status" : "active",
+      "pubtype" : 38,
+      "KMDvalue" : 0,
+      "balance" : 0,
+      "height" : 2033992,
+      "smartaddress" : "GfUrivjSKpLNpfapFZETPHC5toRSidBkFt",
+      "installed" : true,
+      "txfee" : 1000000,
+      "wiftype" : 166,
+      "p2shtype" : 5
+
+contabo
+      "p2shtype" : 5,
+      "rpc" : "127.0.0.1:40001",
+      "balance" : 0,
+      "status" : "active",
+      "KMDvalue" : 0,
+      "height" : 2033992,
+      "coin" : "GAME",
+      "installed" : true,
+      "wiftype" : 166,
+      "txfee" : 1000000,
+      "smartaddress" : "GKhiFHMhvVUN11j3SrVZi2nv8gbYa41Udd",
+      "pubtype" : 38
+
+gamecredits-cli sendtoaddress "GKhiFHMhvVUN11j3SrVZi2nv8gbYa41Udd" 1
+"fee": -0.00610659
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"GAME\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"GAME\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+GameCredits (GAME)
+SWAP completed! 1627656040-446827460 {"uuid":"c3cea9bdafb8025f4da329c82f552a938d8dd4a69d3bae8537ead9af689d8ef7","expiration":1525542363,"tradeid":0,"requestid":1627656040,"quoteid":446827460,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"GAME","srcamount":0.73685658,"bobtxfee":0.01000000,"alice":"KMD","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"11846672004652859393","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.74685658, 0.08010000, 0.75685658, 0.08011000, 0.84896365, 0, 0, 0.83896365, 0, 0, 0],"result":"success","status":"finished","finishtime":1525528073,"bobdeposit":"202b3a1b5f37c39b8ba7ad6cc41aca1d33fc9dcf993099819d9199bac2919d40","alicepayment":"af05e083696c58bf1481a142d5473aa61d59e569ea1251be46e2211afe764b16","bobpayment":"58056c82ab1b4dcb787ccc44f493f125a33b407ec0b755947750bf0a78383a02","paymentspent":"64fea28ce0bb76baedae9a27e5af98365e9d6f6026525a4ea900738936159e09","Apaymentspent":"3f160c6f316e0c3b1a4cfa848b92fd6aaffc9ac0a866e9a472f3b7fa80b2e715","depositspent":"b0e7851e495841af9beaf769544245872bf8ecab1219e36946e20b48ba661659","method":"tradestatus","finishtime":1525528073}
+bobdeposit https://blockexplorer.gamecredits.com/transactions/202b3a1b5f37c39b8ba7ad6cc41aca1d33fc9dcf993099819d9199bac2919d40
+alicepayment http://www.kmdexplorer.ru/tx/af05e083696c58bf1481a142d5473aa61d59e569ea1251be46e2211afe764b16
+bobpayment https://blockexplorer.gamecredits.com/transactions/58056c82ab1b4dcb787ccc44f493f125a33b407ec0b755947750bf0a78383a02

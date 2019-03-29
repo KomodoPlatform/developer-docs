@@ -1,0 +1,73 @@
+https://bitcointalk.org/index.php?topic=1967207.0
+https://github.com/carsenk/denarius
+
+
+src/base58.h
+PUBKEY_ADDRESS = 30
+SCRIPT_ADDRESS = 90
+SetData(128 + (fTestNet ? CBitcoinAddress::PUBKEY_ADDRESS_TEST : CBitcoinAddress::PUBKEY_ADDRESS), &vchSecret[0], vchSecret.size());
+
+src/main.h
+MIN_TX_FEE = 1000
+MIN_RELAY_TX_FEE = MIN_TX_FEE
+
+{\"coin\":\"DNR\",\"name\":\"denarius\",\"isPoS\":1,\"rpcport\":32339,\"pubtype\":30,\"p2shtype\":90,\"wiftype\":158,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/carsenk/denarius
+cd denarius/src
+sudo apt-get install libssl1.0-dev
+make -j4 -f makefile.unix USE_UPNP=
+sudo cp denariusd /usr/local/bin
+sudo strip /usr/local/bin/denarius*
+sudo apt-get install libssl-dev
+mkdir ~/.denarius
+echo "server=1" >> ~/.denarius/denarius.conf
+echo "txindex=1" >> ~/.denarius/denarius.conf
+echo "listen=0" >> ~/.denarius/denarius.conf
+echo "enableaccounts=1" >> ~/.denarius/denarius.conf
+echo "staking=0" >> ~/.denarius/denarius.conf
+echo "nosmsg=1" >> ~/.denarius/denarius.conf
+echo "rpcport=12339" >> ~/.denarius/denarius.conf
+echo "rpcuser=barterdnr" >> ~/.denarius/denarius.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.denarius/denarius.conf
+chmod 0600 ~/.denarius/denarius.conf
+denariusd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"DNR\"}"
+
+home
+      "txfee" : 10000,
+      "p2shtype" : 90,
+      "installed" : true,
+      "wiftype" : 158,
+      "smartaddress" : "DSn2r4M8eNdNHCU84CZuWH1nrmMu3gbV1i",
+      "status" : "active",
+      "type" : "PoS",
+      "KMDvalue" : 0,
+      "coin" : "DNR",
+      "pubtype" : 30,
+      "balance" : 0,
+      "height" : 260737,
+      "rpc" : "127.0.0.1:32339"
+
+contabo
+      "height" : 229585,
+      "wiftype" : 158,
+      "type" : "PoS",
+      "coin" : "DNR",
+      "txfee" : 10000,
+      "p2shtype" : 90,
+      "pubtype" : 30,
+      "rpc" : "127.0.0.1:32339",
+      "balance" : 0,
+      "smartaddress" : "D6ztNQyQF3mMTYcMFVq1q2cd6eXzqPKGc8",
+      "status" : "active",
+      "KMDvalue" : 0,
+      "installed" : true
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DNR\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"denarius-dnr\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DNR\",\"rel\":\"BTC\",\"margin\":0.07,\"refbase\":\"denarius-dnr\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DNR\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"denarius-dnr\",\"refrel\":\"coinmarketcap\"}"

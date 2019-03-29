@@ -1,0 +1,70 @@
+https://bitcointalk.org/index.php?topic=2297895.msg23319563#msg23319563
+https://github.com/BTA-BATA/BATA-SOURCE
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = list_of(25);                                           // Bata addresses start with 'B'
+base58Prefixes[SCRIPT_ADDRESS] = list_of(5);                                            // Bata script addresses start with '3'
+base58Prefixes[SCRIPT_ADDRESS2] = list_of(85);                                          // Bata script addresses start with 'b'
+base58Prefixes[SECRET_KEY] =     list_of(188);                                          // Bata private keys start with '2'
+
+src/main.h
+DEFAULT_TX_FEE = 100000; // 0.001 BTA
+
+{\"coin\":\"BTA\",\"name\":\"bata\",\"rpcport\":5493,\"pubtype\":25,\"p2shtype\":5,\"wiftype\":188,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/BTA-BATA/BATA-SOURCE
+cd BATA-SOURCE
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/bata*
+mkdir ~/.bata
+echo "server=1" >> ~/.bata/bata.conf
+echo "txindex=1" >> ~/.bata/bata.conf
+echo "listen=0" >> ~/.bata/bata.conf
+echo "rpcuser=barterbta" >> ~/.bata/bata.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.bata/bata.conf
+chmod 0600 ~/.bata/bata.conf
+batad -daemon
+
+wget https://bata.money/downloads/bootstrap.zip
+wget http://crypt.midnightminer.net/bootstraps/bata/bootstrap.zip
+unzip bootstrap.zip
+rm bootstrap.zip
+batad -daemon -loadblock=$HOME/bootstrap.dat
+rm ~/bootstrap.dat
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BTA\"}"
+
+home
+   {
+      "pubtype" : 25,
+      "status" : "active",
+      "coin" : "BTA",
+      "wiftype" : 188,
+      "p2shtype" : 5,
+      "txfee" : 100000,
+      "smartaddress" : "BS61vWrh6UJzC2mgw6uK5eeriF5BVyo2V5",
+      "rpc" : "127.0.0.1:5493"
+   },
+
+contabo
+   {
+      "smartaddress" : "B6JsSsUxh9SyNNuv8QARQQFgx8FHKXK1wd",
+      "pubtype" : 25,
+      "rpc" : "127.0.0.1:5493",
+      "txfee" : 100000,
+      "coin" : "BTA",
+      "p2shtype" : 5,
+      "wiftype" : 188,
+      "status" : "active"
+   },
+
+bata-cli sendtoaddress "B6JsSsUxh9SyNNuv8QARQQFgx8FHKXK1wd" 1.72021694
+"fee" : -0.03987317,
+bata-cli sendtoaddress "BCZ4wcPeeXcGt2FM18WofQts96hfK8gU1b" 33.075
+"fee" : -0.04039384,

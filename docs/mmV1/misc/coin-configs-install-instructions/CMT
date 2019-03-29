@@ -1,0 +1,45 @@
+{\"coin\":\"CMT\",\"name\":\"cybermiles\",\"etomic\":\"0xf85feea2fdd81d51177f6b8f35f0e6734ce45f5f\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"CMT\"}"
+
+home
+      "height" : -1,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "balance" : 0,
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "rpc" : "127.0.0.1:80",
+      "installed" : false,
+      "status" : "active",
+      "p2shtype" : 85,
+      "txfee" : 1000,
+      "coin" : "CMT"
+
+contabo
+      "height" : -1,
+      "rpc" : "127.0.0.1:80",
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "wiftype" : 188,
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "balance" : 30.95,
+      "status" : "active",
+      "coin" : "CMT",
+      "installed" : false,
+      "txfee" : 1000
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"CMT\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"CMT\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"CMT\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+CyberMiles (CMT)
+SWAP completed! 2048227820-1962598013 {"uuid":"c99f5458f0cb4dff09f26f7c6eae2538c54f5901003db2b0141459444421e387","expiration":1531361416,"tradeid":0,"requestid":2048227820,"quoteid":1962598013,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"CMT","bobtomic":"0xf85feea2fdd81d51177f6b8f35f0e6734ce45f5f","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.75432255,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"15006642359003709441","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531347170,"bobdeposit":"b10df39ba984773f0536c270084ac9db9dfb8a9f91879c97028bf7e46848f67f","alicepayment":"91548a5c3a08b839f461d41a5d2574f1acb5d5e763331b8faa6d1a3bdccea989","bobpayment":"eac2243e79791bbca52a32b9eb22a56f8439b9d882b2c55f63eeb1284b7f68a4","paymentspent":"fd6b5b3dd100c4eb67adcd6044385aed377bee766fcf837888fd65820b3cf877","Apaymentspent":"65183019d5a0a2e7dc2fe413ac95ea7285047f4ed1adc9f051d7ff5355788684","depositspent":"b0e24e01ef3bc52431cae6ef42d92518c7ef4b5fa9ff5ef9fda6c73e67903ad4","alicedexfee":"a50c62d283802cd93ddbf840926af8d6263e91c385a06cc16556010a749a0cc7","method":"tradestatus","finishtime":1531347170}
+bobdeposit https://etherscan.io/tx/0x1c9e46e50eded9be02214916ba952c73af45a67fa92a81292d442ca0ef254542
+alicepayment https://kmdexplorer.ru/tx/91548a5c3a08b839f461d41a5d2574f1acb5d5e763331b8faa6d1a3bdccea989
+bobpayment https://etherscan.io/tx/0x5c606da19b69a49b93073672a2d6581f442a897ed80fbcc877013c6351f61830
+aliceClaimsPayment https://etherscan.io/tx/0xb5b9e4d2895887b1be9306432528a87de38a1e0bdf04b4deb30708d17da5a10a
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CMT\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"cybermiles\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CMT\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"cybermiles\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CMT\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"cybermiles\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"CMT\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"cybermiles\",\"refrel\":\"coinmarketcap\"}"

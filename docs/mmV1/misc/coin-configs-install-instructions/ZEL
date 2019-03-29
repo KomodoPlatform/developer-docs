@@ -1,0 +1,73 @@
+https://bitcointalk.org/index.php?topic=2853688.0
+https://github.com/Scribbles-MCAMK/Zelcash
+
+
+src/chainparams.cpp
+// guarantees the first 2 characters, when base58 encoded, are "t1"
+base58Prefixes[PUBKEY_ADDRESS]     = {0x1C,0xB8};
+// guarantees the first 2 characters, when base58 encoded, are "t3"
+base58Prefixes[SCRIPT_ADDRESS]     = {0x1C,0xBD};
+// the first character, when base58 encoded, is "5" or "K" or "L" (as in Bitcoin)
+base58Prefixes[SECRET_KEY]         = {0x80};
+
+{\"coin\":\"ZEL\",\"name\":\"zelcash\",\"rpcport\":16124,\"taddr\":28,\"pubtype\":184,\"p2shtype\":189,\"wiftype\":128,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/Scribbles-MCAMK/Zelcash
+cd Zelcash
+find . -name "*.sh" -exec chmod +x {} \;
+chmod +x depends/config.guess
+chmod +x depends/config.sub
+chmod +x src/leveldb/build_detect_platform
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./zcutil/build.sh --disable-tests --disable-rust -j4
+sudo cp src/zelcashd /usr/local/bin/
+sudo cp src/zelcash-cli /usr/local/bin/
+sudo strip /usr/local/bin/zelcash*
+cd
+ln -s .zcash-params .zelcash-params
+mkdir ~/.zelcash
+echo "server=1" >> ~/.zelcash/zelcash.conf
+echo "txindex=1" >> ~/.zelcash/zelcash.conf
+echo "listen=0" >> ~/.zelcash/zelcash.conf
+echo "listenonion=1" >> ~/.zelcash/zelcash.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.zelcash/zelcash.conf
+echo "rpcuser=barterzel" >> ~/.zelcash/zelcash.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.zelcash/zelcash.conf
+echo "addnode=node.zel.cash" >> ~/.zelcash/zelcash.conf
+chmod 0600 ~/.zelcash/zelcash.conf
+zelcashd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ZEL\"}"
+
+home
+      "txfee" : 10000,
+      "height" : 14994,
+      "balance" : 0,
+      "smartaddress" : "t1fWYK8pdKHWgLqLRG3PU6Kx7EHpgVRNjCU",
+      "status" : "active",
+      "rpc" : "127.0.0.1:16124",
+      "installed" : true,
+      "coin" : "ZEL",
+      "p2shtype" : 189,
+      "KMDvalue" : 0,
+      "wiftype" : 128,
+      "pubtype" : 184
+
+contabo
+      "txfee" : 10000,
+      "smartaddress" : "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH",
+      "pubtype" : 184,
+      "p2shtype" : 189,
+      "status" : "active",
+      "wiftype" : 128,
+      "height" : 14987,
+      "rpc" : "127.0.0.1:16124",
+      "coin" : "ZEL",
+      "balance" : 0,
+      "installed" : true,
+      "KMDvalue" : 0
+
+zelcash-cli sendtoaddress "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH" 1
+"fee": -0.00000226

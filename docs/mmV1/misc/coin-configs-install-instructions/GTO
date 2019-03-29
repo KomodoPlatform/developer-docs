@@ -1,0 +1,42 @@
+{\"coin\":\"GTO\",\"name\":\"gifto\",\"etomic\":\"0xc5bbae50781be1669306b9e001eff57a2957b09d\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"GTO\"}"
+
+home
+      "height" : -1,
+      "txfee" : 1000,
+      "wiftype" : 188,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "pubtype" : 0,
+      "status" : "active",
+      "coin" : "GTO",
+      "p2shtype" : 85,
+      "installed" : false,
+      "rpc" : "127.0.0.1:80",
+      "balance" : 0
+
+hetzner
+      "balance" : 81.9,
+      "p2shtype" : 85,
+      "installed" : false,
+      "smartaddress" : "0x98298409c949135eed89233d04c2cfef984baff5",
+      "txfee" : 1000,
+      "status" : "active",
+      "wiftype" : 188,
+      "rpc" : "127.0.0.1:80",
+      "coin" : "GTO",
+      "pubtype" : 0,
+      "height" : -1
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"GTO\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"GTO\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Gifto (GTO)
+SWAP completed! 2504615231-3906509382 {"uuid":"71c5cd680f47331314c037df358417ef48fa9f85ead37832ad7a0adbbbd596db","expiration":1531469305,"tradeid":0,"requestid":2504615231,"quoteid":3906509382,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"GTO","bobtomic":"0xc5bbae50781be1669306b9e001eff57a2957b09d","etomicsrc":"0x98298409c949135eed89233d04c2cfef984baff5","srcamount":0.74314456,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"6106901968313581569","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531454153,"bobdeposit":"f1bf0a0dca223d4db64d82e1f43e20157e4492b4db901abc3e9d46a16426d29d","alicepayment":"aaa372a33fa5b392138e52938c5aa034f26e3f717fa139bd8dec178b913aba27","bobpayment":"e5b7eef1b4cbb44586877ccbedbdb5f93712e47f7600d017970ce10e46b1fdbf","paymentspent":"6f234c100f520126adadae7e3d43c568fdcfd9c98a7dc1f1945cafd89a81ea3c","Apaymentspent":"82bf2b096472c7d02836654b0713ebd274eff7def861831efb7eee416bdc8a3f","depositspent":"61a04e1e2b5fb232bc492fb2a9b5ead74e446aa9d4ce36a6bc656e5cd71853ba","alicedexfee":"0eeb09496a04a7b082e329f49a66a53e79a9fbdde774a9ba844cb44f61766012","method":"tradestatus","finishtime":1531454153}
+bobdeposit https://etherscan.io/tx/0x1467211de2986cf45f77d8d41c96fd7c06c8f318b1e04b39720bb00d346ab53b
+alicepayment https://kmdexplorer.ru/tx/aaa372a33fa5b392138e52938c5aa034f26e3f717fa139bd8dec178b913aba27
+bobpayment https://etherscan.io/tx/0xcd2c159157e5d50da70dd4ebc8452ccd0d7e98e935cefbc12dba03dc57d48513
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"GTO\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"gifto\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"GTO\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"gifto\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"GTO\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"gifto\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"GTO\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"gifto\",\"refrel\":\"coinmarketcap\"}"

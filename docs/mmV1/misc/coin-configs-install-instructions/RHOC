@@ -1,0 +1,43 @@
+{\"coin\":\"RHOC\",\"name\":\"rchain\",\"etomic\":\"0x168296bb09e24a88805cb9c33356536b980d3fc5\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"RHOC\"}"
+
+home
+      "installed" : false,
+      "rpc" : "127.0.0.1:80",
+      "height" : -1,
+      "wiftype" : 188,
+      "p2shtype" : 85,
+      "coin" : "RHOC",
+      "txfee" : 1000,
+      "status" : "active",
+      "pubtype" : 0,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "balance" : 0
+
+contabo
+      "p2shtype" : 85,
+      "status" : "active",
+      "height" : -1,
+      "installed" : false,
+      "coin" : "RHOC",
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "balance" : 0,
+      "rpc" : "127.0.0.1:80",
+      "pubtype" : 0
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"RHOC\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"RHOC\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"RHOC\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+RChain (RHOC)
+SWAP completed! 3157820816-1495780778 {"uuid":"c09cbf406b12302d431389b2bc59c0984ec5d4e5df4b602f878098095382027c","expiration":1527376173,"tradeid":0,"requestid":3157820816,"quoteid":1495780778,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"RHOC","bobtomic":"0x168296bb09e24a88805cb9c33356536b980d3fc5","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.77176458,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"4340679645519806465","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.77177458, 0.08010000, 0.77178458, 0.08011000, 0.86825515, 0, 0, 0.86824515, 0, 0, 0],"result":"success","status":"finished","finishtime":1527361246,"bobdeposit":"e6eb574f46ad6ab92fc211b0162dc6acfe416bc5d47027ff3d515762e0a44b92","alicepayment":"cd6ca890c48197048126eda3db303b11257be969c2911cb8011a4bbd9667ebdc","bobpayment":"4dad25841ef46a8a4a7aaa8d07fbe4e30356bfd90b42120828ea88c6f1063b19","paymentspent":"4f4352551f54b09d3e5247dd90315144019a83c6e426eba5d15656c4f1c6ffef","Apaymentspent":"e150bf0674560ea60cc37b6b87155714e470f10db7eb526ab627f65182d9fd21","depositspent":"68447d7100ed07e43a9d1f822ebcd6473c55b945983da561303a1873aaffaac0","method":"tradestatus","finishtime":1527361246}
+bobdeposit https://etherscan.io/tx/0x54abf6ef480dbec96b31a15cb3f7b289833781b049b79715f4248284afdbb966
+alicepayment https://kmdexplorer.ru/tx/cd6ca890c48197048126eda3db303b11257be969c2911cb8011a4bbd9667ebdc
+bobpayment https://etherscan.io/tx/0xb92fe5b891319ddb3eb847628814b4726825c17d1fdeb1b6e3df6223507f957f
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RHOC\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"rchain\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RHOC\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"rchain\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"RHOC\",\"rel\":\"LTC\",\"margin\":0.05,\"refbase\":\"rchain\",\"refrel\":\"coinmarketcap\"}"

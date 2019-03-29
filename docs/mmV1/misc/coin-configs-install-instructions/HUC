@@ -1,0 +1,69 @@
+https://bitcointalk.org/index.php?topic=435170.0
+https://github.com/chronokings/huntercore
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,40);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,13); // FIXME: Update.
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,168);
+
+src/wallet/wallet.h:static const CAmount DEFAULT_TRANSACTION_FEE = 0;
+src/wallet/wallet.h:static const CAmount DEFAULT_FALLBACK_FEE = 20000;
+src/wallet/wallet.h:static const CAmount DEFAULT_TRANSACTION_MINFEE = 1000;
+src/validation.h
+DEFAULT_MIN_RELAY_TX_FEE = COIN / 1000;
+src/amount.h
+COIN = 100000000;
+
+{\"coin\":\"HUC\",\"name\":\"huntercoin\",\"rpcport\":8399,\"pubtype\":40,\"p2shtype\":13,\"wiftype\":168,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/chronokings/huntercore -b 0.13
+cd huntercore
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/huntercoin*
+mkdir ~/.huntercoin
+echo "server=1" >> ~/.huntercoin/huntercoin.conf
+echo "listen=0" >> ~/.huntercoin/huntercoin.conf
+echo "listenonion=1" >> ~/.huntercoin/huntercoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.huntercoin/huntercoin.conf
+echo "rpcuser=barterhuc" >> ~/.huntercoin/huntercoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.huntercoin/huntercoin.conf
+chmod 0600 ~/.huntercoin/huntercoin.conf
+huntercoind -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HUC\"}"
+
+home
+   {
+      "smartaddress" : "HUA4h9L1kBG8TXrzJPu6MXjf9owL7DRt6g",
+      "wiftype" : 168,
+      "pubtype" : 40,
+      "p2shtype" : 13,
+      "txfee" : 100000,
+      "coin" : "HUC",
+      "status" : "active",
+      "rpc" : "127.0.0.1:8399"
+   },
+
+contabo
+   {
+      "pubtype" : 40,
+      "status" : "active",
+      "p2shtype" : 13,
+      "txfee" : 100000,
+      "coin" : "HUC",
+      "smartaddress" : "H8NvDVxHLrQ7dt1DVhACgHLVPh7RwvmTfH",
+      "wiftype" : 168,
+      "rpc" : "127.0.0.1:8399"
+   },
+
+huntercoin-cli sendtoaddress "H8NvDVxHLrQ7dt1DVhACgHLVPh7RwvmTfH" 0.8273103
+"fee": -0.00019200,
+huntercoin-cli sendtoaddress "H8NvDVxHLrQ7dt1DVhACgHLVPh7RwvmTfH" 0.9927723
+"fee": -0.00037400,

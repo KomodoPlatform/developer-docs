@@ -1,0 +1,80 @@
+https://bitcointalk.org/index.php?topic=3047868
+https://github.com/PACCommunity/PAC
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,55);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,10);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
+
+{\"coin\":\"PAC\",\"name\":\"paccoin\",\"confpath\":\"${HOME#}/.paccoincore/paccoin.conf\",\"rpcport\":7111,\"pubtype\":55,\"p2shtype\":10,\"wiftype\":204,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/PACCommunity/PAC
+cd PAC
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/paccoin*
+mkdir ~/.paccoincore
+echo "server=1" >> ~/.paccoincore/paccoin.conf
+echo "txindex=1" >> ~/.paccoincore/paccoin.conf
+echo "listen=0" >> ~/.paccoincore/paccoin.conf
+echo "listenonion=0" >> ~/.paccoincore/paccoin.conf
+echo "rpcuser=barterpac" >> ~/.paccoincore/paccoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.paccoincore/paccoin.conf
+echo "rpcworkqueue=64" >> ~/.paccoincore/paccoin.conf
+echo "rpcthreads=16" >> ~/.paccoincore/paccoin.conf
+echo "litemode=1" >> ~/.paccoincore/paccoin.conf
+chmod 0600 ~/.paccoincore/paccoin.conf
+paccoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"PAC\"}"
+
+home
+      "rpc" : "127.0.0.1:7111",
+      "txfee" : 10000,
+      "coin" : "PAC",
+      "status" : "active",
+      "height" : 87438,
+      "installed" : true,
+      "pubtype" : 55,
+      "smartaddress" : "PWE7TmoLPtDGj2xHfgtsdQpTbNoUqvjxoq",
+      "p2shtype" : 10,
+      "KMDvalue" : 0,
+      "balance" : 0,
+      "wiftype" : 204
+
+contabo
+      "height" : 87438,
+      "installed" : true,
+      "smartaddress" : "PASxz8RbzZMFuP6Wrz9yxARHqFyagJDp2k",
+      "p2shtype" : 10,
+      "txfee" : 10000,
+      "wiftype" : 204,
+      "coin" : "PAC",
+      "rpc" : "127.0.0.1:7111",
+      "KMDvalue" : 0,
+      "balance" : 0,
+      "pubtype" : 55,
+      "status" : "active"
+
+
+paccoin-cli sendtoaddress "PASxz8RbzZMFuP6Wrz9yxARHqFyagJDp2k" 1
+"fee": -0.00000226
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"PAC\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"PAC\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+PACcoin (PAC)
+SWAP completed! 209712948-1410506691 {"uuid":"d903abb0883627c34b9da9b33af2a2c05586bed90eb9251acd5172d4a6125de7","expiration":1530272467,"tradeid":0,"requestid":209712948,"quoteid":1410506691,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"PAC","srcamount":0.72078907,"bobtxfee":0.00010000,"alice":"KMD","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"11957251688974974977","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.72088907, 0.08010000, 0.72098907, 0.08011000, 0.81108770, 0, 0, 0.81098770, 0, 0, 0],"result":"success","status":"finished","finishtime":1530257450,"bobdeposit":"793b15f0b9a63476c3df9d7da2b474fb24b540c6e4998206daa063e381b50444","alicepayment":"b3f2250a28a5d397af21f2fad5d264ba8046fbaa7278fe93cef1dfb11386a0b0","bobpayment":"1fe9d4bbec5e79aecc730a6dad948fa19efafd4a26a3234851bbf5d0ec3ccd32","paymentspent":"f063aa69a8a1246357a5b0f6cddf6927483ec087bfb3e04e2c3337a09edb3d4a","Apaymentspent":"07ba7389841b04590a48e3efa951feb7f31ef6e95118d682b62df0d4317950d4","depositspent":"00f8f5aef506390451b22148dcfe77d04eb063bbbd71c1ea9003064e70589c9f","method":"tradestatus","finishtime":1530257450}
+bobdeposit http://usa.pacblockexplorer.com:3002/tx/793b15f0b9a63476c3df9d7da2b474fb24b540c6e4998206daa063e381b50444
+alicepayment https://kmdexplorer.ru/tx/b3f2250a28a5d397af21f2fad5d264ba8046fbaa7278fe93cef1dfb11386a0b0
+bobpayment http://usa.pacblockexplorer.com:3002/tx/1fe9d4bbec5e79aecc730a6dad948fa19efafd4a26a3234851bbf5d0ec3ccd32
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"PAC\",\"rel\":\"BCH\",\"margin\":0.11,\"refbase\":\"paccoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"PAC\",\"rel\":\"BTC\",\"margin\":0.11,\"refbase\":\"paccoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"PAC\",\"rel\":\"KMD\",\"margin\":0.11,\"refbase\":\"paccoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"PAC\",\"rel\":\"LTC\",\"margin\":0.11,\"refbase\":\"paccoin\",\"refrel\":\"coinmarketcap\"}"

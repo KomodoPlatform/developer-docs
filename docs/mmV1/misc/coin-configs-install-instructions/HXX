@@ -1,0 +1,78 @@
+https://bitcointalk.org/index.php?topic=2958707
+https://github.com/hexxcointakeover/hexxcoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector < unsigned char > (1, 40);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector < unsigned char > (1, 10);
+base58Prefixes[SECRET_KEY] = std::vector < unsigned char > (1, 210);
+
+{\"coin\":\"HXX\",\"name\":\"hexxcoin\",\"rpcport\":29200,\"pubtype\":40,\"p2shtype\":10,\"wiftype\":210,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/hexxcointakeover/hexxcoin
+cd hexxcoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc
+make -j4
+sudo make install
+sudo strip /usr/local/bin/hexxcoin*
+mkdir ~/.hexxcoin
+echo "server=1" >> ~/.hexxcoin/hexxcoin.conf
+echo "txindex=1" >> ~/.hexxcoin/hexxcoin.conf
+echo "listen=0" >> ~/.hexxcoin/hexxcoin.conf
+echo "listenonion=0" >> ~/.hexxcoin/hexxcoin.conf
+echo "rpcuser=barterhxx" >> ~/.hexxcoin/hexxcoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.hexxcoin/hexxcoin.conf
+echo "rpcworkqueue=64" >> ~/.hexxcoin/hexxcoin.conf
+echo "rpcthreads=16" >> ~/.hexxcoin/hexxcoin.conf
+chmod 0600 ~/.hexxcoin/hexxcoin.conf
+hexxcoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HXX\"}"
+
+home
+      "installed" : true,
+      "rpc" : "127.0.0.1:29200",
+      "balance" : 0,
+      "KMDvalue" : 0,
+      "smartaddress" : "HUA4h9L1kBG8TXrzJPu6MXjf9owL7DRt6g",
+      "wiftype" : 210,
+      "coin" : "HXX",
+      "status" : "active",
+      "pubtype" : 40,
+      "p2shtype" : 10,
+      "height" : 275759,
+      "txfee" : 100000
+
+contabo
+      "txfee" : 100000,
+      "status" : "active",
+      "installed" : true,
+      "coin" : "HXX",
+      "rpc" : "127.0.0.1:29200",
+      "balance" : 2.2,
+      "KMDvalue" : 0,
+      "height" : 275759,
+      "pubtype" : 40,
+      "smartaddress" : "H8NvDVxHLrQ7dt1DVhACgHLVPh7RwvmTfH",
+      "wiftype" : 210,
+      "p2shtype" : 10
+
+
+hexxcoin-cli sendtoaddress "H8NvDVxHLrQ7dt1DVhACgHLVPh7RwvmTfH" 1
+"fee": -0.00022500
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"HXX\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HXX\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Hexx (HXX)
+SWAP completed! 4026831480-916003441 {"uuid":"81fea72b7dc5962f3049a21ab207825d87afcc26f3238854c428bcd53f6e4c8c","expiration":1528012855,"tradeid":0,"requestid":4026831480,"quoteid":916003441,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"HXX","srcamount":0.68951114,"bobtxfee":0.00100000,"alice":"KMD","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"649424514230976513","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.69051114, 0.08010000, 0.69151114, 0.08011000, 0.77770003, 0, 0, 0.77670003, 0, 0, 0],"result":"success","status":"finished","finishtime":1527997583,"bobdeposit":"42857c2f92c0007c8b6ad45fa3a3cf9c588af7860fe01ba6af00e3192f787d84","alicepayment":"c17e4bb69fbacedd3beee34342957d4a48e588fb1a427c5bb9729fe37b6ea844","bobpayment":"d75ed0518d2406fe5cfdfbb2658461f298f40cd93b7186a40c76b47afa51e1bf","paymentspent":"1fedf9bd14585828c623e58551f33b3b23ff364374061c5151d94fbd18f11105","Apaymentspent":"ec9f05e62f0882d135de7f4abba6e597844e294002cf0b6117f0a307897b33ab","depositspent":"0715413325298153bbe5fddd3aebc0c3b0be55a354ad3b981cecba2f29f83e39","method":"tradestatus","finishtime":1527997583}
+bobdeposit https://chainz.cryptoid.info/hxx/tx.dws?42857c2f92c0007c8b6ad45fa3a3cf9c588af7860fe01ba6af00e3192f787d84.htm
+alicepayment https://kmdexplorer.ru/tx/c17e4bb69fbacedd3beee34342957d4a48e588fb1a427c5bb9729fe37b6ea844
+bobpayment https://chainz.cryptoid.info/hxx/tx.dws?d75ed0518d2406fe5cfdfbb2658461f298f40cd93b7186a40c76b47afa51e1bf.htm
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"HXX\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"hexx\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"HXX\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"hexx\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"HXX\",\"rel\":\"LTC\",\"margin\":0.05,\"refbase\":\"hexx\",\"refrel\":\"coinmarketcap\"}"

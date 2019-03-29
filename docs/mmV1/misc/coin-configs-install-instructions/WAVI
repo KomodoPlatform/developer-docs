@@ -1,0 +1,31 @@
+https://bitcointalk.org/index.php?topic=3146751.0
+https://github.com/wavidev-the-man/wavi
+
+
+{"coin":"WAVI","confpath":"USERHOME/.wavicore/wavi.conf","name":"wavi","rpcport":9984,"pubtype":73,"p2shtype":15,"wiftype":133,"txfee":10000}
+
+cd ~/wallets
+git clone https://github.com/wavidev-the-man/wavi
+cd wavi
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/wavi*
+mkdir ~/.wavicore
+echo "server=1" >> ~/.wavicore/wavi.conf
+echo "txindex=1" >> ~/.wavicore/wavi.conf
+echo "litemode=1" >> ~/.wavicore/wavi.conf
+echo "listen=0" >> ~/.wavicore/wavi.conf
+echo "listenonion=0" >> ~/.wavicore/wavi.conf
+echo "rpcuser=barterwavi" >> ~/.wavicore/wavi.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.wavicore/wavi.conf
+echo "rpcworkqueue=64" >> ~/.wavicore/wavi.conf
+echo "rpcthreads=16" >> ~/.wavicore/wavi.conf
+chmod 0600 ~/.wavicore/wavi.conf
+wavid -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"WAVI\"}"
+
+home

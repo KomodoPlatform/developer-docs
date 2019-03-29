@@ -1,0 +1,43 @@
+{\"coin\":\"NAS\",\"name\":\"nebulas-token\",\"etomic\":\"0x5d65d971895edc438f465c17db6992698a52318d\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"NAS\"}"
+
+home
+      "txfee" : 1000,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "balance" : 0,
+      "coin" : "NAS",
+      "height" : -1,
+      "status" : "active",
+      "installed" : false,
+      "p2shtype" : 85,
+      "wiftype" : 188,
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:80"
+
+contabo
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "installed" : false,
+      "txfee" : 1000,
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "height" : -1,
+      "coin" : "NAS",
+      "wiftype" : 188,
+      "balance" : 0,
+      "status" : "active",
+      "rpc" : "127.0.0.1:80"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"NAS\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"NAS\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"NAS\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Nebulas (NAS)
+SWAP completed! 2949078224-1146850714 {"uuid":"aa38030304a0659f103b02509fe8bbe57b64180bb4005e0bc84dabd986f1fe8f","expiration":1527400700,"tradeid":0,"requestid":2949078224,"quoteid":1146850714,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"NAS","bobtomic":"0x5d65d971895edc438f465c17db6992698a52318d","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.70405234,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"1164875205919440897","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.70406234, 0.08010000, 0.70407234, 0.08011000, 0.79207888, 0, 0, 0.79206888, 0, 0, 0],"result":"success","status":"finished","finishtime":1527385809,"bobdeposit":"bf0abf04b4dea916adc43e6405792c57fe3481c46df3ef55c378893b30221922","alicepayment":"a7d9ee086fd17a8a392e96018da13f93e84abf3195193ac3c72db0db1f36c797","bobpayment":"9b857d102d1c9145417e076374b386ced4b55202129fcb148a4b04be79017a51","paymentspent":"f040a6054c864ce2d24bd82b47a0281b1f98fea7037abed62406bafa0477434e","Apaymentspent":"5517fbc216328501da1e52d269e57b51b81438999bd74e7e5fcafd4a565f2048","depositspent":"ff1832309c135438a087f6ed358274892e960f34aafbc814b9b4d359907cf00e","method":"tradestatus","finishtime":1527385809}
+bobdeposit https://etherscan.io/tx/0x78a54dbae9da651cff072e94310adccd4578b0903159ac91fb3484592f63e5d3
+alicepayment https://kmdexplorer.ru/tx/a7d9ee086fd17a8a392e96018da13f93e84abf3195193ac3c72db0db1f36c797
+bobpayment https://etherscan.io/tx/0x82984065eed4dc0277560f06f1164ac89891e45d2e907715e86d62f8b138b36e
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"NAS\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"nebulas-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"NAS\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"nebulas-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"NAS\",\"rel\":\"LTC\",\"margin\":0.05,\"refbase\":\"nebulas-token\",\"refrel\":\"coinmarketcap\"}"

@@ -1,0 +1,74 @@
+https://bitcointalk.org/index.php?topic=3097184
+https://github.com/ScrivNetwork/scriv
+
+
+src/chainparams.cpp
+// Scriv addresses start with 's'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,125);
+// Scriv script addresses start with '7'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,16);
+// Scriv private keys start with '7' or 'X'
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 1000;
+
+{\"coin\":\"SCRIV\",\"name\":\"scriv\",\"confpath\":\"${HOME#}/.scrivcore/scriv.conf\",\"rpcport\":7998,\"pubtype\":125,\"p2shtype\":16,\"wiftype\":204,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/ScrivNetwork/scriv
+cd scriv
+find . -name "*.sh" -exec chmod a+x {} \;
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/scriv*
+mkdir ~/.scrivcore
+echo "server=1" >> ~/.scrivcore/scriv.conf
+echo "txindex=1" >> ~/.scrivcore/scriv.conf
+echo "litemode=1" >> ~/.scrivcore/scriv.conf
+echo "listen=0" >> ~/.scrivcore/scriv.conf
+echo "listenonion=0" >> ~/.scrivcore/scriv.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.scrivcore/scriv.conf
+echo "rpcuser=barterscriv" >> ~/.scrivcore/scriv.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.scrivcore/scriv.conf
+chmod 0600 ~/.scrivcore/scriv.conf
+scrivd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SCRIV\"}"
+
+home
+      "wiftype" : 204,
+      "pubtype" : 125,
+      "installed" : true,
+      "status" : "active",
+      "KMDvalue" : 0,
+      "coin" : "SCRIV",
+      "balance" : 0,
+      "txfee" : 10000,
+      "height" : 10912,
+      "smartaddress" : "sftLPNfW6WebyNiMP4DBaBsXegqWafQy6y",
+      "rpc" : "127.0.0.1:7998",
+      "p2shtype" : 16
+
+contabo
+      "status" : "active",
+      "balance" : 0,
+      "p2shtype" : 16,
+      "wiftype" : 204,
+      "installed" : true,
+      "coin" : "SCRIV",
+      "txfee" : 10000,
+      "pubtype" : 125,
+      "smartaddress" : "sL7BujHmhBnb9iraaMUHtwUMta1cQB6Ymc",
+      "height" : 10893,
+      "rpc" : "127.0.0.1:7998",
+      "KMDvalue" : 0
+      
+scriv-cli sendtoaddress "sL7BujHmhBnb9iraaMUHtwUMta1cQB6Ymc" 1
+scriv-cli sendtoaddress "sL7BujHmhBnb9iraaMUHtwUMta1cQB6Ymc" 1.2
+"fee": -0.00000225
+

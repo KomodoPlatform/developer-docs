@@ -1,0 +1,84 @@
+https://bitcointalk.org/index.php?topic=3213013.0
+https://github.com/X9Developers/XSN
+
+
+src/chainparams.cpp
+// XSN addresses start with 'X'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,76);
+// XSN script addresses start with '7'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,16);
+// XSN private keys start with '7' or 'X'
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
+
+{\"coin\":\"XSN\",\"name\":\"xsn\",\"confpath\":\"${HOME#}/.xsncore/xsn.conf\",\"rpcport\":51473,\"pubtype\":76,\"p2shtype\":16,\"wiftype\":204,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/X9Developers/XSN
+cd XSN
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/xsn*
+mkdir ~/.xsncore
+echo "server=1" >> ~/.xsncore/xsn.conf
+echo "txindex=1" >> ~/.xsncore/xsn.conf
+echo "listen=0" >> ~/.xsncore/xsn.conf
+echo "listenonion=0" >> ~/.xsncore/xsn.conf
+echo "litemode=1" >> ~/.xsncore/xsn.conf
+#echo "gen=0" >> ~/.xsncore/xsn.conf
+echo "rpcport=11473" >> ~/.xsncore/xsn.conf
+echo "rpcuser=barterxsn" >> ~/.xsncore/xsn.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.xsncore/xsn.conf
+echo "rpcworkqueue=64" >> ~/.xsncore/xsn.conf
+echo "rpcthreads=16" >> ~/.xsncore/xsn.conf
+chmod 0600 ~/.xsncore/xsn.conf
+xsnd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"XSN\"}"
+
+home
+      "status" : "active",
+      "txfee" : 10000,
+      "smartaddress" : "XxKn944PJfwfu8t7BVtZp3XyoyDHjDfiSG",
+      "coin" : "XSN",
+      "wiftype" : 204,
+      "pubtype" : 76,
+      "rpc" : "127.0.0.1:11473",
+      "KMDvalue" : 0,
+      "p2shtype" : 16,
+      "installed" : true,
+      "balance" : 0,
+      "height" : 121228
+
+contabo
+      "pubtype" : 76,
+      "wiftype" : 204,
+      "txfee" : 10000,
+      "coin" : "XSN",
+      "balance" : 0,
+      "installed" : true,
+      "rpc" : "127.0.0.1:11473",
+      "status" : "active",
+      "KMDvalue" : 0,
+      "height" : 121225,
+      "smartaddress" : "XcYdfQgeuM5f5V2LNo9g8o8p3rPPbKwwCg",
+      "p2shtype" : 16
+
+
+xsn-cli sendtoaddress "XcYdfQgeuM5f5V2LNo9g8o8p3rPPbKwwCg" 1
+"fee": -0.00000226
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"XSN\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"XSN\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Stakenet (XSN)
+SWAP completed! 2947865189-4157667755 {"uuid":"9491ef05c3022b1f7ff0a2916d20c85c0b461f7edbafc79645f6b091e480fa37","expiration":1527830146,"tradeid":0,"requestid":2947865189,"quoteid":4157667755,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"XSN","srcamount":0.73802165,"bobtxfee":0.00010000,"alice":"KMD","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"17741887513946095617","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.73812165, 0.08010000, 0.73822165, 0.08011000, 0.83047435, 0, 0, 0.83037435, 0, 0, 0],"result":"success","status":"finished","finishtime":1527814874,"bobdeposit":"432f90bd2025a83e2c5b3a6fa69eac43ba4c8850bbe8f5199a0222ba77c19269","alicepayment":"4457d00a4d5c466f22227de293796b61bd4d069832f5b36a3da6f5556631baaf","bobpayment":"b23d7a3b2abf3878135617dae99a814fc4f8e372e62b54dd1f2e847289e0d740","paymentspent":"201d31b16d83d65847185e258cbb7afca7a2879c064b2ddbf1dde70f651d9cee","Apaymentspent":"9c856a64389cdfcc4a5433d72603a85f588aa229357e0e7bf4c40897be9a0cae","depositspent":"3fb5e65f20c034d3e122492b1238e30a22e674ea974cb616142f42851574a783","method":"tradestatus","finishtime":1527814874}
+bobdeposit https://xsnexplorer.io/transactions/432f90bd2025a83e2c5b3a6fa69eac43ba4c8850bbe8f5199a0222ba77c19269
+alicepayment https://kmdexplorer.ru/tx/4457d00a4d5c466f22227de293796b61bd4d069832f5b36a3da6f5556631baaf
+bobpayment https://xsnexplorer.io/transactions/b23d7a3b2abf3878135617dae99a814fc4f8e372e62b54dd1f2e847289e0d740
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"XSN\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"stakenet\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"XSN\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"stakenet\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"XSN\",\"rel\":\"LTC\",\"margin\":0.05,\"refbase\":\"stakenet\",\"refrel\":\"coinmarketcap\"}"

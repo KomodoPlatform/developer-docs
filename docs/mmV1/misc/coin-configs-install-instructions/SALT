@@ -1,0 +1,42 @@
+{\"coin\":\"SALT\",\"name\":\"salt\",\"etomic\":\"0x4156D3342D5c385a87D264F90653733592000581\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SALT\"}"
+
+home
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "txfee" : 1000,
+      "installed" : false,
+      "balance" : 0,
+      "height" : -1,
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "coin" : "SALT",
+      "wiftype" : 188
+
+hetzner
+      "installed" : false,
+      "txfee" : 1000,
+      "smartaddress" : "0x98298409c949135eed89233d04c2cfef984baff5",
+      "wiftype" : 188,
+      "balance" : 7.39,
+      "rpc" : "127.0.0.1:80",
+      "p2shtype" : 85,
+      "status" : "active",
+      "coin" : "SALT",
+      "pubtype" : 0,
+      "height" : -1
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"SALT\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"SALT\",\"rel\":\"KMD\",\"relvolume\":0.1,\"price\":0.12}"
+SALT (SALT)
+SWAP completed! 63518504-1568548026 {"uuid":"11c723afba3a504144c589c6a967a268444308907418330ee06fc6a08c2dceb1","expiration":1531375388,"tradeid":0,"requestid":63518504,"quoteid":1568548026,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"SALT","bobtomic":"0x4156D3342D5c385a87D264F90653733592000581","etomicsrc":"0x98298409c949135eed89233d04c2cfef984baff5","srcamount":0.88913364,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.10009000,"alicetxfee":0.00001000,"aliceid":"14831992270670331905","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.10010000, 1.00002000, 0.10011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531360261,"bobdeposit":"e9c5c6f59c5f6a7906e2542a24dffaf7d77473a67269b747d582c6b40ba96200","alicepayment":"c064cbc143f04a31f696239e7d03be55915efd2dc34b6ac4f99fb81755935093","bobpayment":"2ad660c0f0bd463754bec1cd932671bf316a765ddd219b5b00f0ff9e02cc1351","paymentspent":"6e31d1214b853902a5cb423944810a2c0fa8f470d7180e8225c3b78f7673d2de","Apaymentspent":"0c3d5325a5801547dac7c057ccad97b638851edad11982a66cade147083209f1","depositspent":"927eb7306d354711ad0efa78acc7ebc6200c71bb10c8b886c022f6500cf16288","alicedexfee":"8dca9b1a639fc3ca703db9710a5241d53785839164c79ea3484971230c03445d","method":"tradestatus","finishtime":1531360261}
+bobdeposit https://etherscan.io/tx/0x75b01a2502d7786965007529756b273aec4a9bdd2f260418a1b46256e12dfc9b
+alicepayment https://kmdexplorer.ru/tx/c064cbc143f04a31f696239e7d03be55915efd2dc34b6ac4f99fb81755935093
+bobpayment https://etherscan.io/tx/0x66f2004c2a40bec64ca82fcccc096bd0c41f8557240d63a8b47f75c2d418a3d6
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SALT\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"salt\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SALT\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"salt\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SALT\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"salt\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"SALT\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"salt\",\"refrel\":\"coinmarketcap\"}"

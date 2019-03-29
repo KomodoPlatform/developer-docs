@@ -1,0 +1,41 @@
+{\"coin\":\"ONNI\",\"name\":\"misericordae\",\"etomic\":\"0xbd9c6028e1132a6b52f1ca15c0933a2fd342e21f\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ONNI\"}"
+
+home
+      "height" : -1,
+      "wiftype" : 188,
+      "installed" : false,
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "balance" : 16.5,
+      "pubtype" : 0,
+      "coin" : "ONNI",
+      "p2shtype" : 85,
+      "status" : "active",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c"
+
+contabo
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "installed" : false,
+      "status" : "active",
+      "wiftype" : 188,
+      "balance" : 0,
+      "txfee" : 1000,
+      "height" : -1,
+      "coin" : "ONNI",
+      "rpc" : "127.0.0.1:80"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"ONNI\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1,\"broadcast\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"ONNI\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"ONNI\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Misericordae (ONNI)
+SWAP completed! 3025793178-2797148964 {"uuid":"270072f7645d32f5c215f47787b76cafd7656544aaea22ace2ef2d08b81f8c34","expiration":1529021508,"tradeid":0,"requestid":3025793178,"quoteid":2797148964,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"ONNI","bobtomic":"0xbd9c6028e1132a6b52f1ca15c0933a2fd342e21f","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.67333297,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"8912536178251333633","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.67334297, 0.08010000, 0.67335297, 0.08011000, 0.75751959, 0, 0, 0.75750959, 0, 0, 0],"result":"success","status":"finished","finishtime":1529006415,"bobdeposit":"9d80b3d0f0af5cb8c4734137fb28c45564d718f65bbccf8ec88609706c9437c7","alicepayment":"2e2312db792156cbeb9fc28612bd684be803524fb0a7fbbd5371d2f987c695f6","bobpayment":"e955e9045c2e91e6566e15d4349cc61d0321670f1233a866a07abd3c07a0ec72","paymentspent":"b7a2454ee6c52f38849b6b8ba8b9a3cc2d5001ca3fd54c4a4823a0bfcec63b73","Apaymentspent":"05f525ce55ff7fcbd2ec8650ea6bbc703e0394e951a6fd94737b05ed70b05412","depositspent":"64fdde7ddc020521749b096cb89f0e5396c724e78ca95b671ec4c2aeef70f360","method":"tradestatus","finishtime":1529006415}
+bobdeposit https://etherscan.io/tx/0xacaf2255ac3ceb0acc20e6c30a55ce94b95b76450ed20187cfd753fedb6e0550
+alicepayment https://kmdexplorer.ru/tx/2e2312db792156cbeb9fc28612bd684be803524fb0a7fbbd5371d2f987c695f6
+bobpayment https://etherscan.io/tx/0xcf0ec2b6f032713ccd83a1d3e99f9b60d89c83aa1e01915a6a303dd1b83799d1
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"ONNI\",\"fixed\":1}"

@@ -1,0 +1,39 @@
+https://bitcointalk.org/index.php?topic=2634042.0
+https://github.com/sparkscrypto/Sparks
+
+
+src/chainparams.cpp
+// Sparks addresses start with 'G'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,38);
+// Sparks script addresses start with '5'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,10);
+// Sparks private keys start with '5' or 'G' (?)
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,198);
+
+{\"coin\":\"SPK\",\"name\":\"Sparks\",\"rpcport\":8892,\"pubtype\":38,\"p2shtype\":10,\"wiftype\":198,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/sparkscrypto/Sparks
+cd Sparks
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/Sparks*
+mkdir ~/.Sparks
+echo "server=1" >> ~/.Sparks/Sparks.conf
+echo "txindex=1" >> ~/.Sparks/Sparks.conf
+echo "litemode=1" >> ~/.Sparks/Sparks.conf
+echo "listen=0" >> ~/.Sparks/Sparks.conf
+echo "listenonion=0" >> ~/.Sparks/Sparks.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.Sparks/Sparks.conf
+echo "rpcuser=barterspk" >> ~/.Sparks/Sparks.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.Sparks/Sparks.conf
+chmod 0600 ~/.Sparks/Sparks.conf
+Sparksd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SPK\"}"
+
+home

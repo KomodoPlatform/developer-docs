@@ -1,0 +1,43 @@
+{\"coin\":\"BNT\",\"name\":\"bancor\",\"etomic\":\"0x1F573D6Fb3F13d689FF844B4cE37794d79a7FF1C\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BNT\"}"
+
+home
+      "coin" : "BNT",
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "height" : -1,
+      "installed" : false,
+      "txfee" : 1000,
+      "balance" : 0,
+      "wiftype" : 188,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "rpc" : "127.0.0.1:80"
+
+contabo
+      "wiftype" : 188,
+      "status" : "active",
+      "balance" : 0,
+      "pubtype" : 0,
+      "coin" : "BNT",
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "height" : -1,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "txfee" : 1000,
+      "installed" : false
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"BNT\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BNT\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BNT\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Bancor (BNT)
+SWAP completed! 3396757584-658862646 {"uuid":"1001c6fc84608523381c406e3b6a6e35fad4aff01d0439d5f7dd960d0b85bc53","expiration":1527314877,"tradeid":0,"requestid":3396757584,"quoteid":658862646,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"BNT","bobtomic":"0x1F573D6Fb3F13d689FF844B4cE37794d79a7FF1C","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.70902895,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"15557954093716078593","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.70903895, 0.08010000, 0.70904895, 0.08011000, 0.79767756, 0, 0, 0.79766756, 0, 0, 0],"result":"success","status":"finished","finishtime":1527300079,"bobdeposit":"c750905e7d55b5e913c30ea1d28f40a0bea39debead1ab80f047980829d1faa7","alicepayment":"38566ef0dc8a6bd4b8e1daecbf78ac281be96e3ebd31ee24e9612c75eff14e51","bobpayment":"d5e95100f8f5a08985bd803c5225f3f2edb6ad97c88e9dca53917a02a610818b","paymentspent":"bd490524e3ebc848cb210bc78d9ef943994d05c99a3affd000839b7453c36060","Apaymentspent":"49edbeb1d86cfcf64bdbfb4ed8065e377572ad3173ac1f76bf6be9ceb6a8d4f8","depositspent":"e22f32b59bb8adae2b539eacc14c755f71109711c778a68a7d1b003b6c619125","method":"tradestatus","finishtime":1527300079}
+bobdeposit https://etherscan.io/tx/0xa771516bbfe71177bab3e3085745e7cd536b5b6d3420ddea59a980f51acd1674
+alicepayment https://kmdexplorer.ru/tx/38566ef0dc8a6bd4b8e1daecbf78ac281be96e3ebd31ee24e9612c75eff14e51
+bobpayment https://etherscan.io/tx/0xed57a2608262002aca159f76f6ef76a3ce3a6025e3aad843addef5fff7d9d14c
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"BNT\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"bancor\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"BNT\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"bancor\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"BNT\",\"rel\":\"LTC\",\"margin\":0.05,\"refbase\":\"bancor\",\"refrel\":\"coinmarketcap\"}"

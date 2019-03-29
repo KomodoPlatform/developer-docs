@@ -1,0 +1,64 @@
+https://bitcointalk.org/index.php?topic=1243963.0
+https://github.com/octocoin-project/octocoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = list_of(18);
+base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
+base58Prefixes[SECRET_KEY] =     list_of(176);
+
+src/main.h
+DEFAULT_TX_FEE = 2000000;
+src/main.cpp
+minRelayTxFee = CFeeRate(DEFAULT_TX_FEE);
+
+{\"coin\":\"888\",\"name\":\"octocoin\",\"rpcport\":22888,\"pubtype\":18,\"p2shtype\":5,\"wiftype\":176,\"txfee\":2000000}
+
+
+cd ~/wallets
+git clone https://github.com/octocoin-project/octocoin
+cd octocoin
+./autogen.sh
+CC=gcc-5 CXX=g++-5 CPP=cpp-5 ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j2
+sudo make install
+sudo strip /usr/local/bin/octocoin*
+mkdir ~/.octocoin
+echo "server=1" >> ~/.octocoin/octocoin.conf
+echo "listen=0" >> ~/.octocoin/octocoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.octocoin/octocoin.conf
+echo "rpcuser=barter888" >> ~/.octocoin/octocoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.octocoin/octocoin.conf
+chmod 0600 ~/.octocoin/octocoin.conf
+octocoind -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"888\"}"
+
+home
+   {
+      "p2shtype" : 5,
+      "status" : "active",
+      "txfee" : 2000000,
+      "pubtype" : 18,
+      "rpc" : "127.0.0.1:22888",
+      "coin" : "888",
+      "smartaddress" : "8cio2kmg8D4rTzo5mAa5gmkMJiGaUDcN3o",
+      "wiftype" : 176
+   },
+
+contabo
+   {
+      "status" : "active",
+      "rpc" : "127.0.0.1:22888",
+      "coin" : "888",
+      "p2shtype" : 5,
+      "smartaddress" : "8GweZ7PwitCqeLwJxTqC1XMBYbSgPpjTYV",
+      "pubtype" : 18,
+      "wiftype" : 176,
+      "txfee" : 2000000
+   },
+
+octocoin-cli sendtoaddress "8GweZ7PwitCqeLwJxTqC1XMBYbSgPpjTYV" 99.9
+"fee" : -0.02000000,
+"fee" : -0.10000000,

@@ -1,0 +1,72 @@
+https://bitcointalk.org/index.php?topic=843017
+https://github.com/Electronic-Gulden-Foundation/egulden
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,48);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,176);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 100000;
+
+{\"coin\":\"EFL\",\"name\":\"egulden\",\"confpath\":\"${HOME#}/.egulden/coin.conf\",\"rpcport\":21015,\"pubtype\":48,\"p2shtype\":5,\"wiftype\":176,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/Electronic-Gulden-Foundation/egulden
+cd egulden
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/egulden*
+mkdir ~/.egulden
+echo "server=1" >> ~/.egulden/coin.conf
+echo "txindex=1" >> ~/.egulden/coin.conf
+echo "listen=0" >> ~/.egulden/coin.conf
+echo "listenonion=0" >> ~/.egulden/coin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.egulden/coin.conf
+echo "rpcuser=barterefl" >> ~/.egulden/coin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.egulden/coin.conf
+echo "addnode=dnsseed1.egulden.org" >> ~/.egulden/coin.conf
+echo "addnode=dnsseed2.egulden.org" >> ~/.egulden/coin.conf
+echo "addnode=dnsseed3.egulden.org" >> ~/.egulden/coin.conf
+echo "addnode=dnsseed4.egulden.org" >> ~/.egulden/coin.conf
+chmod 0600 ~/.egulden/coin.conf
+eguldend -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"EFL\"}"
+
+home
+      "pubtype" : 48,
+      "KMDvalue" : 0,
+      "balance" : 0,
+      "status" : "active",
+      "wiftype" : 176,
+      "height" : 1013814,
+      "txfee" : 100000,
+      "smartaddress" : "Lgrta1iKRcy8zzygVkZeEXuxBqzssPWtae",
+      "rpc" : "127.0.0.1:21015",
+      "installed" : true,
+      "p2shtype" : 5,
+      "coin" : "EFL"
+
+contabo
+      "pubtype" : 48,
+      "wiftype" : 176,
+      "txfee" : 100000,
+      "height" : 1013785,
+      "KMDvalue" : 0,
+      "balance" : 0,
+      "installed" : true,
+      "status" : "active",
+      "coin" : "EFL",
+      "p2shtype" : 5,
+      "rpc" : "127.0.0.1:21015",
+      "smartaddress" : "LM5k6NLb2J78BM7uh3pkZHWnRjAyjbz38N"
+
+egulden-cli sendtoaddress "LM5k6NLb2J78BM7uh3pkZHWnRjAyjbz38N" 10
+egulden-cli sendtoaddress "LM5k6NLb2J78BM7uh3pkZHWnRjAyjbz38N" 12
+"fee": -0.00045200

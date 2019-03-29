@@ -1,0 +1,63 @@
+https://bitcointalk.org/index.php?topic=1317918.0
+https://github.com/HOdlcoin/HOdlcoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,40);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,40+128);
+
+src/main.cpp
+minRelayTxFee = CFeeRate(5000);
+
+{\"coin\":\"HODLC\",\"name\":\"hodlcoin\",\"rpcport\":11989,\"pubtype\":40,\"p2shtype\":5,\"wiftype\":168,\"txfee\":5000} (collides with europecoin)
+{\"coin\":\"HODLC\",\"name\":\"hodlcoin\",\"rpcport\":12989,\"pubtype\":40,\"p2shtype\":5,\"wiftype\":168,\"txfee\":5000}
+
+
+cd ~/wallets
+git clone https://github.com/HOdlcoin/HOdlcoin
+cd HOdlcoin
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/hodlcoin*
+mkdir ~/.hodlcoin
+echo "server=1" >> ~/.hodlcoin/hodlcoin.conf
+echo "listen=0" >> ~/.hodlcoin/hodlcoin.conf
+echo "rpcport=12989" >> ~/.hodlcoin/hodlcoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.hodlcoin/hodlcoin.conf
+echo "rpcuser=barterhodl" >> ~/.hodlcoin/hodlcoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.hodlcoin/hodlcoin.conf
+chmod 0600 ~/.hodlcoin/hodlcoin.conf
+hodlcoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HODLC\"}"
+
+home
+   {
+      "pubtype" : 40,
+      "smartaddress" : "HUA4h9L1kBG8TXrzJPu6MXjf9owL7DRt6g",
+      "wiftype" : 168,
+      "txfee" : 5000,
+      "status" : "active",
+      "rpc" : "127.0.0.1:12989",
+      "p2shtype" : 5,
+      "coin" : "HODLC"
+   },
+
+contabo
+   {
+      "p2shtype" : 5,
+      "rpc" : "127.0.0.1:12989",
+      "wiftype" : 168,
+      "coin" : "HODLC",
+      "pubtype" : 40,
+      "smartaddress" : "H8NvDVxHLrQ7dt1DVhACgHLVPh7RwvmTfH",
+      "status" : "active",
+      "txfee" : 5000
+   },
+
+hodlcoin-cli sendtoaddress "H8NvDVxHLrQ7dt1DVhACgHLVPh7RwvmTfH" 799.996
+"fee" : -0.00001130,

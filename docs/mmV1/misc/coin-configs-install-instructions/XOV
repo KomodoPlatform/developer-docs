@@ -1,0 +1,41 @@
+{\"coin\":\"XOV\",\"name\":\"xovbank\",\"etomic\":\"0x153eD9CC1b792979d2Bde0BBF45CC2A7e436a5F9\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"XOV\"}"
+
+home
+      "txfee" : 1000,
+      "height" : -1,
+      "status" : "active",
+      "rpc" : "127.0.0.1:80",
+      "balance" : 0,
+      "installed" : false,
+      "pubtype" : 0,
+      "coin" : "XOV",
+      "p2shtype" : 85,
+      "wiftype" : 188,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c"
+
+contabo
+      "txfee" : 1000,
+      "balance" : 0,
+      "coin" : "XOV",
+      "height" : -1,
+      "wiftype" : 188,
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "installed" : false
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"XOV\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"XOV\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"XOV\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+XOVBank (XOV)
+SWAP completed! 1077876583-2060140138 {"uuid":"38f763aec31504c45fba96d7a77922f5e0bef267a0946f97c365492fa6c99f89","expiration":1527459078,"tradeid":0,"requestid":1077876583,"quoteid":2060140138,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"XOV","bobtomic":"0x153eD9CC1b792979d2Bde0BBF45CC2A7e436a5F9","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.67220490,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"17839920276135870465","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.67221490, 0.08010000, 0.67222490, 0.08011000, 0.75625051, 0, 0, 0.75624051, 0, 0, 0],"result":"success","status":"finished","finishtime":1527444407,"bobdeposit":"93f42099068bbc14275f6d3688085248fb93d6c052dd18577ed356a81152fc16","alicepayment":"12dba4a5b0d7c74896b6fe808ba9911a647f434d7943a0dcf036814d89b70095","bobpayment":"84c8a59999a75bf266edf1c680f2854f62e710377762484d74d104b4f6f2b5f1","paymentspent":"84fb9278a976e4f8cedca0deb968199c6477057af45d042f9ed7ba71650f26ee","Apaymentspent":"f780c11e3e6b36b71865feffc01bd03c0da828c6fb860da19d4fd4269f780b85","depositspent":"4349884aa89235b85e51166022127c790858da3e1c995ff29557a737bf91affe","method":"tradestatus","finishtime":1527444407}
+bobdeposit https://etherscan.io/tx/0xe48e86047da73223176deafece0186175eab089b1b014b894a878d18fb657299
+alicepayment https://kmdexplorer.ru/tx/12dba4a5b0d7c74896b6fe808ba9911a647f434d7943a0dcf036814d89b70095
+bobpayment https://etherscan.io/tx/0x4e097a3255f0d32cf3e906aab76883797df2c70fbed231eb3fa11450b2432bb6
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"XOV\",\"fixed\":1}"

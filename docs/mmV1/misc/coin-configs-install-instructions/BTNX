@@ -1,0 +1,77 @@
+https://bitcointalk.org/index.php?topic=4541359.0
+https://github.com/modcrypto/bitnexus
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,25);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,10);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,198);
+
+{\"coin\":\"BTNX\",\"name\":\"bitnexus\",\"confpath\":\"${HOME#}/.bitcoinnodecore/bitnexus.conf\",\"rpcport\":9191,\"pubtype\":25,\"p2shtype\":10,\"wiftype\":198,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/modcrypto/bitnexus
+cd bitnexus
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/bitnexus*
+mkdir ~/.bitcoinnodecore
+echo "server=1" >> ~/.bitcoinnodecore/bitnexus.conf
+echo "txindex=1" >> ~/.bitcoinnodecore/bitnexus.conf
+echo "litemode=1" >> ~/.bitcoinnodecore/bitnexus.conf
+echo "listen=0" >> ~/.bitcoinnodecore/bitnexus.conf
+echo "listenonion=0" >> ~/.bitcoinnodecore/bitnexus.conf
+echo "rpcuser=barterbtnx" >> ~/.bitcoinnodecore/bitnexus.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.bitcoinnodecore/bitnexus.conf
+echo "rpcworkqueue=64" >> ~/.bitcoinnodecore/bitnexus.conf
+echo "rpcthreads=16" >> ~/.bitcoinnodecore/bitnexus.conf
+chmod 0600 ~/.bitcoinnodecore/bitnexus.conf
+bitnexusd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"BTNX\"}"
+
+home
+      "pubtype" : 25,
+      "KMDvalue" : 0,
+      "wiftype" : 198,
+      "installed" : true,
+      "coin" : "BTNX",
+      "smartaddress" : "BS61vWrh6UJzC2mgw6uK5eeriF5BVyo2V5",
+      "height" : 74835,
+      "rpc" : "127.0.0.1:9191",
+      "txfee" : 10000,
+      "status" : "active",
+      "p2shtype" : 10,
+      "balance" : 0
+
+contabo
+      "installed" : true,
+      "balance" : 0,
+      "pubtype" : 25,
+      "txfee" : 10000,
+      "coin" : "BTNX",
+      "height" : 74835,
+      "KMDvalue" : 0,
+      "rpc" : "127.0.0.1:9191",
+      "wiftype" : 198,
+      "smartaddress" : "B6JsSsUxh9SyNNuv8QARQQFgx8FHKXK1wd",
+      "status" : "active",
+      "p2shtype" : 10
+
+bitnexus-cli sendtoaddress "B6JsSsUxh9SyNNuv8QARQQFgx8FHKXK1wd" 1
+"fee": -0.00004520
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BTNX\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BTNX\",\"rel\":\"KMD\",\"relvolume\":0.1,\"price\":0.12}"
+BitNexus (BTNX)
+SWAP completed! 2031640094-2343233417 {"uuid":"6322660d2d1d90ef1024a37698d55de4ba020888ccc977e39283d5ff9a61864e","expiration":1531128819,"tradeid":0,"requestid":2031640094,"quoteid":2343233417,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"BTNX","srcamount":0.87243222,"bobtxfee":0.00010000,"alice":"KMD","destamount":0.10009000,"alicetxfee":0.00001000,"aliceid":"943821569361051649","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.87253222, 0.10010000, 0.87263222, 0.10011000, 0.98168624, 0, 0, 0.98158624, 0, 0, 0],"result":"success","status":"finished","finishtime":1531114008,"bobdeposit":"ff76e17ffa98cd2363544c362ea3c1f545e3d34806c5a7c0696c5c5d06b414af","alicepayment":"be323406e6a7354981fb46b057c21334223f83454cd717d06de808fa61e0beca","bobpayment":"938b2d6988d1b3f77360d61e3a84376c5b19bcf0601b77ae6471b4a1b08c8439","paymentspent":"6e93022a3e26e51a4b493ca471d49f818d2b2cc5eb596b579de74edd6ae5dcf6","Apaymentspent":"010c25a976f48261605648c95fec3e9789a6cb0837de11e5b1346f993d9f79b8","depositspent":"4aa52d5b9f0fcc592b907ff9f6882f88e251f6f77093be4232ce093b957e6b7d","alicedexfee":"14a35345cadfb8464f05645425c1abe0a552c925ee3469692ad9349d3d207a8e","method":"tradestatus","finishtime":1531114008}
+bobdeposit http://explorer.bitnexus.online/tx/ff76e17ffa98cd2363544c362ea3c1f545e3d34806c5a7c0696c5c5d06b414af
+alicepayment https://kmdexplorer.ru/tx/be323406e6a7354981fb46b057c21334223f83454cd717d06de808fa61e0beca
+bobpayment http://explorer.bitnexus.online/tx/938b2d6988d1b3f77360d61e3a84376c5b19bcf0601b77ae6471b4a1b08c8439
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"BTNX\",\"fixed\":1}"

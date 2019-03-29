@@ -1,0 +1,62 @@
+https://bitcointalk.org/index.php?topic=236742
+https://github.com/florincoin/florincoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = list_of(35);
+base58Prefixes[SCRIPT_ADDRESS] = list_of(8);
+base58Prefixes[SECRET_KEY] =     list_of(176);
+
+src/main.h
+DEFAULT_TX_FEE = 100000; // 0.001 FLO
+
+{\"coin\":\"FLO\",\"name\":\"florincoin\",\"rpcport\":7313,\"pubtype\":35,\"p2shtype\":8,\"wiftype\":176,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/florincoin/florincoin
+cd florincoin
+./autogen.sh
+CC=gcc-5 CXX=g++-5 CPP=cpp-5 ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+#--with-libressl
+make -j4
+sudo make install
+sudo strip /usr/local/bin/florincoin*
+mkdir ~/.florincoin
+echo "server=1" >> ~/.florincoin/florincoin.conf
+echo "listen=0" >> ~/.florincoin/florincoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.florincoin/florincoin.conf
+echo "rpcuser=barterflo" >> ~/.florincoin/florincoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.florincoin/florincoin.conf
+chmod 0600 ~/.florincoin/florincoin.conf
+florincoind -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"FLO\"}"
+
+home
+   {
+      "p2shtype" : 8,
+      "rpc" : "127.0.0.1:7313",
+      "txfee" : 100000,
+      "pubtype" : 35,
+      "coin" : "FLO",
+      "smartaddress" : "FTU3mbqaCGwkNNAZBJEVvuNj1HecZiUMKB",
+      "status" : "active",
+      "wiftype" : 176
+   },
+
+contabo
+   {
+      "coin" : "FLO",
+      "wiftype" : 176,
+      "pubtype" : 35,
+      "smartaddress" : "F7guHxTqnx5jYiJnNbVcFeyZFApiS5bYWM",
+      "status" : "active",
+      "txfee" : 100000,
+      "p2shtype" : 8,
+      "rpc" : "127.0.0.1:7313"
+   },
+
+florincoin-cli sendtoaddress "F7guHxTqnx5jYiJnNbVcFeyZFApiS5bYWM" 3.91599998
+florincoin-cli sendtoaddress "F7guHxTqnx5jYiJnNbVcFeyZFApiS5bYWM" 4.69919997

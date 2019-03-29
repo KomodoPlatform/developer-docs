@@ -1,0 +1,68 @@
+https://bitcointalk.org/index.php?topic=1262920
+https://github.com/PIVX-Project/PIVX
+
+
+src/chainparams.cpp
+base58Prefixes[jumblr_iteration r.18369 s.0r<unsigned char>(1, 30);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 13);
+base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
+
+src/main.cpp
+minRelayTxFee = CFeeRate(10000);
+
+{\"coin\":\"PIVX\",\"name\":\"pivx\",\"rpcport\":51473,\"pubtype\":30,\"p2shtype\":13,\"wiftype\":212,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/PIVX-Project/PIVX
+cd PIVX
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/pivx*
+mkdir ~/.pivx
+echo "server=1" >> ~/.pivx/pivx.conf
+echo "txindex=1" >> ~/.pivx/pivx.conf
+echo "litemode=1" >> ~/.pivx/pivx.conf
+echo "staking=0" >> ~/.pivx/pivx.conf
+echo "listen=0" >> ~/.pivx/pivx.conf
+echo "listenonion=0" >> ~/.pivx/pivx.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.pivx/pivx.conf
+echo "rpcuser=barterpivx" >> ~/.pivx/pivx.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.pivx/pivx.conf
+chmod 0600 ~/.pivx/pivx.conf
+pivxd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"PIVX\"}"
+
+home
+   {
+      "pubtype" : 30,
+      "smartaddress" : "DSn2r4M8eNdNHCU84CZuWH1nrmMu3gbV1i",
+      "p2shtype" : 13,
+      "rpc" : "127.0.0.1:51473",
+      "wiftype" : 212,
+      "coin" : "PIVX",
+      "status" : "active",
+      "txfee" : 10000
+   },
+   
+contabo
+      "coin" : "PIVX",
+      "smartaddress" : "D6ztNQyQF3mMTYcMFVq1q2cd6eXzqPKGc8",
+      "installed" : true,
+      "KMDvalue" : 3.10977906,
+      "wiftype" : 212,
+      "height" : 965699,
+      "txfee" : 10000,
+      "pubtype" : 30,
+      "p2shtype" : 13,
+      "status" : "active",
+      "balance" : 2.22382266,
+      "rpc" : "127.0.0.1:51473"
+
+pivx-cli sendtoaddress "D6ztNQyQF3mMTYcMFVq1q2cd6eXzqPKGc8" 5.1
+pivx-cli sendtoaddress "D6ztNQyQF3mMTYcMFVq1q2cd6eXzqPKGc8"
+"fee": -0.00674626

@@ -1,0 +1,60 @@
+https://bitcointalk.org/index.php?topic=1272422.0
+https://github.com/sexcoin-project/sexcoin
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = list_of(62);
+base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
+base58Prefixes[SECRET_KEY] =     list_of(190);
+
+src/main.h
+DEFAULT_TX_FEE = 100000; // 0.001 LTC
+
+{\"coin\":\"SXC\",\"name\":\"sexcoin\",\"rpcport\":9561,\"pubtype\":62,\"p2shtype\":5,\"wiftype\":190,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/sexcoin-project/sexcoin
+cd sexcoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/sexcoin*
+mkdir ~/.sexcoin
+echo "server=1" >> ~/.sexcoin/sexcoin.conf
+echo "listen=0" >> ~/.sexcoin/sexcoin.conf
+echo "rpcuser=bartersex" >> ~/.sexcoin/sexcoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.sexcoin/sexcoin.conf
+chmod 0600 ~/.sexcoin/sexcoin.conf
+sexcoind -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SXC\"}"
+
+home
+   {
+      "txfee" : 100000,
+      "rpc" : "127.0.0.1:9560",
+      "coin" : "SXC",
+      "pubtype" : 62,
+      "status" : "active",
+      "smartaddress" : "SKbLMXtMN9TQT4vtqdE72Hixzuc5mi5BrU",
+      "wiftype" : 190,
+      "p2shtype" : 5
+   },
+
+contabo
+   {
+      "status" : "active",
+      "p2shtype" : 5,
+      "coin" : "SXC",
+      "txfee" : 100000,
+      "wiftype" : 190,
+      "smartaddress" : "RypBstWcxpbPdR582vVDM3KoEnnBcjgMMa",
+      "pubtype" : 62,
+      "rpc" : "127.0.0.1:9561"
+   },
+
+sexcoin-cli sendtoaddress "RypBstWcxpbPdR582vVDM3KoEnnBcjgMMa" 100
+"fee" : -1.00000000,

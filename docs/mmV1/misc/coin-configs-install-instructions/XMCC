@@ -1,0 +1,76 @@
+https://bitcointalk.org/index.php?topic=2083054
+https://github.com/monacocoin-net/monoeci-core
+
+
+src/chainparams.cpp
+// monoeci addresses start with 'M'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,50);
+// monoeci  script addresses start with 'W'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,73);
+// monoeci  private keys start with 'Y' or 'X'
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,77);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 10000; // was 1000
+
+{\"coin\":\"XMCC\",\"name\":\"monoeci\",\"confpath\":\"${HOME#}/.monoeciCore/monoeci.conf\",\"rpcport\":24156,\"pubtype\":50,\"p2shtype\":73,\"wiftype\":77,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/monacocoin-net/monoeci-core
+cd monoeci-core
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/monoeci*
+mkdir ~/.monoeciCore
+echo "server=1" >> ~/.monoeciCore/monoeci.conf
+echo "txindex=1" >> ~/.monoeciCore/monoeci.conf
+echo "litemode=1" >> ~/.monoeciCore/monoeci.conf
+echo "listen=0" >> ~/.monoeciCore/monoeci.conf
+echo "listenonion=0" >> ~/.monoeciCore/monoeci.conf
+echo "rpcuser=barterxmcc" >> ~/.monoeciCore/monoeci.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.monoeciCore/monoeci.conf
+chmod 0600 ~/.monoeciCore/monoeci.conf
+monoecid -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"XMCC\"}"
+
+home
+      "status" : "active",
+      "installed" : true,
+      "smartaddress" : "MVY6YEJtqyttdsFrYbEHCnTXSrWmGgKB2q",
+      "rpc" : "127.0.0.1:24156",
+      "pubtype" : 50,
+      "txfee" : 10000,
+      "wiftype" : 77,
+      "height" : 120142,
+      "p2shtype" : 73,
+      "coin" : "XMCC",
+      "KMDvalue" : 0,
+      "balance" : 0
+      
+contabo
+      "pubtype" : 50,
+      "balance" : 0,
+      "smartaddress" : "M9kx4awASf2spDQ5jtVPXY4Mgjgs9Kmozi",
+      "status" : "active",
+      "height" : 120142,
+      "coin" : "XMCC",
+      "installed" : true,
+      "txfee" : 10000,
+      "rpc" : "127.0.0.1:24156",
+      "wiftype" : 77,
+      "p2shtype" : 73,
+      "KMDvalue" : 0
+
+monoeci-cli sendtoaddress "M9kx4awASf2spDQ5jtVPXY4Mgjgs9Kmozi" 1
+monoeci-cli sendtoaddress "M9kx4awASf2spDQ5jtVPXY4Mgjgs9Kmozi" 1.2
+"fee": -0.00004520
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"XMCC\",\"rel\":\"KMD\",\"margin\":0.07,\"refbase\":\"monacocoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"XMCC\",\"rel\":\"BCH\",\"margin\":0.07,\"refbase\":\"monacocoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"XMCC\",\"rel\":\"BTC\",\"margin\":0.07,\"refbase\":\"monacocoin\",\"refrel\":\"coinmarketcap\"}"
+

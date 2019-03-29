@@ -1,0 +1,98 @@
+https://bitcointalk.org/index.php?topic=1733963.0
+https://github.com/mooncoincore/wallet
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,3);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,22);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,131);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 100000;
+
+{\"coin\":\"MOON\",\"name\":\"mooncoin\",\"rpcport\":44663,\"pubtype\":3,\"p2shtype\":22,\"wiftype\":131,\"txfee\":100000}
+
+
+cd ~/wallets
+git clone https://github.com/mooncoincore/wallet
+cd wallet
+./autogen.sh
+./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/mooncoin*
+mkdir ~/.mooncoin
+echo "server=1" >> ~/.mooncoin/mooncoin.conf
+echo "txindex=1" >> ~/.mooncoin/mooncoin.conf
+echo "listen=0" >> ~/.mooncoin/mooncoin.conf
+echo "listenonion=0" >> ~/.mooncoin/mooncoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.mooncoin/mooncoin.conf
+echo "rpcuser=bartermoon" >> ~/.mooncoin/mooncoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.mooncoin/mooncoin.conf
+addnode=151.228.208.157
+addnode=151.80.186.24
+addnode=174.195.146.66
+addnode=180.250.42.130
+addnode=184.14.146.240
+addnode=184.151.36.34
+addnode=187.154.187.154
+addnode=192.64.114.237
+addnode=192.99.6.207
+addnode=201.247.35.244
+addnode=213.161.21.31
+addnode=213.254.134.128
+addnode=24.138.179.126
+addnode=37.120.168.233
+addnode=37.211.12.228
+addnode=41.137.155.236
+addnode=5.45.105.66
+addnode=5.9.14.199
+addnode=50.124.154.234
+addnode=64.25.164.84
+addnode=64.25.190.103
+addnode=64.30.93.168
+addnode=68.145.15.92
+addnode=70.114.29.30
+addnode=73.113.135.99
+addnode=73.61.204.73
+addnode=74.222.14.54
+addnode=76.169.57.92
+addnode=77.204.46.19
+addnode=84.208.160.27
+addnode=91.224.77.44
+addnode=93.37.178.195
+addnode=94.55.241.112
+chmod 0600 ~/.mooncoin/mooncoin.conf
+mooncoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MOON\"}"
+
+home
+      "status" : "active",
+      "estimatedrate" : 20,
+      "txfee" : 100000,
+      "p2shtype" : 22,
+      "smartaddress" : "2aekG8JMUW7iCVhnPsaJQtfYs9QRsSDcAE",
+      "wiftype" : 131,
+      "rpc" : "127.0.0.1:44663",
+      "coin" : "MOON",
+      "pubtype" : 3
+
+contabo
+      "height" : 1178610,
+      "smartaddress" : "2EsbnUvd5BFhNqr1bAqQjeGP72aXeCGw3r",
+      "pubtype" : 3,
+      "balance" : 0,
+      "installed" : true,
+      "p2shtype" : 22,
+      "wiftype" : 131,
+      "coin" : "MOON",
+      "txfee" : 100000,
+      "rpc" : "127.0.0.1:44663",
+      "status" : "active",
+      "KMDvalue" : 0
+
+mooncoin-cli sendtoaddress "2EsbnUvd5BFhNqr1bAqQjeGP72aXeCGw3r" 9988.99909999
+mooncoin-cli sendtoaddress "2EsbnUvd5BFhNqr1bAqQjeGP72aXeCGw3r" 115.09690001
+"fee" : -0.10000000

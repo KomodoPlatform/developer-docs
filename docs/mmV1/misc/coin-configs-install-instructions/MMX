@@ -1,0 +1,41 @@
+{\"coin\":\"MMX\",\"name\":\"mechanix\",\"etomic\":\"0xe7c33a0e04f2316bb321c4ad2976873d09538b56\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"MMX\"}"
+
+home
+      "rpc" : "127.0.0.1:80",
+      "pubtype" : 0,
+      "status" : "active",
+      "wiftype" : 188,
+      "balance" : 0,
+      "coin" : "MMX",
+      "height" : -1,
+      "txfee" : 1000,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "p2shtype" : 85,
+      "installed" : false
+
+contabo
+      "pubtype" : 0,
+      "balance" : 1000,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "coin" : "MMX",
+      "installed" : false,
+      "p2shtype" : 85,
+      "height" : -1
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"MMX\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"MMX\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"MMX\",\"rel\":\"KMD\",\"relvolume\":0.1,\"price\":0.12}"
+Mechanix Token (MMX)
+SWAP completed! 1059596686-1246595527 {"uuid":"439c8bd220f843efb548e0ed7fcb24d320d110893a47f7174470851ca920ed8d","expiration":1531102223,"tradeid":0,"requestid":1059596686,"quoteid":1246595527,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"MMX","bobtomic":"0xe7c33a0e04f2316bb321c4ad2976873d09538b56","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.85719917,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.10009000,"alicetxfee":0.00001000,"aliceid":"14509649407157731329","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.10010000, 1.00002000, 0.10011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531087080,"bobdeposit":"31fa29216a5e9d8d72b6f2a1cdfee912fe2d6b11d5039cac05a14a92a4a971ce","alicepayment":"3373c7cadaa4a75c32d09fbc5156bb7a24e75f478eb181ebf418fb44f50990e1","bobpayment":"0634b581e26ab083ee7cb7214b04ceb22ff05c9c248aff9333c8d292db911b7c","paymentspent":"9691fe10f27fcaf6a42b56a4e4605c406a80f07f0094f7283e416335a543d29e","Apaymentspent":"743ee0fc42a2ee23908eb75a627dc10b1d61f3b3e64b046f57d97839237b31d2","depositspent":"3e9501875dfac7d380318a827c455e473888d886b69e7ee309e76b1f55d8c715","alicedexfee":"33a405922cee2c6a6b7a27e4fc78a7bb544e3420b781b7224ac58c34976268f4","method":"tradestatus","finishtime":1531087080}
+bobdeposit https://etherscan.io/tx/0x95baee8fe6210fd36c4c5fdbbc311a102f5cd8f732b41683d1ab6ebd69be9d78
+alicepayment https://kmdexplorer.ru/tx/3373c7cadaa4a75c32d09fbc5156bb7a24e75f478eb181ebf418fb44f50990e1
+bobpayment https://etherscan.io/tx/0xf5a432431831f4a463f15fc47f3f6aabdc3d593840fc10064649e2eabccf7bf6
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"MMX\",\"fixed\":1}"

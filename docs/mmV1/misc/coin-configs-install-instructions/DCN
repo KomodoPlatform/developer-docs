@@ -1,0 +1,43 @@
+{\"coin\":\"DCN\",\"name\":\"dentacoin\",\"etomic\":\"0x08d32b0da63e2C3bcF8019c9c5d849d7a9d791e6\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"DCN\"}"
+
+home
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "coin" : "DCN",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "balance" : 0,
+      "height" : -1,
+      "rpc" : "127.0.0.1:80",
+      "installed" : false,
+      "txfee" : 1000,
+      "p2shtype" : 85
+
+contabo
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "rpc" : "127.0.0.1:80",
+      "coin" : "DCN",
+      "pubtype" : 0,
+      "status" : "active",
+      "installed" : false,
+      "height" : -1,
+      "p2shtype" : 85,
+      "balance" : 0
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"DCN\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"DCN\",\"rel\":\"KMD\",\"price\":0.001}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"DCN\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.0012}"
+Dentacoin (DCN)
+SWAP completed! 1489216781-2965653384 {"uuid":"1e58a326827720e5353f973a094b59a58c870d5df5d5e3c6fd4f9737f78cb850","expiration":1528177494,"tradeid":0,"requestid":1489216781,"quoteid":2965653384,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"DCN","bobtomic":"0x08d32b0da63e2C3bcF8019c9c5d849d7a9d791e6","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":73.48638226,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"2291473840192815105","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[73.48639226, 0.08010000, 73.48640226, 0.08011000, 82.67220004, 0, 0, 82.67219004, 0, 0, 0],"result":"success","status":"finished","finishtime":1528162408,"bobdeposit":"7d9e5ae7605988bc9d8a28744399601415494a5cb28737201e364fe01bc9e703","alicepayment":"a2c2bb1e8deb375bea25f25ab746962e3ebf1cc62b582492a390cbdb5c4c85ef","bobpayment":"72c15cd2a7941057104d3b8c17fceb7c818d8a437fa9bec3c2c5b50071387541","paymentspent":"754aaa418321a19b5dae539f0c620759ab07bec0d24af78c5880808d2913bf84","Apaymentspent":"c6753086ecaab6344844eee055341e62398fe919dafd63ede84799272abc2277","depositspent":"989ed2a8ba0d35023c68a53f9cba37c546de415637f95457623bfc1e59f57f92","method":"tradestatus","finishtime":1528162408}
+bobdeposit https://etherscan.io/tx/0x3fd3137ad2ea8fd1658b4d41d2abe2aa5c1ea9c2217903f2238876ec961a81df
+alicepayment https://kmdexplorer.ru/tx/a2c2bb1e8deb375bea25f25ab746962e3ebf1cc62b582492a390cbdb5c4c85ef
+bobpayment https://etherscan.io/tx/0x8c64563745597f1a5d2538b350e442d52238cc3b63416b19eb45e0e92880aca8
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DCN\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"dentacoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DCN\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"dentacoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"DCN\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"dentacoin\",\"refrel\":\"coinmarketcap\"}"

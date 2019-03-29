@@ -1,0 +1,69 @@
+https://bitcointalk.org/index.php?topic=1153781.0
+https://github.com/ivansib/sibcoin
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,40);
+base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1,128);
+
+src/wallet/wallet.h
+static const CAmount DEFAULT_TRANSACTION_MINFEE = 10000;
+
+{\"coin\":\"SIB\",\"name\":\"sibcoin\",\"rpcport\":1944,\"pubtype\":63,\"p2shtype\":40,\"wiftype\":128,\"txfee\":10000}
+
+cd ~/wallets
+git clone https://github.com/ivansib/sibcoin
+cd sibcoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/sibcoin*
+mkdir ~/.sibcoin
+echo "server=1" >> ~/.sibcoin/sibcoin.conf
+echo "txindex=1" >> ~/.sibcoin/sibcoin.con
+echo "litemode=1" >> ~/.sibcoin/sibcoin.conff
+echo "listen=0" >> ~/.sibcoin/sibcoin.conf
+echo "listenonion=1" >> ~/.sibcoin/sibcoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.sibcoin/sibcoin.conf
+echo "rpcuser=bartersib" >> ~/.sibcoin/sibcoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.sibcoin/sibcoin.conf
+echo "rpcworkqueue=64" >> ~/.sibcoin/sibcoin.conf
+echo "rpcthreads=16" >> ~/.sibcoin/sibcoin.conf
+chmod 0600 ~/.sibcoin/sibcoin.conf
+sibcoind -daemon
+
+
+curl --url "http://127.0.0.1:7779" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"SIB\"}"
+
+home
+   {
+      "smartaddress" : "SivwLeBe5KvHGW4ys3ZRWQzkdQs2WHhHtN",
+      "coin" : "SIB",
+      "wiftype" : 128,
+      "estimatedrate" : 20,
+      "rpc" : "127.0.0.1:1944",
+      "pubtype" : 63,
+      "status" : "active",
+      "txfee" : 10000,
+      "p2shtype" : 40
+   },
+
+contabo
+   {
+      "p2shtype" : 40,
+      "rpc" : "127.0.0.1:1944",
+      "coin" : "SIB",
+      "pubtype" : 63,
+      "wiftype" : 128,
+      "smartaddress" : "SP9nrzoug14GSrDD4LpXqAbasJ38NPWK6Y",
+      "status" : "active",
+      "txfee" : 10000
+   },
+
+sibcoin-cli sendtoaddress "SP9nrzoug14GSrDD4LpXqAbasJ38NPWK6Y" 1.41125930
+"fee": -0.00031120
+sibcoin-cli sendtoaddress "SP9nrzoug14GSrDD4LpXqAbasJ38NPWK6Y" 1.72419168
+"fee": -0.00036960,
+sibcoin-cli sendtoaddress "SP9nrzoug14GSrDD4LpXqAbasJ38NPWK6Y" 2.11453
+"fee": -0.00007480

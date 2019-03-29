@@ -1,0 +1,38 @@
+{\"coin\":\"LYS\",\"name\":\"lightyears\",\"etomic\":\"0xdd41fbd1ae95c5d9b198174a28e04be6b3d1aa27\",\"rpcport\":80}
+
+home
+      "installed" : false,
+      "balance" : 0,
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "coin" : "LYS",
+      "p2shtype" : 85,
+      "height" : -1,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "wiftype" : 188
+
+contabo
+      "balance" : 0,
+      "coin" : "LYS",
+      "txfee" : 1000,
+      "rpc" : "127.0.0.1:80",
+      "pubtype" : 0,
+      "height" : -1,
+      "installed" : false,
+      "status" : "active",
+      "p2shtype" : 85,
+      "wiftype" : 188,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"LYS\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"LYS\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1.2}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"LYS\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"LYS\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Lightyears (LYS)
+SWAP completed! 740305296-3811116579 {"expiration":1522827171,"tradeid":0,"requestid":740305296,"quoteid":3811116579,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"LYS","bobtomic":"0xdd41fbd1ae95c5d9b198174a28e04be6b3d1aa27","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.72178386,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"12887591964719513604","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.72179386, 0.08010000, 0.72180386, 0.08011000, 0.81202684, 0, 0, 0.81201684, 0, 0, 0],"result":"success","status":"finished","finishtime":1522811773,"bobdeposit":"cc24d94d2bf0d20d9eb5c759960d1157380bff0f77fa925d5e13e6186f137f0f","alicepayment":"33c404838eefa6b4c0f131b0ae561a4c4e38e890ac6bba0d30ad12c90c460139","bobpayment":"c6262c8f46783d57b70986bce0ebee671e61e3bcff622a293b2f99dff3e0161a","paymentspent":"f4913cc54aba8fde75730447041ba25768336b8207bd9373a641a84dbe2574ef","Apaymentspent":"4160812f77cce824b24f09b2cb1911d33ccc0ab6a0570e2a573a99e81b2877f9","depositspent":"80e0d82092f787b7f8836150b4473039b2e061ffab9998f2bcfa2a024e457bb6","method":"tradestatus","finishtime":1522811773}
+bobdeposit https://etherscan.io/tx/0x7b080a5ed49f3e930c78a9600ac7491912795c42ecdca04cca48c97976e907a3
+alicepayment https://kmd.explorer.supernet.org/tx/33c404838eefa6b4c0f131b0ae561a4c4e38e890ac6bba0d30ad12c90c460139
+bobpayment https://etherscan.io/tx/0x41d5afc043c97ff836a94b1a46df7150f346e2399834c4d275897c5a46791872

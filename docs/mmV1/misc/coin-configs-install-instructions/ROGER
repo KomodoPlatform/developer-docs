@@ -1,0 +1,30 @@
+https://github.com/TheHolyRoger/TheHolyRogerCoin
+
+
+{"coin":"ROGER","eth":false,"fname":"TheHolyRoger","name":"theholyroger","p2shtype":70,"pubtype":61,"rpcport":9662,"txfee":100000,"wiftype":176}
+
+
+cd ~/wallets
+git clone https://github.com/TheHolyRoger/TheHolyRogerCoin
+cd TheHolyRogerCoin
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/theholyroger*
+mkdir ~/.theholyroger
+echo "server=1" >> ~/.theholyroger/theholyroger.conf
+echo "txindex=1" >> ~/.theholyroger/theholyroger.conf
+echo "listen=0" >> ~/.theholyroger/theholyroger.conf
+echo "listenonion=0" >> ~/.theholyroger/theholyroger.conf
+echo "rpcuser=barterroger" >> ~/.theholyroger/theholyroger.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.theholyroger/theholyroger.conf
+echo "rpcworkqueue=64" >> ~/.theholyroger/theholyroger.conf
+echo "rpcthreads=16" >> ~/.theholyroger/theholyroger.conf
+chmod 0600 ~/.theholyroger/theholyroger.conf
+theholyrogerd -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ROGER\"}"
+
+home

@@ -1,0 +1,74 @@
+https://bitcointalk.org/index.php?topic=2137705.0
+https://github.com/Tomas-M/VoteCoin
+
+
+src/chainparams.cpp
+// guarantees the first 2 characters, when base58 encoded, are "t1"
+base58Prefixes[PUBKEY_ADDRESS]     = {0x1C,0xB8};
+// guarantees the first 2 characters, when base58 encoded, are "t3"
+base58Prefixes[SCRIPT_ADDRESS]     = {0x1C,0xBD};
+// the first character, when base58 encoded, is "5" or "K" or "L" (as in Bitcoin)
+base58Prefixes[SECRET_KEY]         = {0x80};
+
+{\"coin\":\"VOT\",\"name\":\"votecoin\",\"rpcport\":8232,\"taddr\":28,\"pubtype\":184,\"p2shtype\":189,\"wiftype\":128,\"txfee\":10000}
+{\"coin\":\"VOT\",\"name\":\"votecoin\",\"rpcport\":8242,\"taddr\":28,\"pubtype\":184,\"p2shtype\":189,\"wiftype\":128,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/Tomas-M/VoteCoin
+cd VoteCoin
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./zcutil/build.sh --disable-tests --disable-rust -j4
+sudo cp src/zcash-cli /usr/local/bin/votecoin-cli
+sudo cp src/zcashd /usr/local/bin/votecoind
+sudo strip /usr/local/bin/votecoin*
+mkdir ~/.votecoin
+echo "server=1" >> ~/.votecoin/votecoin.conf
+echo "txindex=1" >> ~/.votecoin/votecoin.conf
+echo "listen=0" >> ~/.votecoin/votecoin.conf
+echo "listenonion=0" >> ~/.votecoin/votecoin.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.votecoin/votecoin.conf
+echo "rpcport=8242" >> ~/.votecoin/votecoin.conf
+echo "rpcuser=bartervot" >> ~/.votecoin/votecoin.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.votecoin/votecoin.conf
+echo "addnode=mainnet.votecoin.site" >> ~/.votecoin/votecoin.conf
+chmod 0600 ~/.votecoin/votecoin.conf
+votecoind -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"VOT\"}"
+
+home
+      "rpc" : "127.0.0.1:8242",
+      "KMDvalue" : 0,
+      "status" : "active",
+      "pubtype" : 184,
+      "txfee" : 10000,
+      "height" : 71091,
+      "balance" : 0,
+      "coin" : "VOT",
+      "smartaddress" : "t1fWYK8pdKHWgLqLRG3PU6Kx7EHpgVRNjCU",
+      "wiftype" : 128,
+      "p2shtype" : 189,
+      "installed" : true
+
+contabo
+      "rpc" : "127.0.0.1:8242",
+      "txfee" : 10000,
+      "status" : "active",
+      "wiftype" : 128,
+      "KMDvalue" : 0,
+      "smartaddress" : "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH",
+      "balance" : 0,
+      "p2shtype" : 189,
+      "installed" : true,
+      "coin" : "VOT",
+      "pubtype" : 184,
+      "height" : 71091
+      
+votecoin-cli sendtoaddress "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH" 10
+votecoin-cli sendtoaddress "t1KjPqVStuxefXBUeTLeaR5YwUAznLvoyBH" 12
+"fee": -0.00000226
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"VOT\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"votecoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"VOT\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"votecoin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"VOT\",\"rel\":\"BTC\",\"margin\":0.05,\"refbase\":\"votecoin\",\"refrel\":\"coinmarketcap\"}"

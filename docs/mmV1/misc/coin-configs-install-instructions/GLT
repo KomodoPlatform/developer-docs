@@ -1,0 +1,66 @@
+https://github.com/globaltoken/globaltoken
+
+
+src/chainparams.cpp
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,38);
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,166);
+
+src/wallet/wallet.h
+DEFAULT_DISCARD_FEE = 10000;
+DEFAULT_TRANSACTION_MINFEE = 1000;
+src/validation.h
+DEFAULT_MIN_RELAY_TX_FEE = 1000;
+src/policy/policy.h
+DUST_RELAY_TX_FEE = 3000;
+
+{\"coin\":\"GLT\",\"name\":\"globaltoken\",\"rpcport\":9320,\"pubtype\":38,\"p2shtype\":5,\"wiftype\":166,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/globaltoken/globaltoken
+cd globaltoken
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/globaltoken*
+mkdir ~/.globaltoken
+echo "server=1" >> ~/.globaltoken/globaltoken.conf
+echo "listen=0" >> ~/.globaltoken/globaltoken.conf
+echo "listenonion=1" >> ~/.globaltoken/globaltoken.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.globaltoken/globaltoken.conf
+echo "rpcuser=barterglt" >> ~/.globaltoken/globaltoken.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.globaltoken/globaltoken.conf
+chmod 0600 ~/.globaltoken/globaltoken.conf
+globaltokend -daemon
+
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"GLT\"}"
+
+home
+   {
+      "coin" : "GLT",
+      "status" : "active",
+      "wiftype" : 166,
+      "smartaddress" : "GfUrivjSKpLNpfapFZETPHC5toRSidBkFt",
+      "rpc" : "127.0.0.1:9320",
+      "txfee" : 1000,
+      "p2shtype" : 5,
+      "pubtype" : 38
+   },
+
+contabo
+   {
+      "txfee" : 1000,
+      "wiftype" : 166,
+      "p2shtype" : 5,
+      "smartaddress" : "GKhiFHMhvVUN11j3SrVZi2nv8gbYa41Udd",
+      "pubtype" : 38,
+      "coin" : "GLT",
+      "status" : "active",
+      "rpc" : "127.0.0.1:9320"
+   },
+
+globaltoken-cli sendtoaddress "GKhiFHMhvVUN11j3SrVZi2nv8gbYa41Udd" 99.9994648
+"fee": -0.00004520,

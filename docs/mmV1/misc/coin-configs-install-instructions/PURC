@@ -1,0 +1,42 @@
+{\"coin\":\"PURC\",\"name\":\"peurcoin\",\"etomic\":\"0x7148b80b38278853ca8263cfc0b57d4478ae6a6e\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"PURC\"}"
+
+home
+      "rpc" : "127.0.0.1:80",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "pubtype" : 0,
+      "height" : -1,
+      "txfee" : 1000,
+      "wiftype" : 188,
+      "balance" : 0,
+      "coin" : "PURC",
+      "p2shtype" : 85,
+      "status" : "active",
+      "installed" : false
+
+contabo
+      "txfee" : 1000,
+      "rpc" : "127.0.0.1:80",
+      "installed" : false,
+      "wiftype" : 188,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "height" : -1,
+      "status" : "active",
+      "coin" : "PURC",
+      "p2shtype" : 85,
+      "balance" : 81987,
+      "pubtype" : 0
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"PURC\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"PURC\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"PURC\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Peurcoin (PURC)
+SWAP completed! 3921800441-1715495702 {"uuid":"1895a1854963265f19e30f62f9ea1a1cd8aecd716ad966c96a8a7dfd68100b5f","expiration":1531168021,"tradeid":0,"requestid":3921800441,"quoteid":1715495702,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"PURC","bobtomic":"0x7148b80b38278853ca8263cfc0b57d4478ae6a6e","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.76148117,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"12047358397415751681","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531153044,"bobdeposit":"8290bbd3e89c7b77bcc7fd8224bd58770c48e2e12f78ca8440914b29c37e006f","alicepayment":"46b167f83e697592d7ee436ed1d783e3f3f8e160d2dcb06130082a0d89dadcc1","bobpayment":"f746fb11b0b19cff029f67105a6b29824e5f5669057015989174bc1fa548af1f","paymentspent":"94730842866702bf877f96ab14ae6fd6599b3d74503113f536de53ad53593df8","Apaymentspent":"a6c5e4875d29fb459773d2c249953409df6c4b43f390306567634192f596ae84","depositspent":"32b06b203bc512e5772ecb6513eae1357340aa1493542dec45677ab90950d3fc","alicedexfee":"c18b65cb75f9ff62de166c8fc9201b522e3ab257c603774bb6eff4532e07243c","method":"tradestatus","finishtime":1531153044}
+bobdeposit https://etherscan.io/tx/0x3c6bed1c340d6d66712eb7c414ed8def34f33610372ac4278f159a8aafcdf110
+alicepayment https://kmdexplorer.ru/tx/46b167f83e697592d7ee436ed1d783e3f3f8e160d2dcb06130082a0d89dadcc1
+bobpayment https://etherscan.io/tx/0x26f1170ed152bf37bcce539a61062dfaa90f4ee28fbbe0bda11bbf20b2320b6f
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"KMD\",\"rel\":\"PURC\",\"fixed\":1}"
+

@@ -1,0 +1,43 @@
+{\"coin\":\"PRL\",\"name\":\"oyster\",\"etomic\":\"0x1844b21593262668b7248d0f57a220caaba46ab9\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"PRL\"}"
+
+home
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "status" : "active",
+      "installed" : false,
+      "balance" : 0,
+      "txfee" : 1000,
+      "rpc" : "127.0.0.1:80",
+      "coin" : "PRL",
+      "p2shtype" : 85,
+      "pubtype" : 0,
+      "wiftype" : 188,
+      "height" : -1
+
+contabo
+      "height" : -1,
+      "installed" : false,
+      "balance" : 0,
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "txfee" : 1000,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "coin" : "PRL",
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "wiftype" : 188
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"PRL\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"PRL\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1.2}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"PRL\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"PRL\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Oyster (PRL)
+SWAP completed! 2311776344-2760931975 {"uuid":"1419682afbc753076a783ae102b8178e87f6eb2b2142165e105cdc172016b8c6","expiration":1526714161,"tradeid":0,"requestid":2311776344,"quoteid":2760931975,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"PRL","bobtomic":"0x1844b21593262668b7248d0f57a220caaba46ab9","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.73635501,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"356387132377464833","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.73636501, 0.08010000, 0.73637501, 0.08011000, 0.82841938, 0, 0, 0.82840938, 0, 0, 0],"result":"success","status":"finished","finishtime":1526699839,"bobdeposit":"33358ef5b27d7641184b566749fe7bf2d1144da84ce682d90e1292a5fed002d7","alicepayment":"82cc9a5528ebcb0a0a28a7ec6327421890b2987ec732a2502a2634b6097514bc","bobpayment":"d825eacdca52bcfbe1658d33da1ec59c4fd6b3ab3cefcc688a10b1ab10795d38","paymentspent":"7462b17c5175a650539cba930036289885bbca3580a40595722234ad5370243a","Apaymentspent":"f32eca4dae9e2ea23c06594499dd2bcc75bc01d4ef99cfb818a412c7da14186b","depositspent":"aab8d4e1e1738bd08e7fd6aa13245ef0d43101e40d40c4738792796683d44c2d","method":"tradestatus","finishtime":1526699839}
+bobdeposit https://etherscan.io/tx/0x276610ea407e8493db321e33812a0c9c11ef788de7193fe48c18de72dfb14c49
+alicepayment https://kmdexplorer.ru/tx/82cc9a5528ebcb0a0a28a7ec6327421890b2987ec732a2502a2634b6097514bc
+bobpayment https://etherscan.io/tx/0xcfb3f15629f818225c3843048393df14ed5e0791c3012146eafcc5af5fec861f
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"PRL\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"oyster\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"PRL\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"oyster\",\"refrel\":\"coinmarketcap\"}"

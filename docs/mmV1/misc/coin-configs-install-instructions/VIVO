@@ -1,0 +1,77 @@
+https://bitcointalk.org/index.php?topic=2110690.0
+https://github.com/vivocoin/vivo
+
+
+src/chainparams.cpp
+// Vivo addresses start with 'V'
+base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,70);
+// Vivo script addresses start with '5'
+base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,10);
+// Vivo private keys start with '5' or 'V' (?)
+base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,198);
+
+src/wallet/wallet.h
+DEFAULT_TRANSACTION_MINFEE = 10000; // was 1000
+
+{\"coin\":\"VIVO\",\"name\":\"vivo\",\"confpath\":\"${HOME#}/.vivocore/vivo.conf\",\"rpcport\":9998,\"pubtype\":70,\"p2shtype\":10,\"wiftype\":198,\"txfee\":10000}
+
+
+cd ~/wallets
+git clone https://github.com/vivocoin/vivo
+cd vivo
+find . -name "*.sh" -exec chmod +x {} \;
+./autogen.sh
+CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" CPPFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free" LDFLAGS="-ltcmalloc_minimal" ./configure --with-incompatible-bdb --with-gui=no --disable-tests --disable-bench --without-miniupnpc --disable-zmq
+make -j4
+sudo make install
+sudo strip /usr/local/bin/vivo*
+mkdir ~/.vivocore
+echo "server=1" >> ~/.vivocore/vivo.conf
+echo "txindex=1" >> ~/.vivocore/vivo.conf
+echo "litemode=1" >> ~/.vivocore/vivo.conf
+echo "rpcport=19998" >> ~/.vivocore/vivo.conf
+echo "listen=0" >> ~/.vivocore/vivo.conf
+echo "listenonion=0" >> ~/.vivocore/vivo.conf
+echo "#proxy=127.0.0.1:9050" >> ~/.vivocore/vivo.conf
+echo "rpcuser=bartervivo" >> ~/.vivocore/vivo.conf
+echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.vivocore/vivo.conf
+chmod 0600 ~/.vivocore/vivo.conf
+vivod -daemon
+
+
+curl -s --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"VIVO\"}"
+
+home
+      "wiftype" : 198,
+      "installed" : true,
+      "pubtype" : 70,
+      "height" : 125789,
+      "KMDvalue" : 0,
+      "smartaddress" : "VYJAEQGf3bAQzY3b2yteuHuG2wfdXZB5a8",
+      "balance" : 0,
+      "coin" : "VIVO",
+      "rpc" : "127.0.0.1:19998",
+      "p2shtype" : 10,
+      "txfee" : 10000,
+      "status" : "active"
+
+contabo
+      "p2shtype" : 10,
+      "coin" : "VIVO",
+      "KMDvalue" : 0,
+      "pubtype" : 70,
+      "installed" : true,
+      "balance" : 0,
+      "height" : 125789,
+      "txfee" : 10000,
+      "smartaddress" : "VCX1kktveGJQAtBpEH9mE3W6GpqjJKXyjf",
+      "wiftype" : 198,
+      "status" : "active",
+      "rpc" : "127.0.0.1:19998"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"VIVO\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"vivo\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"VIVO\",\"rel\":\"BTC\",\"margin\":0.05,\"refbase\":\"vivo\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"VIVO\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"vivo\",\"refrel\":\"coinmarketcap\"}"
+
+vivo-cli sendtoaddress "VCX1kktveGJQAtBpEH9mE3W6GpqjJKXyjf" 1.2
+"fee": -0.00004500

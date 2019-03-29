@@ -1,0 +1,40 @@
+{\"coin\":\"OCC\",\"name\":\"originalcryptocoin\",\"etomic\":\"0x0235fe624e044a05eed7a43e16e3083bc8a4287a\",\"rpcport\":80}
+
+home
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "height" : -1,
+      "p2shtype" : 85,
+      "wiftype" : 188,
+      "balance" : 0,
+      "coin" : "OCC",
+      "pubtype" : 0,
+      "installed" : false,
+      "txfee" : 1000
+
+contabo
+      "installed" : false,
+      "txfee" : 1000,
+      "height" : -1,
+      "wiftype" : 188,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "coin" : "OCC",
+      "pubtype" : 0,
+      "balance" : 0,
+      "p2shtype" : 85,
+      "rpc" : "127.0.0.1:80",
+      "status" : "active"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"OCC\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"OCC\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"OCC\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Original Crypto Coin (OCC)
+SWAP completed! 216845614-3483670229 {"expiration":1522900764,"tradeid":0,"requestid":216845614,"quoteid":3483670229,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"OCC","bobtomic":"0x0235fe624e044a05eed7a43e16e3083bc8a4287a","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.77624392,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"13009001761955971076","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.77625392, 0.08010000, 0.77626392, 0.08011000, 0.87329441, 0, 0, 0.87328441, 0, 0, 0],"result":"success","status":"finished","finishtime":1522885631,"bobdeposit":"2cab956ae271563a340f1f13084695e817cf9ab262bd24534dc14d6cacec3831","alicepayment":"069f1a322ae639f787796c20f0d4837908c0f3a02efbde3e06e5b86de0399342","bobpayment":"fe8a81af1441531e13047cadd3705d26d26d9d3970b6b793245b68dd1e048d44","paymentspent":"ba0497c9538796b6c7774e67bfaf8fa4bc7dc72870a69a3cc9b9775277be81a2","Apaymentspent":"ad0c58d6f8bd15b8f3fc52fa4b74b70b47684e8a2e805909665a0d0ab9b84dc1","depositspent":"c153cbb2716ea2caa38360d191889b153fa33da1be7f11be9fc607f81a1dc7d1","method":"tradestatus","finishtime":1522885631}
+bobdeposit https://etherscan.io/tx/0x5b77cdb018821d31649177e50ab533893e871720d8b0046104ba1f599c10dc18
+alicepayment https://kmd.explorer.supernet.org/tx/069f1a322ae639f787796c20f0d4837908c0f3a02efbde3e06e5b86de0399342
+bobpayment https://etherscan.io/tx/0x603207c7f4cdc3e6df9b0eada7804ccf003028d51b3ad68c33aaa035173faf02
+
+
+

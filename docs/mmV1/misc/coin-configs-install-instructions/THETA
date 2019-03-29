@@ -1,0 +1,42 @@
+{\"coin\":\"THETA\",\"name\":\"theta-token\",\"etomic\":\"0x3883f5e181fccaF8410FA61e12b59BAd963fb645\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"THETA\"}"
+
+home
+      "coin" : "THETA",
+      "wiftype" : 188,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "balance" : 0,
+      "pubtype" : 0,
+      "height" : -1,
+      "txfee" : 1000,
+      "status" : "active",
+      "p2shtype" : 85,
+      "installed" : false,
+      "rpc" : "127.0.0.1:80"
+
+hetzner
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "balance" : 175.8,
+      "p2shtype" : 85,
+      "installed" : false,
+      "wiftype" : 188,
+      "status" : "active",
+      "height" : -1,
+      "coin" : "THETA",
+      "smartaddress" : "0x98298409c949135eed89233d04c2cfef984baff5"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"THETA\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"THETA\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Theta Token (THETA)
+SWAP completed! 3599361786-609311980 {"uuid":"42e0adb7b3479b7ef2686daac8fcf74e5980a52596179fb6b1ce521406945b50","expiration":1531466999,"tradeid":0,"requestid":3599361786,"quoteid":609311980,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"THETA","bobtomic":"0x3883f5e181fccaF8410FA61e12b59BAd963fb645","etomicsrc":"0x98298409c949135eed89233d04c2cfef984baff5","srcamount":0.68596629,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"8714585772781535233","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.08010000, 1.00002000, 0.08011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531452654,"bobdeposit":"ba3bb3d3959d15aea9d36a0326fce24ec584b48af8ab0879d523758de6cbab2d","alicepayment":"f57fd4b14ef47bcd060af7c8f01c5c6acc7c86108506e69e88e87d11a84c1d82","bobpayment":"da61558b3e9847135628c0c4f930e677aff5df450543fe64bdb8fa282f5f0f4f","paymentspent":"6394419ec11ebc92351a15c9b13dd72452f633085903183c7f7c26ab4281c79e","Apaymentspent":"274332f819985a671d706a5f20247457370f926f8adf5588d08e9999690e2a40","depositspent":"817767e2e94cb6a02e85a1895083e084fd950c881ef2ce64472640f756cad0e7","alicedexfee":"82eb19ea85598b0b13c4d36d020920d5b7143110aeacd3f8f89b82be1e7818af","method":"tradestatus","finishtime":1531452654}
+bobdeposit https://etherscan.io/tx/0x98d14bf3abb5ad0b34e31727bb5896c8a8022f68e70f62bc19f2fd2fdc70903f
+alicepayment https://kmdexplorer.ru/tx/f57fd4b14ef47bcd060af7c8f01c5c6acc7c86108506e69e88e87d11a84c1d82
+bobpayment https://etherscan.io/tx/0x0b1059e8ccaf3cc745f678743fb024b81716dccf785039b5522b1727a2b6622a
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"THETA\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"theta-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"THETA\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"theta-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"THETA\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"theta-token\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"THETA\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"theta-token\",\"refrel\":\"coinmarketcap\"}"

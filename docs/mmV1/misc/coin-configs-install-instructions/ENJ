@@ -1,0 +1,44 @@
+{\"coin\":\"ENJ\",\"name\":\"enjin-coin\",\"etomic\":\"0xF629cBd94d3791C9250152BD8dfBDF380E2a3B9c\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ENJ\"}"
+
+home
+      "height" : -1,
+      "status" : "active",
+      "balance" : 0,
+      "wiftype" : 188,
+      "installed" : false,
+      "txfee" : 1000,
+      "coin" : "ENJ",
+      "rpc" : "127.0.0.1:80",
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c"
+
+contabo
+      "pubtype" : 0,
+      "rpc" : "127.0.0.1:80",
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "wiftype" : 188,
+      "txfee" : 1000,
+      "p2shtype" : 85,
+      "coin" : "ENJ",
+      "status" : "active",
+      "installed" : false,
+      "height" : -1,
+      "balance" : 189.8
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"ENJ\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"ENJ\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"ENJ\",\"rel\":\"KMD\",\"relvolume\":0.2,\"price\":0.12}"
+Enjin Coin (ENJ)
+SWAP completed! 2729682583-2463275409 {"uuid":"80cd73ce01e4b0f7995269efe824771b5b878c26bf56b1ed7151d08ab3024bc9","expiration":1531204481,"tradeid":0,"requestid":2729682583,"quoteid":2463275409,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"ENJ","bobtomic":"0xF629cBd94d3791C9250152BD8dfBDF380E2a3B9c","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":1.70461217,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.20009000,"alicetxfee":0.00001000,"aliceid":"8138829758793711617","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[1.00000999, 0.20010000, 1.00002000, 0.20011000, 1.12502000, 0, 0, 1.12500999, 0, 0, 0],"result":"success","status":"finished","finishtime":1531189782,"bobdeposit":"2009865e58dffbe0ed82d1d05e3388a4f23718461b644e64e3718c777dfa1cf2","alicepayment":"7e78edfef58ab6b060d2719a33725abad5ba5d3a1ed05bdda47217ae07dd63c4","bobpayment":"6658aec8e616c17b2ae806f371e64abf8d80631a2637ae75a837b78ad431cba7","paymentspent":"0e8d7e4594bde5148d7664b9a7c51c2e4ae4ae956cf14e6fdc8ddb58e162f465","Apaymentspent":"fcf53ac1ea9f8728f0ba44022c6eead988aa4ef0c8fbab3358c479b5498fe79a","depositspent":"43a3038405455a00e787adfe654afd59c830c7bf646f77a478fea725065fc17f","alicedexfee":"a51baf33658e91169ec909901208db47fdf2f891a946ef295cbf6722e9d8b4f8","method":"tradestatus","finishtime":1531189782}
+bobdeposit https://etherscan.io/tx/0x27d8d5b6865bf3007eb1aefbab694412ee01405ee8afdaba3b530f7017fcbe25
+alicepayment https://kmdexplorer.ru/tx/7e78edfef58ab6b060d2719a33725abad5ba5d3a1ed05bdda47217ae07dd63c4
+bobpayment https://etherscan.io/tx/0xeb681dc12fa487121fd6445a695403ceef15c4291a1813244236885a6d4e3569
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ENJ\",\"rel\":\"BCH\",\"margin\":0.15,\"refbase\":\"enjin-coin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ENJ\",\"rel\":\"BTC\",\"margin\":0.15,\"refbase\":\"enjin-coin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ENJ\",\"rel\":\"KMD\",\"margin\":0.15,\"refbase\":\"enjin-coin\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"ENJ\",\"rel\":\"LTC\",\"margin\":0.15,\"refbase\":\"enjin-coin\",\"refrel\":\"coinmarketcap\"}"

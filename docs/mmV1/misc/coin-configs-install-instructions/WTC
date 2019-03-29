@@ -1,0 +1,43 @@
+{\"coin\":\"WTC\",\"name\":\"waltonchain\",\"etomic\":\"0xb7cb1c96db6b22b0d3d9536e0108d062bd488f74\",\"rpcport\":80}
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"WTC\"}"
+
+home
+      "height" : -1,
+      "rpc" : "127.0.0.1:80",
+      "status" : "active",
+      "installed" : false,
+      "wiftype" : 188,
+      "pubtype" : 0,
+      "coin" : "WTC",
+      "smartaddress" : "0xdf38dd108bab50da564092ad0cd739c4634d963c",
+      "p2shtype" : 85,
+      "balance" : 0,
+      "txfee" : 1000
+
+contabo
+      "status" : "active",
+      "height" : -1,
+      "smartaddress" : "0x4e623b150b847da59f064f7c7fcc9f787dae2229",
+      "rpc" : "127.0.0.1:80",
+      "txfee" : 1000,
+      "coin" : "WTC",
+      "balance" : 0,
+      "wiftype" : 188,
+      "pubtype" : 0,
+      "p2shtype" : 85,
+      "installed" : false
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"eth_withdraw\",\"coin\":\"WTC\",\"to\":\"0x4e623b150b847da59f064f7c7fcc9f787dae2229\",\"amount\":1}"
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"WTC\",\"rel\":\"KMD\",\"price\":0.1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"WTC\",\"rel\":\"KMD\",\"relvolume\":0.08,\"price\":0.12}"
+Waltonchain (WTC)
+SWAP completed! 3313436697-2448078167 {"uuid":"22a7c4a62031cf8f42d11626130af70badc87a43da5d9d6e840456f7952f736d","expiration":1527474209,"tradeid":0,"requestid":3313436697,"quoteid":2448078167,"iambob":1,"Bgui":"nogui","Agui":"","gui":"nogui","bob":"WTC","bobtomic":"0xb7cb1c96db6b22b0d3d9536e0108d062bd488f74","etomicsrc":"0x4e623b150b847da59f064f7c7fcc9f787dae2229","srcamount":0.67333297,"bobtxfee":0.00001000,"alice":"KMD","etomicdest":"0xdf38dd108bab50da564092ad0cd739c4634d963c","destamount":0.08009000,"alicetxfee":0.00001000,"aliceid":"417026718903762945","sentflags":["alicespend", "bobspend", "bobpayment", "alicepayment", "bobdeposit", "bobrefund"],"values":[0.67334297, 0.08010000, 0.67335297, 0.08011000, 0.75751959, 0, 0, 0.75750959, 0, 0, 0],"result":"success","status":"finished","finishtime":1527459890,"bobdeposit":"2920af4610462ca5c7c039f4d5d07580e263250953a355c7703b75c8ca294e0d","alicepayment":"2b4e1b5289f7c3a7822e7350e1c458e623c9f24b52b682aee4be230da888fd62","bobpayment":"1534d23ecca86bda2e8b17b08717364c3ef8825622331e0dd971874bb7ca7248","paymentspent":"ceef84c603809f72d7bef21d1f44ce7fada202def99402e31d4fef890458bf0b","Apaymentspent":"786f209de4efcb6b64b0eea1523dc2be9eefd9f761b9b1ce8310cf51f4460709","depositspent":"396c0f41fdfb7bbda36621c98630dbf8f1a09993f36812ac6556d35ac9105292","method":"tradestatus","finishtime":1527459890}
+bobdeposit https://etherscan.io/tx/0x030abda5af9a16fe9f1a2e918bd9acec1e5d36a67020d5846cf474087e9ba1f2
+alicepayment https://kmdexplorer.ru/tx/2b4e1b5289f7c3a7822e7350e1c458e623c9f24b52b682aee4be230da888fd62
+bobpayment https://etherscan.io/tx/0x397d7d8e25e1d6ef178bbdc3186a2d3f6ed4ac09bae2a02fc1da34ca4bc751ee
+
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"WTC\",\"rel\":\"BCH\",\"margin\":0.05,\"refbase\":\"waltonchain\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"WTC\",\"rel\":\"KMD\",\"margin\":0.05,\"refbase\":\"waltonchain\",\"refrel\":\"coinmarketcap\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"autoprice\",\"base\":\"WTC\",\"rel\":\"LTC\",\"margin\":0.05,\"refbase\":\"waltonchain\",\"refrel\":\"coinmarketcap\"}"
