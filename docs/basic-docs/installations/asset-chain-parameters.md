@@ -120,7 +120,7 @@ A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases b
 
 ## ac_ccactivate
 
-**-ac_ccactivate=block_height**
+### -ac_ccactivate=block_height
 
 The `ac_ccactivate` launch parameter allows for the activation of CryptoConditions (CC) on an existing Komodo-based asset chain wherein CC was not originally enabled.
 
@@ -200,7 +200,7 @@ In all parameters receiving multiple values, the values for the second and third
 
 For example:
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_eras=3 -ac_reward=5000000000,7000000000,4000000000 -ac_end=1000,10000,0
 ```
 
@@ -220,7 +220,7 @@ One more feature of `ac_eras` is the ability to transition from one era to the n
 
 For example, the following parameters create an asset chain with a "slow start" reward:
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_reward=0,10000000000 -ac_eras=2 -ac_end=1000,0 -ac_decay=100000000,100000000 -ac_halving=1
 ```
 
@@ -326,8 +326,8 @@ To find the `"scriptPubKey"` value, first create a multi-signature address with 
 
 Command:
 
-```
-komodo-cli -ac_name=EXAMPLE createmultisig 2 "[\"RMnZJpfLbFHUxMS3HM5gkvtFKeduhr96Ec\",\"RW2Yx4Tk9WGfUvhbJTXGFiRhr7PKcVtrm5\",\"RQ1uqBj9yk94BcxEZodbeNqb3jWv8pLeA4\"]"
+```bash
+./komodo-cli -ac_name=EXAMPLE createmultisig 2 "[\"RMnZJpfLbFHUxMS3HM5gkvtFKeduhr96Ec\",\"RW2Yx4Tk9WGfUvhbJTXGFiRhr7PKcVtrm5\",\"RQ1uqBj9yk94BcxEZodbeNqb3jWv8pLeA4\"]"
 ```
 
 Response:
@@ -341,8 +341,8 @@ Response:
 
 On a test chain, send coins to the `bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV` address.
 
-```
-komodo-cli -ac_name=EXAMPLE sendtoaddress bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV 10
+```bash
+./komodo-cli -ac_name=EXAMPLE sendtoaddress bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV 10
 ```
 
 Response (txid):
@@ -353,8 +353,8 @@ ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f
 
 Observe the resulting transaction with `getrawtransaction <txid> 1`:
 
-```
-komodo-cli -ac_name=EXAMPLE getrawtransaction ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f 1
+```bash
+./komodo-cli -ac_name=EXAMPLE getrawtransaction ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f 1
 ```
 
 Observe the output:
@@ -588,7 +588,7 @@ To delay sapling activation, set `ac_sapling` to a block height far in the futur
 
 ## ac_timelock...
 
-**-ac_timeunlockgte=satoshis -ac_timelockfrom=height -ac_timelockto=height**
+### -ac_timeunlockgte=satoshis -ac_timelockfrom=height -ac_timelockto=height
 
 The `ac_timelock...` parameters enforce "coinbase locking".
 
@@ -598,8 +598,8 @@ The random unlock time for each reward is independent of the unlock time of othe
 
 For example:
 
-```
-komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=10000000000 -ac_halving=10000 -ac_timelockgte=10000000000 -ac_timeunlockfrom=10000 -ac_timeunlockto=100000
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=10000000000 -ac_halving=10000 -ac_timelockgte=10000000000 -ac_timeunlockfrom=10000 -ac_timeunlockto=100000
 ```
 
 For the first 10000 blocks, any rewards that are greater than or equal to 10000000000 are locked until a random block between 10000 and 100000.
@@ -650,7 +650,7 @@ The `ac_cclib` parameter is used in conjunction with various CryptoConditions mo
 
 Typically, the asset chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each CryptoConditions module in question. Once the asset chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
 
-```
+```bash
 -ac_cclib=desired_CC_module
 ```
 
