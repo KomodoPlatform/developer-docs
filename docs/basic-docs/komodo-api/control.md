@@ -24,13 +24,13 @@ The `getinfo` method returns an object containing various state info.
 
 ### Arguments
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Structure         | Type               | Description                                                                                                                            |
+| Name              | Type               | Description                                                                                                                            |
 | ----------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
 | "version"         | (numeric)          | the server version                                                                                                                     |
 | "protocolversion" | (numeric)          | the protocol version                                                                                                                   |
@@ -155,13 +155,13 @@ The `help` method lists all commands, or all information for a specified command
 
 ### Arguments
 
-| Structure | Type               | Description                      |
+| Name      | Type               | Description                      |
 | --------- | ------------------ | -------------------------------- |
 | "command" | (string, optional) | the command requiring assistance |
 
 ### Response
 
-| Structure | Type               | Description                      |
+| Name      | Type               | Description                      |
 | --------- | ------------------ | -------------------------------- |
 | "command" | (string, optional) | the command requiring assistance |
 
@@ -252,13 +252,13 @@ Forcefully stopping the chain should be avoided, as it may cause a corruption in
 
 ### Arguments
 
-| Structure | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Structure                     | Type | Description |
+| Name                          | Type | Description |
 | ----------------------------- | ---- | ----------- |
 | Komodo server stopping        |      |
 | [COIN] Komodo server stopping |      |

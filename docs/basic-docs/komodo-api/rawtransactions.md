@@ -14,7 +14,7 @@ This is a raw transaction, and therefore the inputs are not signed and the trans
 
 ### Arguments
 
-| Structure      | Type                | Description                                                |
+| Name | Type | Description | 
 | -------------- | ------------------- | ---------------------------------------------------------- |
 | "transactions" | (string, required)  | a json array of json objects                               |
 | "txid"         | (string, required)  | the transaction id                                         |
@@ -24,7 +24,7 @@ This is a raw transaction, and therefore the inputs are not signed and the trans
 
 ### Response
 
-| Structure     | Type     | Description                     |
+| Name | Type | Description | 
 | ------------- | -------- | ------------------------------- |
 | "transaction" | (string) | a hex string of the transaction |
 
@@ -72,13 +72,13 @@ The `decoderawtransaction` method returns a json object representing the seriali
 
 ### Arguments
 
-| Structure | Type               | Description                |
+| Name | Type | Description | 
 | --------- | ------------------ | -------------------------- |
 | "hex"     | (string, required) | the transaction hex string |
 
 ### Response
 
-| Structure               | Type                                           | Description                                                       |
+| Name | Type | Description | 
 | ----------------------- | ---------------------------------------------- | ----------------------------------------------------------------- |
 | "txid"                  | (string)                                       | the transaction id                                                |
 | "overwintered"          | (boolean)                                      | the overwintered flag                                             |
@@ -225,13 +225,13 @@ The `decodescript` method decodes a hex-encoded script.
 
 ### Arguments
 
-| Structure | Type     | Description            |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------- |
 | "hex"     | (string) | the hex encoded script |
 
 ### Response
 
-| Structure            | Type               | Description                |
+| Name | Type | Description | 
 | -------------------- | ------------------ | -------------------------- |
 | "asm"                | (string)           | the script public key      |
 | "hex"                | (string)           | the hex-encoded public key |
@@ -301,13 +301,13 @@ This method comes from the BTC codebase, of which KMD is ultimately a fork (via 
 
 ### Arguments
 
-| Structure   | Type               | Description                           |
+| Name | Type | Description | 
 | ----------- | ------------------ | ------------------------------------- |
 | "hexstring" | (string, required) | the hex string of the raw transaction |
 
 ### Response
 
-| Structure   | Type      | Description                                        |
+| Name | Type | Description | 
 | ----------- | --------- | -------------------------------------------------- |
 | "hex"       | (string)  | the resulting raw transaction (hex-encoded string) |
 | "fee"       | (numeric) | the fee added to the transaction                   |
@@ -400,20 +400,20 @@ This method relies on the <b>txindex</b> runtime parameter, which is enabled by 
 
 ### Arguments
 
-| Structure | Type                           | Description                                                                   |
+| Name | Type | Description | 
 | --------- | ------------------------------ | ----------------------------------------------------------------------------- |
 | "txid"    | (string, required)             | the transaction id                                                            |
 | verbose   | (numeric, optional, default=0) | if 0, the method returns a string in hex; otherwise, it returns a json object |
 
 ### Response (if `verbose` is not set, or set to `0`)
 
-| Structure | Type     | Description                                 |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------- |
 | "data"    | (string) | the serialized, hex-encoded data for 'txid' |
 
 ### Response (if `verbose` > `0`)
 
-| Structure               | Type                                           | Description                                                                                                                       |
+| Name | Type | Description | 
 | ----------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | "hex"                   | (string)                                       | the serialized, hex-encoded data for 'txid'                                                                                       |
 | "txid"                  | (string)                                       | the transaction id (same as provided)                                                                                             |
@@ -641,14 +641,14 @@ Also see [createrawtransaction](../komodo-api/rawtransactions.html#createrawtran
 
 ### Arguments
 
-| Structure     | Type                               | Description                           |
+| Name | Type | Description | 
 | ------------- | ---------------------------------- | ------------------------------------- |
 | "hexstring"   | (string, required)                 | the hex string of the raw transaction |
 | allowhighfees | (boolean, optional, default=false) | whether to allow high fees            |
 
 ### Response
 
-| Structure | Type     | Description                 |
+| Name | Type | Description | 
 | --------- | -------- | --------------------------- |
 | "hex"     | (string) | the transaction hash in hex |
 
@@ -737,7 +737,7 @@ For full details, please see <a href="https://bitcoin.org/en/developer-reference
 
 ### Arguments
 
-| Structure      | Type                            | Description                                                         |
+| Name | Type | Description | 
 | -------------- | ------------------------------- | ------------------------------------------------------------------- |
 | "hexstring"    | (string, required)              | the transaction hex string                                          |
 | "prevtxs"      | (string, optional)              | a json array of previous dependent transaction outputs              |
@@ -752,7 +752,7 @@ For full details, please see <a href="https://bitcoin.org/en/developer-reference
 
 ### Response
 
-| Structure   | Type      | Description                                              |
+| Name | Type | Description | 
 | ----------- | --------- | -------------------------------------------------------- |
 | "hex"       | (string)  | the hex-encoded raw transaction with signature(s)        |
 | "complete"  | (boolean) | whether the transaction has a complete set of signatures |

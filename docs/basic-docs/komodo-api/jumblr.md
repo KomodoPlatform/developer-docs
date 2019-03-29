@@ -66,13 +66,13 @@ While shielded z_address technology is available on all KMD-based asset chains, 
 
 ### Arguments
 
-| Structure        | Type               | Description                                       |
+| Name | Type | Description | 
 | ---------------- | ------------------ | ------------------------------------------------- |
 | "depositaddress" | (string, required) | the address from which Jumblr will withdraw funds |
 
 ### Response
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
@@ -104,13 +104,13 @@ See also <b>jumblr_resume</b>.
 
 ### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
 ### Response
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
@@ -142,13 +142,13 @@ See also <b>jumblr_pause</b>.
 
 ### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
 ### Response
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
@@ -176,13 +176,13 @@ The `jumblr_secret` method indicates to Jumblr the final t destination address. 
 
 ### Arguments
 
-| Structure       | Type               | Description                         |
+| Name | Type | Description | 
 | --------------- | ------------------ | ----------------------------------- |
 | "secretaddress" | (string, required) | the destination transparent address |
 
 ### Response
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
