@@ -1,6 +1,6 @@
 # Komodo Documentation Style Guidelines
 
-Welcome to the Komodo Documentation Style Guidelines. The following documentation provides guidance for Komodo team members as we work together to prepare quality technical documentation so that our customers have a pleasant and easy experience.
+Welcome to the Komodo Documentation Style Guidelines. The following documentation provides guidance for Komodo team members as we work together to prepare quality technical documentation so that our customers have a pleasant coding experience.
 
 ## An Important Note Before We Begin
 
@@ -8,11 +8,11 @@ In beginning the process of creating templates for Komodo, I realize that we are
 
 It is the nature of startups that they should be chaotic. Chaos is required for creativity, and one can argue that Komodo is creative at heart, if nothing else.
 
-As any company grows in size and seeks to serve a customer, and thereby create profit, Chaos can become a hinderance. Customers do not want to hand money to a company and receive a chaotic result. Rather, they want predictability. For the customer to be satisfied, Chaos must take a few steps back and allow room for Procedure to enter the picture.
+As any company grows in size and seeks to serve a customer, and thereby generate profit, Chaos can become a hinderance. Customers do not want to hand money to a company and receive a chaotic result. Rather, they want predictability. For the customer to be satisfied, Chaos must take a few steps back and allow room for Procedure to enter the picture.
 
 For this reason, in creating templates for technical documentation I feel a sense of responsibility to make a few things clear, before we start writing down procedures.
 
-We are, at heart, a creative company. With every existing customer of whom I am aware, they are primarily excited about Komodo because of our creativity. They wouldn't mind having more a more predictable procedure as a part of their experience with us, but without the creativity, they may lose interest and go elsewhere.
+We are, at heart, a creative company. With every existing customer of whom I am aware, they are primarily excited about Komodo because of our creativity. They wouldn't mind having a more predictable procedure as a part of their experience with us, but without the creativity, they may lose interest and go elsewhere.
 
 In taking this time to create room for Procedure to become more present in our creative process, I want to make it clear that these templates are here to serve the customer. Therefore, the templates are here to serve creativity, and not the other way around.
 
@@ -63,10 +63,6 @@ For this reason, Komodo comes together as a team. Individual team members bring 
 This is important for our team to understand as we seek to improve Komodo's technical documentation.
 
 ## Dividing Responsibilities for Those Closest to Technical Documentation
-
-::: tip
-Siddhartha: I'm putting down the following section as a proposal. If you read this and feel that I am misunderstanding your role and responsibilites, please let me know.
-:::
 
 The aspects of creating technical documentation largely revolves around the first half of the cycle:
 
@@ -147,15 +143,15 @@ For Komodo to function as a company, we must pick and choose which problems we w
 
 We are not a large team, and we must allocate our resources intelligently. 
 
-It is the responsibility of the developer and tester to determine whether a raw document needs to be pushed into a final form, or whether it can be placed in an unpolished location for the foreseeable future.
+The developer and tester are the first to determine whether a raw document needs to be pushed into a final form, or whether it can be placed in an unpolished location for the foreseeable future.
 
 For example, the Komodo developers maintain on Github a list of COIN configurations, and also of specific combinations of assets-chain launch parameters, that have not yet been added to the public facing website (via developers.komodoplatform.com).
 
 No complaints have arisen from this situation, and therefore it may never be necessary to attempt to maintain these in a more public-facing location. 
 
-Because the developers know the features most thoroughly, it is largely up to them to decide which aspects can remain non-professionally documented, and which should be pushed forward.
+Because the developers know the features most thoroughly, they are the first to decide which aspects can remain non-professionally documented, and which should be pushed forward.
 
-Do keep in mind the general principle of design: less is more.
+It may help to keep in mind this general principle of design: less is more.
 
 ### Turning Raw Documentation Into a Final Product
 
@@ -197,7 +193,7 @@ The developer must then read the request, ask any additional questions, stop oth
 
 Once they're done, they then write yet another message and pass the raw documentation back.
 
-This is an understandable part of the creative process, and indeed it is included in the task outlines above. However, it is important to note that the aspect of passing the task back and forth is very time consuming. 
+This laborious sequence is an understandable part of the creative process, and indeed it is included in the task outlines above. However, it is important to note that the aspect of passing the task back and forth is very time consuming. 
 
 When it can be avoided, team members should make reasonable efforts to do so. 
 
