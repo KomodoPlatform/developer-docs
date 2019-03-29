@@ -164,7 +164,11 @@ import os
 for filename in os.listdir('../docs/basic-docs/komodo-api/'):
     with open('../docs/basic-docs/komodo-api/'+filename, "r") as f, open(filename, 'w+') as g:
         for currLine in f:
-            if currLine.startswith('#'):
-                g.write(currLine.rstrip(':\n'+'\n\n'))
+            if currLine.startswith('|'):
+                for word in currLine:
+                    if word == "Structure":
+                        g.write("Name")
+                    else:
+                        g.write(word)
             else:
                 g.write(currLine)
