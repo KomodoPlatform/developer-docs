@@ -401,11 +401,11 @@ module.exports = {
           collapsable: true,
           children: [
             [
-              "/mmV1/usage/enable-electrum-wallet-coin.md",
+              "/mmV1/usage/enable-electrum-wallet-coins.md",
               "Enabling Electrum Wallet Coins"
             ],
             [
-              "/mmV1/usage/enable-native-wallet-coin.md",
+              "/mmV1/usage/enable-native-wallet-coins.md",
               "Enabling Native Wallet Coins"
             ],
             ["/mmV1/usage/trade.md", "Trading"],

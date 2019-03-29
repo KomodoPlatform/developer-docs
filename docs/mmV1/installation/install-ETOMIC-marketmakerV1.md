@@ -183,8 +183,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 And, rest of things are same as normal BarterDEX. More helpful info is available in the following links:
 
-- [MarketmakerV1 API](../api/mmV1/general.md)
-- [enable-native-wallet-coins](./enable-native-wallet-coin.md)
-- [enable-electrum-wallet-coins](./enable-electrum-wallet-coin.md)
-- [Electrum Servers List.](./electrum-servers-list.md)
-- [Trade](./trade.md)
+- [MarketmakerV1 API](../api/general.md)
+- [enable-native-wallet-coins](../usage/enable-native-wallet-coins.md)
+- [enable-electrum-wallet-coins](../usage/enable-electrum-wallet-coins.md)
+- [Electrum Servers List.](../coin-integration//electrum-servers-list.md)
+- [Trade](../usage/trade.md)

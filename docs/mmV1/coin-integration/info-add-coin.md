@@ -10,8 +10,8 @@ When submitting a pull request to add a coin to BarterDEX, make sure you have co
 
 ## 0. The coin must be tested with mmV1 atomic swaps
 
-- When submitting your coin addition request, please submit the URLs of the three transctions (`bobdeposit`, `alicepayment` and `bobpayment`) which are produced by the [atomic swap](./trade.md) performed through the marketmaker API. This means that before going through the further steps in this doc and submit the data to this coins database [repo](https://github.com/jl777/coins) , you would have performed an atomic swap. The further steps explain the expected files/values to be submitted.
-- You can learn about performing an atomic swap [here (Installing)](install-marketmakerV1.md) and [here (trading)](./trade.md)
+- When submitting your coin addition request, please submit the URLs of the three transctions (`bobdeposit`, `alicepayment` and `bobpayment`) which are produced by the [atomic swap](../usage/trade.md) performed through the marketmaker API. This means that before going through the further steps in this doc and submit the data to this coins database [repo](https://github.com/jl777/coins) , you would have performed an atomic swap. The further steps explain the expected files/values to be submitted.
+- You can learn about performing an atomic swap [here (Installing)](../installation/install-marketmakerV1.md) and [here (trading)](../usage/trade.md)
 - Or you can contact the team at [coinintegration@komodoplatform.com](mailto:coinintegration@komodoplatform.com) or in the `#dev-tradebots` channel in our [Discord](https://komodoplatform.com/discord) to get help if required.
 
 ### Example

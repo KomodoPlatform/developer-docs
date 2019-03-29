@@ -113,7 +113,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## enable
 
-This method enables a coin by connecting to a locally running native coin daemon, otherwise, known as **Native Mode**. To be eligible for trading a coin must be enabled and the daemon should be running. You can edit the sample `enable` script file to activate the native coins you want to trade. you can stop it by using the [disable](./mmV1-API.html#disable) script.
+This method enables a coin by connecting to a locally running native coin daemon, otherwise, known as **Native Mode**. To be eligible for trading a coin must be enabled and the daemon should be running. You can edit the sample `enable` script file to activate the native coins you want to trade. you can stop it by using the [disable](./general.html#disable) script.
 
 Sample File Contents:
 

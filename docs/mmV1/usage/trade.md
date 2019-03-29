@@ -1,6 +1,6 @@
 # Trade
 
-Don't forget: Coins for trade pairs need to be activated in the MarketmakerV1, either [native](enable-native-wallet-coins.md) or [electrum](enable-electrum-wallet-coins.md) wallets can be used.
+Don't forget: Coins for trade pairs need to be activated in the MarketmakerV1, either [native](./enable-native-wallet-coins.md) or [electrum](./enable-electrum-wallet-coins.md) wallets can be used.
 
 ## LOOKING AT THE ORDERBOOK
 

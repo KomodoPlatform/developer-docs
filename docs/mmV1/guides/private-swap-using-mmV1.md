@@ -1,6 +1,6 @@
 # Private Trading using mmV1
 
-You can use mmV1 with 14,000+ different [netids](../api/). For private trading, both Bob node and client need to use a same `netid` and `seednode`. It is better to choose a higher number netid (i.e.: 1000+).
+You can use mmV1 with 14,000+ different [netids](../api/general.html#netid). For private trading, both Bob node and client need to use a same `netid` and `seednode`. It is better to choose a higher number netid (i.e.: 1000+).
 
 ## Bob Node
 

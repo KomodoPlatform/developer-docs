@@ -27,7 +27,7 @@ Sample output of correct `2-getuserpass.cmd` usage is:
 
 You should see your `userpass` on screen, and it will also be automatically copied to the `userpass` file. It's required by all the other scripts to have this `userpass` value in the `userpass file`. If the output of `2-getuserpass.cmd` is not the same as the value showed on screen, wait some seconds and run `2-getuserpass.cmd` again. Also make sure that you have allowed marketmaker to accept incoming connections in your Windows Firewall settings (At the first time launch, your system should automatically ask for it).
 
-- The scripts shown in the next section are examples and are there to get you started. For a reference of all the available API options, please refer to [MarketmakerV1 API.](../api/mmV1/general.md)
+- The scripts shown in the next section are examples and are there to get you started. For a reference of all the available API options, please refer to [MarketmakerV1 API.](../api/general.md)
 
 ## Scripts
 
@@ -68,7 +68,7 @@ You should see your `userpass` on screen, and it will also be automatically copi
 ]
 ```
 
-- `electrum.cmd` - Allows you to run coins in electum mode. For running more coins in electrum mode, add needed electrum servers from here : [Electrum Servers List.](./list-electrum-servers.md)
+- `electrum.cmd` - Allows you to run coins in electum mode. For running more coins in electrum mode, add needed electrum servers from here : [Electrum Servers List.](../coin-integration/electrum-servers-list.md)
 
 - `help.cmd` - displays help about all the available API commands.
 - `listunspent.cmd` - prints your utxos.
