@@ -85,7 +85,7 @@ module.exports = {
             ],
             ["/basic-docs/cryptoconditions/cc-channels.md", "Channels"],
             ["/basic-docs/cryptoconditions/cc-dice.md", "Dice"],
-            ["/basic-docs/cryptoconditions/cc-dilithium.md", "Dilithium"],
+            // ["/basic-docs/cryptoconditions/cc-dilithium.md", "Dilithium"],
             ["/basic-docs/cryptoconditions/cc-faucet.md", "Faucet"],
             ["/basic-docs/cryptoconditions/cc-gateways.md", "Gateways"],
             ["/basic-docs/cryptoconditions/cc-heir.md", "Heir"],
@@ -113,50 +113,6 @@ module.exports = {
             ["/basic-docs/komodo-api/rawtransactions.md", "Raw Transactions"],
             ["/basic-docs/komodo-api/util.md", "Util"],
             ["/basic-docs/komodo-api/wallet.md", "Wallet"]
-          ]
-        }
-      ],
-      "/bsk/": [
-        {
-          title: "Initialising a Blockchain",
-          collapsable: true,
-          children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
-          ]
-        },
-        {
-          title: "Launching an Explorer",
-          collapsable: true,
-          children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
-          ]
-        },
-        {
-          title: "Setting up Electrums",
-          collapsable: true,
-          children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
-          ]
-        },
-        {
-          title: "Getting listed in Komodo's Multicoin wallet",
-          collapsable: true,
-          children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
-          ]
-        },
-        {
-          title: "Geting Listed in Komodo's DEX",
-          collapsable: true,
-          children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
-          ]
-        },
-        {
-          title: "Get your Blockchain secured by Bitcoin's hashpower",
-          collapsable: true,
-          children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
           ]
         }
       ],
