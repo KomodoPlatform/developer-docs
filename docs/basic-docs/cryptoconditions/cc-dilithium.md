@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The purpose of this document is to give a GUI developer all the knowledge necessary to create a GUI for the Dilithium cryptocondition(CC). We will touch briefly on the usecases of this cryptocondition. This document will not be discussing the underlying math and principles, rather the implementation.
+The purpose of this document is to give a developer all the knowledge necessary to create a GUI for the Dilithium CC Module. We will touch briefly on the usecases of this cryptocondition. This document will not be discussing the underlying math and principles, rather the implementation.
 
 The Dilithium CC allows for quantum resistant transactions on any Komodo assetchain that supports it. It has the added feature of unique human readable handles. These handles can be thought of as an address. For example, instead of a user saying "Please send coins to `RD6GgnrMpPaTSMn8vai6yiGA7mN4QGPVMY`", they could instead say "Please send coins to my handle, `KomodoHaxor`". After coins are sent to this unique handle, only the person who registered it will be able to spend the coins.
 
@@ -1316,12 +1316,6 @@ Response:
 ```
 
 If we repeat the same process for the remining `destpubtxid`, `fc6c067ec1091ec0d57ab86812af85a8650b10c6f1f0b954fc8db8c0e877e2a9`. We find that the output is to the `new21` handle.
-
-```
-System Message: introduction.rst:, line 3
-
-introduction.rst:3: (WARNING/2) Duplicate explicit target name: "here".
-```
 
 We will need to repeat this process on each UTXO in the `getaddressesutxos` output. Please see the `dil_listunspent` function [here](https://github.com/KMDLabs/pos64staker/blob/513d8bb0f18ee1a5011ea50e6e2aa766f01c5ad3/stakerlib.py#L876) for how you might do this in python3.
 
