@@ -9,7 +9,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 The `coinsupply` method returns the coin supply information for the indicated block `height`. If no height is given, the method defaults to the blockchain's current height.
 
 ::: tip
-To use this method for large block heights, first execute the method for a small block height, such as `1000`. Then execute the method for an incrementally higher block height, such as `10000`. Continue increasing the height until reaching the diesred height.
+To use this method for large block heights, first execute the method for a small block height, such as `1000`. Then execute the method for an incrementally higher block height, such as `10000`. Continue increasing the height until reaching the desired height.
 :::
 
 ### Arguments:
@@ -35,7 +35,7 @@ To use this method for large block heights, first execute the method for a small
 Command:
 
 ```bash
-komodo-cli coinsupply 80000
+./komodo-cli coinsupply 80000
 ```
 
 Response:
@@ -2073,7 +2073,7 @@ Response:
 
 **verifytxoutproof "proof_string"**
 
-The `verifytxoutproof` method verifies that a proof points to a transaction in a block. It returns the transaction to which the proof is committed, or it will throw an RPC error if the block is not in the current best chain.
+The `verifytxoutproof` method verifies that a proof points to a transaction in a block. It returns the transaction to which the proof is committed, or it will throw an rpc error if the block is not in the current best chain.
 
 ### Arguments:
 

@@ -306,7 +306,7 @@ Response:
 The `getdeprecationinfo` method returns an object containing current version and deprecation block height.
 
 ::: tip
-This method is applicable only to the KMD mainnet.
+This method is applicable only to the KMD main net.
 :::
 
 ### Arguments:
@@ -427,7 +427,7 @@ Response:
 
 **getnetworkinfo**
 
-The `getnetworkinfo` method returns an object containing various state info regarding P2P networking.
+The `getnetworkinfo` method returns an object containing various state info regarding p2p networking.
 
 ### Arguments:
 

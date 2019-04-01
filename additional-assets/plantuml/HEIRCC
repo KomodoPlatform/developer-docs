@@ -1,0 +1,21 @@
+@startuml
+Anyone -[#blue]> "The HeirCC Contract" as HeirCC : heirlist
+note right: To retrieve a list of all funding plans
+Anyone -[#blue]> HeirCC : heirinfo
+note right: To retrieve the details of a particular funding plan
+Anyone -[#blue]> HeirCC : heiraddress
+note left: To output Heir CC addresses
+Benefactor -[#green]> HeirCC : heirfund
+note right: anyone can create an heirCC
+Benefactor -[#green]> HeirCC : heiradd
+note right: The owner of this address can add more funds
+Anyone -[#green]> HeirCC : heiradd
+note right: Any other user, including the heir, can add donations
+Benefactor <[#red]- HeirCC : heirclaim
+note left: The owner can claim funds at any time
+HeirCC -[#red]> Beneficiary : heirclaim
+note left
+Once inactivitytime period 
+is reached, the heir can also claim funds
+end note
+@enduml

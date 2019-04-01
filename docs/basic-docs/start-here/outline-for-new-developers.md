@@ -88,7 +88,7 @@ Every asset chain has zero-knowledge privacy pre-installed, giving you the tools
 
 Having a blockchain all to yourself grants a competitive level of freedom to your creative endeavors.
 
-The highly advanced developer that wishes to engineer your own consensus mechanism can move forward rapidly with your ideas, backed up with the hash rate of Bitcoin. You also have our consensus-level smart contract technology, Crypto Conditions, at your disposal, which can allow you to make adjustments to your consensus mechanism far more quickly.
+The highly advanced developer that wishes to engineer your own consensus mechanism can move forward rapidly with your ideas, backed up with the hash rate of Bitcoin. You also have our consensus-level smart contract technology, CryptoConditions, at your disposal, which can allow you to make adjustments to your consensus mechanism far more quickly.
 
 Unlike other platforms, there is no need to wait for the Komodo team to update either the default daemon's functionality, or to update the main Komodo blockchain (KMD).
 
@@ -182,7 +182,7 @@ The next step is to install the software on your machine.
 
 Now that you have `komodod` and `komodo-cli` installed, [skim briefly through the instructions on how to interact with a Komodo-based daemon, linked here](../installations/basic-instructions.html#interacting-with-komodo-chains).
 
-You'll come back to this section later, once you're ready to execute rpc calls, API commands, and runtime parameters.
+You'll come back to this section later, once you're ready to execute API commands and runtime parameters.
 
 ::: tip
 You do not need to launch or sync the main Komodo chain (KMD), and you do not need to own any KMD to test an asset chain.
@@ -200,7 +200,7 @@ For example:
 
 `./komodod -ac_name=HELLOWORLD -ac_supply=777777 &`
 
-## Execute Elementary RPC Calls
+## Execute Elementary RPC's
 
 After you have your asset chain running on both nodes, we recommend executing some basic rpc calls in the terminal.
 
@@ -246,7 +246,7 @@ With this activated, you can try a few existing templates:
 
 ## Write Your Own Smart-Contract Templates
 
-If you're ready to try writing your own customized smart-contract template, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Crypto Conditions](https://docs.komodoplatform.com/cc/index-book-jl.html).
+If you're ready to try writing your own customized smart-contract template, please read the detailed technical documentation written by our lead developer, JL777: [Mastering CryptoConditions](https://docs.komodoplatform.com/cc/index-book-jl.html).
 
 Most developers don't need to design smart contracts on Komodo, but rather, only need to implement existing smart-contracts templates while developing a dApp. So don't be discouraged if the technical documentation appears too thick for your level of experience. Come to Discord when you have questions.
 

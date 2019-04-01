@@ -525,7 +525,7 @@ If the values of `combinedsig` produced by both nodes is the same, then you have
 
 ##### Node 1
 
-The `verify` method requires an array of arguments. The arguments are as folows:
+The `verify` method requires an array of arguments. The arguments are as follows:
 
 1. `msg`: the `msg` value, retrieved previously
 2. `combined_pk`: the `combined_pk` value, retrieved previously

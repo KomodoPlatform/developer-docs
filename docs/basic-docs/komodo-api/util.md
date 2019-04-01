@@ -263,7 +263,7 @@ Response:
 
 **reconsiderblock "hash"**
 
-The `reconsiderblock` method removes invalidity status of a block and its descendants, reconsidering them for activation. This can be used to undo the effects of invalidateblock.
+The `reconsiderblock` method removes invalidity status of a block and its descendants, reconsidering them for activation. This can be used to undo the effects of the `invalidateblock` method.
 
 ### Arguments:
 

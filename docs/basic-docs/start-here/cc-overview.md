@@ -1,10 +1,10 @@
-# Crypto Conditions Overview
+# CryptoConditions Overview
 
 ### Smart Contracts on the Komodo Platform
 
-Komodo is built on the Bitcoin protocol, and traditionally, Bitcoin Script is thought of as being incapable of supporting smart contracts. This is mostly a consequence of the fact that Bitcoin Script is (intentionally) not Turing complete. Now, all of this is changing with Crypto Conditions, a utxo-based smart contract protocol.
+Komodo is built on the Bitcoin protocol, and traditionally, Bitcoin Script is thought of as being incapable of supporting smart contracts. This is mostly a consequence of the fact that Bitcoin Script is (intentionally) not Turing complete. Now, all of this is changing with CryptoConditions, a utxo-based smart contract protocol.
 
-As is often the case, Komodo Platform is leading the blockchain industry in this brand new technology. This section will explain what Crypto Conditions is, how it works, and how utxo-based smart contracts will dramatically alter the blockchain landscape.
+As is often the case, Komodo Platform is leading the blockchain industry in this brand new technology. This section will explain what CryptoConditions is, how it works, and how utxo-based smart contracts will dramatically alter the blockchain landscape.
 
 ## A Brief Review of Bitcoin Script
 
@@ -98,27 +98,27 @@ Until blockchain technology is capable of processing potentially billions, if no
 
 Having observed crucial flaws in the currently popular gas-based smart-contract platform, we are now prepared to turn to the smart-contract solution Komodo proposes.
 
-## Introducing Crypto Conditions
+## Introducing CryptoConditions
 
 Recall that Satoshi Nakamoto's Bitcoin Script is not Turing complete. This choice was deliberate. Leaving Bitcoin Script in a simple form was a quicker, safer alternative to a Turing complete language. This is true because it removes the possibility of infinite loops clogging the Bitcoin network.
 
 However, at the same time, the lack of Turing completeness also prevented smart contracts and dApps from being launched on Bitcoin-protocol based blockchains--until now.
 
-Komodo now offers "Crypto Conditions", a feature that allows smart contracts to be developed on top of Bitcoin-protocol based blockchains. We believe Crypto Conditions to be a useful addition to the blockchain industry, because it empowers Bitcoin-core based cryptocurrencies with support for smart contracts and decentralized applications.
+Komodo now offers "CryptoConditions", a feature that allows smart contracts to be developed on top of Bitcoin-protocol based blockchains. We believe CryptoConditions to be a useful addition to the blockchain industry, because it empowers Bitcoin-core based cryptocurrencies with support for smart contracts and decentralized applications.
 
-Furthermore, Crypto Conditions gains more usefulness when combined with Komodo's unique design. Recall that Komodo is built not to require all developers and users to function on the main Komodo blockchain. Rather, it empowers you with an independent blockchain all of your own, secures each chain with the hash rate of Bitcoin, and facilitates an interconnected network between all such chains using technologies such as atomic-swaps, cross-chain smart contracts, chain interlinking, and more.
+Furthermore, CryptoConditions gains more usefulness when combined with Komodo's unique design. Recall that Komodo is built not to require all developers and users to function on the main Komodo blockchain. Rather, it empowers you with an independent blockchain all of your own, secures each chain with the hash rate of Bitcoin, and facilitates an interconnected network between all such chains using technologies such as atomic-swaps, cross-chain smart contracts, chain interlinking, and more.
 
 This combination of Komodo technologies overcomes the challenges of the currently popular, gas-based, single-blockchain platforms.
 
-With Crypto Conditions, the business developer can maintain interactivity with the Komodo ecosystem, while also being able to run their smart contracts and dApps on a private blockchain. Because the developer has the full blockchain all to themselves, they are able to safely occupy the full transaction capacity without fear of interruption by other dApp developers in the ecosystem. Developers of highly active blockchains can even split their single blockchain into multiple blockchains, using the same interconnection technology.
+With CryptoConditions, the business developer can maintain interactivity with the Komodo ecosystem, while also being able to run their smart contracts and dApps on a private blockchain. Because the developer has the full blockchain all to themselves, they are able to safely occupy the full transaction capacity without fear of interruption by other dApp developers in the ecosystem. Developers of highly active blockchains can even split their single blockchain into multiple blockchains, using the same interconnection technology.
 
 In short, if you want to build an Uber-like dApp, Komodo is the platform for you.
 
 Likewise, to participate the end-users need only purchase the currency of the developer's dApp; there is no need to purchase KMD. Therefore, for the end-user, the price of participating in the developer's dApp is tied only to the design and success of the dApp, and not to the unpredictability of the rest of the ecosystem.
 
-## Crypto Conditions is Utxo Technology
+## CryptoConditions is Utxo Technology
 
-Crypto Conditions functions in a completely different manner from the popular gas-based model of other platforms. Before we can explain how Crypto Conditions works, we must first briefly explain the concept of an "unspent transaction", also called a "utxo," for short. Utxos are integral to a blockchain's functionality, but many users do not know they exist.
+CryptoConditions functions in a completely different manner from the popular gas-based model of other platforms. Before we can explain how CryptoConditions works, we must first briefly explain the concept of an "unspent transaction", also called a "utxo," for short. Utxos are integral to a blockchain's functionality, but many users do not know they exist.
 
 A utxo is simply a bill of value sitting in your digital wallet -- much like the many small fiat dollar bills you may have sitting in your physical wallet. The collection of utxos in your digital wallet make up the total balance.
 
@@ -128,21 +128,21 @@ When the user spends money, the blockchain software automatically splits the mon
 
 The user now has a 1 KMD utxo, a 2 KMD utxo, and another 1 KMD utxo. The total that they see in their wallet is 4 KMD.
 
-## Crypto Conditions: Utxo-based Smart Contracts
+## CryptoConditions: Utxo-based Smart Contracts
 
 Coming to this from a programmer's perspective, a utxo is a programmable object. As with many objects, it allows software to add and subtract properties from it, including properties that allow for Turing-complete programming. In Komodo, utxos allow us to create a smart-contract functionality that is dramatically cheaper to utilize, and more secure in practice; than the gas-based models of the other platforms.
 
-In its simplest form, Crypto Conditions locks a utxo in a publicly-known address and prevents it from being spent until a certain set of conditions is met. Once the conditions are fulfilled, the utxo is unlocked and sent to the appropriate address. The idea behind it really is that simple.
+In its simplest form, CryptoConditions locks a utxo in a publicly-known address and prevents it from being spent until a certain set of conditions is met. Once the conditions are fulfilled, the utxo is unlocked and sent to the appropriate address. The idea behind it really is that simple.
 
 It is fundamentally different than the gas-based model. In the gas-based model, a user has a total balance and they instruct their blockchain software to execute a smart-contract either until the contract is complete, or their total balance is gone.
 
-With Komodo's Crypto Conditions, a user locks a series of utxos in a contract with a set of instructions that must be met before the utxo can be sent to its final destination.
+With Komodo's CryptoConditions, a user locks a series of utxos in a contract with a set of instructions that must be met before the utxo can be sent to its final destination.
 
 This is a dramatically more secure setup. Only the utxos that have been indicated as belonging to a smart contract can be spent. This is different from the gas-based model, where a bug in the software can (and frequently does) allow a faulty smart contract to drain the full balance of a wallet.
 
-Before diving any deeper into how Crypto Conditions works, we need to understand a few things about Bitcoin payments scripts.
+Before diving any deeper into how CryptoConditions works, we need to understand a few things about Bitcoin payments scripts.
 
-## How Crypto Conditions Interacts with Bitcoin Script
+## How CryptoConditions Interacts with Bitcoin Script
 
 Let's dive even deeper. The following terminology may be a little thick even for some developers, when you are new to blockchain technology. If it's too confusing, simply skip to the next section.
 
@@ -150,29 +150,29 @@ There are several different ways to execute a Bitcoin payment. In particular, th
 
 Now, Komodo has created an additional payment script that designates a utxo as belonging to a specific smart contract. In other words, it puts constraints on the utxo.
 
-The utxo in question gets marked with a specific EVAL code. This will effectively lock those funds into the desired smart contract. Every Crypto Conditions contract has its own unique EVAL code, so there is never any confusion about which contract a utxo is entering.
+The utxo in question gets marked with a specific EVAL code. This will effectively lock those funds into the desired smart contract. Every CryptoConditions contract has its own unique EVAL code, so there is never any confusion about which contract a utxo is entering.
 
 There is also never any confusion about where the funds are sent because for each pubkey in existence, there is a unique address for each EVAL code. The pubkey remains the same, but due to the actual script having different EVAL codes, it ends up with a different result when entered into a cryptographic hash function, and thus a different address for each contract.
 
-Each Crypto Conditions contract has its own special address that is known to all, including its private key. Making the private key public enables SPV-based interaction with the contracts. It also allows everyone to see that a specific sum of funds are locked in a contract.
+Each CryptoConditions contract has its own special address that is known to all, including its private key. Making the private key public enables SPV-based interaction with the contracts. It also allows everyone to see that a specific sum of funds are locked in a contract.
 
 At the same time, the funds cannot be moved until all the conditions of the contract are satisfied. This is true despite the fact that the private key is made public. Although anyone can use the private key to sign a transaction, the contract’s conditions must be satisfied before the funds can be moved.
 
-For all of these reasons, the private key is no longer the relevant factor for control of the funds. The relevant factor is the set of conditions set forth by the contract. And, as we’ll soon learn, the conditions of a Crypto Conditions smart contract are essentially boundless.
+For all of these reasons, the private key is no longer the relevant factor for control of the funds. The relevant factor is the set of conditions set forth by the contract. And, as we’ll soon learn, the conditions of a CryptoConditions smart contract are essentially boundless.
 
-It’s also worth pointing out that one of the conditions of a Crypto Conditions contract can be a restriction on which addresses the funds can be sent to.
+It’s also worth pointing out that one of the conditions of a CryptoConditions contract can be a restriction on which addresses the funds can be sent to.
 
-With these rules in place, a Crypto Conditions smart contract becomes like a mini-consensus mechanism. It forces consensus for the participants in the smart contract, just like the master consensus mechanism of the blockchain.
+With these rules in place, a CryptoConditions smart contract becomes like a mini-consensus mechanism. It forces consensus for the participants in the smart contract, just like the master consensus mechanism of the blockchain.
 
-If you'd like to try writing your own Crypto Conditions smart contract, [read this documentation by Komodo’s lead developer, JL777](https://docs.komodoplatform.com/cc/index-book-jl.html).
+If you'd like to try writing your own CryptoConditions smart contract, [read this documentation by Komodo’s lead developer, JL777](https://docs.komodoplatform.com/cc/index-book-jl.html).
 
 Rest assured if you find this documentation too challenging. As the library of finished smart-contract templates increases over time, a normal developer will not need to write a full smart contract to utilize Komodo. Rather, you'll just pull a series of pre-written templates that function like building blocks, as you create your dApps.
 
 If you have a specific idea you'd like to try out and the template does not yet exist for it, please reach out to our team. We may be able to help you, as we are working to build up our template library.
 
-Now let's take a closer look at the many advantages Crypto Conditions creates.
+Now let's take a closer look at the many advantages CryptoConditions creates.
 
-## Advantages Of Crypto Conditions & Utxo-based Smart Contracts
+## Advantages Of CryptoConditions & Utxo-based Smart Contracts
 
 There are a few additional advantages of utxo-based smart contracts that must be emphasized.
 
@@ -184,13 +184,13 @@ Furthermore, because smart contracts on Komodo run in the daemon, developers can
 
 Second, utxo-based smart contracts are more secure than balance-based smart contracts. This is true in several ways. For one thing, because Komodo’s smart contracts are utxo-based, it is far more difficult, if not impossible, to use a smart contract to flood the parent coin's coin supply with illegitimate coins.
 
-This is not the case with balance-based smart contracts, like those on Ethereum. Because the smart contracts are linked to balances, rather than blockchain-enforced utxos, a malicious actor can manipulate balances to disastrous ends. We’ve seen this happen again and again and again.
+This is not the case with balance-based smart contracts, like those on Ethereum. Because the smart contracts are linked to balances, rather than blockchain-enforced utxos, a malicious actor can manipulate balances to disastrous ends. We have seen this happen again and again and again.
 
 Third, utxo-based smart contracts are essentially an extension of the Bitcoin protocol, so a series of RPC calls can be established. This makes it extremely simple to customize and implement utxo-based smart contracts.
 
 It is a straightforward process to create a GUI so non-technical users can make use of Komodo’s smart-contract technology without needing to work through a CLI. Eventually, once a large variety of RPC calls have been created, it will become possible to build entire decentralized applications based on RPC calls alone.
 
-Fourth, Crypto Conditions allows zero-confirmation micro-payments. Also, these 0-conf micro-payments are secured by Komodo’s delayed Proof of Work security mechanism. The payments are fully peer-to-peer, and are considered confirmed as soon as they enter the mempool.
+Fourth, CryptoConditions allows zero-confirmation micro-payments. Also, these 0-conf micro-payments are secured by Komodo’s delayed Proof of Work security mechanism. The payments are fully peer-to-peer, and are considered confirmed as soon as they enter the mempool.
 
 Finally, utxo-based smart contracts do not require “gas” or any sort of fee for every process executed. Recall that the smart contracts and dApps built on Ethereum must pay for gas for every single process. The gas-based model makes complex dApps impossible.
 
@@ -206,7 +206,7 @@ If a project on the Komodo Platform needs additional contracts urgently and has 
 
 ## Conclusion
 
-As far as the Komodo team knows, no other blockchain project has successfully implemented Crypto Conditions on a live chain. From atomic swaps and on-demand scalability features to cross-chain interoperability syncing and utxo-based smart contracts, Komodo continues to develop technologies at the bleeding edge of the blockchain industry.
+As far as the Komodo team knows, no other blockchain project has successfully implemented CryptoConditions on a live chain. From atomic swaps and on-demand scalability features to cross-chain interoperability syncing and utxo-based smart contracts, Komodo continues to develop technologies at the bleeding edge of the blockchain industry.
 
 Komodo has implemented several smart contracts already, and they are available to all asset chains in our ecosystem. Some of these smart contracts can facilitate Oracles, on-chain gambling, on-chain DEX functionality, ERC20-like tokens, micro-payment channels, and more.
 

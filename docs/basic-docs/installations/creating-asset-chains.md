@@ -134,7 +134,7 @@ To see general information about your new asset chain, execute this command:
 
 `./komodo-cli -ac_name=HELLOWORLD getinfo`
 
-The following command returns information about all available RPC and API commands:
+The following command returns information about all available rpc and API commands:
 
 `./komodo-cli -ac_name=HELLOWORLD help`
 

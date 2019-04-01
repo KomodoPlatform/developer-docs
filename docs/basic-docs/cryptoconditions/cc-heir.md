@@ -25,6 +25,12 @@ The Heir CC module accepts both coins and tokens. These can be the base coin of 
 - To retrieve a list of all funding plans on the asset chain, use [heirlist](../cryptoconditions/cc-heir.html#heirlist)
 - To output Heir CC addresses, use [heiraddress](../cryptoconditions/cc-heir.html#heiraddress)
 
+<!--The image below needs to be adjusted via @808 before it can be added to the live site:
+
+![sequence diagram of this CC](/heirCC-with-labels.png)
+
+-->
+
 ::: warning
 If an owner of an Heir CC address seeking to add funds to their account avoids the normal methods (the RPC provided) and instead manually creates a utxo contribution, this utxo will not follow the normal patterns. Specifically, if the owner manually creates a contribution utxo that derives from both the owner pubkey and also from another pubkey, this utxo will not affect the `inactivitytime` calculation. Instead of resetting the `inactivitytime`, the utxo will count only as a donation.
 :::
@@ -211,7 +217,7 @@ The `heiradd` method adds more funds to the Heir CC plan.
 
 When the owner uses the `heiradd` method the `inactivitytime` calculations are reset, thus renewing the owner's sole access to the funds.
 
-When anyone other than the owner uses the `heiradd` method to add funds, these funds are considered to be donations and won't affect the calculation of the elapsed `inactivitytime`. The method also sends a warning to the donator to ensure they agree to submit the given funds as a donation.
+When anyone other than the owner uses the `heiradd` method to add funds, these funds are considered to be donations and won't affect the calculation of the elapsed `inactivitytime`. The method also sends a warning to the contributor to ensure they agree to submit the given funds as a donation.
 
 For each transaction using `heiradd`, the funds may be sent either from the owner's pubkey, or from a non-owner's pubkey. Funds cannot be sent from both owner and non-owner pubkeys at the same time. This can cause confusion for the owner if the funds available in their wallet are held partially in the owner's declared pubkey for this Heir CC account, and partially in other pubkeys. Therefore, the owner should ensure that all funds they desire to add to the account are within their declared Heir CC pubkey before attempting to use `heiradd`.
 

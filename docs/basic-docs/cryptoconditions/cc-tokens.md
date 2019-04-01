@@ -482,7 +482,7 @@ The method returns a hex-encoded transaction which should then be broadcast usin
 `sendrawtransaction` then returns a `txid`, which is your `tokenid`.
 
 ::: tip
-Tokens that can be divided and transfered in fractional amounts can be created too. If you consider 10 tokens as a single unit, then this unit can be named anything and it will be divisible to a single decimal place. This can be handled on the application side as it is just a change in the way of interpreting the numbers.
+Tokens that can be divided and transferred in fractional amounts can be created too. If you consider 10 tokens as a single unit, then this unit can be named anything and it will be divisible to a single decimal place. This can be handled on the application side as it is just a change in the way of interpreting the numbers.
 :::
 
 ### Arguments:
