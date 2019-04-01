@@ -135,7 +135,7 @@ You should get a similar response:
 
 You are now connected to the BEER test-blockchain network.
 
-Let's connect to PIZZA.
+Let's connect to PIZZA (note it uses a different Electrum port).
 
 ```
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"PIZZA\",\"urls\":[\"electrum1.cipig.net:10024\",\"electrum2.cipig.net:10024\",\"electrum3.cipig.net:10024\"]}"
@@ -406,6 +406,12 @@ You should receive a similar response:
 ```
 
 Congratulations! You've just been one of the first people in history to trade a currency without any help from a middleman and without even having to know your trading partner.
+
+Once you've completed all the trades you want to do, you can exit with:
+
+```
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"stop\"}"
+```
 
 Please reach out to us [on Discord](https://komodoplatform.com/discord) and tell us about your experience.
 
