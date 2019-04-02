@@ -45,7 +45,7 @@ This is not actually the reality, as many exchanges and cold storage wallets don
 :::
 
 - KMD in circulation currently: ~ `112462628` ~ `122.4` million
-- Approximate amount of rewards claimable (excluding the mined KMD as that too will be eligible to claim reward) = `112462628 * 0.051` = `5735594` ~ `5.73` million
+- Approximate amount of rewards claimable (excluding the mined KMD as that too will be eligible to claim rewards) = `112462628 * 0.051` = `5735594` ~ `5.73` million
 
 ## Summary
 
