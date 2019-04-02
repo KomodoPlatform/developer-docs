@@ -4,7 +4,8 @@ module.exports = {
   description: "Documentation for developers building on Komodo",
   themeConfig: {
     lastUpdated: "Last Updated",
-    nav: [{
+    nav: [
+      {
         text: "Start Here",
         link: "/basic-docs/start-here/introduction.md"
       },
@@ -14,7 +15,8 @@ module.exports = {
       },
       {
         text: "Guides",
-        items: [{
+        items: [
+          {
             text: "Komodo",
             link: "/komodo/installation.md"
           },
@@ -42,7 +44,8 @@ module.exports = {
       },
       {
         text: "Resources",
-        items: [{
+        items: [
+          {
             text: "Komodo Platform",
             link: "/resources/list-all-KomodoPlatform-repos-links.md"
           },
@@ -58,7 +61,8 @@ module.exports = {
       }
     ],
     sidebar: {
-      "/basic-docs/": [{
+      "/basic-docs/": [
+        {
           title: "Start Here",
           collapsable: true,
           children: [
@@ -139,7 +143,8 @@ module.exports = {
           ]
         }
       ],
-      "/whitepaper/": [{
+      "/whitepaper/": [
+        {
           title: "Komodo’s Method Of Security: Delayed Proof Of Work (dPoW)",
           collapsable: true,
           children: [
@@ -170,18 +175,15 @@ module.exports = {
           ]
         },
         {
-          title: "Komodo’s Atomic-Swap Powered, Decentralized Exchange: Barterdex",
+          title:
+            "Komodo’s Atomic-Swap Powered, Decentralized Exchange: Barterdex",
           collapsable: true,
-          children: [
-            ["/whitepaper/chapter6.md", "Abstract (BarterDEX)"]
-          ]
+          children: [["/whitepaper/chapter6.md", "Abstract (BarterDEX)"]]
         },
         {
           title: "Komodo’s Native Privacy Feature: Jumblr",
           collapsable: true,
-          children: [
-            ["/whitepaper/chapter7.md", "Abstract (Jumblr)"]
-          ]
+          children: [["/whitepaper/chapter7.md", "Abstract (Jumblr)"]]
         },
         {
           title: "Additional Information Regarding the Komodo Ecosystem",
@@ -196,9 +198,7 @@ module.exports = {
         {
           title: "References",
           collapsable: true,
-          children: [
-            ["/whitepaper/references.md", "References"]
-          ]
+          children: [["/whitepaper/references.md", "References"]]
         }
       ],
       "/cc-jl/": [
@@ -224,7 +224,8 @@ module.exports = {
         ["/cc-jl/chapter15.md", "Chapter 15 - RPC based dAPPS"],
         ["/cc-jl/faq.md", "Frequently asked Questions"]
       ],
-      "/gui/agama/": [{
+      "/gui/agama/": [
+        {
           title: "Agama",
           collapsable: true,
           children: [
@@ -286,7 +287,8 @@ module.exports = {
           ]
         }
       ],
-      "/komodo/": [{
+      "/komodo/": [
+        {
           title: "General",
           collapsable: true,
           children: [
@@ -300,7 +302,7 @@ module.exports = {
           ]
         },
         {
-          title: "New Features and Announcements",
+          title: "Features and Announcements",
           collapsable: true,
           children: [
             ["/komodo/dPoW-conf.md", "Confirmations are now dPoW aware"],
@@ -312,6 +314,7 @@ module.exports = {
               "/komodo/block-1M-changes.md",
               "Changes to Komodo Blockchain at Block Height 1 Million"
             ],
+            ["/komodo/coin-emission.md", "Inflation Mechanisms"],
             ["/komodo/info.md", "Information of various Eco-system coins"]
           ]
         },
@@ -357,7 +360,8 @@ module.exports = {
         ],
         ["/assetchains/checklist-new-coin.md", "Checklist for New Coins"]
       ],
-      "/mmV1/": [{
+      "/mmV1/": [
+        {
           title: "Installation",
           collapsable: true,
           children: [
@@ -505,7 +509,8 @@ module.exports = {
           ]
         }
       ],
-      "/notary/": [{
+      "/notary/": [
+        {
           title: "Basics",
           collapsable: true,
           children: [
