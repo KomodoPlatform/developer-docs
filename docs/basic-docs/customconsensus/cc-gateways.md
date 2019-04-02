@@ -1,8 +1,8 @@
-# Contract Module: Gateways
+# Gateways
 
 ## Introduction
 
-The `gateways` CryptoConditions module allows the user to facilitate, manage, and trade tokenized representations of foreign blockchain assets.
+The Gateway Custom Consensus (CC) module allows the user to facilitate, manage, and trade tokenized representations of foreign blockchain assets.
 
 For example, a user is able to deposit their real-world BTC into a monitored address on the Bitcoin blockchain. Then, on the `gateways` asset chain, the ownership of this BTC is tokenized. Only the owner of the token has the right to withdraw the BTC to a chosen address. The user that made the deposit can use the token either for asset trading, or for other creative purposes.
 
@@ -39,13 +39,13 @@ Make sure that the total `ac_supply` of this asset chain is fairly large. `77777
 
 [Follow these linked instructions](../installations/creating-asset-chains.html#creating-a-new-asset-chain) before continuing.
 
-Recall also that a user must have a `pubkey` enabled when interacting with a CryptoConditions asset chain. [View this linked material for an explanation.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey)
+Recall also that a user must have a `pubkey` enabled when interacting with a Custom Consensus asset chain. [View this linked material for an explanation.](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)
 
 If desired, the reader may use an existing asset chain instead of a temporary educational chain. [Follow this link](https://github.com/jl777/komodo/blob/master/src/assetchains.old) for a list of asset-chain launch parameters.
 
 #### Create a Token to Represent an External Cryptocurrency
 
-For the GatewaysCC module to function it must have access to tokens that can represent an external cryptocurrency. We use the [Tokens](../cryptoconditions/cc-tokens.html) CC module to this effect.
+For the GatewaysCC module to function it must have access to tokens that can represent an external cryptocurrency. We use the [Tokens](../customconsensus/cc-tokens.html) CC module to this effect.
 
 #### Decide the Number of Tokens to Create
 
@@ -69,7 +69,7 @@ To create the tokens, execute the following command:
 
 This creates a `100000000000` token supply of on-chain tokens with the name of `KMD`, which represent the external cryptocurrency, `KMD`.
 
-For more details on the above command, see [tokencreate.](../cryptoconditions/cc-tokens.html#tokencreate)
+For more details on the above command, see [tokencreate.](../customconsensus/cc-tokens.html#tokencreate)
 
 This command returns a hex value as a response:
 
@@ -111,13 +111,13 @@ If this asset chain were receiving full dPoW security services, at this point it
 
 On this educational asset chain, however, we can continue without waiting for notarization.
 
-We can check to see that our token is successfully created on the chain using [tokeninfo:](../cryptoconditions/cc-tokens.html#tokeninfo)
+We can check to see that our token is successfully created on the chain using [tokeninfo:](../customconsensus/cc-tokens.html#tokeninfo)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD tokeninfo insert_token_id
 ```
 
-We can check the balance of our `pubkey` using [tokenbalance:](../cryptoconditions/cc-tokens.html#tokenbalance)
+We can check the balance of our `pubkey` using [tokenbalance:](../customconsensus/cc-tokens.html#tokenbalance)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD tokenbalance insert_tokenid insert_pubkey
@@ -125,11 +125,11 @@ We can check the balance of our `pubkey` using [tokenbalance:](../cryptoconditio
 
 #### Create an Oracle
 
-We use the [oracles](../cryptoconditions/cc-oracles.html) CryptoConditions module to add external data to the blockchain.
+We use the [oracles](../customconsensus/cc-oracles.html) Custom Consensus module to add external data to the blockchain.
 
 The name of our oracle should be identical to the name of our tokens, `KMD`, and the data format must start with `Ihh` (height, blockhash, merkleroot):
 
-Create the oracle using [oraclescreate:](../cryptoconditions/cc-oracles.html#oraclescreate)
+Create the oracle using [oraclescreate:](../customconsensus/cc-oracles.html#oraclescreate)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD oraclescreate KMD blockheaders Ihh
@@ -158,7 +158,7 @@ This returns a transaction id, which is the `oracleid`:
 
 Record this in the text editor.
 
-To prepare for the oraclefeed dApp, use [oraclesregister](../cryptoconditions/cc-oracles.html#oraclesregister) to register as a publisher for the oracle. This must be done on a node which can post KMD blockheaders and which can execute withdrawal transactions:
+To prepare for the oraclefeed dApp, use [oraclesregister](../customconsensus/cc-oracles.html#oraclesregister) to register as a publisher for the oracle. This must be done on a node which can post KMD blockheaders and which can execute withdrawal transactions:
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD oraclesregister insert_oracleid data_fee_in_satoshis`
@@ -170,7 +170,7 @@ This returns a hex value (not shown for brevity), which we now broadcast:
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_value
 ```
 
-Retrieve the data publisher's `pubkey` using [oraclesinfo:](../cryptoconditions/cc-oracles.html#oraclesinfo)
+Retrieve the data publisher's `pubkey` using [oraclesinfo:](../customconsensus/cc-oracles.html#oraclesinfo)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD oraclesinfo insert_oracleid
@@ -201,7 +201,7 @@ Response from `oraclesinfo`:
 
 The property, `"publisher"`, in the entry, `"registered"`, of the returned json object is the data publisher's `pubkey`, also called the `publisherpubkey`.
 
-Subscribe to the oracle using [oraclessubscribe](../cryptoconditions/cc-oracles.html#oraclessubscribe) to receive utxo information for data publishing.
+Subscribe to the oracle using [oraclessubscribe](../customconsensus/cc-oracles.html#oraclessubscribe) to receive utxo information for data publishing.
 
 The frequency of data-publishing transactions we can perform in a block is equal to the number of active subscriptions committed to the oracle. Therefore, we must have at least one subscription for the oracle to allow publishing.
 
@@ -227,7 +227,7 @@ Verify the oracle information to ensure it is properly established:
 
 #### Activating Gateway Binding
 
-We now create a gateway and bind our information to it, using the [gatewaysbind](../cryptoconditions/cc-gateways.html#gatewaysbind) method.
+We now create a gateway and bind our information to it, using the [gatewaysbind](../customconsensus/cc-gateways.html#gatewaysbind) method.
 
 This method requires that we decide how many total gateway signatures we desire (`N`), and how many signatures are required to withdraw funds (`M`).
 
@@ -247,7 +247,7 @@ This method returns a hex value (not shown for brevity), which we now broadcast:
 
 The broadcast returns a transaction id, also called the `bindtxid`. Copy this information into the text editor.
 
-Assuming all is properly created and executed, we may now review our new gateway using [gatewaysinfo:](../cryptoconditions/cc-gateways.html#gatewaysinfo)
+Assuming all is properly created and executed, we may now review our new gateway using [gatewaysinfo:](../customconsensus/cc-gateways.html#gatewaysinfo)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD gatewaysinfo insert_bindtxid
@@ -355,7 +355,7 @@ Next, execute the following command for more information:
 
 This returns a `proof` value. Transfer this to the text editor.
 
-We now have the necessary data to execute the [gatewaysdeposit](../cryptoconditions/cc-gateways.html#gatewaysdeposit-2) method on the HELLOWORLD asset chain.
+We now have the necessary data to execute the [gatewaysdeposit](../customconsensus/cc-gateways.html#gatewaysdeposit-2) method on the HELLOWORLD asset chain.
 
 The `gatewaysdeposit` method broadcasts the relevant data on the asset chain so that the gateway nodes may validate the information and prepare to distribute the KMD tokens.
 
@@ -419,7 +419,7 @@ For the claim to process successfully, the deposit and bind transaction must be 
 
 #### Withdrawing KMD Funds
 
-When finished with our tokens, we may send them to the gateway and withdraw the corresponding KMD funds via the [gatewayswithdraw](../cryptoconditions/cc-gateways.html#gatewayswithdraw) method. Only the current owner of the KMD funds may execute the `gatewayswithdraw` method for these funds.
+When finished with our tokens, we may send them to the gateway and withdraw the corresponding KMD funds via the [gatewayswithdraw](../customconsensus/cc-gateways.html#gatewayswithdraw) method. Only the current owner of the KMD funds may execute the `gatewayswithdraw` method for these funds.
 
 ::: tip
 Recall that for the gateway to function, the oracle dApp must be running.

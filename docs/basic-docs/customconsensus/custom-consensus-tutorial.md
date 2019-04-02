@@ -1,12 +1,12 @@
-# How to Build a New CryptoConditions Module
+# How to Build a New Custom Consensus Module
 
 ## Introduction
 
-The following content and tutorial are provided for advanced developers desiring to discover deeper levels of potential in Komodo software. The content focuses around Komodo's framework for building blockchain-based decentralized applications (dApps). This framework is called, CryptoConditions, or CC for short.
+The following content and tutorial are provided for advanced developers desiring to discover deeper levels of potential in Komodo software. The content focuses around Komodo's framework for building blockchain-based decentralized applications (dApps). This framework is called, Custom Consensus, or CC for short.
 
 #### Assumptions for this Content
 
-This discussion is intended for developers who have a strong understanding of the C/C++ languages and who understand the core fundamentals of blockchain engineering, as these are prerequisites for use of the CryptoConditions (CC) framework. 
+This discussion is intended for developers who have a strong understanding of the C/C++ languages and who understand the core fundamentals of blockchain engineering, as these are prerequisites for use of the Custom Consensus (CC) framework. 
 
 Developers who possess this knowledge and who are already familiar with the essential nature of the CC framework may optionally skip all the following conceptual content and proceed directly to the tutorial. 
 
@@ -20,19 +20,19 @@ Also, experienced developers who write in other languages, such as Python, JavaS
 
 #### Note for Other Developers
 
-While creating a new CryptoConditions (CC) module requires a high level of specific blockchain and coding knowledge, developers who do not have this specific knowledge may still benefit from the CC framework.
+While creating a new Custom Consensus (CC) module requires a high level of specific blockchain and coding knowledge, developers who do not have this specific knowledge may still benefit from the CC framework.
 
 Each module built on the CC framework can be designed to have API commands that can be called quickly and easily from other software and programming languages. Most CC modules that are added to the core `komodod` software have their API documentation added to this website.
 
 For example, consider the MuSig CC module. This module relies on the CC framework to enable a complicated technology called Schnorr Signatures, which are a new method for creating multi-signature blockchain transactions. The API for this module allows any developer of essentially any skill level to adopt the MuSig functionality into the developer's software without having to gain an in-depth understanding of Schnorr technology.
 
-[See the MuSig module documentation here](../cryptoconditions/cc-musig.html#introduction)
+[See the MuSig module documentation here](../customconsensus/cc-musig.html#introduction)
 
 As the library of available modules grows, so too do the advantages to the many types of developers in the Komodo ecosystem. For this reason, members of the Komodo community express gratitude to the more experienced blockchain developers who build and share CC modules via open-source ideology.
 
 ## Conceptual Explanation
 
-CryptoConditions (CC) is a framework for making decentralized applications (dApps). The framework is built in the C and C++ languages. The reader may better understand the purpose and use case of CC by first understanding the key problem that CC solves. 
+Custom Consensus (CC) is a framework for making decentralized applications (dApps). The framework is built in the C and C++ languages. The reader may better understand the purpose and use case of CC by first understanding the key problem that CC solves. 
 
 ### A Consensus Mechanism Is Not Easy to Create or Change
 
@@ -66,11 +66,11 @@ In many of the VM-based models, economics for blockchain usage can be volatile, 
 
 Furthermore, as the VM frequently relies on a single blockchain, block space can be in short supply due to high demand on popular chains, and data that is entirely irrelevant to the developer can become required baggage to maintain their own data validation.
 
-These challenges make the VM model unpleasant for many experienced blockchain engineers. In fact, before Komodo existed, these very concerns inspired the Komodo engineers to avoid the VM model in search of a better solution for blockchain creativity. CryptoConditions is this solution.
+These challenges make the VM model unpleasant for many experienced blockchain engineers. In fact, before Komodo existed, these very concerns inspired the Komodo engineers to avoid the VM model in search of a better solution for blockchain creativity. Custom Consensus is this solution.
 
-### CryptoConditions: Creativity at the Consensus Level, Without Losing the Consensus Mechanism
+### Custom Consensus: Creativity at the Consensus Level, Without Losing the Consensus Mechanism
 
-CryptoConditions (CC) allows a developer to add arbitrary code at the consensus level, and within the core software's daemon, without interferring with the existing consensus mechanism (CM). This grants the developer the ability to add core-level features and innovations without waiting for other members of the Komodo ecosystem. Combined with Komodo's Bitcoin-hash rate security, the simplicity of CC provides the developer with a competitive level of creative freedom.
+Custom Consensus (CC) allows a developer to add arbitrary code at the consensus level, and within the core software's daemon, without interferring with the existing consensus mechanism (CM). This grants the developer the ability to add core-level features and innovations without waiting for other members of the Komodo ecosystem. Combined with Komodo's Bitcoin-hash rate security, the simplicity of CC provides the developer with a competitive level of creative freedom.
 
 The entry point between the CC framework and the CM is a function, "OP_CHECKCRYPTOCONDITIONS". When executed, this function is able to initiate additional arbitrary code that is written in any programming language, assuming the language can call and execute C/C++ functions. The arbitrary code is separate from the CM, thus maintaining the CM's reliability. When the arbitrary code completes, the function accepts a `true` or `false` statement, and any additional meta data.
 
@@ -80,10 +80,10 @@ In addition, once the data is notarized, it can also be called by other Komodo-b
 
 With the CC framework in place, the developer may add to their blockchains whatever creativity the developer can imagine. 
 
-### CryptoConditions In Action: Accomplishing Years' Worth of Work In But A Weekend
+### Custom Consensus In Action: Accomplishing Years' Worth of Work In But A Weekend
 
 <!-- Point out how CC achieves everything in the VM model, without running multiple external softwars, such as the VM and any bridge technology needed to connect it. This makes the core development team faster, and simplifies the experience for the developer.-->
-Examples of the power of CryptoConditions (CC) can be found by observing existing modules. Consider how CC allowed the Komodo ecosystem to swiftly and easily upgrade the Komodo consensus mechanism (CM) to include Quantum-Proofing capabilities.
+Examples of the power of Custom Consensus (CC) can be found by observing existing modules. Consider how CC allowed the Komodo ecosystem to swiftly and easily upgrade the Komodo consensus mechanism (CM) to include Quantum-Proofing capabilities.
 
 In years past, many other blockchain projects <!--need list--> had focused on manually upgrading their CM for Quantum-Proof protection, and during the boom of 2017 this was sometimes touted as a key feature. Adding this manually to the <!-- add this --> CM was a time-consuming and expensive process. Paradoxically, once the new Quantum-Proof CM was achieved, it only served to isolate the project team. Their customized CM was incompatible with much of the activity in the open-source blockchain ecosystem, and therefore for each industry-wide technological advancement, the team often had to adapt on their own.
 
@@ -93,11 +93,11 @@ The time between project initiation and releasing a beta version for community t
 
 Also of note is the simplicity of CC architecture. All new code created for the Quantum-Proof module is contained in an optional library, and is included in compilation only for participating blockchains. The Komodo daemon has no need of an external VM. This eliminates what would otherwises be unnecessary baggage for the developer and the core engineers, and yet the daemon offers all the capabilities of a VM-based blockchain -- and arguably more.
 
-The ability to adopt the ideas of others quickly, while maintaining the accomplishments, security, and compatibilities of one's predecessors, makes CryptoConditions a wise choice for experienced developers who wish to maintain a long-term course of productivity and creativity in their work.
+The ability to adopt the ideas of others quickly, while maintaining the accomplishments, security, and compatibilities of one's predecessors, makes Custom Consensus a wise choice for experienced developers who wish to maintain a long-term course of productivity and creativity in their work.
 
 ## (Outline) Sketch for the Next Sections
 
-In this section, the reader will learn more about CryptoConditions through hands-on participation.
+In this section, the reader will learn more about Custom Consensus through hands-on participation.
 
 The agenda for this tutorial is the following:
 
@@ -114,7 +114,7 @@ If you can think of a few ideas for what we should leave our reader with, that w
 
 I was thinking something along the lines of,
 
-"Now that the reader is introduced to CryptoConditions, the journey from here is entirely of in the realms of the imagination.
+"Now that the reader is introduced to Custom Consensus, the journey from here is entirely of in the realms of the imagination.
 
 The reader may find insight by observing the manner in which other CC modules function. The Rogue CC module displays how different softwares can be combined into one CC module. The pieces of the Rogue module include the following:
 
@@ -163,7 +163,7 @@ If this were easy, the world would have thousands of well functioning consensus 
 
 
 
-#### Knowledge Requirements Before Attempting to Use CryptoConditions
+#### Knowledge Requirements Before Attempting to Use Custom Consensus
 
 At this time, the creation of a new CC module is only achievable among experienced C/C++ developers, and who possess a working knowledge of the principles of blockchain engineering. 
 
@@ -215,7 +215,7 @@ Ssiddhartha_crypto do you want to "normal coin" p2p consensus? mastering bitcoin
 siddhartha_crypto
 To put it into other words, to check for understanding:
 
-This is the code of CryptoConditions that every machine must run to ensure that the consensus across all machines is the same?
+This is the code of Custom Consensus that every machine must run to ensure that the consensus across all machines is the same?
 S
 jl777
 yes. custom_validate is what has to return "true" for it to pass validation

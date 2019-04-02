@@ -1,8 +1,8 @@
-# Contract Module: Rewards
+# Rewards
 
 ## Introduction
 
-The Rewards CryptoConditions (CC) module creates a master-node like rewards program, giving a user the ability to earn rewards by locking coins.
+The Rewards Custom Consensus (CC) module creates a master-node like rewards program, giving a user the ability to earn rewards by locking coins.
 
 It features configurable parameters, such as a customizable APR, minimum deposit, a required holding period,etc.
 
@@ -10,12 +10,12 @@ There can be many `rewards` plans active at any given time.
 
 ### Rewards CC Module Flow
 
-- Anyone can create a new plan using [rewardscreatefunding](../cryptoconditions/cc-rewards.html#rewardscreatefunding)
-- Anyone can add funding to the plan using [rewardsaddfunding](../cryptoconditions/cc-rewards.html#rewardsaddfunding)
-- Anyone can query the list of all active plans using [rewardslist](../cryptoconditions/cc-rewards.html#rewardslist)
-- To get the details of a particular plan, use [rewardsinfo](../cryptoconditions/cc-rewards.html#rewardsinfo)
-- After finding a suitable plan, any user can lock funds using [rewardslock](../cryptoconditions/cc-rewards.html#rewardslock)
-- After the minimum lock time is met, the user can use [rewardsunlock](../cryptoconditions/cc-rewards.html#rewardsunlock) to unlock their funds and receive their rewards
+- Anyone can create a new plan using [rewardscreatefunding](../customconsensus/cc-rewards.html#rewardscreatefunding)
+- Anyone can add funding to the plan using [rewardsaddfunding](../customconsensus/cc-rewards.html#rewardsaddfunding)
+- Anyone can query the list of all active plans using [rewardslist](../customconsensus/cc-rewards.html#rewardslist)
+- To get the details of a particular plan, use [rewardsinfo](../customconsensus/cc-rewards.html#rewardsinfo)
+- After finding a suitable plan, any user can lock funds using [rewardslock](../customconsensus/cc-rewards.html#rewardslock)
+- After the minimum lock time is met, the user can use [rewardsunlock](../customconsensus/cc-rewards.html#rewardsunlock) to unlock their funds and receive their rewards
 
 ## rewardsaddfunding
 
@@ -326,7 +326,7 @@ Response from Step 3:
 
 The `rewardsinfo` method returns information about specific `rewards` plan.
 
-Use [rewardslist](../cryptoconditions/cc-rewards.html#rewardslist) to see a list of all available `fundingtxid`'s.
+Use [rewardslist](../customconsensus/cc-rewards.html#rewardslist) to see a list of all available `fundingtxid`'s.
 
 ### Arguments:
 
@@ -414,9 +414,9 @@ The `rewardslock` method commits your desired amount of funds into the specified
 
 The method returns a `hex` value that must be broadcast using [sendrawtransaction.](../komodo-api/rawtransactions.html#sendrawtransaction)
 
-The `sendrawtransaction` method will then return a `txid`, which is later used in the [rewardsunlock](../cryptoconditions/cc-rewards.html#rewardsunlock) method. In general, it is best to save this `txid` in a secure location.
+The `sendrawtransaction` method will then return a `txid`, which is later used in the [rewardsunlock](../customconsensus/cc-rewards.html#rewardsunlock) method. In general, it is best to save this `txid` in a secure location.
 
-If the final `txid` is lost, it is possible to find it again. See [rewardsunlock](../cryptoconditions/cc-rewards.html#rewardsunlock) for more information.
+If the final `txid` is lost, it is possible to find it again. See [rewardsunlock](../customconsensus/cc-rewards.html#rewardsunlock) for more information.
 
 ### Arguments:
 
@@ -549,7 +549,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 If you attempt to unlock your funds before the minimum period is met, the daemon returns this error:
 
-The method requires the `txid` that was returned as a result of the original [rewardslock](../cryptoconditions/cc-rewards.html#rewardslock) method.
+The method requires the `txid` that was returned as a result of the original [rewardslock](../customconsensus/cc-rewards.html#rewardslock) method.
 
 If the original `txid` is lost, it is possible to find it again by either rebroadcasting the original `hex` (if it is available), or by scanning through available utxos using the [getaddressutxos](../komodo-api/address.html#getaddressutxos) method.
 
