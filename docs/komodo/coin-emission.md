@@ -30,8 +30,8 @@ Out of the above mining rewards,
 ### How [Rewards](../whitepaper/chapter8.html#rewards) work
 
 - Any utxo on the KMD chain whose age is greater than `1 hour` and value greater than `10 KMD` is eligible to send a transaction whose output is greater than its input.
-- The amount that can be claimed keeps increasing as the age of the utxo increases and caps at the age of 1 month, after which if the utxo hasn't claimed the rewards or done another transaction, the rewards are capped.
-- The monthly reward comes out to be approximately: ~ `.42%`. Please see this [npm module](https://github.com/atomiclabs/get-komodo-rewards/blob/master/index.js) or the [source code](https://github.com/jl777/komodo/blob/jl777/src/komodo_interest.h) to learn about the exact way the rewards are calculated.
+- The amount that can be claimed keeps increasing as the age of the utxo increases and caps at the age of 1 month. If the utxo hasn't claimed the rewards or done another transaction in a month, the rewards are capped.
+- The monthly reward comes out to be approximately: ~ `0.42%`. Please see this [npm module](https://github.com/atomiclabs/get-komodo-rewards/blob/master/index.js) or the [source code](https://github.com/jl777/komodo/blob/jl777/src/komodo_interest.h) to learn about the exact way the rewards are calculated.
 - The above rule and the value of extra satoshis that can be claimed is part of the KMD chain's consensus rules
 - The total value of the rewards that can be claimed by a person claiming atleast once a month compounded is approximately ~ `5.1%` . This [page](https://www.atomicexplorer.com/#/rewards-calc) has a handy rewards calculator.
 - Rewards cannot be claimed by utxos created after the KMD block height: `7777777`
