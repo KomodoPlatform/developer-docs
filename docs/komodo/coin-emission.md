@@ -53,7 +53,7 @@ In 1 year:
 
 - KMD created by normal miners : ~ `0.4` million
 - KMD created by notaries : ~ `1.18` million
-- KKMD created by claims of the "Active User Reward": ~ `5.73` million
+- KMD created by claims of the "Active User Reward": ~ `5.73` million
 
 ::: tip Note
 Also worth observing is that, while the mining rewards stay the same for both notaries and miners, the KMD produced through the rewards claim process keeps increasing every year as the amount of KMD held by the community increases.
