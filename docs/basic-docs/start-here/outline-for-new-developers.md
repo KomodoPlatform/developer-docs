@@ -88,7 +88,7 @@ Every asset chain has zero-knowledge privacy pre-installed, giving you the tools
 
 Having a blockchain all to yourself grants a competitive level of freedom to your creative endeavors.
 
-The highly advanced developer that wishes to engineer your own consensus mechanism can move forward rapidly with your ideas, backed up with the hash rate of Bitcoin. You also have our consensus-level smart contract technology, CryptoConditions, at your disposal, which can allow you to make adjustments to your consensus mechanism far more quickly.
+The highly advanced developer that wishes to engineer your own consensus mechanism can move forward rapidly with your ideas, backed up with the hash rate of Bitcoin. You also have our consensus-level smart contract technology, Custom Consensus, at your disposal, which can allow you to make adjustments to your consensus mechanism far more quickly.
 
 Unlike other platforms, there is no need to wait for the Komodo team to update either the default daemon's functionality, or to update the main Komodo blockchain (KMD).
 
@@ -238,15 +238,15 @@ First, you must create an asset chain that has the [ac_cc runtime parameter prop
 
 With this activated, you can try a few existing templates:
 
-- [Create ERC20 tokens on your new asset chain](../cryptoconditions/cc-tokens.html)
-- Try using your [built-in on-chain DEX](../cryptoconditions/cc-gateways.html)
-- Use [the oracles smart-contract template](../cryptoconditions/cc-oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
+- [Create ERC20 tokens on your new asset chain](../customconsensus/cc-tokens.html)
+- Try using your [built-in on-chain DEX](../customconsensus/cc-gateways.html)
+- Use [the oracles smart-contract template](../customconsensus/cc-oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
 
 ...and more!
 
 ## Write Your Own Smart-Contract Templates
 
-If you're ready to try writing your own customized smart-contract template, please read the detailed technical documentation written by our lead developer, JL777: [Mastering CryptoConditions](https://docs.komodoplatform.com/cc/index-book-jl.html).
+If you're ready to try writing your own customized smart-contract template, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Custom Consensus](https://docs.komodoplatform.com/cc/index-book-jl.html).
 
 Most developers don't need to design smart contracts on Komodo, but rather, only need to implement existing smart-contracts templates while developing a dApp. So don't be discouraged if the technical documentation appears too thick for your level of experience. Come to Discord when you have questions.
 

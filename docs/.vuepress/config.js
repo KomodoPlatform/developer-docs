@@ -43,7 +43,7 @@ module.exports = {
             ],
             [
               "/basic-docs/start-here/cc-overview.md",
-              "Overview of CryptoConditions"
+              "Overview of Custom Consensus"
             ]
           ]
         },
@@ -70,28 +70,28 @@ module.exports = {
           ]
         },
         {
-          title: "CryptoConditions",
+          title: "Custom Consensus",
           collapsable: true,
           children: [
             [
-              "/basic-docs/cryptoconditions/cryptoconditions-instructions.md",
-              "Instructions for CryptoConditions"
+              "/basic-docs/customconsensus/customconsensus-instructions.md",
+              "Instructions for Custom Consensus"
             ],
             [
-              "/basic-docs/cryptoconditions/cryptoconditions-tutorial.md",
+              "/basic-docs/customconsensus/customconsensus-tutorial.md",
               "Build a Custom CC Module"
             ],
-            ["/basic-docs/cryptoconditions/cc-channels.md", "Channels"],
-            ["/basic-docs/cryptoconditions/cc-dice.md", "Dice"],
-            ["/basic-docs/cryptoconditions/cc-faucet.md", "Faucet"],
-            ["/basic-docs/cryptoconditions/cc-gateways.md", "Gateways"],
-            ["/basic-docs/cryptoconditions/cc-heir.md", "Heir"],
-            ["/basic-docs/cryptoconditions/cc-musig.md", "MuSig"],
-            ["/basic-docs/cryptoconditions/cc-oracles.md", "Oracles"],
-            ["/basic-docs/cryptoconditions/cc-rewards.md", "Rewards"],
-            ["/basic-docs/cryptoconditions/cc-rogue.md", "Rogue"],
-            ["/basic-docs/cryptoconditions/cc-sudoku.md", "Sudoku"],
-            ["/basic-docs/cryptoconditions/cc-tokens.md", "Tokens"]
+            ["/basic-docs/customconsensus/cc-channels.md", "Channels"],
+            ["/basic-docs/customconsensus/cc-dice.md", "Dice"],
+            ["/basic-docs/customconsensus/cc-faucet.md", "Faucet"],
+            ["/basic-docs/customconsensus/cc-gateways.md", "Gateways"],
+            ["/basic-docs/customconsensus/cc-heir.md", "Heir"],
+            ["/basic-docs/customconsensus/cc-musig.md", "MuSig"],
+            ["/basic-docs/customconsensus/cc-oracles.md", "Oracles"],
+            ["/basic-docs/customconsensus/cc-rewards.md", "Rewards"],
+            ["/basic-docs/customconsensus/cc-rogue.md", "Rogue"],
+            ["/basic-docs/customconsensus/cc-sudoku.md", "Sudoku"],
+            ["/basic-docs/customconsensus/cc-tokens.md", "Tokens"]
           ]
         },
         {
