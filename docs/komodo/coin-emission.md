@@ -3,7 +3,7 @@
 New KMD coins are created in two ways:
 
 1. Mining (Normal mining - `25%` and notary mining - `75%`)
-2. [Rewards](../whitepaper/chapter8.html#rewards) (~ 5% reward to active users that have atleast 10 KMD)
+2. [Rewards](../whitepaper/chapter8.html#rewards) (~ `5.1%` reward to active users that have atleast `10 KMD`)
 
 Let us explore the amount of KMD created each year through these two mechanisms.
 
