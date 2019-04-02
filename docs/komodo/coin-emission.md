@@ -5,7 +5,7 @@ New KMD coins are created in two ways:
 1. Mining (Normal mining - `25%` and notary mining - `75%`)
 2. [Rewards](../whitepaper/chapter8.html#rewards) (~ 5% reward to active users that have atleast 10 KMD)
 
-Let us explore how much KMD is created each year through these two mechanisms.
+Let us explore the amount of KMD created each year through these two mechanisms.
 
 ## Mining
 
@@ -49,9 +49,11 @@ This is not actually the reality, as many exchanges and cold storage wallets don
 
 ## Summary
 
+In 1 year:
+
 - KMD created by normal miners : ~ `0.4` million
 - KMD created by notaries : ~ `1.18` million
-- KKMD created by claims of the "ACtive User Reward": ~ `5.73` million
+- KKMD created by claims of the "Active User Reward": ~ `5.73` million
 
 ::: tip Note
 Also worth observing is that, while the mining rewards stay the same for both notaries and miners, the KMD produced through the rewards claim process keeps increasing every year as the amount of KMD held by the community increases.
