@@ -70,6 +70,8 @@ MoM smart contracts store their data in the KMD main chain. These are but a few
 examples of Komodo’s usefulness. Readers may discover many more by discussing
 KMD with members of our community.
 
+### Rewards
+
 Furthermore, those who hold KMD may earn rewards of up to 5.1% annually. Any
 wallet address that holds at least 10 KMD is eligible. KMD holders must simply move
 their KMD once a month—even if the funds are sent back to the same address from
