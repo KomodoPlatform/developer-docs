@@ -1,11 +1,12 @@
 export default ({
-
-    router // the router instance for the app
-
+  Vue,
+  router,
+  options // the router instance for the app
 }) => {
-    router.addRoutes([{
-        path: "/basic-docs/cryptoconditions/cc-oracles.html",
-        redirect: "/basic-docs/customconsensus/cc-oracles.html"
-    }])
-    // ...apply enhancements to the app
-}
+  router.addRoutes([
+    {
+      path: "/basic-docs/cryptoconditions/cc-dice.html",
+      redirect: "/basic-docs/customconsensus/cc-dice.html"
+    }
+  ]);
+};
