@@ -401,7 +401,7 @@ It is better to <b>NOT</b> use `ac_cc=0` for an asset chain where Custom Consens
 
 ### ac_cc=1
 
-Setting `ac_cc=1` permits CryptonConditions on the asset chain, but will not allow the asset chain to interact in cross-chain Custom Consensus functionality with other asset chains.
+Setting `ac_cc=1` permits Custom Consensus on the asset chain, but will not allow the asset chain to interact in cross-chain Custom Consensus functionality with other asset chains.
 
 ### ac_cc=2 to 99
 

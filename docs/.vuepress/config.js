@@ -74,12 +74,12 @@ module.exports = {
           collapsable: true,
           children: [
             [
-              "/basic-docs/customconsensus/customconsensus-instructions.md",
-              "Instructions for Custom Consensus"
+              "/basic-docs/customconsensus/custom-consensus-instructions.md",
+              "About Custom Consensus (CC)"
             ],
             [
-              "/basic-docs/customconsensus/customconsensus-tutorial.md",
-              "Build a Custom CC Module"
+              "/basic-docs/customconsensus/custom-consensus-tutorial.md",
+              "Build a CC Module"
             ],
             ["/basic-docs/customconsensus/cc-channels.md", "Channels"],
             ["/basic-docs/customconsensus/cc-dice.md", "Dice"],

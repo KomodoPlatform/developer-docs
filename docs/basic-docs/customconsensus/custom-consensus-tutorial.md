@@ -12,8 +12,6 @@ Developers who possess this knowledge and who are already familiar with the esse
 
 <!--need link to next section, when it's available -->
 
-Experienced C/C++ developers who are familiar with blockchain technology, but are unfamiliar with the CC framework, may find the following conceptual content useful in deciding whether the framework is appropriate for their needs.
-
 If the developer needs more experience with blockchain technology, the Komodo team recommends that they first study the seminal textbook, [Mastering Bitcoin,](https://bitcoinbook.info/) before approaching the CC framework.
 
 Also, experienced developers who write in other languages, such as Python, JavaScript, or Solidity, may find value in skimming this discussion to understand key concepts at a high level. At this time, the CC framework has not expanded to include other languages, but Komodo may change this offering in the forseeable future. 
@@ -40,13 +38,11 @@ Adding new code into a blockchain's consensus mechanism (CM) is a challenging ta
 
 Consider the Bitcoin consensus mechanism. This protocol is approximately ten years old and receives perhaps more attention than all other blockchain protocols combined. Every year, thousands upon thousands of the world's most intelligent developers, mathematicians, and cryptographers pore over the intricacies of this profitable technology. Yet, despite all this valuable insight, mistakes in the code continue to reveal themselves: in 2018, the Bitcoin Core and Bitcoin Cash teams together [discovered a flaw in the code](https://www.coindesk.com/the-latest-bitcoin-bug-was-so-bad-developers-kept-its-full-details-a-secret) that would have allowed a malicious user to print an arbitrary number of new Bitcoins. 
 
-<!--need link to reference-->
-
 <!-- below: need a link to that flow path for the "viable use case for a blockchain" flow path -->
 
 Mistakes in the code of a CM can cause economic instability, and volatility of this nature can wreak havoc on the lives of the CM's users. For this reason, seasoned blockchain engineers often avoid changing the CM altogether, once it is relatively stable. 
 
-For those few projects that create a useful new consensus mechanism, a new challenge immediately presents itself. If the CM relies on a Proof of Work type model, the project team must attract a sufficient number of miners. If the mechanism is more akin to Proof of Stake, the team must ensure the blockchain's total stake is distributed in a manner that ensures trustlessness. Neither of these tasks are easy to achieve.
+For those few projects that create a useful and unique consensus mechanism, a new challenge immediately presents itself. If the CM relies on a Proof of Work type model, the project team must attract a sufficient number of miners. If the CM is more akin to Proof of Stake, the team must ensure the blockchain's total stake is distributed in a manner that ensures trustlessness. Neither of these tasks are easy to achieve.
 
 In light of these challenges, the blockchain engineer finds themselves confronted with a paradox. The engineer desires to create something new, and at the same time, they cannot easily change the core software. 
 
@@ -62,7 +58,7 @@ The requirement of the limited programming language derives from security concer
 
 The dependency on the blockchain's core engineers also slows creative progress for ecosystem developers. When the ecosystem developer discovers a new core-level technology that would increase the developer's productivity and creativity, they must convince the core-software team to implement the new feature. The core-software engineers may have conflicting interests, as their needs must meet the needs of all developers and users in their ecosystem.
 
-In many of the VM-based models, economics for blockchain usage can be volatile, and blockchain storage and speed are often in short supply. The economics can be unpleasantly unpredictable, because the underlying "gas" token that the VM requires (such as Ether) can change in price and value according to the interests of the uneducated masses. This may sound advantageous to a speculator, but for a practical business attempting to consistently please a customer, the volatility can scare away new users.
+In many of the VM-based models, economics for blockchain usage can be volatile, and blockchain storage and speed are often in short supply. The economics can be adversely unpredictable, because the underlying "gas" token that the VM requires (such as Ether) can change in price and value according to the interests of the uneducated masses. This may sound advantageous to a speculator, but for a practical business attempting to consistently please a customer, the volatility can scare away new users.
 
 Furthermore, as the VM frequently relies on a single blockchain, block space can be in short supply due to high demand on popular chains, and data that is entirely irrelevant to the developer can become required baggage to maintain their own data validation.
 
@@ -72,9 +68,11 @@ These challenges make the VM model unpleasant for many experienced blockchain en
 
 Custom Consensus (CC) allows a developer to add arbitrary code at the consensus level, and within the core software's daemon, without interferring with the existing consensus mechanism (CM). This grants the developer the ability to add core-level features and innovations without waiting for other members of the Komodo ecosystem. Combined with Komodo's Bitcoin-hash rate security, the simplicity of CC provides the developer with a competitive level of creative freedom.
 
-The entry point between the CC framework and the CM is a function, "OP_CHECKCRYPTOCONDITIONS". When executed, this function is able to initiate additional arbitrary code that is written in any programming language, assuming the language can call and execute C/C++ functions. The arbitrary code is separate from the CM, thus maintaining the CM's reliability. When the arbitrary code completes, the function accepts a `true` or `false` statement, and any additional meta data.
+The entry point between the CC framework and the CM is a new Bitcoin-script [operation code](https://bitcoin.org/en/glossary/op-code), "OP_CHECKCRYPTOCONDITIONS", or OP_CCC for short. When executed, OP_CCC is able to initiate additional arbitrary code that is written in any programming language, assuming the language can call and execute C/C++ code in return. The arbitrary code is separate from the CM, thus maintaining the CM's reliability. When the arbitrary code completes, OP_CCC returns a `true` or `false` statement to the daemon.
 
-The meta data is held in a manner that allows CC to act as an application-state manager. State-related data is held in utxos that are accessible to the CM. As the application-state management aspect of CC is based on the utxo model, the application-state aspect follows the CM's rules for consensus. This powerful combination allows the developer to collect, organize, and act upon data in a securely decentralized manner.
+Meta data can also be associated with the result of OP_CCC. Komodo offers various blockchain-based methods to collect and organize data. Notable methods include the [key-value storage](../komodo-api/blockchain.html#kvupdate) feature, the [Oracles CC Module](../customconsensus/cc-oracles.html#introduction), or using the native `vout` and `batontxid` properties of a utxo (see the [Rogue CC Module](../customconsensus/cc-rogue.html). 
+
+With access to the meta data established, CC is able to act as application-state manager. State-related data is held in utxos that are accessible to the CM. As the application-state management aspect of CC can be based on the utxo model, the application-state aspect can follow the CM's rules for consensus. This powerful combination allows the developer to collect, organize, and act upon data in a securely decentralized manner.
 
 In addition, once the data is notarized, it can also be called by other Komodo-based asset chains, depending on the manner in which the developer(s) form their chain. This allows developers to form clusters of blockchains to enhance their software, as opposed to relying on a single blockchain, or on a single child chain. The speed and data-storage capabilities of a cluster are thus exponentially greater than a VM-based competitor.
 
