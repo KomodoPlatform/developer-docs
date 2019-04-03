@@ -9,7 +9,6 @@
   "author": "Contributors from Komodo Platform",
   "license": "MIT",
   "devDependencies": {
-    "@vuepress/plugin-pwa": "^1.0.0-alpha.46",
     "vuepress": "^1.0.0-alpha.46"
   },
   "scripts": {
