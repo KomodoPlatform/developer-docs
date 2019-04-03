@@ -1,8 +1,13 @@
+const path = require('path')
+
 module.exports = {
+  additionalPages: [{
+    path: '/basic-docs/cryptoconditions/cc-dice.html',
+    filePath: path.resolve(__dirname, '../basic-docs/customconsensus/cc-dice.md')
+  }],
   title: "Komodo Documentation",
   base: "/",
   description: "Documentation for developers building on Komodo",
-  plugins: ["@vuepress/pwa"],
   themeConfig: {
     // Assumes GitHub. Can also be a full GitLab url.
     repo: "komodoplatform/developer-docs",
@@ -23,8 +28,7 @@ module.exports = {
     // custom text for edit link. Defaults to "Edit this page"
     editLinkText: "Suggest an improvement for this page",
     lastUpdated: "Last Updated",
-    nav: [
-      {
+    nav: [{
         text: "Start Here",
         link: "/basic-docs/start-here/introduction.md"
       },
@@ -34,8 +38,7 @@ module.exports = {
       }
     ],
     sidebar: {
-      "/basic-docs/": [
-        {
+      "/basic-docs/": [{
           title: "Start Here",
           collapsable: true,
           children: [
@@ -116,8 +119,7 @@ module.exports = {
           ]
         }
       ],
-      "/bsk/": [
-        {
+      "/bsk/": [{
           title: "Initialising a Blockchain",
           collapsable: true,
           children: [
