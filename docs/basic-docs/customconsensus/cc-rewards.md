@@ -72,12 +72,11 @@ Step 2: Broadcast raw transaction
 <collapse-text hidden title="Response">
 
 
+```bash
+008ca94eebce8dbfa91491028c8861016ad4c25240f9ddc5616f2fb0853da580
 ```
 
 </collapse-text>
-
-008ca94eebce8dbfa91491028c8861016ad4c25240f9ddc5616f2fb0853da580
-```
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
