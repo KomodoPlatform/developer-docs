@@ -268,12 +268,11 @@ Step 2: Send/broadcast the raw transaction hex
 <collapse-text hidden title="Response">
 
 
+```bash
+694c309c86a928fde1919a86381f61670479c3ede85ea0574d08636cc406e798
 ```
 
 </collapse-text>
-
-694c309c86a928fde1919a86381f61670479c3ede85ea0574d08636cc406e798
-```
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
