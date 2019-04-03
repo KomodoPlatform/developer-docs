@@ -4,24 +4,24 @@ module.exports = {
   description: "Documentation for developers building on Komodo",
   themeConfig: {
     // Assumes GitHub. Can also be a full GitLab url.
-    repo: 'komodoplatform/developer-docs',
+    repo: "komodoplatform/developer-docs",
     // Customising the header label
     // Defaults to "GitHub"/"GitLab"/"Bitbucket" depending on `themeConfig.repo`
-    repoLabel: 'Github',
+    repoLabel: "Github",
 
     // Optional options for generating "Edit this page" link
 
     // if your docs are in a different repo from your main project:
     //docsRepo: 'vuejs/vuepress',
     // if your docs are not at the root of the repo:
-    docsDir: 'docs',
+    docsDir: "docs",
     // if your docs are in a specific branch (defaults to 'master'):
     //docsBranch: 'master',
     // defaults to false, set to true to enable
     editLinks: true,
     // custom text for edit link. Defaults to "Edit this page"
-    editLinkText: 'Suggest an improvement for this page',
-    lastUpdated: 'Last Updated',
+    editLinkText: "Suggest an improvement for this page",
+    lastUpdated: "Last Updated",
     nav: [{
         text: "Start Here",
         link: "/basic-docs/start-here/introduction.md"
@@ -117,44 +117,44 @@ module.exports = {
           title: "Initialising a Blockchain",
           collapsable: true,
           children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"],
+            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
           ]
         },
         {
           title: "Launching an Explorer",
           collapsable: true,
           children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"],
+            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
           ]
         },
         {
           title: "Setting up Electrums",
           collapsable: true,
           children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"],
+            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
           ]
         },
         {
           title: "Getting listed in Komodo's Multicoin wallet",
           collapsable: true,
           children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"],
+            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
           ]
         },
         {
           title: "Geting Listed in Komodo's DEX",
           collapsable: true,
           children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"],
+            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
           ]
         },
         {
           title: "Get your Blockchain secured by Bitcoin's hashpower",
           collapsable: true,
           children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"],
+            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
           ]
-        },
+        }
       ],
       "/": ["", "/basic-docs/start-here/introduction.md"]
     }
