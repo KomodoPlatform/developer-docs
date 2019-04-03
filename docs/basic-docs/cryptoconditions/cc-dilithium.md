@@ -1652,3 +1652,8 @@ b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a27813226a
 
 - If we take the first 32 bytes of this, or [:64], we get `b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a2`.
 - This is the `destpubtxid` that vout 0 was sent to in this transaction. If we use the `handle_get` function from the previous step, we find that this `destpubtxid` is for the handle `LABSLover`.
+
+<!--
+FIXME
+has finding all the balance of a handle been doc'd?
+ -->
