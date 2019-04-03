@@ -42,6 +42,9 @@ Each independent blockchain built on the Komodo framework has a wide range of ca
 
 Because a Komodo-based blockchain is independently managed, the developer has complete freedom, so long as the essential connections to the Komodo ecosystem remain.
 
+
+[Get Started →](/basic-docs/start-here/outline-for-new-developers.html)
+
 <!-- Sidd: Divs below cause issues when loading page. Very ugly, and blinks. 
 
 <div class="introductionLinkDiv">
