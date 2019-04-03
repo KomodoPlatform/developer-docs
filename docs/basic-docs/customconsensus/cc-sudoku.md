@@ -1,8 +1,8 @@
-# Contract Module: CC Sudoku
+# Sudoku
 
 ## Introduction
 
-The Sudoku CryptoConditions (CC) module serves as a proof-of-concept to demonstrate CC's capabilities as a blockchain-based gaming technology.
+The Sudoku Custom Consensus (CC) module serves as a proof-of-concept to demonstrate CC's capabilities as a blockchain-based gaming technology.
 
 Sudoku CC is based on the classic game, Sudoku. To learn more about how Sudoku is played, read the associated Wikipedia article:
 
@@ -14,11 +14,11 @@ The following installation and walkthrough tutorials can assist the reader in se
 
 #### Sudoku CC Module Flow
 
-- Create a puzzle using the [gen](../cryptoconditions/cc-sudoku.html#gen) method
+- Create a puzzle using the [gen](../customconsensus/cc-sudoku.html#gen) method
   - commit the amount of `SUDOKU` coins that will serve as a bounty for the first node to complete this puzzle
-- Find a puzzle to solve using the [pending](../cryptoconditions/cc-sudoku.html#pending) method
-- Gather additional information about any puzzle using the [txidinfo](../cryptoconditions/cc-sudoku.html#txidinfo) method
-- Propose a solution for a puzzle using the [solution](../cryptoconditions/cc-sudoku.html#solution) method
+- Find a puzzle to solve using the [pending](../customconsensus/cc-sudoku.html#pending) method
+- Gather additional information about any puzzle using the [txidinfo](../customconsensus/cc-sudoku.html#txidinfo) method
+- Propose a solution for a puzzle using the [solution](../customconsensus/cc-sudoku.html#solution) method
 
 ## Installation
 
@@ -387,7 +387,7 @@ The `txidinfo` method returns information about the indicated `puzzle_txid` puzz
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| puzzle_txid | (string) | the unique transaction id of the requested puzzle, as returned from the broadcast hex of the [gen](../cryptoconditions/cc-sudoku.html#gen) method  |
+| puzzle_txid | (string) | the unique transaction id of the requested puzzle, as returned from the broadcast hex of the [gen](../customconsensus/cc-sudoku.html#gen) method  |
 
 #### Response:
 

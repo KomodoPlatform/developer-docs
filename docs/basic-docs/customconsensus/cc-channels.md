@@ -1,21 +1,21 @@
-# Contract Module: Channels
+# Channels
 
 ## Introduction
 
-The `channels` contract facilitates instant payments in a trustless environment.
+The Channels Custom Consensus (CC) module facilitates instant payments in a trustless environment.
 
 When a payment is executed properly with `channels`, as soon as it enters the mempool the odds that the payment can be withdrawn or attacked decrease to almost zero. Many developers and users may find it advantageous to use `channels` to create a secure instant-payment network that can be used within their business environment.
 
 #### Channels CC Module Flow
 
-- Anyone can create a channel using [channelsopen](../cryptoconditions/cc-channels.html#channelsopen)
+- Anyone can create a channel using [channelsopen](../customconsensus/cc-channels.html#channelsopen)
   - When creating the channel, the user indicates the number and size of their potential payment(s), and what their destination is
-- Once the channel is notarized, at any time in the future the user can execute [channelspayment](../cryptoconditions/cc-channels.html#channelspayment) to release a specific amount of their available payments
+- Once the channel is notarized, at any time in the future the user can execute [channelspayment](../customconsensus/cc-channels.html#channelspayment) to release a specific amount of their available payments
   - As soon as the `channelspayment` result enters the mempool, the odds of withdrawing the `txid` from processing decrease to almost zero
-- The creator of a channel may close the channel at any time using [channelsclose](../cryptoconditions/cc-channels.html#channelsclose)
+- The creator of a channel may close the channel at any time using [channelsclose](../customconsensus/cc-channels.html#channelsclose)
   - This shows the receiver that this payment stream is permanently ended
-- Once the channel's closure is notarized, the creator may withdraw remaining funds using [channelsrefund](../cryptoconditions/cc-channels.html#channelsrefund)
-- The [channelsinfo](../cryptoconditions/cc-channels.html#channelsinfo) method reveals public information for any or all available channels on an asset chain
+- Once the channel's closure is notarized, the creator may withdraw remaining funds using [channelsrefund](../customconsensus/cc-channels.html#channelsrefund)
+- The [channelsinfo](../customconsensus/cc-channels.html#channelsinfo) method reveals public information for any or all available channels on an asset chain
 
 ## channelsaddress
 
@@ -25,7 +25,7 @@ The `channelsaddress` method displays the various addresses and their balances f
 
 Under normal circumstances, for the `pubkey` the user provides the destination address of the intended channel. 
 
-The global addresses are not used in the Channels CC module. For more information about unique CC addresses, see [this linked explanation.](../cryptoconditions/cryptoconditions-instructions.html#understanding-the-types-of-addresses)
+The global addresses are not used in the Channels CC module. For more information about unique CC addresses, see [this linked explanation.](../customconsensus/custom-consensus-instructions.html#understanding-the-types-of-addresses)
 
 ### Arguments:
 
@@ -41,12 +41,12 @@ The global addresses are not used in the Channels CC module. For more informatio
 | ChannelsCCAddress           | (string)  | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                                                                                                   |
 | CCbalance                   | (numeric) | the unspent amount in `ChannelsCCaddress`                                                                                                                                                                                                          |
 | ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey; this is generally used for markers                                                                                                                                                 |
-| ChannelsCC1of2Address       | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using coins <!--I'm confused. Do we need this whole sentence? Seems like we can cut out everything about "from the pubkey to the ...", and just the keep the part at the end about this being used for channels that deal with coins |  from the `pubkey` [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) to the supplied pubkey -->  |
-| ChannelsCC1of2TokensAddress | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using tokens <!-- same | the channel address where funds are stored when channel is opened from the `pubkey` [used to launch the daemon.](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) to the supplied pubkey (if using tokens) --> |
-| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` [used to launch the daemon](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey)                                      |
+| ChannelsCC1of2Address       | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using coins <!--I'm confused. Do we need this whole sentence? Seems like we can cut out everything about "from the pubkey to the ...", and just the keep the part at the end about this being used for channels that deal with coins |  from the `pubkey` [used to launch the daemon.](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey) to the supplied pubkey -->  |
+| ChannelsCC1of2TokensAddress | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using tokens <!-- same | the channel address where funds are stored when channel is opened from the `pubkey` [used to launch the daemon.](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey) to the supplied pubkey (if using tokens) --> |
+| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` [used to launch the daemon](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)                                      |
 | PubkeyCCaddress(Channels)   | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` supplied as the argument                                                                                                                                       |
 | myCCbalance                 | (numeric) | the balance of `myccaddress` in coins                                                                                                                                                                                                                  |
-| myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon](../cryptoconditions/cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey)                                                                           |
+| myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)                                                                           |
 | mybalance                   | (numeric) | the balance of `myaddress` in coins                                                                                                                                                                                                                    |
 
 #### :pushpin: Examples:
@@ -83,11 +83,11 @@ Response:
 
 The `channelsclose` method marks a specific channel as closed, meaning that no additional payments will be added to the channel.
 
-The owner of the `channel` may still execute [channelspayment](../cryptoconditions/cc-channels.html#channelspayment) for any remaining payments in the channel, until all payments are used or withdrawn.
+The owner of the `channel` may still execute [channelspayment](../customconsensus/cc-channels.html#channelspayment) for any remaining payments in the channel, until all payments are used or withdrawn.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-The `sendrawtransaction` method then returns a `txid` which is used in the [channelsrefund](../cryptoconditions/cc-channels.html#channelsrefund) method to reclaim funds.
+The `sendrawtransaction` method then returns a `txid` which is used in the [channelsrefund](../customconsensus/cc-channels.html#channelsrefund) method to reclaim funds.
 
 ### Arguments:
 

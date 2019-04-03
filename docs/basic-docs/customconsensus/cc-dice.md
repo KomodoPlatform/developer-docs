@@ -1,20 +1,20 @@
-# Contract Module: Dice
+# Dice
 
 ## Introduction
 
-The `dice` module allows for a decentralized `dice` game on a blockchain. The `dice` module is essentially a simple, but fully functional decentralized application (dApp).
+The Dice Custom Consensus module allows for a decentralized `dice` game on a blockchain. The `dice` module is essentially a simple, but fully functional decentralized application (dApp).
 
-It is also useful as a demonstration to show how Crypto Conditions based contracts can leverage provably random entropy to enable blockchain-enforced real-time gameplay.
+It is also useful as a demonstration to show how Custom Consensus based contracts can leverage provably random entropy to enable blockchain-enforced real-time gameplay.
 
-`dice` is a simple gambling game, where one node creates a "house" contract, with seed funds and other parameters, and other users place bets within the indicated parameters. Winners and losers are determined through blockchain technology. This technology includes on-chain, consensus based, provably random entropy that derives from the activity of both the "house" and the users.
+The Dice CC module is a simple gambling game, where one node creates a "house" contract, with seed funds and other parameters, and other users place bets within the indicated parameters. Winners and losers are determined through blockchain technology. This technology includes on-chain, consensus based, provably random entropy that derives from the activity of both the "house" and the users.
 
-The "house" node should be running the [dicestatus](../cryptoconditions/cc-dice.html#dicestatus) method at a regular frequency. This method resolves unfinished bets and generates new entropy utxos for the "house" contract.
+The "house" node should be running the [dicestatus](../customconsensus/cc-dice.html#dicestatus) method at a regular frequency. This method resolves unfinished bets and generates new entropy utxos for the "house" contract.
 
-To create a "house" contract, use [dicefund](../cryptoconditions/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [diceaddfunds.](../cryptoconditions/cc-dice.html#diceaddfunds)
+To create a "house" contract, use [dicefund](../customconsensus/cc-dice.html#dicefund) to initiate the contract, and then add several utxos to the fund with [diceaddfunds.](../customconsensus/cc-dice.html#diceaddfunds)
 
-Once the contract is created and funded, users can place a bet using [dicebet.](../cryptoconditions/cc-dice.html#dicebet)
+Once the contract is created and funded, users can place a bet using [dicebet.](../customconsensus/cc-dice.html#dicebet)
 
-Anyone can execute a [dicefinish](../cryptoconditions/cc-dice.html#dicefinish) RPC after the contract's time expires. This prevents the "house" node from cheating by going offline.
+Anyone can execute a [dicefinish](../customconsensus/cc-dice.html#dicefinish) RPC after the contract's time expires. This prevents the "house" node from cheating by going offline.
 
 ## diceaddfunds
 
@@ -621,7 +621,7 @@ The `diceinfo` method looks up information about the specific `dice` contract re
 
 A `fundingtxid` is the txid of the transaction that created and funded the relevant contract.
 
-Use the [dicelist](../cryptoconditions/cc-dice.html#dicelist) method to discover a list of available `fundingtxid` hashes on the asset chain.
+Use the [dicelist](../customconsensus/cc-dice.html#dicelist) method to discover a list of available `fundingtxid` hashes on the asset chain.
 
 ### Arguments:
 

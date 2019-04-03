@@ -1,8 +1,8 @@
-# Contract Module: Rogue
+# Rogue
 
 ## Introduction
 
-The Rogue CryptoConditions (CC) contract module serves as a proof-of-concept to demonstrate CryptoCondition's capabilities as a blockchain-based gaming technology.
+The Rogue Custom Consensus (CC) contract module serves as a proof-of-concept to demonstrate Condition's capabilities as a blockchain-based gaming technology.
 
 Rogue CC is based on the classic [Rogue](http://www.livingroguelike.com/rl-games/the-original-rogue-information-and-how-to-play-online/) game. As such, it can be categorized as a [Roguelike.](http://www.livingroguelike.com/roguelike-info-discussions/what-is-a-roguelike/)
 
@@ -26,7 +26,7 @@ Komodo provides downloadable software bundles that contain all necessary compone
 
 Software bundles can be found in the link below:
 
-[Link to software bundles](https://github.com/tonymorony/komodo_cryptoconditions_tui/releases)
+[Link to software bundles](https://github.com/tonymorony/komodo_customconsensus_tui/releases)
 
 Please feel free to ask on our #cc-rogue channel on [Discord](https://komodoplatform.com/discord) for updates and assistance.
 
@@ -226,7 +226,7 @@ Use of the TUI is optional, but recommended for most players.
 
 The TUI software can be found in the downloadable software bundles:
 
-[Link to downloadable software bundles](https://github.com/tonymorony/komodo_cryptoconditions_tui/releases)
+[Link to downloadable software bundles](https://github.com/tonymorony/komodo_customconsensus_tui/releases)
 
 ## Walkthrough for API
 
@@ -234,8 +234,8 @@ Under normal circumstances, a user does not need to manually execute methods in 
 
 For users/developers who need a reference for the manual process, the following walkthroughs provide detailed step-by-step instructions.
 
-- [Single-Player Mode Walkthrough](../cryptoconditions/cc-rogue.html#single-player-mode-walkthrough)
-- [Multi-Player Mode Walkthrough](../cryptoconditions/cc-rogue.html#multi-player-mode-walkthrough)
+- [Single-Player Mode Walkthrough](../customconsensus/cc-rogue.html#single-player-mode-walkthrough)
+- [Multi-Player Mode Walkthrough](../customconsensus/cc-rogue.html#multi-player-mode-walkthrough)
 
 ### Single-Player Mode Walkthrough
 
@@ -249,7 +249,7 @@ cd ~/komodo/src
 
 #### Step 2
 
-Create a new game via the [newgame](../cryptoconditions/cc-rogue.html#newgame) method. For this example, we choose to have a single player with a `0` buy-in requirement.
+Create a new game via the [newgame](../customconsensus/cc-rogue.html#newgame) method. For this example, we choose to have a single player with a `0` buy-in requirement.
 
 Methods for ROGUE require the use of the [cclib](../komodo-api/cclib.html#cclib) method. The Rogue module's required `EVALCODE` for the `cclib` method is `17`.
 
@@ -280,7 +280,7 @@ The returned transaction id `txid` is the `gametxid`. Save this for future use.
 
 #### Step 3
 
-Check the game's state using the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method:
+Check the game's state using the [gameinfo](../customconsensus/cc-rogue.html#gameinfo) method:
 
 Command:
 
@@ -314,7 +314,7 @@ In the returned json object, observe the `run` value. This lists the specific co
 
 #### Step 4
 
-Register the `gametxid` using the [register](../cryptoconditions/cc-rogue.html#register) method:
+Register the `gametxid` using the [register](../customconsensus/cc-rogue.html#register) method:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
@@ -338,7 +338,7 @@ Response:
 
 #### Step 5
 
-Check the game's current state again using the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method. Use the `gametxid` as an argument:
+Check the game's current state again using the [gameinfo](../customconsensus/cc-rogue.html#gameinfo) method. Use the `gametxid` as an argument:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
@@ -393,7 +393,7 @@ The game is now running and should be visible on-screen.
 
 #### Step 7 - Play the Game
 
-For instructions on in-game controls and objectives, [read this linked section.](../cryptoconditions/cc-rogue.html#gameplay-documentation)
+For instructions on in-game controls and objectives, [read this linked section.](../customconsensus/cc-rogue.html#gameplay-documentation)
 
 #### Step 8 - Bailout
 
@@ -403,9 +403,9 @@ To quit the game, type the letter `Q` on the keyboard. This opens a context menu
 
 This begins the process of leaving the game, but you are not finished yet.
 
-Wait for the ROGUE network to mine all [`keystrokes`](../cryptoconditions/cc-rogue.html#keystrokes) transactions. To see a list of all `keystrokes` created, check the `keystrokes.log` file in the `~/komodo/src` directory, and use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to verify when the last `keystrokes` are mined.
+Wait for the ROGUE network to mine all [`keystrokes`](../customconsensus/cc-rogue.html#keystrokes) transactions. To see a list of all `keystrokes` created, check the `keystrokes.log` file in the `~/komodo/src` directory, and use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to verify when the last `keystrokes` are mined.
 
-When the last transactions are mined, execute the [bailout](../cryptoconditions/cc-rogue.html#bailout) method to leave the game while keeping the character and items in your `pubkey`, and the method will also transfer your in-game gold to `ROGUE` coins.
+When the last transactions are mined, execute the [bailout](../customconsensus/cc-rogue.html#bailout) method to leave the game while keeping the character and items in your `pubkey`, and the method will also transfer your in-game gold to `ROGUE` coins.
 
 For example:
 
@@ -413,11 +413,11 @@ For example:
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
-After the `bailout` transaction is mined the player may view their surviving character(s) via the [players](../cryptoconditions/cc-rogue.html#players) and [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) methods.
+After the `bailout` transaction is mined the player may view their surviving character(s) via the [players](../customconsensus/cc-rogue.html#players) and [playerinfo](../customconsensus/cc-rogue.html#playerinfo) methods.
 
 #### Step 9: Highlander Victory 
 
-In this walkthrough we have used single-player mode. The following [highlander](../cryptoconditions/cc-rogue.html#highlander) method is only available if the character manages to capture the `amulet` and safely exit the dungeon. In a normal multi-player game, the `highlander` method is available to either the first player to safely retrieve the `amulet`, or to the last player standing after all others have died.
+In this walkthrough we have used single-player mode. The following [highlander](../customconsensus/cc-rogue.html#highlander) method is only available if the character manages to capture the `amulet` and safely exit the dungeon. In a normal multi-player game, the `highlander` method is available to either the first player to safely retrieve the `amulet`, or to the last player standing after all others have died.
 
 The player that successfully executes the `highlander` method receives a prize: the collective value of all `ROGUE` coins that were contributed during the buy-in stage.
 
@@ -427,7 +427,7 @@ The `highlander` method is executed as follows:
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 '["4fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a"]'
 ```
 
-After the `highlander` transaction is mined the player may view their surviving character(s) via the [players](../cryptoconditions/cc-rogue.html#players) and [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) methods.
+After the `highlander` transaction is mined the player may view their surviving character(s) via the [players](../customconsensus/cc-rogue.html#players) and [playerinfo](../customconsensus/cc-rogue.html#playerinfo) methods.
 
 ### Multi-Player Mode Walkthrough
 
@@ -436,7 +436,7 @@ In this walktrough we use two nodes to play a multi-player game of Rogue.
 - Node 1 is `player1`
 - Node 2 is `player2`
 
-For educational purposes, we execute all methods manually, as opposed to using the [TUI](../cryptoconditions/cc-rogue.html#installing-the-tui-optional).
+For educational purposes, we execute all methods manually, as opposed to using the [TUI](../customconsensus/cc-rogue.html#installing-the-tui-optional).
 
 #### Step 1: Create a Multi-Player Game
 
@@ -451,7 +451,7 @@ For this game, we choose the following details:
 - the max number of players: `2`
 - the cost in `ROGUE` coins of the game `buyin`: `0.1`
 
-Execute the [newgame](../cryptoconditions/cc-rogue.html#newgame) method on `player1` as follows:
+Execute the [newgame](../customconsensus/cc-rogue.html#newgame) method on `player1` as follows:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib newgame 17 '["2","0.1"]'
@@ -474,7 +474,7 @@ Response:
 
 Save the returned `txid` value for future use. This is our `gametxid`.
 
-Use the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method to check information about the game:
+Use the [gameinfo](../customconsensus/cc-rogue.html#gameinfo) method to check information about the game:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
@@ -512,7 +512,7 @@ Also note that the `start` value is `54270`. This is the block height at which t
 
 For our example, `player1` would like to use an existing character that survived a previous game. This allows `player1` to start with all the advantages this character achieved previously, including character statistics and items.
 
-To activate the existing character, `player1` includes the associated `playertxid` for the character when executing the [register](../cryptoconditions/cc-rogue.html#register) method. (The `playertxid` values of any `pubkey` can be found using the [players](../cryptoconditions/cc-rogue.html#players) method.)
+To activate the existing character, `player1` includes the associated `playertxid` for the character when executing the [register](../customconsensus/cc-rogue.html#register) method. (The `playertxid` values of any `pubkey` can be found using the [players](../customconsensus/cc-rogue.html#players) method.)
 
 The player also includes the `gametxid` as the first argument of the `register` method.
 
@@ -558,7 +558,7 @@ Response:
 
 Wait until the `txid` values returned on both nodes are mined. (Use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to check the transaction's status.)
 
-After the transactions are mined, use the [gameinfo](../cryptoconditions/cc-rogue.html#gameinfo) method to check the game's status again:
+After the transactions are mined, use the [gameinfo](../customconsensus/cc-rogue.html#gameinfo) method to check the game's status again:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
@@ -650,11 +650,11 @@ cc/rogue/rogue 3928429259918614461 4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c
 
 #### Step 3: Play and Finish the Game
 
-[View this linked section for instructions on gameplay.](../cryptoconditions/cc-rogue.html#gameplay-documentation)
+[View this linked section for instructions on gameplay.](../customconsensus/cc-rogue.html#gameplay-documentation)
 
 In our example, `player1` decides to bail out of the game without waiting until `player2` dies, and without retrieving the `amulet` from the dungeon. 
 
-To exit, `player1` executes the [bailout](../cryptoconditions/cc-rogue.html#bailout) method:
+To exit, `player1` executes the [bailout](../customconsensus/cc-rogue.html#bailout) method:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
@@ -720,7 +720,7 @@ Response:
 
 Note that the `alive` property has a value of `1`, indicating that the `player1` character has left and the `player2` character remains. Also note that in the `players` array, the first json object (which describes the `player1` node) has a `status` of `finished`.
 
-Since `player1` left early, `player2` is the last character standing. The [highlander](../cryptoconditions/cc-rogue.html#highlander) method is now available to him.
+Since `player1` left early, `player2` is the last character standing. The [highlander](../customconsensus/cc-rogue.html#highlander) method is now available to him.
 
 `player2` first begins the exit procedure by entering `Q`, then `y + Enter`.
 
@@ -746,7 +746,7 @@ Response:
 
 The multi-player game is now finished. The `player2` node received the `highlander` prize, including the total `buyin` amount and an increased conversion rate of in-game gold to `ROGUE` coins.
 
-After the `bailout` and `highlander` transactions are mined, the players may view their surviving character via the [players](../cryptoconditions/cc-rogue.html#players) and [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) methods.
+After the `bailout` and `highlander` transactions are mined, the players may view their surviving character via the [players](../customconsensus/cc-rogue.html#players) and [playerinfo](../customconsensus/cc-rogue.html#playerinfo) methods.
 
 
 ## Gameplay Documentation
@@ -769,7 +769,7 @@ There are no time limits.
 
 As soon as the `register_txid` is confirmed the player may begin to play.
 
-When concluding the game, the conversion of in-game gold to `ROGUE` coins is halved. See the [highlander](../cryptoconditions/cc-rogue.html#highlander) and [bailout](../cryptoconditions/cc-rogue.html#bailout) methods for further details.
+When concluding the game, the conversion of in-game gold to `ROGUE` coins is halved. See the [highlander](../customconsensus/cc-rogue.html#highlander) and [bailout](../customconsensus/cc-rogue.html#bailout) methods for further details.
 
 #### Multi-Player Mode
 
@@ -783,23 +783,23 @@ Due to the fact that the entropy (based on the `seed`) was the same for both pla
 
 There are two methods for winning the game. The most direct way to win the game is to obtain the `amulet` and return from the dungeon. Alternatively, the player also may win by having the last surviving character. The winner receives all of the `buyin` coins that were originally contributed, as well as an increased conversion ratio for their in-game gold to `ROGUE` reward.
 
-See the [highlander](../cryptoconditions/cc-rogue.html#highlander) method for further details.
+See the [highlander](../customconsensus/cc-rogue.html#highlander) method for further details.
 
 ### The Mechanics of Saving, Trading, and Reusing Characters
 
 ::: tip Note
 
-Due to the nature of saving and reusing characters, the Komodo implementation of Rogue changes the manner in which the user saves characters. Instead of typing `s` on the keyboard, type `Q + y + Enter`, then execute the [bailout](../cryptoconditions/cc-rogue.html#bailout) method to conclude the game.
+Due to the nature of saving and reusing characters, the Komodo implementation of Rogue changes the manner in which the user saves characters. Instead of typing `s` on the keyboard, type `Q + y + Enter`, then execute the [bailout](../customconsensus/cc-rogue.html#bailout) method to conclude the game.
 
 :::
 
-If a player successfully uses either the [highlander](../cryptoconditions/cc-rogue.html#highlander) or [bailout](../cryptoconditions/cc-rogue.html#bailout) method to conclude a game, the player may save their character, items, and achieved characteristics. They also convert the character's in-game gold to `ROGUE` coins. The ratio of conversion depends upon the game conditions; see the `highlander` and `bailout` methods for further details.
+If a player successfully uses either the [highlander](../customconsensus/cc-rogue.html#highlander) or [bailout](../customconsensus/cc-rogue.html#bailout) method to conclude a game, the player may save their character, items, and achieved characteristics. They also convert the character's in-game gold to `ROGUE` coins. The ratio of conversion depends upon the game conditions; see the `highlander` and `bailout` methods for further details.
 
 #### Recalling an Existing Character
 
-When either of these methods are executed, the returned response includes a `playertxid` transaction id. The `playertxid` represents the state of this character at the completion of the game. It is used as an argument for the [register](../cryptoconditions/cc-rogue.html#register) method when recalling the character, items, and achieved characteristics into a future game. 
+When either of these methods are executed, the returned response includes a `playertxid` transaction id. The `playertxid` represents the state of this character at the completion of the game. It is used as an argument for the [register](../customconsensus/cc-rogue.html#register) method when recalling the character, items, and achieved characteristics into a future game. 
 
-The `playertxid` value changes with each game, and therefore only the most recent `playertxid` for a character should be used. To see a complete list of current `playertxid` values belonging to the user's `pubkey`, use the [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) method. 
+The `playertxid` value changes with each game, and therefore only the most recent `playertxid` for a character should be used. To see a complete list of current `playertxid` values belonging to the user's `pubkey`, use the [playerinfo](../customconsensus/cc-rogue.html#playerinfo) method. 
 
 When the user registers an existing character, the game dungeon's difficulty begins at level `1`, and the character has no gold (as it was converted to `ROGUE` coins). Also, even if the character has armor and a wielded weapon in their item list, these items are not equipped by default. The player must equip them at the start of the game by typing the letters `w` for weapon and `W` for armor.
 
@@ -815,9 +815,9 @@ If the user bails out of a game while holding more items than they are allowed t
 
 #### Trading an Existing Character
 
-A character that survived a game is also a non-fungible asset and can be traded on the blockchain. When trading a character, the user does not use the `playertxid` value. Rather, the user employs the `tokentxid` value. This `tokentxid` is used in coordination with the [Tokens CC](../cryptoconditions/cc-tokens.html#introduction) module for on-chain trading.
+A character that survived a game is also a non-fungible asset and can be traded on the blockchain. When trading a character, the user does not use the `playertxid` value. Rather, the user employs the `tokentxid` value. This `tokentxid` is used in coordination with the [Tokens CC](../customconsensus/cc-tokens.html#introduction) module for on-chain trading.
 
-The `tokentxid` can be found by using the [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) method and submitting the known `playertxid` as an argument. For more information, see the `playerinfo` method.
+The `tokentxid` can be found by using the [playerinfo](../customconsensus/cc-rogue.html#playerinfo) method and submitting the known `playertxid` as an argument. For more information, see the `playerinfo` method.
 
 The `tokentxid` is created at the character's initial creation and does not change throughout the character's life. When the character dies, the `tokentxid` is sent to a burn address, making the character permanently unplayable. 
 
@@ -827,7 +827,7 @@ The `tokentxid` is created at the character's initial creation and does not chan
 
 The `newgame` method creates a new game.
 
-The `buyin` argument is required for multi-player games. The coins contributed via `buyin` become a winner-takes-all pot. Either the first player to claim the `amulet` and return from the dungeon, or the last player standing; may claim this prize using the [highlander](../cryptoconditions/cc-rogue.html#highlander) method.
+The `buyin` argument is required for multi-player games. The coins contributed via `buyin` become a winner-takes-all pot. Either the first player to claim the `amulet` and return from the dungeon, or the last player standing; may claim this prize using the [highlander](../customconsensus/cc-rogue.html#highlander) method.
 
 #### Arguments:
 
@@ -1245,8 +1245,8 @@ There are occasions where the developer may wish to start with the `tokentxid` o
 
 The following is one solution:
 
-- If necessary, obtain a list of all `tokens` on the asset chain via the [tokenlist](../cryptoconditions/cc-tokens.html#tokenlist) method.
-- For each item in the response, execute an iterative function that executes the [playerinfo](../cryptoconditions/cc-rogue.html#playerinfo) method on the individual `token`.
+- If necessary, obtain a list of all `tokens` on the asset chain via the [tokenlist](../customconsensus/cc-tokens.html#tokenlist) method.
+- For each item in the response, execute an iterative function that executes the [playerinfo](../customconsensus/cc-rogue.html#playerinfo) method on the individual `token`.
   - If the method responds with an error, this means that the supplied `token` does not represent a character. Rather, it represents another on-chain asset, and therefore the token can be ignored.
 - For each response from the `playerinfo` method check two elements: whether the data contains a `batontxid`; whether the character is alive.
   - If there is a `batontxid`, the `playertxid` has been used in a game and is no longer valid. Therefore, this `playertxid` can be ignored.
@@ -1268,7 +1268,7 @@ The following is one solution:
 | method       | (string)           | the name of the method                                                                                  |
 | player       | (json object)      | a json object containing relevant player data                                                           |
 | playertxid   | (string)           | the unique identifying transaction id of this player                                                    |
-| tokenid      | (string)           | the unique transaction id that represents this character as a non-fungible asset for on-chain trading using the [Tokens CC](../cryptoconditions/cc-tokens.html#introduction) module                                                                                                        |
+| tokenid      | (string)           | the unique transaction id that represents this character as a non-fungible asset for on-chain trading using the [Tokens CC](../customconsensus/cc-tokens.html#introduction) module                                                                                                        |
 | data         | (string)           | the character-state information in hex form                                                                 |
 | pack         | (array of strings) | an array containing the items in the character's pack                                                   |
 | packsize     | (number)           | the number of items in the character's pack                                                             |
