@@ -214,11 +214,10 @@ $textColor = #FFFFFF;
 
 $accentColor = #00EDD3;
 
-$codeBgColor = rgba(8,14,21,1);
+$codeBgColor = #000000;
 
 * {
-    font-family: Rubik;
-    font-weight: 300;
+    font-family: Rubik, Arial;
 }
 
 div .navbar, .navbar .links, .search-box, .nav-links, .nav-links .can-hide {
@@ -233,6 +232,37 @@ div .page {
     background-image: linear-gradient(135deg, #003A4B, #0B141B);
     min-height: 100vh;
     background-attachment: fixed;
+}
+
+thead tr {
+    background-color: #27606E;
+    color: #00EDD3;
+    font-weight: 500;
+}
+
+tbody tr a {
+    color: #3FA9F5;
+}
+
+table tbody tr:nth-child(2n) {
+    background-color: #1B456E;
+}
+
+body .custom-block.tip, body .custom-block.tip .custom-block-title {
+    background-color: #27606E;
+    border-color: #00EDD3;
+}
+
+body .custom-block.warning, body .custom-block.warning .custom-block-title {
+    background-color: #1B456E;
+    border-color: #3FA9F5;
+    color: #FFFFFF;
+}
+
+body .custom-block.danger, body .custom-block.danger .custom-block-title {
+    background-color: #003038;
+    border-color: #04748E;
+    color: #FFFFFF;
 }
 
 @media (max-width: 419px){ 
