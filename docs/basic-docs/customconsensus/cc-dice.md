@@ -499,12 +499,11 @@ Step 2: Send raw transaction / Broadcast the hex value
 <collapse-text hidden title="Response">
 
 
+```bash
+ebfcff20fa5ab7bebf14b778e74bd6b34b02f100ff75e4cb611190f160ae4cf7
 ```
 
 </collapse-text>
-
-ebfcff20fa5ab7bebf14b778e74bd6b34b02f100ff75e4cb611190f160ae4cf7
-```
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -759,14 +758,14 @@ Command:
 <collapse-text hidden title="Response">
 
 
-```
-
-</collapse-text>
-
+```bash
 [
   "0d6e82af9959caec14d7af42fd67db68a45bcd23c755457ebf192a52d62c599c"
 ]
 ```
+
+
+</collapse-text>
 
 ## dicestatus
 
