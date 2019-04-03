@@ -309,7 +309,7 @@ First, we need the `gatewaysDepositAddress`. This is the address where we will d
 ./komodo-cli -ac_name=HELLOWORLD gatewaysinfo insert_bindtxid
 ```
 
-Example Response:
+<collapse-text hidden title="Example Response">
 
 ```json
 {
@@ -328,6 +328,7 @@ Example Response:
   "issued": "0.00000000"
 }
 ```
+</collapse-text>
 
 The `deposit` property contains the `gatewaysDepositAddress`. When we send funds to this address, we receive in return HELLOWORLD KMD tokens to an on-chain address that we indicate as follows.
 
