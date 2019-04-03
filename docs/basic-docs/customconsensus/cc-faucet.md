@@ -112,13 +112,11 @@ Step 2: Broadcast/send raw transaction
 
 <collapse-text hidden title="Response">
 
-
+```bash
+f2baf8d9a1eaf42bb1a85462b5699ffc0f04e8c54aafc4661767df96be9022b7
 ```
 
 </collapse-text>
-
-    f2baf8d9a1eaf42bb1a85462b5699ffc0f04e8c54aafc4661767df96be9022b7
-```
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -233,14 +231,12 @@ Step 2: Broadcast/send the raw transaction
 
 <collapse-text hidden title="Response">
 
-
-```
-
-</collapse-text>
-
+```bash
 faucetget validated
 64760e66c49df97eea14896ecdd505d2d78ea214eb583c8a6a0ac863b2b989b3
 ```
+
+</collapse-text>
 
 Step 3: Decode the raw transaction (optional to check if the value are sane)
 
