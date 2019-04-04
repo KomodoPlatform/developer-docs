@@ -53,4 +53,5 @@ import os
 for filename in os.listdir('../docs/basic-docs/customconsensus/'):
     array = filename.split('-')
     if array[0] == "cc":
-        os.rename(filename, array[1])
+        os.rename("../docs/basic-docs/customconsensus/"+filename,
+                  "../docs/basic-docs/customconsensus/" + array[1])
