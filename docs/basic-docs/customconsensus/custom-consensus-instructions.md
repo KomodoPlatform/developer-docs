@@ -76,4 +76,4 @@ The `myaddress` property is the unmodified address that corresponds to your pubk
 
 The use-cases of the different addresses depends on the functionality in question, and the desired outcome.
 
-Also, each contract module has its own RPC calls for moving coins or tokens. For example, if you are dealing with the `tokens` contract, you may use the [tokentransfer](../customconsensus/cc-tokens.html#tokentransfer) method.
+Also, each contract module has its own RPC calls for moving coins or tokens. For example, if you are dealing with the `tokens` contract, you may use the [tokentransfer](../customconsensus/tokens.html#tokentransfer) method.

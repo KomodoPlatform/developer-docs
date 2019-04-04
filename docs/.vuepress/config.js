@@ -1,4 +1,10 @@
+var redirectAliases = require("./public/_redirects.js");
 module.exports = {
+  plugins: {
+    redirect: {
+      alias: redirectAliases
+    }
+  },
   title: "Komodo Documentation",
   base: "/",
   description: "Documentation for developers building on Komodo",
@@ -83,17 +89,17 @@ module.exports = {
               "/basic-docs/customconsensus/custom-consensus-tutorial.md",
               "Build a CC Module"
             ],
-            ["/basic-docs/customconsensus/cc-channels.md", "Channels"],
-            ["/basic-docs/customconsensus/cc-dice.md", "Dice"],
-            ["/basic-docs/customconsensus/cc-faucet.md", "Faucet"],
-            ["/basic-docs/customconsensus/cc-gateways.md", "Gateways"],
-            ["/basic-docs/customconsensus/cc-heir.md", "Heir"],
-            ["/basic-docs/customconsensus/cc-musig.md", "MuSig"],
-            ["/basic-docs/customconsensus/cc-oracles.md", "Oracles"],
-            ["/basic-docs/customconsensus/cc-rewards.md", "Rewards"],
-            ["/basic-docs/customconsensus/cc-rogue.md", "Rogue"],
-            ["/basic-docs/customconsensus/cc-sudoku.md", "Sudoku"],
-            ["/basic-docs/customconsensus/cc-tokens.md", "Tokens"]
+            ["/basic-docs/customconsensus/channels.md", "Channels"],
+            ["/basic-docs/customconsensus/dice.md", "Dice"],
+            ["/basic-docs/customconsensus/faucet.md", "Faucet"],
+            ["/basic-docs/customconsensus/gateways.md", "Gateways"],
+            ["/basic-docs/customconsensus/heir.md", "Heir"],
+            ["/basic-docs/customconsensus/musig.md", "MuSig"],
+            ["/basic-docs/customconsensus/oracles.md", "Oracles"],
+            ["/basic-docs/customconsensus/rewards.md", "Rewards"],
+            ["/basic-docs/customconsensus/rogue.md", "Rogue"],
+            ["/basic-docs/customconsensus/sudoku.md", "Sudoku"],
+            ["/basic-docs/customconsensus/tokens.md", "Tokens"]
           ]
         },
         {

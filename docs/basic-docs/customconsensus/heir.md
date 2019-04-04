@@ -10,20 +10,20 @@ This first private key belongs to the owner of the `1of2` CC address. The owner 
 
 Should the owner fail to interact with the `1of2` CC address for a specified period of time (`inactivitytime`), the address automatically unlocks to the second key. This second key is owned by the heir. Once unlocked, both the creator and the heir may freely spend funds from the address.
 
-The [heiradd](../customconsensus/cc-heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
+The [heiradd](../customconsensus/heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
 
 The Heir CC module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../customconsensus/cc-tokens.html) CC module that represent on-chain assets, or even tokens that are formed via the [Gateways](../customconsensus/cc-gateways.html) module to represent off-chain assets or other cryptocurrencies.
 
 #### Heir CC Module Flow
 
-- Anyone can create a new Heir CC address using [heirfund](../customconsensus/cc-heir.html#heirfund)
-- The owner of this address can add more funds using [heiradd](../customconsensus/cc-heir.html#heiradd)
-- Any other user, including the heir, can add donations using [heiradd](../customconsensus/cc-heir.html#heiradd)
-- The owner can claim funds at any time using [heirclaim](../customconsensus/cc-heir.html#heirclaim)
-- Once `inactivitytime` period is reached, the heir can also claim funds using [heirclaim](../customconsensus/cc-heir.html#heirclaim)
-- To retrieve the details of a particular funding plan, use [heirinfo](../customconsensus/cc-heir.html#heirinfo)
-- To retrieve a list of all funding plans on the asset chain, use [heirlist](../customconsensus/cc-heir.html#heirlist)
-- To output Heir CC addresses, use [heiraddress](../customconsensus/cc-heir.html#heiraddress)
+- Anyone can create a new Heir CC address using [heirfund](../customconsensus/heir.html#heirfund)
+- The owner of this address can add more funds using [heiradd](../customconsensus/heir.html#heiradd)
+- Any other user, including the heir, can add donations using [heiradd](../customconsensus/heir.html#heiradd)
+- The owner can claim funds at any time using [heirclaim](../customconsensus/heir.html#heirclaim)
+- Once `inactivitytime` period is reached, the heir can also claim funds using [heirclaim](../customconsensus/heir.html#heirclaim)
+- To retrieve the details of a particular funding plan, use [heirinfo](../customconsensus/heir.html#heirinfo)
+- To retrieve a list of all funding plans on the asset chain, use [heirlist](../customconsensus/heir.html#heirlist)
+- To output Heir CC addresses, use [heiraddress](../customconsensus/heir.html#heiraddress)
 
 <!--The image below needs to be adjusted via @808 before it can be added to the live site:
 
@@ -74,7 +74,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 ##### Step 1: Create a raw transaction (in coins) and get the HEX value
 
 ::: tip
-The following example demonstrates Heir CC usage when utilizing coins, instead of tokens. When instead using tokens, create the tokens first with the [tokencreate](../customconsensus/cc-tokens.html#tokencreate) method and pass the `tokenid` as the last parameter of [heirfund.](../customconsensus/cc-heir.html#heirfund)
+The following example demonstrates Heir CC usage when utilizing coins, instead of tokens. When instead using tokens, create the tokens first with the [tokencreate](../customconsensus/cc-tokens.html#tokencreate) method and pass the `tokenid` as the last parameter of [heirfund.](../customconsensus/heir.html#heirfund)
 :::
 
 ```bash
@@ -237,7 +237,7 @@ When anyone other than the owner uses the `heiradd` method to add funds, these f
 For each transaction using `heiradd`, the funds may be sent either from the owner's pubkey, or from a non-owner's pubkey. Funds cannot be sent from both owner and non-owner pubkeys at the same time. This can cause confusion for the owner if the funds available in their wallet are held partially in the owner's declared pubkey for this Heir CC account, and partially in other pubkeys. Therefore, the owner should ensure that all funds they desire to add to the account are within their declared Heir CC pubkey before attempting to use `heiradd`.
 
 ::: tip
-Use the [<b>heirlist</b>](../customconsensus/cc-heir.html#heirlist) method to find a <b>fundingtxid</b>.
+Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
 :::
 
 ### Arguments:
@@ -246,7 +246,7 @@ Use the [<b>heirlist</b>](../customconsensus/cc-heir.html#heirlist) method to fi
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
 | amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
-| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/cc-heir.html#heirfund) transaction                                                                              |
+| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction                                                                              |
 
 ### Response:
 
@@ -411,7 +411,7 @@ The `heirclaim` method allows the owner to claim funds from the plan.
 After the `inactivitytime` period has elapsed, the `heirclaim` method also allows the heir to claim funds.
 
 ::: tip
-Use the [<b>heirlist</b>](../customconsensus/cc-heir.html#heirlist) method to find a <b>fundingtxid</b>.
+Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
 :::
 
 ### Arguments:
@@ -420,7 +420,7 @@ Use the [<b>heirlist</b>](../customconsensus/cc-heir.html#heirlist) method to fi
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
 | amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
-| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/cc-heir.html#heirfund) transaction                                                                              |
+| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction                                                                              |
 
 ### Response:
 
@@ -475,20 +475,20 @@ f0f7f536a261ee8e02fb592d81305b6052939a510e3e3435280b0bad454626c7
 The `heirinfo` method returns detailed information about the funding plan.
 
 ::: tip
-Use the [<b>heirlist</b>](../customconsensus/cc-heir.html#heirlist) method to find a <b>fundingtxid</b>.
+Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
 :::
 
 ### Arguments:
 
 | Structure   | Type     | Description                                                                                                     |
 | ----------- | -------- | --------------------------------------------------------------------------------------------------------------- |
-| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/cc-heir.html#heirfund) transaction |
+| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction |
 
 ### Response:
 
 | Structure             | Type      | Description                                                                                                                            |
 | --------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| fundingtxid           | (string)  | the id of the funding plan, the txid of [heirfund](../customconsensus/cc-heir.html#heirfund) transaction                              |
+| fundingtxid           | (string)  | the id of the funding plan, the txid of [heirfund](../customconsensus/heir.html#heirfund) transaction                              |
 | name                  | (string)  | the name of the heir plan                                                                                                              |
 | tokenid               | (string)  | `token id`, if applicable                                                                                                              |
 | owner                 | (string)  | the owner's public key                                                                                                                 |
