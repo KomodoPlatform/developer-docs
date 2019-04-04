@@ -6,7 +6,6 @@
 </template>
 
 <style lang="stylus">
-@require '~@default-theme/styles/config.styl' 
 button 
    display inline-block
    font-size 0.9em
