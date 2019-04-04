@@ -60,7 +60,9 @@ Command:
 ./komodo-cli getinfo
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -97,6 +99,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -105,7 +110,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -146,6 +153,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## help
 
 **help ( "command" )**
@@ -158,7 +168,9 @@ The `help` method lists all commands, or all information for a specified command
 | --------- | ------------------ | -------------------------------- |
 | "command" | (string, optional) | the command requiring assistance |
 
-Response:
+
+### Response
+
 
 | Structure | Type               | Description                      |
 | --------- | ------------------ | -------------------------------- |
@@ -172,9 +184,10 @@ Command:
 ./komodo-cli help
 ```
 
-Response:
+<collapse-text hidden title="Response">
 
-```
+
+```bash
 == Addressindex ==
 getaddressbalance
 getaddressdeltas
@@ -202,15 +215,19 @@ getdifficulty
 ........ (other responses omitted for brevity)
 ```
 
+</collapse-text>
+
 Command:
 
 ```bash
 ./komodo-cli help getaddressbalance
 ```
 
-Response:
 
-```
+<collapse-text hidden title="Response">
+
+
+```bash
 Returns the balance for an address(es) (requires addressindex to be enabled).
 
 Arguments:
@@ -232,6 +249,8 @@ Examples:
 > komodo-cli getaddressbalance '{"addresses": ["RY5LccmGiX9bUHYGtSWQouNy1yFhc5rM87"]}'
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["RY5LccmGiX9bUHYGtSWQouNy1yFhc5rM87"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:7771/
 ```
+
+</collapse-text>
 
 ## stop
 
@@ -266,8 +285,13 @@ Command:
 ./komodo-cli stop
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 "Komodo server stopping"
 ```
+
+</collapse-text>
+
