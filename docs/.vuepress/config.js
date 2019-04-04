@@ -1,10 +1,10 @@
-const path = require('path')
-
+var redirectAliases = require('./public/_redirects.js');
 module.exports = {
-  additionalPages: [{
-    path: '/basic-docs/cryptoconditions/cc-dice.html',
-    filePath: path.resolve(__dirname, '../basic-docs/customconsensus/cc-dice.md')
-  }],
+  plugins: {
+    redirect: {
+      alias: redirectAliases,
+    }
+  },
   title: "Komodo Documentation",
   base: "/",
   description: "Documentation for developers building on Komodo",
