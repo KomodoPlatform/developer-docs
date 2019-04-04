@@ -14,13 +14,13 @@ To use this method for large block heights, first execute the method for a small
 
 ### Arguments:
 
-| Structure | Type                | Description              |
+| Name | Type | Description | 
 | --------- | ------------------- | ------------------------ |
 | "height"  | (integer, optional) | the desired block height |
 
 ### Response:
 
-| Structure | Type      | Description                                                   |
+| Name | Type | Description | 
 | --------- | --------- | ------------------------------------------------------------- |
 | "result"  | (string)  | whether the request was successful                            |
 | "coin"    | (string)  | the ticker symbol of the coin for asset chains, otherwise KMD |
@@ -96,13 +96,13 @@ The `getbestblockhash` method returns the hash of the best (tip) block in the lo
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
 ### Response:
 
-| Structure | Type     | Description                 |
+| Name | Type | Description | 
 | --------- | -------- | --------------------------- |
 | "hex"     | (string) | the block hash, hex encoded |
 
@@ -158,14 +158,14 @@ The verbose input is optional. The default value is true, and it will return a j
 
 ### Arguments:
 
-| Structure        | Type                              | Description                                                |
+| Name | Type | Description | 
 | ---------------- | --------------------------------- | ---------------------------------------------------------- |
 | hash `OR` height | string `OR` number, respectively  | the block hash `OR` the block height                       |
 | verbose          | (boolean, optional, default=true) | true returns a json object, false returns hex-encoded data |
 
 ### Response (verbose = true):
 
-| Structure                       | Type               | Description                                                                                                                       |
+| Name | Type | Description | 
 | ------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
 | "hash"                          | (string)           | the block hash (same as provided hash)                                                                                            |
 | "confirmations"                 | (numeric)          | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
@@ -184,7 +184,7 @@ The verbose input is optional. The default value is true, and it will return a j
 
 ### Response:
 
-| Structure | Type     | Description                                                           |
+| Name | Type | Description | 
 | --------- | -------- | --------------------------------------------------------------------- |
 | "data"    | (string) | a string that is serialized, hex-encoded data for the indicated block |
 
@@ -555,13 +555,13 @@ When the chain tip is at the last block before a network upgrade activation, the
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure              | Type      | Description                                                                                                                                       |
+| Name | Type | Description | 
 | ---------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "chain"                | (string)  | the current network name, as defined in BIP70 (main, test, regtest)                                                                               |
 | "blocks"               | (numeric) | the current number of blocks processed in the server                                                                                              |
@@ -726,13 +726,13 @@ The `getblockcount` method returns the number of blocks in the best valid block 
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure | Type      | Description             |
+| Name | Type | Description | 
 | --------- | --------- | ----------------------- |
 | data      | (numeric) | the current block count |
 
@@ -786,13 +786,13 @@ The `getblockhash` method returns the hash of the indicated block index, accordi
 
 ### Arguments:
 
-| Structure | Type                | Description     |
+| Name | Type | Description | 
 | --------- | ------------------- | --------------- |
 | index     | (numeric, required) | the block index |
 
 ### Response:
 
-| Structure | Type     | Description    |
+| Name | Type | Description | 
 | --------- | -------- | -------------- |
 | "hash"    | (string) | the block hash |
 
@@ -848,7 +848,7 @@ The method requires [timestampindex](../installations/common-runtime-parameters.
 
 ### Arguments:
 
-| Structure      | Type                | Description                                                                                |
+| Name | Type | Description | 
 | -------------- | ------------------- | ------------------------------------------------------------------------------------------ |
 | high           | (numeric, required) | the newer block timestamp                                                                  |
 | low            | (numeric, required) | the older block timestamp                                                                  |
@@ -858,7 +858,7 @@ The method requires [timestampindex](../installations/common-runtime-parameters.
 
 ### Response:
 
-| Structure   | Type      | Description           |
+| Name | Type | Description | 
 | ----------- | --------- | --------------------- |
 | "hash"      | (string)  | the block hash        |
 | "blockhash" | (string)  | the block hash        |
@@ -955,14 +955,14 @@ The verbose input is optional. If verbose is false, the method returns a string 
 
 ### Arguments:
 
-| Structure | Type                              | Description                                                |
+| Name | Type | Description | 
 | --------- | --------------------------------- | ---------------------------------------------------------- |
 | "hash"    | (string, required)                | the block hash                                             |
 | verbose   | (boolean, optional, default=true) | true returns a json object, false returns hex-encoded data |
 
 ### Response (verbose = `true`):
 
-| Structure           | Type      | Description                                                                                                                       |
+| Name | Type | Description | 
 | ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | "hash"              | (string)  | the block hash (same as provided)                                                                                                 |
 | "confirmations"     | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
@@ -979,7 +979,7 @@ The verbose input is optional. If verbose is false, the method returns a string 
 
 ### Response (verbose = `false`):
 
-| Structure | Type     | Description                                                          |
+| Name | Type | Description | 
 | --------- | -------- | -------------------------------------------------------------------- |
 | "data"    | (string) | a string that is serialized hex-encoded data for the indicated block |
 
@@ -1084,13 +1084,13 @@ The `getchaintips` method returns information about all known tips in the block 
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure   | Type      | Description                                                   |
+| Name | Type | Description | 
 | ----------- | --------- | ------------------------------------------------------------- |
 | "height"    | (numeric) | the height of the chain tip                                   |
 | "hash"      | (string)  | the block hash of the tip                                     |
@@ -1175,14 +1175,14 @@ The method `getchaintxstats` returns statistics about the total number and rate 
 
 ### Arguments:
 
-| Structure | Type                | Description                                   |
+| Name | Type | Description | 
 | --------- | ------------------- | --------------------------------------------- |
 | nblocks   | (numeric, optional) | the number of blocks in the averaging window. |
 | blockhash | (string, optional)  | the hash of the block which ends the window   |
 
 ### Response:
 
-| Structure                 | Type      | Description                                                                                                         |
+| Name | Type | Description | 
 | ------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------- |
 | "time"                    | (numeric) | the timestamp for the final block in the window in UNIX format                                                      |
 | "txcount"                 | (numeric) | the total number of transactions in the chain up to this point                                                      |
@@ -1258,13 +1258,13 @@ The `getdifficulty` method returns the proof-of-work difficulty as a multiple of
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure | Type      | Description                                                          |
+| Name | Type | Description | 
 | --------- | --------- | -------------------------------------------------------------------- |
 | number    | (numeric) | the proof-of-work difficulty as a multiple of the minimum difficulty |
 
@@ -1322,13 +1322,13 @@ Only applies to `-ac_staked` asset chains
 
 ### Arguments:
 
-| Structure | Type                | Description                                                                          |
+| Name | Type | Description | 
 | --------- | ------------------- | ------------------------------------------------------------------------------------ |
 | depth     | (numeric, required) | the number of blocks to scan, starting from the current height and working backwards |
 
 ### Response:
 
-| Structure | Type          | Description                                                                                                |
+| Name | Type | Description | 
 | --------- | ------------- | ---------------------------------------------------------------------------------------------------------- |
 | "NotSet"  | (numeric)     | the number of blocks that have no `SegId` set                                                              |
 | "PoW"     | (numeric)     | the number of blocks created through `PoW`                                                                 |
@@ -1421,13 +1421,13 @@ The `getmempoolinfo` method returns details on the active state of the transacti
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |             |
 
 ### Response:
 
-| Structure | Type      | Description                            |
+| Name | Type | Description | 
 | --------- | --------- | -------------------------------------- |
 | "size"    | (numeric) | the current transaction count          |
 | "bytes"   | (numeric) | the sum of all transaction sizes       |
@@ -1493,19 +1493,19 @@ The verbose input is optional and is false by default. When it is true, the meth
 
 ### Arguments:
 
-| Structure | Type                               | Description                                                       |
+| Name | Type | Description | 
 | --------- | ---------------------------------- | ----------------------------------------------------------------- |
 | verbose   | (boolean, optional, default=false) | true for a json object, false for a json array of transaction ids |
 
 ### Response (verbose = `false`):
 
-| Structure        | Type     | Description        |
+| Name | Type | Description | 
 | ---------------- | -------- | ------------------ |
 | "transaction_id" | (string) | the transaction id |
 
 ### Response (verbose = `true`):
 
-| Structure                  | Type          | Description                                                             |
+| Name | Type | Description | 
 | -------------------------- | ------------- | ----------------------------------------------------------------------- |
 | "transaction_id": { .... } | (json object) |
 | "size"                     | (numeric)     | the transaction size in bytes                                           |
@@ -1589,14 +1589,14 @@ The method requires [spentindex](../installations/common-runtime-parameters.html
 
 ### Arguments:
 
-| Structure | Type     | Description                          |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------ |
 | "txid"    | (string) | the hex string of the transaction id |
 | "index"   | (number) | the output's index                   |
 
 ### Response:
 
-| Structure | Type     | Description              |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------ |
 | "txid"    | (string) | the transaction id       |
 | "index"   | (number) | the spending input index |
@@ -1659,7 +1659,7 @@ The `gettxout` method returns details about an unspent transaction output.
 
 ### Arguments:
 
-| Structure      | Type                | Description                    |
+| Name | Type | Description | 
 | -------------- | ------------------- | ------------------------------ |
 | "txid"         | (string, required)  | the transaction id             |
 | vout           | (numeric, required) | the vout value                 |
@@ -1667,7 +1667,7 @@ The `gettxout` method returns details about an unspent transaction output.
 
 ### Response:
 
-| Structure          | Type               | Description                                                                                                                       |
+| Name | Type | Description | 
 | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
 | "bestblock"        | (string)           | the block hash                                                                                                                    |
 | "confirmations"    | (numeric)          | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
@@ -1765,14 +1765,14 @@ The <b>gettxoutproof</b> method relies on the <b>txindex</b> runtime parameter. 
 
 ### Arguments:
 
-| Structure   | Type               | Description                                                                       |
+| Name | Type | Description | 
 | ----------- | ------------------ | --------------------------------------------------------------------------------- |
 | "txid"      | (string)           | a transaction hash                                                                |
 | "blockhash" | (string, optional) | if specified, the method looks for the relevant transaction id in this block hash |
 
 ### Response:
 
-| Structure | Type     | Description                                                   |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------- |
 | "data"    | (string) | a string that is a serialized, hex-encoded data for the proof |
 
@@ -1807,13 +1807,13 @@ Note this call may take a long time to complete, depending on the state of your 
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure          | Type      | Description                       |
+| Name | Type | Description | 
 | ------------------ | --------- | --------------------------------- |
 | "height"           | (numeric) | the current block height (index)  |
 | "bestblock"        | (string)  | the best block hash hex           |
@@ -1893,13 +1893,13 @@ This feature is only available for asset chains.
 
 ### Arguments:
 
-| Structure | Type               | Description                                            |
+| Name | Type | Description | 
 | --------- | ------------------ | ------------------------------------------------------ |
 | key       | (string, required) | the key for which the user desires to search the chain |
 
 ### Response:
 
-| Structure       | Type      | Description                                               |
+| Name | Type | Description | 
 | --------------- | --------- | --------------------------------------------------------- |
 | "coin"          | (string)  | the chain on which the key is stored                      |
 | "currentheight" | (numeric) | the current height of the chain                           |
@@ -1988,7 +1988,7 @@ This feature is available only for asset chains. The maximum value memory size i
 
 ### Arguments:
 
-| Structure    | Type                | Description                                                            |
+| Name | Type | Description | 
 | ------------ | ------------------- | ---------------------------------------------------------------------- |
 | "key"        | (string, required)  | key (should be unique)                                                 |
 | "value"      | (string, required)  | value                                                                  |
@@ -1997,7 +1997,7 @@ This feature is available only for asset chains. The maximum value memory size i
 
 ### Response:
 
-| Structure    | Type      | Description                               |
+| Name | Type | Description | 
 | ------------ | --------- | ----------------------------------------- |
 | "coin"       | (string)  | the chain on which the key is stored      |
 | "height"     | (numeric) | the height at which the key was stored    |
@@ -2084,13 +2084,13 @@ The `minerids` method returns information about the notary nodes and external mi
 
 ### Arguments:
 
-| Structure | Type     | Description                    |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------ |
 | heights   | (number) | the block height for the query |
 
 ### Response:
 
-| Structure    | Type     | Description                               |
+| Name | Type | Description | 
 | ------------ | -------- | ----------------------------------------- |
 | "mined":     |          |
 | "notaryid"   | (number) | the id of the specific notary node        |
@@ -2186,14 +2186,14 @@ Either or both of the height and timestamp parameters will suffice.
 
 ### Arguments:
 
-| Structure | Type     | Description                                      |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------ |
 | height    | (number) | the block height desired for the query           |
 | timestamp | (number) | the timestamp of the block desired for the query |
 
 ### Response:
 
-| Structure           | Type     | Description                                                                                                                           |
+| Name | Type | Description | 
 | ------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | "notaries": [ ... ] | (array)  |
 | "pubkey"            | (string) | the public signing key of the indicated notary node, used on the KMD network to create notary-node authorized transactions            |
@@ -2281,14 +2281,14 @@ Depending on the state of your blockchain database and daemon, this call can tak
 
 ### Arguments:
 
-| Structure  | Type                                    | Description                                      |
+| Name | Type | Description | 
 | ---------- | --------------------------------------- | ------------------------------------------------ |
 | checklevel | (numeric, optional, 0-4, default=3)     | indicates the thoroughness of block verification |
 | numblocks  | (numeric, optional, default=288, 0=all) | indicates the number of blocks to verify         |
 
 ### Response:
 
-| Structure  | Type      | Description                             |
+| Name | Type | Description | 
 | ---------- | --------- | --------------------------------------- |
 | true/false | (boolean) | whether the verification was successful |
 
@@ -2342,13 +2342,13 @@ The `verifytxoutproof` method verifies that a proof points to a transaction in a
 
 ### Arguments:
 
-| Structure      | Type               | Description                                      |
+| Name | Type | Description | 
 | -------------- | ------------------ | ------------------------------------------------ |
 | "proof_string" | (string, required) | the hex-encoded proof generated by gettxoutproof |
 
 ### Response:
 
-| Structure | Type     | Description                                                                                |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------------------------------------ |
 | "txid"    | (string) | the transaction ids to which the proof commits; the array is empty if the proof is invalid |
 

@@ -10,7 +10,7 @@ The `createmultisig` method creates a multi-signature address with `n` signature
 
 ### Arguments:
 
-| Structure       | Type                | Description                                                            |
+| Name | Type | Description | 
 | --------------- | ------------------- | ---------------------------------------------------------------------- |
 | number_required | (numeric, required) | the number of required signatures out of the `n` key(s) or address(es) |
 | "keys"          | (string, required)  | a json array of keys which are addresses or hex-encoded public keys    |
@@ -18,7 +18,7 @@ The `createmultisig` method creates a multi-signature address with `n` signature
 
 ### Response:
 
-| Structure      | Type     | Description                                           |
+| Name | Type | Description | 
 | -------------- | -------- | ----------------------------------------------------- |
 | "address"      | (string) | the value of the new multisig address                 |
 | "redeemScript" | (string) | the string value of the hex-encoded redemption script |
@@ -90,13 +90,13 @@ The OP RETURN data from a CC transaction can be found by following these steps:
 
 ### Arguments:
 
-| Structure    | Type     | Description                                                                                                            |
+| Name | Type | Description | 
 | ------------ | -------- | ---------------------------------------------------------------------------------------------------------------------- |
 | scriptPubKey | (string) | the hex-string format `scriptPubKey` of the `type` : `nulldata` in the `vout` of a transaction produced by a CC module |
 
 ### Response:
 
-| Structure | Type                 | Description                                                   |
+| Name | Type | Description | 
 | --------- | -------------------- | ------------------------------------------------------------- |
 | result    | (string)             | whether the call succeeded                                    |
 | OpRets    | (json)               | a json containing the keys `EVALCODE` and `function id`       |
@@ -171,13 +171,13 @@ The value `-1.0` is returned if not enough transactions and blocks have been obs
 
 ### Arguments:
 
-| Structure | Type      | Description                                                |
+| Name | Type | Description | 
 | --------- | --------- | ---------------------------------------------------------- |
 | nblocks   | (numeric) | the number of blocks within which the fee should be tested |
 
 ### Response:
 
-| Structure | Type      | Description   |
+| Name | Type | Description | 
 | --------- | --------- | ------------- |
 | n         | (numeric) | the estimated fee |
 
@@ -210,13 +210,13 @@ The value `-1.0` is returned if not enough transactions and blocks have been obs
 
 ### Arguments:
 
-| Structure | Type      | Description                                                                       |
+| Name | Type | Description | 
 | --------- | --------- | --------------------------------------------------------------------------------- |
 | nblocks   | (numeric) | a statement indicating within how many blocks the transaction should be confirmed |
 
 ### Response:
 
-| Structure | Type      | Description        |
+| Name | Type | Description | 
 | --------- | --------- | ------------------ |
 | n         | (numeric) | the estimated priority |
 
@@ -247,13 +247,13 @@ The `invalidateblock` method permanently marks a block as invalid, as if it viol
 
 ### Arguments:
 
-| Structure | Type               | Description                              |
+| Name | Type | Description | 
 | --------- | ------------------ | ---------------------------------------- |
 | hash      | (string, required) | the hash of the block to mark as invalid |
 
 ### Response:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -307,13 +307,13 @@ The `reconsiderblock` method removes invalidity status of a block and its descen
 
 ### Arguments:
 
-| Structure | Type               | Description                         |
+| Name | Type | Description | 
 | --------- | ------------------ | ----------------------------------- |
 | hash      | (string, required) | the hash of the block to reconsider |
 
 ### Response:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -348,13 +348,13 @@ If the chain does not have dPoW, the method returned `true` if the confirmation 
 
 ### Arguments:
 
-| Structure | Type               | Description        |
+| Name | Type | Description | 
 | --------- | ------------------ | ------------------ |
 | "txid"    | (string, required) | the transaction id |
 
 ### Response:
 
-| Structure | Type      | Description                               |
+| Name | Type | Description | 
 | --------- | --------- | ----------------------------------------- |
 | "result"  | (boolean) | whether the transaction is confirmed, for dPoW-based chains; for non-dPoW chains, the value indicates whether the transaction has `60` or more confirmations |
 
@@ -387,13 +387,13 @@ The `validateaddress` method returns information about the given address.
 
 ### Arguments:
 
-| Structure | Type               | Description             |
+| Name | Type | Description | 
 | --------- | ------------------ | ----------------------- |
 | "address" | (string, required) | the address to validate |
 
 ### Response:
 
-| Structure      | Type      | Description                                                                               |
+| Name | Type | Description | 
 | -------------- | --------- | ----------------------------------------------------------------------------------------- |
 | "isvalid"      | (boolean) | indicates whether the address is valid. If it is not, this is the only property returned. |
 | "address"      | (string)  | the address validated                                                                     |
@@ -446,7 +446,7 @@ See also <b>signmessage</b>.
 
 ### Arguments:
 
-| Structure   | Type               | Description                                              |
+| Name | Type | Description | 
 | ----------- | ------------------ | -------------------------------------------------------- |
 | "address"   | (string, required) | the address to use for the signature                     |
 | "signature" | (string, required) | the signature provided by the signer in base 64 encoding |
@@ -454,7 +454,7 @@ See also <b>signmessage</b>.
 
 ### Response:
 
-| Structure  | Type      | Description                                 |
+| Name | Type | Description | 
 | ---------- | --------- | ------------------------------------------- |
 | true/false | (boolean) | indicates whether the signature is verified |
 
@@ -506,13 +506,13 @@ The `z_validateaddress` method returns information about the given z address.
 
 ### Arguments:
 
-| Structure | Type               | Description               |
+| Name | Type | Description | 
 | --------- | ------------------ | ------------------------- |
 | "zaddr"   | (string, required) | the z address to validate |
 
 ### Response:
 
-| Structure         | Type      | Description                                                                        |
+| Name | Type | Description | 
 | ----------------- | --------- | ---------------------------------------------------------------------------------- |
 | "isvalid"         | (boolean) | indicates whether the address is valid; if not, this is the only property returned |
 | "address"         | (string)  | the z address validated                                                            |

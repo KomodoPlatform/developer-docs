@@ -16,7 +16,7 @@ DEPRECATED: If <b>account</b> is specified, the method assigns the multi-signatu
 
 ### Arguments:
 
-| Structure    | Type                | Description                                                                                                                                              |
+| Name | Type | Description | 
 | ------------ | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | nrequired    | (numeric, required) | the number of required keys (out of the `n` submitted)                                                                                                   |
 | "keysobject" | (string, required)  | a json array of addresses or hex-encoded public keys                                                                                                     |
@@ -25,7 +25,7 @@ DEPRECATED: If <b>account</b> is specified, the method assigns the multi-signatu
 
 ### Response:
 
-| Structure | Type     | Description                         |
+| Name | Type | Description | 
 | --------- | -------- | ----------------------------------- |
 | "address" | (string) | an address associated with the keys |
 
@@ -85,13 +85,13 @@ This method requires that the coin daemon have the <b>exportdir</b> runtime para
 
 ### Arguments:
 
-| Structure     | Type               | Description                                                                                                                                          |
+| Name | Type | Description | 
 | ------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "destination" | (string, required) | the destination filename, saved in the directory set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter |
 
 ### Response:
 
-| Structure | Type     | Description                           |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------- |
 | "path"    | (string) | the full path of the destination file |
 
@@ -138,13 +138,13 @@ See also <b>importprivkey</b>.
 
 ### Arguments:
 
-| Structure | Type               | Description                     |
+| Name | Type | Description | 
 | --------- | ------------------ | ------------------------------- |
 | "address" | (string, required) | the address for the private key |
 
 ### Response:
 
-| Structure | Type     | Description     |
+| Name | Type | Description | 
 | --------- | -------- | --------------- |
 | "data"    | (string) | the private key |
 
@@ -204,13 +204,13 @@ This method requires that the coin daemon have the [exportdir](../installations/
 
 ### Arguments:
 
-| Structure  | Type               | Description                                                                                                                           |
+| Name | Type | Description | 
 | ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
 | "filename" | (string, required) | the filename, saved in the folder set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter |
 
 ### Response:
 
-| Structure | Type     | Description                           |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------- |
 | "path"    | (string) | the full path of the destination file |
 
@@ -276,7 +276,7 @@ This method is for first-time encryption only. After the first encryption, any c
 
 ### Arguments:
 
-| Structure  | Type     | Description                                                                                           |
+| Name | Type | Description | 
 | ---------- | -------- | ----------------------------------------------------------------------------------------------------- |
 | passphrase | (string) | the passphrase for wallet encryption; the passphrase must be at least 1 character, but should be many |
 
@@ -376,13 +376,13 @@ The `getaccount` method returns the account associated with the given address.
 
 ### Arguments:
 
-| Structure | Type               | Description |
+| Name | Type | Description | 
 | --------- | ------------------ | ----------- |
 | "address" | (string, required) | the address |
 
 ### Response:
 
-| Structure     | Type     | Description         |
+| Name | Type | Description | 
 | ------------- | -------- | ------------------- |
 | "accountname" | (string) | the account address |
 
@@ -436,13 +436,13 @@ The `getaccountaddress` method returns the current address for receiving payment
 
 ### Arguments:
 
-| Structure | Type               | Description                                                                                                           |
+| Name | Type | Description | 
 | --------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | "account" | (string, required) | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 
 ### Response:
 
-| Structure | Type     | Description         |
+| Name | Type | Description | 
 | --------- | -------- | ------------------- |
 | "address" | (string) | the account address |
 
@@ -496,13 +496,13 @@ The `getaddressesbyaccount` method returns the list of addresses for the given `
 
 ### Arguments:
 
-| Structure | Type               | Description                                                                                                           |
+| Name | Type | Description | 
 | --------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | "account" | (string, required) | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 
 ### Response:
 
-| Structure | Type     | Description                                  |
+| Name | Type | Description | 
 | --------- | -------- | -------------------------------------------- |
 | "address" | (string) | an address associated with the given account |
 
@@ -556,7 +556,7 @@ The <b>account</b> input is deprecated.
 
 ### Arguments:
 
-| Structure        | Type                            | Description                                                                            |
+| Name | Type | Description | 
 | ---------------- | ------------------------------- | -------------------------------------------------------------------------------------- |
 | "account"        | (string, optional)              | DEPRECATED if provided, it MUST be set to the empty string `""` or to the string `"*"` |
 | minconf          | (numeric, optional, default=1)  | only include transactions confirmed at least this many times                           |
@@ -564,7 +564,7 @@ The <b>account</b> input is deprecated.
 
 ### Response:
 
-| Structure | Type      | Description      |
+| Name | Type | Description | 
 | --------- | --------- | ---------------- |
 | amount    | (numeric) | the total amount |
 
@@ -650,13 +650,13 @@ The `getnewaddress` method returns a new address for receiving payments.
 
 ### Arguments:
 
-| Structure | Type               | Description                                                                                                                                                  |
+| Name | Type | Description | 
 | --------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | "account" | (string, optional) | DEPRECATED: If provided, the account MUST be set to the empty string `""` to represent the default account; passing any other string will result in an error |
 
 ### Response:
 
-| Structure | Type     | Description     |
+| Name | Type | Description | 
 | --------- | -------- | --------------- |
 | "address" | (string) | the new address |
 
@@ -714,13 +714,13 @@ This is for use with raw transactions, NOT normal use.
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure | Type     | Description |
+| Name | Type | Description | 
 | --------- | -------- | ----------- |
 | "address" | (string) | the address |
 
@@ -778,14 +778,14 @@ The <b>getreceivedbyaccount</b> method returns the total amount received by <b>a
 
 ### Arguments:
 
-| Structure | Type                           | Description                                                                                                           |
+| Name | Type | Description | 
 | --------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | "account" | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 | minconf   | (numeric, optional, default=1) | only include transactions confirmed at least this many times                                                          |
 
 ### Response:
 
-| Structure | Type      | Description                                |
+| Name | Type | Description | 
 | --------- | --------- | ------------------------------------------ |
 | amount    | (numeric) | the total amount received for this account |
 
@@ -816,14 +816,14 @@ The `getreceivedbyaddress` method returns the total amount received by the given
 
 ### Arguments:
 
-| Structure | Type                           | Description                                                  |
+| Name | Type | Description | 
 | --------- | ------------------------------ | ------------------------------------------------------------ |
 | "address" | (string, required)             | the address for transactions                                 |
 | minconf   | (numeric, optional, default=1) | only include transactions confirmed at least this many times |
 
 ### Response:
 
-| Structure | Type      | Description                                                    |
+| Name | Type | Description | 
 | --------- | --------- | -------------------------------------------------------------- |
 | amount    | (numeric) | the total amount of the relevant coin received at this address |
 
@@ -911,14 +911,14 @@ The `gettransaction` method queries detailed information about transaction `txid
 
 ### Arguments:
 
-| Structure          | Type                            | Description                                                                                                       |
+| Name | Type | Description | 
 | ------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | "txid"             | (string, required)              | the transaction id                                                                                                |
 | "includeWatchonly" | (bool, optional, default=false) | whether to include watchonly addresses in the returned balance calculation and in the `details[]` returned values |
 
 ### Response:
 
-| Structure               | Type                    | Description                                                                                                                       |
+| Name | Type | Description | 
 | ----------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | "amount"                | (numeric)               | the transaction amount                                                                                                            |
 | "confirmations"         | (numeric)               | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
@@ -1086,13 +1086,13 @@ The `getunconfirmedbalance` method returns the server's total unconfirmed balanc
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -1146,13 +1146,13 @@ The `getwalletinfo` method returns an object containing various information abou
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure             | Type      | Description                                                                                                                            |
+| Name | Type | Description | 
 | --------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | "walletversion"       | (numeric) | the wallet version                                                                                                                     |
 | "balance"             | (numeric) | the total confirmed balance of the wallet                                                                                              |
@@ -1236,7 +1236,7 @@ This call can take an increased amount of time to complete if rescan is true.
 
 ### Arguments:
 
-| Structure | Type                              | Description                        |
+| Name | Type | Description | 
 | --------- | --------------------------------- | ---------------------------------- |
 | "address" | (string, required)                | the address to watch               |
 | "label"   | (string, optional, default="")    | an optional label                  |
@@ -1244,7 +1244,7 @@ This call can take an increased amount of time to complete if rescan is true.
 
 ### Response:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -1325,7 +1325,7 @@ See also <b>dumpprivkey</b>.
 
 ### Arguments:
 
-| Structure | Type                              | Description                                                                |
+| Name | Type | Description | 
 | --------- | --------------------------------- | -------------------------------------------------------------------------- |
 | "privkey" | (string, required)                | the private key (see [dumpprivkey](../komodo-api/wallet.html#dumpprivkey)) |
 | "label"   | (string, optional, default="")    | an optional label                                                          |
@@ -1333,7 +1333,7 @@ See also <b>dumpprivkey</b>.
 
 ### Response:
 
-| Structure | Type     | Description        |
+| Name | Type | Description | 
 | --------- | -------- | ------------------ |
 | addresses | (string) | the public address |
 
@@ -1404,13 +1404,13 @@ The `importwallet` method imports transparent-address keys from a wallet-dump fi
 
 ### Arguments:
 
-| Structure  | Type               | Description     |
+| Name | Type | Description | 
 | ---------- | ------------------ | --------------- |
 | "filename" | (string, required) | the wallet file |
 
 ### Response:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -1464,13 +1464,13 @@ The `keypoolrefill` method refills the keypool.
 
 ### Arguments:
 
-| Structure | Type                             | Description          |
+| Name | Type | Description | 
 | --------- | -------------------------------- | -------------------- |
 | newsize   | (numeric, optional, default=100) | the new keypool size |
 
 ### Response:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -1545,14 +1545,14 @@ The <b>listaccounts</b> method returns an object that has account names as keys 
 
 ### Arguments:
 
-| Structure        | Type                            | Description                                                     |
+| Name | Type | Description | 
 | ---------------- | ------------------------------- | --------------------------------------------------------------- |
 | minconf          | (numeric, optional, default=1)  | only include transactions with at least this many confirmations |
 | includeWatchonly | (bool, optional, default=false) | include balances in watchonly addresses (see 'importaddress')   |
 
 ### Response:
 
-| Structure        | Type      | Description                                                                               |
+| Name | Type | Description | 
 | ---------------- | --------- | ----------------------------------------------------------------------------------------- |
 | "account_number" | (numeric) | the property name is the account name, and the value is the total balance for the account |
 
@@ -1602,13 +1602,13 @@ The `listaddressgroupings` method lists groups of addresses which have had their
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure  | Type               | Description              |
+| Name | Type | Description | 
 | ---------- | ------------------ | ------------------------ |
 | "address", | (string)           | the address              |
 | amount,    | (numeric)          | the amount               |
@@ -1700,13 +1700,13 @@ See the <b>lockunspent</b> call to lock and unlock transactions for spending.
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure | Type      | Description               |
+| Name | Type | Description | 
 | --------- | --------- | ------------------------- |
 | "txid"    | (string)  | the transaction id locked |
 | "vout"    | (numeric) | the vout value            |
@@ -1775,7 +1775,7 @@ The `listreceivedbyaccount` method lists balances by account.
 
 ### Arguments:
 
-| Structure        | Type                               | Description                                                      |
+| Name | Type | Description | 
 | ---------------- | ---------------------------------- | ---------------------------------------------------------------- |
 | minconf          | (numeric, optional, default=1)     | the minimum number of confirmations before payments are included |
 | includeempty     | (boolean, optional, default=false) | whether to include accounts that haven't received any payments   |
@@ -1783,7 +1783,7 @@ The `listreceivedbyaccount` method lists balances by account.
 
 ### Response:
 
-| Structure           | Type      | Description                                                                                                                       |
+| Name | Type | Description | 
 | ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | "involvesWatchonly" | (bool)    | only returned if the imported addresses were involved in the transaction                                                                  |
 | "account"           | (string)  | the account name of the receiving account                                                                                         |
@@ -1879,7 +1879,7 @@ The `listreceivedbyaddress` method lists balances by receiving address.
 
 ### Arguments:
 
-| Structure        | Type                               | Description                                                      |
+| Name | Type | Description | 
 | ---------------- | ---------------------------------- | ---------------------------------------------------------------- |
 | minconf          | (numeric, optional, default=1)     | the minimum number of confirmations before payments are included |
 | includeempty     | (numeric, optional, default=false) | whether to include addresses that haven't received any payments  |
@@ -1887,7 +1887,7 @@ The `listreceivedbyaddress` method lists balances by receiving address.
 
 ### Response:
 
-| Structure           | Type      | Description                                                                                                                       |
+| Name | Type | Description | 
 | ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | "involvesWatchonly" | (bool)    | only returned if imported addresses were involved in transaction                                                                  |
 | "address"           | (string)  | the receiving address                                                                                                             |
@@ -2028,7 +2028,7 @@ The `listsinceblock` method queries all transactions in blocks since block `bloc
 
 ### Arguments:
 
-| Structure            | Type                            | Description                                                            |
+| Name | Type | Description | 
 | -------------------- | ------------------------------- | ---------------------------------------------------------------------- |
 | "blockhash"          | (string, optional)              | the block hash from which to list transactions                         |
 | target-confirmations | (numeric, optional)             | the confirmations required (must be 1 or more)                         |
@@ -2036,7 +2036,7 @@ The `listsinceblock` method queries all transactions in blocks since block `bloc
 
 ### Response:
 
-| Structure          | Type      | Description                                                                                                                                                                                                        |
+| Name | Type | Description | 
 | ------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | "transactions":    |           |
 | "account"          | (string)  | DEPRECATED the account name associated with the transaction; will be "" for the default account                                                                                                                    |
@@ -2193,7 +2193,7 @@ The `listtransactions` method returns up to `count` most recent transactions ski
 
 ### Arguments:
 
-| Structure        | Type                            | Description                                                       |
+| Name | Type | Description | 
 | ---------------- | ------------------------------- | ----------------------------------------------------------------- |
 | "account"        | (string, optional)              | DEPRECATED the account name; should be `"*"`                      |
 | count            | (numeric, optional, default=10) | the number of transactions to return                              |
@@ -2202,7 +2202,7 @@ The `listtransactions` method returns up to `count` most recent transactions ski
 
 ### Response:
 
-| Structure          | Type      | Description                                                                                                                                                                                          |
+| Name | Type | Description | 
 | ------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "account"          | (string)  | DEPRECATED the account name associated with the transaction; it will be "" for the default account                                                                                                   |
 | "address"          | (string)  | the address of the transaction; not present for move transactions (category = move)                                                                                                                  |
@@ -2358,7 +2358,7 @@ The `listunspent` method returns an array of unspent transaction outputs, with a
 
 ### Arguments:
 
-| Structure | Type                                 | Description                         |
+| Name | Type | Description | 
 | --------- | ------------------------------------ | ----------------------------------- |
 | minconf   | (numeric, optional, default=1)       | the minimum confirmations to filter |
 | maxconf   | (numeric, optional, default=9999999) | the maximum confirmations to filter |
@@ -2366,7 +2366,7 @@ The `listunspent` method returns an array of unspent transaction outputs, with a
 
 ### Response:
 
-| Structure          | Type      | Description                                                                                                                       |
+| Name | Type | Description | 
 | ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | "txid"             | (string)  | the transaction id                                                                                                                |
 | "vout"             | (numeric) | the vout value                                                                                                                    |
@@ -2513,7 +2513,7 @@ See the <b>listunspent</b> and <b>listlockunspent</b> calls to determine local t
 
 ### Arguments:
 
-| Structure | Type                | Description                                                         |
+| Name | Type | Description | 
 | --------- | ------------------- | ------------------------------------------------------------------- |
 | unlock    | (boolean, required) | whether to unlock (true) or lock (false) the specified transactions |
 | "txid"    | (string)            | the transaction id                                                  |
@@ -2521,7 +2521,7 @@ See the <b>listunspent</b> and <b>listlockunspent</b> calls to determine local t
 
 ### Response:
 
-| Structure  | Type      | Description                        |
+| Name | Type | Description | 
 | ---------- | --------- | ---------------------------------- |
 | true/false | (boolean) | whether the command was successful |
 
@@ -2579,7 +2579,7 @@ The `move` method moves a specified amount from one account in your wallet to an
 
 ### Arguments:
 
-| Structure     | Type                           | Description                                                                                                           |
+| Name | Type | Description | 
 | ------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | "fromaccount" | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 | "toaccount"   | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
@@ -2589,7 +2589,7 @@ The `move` method moves a specified amount from one account in your wallet to an
 
 ### Response:
 
-| Structure  | Type      | Description        |
+| Name | Type | Description | 
 | ---------- | --------- | ------------------ |
 | true/false | (boolean) | true if successful |
 
@@ -2656,13 +2656,13 @@ The `resendwallettransactions` method immediately re-broadcasts unconfirmed wall
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure        | Type     | Description                                    |
+| Name | Type | Description | 
 | ---------------- | -------- | ---------------------------------------------- |
 | "transaction_id" | (string) | an array of the rebroadcasted transaction id's |
 
@@ -2724,7 +2724,7 @@ The `sendfrom` method sends an amount from `account` to `address`.
 
 ### Arguments:
 
-| Structure    | Type                           | Description                                                                                                                                                                      |
+| Name | Type | Description | 
 | ------------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "account"    | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error                                                            |
 | "address"    | (string, required)             | the address to receive funds                                                                                                                                                     |
@@ -2735,7 +2735,7 @@ The `sendfrom` method sends an amount from `account` to `address`.
 
 ### Response:
 
-| Structure        | Type     | Description        |
+| Name | Type | Description | 
 | ---------------- | -------- | ------------------ |
 | "transaction_id" | (string) | the transaction id |
 
@@ -2802,7 +2802,7 @@ The `sendmany` method can send multiple transactions at once. Amounts are double
 
 ### Arguments:
 
-| Structure                           | Type                           | Description                                                                                                                                                                                                                                               |
+| Name | Type | Description | 
 | ----------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "account"                           | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error                                                                                                                                     |
 | "amounts" { "address":amount, ... } | ("string":numeric)             | the address (string) and the value (double-precision floating numeric)                                                                                                                                                                                    |
@@ -2813,7 +2813,7 @@ The `sendmany` method can send multiple transactions at once. Amounts are double
 
 ### Response:
 
-| Structure        | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | ---------------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | "transaction_id" | (string) | the transaction id for the send; only 1 transaction is created regardless of the number of addresses |
 
@@ -2901,7 +2901,7 @@ The `sendtoaddress` method sends an amount to a given address. The amount is rea
 
 ### Arguments:
 
-| Structure             | Type                               | Description                                                                                                                                      |
+| Name | Type | Description | 
 | --------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | "komodoaddress"       | (string, required)                 | the receiving address                                                                                                                            |
 | "amount"              | (numeric, required)                | the amount to send (json requires all decimals values less than 1 begin with the characters '0.')                                                |
@@ -2911,7 +2911,7 @@ The `sendtoaddress` method sends an amount to a given address. The amount is rea
 
 ### Response:
 
-| Structure        | Type     | Description        |
+| Name | Type | Description | 
 | ---------------- | -------- | ------------------ |
 | "transaction_id" | (string) | the transaction id |
 
@@ -3003,7 +3003,7 @@ The `setaccount` method sets the account associated with the given address.
 
 ### Arguments:
 
-| Structure | Type               | Description                                                                                                           |
+| Name | Type | Description | 
 | --------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | "address" | (string, required) | the address to be associated with an account                                                                          |
 | "account" | (string, required) | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
@@ -3060,13 +3060,13 @@ This method works only once per daemon start. It can't be used to change the pub
 
 ### Arguments:
 
-| Structure | Type     | Description        |
+| Name | Type | Description | 
 | --------- | -------- | ------------------ |
 | pubkey    | (string) | the desired pubkey |
 
 ### Response:
 
-| Structure | Type      | Description                                       |
+| Name | Type | Description | 
 | --------- | --------- | ------------------------------------------------- |
 | pubkey    | (string)  | the pubkey                                        |
 | ismine    | (boolean) | indicates whether the address belongs to the user |
@@ -3130,13 +3130,13 @@ The `settxfee` method sets the transaction fee per kB.
 
 ### Arguments:
 
-| Structure | Type                | Description                                                      |
+| Name | Type | Description | 
 | --------- | ------------------- | ---------------------------------------------------------------- |
 | amount    | (numeric, required) | the transaction fee in COIN/kB rounded to the nearest 0.00000001 |
 
 ### Response:
 
-| Structure  | Type      | Description                |
+| Name | Type | Description | 
 | ---------- | --------- | -------------------------- |
 | true/false | (boolean) | returns true if successful |
 
@@ -3190,14 +3190,14 @@ The `signmessage` method signs a message via the private key of an address.
 
 ### Arguments:
 
-| Structure | Type               | Description                            |
+| Name | Type | Description | 
 | --------- | ------------------ | -------------------------------------- |
 | "address" | (string, required) | the address to use for the private key |
 | "message" | (string, required) | the message                            |
 
 ### Response:
 
-| Structure   | Type     | Description                                     |
+| Name | Type | Description | 
 | ----------- | -------- | ----------------------------------------------- |
 | "signature" | (string) | the signature of the message encoded in base 64 |
 
@@ -3280,13 +3280,13 @@ The `walletlock` method re-locks a wallet that has a passphrase enabled via [enc
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -3327,14 +3327,14 @@ The `timeout` argument can be included to limit the length of time (in seconds) 
 
 ### Arguments:
 
-| Structure    | Type                          | Description                                                            |
+| Name | Type | Description | 
 | ------------ | ----------------------------- | ---------------------------------------------------------------------- |
 | "passphrase" | (string)                      | the passphrase that was set by the `encryptwallet` method              |
 | timeout      | (number in seconds, optional) | the amount of time for which the wallet should remember the passphrase |
 
 ### Response:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -3373,14 +3373,14 @@ The `walletpassphrasechange` method changes `"oldpassphrase"` to `"newpassphrase
 
 ### Arguments:
 
-| Structure       | Type     | Description        |
+| Name | Type | Description | 
 | --------------- | -------- | ------------------ |
 | "oldpassphrase" | (string) | the old passphrase |
 | "newpassphrase" | (string) | the new passphrase |
 
 ### Response:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -3415,13 +3415,13 @@ See also <b>z_importkey</b>.
 
 ### Arguments:
 
-| Structure   | Type               | Description                       |
+| Name | Type | Description | 
 | ----------- | ------------------ | --------------------------------- |
 | "z_address" | (string, required) | the z_address for the private key |
 
 ### Response:
 
-| Structure | Type     | Description     |
+| Name | Type | Description | 
 | --------- | -------- | --------------- |
 | "key"     | (string) | the private key |
 
@@ -3479,13 +3479,13 @@ See also <b>z_importviewingkey</b>.
 
 ### Arguments:
 
-| Structure   | Type               | Description                       |
+| Name | Type | Description | 
 | ----------- | ------------------ | --------------------------------- |
 | "z_address" | (string, required) | the z_address for the viewing key |
 
 ### Response:
 
-| Structure | Type     | Description     |
+| Name | Type | Description | 
 | --------- | -------- | --------------- |
 | "vkey"    | (string) | the viewing key |
 
@@ -3539,13 +3539,13 @@ The `z_exportwallet` method exports all wallet keys, including both t address an
 
 ### Arguments:
 
-| Structure  | Type               | Description                                                                                                                                                         |
+| Name | Type | Description | 
 | ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "filename" | (string, required) | the filename, saved to the directory indicated by the [exportdir](../installations/common-runtime-parameters.html#exportdir) parameter at daemon runtime (required) |
 
 ### Response:
 
-| Structure | Type     | Description                           |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------- |
 | "path"    | (string) | the full path of the destination file |
 
@@ -3604,14 +3604,14 @@ as spends cannot be detected with incoming viewing keys.
 
 ### Arguments:
 
-| Structure | Type                           | Description                                                  |
+| Name | Type | Description | 
 | --------- | ------------------------------ | ------------------------------------------------------------ |
 | "address" | (string)                       | the selected z or t address                                  |
 | minconf   | (numeric, optional, default=1) | only include transactions confirmed at least this many times |
 
 ### Response:
 
-| Structure | Type      | Description                                                            |
+| Name | Type | Description | 
 | --------- | --------- | ---------------------------------------------------------------------- |
 | amount    | (numeric) | the total amount received at this address (in the relevant COIN value) |
 
@@ -3684,13 +3684,13 @@ The `z_getnewaddress` method returns a new z_address for receiving payments.
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure   | Type     | Description       |
+| Name | Type | Description | 
 | ----------- | -------- | ----------------- |
 | "z_address" | (string) | the new z_address |
 
@@ -3748,13 +3748,13 @@ See also <b>z_getoperationstatus</b>.
 
 ### Arguments:
 
-| Structure     | Type               | Description                                                                                             |
+| Name | Type | Description | 
 | ------------- | ------------------ | ------------------------------------------------------------------------------------------------------- |
 | "operationid" | (string, optional) | a list of operation ids to query; if not provided, the method examines all operations known to the node |
 
 ### Response:
 
-| Structure          | Type                    | Description                                                |
+| Name | Type | Description | 
 | ------------------ | ----------------------- | ---------------------------------------------------------- |
 | "id"               | (string)                | the operation id                                           |
 | "status"           | (string)                | the result of the operation; can be `success`              | `failed` | `executing` |
@@ -3865,13 +3865,13 @@ The `z_getoperationstatus` message queries the operation status and any associat
 
 ### Arguments:
 
-| Structure     | Type              | Description                                                                                                                     |
+| Name | Type | Description | 
 | ------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | "operationid" | (array, optional) | a list of operation ids we are interested in; if an array is not provided, the method examines all operations known to the node |
 
 ### Response:
 
-| Structure          | Type                    | Description                                                                   |
+| Name | Type | Description | 
 | ------------------ | ----------------------- | ----------------------------------------------------------------------------- |
 | "id"               | (string)                | the operation id                                                              |
 | "status"           | (string)                | the status of the operation; can be `success`                                 | `executing` | `failed` |
@@ -4025,14 +4025,14 @@ While the <b>interest</b> property is returned for all KMD-based coin daemons, o
 
 ### Arguments:
 
-| Structure        | Type                            | Description                                                                                |
+| Name | Type | Description | 
 | ---------------- | ------------------------------- | ------------------------------------------------------------------------------------------ |
 | minconf          | (numeric, optional, default=1)  | only include private and transparent transactions confirmed at least this many times       |
 | includeWatchonly | (bool, optional, default=false) | also include balance in watchonly addresses (see 'importaddress' and 'z_importviewingkey') |
 
 ### Response:
 
-| Structure     | Type      | Description                                             |
+| Name | Type | Description | 
 | ------------- | --------- | ------------------------------------------------------- |
 | "transparent" | (numeric) | the total balance of transparent funds                  |
 | "interest"    | (numeric) | the total balance of unclaimed interest earned          |
@@ -4133,7 +4133,7 @@ See also <b>z_exportkey</b>.
 
 ### Arguments:
 
-| Structure      | Type                                         | Description                                                                 |
+| Name | Type | Description | 
 | -------------- | -------------------------------------------- | --------------------------------------------------------------------------- |
 | "z_privatekey" | (string, required)                           | the z_privatekey (see [z_exportkey](../komodo-api/wallet.html#z-exportkey)) |
 | rescan         | (string, optional, default=`"whenkeyisnew"`) | rescan the wallet for transactions; can be `yes`                            | `no` | `whenkeyisnew` |
@@ -4141,7 +4141,7 @@ See also <b>z_exportkey</b>.
 
 ### Response:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -4241,7 +4241,7 @@ The optional parameters are currently not functional for KMD-based blockchains.
 
 ### Arguments:
 
-| Structure     | Type                                       | Description                                                   |
+| Name | Type | Description | 
 | ------------- | ------------------------------------------ | ------------------------------------------------------------- |
 | "viewing_key" | (string, required)                         | the viewing key                                               |
 | rescan        | (string, optional, default="whenkeyisnew") | whether to rescan the wallet for transactions; can be `"yes"` | `"no"` | `"whenkeyisnew"` |
@@ -4249,7 +4249,7 @@ The optional parameters are currently not functional for KMD-based blockchains.
 
 ### Response:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -4354,13 +4354,13 @@ See also <b>z_exportwallet</b>.
 
 ### Arguments:
 
-| Structure  | Type               | Description     |
+| Name | Type | Description | 
 | ---------- | ------------------ | --------------- |
 | "filename" | (string, required) | the wallet file |
 
 ### Response:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -4418,13 +4418,13 @@ See also <b>z_importviewingkey</b>.
 
 ### Arguments:
 
-| Structure        | Type                            | Description                      |
+| Name | Type | Description | 
 | ---------------- | ------------------------------- | -------------------------------- |
 | includeWatchonly | (bool, optional, default=false) | also include watchonly addresses |
 
 ### Response:
 
-| Structure   | Type     | Description                         |
+| Name | Type | Description | 
 | ----------- | -------- | ----------------------------------- |
 | "z_address" | (string) | a z address belonging to the wallet |
 
@@ -4484,13 +4484,13 @@ The `z_listoperationids` method returns the list of operation ids currently know
 
 ### Arguments:
 
-| Structure | Type               | Description                                           |
+| Name | Type | Description | 
 | --------- | ------------------ | ----------------------------------------------------- |
 | "status"  | (string, optional) | filter result by the operation's state e.g. "success" |
 
 ### Response:
 
-| Structure     | Type     | Description                             |
+| Name | Type | Description | 
 | ------------- | -------- | --------------------------------------- |
 | "operationid" | (string) | an operation id belonging to the wallet |
 
@@ -4569,7 +4569,7 @@ The `z_listreceivedbyaddress` method returns a list of amounts received by a z a
 
 ### Arguments:
 
-| Structure | Type                           | Description                                                  |
+| Name | Type | Description | 
 | --------- | ------------------------------ | ------------------------------------------------------------ |
 | address   | (string)                       | the private address.                                         |
 | minconf   | (numeric, optional, default=1) | only include transactions confirmed at least this many times |
@@ -4578,7 +4578,7 @@ The `z_listreceivedbyaddress` method returns a list of amounts received by a z a
 
 An array of json objects, each having the properties below.
 
-| Structure          | Type                                         | Description                                                                                                                       |
+| Name | Type | Description | 
 | ------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | txid               | (string)                                     | the transaction id                                                                                                                |
 | amount             | (numeric)                                    | the amount of value in the note                                                                                                   |
@@ -4653,7 +4653,7 @@ Results are an array of Objects, each of which has:
 
 ### Arguments:
 
-| Structure        | Type                                 | Description                                                                                                          |
+| Name | Type | Description | 
 | ---------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
 | minconf          | (numeric, optional, default=1)       | the minimum confirmations to filter                                                                                  |
 | maxconf          | (numeric, optional, default=9999999) | the maximum confirmations to filter                                                                                  |
@@ -4665,7 +4665,7 @@ Results are an array of Objects, each of which has:
 
 An array of json objects, each having the properties below.
 
-| Structure          | Type                                          | Description                                                                                                                       |
+| Name | Type | Description | 
 | ------------------ | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | txid               | (string)                                      | the transaction id                                                                                                                |
 | jsindex            | (numeric)                                     | the joinsplit index                                                                                                               |
@@ -4787,7 +4787,7 @@ If a special string is given, any given addresses of that type will be ignored
 
 ### Arguments:
 
-| Structure         | Type                                | Description                                                                                                                                                                                              |
+| Name | Type | Description | 
 | ----------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | fromaddresses     | (string, required)                  |
 | "address"         | (string)                            | can be a t address or a z address                                                                                                                                                                        |
@@ -4799,7 +4799,7 @@ If a special string is given, any given addresses of that type will be ignored
 
 ### Response:
 
-| Structure                   | Type      | Description                                                                         |
+| Name | Type | Description | 
 | --------------------------- | --------- | ----------------------------------------------------------------------------------- |
 | "remainingUTXOs"            | (numeric) | the number of utxos still available for merging                                     |
 | "remainingTransparentValue" | (numeric) | the value of utxos still available for merging                                      |
@@ -4859,7 +4859,7 @@ The `amount` values are double-precision floating point numbers. Change from a t
 
 ### Arguments:
 
-| Structure     | Type                                | Description                                                                                            |
+| Name | Type | Description | 
 | ------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | "fromaddress" | (string, required)                  | the sending t address or z address                                                                     |
 | "amounts"     | (array of json objects)             |
@@ -4871,7 +4871,7 @@ The `amount` values are double-precision floating point numbers. Change from a t
 
 ### Response:
 
-| Structure     | Type     | Description                                                                       |
+| Name | Type | Description | 
 | ------------- | -------- | --------------------------------------------------------------------------------- |
 | "operationid" | (string) | an operationid to pass to z_getoperationstatus to get the result of the operation |
 
@@ -4961,7 +4961,7 @@ The RPC call `listlockunspent` can be used to return a list of locked utxos. The
 
 ### Arguments:
 
-| Structure     | Type                                | Description                                                                                         |
+| Name | Type | Description | 
 | ------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------- |
 | "fromaddress" | (string, required)                  | the address is a t address or `"*"` for all t address belonging to the wallet                       |
 | "toaddress"   | (string, required)                  | the address is a z address                                                                          |
@@ -4970,7 +4970,7 @@ The RPC call `listlockunspent` can be used to return a list of locked utxos. The
 
 ### Response:
 
-| Structure        | Type      | Description                                                                       |
+| Name | Type | Description | 
 | ---------------- | --------- | --------------------------------------------------------------------------------- |
 | "remainingUTXOs" | (numeric) | the number of coinbase utxos still available for shielding                        |
 | "remainingValue" | (numeric) | the value of coinbase utxos still available for shielding                         |
@@ -5065,14 +5065,14 @@ When finished, the method returns the running times of each sample.
 
 ### Arguments:
 
-| Structure       | Type               | Description                   |
+| Name | Type | Description | 
 | --------------- | ------------------ | ----------------------------- |
 | "benchmarktype" | (string, required) | the type of the benchmark     |
 | "samplecount"   | (numeric)          | the number of samples to take |
 
 ### Response:
 
-| Structure     | Type      | Description                                          |
+| Name | Type | Description | 
 | ------------- | --------- | ---------------------------------------------------- |
 | "runningtime" | (numeric) | the time it took to run the selected `benchmarktype` |
 

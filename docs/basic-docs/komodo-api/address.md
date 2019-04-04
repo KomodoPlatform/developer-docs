@@ -10,13 +10,13 @@ The `getaddressbalance` method returns the confirmed balance for an address, or 
 
 ### Arguments:
 
-| Structure | Type     | Description |
+| Name | Type | Description | 
 | --------- | -------- | ----------- |
 | "address" | (string) | the address |
 
 ### Response:
 
-| Structure  | Type     | Description                                                        |
+| Name | Type | Description | 
 | ---------- | -------- | ------------------------------------------------------------------ |
 | "balance"  | (number) | the current confirmed balance in satoshis                          |
 | "received" | (number) | the total confirmed number of satoshis received (including change) |
@@ -79,7 +79,7 @@ The `getaddressdeltas` method returns all confirmed balance changes of an addres
 
 ### Arguments
 
-| Structure   | Type      | Description                                                             |
+| Name | Type | Description | 
 | ----------- | --------- | ----------------------------------------------------------------------- |
 | "address"   | (string)  | the address                                                             |
 | "start"     | (number)  | the start block height                                                  |
@@ -88,7 +88,7 @@ The `getaddressdeltas` method returns all confirmed balance changes of an addres
 
 ### Response
 
-| Structure  | Type     | Description                       |
+| Name | Type | Description | 
 | ---------- | -------- | --------------------------------- |
 | "satoshis" | (number) | the difference in satoshis        |
 | "txid"     | (string) | the related transaction id        |
@@ -242,13 +242,13 @@ The `getaddressmempool` method returns all mempool deltas for an address, or add
 
 ### Arguments
 
-| Structure | Type     | Description |
+| Name | Type | Description | 
 | --------- | -------- | ----------- |
 | "address" | (string) | the address |
 
 ### Response
 
-| Structure   | Type     | Description                                            |
+| Name | Type | Description | 
 | ----------- | -------- | ------------------------------------------------------ |
 | "address"   | (string) | the address                                            |
 | "txid"      | (string) | the related txid                                       |
@@ -326,7 +326,7 @@ The `getaddresstxids` method returns the txids for an address, or addresses. It 
 
 ### Arguments
 
-| Structure | Type     | Description            |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------- |
 | "address" | (string) | the address            |
 | "start"   | (number) | the start block height |
@@ -334,7 +334,7 @@ The `getaddresstxids` method returns the txids for an address, or addresses. It 
 
 ### Response
 
-| Structure        | Type     | Description        |
+| Name | Type | Description | 
 | ---------------- | -------- | ------------------ |
 | "transaction_id" | (string) | the transaction id |
 
@@ -398,14 +398,14 @@ The `getaddressutxos` method returns all unspent outputs for an address. It requ
 
 ### Arguments
 
-| Structure   | Type      | Description                     |
+| Name | Type | Description | 
 | ----------- | --------- | ------------------------------- |
 | "address"   | (string)  | the address                     |
 | "chainInfo" | (boolean) | include chain info with results |
 
 ### Response
 
-| Structure     | Type     | Description                          |
+| Name | Type | Description | 
 | ------------- | -------- | ------------------------------------ |
 | "address"     | (string) | the address                          |
 | "txid"        | (string) | the output txid                      |
@@ -551,13 +551,13 @@ The method requires [addressindex](../installations/common-runtime-parameters.ht
 
 ### Arguments
 
-| Structure | Type               | Description                                          |
+| Name | Type | Description | 
 | --------- | ------------------ | ---------------------------------------------------- |
 | "top"     | (number, optional) | Only return this many addresses, i.e. top N rich list |
 
 ### Response
 
-| Structure         | Type             | Description                                         |
+| Name | Type | Description | 
 | ----------------- | ---------------- | --------------------------------------------------- |
 | "addresses"       | (array of jsons) | the array containing the address and amount details |
 | "addr"            | (string)         | an address                                          |

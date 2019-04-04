@@ -10,13 +10,13 @@ The `getblocksubsidy` method returns the block-subsidy reward. The resulting cal
 
 ### Arguments:
 
-| Structure | Type                | Description                                                                                                   |
+| Name | Type | Description | 
 | --------- | ------------------- | ------------------------------------------------------------------------------------------------------------- |
 | height    | (numeric, optional) | the block height; if the block height is not provided, the method defaults to the current height of the chain |
 
 ### Response:
 
-| Structure | Type      | Description              |
+| Name | Type | Description | 
 | --------- | --------- | ------------------------ |
 | "miner"   | (numeric) | the mining reward amount |
 
@@ -96,7 +96,7 @@ Now the pool software can use the `"transactions":[ ... ]` array to create a blo
 
 ### Arguments:
 
-| Structure                     | Type               | Description                                                                                                    |
+| Name | Type | Description | 
 | ----------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
 | "jsonrequestobject" : { ... } | (string, optional) | a json object in the following spec                                                                            |
 | "mode"                        | (string, optional) | this must be set to "template" or omitted                                                                      |
@@ -105,7 +105,7 @@ Now the pool software can use the `"transactions":[ ... ]` array to create a blo
 
 ### Response:
 
-| Structure              | Type               | Description                                                                                                                                                                                                                                                                                      |
+| Name | Type | Description | 
 | ---------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | "version"              | (numeric)          | the block version                                                                                                                                                                                                                                                                                |
 | "previousblockhash"    | (string)           | the hash of current highest block                                                                                                                                                                                                                                                                |
@@ -251,13 +251,13 @@ This is the same information shown on the metrics screen (if enabled).
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure | Type      | Description                      |
+| Name | Type | Description | 
 | --------- | --------- | -------------------------------- |
 | "data"    | (numeric) | the solutions-per-second average |
 
@@ -311,13 +311,13 @@ The `getmininginfo` method returns a json object containing mining-related infor
 
 ### Arguments:
 
-| Structure | Type   | Description |
+| Name | Type | Description | 
 | --------- | ------ | ----------- |
 | (none)    | (none) |
 
 ### Response:
 
-| Structure          | Type      | Description                                                                                                                                                                            |
+| Name | Type | Description | 
 | ------------------ | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "blocks"           | (numeric) | the current block                                                                                                                                                                      |
 | "currentblocksize" | (numeric) | the last block size                                                                                                                                                                    |
@@ -420,14 +420,14 @@ Pass in `height` to estimate the network speed at the time when a certain block 
 
 ### Arguments:
 
-| Structure | Type                             | Description                                                                                |
+| Name | Type | Description | 
 | --------- | -------------------------------- | ------------------------------------------------------------------------------------------ |
 | blocks    | (numeric, optional, default=120) | the number of blocks (use `-1` to calculate over the relevant difficulty averaging window) |
 | height    | (numeric, optional, default=-1)  | the block height that corresponds to the requested data                                                |
 
 ### Response:
 
-| Structure | Type      | Description                       |
+| Name | Type | Description | 
 | --------- | --------- | --------------------------------- |
 | data      | (numeric) | the solutions-per-second estimate |
 
@@ -484,14 +484,14 @@ Pass in `height` to estimate the network speed at the time when a certain block 
 
 ### Arguments:
 
-| Structure | Type                             | Description                                                                                       |
+| Name | Type | Description | 
 | --------- | -------------------------------- | ------------------------------------------------------------------------------------------------- |
 | blocks    | (numeric, optional, default=120) | the number of blocks; use `-1` to calculate according to the relevant difficulty averaging window |
 | height    | (numeric, optional, default=-1)  | the block height that corresponds to the requested data                                                |
 
 ### Response:
 
-| Structure | Type      | Description                     |
+| Name | Type | Description | 
 | --------- | --------- | ------------------------------- |
 | data      | (numeric) | solutions per second, estimated |
 
@@ -549,7 +549,7 @@ This method is inherited from the original Bitcoin protocol, of which KMD is a f
 
 ### Arguments:
 
-| Structure        | Type                | Description                                                                                                                                                                                                           |
+| Name | Type | Description | 
 | ---------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "transaction_id" | (string, required)  | the transaction id                                                                                                                                                                                                    |
 | priority_delta   | (numeric, required) | the priority to add or subtract (if negative). The transaction selection algorithm assigns the tx a higher or lower priority. The transaction priority calculation: `coinage * value_in_satoshis / txsize`            |
@@ -557,7 +557,7 @@ This method is inherited from the original Bitcoin protocol, of which KMD is a f
 
 ### Response:
 
-| Structure | Type      | Description  |
+| Name | Type | Description | 
 | --------- | --------- | ------------ |
 | true      | (boolean) | returns true |
 
@@ -619,7 +619,7 @@ Note: for more information on <b>submitblock</b> parameters and results, see <a 
 
 ### Arguments:
 
-| Structure                        | Type                         | Description                                                           |
+| Name | Type | Description | 
 | -------------------------------- | ---------------------------- | --------------------------------------------------------------------- |
 | "hexdata"                        | (string, required)           | the hex-encoded block data to submit                                  |
 | "jsonparametersobject" : { ... } | (string, optional)           | object of optional parameters                                         |
@@ -627,7 +627,7 @@ Note: for more information on <b>submitblock</b> parameters and results, see <a 
 
 ### Response:
 
-| Structure                | Type | Description                                                                          |
+| Name | Type | Description | 
 | ------------------------ | ---- | ------------------------------------------------------------------------------------ |
 | "duplicate"              |      | the node already has a valid copy of the block                                       |
 | "duplicate-invalid"      |      | the node already has the block, but it is invalid                                    |
