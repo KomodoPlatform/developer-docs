@@ -20,4 +20,4 @@ var redirectAliases = {
   "/basic-docs/start-here/cc-overview.html":"/basic-docs/start-here/custom-consensus-overview.html" 
 };
 module.exports = redirectAliases;
-/home/gcharang/gitrepos/developer-docs/docs/basic-docs/start-here/custom-consensus-overview.md
+
