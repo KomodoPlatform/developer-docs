@@ -8,12 +8,12 @@ Those who publish data to an oracle are called publishers. There is a fee-based 
 
 ### Oracles CC Module Flow
 
-- Create an Oracle using [oraclescreate](../customconsensus/cc-oracles.html#oraclescreate)
-- Register as a data publisher for the oracle using the [oraclesregister](../customconsensus/cc-oracles.html#oraclesregister) method; at this stage, the publisher indicates the fee for their data updates
+- Create an Oracle using [oraclescreate](../customconsensus/oracles.html#oraclescreate)
+- Register as a data publisher for the oracle using the [oraclesregister](../customconsensus/oracles.html#oraclesregister) method; at this stage, the publisher indicates the fee for their data updates
   - Anyone can register as a publisher for any oracle; users subscribe only to the publishers they desire
-- The [oracleslist](../customconsensus/cc-oracles.html#oraclelist), [oraclesinfo](../customconsensus/cc-oracles.html#oraclesinfo), and [oraclessamples](../customconsensus/cc-oracles.html#oraclessamples) methods allow the user to find oracles and publishers, find more information about a specific oracle and publisher, and discover samples of an existing publisher, respectively
-- Anyone can subscribe to any specific publisher of any oracle using the [ oraclessubscribe](../customconsensus/cc-oracles.html#oraclessubscribe) method
-- A publisher can publish data using [oraclesdata](../customconsensus/cc-oracles.html#oraclesdata), and thereby collect their fee from their subscribers
+- The [oracleslist](../customconsensus/oracles.html#oraclelist), [oraclesinfo](../customconsensus/oracles.html#oraclesinfo), and [oraclessamples](../customconsensus/oracles.html#oraclessamples) methods allow the user to find oracles and publishers, find more information about a specific oracle and publisher, and discover samples of an existing publisher, respectively
+- Anyone can subscribe to any specific publisher of any oracle using the [ oraclessubscribe](../customconsensus/oracles.html#oraclessubscribe) method
+- A publisher can publish data using [oraclesdata](../customconsensus/oracles.html#oraclesdata), and thereby collect their fee from their subscribers
 
 ## oraclesaddress
 
@@ -99,7 +99,7 @@ The various formats of data that can be registered for an oracle and their symbo
 ::: warning
 
 - Even though the formats `S` and `D` specify that the data size can be up to `65536` bytes, the combination of the transaction size and the data size cannot exceed the limit of `10000` bytes.
-- Although the formats `d` and `D` are for raw binary data, they are preferable to the `s` and `S` human-readable formats. This is because the `s` and `S` formats occupy twice the size of data on the blockchain, and yet their only advantage is their ability to show human-readable output in the [oraclessamples](../customconsensus/cc-oracles.html#oraclessamples) method.
+- Although the formats `d` and `D` are for raw binary data, they are preferable to the `s` and `S` human-readable formats. This is because the `s` and `S` formats occupy twice the size of data on the blockchain, and yet their only advantage is their ability to show human-readable output in the [oraclessamples](../customconsensus/oracles.html#oraclessamples) method.
 
 :::
 
@@ -232,7 +232,7 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 The `oraclesdata` method publishes data to an oracle.
 
-A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [oraclessubscribe.](../customconsensus/cc-oracles.html#oraclessubscribe)
+A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [oraclessubscribe.](../customconsensus/oracles.html#oraclessubscribe)
 
 Data is submitted using the `hexstr` property. The first bytes of the `hexstr` property must be the length of the data being submitted in hexadecimal format; this sets the string length for the rest of the data. The second portion of the `hexstr` property is the data itself.
 
@@ -458,7 +458,7 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 The `oraclesinfo` method displays information about a specific oracle using `oracletxid`. 
 
-For a list of all `oracletxid`'s available on the asset chain, see the [oracleslist](../customconsensus/cc-oracles.html#oraclelist) method.
+For a list of all `oracletxid`'s available on the asset chain, see the [oracleslist](../customconsensus/oracles.html#oraclelist) method.
 
 ### Arguments:
 
@@ -474,10 +474,10 @@ For a list of all `oracletxid`'s available on the asset chain, see the [oraclesl
 | txid        | (string) | the unique txid, or oracletxid, that identifies the oracle                                                                                              |
 | name        | (string) | the name of the oracle contract                                                                                                                         |
 | description | (string) | the description of the oracle contract                                                                                                                  |
-| format      | (string) | a string that identifies the data type accepted for the oracle contract (see [oraclescreate](../customconsensus/cc-oracles.html#oraclescreate))        |
+| format      | (string) | a string that identifies the data type accepted for the oracle contract (see [oraclescreate](../customconsensus/oracles.html#oraclescreate))        |
 | marker      | (string) | the unmodified public address generated from the oracle contract's privkey                                                                              |
 | registered: | (array)  |
-| publisher   | (string) | the unique identifier for the publisher (see [oraclesregister](../customconsensus/cc-oracles.html#oraclesregister))                                    |
+| publisher   | (string) | the unique identifier for the publisher (see [oraclesregister](../customconsensus/oracles.html#oraclesregister))                                    |
 | baton       | (string) | the baton address of the publisher, which is a CC address (based on the pubkey of the publisher and the EVAL code of the oracle contract) |
 | batontxid   | (string) | the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher               |
 | lifetime    | (number) | the length of time since publisher's inception                                                                                                          |
@@ -744,7 +744,7 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 The `oraclessample` method fetches data samples from a publisher.
 
-The user indicates the desired publisher by inserting the `batonutxo` by the publisher. Use [oraclesinfo](../customconsensus/cc-oracles.html#oraclesinfo) to find a list of publishers and their current batonutxo's.
+The user indicates the desired publisher by inserting the `batonutxo` by the publisher. Use [oraclesinfo](../customconsensus/oracles.html#oraclesinfo) to find a list of publishers and their current batonutxo's.
 
 ### Arguments:
 
@@ -790,7 +790,7 @@ Command:
 
 The user executes `oraclessubscribe` to subscribe to a publisher of an oracle plan.
 
-Every publisher must have at least one subscriber before the [oraclesdata](../customconsensus/cc-oracles.html#oraclesdata) can successfully execute.
+Every publisher must have at least one subscriber before the [oraclesdata](../customconsensus/oracles.html#oraclesdata) can successfully execute.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
