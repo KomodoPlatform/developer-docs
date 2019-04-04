@@ -1,8 +1,8 @@
 #!/usr/bin/env python3.6
 
 import os
-for filename in os.listdir('../docs/basic-docs/cryptoconditions/'):
-    with open('../docs/basic-docs/cryptoconditions/'+filename, "r") as f, open(filename, 'w+') as g:
+for filename in os.listdir('../docs/basic-docs/customconsensus/'):
+    with open('../docs/basic-docs/customconsensus/'+filename, "r") as f, open("./out/"+filename, 'w+') as g:
         for currLine in f:
             count = 0
             if currLine.startswith("| Structure"):

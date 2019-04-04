@@ -16,13 +16,13 @@ The `tokenaddress` method returns information about a token address according to
 
 ### Arguments:
 
-| Structure | Type               | Description                       |
+| Name | Type | Description | 
 | --------- | ------------------ | --------------------------------- |
 | pubkey    | (string, optional) | the pubkey of the desired address |
 
 ### Response:
 
-| Structure       | Type     | Description                                                                                                                      |
+| Name | Type | Description | 
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | result          | (string) | whether the command executed successfully                                                                                        |
 | AssetsCCaddress | (string) | taking the token contract's EVAL code as a modifier, this is the public address that corresponds to the token contract's privkey |
@@ -67,7 +67,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments:
 
-| Structure | Type     | Description                                                                    |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------------------------ |
 | numtokens | (number) | the number of tokens to request in the order                                   |
 | tokenid   | (string) | the txid that identifies the token                                             |
@@ -75,7 +75,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Response:
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -127,14 +127,14 @@ The `tokenbalanced` method checks the token balance according to a provided `pub
 
 ### Arguments:
 
-| Structure | Type     | Description                                                                                                                |
+| Name | Type | Description | 
 | --------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
 | tokenid   | (string) | the txid that identifies the token                                                                                         |
 | pubkey    | (string) | the pubkey for which to examine the balance; if no pubkey is provided, the pubkey used to launch the daemon is the default |
 
 ### Response:
 
-| Structure | Type     | Description                                                                                             |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------------------------------------------------- |
 | result    | (string) | whether the command executed succesfully                                                                |
 | CCaddress | (string) | taking the token contract's EVAL code as a modifier, this is the CC address from the pubkey of the user |
@@ -201,7 +201,7 @@ The `sendrawtransaction` method then returns a `txid`, which is the identificati
 
 ### Arguments:
 
-| Structure | Type     | Description                                                                    |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------------------------ |
 | numtokens | (number) | the number of tokens to request in the order                                   |
 | tokenid   | (string) | the txid that identifies the token                                             |
@@ -209,7 +209,7 @@ The `sendrawtransaction` method then returns a `txid`, which is the identificati
 
 ### Response:
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -260,14 +260,14 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments:
 
-| Structure | Type     | Description                                       |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------- |
 | tokenid   | (string) | the txid that identifies the token                |
 | asktxid   | (string) | the txid that identifies the original ask request |
 
 ### Response:
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -402,14 +402,14 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments:
 
-| Structure | Type     | Description                                       |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------- |
 | tokenid   | (string) | the txid that identifies the token                |
 | bidtxid   | (string) | the txid that identifies the original bid request |
 
 ### Response:
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -552,7 +552,7 @@ Tokens that can be divided and transferred in fractional amounts can be created 
 
 ### Arguments:
 
-| Structure     | Type     | Description                                      |
+| Name | Type | Description | 
 | ------------- | -------- | ------------------------------------------------ |
 | name          | (string) | the proposed name of the token                   |
 | supply        | (number) | the intended supply of the token, given in coins |
@@ -560,7 +560,7 @@ Tokens that can be divided and transferred in fractional amounts can be created 
 
 ### Response:
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -695,7 +695,7 @@ It returns a hex-encoded transaction which should then be broadcast using `sendr
 
 ### Arguments:
 
-| Structure  | Type     | Description                            |
+| Name | Type | Description | 
 | ---------- | -------- | -------------------------------------- |
 | tokenid    | (string) | the txid that identifies the token     |
 | asktxid    | (string) | the txid that identifies the ask order |
@@ -703,7 +703,7 @@ It returns a hex-encoded transaction which should then be broadcast using `sendr
 
 ### Response:
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -766,7 +766,7 @@ It returns a hex-encoded transaction which should then be broadcast using `sendr
 
 ### Arguments:
 
-| Structure  | Type     | Description                            |
+| Name | Type | Description | 
 | ---------- | -------- | -------------------------------------- |
 | tokenid    | (string) | the txid that identifies the token     |
 | bidtxid    | (string) | the txid that identifies the bid order |
@@ -774,7 +774,7 @@ It returns a hex-encoded transaction which should then be broadcast using `sendr
 
 ### Response:
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -835,13 +835,13 @@ The `tokeninfo` method reveals information about any token.
 
 ### Arguments:
 
-| Structure | Type     | Description                        |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------- |
 | tokenid   | (string) | the txid that identifies the token |
 
 ### Response:
 
-| Structure   | Type     | Description                                                   |
+| Name | Type | Description | 
 | ----------- | -------- | ------------------------------------------------------------- |
 | result      | (string) | whether the command executed successfully                     |
 | tokenid     | (string) | the identifying txid for the token id                         |
@@ -884,13 +884,13 @@ The `tokenlist` method lists all available tokens on the asset chain.
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure | Type               | Description                           |
+| Name | Type | Description | 
 | --------- | ------------------ | ------------------------------------- |
 | tokenid   | (array of strings) | the identifying txid for the token id |
 
@@ -942,13 +942,13 @@ Information about the `funcid` property:
 
 ### Arguments:
 
-| Structure | Type               | Description                           |
+| Name | Type | Description | 
 | --------- | ------------------ | ------------------------------------- |
 | tokenid   | (string, optional) | the identifying txid for the token id |
 
 ### Response:
 
-| Structure           | Type                       | Description                                                                    |
+| Name | Type | Description | 
 | ------------------- | -------------------------- | ------------------------------------------------------------------------------ |
 | funcid              | (string)                   | describes either a bid ask `b`, a bid fill `B`, an ask `s`, or an ask fill `S` |
 | txid                | (string)                   | the txid of the identifying order or fill                                      |
@@ -1118,7 +1118,7 @@ A token may be burned by using `tokentransfer` to send to a burn address.
 
 ### Arguments:
 
-| Structure  | Type               | Description                                |
+| Name | Type | Description | 
 | ---------- | ------------------ | ------------------------------------------ |
 | tokenid    | (string, optional) | the identifying txid for the token id      |
 | destpubkey | (string)           | the pubkey where the tokens should be sent |
@@ -1126,7 +1126,7 @@ A token may be burned by using `tokentransfer` to send to a burn address.
 
 ### Response:
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |

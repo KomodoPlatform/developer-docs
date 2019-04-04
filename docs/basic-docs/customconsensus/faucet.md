@@ -16,13 +16,13 @@ The `faucetaddress` method returns the CC address information for the specified 
 
 ### Arguments:
 
-| Structure | Type               | Description                                                                                       |
+| Name | Type | Description | 
 | --------- | ------------------ | ------------------------------------------------------------------------------------------------- |
 | pubkey    | (string, optional) | the desired pubkey; the method uses the pubkey used to launch the daemon if no pubkey is provided |
 
 ### Response:
 
-| Structure       | Type     | Description                                                                                                                          |
+| Name | Type | Description | 
 | --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | FaucetCCaddress | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the public address that corresponds to the faucet contract's privkey |
 | Faucetmarker    | (string) | the internal address (not related to usage of faucet)                                                                                |
@@ -70,13 +70,13 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments:
 
-| Structure | Type     | Description                                                            |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------- |
 | amount    | (number) | the amount to add to the faucet, taken from the user's available funds |
 
 ### Response:
 
-| Structure | Type     | Description                                                                                                               |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
 | result    | (string) | whether the command executed successfully                                                                                 |
 | hex       | (string) | the data in hex-encoded format; you must broadcast this hex using the`sendrawtransaction` RPC for the command to complete |
@@ -189,13 +189,13 @@ The `faucetget` command yields 0.1 coins and requires about 30 seconds of CPU ti
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure | Type     | Description                                                                                                      |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
 | result    | (string) | whether the command executed successfully                                                                        |
 | hex       | (string) | the data in hex-encoded format; you must broadcast this hex using sendrawtransaction for the command to complete |
@@ -305,13 +305,13 @@ The `faucetinfo` method displays the balance of funds in the chain's faucet.
 
 ### Arguments:
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
 ### Response:
 
-| Structure | Type     | Description                                 |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------- |
 | result    | (string) | whether the command executed successfully   |
 | name      | (string) | the name of the faucet contract             |
