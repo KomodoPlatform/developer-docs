@@ -197,7 +197,9 @@ Set the pubkey for the ROGUE asset chain.
 ./komodo-cli -ac_name=ROGUE setpubkey 02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -206,6 +208,9 @@ Response:
   "pubkey": "02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2"
 }
 ```
+
+</collapse-text>
+
 
 The pubkey is now set.
 
@@ -234,8 +239,8 @@ Under normal circumstances, a user does not need to manually execute methods in 
 
 For users/developers who need a reference for the manual process, the following walkthroughs provide detailed step-by-step instructions.
 
-- [Single-Player Mode Walkthrough](../customconsensus/cc-rogue.html#single-player-mode-walkthrough)
-- [Multi-Player Mode Walkthrough](../customconsensus/cc-rogue.html#multi-player-mode-walkthrough)
+- [Single-Player Mode Walkthrough](../customconsensus/rogue.html#single-player-mode-walkthrough)
+- [Multi-Player Mode Walkthrough](../customconsensus/rogue.html#multi-player-mode-walkthrough)
 
 ### Single-Player Mode Walkthrough
 
@@ -249,7 +254,7 @@ cd ~/komodo/src
 
 #### Step 2
 
-Create a new game via the [newgame](../customconsensus/cc-rogue.html#newgame) method. For this example, we choose to have a single player with a `0` buy-in requirement.
+Create a new game via the [newgame](../customconsensus/rogue.html#newgame) method. For this example, we choose to have a single player with a `0` buy-in requirement.
 
 Methods for ROGUE require the use of the [cclib](../komodo-api/cclib.html#cclib) method. The Rogue module's required `EVALCODE` for the `cclib` method is `17`.
 
@@ -259,7 +264,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib newgame 17 "[1]"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -274,13 +281,16 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 The ROGUE software currently broadcasts the `hex` value automatically. It is not necessary to use the `sendrawtransaction` method.
 
 The returned transaction id `txid` is the `gametxid`. Save this for future use.
 
 #### Step 3
 
-Check the game's state using the [gameinfo](../customconsensus/cc-rogue.html#gameinfo) method:
+Check the game's state using the [gameinfo](../customconsensus/rogue.html#gameinfo) method:
 
 Command:
 
@@ -288,7 +298,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -310,17 +322,22 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 In the returned json object, observe the `run` value. This lists the specific command that must be executed in the terminal to register the game.
 
 #### Step 4
 
-Register the `gametxid` using the [register](../customconsensus/cc-rogue.html#register) method:
+Register the `gametxid` using the [register](../customconsensus/rogue.html#register) method:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -335,16 +352,21 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 
 #### Step 5
 
-Check the game's current state again using the [gameinfo](../customconsensus/cc-rogue.html#gameinfo) method. Use the `gametxid` as an argument:
+Check the game's current state again using the [gameinfo](../customconsensus/rogue.html#gameinfo) method. Use the `gametxid` as an argument:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -375,6 +397,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 Note that the `gameinfo` method now returned a `seed` value, as well as player data.
 
 In the returned json object, find the `run` value. This is the exact command needed to start the game.
@@ -393,7 +418,7 @@ The game is now running and should be visible on-screen.
 
 #### Step 7 - Play the Game
 
-For instructions on in-game controls and objectives, [read this linked section.](../customconsensus/cc-rogue.html#gameplay-documentation)
+For instructions on in-game controls and objectives, [read this linked section.](../customconsensus/rogue.html#gameplay-documentation)
 
 #### Step 8 - Bailout
 
@@ -403,9 +428,9 @@ To quit the game, type the letter `Q` on the keyboard. This opens a context menu
 
 This begins the process of leaving the game, but you are not finished yet.
 
-Wait for the ROGUE network to mine all [`keystrokes`](../customconsensus/cc-rogue.html#keystrokes) transactions. To see a list of all `keystrokes` created, check the `keystrokes.log` file in the `~/komodo/src` directory, and use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to verify when the last `keystrokes` are mined.
+Wait for the ROGUE network to mine all [`keystrokes`](../customconsensus/rogue.html#keystrokes) transactions. To see a list of all `keystrokes` created, check the `keystrokes.log` file in the `~/komodo/src` directory, and use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to verify when the last `keystrokes` are mined.
 
-When the last transactions are mined, execute the [bailout](../customconsensus/cc-rogue.html#bailout) method to leave the game while keeping the character and items in your `pubkey`, and the method will also transfer your in-game gold to `ROGUE` coins.
+When the last transactions are mined, execute the [bailout](../customconsensus/rogue.html#bailout) method to leave the game while keeping the character and items in your `pubkey`, and the method will also transfer your in-game gold to `ROGUE` coins.
 
 For example:
 
@@ -413,11 +438,11 @@ For example:
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
-After the `bailout` transaction is mined the player may view their surviving character(s) via the [players](../customconsensus/cc-rogue.html#players) and [playerinfo](../customconsensus/cc-rogue.html#playerinfo) methods.
+After the `bailout` transaction is mined the player may view their surviving character(s) via the [players](../customconsensus/rogue.html#players) and [playerinfo](../customconsensus/rogue.html#playerinfo) methods.
 
 #### Step 9: Highlander Victory 
 
-In this walkthrough we have used single-player mode. The following [highlander](../customconsensus/cc-rogue.html#highlander) method is only available if the character manages to capture the `amulet` and safely exit the dungeon. In a normal multi-player game, the `highlander` method is available to either the first player to safely retrieve the `amulet`, or to the last player standing after all others have died.
+In this walkthrough we have used single-player mode. The following [highlander](../customconsensus/rogue.html#highlander) method is only available if the character manages to capture the `amulet` and safely exit the dungeon. In a normal multi-player game, the `highlander` method is available to either the first player to safely retrieve the `amulet`, or to the last player standing after all others have died.
 
 The player that successfully executes the `highlander` method receives a prize: the collective value of all `ROGUE` coins that were contributed during the buy-in stage.
 
@@ -427,7 +452,7 @@ The `highlander` method is executed as follows:
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 '["4fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a"]'
 ```
 
-After the `highlander` transaction is mined the player may view their surviving character(s) via the [players](../customconsensus/cc-rogue.html#players) and [playerinfo](../customconsensus/cc-rogue.html#playerinfo) methods.
+After the `highlander` transaction is mined the player may view their surviving character(s) via the [players](../customconsensus/rogue.html#players) and [playerinfo](../customconsensus/rogue.html#playerinfo) methods.
 
 ### Multi-Player Mode Walkthrough
 
@@ -436,7 +461,7 @@ In this walktrough we use two nodes to play a multi-player game of Rogue.
 - Node 1 is `player1`
 - Node 2 is `player2`
 
-For educational purposes, we execute all methods manually, as opposed to using the [TUI](../customconsensus/cc-rogue.html#installing-the-tui-optional).
+For educational purposes, we execute all methods manually, as opposed to using the [TUI](../customconsensus/rogue.html#installing-the-tui-optional).
 
 #### Step 1: Create a Multi-Player Game
 
@@ -451,13 +476,15 @@ For this game, we choose the following details:
 - the max number of players: `2`
 - the cost in `ROGUE` coins of the game `buyin`: `0.1`
 
-Execute the [newgame](../customconsensus/cc-rogue.html#newgame) method on `player1` as follows:
+Execute the [newgame](../customconsensus/rogue.html#newgame) method on `player1` as follows:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib newgame 17 '["2","0.1"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -472,15 +499,20 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 Save the returned `txid` value for future use. This is our `gametxid`.
 
-Use the [gameinfo](../customconsensus/cc-rogue.html#gameinfo) method to check information about the game:
+Use the [gameinfo](../customconsensus/rogue.html#gameinfo) method to check information about the game:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -502,6 +534,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 As shown in the returned json object, the game has a `maxplayers` value of `2` and an `openslots` value of `0`, as no players have joined.
 
 Note that the `gameheight` value is `54265`. This is the block height at which the `gametxid` was created. 
@@ -512,7 +547,7 @@ Also note that the `start` value is `54270`. This is the block height at which t
 
 For our example, `player1` would like to use an existing character that survived a previous game. This allows `player1` to start with all the advantages this character achieved previously, including character statistics and items.
 
-To activate the existing character, `player1` includes the associated `playertxid` for the character when executing the [register](../customconsensus/cc-rogue.html#register) method. (The `playertxid` values of any `pubkey` can be found using the [players](../customconsensus/cc-rogue.html#players) method.)
+To activate the existing character, `player1` includes the associated `playertxid` for the character when executing the [register](../customconsensus/rogue.html#register) method. (The `playertxid` values of any `pubkey` can be found using the [players](../customconsensus/rogue.html#players) method.)
 
 The player also includes the `gametxid` as the first argument of the `register` method.
 
@@ -520,7 +555,9 @@ The player also includes the `gametxid` as the first argument of the `register` 
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde","8005f81a604df6bbfae91dc8252505df43edbdf06492a2201362cb42dba4d8f2"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -535,13 +572,18 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 In our example, the `player2` node does not have a character from a previous game, and therefore `player2` executes the `register` method with only the `gametxid`.
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -556,15 +598,20 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 Wait until the `txid` values returned on both nodes are mined. (Use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to check the transaction's status.)
 
-After the transactions are mined, use the [gameinfo](../customconsensus/cc-rogue.html#gameinfo) method to check the game's status again:
+After the transactions are mined, use the [gameinfo](../customconsensus/rogue.html#gameinfo) method to check the game's status again:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -636,6 +683,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 The `openslots` value is now `0`, as `2` players have joined. 
 
 Note also that the `start` block height has past, and therefore the `seed` value is available.
@@ -650,17 +700,19 @@ cc/rogue/rogue 3928429259918614461 4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c
 
 #### Step 3: Play and Finish the Game
 
-[View this linked section for instructions on gameplay.](../customconsensus/cc-rogue.html#gameplay-documentation)
+[View this linked section for instructions on gameplay.](../customconsensus/rogue.html#gameplay-documentation)
 
 In our example, `player1` decides to bail out of the game without waiting until `player2` dies, and without retrieving the `amulet` from the dungeon. 
 
-To exit, `player1` executes the [bailout](../customconsensus/cc-rogue.html#bailout) method:
+To exit, `player1` executes the [bailout](../customconsensus/rogue.html#bailout) method:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -674,6 +726,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 With the `bailout` transaction mined, the `gameinfo` method now returns updated information:
 
 Command:
@@ -682,7 +737,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```JSON
 {
@@ -718,9 +775,12 @@ Response:
 
 ```
 
+</collapse-text>
+
+
 Note that the `alive` property has a value of `1`, indicating that the `player1` character has left and the `player2` character remains. Also note that in the `players` array, the first json object (which describes the `player1` node) has a `status` of `finished`.
 
-Since `player1` left early, `player2` is the last character standing. The [highlander](../customconsensus/cc-rogue.html#highlander) method is now available to him.
+Since `player1` left early, `player2` is the last character standing. The [highlander](../customconsensus/rogue.html#highlander) method is now available to him.
 
 `player2` first begins the exit procedure by entering `Q`, then `y + Enter`.
 
@@ -730,7 +790,9 @@ With the exit process in motion, `player2` executes the `highlander` method:
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -744,9 +806,12 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 The multi-player game is now finished. The `player2` node received the `highlander` prize, including the total `buyin` amount and an increased conversion rate of in-game gold to `ROGUE` coins.
 
-After the `bailout` and `highlander` transactions are mined, the players may view their surviving character via the [players](../customconsensus/cc-rogue.html#players) and [playerinfo](../customconsensus/cc-rogue.html#playerinfo) methods.
+After the `bailout` and `highlander` transactions are mined, the players may view their surviving character via the [players](../customconsensus/rogue.html#players) and [playerinfo](../customconsensus/rogue.html#playerinfo) methods.
 
 
 ## Gameplay Documentation
@@ -769,7 +834,7 @@ There are no time limits.
 
 As soon as the `register_txid` is confirmed the player may begin to play.
 
-When concluding the game, the conversion of in-game gold to `ROGUE` coins is halved. See the [highlander](../customconsensus/cc-rogue.html#highlander) and [bailout](../customconsensus/cc-rogue.html#bailout) methods for further details.
+When concluding the game, the conversion of in-game gold to `ROGUE` coins is halved. See the [highlander](../customconsensus/rogue.html#highlander) and [bailout](../customconsensus/rogue.html#bailout) methods for further details.
 
 #### Multi-Player Mode
 
@@ -783,23 +848,23 @@ Due to the fact that the entropy (based on the `seed`) was the same for both pla
 
 There are two methods for winning the game. The most direct way to win the game is to obtain the `amulet` and return from the dungeon. Alternatively, the player also may win by having the last surviving character. The winner receives all of the `buyin` coins that were originally contributed, as well as an increased conversion ratio for their in-game gold to `ROGUE` reward.
 
-See the [highlander](../customconsensus/cc-rogue.html#highlander) method for further details.
+See the [highlander](../customconsensus/rogue.html#highlander) method for further details.
 
 ### The Mechanics of Saving, Trading, and Reusing Characters
 
 ::: tip Note
 
-Due to the nature of saving and reusing characters, the Komodo implementation of Rogue changes the manner in which the user saves characters. Instead of typing `s` on the keyboard, type `Q + y + Enter`, then execute the [bailout](../customconsensus/cc-rogue.html#bailout) method to conclude the game.
+Due to the nature of saving and reusing characters, the Komodo implementation of Rogue changes the manner in which the user saves characters. Instead of typing `s` on the keyboard, type `Q + y + Enter`, then execute the [bailout](../customconsensus/rogue.html#bailout) method to conclude the game.
 
 :::
 
-If a player successfully uses either the [highlander](../customconsensus/cc-rogue.html#highlander) or [bailout](../customconsensus/cc-rogue.html#bailout) method to conclude a game, the player may save their character, items, and achieved characteristics. They also convert the character's in-game gold to `ROGUE` coins. The ratio of conversion depends upon the game conditions; see the `highlander` and `bailout` methods for further details.
+If a player successfully uses either the [highlander](../customconsensus/rogue.html#highlander) or [bailout](../customconsensus/rogue.html#bailout) method to conclude a game, the player may save their character, items, and achieved characteristics. They also convert the character's in-game gold to `ROGUE` coins. The ratio of conversion depends upon the game conditions; see the `highlander` and `bailout` methods for further details.
 
 #### Recalling an Existing Character
 
-When either of these methods are executed, the returned response includes a `playertxid` transaction id. The `playertxid` represents the state of this character at the completion of the game. It is used as an argument for the [register](../customconsensus/cc-rogue.html#register) method when recalling the character, items, and achieved characteristics into a future game. 
+When either of these methods are executed, the returned response includes a `playertxid` transaction id. The `playertxid` represents the state of this character at the completion of the game. It is used as an argument for the [register](../customconsensus/rogue.html#register) method when recalling the character, items, and achieved characteristics into a future game. 
 
-The `playertxid` value changes with each game, and therefore only the most recent `playertxid` for a character should be used. To see a complete list of current `playertxid` values belonging to the user's `pubkey`, use the [playerinfo](../customconsensus/cc-rogue.html#playerinfo) method. 
+The `playertxid` value changes with each game, and therefore only the most recent `playertxid` for a character should be used. To see a complete list of current `playertxid` values belonging to the user's `pubkey`, use the [playerinfo](../customconsensus/rogue.html#playerinfo) method. 
 
 When the user registers an existing character, the game dungeon's difficulty begins at level `1`, and the character has no gold (as it was converted to `ROGUE` coins). Also, even if the character has armor and a wielded weapon in their item list, these items are not equipped by default. The player must equip them at the start of the game by typing the letters `w` for weapon and `W` for armor.
 
@@ -817,7 +882,7 @@ If the user bails out of a game while holding more items than they are allowed t
 
 A character that survived a game is also a non-fungible asset and can be traded on the blockchain. When trading a character, the user does not use the `playertxid` value. Rather, the user employs the `tokentxid` value. This `tokentxid` is used in coordination with the [Tokens CC](../customconsensus/cc-tokens.html#introduction) module for on-chain trading.
 
-The `tokentxid` can be found by using the [playerinfo](../customconsensus/cc-rogue.html#playerinfo) method and submitting the known `playertxid` as an argument. For more information, see the `playerinfo` method.
+The `tokentxid` can be found by using the [playerinfo](../customconsensus/rogue.html#playerinfo) method and submitting the known `playertxid` as an argument. For more information, see the `playerinfo` method.
 
 The `tokentxid` is created at the character's initial creation and does not change throughout the character's life. When the character dies, the `tokentxid` is sent to a burn address, making the character permanently unplayable. 
 
@@ -827,7 +892,7 @@ The `tokentxid` is created at the character's initial creation and does not chan
 
 The `newgame` method creates a new game.
 
-The `buyin` argument is required for multi-player games. The coins contributed via `buyin` become a winner-takes-all pot. Either the first player to claim the `amulet` and return from the dungeon, or the last player standing; may claim this prize using the [highlander](../customconsensus/cc-rogue.html#highlander) method.
+The `buyin` argument is required for multi-player games. The coins contributed via `buyin` become a winner-takes-all pot. Either the first player to claim the `amulet` and return from the dungeon, or the last player standing; may claim this prize using the [highlander](../customconsensus/rogue.html#highlander) method.
 
 #### Arguments:
 
@@ -857,7 +922,9 @@ Command for a single-player training game:
 ./komodo-cli -ac_name=ROGUE cclib newgame 17 "[1]"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -871,6 +938,9 @@ Response:
   "result": "success"
 }
 ```
+
+</collapse-text>
+
 
 ## gameinfo
 
@@ -912,7 +982,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -933,6 +1005,9 @@ Response:
   "players": []
 }
 ```
+
+</collapse-text>
+
 
 ## pending
 
@@ -964,7 +1039,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib pending 17
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -983,6 +1060,9 @@ Response:
   "numpending": 175
 }
 ```
+
+</collapse-text>
+
 
 ## register
 
@@ -1022,7 +1102,9 @@ Command (registration without player):
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["b9ab1c3b9a1dceea75d0d87b927a03d8519743d4d64b9be061c40fdd5e4f5026"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -1036,6 +1118,9 @@ Response:
   "result": "success"
 }
 ```
+
+</collapse-text>
+
 
 ## keystrokes
 
@@ -1079,7 +1164,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib keystrokes 17 '["777ba510824b467e9ddfb00a075e9cd5c6f73d1fa6f772b1a22563502def25ee","6a68686868686866686820686868682068686868206868666868686c6c6c6c6a6a6a6a6a6a6a6a6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6c6a6a6a68666b"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 {
@@ -1098,6 +1185,9 @@ Response:
    "id":"jl777"
 }
 ```
+
+</collapse-text>
+
 
 ## bailout
 
@@ -1153,7 +1243,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["39b65c12e37f6338b2daf8b7d8d6e1b6c083622590cb7a318daadabc785b73f0"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 {
@@ -1166,6 +1258,9 @@ Response:
   "result": "success"
 }
 ```
+
+</collapse-text>
+
 
 ## highlander
 
@@ -1219,7 +1314,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 '["b94a0c14604df04a994e8fde610af7ddede76a62e1e3d86bbdac18e695662301"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 {
@@ -1232,6 +1329,9 @@ Response:
   "txid": "txid"
 }
 ```
+
+</collapse-text>
+
 
 ## playerinfo
 
@@ -1246,7 +1346,7 @@ There are occasions where the developer may wish to start with the `tokentxid` o
 The following is one solution:
 
 - If necessary, obtain a list of all `tokens` on the asset chain via the [tokenlist](../customconsensus/cc-tokens.html#tokenlist) method.
-- For each item in the response, execute an iterative function that executes the [playerinfo](../customconsensus/cc-rogue.html#playerinfo) method on the individual `token`.
+- For each item in the response, execute an iterative function that executes the [playerinfo](../customconsensus/rogue.html#playerinfo) method on the individual `token`.
   - If the method responds with an error, this means that the supplied `token` does not represent a character. Rather, it represents another on-chain asset, and therefore the token can be ignored.
 - For each response from the `playerinfo` method check two elements: whether the data contains a `batontxid`; whether the character is alive.
   - If there is a `batontxid`, the `playertxid` has been used in a game and is no longer valid. Therefore, this `playertxid` can be ignored.
@@ -1288,7 +1388,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib playerinfo 17 '["cf2ae0997e24f100aa9da3cda747105e3134a102da69630d6d1683a6f0f7b0ab"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 "{
@@ -1320,6 +1422,9 @@ Response:
 }"
 ```
 
+</collapse-text>
+
+
 ## players
 
 **cclib players 17**
@@ -1349,7 +1454,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib players 17
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -1363,6 +1470,9 @@ Response:
   "numplayerdata": 3
 }
 ```
+
+</collapse-text>
+
 
 ## games
 
@@ -1394,7 +1504,9 @@ Command:
  ./komodo-cli -ac_name=ROGUE cclib games 17
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -1423,6 +1535,9 @@ Response:
   "numgames": 140
 }
 ```
+
+</collapse-text>
+
 
 ## setname
 
@@ -1455,7 +1570,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib setname 17 '["SuperMegaWarrior"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -1465,6 +1582,9 @@ Response:
   "pname": "SuperMegaWarrior"
 }
 ```
+
+</collapse-text>
+
 
 ## extract
 
@@ -1503,7 +1623,9 @@ Command:
 ./komodo-cli -ac_name=ROGUE cclib extract 17 '["6bb0efcb14cd5101a4d8d8865c6a93162aa9480c5d3e0ce33902193cebdc4c39","0325151cf0f7321d0cde232898c5adc6b60f32df71b79af3a49d10020d42925ae9"]'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 {
@@ -1520,3 +1642,6 @@ Response:
   "replay": "cc/rogue/rogue 4344864534442616921"
 }
 ```
+
+</collapse-text>
+

@@ -6,15 +6,15 @@ The following content and tutorial are provided for advanced developers desiring
 
 #### Assumptions for this Content
 
-This discussion is intended for developers who have a strong understanding of the C/C++ languages and who understand the core fundamentals of blockchain engineering, as these are prerequisites for use of the Custom Consensus (CC) framework. 
+This discussion is intended for developers who have a strong understanding of the C/C++ languages and who understand the core fundamentals of blockchain engineering, as these are prerequisites for use of the Custom Consensus (CC) framework.
 
-Developers who possess this knowledge and who are already familiar with the essential nature of the CC framework may optionally skip all the following conceptual content and proceed directly to the tutorial. 
+Developers who possess this knowledge and who are already familiar with the essential nature of the CC framework may optionally skip all the following conceptual content and proceed directly to the tutorial.
 
 <!--need link to next section, when it's available -->
 
 If the developer needs more experience with blockchain technology, the Komodo team recommends that they first study the seminal textbook, [Mastering Bitcoin,](https://bitcoinbook.info/) before approaching the CC framework.
 
-Also, experienced developers who write in other languages, such as Python, JavaScript, or Solidity, may find value in skimming this discussion to understand key concepts at a high level. At this time, the CC framework has not expanded to include other languages, but Komodo may change this offering in the forseeable future. 
+Also, experienced developers who write in other languages, such as Python, JavaScript, or Solidity, may find value in skimming this discussion to understand key concepts at a high level. At this time, the CC framework has not expanded to include other languages, but Komodo may change this offering in the forseeable future.
 
 #### Note for Other Developers
 
@@ -24,37 +24,37 @@ Each module built on the CC framework can be designed to have API commands that 
 
 For example, consider the MuSig CC module. This module relies on the CC framework to enable a complicated technology called Schnorr Signatures, which are a new method for creating multi-signature blockchain transactions. The API for this module allows any developer of essentially any skill level to adopt the MuSig functionality into the developer's software without having to gain an in-depth understanding of Schnorr technology.
 
-[See the MuSig module documentation here](../customconsensus/cc-musig.html#introduction)
+[See the MuSig module documentation here](../customconsensus/musig.html#introduction)
 
 As the library of available modules grows, so too do the advantages to the many types of developers in the Komodo ecosystem. For this reason, members of the Komodo community express gratitude to the more experienced blockchain developers who build and share CC modules via open-source ideology.
 
 ## Conceptual Explanation
 
-Custom Consensus (CC) is a framework for making decentralized applications (dApps). The framework is built in the C and C++ languages. The reader may better understand the purpose and use case of CC by first understanding the key problem that CC solves. 
+Custom Consensus (CC) is a framework for making decentralized applications (dApps). The framework is built in the C and C++ languages. The reader may better understand the purpose and use case of CC by first understanding the key problem that CC solves.
 
 ### A Consensus Mechanism Is Not Easy to Create or Change
 
 Adding new code into a blockchain's consensus mechanism (CM) is a challenging task. Creating an entirely new CM is more difficult by an order of magnitude. Yet, despite these facts, often when an experienced developer first approaches blockchain technology with creative intent, their initial impulse is to dive directly into the CM itself. As time passes, the developer can come to a realization that they are attempting to solve a problem that is too large for any one person.
 
-Consider the Bitcoin consensus mechanism. This protocol is approximately ten years old and receives perhaps more attention than all other blockchain protocols combined. Every year, thousands upon thousands of the world's most intelligent developers, mathematicians, and cryptographers pore over the intricacies of this profitable technology. Yet, despite all this valuable insight, mistakes in the code continue to reveal themselves: in 2018, the Bitcoin Core and Bitcoin Cash teams together [discovered a flaw in the code](https://www.coindesk.com/the-latest-bitcoin-bug-was-so-bad-developers-kept-its-full-details-a-secret) that would have allowed a malicious user to print an arbitrary number of new Bitcoins. 
+Consider the Bitcoin consensus mechanism. This protocol is approximately ten years old and receives perhaps more attention than all other blockchain protocols combined. Every year, thousands upon thousands of the world's most intelligent developers, mathematicians, and cryptographers pore over the intricacies of this profitable technology. Yet, despite all this valuable insight, mistakes in the code continue to reveal themselves: in 2018, the Bitcoin Core and Bitcoin Cash teams together [discovered a flaw in the code](https://www.coindesk.com/the-latest-bitcoin-bug-was-so-bad-developers-kept-its-full-details-a-secret) that would have allowed a malicious user to print an arbitrary number of new Bitcoins.
 
 <!-- below: need a link to that flow path for the "viable use case for a blockchain" flow path -->
 
-Mistakes in the code of a CM can cause economic instability, and volatility of this nature can wreak havoc on the lives of the CM's users. For this reason, seasoned blockchain engineers often avoid changing the CM altogether, once it is relatively stable. 
+Mistakes in the code of a CM can cause economic instability, and volatility of this nature can wreak havoc on the lives of the CM's users. For this reason, seasoned blockchain engineers often avoid changing the CM altogether, once it is relatively stable.
 
 For those few projects that create a useful and unique consensus mechanism, a new challenge immediately presents itself. If the CM relies on a Proof of Work type model, the project team must attract a sufficient number of miners. If the CM is more akin to Proof of Stake, the team must ensure the blockchain's total stake is distributed in a manner that ensures trustlessness. Neither of these tasks are easy to achieve.
 
-In light of these challenges, the blockchain engineer finds themselves confronted with a paradox. The engineer desires to create something new, and at the same time, they cannot easily change the core software. 
+In light of these challenges, the blockchain engineer finds themselves confronted with a paradox. The engineer desires to create something new, and at the same time, they cannot easily change the core software.
 
 ### A Popular, But Flawed Solution: The Decentralized Virtual Machine
 
 A popular solution to this paradox is to associate the consensus mechanism (CM) with a virtual machine (VM). This method was made popular by the Ethereum project.
 
-In this model, the CM's design can be similar to existing and stable CM's, but it has one difference. The CM listens to instructions given by an external VM that is decentralized across all validating nodes. While code inside the VM can be arbitrary, the CM does not listen to the code's execution. Instead, the CM only listens to the same data as before: the history of transactions and associated meta data. 
+In this model, the CM's design can be similar to existing and stable CM's, but it has one difference. The CM listens to instructions given by an external VM that is decentralized across all validating nodes. While code inside the VM can be arbitrary, the CM does not listen to the code's execution. Instead, the CM only listens to the same data as before: the history of transactions and associated meta data.
 
-This solution is more effective than writing an entirely new CM, yet the solution is limited. The limitations include: the requirement of working in the mandatory VM programming language, such as Solidity; an excessive dependency on the core-software development team; volatile economics, and a lack of blockchain processing and storage capacity. 
+This solution is more effective than writing an entirely new CM, yet the solution is limited. The limitations include: the requirement of working in the mandatory VM programming language, such as Solidity; an excessive dependency on the core-software development team; volatile economics, and a lack of blockchain processing and storage capacity.
 
-The requirement of the limited programming language derives from security concerns. All validating nodes in the decentralized VM must run all blockchain-related code in the ecosystem. Having this code written in a unique language designed for the VM reduces the available opportunities to malicious actors. While the limitation provides baseline security, the customized and often unstable nature of the VM programming language can make the creative process difficult. Also, the need to master a new language adds an additional burden to the developer. 
+The requirement of the limited programming language derives from security concerns. All validating nodes in the decentralized VM must run all blockchain-related code in the ecosystem. Having this code written in a unique language designed for the VM reduces the available opportunities to malicious actors. While the limitation provides baseline security, the customized and often unstable nature of the VM programming language can make the creative process difficult. Also, the need to master a new language adds an additional burden to the developer.
 
 The dependency on the blockchain's core engineers also slows creative progress for ecosystem developers. When the ecosystem developer discovers a new core-level technology that would increase the developer's productivity and creativity, they must convince the core-software team to implement the new feature. The core-software engineers may have conflicting interests, as their needs must meet the needs of all developers and users in their ecosystem.
 
@@ -70,24 +70,25 @@ Custom Consensus (CC) allows a developer to add arbitrary code at the consensus 
 
 The entry point between the CC framework and the CM is a new Bitcoin-script [operation code](https://bitcoin.org/en/glossary/op-code), "OP_CHECKCRYPTOCONDITIONS", or OP_CCC for short. When executed, OP_CCC is able to initiate additional arbitrary code that is written in any programming language, assuming the language can call and execute C/C++ code in return. The arbitrary code is separate from the CM, thus maintaining the CM's reliability. When the arbitrary code completes, OP_CCC returns a `true` or `false` statement to the daemon.
 
-Meta data can also be associated with the result of OP_CCC. Komodo offers various blockchain-based methods to collect and organize data. Notable methods include the [key-value storage](../komodo-api/blockchain.html#kvupdate) feature, the [Oracles CC Module](../customconsensus/cc-oracles.html#introduction), or using the native `vout` and `batontxid` properties of a utxo (see the [Rogue CC Module](../customconsensus/cc-rogue.html). 
+If the returned OP_CCC value is `true`, the daemon performs a transaction. The transaction can contain meta data in the normal manner. As an aside, these transactions can implement other data-storage features of Komodo software. Examples include the [key-value storage](../komodo-api/blockchain.html#kvupdate) feature, the [Oracles CC Module](../customconsensus/cc-oracles.html#introduction), or using the native `vout` and `batontxid` properties of a utxo as a database (see the [Rogue CC Module](../customconsensus/cc-rogue.html). 
 
 With access to the meta data established, CC is able to act as application-state manager. State-related data is held in utxos that are accessible to the CM. As the application-state management aspect of CC can be based on the utxo model, the application-state aspect can follow the CM's rules for consensus. This powerful combination allows the developer to collect, organize, and act upon data in a securely decentralized manner.
 
 In addition, once the data is notarized, it can also be called by other Komodo-based asset chains, depending on the manner in which the developer(s) form their chain. This allows developers to form clusters of blockchains to enhance their software, as opposed to relying on a single blockchain, or on a single child chain. The speed and data-storage capabilities of a cluster are thus exponentially greater than a VM-based competitor.
 
-With the CC framework in place, the developer may add to their blockchains whatever creativity the developer can imagine. 
+With the CC framework in place, the developer may add to their blockchains whatever creativity the developer can imagine.
 
 ### Custom Consensus In Action: Accomplishing Years' Worth of Work In But A Weekend
 
 <!-- Point out how CC achieves everything in the VM model, without running multiple external softwars, such as the VM and any bridge technology needed to connect it. This makes the core development team faster, and simplifies the experience for the developer.-->
+
 Examples of the power of Custom Consensus (CC) can be found by observing existing modules. Consider how CC allowed the Komodo ecosystem to swiftly and easily upgrade the Komodo consensus mechanism (CM) to include Quantum-Proofing capabilities.
 
 In years past, many other blockchain projects <!--need list--> had focused on manually upgrading their CM for Quantum-Proof protection, and during the boom of 2017 this was sometimes touted as a key feature. Adding this manually to the <!-- add this --> CM was a time-consuming and expensive process. Paradoxically, once the new Quantum-Proof CM was achieved, it only served to isolate the project team. Their customized CM was incompatible with much of the activity in the open-source blockchain ecosystem, and therefore for each industry-wide technological advancement, the team often had to adapt on their own.
 
-Komodo's engineers chose not to spend energy building a new CM, but rather they worked towards adding CC first. Once CC was available, the Komodo core software team took existing Quantum-Proofing technology, read summaries published by academics and researchers, and created a new CC module to add this functionality to the Komodo CM. 
+Komodo's engineers chose not to spend energy building a new CM, but rather they worked towards adding CC first. Once CC was available, the Komodo core software team took existing Quantum-Proofing technology, read summaries published by academics and researchers, and created a new CC module to add this functionality to the Komodo CM.
 
-The time between project initiation and releasing a beta version for community testing was approximately one weekend. Only one core developer's attention was required. The Komodo daemon remains compatible with all other software features as before, able to quickly adopt new ideas from others in the open-source community as soon as they arrive. At the same time, users who desire Quantum-Proofing for their long-term financial interests have a CC tool readily available. 
+The time between project initiation and releasing a beta version for community testing was approximately one weekend. Only one core developer's attention was required. The Komodo daemon remains compatible with all other software features as before, able to quickly adopt new ideas from others in the open-source community as soon as they arrive. At the same time, users who desire Quantum-Proofing for their long-term financial interests have a CC tool readily available.
 
 Also of note is the simplicity of CC architecture. All new code created for the Quantum-Proof module is contained in an optional library, and is included in compilation only for participating blockchains. The Komodo daemon has no need of an external VM. This eliminates what would otherwises be unnecessary baggage for the developer and the core engineers, and yet the daemon offers all the capabilities of a VM-based blockchain -- and arguably more.
 
@@ -143,7 +144,8 @@ These open-source softwares, in combination with the customized CC code from a t
 CC is also useful in many other industries. The Komodo team looks forward to discovering what the community creates. Please reach out to the Komodo team on Discord with questions and discoveries, and please reach out to the marketing team for assistance in displaying new ideas."
 
 ## Other Content Not Developed
-Today, in looking through the many innovations occuring within the blockchain industry, an observant researcher can quickly discover that many ideas that are touted as "new" and "novel" are, in fact, old ideas. For example, the idea of a "smart contract" was explored as early as the 1980's by computer-science academics. Yet another example can be found in the early proposals of the complicated "zk-SNARKS" technology, which Komodo now offers for privacy-based transactions. 
+
+Today, in looking through the many innovations occuring within the blockchain industry, an observant researcher can quickly discover that many ideas that are touted as "new" and "novel" are, in fact, old ideas. For example, the idea of a "smart contract" was explored as early as the 1980's by computer-science academics. Yet another example can be found in the early proposals of the complicated "zk-SNARKS" technology, which Komodo now offers for privacy-based transactions.
 
 <!--link instead for zk-SNARKS-->
 
@@ -151,22 +153,19 @@ The reason the world never heard of these relatively old computer-science techno
 
 <!--Sidd: I need to add more specifics. This is all too general.-->
 
-Creating a new consensus mechanism is not an easy task. Prior to the birth of Bitcoin there were hundreds of intelligent researchers and academics in small circles of the world of cryptography and academia, searching for the proper combination of cryptography and code. Even with all the attention placed on blockchain technology more recently, including billions of dollars in funding and hundreds of thousands of developers flooding into this industry, only a small handful of new consensus mechanisms have emerged. 
+Creating a new consensus mechanism is not an easy task. Prior to the birth of Bitcoin there were hundreds of intelligent researchers and academics in small circles of the world of cryptography and academia, searching for the proper combination of cryptography and code. Even with all the attention placed on blockchain technology more recently, including billions of dollars in funding and hundreds of thousands of developers flooding into this industry, only a small handful of new consensus mechanisms have emerged.
 
-To create a new consensus mechanism, one must create a sequence of highly technical code that can withstand the most rigorous of trials the world has to offer. Even Satoshi Nakamoto's own first attempts at creating the Bitcoin consensus mechanism were nowhere near secure. Over the years of early development, dozens of high-risk security flaws were discovered by the early blockchain intelligencia. This process continues even to this day, where recently a member of the industry discovered yet another flaw in Bitcoin and alerted the Bitcoin developers to swiftly correct the error. 
+To create a new consensus mechanism, one must create a sequence of highly technical code that can withstand the most rigorous of trials the world has to offer. Even Satoshi Nakamoto's own first attempts at creating the Bitcoin consensus mechanism were nowhere near secure. Over the years of early development, dozens of high-risk security flaws were discovered by the early blockchain intelligencia. This process continues even to this day, where recently a member of the industry discovered yet another flaw in Bitcoin and alerted the Bitcoin developers to swiftly correct the error.
 
-While Bitcoin's first consensus mechanism 
+While Bitcoin's first consensus mechanism
 
 If this were easy, the world would have thousands of well functioning consensus mechanisms already. The name "Bit CC itself is not a standalone programming language. This is in contast to other popular blockchain platforms, such as Ethereum, where the creation of decentralized applications requires a unique programming language, such as Solidity.
 
-
-
 #### Knowledge Requirements Before Attempting to Use Custom Consensus
 
-At this time, the creation of a new CC module is only achievable among experienced C/C++ developers, and who possess a working knowledge of the principles of blockchain engineering. 
+At this time, the creation of a new CC module is only achievable among experienced C/C++ developers, and who possess a working knowledge of the principles of blockchain engineering.
 
-Those who are not experienced developers, or who work on high-level languages, such as JavaScript and Python, may still take advantage of the CC 
-
+Those who are not experienced developers, or who work on high-level languages, such as JavaScript and Python, may still take advantage of the CC
 
 (Notes)
 
@@ -198,7 +197,6 @@ else return eval->Invalid("invalid vout0 amount");
 J
 that is the validation function for the customcc.cpp EVAL_CUSTOM CC
 
-
 jl777
 THAT is the CC validation
 J
@@ -208,7 +206,6 @@ mylo5ha5
 custom_func1 is great btw. thx.
 
 Ssiddhartha_crypto do you want to "normal coin" p2p consensus? mastering bitcoin book explains.
-
 
 siddhartha_crypto
 To put it into other words, to check for understanding:
@@ -221,7 +218,6 @@ J
 siddhartha_crypto
 Great
 S
-
 
 How would you describe (in common language) the challenges a developer would face when trying to write a "smart contract" (for lack of a better term) that relies on a blockchain?
 jl777
@@ -239,7 +235,6 @@ J
 i guess you can sort of explain it but it will always be approximations. when the actual thing is so simple, why not to discuss the real thing, instead of a simulation of something that must be interpreted
 the first consensus took many years to get working stable, ie. bitcoin protocol
 
-
 anytime there is a new consensus it is a BIG project
 changing consensus rules with CC is a bit easier, ie. customcc.cpp. it is simple enough it is possible for a coder to do in a few hours for simple things and a weekend for not that complex things
 instead of taking years, it is reduced to weeks or days
@@ -249,7 +244,6 @@ S
 jl777
 it is like being able to make a car with custom engines in it, without even having to make a new car, or even a new engine. just the exact thing that is different needs to be created
 
-
 How accurate is this, for the next thing we say to him:
 
 The reason why you would choose Komodo over [insert competitor], is that Komodo allows you to add your creativity into the consensus mechanism itself, without having to rewrite the consensus mechanism from scratch.
@@ -258,14 +252,11 @@ Let's say that you want to make a game, and you want to have the rules of gamepl
 
 The problem is this: Once you start adding a gameplay rule to a normal blockchain, you're basically dealing with a whole new consensus mechanism. It took years to make the Bitcoin consensus mechanism stable.
 
-
 when you try to add on your creativity, without a framework to help you, you are going to have to basically start from scratch.
 
 CC allows you to add in your creativity, without having to start over in the testing phase.
 
 The only rule is that you have to bring everything down to true/false. If the result of your creative code + the user's actions is true, then a transaction is executed. It can have any metadata or value transfer in it you want. If false, then no transaction is executed.
-
-
 
 J
 you are not understanding the magnitude of labor savings
@@ -283,8 +274,6 @@ right.
 S
 no need to build a new car, if you're just trying to build a better radio
 
-
-
 mylo5ha5
 the CC stuff....whatever they customize, they just have build the validation rules for what they build.
 example:
@@ -300,10 +289,8 @@ the registered oracle value is >1000 (if not, do nothing)
 if it's >1000, get the author's payout address
 release the funds to that address
 
-
-
 jl777
-something that projects with $100 mil of funding take years to get completed
+something that projects with \$100 mil of funding take years to get completed
 J
 assuming there is an oracle, the CC would use the consensus rule that checks the tx for the pubkey of who is trying to spend it. then depending on that pubkey, checking the oracle to make sure they are allowed to do whatever spend is in the tx
 tx.vout[0].nValue is the amount

@@ -1,28 +1,35 @@
+var redirectAliases = require("./public/_redirects.js");
 module.exports = {
+  plugins: {
+    redirect: {
+      alias: redirectAliases
+    }
+  },
   title: "Komodo Documentation",
   base: "/",
   description: "Documentation for developers building on Komodo",
   themeConfig: {
     // Assumes GitHub. Can also be a full GitLab url.
-    repo: 'komodoplatform/developer-docs',
+    repo: "komodoplatform/developer-docs",
     // Customising the header label
     // Defaults to "GitHub"/"GitLab"/"Bitbucket" depending on `themeConfig.repo`
-    repoLabel: 'Github',
+    repoLabel: "Github",
 
     // Optional options for generating "Edit this page" link
 
     // if your docs are in a different repo from your main project:
     //docsRepo: 'vuejs/vuepress',
     // if your docs are not at the root of the repo:
-    docsDir: 'docs',
+    docsDir: "docs",
     // if your docs are in a specific branch (defaults to 'master'):
     //docsBranch: 'master',
     // defaults to false, set to true to enable
     editLinks: true,
     // custom text for edit link. Defaults to "Edit this page"
-    editLinkText: 'Suggest an improvement for this page',
-    lastUpdated: 'Last Updated',
-    nav: [{
+    editLinkText: "Suggest an improvement for this page",
+    lastUpdated: "Last Updated",
+    nav: [
+      {
         text: "Start Here",
         link: "/basic-docs/start-here/introduction.md"
       },
@@ -32,7 +39,8 @@ module.exports = {
       }
     ],
     sidebar: {
-      "/basic-docs/": [{
+      "/basic-docs/": [
+        {
           title: "Start Here",
           collapsable: true,
           children: [
@@ -42,7 +50,7 @@ module.exports = {
               "Outline for New Developers"
             ],
             [
-              "/basic-docs/start-here/cc-overview.md",
+              "/basic-docs/start-here/custom-consensus-overview.md",
               "Overview of Custom Consensus"
             ]
           ]
@@ -81,17 +89,17 @@ module.exports = {
               "/basic-docs/customconsensus/custom-consensus-tutorial.md",
               "Build a CC Module"
             ],
-            ["/basic-docs/customconsensus/cc-channels.md", "Channels"],
-            ["/basic-docs/customconsensus/cc-dice.md", "Dice"],
-            ["/basic-docs/customconsensus/cc-faucet.md", "Faucet"],
-            ["/basic-docs/customconsensus/cc-gateways.md", "Gateways"],
-            ["/basic-docs/customconsensus/cc-heir.md", "Heir"],
-            ["/basic-docs/customconsensus/cc-musig.md", "MuSig"],
-            ["/basic-docs/customconsensus/cc-oracles.md", "Oracles"],
-            ["/basic-docs/customconsensus/cc-rewards.md", "Rewards"],
-            ["/basic-docs/customconsensus/cc-rogue.md", "Rogue"],
-            ["/basic-docs/customconsensus/cc-sudoku.md", "Sudoku"],
-            ["/basic-docs/customconsensus/cc-tokens.md", "Tokens"]
+            ["/basic-docs/customconsensus/channels.md", "Channels"],
+            ["/basic-docs/customconsensus/dice.md", "Dice"],
+            ["/basic-docs/customconsensus/faucet.md", "Faucet"],
+            ["/basic-docs/customconsensus/gateways.md", "Gateways"],
+            ["/basic-docs/customconsensus/heir.md", "Heir"],
+            ["/basic-docs/customconsensus/musig.md", "MuSig"],
+            ["/basic-docs/customconsensus/oracles.md", "Oracles"],
+            ["/basic-docs/customconsensus/rewards.md", "Rewards"],
+            ["/basic-docs/customconsensus/rogue.md", "Rogue"],
+            ["/basic-docs/customconsensus/sudoku.md", "Sudoku"],
+            ["/basic-docs/customconsensus/tokens.md", "Tokens"]
           ]
         },
         {
