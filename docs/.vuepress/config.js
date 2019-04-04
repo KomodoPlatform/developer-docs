@@ -50,7 +50,7 @@ module.exports = {
               "Outline for New Developers"
             ],
             [
-              "/basic-docs/start-here/cc-overview.md",
+              "/basic-docs/start-here/custom-consensus-overview.md",
               "Overview of Custom Consensus"
             ]
           ]
