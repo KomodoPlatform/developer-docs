@@ -35,9 +35,14 @@ Command:
 ./komodo-cli z_getpaymentdisclosure 96f12882450429324d5f3b48630e3168220e49ab7b0f066e5c2935a6b88bb0f2 0 0 "refund"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```
+
+</collapse-text>
+
 (currently disabled)
 ```
 
@@ -49,9 +54,14 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_getpaymentdisclosure", "params": ["96f12882450429324d5f3b48630e3168220e49ab7b0f066e5c2935a6b88bb0f2", 0, 0, "refund"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```
+
+</collapse-text>
+
 (currently disabled)
 ```
 
@@ -85,9 +95,14 @@ Command:
 ./komodo-cli z_validatepaymentdisclosure "zpd:706462ff004c561a0447ba2ec51184e6c204..."
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```
+
+</collapse-text>
+
 (currently disabled)
 ```
 
@@ -99,8 +114,13 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_validatepaymentdisclosure", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```
+
+</collapse-text>
+
 (currently disabled)
 ```

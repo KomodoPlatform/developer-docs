@@ -1,3 +1,0 @@
-# Komodo provides bsk
-
-bsk

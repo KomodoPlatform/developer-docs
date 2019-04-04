@@ -119,49 +119,6 @@ module.exports = {
           ]
         }
       ],
-      "/bsk/": [{
-          title: "Initialising a Blockchain",
-          collapsable: true,
-          children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
-          ]
-        },
-        {
-          title: "Launching an Explorer",
-          collapsable: true,
-          children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
-          ]
-        },
-        {
-          title: "Setting up Electrums",
-          collapsable: true,
-          children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
-          ]
-        },
-        {
-          title: "Getting listed in Komodo's Multicoin wallet",
-          collapsable: true,
-          children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
-          ]
-        },
-        {
-          title: "Geting Listed in Komodo's DEX",
-          collapsable: true,
-          children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
-          ]
-        },
-        {
-          title: "Get your Blockchain secured by Bitcoin's hashpower",
-          collapsable: true,
-          children: [
-            ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"]
-          ]
-        }
-      ],
       "/": ["", "/basic-docs/start-here/introduction.md"]
     }
   }
