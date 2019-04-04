@@ -62,6 +62,6 @@ for filename in os.listdir('../docs/basic-docs/customconsensus/'):
     with open('../docs/basic-docs/customconsensus/'+filename, "r") as f, open("./out/"+filename, 'w+') as g:
         for currLine in f:
             if currLine.startswith("#"):
-                g.write(currLine.rstrip(":"))
+                g.write(currLine.rstrip(":\n")+"\n")
             else:
                 g.write(currLine)

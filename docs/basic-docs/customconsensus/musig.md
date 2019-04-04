@@ -711,13 +711,13 @@ The `combine` method produces the combined pubkey ( `combined_pk` ) from all pub
 
 Usage of this method depends upon the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
-#### Arguments:
+#### Arguments
 
 | Name                   | Type     | Description                                         |
 | ---------------------- | -------- | --------------------------------------------------- |
 | pubkey1, pubkey2, .... | (string) | the pubkeys of all the signers of the MuSig address |
 
-#### Response:
+#### Response
 
 | Name        | Type     | Description                                                   |
 | ----------- | -------- | ------------------------------------------------------------- |
@@ -725,7 +725,7 @@ Usage of this method depends upon the [cclib](../komodo-api/cclib.html#cclib) me
 | combined_pk | (string) | the combined pubkey of all the signers |
 | result      | (string) | whether the call executed successfully                        |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -758,14 +758,14 @@ The returned transaction id is called the `sendtxid`. It is used as a parameter 
 
 Usage of this method depends upon the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
-#### Arguments:
+#### Arguments
 
 | Name        | Type     | Description                                                   |
 | ----------- | -------- | ------------------------------------------------------------- |
 | combined_pk | (string) | the combined pubkey of all the signers |
 | amount      | (number) | the amount of coins to be sent to the `combined_pk`           |
 
-#### Response:
+#### Response
 
 | Name   | Type     | Description                                                             |
 | ------ | -------- | ----------------------------------------------------------------------- |
@@ -773,7 +773,7 @@ Usage of this method depends upon the [cclib](../komodo-api/cclib.html#cclib) me
 | txid   | (string) | the transaction id of the send transaction                              |
 | result | (string) | whether the call executed successfully                                  |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -820,21 +820,21 @@ For example:
 
 Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
-#### Arguments:
+#### Arguments
 
 | Name         | Type     | Description                                                                                                                                                                                                       |
 | ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | sendtxid     | (string) | the transaction id of the transaction created by the [send](../customconsensus/musig.html#send) method that was executed to fund the MuSig address; only the funds in the `vout0` of the `sendtxid` are spent |
 | scriptPubKey | (string) | a modified form of a pubkey; this is the pubkey that will receive the spent funds                                                                                                                                |
 
-#### Response:
+#### Response
 
 | Name   | Type     | Description                                                                                                                  |
 | ------ | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | msg    | (string) | the message that must be signed by all the signers for the final [spend](../customconsensus/musig.html#spend) to succeed |
 | result | (string) | whether the call executed successfully                                                                                       |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -864,7 +864,7 @@ The `session` method creates a `global data structure` on each node on which the
 
 Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
-#### Arguments:
+#### Arguments
 
 | Name        | Type             | Description                                                                                                                                |
 | ----------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -874,7 +874,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | pkhash      | (string)         | the 32-byte hash of the original public keys                                                                                               |
 | msg         | (string)         | the message that needs to be signed by all the signers for the final [spend](../customconsensus/musig.html#spend) to succeed           |
 
-#### Response:
+#### Response
 
 | Name       | Type             | Description                                                              |
 | ---------- | ---------------- | ------------------------------------------------------------------------ |
@@ -883,7 +883,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | commitment | (string)         | the `commitment` value produced by the node for this `msg` and `session` |
 | result     | (string)         | whether the call executed successfully                                   |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -917,7 +917,7 @@ The returned `nonce` must be shared with all corresponding nodes.
 
 Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
-#### Arguments:
+#### Arguments
 
 | Name       | Type             | Description                                                                  |
 | ---------- | ---------------- | ---------------------------------------------------------------------------- |
@@ -925,7 +925,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | ind        | (decimal number) | the index of the node, whose `commitment` is being added to the `global data structure` |
 | commitment | (string)         | the `commitment` value produced by the node with index `ind`                 |
 
-#### Response:
+#### Response
 
 | Name        | Type             | Description                                                             |
 | ----------- | ---------------- | ----------------------------------------------------------------------- |
@@ -934,7 +934,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | nonce       | (string)         | the `nonce` value produced by the node on which this method is executed |
 | result      | (string)         | whether the call executed successfully                                  |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -968,7 +968,7 @@ The returned `partialsig` must be shared with all corresponding nodes.
 
 Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
-#### Arguments:
+#### Arguments
 
 | Name   | Type             | Description                                                                 |
 | ------ | ---------------- | --------------------------------------------------------------------------- |
@@ -976,7 +976,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | ind    | (decimal number) | the index of the node, whose `nonce` is being added to the `global data structure` |
 | nonce  | (string)         | the `nonce` value produced by the node with index `ind`                     |
 
-#### Response:
+#### Response
 
 | Name        | Type             | Description                                                                  |
 | ----------- | ---------------- | ---------------------------------------------------------------------------- |
@@ -985,7 +985,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | partialsig  | (string)         | the `partialsig` value produced by the node on which this method is executed |
 | result      | (string)         | whether the call executed successfully                                       |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1019,7 +1019,7 @@ The returned `combinedsig` must be shared with all corresponding nodes.
 
 Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
-#### Arguments:
+#### Arguments
 
 | Name       | Type             | Description                                                                    |
 | ---------- | ---------------- | ------------------------------------------------------------------------------ |
@@ -1027,7 +1027,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | ind        | (decimal number) | the index of the node, whose `partialsig` is now added to the `global data structure` |
 | partialsig | (string)         | the `partialsig` value produced by the node with index `ind`                   |
 
-#### Response:
+#### Response
 
 | Name        | Type             | Description                                                                   |
 | ----------- | ---------------- | ----------------------------------------------------------------------------- |
@@ -1036,7 +1036,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | combinedsig | (string)         | the `combinedsig` value produced by the node on which this method is executed |
 | result      | (string)         | whether the call executed successfully                                        |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1067,7 +1067,7 @@ The `verify` method verifies that the `combinedsig` is able to spend the funds o
 
 Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
-#### Arguments:
+#### Arguments
 
 | Name        | Type     | Description                                                                                                                      |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -1075,7 +1075,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | combined_pk | (string) | the combined pubkey of all the signers                                                                    |
 | combinedsig | (string) | the `combinedsig` value produced by the node on which this method is executed                                                    |
 
-#### Response:
+#### Response
 
 | Name        | Type     | Description                                                                                                                      |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -1084,7 +1084,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | combined_pk | (string) | the combined pubkey of all the signers                                                                    |
 | result      | (string) | whether the call executed successfully                                                                                           |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1131,7 +1131,7 @@ The method generates a raw transaction which must then be broadcast using [sendr
 
 Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
-#### Arguments:
+#### Arguments
 
 | Name         | Type     | Description                                                                                                                                                                                          |
 | ------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1139,7 +1139,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | combinedsig  | (string) | the combined signature produced by all the signers                                                                                                                                                   |
 | scriptPubKey | (string) | a modified form of a pubkey to which funds are to be spent                                                                                                                                           |
 
-#### Response:
+#### Response
 
 | Name        | Type     | Description                                                                                                                      |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -1150,7 +1150,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | txid        | (string) | the transaction id of the spend transaction                                                                                      |
 | result      | (string) | whether the call executed successfully                                                                                           |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 

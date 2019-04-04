@@ -27,13 +27,13 @@ Under normal circumstances, for the `pubkey` the user provides the destination a
 
 The global addresses are not used in the Channels CC module. For more information about unique CC addresses, see [this linked explanation.](../customconsensus/custom-consensus-instructions.html#understanding-the-types-of-addresses)
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | ---------------------- |
 | pubkey    | (string, required) | the destination pubkey |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -49,7 +49,7 @@ The global addresses are not used in the Channels CC module. For more informatio
 | myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)                                                                                                                                                                                      |
 | mybalance                   | (numeric) | the balance of `myaddress` in coins                                                                                                                                                                                                                                                                                                                             |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -91,20 +91,20 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 The `sendrawtransaction` method then returns a `txid` which is used in the [channelsrefund](../customconsensus/channels.html#channelsrefund) method to reclaim funds.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | -------- | -------------------------------------------------------------------------- |
 | open_txid | (string) | the unique identifying txid that is created when a channel is first opened |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Close a channel
 
@@ -143,13 +143,13 @@ The `channelsinfo` method fetches info about channels that are relevant to the u
 
 If no `open_tx_id` argument is included, the method returns a list of all channels available to this user.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | -------------------------------------------------------------------------- |
 | open_txid | (string, optional) | the unique identifying txid that is created when a channel is first opened |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -157,7 +157,7 @@ If no `open_tx_id` argument is included, the method returns a list of all channe
 | name      | (string) | the name of the channel                                                                                                                             |
 | Open:     | (string) | a channel and its relevant information: address of the destination pubkey, number of payments, denomination per payment, and the channel open_tx_id |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -207,7 +207,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 The `sendrawtransaction` method then returns a `txid` which is the unique identifying `channels_tx_id`.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------------------ | -------- | ------------------------------------------------------- |
@@ -215,14 +215,14 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 | total_number_of_payments | (number) | the total number of payments to allocate in the channel |
 | payment_size             | (number) | the amount per payment, given in satoshis               |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Create the raw hex
 
@@ -271,7 +271,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 The `sendrawtransaction` method then returns a `txid` which is the unique identifying `channels_tx_id`.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------------------ | -------- | ------------------------------------------------------- |
@@ -279,14 +279,14 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 | total_number_of_payments | (number) | the total number of payments to allocate in the channel |
 | payment_size             | (number) | the amount per payment, given in satoshis               |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -335,7 +335,7 @@ The method can only be executed after the channel `close_tx_id` has either one n
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------------------ | -------- | ------------------------------------------------------- |
@@ -343,14 +343,14 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | total_number_of_payments | (number) | the total number of payments to allocate in the channel |
 | payment_size             | (number) | the amount per payment, given in satoshis               |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Command
 

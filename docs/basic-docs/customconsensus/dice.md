@@ -26,7 +26,7 @@ Only the owner of the `dice` contract is able to add funds.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ----------- | -------- | ----------------------------------------------------------------- |
@@ -34,14 +34,14 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
 | amount      | (number) | the amount of funds you want to add to your dice from your wallet |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Create a raw transaction hex value for adding funds
 
@@ -158,13 +158,13 @@ Step 3: Decode the raw transaction (optional to check if the values are sane)
 
 The `diceaddress` method takes either your pubkey or a pubkey that you provide and returns the smart-contract address for the `dice` smart contract.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | -------------------------------------------------------------------------------------- |
 | pubkey    | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -176,7 +176,7 @@ The `diceaddress` method takes either your pubkey or a pubkey that you provide a
 | myCCaddress    | (string) | taking the dice contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                         |
 | myaddress      | (string) | the public address of the pubkey used to launch the chain                                                                      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 For the non-default pubkey.
 
@@ -208,7 +208,7 @@ The `dicebet` method places a bet on the indicated `dice` contract.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ----------- | -------- | ----------------------------------------------------------------------- |
@@ -217,14 +217,14 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | amount      | (number) | the amount the user dires to place as a bet                             |
 | odds        | (number) | specify the user's odds                                                 |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------------- |
 | "result"  | (string) | whether the dicebet command executed successfully                                                          |
 | "hex"     | (string) | the data of the user's transaction, in a raw hex-encoded format; broadcast this using `sendrawtransaction` |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Set your parameters to create a raw transaction and get the hex value
 
@@ -375,7 +375,7 @@ If the returned `hex` value is `0` the bet is finished.
 
 If the returned `hex` value is not `0`, the `hex` value should be broadcast with [sendrawtransaction.](../komodo-api/rawtransactions.html#sendrawtransaction) If the bet has not finished or is stuck, the `hex` will have a value.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ----------- | -------- | ----------------------------------------------------------------- |
@@ -383,14 +383,14 @@ If the returned `hex` value is not `0`, the `hex` value should be broadcast with
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
 | bettxid     | (string) | the txid of the bet for which finish status is requested          |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | result    | (string) | whether the command executed successfully                                                                                                                                                                                                  |
 | hex       | (string) | if the contract is already finished, the resulting hex is 0; if the contract is not finished, the value of hex will be a rawtransaction that the user can broadcast to let the blockchain automatically declare a winner and close the bet |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -425,7 +425,7 @@ Typically, the creator should set the `timeoutblocks` property to a longer perio
 
 The `maxodds` property must be between 1 and 9999.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------- | -------- | --------------------------------------------------------------------------------------------- |
@@ -436,14 +436,14 @@ The `maxodds` property must be between 1 and 9999.
 | maxodds       | (number) | the largest odds an end-user can use for betting                                              |
 | timeoutblocks | (number) | the number of blocks before the contract times out and pays the automatically declared winner |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | --------------------------------------------------------------------------------------------------------- |
 | result    | (string) | whether the command executed successfully                                                                 |
 | hex       | (string) | the data of the transaction in raw hex-encoded format; broadcast this using the sendrawtransaction method |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Create your customized Dice contract and get the hex value
 
@@ -645,13 +645,13 @@ A `fundingtxid` is the txid of the transaction that created and funded the relev
 
 Use the [dicelist](../customconsensus/dice.html#dicelist) method to discover a list of available `fundingtxid` hashes on the asset chain.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ----------- | -------- | ----------------------------------------------------------------- |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------------- | -------- | --------------------------------------------------------------------------------------------------- |
@@ -665,7 +665,7 @@ Use the [dicelist](../customconsensus/dice.html#dicelist) method to discover a l
 | "timeoutblocks" | (number) | the number of blocks before the contract allows an automatically declared winner and the bet closes |
 | "funding"       | (number) | the current amount of funds in the contract                                                         |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -699,19 +699,19 @@ The `dicelist` method displays the total list of `fundingtxid`'s of all `dice` c
 
 A `fundingtxid` is the txid of the transaction that created and funded the relevant contract.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ----------- | -------- | ------------------------------------------------------------------------- |
 | fundingtxid | (string) | the txid of the transaction that created and funded the relevant contract |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -735,7 +735,7 @@ Command:
 
 The `dicestatus` method prints the status of a `dicebet` and returns whether the `bettxid` received a winning or losing result.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ----------- | -------- | ----------------------------------------------------------------- |
@@ -743,14 +743,14 @@ The `dicestatus` method prints the status of a `dicebet` and returns whether the
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
 | bettxid     | (string) | the bettxid, the result of which is desired                       |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------- |
 | result    | (string) | whether the command executed successfully      |
 | status    | (string) | the result of the bet for the relevant bettxid |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 

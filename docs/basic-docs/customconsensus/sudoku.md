@@ -274,13 +274,13 @@ The generate method creates a new Sudoku puzzle.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-#### Arguments:
+#### Arguments
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | (none) | | |
 
-#### Response:
+#### Response
 
 Daemon `stdout`:
 
@@ -305,7 +305,7 @@ JSON output:
 | hex | (string) | a `hex` value representing the encoded data; this must be broadcast using `sendrawtransaction` |
 | txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -398,13 +398,13 @@ solve: 2501000840900503203040280100090000010206000071000030400000100000007000005
 
 The `txidinfo` method returns information about the indicated `puzzle_txid` puzzle.
 
-#### Arguments:
+#### Arguments
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | puzzle_txid | (string) | the unique transaction id of the requested puzzle, as returned from the broadcast hex of the [gen](../customconsensus/sudoku.html#gen) method  |
 
-#### Response:
+#### Response
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
@@ -418,7 +418,7 @@ The `txidinfo` method returns information about the indicated `puzzle_txid` puzz
 | name | (string) | name of the module |
 | method | (string) | name of the method |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -453,13 +453,13 @@ Command:
 
 The `pending` method returns a complete list of all unsolved puzzles on the asset chain.
 
-#### Arguments:
+#### Arguments
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | (none) | | |
 
-#### Response:
+#### Response
 
 | Name       | Type                    | Description                                                                                 |
 | ---------- | ----------------------- | ------------------------------------------------------------------------------------------- |
@@ -473,7 +473,7 @@ The `pending` method returns a complete list of all unsolved puzzles on the asse
 | numpending | (number)                | the total number of on-chain unsolved puzzles                                               |
 | total      | (number)                | the collective value of all outstanding bounties for unsolved puzzles                       |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -523,7 +523,7 @@ The `t0...` values represent the timestamp at which the solution was found for e
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-#### Arguments:
+#### Arguments
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
@@ -531,7 +531,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | solution | (numeric string) | the proposed solution, provided in a concatenated format |
 | tX... | (81 UNIX timestamps separated by comma) | there are `81` total `t...` arguments. `X` is the index of the indicated argument. The argument is a timestamp representing the time at which `X` number was input. Timestamp value should be 0 for numbers which were already known |
 
-#### Response:
+#### Response
 
 JSON output:
 
@@ -553,7 +553,7 @@ Daemon `stdout`:
 | solution | (number) | this contains three values: a number-based concatenated representation of the solved puzzle; a string representing the concatenated unsolved puzzle; the total score for solving this puzzle | 
 | statistics | (string) | information which helps this CC developer to detect was puzzle solved by robot or human | 
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 

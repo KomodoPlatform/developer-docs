@@ -894,14 +894,14 @@ The `newgame` method creates a new game.
 
 The `buyin` argument is required for multi-player games. The coins contributed via `buyin` become a winner-takes-all pot. Either the first player to claim the `amulet` and return from the dungeon, or the last player standing; may claim this prize using the [highlander](../customconsensus/rogue.html#highlander) method.
 
-#### Arguments:
+#### Arguments
 
 | Name       | Type                                     | Description                                                                         |
 | ---------- | ---------------------------------------- | ----------------------------------------------------------------------------------- |
 | maxplayers | (decimal number)                         | the max number of players; if set to `1`, the game begins in single-player mode     |
 | buyin      | (number, required if `maxplayers` > `1`) | the required amount to contribute per player; the winner receives all `buyin` coins |
 
-#### Response:
+#### Response
 
 | Name       | Type             | Description                                                                                                         |
 | ---------- | ---------------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -914,7 +914,7 @@ The `buyin` argument is required for multi-player games. The coins contributed v
 | txid       | (string)         | a transaction id that represents the `gametxid`                                                                     |
 | result     | (string)         | whether the command executed successfully                                                                           |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command for a single-player training game:
 
@@ -948,13 +948,13 @@ Command for a single-player training game:
 
 The `gameinfo` method returns relevant information about the indicated `gametxid` game.
 
-#### Arguments:
+#### Arguments
 
 | Name     | Type     | Description                                                                                              |
 | -------- | -------- | -------------------------------------------------------------------------------------------------------- |
 | gametxid | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method |
 
-#### Response:
+#### Response
 
 | Name       | Type               | Description                                                            |
 | ---------- | ------------------ | ---------------------------------------------------------------------- |
@@ -974,7 +974,7 @@ The `gameinfo` method returns relevant information about the indicated `gametxid
 | buyin      | (number)           | the amount of `ROGUE` coins required for a player to join              |
 | players    | (array of strings) | an array containing the identifying transaction ids of each player     |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1015,13 +1015,13 @@ Command:
 
 The `pending` method displays a list of unfinished games on the asset chain.
 
-#### Arguments:
+#### Arguments
 
 | Name   | Type | Description |
 | ------ | ---- | ----------- |
 | (none) |      |             |
 
-#### Response:
+#### Response
 
 | Name       | Type               | Description                                                                 |
 | ---------- | ------------------ | --------------------------------------------------------------------------- |
@@ -1031,7 +1031,7 @@ The `pending` method displays a list of unfinished games on the asset chain.
 | pending    | (array of strings) | an array of `gametxid`'s that represent unfinished games on the asset chain |
 | numpending | (decimal number)   | the total number of unfinished games on the asset chain                     |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1074,14 +1074,14 @@ The optional `playertxid` allows the user to reuse a character that survived a p
 
 For the `playertxid` argument to properly call an existing character, the user's daemon must be set to the `pubkey` that owns the `playertxid`. This can be accomplished either through the [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter or through the [setpubkey](..) method.
 
-#### Arguments:
+#### Arguments
 
 | Name       | Type               | Description                                                                   |
 | ---------- | ------------------ | ----------------------------------------------------------------------------- |
 | gametxid   | (string)           | the `gametxid` of the game the user desires to join                           |
 | playertxid | (string, optional) | the `playertxid` of an existing character the user owns and would like to use |
 
-#### Response:
+#### Response
 
 | Name       | Type               | Description                                                                           |
 | ---------- | ------------------ | ------------------------------------------------------------------------------------- |
@@ -1094,7 +1094,7 @@ For the `playertxid` argument to properly call an existing character, the user's
 | txid       | (string)           | a transaction id that indicates the `playertxid` for this character                   |
 | result     | (string)           | whether the command executed successfully                                             |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command (registration without player):
 
@@ -1132,14 +1132,14 @@ The player's keystrokes on the keyboard are recorded in ASCII format. [See this 
 
 After a game concludes the complete list of keystrokes can be found in the `~/komodo/src/keystrokes.log` file.
 
-#### Arguments:
+#### Arguments
 
 | Name       | Type     | Description                                                                                                      |
 | ---------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
 | gametxid   | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character |
 | keystrokes | (string) | the desired keystrokes, provided in ASCII format and contactenated into a single string                          |
 
-#### Response:
+#### Response
 
 | Name   | Type | Description |
 | ------ | ---- | ----------- |
@@ -1156,7 +1156,7 @@ After a game concludes the complete list of keystrokes can be found in the `~/ko
 | error | (string) | error messages are returned here |
 | id | (string) | the returned value here, `jl777`, is constant and can be ignored |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1217,13 +1217,13 @@ The conversion is facilitated using globally locked `ROGUE` coins. The funds in 
 
 The method returns a `hex` value. While most methods in the Komodo API require the user/developer to broadcast the `hex` value using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction), the Rogue CC module broadcasts automatically.
 
-#### Arguments:
+#### Arguments
 
 | Name     | Type     | Description                                                                                                      |
 | -------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
 | gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character |
 
-#### Response:
+#### Response
 
 | Name        | Type     | Description                                                                                                                                                                |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1235,7 +1235,7 @@ The method returns a `hex` value. While most methods in the Komodo API require t
 | txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to reuse the character from this game |
 | result      | (string) | whether the command executed successfully                                                                                                                                  |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1278,7 +1278,7 @@ The character that successfully executes the `highlander` method receives an inc
 
 The conversion is facilitated using globally locked `ROGUE` coins. The funds in this global vault automatically accrue through asset-chain activity. In the event that there are not enough globally locked funds at the time the `highlander` method is executed, the player must wait until the funds are generated via automated methods. You can encourage this fund to grow more quickly by encouraging other players and people to transact using ROGUE, as transactions feed the fund.
 
-#### Rewards in Single-Player Mode:
+#### Rewards in Single-Player Mode
 
 ```
 ROGUE_satoshis = gold * gold * dungeon_level_on_exit * 10
@@ -1290,13 +1290,13 @@ ROGUE_satoshis = gold * gold * dungeon_level_on_exit * 10
 ROGUE_satoshis = gold * gold * dungeon_level_on_exit * 20
 ```
 
-#### Arguments:
+#### Arguments
 
 | Name     | Type     | Description                                                                                                      |
 | -------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
 | gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character |
 
-#### Response:
+#### Response
 
 | Name        | Type     | Description                                                                                                                                                                |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1306,7 +1306,7 @@ ROGUE_satoshis = gold * gold * dungeon_level_on_exit * 20
 | gametxid    | (string) | the unique `gametxid` transaction id that identifies this game                                                                                                             |
 | txid        | (string) | a `playertxid` transaction id that identifies this unique character; this txid can be used in the future with the `register` method to reuse the character from this game |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1353,13 +1353,13 @@ The following is one solution:
   - Likewise, if the character is no longer alive, it can be ignored.
 - Each `token` that has a valid response, no `batontxid`, and represents a living character can be considered the correct `tokentxid` for the discovered `playertxid`.
 
-#### Arguments:
+#### Arguments
 
 | Name     | Type     | Description                                                                                                      |
 | -------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
 | gametxid | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character |
 
-#### Response:
+#### Response
 
 | Name         | Type               | Description                                                                                             |
 | ------------ | ------------------ | ------------------------------------------------------------------------------------------------------- |
@@ -1380,7 +1380,7 @@ The following is one solution:
 | chain        | (string)           | the name of the asset chain on which this game is occurring                                             |
 | pname        | (string)           | the name of the user's currently active character                                                       |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1431,13 +1431,13 @@ Command:
 
 The `players` method displays a list of all `playertxid` transaction ids held in the user's current `pubkey`.
 
-#### Arguments:
+#### Arguments
 
 | Name   | Type | Description |
 | ------ | ---- | ----------- |
 | (none) |      |             |
 
-#### Response:
+#### Response
 
 | Name          | Type               | Description                                                                     |
 | ------------- | ------------------ | ------------------------------------------------------------------------------- |
@@ -1446,7 +1446,7 @@ The `players` method displays a list of all `playertxid` transaction ids held in
 | playerdata    | (array of strings) | an array containing all `playertxid` transaction ids in the user's local wallet |
 | numplayerdata | (decimal number)   | the number of `playertxid` transaction ids in the `playerdata` array            |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1480,13 +1480,13 @@ Command:
 
 The `games` method displays a list of the user's unfinished and finished games.
 
-#### Arguments:
+#### Arguments
 
 | Name   | Type | Description |
 | ------ | ---- | ----------- |
 | (none) |      |             |
 
-#### Response:
+#### Response
 
 | Name      | Type               | Description                                                                                   |
 | --------- | ------------------ | --------------------------------------------------------------------------------------------- |
@@ -1496,7 +1496,7 @@ The `games` method displays a list of the user's unfinished and finished games.
 | games     | (array of strings) | an array of `gametxid` transaction ids of unfinished games, from the user's local wallet file |
 | numgames  | (decimal number)   | the total number of games, from the user's local wallet file                                  |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1547,13 +1547,13 @@ The `setname` method sets the name of a character.
 
 A character may receive a `name` at any point, but the character's name may be set only once. It is not possible to rename a character.
 
-#### Arguments:
+#### Arguments
 
 | Name               | Type     | Description                                                |
 | ------------------ | -------- | ---------------------------------------------------------- |
 | pname | (string) | the desired name for the user's currently active character |
 
-#### Response:
+#### Response
 
 | Name               | Type     | Description                                                |
 | ------------------ | -------- | ---------------------------------------------------------- |
@@ -1562,7 +1562,7 @@ A character may receive a `name` at any point, but the character's name may be s
 | result             | (string) | whether the command executed successfully                  |
 | pname | (string) | the desired name for the user's currently active character |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1592,14 +1592,14 @@ Command:
 
 The `extract` method allows the user extract the complete history of a game. This allows the user to view a replay of the game.
 
-#### Arguments:
+#### Arguments
 
 | Name     | Type     | Description                                                                                              |
 | -------- | -------- | -------------------------------------------------------------------------------------------------------- |
 | gametxid | (string) | the transaction id that was returned after broadcasting the returned hex value from the `newgame` method |
 | pubkey   | (string) | the `pubkey` of the player for whom the user desires to extract all relevant game data                   |
 
-#### Response:
+#### Response
 
 | Name       | Type     | Description                                                                                              |
 | ---------- | -------- | -------------------------------------------------------------------------------------------------------- |
@@ -1615,7 +1615,7 @@ The `extract` method allows the user extract the complete history of a game. Thi
 | seed       | (decimal number)   | the blockchain-generated random seed. This provides the necessary randomization for players to generate the current game's level design. The `seed` value is revealed at the `start` block height.                                                                        |
 | replay     | (string) | the complete terminal command that must be executed to begin this game                                   |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
