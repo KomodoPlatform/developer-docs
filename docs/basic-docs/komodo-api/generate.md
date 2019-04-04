@@ -12,19 +12,19 @@ This function can only be used in the <b>regtest</b> mode (for testing purposes)
 
 The `generate` method instructs the coin daemon to immediately mine the indicated number of blocks.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | --------- | ---------------------------------------- |
 | numblocks | (numeric) | the desired number of blocks to generate |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ----------- | ------- | -------------------------- |
 | blockhashes | (array) | hashes of blocks generated |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -58,19 +58,19 @@ The default value is false.
 See also <b>gen</b>.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------ | ----------- |
 | (none)    | (none) |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------- | --------- | ----------------------------------------------------- |
 | true/false | (boolean) | indicates whether the server is set to generate coins |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -124,22 +124,22 @@ Generation is limited to [genproclimit](../installations/common-runtime-paramete
 See also the [getgenerate](../komodo-api/generate.html#getgenerate) method to query the current setting, and [genproclimit](../installations/common-runtime-parameters.html#genproclimit) for setting the default number of processors the daemon uses through the `.conf` file.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------ | ------------------- | ------------------------------------------------------------------------------- |
 | generate     | (boolean, required) | set to true to turn on generation; set to off to turn off generation            |
 | genproclimit | (numeric, optional) | set the processor limit for when generation is on; use value "-1" for unlimited |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ------ | ----------- |
 | (none)    | (none) |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-##### Activate mining with maximum available processors:
+##### Activate mining with maximum available processors
 
 Command:
 
@@ -158,7 +158,7 @@ Command:
 </collapse-text>
 
 
-##### Activate staking:
+##### Activate staking
 
 Command:
 
@@ -177,7 +177,7 @@ Command:
 </collapse-text>
 
 
-##### Activate mining with 4 threads:
+##### Activate mining with 4 threads
 
 Command:
 
@@ -196,7 +196,7 @@ Command:
 </collapse-text>
 
 
-##### Check the setting:
+##### Check the setting
 
 Command:
 
@@ -215,7 +215,7 @@ true
 </collapse-text>
 
 
-##### Turn off generation:
+##### Turn off generation
 
 Command:
 
@@ -234,7 +234,7 @@ Command:
 </collapse-text>
 
 
-##### Turning the setting on via json rpc:
+##### Turning the setting on via json rpc
 
 Command:
 

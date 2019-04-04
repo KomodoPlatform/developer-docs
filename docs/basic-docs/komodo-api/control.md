@@ -25,13 +25,13 @@ Examples:
 
 The `getinfo` method returns an object containing various state info.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ----------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
@@ -52,7 +52,7 @@ The `getinfo` method returns an object containing various state info.
 | "relayfee"        | (numeric)          | minimum relay fee for non-free transactions in COIN/kB                                                                                 |
 | "errors"          | (string)           | any error messages                                                                                                                     |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -162,7 +162,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `help` method lists all commands, or all information for a specified command.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | -------------------------------- |
@@ -176,7 +176,7 @@ The `help` method lists all commands, or all information for a specified command
 | --------- | ------------------ | -------------------------------- |
 | "command" | (string, optional) | the command requiring assistance |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -264,20 +264,20 @@ The amount of time it takes to shut down the chain will vary depending on the ch
 Forcefully stopping the chain should be avoided, as it may cause a corruption in the local database. In the event of a corrupted database, the user will need to <b>resync</b>.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ----------------------------- | ---- | ----------- |
 | Komodo server stopping        |      |
 | [COIN] Komodo server stopping |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 

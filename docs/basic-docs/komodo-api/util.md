@@ -8,7 +8,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 The `createmultisig` method creates a multi-signature address with `n` signature(s) of `m` key(s) required. The method returns a json object with the address and redeemScript.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------------- | ------------------- | ---------------------------------------------------------------------- |
@@ -16,14 +16,14 @@ The `createmultisig` method creates a multi-signature address with `n` signature
 | "keys"          | (string, required)  | a json array of keys which are addresses or hex-encoded public keys    |
 | "key"           | (string)            | an address or hex-encoded public key                                   |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | -------------- | -------- | ----------------------------------------------------- |
 | "address"      | (string) | the value of the new multisig address                 |
 | "redeemScript" | (string) | the string value of the hex-encoded redemption script |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -88,13 +88,13 @@ The OP RETURN data from a CC transaction can be found by following these steps:
 - This is the hex-string that is expected as the argument for the above method.
 - You can verify that the transaction was produced by a CC module by checking if one of the `vout` json's `scriptPubkey` json has the `type:cryptocondition` key pair
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------ | -------- | ---------------------------------------------------------------------------------------------------------------------- |
 | scriptPubKey | (string) | the hex-string format `scriptPubKey` of the `type` : `nulldata` in the `vout` of a transaction produced by a CC module |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------------------- | ------------------------------------------------------------- |
@@ -103,7 +103,7 @@ The OP RETURN data from a CC transaction can be found by following these steps:
 | eval_code | (hexadecimal number) | the `EVALCODE` of the method that produced the transaction    |
 | function  | (string)             | the `function id` of the method that produced the transaction |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -169,19 +169,19 @@ The `estimatefee` method estimates the approximate fee per kilobyte. The method 
 
 The value `-1.0` is returned if not enough transactions and blocks have been observed to make an estimate.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | --------- | ---------------------------------------------------------- |
 | nblocks   | (numeric) | the number of blocks within which the fee should be tested |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | --------- | ------------- |
 | n         | (numeric) | the estimated fee |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -208,19 +208,19 @@ The `estimatepriority` method estimates the approximate priority of a zero-fee t
 
 The value `-1.0` is returned if not enough transactions and blocks have been observed to make an estimate.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | --------- | --------------------------------------------------------------------------------- |
 | nblocks   | (numeric) | a statement indicating within how many blocks the transaction should be confirmed |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | --------- | ------------------ |
 | n         | (numeric) | the estimated priority |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -245,19 +245,19 @@ Command:
 
 The `invalidateblock` method permanently marks a block as invalid, as if it violated a consensus rule.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | ---------------------------------------- |
 | hash      | (string, required) | the hash of the block to mark as invalid |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -305,19 +305,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `reconsiderblock` method removes invalidity status of a block and its descendants, reconsidering them for activation. This can be used to undo the effects of the `invalidateblock` method.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | ----------------------------------- |
 | hash      | (string, required) | the hash of the block to reconsider |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -346,19 +346,19 @@ If the transaction is on a chain that has Komodo's dPoW security service, the me
 
 If the chain does not have dPoW, the method returned `true` if the confirmation number is greater than `60`.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | ------------------ |
 | "txid"    | (string, required) | the transaction id |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | --------- | ----------------------------------------- |
 | "result"  | (boolean) | whether the transaction is confirmed, for dPoW-based chains; for non-dPoW chains, the value indicates whether the transaction has `60` or more confirmations |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -385,13 +385,13 @@ Command:
 
 The `validateaddress` method returns information about the given address.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | ----------------------- |
 | "address" | (string, required) | the address to validate |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | -------------- | --------- | ----------------------------------------------------------------------------------------- |
@@ -404,7 +404,7 @@ The `validateaddress` method returns information about the given address.
 | "iscompressed" | (boolean) | whether the address is compressed                                                         |
 | "account"      | (string)  | DEPRECATED the account associated with the address; "" is the default account             |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -444,7 +444,7 @@ The `verifymessage` method verifies a signed message.
 See also <b>signmessage</b>.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ----------- | ------------------ | -------------------------------------------------------- |
@@ -452,13 +452,13 @@ See also <b>signmessage</b>.
 | "signature" | (string, required) | the signature provided by the signer in base 64 encoding |
 | "message"   | (string, required) | the message that was signed                              |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------- | --------- | ------------------------------------------- |
 | true/false | (boolean) | indicates whether the signature is verified |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Create the signature:
 
@@ -504,13 +504,13 @@ true
 
 The `z_validateaddress` method returns information about the given z address.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | ------------------------- |
 | "zaddr"   | (string, required) | the z address to validate |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ----------------- | --------- | ---------------------------------------------------------------------------------- |
@@ -520,7 +520,7 @@ The `z_validateaddress` method returns information about the given z address.
 | "payingkey"       | (string)  | the hex value of the paying key, a_pk                                              |
 | "transmissionkey" | (string)  | the hex value of the transmission key, pk_enc                                      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 

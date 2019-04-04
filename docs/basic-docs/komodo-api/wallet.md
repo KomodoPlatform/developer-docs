@@ -14,7 +14,7 @@ The keys function as signatures, allowing multiple parties or entities to manage
 DEPRECATED: If <b>account</b> is specified, the method assigns the multi-signature address to that account.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------ | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -23,13 +23,13 @@ DEPRECATED: If <b>account</b> is specified, the method assigns the multi-signatu
 | "address"    | (string)            | the address or hex-encoded public key                                                                                                                    |
 | "account"    | (string, optional)  | DEPRECATED: if provided, "account" MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ----------------------------------- |
 | "address" | (string) | an address associated with the keys |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Add a multisig address from 2 addresses:
 
@@ -83,19 +83,19 @@ The `backupwallet` method safely copies the `wallet.dat` file to the indicated d
 This method requires that the coin daemon have the <b>exportdir</b> runtime parameter enabled.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "destination" | (string, required) | the destination filename, saved in the directory set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ------------------------------------- |
 | "path"    | (string) | the full path of the destination file |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 ```bash
 ./komodo-cli backupwallet "mybackupdata"
@@ -136,19 +136,19 @@ The `dumpprivkey` method reveals the private key corresponding to the indicated 
 See also <b>importprivkey</b>.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | ------------------------------- |
 | "address" | (string, required) | the address for the private key |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | --------------- |
 | "data"    | (string) | the private key |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -202,19 +202,19 @@ Overwriting an existing file is not permitted. The `destination` parameter accep
 This method requires that the coin daemon have the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter enabled.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
 | "filename" | (string, required) | the filename, saved in the folder set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ------------------------------------- |
 | "path"    | (string) | the full path of the destination file |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -274,21 +274,21 @@ For more information, please see these instructions: [Encrypt Komodo's wallet.da
 
 This method is for first-time encryption only. After the first encryption, any calls that interact with private keys will require the passphrase via [walletpassphrase](../komodo-api/wallet.html#walletpassphrase) prior to calling the corresponding method. This includes methods that create a transaction, dump a private key for an address, sign a transaction, etc.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------- | -------- | ----------------------------------------------------------------------------------------------------- |
 | passphrase | (string) | the passphrase for wallet encryption; the passphrase must be at least 1 character, but should be many |
 
-### Response:
+### Response
 
 | Text Response                                                                                                                                |
 | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | wallet encrypted; Komodo server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup. |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-##### Encrypt your wallet:
+##### Encrypt your wallet
 
 Command:
 
@@ -326,7 +326,7 @@ Command:
 </collapse-text>
 
 
-##### Lock the wallet again by removing the passphrase:
+##### Lock the wallet again by removing the passphrase
 
 Command:
 
@@ -374,19 +374,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getaccount` method returns the account associated with the given address.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | ----------- |
 | "address" | (string, required) | the address |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------- | -------- | ------------------- |
 | "accountname" | (string) | the account address |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -434,19 +434,19 @@ DEPRECATED
 
 The `getaccountaddress` method returns the current address for receiving payments to this account.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | "account" | (string, required) | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ------------------- |
 | "address" | (string) | the account address |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -494,19 +494,19 @@ DEPRECATED
 
 The `getaddressesbyaccount` method returns the list of addresses for the given `account`.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | "account" | (string, required) | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | -------------------------------------------- |
 | "address" | (string) | an address associated with the given account |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -554,7 +554,7 @@ The `getbalance` method returns the server's total available balance.
 The <b>account</b> input is deprecated.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------------- | ------------------------------- | -------------------------------------------------------------------------------------- |
@@ -562,13 +562,13 @@ The <b>account</b> input is deprecated.
 | minconf          | (numeric, optional, default=1)  | only include transactions confirmed at least this many times                           |
 | includeWatchonly | (bool, optional, default=false) | also include balance in watchonly addresses (see `importaddress`)                      |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | --------- | ---------------- |
 | amount    | (numeric) | the total amount |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 The total amount in the wallet:
 
@@ -648,19 +648,19 @@ The `getbalance64` method is used only on asset chains that are utilizing the `a
 
 The `getnewaddress` method returns a new address for receiving payments.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | "account" | (string, optional) | DEPRECATED: If provided, the account MUST be set to the empty string `""` to represent the default account; passing any other string will result in an error |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | --------------- |
 | "address" | (string) | the new address |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -712,19 +712,19 @@ The `getrawchangeaddress` returns a new address that can be used to receive chan
 This is for use with raw transactions, NOT normal use.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ----------- |
 | "address" | (string) | the address |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -776,20 +776,20 @@ DEPRECATED
 
 The <b>getreceivedbyaccount</b> method returns the total amount received by <b>account</b> in transactions with at least <b>minconf</b> confirmations.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | "account" | (string, required)             | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 | minconf   | (numeric, optional, default=1) | only include transactions confirmed at least this many times                                                          |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | --------- | ------------------------------------------ |
 | amount    | (numeric) | the total amount received for this account |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -814,20 +814,20 @@ Command:
 
 The `getreceivedbyaddress` method returns the total amount received by the given `address` in transactions with at least `minconf` confirmations.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------------------ | ------------------------------------------------------------ |
 | "address" | (string, required)             | the address for transactions                                 |
 | minconf   | (numeric, optional, default=1) | only include transactions confirmed at least this many times |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | --------- | -------------------------------------------------------------- |
 | amount    | (numeric) | the total amount of the relevant coin received at this address |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -909,14 +909,14 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `gettransaction` method queries detailed information about transaction `txid`. This command applies only to `txid`'s that are in the user's local wallet.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | "txid"             | (string, required)              | the transaction id                                                                                                |
 | "includeWatchonly" | (bool, optional, default=false) | whether to include watchonly addresses in the returned balance calculation and in the `details[]` returned values |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ----------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -947,7 +947,7 @@ The `gettransaction` method queries detailed information about transaction `txid
 | "vpub_new"              | (numeric)               | the amount added to the transparent value pool                                                                                    |
 | "hex"                   | (string)                | transaction data translated into hex                                                                                                          |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1084,19 +1084,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getunconfirmedbalance` method returns the server's total unconfirmed balance.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1144,13 +1144,13 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getwalletinfo` method returns an object containing various information about the wallet state.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1164,7 +1164,7 @@ The `getwalletinfo` method returns an object containing various information abou
 | "unlocked_until"      | (numeric) | the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked |
 | "paytxfee"            | (numeric) | the transaction fee configuration, given as the relevant COIN per KB                                                               |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1234,7 +1234,7 @@ The `importaddress` method adds an address or script (in hex) that can be watche
 This call can take an increased amount of time to complete if rescan is true.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | --------------------------------- | ---------------------------------- |
@@ -1242,13 +1242,13 @@ This call can take an increased amount of time to complete if rescan is true.
 | "label"   | (string, optional, default="")    | an optional label                  |
 | rescan    | (boolean, optional, default=true) | rescan the wallet for transactions |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Import an address with rescan:
 
@@ -1323,7 +1323,7 @@ This call can take minutes to complete if <b>rescan</b> is true.
 See also <b>dumpprivkey</b>.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | --------------------------------- | -------------------------------------------------------------------------- |
@@ -1331,13 +1331,13 @@ See also <b>dumpprivkey</b>.
 | "label"   | (string, optional, default="")    | an optional label                                                          |
 | rescan    | (boolean, optional, default=true) | rescan the wallet for transactions                                         |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ------------------ |
 | addresses | (string) | the public address |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1402,19 +1402,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `importwallet` method imports transparent-address keys from a wallet-dump file (see [dumpwallet](../komodo-api/wallet.html#dumpwallet)).
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------- | ------------------ | --------------- |
 | "filename" | (string, required) | the wallet file |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1462,19 +1462,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `keypoolrefill` method refills the keypool.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | -------------------------------- | -------------------- |
 | newsize   | (numeric, optional, default=100) | the new keypool size |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1543,20 +1543,20 @@ DEPRECATED
 
 The <b>listaccounts</b> method returns an object that has account names as keys and account balances as values.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------------- | ------------------------------- | --------------------------------------------------------------- |
 | minconf          | (numeric, optional, default=1)  | only include transactions with at least this many confirmations |
 | includeWatchonly | (bool, optional, default=false) | include balances in watchonly addresses (see 'importaddress')   |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------------- | --------- | ----------------------------------------------------------------------------------------- |
 | "account_number" | (numeric) | the property name is the account name, and the value is the total balance for the account |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1600,13 +1600,13 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `listaddressgroupings` method lists groups of addresses which have had their common ownership made public by common use as inputs or as the resulting change in past transactions.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------- | ------------------ | ------------------------ |
@@ -1614,7 +1614,7 @@ The `listaddressgroupings` method lists groups of addresses which have had their
 | amount,    | (numeric)          | the amount               |
 | "account"  | (string, optional) | (DEPRECATED) the account |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1698,20 +1698,20 @@ The `listlockunspent` method returns a list of temporarily non-spendable outputs
 See the <b>lockunspent</b> call to lock and unlock transactions for spending.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | --------- | ------------------------- |
 | "txid"    | (string)  | the transaction id locked |
 | "vout"    | (numeric) | the vout value            |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1773,7 +1773,7 @@ DEPRECATED
 
 The `listreceivedbyaccount` method lists balances by account.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------------- | ---------------------------------- | ---------------------------------------------------------------- |
@@ -1781,7 +1781,7 @@ The `listreceivedbyaccount` method lists balances by account.
 | includeempty     | (boolean, optional, default=false) | whether to include accounts that haven't received any payments   |
 | includeWatchonly | (bool, optional, default=false)    | whether to include watchonly addresses (see 'importaddress')     |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -1791,7 +1791,7 @@ The `listreceivedbyaccount` method lists balances by account.
 | "confirmations"     | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
 | "rawconfirmations"  | (numeric) | the raw confirmations of the most recent transaction included (number of blocks on top of this transaction's block)               |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1877,7 +1877,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `listreceivedbyaddress` method lists balances by receiving address.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------------- | ---------------------------------- | ---------------------------------------------------------------- |
@@ -1885,7 +1885,7 @@ The `listreceivedbyaddress` method lists balances by receiving address.
 | includeempty     | (numeric, optional, default=false) | whether to include addresses that haven't received any payments  |
 | includeWatchonly | (bool, optional, default=false)    | whether to include watchonly addresses (see 'importaddress')     |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -1896,7 +1896,7 @@ The `listreceivedbyaddress` method lists balances by receiving address.
 | "confirmations"     | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
 | "rawconfirmations"  | (numeric) | the raw confirmations of the most recent transaction included (number of blocks on top of this transaction's block)               |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -2026,7 +2026,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `listsinceblock` method queries all transactions in blocks since block `blockhash`, or all transactions if `blockhash` is omitted.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | -------------------- | ------------------------------- | ---------------------------------------------------------------------- |
@@ -2034,7 +2034,7 @@ The `listsinceblock` method queries all transactions in blocks since block `bloc
 | target-confirmations | (numeric, optional)             | the confirmations required (must be 1 or more)                         |
 | includeWatchonly     | (bool, optional, default=false) | include transactions to watchonly addresses (see also 'importaddress') |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -2057,7 +2057,7 @@ The `listsinceblock` method queries all transactions in blocks since block `bloc
 | "to"               | (string)  | whether a 'to' comment is associated with the transaction                                                                                                                                                          |
 | "lastblock"        | (string)  | the hash of the last block                                                                                                                                                                                         |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -2191,7 +2191,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `listtransactions` method returns up to `count` most recent transactions skipping the first `from` transactions for `account`.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------------- | ------------------------------- | ----------------------------------------------------------------- |
@@ -2200,7 +2200,7 @@ The `listtransactions` method returns up to `count` most recent transactions ski
 | from             | (numeric, optional, default=0)  | the number of transactions to skip                                |
 | includeWatchonly | (bool, optional, default=false) | include transactions to watchonly addresses (see `importaddress`) |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -2221,7 +2221,7 @@ The `listtransactions` method returns up to `count` most recent transactions ski
 | "otheraccount"     | (string)  | for the `move` category of transactions; indicates the account which sent the funds (for receiving funds, positive amounts), or went to (for sending funds, negative amounts)                        |
 | "size"             | (numeric) | transaction size in bytes                                                                                                                                                                            |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -2356,7 +2356,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `listunspent` method returns an array of unspent transaction outputs, with a range between `minconf` and `maxconf` (inclusive) confirmations. The method can, optionally, filter to only include `txouts` paid to specified addresses.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------------------------ | ----------------------------------- |
@@ -2364,7 +2364,7 @@ The `listunspent` method returns an array of unspent transaction outputs, with a
 | maxconf   | (numeric, optional, default=9999999) | the maximum confirmations to filter |
 | "address" | (string)                             | a series of addresses               |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -2378,7 +2378,7 @@ The `listunspent` method returns an array of unspent transaction outputs, with a
 | "confirmations"    | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
 | "rawconfirmations" | (numeric) | the raw confirmations (number of blocks on top of this transaction's block)                                                       |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -2511,7 +2511,7 @@ The `lockunspent` method locks (unlock = `false`) or unlocks (unlock = `true`) s
 See the <b>listunspent</b> and <b>listlockunspent</b> calls to determine local transaction state and info.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------- | ------------------------------------------------------------------- |
@@ -2519,13 +2519,13 @@ See the <b>listunspent</b> and <b>listlockunspent</b> calls to determine local t
 | "txid"    | (string)            | the transaction id                                                  |
 | "vout"    | (numeric)           | the output number                                                   |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------- | --------- | ---------------------------------- |
 | true/false | (boolean) | whether the command was successful |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -2577,7 +2577,7 @@ DEPRECATED
 
 The `move` method moves a specified amount from one account in your wallet to another.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
@@ -2587,13 +2587,13 @@ The `move` method moves a specified amount from one account in your wallet to an
 | minconf       | (numeric, optional, default=1) | only use funds with at least this many confirmations                                                                  |
 | "comment"     | (string, optional)             | an optional comment, stored in the wallet only                                                                        |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------- | --------- | ------------------ |
 | true/false | (boolean) | true if successful |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -2654,19 +2654,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `resendwallettransactions` method immediately re-broadcasts unconfirmed wallet transactions to all peers. This method is intended only for testing; the wallet code periodically re-broadcasts automatically.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------------- | -------- | ---------------------------------------------- |
 | "transaction_id" | (string) | an array of the rebroadcasted transaction id's |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -2722,7 +2722,7 @@ DEPRECATED: Use <b>sendtoaddress</b> instead.
 
 The `sendfrom` method sends an amount from `account` to `address`.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -2733,13 +2733,13 @@ The `sendfrom` method sends an amount from `account` to `address`.
 | "comment"    | (string, optional)             | a comment used to store what the transaction is for; this is not part of the transaction, just kept in your wallet                                                               |
 | "comment-to" | (string, optional)             | an optional comment to store the name of the person or organization to which you're sending the transaction; this is not part of the transaction, it is only kept in your wallet |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------------- | -------- | ------------------ |
 | "transaction_id" | (string) | the transaction id |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -2800,7 +2800,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `sendmany` method can send multiple transactions at once. Amounts are double-precision floating point numbers.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ----------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -2811,13 +2811,13 @@ The `sendmany` method can send multiple transactions at once. Amounts are double
 | subtractfeefromamount               | (string, optional)             | a json array with addresses. The fee will be equally deducted from the amount of each selected address; the recipients will receive less than you enter in their corresponding amount field. If no addresses are specified here, the sender pays the fee. |
 | "address"                           | (string)                       | subtract fee from this address                                                                                                                                                                                                                            |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | "transaction_id" | (string) | the transaction id for the send; only 1 transaction is created regardless of the number of addresses |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -2899,7 +2899,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `sendtoaddress` method sends an amount to a given address. The amount is real and is rounded to the nearest 0.00000001.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -2909,13 +2909,13 @@ The `sendtoaddress` method sends an amount to a given address. The amount is rea
 | "comment-to"          | (string, optional)                 | a comment to store the name of the person or organization to which you're sending the transaction; this is stored in your local wallet file only |
 | subtractfeefromamount | (boolean, optional, default=false) | when `true`, the fee will be deducted from the amount being sent                                                                                 |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------------- | -------- | ------------------ |
 | "transaction_id" | (string) | the transaction id |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -3001,14 +3001,14 @@ DEPRECATED
 
 The `setaccount` method sets the account associated with the given address.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | "address" | (string, required) | the address to be associated with an account                                                                          |
 | "account" | (string, required) | MUST be set to the empty string "" to represent the default account; passing any other string will result in an error |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -3058,13 +3058,13 @@ Visit the section [pubkey](../installations/common-runtime-parameters.html#pubke
 This method works only once per daemon start. It can't be used to change the pubkey that has already been set.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | -------- | ------------------ |
 | pubkey    | (string) | the desired pubkey |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | --------- | ------------------------------------------------- |
@@ -3072,7 +3072,7 @@ This method works only once per daemon start. It can't be used to change the pub
 | ismine    | (boolean) | indicates whether the address belongs to the user |
 | R-address | (string)  | the public address associated with the pubkey     |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -3128,19 +3128,19 @@ curl --user myrpuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlt
 
 The `settxfee` method sets the transaction fee per kB.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------- | ---------------------------------------------------------------- |
 | amount    | (numeric, required) | the transaction fee in COIN/kB rounded to the nearest 0.00000001 |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------- | --------- | -------------------------- |
 | true/false | (boolean) | returns true if successful |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -3188,20 +3188,20 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `signmessage` method signs a message via the private key of an address.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | -------------------------------------- |
 | "address" | (string, required) | the address to use for the private key |
 | "message" | (string, required) | the message                            |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ----------- | -------- | ----------------------------------------------- |
 | "signature" | (string) | the signature of the message encoded in base 64 |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Create the signature:
 
@@ -3278,19 +3278,19 @@ This feature is available only on chains where `-ac_public` is enabled. Chains t
 
 The `walletlock` method re-locks a wallet that has a passphrase enabled via [encryptwallet](../komodo-api/wallet.html#encryptwallet).
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -3325,20 +3325,20 @@ The `walletpassphrase` method unlocks the wallet using the passphrase that was s
 
 The `timeout` argument can be included to limit the length of time (in seconds) the wallet will remain unlocked.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------ | ----------------------------- | ---------------------------------------------------------------------- |
 | "passphrase" | (string)                      | the passphrase that was set by the `encryptwallet` method              |
 | timeout      | (number in seconds, optional) | the amount of time for which the wallet should remember the passphrase |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -3371,20 +3371,20 @@ This feature is available only on chains where `-ac_public` is enabled. Chains t
 
 The `walletpassphrasechange` method changes `"oldpassphrase"` to `"newpassphrase"`.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------------- | -------- | ------------------ |
 | "oldpassphrase" | (string) | the old passphrase |
 | "newpassphrase" | (string) | the new passphrase |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -3413,19 +3413,19 @@ The `z_exportkey` method reveals the private z_key corresponding to `z_address`.
 See also <b>z_importkey</b>.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ----------- | ------------------ | --------------------------------- |
 | "z_address" | (string, required) | the z_address for the private key |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | --------------- |
 | "key"     | (string) | the private key |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -3477,19 +3477,19 @@ The `z_exportviewingkey` method reveals the viewing key corresponding to `z_addr
 See also <b>z_importviewingkey</b>.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ----------- | ------------------ | --------------------------------- |
 | "z_address" | (string, required) | the z_address for the viewing key |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | --------------- |
 | "vkey"    | (string) | the viewing key |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -3537,19 +3537,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `z_exportwallet` method exports all wallet keys, including both t address and z address types, in a human-readable format. Overwriting an existing file is not permitted.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "filename" | (string, required) | the filename, saved to the directory indicated by the [exportdir](../installations/common-runtime-parameters.html#exportdir) parameter at daemon runtime (required) |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | -------- | ------------------------------------- |
 | "path"    | (string) | the full path of the destination file |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -3602,20 +3602,20 @@ CAUTION: If <b>address</b> is a watch-only z address, the returned balance may b
 as spends cannot be detected with incoming viewing keys.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------------------ | ------------------------------------------------------------ |
 | "address" | (string)                       | the selected z or t address                                  |
 | minconf   | (numeric, optional, default=1) | only include transactions confirmed at least this many times |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | --------- | ---------------------------------------------------------------------- |
 | amount    | (numeric) | the total amount received at this address (in the relevant COIN value) |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 The total amount received by address "myaddress" at least 5 blocks confirmed
 
@@ -3682,19 +3682,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `z_getnewaddress` method returns a new z_address for receiving payments.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ----------- | -------- | ----------------- |
 | "z_address" | (string) | the new z_address |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -3746,13 +3746,13 @@ The `z_getoperationresult` method retrieves the result and status of an operatio
 See also <b>z_getoperationstatus</b>.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------- | ------------------ | ------------------------------------------------------------------------------------------------------- |
 | "operationid" | (string, optional) | a list of operation ids to query; if not provided, the method examines all operations known to the node |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------------ | ----------------------- | ---------------------------------------------------------- |
@@ -3771,7 +3771,7 @@ See also <b>z_getoperationstatus</b>.
 | "minconf"          | (numeric)               | the minimum number of confirmations required               |
 | "fee"              | (numeric)               | the transaction fee                                        |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -3863,13 +3863,13 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `z_getoperationstatus` message queries the operation status and any associated result or error data of any `operationid` stored in local memory. The operation will remain in memory (unlike `z_getoperationresult`, which removes the data from the local memory).
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | "operationid" | (array, optional) | a list of operation ids we are interested in; if an array is not provided, the method examines all operations known to the node |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------------ | ----------------------- | ----------------------------------------------------------------------------- |
@@ -3888,7 +3888,7 @@ The `z_getoperationstatus` message queries the operation status and any associat
 | "minconf"          | (numeric)               | indicates the required number of mining confirmations                         |
 | "fee"              | (numeric)               | the fee                                                                       |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -4023,14 +4023,14 @@ CAUTION: If the wallet contains watch-only z addresses the returned private bala
 While the <b>interest</b> property is returned for all KMD-based coin daemons, only the main KMD chain utilizes the interest feature. KMD-based asset chains will always return a <b>0.00</b> interest value.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------------- | ------------------------------- | ------------------------------------------------------------------------------------------ |
 | minconf          | (numeric, optional, default=1)  | only include private and transparent transactions confirmed at least this many times       |
 | includeWatchonly | (bool, optional, default=false) | also include balance in watchonly addresses (see 'importaddress' and 'z_importviewingkey') |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------- | --------- | ------------------------------------------------------- |
@@ -4039,7 +4039,7 @@ While the <b>interest</b> property is returned for all KMD-based coin daemons, o
 | "private"     | (numeric) | the total balance of private funds                      |
 | "total"       | (numeric) | the total balance of both transparent and private funds |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -4131,7 +4131,7 @@ The optional parameters are currently not functional with KMD-based blockchains.
 See also <b>z_exportkey</b>.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | -------------- | -------------------------------------------- | --------------------------------------------------------------------------- |
@@ -4139,13 +4139,13 @@ See also <b>z_exportkey</b>.
 | rescan         | (string, optional, default=`"whenkeyisnew"`) | rescan the wallet for transactions; can be `yes`                            | `no` | `whenkeyisnew` |
 | startHeight    | (numeric, optional, default=0)               | the block height at which to begin the rescan                               |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -4239,7 +4239,7 @@ This call can take minutes to complete if <b>rescan</b> is true.
 The optional parameters are currently not functional for KMD-based blockchains.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------- | ------------------------------------------ | ------------------------------------------------------------- |
@@ -4247,13 +4247,13 @@ The optional parameters are currently not functional for KMD-based blockchains.
 | rescan        | (string, optional, default="whenkeyisnew") | whether to rescan the wallet for transactions; can be `"yes"` | `"no"` | `"whenkeyisnew"` |
 | startHeight   | (numeric, optional, default=0)             | block height to start rescan                                  |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -4352,19 +4352,19 @@ The `z_importwallet` method imports t address and z address keys from a wallet e
 See also <b>z_exportwallet</b>.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------- | ------------------ | --------------- |
 | "filename" | (string, required) | the wallet file |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -4416,19 +4416,19 @@ The `z_listaddresses` method returns the list of z addresses belonging to the wa
 See also <b>z_importviewingkey</b>.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------------- | ------------------------------- | -------------------------------- |
 | includeWatchonly | (bool, optional, default=false) | also include watchonly addresses |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ----------- | -------- | ----------------------------------- |
 | "z_address" | (string) | a z address belonging to the wallet |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -4482,19 +4482,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `z_listoperationids` method returns the list of operation ids currently known to the wallet.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------ | ----------------------------------------------------- |
 | "status"  | (string, optional) | filter result by the operation's state e.g. "success" |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------- | -------- | --------------------------------------- |
 | "operationid" | (string) | an operation id belonging to the wallet |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -4567,14 +4567,14 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `z_listreceivedbyaddress` method returns a list of amounts received by a z address belonging to the node’s wallet.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | ------------------------------ | ------------------------------------------------------------ |
 | address   | (string)                       | the private address.                                         |
 | minconf   | (numeric, optional, default=1) | only include transactions confirmed at least this many times |
 
-### Result:
+### Result
 
 An array of json objects, each having the properties below.
 
@@ -4590,7 +4590,7 @@ An array of json objects, each having the properties below.
 | outindex           | (numeric, sapling)                           | the output index                                                                                                                  |
 | change             | (boolean)                                    | true if the address that received the note is also one of the sending addresses                                                   |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -4651,7 +4651,7 @@ Results are an array of Objects, each of which has:
 {txid, jsindex, jsoutindex, confirmations, address, amount, memo} (Sprout)
 {txid, outindex, confirmations, address, amount, memo} (Sapling)
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ---------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
@@ -4661,7 +4661,7 @@ Results are an array of Objects, each of which has:
 | addresses        | (array)                              | a json array of z addresses (both Sprout and Sapling) to act as a filter; duplicate addresses are not allowed        |
 | address          | (string)                             | a z address                                                                                                          |
 
-### Results:
+### Results
 
 An array of json objects, each having the properties below.
 
@@ -4679,7 +4679,7 @@ An array of json objects, each having the properties below.
 | memo               | (string)                                      | hexadecimal string representation of memo field                                                                                   |
 | change             | (boolean)                                     | true if the address that received the note is also one of the sending addresses                                                   |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -4785,7 +4785,7 @@ The following special strings are accepted inside the `fromaddresses` array:
 
 If a special string is given, any given addresses of that type will be ignored
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ----------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -4797,7 +4797,7 @@ If a special string is given, any given addresses of that type will be ignored
 | shielded_limit    | (numeric, optional, default=10)     | limit on the maximum number of hidden notes to merge; you may set this value to 0 to merge as many as will fit in the transaction                                                                        |
 | "memo"            | (string, optional)                  | encoded as hex; when `toaddress` is a z address, this value will be stored in the memo field of the new note                                                                                             |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | --------------------------- | --------- | ----------------------------------------------------------------------------------- |
@@ -4811,7 +4811,7 @@ If a special string is given, any given addresses of that type will be ignored
 | "mergingShieldedValue"      | (numeric) | the value of notes being merged                                                     |
 | "opid"                      | (string)  | an operationid to pass to `z_getoperationstatus` to get the result of the operation |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -4857,7 +4857,7 @@ The `z_sendmany` method sends one or more transactions at once, and allows for s
 
 The `amount` values are double-precision floating point numbers. Change from a t address flows to a new t address address, while change from z address returns to itself. When sending coinbase utxos to a z address, change is not allowed. The entire value of the utxo(s) must be consumed. Currently, the maximum number of z address outputs is 54 due to transaction-size limits.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------ |
@@ -4869,13 +4869,13 @@ The `amount` values are double-precision floating point numbers. Change from a t
 | minconf       | (numeric, optional, default=1)      | only use funds confirmed at least this many times                                                      |
 | fee           | (numeric, optional, default=0.0001) | the fee amount to attach to this transaction                                                           |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------- | -------- | --------------------------------------------------------------------------------- |
 | "operationid" | (string) | an operationid to pass to z_getoperationstatus to get the result of the operation |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -4959,7 +4959,7 @@ The `z_shieldcoinbase` method shields transparent coinbase funds by sending the 
 
 The RPC call `listlockunspent` can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the [mempooltxinputlimit](../installations/common-runtime-parameters.html#mempooltxinputlimit) option will determine the number of uxtos. Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------- |
@@ -4968,7 +4968,7 @@ The RPC call `listlockunspent` can be used to return a list of locked utxos. The
 | fee           | (numeric, optional, default=0.0001) | the fee amount to attach to this transaction                                                        |
 | limit         | (numeric, optional, default=50)     | limit on the maximum number of utxos to shield; set to `0` to use node option `mempooltxinputlimit` |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------------- | --------- | --------------------------------------------------------------------------------- |
@@ -4978,7 +4978,7 @@ The RPC call `listlockunspent` can be used to return a list of locked utxos. The
 | "shieldingValue" | (numeric) | the value of coinbase utxos being shielded                                        |
 | "opid"           | (string)  | an operationid to pass to z_getoperationstatus to get the result of the operation |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -5063,14 +5063,14 @@ The `zcbenchmark` method runs a benchmark of the selected `benchmarktype`. This 
 
 When finished, the method returns the running times of each sample.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------------- | ------------------ | ----------------------------- |
 | "benchmarktype" | (string, required) | the type of the benchmark     |
 | "samplecount"   | (numeric)          | the number of samples to take |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------- | --------- | ---------------------------------------------------- |

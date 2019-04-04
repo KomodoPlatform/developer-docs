@@ -12,7 +12,7 @@ EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always
 
 The `z_getpaymentdisclosure` method generates a payment disclosure for a given joinsplit output.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | -------------- | ------------------ | ----------- |
@@ -21,13 +21,13 @@ The `z_getpaymentdisclosure` method generates a payment disclosure for a given j
 | "output_index" | (string, required) ||
 | "message"      | (string, optional) ||
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ------------------- | -------- | ----------------------------------- |
 | "paymentdisclosure" | (string) | a hex data string, with a "zpd:" prefix |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -75,19 +75,19 @@ The `z_validatepaymentdisclosure` method validates a payment disclosure.
 EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always fails.
 :::
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | ------------------- | ------------------ | ----------------------------------- |
 | "paymentdisclosure" | (string, required) | hex data string, with "zpd:" prefix |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | -------------------- | ---- | ----------- |
 | (currently disabled) |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 

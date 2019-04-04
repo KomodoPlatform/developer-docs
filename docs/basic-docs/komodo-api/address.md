@@ -8,20 +8,20 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 The `getaddressbalance` method returns the confirmed balance for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
-### Arguments:
+### Arguments
 
 | Name | Type | Description | 
 | --------- | -------- | ----------- |
 | "address" | (string) | the address |
 
-### Response:
+### Response
 
 | Name | Type | Description | 
 | ---------- | -------- | ------------------------------------------------------------------ |
 | "balance"  | (number) | the current confirmed balance in satoshis                          |
 | "received" | (number) | the total confirmed number of satoshis received (including change) |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -96,7 +96,7 @@ The `getaddressdeltas` method returns all confirmed balance changes of an addres
 | "height"   | (number) | the block height                  |
 | "address"  | (string) | the address                       |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -258,7 +258,7 @@ The `getaddressmempool` method returns all mempool deltas for an address, or add
 | "prevtxid"  | (string) | the previous txid (if spending)                        |
 | "prevout"   | (string) | the previous transaction output index (if spending)    |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -338,7 +338,7 @@ The `getaddresstxids` method returns the txids for an address, or addresses. It 
 | ---------------- | -------- | ------------------ |
 | "transaction_id" | (string) | the transaction id |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -414,7 +414,7 @@ The `getaddressutxos` method returns all unspent outputs for an address. It requ
 | "script"      | (string) | the script hex encoded               |
 | "satoshis"    | (number) | the number of satoshis of the output |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -571,7 +571,7 @@ The method requires [addressindex](../installations/common-runtime-parameters.ht
 | "start_time"      | (number)         | the unix epoch time snapshot started                |
 | "end_time"        | (number)         | the unix epoch time snapshot finished               |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
