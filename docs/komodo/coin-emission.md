@@ -25,7 +25,7 @@ Out of the above mining rewards,
 
 ## Rewards
 
-[Rewards](../whitepaper/chapter8.html#rewards), more accurately called the "Active User Rewards", are a unique feature to Komodo, made possible by our consensus mechanism [Delayed Proof of Work (dPoW)](../whitepaper/chapter3.html). The important point to note is that, as KMD chain is secured by dPoW (thereby recycling BTC chain's hash power), there is no need to attract huge quantities of its own hash power for security. This the rationale behind having a `75%` notary mining even in the comparitively smaller amount of the mining induced inflation.
+[Rewards](../whitepaper/chapter8.html#rewards), more accurately called the "Active User Rewards", are a unique feature to Komodo, made possible by our consensus mechanism [Delayed Proof of Work (dPoW)](../whitepaper/chapter3.html). The important point to note is that, as KMD chain is secured by dPoW (thereby recycling BTC chain's hash power), there is no need to attract huge quantities of its own hash power for security. This is the rationale behind having a `75%` notary mining even in the comparitively smaller amount of the mining induced inflation.
 
 ### How [Rewards](../whitepaper/chapter8.html#rewards) work
 
