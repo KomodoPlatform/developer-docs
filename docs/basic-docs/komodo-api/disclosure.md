@@ -39,12 +39,11 @@ Command:
 <collapse-text hidden title="Response">
 
 
+```bash
+(currently disabled)
 ```
 
 </collapse-text>
-
-(currently disabled)
-```
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in your coin's .conf file.
 
@@ -54,16 +53,14 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_getpaymentdisclosure", "params": ["96f12882450429324d5f3b48630e3168220e49ab7b0f066e5c2935a6b88bb0f2", 0, 0, "refund"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-
 <collapse-text hidden title="Response">
 
 
+```bash
+(currently disabled)
 ```
 
 </collapse-text>
-
-(currently disabled)
-```
 
 ## z_validatepaymentdisclosure
 
@@ -99,12 +96,11 @@ Command:
 <collapse-text hidden title="Response">
 
 
+```bash
+(currently disabled)
 ```
 
 </collapse-text>
-
-(currently disabled)
-```
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
 
@@ -118,9 +114,9 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 <collapse-text hidden title="Response">
 
 
+```bash
+(currently disabled)
 ```
 
 </collapse-text>
 
-(currently disabled)
-```
