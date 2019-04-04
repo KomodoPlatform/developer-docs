@@ -9,6 +9,8 @@ with open("./out/"+'_redirects.js', 'w+') as f:
     newPrefix = "/basic-docs/customconsensus/"
     for filename in os.listdir('../docs/basic-docs/customconsensus/'):
         filename = filename.split(".")[0]+".html"
-        f.write('"'+oldPrefix+filename+'"'+":" +
+        array = filename.split("-")
+        nFilename = 'cc-'+filename
+        f.write('"'+oldPrefix+nFilename+'"'+":" +
                 '"'+newPrefix+filename+'"'+",\n")
     f.write(endString)
