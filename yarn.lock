@@ -680,6 +680,15 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
+"@shigma/stringify-object@^3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@shigma/stringify-object/-/stringify-object-3.3.0.tgz#c6611dcdf650024a9f6397580f821accd3021be3"
+  integrity sha512-tO5pn6RJp8m1ldYtqY3GEQA6+Nqp1cIZVrVx7iFVPx0YfhMqfplwrvyrQPP1cCwuyRoAyDr/BxVZYt+USm8LXQ==
+  dependencies:
+    get-own-enumerable-property-symbols "^3.0.0"
+    is-obj "^1.0.1"
+    is-regexp "^2.0.0"
+
 "@vue/babel-helper-vue-jsx-merge-props@^1.0.0-beta.3":
   version "1.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/@vue/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-1.0.0-beta.3.tgz#e4c2e7125b3e0d2a9d493e457850b2abb0fd3cad"
@@ -874,7 +883,7 @@
   resolved "https://registry.yarnpkg.com/@vuepress/plugin-search/-/plugin-search-1.0.0-alpha.46.tgz#6fa982d56663912897e77718fc80aa5cdf15883c"
   integrity sha512-tn83vmBfR6I2dnaIOrr0d2H4I9yzR2vu/H8RPq40Ofrw3PGH5rFYQwkqrHhzb5F7jKnJlRmlnl5cxkoB7mZ/Yw==
 
-"@vuepress/shared-utils@^1.0.0-alpha.46":
+"@vuepress/shared-utils@^1.0.0-alpha.44", "@vuepress/shared-utils@^1.0.0-alpha.46":
   version "1.0.0-alpha.46"
   resolved "https://registry.yarnpkg.com/@vuepress/shared-utils/-/shared-utils-1.0.0-alpha.46.tgz#19b67b47a93236ef197ac8ee76bfa265f99a9a95"
   integrity sha512-A5WqlcEjrcUJtbq59UnjojOgbLSj4fp1F4Gf0/9zsOkRLt8TgPlCeBtvpkOZI5+JpTb7XeL+gqkVYJLWEAfWBw==
@@ -3110,6 +3119,11 @@ get-caller-file@^1.0.1:
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
   integrity sha512-3t6rVToeoZfYSGd8YoLFR2DJkiQrIiUrGcjvFX2mDw3bn6k2OtwHN0TNCLbBO+w8qTvimhDkv+LSscbJY1vE6w==
 
+get-own-enumerable-property-symbols@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/get-own-enumerable-property-symbols/-/get-own-enumerable-property-symbols-3.0.0.tgz#b877b49a5c16aefac3655f2ed2ea5b684df8d203"
+  integrity sha512-CIJYJC4GGF06TakLg8z4GQKvDsx9EMspVxOYih7LerEL/WosUnFIww45CGfxfeKHqlg3twgUrYRT1O3WQqjGCg==
+
 get-stream@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-4.1.0.tgz#c1b255575f3dc21d59bfc79cd3d2b46b1c3a54b5"
@@ -3759,6 +3773,11 @@ is-number@^3.0.0:
   dependencies:
     kind-of "^3.0.2"
 
+is-obj@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/is-obj/-/is-obj-1.0.1.tgz#3e4729ac1f5fde025cd7d83a896dab9f4f67db0f"
+  integrity sha1-PkcprB9f3gJc19g6iW2rn09n2w8=
+
 is-path-cwd@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-path-cwd/-/is-path-cwd-1.0.0.tgz#d225ec23132e89edd38fda767472e62e65f1106d"
@@ -3796,6 +3815,11 @@ is-regex@^1.0.4:
   integrity sha1-VRdIm1RwkbCTDglWVM7SXul+lJE=
   dependencies:
     has "^1.0.1"
+
+is-regexp@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/is-regexp/-/is-regexp-2.0.0.tgz#d669511d64a620c7a8dffa9a1e00710f9275ace0"
+  integrity sha512-B5NGyyvXTmppdR/g7ei6cu5DXhvzBLNcajOXJ3OR1tmW39iiF7444beL1lQjL393j8vDOTWGnSV2r/5cKuNqkg==
 
 is-stream@^1.1.0:
   version "1.1.0"
@@ -6899,6 +6923,21 @@ vuepress-plugin-container@^2.0.0:
   integrity sha512-SMlWJl0uZYkqAxD2RUZmIrANZWKgiZdM64K7WmdyHyQPYI+NUj3ugi5D+zDn62BoO9NfQTiskEIa2u619SRweA==
   dependencies:
     markdown-it-container "^2.0.0"
+
+vuepress-plugin-dehydrate@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vuepress-plugin-dehydrate/-/vuepress-plugin-dehydrate-1.0.2.tgz#52ee904169fbb60542222e3cbc176e8464b5aa07"
+  integrity sha512-T04skAajarLfSAbvhyawQe8eDTrVVEHvBBDghBb3LZp8GRBKJZkbygM0GPVPM8QItJGnVKSNnCqwCkPZhdl/TQ==
+  dependencies:
+    "@vuepress/shared-utils" "^1.0.0-alpha.44"
+
+vuepress-plugin-redirect@1.2.0-alpha.0:
+  version "1.2.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/vuepress-plugin-redirect/-/vuepress-plugin-redirect-1.2.0-alpha.0.tgz#3a8571a5d0aa926a81755c5b8b65c7d6931d3def"
+  integrity sha512-pxQBgZ0tF819GyY/ZMlu4Iredj4QYhuBjXF8P4y4lBDgFIwMPXI4fG6Ew1yQhBksDY3LBPK6808Kumf3zUbdpw==
+  dependencies:
+    "@shigma/stringify-object" "^3.3.0"
+    vuepress-plugin-dehydrate "^1.0.0"
 
 vuepress@^1.0.0-alpha.46:
   version "1.0.0-alpha.46"
