@@ -49,9 +49,19 @@
 #         if currLine[0] != "\n":
 #             prevLineStartsWith = currLine[0]
 
-# import os
+#import os
 # for filename in os.listdir('../docs/basic-docs/customconsensus/'):
-#     array = filename.split('-')
-#     if array[0] == "cc":
-#         os.rename("../docs/basic-docs/customconsensus/"+filename,
-#                   "../docs/basic-docs/customconsensus/" + array[1])
+#    array = filename.split('-')
+#    if array[0] == "cc":
+#        os.rename("../docs/basic-docs/customconsensus/"+filename,
+#                  "../docs/basic-docs/customconsensus/" + array[1])
+
+import os
+
+for filename in os.listdir('../docs/basic-docs/customconsensus/'):
+    with open('../docs/basic-docs/customconsensus/'+filename, "r") as f, open("./out/"+filename, 'w+') as g:
+        for currLine in f:
+            if currLine.startswith("#"):
+                g.write(currLine.rstrip(":"))
+            else:
+                g.write(currLine)
