@@ -52,6 +52,7 @@
 import os
 for filename in os.listdir('../docs/basic-docs/customconsensus/'):
     nFilename = filename.split('-')[1]
+    os.rename(filename, nFilename)
     with open('../docs/basic-docs/customconsensus/'+filename, 'r') as f, open("./out/"+nFilename, 'w+') as g:
         for currLine in f:
             g.write(currLine)
