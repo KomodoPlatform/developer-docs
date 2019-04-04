@@ -2,7 +2,7 @@
 
 import os
 with open("./out/"+'_redirects.js', 'w+') as f:
-    startString = "const redirectAliases = {\n"
+    startString = "var redirectAliases = {\n"
     endString = "}\nmodule.exports = redirectAliases;\n"
     f.write(startString)
     oldPrefix = "/basic-docs/cryptoconditions/"
