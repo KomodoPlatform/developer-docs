@@ -169,7 +169,7 @@ The `help` method lists all commands, or all information for a specified command
 | "command" | (string, optional) | the command requiring assistance |
 
 
-<collapse-text hidden title="Response">
+### Response
 
 
 | Structure | Type               | Description                      |
@@ -183,10 +183,6 @@ Command:
 ```bash
 ./komodo-cli help
 ```
-
-</collapse-text>
-
-
 
 <collapse-text hidden title="Response">
 
