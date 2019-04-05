@@ -43,9 +43,9 @@ The `heirfund` method creates a new Heir CC funding plan.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-### Arguments:
+### Arguments
 
-| Structure      | Type               | Description                                                                                                                                      |
+| Name | Type | Description | 
 | -------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | txfee          | (number)           | the transaction fee in satoshis, defaults to 10000 satoshis when set to `0`                                                                      |
 | amount         | (number)           | the initial funding amount, in coins or tokens (this parameter is considered to be the amount of tokens if the (tokenid) parameter is present)   |
@@ -62,14 +62,14 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 :::
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 ##### Step 1: Create a raw transaction (in coins) and get the HEX value
 
@@ -240,22 +240,22 @@ For each transaction using `heiradd`, the funds may be sent either from the owne
 Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure   | Type     | Description                                                                                                                                                                                  |
+| Name | Type | Description | 
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
 | amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
 | fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction                                                                              |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 ##### Step 1: Create a raw transaction (in coins) and get the HEX value
 
@@ -414,22 +414,22 @@ After the `inactivitytime` period has elapsed, the `heirclaim` method also allow
 Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure   | Type     | Description                                                                                                                                                                                  |
+| Name | Type | Description | 
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
 | amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
 | fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction                                                                              |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 ##### Step 1 Create a raw transaction (in coins) and get the HEX value
 
@@ -478,15 +478,15 @@ The `heirinfo` method returns detailed information about the funding plan.
 Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure   | Type     | Description                                                                                                     |
+| Name | Type | Description | 
 | ----------- | -------- | --------------------------------------------------------------------------------------------------------------- |
 | fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction |
 
-### Response:
+### Response
 
-| Structure             | Type      | Description                                                                                                                            |
+| Name | Type | Description | 
 | --------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | fundingtxid           | (string)  | the id of the funding plan, the txid of [heirfund](../customconsensus/heir.html#heirfund) transaction                              |
 | name                  | (string)  | the name of the heir plan                                                                                                              |
@@ -503,7 +503,7 @@ Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find 
 | memo                  | (string)  | a store for arbitrary data; for example, this can hold a digital copy of a physical will or other relevant documents                   |
 | result:               | (string)  | whether the command succeeded                                                                                                          |
 
-#### :pushpin: Example:
+#### :pushpin: Example
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD heirinfo b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
@@ -538,19 +538,19 @@ Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find 
 
 The `heirlist` method outputs a list of all available `fundingtxid`'s on the asset chain.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    | ---- | ----        |
 
-### Response:
+### Response
 
-| Structure   | Type               | Description                                                |
+| Name | Type | Description | 
 | ----------- | ------------------ | ---------------------------------------------------------- |
 | fundingtxid | (array of strings) | an array containing all `fundingtxid`'s on the asset chain |
 
-#### :pushpin: Example:
+#### :pushpin: Example
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD heirlist
@@ -582,15 +582,15 @@ The `heiraddress` method shows the owner's addresses and balances for the Heir C
 
 :::
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description                        |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------- |
 | pubkey    | (string) | the heir's pubkey (in hexademical) |
 
-### Response:
+### Response
 
-| Structure                 | Type     | Description                                                                                                                                                                                                                                                                                                                                                      |
+| Name | Type | Description | 
 | ------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result                    | (string) | whether the method executed successfully                                                                                                                                                                                                                                                                                                                         |
 | HeirCCaddress             | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                                                                                                                                                                                                             |
@@ -603,7 +603,7 @@ The `heiraddress` method shows the owner's addresses and balances for the Heir C
 | mybalance                 | (number) | the balance of myaddress in coins                                                                                                                                                                                                                                                                                                                                |
 | MyTokenAddress            | (string) | the user's address to withdraw funds in tokens from HeirCC`1of2`TokensAddress (in development)                                                                                                                                                                                                                                                                   |
 
-#### :pushpin: Example:
+#### :pushpin: Example
 
 Command:
 

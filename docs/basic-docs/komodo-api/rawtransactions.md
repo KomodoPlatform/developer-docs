@@ -12,9 +12,9 @@ The `createrawtransaction` method creates a transaction, spending the given inpu
 This is a raw transaction, and therefore the inputs are not signed and the transaction is not stored in the wallet nor transmitted to the network.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure      | Type                | Description                                                |
+| Name | Type | Description | 
 | -------------- | ------------------- | ---------------------------------------------------------- |
 | "transactions" | (string, required)  | a json array of json objects                               |
 | "txid"         | (string, required)  | the transaction id                                         |
@@ -22,13 +22,13 @@ This is a raw transaction, and therefore the inputs are not signed and the trans
 | "addresses"    | (string, required)  | a json object with addresses as keys and amounts as values |
 | "address"      | (numeric, required) | the key is the address, the value is the COIN amount       |
 
-### Response:
+### Response
 
-| Structure     | Type     | Description                     |
+| Name | Type | Description | 
 | ------------- | -------- | ------------------------------- |
 | "transaction" | (string) | a hex string of the transaction |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -76,15 +76,15 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `decoderawtransaction` method returns a json object representing the serialized, hex-encoded transaction.
 
-### Arguments:
+### Arguments
 
-| Structure | Type               | Description                |
+| Name | Type | Description | 
 | --------- | ------------------ | -------------------------- |
 | "hex"     | (string, required) | the transaction hex string |
 
-### Response:
+### Response
 
-| Structure               | Type                                           | Description                                                       |
+| Name | Type | Description | 
 | ----------------------- | ---------------------------------------------- | ----------------------------------------------------------------- |
 | "txid"                  | (string)                                       | the transaction id                                                |
 | "overwintered"          | (boolean)                                      | the overwintered flag                                             |
@@ -125,7 +125,7 @@ The `decoderawtransaction` method returns a json object representing the seriali
 | "ciphertexts" : [ ... ] | (array of strings)                             |
 | "hex"                   | (string)                                       | output note ciphertext                                            |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -235,15 +235,15 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `decodescript` method decodes a hex-encoded script.
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description            |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------- |
 | "hex"     | (string) | the hex encoded script |
 
-### Response:
+### Response
 
-| Structure            | Type               | Description             |
+| Name | Type | Description | 
 | -------------------- | ------------------ | ----------------------- |
 | "asm"                | (string)           | the script public key       |
 | "hex"                | (string)           | the hex-encoded public key  |
@@ -253,7 +253,7 @@ The `decodescript` method decodes a hex-encoded script.
 | "address"            | (string)           | the address             |
 | "p2sh"               | (string)           | the script address          |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -317,21 +317,21 @@ Inputs which were signed may need to be resigned after completion since in/outpu
 This method comes from the BTC codebase, of which KMD is ultimately a fork (via Zcash). For full details, please see <a href="https://bitcoin.org/en/developer-reference#fundrawtransaction">the linked documentation</a>.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure   | Type               | Description                           |
+| Name | Type | Description | 
 | ----------- | ------------------ | ------------------------------------- |
 | "hexstring" | (string, required) | the hex string of the raw transaction |
 
-### Response:
+### Response
 
-| Structure   | Type      | Description                                        |
+| Name | Type | Description | 
 | ----------- | --------- | -------------------------------------------------- |
 | "hex"       | (string)  | the resulting raw transaction (hex-encoded string) |
 | "fee"       | (numeric) | the fee added to the transaction                   |
 | "changepos" | (numeric) | the position of the added change output, or -1     |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Create a transaction with no inputs:
 
@@ -428,22 +428,22 @@ If `verbose=0`, the method returns a string that is serialized, hex-encoded data
 This method relies on the <b>txindex</b> runtime parameter, which is enabled by default on all KMD-based chains. Disabling <b>txindex</b> will cause this method to malfunction.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure | Type                           | Description                                                                   |
+| Name | Type | Description | 
 | --------- | ------------------------------ | ----------------------------------------------------------------------------- |
 | "txid"    | (string, required)             | the transaction id                                                            |
 | verbose   | (numeric, optional, default=0) | if 0, the method returns a string in hex; otherwise, it returns a json object |
 
-### Response (if `verbose` is not set, or set to `0`):
+### Response (if `verbose` is not set, or set to `0`)
 
-| Structure | Type     | Description                                 |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------- |
 | "data"    | (string) | the serialized, hex-encoded data for 'txid' |
 
-### Response (if `verbose` > `0`):
+### Response (if `verbose` > `0`)
 
-| Structure               | Type                                           | Description                                                                                                                     |
+| Name | Type | Description | 
 | ----------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | "hex"                   | (string)                                       | the serialized, hex-encoded data for 'txid'                                                                                     |
 | "txid"                  | (string)                                       | the transaction id (same as provided)                                                                                           |
@@ -489,7 +489,7 @@ This method relies on the <b>txindex</b> runtime parameter, which is enabled by 
 | "time"                  | (numeric)                                      | the transaction time in seconds since epoch (Jan 1 1970 GMT)                                                                    |
 | "blocktime"             | (numeric)                                      | the block time in seconds since epoch (Jan 1 1970 GMT)                                                                          |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -678,20 +678,20 @@ The `sendrawtransction` method submits raw transaction (serialized, hex-encoded)
 
 Also see [createrawtransaction](../komodo-api/rawtransactions.html#createrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction) calls.
 
-### Arguments:
+### Arguments
 
-| Structure     | Type                               | Description                           |
+| Name | Type | Description | 
 | ------------- | ---------------------------------- | ------------------------------------- |
 | "hexstring"   | (string, required)                 | the hex string of the raw transaction |
 | allowhighfees | (boolean, optional, default=false) | whether to allow high fees                       |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                 |
+| Name | Type | Description | 
 | --------- | -------- | --------------------------- |
 | "hex"     | (string) | the transaction hash in hex |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Create a transaction:
 
@@ -786,9 +786,9 @@ The `signrawtransaction` method signs inputs for a raw transaction (serialized, 
 For full details, please see <a href="https://bitcoin.org/en/developer-reference#signrawtransaction">the linked documentation</a>.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure      | Type                            | Description                                                         |
+| Name | Type | Description | 
 | -------------- | ------------------------------- | ------------------------------------------------------------------- |
 | "hexstring"    | (string, required)              | the transaction hex string                                          |
 | "prevtxs"      | (string, optional)              | a json array of previous dependent transaction outputs             |
@@ -801,9 +801,9 @@ For full details, please see <a href="https://bitcoin.org/en/developer-reference
 | "privatekey"   | (string)                        | the private key in base58-encoding                                      |
 | "sighashtype"  | (string, optional, default=ALL) | the signature hash type; the following options are available: "ALL" | "NONE" | "SINGLE" | "ALL | ANYONECANPAY" | "NONE | ANYONECANPAY" | "SINGLE | ANYONECANPAY" |
 
-### Response:
+### Response
 
-| Structure   | Type      | Description                                              |
+| Name | Type | Description | 
 | ----------- | --------- | -------------------------------------------------------- |
 | "hex"       | (string)  | the hex-encoded raw transaction with signature(s)        |
 | "complete"  | (boolean) | whether the transaction has a complete set of signatures |
@@ -814,7 +814,7 @@ For full details, please see <a href="https://bitcoin.org/en/developer-reference
 | "sequence"  | (numeric) | the script sequence number                                   |
 | "error"     | (string)  | verification or signing error related to the input       |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 

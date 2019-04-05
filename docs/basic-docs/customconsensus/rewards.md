@@ -25,22 +25,22 @@ The `rewardsaddfunding` method adds funds to a rewards plan.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-### Arguments:
+### Arguments
 
-| Structure   | Type     | Description                                                       |
+| Name | Type | Description | 
 | ----------- | -------- | ----------------------------------------------------------------- |
 | name        | (string) | the desired name of your rewards plan                             |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
 | amount      | (number) | the amount of funds to add to the contract                        |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Create a raw transaction and get the HEX value
 
@@ -154,15 +154,15 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 The `rewardsaddress` method returns info about the `rewards` plan associated with the given `pubkey`. If no `pubkey` is provided, the `pubkey` used to launch the daemon is used.
 
-### Arguments:
+### Arguments
 
-| Structure | Type               | Description                                                                            |
+| Name | Type | Description | 
 | --------- | ------------------ | -------------------------------------------------------------------------------------- |
 | pubkey    | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
 
-### Response:
+### Response
 
-| Structure        | Type     | Description                                                                                                          |
+| Name | Type | Description | 
 | ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
 | result           | (string) | whether the method executed successfully                                                                             |
 | RewardsCCaddress | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
@@ -173,7 +173,7 @@ The `rewardsaddress` method returns info about the `rewards` plan associated wit
 | myCCaddress      | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
 | myaddress        | (string) | the public address of the pubkey used to launch the chain                                                            |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -215,9 +215,9 @@ The `sendrawtransaction` method will then return a `txid`. This `txid` is the `f
 If you create a plan with <b>mindeposit: 10000</b>, make sure to also add 10000 of your coin and the transaction fees using the <b>rewardsaddfunding</b> call after creating the plan. The rewards contract won't allow locking of funds greater than the amount already locked in a single transaction as it needs to assure that it will have the required funds to pay.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure  | Type     | Description                                                 |
+| Name | Type | Description | 
 | ---------- | -------- | ----------------------------------------------------------- |
 | name       | (string) | the desired name of your rewards plan                       |
 | amount     | (number) | the amount of seed funds to withdraw from your wallet       |
@@ -226,14 +226,14 @@ If you create a plan with <b>mindeposit: 10000</b>, make sure to also add 10000 
 | maxdays    | (number) | the maximum number of days the funds will be locked         |
 | mindeposit | (number) | the minimum deposit amount for a user to participate        |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Create raw transaction HEX using your own parameter
 
@@ -362,15 +362,15 @@ The `rewardsinfo` method returns information about specific `rewards` plan.
 
 Use [rewardslist](../customconsensus/rewards.html#rewardslist) to see a list of all available `fundingtxid`'s.
 
-### Arguments:
+### Arguments
 
-| Structure   | Type     | Description                                        |
+| Name | Type | Description | 
 | ----------- | -------- | -------------------------------------------------- |
 | fundingtxid | (string) | the txid given on the creation of the rewards plan |
 
-### Response:
+### Response
 
-| Structure  | Type     | Description                                                                 |
+| Name | Type | Description | 
 | ---------- | -------- | --------------------------------------------------------------------------- |
 | name       | (string) | the name of the rewards plan                                                |
 | sbits      | (number) | a 64-bit int binary encoding of the first 8 characters of the name property |
@@ -380,7 +380,7 @@ Use [rewardslist](../customconsensus/rewards.html#rewardslist) to see a list of 
 | mindeposit | (number) | the minimum deposit amount                                                  |
 | funding    | (number) | the total available funds in the rewards plan                               |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -416,19 +416,19 @@ Command:
 
 The `rewardslist` method lists the `fundingtxid`'s of all the rewards contracts available on the asset chain.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure   | Type     | Description                                                               |
+| Name | Type | Description | 
 | ----------- | -------- | ------------------------------------------------------------------------- |
 | fundingtxid | (string) | the txid of the transaction that created and funded the relevant contract |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -462,22 +462,22 @@ The `sendrawtransaction` method will then return a `txid`, which is later used i
 
 If the final `txid` is lost, it is possible to find it again. See [rewardsunlock](../customconsensus/rewards.html#rewardsunlock) for more information.
 
-### Arguments:
+### Arguments
 
-| Structure   | Type     | Description                                                                 |
+| Name | Type | Description | 
 | ----------- | -------- | --------------------------------------------------------------------------- |
 | name        | (string) | the name of the rewards plan                                                |
 | fundingtxid | (string) | the txid that identifies the desired rewards plan                           |
 | amount      | (number) | the amount of funds to commit to the plan (must be over the plan's minimum) |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                                         |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                                       |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the `diceaddfunds` command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Create raw transaction
 
@@ -631,22 +631,22 @@ reward 0 is <= the transaction fee
 amount 200.00000000 -> reward 0.00000000
 ```
 
-### Arguments:
+### Arguments
 
-| Structure   | Type               | Description                                                                                                                                                        |
+| Name | Type | Description | 
 | ----------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | name        | (string)           | the name of the rewards plan                                                                                                                                       |
 | fundingtxid | (string)           | the txid that identifies the desired rewards plan                                                                                                                  |
 | txid        | (string, optional) | the txid that was returned as a result of the original rewardslock command; if `txid` is not provided, `rewardsunlock` unlocks all funds in the `fundingtxid` plan |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                                         |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                                       |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the `diceaddfunds` command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Create raw transaction
 
