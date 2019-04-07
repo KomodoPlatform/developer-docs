@@ -1,12 +1,12 @@
 # CC Lib
 
-The following methods interact with CryptoConditions modules that make use of the `-ac_cclib` parameter.
+The following methods interact with Custom Consensus modules that make use of the `-ac_cclib` parameter.
 
 ## cclib
 
 **cclib insert_method insert_evalcode \\"[%22json_string%22, json_integer, ... ]\\"**
 
-The `cclib` method allows the user to interact with the dynamic CryptoConditions module associated with `evalcode`.
+The `cclib` method allows the user to interact with the dynamic Custom Consensus module associated with `evalcode`.
 
 Each `evalcode` module has unique methods and json parameters associated, as well as unique responses.
 
@@ -40,7 +40,7 @@ Script format:
 The [cclibinfo](../komodo-api/cclib.html#cclibinfo) method returns a complete list of available methods and their parameters for each unique `evalcode`.
 :::
 
-### Arguments:
+### Arguments
 
 | Name        | Type             | Description                                                       |
 | ----------- | ---------------- | ----------------------------------------------------------------- |
@@ -48,13 +48,13 @@ The [cclibinfo](../komodo-api/cclib.html#cclibinfo) method returns a complete li
 | evalcode    | (decimal number) | the `EVALCODE` of the module of interest                          |
 | json_params | (array)          | the parameters to be supplied to the method, provided as an array |
 
-### Response:
+### Response
 
 | Name                        | Type | Description |
 | --------------------------- | ---- | ----------- |
 | (each `EVALCODE` is unique) |      |             |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -62,7 +62,9 @@ Command:
 ./komodo-cli -ac_name=MUSIG cclib combine 18 \"[%220225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a%22,%2202d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567%22]\"
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -72,27 +74,30 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## cclibaddress
 
 **cclibaddress evalcode pubkey**
 
-The `cclibaddress` method returns information about the addresses related to the specified `pubkey`, and according to the CryptoConditions module associated with the specified `evalcode`. If no `pubkey` is provided, the `pubkey` used to the launch the daemon is the default.
+The `cclibaddress` method returns information about the addresses related to the specified `pubkey`, and according to the Custom Consensus module associated with the specified `evalcode`. If no `pubkey` is provided, the `pubkey` used to the launch the daemon is the default.
 
-### Arguments:
+### Arguments
 
 | Name     | Type               | Description                                                 |
 | -------- | ------------------ | ----------------------------------------------------------- |
 | evalcode | (decimal number)   | the `EVALCODE` of the module of interest                    |
 | pubkey   | (string, optional) | the public key related to the requested address information |
 
-### Response:
+### Response
 
 | Name                   | Type     | Description                                                                                                                         |
 | ---------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | result                 | (string) | whether the command executed successfully                                                                                           |
-| CClibCCAddress         | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the CryptoConditions module's privkey |
+| CClibCCAddress         | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the Custom Consensus module's privkey |
 | CCbalance              | (number) | the amount of coins in the `CClibCCAddress`                                                                                         |
-| CClibNormalAddress     | (string) | the unmodified public address generated from the CryptoConditions module's privkey                                                  |
+| CClibNormalAddress     | (string) | the unmodified public address generated from the Custom Consensus module's privkey                                                  |
 | CClibCCTokensAddress   | (string) | this property is used for development purposes only and can otherwise be ignored                                                    |
 | myAddress              | (string) | the normal address generated from the `pubkey`                                                                                      |
 | myCCAddress(CClib)     | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the `pubkey`                          |
@@ -101,7 +106,7 @@ The `cclibaddress` method returns information about the addresses related to the
 | myCCbalance            | (number) | the amount of coins in `myCCaddress`                                                                                                |
 | mybalance              | (number) | the amount of coins in `myAddress`                                                                                                  |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -109,7 +114,9 @@ Command:
 ./komodo-cli -ac_name=MUSIG cclibaddress 18 0225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -128,6 +135,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## cclibinfo
 
 **cclibinfo**
@@ -136,28 +146,28 @@ The `cclibinfo` method displays all the methods of all the modules that are avai
 
 The library is loaded at runtime using the [-ac_cclib](../installations/asset-chain-parameters.html#ac-cclib) parameter.
 
-### Arguments:
+### Arguments
 
 | Name   | Type | Description |
 | ------ | ---- | ----------- |
 | (none) |      |             |
 
-### Response:
+### Response
 
 | Name            | Type                    | Description                                                                                                                                                                                       |
 | --------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result          | (string)                | whether the command executed successfully                                                                                                                                                         |
 | CClib           | (string)                | the name of the given CClibrary                                                                                                                                                                   |
 | methods         | (array of json objects) | an array containing json objects, each of which describe a method of a module                                                                                                                     |
-| evalcode        | (decimal number)        | the `EVALCODE` of the given CryptoConditions module                                                                                                                                               |
+| evalcode        | (decimal number)        | the `EVALCODE` of the given Custom Consensus module                                                                                                                                               |
 | funcid          | (character)             | this value is a mnemonic in the `OP_RETURN` for all generated transactions; if the provided method does not generate a transaction, this value is a single character that has no relevant meaning |
-| name            | (string)                | the name of the CryptoConditions module                                                                                                                                                           |
+| name            | (string)                | the name of the Custom Consensus module                                                                                                                                                           |
 | method          | (string)                | the name of the method                                                                                                                                                                            |
 | help            | (string)                | help for the method, including a description of the method's arguments                                                                                                                            |
 | params_required | (decimal number)        | the number of parameters that are required for the method to succeed                                                                                                                              |
 | params_max      | (decimal number)        | the maximum number of parameters the method can accept                                                                                                                                            |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -165,7 +175,9 @@ Command:
 ./komodo-cli -ac_name=MUSIG cclibinfo
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -202,3 +214,6 @@ Response:
 .....
 }
 ```
+
+</collapse-text>
+

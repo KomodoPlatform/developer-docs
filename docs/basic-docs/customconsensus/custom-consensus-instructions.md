@@ -1,4 +1,4 @@
-# CryptoConditions Instructions
+# Custom Consensus Instructions
 
 ## Understanding the Types of Addresses
 
@@ -6,13 +6,13 @@ The method of transferring contract-related assets is often slightly different t
 
 When making a transaction on an asset chain, you typically only deal with a sending address and a receiving address. To move coins, you might use methods such as `sendtoaddress` or `z_sendmany`.
 
-When using CryptoConditions, however, there are a few new types of addresses to keep in mind when working with transactions. It is not necessary to fully understand all of the address types, but basic knowledge about a few addresses will be necessary.
+When using Custom Consensus, however, there are a few new types of addresses to keep in mind when working with transactions. It is not necessary to fully understand all of the address types, but basic knowledge about a few addresses will be necessary.
 
 ## Creating and Launching With a Pubkey
 
-The first address you must understand is the pubkey. Any user using a CryptoConditions based contract must have a pubkey indicated in their daemon. This forms the basis for all addresses related to various contract modules.
+The first address you must understand is the pubkey. Any user using a Custom Consensus based contract must have a pubkey indicated in their daemon. This forms the basis for all addresses related to various contract modules.
 
-Typically, each contract module will take the pubkey, combine it with a unique and contract-specific number called the `EVAL code`, and create a new [Base58Check](https://en.bitcoin.it/wiki/Base58Check_encoding) encoded address from it. This `Base58Check` encoded address will be the address you use for interacting with the specific CryptoConditions-based contract.
+Typically, each contract module will take the pubkey, combine it with a unique and contract-specific number called the `EVAL code`, and create a new [Base58Check](https://en.bitcoin.it/wiki/Base58Check_encoding) encoded address from it. This `Base58Check` encoded address will be the address you use for interacting with the specific Custom Consensus-based contract.
 
 To get a pubkey, launch the chain with the normal launch parameters and execute the [getnewaddress](../komodo-api/wallet.html#getnewaddress) rpc call.
 
@@ -76,4 +76,4 @@ The `myaddress` property is the unmodified address that corresponds to your pubk
 
 The use-cases of the different addresses depends on the functionality in question, and the desired outcome.
 
-Also, each contract module has its own RPC calls for moving coins or tokens. For example, if you are dealing with the `tokens` contract, you may use the [tokentransfer](../cryptoconditions/cc-tokens.html#tokentransfer) method.
+Also, each contract module has its own RPC calls for moving coins or tokens. For example, if you are dealing with the `tokens` contract, you may use the [tokentransfer](../customconsensus/tokens.html#tokentransfer) method.

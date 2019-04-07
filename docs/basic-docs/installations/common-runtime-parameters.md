@@ -59,7 +59,7 @@ To see additional runtime parameters not included here, please visit [the releva
 
 We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
-`addressindex` is enabled by default on any asset chain that utilizes the Crypto Conditions (CC) smart-contract protocol.
+`addressindex` is enabled by default on any asset chain that utilizes the Custom Consensus (CC) smart-contract protocol.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
@@ -83,7 +83,7 @@ addressindex=1
 
 `txindex` instructs a KMD-based coin daemon to track every transaction made on the relevant blockchain.
 
-`txindex` is enabled by default on all KMD-based coin daemons, and is utilized in delayed Proof of Work (dPoW), JUMBLR, and the Crypto Conditions (CC) smart-contract protocol.
+`txindex` is enabled by default on all KMD-based coin daemons, and is utilized in delayed Proof of Work (dPoW), JUMBLR, and the Custom Consensus (CC) smart-contract protocol.
 
 ::: danger Warning!
 Disabling `txindex` will cause the default KMD-based daemon to malfunction.
@@ -135,7 +135,7 @@ timestampindex=1
 
 We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
-`spentindex` is enabled by default on any asset chain that utilizes the Crypto Conditions (CC) smart contract protocol.
+`spentindex` is enabled by default on any asset chain that utilizes the Custom Consensus (CC) smart contract protocol.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
@@ -539,7 +539,7 @@ komodod -stopat=1000000
 
 `pubkey` sets an address to use as a change address for all transactions. This value must be set to a 33 byte pubkey. All mined/staked coins will also be sent to this address. We recommend that the user ensure they own the corresponding `privkey` of their chosen `pubkey`, lest their funds be sent to a `pubkey` they do not own or control.
 
-The `pubkey` parameter is required for all Crypto Conditions (CC) smart-contract enabled chains. All smart-contract transactions will utilize the `pubkey` as an integral property.
+The `pubkey` parameter is required for all Custom Consensus (CC) smart-contract enabled chains. All smart-contract transactions will utilize the `pubkey` as an integral property.
 
 #### :pushpin: Examples:
 
