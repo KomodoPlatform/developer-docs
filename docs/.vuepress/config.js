@@ -114,8 +114,8 @@ module.exports = {
               "About Custom Consensus (CC)"
             ],
             [
-              "/basic-docs/cryptoconditions/activate-cc-assetchain.md",
-              "Activate CryptoConditions on an Existing Komodo Assetchain"
+              "/basic-docs/cryptoconditions/activate-custom-consensus-assetchain.md",
+              "Activate Custom Consensus modules on an Existing Komodo Assetchain"
             ],
             ["/basic-docs/customconsensus/channels.md", "Channels"],
             ["/basic-docs/customconsensus/dice.md", "Dice"],
