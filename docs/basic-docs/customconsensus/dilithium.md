@@ -40,7 +40,7 @@ make
 
 We will begin by going through the manual process of creating a handle, sending coins to this handle then sending coins from this handle. After going through the manual process, we will show some code examples of how this might be implemented into a UI. A TUI with Dilithium functionality can be found [here.](https://github.com/KMDLabs/pos64staker/tree/restart/)
 
-## Walkthrough
+### Walkthrough
 
 ### Step 1: Start the daemon with a `pubkey` and backup its `privkey`
 
