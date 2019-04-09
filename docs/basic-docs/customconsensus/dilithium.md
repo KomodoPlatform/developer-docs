@@ -1653,3 +1653,259 @@ b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a27813226a
 - If we take the first 32 bytes of this, or [:64], we get `b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a2`.
 - This is the `destpubtxid` that vout 0 was sent to in this transaction. If we use the `handle_get` function from the previous step, we find that this `destpubtxid` is for the handle `LABSLover`.
 - Looking at the vouts of the `qutxo` that belong to the handle and adding their balances will give the total balance
+
+## keypair
+
+**keypair hexseed**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=MUSIG cclib
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## register
+
+**keypair hexseed**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=MUSIG cclib
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## handleinfo
+
+**handleinfo hexseed**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=MUSIG cclib
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## sign
+
+**sign**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=MUSIG cclib
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## verify
+
+**verify**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=MUSIG cclib
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## send
+
+**send**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=MUSIG cclib
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## spend
+
+**spend**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=MUSIG cclib
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## Qsend
+
+**Qsend**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=MUSIG cclib
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
