@@ -8,20 +8,20 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 The `getaddressbalance` method returns the confirmed balance for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description |
+| Name | Type | Description | 
 | --------- | -------- | ----------- |
 | "address" | (string) | the address |
 
-### Response:
+### Response
 
-| Structure  | Type     | Description                                                        |
+| Name | Type | Description | 
 | ---------- | -------- | ------------------------------------------------------------------ |
 | "balance"  | (number) | the current confirmed balance in satoshis                          |
 | "received" | (number) | the total confirmed number of satoshis received (including change) |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -79,7 +79,7 @@ The `getaddressdeltas` method returns all confirmed balance changes of an addres
 
 ### Arguments
 
-| Structure   | Type      | Description                                                             |
+| Name | Type | Description | 
 | ----------- | --------- | ----------------------------------------------------------------------- |
 | "address"   | (string)  | the address                                                             |
 | "start"     | (number)  | the start block height                                                  |
@@ -88,7 +88,7 @@ The `getaddressdeltas` method returns all confirmed balance changes of an addres
 
 ### Response
 
-| Structure  | Type     | Description                       |
+| Name | Type | Description | 
 | ---------- | -------- | --------------------------------- |
 | "satoshis" | (number) | the difference in satoshis        |
 | "txid"     | (string) | the related transaction id        |
@@ -96,7 +96,7 @@ The `getaddressdeltas` method returns all confirmed balance changes of an addres
 | "height"   | (number) | the block height                  |
 | "address"  | (string) | the address                       |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -242,13 +242,13 @@ The `getaddressmempool` method returns all mempool deltas for an address, or add
 
 ### Arguments
 
-| Structure | Type     | Description |
+| Name | Type | Description | 
 | --------- | -------- | ----------- |
 | "address" | (string) | the address |
 
 ### Response
 
-| Structure   | Type     | Description                                            |
+| Name | Type | Description | 
 | ----------- | -------- | ------------------------------------------------------ |
 | "address"   | (string) | the address                                            |
 | "txid"      | (string) | the related txid                                       |
@@ -258,7 +258,7 @@ The `getaddressmempool` method returns all mempool deltas for an address, or add
 | "prevtxid"  | (string) | the previous txid (if spending)                        |
 | "prevout"   | (string) | the previous transaction output index (if spending)    |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -326,7 +326,7 @@ The `getaddresstxids` method returns the txids for an address, or addresses. It 
 
 ### Arguments
 
-| Structure | Type     | Description            |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------- |
 | "address" | (string) | the address            |
 | "start"   | (number) | the start block height |
@@ -334,11 +334,11 @@ The `getaddresstxids` method returns the txids for an address, or addresses. It 
 
 ### Response
 
-| Structure        | Type     | Description        |
+| Name | Type | Description | 
 | ---------------- | -------- | ------------------ |
 | "transaction_id" | (string) | the transaction id |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -398,14 +398,14 @@ The `getaddressutxos` method returns all unspent outputs for an address. It requ
 
 ### Arguments
 
-| Structure   | Type      | Description                     |
+| Name | Type | Description | 
 | ----------- | --------- | ------------------------------- |
 | "address"   | (string)  | the address                     |
 | "chainInfo" | (boolean) | include chain info with results |
 
 ### Response
 
-| Structure     | Type     | Description                          |
+| Name | Type | Description | 
 | ------------- | -------- | ------------------------------------ |
 | "address"     | (string) | the address                          |
 | "txid"        | (string) | the output txid                      |
@@ -414,7 +414,7 @@ The `getaddressutxos` method returns all unspent outputs for an address. It requ
 | "script"      | (string) | the script hex encoded               |
 | "satoshis"    | (number) | the number of satoshis of the output |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -551,13 +551,13 @@ The method requires [addressindex](../installations/common-runtime-parameters.ht
 
 ### Arguments
 
-| Structure | Type               | Description                                          |
+| Name | Type | Description | 
 | --------- | ------------------ | ---------------------------------------------------- |
 | "top"     | (number, optional) | Only return this many addresses, i.e. top N rich list |
 
 ### Response
 
-| Structure         | Type             | Description                                         |
+| Name | Type | Description | 
 | ----------------- | ---------------- | --------------------------------------------------- |
 | "addresses"       | (array of jsons) | the array containing the address and amount details |
 | "addr"            | (string)         | an address                                          |
@@ -571,7 +571,7 @@ The method requires [addressindex](../installations/common-runtime-parameters.ht
 | "start_time"      | (number)         | the unix epoch time snapshot started                |
 | "end_time"        | (number)         | the unix epoch time snapshot finished               |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 

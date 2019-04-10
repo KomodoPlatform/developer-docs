@@ -59,7 +59,7 @@ The HELLOWORLD satoshis should pair on a one-to-one basis with KMD satoshis.
 
 For our purposes, we will use `1000` coins of HELLOWORLD.
 
-#### Creating the tokens:
+#### Creating the tokens
 
 To create the tokens, execute the following command:
 
@@ -1183,15 +1183,15 @@ Command:
 
 The `gatewaysaddress` method returns information about the on-chain gateway.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |            |
 
-### Response:
+### Response
 
-| Structure           | Type     | Description                                                                                                          |
+| Name | Type | Description | 
 | ------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
 | "result"            | (string) | whether the command executed successfully                                                                            |
 | "GatewaysCCaddress" | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
@@ -1201,7 +1201,7 @@ The `gatewaysaddress` method returns information about the on-chain gateway.
 | "myCCaddress"       | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
 | "myaddress"         | (string) | the public address of the pubkey used to launch the chain                                                            |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1234,9 +1234,9 @@ Command:
 
 The `gatewaysbind` method binds the provided sources into a new gateway.
 
-### Arguments:
+### Arguments
 
-| Structure   | Type     | Description                                                                                                   |
+| Name | Type | Description | 
 | ----------- | -------- | ------------------------------------------------------------------------------------------------------------- |
 | tokenid     | (string) | the `tokenid` that the gateway will control as a proxy of foreign (off-chain) assets                          |
 | oracletxid  | (string) | the `oracletxid` under which the gateway should be created                                                    |
@@ -1250,14 +1250,14 @@ The `gatewaysbind` method binds the provided sources into a new gateway.
 | wiftype     | (number) | the prefix number of wif type of external chain                                                               |
 | taddr       | (number) | the 2nd byte of prefix number of pubkey type (optional, only for 2 byte prefix chains)                        |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step One:
 
@@ -1316,9 +1316,9 @@ The `gatewaysclaim` method allows the owner of the `deposittxid` to claim their 
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-### Arguments:
+### Arguments
 
-| Structure   | Type     | Description                                                                                      |
+| Name | Type | Description | 
 | ----------- | -------- | ------------------------------------------------------------------------------------------------ |
 | bindtxid    | (string) | the `bindtxid` of the gateway                                                                    |
 | coin        | (string) | the name of the proxy token                                                                      |
@@ -1326,14 +1326,14 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | destpub     | (string) | the `pubkey` address to which the proxy tokens should be sent                                    |
 | amount      | (number) | the amount to send to the `pubkey`                                                               |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step One:
 
@@ -1384,9 +1384,9 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 The `sendrawtransaction` method then returns a `txid` which serves as the **deposittxid**.
 
-### Arguments:
+### Arguments
 
-| Structure  | Type     | Description                                                                                                          |
+| Name | Type | Description | 
 | ---------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
 | bindtxid   | (string) | the bindtxid of the gateway                                                                                          |
 | height     | (number) | the block height of the `txid` wherein the funds were sent to the foreign-asset gateway pubkey                       |
@@ -1398,14 +1398,14 @@ The `sendrawtransaction` method then returns a `txid` which serves as the **depo
 | destpub    | (string) | the public key where the tokens should be received on the asset chain                                                |
 | amount     | (number) | the amount of the deposit                                                                                            |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1452,21 +1452,21 @@ Step Two: Broadcast using `sendrawtransction`
 
 The `gatewaysexternaladdress` method returns the address on the external chain for the gateways associated with the given `pubkey` and `bindtxid` values.
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description                                                       |
+| Name | Type | Description | 
 | --------- | -------- | ----------------------------------------------------------------- |
 | bindtxid  | (string) | the `bindtxid` for the associated gateway                         |
 | pubkey    | (string) | the `pubkey` needed to generate the address on the external chain |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                               |
+| Name | Type | Description | 
 | --------- | -------- | ----------------------------------------- |
 | result    | (string) | whether the command executed successfully |
 | address   | (string) | the address for the given pubkey          |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1496,21 +1496,21 @@ The `gatewaysdumpprivkey` method returns the private key for the given `address`
 
 The private key is returned in the wif format of the associated external chain.
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------- |
 | bindtxid  | (string) | the `bindtxid` for the associated gateway            |
 | address   | (string) | the `address` for which the private key is requested |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                               |
+| Name | Type | Description | 
 | --------- | -------- | ----------------------------------------- |
 | result    | (string) | whether the command executed successfully |
 | privkey   | (string) | the private key                           |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1538,15 +1538,15 @@ Command:
 
 The `gatewaysinfo` method returns information about the `bindtxid` gateway.
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description                               |
+| Name | Type | Description | 
 | --------- | -------- | ----------------------------------------- |
 | bindtxid  | (string) | the `bindtxid` for the associated gateway |
 
-### Response:
+### Response
 
-| Structure   | Type     | Description                                                                                                 |
+| Name | Type | Description | 
 | ----------- | -------- | ----------------------------------------------------------------------------------------------------------- |
 | result      | (string) | whether the command executed successfully                                                                   |
 | name        | (string) | the name of the command                                                                                     |
@@ -1562,7 +1562,7 @@ The `gatewaysinfo` method returns information about the `bindtxid` gateway.
 | remaining   | (number) | the amount of proxy tokens not currently issued                                                             |
 | issued      | (number) | the amount of proxy tokens currently issued                                                                 |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1601,19 +1601,19 @@ Command:
 
 The `gatewayslist` method displays a list of `bindtxids` for the available gateways.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                          |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------ |
 | bindtxid  | (string) | the bindtxid of an available gateway |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -1649,23 +1649,23 @@ gatewaysprocessed bindtxid coin
 
 The `gatewayswithdraw` method sends proxy tokens in the gateways `pubkey`. The gateway then sends the foreign assets to the indicated foreign `withdrawpub` pubkey.
 
-### Arguments:
+### Arguments
 
-| Structure   | Type     | Description                                                                                                                  |
+| Name | Type | Description | 
 | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | bindtxid    | (string) | the `bindtxid` of the gateway                                                                                                |
 | coin        | (string) | the name of the asset                                                                                                        |
 | withdrawpub | (string) | the `pubkey` to which the foreign assets should be sent                                                                      |
 | amount      | (number) | the number of proxy tokens to send to the gateway, which will then be exchanged for the relevant amount of the foreign asset |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 

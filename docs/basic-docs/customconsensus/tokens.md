@@ -14,15 +14,15 @@ For example, if you desire to create a one-of-a-kind token, use 1 satoshi in its
 
 The `tokenaddress` method returns information about a token address according to a specific `pubkey`. If no `pubkey` is provided, the `pubkey` used to the launch the daemon is the default.
 
-### Arguments:
+### Arguments
 
-| Structure | Type               | Description                       |
+| Name | Type | Description | 
 | --------- | ------------------ | --------------------------------- |
 | pubkey    | (string, optional) | the pubkey of the desired address |
 
-### Response:
+### Response
 
-| Structure       | Type     | Description                                                                                                                      |
+| Name | Type | Description | 
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | result          | (string) | whether the command executed successfully                                                                                        |
 | AssetsCCaddress | (string) | taking the token contract's EVAL code as a modifier, this is the public address that corresponds to the token contract's privkey |
@@ -31,7 +31,7 @@ The `tokenaddress` method returns information about a token address according to
 | myCCaddress     | (string) | taking the token contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                          |
 | myaddress       | (string) | the public address of the pubkey used to launch the chain                                                                        |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -65,22 +65,22 @@ The `tokenask` method posts a public ask order.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description                                                                    |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------------------------ |
 | numtokens | (number) | the number of tokens to request in the order                                   |
 | tokenid   | (string) | the txid that identifies the token                                             |
 | price     | (number) | the price to pay for each token (units are in coins of the parent asset chain) |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1:
 
@@ -125,23 +125,23 @@ Step 2: Use sendrawtransaction to broadcast the order
 
 The `tokenbalanced` method checks the token balance according to a provided `pubkey`. If no `pubkey` is provided, the `pubkey` used the launch the daemon is the default.
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description                                                                                                                |
+| Name | Type | Description | 
 | --------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
 | tokenid   | (string) | the txid that identifies the token                                                                                         |
 | pubkey    | (string) | the pubkey for which to examine the balance; if no pubkey is provided, the pubkey used to launch the daemon is the default |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                             |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------------------------------------------------- |
 | result    | (string) | whether the command executed succesfully                                                                |
 | CCaddress | (string) | taking the token contract's EVAL code as a modifier, this is the CC address from the pubkey of the user |
 | tokenid   | (string) | the txid that identifies the token                                                                      |
 | balance   | (number) | the balance of the address that corresponds to the pubkey                                               |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -199,22 +199,22 @@ The method returns a raw hex, which must be broadcast using [sendrawtransaction]
 
 The `sendrawtransaction` method then returns a `txid`, which is the identification method of the bid order, and should be saved for future use.
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description                                                                    |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------------------------ |
 | numtokens | (number) | the number of tokens to request in the order                                   |
 | tokenid   | (string) | the txid that identifies the token                                             |
 | price     | (number) | the price to pay for each token (units are in coins of the parent asset chain) |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -258,21 +258,21 @@ The `tokencancelask` method cancels a specific `ask`/`sell` order that you creat
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description                                       |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------- |
 | tokenid   | (string) | the txid that identifies the token                |
 | asktxid   | (string) | the txid that identifies the original ask request |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Issue the call and get your raw transaction HEX value
 
@@ -400,21 +400,21 @@ The `tokencancelbid` method cancels a specific `bid`/`buy` order that you create
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description                                       |
+| Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------- |
 | tokenid   | (string) | the txid that identifies the token                |
 | bidtxid   | (string) | the txid that identifies the original bid request |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Issue the call and get your raw transaction HEX value
 
@@ -550,22 +550,22 @@ The method returns a hex-encoded transaction which should then be broadcast usin
 Tokens that can be divided and transferred in fractional amounts can be created too. If you consider 10 tokens as a single unit, then this unit can be named anything and it will be divisible to a single decimal place. This can be handled on the application side as it is just a change in the way of interpreting the numbers.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure     | Type     | Description                                      |
+| Name | Type | Description | 
 | ------------- | -------- | ------------------------------------------------ |
 | name          | (string) | the proposed name of the token                   |
 | supply        | (number) | the intended supply of the token, given in coins |
 | "description" | (string) | the description of the token                     |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -693,22 +693,22 @@ The `tokenfillask` method fills an existing ask.
 
 It returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
 
-### Arguments:
+### Arguments
 
-| Structure  | Type     | Description                            |
+| Name | Type | Description | 
 | ---------- | -------- | -------------------------------------- |
 | tokenid    | (string) | the txid that identifies the token     |
 | asktxid    | (string) | the txid that identifies the ask order |
 | fillamount | (number) | the amount to fill                     |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Create the raw transaction
 
@@ -764,22 +764,22 @@ The `tokenfillbid` method fills an existing ask.
 
 It returns a hex-encoded transaction which should then be broadcast using `sendrawtransaction`.
 
-### Arguments:
+### Arguments
 
-| Structure  | Type     | Description                            |
+| Name | Type | Description | 
 | ---------- | -------- | -------------------------------------- |
 | tokenid    | (string) | the txid that identifies the token     |
 | bidtxid    | (string) | the txid that identifies the bid order |
 | fillamount | (number) | the amount to fill                     |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Create raw transaction
 
@@ -833,15 +833,15 @@ Step 3: Wait for the transaction to be confirmed
 
 The `tokeninfo` method reveals information about any token.
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description                        |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------- |
 | tokenid   | (string) | the txid that identifies the token |
 
-### Response:
+### Response
 
-| Structure   | Type     | Description                                                   |
+| Name | Type | Description | 
 | ----------- | -------- | ------------------------------------------------------------- |
 | result      | (string) | whether the command executed successfully                     |
 | tokenid     | (string) | the identifying txid for the token id                         |
@@ -850,7 +850,7 @@ The `tokeninfo` method reveals information about any token.
 | supply      | (number) | the total supply of the token                                 |
 | description | (string) | the token description provided by the owner at token creation |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -882,19 +882,19 @@ Command:
 
 The `tokenlist` method lists all available tokens on the asset chain.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure | Type               | Description                           |
+| Name | Type | Description | 
 | --------- | ------------------ | ------------------------------------- |
 | tokenid   | (array of strings) | the identifying txid for the token id |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -940,15 +940,15 @@ Information about the `funcid` property:
 
 - An uppercase `S` describes the ask fill.
 
-### Arguments:
+### Arguments
 
-| Structure | Type               | Description                           |
+| Name | Type | Description | 
 | --------- | ------------------ | ------------------------------------- |
 | tokenid   | (string, optional) | the identifying txid for the token id |
 
-### Response:
+### Response
 
-| Structure           | Type                       | Description                                                                    |
+| Name | Type | Description | 
 | ------------------- | -------------------------- | ------------------------------------------------------------------------------ |
 | funcid              | (string)                   | describes either a bid ask `b`, a bid fill `B`, an ask `s`, or an ask fill `S` |
 | txid                | (string)                   | the txid of the identifying order or fill                                      |
@@ -960,7 +960,7 @@ Information about the `funcid` property:
 | totalrequired       | (number, `b` and `s` only) | the total amount available in the original big/ask request/fill                |
 | price               | (number, `b` and `s` only) | the price per token, units are in the parent asset chain's coin                |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Show all available orders
 
@@ -1116,22 +1116,22 @@ The source `txid/vout` needs to be specified as it is critical to match outputs 
 A token may be burned by using `tokentransfer` to send to a burn address.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure  | Type               | Description                                |
+| Name | Type | Description | 
 | ---------- | ------------------ | ------------------------------------------ |
 | tokenid    | (string, optional) | the identifying txid for the token id      |
 | destpubkey | (string)           | the pubkey where the tokens should be sent |
 | amount     | (number)           | the number of tokens to send               |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Step 1: Create the rawtransaction
 

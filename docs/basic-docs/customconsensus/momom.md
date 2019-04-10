@@ -25,8 +25,8 @@ A complete walkthrough
 
 Description
 
-#### Arguments:
+#### Arguments
 
-#### Response:
+#### Response
 
-#### :pushpin: Examples:
+#### :pushpin: Examples

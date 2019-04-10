@@ -8,20 +8,20 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 The `addnode` method attempts to add or remove a node from the addnode list, or to make a single attempt to connect to a node.
 
-### Arguments:
+### Arguments
 
-| Structure | Type               | Description                                                                                                             |
+| Name | Type | Description | 
 | --------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 | "node"    | (string, required) | the node (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes)                                          |
 | "command" | (string, required) | 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once |
 
-### Response:
+### Response
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -65,19 +65,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `clearbanned` method clears all banned IPs.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -123,19 +123,19 @@ The `disconnectnode` method instructs the daemon to immediately disconnect from 
 
 Use `getpeerinfo` to determine the result.
 
-### Arguments:
+### Arguments
 
-| Structure | Type               | Description                                                                              |
+| Name | Type | Description | 
 | --------- | ------------------ | ---------------------------------------------------------------------------------------- |
 | "node"    | (string, required) | the node's address (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes) |
 
-### Response:
+### Response
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -185,16 +185,16 @@ If `dns` is set to `false`, only a list of added nodes is returned. Otherwise, c
 Nodes added via <b>onetry</b> are not listed here.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure | Type                | Description                                                                                               |
+| Name | Type | Description | 
 | --------- | ------------------- | --------------------------------------------------------------------------------------------------------- |
 | dns       | (boolean, required) | if false, only a list of added nodes will be provided; otherwise, connection information is also provided |
 | "node"    | (string, optional)  | if provided, the method returns information about this specific node; otherwise, all nodes are returned   |
 
-### Response:
+### Response
 
-| Structure             | Type             | Description                                                      |
+| Name | Type | Description | 
 | --------------------- | ---------------- | ---------------------------------------------------------------- |
 | "addednode"           | (string)         | the node ip address                                              |
 | "connected"           | (boolean)        | if connected                                                     |
@@ -202,7 +202,7 @@ Nodes added via <b>onetry</b> are not listed here.
 | "address"             | (string)         | the server host and port                                         |
 | "connected"           | (string)         | "connected" accepts two possible values: "inbound" or "outbound" |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -300,19 +300,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getconnectioncount` method returns the number of connections to other nodes.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure | Type      | Description          |
+| Name | Type | Description | 
 | --------- | --------- | -------------------- |
 | n         | (numeric) | the connection count |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -364,21 +364,21 @@ The `getdeprecationinfo` method returns an object containing current version and
 This method is applicable only to the KMD main net.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure           | Type      | Description                                                                                                                                      |
+| Name | Type | Description | 
 | ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | "version"           | (numeric) | the server version                                                                                                                               |
 | "subversion"        | (string)  | the server sub-version string (i.e. "/MagicBean:x.y.z[-v]/")                                                                                     |
 | "deprecationheight" | (numeric) | the block height at which this version will deprecate and shut down (unless [disabledeprecation](https://z.cash/blog/new-release-1-1-2/) is set) |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -434,21 +434,21 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getnettotals` method returns information about network traffic, including bytes in, bytes out, and current time.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure        | Type      | Description          |
+| Name | Type | Description | 
 | ---------------- | --------- | -------------------- |
 | "totalbytesrecv" | (numeric) | total bytes received |
 | "totalbytessent" | (numeric) | total bytes sent     |
 | "timemillis"     | (numeric) | total cpu time       |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -504,15 +504,15 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getnetworkinfo` method returns an object containing various state info regarding p2p networking.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure                 | Type             | Description                                                                          |
+| Name | Type | Description | 
 | ------------------------- | ---------------- | ------------------------------------------------------------------------------------ |
 | "version"                 | (numeric)        | the server version                                                                   |
 | "subversion"              | (string)         | the server subversion string (i.e. "/MagicBean:x.y.z[-v]/")                          |
@@ -532,7 +532,7 @@ The `getnetworkinfo` method returns an object containing various state info rega
 | "score"                   | (numeric)        | relative score                                                                       |
 | "warnings"                | (string)         | any network warnings (such as alert messages)                                        |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -646,15 +646,15 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getpeerinfo` method returns data about each connected network node as a json array of objects.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure           | Type      | Description                                                          |
+| Name | Type | Description | 
 | ------------------- | --------- | -------------------------------------------------------------------- |
 | "id"                | (numeric) | peer index                                                           |
 | "addr":,            | (string)  | the ip address and port of the peer ("host:port")                    |
@@ -678,7 +678,7 @@ The `getpeerinfo` method returns data about each connected network node as a jso
 | "inflight": [ ... ] | (array)   |
 | number              | (numeric) | the block height requested from this peer                            |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -772,20 +772,20 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `listbanned` method lists all banned IP addresses and subnets.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure      | Type      | Description                                           |
+| Name | Type | Description | 
 | -------------- | --------- | ----------------------------------------------------- |
 | "address"      | (string)  | the address/subnet that is banned                     |
 | "banned_until" | (numeric) | the timestamp, at which point the ban will be removed |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -851,19 +851,19 @@ The `ping` command is handled in queue with all other commands, so it measures p
 Use <b>getpeerinfo</b> to see <b>ping</b> results.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -911,18 +911,18 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `setban` method attempts to add or remove an IP address (and subnet, if indicated) from the banned list.
 
-### Arguments:
+### Arguments
 
-| Structure      | Type                  | Description                                                                                                                                                                                                            |
+| Name | Type | Description | 
 | -------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "ip(/netmask)" | (string, ip required) | the IP/subnet (see `getpeerinfo` for nodes ip) with an optional netmask (default is /32 = single ip)                                                                                                                   |
 | "command"      | (string, required)    | use "add" to add an IP/subnet to the list, or "remove" to remove an IP/subnet from the list                                                                                                                            |
 | bantime        | (numeric, optional)   | indicates how long (in seconds) the ip is banned (or until when, if [absolute] is set). 0 or empty means the ban is using the default time of 24h, which can also be overwritten using the -bantime runtime parameter. |
 | absolute       | (boolean, optional)   | if set to true, the bantime must be an absolute timestamp (in seconds) since epoch (Jan 1 1970 GMT)                                                                                                                    |
 
-### Response:
+### Response
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
@@ -930,7 +930,7 @@ The `setban` method attempts to add or remove an IP address (and subnet, if indi
 Use <b>listbanned</b> to view results.
 :::
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
