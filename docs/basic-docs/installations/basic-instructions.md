@@ -6,7 +6,7 @@ To install the Komodo daemon, `komodod`, and its necessary counterpart, `komodo-
 
 You may also build `komodod` and `komodo-cli` from source. This is not required, but it is considered the best practice. Building from source enables you to receive the latest patches and security upgrades the moment they are pushed to the `komodod` source.
 
-You will find [a walkthrough on building from source here](https://docs.komodoplatform.com/komodo/install-Komodo-manually.html).
+You will find [a walkthrough on building from source here](https://docs.komodoplatform.com/komodo/installation.html).
 
 ## Interacting with Komodo Chains
 
