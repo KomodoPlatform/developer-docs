@@ -232,15 +232,15 @@ Now you should be ready to head into smart contract territory.
 
 Smart contracts on Komodo are a bit different (and if you ask us, a bit better too, but we're admittedly biased).
 
-If you need to catch the general idea, read the section, [Smart Contract Overview](cc-overview.html).
+If you need to catch the general idea, read the section, [Smart Contract Overview](custom-consensus-overview.html).
 
 First, you must create an asset chain that has the [ac_cc runtime parameter properly enabled](../installations/asset-chain-parameters.html#ac-cc).
 
 With this activated, you can try a few existing templates:
 
-- [Create ERC20 tokens on your new asset chain](../customconsensus/cc-tokens.html)
-- Try using your [built-in on-chain DEX](../customconsensus/cc-gateways.html)
-- Use [the oracles smart-contract template](../customconsensus/cc-oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
+- [Create ERC20 tokens on your new asset chain](../customconsensus/tokens.html)
+- Try using your [built-in on-chain DEX](../customconsensus/gateways.html)
+- Use [the oracles smart-contract template](../customconsensus/oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
 
 ...and more!
 
