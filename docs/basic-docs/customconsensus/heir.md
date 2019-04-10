@@ -74,7 +74,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 ##### Step 1: Create a raw transaction (in coins) and get the HEX value
 
 ::: tip
-The following example demonstrates Heir CC usage when utilizing coins, instead of tokens. When instead using tokens, create the tokens first with the [tokencreate](../customconsensus/cc-tokens.html#tokencreate) method and pass the `tokenid` as the last parameter of [heirfund.](../customconsensus/heir.html#heirfund)
+The following example demonstrates Heir CC usage when utilizing coins, instead of tokens. When instead using tokens, create the tokens first with the [tokencreate](../customconsensus/tokens.html#tokencreate) method and pass the `tokenid` as the last parameter of [heirfund.](../customconsensus/heir.html#heirfund)
 :::
 
 ```bash
