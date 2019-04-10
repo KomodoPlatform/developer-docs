@@ -56,8 +56,8 @@ A CEX has several challenges to consider as a result of this danger. From a lega
 | Perspective | Pros  | Cons |
 | ----------- | ----- | ---- |
 | User | The IOU exchange process is high-speed, simple, and often has a pleasant interface | Compromising the user's individual account is achievable for a determined hacker, and there are effectively no methods to recover funds stolen from a CEX |
-| User | Because the CEX model has many users, a CEX is more likely to achieve high liquidity | The high user population motivates sophisicated attackers to compromise all funds held on the site |
-| User | A large CEX can handle the complexities of owning and maintaining cryptocurrencies | Once a user gives up control over their funds to the CEX, the user can only trust that they will receive the funds in return |
+| User | Because the CEX model has many users, a CEX is more likely to achieve high liquidity | The high user population motivates sophisicated attackers to compromise the entire site |
+| User | A large CEX can handle the complexities of holding and using cryptocurrencies | Once a user gives up control over their funds to the CEX, the user can only trust that the funds will be returned |
 | Exchange Owner | Without decentralization, business development is often faster | In holding thousands of user's personal funds, the exchange owners assume an enormous amount of liability |
 | Exchange Owner | The automated aspect of cryptocurrency allows for fast profits through small fees | The owner must be wary of thieves even among their own employees |
 
@@ -65,14 +65,14 @@ In light of these concerns, many reputable and established CEX's are turning to 
 
 ## A Decentralized Exchange Can Bring Greater Safety
 
-To understand why a CEX may wish to implement decentralized technologies within their environment, one must first understand how a typical decentralize exchange (DEX) works. There are many types of DEX's, each having a unique technical structure. Perhaps the most popular and earliest methods of conducting a DEX is a decentralized gateway.
+To understand why a CEX may wish to implement decentralized technologies, one must first understand how a typical decentralized exchange (DEX) works. There are many types of DEX's, each having a unique technical structure. Perhaps the most popular DEX format is a decentralized gateway.
 
 -- Graphic title: Types of Decentralized Exchanges --
 | Type | Summary | Examples |
 | ---- | ------- | -------- |
 | Decentralized Gateway | A decentralized network of gateway keepers hold user funds in escrow and issue IOUs for trading | InstantDEX, Bitshares, Binance DEX |
 | On-Chain Token Exchange | Tokens created on the parent blockchain are traded within the consensus rules; by adding gateway nodes, this can also extend to become a decentralized gateway | EtherDelta, 0x |
-| Non-Custodial Exchange | A centralized website arranges for a moderately secure, but non-decentralized trade between liqiduity providers and purchasers; no order book, limited control over user funds | ShapeShift, Changelly |
+| Non-Custodial Exchange | A centralized website arranges for a moderately secure, but non-decentralized trade between liqiduity providers and purchasers; there is no order book and the exchange's control over user funds is limited | ShapeShift, Changelly |
 
 A decentralized gateway can be thought of as a cryptocurrency holding station that is owned and controlled by several different parties. The gateway performs two functions: it holds the assets that users send to it, and it issues IOUs.
 
@@ -89,7 +89,7 @@ In many ways, this popular DEX model is an improvement over the CEX model, and t
 -- graphic title: The Decentralized Gateway --
 | Pros | Cons |
 | ---- | ---- |
-| Tokens can be issued for any asset, including both cryptocurrency and fiat | When decentralized, requires a wide network of trustworthy and technically proficient gateway nodes (business partners) |
+| Tokens can be issued for any asset, including both cryptocurrency and fiat | This method requires a wide network of trustworthy and technically proficient business partners |
 | Users maintain ownership over their IOUs at all times, limiting attackers' capabilities | All true assets are still in the ownership of a small group of people, albeit somewhat decentralized, and therefore susceptible to attacks, errors, and corruption |
 | IOUs are on-chain, and therefore buying and selling funds can be performed at high speeds | Maintenance and improvements to the DEX are highly technical, time consuming, and cost prohibitive |
 
