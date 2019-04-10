@@ -12,7 +12,7 @@ Should the owner fail to interact with the `1of2` CC address for a specified per
 
 The [heiradd](../customconsensus/heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
 
-The Heir CC module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../customconsensus/cc-tokens.html) CC module that represent on-chain assets, or even tokens that are formed via the [Gateways](../customconsensus/cc-gateways.html) module to represent off-chain assets or other cryptocurrencies.
+The Heir CC module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../customconsensus/tokens.html) CC module that represent on-chain assets, or even tokens that are formed via the [Gateways](../customconsensus/gateways.html) module to represent off-chain assets or other cryptocurrencies.
 
 #### Heir CC Module Flow
 

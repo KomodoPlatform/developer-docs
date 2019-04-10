@@ -284,10 +284,6 @@ while True:
 
 </collapse-text>
 
-::: tip
-An example script that can be used to produce data for an oracle of type `S` is available [here](https://docs.komodopatform.com/cc/contracts/oracles/scenarios/script-data-conversion.html)
-:::
-
 ::: tip Note
 
 - for submitting data of the types `s` and `d`, where the size is less than 256 bytes, the first byte denotes the length
