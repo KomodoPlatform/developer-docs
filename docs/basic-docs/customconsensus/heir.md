@@ -10,20 +10,20 @@ This first private key belongs to the owner of the `1of2` CC address. The owner 
 
 Should the owner fail to interact with the `1of2` CC address for a specified period of time (`inactivitytime`), the address automatically unlocks to the second key. This second key is owned by the heir. Once unlocked, both the creator and the heir may freely spend funds from the address.
 
-The [heiradd](../customconsensus/cc-heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
+The [heiradd](../customconsensus/heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
 
 The Heir CC module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../customconsensus/cc-tokens.html) CC module that represent on-chain assets, or even tokens that are formed via the [Gateways](../customconsensus/cc-gateways.html) module to represent off-chain assets or other cryptocurrencies.
 
 #### Heir CC Module Flow
 
-- Anyone can create a new Heir CC address using [heirfund](../customconsensus/cc-heir.html#heirfund)
-- The owner of this address can add more funds using [heiradd](../customconsensus/cc-heir.html#heiradd)
-- Any other user, including the heir, can add donations using [heiradd](../customconsensus/cc-heir.html#heiradd)
-- The owner can claim funds at any time using [heirclaim](../customconsensus/cc-heir.html#heirclaim)
-- Once `inactivitytime` period is reached, the heir can also claim funds using [heirclaim](../customconsensus/cc-heir.html#heirclaim)
-- To retrieve the details of a particular funding plan, use [heirinfo](../customconsensus/cc-heir.html#heirinfo)
-- To retrieve a list of all funding plans on the asset chain, use [heirlist](../customconsensus/cc-heir.html#heirlist)
-- To output Heir CC addresses, use [heiraddress](../customconsensus/cc-heir.html#heiraddress)
+- Anyone can create a new Heir CC address using [heirfund](../customconsensus/heir.html#heirfund)
+- The owner of this address can add more funds using [heiradd](../customconsensus/heir.html#heiradd)
+- Any other user, including the heir, can add donations using [heiradd](../customconsensus/heir.html#heiradd)
+- The owner can claim funds at any time using [heirclaim](../customconsensus/heir.html#heirclaim)
+- Once `inactivitytime` period is reached, the heir can also claim funds using [heirclaim](../customconsensus/heir.html#heirclaim)
+- To retrieve the details of a particular funding plan, use [heirinfo](../customconsensus/heir.html#heirinfo)
+- To retrieve a list of all funding plans on the asset chain, use [heirlist](../customconsensus/heir.html#heirlist)
+- To output Heir CC addresses, use [heiraddress](../customconsensus/heir.html#heiraddress)
 
 <!--The image below needs to be adjusted via @808 before it can be added to the live site:
 
@@ -43,9 +43,9 @@ The `heirfund` method creates a new Heir CC funding plan.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-### Arguments:
+### Arguments
 
-| Structure      | Type               | Description                                                                                                                                      |
+| Name | Type | Description | 
 | -------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | txfee          | (number)           | the transaction fee in satoshis, defaults to 10000 satoshis when set to `0`                                                                      |
 | amount         | (number)           | the initial funding amount, in coins or tokens (this parameter is considered to be the amount of tokens if the (tokenid) parameter is present)   |
@@ -62,26 +62,28 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 :::
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 ##### Step 1: Create a raw transaction (in coins) and get the HEX value
 
 ::: tip
-The following example demonstrates Heir CC usage when utilizing coins, instead of tokens. When instead using tokens, create the tokens first with the [tokencreate](../customconsensus/cc-tokens.html#tokencreate) method and pass the `tokenid` as the last parameter of [heirfund.](../customconsensus/cc-heir.html#heirfund)
+The following example demonstrates Heir CC usage when utilizing coins, instead of tokens. When instead using tokens, create the tokens first with the [tokencreate](../customconsensus/cc-tokens.html#tokencreate) method and pass the `tokenid` as the last parameter of [heirfund.](../customconsensus/heir.html#heirfund)
 :::
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD heirfund 0 5 MyDogHeir 037736c263991316c6a23397a982a1f8c18ae8642e944448162a93a824c31f9299 100 'http://billionaire.com/mywill md5=5385639869'
 ```
 
-Response from Step 1:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -90,17 +92,25 @@ Response from Step 1:
 }
 ```
 
+</collapse-text>
+
+
 ##### Step 2: Broadcast raw transaction
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f8902bbc0db728486b88284ac9fc4580a32869009f0ceabc659c5929d1ca5fac0a9a1010000006a47304402202e9e6a63905789547c35d3be0d0c6e022d954ba55efede20b81334e805a6e31902201a72890bfa4fff37ddf9c87c9cb567d70e89b35a82709ea14332481c860a91c10121036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562effffffffdbc39ae947682e4c3c835d9326fc32a6f7e64dde869a93c9b17a9c97f5b4aeb5010000006a473044022001b04d40674eb7f309dc17ccd822a6362ade310eb37024303a110731870ccb2702204fd975db4a21995487fac94f49da90901a0c3047ac1a22cf161cacff2a256ab80121036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562effffffff050065cd1d00000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc1027000000000000302ea22c8020286b36b233cc03c91652560f4ecf9404bcf10b61033916d67edf4a216c92cf758103120c008203000401cc00634a8a040000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eace0950b54020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000886a4c85ea4621036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e21037736c263991316c6a23397a982a1f8c18ae8642e944448162a93a824c31f92996400000000000000094d79446f67486569722c687474703a2f2f62696c6c696f6e616972652e636f6d2f6d7977696c6c206d64353d3533383536333938363900000000570000000000000000000000000000
 ```
 
-Response from Step 2:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
 ```
+
+</collapse-text>
+
 
 This transaction id is the funding transaction id of this Heir CC plan. Copy and save this to a safe location.
 
@@ -112,7 +122,9 @@ Wait until the transaction is confirmed.
 ./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 0400008085202f8902d47a3327514aedd15ba54f8a7a46cf47f54abc7af8ab816afae87c1b5db683420100000049483045022100a363ff9049cb6178bd0f328f4b99daf4e9ea4135a1a9cc95dc06423807d7fa2b0220402e51e3ca9db0377b3a4975aacc59b7249ee9154c95a0a3500c101ca6ccc68301fffffffffc9f94352e0215037cced1d2b888687afa841310e4451bb0f97dd3303704d8d90200000049483045022100deee8e926637e91cec15d695f6b2a178ef74a3f50c9a31dd2d64f045087e46f5022049e19c838249e1ae9945cac652b3bbb10c05071e3aaab0771f7d75815135a46901ffffffff040065cd1d00000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc1027000000000000302ea22c8020286b36b233cc03c91652560f4ecf9404bcf10b61033916d67edf4a216c92cf758103120c008203000401cce4a79216000000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000886a4c85ea4621036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e21037736c263991316c6a23397a982a1f8c18ae8642e944448162a93a824c31f92996400000000000000094d79446f67486569722c687474703a2f2f62696c6c696f6e616972652e636f6d2f6d7977696c6c206d64353d3533383536333938363900000000e60000000000000000000000000000
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -209,6 +221,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## heiradd
 
 **heiradd txfee amount fundingtxid**
@@ -222,25 +237,25 @@ When anyone other than the owner uses the `heiradd` method to add funds, these f
 For each transaction using `heiradd`, the funds may be sent either from the owner's pubkey, or from a non-owner's pubkey. Funds cannot be sent from both owner and non-owner pubkeys at the same time. This can cause confusion for the owner if the funds available in their wallet are held partially in the owner's declared pubkey for this Heir CC account, and partially in other pubkeys. Therefore, the owner should ensure that all funds they desire to add to the account are within their declared Heir CC pubkey before attempting to use `heiradd`.
 
 ::: tip
-Use the [<b>heirlist</b>](../customconsensus/cc-heir.html#heirlist) method to find a <b>fundingtxid</b>.
+Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure   | Type     | Description                                                                                                                                                                                  |
+| Name | Type | Description | 
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
 | amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
-| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/cc-heir.html#heirfund) transaction                                                                              |
+| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction                                                                              |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 ##### Step 1: Create a raw transaction (in coins) and get the HEX value
 
@@ -248,7 +263,9 @@ Use the [<b>heirlist</b>](../customconsensus/cc-heir.html#heirlist) method to fi
 ./komodo-cli -ac_name=HELLOWORLD heiradd 0 5 b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -257,17 +274,25 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ##### Step 2: Broadcast raw transaction
 
 ```bash
  ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f8902f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80200000049483045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a01fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80300000049483045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d01ffffffff050065cd1d00000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc1027000000000000232102f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8ace0303e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eace0144a8a040000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000620000000000000000000000000000
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 e7b8f58539e2554a51d8438e5e58b0a12896f076e2a2850a503f372e402521b
 ```
+
+</collapse-text>
+
 
 ##### Step 3: Decode raw transaction to ensure values are sane (optional)
 
@@ -275,7 +300,9 @@ e7b8f58539e2554a51d8438e5e58b0a12896f076e2a2850a503f372e402521b
 ./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 0400008085202f8902f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80200000049483045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a01fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80300000049483045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d01ffffffff050065cd1d00000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc1027000000000000232102f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8ace0303e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eace0144a8a040000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000620000000000000000000000000000
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -372,6 +399,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## heirclaim
 
 **heirclaim txfee amount fundingtxid**
@@ -381,25 +411,25 @@ The `heirclaim` method allows the owner to claim funds from the plan.
 After the `inactivitytime` period has elapsed, the `heirclaim` method also allows the heir to claim funds.
 
 ::: tip
-Use the [<b>heirlist</b>](../customconsensus/cc-heir.html#heirlist) method to find a <b>fundingtxid</b>.
+Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure   | Type     | Description                                                                                                                                                                                  |
+| Name | Type | Description | 
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
 | amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
-| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/cc-heir.html#heirfund) transaction                                                                              |
+| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction                                                                              |
 
-### Response:
+### Response
 
-| Structure | Type     | Description                                                                                          |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 ##### Step 1 Create a raw transaction (in coins) and get the HEX value
 
@@ -407,7 +437,9 @@ Use the [<b>heirlist</b>](../customconsensus/cc-heir.html#heirlist) method to fi
 ./komodo-cli -ac_name=HELLOWORLD heirclaim 0 7 b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -416,17 +448,25 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ##### Step 2: Broadcast raw transaction
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction  0400008085202f8903b32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e70200000049483045022100f3805c1424472626ee89e2f4c5ab4f7c310d37774604eb97860200d1dfb120d102202a0ffcc6e5c1f8893dde1ab3a67eafa554ac1af17dce14cf0580a55f5b9fdc6e01ffffffffb32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e700000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e81404827886fbbd2c8d3337dabfa69e69e5af03151a00fa1c7d3b6f33b68e36974f2228bf0aac209eaa55d16e8c2cdcb9c3993590e47c3e524a29a223db7042b7fa1a129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b800000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e8140bb6e5c5c6b1e3a97d99e5dd1cf8e30942069260f8a482f7004d7638b4f5a53dd4d592d4a1d099cc7c0d6b79fcaeec262606d38c56abd7d13cea0753e73a3985aa129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001ffffffff040027b929000000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac00a3e11100000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401ccd0093e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea43b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000680000000000000000000000000000
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 f0f7f536a261ee8e02fb592d81305b6052939a510e3e3435280b0bad454626c7
 ```
+
+</collapse-text>
+
 
 ## heirinfo
 
@@ -435,20 +475,20 @@ f0f7f536a261ee8e02fb592d81305b6052939a510e3e3435280b0bad454626c7
 The `heirinfo` method returns detailed information about the funding plan.
 
 ::: tip
-Use the [<b>heirlist</b>](../customconsensus/cc-heir.html#heirlist) method to find a <b>fundingtxid</b>.
+Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure   | Type     | Description                                                                                                     |
+| Name | Type | Description | 
 | ----------- | -------- | --------------------------------------------------------------------------------------------------------------- |
-| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/cc-heir.html#heirfund) transaction |
+| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction |
 
-### Response:
+### Response
 
-| Structure             | Type      | Description                                                                                                                            |
+| Name | Type | Description | 
 | --------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| fundingtxid           | (string)  | the id of the funding plan, the txid of [heirfund](../customconsensus/cc-heir.html#heirfund) transaction                              |
+| fundingtxid           | (string)  | the id of the funding plan, the txid of [heirfund](../customconsensus/heir.html#heirfund) transaction                              |
 | name                  | (string)  | the name of the heir plan                                                                                                              |
 | tokenid               | (string)  | `token id`, if applicable                                                                                                              |
 | owner                 | (string)  | the owner's public key                                                                                                                 |
@@ -463,13 +503,15 @@ Use the [<b>heirlist</b>](../customconsensus/cc-heir.html#heirlist) method to fi
 | memo                  | (string)  | a store for arbitrary data; for example, this can hold a digital copy of a physical will or other relevant documents                   |
 | result:               | (string)  | whether the command succeeded                                                                                                          |
 
-#### :pushpin: Example:
+#### :pushpin: Example
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD heirinfo b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -487,37 +529,45 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## heirlist
 
 **heirlist**
 
 The `heirlist` method outputs a list of all available `fundingtxid`'s on the asset chain.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    | ---- | ----        |
 
-### Response:
+### Response
 
-| Structure   | Type               | Description                                                |
+| Name | Type | Description | 
 | ----------- | ------------------ | ---------------------------------------------------------- |
 | fundingtxid | (array of strings) | an array containing all `fundingtxid`'s on the asset chain |
 
-#### :pushpin: Example:
+#### :pushpin: Example
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD heirlist
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 [
   "b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0"
 ]
 ```
+
+</collapse-text>
+
 
 ## heiraddress
 
@@ -532,15 +582,15 @@ The `heiraddress` method shows the owner's addresses and balances for the Heir C
 
 :::
 
-### Arguments:
+### Arguments
 
-| Structure | Type     | Description                        |
+| Name | Type | Description | 
 | --------- | -------- | ---------------------------------- |
 | pubkey    | (string) | the heir's pubkey (in hexademical) |
 
-### Response:
+### Response
 
-| Structure                 | Type     | Description                                                                                                                                                                                                                                                                                                                                                      |
+| Name | Type | Description | 
 | ------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result                    | (string) | whether the method executed successfully                                                                                                                                                                                                                                                                                                                         |
 | HeirCCaddress             | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                                                                                                                                                                                                             |
@@ -553,7 +603,7 @@ The `heiraddress` method shows the owner's addresses and balances for the Heir C
 | mybalance                 | (number) | the balance of myaddress in coins                                                                                                                                                                                                                                                                                                                                |
 | MyTokenAddress            | (string) | the user's address to withdraw funds in tokens from HeirCC`1of2`TokensAddress (in development)                                                                                                                                                                                                                                                                   |
 
-#### :pushpin: Example:
+#### :pushpin: Example
 
 Command:
 
@@ -561,7 +611,9 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD heiraddress 036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -580,3 +632,6 @@ Response:
   "mybalance": 296.9995
 }
 ```
+
+</collapse-text>
+
