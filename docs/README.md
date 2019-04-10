@@ -10,7 +10,7 @@
 
 <h1>Introduction</h1>
 
-<div style="width: 4rem; height: .5rem; margin: .1rem 0rem 2rem .3rem; background-color: #00EDD3;"></div>
+<div style="width: 4rem; height: .5rem; margin: .1rem 0rem 2rem .3rem; background-color: #18F4BF;"></div>
 
 <h4>Welcome to Komodo's Developer Documentation.</h4>
 
