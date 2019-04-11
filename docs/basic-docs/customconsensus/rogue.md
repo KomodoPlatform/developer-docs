@@ -880,7 +880,7 @@ If the user bails out of a game while holding more items than they are allowed t
 
 #### Trading an Existing Character
 
-A character that survived a game is also a non-fungible asset and can be traded on the blockchain. When trading a character, the user does not use the `playertxid` value. Rather, the user employs the `tokentxid` value. This `tokentxid` is used in coordination with the [Tokens CC](../customconsensus/cc-tokens.html#introduction) module for on-chain trading.
+A character that survived a game is also a non-fungible asset and can be traded on the blockchain. When trading a character, the user does not use the `playertxid` value. Rather, the user employs the `tokentxid` value. This `tokentxid` is used in coordination with the [Tokens CC](../customconsensus/tokens.html#introduction) module for on-chain trading.
 
 The `tokentxid` can be found by using the [playerinfo](../customconsensus/rogue.html#playerinfo) method and submitting the known `playertxid` as an argument. For more information, see the `playerinfo` method.
 
@@ -1345,7 +1345,7 @@ There are occasions where the developer may wish to start with the `tokentxid` o
 
 The following is one solution:
 
-- If necessary, obtain a list of all `tokens` on the asset chain via the [tokenlist](../customconsensus/cc-tokens.html#tokenlist) method.
+- If necessary, obtain a list of all `tokens` on the asset chain via the [tokenlist](../customconsensus/tokens.html#tokenlist) method.
 - For each item in the response, execute an iterative function that executes the [playerinfo](../customconsensus/rogue.html#playerinfo) method on the individual `token`.
   - If the method responds with an error, this means that the supplied `token` does not represent a character. Rather, it represents another on-chain asset, and therefore the token can be ignored.
 - For each response from the `playerinfo` method check two elements: whether the data contains a `batontxid`; whether the character is alive.
@@ -1368,7 +1368,7 @@ The following is one solution:
 | method       | (string)           | the name of the method                                                                                  |
 | player       | (json object)      | a json object containing relevant player data                                                           |
 | playertxid   | (string)           | the unique identifying transaction id of this player                                                    |
-| tokenid      | (string)           | the unique transaction id that represents this character as a non-fungible asset for on-chain trading using the [Tokens CC](../customconsensus/cc-tokens.html#introduction) module                                                                                                        |
+| tokenid      | (string)           | the unique transaction id that represents this character as a non-fungible asset for on-chain trading using the [Tokens CC](../customconsensus/tokens.html#introduction) module                                                                                                        |
 | data         | (string)           | the character-state information in hex form                                                                 |
 | pack         | (array of strings) | an array containing the items in the character's pack                                                   |
 | packsize     | (number)           | the number of items in the character's pack                                                             |

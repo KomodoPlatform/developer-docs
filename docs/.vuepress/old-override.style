@@ -1,0 +1,119 @@
+/* This file is for overrides of existing styles. It is not for new Komodo-created classes or other non-default stylizations. Please see the styles.styl file in .vuepress/ directory for the latter */
+
+/* Import Montserrat */
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat:100);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:200);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:300);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:500);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:600);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:700);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:800);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:900);
+
+@import url(https://fonts.googleapis.com/css?family=Rubik:100);
+@import url(https://fonts.googleapis.com/css?family=Rubik:200);
+@import url(https://fonts.googleapis.com/css?family=Rubik:300);
+@import url(https://fonts.googleapis.com/css?family=Rubik:400);
+@import url(https://fonts.googleapis.com/css?family=Rubik:500);
+@import url(https://fonts.googleapis.com/css?family=Rubik:600);
+@import url(https://fonts.googleapis.com/css?family=Rubik:700);
+@import url(https://fonts.googleapis.com/css?family=Rubik:800);
+@import url(https://fonts.googleapis.com/css?family=Rubik:900);
+
+/* Set default values */
+
+* {
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+
+$borderColor = rgba(30,92,110,1);
+
+$textColor = #FFFFFF;
+
+$accentColor = #18F4BF;
+
+$codeBgColor = #000000;
+
+/* Additional Overrides */
+
+
+.hero > img, .home, img, target {
+	max-width: 100%;
+	max-height: 100%;
+	overflow: hidden;
+}
+
+div .navbar, .navbar .links, .search-box, .nav-links, .nav-links .can-hide {
+    background-color: #2D6464;
+}
+
+.navbar .site-name, h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+div .sidebar {
+    background-color: #000000; 
+}
+
+div .page {
+    background-image: linear-gradient(135deg, #2C313B, #2C313B);
+    min-height: 100vh;
+    background-attachment: fixed;
+}
+
+.page .content p code {
+    background-color: hsla(0,0,0,.7);
+}
+
+thead tr {
+    background-color: #2D6464;
+    color: #18F4BF;
+    font-weight: 500;
+}
+
+tbody tr a {
+    color: #00ADEE;
+}
+
+table tbody tr:nth-child(2n) {
+    background-color: #1B456E;
+}
+
+body .custom-block.tip, body .custom-block.tip .custom-block-title {
+    background-color: #2D6464;
+    border-color: #18F4BF;
+}
+
+body .custom-block.warning, body .custom-block.warning .custom-block-title {
+    background-color: #1B456E;
+    border-color: #00ADEE;
+    color: #FFFFFF;
+}
+
+body .custom-block.danger, body .custom-block.danger .custom-block-title {
+    background-color: #3C3266;
+    border-color: #957DFD;
+    color: #FFFFFF;
+}
+
+@media (max-width: 419px){ 
+
+	//nav bar, default is 3.6rem
+	.navbar {
+		height: 5.0rem;
+	}
+
+	//side bar top heading loses spacing, default is 0.5rem on first co-ordinate
+	.sidebar .nav-links .nav-item {
+		padding: 1.5rem 0 0.5rem 1.5rem;
+	}
+
+	// top heading of main page loses spacing, default is -1.5rem
+	.content:not(.custom) > h1:first-child, .content:not(.custom) > h2:first-child, .content:not(.custom) > h3:first-child, .content:not(.custom) > h4:first-child, .content:not(.custom) > h5:first-child, .content:not(.custom) > h6:first-child {
+		margin-top: -0.5rem;
+	}
+}
+
