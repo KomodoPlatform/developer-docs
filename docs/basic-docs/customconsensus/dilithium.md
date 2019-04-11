@@ -25,6 +25,7 @@ Please follow [Installing Komodo Manually](../../komodo/installation.html), if y
 ```bash
 cd ~/komodo/src/cc
 ./makecclib
+cp sudoku.so ../libcc.so
 cd ..
 make
 ./zcutil/build.sh -j$(nproc)

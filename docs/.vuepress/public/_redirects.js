@@ -17,7 +17,9 @@ var redirectAliases = {
   "/basic-docs/cryptoconditions/cc-assets.html": "/basic-docs/customconsensus/assets.html",
   "/basic-docs/cryptoconditions/cc-oracles.html": "/basic-docs/customconsensus/oracles.html",
   "/basic-docs/cryptoconditions/cc-rogue.html": "/basic-docs/customconsensus/rogue.html",
-  "/basic-docs/start-here/cc-overview.html":"/basic-docs/start-here/custom-consensus-overview.html" 
+  "/basic-docs/start-here/cc-overview.html": "/basic-docs/start-here/custom-consensus-overview.html",
+  "/cc/index-book-jl.html": "/cc-jl/introduction.html",
+  "/komodo/install-Komodo-manually.html": "komodo/installation.html"
+
 };
 module.exports = redirectAliases;
-
