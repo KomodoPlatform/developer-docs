@@ -93,7 +93,7 @@ Wait for the build process to finish, and then continue with the following comma
 ```bash
 cd src/cc
 ./makecclib
-cp sudoku.so ../libcc.so
+cp sudokucc.so ../libcc.so
 cd ../..
 make -j$(nproc)
 ```
