@@ -102,4 +102,4 @@ Via our open-source philosophy, anyone is welcome to use BarterDEX without restr
 Developers should consult with their local authorities about the legal nature of these decisions.
 :::
 
-Because the BarterDEX software is separate from `komodod` and `komodo-cli`, at this time we do not yet include it in this API documentation. Rather, you may find [API documentation for BarterDEX here](https://docs.komodoplatform.com/barterDEX/barterDEX-API.html).
+Because the BarterDEX software is separate from `komodod` and `komodo-cli`, at this time we do not yet include it in this API documentation. Rather, you may find [API documentation for BarterDEX here](https://docs.komodoplatform.com/mmV1/api/introduction.html).
