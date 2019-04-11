@@ -246,7 +246,7 @@ With this activated, you can try a few existing templates:
 
 ## Write Your Own Smart-Contract Templates
 
-If you're ready to try writing your own customized smart-contract template, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Custom Consensus](https://docs.komodoplatform.com/cc/index-book-jl.html).
+If you're ready to try writing your own customized smart-contract template, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Custom Consensus](https://docs.komodoplatform.com/cc-jl/introduction.html).
 
 Most developers don't need to design smart contracts on Komodo, but rather, only need to implement existing smart-contracts templates while developing a dApp. So don't be discouraged if the technical documentation appears too thick for your level of experience. Come to Discord when you have questions.
 

@@ -84,7 +84,7 @@ Take these two competing statements from Buterin by way of illustration. In Janu
 
 The "Uber" reference is to a popular phone app where users can hail and share a freelance-taxi service. On average, this app processes 12 financial transactions per second. At the time of Buterin's statement, Ethereum can process 15 transactions per second. Let's make a rough analysis of the cost to maintain this one dApp on Ethereum.
 
-The value of the gas fees for an Uber-like decentralized app would have to cover ~80% of the cost of maintaining the Ethereum blockchain (`(12 txs / 15 txs) * 100 = 80%`). Currently, it costs about [$150,000 USD per hour](http://www.crypto51.app/) to maintain the Ethereum hash rate. The dApp developer and their end-users would be responsible for 80% of this, so they would have to pay gas fees of at least $120,000 per hour, which translates to ~$30 per second.
+The value of the gas fees for an Uber-like decentralized app would have to cover ~80% of the cost of maintaining the Ethereum blockchain (`(12 txs / 15 txs) * 100 = 80%`). Currently, it costs about [\$150,000 USD per hour](http://www.crypto51.app/) to maintain the Ethereum hash rate. The dApp developer and their end-users would be responsible for 80% of this, so they would have to pay gas fees of at least $120,000 per hour, which translates to ~$30 per second.
 
 Therefore, looking only at the costs, and not at the lack of space for multiple dApps, we begin to see the enormous flaws of the gas-based model. While existing large corporations and their customer bases may be able to afford this financial burn rate, it is difficult to conceive of a startup that can afford it. The ongoing gas fees to continually maintain the functionality of this dApp are simply too expensive.
 
@@ -164,7 +164,7 @@ It’s also worth pointing out that one of the conditions of a Custom Consensus 
 
 With these rules in place, a Custom Consensus smart contract becomes like a mini-consensus mechanism. It forces consensus for the participants in the smart contract, just like the master consensus mechanism of the blockchain.
 
-If you'd like to try writing your own Custom Consensus smart contract, [read this documentation by Komodo’s lead developer, JL777](https://docs.komodoplatform.com/cc/index-book-jl.html).
+If you'd like to try writing your own Custom Consensus smart contract, [read this documentation by Komodo’s lead developer, JL777](https://docs.komodoplatform.com/cc-jl/introduction.html).
 
 Rest assured if you find this documentation too challenging. As the library of finished smart-contract templates increases over time, a normal developer will not need to write a full smart contract to utilize Komodo. Rather, you'll just pull a series of pre-written templates that function like building blocks, as you create your dApps.
 
