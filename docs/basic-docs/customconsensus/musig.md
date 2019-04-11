@@ -754,6 +754,9 @@ The `calcmsg` method can be used by any one of the signers to initiate a `spend`
 To calculate the `msg` value, this method requires a `sendtxid` and a `scriptPubKey`.
 
 - The `sendtxid` is the id of a transaction that added funds to the `combined_pk` through the [send](../customconsensus/musig.html#send) method.
+
+##### scriptPubkey
+
 - The `scriptPubKey` expected here is of the type [p2pk](http://learnmeabitcoin.com/glossary/p2pk) in `hex` form.
 
 To create a `scriptPubkey` from a normal `pubkey`, add the characters `21` to the beginning of the `pubkey` string and the characters `ac` to the end of the string:
