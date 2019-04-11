@@ -15,6 +15,7 @@ module.exports = {
     editLinks: true,
     editLinkText: 'Suggest an improvement for this page',
     lastUpdated: 'Last Updated',
+    logo: '/site-name-logo.png',
     nav: [
       {
         text: "Start Here",
