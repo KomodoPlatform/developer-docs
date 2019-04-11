@@ -240,21 +240,21 @@ Now you should be ready to head into smart contract territory.
 
 Smart contracts on Komodo are a bit different (and if you ask us, a bit better too, but we're admittedly biased).
 
-If you need to catch the general idea, read the section, [Smart Contract Overview](cc-overview.html).
+If you need to catch the general idea, read the section, [Smart Contract Overview](custom-consensus-overview.html).
 
 First, you must create an asset chain that has the [ac_cc runtime parameter properly enabled](../installations/asset-chain-parameters.html#ac-cc).
 
 With this activated, you can try a few existing templates:
 
-- [Create ERC20 tokens on your new asset chain](../customconsensus/cc-tokens.html)
-- Try using your [built-in on-chain DEX](../customconsensus/cc-gateways.html)
-- Use [the oracles smart-contract template](../customconsensus/cc-oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
+- [Create ERC20 tokens on your new asset chain](../customconsensus/tokens.html)
+- Try using your [built-in on-chain DEX](../customconsensus/gateways.html)
+- Use [the oracles smart-contract template](../customconsensus/oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
 
 ...and more!
 
 ## Write Your Own Smart-Contract Templates
 
-If you're ready to try writing your own customized smart-contract template, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Custom Consensus](https://docs.komodoplatform.com/cc/index-book-jl.html).
+If you're ready to try writing your own customized smart-contract template, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Custom Consensus](https://docs.komodoplatform.com/cc-jl/introduction.html).
 
 Most developers don't need to design smart contracts on Komodo, but rather, only need to implement existing smart-contracts templates while developing a dApp. So don't be discouraged if the technical documentation appears too thick for your level of experience. Come to Discord when you have questions.
 
