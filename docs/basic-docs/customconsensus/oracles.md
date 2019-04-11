@@ -240,7 +240,7 @@ The `oraclesdata` method returns a hex value which must then be broadcast using 
 
 The `sendrawtransaction` method outputs a unique `txid`, called `oraclesdatatxid`, which is the unique identifier for this data sample.
 
-The following script converts data entered in normal text form to a format accepted by an Oracle of type: `S` that has the first two bytes as the length in **Little Endian** format and the rest of the data follows it.
+The following script converts data entered in a normal-text form to a format accepted by an Oracle with the following characteristics. The oracle is of type: `S`, and the first two bytes of data are the length, given in **Little Endian** format.
 
 <collapse-text hidden title="Script">
 
