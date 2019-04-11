@@ -22,6 +22,25 @@ var redirectAliases = {
   "/cc/index-book-jl.html": "/cc-jl/introduction.html",
   "/komodo/install-Komodo-manually.html": "komodo/installation.html",
   "/barterDEX/barterDEX-API.html": "/mmV1/api/introduction.html",
-  "/komodo/komodo-api.html": "/basic-docs/komodo-api/address.html"
+  "/komodo/komodo-API.html": "/basic-docs/komodo-api/address.html",
+  "/agama/add-Bitcoin-Compatible-coin-Agama-Desktop.html": "/gui/agama/desktop/add-Bitcoin-Compatible-coin-Agama-Desktop.html",
+  "/agama/add-ERC20-token-Agama-Desktop.html": "/gui/agama/desktop/add-ERC20-token-Agama-Desktop.html",
+  "/agama/add-Komodo-Assetchains-Agama-Desktop.html": "/gui/agama/desktop/add-Komodo-Assetchains-Agama-Desktop.html",
+  "/agama/mobile/add-Bitcoin-Compatible-coin-Agama-Mobile.html": "/gui/agama/mobile/add-Bitcoin-Compatible-coin-Agama-Mobile.html",
+  "/agama/mobile/add-ERC20-token-Agama-Mobile.html": "/gui/agama/mobile/add-ERC20-token-Agama-Mobile.html",
+  "/agama/mobile/add-Komodo-Assetchains-Agama-Mobile.html": "/gui/agama/mobile/add-Komodo-Assetchains-Agama-Mobile.html",
+  "/general/third-party-repos-resources.html": "/resources/third-party-repos-resources.html",
+  "/general/list-all-KomodoPlatform-Project-links.html": "/resources/list-all-KomodoPlatform-repos-links.html",
+  "/cc/activate-cc-independent-chain.html": "/basic-docs/customconsensus/activate-custom-consensus-assetchain.html",
+  "/coins/info.html": "/komodo/info.html",
+  "/cc/faq.html": "/cc-jl/faq.html",
+  "/barterDEX/trade.html": "/mmV1/usage/trade.html",
+  "/barterDEX/list-of-all-coins-tradable.html": "/mmV1/coin-integration/list-of-all-coins-tradable.html",
+  "/barterDEX/install-barterDEX-CLI.html": "/mmV1/installation/install-marketmakerV1.html",
+  "/barterDEX/add-coin-barterDEX.html": "/mmV1/coin-integration/info-add-coin.html",
+  "/barterDEX/get-listed-barterDEX.html": "/mmV1/coin-integration/coin-integration.html",
+  "/komodo/create-Komodo-Assetchain.html": "/basic-docs/installations/creating-asset-chains.html",
+  "/komodo/checklist-new-coins.": "/assetchains/checklist-new-coin.html",
+  "/komodo/assetchain-params.html": "/basic-docs/installations/asset-chain-parameters.html"
 };
 module.exports = redirectAliases;
