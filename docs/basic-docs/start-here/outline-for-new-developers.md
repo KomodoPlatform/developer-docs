@@ -14,14 +14,6 @@ We're also going to assume that you are comfortable programming in at least one 
 
 If you're not yet a programmer, but you're interested to make a career in the blockchain revolution, welcome! The open-source nature of Komodo and our enthusiastic community make this a perfect place to begin your journey. We recommend that you come [to our Discord channel](https://komodoplatform.com/discord) and discuss your goals with our community members. We look forward to meeting you!
 
-## Differences between the KMD and an Asset Chain
-
-The main KMD blockchain runs on the same underlying framework as all asset chains in the ecosystem, but not all features are active on the KMD blockchain. The KMD chain's active features include the Bitcoin-hash rate supported security and the ability to write Custom Consensus (CC) modules. Other features, such as zero-knowledge privacy, are disabled.
-
-This limitation is intentional. The KMD main-net blockchain holds all the meta data of the ecosystem. All users that wish to validate the data of any asset chain must download and maintain a copy of the KMD blockchain. By keeping the functionality of this chain limited, Komodo discourages rapid data growth.
-
-All other asset chains are fully customizable. 
-
 ## Visit Us in Discord
 
 We encourage you to come [to our Discord channel](https://komodoplatform.com/discord), and to come by frequently throughout your discovery process.
@@ -263,6 +255,16 @@ Most developers don't need to design smart contracts on Komodo, but rather, only
 Your asset chain can easily be integrated into our native atomic-swap powered DEX, [BarterDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), and our multi-coin wallet, [Agama](https://komodoplatform.com/komodo-wallets/).
 
 You can learn more about both on [docs.komodoplatform.com](https://docs.komodoplatform.com).
+
+## Differences between the KMD and an Asset Chain
+
+Newcomers to the Komodo ecosystem may benefit from understanding the differences between the main KMD blockchain and all other asset chains in the Komodo ecossytem.
+
+The main KMD blockchain runs on the same underlying framework as all asset chains in the ecosystem, but not all features are active on the KMD blockchain. The KMD chain's active features include Bitcoin-hash rate supported security and the ability to write Custom Consensus (CC) modules. Other features, such as zero-knowledge privacy, are disabled.
+
+This limitation is intentional. The KMD main-net blockchain holds all the meta data of the ecosystem. By keeping the functionality of this chain limited, Komodo discourages rapid data growth on this central blockchain.
+
+All other asset chains are fully customizable. 
 
 ## Visit Us in Discord
 
