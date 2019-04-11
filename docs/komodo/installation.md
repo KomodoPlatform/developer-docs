@@ -1,4 +1,4 @@
-# Installing Komodo
+# Building Komodo from source
 
 For OSx instructions: see [Installing Komodo on OSX](./installation.html#installing-komodo-on-osx)
 
