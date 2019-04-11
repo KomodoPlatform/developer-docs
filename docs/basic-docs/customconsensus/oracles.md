@@ -240,9 +240,49 @@ The `oraclesdata` method returns a hex value which must then be broadcast using 
 
 The `sendrawtransaction` method outputs a unique `txid`, called `oraclesdatatxid`, which is the unique identifier for this data sample.
 
-::: tip
-An example script that can be used to produce data for an oracle of type `S` is available [here](https://docs.komodopatform.com/cc/contracts/oracles/scenarios/script-data-conversion.html)
-:::
+The following script converts data entered in a normal-text form to a format accepted by an Oracle with the following characteristics. The oracle is of type: `S`, and the first two bytes of data are the length, given in **Little Endian** format.
+
+<collapse-text hidden title="Script">
+
+```python
+#!/usr/bin/env python3
+import sys
+import codecs
+import time
+import readline
+
+
+while True:
+    message = input("Type message: ")
+    #convert message to hex
+    rawhex = codecs.encode(message).hex()
+
+    #get length in bytes of hex in decimal
+    bytelen = int(len(rawhex) / int(2))
+    hexlen = format(bytelen, 'x')
+
+    #get length in big endian hex
+    if bytelen < 16:
+        bigend = "000" + str(hexlen)
+    elif bytelen < 256:
+        bigend = "00" + str(hexlen)
+    elif bytelen < 4096:
+        bigend = "0" + str(hexlen)
+    elif bytelen < 65536:
+        bigend = str(hexlen)
+    else:
+        print("message too large, must be less than 65536 characters")
+        continue
+
+    #convert big endian length to little endian, append rawhex to little endian length
+    lilend = bigend[2] + bigend[3] + bigend[0] + bigend[1]
+    fullhex = lilend + rawhex
+
+    print(fullhex)
+```
+
+
+</collapse-text>
 
 ::: tip Note
 

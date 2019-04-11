@@ -29,7 +29,7 @@ Also, please open an empty text file and save all output transaction ids and hex
 
 For this tutorial, please compile and install Komodo software from the source repositories.
 
-[Information on manual installations can be found at this linked documentation.](https://docs.komodoplatform.com/komodo/install-Komodo-manually.html)
+[Information on manual installations can be found at this linked documentation.](https://docs.komodoplatform.com/komodo/installation.html)
 
 #### Create a New Blockchain
 
