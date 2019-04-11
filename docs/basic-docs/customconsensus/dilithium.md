@@ -26,9 +26,8 @@ Please follow [Installing Komodo Manually](../../komodo/installation.html), if y
 cd ~/komodo/src/cc
 ./makecclib
 cp sudoku.so ../libcc.so
-cd ..
+cd ../..
 make
-./zcutil/build.sh -j$(nproc)
 ```
 
 ## General flow of the Dilithium CC Module
@@ -1659,23 +1658,25 @@ b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a27813226a
 
 **cclib keypair 19 '["hexseed"]'**
 
+The `keypair` method generates a Dilithium `pubkey` and `privkey` when a 256 bit seed in hex format (64 characters) is provided. Else, <!-- it uses the provided seed for entropy and --> it creates a new seed and produces the Dilithium `pubkey` and `privkey` from it.
+
 #### Arguments
 
-| Name    | Type     | Description                                                       |
-| ------- | -------- | ----------------------------------------------------------------- |
-| hexseed | (string) | a random hex to provide some entropy for calculating the key pair |
+| Name    | Type     | Description                                                  |
+| ------- | -------- | ------------------------------------------------------------ |
+| hexseed | (string) | a random hex to provide entropy for calculating the key pair |
 
 #### Response
 
-| Name    | Type     | Description                  |
-| ------- | -------- | ---------------------------- |
-| status  | (string) | the quality of the seed used |
-| seed    | (string) |                              |
-| pubkey  | (string) |                              |
-| privkey | (string) |                              |
-| pkaddr  | (string) |                              |
-| skaddr  | (string) |                              |
-| result  | (string) |                              |
+| Name    | Type     | Description                                                                                              |
+| ------- | -------- | -------------------------------------------------------------------------------------------------------- |
+| status  | (string) | the quality of the seed used                                                                             |
+| seed    | (string) | the seed used (either the provided one if it satisfies the requirements or a seed created by the daemon) |
+| pubkey  | (string) | the Dilithium pubkey generated                                                                           |
+| privkey | (string) | the Dilithium privkey generated                                                                          |
+| pkaddr  | (string) | the hashed representation of the Dilithium pubkey                                                        |
+| skaddr  | (string) | the hashed representation of the Dilithium privkey                                                       |
+| result  | (string) | whether the call executed successfully                                                                   |
 
 #### :pushpin: Examples
 
