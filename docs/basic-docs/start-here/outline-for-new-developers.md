@@ -256,7 +256,7 @@ Your asset chain can easily be integrated into our native atomic-swap powered DE
 
 You can learn more about both on [docs.komodoplatform.com](https://docs.komodoplatform.com).
 
-## Differences between the KMD and an Asset Chain
+## Differences between KMD and an Asset Chain
 
 Newcomers to the Komodo ecosystem may benefit from understanding the differences between the main KMD blockchain and all other asset chains in the Komodo ecosystem.
 
