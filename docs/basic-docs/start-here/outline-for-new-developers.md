@@ -258,7 +258,7 @@ You can learn more about both on [docs.komodoplatform.com](https://docs.komodopl
 
 ## Differences between the KMD and an Asset Chain
 
-Newcomers to the Komodo ecosystem may benefit from understanding the differences between the main KMD blockchain and all other asset chains in the Komodo ecossytem.
+Newcomers to the Komodo ecosystem may benefit from understanding the differences between the main KMD blockchain and all other asset chains in the Komodo ecosystem.
 
 The main KMD blockchain runs on the same underlying framework as all asset chains in the ecosystem, but not all features are active on the KMD blockchain. The KMD chain's active features include Bitcoin-hash rate supported security and the ability to write Custom Consensus (CC) modules. Other features, such as zero-knowledge privacy, are disabled.
 
