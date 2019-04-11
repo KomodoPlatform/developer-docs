@@ -1,6 +1,6 @@
 # How to write UTXO based CC modules for KMD based chains - by jl777
 
-A non-technical introduction: https://komodoplatform.com/crypto-conditions-utxo-based-smart-contracts/
+A non-technical introduction: [https://komodoplatform.com/crypto-conditions-utxo-based-smart-contracts/](https://komodoplatform.com/crypto-conditions-utxo-based-smart-contracts/)
 
 Source text: [jl777/komodo:src/cc/CC%20made%20easy@FSM](https://github.com/jl777/komodo/blob/FSM/src/cc/CC%20made%20easy.md)
 
