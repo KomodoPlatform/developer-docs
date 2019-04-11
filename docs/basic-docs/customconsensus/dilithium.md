@@ -1657,7 +1657,7 @@ b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a27813226a
 
 ## keypair
 
-**keypair [hexseed]**
+**cclib keypair 19 '["hexseed"]'**
 
 #### Arguments
 
@@ -1703,13 +1703,14 @@ Command:
 
 ## register
 
-**register handle [hexseed]**
+**cclib register 19 '["handle","hexseed"]'**
 
 #### Arguments
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name    | Type | Description |
+| ------- | ---- | ----------- |
+| handle  |      |             |
+| hexseed |      |             |
 
 #### Response
 
@@ -1735,7 +1736,7 @@ Command:
 
 ## handleinfo
 
-**handleinfo handle**
+**cclib handleinfo 19 '["handle"]'**
 
 #### Arguments
 
@@ -1767,7 +1768,7 @@ Command:
 
 ## sign
 
-**sign msg [hexseed]**
+**cclib sign 19 msg '["hexseed"]'**
 
 #### Arguments
 
@@ -1799,7 +1800,7 @@ Command:
 
 ## verify
 
-**verify pubtxid msg sig**
+**cclib verify 19 pubtxid msg sig**
 
 #### Arguments
 

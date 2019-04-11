@@ -12,6 +12,7 @@ var redirectAliases = {
   "/basic-docs/cryptoconditions/cc-rewards.html": "/basic-docs/customconsensus/rewards.html",
   "/basic-docs/cryptoconditions/cc-faucet.html": "/basic-docs/customconsensus/faucet.html",
   "/basic-docs/cryptoconditions/cc-dice.html": "/basic-docs/customconsensus/dice.html",
+  "/basic-docs/cryptoconditions/cc-dilithium.html": "/basic-docs/customconsensus/dilithium.html",
   "/basic-docs/cryptoconditions/cryptoconditions-instructions.html": "/basic-docs/customconsensus/custom-consensus-instructions.html",
   "/basic-docs/cryptoconditions/dynamic-modules-instructions.html": "/basic-docs/customconsensus/dynamic-modules-instructions.html",
   "/basic-docs/cryptoconditions/cc-assets.html": "/basic-docs/customconsensus/assets.html",
@@ -19,7 +20,8 @@ var redirectAliases = {
   "/basic-docs/cryptoconditions/cc-rogue.html": "/basic-docs/customconsensus/rogue.html",
   "/basic-docs/start-here/cc-overview.html": "/basic-docs/start-here/custom-consensus-overview.html",
   "/cc/index-book-jl.html": "/cc-jl/introduction.html",
-  "/komodo/install-Komodo-manually.html": "komodo/installation.html"
-
+  "/komodo/install-Komodo-manually.html": "komodo/installation.html",
+  "/barterDEX/barterDEX-API.html": "/mmV1/api/introduction.html",
+  "/komodo/komodo-api.html": "/basic-docs/komodo-api/address.html"
 };
 module.exports = redirectAliases;

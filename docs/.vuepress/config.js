@@ -138,7 +138,7 @@ module.exports = {
             ["/basic-docs/customconsensus/channels.md", "Channels"],
             ["/basic-docs/customconsensus/dice.md", "Dice"],
             ["/basic-docs/customconsensus/faucet.md", "Faucet"],
-            ["/basic-docs/customconsensus/dilithium.md", "Dilithium"],
+        //    ["/basic-docs/customconsensus/dilithium.md", "Dilithium"],
             ["/basic-docs/customconsensus/gateways.md", "Gateways"],
             ["/basic-docs/customconsensus/heir.md", "Heir"],
             ["/basic-docs/customconsensus/musig.md", "MuSig"],
