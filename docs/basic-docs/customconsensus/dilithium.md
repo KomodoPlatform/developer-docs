@@ -1768,7 +1768,7 @@ Command:
 
 ## sign
 
-**cclib sign 19 msg '["hexseed"]'**
+**cclib sign 19 '["msg","hexseed"]'**
 
 #### Arguments
 
