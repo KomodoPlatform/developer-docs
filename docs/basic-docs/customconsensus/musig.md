@@ -80,6 +80,7 @@ Compile the appropriate CC library:
 ```bash
 cd src/cc
 ./makecclib
+cp sudokucc.so ../libcc.so
 cd ../..
 make -j$(nproc)
 ```

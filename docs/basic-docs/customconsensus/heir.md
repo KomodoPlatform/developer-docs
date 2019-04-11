@@ -12,7 +12,7 @@ Should the owner fail to interact with the `1of2` CC address for a specified per
 
 The [heiradd](../customconsensus/heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
 
-The Heir CC module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../customconsensus/cc-tokens.html) CC module that represent on-chain assets, or even tokens that are formed via the [Gateways](../customconsensus/cc-gateways.html) module to represent off-chain assets or other cryptocurrencies.
+The Heir CC module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../customconsensus/tokens.html) CC module that represent on-chain assets, or even tokens that are formed via the [Gateways](../customconsensus/gateways.html) module to represent off-chain assets or other cryptocurrencies.
 
 #### Heir CC Module Flow
 
@@ -74,7 +74,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 ##### Step 1: Create a raw transaction (in coins) and get the HEX value
 
 ::: tip
-The following example demonstrates Heir CC usage when utilizing coins, instead of tokens. When instead using tokens, create the tokens first with the [tokencreate](../customconsensus/cc-tokens.html#tokencreate) method and pass the `tokenid` as the last parameter of [heirfund.](../customconsensus/heir.html#heirfund)
+The following example demonstrates Heir CC usage when utilizing coins, instead of tokens. When instead using tokens, create the tokens first with the [tokencreate](../customconsensus/tokens.html#tokencreate) method and pass the `tokenid` as the last parameter of [heirfund.](../customconsensus/heir.html#heirfund)
 :::
 
 ```bash
