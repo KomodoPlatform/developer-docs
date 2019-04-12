@@ -5,7 +5,7 @@ module.exports = {
       alias: redirectAliases
     }
   },
-  title: "Komodo Documentation",
+  title: " ",
   base: "/",
   description: "Documentation for developers building on Komodo",
   themeConfig: {
