@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Rogue Custom Consensus (CC) contract module serves as a proof-of-concept to demonstrate Condition's capabilities as a blockchain-based gaming technology.
+The Rogue Custom Consensus (CC) contract module serves as a proof-of-concept to demonstrate Custom Consensus's capabilities as a blockchain-based gaming technology.
 
 Rogue CC is based on the classic [Rogue](http://www.livingroguelike.com/rl-games/the-original-rogue-information-and-how-to-play-online/) game. As such, it can be categorized as a [Roguelike.](http://www.livingroguelike.com/roguelike-info-discussions/what-is-a-roguelike/)
 
