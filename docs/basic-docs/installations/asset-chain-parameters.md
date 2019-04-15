@@ -663,6 +663,26 @@ The `ac_ccenable` parameter restricts the asset chain so that only indicated Cus
 
 To indicate which Custom Consensus modules should be available, insert each module's eval code in decimal and separated by commas. A list of all eval codes can be found [here](https://github.com/jl777/komodo/blob/master/src/cc/eval.h).
 
+For a quick reference, see:
+
+ | Name of the module | EvalCode |
+| ------------------ | -------- |
+| ASSETS             | 227      |
+| FAUCET             | 228      |
+| REWARDS            | 229      |
+| DICE               | 230      |
+| FSM                | 231      |
+| AUCTION            | 232      |
+| LOTTO              | 233      |
+| HEIR               | 234      |
+| CHANNELS           | 235      |
+| ORACLES            | 236      |
+| PRICES             | 237      |
+| PEGS               | 238      |
+| TRIGGERS           | 239      |
+| PAYMENTS           | 240      |
+| GATEWAYS           | 241      |
+
 For example, the following parameters create an asset chain where only the `faucet` and `rewards` modules are active:
 
 ```
