@@ -166,7 +166,7 @@ This parameter will have no effect if [ac_reward](../installations/asset-chain-p
 
 This is the formula that `ac_decay` follows:
 
-```
+```bash
 block_reward_after = block_reward_before * ac_decay / 100000000;
 ```
 
@@ -200,7 +200,7 @@ In all parameters receiving multiple values, the values for the second and third
 
 For example:
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_eras=3 -ac_reward=5000000000,7000000000,4000000000 -ac_end=1000,10000,0
 ```
 
@@ -210,7 +210,7 @@ If any of the relevant parameters has fewer distinct values than eras, the param
 
 For example:
 
-```
+```bash
 -ac_eras=2 -ac_reward=100000000,200000000 -ac_halving=100 -ac_end=10000,0
 ```
 
@@ -220,7 +220,7 @@ One more feature of `ac_eras` is the ability to transition from one era to the n
 
 For example, the following parameters create an asset chain with a "slow start" reward:
 
-```
+```bash
 ./komodod -ac_name=HELLOWORLD -ac_reward=0,10000000000 -ac_eras=2 -ac_end=1000,0 -ac_decay=100000000,100000000 -ac_halving=1
 ```
 
@@ -276,7 +276,7 @@ The `ac_perc` value determines the percentage of block rewards paid to the found
 
 For example:
 
-```
+```bash
 -ac_reward=100000000 -ac_perc=10000000 -ac_founders=100
 ```
 
@@ -332,7 +332,7 @@ Command:
 
 Response:
 
-```
+```json
 {
 	"address": "bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV",
 	"redeemScript": 	"522102040ce30d52ff1faae7a673c2994ed0a2c4115a40fa220ce055d9b85e8f9311ef2102a2ba4606206c032914dd48390c15f5bf996d91bf9dbd07614d972f39d93a511321026014ef4194f6c7406a475a605d6a393ae2d7a2b12a6964587299bae84172fff053ae"
@@ -347,7 +347,7 @@ On a test chain, send coins to the `bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV` address.
 
 Response (txid):
 
-```
+```bash
 ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f
 ```
 
@@ -359,7 +359,7 @@ Observe the resulting transaction with `getrawtransaction <txid> 1`:
 
 Observe the output:
 
-```
+```json
 {
 	"value": 10.00000000,
 	"valueSat": 1000000000,
@@ -378,7 +378,7 @@ Observe the output:
 
 Set `ac_script` to the `"hex"` value from the returned json object.
 
-```
+```bash
 -ac_script=a9142706324daaac92c93420e985f55d88ea20e22ae187
 ```
 
@@ -650,7 +650,7 @@ The `ac_cclib` parameter is used in conjunction with various Custom Consensus mo
 
 Typically, the asset chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each Custom Consensus module in question. Once the asset chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
 
-```
+```bash
 -ac_cclib=desired_CC_module
 ```
 
