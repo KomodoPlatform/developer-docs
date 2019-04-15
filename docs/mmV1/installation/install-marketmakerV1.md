@@ -125,4 +125,4 @@ Native mode is faster and you need to use native wallet running with fully synce
 
 If you want to close barterDEX, issue `pkill -15 marketmaker` every time. This ensures all BarterDEX process is killed safely.
 
-**Check the doc**: [MarketmakerV1 API](../api/mmV1/general.md) **for more info on different API calls that barterDEX supports. e.g.: buy, sell, orderbook, balance etc. Just edit them to your liking and run them in 2nd terminal.**
+**Check the doc**: [MarketmakerV1 API](../api/introduction.md) **for more info on different API calls that barterDEX supports. e.g.: buy, sell, orderbook, balance etc. Just edit them to your liking and run them in 2nd terminal.**
