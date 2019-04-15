@@ -324,8 +324,8 @@ To find the `"scriptPubKey"` value, first create a multi-signature address with 
 
 Command:
 
-```
-komodo-cli -ac_name=EXAMPLE createmultisig 2 "[\"RMnZJpfLbFHUxMS3HM5gkvtFKeduhr96Ec\",\"RW2Yx4Tk9WGfUvhbJTXGFiRhr7PKcVtrm5\",\"RQ1uqBj9yk94BcxEZodbeNqb3jWv8pLeA4\"]"
+```bash
+./komodo-cli -ac_name=EXAMPLE createmultisig 2 "[\"RMnZJpfLbFHUxMS3HM5gkvtFKeduhr96Ec\",\"RW2Yx4Tk9WGfUvhbJTXGFiRhr7PKcVtrm5\",\"RQ1uqBj9yk94BcxEZodbeNqb3jWv8pLeA4\"]"
 ```
 
 Response:
@@ -338,8 +338,8 @@ Response:
 
 On a test chain, send coins to the `bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV` address.
 
-```
-komodo-cli -ac_name=EXAMPLE sendtoaddress bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV 10
+```bash
+./komodo-cli -ac_name=EXAMPLE sendtoaddress bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV 10
 ```
 
 Response (txid):
@@ -350,8 +350,8 @@ ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f
 
 Observe the resulting transaction with `getrawtransaction <txid> 1`:
 
-```
-komodo-cli -ac_name=EXAMPLE getrawtransaction ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f 1
+```bash
+./komodo-cli -ac_name=EXAMPLE getrawtransaction ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f 1
 ```
 
 Observe the output:
@@ -595,8 +595,8 @@ The random unlock time for each reward is independent of the unlock time of othe
 
 For example:
 
-```
-komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=10000000000 -ac_halving=10000 -ac_timelockgte=10000000000 -ac_timeunlockfrom=10000 -ac_timeunlockto=100000
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=10000000000 -ac_halving=10000 -ac_timelockgte=10000000000 -ac_timeunlockfrom=10000 -ac_timeunlockto=100000
 ```
 
 For the first 10000 blocks, any rewards that are greater than or equal to 10000000000 are locked until a random block between 10000 and 100000.
@@ -685,8 +685,8 @@ For a quick reference, see:
 
 For example, the following parameters create an asset chain where only the `faucet` and `rewards` modules are active:
 
-```
-komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable=228,229
+```bash
+./komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable=228,229
 ```
 
 When `-ac_cc` is set, but `-ac_ccenable` is not, all Custom Consensus modules are enabled.
