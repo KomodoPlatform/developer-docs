@@ -10,7 +10,7 @@ The new behaviour is as follows:
 - 1 confirmation means the tx is confirmed on the network, but not dPoW'd yet (Explorers may show different confirmation values and wouldn't match till atleast one notarization happens. `rawconfirmations` value will match, which is only visible if you are quering via CLI.)
 - any other confirmation number means the tx is secure with dPoW
 
-This feature is helpful for exchanges mainly and for users who prefer security. This will work automatically for Native mode for KMD or any other assetchain. SPV mode doesn't have this feature implemented and will not show dPoW Conf data. Upon seeing a confirmation number more than 1, exchanges can simply credit the deposit to a user being sure that the tx is secure and can't be double-spent.
+This feature is helpful for exchanges mainly and for users who prefer security. This will work automatically for Native mode for KMD or any other assetchain. SPV mode doesn't have this feature implemented and will not show dPoW Conf data. Upon seeing a confirmation number more than 1, exchanges can simply credit the deposit to a user being sure that the transaction is secure and can't be double-spent.
 
 ## A practical example of how number of confirmations are displayed after this update
 
@@ -36,7 +36,8 @@ This feature is helpful for exchanges mainly and for users who prefer security. 
 
 - `"rawconfirmations": 12,`
 
-As seen in the above example, the value corresponding to the `"confirmations":` is greater than 1 only after the transaction/block is secured by dPOW. So exchanges can just keep track of the value of `"confirmations":` and consider the transaction as final when the value is neither `0 nor 1`; any value greater than `1` for the `"confirmations":` field means the transaction is dPoW'd and secure.
+As seen in the above example, the value corresponding to the `"confirmations":` is greater than 1 only after the transaction/block is secured by dPoW. So exchanges can just keep track of the value of `"confirmations":` and consider the transaction as final when the value is neither `0 nor 1`; any value greater than `1` for the `"confirmations":` field means the transaction is dPoW'd and secure.
+
 
 It has been implemented in such a way that exchanges can integrate this double-spend prevention mechanism with no major code changes if they have been checking for the number of confirmations from `komodod` previously. Essentially, confirmations have been made dPOW aware: Confirmations will never go above 1 until a transaction is notarized.
 
