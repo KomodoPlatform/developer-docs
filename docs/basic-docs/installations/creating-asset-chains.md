@@ -35,9 +35,13 @@ For example, if the developers are operating on a local router, where the two ma
 
 A home or office-type setup can suffice, if you're just looking to test an asset chain quickly and don't want to spend money on a VPS. However, don't be surprised if you need to ask for help. Please reach out to us, and we'll help the best we can.
 
-You will know that your machines have successfully connected when you can run the following command in the terminal of one of your machines:
+You will know that your machines are able to connect when you can run the following command in the terminal of one of your machines:
 
-`ping <insert ip address of your other machine here>`
+To findout the ip address of a machine, execute: `curl ifconfig.me` in it.
+
+```bash
+ping <insert ip address of your other machine here>
+```
 
 This command will generate a response every second, indicating the `ping` speed with which your machines are able to connect.
 
@@ -52,7 +56,7 @@ PING 192.168.1.101 (192.168.1.101) 56(84) bytes of data
 
 ```
 
-If you do not see a continuing response in the shell, your machines are not yet connected. Please reach out to our team and we will do our best to assist you.
+If you do not see a similar response in the shell, your machines are not able to connect. Please reach out to our team and we will do our best to assist you.
 
 ## Part I: Creating a New Komodo Asset Chain
 
@@ -114,7 +118,7 @@ Mining can be started on a node using the following command:
 
 On a Komodo-based blockchain, all of the pre-mined coins are mined in the first block. Therefore, whichever machine executes the mining command will receive the entirety of the blockchain's pre-mined coin supply, as set in the [ac_supply](../installations/asset-chain-parameters.html#ac-supply) parameter. Upon mining the first block, these coins are available in the default `wallet.dat` file.
 
-To collect all the mining rewards from the node a to a single address, open a different terminal in the node and execute the following commands before issuing the `setgenerate` command:
+To collect all the mining rewards from the node to a single address, execute the following commands before issuing the `setgenerate` command:
 
 ```bash
 # Get a new address
