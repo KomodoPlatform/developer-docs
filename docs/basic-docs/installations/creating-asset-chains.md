@@ -107,12 +107,12 @@ Once the daemon loads, compare the string that starts with `>>>>>>>>>>` in the s
 Mining can be started on a node using the following command:
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD setgenerate true 1
+./komodo-cli -ac_name=HELLOWORLD setgenerate true $(nproc)
 ```
 
-`1` in the above command makes the daemon mine using a single CPU thread, which is sufficient in this case as there is no other miner yet.
+`$(nproc)` in the above command makes the daemon mine using all the available CPU threads, which might be necesary in a low end VPS.
 
-On a Komodo-based blockchain, all of the pre-mined coins are mined in the first block. Therefore, whichever machine executes the mining command will receive the entirety of the blockchain's pre-mined coin supply, as set in the [ac_supply](../installations/asset-chain-parameters.html#ac-supply) parameter. Upon mining the first block, these coins are be available in the default `wallet.dat` file.
+On a Komodo-based blockchain, all of the pre-mined coins are mined in the first block. Therefore, whichever machine executes the mining command will receive the entirety of the blockchain's pre-mined coin supply, as set in the [ac_supply](../installations/asset-chain-parameters.html#ac-supply) parameter. Upon mining the first block, these coins are available in the default `wallet.dat` file.
 
 To collect all the mining rewards from the node a to a single address, open a different terminal in the node and execute the following commands before issuing the `setgenerate` command:
 
@@ -143,7 +143,7 @@ You can check the contents of the wallet by executing the following command in t
 ./komodo-cli -ac_name=HELLOWORLD getwalletinfo
 ```
 
-To make sure that everything is functioning as ut should, send a few coins mined in the second node to an address in the first node and verify that the first node received the coins.
+To make sure that everything is functioning as it should, send a few coins mined in the second node to an address in the first node and verify that the first node received the coins.
 
 <collapse-text hidden title="Commands">
 
@@ -166,7 +166,7 @@ echo $newaddress
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD getreceivedbyaddress Address_from_the_first_node 0
-# 0 in the above command displays unconfirmed balnce too
+# 0 in the above command makes it output unconfirmed balnce too
 ```
 
 </collapse-text>
