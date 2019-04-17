@@ -80,7 +80,9 @@ After issuing this command in the terminal, you will find the p2p port in the te
 >>>>>>>>>> HELLOWORLD: p2p.8096 rpc.8097 magic.c89a5b16 3365559062 777777 coins
 ```
 
-In this case, the p2p port is `8096`.
+In the above string, take note of the p2p and rpc ports as well as the magic number. These values have to match the output from the second node, else they are two different chains. Verify that the launch command is the same on both the nodes if the values differ.
+
+In this case, the p2p port is `8096`. Make sure that the p2p port is open to the internet or any other network the second node connects from.
 
 This completes the first half of the asset-chain creation process. Scroll down to [Part II](../installations/creating-asset-chains.html#part-ii-connecting-the-second-node).
 
@@ -94,15 +96,44 @@ Please note the requirements for [ac_supply](../installations/asset-chain-parame
 
 ## Part II: Connecting the Second Node
 
-On the second node you issue the same command, with two key differences. You will use the first node's IP address, and you will include an additional setting that initiates mining on this node, `-gen -genproclimit=$(nproc)`.
+On the second node you issue the same command, with a key differences. You will use the first node's IP address.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -addnode=<IP address of the first node> -gen -genproclimit=$(nproc) &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -addnode=<IP address of the first node> &
 ```
 
-Once the second node connects, it will automatically mine blocks.
+Once the daemon loads, compare the string that starts with `>>>>>>>>>>` in the second node to the one from the first node to make sure they are identical.
+
+Mining can be started on a node using the following command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD setgenerate true 1
+```
+
+`1` in the above command makes the daemon mine using a single CPU thread, which is sufficient in this case as there is no other miner yet.
 
 On a Komodo-based blockchain, all of the pre-mined coins are mined in the first block. Therefore, whichever machine executes the mining command will receive the entirety of the blockchain's pre-mined coin supply, as set in the [ac_supply](../installations/asset-chain-parameters.html#ac-supply) parameter. Upon mining the first block, these coins are be available in the default `wallet.dat` file.
+
+To collect all the mining rewards from the node a to a single address, open a different terminal in the node and execute the following commands before issuing the `setgenerate` command:
+
+```bash
+# Get a new address
+newaddress=$(./komodo-cli -ac_name=HELLOWORLD getnewaddress)
+
+# Get the corresponding pubkey
+pubkey=$(./komodo-cli -ac_name=HELLOWORLD validateaddress $newaddress | jq -r '.pubkey' )
+
+# Indicate the pubkey to the daemon
+./komodo-cli -ac_name=HELLOWORLD setpubkey $pubkey
+```
+
+After the minimg command is issued, you can check that the two nodes are connected by using the following command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD getinfo | grep connections
+```
+
+The response must be `"connections": 1` in both the nodes if they are connected.
 
 These are the coins you will later distribute to your community, using either our native DEX, [BarterDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), or our decentralized-ICO software (coming soon), or on any other third-party exchange.
 
@@ -111,6 +142,34 @@ You can check the contents of the wallet by executing the following command in t
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD getwalletinfo
 ```
+
+To make sure that everything is functioning as ut should, send a few coins mined in the second node to an address in the first node and verify that the first node received the coins.
+
+<collapse-text hidden title="Commands">
+
+### In Node1
+
+```bash
+newaddress=$(./komodo-cli -ac_name=HELLOWORLD getnewaddress)
+echo $newaddress
+# Copy the newaddress displayed to use it in the second node
+```
+
+### In Node2
+
+```bash
+# Send ten coins to the address generated in the first node
+./komodo-cli -ac_name=HELLOWORLD sendtoaddress Address_from_the_first_node 10
+```
+
+### In Node1
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD getreceivedbyaddress Address_from_the_first_node 0
+# 0 in the above command displays unconfirmed balnce too
+```
+
+</collapse-text>
 
 More info can be found in the debug.log of the chain found at:
 
