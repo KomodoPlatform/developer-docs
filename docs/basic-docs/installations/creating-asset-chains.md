@@ -35,9 +35,13 @@ For example, if the developers are operating on a local router, where the two ma
 
 A home or office-type setup can suffice, if you're just looking to test an asset chain quickly and don't want to spend money on a VPS. However, don't be surprised if you need to ask for help. Please reach out to us, and we'll help the best we can.
 
-You will know that your machines have successfully connected when you can run the following command in the terminal of one of your machines:
+You will know that your machines are able to connect when you can run the following command in the terminal of one of your machines:
 
-`ping <insert ip address of your other machine here>`
+To findout the ip address of a machine, execute: `curl ifconfig.me` in it.
+
+```bash
+ping <insert ip address of your other machine here>
+```
 
 This command will generate a response every second, indicating the `ping` speed with which your machines are able to connect.
 
@@ -52,7 +56,7 @@ PING 192.168.1.101 (192.168.1.101) 56(84) bytes of data
 
 ```
 
-If you do not see a continuing response in the shell, your machines are not yet connected. Please reach out to our team and we will do our best to assist you.
+If you do not see a similar response in the shell, your machines are not able to connect. Please reach out to our team and we will do our best to assist you.
 
 ## Part I: Creating a New Komodo Asset Chain
 
@@ -80,7 +84,9 @@ After issuing this command in the terminal, you will find the p2p port in the te
 >>>>>>>>>> HELLOWORLD: p2p.8096 rpc.8097 magic.c89a5b16 3365559062 777777 coins
 ```
 
-In this case, the p2p port is `8096`.
+In the above string, take note of the p2p and rpc ports as well as the magic number. These values have to match the output from the second node, else they are two different chains. Verify that the launch command is the same on both the nodes if the values differ.
+
+In this case, the p2p port is `8096`. Make sure that the p2p port is open to the internet or any other network the second node connects from.
 
 This completes the first half of the asset-chain creation process. Scroll down to [Part II](../installations/creating-asset-chains.html#part-ii-connecting-the-second-node).
 
@@ -94,15 +100,44 @@ Please note the requirements for [ac_supply](../installations/asset-chain-parame
 
 ## Part II: Connecting the Second Node
 
-On the second node you issue the same command, with two key differences. You will use the first node's IP address, and you will include an additional setting that initiates mining on this node, `-gen -genproclimit=$(nproc)`.
+On the second node you issue the same command, with a key differences. You will use the first node's IP address.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -addnode=<IP address of the first node> -gen -genproclimit=$(nproc) &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -addnode=<IP address of the first node> &
 ```
 
-Once the second node connects, it will automatically mine blocks.
+Once the daemon loads, compare the string that starts with `>>>>>>>>>>` in the second node to the one from the first node to make sure they are identical.
 
-On a Komodo-based blockchain, all of the pre-mined coins are mined in the first block. Therefore, whichever machine executes the mining command will receive the entirety of the blockchain's pre-mined coin supply, as set in the [ac_supply](../installations/asset-chain-parameters.html#ac-supply) parameter. Upon mining the first block, these coins are be available in the default `wallet.dat` file.
+Mining can be started on a node using the following command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD setgenerate true $(nproc)
+```
+
+`$(nproc)` in the above command makes the daemon mine using all the available CPU threads, which might be necesary in a low end VPS.
+
+On a Komodo-based blockchain, all of the pre-mined coins are mined in the first block. Therefore, whichever machine executes the mining command will receive the entirety of the blockchain's pre-mined coin supply, as set in the [ac_supply](../installations/asset-chain-parameters.html#ac-supply) parameter. Upon mining the first block, these coins are available in the default `wallet.dat` file.
+
+To collect all the mining rewards from the node to a single address, execute the following commands before issuing the `setgenerate` command:
+
+```bash
+# Get a new address
+newaddress=$(./komodo-cli -ac_name=HELLOWORLD getnewaddress)
+
+# Get the corresponding pubkey
+pubkey=$(./komodo-cli -ac_name=HELLOWORLD validateaddress $newaddress | jq -r '.pubkey' )
+
+# Indicate the pubkey to the daemon
+./komodo-cli -ac_name=HELLOWORLD setpubkey $pubkey
+```
+
+After the minimg command is issued, you can check that the two nodes are connected by using the following command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD getinfo | grep connections
+```
+
+The response must be `"connections": 1` in both the nodes if they are connected.
 
 These are the coins you will later distribute to your community, using either our native DEX, [BarterDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), or our decentralized-ICO software (coming soon), or on any other third-party exchange.
 
@@ -111,6 +146,34 @@ You can check the contents of the wallet by executing the following command in t
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD getwalletinfo
 ```
+
+To make sure that everything is functioning as it should, send a few coins mined in the second node to an address in the first node and verify that the first node received the coins.
+
+<collapse-text hidden title="Commands">
+
+### In Node1
+
+```bash
+newaddress=$(./komodo-cli -ac_name=HELLOWORLD getnewaddress)
+echo $newaddress
+# Copy the newaddress displayed to use it in the second node
+```
+
+### In Node2
+
+```bash
+# Send ten coins to the address generated in the first node
+./komodo-cli -ac_name=HELLOWORLD sendtoaddress Address_from_the_first_node 10
+```
+
+### In Node1
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD getreceivedbyaddress Address_from_the_first_node 0
+# 0 in the above command makes it output unconfirmed balnce too
+```
+
+</collapse-text>
 
 More info can be found in the debug.log of the chain found at:
 
