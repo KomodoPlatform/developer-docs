@@ -363,7 +363,7 @@ module.exports = {
           "/assetchains/beginner-vps-linux.md",
           "A Beginner's Guide to starting with the world of Remote UNIX environments and creating Komodo Blockchains"
         ],
-        ["/assetchains/create-asset-chain-single-node.md", "Create amd test an Asset Chain using a Single Node"],
+        ["/assetchains/create-asset-chain-single-node.md", "Create and test an Asset Chain using a Single Node"],
         [
           "/assetchains/example-asset-chains.md",
           "Examples and descriptions of various Blockchains that can be created using Komodo Platform"
