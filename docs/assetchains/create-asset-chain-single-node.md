@@ -1,4 +1,4 @@
-# Create amd test an Asset Chain using a Single Node
+# Create and test an Asset Chain using a Single Node
 
 Normally at least two different nodes are required to setup and [create an Asset Chain](../basic-docs/installations/creating-asset-chains.html).
 
