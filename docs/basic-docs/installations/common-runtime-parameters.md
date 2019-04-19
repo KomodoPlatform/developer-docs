@@ -159,7 +159,7 @@ spentindex=1
 
 `regtest` instructs the coin daemon to run a regression test network. Typically, the user will create a disposable asset chain for these purposes. The asset-chain coin supply parameter is not required in this instance.
 
-(A regression-test network is a useful tool for rapid trial and testing. Please reach out to [us](https://komodoplatform.com/discord) if you are curious to implement this tool in your workflow and are unfamiliar with how it is done.)
+(A regression-test network is a useful tool for rapid trial and testing. [Please reach out to us](https://komodoplatform.com/discord) if you are curious to implement this tool in your workflow and are unfamiliar with how it is done.)
 
 #### :pushpin: Examples:
 
