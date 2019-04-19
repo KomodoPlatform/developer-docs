@@ -135,7 +135,7 @@ git pull
 ./zcutil/build.sh -j$(nproc)
 ```
 
-#### Set `pubkey` value
+## Launch the `ROGUE` chain and Set `pubkey` value
 
 ##### Step 1 - Start the chain
 
