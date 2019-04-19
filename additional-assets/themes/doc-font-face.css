@@ -1,0 +1,234 @@
+/* Montserrat */
+
+/* List
+Montserrat-BlackItalic.ttf
+Montserrat-Black.ttf
+Montserrat-BoldItalic.ttf
+Montserrat-Bold.ttf
+Montserrat-ExtraBoldItalic.ttf
+Montserrat-ExtraBold.ttf
+Montserrat-ExtraLightItalic.ttf
+Montserrat-ExtraLight.ttf
+Montserrat-Italic.ttf
+Montserrat-LightItalic.ttf
+Montserrat-Light.ttf
+Montserrat-MediumItalic.ttf
+Montserrat-Medium.ttf
+Montserrat-Regular.ttf
+Montserrat-SemiBoldItalic.ttf
+Montserrat-SemiBold.ttf
+Montserrat-ThinItalic.ttf
+Montserrat-Thin.ttf
+*/
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-Thin.ttf') format('ttf');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-ThinItalic.ttf') format('ttf');
+    font-weight: 100;
+    font-style: Italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-ExtraLight.ttf') format('ttf');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-ExtraLightItalic.ttf') format('ttf');
+    font-weight: 200;
+    font-style: Italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-Light.ttf') format('ttf');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-LightItalic.ttf') format('ttf');
+    font-weight: 300;
+    font-style: Italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-Regular.ttf') format('ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-Italic.ttf') format('ttf');
+    font-weight: 400;
+    font-style: Italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-Medium.ttf') format('ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-MediumItalic.ttf') format('ttf');
+    font-weight: 500;
+    font-style: Italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-SemiBold.ttf') format('ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-SemiBoldItalic.ttf') format('ttf');
+    font-weight: 600;
+    font-style: Italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-Bold.ttf') format('ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-BoldItalic.ttf') format('ttf');
+    font-weight: 700;
+    font-style: Italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-ExtraBold.ttf') format('ttf');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-ExtraBoldItalic.ttf') format('ttf');
+    font-weight: 800;
+    font-style: Italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-Black.ttf') format('ttf');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/font_files/Montserrat-BlackItalic.ttf') format('ttf');
+    font-weight: 900;
+    font-style: Italic;
+}
+
+/* Rubik */
+
+/* List
+Rubik-BlackItalic.ttf
+Rubik-Black.ttf
+Rubik-BoldItalic.ttf
+Rubik-Bold.ttf
+Rubik-Italic.ttf
+Rubik-LightItalic.ttf
+Rubik-Light.ttf
+Rubik-MediumItalic.ttf
+Rubik-Medium.ttf
+Rubik-Regular.ttf
+*/
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/font_files/Rubik-Light.ttf') format('ttf');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/font_files/Rubik-LightItalic.ttf') format('ttf');
+    font-weight: 300;
+    font-style: Italic;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/font_files/Rubik-Regular.ttf') format('ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/font_files/Rubik-Italic.ttf') format('ttf');
+    font-weight: 400;
+    font-style: Italic;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/font_files/Rubik-Medium.ttf') format('ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/font_files/Rubik-MediumItalic.ttf') format('ttf');
+    font-weight: 500;
+    font-style: Italic;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/font_files/Rubik-Bold.ttf') format('ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/font_files/Rubik-BoldItalic.ttf') format('ttf');
+    font-weight: 700;
+    font-style: Italic;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/font_files/Rubik-Black.ttf') format('ttf');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/font_files/Rubik-BlackItalic.ttf') format('ttf');
+    font-weight: 900;
+    font-style: Italic;
+}
+

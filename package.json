@@ -9,7 +9,9 @@
   "author": "Contributors from Komodo Platform",
   "license": "MIT",
   "devDependencies": {
-    "vuepress": "^0.14.8"
+    "vuepress": "^1.0.0-alpha.47",
+    "vuepress-plugin-redirect": "1.2.0-alpha.0"
+
   },
   "scripts": {
     "docs:dev": "vuepress dev docs",

@@ -7,11 +7,11 @@ An optional tip. Please avoid using tips as much as possible.
 Highly important tips, such as a request to reach out to the team before using the module on a production chain due to its experimental nature, or something similar
 :::
 
-The Insert_Module CryptoConditions (CC) module ... does what?
+The Name CryptoConditions (CC) module ... does what?
 
-Explain the module at a general level. Try to explain it as though you are talking toa new customer, who may only be lightly familiar with coding and/or blockchain.
+Explain the module at a general level. Try to explain it as though you are talking to a new customer, who may only be lightly familiar with coding and/or blockchain.
 
-Some questions to consider (you do not have to answer all of them, and you can answer questions not present here in the introduction):
+Here are some questions to consider:
 
 What is the general idea of this module? What is it good for?
 
@@ -19,7 +19,7 @@ Is this module related to technology happening elsewhere in the industry? If so,
 
 Why would someone want to try it?
 
-What problem does this module solve?
+What problem does this module solve? Please clearly describe the problem.  
 
 Can you visualize in your head a customer using this feature? Why are they interested? Carry on a conversation with them in your head, as though you are trying to get them to use the feature. What points did you have to use to get them to make a purchase? Write down those notes here.
 
@@ -31,7 +31,7 @@ Read through some of the existing CC documentation on developers.komodoplatform.
 Any additional tips or after thoughts. Again, try to avoid using these, if at all possible.
 :::
 
-### [Insert Module Name] Flow
+### Name CC Module Flow
 
 * Insert first step here [insert relevant links to relevant method here](https://www.youtube.com/watch?v=C4_KDf4xhU8), and try to keep this and all others to one or two sentences 
 * Add any additional notes about this here
@@ -66,7 +66,7 @@ Should you tell me here that I don't need to read the next section, that I don't
 
 ### Manually Compiling Software
 
-Tell me here what I'm doing. Manually compiling, right?
+Tell me here what I'm doing. Manually compiling, right? Assume that someone reading this may have skipped directly to this section and may not have read anything above.
 
 Is there anything else I need to know?
 
@@ -185,7 +185,7 @@ And if there is any output that is extremely, extremely long (like a `hex` value
 
                 "the": "good"
                 "stuff": "goes"
-                "here": "Makes Whales Great Again"
+                "here": "Make Whales Great Again"
 
             ... (omitted for brevity) ..
 
@@ -273,7 +273,7 @@ Again, try to avoid adding tips. But if you have to, see if you can add them at 
 | response | (string) | it's okay to use [links](https://en.wikipedia.org/wiki/Nobody_for_President) and `highlights` in the description, but again, don't combine them together |
 
 ::: tip
-Do you really need to put a tip here? Really? Make sure you do. Most likely, you don't, but there have been maybe one or two exceptions.
+Do you really need to put a tip here? Really? Make sure you do. Most likely, you don't, but there have been maybe one or two exceptions. I suggest putting any content up above, in the description section. Maybe make it a ### triple section heading.
 :::
 
 #### :pushpin: Examples:

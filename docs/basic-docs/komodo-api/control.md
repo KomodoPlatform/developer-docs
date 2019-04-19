@@ -25,15 +25,15 @@ Examples:
 
 The `getinfo` method returns an object containing various state info.
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure         | Type               | Description                                                                                                                            |
+| Name | Type | Description | 
 | ----------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
 | "version"         | (numeric)          | the server version                                                                                                                     |
 | "protocolversion" | (numeric)          | the protocol version                                                                                                                   |
@@ -52,7 +52,7 @@ The `getinfo` method returns an object containing various state info.
 | "relayfee"        | (numeric)          | minimum relay fee for non-free transactions in COIN/kB                                                                                 |
 | "errors"          | (string)           | any error messages                                                                                                                     |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -60,7 +60,9 @@ Command:
 ./komodo-cli getinfo
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -97,6 +99,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -105,7 +110,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -146,25 +153,30 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## help
 
 **help ( "command" )**
 
 The `help` method lists all commands, or all information for a specified command.
 
-### Arguments:
+### Arguments
 
-| Structure | Type               | Description                      |
+| Name | Type | Description | 
 | --------- | ------------------ | -------------------------------- |
 | "command" | (string, optional) | the command requiring assistance |
 
-Response:
 
-| Structure | Type               | Description                      |
+### Response
+
+
+| Name | Type | Description | 
 | --------- | ------------------ | -------------------------------- |
 | "command" | (string, optional) | the command requiring assistance |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -172,9 +184,10 @@ Command:
 ./komodo-cli help
 ```
 
-Response:
+<collapse-text hidden title="Response">
 
-```
+
+```bash
 == Addressindex ==
 getaddressbalance
 getaddressdeltas
@@ -202,15 +215,19 @@ getdifficulty
 ........ (other responses omitted for brevity)
 ```
 
+</collapse-text>
+
 Command:
 
 ```bash
 ./komodo-cli help getaddressbalance
 ```
 
-Response:
 
-```
+<collapse-text hidden title="Response">
+
+
+```bash
 Returns the balance for an address(es) (requires addressindex to be enabled).
 
 Arguments:
@@ -233,6 +250,8 @@ Examples:
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["RY5LccmGiX9bUHYGtSWQouNy1yFhc5rM87"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:7771/
 ```
 
+</collapse-text>
+
 ## stop
 
 **stop**
@@ -245,20 +264,20 @@ The amount of time it takes to shut down the chain will vary depending on the ch
 Forcefully stopping the chain should be avoided, as it may cause a corruption in the local database. In the event of a corrupted database, the user will need to <b>resync</b>.
 :::
 
-### Arguments:
+### Arguments
 
-| Structure | Type | Description |
+| Name | Type | Description | 
 | --------- | ---- | ----------- |
 | (none)    |      |
 
-### Response:
+### Response
 
-| Structure                     | Type | Description |
+| Name | Type | Description | 
 | ----------------------------- | ---- | ----------- |
 | Komodo server stopping        |      |
 | [COIN] Komodo server stopping |      |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -266,8 +285,13 @@ Command:
 ./komodo-cli stop
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
 "Komodo server stopping"
 ```
+
+</collapse-text>
+

@@ -122,7 +122,7 @@ A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases b
 
 **-ac_ccactivate=block_height**
 
-The `ac_ccactivate` launch parameter allows for the activation of CryptoConditions (CC) on an existing Komodo-based asset chain wherein CC was not originally enabled.
+The `ac_ccactivate` launch parameter allows for the activation of Custom Consensus (CC) on an existing Komodo-based asset chain wherein CC was not originally enabled.
 
 Add the `ac_ccactivate` parameter to the existing launch command for the asset chain and set the value equal to a future block height. When this block height is reached, CC will be available on the asset chain. 
 
@@ -144,7 +144,7 @@ After using `ac_ccactivate`:
 ./komodod -ac_name=EXAMPLE -ac_supply=72000000 -ac_ccactivate=140 -addnode=24.54.206.138 &
 ```
 
-In this example, CryptoConditions will be available at blockheight `140`. All nodes, include the notary nodes, must relaunch the daemon with the new parameters before blockheight `140`.
+In this example, Custom Consensus will be available at blockheight `140`. All nodes, include the notary nodes, must relaunch the daemon with the new parameters before blockheight `140`.
 
 ## ac_halving
 
@@ -286,7 +286,7 @@ Use `ac_pubkey` to send the founder's reward to a normal address.
 
 Use `ac_script` to send the founder's reward to a multi-signature address.
 
-Set `ac_founders=1` to stay compatible with most straum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
+Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
 
 ## ac_pubkey
 
@@ -385,7 +385,7 @@ Set `ac_script` to the `"hex"` value from the returned json object.
 This parameter is still in testing.
 :::
 
-The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via CryptoConditions modules and MoMoM technology.
+The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via Custom Consensus modules and MoMoM technology.
 
 Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one asset chain can be directly transferred to any other asset chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
 
@@ -393,15 +393,15 @@ Once activated, the `ac_cc` parameter can allow features such as cross-chain fun
 Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, cross-chain transaction validation and its dependent features, including cross-chain fungibility, require notarization.
 ### ac_cc=0
 
-Setting `ac_cc=0` disables CryptoConditions on the asset chain entirely. 
+Setting `ac_cc=0` disables Custom Consensus on the asset chain entirely. 
 
 ::: tip
-It is better to <b>NOT</b> use `ac_cc=0` for an asset chain where CryptoConditions should not be enabled. Omitting the `ac_cc` parameter altogether will achieve the same result.
+It is better to <b>NOT</b> use `ac_cc=0` for an asset chain where Custom Consensus should not be enabled. Omitting the `ac_cc` parameter altogether will achieve the same result.
 :::
 
 ### ac_cc=1
 
-Setting `ac_cc=1` permits CryptonConditions on the asset chain, but will not allow the asset chain to interact in cross-chain CryptoConditions functionality with other asset chains.
+Setting `ac_cc=1` permits Custom Consensus on the asset chain, but will not allow the asset chain to interact in cross-chain Custom Consensus functionality with other asset chains.
 
 ### ac_cc=2 to 99
 
@@ -420,9 +420,9 @@ For example, an asset chain set to `ac_cc=201` in its parameters can interact wi
 ### Summary of `ac_cc`
 
 ::: tip Consider a chain with -ac_cc=N
-* If <b>N = 0</b>, CryptoConditions is disabled
-* If <b>N > 0</b>, CryptoConditions is enabled
-* If <b>N = 1</b>, on-chain CryptoConditions is active, cross-chain validation is disabled
+* If <b>N = 0</b>, Custom Consensus is disabled
+* If <b>N > 0</b>, Custom Consensus is enabled
+* If <b>N = 1</b>, on-chain Custom Consensus is active, cross-chain validation is disabled
 * If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in each asset chain are non-fungible across chains.
 * If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
 :::
@@ -643,15 +643,15 @@ The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` doe
 
 ## ac_cclib
 
-The `ac_cclib` parameter is used in conjunction with various CryptoConditions modules. 
+The `ac_cclib` parameter is used in conjunction with various Custom Consensus modules. 
 
-Typically, the asset chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each CryptoConditions module in question. Once the asset chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
+Typically, the asset chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each Custom Consensus module in question. Once the asset chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
 
 ```
 -ac_cclib=desired_CC_module
 ```
 
-Each CC module uses the `ac_cclib` parameter differently, and therefore the reader should refer to the desired CryptoConditions module for further instructions.  
+Each CC module uses the `ac_cclib` parameter differently, and therefore the reader should refer to the desired Custom Consensus module for further instructions.  
 
 ## ac_ccenable
 
@@ -659,9 +659,9 @@ Each CC module uses the `ac_cclib` parameter differently, and therefore the read
 This parameter is at the end of the beta development phase and is prepared for public testing. If you are interested in adopting this feature for a production asset chain, please reach out to us so that we can assist you: [link](https://komodoplatform.com/discord).
 :::
 
-The `ac_ccenable` parameter restricts the asset chain so that only indicated CryptoConditions modules can be enabled. `ac_ccenable` requires [ac_cc](../installations/asset-chain-parameters.html#ac-cc) to be active.
+The `ac_ccenable` parameter restricts the asset chain so that only indicated Custom Consensus modules can be enabled. `ac_ccenable` requires [ac_cc](../installations/asset-chain-parameters.html#ac-cc) to be active.
 
-To indicate which CryptoConditions modules should be available, insert each module's eval code in decimal and separated by commas. A list of all eval codes can be found [here](https://github.com/jl777/komodo/blob/master/src/cc/eval.h).
+To indicate which Custom Consensus modules should be available, insert each module's eval code in decimal and separated by commas. A list of all eval codes can be found [here](https://github.com/jl777/komodo/blob/master/src/cc/eval.h).
 
 For example, the following parameters create an asset chain where only the `faucet` and `rewards` modules are active:
 
@@ -669,12 +669,12 @@ For example, the following parameters create an asset chain where only the `fauc
 komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable=228,229
 ```
 
-When `-ac_cc` is set, but `-ac_ccenable` is not, all CryptoConditions modules are enabled.
+When `-ac_cc` is set, but `-ac_ccenable` is not, all Custom Consensus modules are enabled.
 
 ::: warning
-`ac_ccenable` disables spending utxos that are created under a non-enabled CryptoConditions module. We have also implemented additional functionality that disables RPC functions. This prevents the user from creating a utxo that `ac_ccenable` would render unspendable. It is still possible to create raw transactions that bypass this security feature, and thus create utxos that are unspendable. A normal user or developer relying on our RPC functionality should not be concerned with this. However, those who experiment with raw transactions should be cautious.
+`ac_ccenable` disables spending utxos that are created under a non-enabled Custom Consensus module. We have also implemented additional functionality that disables RPC functions. This prevents the user from creating a utxo that `ac_ccenable` would render unspendable. It is still possible to create raw transactions that bypass this security feature, and thus create utxos that are unspendable. A normal user or developer relying on our RPC functionality should not be concerned with this. However, those who experiment with raw transactions should be cautious.
 :::
 
 ::: warning
-If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the evalcodes in the `libcc.so` will not disable CryptoConditions RPC calls. Therefore, there remains a risk that a disabled RPC call can still be used to create a utxo, which will then be non-spendable.
+If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the evalcodes in the `libcc.so` will not disable Custom Consensus RPC calls. Therefore, there remains a risk that a disabled RPC call can still be used to create a utxo, which will then be non-spendable.
 :::

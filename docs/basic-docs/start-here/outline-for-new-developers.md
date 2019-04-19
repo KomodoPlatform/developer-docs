@@ -88,7 +88,7 @@ Every asset chain has zero-knowledge privacy pre-installed, giving you the tools
 
 Having a blockchain all to yourself grants a competitive level of freedom to your creative endeavors.
 
-The highly advanced developer that wishes to engineer your own consensus mechanism can move forward rapidly with your ideas, backed up with the hash rate of Bitcoin. You also have our consensus-level smart contract technology, CryptoConditions, at your disposal, which can allow you to make adjustments to your consensus mechanism far more quickly.
+The highly advanced developer that wishes to engineer your own consensus mechanism can move forward rapidly with your ideas, backed up with the hash rate of Bitcoin. You also have our consensus-level smart contract technology, Custom Consensus, at your disposal, which can allow you to make adjustments to your consensus mechanism far more quickly.
 
 Unlike other platforms, there is no need to wait for the Komodo team to update either the default daemon's functionality, or to update the main Komodo blockchain (KMD).
 
@@ -232,21 +232,21 @@ Now you should be ready to head into smart contract territory.
 
 Smart contracts on Komodo are a bit different (and if you ask us, a bit better too, but we're admittedly biased).
 
-If you need to catch the general idea, read the section, [Smart Contract Overview](cc-overview.html).
+If you need to catch the general idea, read the section, [Smart Contract Overview](custom-consensus-overview.html).
 
 First, you must create an asset chain that has the [ac_cc runtime parameter properly enabled](../installations/asset-chain-parameters.html#ac-cc).
 
 With this activated, you can try a few existing templates:
 
-- [Create ERC20 tokens on your new asset chain](../cryptoconditions/cc-tokens.html)
-- Try using your [built-in on-chain DEX](../cryptoconditions/cc-gateways.html)
-- Use [the oracles smart-contract template](../cryptoconditions/cc-oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
+- [Create ERC20 tokens on your new asset chain](../customconsensus/tokens.html)
+- Try using your [built-in on-chain DEX](../customconsensus/gateways.html)
+- Use [the oracles smart-contract template](../customconsensus/oracles.html) to import real-world data to your blockchain, which can then affect blockchain behavior
 
 ...and more!
 
 ## Write Your Own Smart-Contract Templates
 
-If you're ready to try writing your own customized smart-contract template, please read the detailed technical documentation written by our lead developer, JL777: [Mastering CryptoConditions](https://docs.komodoplatform.com/cc/index-book-jl.html).
+If you're ready to try writing your own customized smart-contract template, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Custom Consensus](https://docs.komodoplatform.com/cc-jl/introduction.html).
 
 Most developers don't need to design smart contracts on Komodo, but rather, only need to implement existing smart-contracts templates while developing a dApp. So don't be discouraged if the technical documentation appears too thick for your level of experience. Come to Discord when you have questions.
 
@@ -255,6 +255,16 @@ Most developers don't need to design smart contracts on Komodo, but rather, only
 Your asset chain can easily be integrated into our native atomic-swap powered DEX, [BarterDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), and our multi-coin wallet, [Agama](https://komodoplatform.com/komodo-wallets/).
 
 You can learn more about both on [docs.komodoplatform.com](https://docs.komodoplatform.com).
+
+## Differences between KMD and an Asset Chain
+
+Newcomers to the Komodo ecosystem may benefit from understanding the differences between the main KMD blockchain and all other asset chains in the Komodo ecosystem.
+
+The main KMD blockchain runs on the same underlying framework as all asset chains in the ecosystem, but not all features are active on the KMD blockchain. The KMD chain's active features include Bitcoin-hash rate supported security and the ability to write Custom Consensus (CC) modules. Other features, such as zero-knowledge privacy, are disabled.
+
+This limitation is intentional. The KMD main-net blockchain holds all the meta data of the ecosystem. By keeping the functionality of this chain limited, Komodo discourages rapid data growth on this central blockchain.
+
+All other asset chains are fully customizable. 
 
 ## Visit Us in Discord
 
