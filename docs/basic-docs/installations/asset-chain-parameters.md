@@ -664,9 +664,9 @@ This parameter is at the end of the beta development phase and is prepared for p
 
 The `ac_ccenable` parameter restricts the asset chain so that only indicated Custom Consensus modules can be enabled. `ac_ccenable` requires [ac_cc](../installations/asset-chain-parameters.html#ac-cc) to be active.
 
-To indicate which Custom Consensus modules should be available, insert each module's eval code in decimal and separated by commas. A list of all eval codes can be found [here](https://github.com/jl777/komodo/blob/master/src/cc/eval.h).
+To indicate which Custom Consensus modules should be available, insert each module's eval code in decimal and separated by commas. 
 
-For a quick reference, see:
+The following table presents an abbreviated list of EVAL codes. For more information, please see [this linked content](https://github.com/jl777/komodo/blob/master/src/cc/eval.h).
 
 | Name of the module | EvalCode |
 | ------------------ | -------- |

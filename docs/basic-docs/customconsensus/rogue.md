@@ -126,7 +126,7 @@ git checkout FSM
 Change the `8` in the `-j8` portion of the last command to any number of processor threads desired and/or appropriate for your machine.
 :::
 
-#### Update `komodod`
+##### Update `komodod`
 
 ```bash
 cd ~/komodo
@@ -135,7 +135,7 @@ git pull
 ./zcutil/build.sh -j$(nproc)
 ```
 
-## Launch the `ROGUE` chain and Set `pubkey` value
+#### Launch the `ROGUE` chain and Set `pubkey` Value
 
 ##### Step 1 - Start the chain
 
