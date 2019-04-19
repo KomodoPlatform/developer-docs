@@ -192,6 +192,17 @@ module.exports = {
             ["/basic-docs/komodo-api/util.md", "Util"],
             ["/basic-docs/komodo-api/wallet.md", "Wallet"]
           ]
+        },
+        {
+            title: "DEX Software & API",
+            collapsable: true,
+            children: [
+                ["/basic-docs/atomic-swap-dex/introduction-to-komodo-dex.md", "Introduction to Komodo DEX Software"],
+                ["/basic-docs/atomic-swap-dex/about-dex.md", "Additional Notes"],
+                ["/basic-docs/atomic-swap-dex/installing-komodo-dex.md", "Installing DEX Software"],
+                ["/basic-docs/atomic-swap-dex/dex-walkthrough.md", "DEX Walkthrough Tutorial"],
+                ["/basic-docs/atomic-swap-dex/dex-api.md", "DEX API"]
+            ]
         }
       ]
     }
