@@ -8,9 +8,7 @@ The following content and tutorial are provided for advanced developers desiring
 
 This discussion is intended for developers who have a strong understanding of the C/C++ languages and who understand the core fundamentals of blockchain engineering, as these are prerequisites for use of the Custom Consensus (CC) framework.
 
-Developers who possess this knowledge and who are already familiar with the essential nature of the CC framework may optionally skip all the following conceptual content and proceed directly to the tutorial.
-
-<!--need link to next section, when it's available -->
+Developers who possess this knowledge and who are already familiar with the essential nature of the CC framework may optionally skip all the following conceptual content and proceed directly to the [tutorial](../customconsensus/tutorial-introduction.html).
 
 If the developer needs more experience with blockchain technology, the Komodo team recommends that they first study the seminal textbook, [Mastering Bitcoin,](https://bitcoinbook.info/) before approaching the CC framework.
 
@@ -93,6 +91,729 @@ The time between project initiation and releasing a beta version for community t
 Also of note is the simplicity of CC architecture. All new code created for the Quantum-Proof module is contained in an optional library, and is included in compilation only for participating blockchains. The Komodo daemon has no need of an external VM. This eliminates what would otherwises be unnecessary baggage for the developer and the core engineers, and yet the daemon offers all the capabilities of a VM-based blockchain -- and arguably more.
 
 The ability to adopt the ideas of others quickly, while maintaining the accomplishments, security, and compatibilities of one's predecessors, makes Custom Consensus a wise choice for experienced developers who wish to maintain a long-term course of productivity and creativity in their work.
+
+## Tutorial Introduction
+
+This assumes you have komodo compiled on linux and you are in the ~/komodo/src directory.
+
+For other options please see alternatives including docker containers.
+
+We will create two blockchains, called RT1 & RT2 in single host mode for developers.  The same tutorial can be done on live blockchains, you need to [create a seed node] or spin up a blockchain seed node with the [Chainlizard blockchain generator service](#).
+
+The [configuration files](#) are automatically generated on start up and saved to ~/.komodo/RT1/RT1.conf & ~/.komodo/RT2/RT2.conf
+
+RT1 will be used for a fundamental exercise.
+RT2 will be used for an introduction to making a custom application specific blockchain that.
+
+All commands will be done using `komodo-cli` from command line and `curl` for network programming.  All curl commands can be completed using Postman - just set the authorization to Basic Auth using the values from the [configuration file](#).  The body is raw and content type is text/plain.
+
+# Check in with your fundamentals by creating a basic single host blockchain
+## Create blockchain
+```
+./komodod -regtest -ac_name=RT1 -ac_supply=1000 &
+```
+The quickest way to spin up your own development environment is using `-regtest`.  In regtest mode, the blockchain runs on a single host and you control when blocks are produced.
+
+The regtest mode is equivalent to the Ethereum ecosystem's ganache tool.
+
+What you see on the screen is something like:
+```
+mylo@swift:~/komodo/src$ ./komodod -regtest -ac_name=RT1 -ac_supply=1000 &
+[1] 22892
+ASSETCHAINS_SUPPLY 1000
+MAX_MONEY 106320417438 1063.20417438
+Created (/home/mylo/.komodo/RT1/RT1.conf)
+call komodo_args.(./komodod) NOTARY_PUBKEY.()
+>>>>>>>>>> RT1: p2p.13100 rpc.13101 magic.fd772ab9 4252445369 1000 coins
+initialized RT1 at 1555581638
+finished loading blocks RT1
+fAddressIndex.0/0 fSpentIndex.0/0
+height.0 slowflag.1 possible.1 cmp.0
+
+```
+The important output for a developer is:
+* `ASSETCHAINS_SUPPLY 1000` is the number of coins when the blockchain starts up. This [parameter](#) is passed into komodo with `-ac_supply` at start.
+* `Created (/home/mylo/.komodo/RT1/RT1.conf)` is the [configuration file](#).  One of the [conventions](#) used by Komodo is all the data is stored in your [blockchain ticker name](#) subdirectory of the Komodo data directory.  The blockchain ticker name is set when the blockchain starts up.  This [parameter](#) is passed into komodo with `-ac_name` at start.
+* `>>>>>>>>>> RT1: p2p.13100 rpc.13101 magic.fd772ab9 4252445369 1000 coins` are the blockchain name, it's network ports used for p2p (13100) and rpc control (13101).  The magic number and number of coins are informational.
+
+
+All the output explained is:
+* `[1] 22892` is the process number on my machine - yours will likely be different.
+* `ASSETCHAINS_SUPPLY 1000` is the number of coins when the blockchain starts up. This [parameter](#) is passed into komodo with `-ac_supply` at start.
+* `MAX_MONEY 106320417438 1063.20417438` is not important, it just means 100 billion coins is the maxmium for your blockchain.
+* `Created (/home/mylo/.komodo/RT1/RT1.conf)` is the [configuration file](#).  One of the [conventions](#) used by Komodo is all the data is stored in your [blockchain ticker name](#) subdirectory of the Komodo data directory.  The blockchain ticker name is set when the blockchain starts up.  This [parameter](#) is passed into komodo with `-ac_name` at start.
+* `call komodo_args.(./komodod) NOTARY_PUBKEY.()` specifies where the new coins from block rewards go.  The output is a bit of a misnomer, the notary key used on this server is simply the pubkey used on this server.  (Notary Nodes are a network security service.  The Komodo mainnet blockchain has 64 Notary Nodes globally.  A notarizing service for your network is not covered in this tutorial, and unless you have a team dedicated to blockchain security you will not need one.  The Komodo mainnet secures blockchains when enrolled in the blockchain security alliance.)
+* `>>>>>>>>>> RT1: p2p.13100 rpc.13101 magic.fd772ab9 4252445369 1000 coins` are the blockchain name, it's network ports used for p2p (13100) and rpc control (13101).  The magic number and number of coins are informational.
+* `initialized RT1 at 1555581638` is the time in seconds past epoch the blockchain was initialized.
+* `finished loading blocks RT1` is informational.
+* `fAddressIndex.0/0 fSpentIndex.0/0` is informational.
+* `height.0 slowflag.1 possible.1 cmp.0` is informational.
+
+## Querying the blockchain with `getinfo`
+[Komodo API `getinfo` method](https://developers.komodoplatform.com/basic-docs/komodo-api/control.html#getinfo) does not require any parameters when called.
+### Using komodo-cli `getinfo`
+Using the `komodo-cli` application with the [Komodo API `getinfo` method](https://developers.komodoplatform.com/basic-docs/komodo-api/control.html#getinfo).
+```
+./komodo-cli -regtest -ac_name=RT1 getinfo
+```
+This outputs basic blockchain info.
+Response:
+```
+{
+  "version": 2001526,
+  "protocolversion": 170007,
+  "KMDversion": "0.3.3b",
+  "notarized": 0,
+  "prevMoMheight": 0,
+  "notarizedhash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "notarizedtxid": "0000000000000000000000000000000000000000000000000000000000000000",
+  "notarizedtxid_height": "mempool",
+  "KMDnotarized_height": 0,
+  "notarized_confirms": 0,
+  "walletversion": 60000,
+  "balance": 0.00000000,
+  "blocks": 0,
+  "longestchain": 0,
+  "timeoffset": 0,
+  "tiptime": 1296688602,
+  "connections": 0,
+  "proxy": "",
+  "difficulty": 1,
+  "testnet": false,
+  "keypoololdest": 1555581641,
+  "keypoolsize": 101,
+  "paytxfee": 0.00000000,
+  "relayfee": 0.00000100,
+  "errors": "",
+  "name": "RT1",
+  "sapling": -1,
+  "p2pport": 13100,
+  "rpcport": 13101,
+  "magic": -42521927,
+  "premine": 1000
+}
+```
+Note the `blocks` count of zero `(0)`.
+
+### Using curl `getinfo`
+The same can be queried by RPC over localhost using the [Komodo API `getinfo` RPC method](https://developers.komodoplatform.com/basic-docs/komodo-api/control.html#getinfo).  You will need your RPC user and password.  This was automatically generated when the blockchain started and is stored in the [configuration file](#), so using the `source`, variable substitution makes our developer lives easier.
+
+```
+source ~/.komodo/RT1/RT1.conf
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
+```
+If you do not have `jq` installed, remove the pipe character and the jq command `| jq '.'` from the example above.
+
+Curl command has been called with `-s` silent option, `--user` from with the settings from [configuration file](#) which was `source`d for convenience.  The HTTP header `-H` for content-type was set to text/plain with our `--binary-data` - a JSON object requesting the method `getinfo`.
+
+## Create a new set of keys in your wallet
+The wallet is not part of the blockchain, it is a separate application but conveniently we have a wallet application built in.
+
+Using:
+* [Komodo API `getnewaddress` method](#) for getting a new address
+* [Komodo API `validateaddress` method](https://developers.komodoplatform.com/basic-docs/komodo-api/util.html#validateaddress) for getting the public key of the new address which we use for doing custom application specific blockchain development.
+* [Komodo API `dumpprivkey` method](#) for getting the private key of the new address
+
+
+The address issued for this tutorial for `komodo-cli` is `RHGqU4BPHsTve4jUJtJobAaf8SieYUzeFs`.  Replace this with your new address from the following step.
+
+The address issued for this tutorial using `curl` is `RYNBgpcanNdfy4oGLbnVYnPPtu5JWcZM8B`.  Replace this with your new address from the following step.
+
+Save these details for your development so you don't have to keep re-issuing keys.
+* Address:
+* Pubkey:
+* Privkey (never share):
+
+
+### Using komodo-cli `getnewaddress`, `validateaddress` & `dumpprivkey`
+
+```
+./komodo-cli -regtest -ac_name=RT1 getnewaddress
+RHGqU4BPHsTve4jUJtJobAaf8SieYUzeFs
+```
+The response will be an address, for me it was `RHGqU4BPHsTve4jUJtJobAaf8SieYUzeFs`.
+
+Now to get the public key we issue the `validateaddress` method on the new address.
+```
+./komodo-cli -regtest -ac_name=RT1 validateaddress RHGqU4BPHsTve4jUJtJobAaf8SieYUzeFs
+```
+Response:
+```
+{
+  "isvalid": true,
+  "address": "RHGqU4BPHsTve4jUJtJobAaf8SieYUzeFs",
+  "scriptPubKey": "76a91457afccfe042ee068257f95873e1fd3cd4aa210ad88ac",
+  "segid": 28,
+  "ismine": true,
+  "iswatchonly": false,
+  "isscript": false,
+  "pubkey": "0350dd9b828e92600166dd74e521ac8510eb39064dfb30111c990396864542ce56",
+  "iscompressed": true,
+  "account": ""
+}
+```
+Make a note of the `pubkey`.  This will be used as a starting parameter for the application specific blockchain using Custom Consensus.
+
+
+Now to get the private key, replace the address from the previous command.
+```
+./komodo-cli -regtest -ac_name=RT1 dumpprivkey RWbzxx8tKncvcVBzBCetMsPRrcB3YFsXhw
+REDACTED_FOR_TUTORIAL
+```
+The response is the [private key (WIF)](#) for this address.  The private key should never be shared.  Never.  It has been redacted for the tutorial.
+
+
+### Using curl `getnewaddress`, `validateaddress` & `dumpprivkey`
+If using a new terminal, use the `source` to set command line variables.  (`source ~/.komodo/RT1/RT1.conf`)
+```
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getnewaddress", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
+```
+Response:
+```
+{
+  "result": "RYNBgpcanNdfy4oGLbnVYnPPtu5JWcZM8B",
+  "error": null,
+  "id": "curltest"
+}
+```
+Now to get the public key we issue the `validateaddress` method on the new address.
+```
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "validateaddress", "params": ["RYNBgpcanNdfy4oGLbnVYnPPtu5JWcZM8B"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
+```
+Response:
+```
+{
+  "result": {
+    "isvalid": true,
+    "address": "RYNBgpcanNdfy4oGLbnVYnPPtu5JWcZM8B",
+    "scriptPubKey": "76a914fd3ca56e0dc10a080c1d351b42c75bd82fc76d2288ac",
+    "segid": 56,
+    "ismine": true,
+    "iswatchonly": false,
+    "isscript": false,
+    "pubkey": "03cb108cdb893a4a6c72c2fe23768929ada335103c6fa2bea428f5204bd051dacc",
+    "iscompressed": true,
+    "account": ""
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+To get the [private key (WIF)](#) - never share the result.
+```
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "dumpprivkey", "params": ["RYNBgpcanNdfy4oGLbnVYnPPtu5JWcZM8B"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
+```
+Response:
+```
+{
+  "result": "REDACTED_FOR_TUTORIAL",
+  "error": null,
+  "id": "curltest"
+}
+```
+
+## Generating blocks and getting the new coins
+
+* [Komodo API `generate` method](https://developers.komodoplatform.com/basic-docs/komodo-api/generate.html#generate) takes one parameter, the number of blocks to generate.  The response are the blockhashes for each of the blocks generated.
+* [Komodo API `getblock` method](#) is used for querying the block, namely to get the coinbase transaction.
+* [Komodo API `gettransaction` method](#) is used to query a transaction.
+
+
+All of these blockhashes can be queried using `getblock`.  All the blocks have a [coinbase transaction](#) where newly mined blocks [create new coins](#).  The coinbase transaction is like any other transaction that can be queried, the new coins are called the [block reward](#).
+
+### Using komodo-cli `generate`, `getblockhash` & `gettransaction`
+Generating two blocks
+```
+./komodo-cli -regtest -ac_name=RT1 generate 2
+```
+Response:
+```
+[
+  "0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab",
+  "0de2bb48b3a3ef47d5ece90b1ffeccc81b9609879ab86cc03a77cf248adea25d"
+]
+```
+The response received is the blockhashes of the blocks created.  They will be different than the ones I received, because a blockhash is a deterministic (repeatable given the same inputs) procedure.  The inputs include things that will be different from system to system, including timestamps, public keys etc.
+
+The first blockhash we will query.  This is the first block in our test blockchain RT1.  Substituting for your first blockhash you will get your blockchain info.
+
+```
+./komodo-cli -regtest -ac_name=RT1 getblock 0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab
+
+OR
+
+./komodo-cli -regtest -ac_name=RT1 getblock 1
+```
+Response:
+```
+{
+  "hash": "0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab",
+  "confirmations": 2,
+  "rawconfirmations": 2,
+  "size": 276,
+  "height": 1,
+  "version": 4,
+  "merkleroot": "4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006",
+  "segid": -1,
+  "finalsaplingroot": "3e49b5f954aa9d3545bc6c37744661eea48d7c34e3000d82b7f0010c30f4c2fb",
+  "tx": [
+    "4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006"
+  ],
+  "time": 1555589136,
+  "nonce": "0000d66a538f8cc7de721633f23e5d52649e5031a3f0a90e9821189e5b530056",
+  "solution": "01de6014269f75bae931362838b75c5fc3e318c620d2a203d65b9d52691b3d056ae753fc",
+  "bits": "200f0f0f",
+  "difficulty": 1,
+  "chainwork": "0000000000000000000000000000000000000000000000000000000000000022",
+  "anchor": "59d2cde5e65c1414c32ba54f0fe4bdb3d67618125286e6a191317917c812c6d7",
+  "blocktype": "mined",
+  "valuePools": [
+    {
+      "id": "sprout",
+      "monitored": true,
+      "chainValue": 0.00000000,
+      "chainValueZat": 0,
+      "valueDelta": 0.00000000,
+      "valueDeltaZat": 0
+    },
+    {
+      "id": "sapling",
+      "monitored": true,
+      "chainValue": 0.00000000,
+      "chainValueZat": 0,
+      "valueDelta": 0.00000000,
+      "valueDeltaZat": 0
+    }
+  ],
+  "previousblockhash": "029f11d80ef9765602235e1bc9727e3eb6ba20839319f761fee920d63401e327",
+  "nextblockhash": "0de2bb48b3a3ef47d5ece90b1ffeccc81b9609879ab86cc03a77cf248adea25d"
+}
+```
+Now I will query my transaction `4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006` because the first block sends the coin supply of the blockchain to an address in our wallet.
+```
+./komodo-cli -regtest -ac_name=RT1 gettransaction 4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006
+```
+Response:
+```
+{
+  "amount": 1000.07809721,
+  "rawconfirmations": 2,
+  "generated": true,
+  "confirmations": 2,
+  "blockhash": "0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab",
+  "blockindex": 0,
+  "blocktime": 1555589136,
+  "expiryheight": 0,
+  "txid": "4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006",
+  "walletconflicts": [
+  ],
+  "time": 1555589136,
+  "timereceived": 1555589136,
+  "vjoinsplit": [
+  ],
+  "details": [
+    {
+      "account": "",
+      "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+      "category": "generate",
+      "amount": 1000.07809721,
+      "vout": 0,
+      "size": 98
+    }
+  ],
+  "hex": "01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff03510101ffffffff01b912ee4817000000232103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac1068b85c"
+}
+```
+
+
+### Using curl `generate`, `getblockhash` & `gettransaction`
+The `generate` curl command follows because we cannot regenerate our first block.
+
+Remember, if you have opened a new terminal and authorization with curl fails, use the `source` for variable substitution (`source ~/.komodo/RT1/RT1.conf`)
+```
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblock", "params": ["0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
+
+OR
+
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblock", "params": ["1"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
+```
+Response:
+```
+{
+  "result": {
+    "hash": "0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab",
+    "confirmations": 2,
+    "rawconfirmations": 2,
+    "size": 276,
+    "height": 1,
+    "version": 4,
+    "merkleroot": "4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006",
+    "segid": -1,
+    "finalsaplingroot": "3e49b5f954aa9d3545bc6c37744661eea48d7c34e3000d82b7f0010c30f4c2fb",
+    "tx": [
+      "4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006"
+    ],
+    "time": 1555589136,
+    "nonce": "0000d66a538f8cc7de721633f23e5d52649e5031a3f0a90e9821189e5b530056",
+    "solution": "01de6014269f75bae931362838b75c5fc3e318c620d2a203d65b9d52691b3d056ae753fc",
+    "bits": "200f0f0f",
+    "difficulty": 1,
+    "chainwork": "0000000000000000000000000000000000000000000000000000000000000022",
+    "anchor": "59d2cde5e65c1414c32ba54f0fe4bdb3d67618125286e6a191317917c812c6d7",
+    "blocktype": "mined",
+    "valuePools": [
+      {
+        "id": "sprout",
+        "monitored": true,
+        "chainValue": 0,
+        "chainValueZat": 0,
+        "valueDelta": 0,
+        "valueDeltaZat": 0
+      },
+      {
+        "id": "sapling",
+        "monitored": true,
+        "chainValue": 0,
+        "chainValueZat": 0,
+        "valueDelta": 0,
+        "valueDeltaZat": 0
+      }
+    ],
+    "previousblockhash": "029f11d80ef9765602235e1bc9727e3eb6ba20839319f761fee920d63401e327",
+    "nextblockhash": "0de2bb48b3a3ef47d5ece90b1ffeccc81b9609879ab86cc03a77cf248adea25d"
+  },
+  "error": null,
+  "id": "curltest"
+}
+
+```
+Getting the first transaction that sent the coins to the wallet at start up.
+```
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "gettransaction", "params": ["4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
+```
+Response:
+```
+{
+  "result": {
+    "amount": 1000.07809721,
+    "rawconfirmations": 2,
+    "generated": true,
+    "confirmations": 2,
+    "blockhash": "0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab",
+    "blockindex": 0,
+    "blocktime": 1555589136,
+    "expiryheight": 0,
+    "txid": "4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006",
+    "walletconflicts": [],
+    "time": 1555589136,
+    "timereceived": 1555589136,
+    "vjoinsplit": [],
+    "details": [
+      {
+        "account": "",
+        "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+        "category": "generate",
+        "amount": 1000.07809721,
+        "vout": 0,
+        "size": 98
+      }
+    ],
+    "hex": "01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff03510101ffffffff01b912ee4817000000232103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac1068b85c"
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+Because we can't regenerate the first block, a sample of the curl command for `generate` follows which generates 5 blocks.
+```
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "generate", "params": [5]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
+```
+Response:
+```
+{
+  "result": [
+    "0561e5c9e81ff8823be080af1232a99c87c41cb208595da20cf461b4ed34f0a9",
+    "0792db3d6976c16ead4c42d4a3fc949931979a0120aefb822b632758fb1968d4",
+    "0975e3320f31cc4e06bb6cfba74ae6762517421535f3c1440c6e4c41cb2428df",
+    "01102d09117d797253899b5b1a68a66d552e30fcc0fa964b4ab64005acfecf0b",
+    "02f1df412f56aee2ea94380e7c59c10ed089481b3a37dc73b9c78577b73ce9f1"
+  ],
+  "error": null,
+  "id": "curltest"
+}
+```
+
+## Inspecting the wallet
+It's time to inspect the contents of the wallet using the [Komodo API `listunspent` method](#).  Unspent transaction outputs (UTXOs) are the **fundamental unit of value**.  The ["What is a UTXO?"](https://komodoplatform.com/whats-utxo/) article goes into detail on the Komodo Platform website.
+
+Everything is derived from the UTXO.  What is supremely important in the world of a developer is being able to validate ownership of an unspent transaction output.  Only the owner of a UTXO is able to spend their own UTXO.  These outputs are used as new transaction inputs, and become the next rightful owner's output to spend in the future.  The value never disappears and the history of value transfer is auditable on a transparent blockchain - because of the underlying trustless public key encryption system, based on the mathematic principals of encryption.
+
+What we notice is the block rewards do not go to one of our generated addresses from this tutorial.  When the `komodod` runs without a `-pubkey` option, it will send the new coins to a new wallet address.  If the `-pubkey` parameter is passed in at start up, the block rewards will go to the address with this public key.
+
+### Using komodo-cli `listunspent` & `stop`
+```
+./komodo-cli -regtest -ac_name=RT1 listunspent
+```
+Response:
+```
+[
+  {
+    "txid": "4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006",
+    "vout": 0,
+    "generated": true,
+    "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+    "segid": 47,
+    "amount": 1000.07809721,
+    "interest": 0.00000000,
+    "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+    "rawconfirmations": 7,
+    "confirmations": 7,
+    "spendable": true
+  },
+  {
+    "txid": "148d8970e3c7e113bd3b4038c1efdd273a6d975f45b194b4257fda6acec4b14a",
+    "vout": 0,
+    "generated": true,
+    "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+    "segid": 47,
+    "amount": 0.00010000,
+    "interest": 0.00000000,
+    "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+    "rawconfirmations": 5,
+    "confirmations": 5,
+    "spendable": true
+  },
+  {
+    "txid": "a0e13cad677b4fede6211c78069aed9345880147ea79edb647383787eb15fe51",
+    "vout": 0,
+    "generated": true,
+    "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+    "segid": 47,
+    "amount": 0.00010000,
+    "interest": 0.00000000,
+    "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+    "rawconfirmations": 6,
+    "confirmations": 6,
+    "spendable": true
+  },
+  {
+    "txid": "01be6fa42a897009477f7a7248c538896ad39a24e132e9bcba00138c781fd57b",
+    "vout": 0,
+    "generated": true,
+    "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+    "segid": 47,
+    "amount": 0.00010000,
+    "interest": 0.00000000,
+    "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+    "rawconfirmations": 1,
+    "confirmations": 1,
+    "spendable": true
+  },
+  {
+    "txid": "73ba44853735808e0b07c45bb1e1acd7c0323bc72e872d4bae92428ad03899be",
+    "vout": 0,
+    "generated": true,
+    "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+    "segid": 47,
+    "amount": 0.00010000,
+    "interest": 0.00000000,
+    "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+    "rawconfirmations": 3,
+    "confirmations": 3,
+    "spendable": true
+  },
+  {
+    "txid": "78a401c6bb7765d73fedf1e2c033935db281a94a58d35f33e6986bda36e57bd5",
+    "vout": 0,
+    "generated": true,
+    "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+    "segid": 47,
+    "amount": 0.00010000,
+    "interest": 0.00000000,
+    "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+    "rawconfirmations": 2,
+    "confirmations": 2,
+    "spendable": true
+  },
+  {
+    "txid": "d81523ef05f9d19abca61982f8c0d5374eb61ecb88c923226277bc0d3e7120e6",
+    "vout": 0,
+    "generated": true,
+    "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+    "segid": 47,
+    "amount": 0.00010000,
+    "interest": 0.00000000,
+    "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+    "rawconfirmations": 4,
+    "confirmations": 4,
+    "spendable": true
+  }
+]
+```
+Stopping our blockchain
+```
+./komodo-cli -regtest -ac_name=RT1 stop
+```
+Response:
+```
+RT1 server stopping
+```
+
+### Using curl `listunspent` & `stop`
+```
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listunspent", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
+```
+Response:
+```
+{
+  "result": [
+    {
+      "txid": "4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006",
+      "vout": 0,
+      "generated": true,
+      "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+      "segid": 47,
+      "amount": 1000.07809721,
+      "interest": 0,
+      "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+      "rawconfirmations": 7,
+      "confirmations": 7,
+      "spendable": true
+    },
+    {
+      "txid": "148d8970e3c7e113bd3b4038c1efdd273a6d975f45b194b4257fda6acec4b14a",
+      "vout": 0,
+      "generated": true,
+      "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+      "segid": 47,
+      "amount": 0.0001,
+      "interest": 0,
+      "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+      "rawconfirmations": 5,
+      "confirmations": 5,
+      "spendable": true
+    },
+    {
+      "txid": "a0e13cad677b4fede6211c78069aed9345880147ea79edb647383787eb15fe51",
+      "vout": 0,
+      "generated": true,
+      "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+      "segid": 47,
+      "amount": 0.0001,
+      "interest": 0,
+      "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+      "rawconfirmations": 6,
+      "confirmations": 6,
+      "spendable": true
+    },
+    {
+      "txid": "01be6fa42a897009477f7a7248c538896ad39a24e132e9bcba00138c781fd57b",
+      "vout": 0,
+      "generated": true,
+      "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+      "segid": 47,
+      "amount": 0.0001,
+      "interest": 0,
+      "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+      "rawconfirmations": 1,
+      "confirmations": 1,
+      "spendable": true
+    },
+    {
+      "txid": "73ba44853735808e0b07c45bb1e1acd7c0323bc72e872d4bae92428ad03899be",
+      "vout": 0,
+      "generated": true,
+      "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+      "segid": 47,
+      "amount": 0.0001,
+      "interest": 0,
+      "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+      "rawconfirmations": 3,
+      "confirmations": 3,
+      "spendable": true
+    },
+    {
+      "txid": "78a401c6bb7765d73fedf1e2c033935db281a94a58d35f33e6986bda36e57bd5",
+      "vout": 0,
+      "generated": true,
+      "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+      "segid": 47,
+      "amount": 0.0001,
+      "interest": 0,
+      "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+      "rawconfirmations": 2,
+      "confirmations": 2,
+      "spendable": true
+    },
+    {
+      "txid": "d81523ef05f9d19abca61982f8c0d5374eb61ecb88c923226277bc0d3e7120e6",
+      "vout": 0,
+      "generated": true,
+      "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+      "segid": 47,
+      "amount": 0.0001,
+      "interest": 0,
+      "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+      "rawconfirmations": 4,
+      "confirmations": 4,
+      "spendable": true
+    }
+  ],
+  "error": null,
+  "id": "curltest"
+}
+```
+Issuing `stop` by RPC
+```
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "stop", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
+```
+Response:
+```
+{
+  "result": "RT1 server stopping",
+  "error": null,
+  "id": "curltest"
+}
+```
+## Restarting RT1 with pubkey set
+
+Restarting the RT1 test blockchain with a [`-ac_pubkey` parameter at start up](https://developers.komodoplatform.com/basic-docs/installations/asset-chain-parameters.html#ac-pubkey), and generating a block, the block reward goes to the address of the `-ac_pubkey`.
+
+```
+./komodod -regtest -ac_name=RT1 -ac_supply=1000 -pubkey=0350dd9b828e92600166dd74e521ac8510eb39064dfb30111c990396864542ce56 &
+```
+Generate a new block similar to earlier in the tutorial, then look at the output of the [Komodo API `listunspent` method].
+```
+./komodo-cli -regtest -ac_name=RT1 generate 1
+[
+  "06a639d7821f6ee803c6c53fe53a6b1dfe65063240ebc3a2907f7658cad8301e"
+]
+```
+Optionally check out the [Komodo API `getblock` method](#) and the coinbase transaction.
+
+Listunspent output:
+```
+...snipped
+  {
+    "txid": "2411800f0e9c15f5233453ffc17ff301f43043c70887c256a041945d341796f0",
+    "vout": 0,
+    "generated": true,
+    "address": "RHGqU4BPHsTve4jUJtJobAaf8SieYUzeFs",
+    "segid": 28,
+    "account": "",
+    "amount": 0.00010000,
+    "interest": 0.00000000,
+    "scriptPubKey": "210350dd9b828e92600166dd74e521ac8510eb39064dfb30111c990396864542ce56ac",
+    "rawconfirmations": 1,
+    "confirmations": 1,
+    "spendable": true
+  }
+...snipped
+```
+Note the `address` in this output.  It is the one associated with the `pubkey` from our [Komodo API `validateaddress` method].
+
+## Closing
+We have some fundamental knowledge that is useful for validating our own developments in the future.   We also know that by setting an `-ac_pubkey` at the launch of the blockchain, the network will pay that address - wherever in the network that wallet is, the blockchain will pay to the address.  We will see this when we start our next blockchain and create our own consensus rules for an on-chain application.
 
 ## (Outline) Sketch for the Next Sections
 
