@@ -67,7 +67,7 @@ Replace `<USERNAME>` with the USERNAME of the account logged in. Can be found us
 To interact with the second daemon, add the `-datadir` parameter to the `komodo-cli` command:
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD -datadir=/home/<USERNAME>/coinData/HELLOWORLD -addnode=localhost getinfo
+./komodo-cli -ac_name=HELLOWORLD -datadir=/home/<USERNAME>/coinData/HELLOWORLD getinfo
 ```
 
 After launching the second daemon, `getinfo` to both the daemons should repont `"connections":1`
@@ -81,3 +81,12 @@ curl -s --user <rpcuser>:<rpcpassword> --data-binary '{"jsonrpc": "1.0", "id": "
 ```
 
 Replace `<rpcuser>`,`<rpcpassword>`,`<rpcport>` with the values from the `.conf` file in the data directory corresponding to the daemon that needs to be queried.
+
+Or `source` the `.conf` file before using the curl command. For example, for the first daemon:
+
+```bash
+source ~/.komodo/HELLOWORLD/HELLOWORLD.conf
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+`source` the file: `~/coinData/HELLOWORLD/HELLOWORLD.conf` to interact with the second daemon using curl.
