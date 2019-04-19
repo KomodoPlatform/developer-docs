@@ -2,7 +2,7 @@
 
 Normally at least two different nodes are required to setup and [create an Asset Chain](../basic-docs/installations/creating-asset-chains.html).
 
-If you are in a situation where you have control over a single computer or have access to two machines but they aren't able to connect to each other, you can create an assetchain using a by running two daemons with slightly different configurations on the same computer.
+If you are in a situation where you have control over a single computer or have access to two machines but they aren't able to connect to each other, you can create an assetchain by running two daemons with slightly different configurations on the same computer.
 
 Get `komodod` and `komodo-cli` by following the instructions here: [Installing Basic Komodo Software](../basic-docs/installations/basic-instructions.html#installing-basic-komodo-software)
 
