@@ -8,9 +8,9 @@ The following content and tutorial are provided for advanced developers desiring
 
 This discussion is intended for developers who have a strong understanding of the C/C++ languages and who understand the core fundamentals of blockchain engineering, as these are prerequisites for use of the Custom Consensus (CC) framework.
 
-Developers who possess this knowledge and who are already familiar with the essential nature of the CC framework may optionally skip all the following conceptual content and proceed directly to the [tutorial](../customconsensus/tutorial-introduction.html).
+Developers who possess this knowledge and who are already familiar with the essential nature of the CC framework may optionally skip all the following conceptual content and [proceed directly to the tutorial](../customconsensus/tutorial-introduction.html).
 
-If the developer needs more experience with blockchain technology, the Komodo team recommends that they first study the seminal textbook, [Mastering Bitcoin,](https://bitcoinbook.info/) before approaching the CC framework.
+If the developer needs more experience with blockchain technology, the Komodo team recommends that the developer first study the seminal textbook, [Mastering Bitcoin,](https://bitcoinbook.info/) before approaching the CC framework.
 
 Also, experienced developers who write in other languages, such as Python, JavaScript, or Solidity, may find value in skimming this discussion to understand key concepts at a high level. At this time, the CC framework has not expanded to include other languages, but Komodo may change this offering in the forseeable future.
 
@@ -54,13 +54,13 @@ This solution is more effective than writing an entirely new CM, yet the solutio
 
 The requirement of the limited programming language derives from security concerns. All validating nodes in the decentralized VM must run all blockchain-related code in the ecosystem. Having this code written in a unique language designed for the VM reduces the available opportunities to malicious actors. While the limitation provides baseline security, the customized and often unstable nature of the VM programming language can make the creative process difficult. Also, the need to master a new language adds an additional burden to the developer.
 
-The dependency on the blockchain's core engineers also slows creative progress for ecosystem developers. When the ecosystem developer discovers a new core-level technology that would increase the developer's productivity and creativity, they must convince the core-software team to implement the new feature. The core-software engineers may have conflicting interests, as their needs must meet the needs of all developers and users in their ecosystem.
+The dependency on the blockchain's core engineers also slows creative progress for ecosystem developers. When the ecosystem developer discovers a new core-level technology that would increase the developer's productivity and creativity, they must convince the core-software team to implement the new feature. The core-software engineers, however, may have conflicting interests, as their needs must meet the needs of all developers and users in their ecosystem.
 
 In many of the VM-based models, economics for blockchain usage can be volatile, and blockchain storage and speed are often in short supply. The economics can be adversely unpredictable, because the underlying "gas" token that the VM requires (such as Ether) can change in price and value according to the interests of the uneducated masses. This may sound advantageous to a speculator, but for a practical business attempting to consistently please a customer, the volatility can scare away new users.
 
-Furthermore, as the VM frequently relies on a single blockchain, block space can be in short supply due to high demand on popular chains, and data that is entirely irrelevant to the developer can become required baggage to maintain their own data validation.
+Furthermore, the fact that the VM frequently relies on a single blockchain further hinders developers and users. Block space can be in short supply due to high demand on popular chains. Data that is entirely irrelevant to the developer can become required baggage while maintaining their own data validation.
 
-These challenges make the VM model unpleasant for many experienced blockchain engineers. In fact, before Komodo existed, these very concerns inspired the Komodo engineers to avoid the VM model in search of a better solution for blockchain creativity. Custom Consensus is this solution.
+These challenges make the VM model unpleasant for many experienced blockchain engineers. In fact, before Komodo existed, these very concerns inspired the Komodo engineers to avoid the VM model in search of a better solution. Custom Consensus is this solution.
 
 ### Custom Consensus: Creativity at the Consensus Level, Without Losing the Consensus Mechanism
 
@@ -68,44 +68,59 @@ Custom Consensus (CC) allows a developer to add arbitrary code at the consensus 
 
 The entry point between the CC framework and the CM is a new Bitcoin-script [operation code](https://bitcoin.org/en/glossary/op-code), "OP_CHECKCRYPTOCONDITIONS", or OP_CCC for short. When executed, OP_CCC is able to initiate additional arbitrary code that is written in any programming language, assuming the language can call and execute C/C++ code in return. The arbitrary code is separate from the CM, thus maintaining the CM's reliability. When the arbitrary code completes, OP_CCC returns a `true` or `false` statement to the daemon.
 
-If the returned OP_CCC value is `true`, the daemon performs a transaction. The transaction can contain meta data in the normal manner. As an aside, these transactions can implement other data-storage features of Komodo software. Examples include the [key-value storage](../komodo-api/blockchain.html#kvupdate) feature, the [Oracles CC Module](../customconsensus/oracles.html#introduction), or using the native `vout` and `batontxid` properties of a utxo as a database (see the [Rogue CC Module](../customconsensus/rogue.html). 
+If the returned OP_CCC value is `true`, the daemon performs a transaction. The transaction can contain meta data in the normal manner. As an aside, these transactions can implement other data-storage features of Komodo software. Examples include the [key-value storage](../komodo-api/blockchain.html#kvupdate) feature, the [Oracles CC Module](../customconsensus/oracles.html#introduction), or using the native `vout` and `batontxid` properties of a utxo as a database (see the [Rogue CC Module](../customconsensus/rogue.html) for an example). 
 
-With access to the meta data established, CC is able to act as application-state manager. State-related data is held in utxos that are accessible to the CM. As the application-state management aspect of CC can be based on the utxo model, the application-state aspect can follow the CM's rules for consensus. This powerful combination allows the developer to collect, organize, and act upon data in a securely decentralized manner.
+With access to the meta data established, CC is able to act as an application-state manager. State-related data is held in utxos that are accessible to the CM. As the application-state management aspect of CC can be based on the utxo model, the application-state aspect can follow the CM's rules for consensus. This powerful combination allows the developer to collect, organize, and act upon data in a securely decentralized manner.
 
-In addition, once the data is notarized, it can also be called by other Komodo-based asset chains, depending on the manner in which the developer(s) form their chain. This allows developers to form clusters of blockchains to enhance their software, as opposed to relying on a single blockchain, or on a single child chain. The speed and data-storage capabilities of a cluster are thus exponentially greater than a VM-based competitor.
+In addition, once the data is notarized, it can also be called by other Komodo-based asset chains, depending on the manner in which the developer(s) form their chain. This allows developers to form clusters of blockchains to enhance their software, as opposed to relying on a single blockchain, or on a single child chain. The speed and data-storage capabilities of a cluster are thus exponentially greater than the offerings of a VM-based competitor.
+
+Also of note is the simplicity of the CC architecture. All new code created for the Quantum-Proof module is contained in an optional library. Modules from the library are included in compilation only on participating blockchains. The Komodo daemon has no need of an external VM. This eliminates what would otherwises be unnecessary baggage for the developer and the core engineers, and yet the daemon offers all the capabilities of a VM-based blockchain -- and arguably more.
 
 With the CC framework in place, the developer may add to their blockchains whatever creativity the developer can imagine.
 
 ### Custom Consensus In Action: Accomplishing Years' Worth of Work In But A Weekend
 
-<!-- Point out how CC achieves everything in the VM model, without running multiple external softwars, such as the VM and any bridge technology needed to connect it. This makes the core development team faster, and simplifies the experience for the developer.-->
-
 Examples of the power of Custom Consensus (CC) can be found by observing existing modules. Consider how CC allowed the Komodo ecosystem to swiftly and easily upgrade the Komodo consensus mechanism (CM) to include Quantum-Proofing capabilities.
 
-In years past, many other blockchain projects <!--need list--> had focused on manually upgrading their CM for Quantum-Proof protection, and during the boom of 2017 this was sometimes touted as a key feature. Adding this manually to the <!-- add this --> CM was a time-consuming and expensive process. Paradoxically, once the new Quantum-Proof CM was achieved, it only served to isolate the project team. Their customized CM was incompatible with much of the activity in the open-source blockchain ecosystem, and therefore for each industry-wide technological advancement, the team often had to adapt on their own.
+In years past, other blockchain projects in the cryptocurrency community had focused on manually upgrading their CM for Quantum-Proofing protection. Ahough this feature appeared to be an advantage, this was not true. Adding customized code to the CM itself to protect addresses from Quantum-capable computers was a time-consuming and expensive process. Paradoxically, once the new Quantum-Proof CM was achieved, it only served to isolate the project team. The code itself was untested and unreliable, and the users of the cryptocurrency community had to endure these roadblocks. Furthermore, the customized CM was often incompatible with much of the activity in the open-source blockchain ecosystem; for each industry-wide technological advancement, the team often had to adapt on their own.
 
-Komodo's engineers chose not to spend energy building a new CM, but rather they worked towards adding CC first. Once CC was available, the Komodo core software team took existing Quantum-Proofing technology, read summaries published by academics and researchers, and created a new CC module to add this functionality to the Komodo CM.
+Komodo's engineers chose not to spend energy building a new Quantum-Proof CM, but rather they worked to add CC first. Once CC was available, the Komodo core software team took existing Quantum-Proofing technology, read summaries published by academics and researchers, and created a new CC module to add this functionality to the Komodo CM.
 
-The time between project initiation and releasing a beta version for community testing was approximately one weekend. Only one core developer's attention was required. The Komodo daemon remains compatible with all other software features as before, able to quickly adopt new ideas from others in the open-source community as soon as they arrive. At the same time, users who desire Quantum-Proofing for their long-term financial interests have a CC tool readily available.
-
-Also of note is the simplicity of CC architecture. All new code created for the Quantum-Proof module is contained in an optional library, and is included in compilation only for participating blockchains. The Komodo daemon has no need of an external VM. This eliminates what would otherwises be unnecessary baggage for the developer and the core engineers, and yet the daemon offers all the capabilities of a VM-based blockchain -- and arguably more.
+The time between project initiation and releasing a beta version for community testing was approximately one weekend. Only one core developer's attention was required. The Komodo daemon remains compatible with all other software features as before, able to quickly adopt new ideas from others in the open-source community as soon as they arrive. At the same time, users who desire Quantum-Proofing for their long-term financial interests have a CC tool readily available, and users who are not interested or are unaware have not experienced an interruption in their blockchain services.
 
 The ability to adopt the ideas of others quickly, while maintaining the accomplishments, security, and compatibilities of one's predecessors, makes Custom Consensus a wise choice for experienced developers who wish to maintain a long-term course of productivity and creativity in their work.
 
 ## Tutorial Introduction
 
-This assumes you have komodo compiled on linux and you are in the ~/komodo/src directory.
+Now that the developer has an understanding of the general concepts of blockchain technology and Custom Consensus, the following tutorial can assist in gaining hands-on experience.
 
-For other options please see alternatives including docker containers.
+In this tutorial, we create two new blockchains, called RT1 & RT2. The first blockchain, RT1, demonstrates the following funamental concepts:
 
-We will create two blockchains, called RT1 & RT2 in single host mode for developers.  The same tutorial can be done on live blockchains, you need to [create a seed node] or spin up a blockchain seed node with the [Chainlizard blockchain generator service](#).
+The RT2 blockchain demonstrates the creation of a custom application-specific blockchain that <!--Sidd: Mylo, your original sentence cut off here -->
 
-The [configuration files](#) are automatically generated on start up and saved to ~/.komodo/RT1/RT1.conf & ~/.komodo/RT2/RT2.conf
+For simplicity's sake, we use the blockchain [<b>regtest</b>](../installations/common-runtime-parameters.html#regtest) feature, which allows us to run a blockchain on a single node without having to connect to a network. 
 
-RT1 will be used for a fundamental exercise.
-RT2 will be used for an introduction to making a custom application specific blockchain that.
+After the tutorial, the developer should be able to repeat the same concepts on live and fully functional Komodo asset chains, assuming the asset chain in question has the proper CC features enabled.
 
-All commands will be done using `komodo-cli` from command line and `curl` for network programming.  All curl commands can be completed using Postman - just set the authorization to Basic Auth using the values from the [configuration file](#).  The body is raw and content type is text/plain.
+Also, after completing the tutorial, the developer should be prepared to continue learning more about CC through study of the source code of [existing CC modules](https://github.com/jl777/komodo/tree/master/src/cc).
+
+#### Tutorial Prerequisites
+
+##### komodod and komodo-cli
+
+The following tutorial assumes that you have already [compiled the Komodo daemon](https://docs.komodoplatform.com/komodo/installation.html), and that you have used the default `~/komodo/src` directory as the root Komodo software directory.
+
+As with all software related to `komodod`, at the command line we use the terminal-based `komodo-cli` software, and the `curl` command, to access the daemon. 
+
+##### (Optional) Using Postman
+
+Optionally, all curl commands can be completed using, [Postman](https://www.getpostman.com/) -- a software designed for API interactions. 
+
+To achieve this, the developer will need to gather information from their asset chain, once it is created. (We will create our RT1 asset chain in the next step.) 
+
+Once the asset chain is created, open the configuration file. By default, for the RT1 asset chain, this file will be found in the `~/.komodo/RT1/RT1.conf` directory. In Postman, set the authorization to `Basic Auth`. Inclue the asset chain's `port`, `password`, and `port` values from the configuration file in all RPC calls, as indicated in the examples below.
+
+The returned body is raw and content type is text/plain.
 
 # Check in with your fundamentals by creating a basic single host blockchain
 ## Create blockchain
