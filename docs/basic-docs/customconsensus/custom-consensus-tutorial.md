@@ -1,5 +1,15 @@
 # How to Build a New Custom Consensus Module
 
+<!-- Sidd: Mylo is providing much more content than I originally envisioned. Will need to restructure the introduction and conceptual explanations to accommodate.-->
+
+## Brief Note (Temporary)
+
+All of the following tutorial content is not yet complete enough for me to be able to properly craft the overall structure of the content. I am still waiting on Part 2 of the tutorial, and there may also be a part 3.
+
+As such, the section headings and navbar are still unfinished. Please ignore them.
+
+The content, however, is fairly on par with what I expect the final product to be, so you can review that.
+
 ## Introduction
 
 The following content and tutorial are provided for advanced developers desiring to discover deeper levels of potential in Komodo software. The content focuses around Komodo's framework for building blockchain-based decentralized applications (dApps). This framework is called, Custom Consensus, or CC for short.
@@ -30,7 +40,7 @@ As the library of available modules grows, so too do the advantages to the many 
 
 Custom Consensus (CC) is a framework for making decentralized applications (dApps). The framework is built in the C and C++ languages. The reader may better understand the purpose and use case of CC by first understanding the key problem that CC solves.
 
-### A Consensus Mechanism Is Not Easy to Create or Change
+#### A Consensus Mechanism Is Not Easy to Create or Change
 
 Adding new code into a blockchain's consensus mechanism (CM) is a challenging task. Creating an entirely new CM is more difficult by an order of magnitude. Yet, despite these facts, often when an experienced developer first approaches blockchain technology with creative intent, their initial impulse is to dive directly into the CM itself. As time passes, the developer can come to a realization that they are attempting to solve a problem that is too large for any one person.
 
@@ -44,7 +54,7 @@ For those few projects that create a useful and unique consensus mechanism, a ne
 
 In light of these challenges, the blockchain engineer finds themselves confronted with a paradox. The engineer desires to create something new, and at the same time, they cannot easily change the core software.
 
-### A Popular, But Flawed Solution: The Decentralized Virtual Machine
+#### A Popular, But Flawed Solution: The Decentralized Virtual Machine
 
 A popular solution to this paradox is to associate the consensus mechanism (CM) with a virtual machine (VM). This method was made popular by the Ethereum project.
 
@@ -62,7 +72,7 @@ Furthermore, the fact that the VM frequently relies on a single blockchain furth
 
 These challenges make the VM model unpleasant for many experienced blockchain engineers. In fact, before Komodo existed, these very concerns inspired the Komodo engineers to avoid the VM model in search of a better solution. Custom Consensus is this solution.
 
-### Custom Consensus: Creativity at the Consensus Level, Without Losing the Consensus Mechanism
+#### Custom Consensus: Creativity at the Consensus Level, Without Losing the Consensus Mechanism
 
 Custom Consensus (CC) allows a developer to add arbitrary code at the consensus level, and within the core software's daemon, without interferring with the existing consensus mechanism (CM). This grants the developer the ability to add core-level features and innovations without waiting for other members of the Komodo ecosystem. Combined with Komodo's Bitcoin-hash rate security, the simplicity of CC provides the developer with a competitive level of creative freedom.
 
@@ -78,7 +88,7 @@ Also of note is the simplicity of the CC architecture. All new code created for 
 
 With the CC framework in place, the developer may add to their blockchains whatever creativity the developer can imagine.
 
-### Custom Consensus In Action: Accomplishing Years' Worth of Work In But A Weekend
+#### Custom Consensus In Action: Accomplishing Years' Worth of Work In But A Weekend
 
 Examples of the power of Custom Consensus (CC) can be found by observing existing modules. Consider how CC allowed the Komodo ecosystem to swiftly and easily upgrade the Komodo consensus mechanism (CM) to include Quantum-Proofing capabilities.
 
@@ -90,11 +100,13 @@ The time between project initiation and releasing a beta version for community t
 
 The ability to adopt the ideas of others quickly, while maintaining the accomplishments, security, and compatibilities of one's predecessors, makes Custom Consensus a wise choice for experienced developers who wish to maintain a long-term course of productivity and creativity in their work.
 
-## Tutorial Introduction
+## API Tutorials: Introduction
 
 Now that the developer has an understanding of the general concepts of blockchain technology and Custom Consensus, the following tutorial can assist in gaining hands-on experience.
 
-In this tutorial, we create two new blockchains, called RT1 & RT2. The first blockchain, RT1, demonstrates the following funamental concepts:
+In this tutorial, we create two new blockchains, called RT1 & RT2. 
+
+The first blockchain, RT1, demonstrates the fundamental API concepts, such as how to create and utilize a simple test blockchain, how to query a blockchain for data, etc.
 
 The RT2 blockchain demonstrates the creation of a custom application-specific blockchain that <!--Sidd: Mylo, your original sentence cut off here -->
 
@@ -104,36 +116,83 @@ After the tutorial, the developer should be able to repeat the same concepts on 
 
 Also, after completing the tutorial, the developer should be prepared to continue learning more about CC through study of the source code of [existing CC modules](https://github.com/jl777/komodo/tree/master/src/cc).
 
-#### Tutorial Prerequisites
+### Tutorial Prerequisites
 
-##### komodod and komodo-cli
+#### komodod and komodo-cli
 
 The following tutorial assumes that you have already [compiled the Komodo daemon](https://docs.komodoplatform.com/komodo/installation.html), and that you have used the default `~/komodo/src` directory as the root Komodo software directory.
 
 As with all software related to `komodod`, at the command line we use the terminal-based `komodo-cli` software, and the `curl` command, to access the daemon. 
 
-##### (Optional) Using Postman
+To use `curl`, the developer will need to gather information from their asset chain, once it is created. (We will create our asset chains further on in the tutorial.) 
+
+Once the asset chain is created, open the configuration file. By default, for the RT1 asset chain, this file will be found in the `~/.komodo/RT1/RT1.conf` directory.
+
+Observe the `rpcuser`, `rpcpassword`, and `rpcport` values. These values are necessary for each `curl` command.
+
+The unix `source` command provides an easy method to import the values into process environment variables.
+
+```bash
+source ~/.komodo/RT1/RT1.conf
+```
+
+Once that command is executed, the relevant variables may be called in the terminal. 
+
+For example, to call the `rpcuser` variable, execute the following command:
+
+```bash
+echo $rpcuser
+```
+
+#### (Optional) Using Postman
 
 Optionally, all curl commands can be completed using, [Postman](https://www.getpostman.com/) -- a software designed for API interactions. 
 
-To achieve this, the developer will need to gather information from their asset chain, once it is created. (We will create our RT1 asset chain in the next step.) 
-
-Once the asset chain is created, open the configuration file. By default, for the RT1 asset chain, this file will be found in the `~/.komodo/RT1/RT1.conf` directory. In Postman, set the authorization to `Basic Auth`. Inclue the asset chain's `port`, `password`, and `port` values from the configuration file in all RPC calls, as indicated in the examples below.
+In Postman, set the authorization to `Basic Auth`. With each request, similar to the manner of executing a `curl` command, include the asset chain's `user`, `password`, and `port` values.
 
 The returned body is raw and content type is text/plain.
 
-# Check in with your fundamentals by creating a basic single host blockchain
-## Create blockchain
-```
+## Komodo API Fundamentals Tutorial
+
+The following tutorial instructs the reader in basic fundamentals for utilizing the Komodo API. Familiarity with these fundamentals is prerequisite knowledge before attempting more advantanced usage of Komodo software.
+
+Topics covered in this tutorial include:
+
+- How to create a simple blockchain for testing purposes
+- How to execute a komodo-cli command to query the blockchain for existing data
+- How to execute a curl command for the same purpose
+- Understanding common API methods ("RPC's")
+- Understanding common technology concepts in the Komodo ecosystem
+
+### Create a Regtest Blockchain
+
+The quickest way to establish your own development environment is to use the [<b>regtest</b>](../installations/common-runtime-parameters.html#regtest) feature. 
+
+In regtest mode, the daemon creates a blockchain that is almost fully functional, save for a few exceptions. Two of the exceptions are that the chain runs on a single host, and the user instructs the daemon on when and how to perform new blocks (as opposed to receiving new blocks from a decentralized network of miners).
+
+The command to create our `RT1` regtest chain is as follows:
+
+```bash
 ./komodod -regtest -ac_name=RT1 -ac_supply=1000 &
 ```
-The quickest way to spin up your own development environment is using `-regtest`.  In regtest mode, the blockchain runs on a single host and you control when blocks are produced.
 
-The regtest mode is equivalent to the Ethereum ecosystem's ganache tool.
+##### ac_supply
 
-What you see on the screen is something like:
-```
-mylo@swift:~/komodo/src$ ./komodod -regtest -ac_name=RT1 -ac_supply=1000 &
+Note the `-ac_supply=1000` argument. This is the total number of coins we desire when the blockchain spawns. 
+
+For more information, refer to the [<b>ac_supply</b>](../installations/asset-chain-parameters.html#ac-supply) launch parameter.
+
+##### ac_name
+
+Also note the `-ac_name=RT1` argument. This is the blockchain ticker name we desire. For more information, refer to the [<b>ac_name</b>](../installations/asset-chain-parameters.html#ac-name) launch parameter.
+
+There are many additional parameters that you can explore later in the [Asset Chain Parameters](../installations/asset-chain-parameters.html) documentation.
+
+##### Observe the Response
+
+The daemon will return a response similar to the following: 
+
+```json
 [1] 22892
 ASSETCHAINS_SUPPLY 1000
 MAX_MONEY 106320417438 1063.20417438
@@ -144,36 +203,86 @@ initialized RT1 at 1555581638
 finished loading blocks RT1
 fAddressIndex.0/0 fSpentIndex.0/0
 height.0 slowflag.1 possible.1 cmp.0
-
 ```
-The important output for a developer is:
-* `ASSETCHAINS_SUPPLY 1000` is the number of coins when the blockchain starts up. This [parameter](#) is passed into komodo with `-ac_supply` at start.
-* `Created (/home/mylo/.komodo/RT1/RT1.conf)` is the [configuration file](#).  One of the [conventions](#) used by Komodo is all the data is stored in your [blockchain ticker name](#) subdirectory of the Komodo data directory.  The blockchain ticker name is set when the blockchain starts up.  This [parameter](#) is passed into komodo with `-ac_name` at start.
-* `>>>>>>>>>> RT1: p2p.13100 rpc.13101 magic.fd772ab9 4252445369 1000 coins` are the blockchain name, it's network ports used for p2p (13100) and rpc control (13101).  The magic number and number of coins are informational.
 
+From the response, note the following information:
 
-All the output explained is:
-* `[1] 22892` is the process number on my machine - yours will likely be different.
-* `ASSETCHAINS_SUPPLY 1000` is the number of coins when the blockchain starts up. This [parameter](#) is passed into komodo with `-ac_supply` at start.
-* `MAX_MONEY 106320417438 1063.20417438` is not important, it just means 100 billion coins is the maxmium for your blockchain.
-* `Created (/home/mylo/.komodo/RT1/RT1.conf)` is the [configuration file](#).  One of the [conventions](#) used by Komodo is all the data is stored in your [blockchain ticker name](#) subdirectory of the Komodo data directory.  The blockchain ticker name is set when the blockchain starts up.  This [parameter](#) is passed into komodo with `-ac_name` at start.
-* `call komodo_args.(./komodod) NOTARY_PUBKEY.()` specifies where the new coins from block rewards go.  The output is a bit of a misnomer, the notary key used on this server is simply the pubkey used on this server.  (Notary Nodes are a network security service.  The Komodo mainnet blockchain has 64 Notary Nodes globally.  A notarizing service for your network is not covered in this tutorial, and unless you have a team dedicated to blockchain security you will not need one.  The Komodo mainnet secures blockchains when enrolled in the blockchain security alliance.)
-* `>>>>>>>>>> RT1: p2p.13100 rpc.13101 magic.fd772ab9 4252445369 1000 coins` are the blockchain name, it's network ports used for p2p (13100) and rpc control (13101).  The magic number and number of coins are informational.
-* `initialized RT1 at 1555581638` is the time in seconds past epoch the blockchain was initialized.
-* `finished loading blocks RT1` is informational.
-* `fAddressIndex.0/0 fSpentIndex.0/0` is informational.
-* `height.0 slowflag.1 possible.1 cmp.0` is informational.
+##### Asset Chain Supply
 
-## Querying the blockchain with `getinfo`
-[Komodo API `getinfo` method](https://developers.komodoplatform.com/basic-docs/komodo-api/control.html#getinfo) does not require any parameters when called.
-### Using komodo-cli `getinfo`
-Using the `komodo-cli` application with the [Komodo API `getinfo` method](https://developers.komodoplatform.com/basic-docs/komodo-api/control.html#getinfo).
+```json
+ASSETCHAINS_SUPPLY 1000
 ```
+
+We have the 1000 coins we desire.
+
+##### Configuration File Location
+
+```json
+Created (/home/mylo/.komodo/RT1/RT1.conf)
+```
+
+This is the location of the configuration file.
+
+Placing the configuration data here follows the Komodo convention of placing all relevant data for an asset chain in a subdirectory contained in the `~/.komodo/` directory. The new subdirectory for our regtest chain is named after the `RT1` value we gave to the `ac_name` parameter.
+
+##### Relevant RPC Data
+
+```json
+>>>>>>>>>> RT1: p2p.13100 rpc.13101 magic.fd772ab9 4252445369 1000 coins
+``` 
+
+This information is the blockchain name, its network ports used for p2p (13100), and rpc control (13101).  The magic number is a number the Komodo daemon uses for network purposes, and the number of coins is informational.
+
+##### Explanation of All Initial Daemon Output
+
+Here is an explanation of all of the output, as it appears in the above response. Many of the actual values will be different on your machine, although the underlying purpose of the value is the same.
+
+| Value | Description |
+| ----- | ----------- |
+| [1] 22892 | the process number; the value is dependent on your machine and will be different | 
+| ASSETCHAINS_SUPPLY 1000 | the number of coins when the blockchain initiates for its first time |
+| MAX_MONEY 106320417438 1063.20417438 | this value is not important at this time; it states that 100 billion coins is the maxmium possible amount the blockchain can mathematically support |
+| Created (/home/mylo/.komodo/RT1/RT1.conf) | the location of the configuration file |
+| call komodo_args.(./komodod) NOTARY_PUBKEY.() | this value specifies where the new coins from block rewards are sent; by default, the coins will be sent to your node's local wallet |
+| >>>>>>>>>> RT1: p2p.13100 rpc.13101 magic.fd772ab9 4252445369 1000 coins | the blockchain name, its network ports and rpc controls; the magic number is used in Komodo networking and the number of coins derives from the <b>ac_supply</b> parameter included at runtime |  
+| initialized RT1 at 1555581638 | the time in seconds, past epoch, when the blockchain was initialized | 
+| finished loading blocks RT1 | informational |
+| fAddressIndex.0/0 fSpentIndex.0/0 | informational and can be ignored for now |
+| height.0 slowflag.1 possible.1 cmp.0 | informational and can be ignored for now |
+
+### Querying the Blockchain Using komodo-cli
+
+With the regtest asset chain operational we are prepared to execute our first API call. 
+
+#### Access a Daemon via komodo-cli on an Asset Chain
+
+When using `komodo-cli` to access the daemon of an asset chain, we must add an additional argument to each terminal input.
+
+This required argument is the name of the asset chain for which the user desires `komodo-cli` to connect. The name is provided in the same format used to launch the chain. 
+
+In our tutorial, the argument is: `-ac_name=RT1`
+
+Furthermore, as we are using the regtest feature, we must also include the `-regtest` argument with each terminal input.
+
+Therefore, each `komodo-cli` terminal input will begin with the following:
+
+```bash
+./komodo-cli -regtest -ac_name=RT1 INSERT_API_CALL_HERE INSERT_ARGUMENTS_HERE
+```
+
+#### Using the getinfo API Method
+
+The [<b>getinfo</b>](../komodo-api/control.html#getinfo) API method does not require any additional parameters when called and provides useful information about our chain.
+
+To execute the method in the terminal we can use the `komodo-cli` software:
+
+```bash
 ./komodo-cli -regtest -ac_name=RT1 getinfo
 ```
-This outputs basic blockchain info.
-Response:
-```
+
+The response:
+
+```json
 {
   "version": 2001526,
   "protocolversion": 170007,
@@ -208,51 +317,107 @@ Response:
   "premine": 1000
 }
 ```
-Note the `blocks` count of zero `(0)`.
 
-### Using curl `getinfo`
-The same can be queried by RPC over localhost using the [Komodo API `getinfo` RPC method](https://developers.komodoplatform.com/basic-docs/komodo-api/control.html#getinfo).  You will need your RPC user and password.  This was automatically generated when the blockchain started and is stored in the [configuration file](#), so using the `source`, variable substitution makes our developer lives easier.
+Note the `blocks` count of zero `0` and the `balance` sum of `0`. While our regtest chain's daemon is operational, we have yet to mine the genesis block and collect the initial coin value. 
 
-```
+### Querying the Blockchain Using curl
+
+Alternatively, we can execute the [<b>getinfo</b>](../komodo-api/control.html#getinfo) method using the unix `curl` command. 
+
+##### Sourcing the Configuration File
+
+The `curl` command will also need information about which asset-chain daemon the user desires to connect. However, the `curl` command will receive these instructions in a different manner.
+
+The user must provide the `myrpcuser`, `myrpcpassword`, and `myrpcport` values from the asset chain's configuration file.
+
+The configuration file is automatically generated on asset-chain creation, and is formatted for use with the unix `source` command. 
+
+To import all values into our terminal process environment, execute the following:
+
+```bash
 source ~/.komodo/RT1/RT1.conf
+```
+
+We can test that the variables were loaded correctly with the following commands:
+
+```bash
+echo $rpcuser $rpcpassword $rpcport
+```
+
+The terminal should return the values from the configuration file. 
+
+##### Executing the curl Command
+
+With these variables set we can now easily use the `curl` command to execute the `getinfo` API method:
+
+```bash
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+We execute the `curl` command with `-s` silent option; this mutes irrelevant response data.
+
+The `$rpcuser:$rpcpassword` and the `...$rpcport` arguments utilize our sourced environment variables.
+
+The HTTP header `-H`, `--data-binary`, and `content-type: text/plain;` arguments instruct `curl` to reply with a json object.
+
+Without further intervention, the returned json response will be unformatted and difficult to read.
+
+To improve readability, the developer may optionally instal and utilize the `jq` terminal software.
+
+[Link to download and install <b>jq</b>](https://stedolan.github.io/jq/download/)
+
+Once installed, add a `|` pipe and a ` jq '.'` reference at the end of the curl command:
+
+```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
-If you do not have `jq` installed, remove the pipe character and the jq command `| jq '.'` from the example above.
 
-Curl command has been called with `-s` silent option, `--user` from with the settings from [configuration file](#) which was `source`d for convenience.  The HTTP header `-H` for content-type was set to text/plain with our `--binary-data` - a JSON object requesting the method `getinfo`.
+This should return a well formatted json object.
 
-## Create a new set of keys in your wallet
-The wallet is not part of the blockchain, it is a separate application but conveniently we have a wallet application built in.
+## Preparing Your Local Wallet
 
-Using:
-* [Komodo API `getnewaddress` method](#) for getting a new address
-* [Komodo API `validateaddress` method](https://developers.komodoplatform.com/basic-docs/komodo-api/util.html#validateaddress) for getting the public key of the new address which we use for doing custom application specific blockchain development.
-* [Komodo API `dumpprivkey` method](#) for getting the private key of the new address
+The wallet is not part of the blockchain. Rather, it is a separate application that tracks your private keys and grants access to them upon user request. This separate application is built into the Komodo daemon and can be accessed using the API. 
 
+Common API commands include the following:
 
-The address issued for this tutorial for `komodo-cli` is `RHGqU4BPHsTve4jUJtJobAaf8SieYUzeFs`.  Replace this with your new address from the following step.
+| Command | Description |
+| ------- | ----------- |
+|[<b>getnewaddress</b>](../komodo-api/wallet.html#getnewaddress) | get a new address |
+| [<b>validateaddress</b>](../komodo-api/util.html#validateaddress) | get the public key of the new address; used often when developing a custom application-specific blockchain |
+| [<b>dumpprivkey</b>](../komodo-api/wallet.html#dumpprivkey) | get the private key of an address |
 
-The address issued for this tutorial using `curl` is `RYNBgpcanNdfy4oGLbnVYnPPtu5JWcZM8B`.  Replace this with your new address from the following step.
+We save details from each response, so that we may avoid continually obtaining new wallet keys.
 
-Save these details for your development so you don't have to keep re-issuing keys.
-* Address:
-* Pubkey:
-* Privkey (never share):
+The next two sections demonstrate how to obtain a new private key. The first section uses `komodo-cli` software, and the second section repeats the same API steps using the `curl` command.
 
+### Preparing Your Wallet Using komodo-cli
 
-### Using komodo-cli `getnewaddress`, `validateaddress` & `dumpprivkey`
+#### getnewaddress
 
-```
+To obtain a new address, we use the `getnewaddress` API method:
+
+```bash
 ./komodo-cli -regtest -ac_name=RT1 getnewaddress
+```
+
+Response:
+
+```json
 RHGqU4BPHsTve4jUJtJobAaf8SieYUzeFs
 ```
-The response will be an address, for me it was `RHGqU4BPHsTve4jUJtJobAaf8SieYUzeFs`.
 
-Now to get the public key we issue the `validateaddress` method on the new address.
+Your response will be a different address of the same format.
+
+#### validateaddress
+
+To obtain the public key, also called the "pubkey", we use the `validateaddress` API method.
+
 ```
 ./komodo-cli -regtest -ac_name=RT1 validateaddress RHGqU4BPHsTve4jUJtJobAaf8SieYUzeFs
 ```
+
 Response:
+
 ```
 {
   "isvalid": true,
@@ -267,36 +432,55 @@ Response:
   "account": ""
 }
 ```
-Make a note of the `pubkey`.  This will be used as a starting parameter for the application specific blockchain using Custom Consensus.
 
+Make a note of the `pubkey` value. We will not use the `pubkey` at this time. However, we will use it in the next tutorial, RT2, while creating a custom application-specific blockchain. 
 
-Now to get the private key, replace the address from the previous command.
-```
+#### dumpprivkey
+
+Use the response from `getnewaddress` as an argument for the `dumpprivkey` API method.
+
+```bash
 ./komodo-cli -regtest -ac_name=RT1 dumpprivkey RWbzxx8tKncvcVBzBCetMsPRrcB3YFsXhw
+```
+
+```json
 REDACTED_FOR_TUTORIAL
 ```
-The response is the [private key (WIF)](#) for this address.  The private key should never be shared.  Never.  It has been redacted for the tutorial.
+The response is the private key for this address.
 
+The private key should never be shared under any circumstances. We have redacted the response for this tutorial.
 
-### Using curl `getnewaddress`, `validateaddress` & `dumpprivkey`
-If using a new terminal, use the `source` to set command line variables.  (`source ~/.komodo/RT1/RT1.conf`)
-```
+### Preparing Your Wallet Using curl
+
+#### getnewaddress
+
+A `curl` command to obtain a new address using the `getnewaddress` API method:
+
+```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getnewaddress", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
+
 Response:
-```
+
+```json
 {
   "result": "RYNBgpcanNdfy4oGLbnVYnPPtu5JWcZM8B",
   "error": null,
   "id": "curltest"
 }
 ```
-Now to get the public key we issue the `validateaddress` method on the new address.
-```
+
+#### validateaddress
+
+A `curl` command to obtain the `pubkey` using the `validateaddress` API method:
+
+```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "validateaddress", "params": ["RYNBgpcanNdfy4oGLbnVYnPPtu5JWcZM8B"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
+
 Response:
-```
+
+```json
 {
   "result": {
     "isvalid": true,
@@ -314,12 +498,18 @@ Response:
   "id": "curltest"
 }
 ```
-To get the [private key (WIF)](#) - never share the result.
-```
+
+#### dumpprivkey
+
+A `curl` command to obtain the `pubkey` using the `validateaddress` API method:
+
+```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "dumpprivkey", "params": ["RYNBgpcanNdfy4oGLbnVYnPPtu5JWcZM8B"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
+
 Response:
-```
+
+```json
 {
   "result": "REDACTED_FOR_TUTORIAL",
   "error": null,
@@ -327,40 +517,86 @@ Response:
 }
 ```
 
-## Generating blocks and getting the new coins
+## Generating Blocks and Getting the New Coins
 
-* [Komodo API `generate` method](https://developers.komodoplatform.com/basic-docs/komodo-api/generate.html#generate) takes one parameter, the number of blocks to generate.  The response are the blockhashes for each of the blocks generated.
-* [Komodo API `getblock` method](#) is used for querying the block, namely to get the coinbase transaction.
-* [Komodo API `gettransaction` method](#) is used to query a transaction.
+When connecting to an existing blockchain that already has a populated network of miners or stakers, the user does not need to be concerned about how blocks are generated.
 
+However, in this tutorial we are running a regtest chain, and therefore we must instruct the daemon to generate new blocks.
 
-All of these blockhashes can be queried using `getblock`.  All the blocks have a [coinbase transaction](#) where newly mined blocks [create new coins](#).  The coinbase transaction is like any other transaction that can be queried, the new coins are called the [block reward](#).
+This also provides us with a useful opportunity to discuss the nature of simple mining the Komodo ecosystem. The methods we discuss here reflect mining on a proof-of-work based asset chain. 
 
-### Using komodo-cli `generate`, `getblockhash` & `gettransaction`
-Generating two blocks
-```
+The reader should be aware that Komodo also offers proof-of-stake mining, and hybrid models that blend proof-of-work with proof-of-stake. For more information, the reader may turn to the [<b>ac_staked</b>](../installations/asset-chain-parameters.html#ac-staked) feature.
+
+Here are several common API methods for mining:
+
+| Command | Description |
+| ------- | ----------- |
+| [generate](../komodo-api/generate.html#generate) | the number of blocks to generate |
+| [getblock](../komodo-api/blockchain.html#getblock) | query information about a block |
+| [gettransaction](../komodo-api/wallet.html#gettransaction) | query a transaction |
+
+In a moment, we will use these commands to generate new blocks on our regtest chain, and in the process of generating, the blockchain will create new coins.
+
+#### Understanding the Coinbase Transaction
+
+The reader should be aware of the manner in which a blockchain creates new coins. 
+
+When a blockchain initiates for the first time, and before it has mined the first block, the total sum of coins on the blockchain is always `0`. 
+
+To add coins into the total coin supply, the blockchain must mint new coins. This minting process occurs in a special transaction that is included as the first transaction in each block of the blockchain. 
+
+This transaction is called the `coinbase` transaction.
+
+While every other transaction on the blockchain can only take coins from the existing supply, the `coinbase` transaction may create new coins from nothing.
+
+These new coins can be sent to any number of locations. The rules of the blockchain, as set by the blockchain's developer, determine how many coins are minted, and who receives the coins. 
+
+For more information about how to customize your `coinbase` transactions on a Komodo asset chain, observe the many different customization parameters in the [Custom Asset Chain Parameters](../installations/asset-chain-parameters.html#ac-name) documentation.
+
+For example, read about [<b>ac_reward</b>](../installations/asset-chain-parameters.html#ac-reward), [<b>ac_eras</b>](../installations/asset-chain-parameters.html#ac-eras), [<b>ac_founders</b>](../installations/asset-chain-parameters.html#ac-founders), and many others.
+
+In our tutorial, when we mine our first block, all of the `1000` new coins we indicated will be mined in the first block's `coinbase` transaction. By default, these coins are distributed immediately into our own local wallet. 
+
+### Generating Blocks Using komodo-cli
+
+#### generate
+
+We now generate a few blocks using the `generate` API method:
+
+```bash
 ./komodo-cli -regtest -ac_name=RT1 generate 2
 ```
+
 Response:
-```
+
+```json
 [
   "0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab",
   "0de2bb48b3a3ef47d5ece90b1ffeccc81b9609879ab86cc03a77cf248adea25d"
 ]
 ```
-The response received is the blockhashes of the blocks created.  They will be different than the ones I received, because a blockhash is a deterministic (repeatable given the same inputs) procedure.  The inputs include things that will be different from system to system, including timestamps, public keys etc.
 
-The first blockhash we will query.  This is the first block in our test blockchain RT1.  Substituting for your first blockhash you will get your blockchain info.
+The response contains an array of blockhashes. These are the hashes of the blocks generated.
 
-```
+#### getblock
+
+To inspect the particular information about any given block, we use the `getblock` API method and include our desired blockhash as an argument.
+
+```bash
 ./komodo-cli -regtest -ac_name=RT1 getblock 0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab
+```
 
-OR
+Alternatively, with `getblock` we can instead include the desired block `height` of the block we wish to inspect. 
 
+In our case, we desire to inspect the genesis block, which is the first block ever mined on our asset chain. Therefore, the block `height` will be `1`.
+
+```bash
 ./komodo-cli -regtest -ac_name=RT1 getblock 1
 ```
-Response:
-```
+
+Here is the response:
+
+```json
 {
   "hash": "0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab",
   "confirmations": 2,
@@ -404,12 +640,34 @@ Response:
   "nextblockhash": "0de2bb48b3a3ef47d5ece90b1ffeccc81b9609879ab86cc03a77cf248adea25d"
 }
 ```
-Now I will query my transaction `4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006` because the first block sends the coin supply of the blockchain to an address in our wallet.
+
+Note in the response the `tx` value.
+
+```json
+
+    ...
+
+  "tx": [
+    "4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006"
+  ],
+
+    ...
+
 ```
+
+This value is an array containing all transactions performed within this block. Because it is the genesis block, and because we did not send any transactions on our blockchain, the only transaction is our `coinbase` transaction, wherein the `1000` coins were minted and sent to our local wallet.
+
+#### gettransaction
+
+To observe this transaction, we use the [<b>gettransaction</b>](../komodo-api/wallet.html#gettransaction) API method.
+
+```bash
 ./komodo-cli -regtest -ac_name=RT1 gettransaction 4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006
 ```
+
 Response:
-```
+
+```json
 {
   "amount": 1000.07809721,
   "rawconfirmations": 2,
@@ -440,20 +698,51 @@ Response:
 }
 ```
 
+Note that the `amount` value is slightly higher than `1000`. This is normal. It is due to the internal mathematical complexities of a blockchain.
 
-### Using curl `generate`, `getblockhash` & `gettransaction`
-The `generate` curl command follows because we cannot regenerate our first block.
+### Generating Blocks Using curl
 
-Remember, if you have opened a new terminal and authorization with curl fails, use the `source` for variable substitution (`source ~/.komodo/RT1/RT1.conf`)
+#### generate
+
+We have already generated the genesis block. The following is a sample of the `curl` command to use the `generate` API method to generate 5 blocks.
+
+```bash
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "generate", "params": [5]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
+
+<collapse-text hidden title="Response">
+```json
+{
+  "result": [
+    "0561e5c9e81ff8823be080af1232a99c87c41cb208595da20cf461b4ed34f0a9",
+    "0792db3d6976c16ead4c42d4a3fc949931979a0120aefb822b632758fb1968d4",
+    "0975e3320f31cc4e06bb6cfba74ae6762517421535f3c1440c6e4c41cb2428df",
+    "01102d09117d797253899b5b1a68a66d552e30fcc0fa964b4ab64005acfecf0b",
+    "02f1df412f56aee2ea94380e7c59c10ed089481b3a37dc73b9c78577b73ce9f1"
+  ],
+  "error": null,
+  "id": "curltest"
+}
+```
+</collapse-text>
+
+#### getblock
+
+The `curl` command to use the `getblock` API method using the blockhash of the genesis block:
+
+```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblock", "params": ["0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
+```
 
-OR
+To use the block `height` instead, the `curl` command is formatted thus:
 
+```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblock", "params": ["1"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
-Response:
-```
+
+<collapse-text hidden title="Response">
+
+```json
 {
   "result": {
     "hash": "0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab",
@@ -500,14 +789,19 @@ Response:
   "error": null,
   "id": "curltest"
 }
+```
+</collapse-text>
 
-```
-Getting the first transaction that sent the coins to the wallet at start up.
-```
+#### gettransaction
+
+The `curl` command to retrieve the first block's `coinbase` transaction:
+
+```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "gettransaction", "params": ["4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
-Response:
-```
+
+<collapse-text hidden title="Response">
+```json
 {
   "result": {
     "amount": 1000.07809721,
@@ -539,38 +833,43 @@ Response:
   "id": "curltest"
 }
 ```
-Because we can't regenerate the first block, a sample of the curl command for `generate` follows which generates 5 blocks.
-```
-curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "generate", "params": [5]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
-```
-Response:
-```
-{
-  "result": [
-    "0561e5c9e81ff8823be080af1232a99c87c41cb208595da20cf461b4ed34f0a9",
-    "0792db3d6976c16ead4c42d4a3fc949931979a0120aefb822b632758fb1968d4",
-    "0975e3320f31cc4e06bb6cfba74ae6762517421535f3c1440c6e4c41cb2428df",
-    "01102d09117d797253899b5b1a68a66d552e30fcc0fa964b4ab64005acfecf0b",
-    "02f1df412f56aee2ea94380e7c59c10ed089481b3a37dc73b9c78577b73ce9f1"
-  ],
-  "error": null,
-  "id": "curltest"
-}
-```
+</collapse-text>
+
 
 ## Inspecting the wallet
-It's time to inspect the contents of the wallet using the [Komodo API `listunspent` method](#).  Unspent transaction outputs (UTXOs) are the **fundamental unit of value**.  The ["What is a UTXO?"](https://komodoplatform.com/whats-utxo/) article goes into detail on the Komodo Platform website.
 
-Everything is derived from the UTXO.  What is supremely important in the world of a developer is being able to validate ownership of an unspent transaction output.  Only the owner of a UTXO is able to spend their own UTXO.  These outputs are used as new transaction inputs, and become the next rightful owner's output to spend in the future.  The value never disappears and the history of value transfer is auditable on a transparent blockchain - because of the underlying trustless public key encryption system, based on the mathematic principals of encryption.
+We have generated blocks and received the value from the `coinbase` transactions. Now, we would like to inspect the contents of our wallet. We will execute the [<b>listunspent</b>]() method for this purpose. 
 
-What we notice is the block rewards do not go to one of our generated addresses from this tutorial.  When the `komodod` runs without a `-pubkey` option, it will send the new coins to a new wallet address.  If the `-pubkey` parameter is passed in at start up, the block rewards will go to the address with this public key.
+However, before we execute this command, the reader should familiarize themselves with the way a blockchain stores value in a wallet. The title of the technical concept to understand is, <b>"utxo"</b>, this stands for "unspent transaction." 
 
-### Using komodo-cli `listunspent` & `stop`
-```
+The way a utxo works is often difficult to understand for newcomers to blockchain technology. We have provided an article that explains this concept in more detail here, and we recommend the reader study it before proceeding.
+
+[Click Here to Read Our Explanation of the Utxo](https://komodoplatform.com/whats-utxo/)
+
+Also, the reader may turn to Chapter 6, Section 3 of the Komodo whitepaper. Search for the section titled, <u>"The Utxo: An elusive, yet fundamental concept."</u>
+
+[Click Here to Read the Komodo Whitepaper; Search for Chapter 6, Section 3](https://komodoplatform.com/whitepaper)
+
+In blockchain technology, all value is contained within utxos. Every transaction consumes a utxo and creates new utxos.
+
+Once you are comfortably familiar with the concept, you are prepared to continue with the tutorial.
+
+### Listing Unspent Transactions Using komodo-cli
+
+A developer should be able to easily validate ownership of a utxo, as only the owner of a utxo is able to spend it. 
+
+#### listunspent
+
+For this purpose, we turn to the [<b>listunspent</b>](../komodo-api/wallet.html#listunspent) API method:
+
+```bash
 ./komodo-cli -regtest -ac_name=RT1 listunspent
+
 ```
-Response:
-```
+
+The response is an array of transactions ids, called `txid` for brevity's sake.
+
+```json
 [
   {
     "txid": "4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006",
@@ -665,21 +964,17 @@ Response:
   }
 ]
 ```
-Stopping our blockchain
-```
-./komodo-cli -regtest -ac_name=RT1 stop
-```
-Response:
-```
-RT1 server stopping
-```
 
-### Using curl `listunspent` & `stop`
-```
+### Listing Unspent Transactions Using curl
+
+With `curl`, the terminal command for `listunspent` is as follows:
+
+```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listunspent", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
-Response:
-```
+
+<collapse-text hidden title="Response">
+```json
 {
   "result": [
     {
@@ -778,11 +1073,64 @@ Response:
   "id": "curltest"
 }
 ```
-Issuing `stop` by RPC
+</collapse-text>
+
+## Setting the pubkey Parameter
+
+Observe this first `txid` returned from the `listunspent` transaction:
+
+```json
+  ...
+
+  {
+    "txid": "4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006",
+    "vout": 0,
+    "generated": true,
+    "address": "RDyVsyEJGvSm8HaUHfihsJoXvCzekruzrn",
+    "segid": 47,
+    "amount": 1000.07809721,
+    "interest": 0.00000000,
+    "scriptPubKey": "2103f5eccb583425e781216f27b1f6e244f15b1989eecbb8695f6948a26f5a3bfe3cac",
+    "rawconfirmations": 7,
+    "confirmations": 7,
+    "spendable": true
+  },
+
+  ...
+```
+
+Notice that the address to which these `1000` coins were sent is not the address we generated earlier. Rather, it is an entirely new address. At the moment we may not mind, because the coins were sent to an address that the wallet automatically generated and which we own. 
+
+However, what if we want to control the address to which coins are sent when mining? When this is the case, we turn to the [<b>pubkey</b>](../installations/common-runtime-parameters.html#pubkey) launch parameter.
+
+The `pubkey` we input into this parameter can be the same `pubkey` we generated earlier in the tutorial. 
+
+#### Stopping the Daemon Using komodo-cli
+
+To place this pubkey at startup, we must first stop the asset chain.
+
+For this we use the [<b>stop</b>](../komodo-api/control.html#stop) API method:
+
+```bash
+./komodo-cli -regtest -ac_name=RT1 stop
+```
+
+Response:
+
+```
+RT1 server stopping
+```
+
+#### Stopping the Daemon Using curl
+
+Using `curl` to stop the daemon:
+
 ```
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "stop", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
+
 Response:
+
 ```
 {
   "result": "RT1 server stopping",
@@ -790,25 +1138,40 @@ Response:
   "id": "curltest"
 }
 ```
-## Restarting RT1 with pubkey set
 
-Restarting the RT1 test blockchain with a [`-ac_pubkey` parameter at start up](https://developers.komodoplatform.com/basic-docs/installations/asset-chain-parameters.html#ac-pubkey), and generating a block, the block reward goes to the address of the `-ac_pubkey`.
+#### Restarting the Asset Chain With the pubkey Parameter
+
+Execute the following to relaunch `komodod` with the `pubkey` we saved at the beginning of the tutorial:
 
 ```
 ./komodod -regtest -ac_name=RT1 -ac_supply=1000 -pubkey=0350dd9b828e92600166dd74e521ac8510eb39064dfb30111c990396864542ce56 &
 ```
-Generate a new block similar to earlier in the tutorial, then look at the output of the [Komodo API `listunspent` method].
-```
+
+Now, when we generate new blocks, the `coinbase` transaction sends new coins to the new address associated with our `pubkey`:
+
+First, we generate a new block using komodo-cli:
+
+```bash
 ./komodo-cli -regtest -ac_name=RT1 generate 1
+```
+
+Response:
+
+```json
 [
   "06a639d7821f6ee803c6c53fe53a6b1dfe65063240ebc3a2907f7658cad8301e"
 ]
 ```
-Optionally check out the [Komodo API `getblock` method](#) and the coinbase transaction.
 
-Listunspent output:
-```
-...snipped
+We can repeat the `getblock` method on the blockhash returned above to see the `coinbase` transaction.
+
+With that `coinbase` transaction, we can the execute `gettransaction` to see the address to which the new coins were sent. 
+
+After executing those methods (not shown here), here is a snippet of the final result:
+
+
+```json
+...
   {
     "txid": "2411800f0e9c15f5233453ffc17ff301f43043c70887c256a041945d341796f0",
     "vout": 0,
@@ -825,211 +1188,21 @@ Listunspent output:
   }
 ...snipped
 ```
-Note the `address` in this output.  It is the one associated with the `pubkey` from our [Komodo API `validateaddress` method].
+
+Note that the `address` in this output is the one associated with our desired `pubkey`.
 
 ## Closing
-We have some fundamental knowledge that is useful for validating our own developments in the future.   We also know that by setting an `-ac_pubkey` at the launch of the blockchain, the network will pay that address - wherever in the network that wallet is, the blockchain will pay to the address.  We will see this when we start our next blockchain and create our own consensus rules for an on-chain application.
 
-## (Outline) Sketch for the Next Sections
+Some of the fundamental blockchain and API skills we have learned include the following:
 
-In this section, the reader will learn more about Custom Consensus through hands-on participation.
+- How to create a new Komodo asset chain
+- How to make a single-node regtest chain, for development purposes
+- How to launch with the pubkey set
+- How to generate new blocks
+- How to obtain information about blocks and transactions
+- The nature of a utxo
+- The nature of a coinbase transaction
 
-The agenda for this tutorial is the following:
+Having completed this tutorial, the developer should be able to explore the many API methods in the Komodo documentation.
 
-    item 1
-    item 2..."
-
-Make sure they're oriented, and then away we go with the tutorial.
-
-I haven't looked at your stuff in depth yet. From the quick skim, it does look like you've got it very well laid out. I appreciate how you take the time to speak slowly to the reader, making sure each step of the journey is covered with an appropriate explanation.
-
-Once you and gcharang have all the necessary information put together, I'll edit it and write that final outro section.
-
-If you can think of a few ideas for what we should leave our reader with, that would be great.
-
-I was thinking something along the lines of,
-
-"Now that the reader is introduced to Custom Consensus, the journey from here is entirely of in the realms of the imagination.
-
-The reader may find insight by observing the manner in which other CC modules function. The Rogue CC module displays how different softwares can be combined into one CC module. The pieces of the Rogue module include the following:
-
-    Customized CC code in this repository:
-        Link to Repository
-        These files in particular are of note:
-            File 1: Link
-            File 2: Link
-    A combination with the Oracles CC module
-        To learn more about the Oracles CC module, look here:
-            Link to Oracles Documentation here
-        Observe how the oracle is integrated into the Rogue Module this file here:
-            File: Link
-        The reader may see the oracle itself by installing the Rogue asset chain and executing an RPC to call the Oracle's oracle_txid
-            Link to installation instructions for Rogue
-            Link to RPC that returns oracle txid
-        The reader may see the publisher that receives and publishes data by executing this call
-            Link to RPC, and possibly an example of the cli command
-    An implementation of this old-school Rogue softwares
-        Link to Rogue software installation that we borrowed
-        Link to manual
-    Anything else Rogue took
-
-S
-13:17
-These open-source softwares, in combination with the customized CC code from a trained Komodo developer, swiftly created a new CC module that displays how CC can be used in the gaming industry.
-
-CC is also useful in many other industries. The Komodo team looks forward to discovering what the community creates. Please reach out to the Komodo team on Discord with questions and discoveries, and please reach out to the marketing team for assistance in displaying new ideas."
-
-## Other Content Not Developed
-
-Today, in looking through the many innovations occuring within the blockchain industry, an observant researcher can quickly discover that many ideas that are touted as "new" and "novel" are, in fact, old ideas. For example, the idea of a "smart contract" was explored as early as the 1980's by computer-science academics. Yet another example can be found in the early proposals of the complicated "zk-SNARKS" technology, which Komodo now offers for privacy-based transactions.
-
-<!--link instead for zk-SNARKS-->
-
-The reason the world never heard of these relatively old computer-science technologies until today is that they were useless without a consensus mechanism. Without a method whereby a user could prove for themselves, without having to trust their fellow users, whether the code executed properly, no smart-contract code nor zk-SNARK could ever be considered safe when dealing with real value. When Satoshi Nakamoto created the first functioning consensus mechanism, everything changed.
-
-<!--Sidd: I need to add more specifics. This is all too general.-->
-
-Creating a new consensus mechanism is not an easy task. Prior to the birth of Bitcoin there were hundreds of intelligent researchers and academics in small circles of the world of cryptography and academia, searching for the proper combination of cryptography and code. Even with all the attention placed on blockchain technology more recently, including billions of dollars in funding and hundreds of thousands of developers flooding into this industry, only a small handful of new consensus mechanisms have emerged.
-
-To create a new consensus mechanism, one must create a sequence of highly technical code that can withstand the most rigorous of trials the world has to offer. Even Satoshi Nakamoto's own first attempts at creating the Bitcoin consensus mechanism were nowhere near secure. Over the years of early development, dozens of high-risk security flaws were discovered by the early blockchain intelligencia. This process continues even to this day, where recently a member of the industry discovered yet another flaw in Bitcoin and alerted the Bitcoin developers to swiftly correct the error.
-
-While Bitcoin's first consensus mechanism
-
-If this were easy, the world would have thousands of well functioning consensus mechanisms already. The name "Bit CC itself is not a standalone programming language. This is in contast to other popular blockchain platforms, such as Ethereum, where the creation of decentralized applications requires a unique programming language, such as Solidity.
-
-#### Knowledge Requirements Before Attempting to Use Custom Consensus
-
-At this time, the creation of a new CC module is only achievable among experienced C/C++ developers, and who possess a working knowledge of the principles of blockchain engineering.
-
-Those who are not experienced developers, or who work on high-level languages, such as JavaScript and Python, may still take advantage of the CC
-
-(Notes)
-
-Summary:
-
-Public key cryptography is used when a private and public key pair are used for proving something.
-Private Keys are stored in a wallet, not on the blockchain.
-Private keys sign transactions.
-Signatures on transaction are proven by the network using the corresponding public key to spend the claimed ownership of funds.
-Transactions fill blocks, like an item on a shopping list fills a piece of paper.
-Blocks are arranged in sequential order, forming a chain.
-Each block contains agreed transactional information. The proof of the transactional detail and it's arrangement in the block is called consensus. Consensus is achieved by each participant relying on their own computation.
-Coins & Tokens are used in transaction details to transfer value.
-Nodes is the jargon term for computers that do the computations to maintain the network.
-
-jl777
-bool custom_validate(struct CCcontract_info *cp,int32_t height,Eval *eval,const CTransaction tx)
-{
-char expectedaddress[64]; CPubKey pk;
-if ( tx.vout.size() != 2 ) // make sure the tx only has 2 outputs
-return eval->Invalid("invalid number of vouts");
-else if ( custom_opretdecode(pk,tx.vout[1].scriptPubKey) != '1' ) // verify has opreturn
-return eval->Invalid("invalid opreturn");
-GetCCaddress(cp,expectedaddress,pk);
-if ( IsCClibvout(cp,tx,0,expectedaddress) == COIN ) // make sure amount and destination matches
-return(true);
-else return eval->Invalid("invalid vout0 amount");
-}
-J
-that is the validation function for the customcc.cpp EVAL_CUSTOM CC
-
-jl777
-THAT is the CC validation
-J
-it is invoked if you spend a CC vout with EVAL_CUSTOM evalcode
-not sure what you mean by "into account"
-mylo5ha5
-custom_func1 is great btw. thx.
-
-Ssiddhartha_crypto do you want to "normal coin" p2p consensus? mastering bitcoin book explains.
-
-siddhartha_crypto
-To put it into other words, to check for understanding:
-
-This is the code of Custom Consensus that every machine must run to ensure that the consensus across all machines is the same?
-S
-jl777
-yes. custom_validate is what has to return "true" for it to pass validation
-J
-siddhartha_crypto
-Great
-S
-
-How would you describe (in common language) the challenges a developer would face when trying to write a "smart contract" (for lack of a better term) that relies on a blockchain?
-jl777
-it is a very simple CC, so the validation is really simple. as you make more CC methods, you need to add the corresponding validation. otherwise they are not validated
-J
-smart contract does not change consensus rules, it is an interpreted set of commands that must follow consensus
-i have no idea how to put CC in the context of smart contract
-siddhartha_crypto
-smart contract does not change consensus rules, it is an interpreted set of commands that must follow consensus
-S
-this is good stuff
-jl777
-it is like trying to explain a 3D object when all you have are 2D.
-J
-i guess you can sort of explain it but it will always be approximations. when the actual thing is so simple, why not to discuss the real thing, instead of a simulation of something that must be interpreted
-the first consensus took many years to get working stable, ie. bitcoin protocol
-
-anytime there is a new consensus it is a BIG project
-changing consensus rules with CC is a bit easier, ie. customcc.cpp. it is simple enough it is possible for a coder to do in a few hours for simple things and a weekend for not that complex things
-instead of taking years, it is reduced to weeks or days
-siddhartha_crypto
-this is helpful
-S
-jl777
-it is like being able to make a car with custom engines in it, without even having to make a new car, or even a new engine. just the exact thing that is different needs to be created
-
-How accurate is this, for the next thing we say to him:
-
-The reason why you would choose Komodo over [insert competitor], is that Komodo allows you to add your creativity into the consensus mechanism itself, without having to rewrite the consensus mechanism from scratch.
-
-Let's say that you want to make a game, and you want to have the rules of gameplay be adopted as a part of the blockchain consensus mechanism. You don't want to have to run a centralized database, because then it would put the responsibility over consensus on your shoulders, instead of on your players. This saves you loads of hassle. Everyone can verify the blockchain, and therefore everyone can be assured that the gameplay and the blockchain are in harmony.
-
-The problem is this: Once you start adding a gameplay rule to a normal blockchain, you're basically dealing with a whole new consensus mechanism. It took years to make the Bitcoin consensus mechanism stable.
-
-when you try to add on your creativity, without a framework to help you, you are going to have to basically start from scratch.
-
-CC allows you to add in your creativity, without having to start over in the testing phase.
-
-The only rule is that you have to bring everything down to true/false. If the result of your creative code + the user's actions is true, then a transaction is executed. It can have any metadata or value transfer in it you want. If false, then no transaction is executed.
-
-J
-you are not understanding the magnitude of labor savings
-siddhartha_crypto
-How can I better understand it?
-S
-jl777
-imagine you have the idea of a little gizmo to make a car run more efficiently. this is your expertise. it might be hard to do, but you are good at this
-J
-you can basically plug that into a CC and test a new blockchain using your value add, in a weekend
-alternative is to what?
-write a new blockchain from scratch?
-siddhartha_crypto
-right.
-S
-no need to build a new car, if you're just trying to build a better radio
-
-mylo5ha5
-the CC stuff....whatever they customize, they just have build the validation rules for what they build.
-example:
-
-i will let daniel to put 10KMD into a CC address
-i will let myself put 1KMD into the same CC address
-there is a value in an oracle that tracks how many hits on the komodo website a page gets
-if one day a page get 1000 hits, the author gets teh CC address funds released to their address
-the author & their key is mapped
-The validation rules are:
-
-the registered oracle value is >1000 (if not, do nothing)
-if it's >1000, get the author's payout address
-release the funds to that address
-
-jl777
-something that projects with \$100 mil of funding take years to get completed
-J
-assuming there is an oracle, the CC would use the consensus rule that checks the tx for the pubkey of who is trying to spend it. then depending on that pubkey, checking the oracle to make sure they are allowed to do whatever spend is in the tx
-tx.vout[0].nValue is the amount
-tx.vout[0].scriptPubKey is the spending script (destination)
-siddhartha_crypto
-Okay, from here we need to get more into the technical stuff, and this is where we need to rely on Mylo for help.
+In our next tutorial, we will cover ... (continued)

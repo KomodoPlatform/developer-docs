@@ -72,6 +72,10 @@ module.exports = {
               "/basic-docs/customconsensus/custom-consensus-instructions.md",
               "About Custom Consensus (CC)"
             ],
+            [
+                "/basic-docs/customconsensus/custom-consensus-tutorial.md",
+                "How to Build a New CC Module"
+            ],
             ["/basic-docs/customconsensus/channels.md", "Channels"],
             ["/basic-docs/customconsensus/dice.md", "Dice"],
             ["/basic-docs/customconsensus/faucet.md", "Faucet"],
@@ -150,6 +154,10 @@ module.exports = {
             [
               "/basic-docs/customconsensus/custom-consensus-instructions.md",
               "About Custom Consensus (CC)"
+            ],
+            [
+                "/basic-docs/customconsensus/custom-consensus-tutorial.md",
+                "How to Build a New CC Module"
             ],
             ["/basic-docs/customconsensus/channels.md", "Channels"],
             ["/basic-docs/customconsensus/dice.md", "Dice"],
