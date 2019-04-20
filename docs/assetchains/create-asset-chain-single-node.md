@@ -22,7 +22,7 @@ In the output, take note of the string that starts with `>>>>>>>>>>`
 >>>>>>>>>> HELLOWORLD: p2p.14165 rpc.14166 magic.01362c2a 20327466 777777 coins
 ```
 
-The default p2p and rpc ports of a chain with the above selected parameters are `14165` and `14166` respectively.
+The default `p2p` and `rpc` ports of a chain with the above selected parameters are `14165` and `14166` respectively.
 
 To interact with the first daemon, use the `komodo-cli` command:
 
@@ -30,15 +30,15 @@ To interact with the first daemon, use the `komodo-cli` command:
 ./komodo-cli -ac_name=HELLOWORLD getinfo
 ```
 
-## Create the data directory for the second daemon
+## Create the data directory for the Second daemon
 
-Create a directory in any location of your machine. In this guide we will use a directory named coinData in the user's Home directory
+Create a directory in any location of your machine. In this guide we will use a directory named `coinData` in the user's Home directory:
 
 ```bash
 mkdir ~/coinData
 ```
 
-Then create the data directory for the second daemon
+Then create the data directory for the second daemon:
 
 ```bash
 mkdir ~/coinData/HELLOWORLD
@@ -50,7 +50,7 @@ Copy the `.conf` file created for the first daemon to this new data directory
 cp ~/.komodo/HELLOWORLD/HELLOWORLD.conf ~/coinData/HELLOWORLD/
 ```
 
-Change the values of `rpcuser`, `rpcpassword`, `rpcport` and in the file `~/coinData/HELLOWORLD/HELLOWORLD.conf`
+Change the values of `rpcuser`, `rpcpassword`, and `rpcport` in the file `~/coinData/HELLOWORLD/HELLOWORLD.conf`
 
 Add a new line `port=<desired_p2p_port>` to the above file. The `port` and `rpcport` must be distinct from the ports found in the previous step where we ran the first daemon.
 
@@ -62,7 +62,7 @@ When launching the second daemon,we use the same parameters as the first deamon,
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -datadir=/home/<USERNAME>/coinData/HELLOWORLD -addnode=localhost
 ```
 
-Replace `<USERNAME>` with the USERNAME of the account logged in. Can be found using `echo $USER`
+Replace `<USERNAME>` with the USERNAME of the account logged in. It can be found using `echo $USER`
 
 To interact with the second daemon, add the `-datadir` parameter to the `komodo-cli` command:
 
@@ -70,9 +70,9 @@ To interact with the second daemon, add the `-datadir` parameter to the `komodo-
 ./komodo-cli -ac_name=HELLOWORLD -datadir=/home/<USERNAME>/coinData/HELLOWORLD getinfo
 ```
 
-After launching the second daemon, `getinfo` to both the daemons should repont `"connections":1`
+After launching the second daemon, `getinfo` to either of the daemons should report `"connections":1`
 
-## Using curl to interact with the daemons
+## Using `curl` to interact with the daemons
 
 To issue a `getinfo` call, execute:
 
