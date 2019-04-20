@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Rogue Custom Consensus (CC) contract module serves as a proof-of-concept to demonstrate Condition's capabilities as a blockchain-based gaming technology.
+The Rogue Custom Consensus (CC) contract module serves as a proof-of-concept to demonstrate Custom Consensus's capabilities as a blockchain-based gaming technology.
 
 Rogue CC is based on the classic [Rogue](http://www.livingroguelike.com/rl-games/the-original-rogue-information-and-how-to-play-online/) game. As such, it can be categorized as a [Roguelike.](http://www.livingroguelike.com/roguelike-info-discussions/what-is-a-roguelike/)
 
@@ -126,7 +126,7 @@ git checkout FSM
 Change the `8` in the `-j8` portion of the last command to any number of processor threads desired and/or appropriate for your machine.
 :::
 
-#### Update `komodod`
+##### Update `komodod`
 
 ```bash
 cd ~/komodo
@@ -135,7 +135,7 @@ git pull
 ./zcutil/build.sh -j$(nproc)
 ```
 
-#### Set `pubkey` value
+#### Launch the `ROGUE` chain and Set `pubkey` Value
 
 ##### Step 1 - Start the chain
 
