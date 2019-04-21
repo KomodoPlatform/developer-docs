@@ -120,37 +120,9 @@ Also, after completing the tutorial, the developer should be prepared to continu
 
 #### komodod and komodo-cli
 
-The following tutorial assumes that you have already [compiled the Komodo daemon](https://docs.komodoplatform.com/komodo/installation.html), and that you have used the default `~/komodo/src` directory as the root Komodo software directory.
+The following tutorials assume that you have already [compiled the Komodo daemon](https://docs.komodoplatform.com/komodo/installation.html), and that you have used the default `~/komodo/src` directory as the root Komodo software directory.
 
 As with all software related to `komodod`, at the command line we use the terminal-based `komodo-cli` software, and the `curl` command, to access the daemon. 
-
-To use `curl`, the developer will need to gather information from their asset chain, once it is created. (We will create our asset chains further on in the tutorial.) 
-
-Once the asset chain is created, open the configuration file. By default, for the RT1 asset chain, this file will be found in the `~/.komodo/RT1/RT1.conf` directory.
-
-Observe the `rpcuser`, `rpcpassword`, and `rpcport` values. These values are necessary for each `curl` command.
-
-The unix `source` command provides an easy method to import the values into process environment variables.
-
-```bash
-source ~/.komodo/RT1/RT1.conf
-```
-
-Once that command is executed, the relevant variables may be called in the terminal. 
-
-For example, to call the `rpcuser` variable, execute the following command:
-
-```bash
-echo $rpcuser
-```
-
-#### (Optional) Using Postman
-
-Optionally, all curl commands can be completed using, [Postman](https://www.getpostman.com/) -- a software designed for API interactions. 
-
-In Postman, set the authorization to `Basic Auth`. With each request, similar to the manner of executing a `curl` command, include the asset chain's `user`, `password`, and `port` values.
-
-The returned body is raw and content type is text/plain.
 
 ## Komodo API Fundamentals Tutorial
 
@@ -192,7 +164,7 @@ There are many additional parameters that you can explore later in the [Asset Ch
 
 The daemon will return a response similar to the following: 
 
-```json
+```txt
 [1] 22892
 ASSETCHAINS_SUPPLY 1000
 MAX_MONEY 106320417438 1063.20417438
@@ -209,15 +181,15 @@ From the response, note the following information:
 
 ##### Asset Chain Supply
 
-```json
+```txt
 ASSETCHAINS_SUPPLY 1000
 ```
 
-We have the 1000 coins we desire.
+We see the 1000 coin initial supply.
 
 ##### Configuration File Location
 
-```json
+```txt
 Created (/home/mylo/.komodo/RT1/RT1.conf)
 ```
 
@@ -227,7 +199,7 @@ Placing the configuration data here follows the Komodo convention of placing all
 
 ##### Relevant RPC Data
 
-```json
+```txt
 >>>>>>>>>> RT1: p2p.13100 rpc.13101 magic.fd772ab9 4252445369 1000 coins
 ``` 
 
@@ -433,7 +405,7 @@ Response:
 }
 ```
 
-Make a note of the `pubkey` value. We will not use the `pubkey` at this time. However, we will use it in the next tutorial, RT2, while creating a custom application-specific blockchain. 
+Make a note of the `pubkey` value. We will use it towards the end of the tutorial.
 
 #### dumpprivkey
 
@@ -523,7 +495,7 @@ When connecting to an existing blockchain that already has a populated network o
 
 However, in this tutorial we are running a regtest chain, and therefore we must instruct the daemon to generate new blocks.
 
-This also provides us with a useful opportunity to discuss the nature of simple mining the Komodo ecosystem. The methods we discuss here reflect mining on a proof-of-work based asset chain. 
+This also provides us with a useful opportunity to discuss the nature of simple mining in the Komodo ecosystem. The methods we discuss here reflect mining on a proof-of-work based asset chain. 
 
 The reader should be aware that Komodo also offers proof-of-stake mining, and hybrid models that blend proof-of-work with proof-of-stake. For more information, the reader may turn to the [<b>ac_staked</b>](../installations/asset-chain-parameters.html#ac-staked) feature.
 
@@ -704,7 +676,7 @@ Note that the `amount` value is slightly higher than `1000`. This is normal. It 
 
 #### generate
 
-We have already generated the genesis block. The following is a sample of the `curl` command to use the `generate` API method to generate 5 blocks.
+We have already generated the genesis block. The following is a sample of using `curl` with the `generate` API method to generate 5 blocks.
 
 ```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "generate", "params": [5]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
@@ -728,7 +700,7 @@ curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "cu
 
 #### getblock
 
-The `curl` command to use the `getblock` API method using the blockhash of the genesis block:
+Here is a sample of using `curl` with the `getblock` API method on the blockhash of the genesis block:
 
 ```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblock", "params": ["0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
@@ -794,7 +766,7 @@ curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "cu
 
 #### gettransaction
 
-The `curl` command to retrieve the first block's `coinbase` transaction:
+Here is the `curl` command to retrieve the first block's `coinbase` transaction:
 
 ```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "gettransaction", "params": ["4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
@@ -840,7 +812,7 @@ curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "cu
 
 We have generated blocks and received the value from the `coinbase` transactions. Now, we would like to inspect the contents of our wallet. We will execute the [<b>listunspent</b>]() method for this purpose. 
 
-However, before we execute this command, the reader should familiarize themselves with the way a blockchain stores value in a wallet. The title of the technical concept to understand is, <b>"utxo"</b>, this stands for "unspent transaction." 
+However, before we execute this command, the reader should familiarize themselves with the way a blockchain stores value in a wallet. The title of the technical concept to understand is, <b>"utxo."</b> This stands for "unspent transaction." 
 
 The way a utxo works is often difficult to understand for newcomers to blockchain technology. We have provided an article that explains this concept in more detail here, and we recommend the reader study it before proceeding.
 
@@ -864,7 +836,6 @@ For this purpose, we turn to the [<b>listunspent</b>](../komodo-api/wallet.html#
 
 ```bash
 ./komodo-cli -regtest -ac_name=RT1 listunspent
-
 ```
 
 The response is an array of transactions ids, called `txid` for brevity's sake.
@@ -1147,9 +1118,9 @@ Execute the following to relaunch `komodod` with the `pubkey` we saved at the be
 ./komodod -regtest -ac_name=RT1 -ac_supply=1000 -pubkey=0350dd9b828e92600166dd74e521ac8510eb39064dfb30111c990396864542ce56 &
 ```
 
-Now, when we generate new blocks, the `coinbase` transaction sends new coins to the new address associated with our `pubkey`:
+Now, when we generate new blocks, the `coinbase` transaction sends new coins to the new address associated with our `pubkey`.
 
-First, we generate a new block using komodo-cli:
+First, we generate a new block using komodo-cli.
 
 ```bash
 ./komodo-cli -regtest -ac_name=RT1 generate 1
@@ -1167,7 +1138,7 @@ We can repeat the `getblock` method on the blockhash returned above to see the `
 
 With that `coinbase` transaction, we can the execute `gettransaction` to see the address to which the new coins were sent. 
 
-After executing those methods (not shown here), here is a snippet of the final result:
+After executing these previously explained methods, here is a snippet of the final result:
 
 
 ```json
