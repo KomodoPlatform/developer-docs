@@ -109,8 +109,6 @@ export default {
 <style lang="stylus">
 .home
   padding $navbarHeight 2rem 0
-  height 100%
-  position:relative
   max-width 960px
   margin 0px auto
   display block
@@ -191,7 +189,6 @@ export default {
             background-color lighten($borderColor, 10%)   
   .footer
     padding 2.5rem
-
     border-top 1px solid $borderColor
     text-align center
     color lighten($textColor, 25%)
