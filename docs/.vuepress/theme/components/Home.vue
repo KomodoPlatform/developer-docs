@@ -109,6 +109,8 @@ export default {
 <style lang="stylus">
 .home
   padding $navbarHeight 2rem 0
+  height 100%
+  position:relative
   max-width 960px
   margin 0px auto
   display block
@@ -156,7 +158,7 @@ export default {
     max-width 50%   
   .features
     border-top 1px solid $borderColor
-    padding 1.2rem 0
+    padding 1.2rem 0    
     margin-top 2.5rem
     display flex
     flex-wrap wrap
@@ -189,6 +191,7 @@ export default {
             background-color lighten($borderColor, 10%)   
   .footer
     padding 2.5rem
+
     border-top 1px solid $borderColor
     text-align center
     color lighten($textColor, 25%)
@@ -214,6 +217,8 @@ export default {
     padding-left 1.5rem
     padding-right 1.5rem
     .hero
+      max-width 100%
+      padding 0 2.5rem
       img
         max-height 210px
         margin 2rem auto 1.2rem
@@ -227,6 +232,15 @@ export default {
         font-size 1rem
         padding 0.6rem 1.2rem
     .feature
+      max-width 100%
+      padding 0 2.5rem      
       h2
         font-size 1.25rem
+    .wrapper
+      flex-direction column
+    .features
+      flex-direction column
+    .textContent
+      max-width 90%
+      padding 0 2.5rem      
 </style>
