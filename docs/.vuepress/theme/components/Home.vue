@@ -1,6 +1,6 @@
 <template>
   <main class="home" aria-labelledby="main-title">
-    <div class"wrapper">
+    <div class="wrapper">
     <header class="hero">
       <img
         v-if="data.heroImage"
@@ -25,16 +25,15 @@
       </p>
     </header>
 
-    <div class="textHeader">
+    <div class="textContent">
       <h1 v-if="data.mainHeader">{{ data.mainHeader }}</h1>
-      <div style="width: 4rem; height: .5rem; margin: .1rem 0rem 2rem .3rem; background-color: #18F4BF;"></div>
-    </div>
-
-    <div class="textContent">  
+      <div style="width: 4rem; height: .5rem; margin: .1rem 0rem 2rem .3rem; background-color: #18F4BF;"></div>     
       <p v-if="data.description">{{ data.description }}</p>
+      <p v-if="data.bulletStart">{{ data.bulletStart }}</p>
       <pre v-if="data.bullets">{{ data.bullets }}</pre>
       <p v-if="data.closing"> {{ data.closing }} </p>     
     </div>
+
     </div>
 
 
@@ -119,12 +118,12 @@ export default {
     flex-wrap wrap
     align-items flex-start
     align-content stretch
-    justify-content space-between
+    justify-content center
   .hero
     text-align center
     flex-grow 1
-    flex-basis 30%
-    max-width 30%
+    flex-basis 50%
+    max-width 50%
     img
       max-width: 50%
       max-height 180px
@@ -151,14 +150,10 @@ export default {
       border-bottom 1px solid darken($borderColor, 10%)
       &:hover
         background-color lighten($borderColor, 10%)
-  .textHeader
-    flex-grow 1
-    flex-basis 30%
-    max-width 30%
   .textContent
-  flex-grow 1
-    flex-basis 30%
-    max-width 30%        
+    flex-grow 1
+    flex-basis 50%
+    max-width 50%   
   .features
     border-top 1px solid $borderColor
     padding 1.2rem 0
@@ -167,7 +162,7 @@ export default {
     flex-wrap wrap
     align-items flex-start
     align-content stretch
-    justify-content space-between
+    justify-content center
   .feature
     flex-grow 1
     flex-basis 30%
@@ -200,6 +195,8 @@ export default {
 
 @media (max-width: $MQMobile)
   .home
+    .wrapper
+      flex-direction column
     .features
       flex-direction column
     .feature
