@@ -111,7 +111,9 @@ export default {
   padding $navbarHeight 2rem 0
   max-width 960px
   margin 0px auto
-  display block
+  display flex
+  flex-direction column
+  min-height 100vh
   background-color #222832
   .wrapper
     display flex
