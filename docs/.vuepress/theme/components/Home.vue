@@ -24,13 +24,15 @@
       </p>
     </header>
 
-    <div      
-      v-if="data.shortcuts && data.shortcuts.length"
-    >
+    <div class="textHeader">
       <h1 v-if="data.mainHeader">{{ data.mainHeader }}</h1>
-      <pre v-if="data.description">{{ data.description }}</pre>
+      <div style="width: 4rem; height: .5rem; margin: .1rem 0rem 2rem .3rem; background-color: #18F4BF;"></div>
+    </div>
+
+    <div class="textContent">  
+      <p v-if="data.description">{{ data.description }}</p>
       <pre v-if="data.bullets">{{ data.bullets }}</pre>
-      <pre v-if="data.closing"> {{ data.closing }} </pre>     
+      <p v-if="data.closing"> {{ data.closing }} </p>     
     </div>
 
 
@@ -105,11 +107,6 @@ export default {
 
 <style lang="stylus">
 .home
-  position absolute
-  top 0
-  bottom 0
-  left 0
-  right 0
   padding $navbarHeight 2rem 0
   max-width 960px
   margin 0px auto
@@ -145,6 +142,8 @@ export default {
       border-bottom 1px solid darken($borderColor, 10%)
       &:hover
         background-color lighten($borderColor, 10%)
+  .textHeader
+  .textContent        
   .features
     border-top 1px solid $borderColor
     padding 1.2rem 0

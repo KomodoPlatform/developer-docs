@@ -22,12 +22,15 @@ mainHeader: Introduction
 description: |-
   Komodo's blockchain technology enables developers to create and run fully independent blockchains 
   in a secure and highly competitive environment.
-
+bulletStart: |-
   Each independent blockchain built on the Komodo framework has a wide range of capabilities, including:
 bullets: |
-  ■ Bitcoin-hash rate supported security              ■ Zero-knowledge privacy
-  ■ Enterprise-level scalability                                  ■ Consensus customization
-  ■ Blockchain clustering                                          ■ ...and more!
+  ■ Bitcoin-hash rate supported security              
+  ■ Zero-knowledge privacy
+  ■ Enterprise-level scalability                                  
+  ■ Consensus customization
+  ■ Blockchain clustering                                          
+  ■ ...and more!
 closing: |-
   Because a Komodo-based blockchain is independently managed, the developer has complete freedom,
    so long as the essential connections to the Komodo ecosystem remain.
