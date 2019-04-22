@@ -24,10 +24,12 @@
         />
       </p>
 
+      <h6 class="description">Quick Links</h6>
+
       <div
         class="features1"
         v-if="data.shortcuts && data.shortcuts.length"
-      >
+      >        
         <div
           class="feature"
           v-for="(shortcut, index) in data.shortcuts"
