@@ -23,14 +23,42 @@
           :item="actionLink"
         />
       </p>
+
+      <div
+        class="features1"
+        v-if="data.shortcuts && data.shortcuts.length"
+      >
+        <div
+          class="feature"
+          v-for="(shortcut, index) in data.shortcuts"
+          :key="index"
+        >                      
+          <p
+              
+              v-if="shortcut.linkText && shortcut.link"
+          >
+              <div>
+              <button @click="$router.push(shortcut.link)">{{ shortcut.title }} →</button>
+              </div>            
+          </p>            
+        </div>
+      </div>
+
+
     </header>
 
     <div class="textContent">
       <h1 v-if="data.mainHeader">{{ data.mainHeader }}</h1>
       <div style="width: 4rem; height: .5rem; margin: .1rem 0rem 2rem .3rem; background-color: #18F4BF;"></div>     
       <p v-if="data.description">{{ data.description }}</p>
-      <p v-if="data.bulletStart">{{ data.bulletStart }}</p>
-      <pre v-if="data.bullets">{{ data.bullets }}</pre>
+      <p v-if="data.bulletStart">{{ data.bulletStart }}</p>      
+      <div
+        v-if="data.bullets && data.bullets.length"        
+        v-for="(item, index) in data.bullets"
+        :key="index"
+      >
+        <p>■ {{ item.bullet }}</p>        
+      </div>
       <p v-if="data.closing"> {{ data.closing }} </p>     
     </div>
 
@@ -156,7 +184,7 @@ export default {
     flex-grow 1
     flex-basis 50%
     max-width 50%   
-  .features
+  .features,.features1
     border-top 1px solid $borderColor
     padding 1.2rem 0    
     margin-top 2.5rem
@@ -165,6 +193,8 @@ export default {
     align-items flex-start
     align-content stretch
     justify-content space-around
+  .features1
+    border-top 0px none $borderColor      
   .feature
     flex-grow 1
     flex-basis 30%
@@ -188,7 +218,7 @@ export default {
         box-sizing border-box
         border none
         &:hover
-            background-color lighten($borderColor, 10%)   
+            background-color lighten($borderColor, 10%)             
   .footer
     padding 2.5rem
     border-top 1px solid $borderColor
