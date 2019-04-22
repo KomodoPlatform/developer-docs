@@ -1,5 +1,6 @@
 <template>
   <main class="home" aria-labelledby="main-title">
+    <div class"wrapper">
     <header class="hero">
       <img
         v-if="data.heroImage"
@@ -33,6 +34,7 @@
       <p v-if="data.description">{{ data.description }}</p>
       <pre v-if="data.bullets">{{ data.bullets }}</pre>
       <p v-if="data.closing"> {{ data.closing }} </p>     
+    </div>
     </div>
 
 
@@ -112,10 +114,17 @@ export default {
   margin 0px auto
   display block
   background-color #222832
+  .wrapper
+    display flex
+    flex-wrap wrap
+    align-items flex-start
+    align-content stretch
+    justify-content space-between
   .hero
-    float left
-    margin-right 5px
     text-align center
+    flex-grow 1
+    flex-basis 30%
+    max-width 30%
     img
       max-width: 50%
       max-height 180px
@@ -143,7 +152,13 @@ export default {
       &:hover
         background-color lighten($borderColor, 10%)
   .textHeader
-  .textContent        
+    flex-grow 1
+    flex-basis 30%
+    max-width 30%
+  .textContent
+  flex-grow 1
+    flex-basis 30%
+    max-width 30%        
   .features
     border-top 1px solid $borderColor
     padding 1.2rem 0
