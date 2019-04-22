@@ -728,3 +728,238 @@ Response (success):
     "tx_hash":"0b024ea6997e16387c0931de9f203d534c6b2b8500e4bda2df51a36b52a3ef33",
 }
 ```
+
+## my_swap_status
+
+**uuid**
+
+The `my_swap_status` method returns the data of atomic swap that was done by MM2 node.  
+
+### Arguments:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| params uuid | string | the uuid of swap, typically received from buy/sell call |
+
+### Response:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| events         | array of objects | events that happened during the swap |
+| success_events | array of strings | list of events that considered as `success` swap state, they are also listed in order which they should occur in `events` array |
+| error_events   | array of strings | list of events that considered as `error` swap state, if at least 1 of the event happens swap is considered as failed  |
+| type           | string           | whether the node acted as market `Maker` or `Taker` |
+| uuid           | string           | swap uuid |
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"params\":{\"uuid\":\"fb5b23301f71a2d7262534e125915fc0dd088fc7d7919cb459aebee759db593d\"},\"userpass\":\"$userpass\"}"
+```
+
+Response (success):
+
+```json
+{
+    "result": {
+        "error_events": [
+            "StartFailed",
+            "NegotiateFailed",
+            "TakerFeeSendFailed",
+            "MakerPaymentValidateFailed",
+            "TakerPaymentTransactionFailed",
+            "TakerPaymentDataSendFailed",
+            "TakerPaymentWaitForSpendFailed",
+            "MakerPaymentSpendFailed",
+            "TakerPaymentRefunded",
+            "TakerPaymentRefundFailed"
+        ],
+        "events": [
+            {
+                "event": {
+                    "data": {
+                        "lock_duration": 7800,
+                        "maker": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+                        "maker_amount": 10000000,
+                        "maker_coin": "BEER",
+                        "maker_payment_confirmations": 1,
+                        "maker_payment_wait": 1555666193,
+                        "my_persistent_pub": "02031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
+                        "started_at": 1555663593,
+                        "taker_amount": 10000000,
+                        "taker_coin": "ETOMIC",
+                        "taker_payment_confirmations": 1,
+                        "taker_payment_lock": 1555671393,
+                        "uuid": "fb5b23301f71a2d7262534e125915fc0dd088fc7d7919cb459aebee759db593d"
+                    },
+                    "type": "Started"
+                },
+                "timestamp": 1555663593989
+            },
+            {
+                "event": {
+                    "data": [
+                        1555679156,
+                        "02631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
+                        "69dc854ff3466bb30aa1452306470e3f73f51a91"
+                    ],
+                    "type": "Negotiated"
+                },
+                "timestamp": 1555663654754
+            },
+            {
+                "event": {
+                    "data": {
+                        "block_height": 0,
+                        "fee_details": null,
+                        "from": [
+                            ""
+                        ],
+                        "received_by_me": 0.0,
+                        "spent_by_me": 0.0,
+                        "to": [
+                            ""
+                        ],
+                        "total_amount": 0.0,
+                        "tx_hash": "ee2b1ac914b41b5afed119ba4c420d8cc451bf9cdb6a46cb5c93d4b2c597fd81",
+                        "tx_hex": "0400008085202f8901e2a7ee8d70b196e014de63935a3db3caf8a987b7c1f8ddc24e9dc3d5f06e3449010000006a4730440220477370199bb385912a88b7b1ad62c9e730414095876eaf60782d7df8c4259c9e022033c3921830ad6cc37ced1f63bd8de57f768477514b9556a8166cd2919f7e9c99012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0246320000000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88acad4d6c07000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
+                    },
+                    "type": "TakerFeeSent"
+                },
+                "timestamp": 1555663656254
+            },
+            {
+                "event": {
+                    "data": {
+                        "block_height": 0,
+                        "fee_details": null,
+                        "from": [
+                            ""
+                        ],
+                        "received_by_me": 0.0,
+                        "spent_by_me": 0.0,
+                        "to": [
+                            ""
+                        ],
+                        "total_amount": 0.0,
+                        "tx_hash": "ea1ebb48d8d936f17afe6c6fa7ec1b16675d6090fac5a2657bb3f3d6d0422999",
+                        "tx_hex": "0400008085202f8901f72b8402a151b4e6956eb9630e93c7418d0cedbfa45faa57f02568bdcebdfadd010000006a4730440220595d1d95269499859b473fdc051a718bae9161039e4f83832c53701076f4e28702205b3435b347f1c72e04875ad5b2a7ab8185c93c1ecb1fa26e3201c13129fa6403012102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ffffffff02809698000000000017a91487b5808c912149a8765602f8e82037158f0cfeb28705772d79e50000001976a91464ae8510aac9546d5e7704e31ce177451386455588ac00000000000000000000000000000000000000"
+                    },
+                    "type": "MakerPaymentReceived"
+                },
+                "timestamp": 1555663696666
+            },
+            {
+                "event": {
+                    "type": "MakerPaymentWaitConfirmStarted"
+                },
+                "timestamp": 1555663696667
+            },
+            {
+                "event": {
+                    "type": "MakerPaymentValidatedAndConfirmed"
+                },
+                "timestamp": 1555663697005
+            },
+            {
+                "event": {
+                    "data": {
+                        "block_height": 0,
+                        "fee_details": null,
+                        "from": [
+                            ""
+                        ],
+                        "received_by_me": 0.0,
+                        "spent_by_me": 0.0,
+                        "to": [
+                            ""
+                        ],
+                        "total_amount": 0.0,
+                        "tx_hash": "1fc1927e953ff466b484d402671df65fee9e3b721b926dfb81a13bb72ce92a04",
+                        "tx_hex": "0400008085202f890181fd97c5b2d4935ccb466adb9cbf51c48c0d424cba19d1fe5a1bb414c91a2bee010000006b483045022100add34ed2cebcdd60b253a55e6329ae1dea1e22cd50504edd6c07e375da20b9a702205ae3952c6323766cf541657966cba05734c3cc63257426c3a7205e80d56bfd33012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff02809698000000000017a9149d873af7a8335242420ac8994270dca8b1e56db98745b3d306000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
+                    },
+                    "type": "TakerPaymentSent"
+                },
+                "timestamp": 1555663701006
+            },
+            {
+                "event": {
+                    "data": [
+                        {
+                            "block_height": 0,
+                            "fee_details": null,
+                            "from": [
+                                ""
+                            ],
+                            "received_by_me": 0.0,
+                            "spent_by_me": 0.0,
+                            "to": [
+                                ""
+                            ],
+                            "total_amount": 0.0,
+                            "tx_hash": "c6dd004559e97453d70dc3df06347d3a73bd8824457d705e97a0b420d11cf039",
+                            "tx_hex": "0400008085202f8901042ae92cb73ba181fb6d921b723b9eee5ff61d6702d484b466f43f957e92c11f00000000d8483045022100d3261227b2625a05c6f03930c33b33642a625c60305d279d761257f30a59a2cb0220163f02abfac84531c7ca057b2f2f3cce7299c6956d3a91fb07424876a952eede0120f2250f034ad417d241ebae6f9c70afa929cdf57051279828cf9aed74a29a1cd9004c6b630461a9b95cb1752102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac6782012088a91469dc854ff3466bb30aa1452306470e3f73f51a91882102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac68ffffffff0198929800000000001976a91464ae8510aac9546d5e7704e31ce177451386455588ac438bb95c000000000000000000000000000000"
+                        },
+                        "f2250f034ad417d241ebae6f9c70afa929cdf57051279828cf9aed74a29a1cd9"
+                    ],
+                    "type": "TakerPaymentSpent"
+                },
+                "timestamp": 1555663722211
+            },
+            {
+                "event": {
+                    "data": {
+                        "block_height": 0,
+                        "fee_details": null,
+                        "from": [
+                            ""
+                        ],
+                        "received_by_me": 0.0,
+                        "spent_by_me": 0.0,
+                        "to": [
+                            ""
+                        ],
+                        "total_amount": 0.0,
+                        "tx_hash": "b69c3fe0a414125cfe10776a38105a45477ade1128922b60ffb33fbb82e45a1f",
+                        "tx_hex": "0400008085202f8901992942d0d6f3b37b65a2c5fa90605d67161beca76f6cfe7af136d9d848bb1eea00000000d8483045022100c0980b802969f90ffa1fbf2e43df4597255cfbf19baf7bf7e3aafc4392bab533022016c75fccd2920ebdcc48b6b06bc7fe2b4dc931113e1c1118afd3341e003767410120f2250f034ad417d241ebae6f9c70afa929cdf57051279828cf9aed74a29a1cd9004c6b6304b4c7b95cb1752102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac6782012088a91469dc854ff3466bb30aa1452306470e3f73f51a91882102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac68ffffffff0198929800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac6a8bb95c000000000000000000000000000000"
+                    },
+                    "type": "MakerPaymentSpent"
+                },
+                "timestamp": 1555663723629
+            },
+            {
+                "event": {
+                    "type": "Finished"
+                },
+                "timestamp": 1555663723631
+            }
+        ],
+        "success_events": [
+            "Started",
+            "Negotiated",
+            "TakerFeeSent",
+            "MakerPaymentReceived",
+            "MakerPaymentWaitConfirmStarted",
+            "MakerPaymentValidatedAndConfirmed",
+            "TakerPaymentSent",
+            "TakerPaymentSpent",
+            "MakerPaymentSpent",
+            "Finished"
+        ],
+        "type": "Taker",
+        "uuid": "fb5b23301f71a2d7262534e125915fc0dd088fc7d7919cb459aebee759db593d"
+    }
+}
+```
+
+Response (error)
+
+```json
+{
+    "error": "swap data is not found"
+}
+```
+
+
