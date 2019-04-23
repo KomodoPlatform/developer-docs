@@ -8,8 +8,7 @@
         :alt="data.heroAlt || 'hero'"
       >
 
-      <h1 v-if="data.heroText !== null" id="main-title">{{ data.heroText || $title || 'Hello' }}</h1>
-
+     
       <h6 class="description">
         {{ data.tagline || $description || 'Welcome to your VuePress site' }}
       </h6>
