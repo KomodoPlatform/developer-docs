@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /Dev_Docs_Introduction_small.png
-tagline: Welcome to Komodo's Developer Documentation
+tagline: Welcome to Komodo's Documentation Sandbox
 actionText: Get Started →
 actionLink: /basic-docs/start-here/outline-for-new-developers.html
 shortcuts:
