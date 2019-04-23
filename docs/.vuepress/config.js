@@ -5,6 +5,15 @@ module.exports = {
       alias: redirectAliases
     }
   },
+  head: [
+    [
+      "link",
+      {
+        rel: "icon",
+        href: "komodo-logo-icon-black.png"
+      }
+    ]
+  ],
   title: "Komodo Documentation",
   base: "/",
   description: "Documentation for developers building on Komodo",
@@ -15,6 +24,7 @@ module.exports = {
     editLinks: true,
     editLinkText: "Suggest an improvement for this page",
     lastUpdated: "Last Updated",
+    logo: "komodo-logo-icon-black.png",
     nav: [
       {
         text: "Start Here",
