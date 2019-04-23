@@ -334,7 +334,7 @@ The HTTP header `-H`, `--data-binary`, and `content-type: text/plain;` arguments
 
 Without further intervention, the returned json response will be unformatted and difficult to read.
 
-To improve readability, the developer may optionally instal and utilize the `jq` terminal software.
+To improve readability, the developer may optionally install and utilize the `jq` terminal software.
 
 [Link to download and install <b>jq</b>](https://stedolan.github.io/jq/download/)
 
