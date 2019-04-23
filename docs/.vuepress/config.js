@@ -9,13 +9,14 @@ module.exports = {
   base: "/",
   description: "Documentation for developers building on Komodo",
   themeConfig: {
-    repo: 'komodoplatform/Documentation',
-    repoLabel: 'Github',
-    docsDir: 'docs',
+    repo: "komodoplatform/Documentation",
+    repoLabel: "Github",
+    docsDir: "docs",
     editLinks: true,
-    editLinkText: 'Suggest an improvement for this page',
-    lastUpdated: 'Last Updated',
-    nav: [{
+    editLinkText: "Suggest an improvement for this page",
+    lastUpdated: "Last Updated",
+    nav: [
+      {
         text: "Start Here",
         link: "/basic-docs/start-here/outline-for-new-developers.md"
       },
@@ -25,7 +26,8 @@ module.exports = {
       },
       {
         text: "Guides",
-        items: [{
+        items: [
+          {
             text: "Komodo",
             link: "/komodo/installation.md"
           },
@@ -53,7 +55,8 @@ module.exports = {
       },
       {
         text: "Resources",
-        items: [{
+        items: [
+          {
             text: "Komodo Platform",
             link: "/resources/list-all-KomodoPlatform-repos-links.md"
           },
@@ -69,7 +72,8 @@ module.exports = {
       }
     ],
     sidebar: {
-      "/basic-docs/": [{
+      "/basic-docs/": [
+        {
           title: "Start Here",
           collapsable: true,
           children: [
@@ -150,7 +154,8 @@ module.exports = {
           ]
         }
       ],
-      "/whitepaper/": [{
+      "/whitepaper/": [
+        {
           title: "Komodo’s Method Of Security: Delayed Proof Of Work (dPoW)",
           collapsable: true,
           children: [
@@ -181,18 +186,15 @@ module.exports = {
           ]
         },
         {
-          title: "Komodo’s Atomic-Swap Powered, Decentralized Exchange: Barterdex",
+          title:
+            "Komodo’s Atomic-Swap Powered, Decentralized Exchange: Barterdex",
           collapsable: true,
-          children: [
-            ["/whitepaper/chapter6.md", "Abstract (BarterDEX)"]
-          ]
+          children: [["/whitepaper/chapter6.md", "Abstract (BarterDEX)"]]
         },
         {
           title: "Komodo’s Native Privacy Feature: Jumblr",
           collapsable: true,
-          children: [
-            ["/whitepaper/chapter7.md", "Abstract (Jumblr)"]
-          ]
+          children: [["/whitepaper/chapter7.md", "Abstract (Jumblr)"]]
         },
         {
           title: "Additional Information Regarding the Komodo Ecosystem",
@@ -207,9 +209,7 @@ module.exports = {
         {
           title: "References",
           collapsable: true,
-          children: [
-            ["/whitepaper/references.md", "References"]
-          ]
+          children: [["/whitepaper/references.md", "References"]]
         }
       ],
       "/cc-jl/": [
@@ -235,7 +235,8 @@ module.exports = {
         ["/cc-jl/chapter15.md", "Chapter 15 - RPC based dAPPS"],
         ["/cc-jl/faq.md", "Frequently asked Questions"]
       ],
-      "/gui/agama/": [{
+      "/gui/agama/": [
+        {
           title: "Agama",
           collapsable: true,
           children: [
@@ -297,7 +298,8 @@ module.exports = {
           ]
         }
       ],
-      "/komodo/": [{
+      "/komodo/": [
+        {
           title: "General",
           collapsable: true,
           children: [
@@ -363,14 +365,18 @@ module.exports = {
           "/assetchains/beginner-vps-linux.md",
           "A Beginner's Guide to starting with the world of Remote UNIX environments and creating Komodo Blockchains"
         ],
-        ["/assetchains/create-asset-chain-single-node.md", "Create and test an Asset Chain using a Single Node"],
+        [
+          "/assetchains/create-asset-chain-single-node.md",
+          "Create and test an Asset Chain using a Single Node"
+        ],
         [
           "/assetchains/example-asset-chains.md",
           "Examples and descriptions of various Blockchains that can be created using Komodo Platform"
         ],
         ["/assetchains/checklist-new-coin.md", "Checklist for New Coins"]
       ],
-      "/mmV1/": [{
+      "/mmV1/": [
+        {
           title: "Installation",
           collapsable: true,
           children: [
@@ -518,7 +524,8 @@ module.exports = {
           ]
         }
       ],
-      "/notary/": [{
+      "/notary/": [
+        {
           title: "Basics",
           collapsable: true,
           children: [
@@ -554,83 +561,6 @@ module.exports = {
               "/notary/useful-commands-Komodo-Notary-Node.md",
               "Useful commands for Komodo Notary Node"
             ]
-          ]
-        }
-      ],
-      "/": [{
-          title: "Start Here",
-          collapsable: true,
-          children: [
-            [
-              "/basic-docs/start-here/outline-for-new-developers.md",
-              "Outline for New Developers"
-            ],
-            [
-              "/basic-docs/start-here/custom-consensus-overview.md",
-              "Overview of Custom Consensus"
-            ]
-          ]
-        },
-        {
-          title: "Installation and Setup",
-          collapsable: true,
-          children: [
-            [
-              "/basic-docs/installations/basic-instructions.md",
-              "Basic Installation Instructions"
-            ],
-            [
-              "/basic-docs/installations/creating-asset-chains.md",
-              "Asset Chain Creation"
-            ],
-            [
-              "/basic-docs/installations/common-runtime-parameters.md",
-              "Launch Settings & Maintenance"
-            ],
-            [
-              "/basic-docs/installations/asset-chain-parameters.md",
-              "Custom Asset Chains Parameters"
-            ]
-          ]
-        },
-        {
-          title: "Custom Consensus",
-          collapsable: true,
-          children: [
-            [
-              "/basic-docs/customconsensus/custom-consensus-instructions.md",
-              "About Custom Consensus (CC)"
-            ],
-            ["/basic-docs/customconsensus/channels.md", "Channels"],
-            ["/basic-docs/customconsensus/dice.md", "Dice"],
-            ["/basic-docs/customconsensus/dilithium.md", "Dilithium"],
-            ["/basic-docs/customconsensus/faucet.md", "Faucet"],
-            ["/basic-docs/customconsensus/gateways.md", "Gateways"],
-            ["/basic-docs/customconsensus/heir.md", "Heir"],
-            ["/basic-docs/customconsensus/musig.md", "MuSig"],
-            ["/basic-docs/customconsensus/oracles.md", "Oracles"],
-            ["/basic-docs/customconsensus/rewards.md", "Rewards"],
-            ["/basic-docs/customconsensus/rogue.md", "Rogue"],
-            ["/basic-docs/customconsensus/sudoku.md", "Sudoku"],
-            ["/basic-docs/customconsensus/tokens.md", "Tokens"]
-          ]
-        },
-        {
-          title: "Komodo API",
-          collapsable: true,
-          children: [
-            ["/basic-docs/komodo-api/address.md", "Address"],
-            ["/basic-docs/komodo-api/blockchain.md", "Blockchain"],
-            ["/basic-docs/komodo-api/cclib.md", "CC Lib"],
-            ["/basic-docs/komodo-api/control.md", "Control"],
-            ["/basic-docs/komodo-api/disclosure.md", "Disclosure"],
-            ["/basic-docs/komodo-api/generate.md", "Generate"],
-            ["/basic-docs/komodo-api/mining.md", "Mining"],
-            ["/basic-docs/komodo-api/jumblr.md", "Jumblr"],
-            ["/basic-docs/komodo-api/network.md", "Network"],
-            ["/basic-docs/komodo-api/rawtransactions.md", "Raw Transactions"],
-            ["/basic-docs/komodo-api/util.md", "Util"],
-            ["/basic-docs/komodo-api/wallet.md", "Wallet"]
           ]
         }
       ]
