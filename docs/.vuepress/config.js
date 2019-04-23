@@ -1,12 +1,22 @@
 var redirectAliases = require("./public/_redirects.js");
 var sidebarImport = require("./sidebar.js");
+
 module.exports = {
   plugins: {
     redirect: {
       alias: redirectAliases
     }
   },
-  title: " ",
+  head: [
+    [
+      "link",
+      {
+        rel: "icon",
+        href: "komodo-logo-icon-black.png"
+      }
+    ]
+  ],
+  title: "Komodo Documentation",
   base: "/",
   description: "Documentation for developers building on Komodo",
   themeConfig: {
