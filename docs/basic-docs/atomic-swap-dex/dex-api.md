@@ -745,7 +745,7 @@ The `my_swap_status` method returns the data of atomic swap that was done by MM2
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| events         | array of objects | events that happened during the swap |
+| events         | array of objects | events happened during the swap |
 | success_events | array of strings | list of events that considered as `success` swap state, they are also listed in order which they should occur in `events` array |
 | error_events   | array of strings | list of events that considered as `error` swap state, if at least 1 of the event happens swap is considered as failed  |
 | type           | string           | whether the node acted as market `Maker` or `Taker` |
@@ -962,4 +962,205 @@ Response (error)
 }
 ```
 
+## my_recent_swaps
 
+**(from_uuid limit=10)**
+
+The `my_recent_swaps` method returns the data of the most recent atomic swaps that was done by MM2 node.  
+
+### Arguments:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| limit     | number   | limits the number of returned swaps |
+| from_uuid | string   | MM2 will skip records until this uuid (skipping the `from_uuid` too) |
+
+### Response:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| swaps     | array of objects | swaps data, each record has format of `my_swap_status` response |
+| from_uuid | string           | from_uuid that was set in request (null if it was not set) |
+| skipped   | number           | the number of skipped records (the position of `from_uuid` in list + 1, 0 if `from_uuid` was not set) | 
+| limit     | number           | the limit that was set in request, note that actual number of swaps can differ from specified limit (e.g. on last page) |
+| total     | number           | total number of swaps available |
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"from_uuid\":\"e299c6ece7a7ddc42444eda64d46b163eaa992da65ce6de24eb812d715184e4c\",\"limit\":1}"
+```
+
+Response (success):
+
+```json
+{
+    "result": {
+        "from_uuid": "e299c6ece7a7ddc42444eda64d46b163eaa992da65ce6de24eb812d715184e4c",
+        "limit": 1,
+        "skipped": 1,
+        "swaps": [
+            {
+                "error_events": [
+                    "StartFailed",
+                    "NegotiateFailed",
+                    "TakerFeeSendFailed",
+                    "MakerPaymentValidateFailed",
+                    "TakerPaymentTransactionFailed",
+                    "TakerPaymentDataSendFailed",
+                    "TakerPaymentWaitForSpendFailed",
+                    "MakerPaymentSpendFailed",
+                    "TakerPaymentRefunded",
+                    "TakerPaymentRefundFailed"
+                ],
+                "events": [
+                    {
+                        "event": {
+                            "data": {
+                                "lock_duration": 7800,
+                                "maker": "2de6021ebcc1c8e4df14213514c16864ae78f2fa2d8322e7187320132d86f25d",
+                                "maker_amount": 20000000,
+                                "maker_coin": "RICK",
+                                "maker_payment_confirmations": 1,
+                                "maker_payment_wait": 1554982829,
+                                "my_persistent_pub": "02031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
+                                "started_at": 1554980229,
+                                "taker_amount": 10000000,
+                                "taker_coin": "MORTY",
+                                "taker_payment_confirmations": 1,
+                                "taker_payment_lock": 1554988029,
+                                "uuid": "f413fbcc111974abbbb8f0340023c7ce85d408d6a642ba3752da34e06ebf000a"
+                            },
+                            "type": "Started"
+                        },
+                        "timestamp": 1554980229973
+                    },
+                    {
+                        "event": {
+                            "data": [
+                                1554995829,
+                                "039727ffa665389a4fed0a2b75687d1a7ad23a430f0aa06dfbf9edb9b972da7808",
+                                "736819faee9d04ea3da5eebb88f474c8d354e9e7"
+                            ],
+                            "type": "Negotiated"
+                        },
+                        "timestamp": 1554980290452
+                    },
+                    {
+                        "event": {
+                            "data": "lp_swap:1153] utxo:407] jsonrpc_client:66] Rpc request JsonRpcRequest { jsonrpc: \"2.0\", id: \"8\", method: \"blockchain.transaction.broadcast\", params: [String(\"01000000012828a368f6ff9fe8b764602a2b60302ef5e766b4375a5ab517acd8bfdda81388000000006a4730440220641ccdd842691ecb23fbc442a65332c6a5d0d443b25ea3dae958a915891d7f3102203db40e562cd4fd0a917b59429c8ee11a704fcfc934792cfa8ab3acc89eec1a7e012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0246320000000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88acd2939a3b000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000\")] } failed with error, response: JsonRpcResponse { jsonrpc: \"2.0\", id: \"8\", result: Null, error: Object({\"code\": Number(1), \"message\": String(\"the transaction was rejected by network rules.\\n\\n16: tx-overwinter-active\\n[01000000012828a368f6ff9fe8b764602a2b60302ef5e766b4375a5ab517acd8bfdda81388000000006a4730440220641ccdd842691ecb23fbc442a65332c6a5d0d443b25ea3dae958a915891d7f3102203db40e562cd4fd0a917b59429c8ee11a704fcfc934792cfa8ab3acc89eec1a7e012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0246320000000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88acd2939a3b000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000]\")}) }",
+                            "type": "TakerFeeSendFailed"
+                        },
+                        "timestamp": 1554980290854
+                    },
+                    {
+                        "event": {
+                            "type": "Finished"
+                        },
+                        "timestamp": 1554980290854
+                    }
+                ],
+                "success_events": [
+                    "Started",
+                    "Negotiated",
+                    "TakerFeeSent",
+                    "MakerPaymentReceived",
+                    "MakerPaymentWaitConfirmStarted",
+                    "MakerPaymentValidatedAndConfirmed",
+                    "TakerPaymentSent",
+                    "TakerPaymentSpent",
+                    "MakerPaymentSpent",
+                    "Finished"
+                ],
+                "type": "Taker",
+                "uuid": "f413fbcc111974abbbb8f0340023c7ce85d408d6a642ba3752da34e06ebf000a"
+            }
+        ],
+        "total": 97
+    }
+}
+```
+
+Response (error)
+
+```json
+{
+    "error": "lp_swap:1454] from_uuid e299c6ece7a7ddc42444eda64d46b163eaa992da65ce6de24eb812d715184e41 swap is not found"
+}
+```
+
+## my_tx_history
+
+**(from_tx_hash limit=10)**
+
+The `my_tx_history` method returns the blockchain transactions involving MM2 coin address.  
+
+### Arguments:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| coin      | string   | the name of the coin to get the history |
+| limit     | number   | limits the number of returned transactions |
+| from_tx_hash | string   | MM2 will skip records until this hash (skipping the `from_tx_hash` too) |
+
+### Response:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| transactions | array of objects | transactions data |
+| from_tx_hash | string           | from_tx_hash that was set in request (null if it was not set) |
+| skipped   | number           | the number of skipped records (the position of `from_tx_hash` in list + 1, 0 if `from_tx_hash` was not set) | 
+| limit     | number           | the limit that was set in request, note that actual number of transactions can differ from specified limit (e.g. on last page) |
+| total     | number           | total number of transactions available |
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_tx_history\",\"coin\":\"RICK\",\"limit\":1,\"from_tx_hash\":\"1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1\"}"
+```
+
+Response (success):
+
+```json
+{
+    "result": {
+        "from_tx_hash": "1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1",
+        "limit": 1,
+        "skipped": 1,
+        "total": 13,
+        "transactions": [
+            {
+                "block_height": 41459,
+                "coin": "RICK",
+                "confirmations": 10055,
+                "fee_details": {
+                    "amount": 1e-05
+                },
+                "from": [
+                    "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
+                ],
+                "received_by_me": 0.998363,
+                "spent_by_me": 0.998373,
+                "to": [
+                    "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
+                ],
+                "total_amount": 0.998373,
+                "tx_hash": "7a9b407125ac245336dfed04084c5624dbc1c8851108364d5c6a5fae7fcf930f",
+                "tx_hex": "0400008085202f8902fd429d8dd29167c2f0e27760c0947a99be008c657d86836e1bb12f66918ef184000000006b483045022100ffc926e5ccd495dbde6b4882acc4b15ccb55f945401f2705ad735d4f9025938902201c399c1ad7fa21db2dbefe6d271f611337df0df3fe046fb8b49c64a25b08f171012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3fffffffffd429d8dd29167c2f0e27760c0947a99be008c657d86836e1bb12f66918ef184010000006a473044022079cb728081017df7a501635968fcd145bbe23d7039f20578245c38b0bb11674b022042e295a56a88535fae2eedc2fdfa1a5a80ea60023e3c7a6bbe39563f360c3d34012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0280969800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac0ccb5a05000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
+            }
+        ]
+    }
+}
+```
+
+Response (error)
+
+```json
+{
+    "error": "lp_coins:1011] from_tx_hash 1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e2 is not found"
+}
+```
