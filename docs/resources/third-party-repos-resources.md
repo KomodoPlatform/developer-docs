@@ -31,6 +31,7 @@ sidebar: auto
 - [https://github.com/satindergrewal/kmdgo](https://github.com/satindergrewal/kmdgo) - a Go RPC client
 - [https://github.com/imylomylo/komodo-rpc-web](https://github.com/imylomylo/komodo-rpc-web) - RPC Wrapper for Komodo Platform written for browsers (alpha)
 - [https://github.com/ca333/komodoAPI-cpp](https://github.com/ca333/komodoAPI-cpp) - Komodo Core API for cpp
+- [https://packagist.org/packages/webworker01/komodophp](https://packagist.org/packages/webworker01/komodophp) - A library for manipulating Komodo addresses and keys and interacting with Electrum servers using php
 - [https://github.com/atomiclabs/get-komodo-rewards](https://github.com/atomiclabs/get-komodo-rewards) - npm module to calculate KMD rewards of a UTXO
 
 ## KMDLabs
