@@ -1,6 +1,6 @@
 var redirectAliases = require("./public/_redirects.js");
 var sidebarImport = require("./sidebar.js");
-
+var algoliaSecret = require("./algolia-secret.js")
 module.exports = {
   plugins: {
     redirect: {
@@ -27,6 +27,10 @@ module.exports = {
     editLinkText: "Suggest an improvement for this page",
     lastUpdated: "Last Updated",
     logo: "/site-name-logo.png",
+    algolia: {
+      apiKey: algoliaSecret.key,
+      indexName: 'komodoplatform'
+    },
     nav: [{
         text: "Start Here",
         link: "/basic-docs/start-here/outline-for-new-developers.md"
