@@ -6,7 +6,7 @@ This API documentation currently only features RPC methods that are available in
 
 ## electrum
 
-**electrum coin urls (mm2)**
+**electrum coin urls (mm2 tx_history=false)**
 
 ::: warning Important
 
@@ -59,6 +59,7 @@ For terminal interface examples, see the examples section below.
 | coin      | string | the name of the coin you want to enable |
 | urls      | array of strings | the urls of Electrum servers to which you want to connect |
 | mm2       | number (required if not set in the `coins` file) | this property informs the Komodo DEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
+| tx_history| bool | whether to enable `tx_history` preloading in background, must be `true` if you plan to use `my_tx_history` API |
 
 ::: warning Note
 If the connection to at least one of the provided `urls` fails for any reason the software will not enable the coin. Instead, the software will return an error.
@@ -126,7 +127,7 @@ Response (Error, `mm2` is not set):
 
 ## enable
 
-**enable coin (urls swap_contract_address mm2)**
+**enable coin (urls swap_contract_address mm2 tx_history=false)**
 
 ::: warning Important
 
@@ -171,6 +172,7 @@ To use Komodo DEX software on another Ethereum-based network, such as the Kovan 
 | urls      | array of strings (required for ETH/ERC20) | urls of Ethereum RPC nodes to which the user desires to connect |
 | swap_contract_address | string (required for ETH/ERC20) | address of etomic swap smart contract |
 | mm2       | number (required if not set in the `coins` file) | this property informs the Komodo DEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
+| tx_history| bool | whether to enable `tx_history` preloading in background, must be `true` if you plan to use `my_tx_history` API |
 
 ### Response:
 
