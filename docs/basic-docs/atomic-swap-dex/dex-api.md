@@ -644,55 +644,78 @@ This method generates a raw transaction which should then be broadcast using [se
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| tx_hex    | string    | transaction bytes in hexadecimal format; use this value as input for the `send_raw_transaction` method |
-| from      | string    | coins will be withdrawn from this address |
-| to        | string    | coins with be withdrawn to this address |
-| amount    | number    | the amount of coins to be withdrawn |
+| from      | array of strings    | coins will be withdrawn from this address, the array contains single element, but in common case transactions might be sent from several addresses (UTXO coins) |
+| to        | array of strings    | coins with be withdrawn to this address, might contain `my_address` for UTXO coins as change address |
+| my_balance_change | number      | expected balance change after transaction will be broadcasted |
+| received_by_me    | number      | the amount of coins received by `my_address` after transaction will be broadcasted, might be above zero for UTXO coins when MM2 has to send the change to `my_address` |
+| spent_by_me       | number      | the amount of coins spent by `my_address`, might differ from request amount as transaction fee is added to this |
+| total_amount      | number      | total amount of coins transferred |
 | fee_details | object    | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details |
-
+| tx_hash   | string    | hash of generated transaction |
+| tx_hex    | string    | transaction bytes in hexadecimal format; use this value as input for the `send_raw_transaction` method |
 
 #### :pushpin: Examples:
 
 Command (BTC, KMD, and other BTC-based forks):
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"KMD\",\"to\":\"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW\",\"amount\":10,\"userpass\":\"$userpass\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"KMD\",\"to\":\"RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh\",\"amount\":10,\"userpass\":\"$userpass\"}"
 ```
 
 Response (success):
 
 ```json
 {
-    "tx_hex":"0400008085202f8903d6a5b976db5e5c9e8f9ead50713b25f22cd061edc8ff0ff1049fd2cd775ba087000000006a473044022023b228a198d0845320b91471152727aa192831e37e1e909777660ea81d2cec930220634992c2a37e4439b92cf5b866bccec0f0e343fa2601cc441535faa2cebc2b11012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffffd04d4e07ac5dacd08fb76e08d2a435fc4fe2b16eb0158695c820b44f42f044cb010000006b483045022100c4b0bab86626124cb2eba8b0ed76870a75564dba0d4efc347799e5bbf162d48702206b673f63d9505d6d06e9c8e3f52f683a04f1323b5cd527d589ced18697cac83d012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff230946ea9795558bcdecda5e56b3ff823664e2f4627faedb0e6edf2961a1079c010000006a47304402201e8afe0429897cbf2fb45261985d75489cfce41d21034da8eb7962e1d7b8aa8102200273c6d337de43af8b188da303ff622c645b4c2149e62888af2202d1ed362a2f012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200ca9a3b000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac1f9abe2d000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000",
-    "from":"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
-    "to":"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
-    "amount":10.0,
-    "fee_details":{
-        "amount":0.00001
-    }
+    "block_height": 0,
+    "coin": "ETOMIC",
+    "fee_details": {
+        "amount": 1e-05
+    },
+    "from": [
+        "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
+    ],
+    "my_balance_change": -10.00001,
+    "received_by_me": 0.34417325,
+    "spent_by_me": 10.34418325,
+    "to": [
+        "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh"
+    ],
+    "total_amount": 10.34418325,
+    "tx_hash": "3a1c382c50a7d12e4675d12ed7e723ce9f0167693dd75fd772bae8524810e605",
+    "tx_hex": "0400008085202f890207a8e96978acfb8f0d002c3e4390142810dc6568b48f8cd6d8c71866ad8743c5010000006a47304402201960a7089f2d93480fff68ce0b7ca7bb7a32a52915753ac7ae780abd6162cb1d02202c9b11d442e5f72a532f44ceb10122898d486b1474a10eb981c60c5538b9c82d012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff97f56bf3b0f815bb737b7867e71ddb8198bba3574bb75737ba9c389a4d08edc6000000006a473044022055199d80bd7e2d1b932e54f097c6a15fc4b148d21299dc50067c1da18045f0ed02201d26d85333df65e6daab40a07a0e8a671af9d9b9d92fdf7d7ef97bd868ca545a012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200ca9a3b000000001976a91464ae8510aac9546d5e7704e31ce177451386455588acad2a0d02000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
 }
 ```
 
 Command (ETH, ERC20, and other ETH-based forks):
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"ETH\",\"to\":\"0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29\",\"amount\":10,\"userpass\":\"$userpass\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"ETH\",\"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",\"amount\":10,\"userpass\":\"$userpass\"}"
 ```
 
 Response (success):
 
 ```json
 {
-    "tx_hex":"f86d820a4c843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa29888ac7230489e80000801ca00813afcd3661b62879aa01e1b90f3cbb8c355a318aa3a020c1da21d6b19ea1d6a01492bf4698105f5d81c4ebcce4913cb026a323b9b34b5896a562ea19524728c8",
-    "from":"0xbab36286672fbdc7b250804bf6d14be0df69fa29",
-    "to":"0xbab36286672fbdc7b250804bf6d14be0df69fa29",
-    "amount":10.0,
-    "fee_details":{
-        "coin":"ETH",
-        "gas":21000,
-        "gas_price":1e-9,
-        "total_fee":0.000021
-    }
+    "block_height": 0,
+    "coin": "ETH",
+    "fee_details": {
+        "coin": "ETH",
+        "gas": 21000,
+        "gas_price": 1e-09,
+        "total_fee": 2.1e-05
+    },
+    "from": [
+        "0xbab36286672fbdc7b250804bf6d14be0df69fa29"
+    ],
+    "my_balance_change": -10.000021,
+    "received_by_me": 0.0,
+    "spent_by_me": 10.000021,
+    "to": [
+        "0xbab36286672fbdc7b250804bf6d14be0df69fa28"
+    ],
+    "total_amount": 10.000021,
+    "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
+    "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
 }
 ```
 
@@ -787,155 +810,178 @@ Response (success):
                         "maker_amount": 10000000,
                         "maker_coin": "BEER",
                         "maker_payment_confirmations": 1,
-                        "maker_payment_wait": 1555666193,
+                        "maker_payment_wait": 1556029536,
                         "my_persistent_pub": "02031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
-                        "started_at": 1555663593,
+                        "started_at": 1556026936,
                         "taker_amount": 10000000,
                         "taker_coin": "ETOMIC",
                         "taker_payment_confirmations": 1,
-                        "taker_payment_lock": 1555671393,
-                        "uuid": "fb5b23301f71a2d7262534e125915fc0dd088fc7d7919cb459aebee759db593d"
+                        "taker_payment_lock": 1556034736,
+                        "uuid": "37779e94a72b0016bdc0c9d6a082f422e92005b5a627b7620980351f22b7dbbf"
                     },
                     "type": "Started"
                 },
-                "timestamp": 1555663593989
+                "timestamp": 1556026936463
             },
             {
                 "event": {
                     "data": [
-                        1555679156,
+                        1556042535,
                         "02631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
-                        "69dc854ff3466bb30aa1452306470e3f73f51a91"
+                        "bcb61bb141fbbc589f7401569a65043c7cfe14c0"
                     ],
                     "type": "Negotiated"
                 },
-                "timestamp": 1555663654754
+                "timestamp": 1556026997174
             },
             {
                 "event": {
                     "data": {
                         "block_height": 0,
-                        "fee_details": null,
+                        "coin": "ETOMIC",
+                        "fee_details": {
+                            "amount": 1e-05
+                        },
                         "from": [
-                            ""
+                            "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
                         ],
-                        "received_by_me": 0.0,
-                        "spent_by_me": 0.0,
+                        "my_balance_change": -0.0001387,
+                        "received_by_me": 0.04359845,
+                        "spent_by_me": 0.04373715,
                         "to": [
-                            ""
+                            "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
+                            "RThtXup6Zo7LZAi8kRWgjAyi1s4u6U9Cpf"
                         ],
-                        "total_amount": 0.0,
-                        "tx_hash": "ee2b1ac914b41b5afed119ba4c420d8cc451bf9cdb6a46cb5c93d4b2c597fd81",
-                        "tx_hex": "0400008085202f8901e2a7ee8d70b196e014de63935a3db3caf8a987b7c1f8ddc24e9dc3d5f06e3449010000006a4730440220477370199bb385912a88b7b1ad62c9e730414095876eaf60782d7df8c4259c9e022033c3921830ad6cc37ced1f63bd8de57f768477514b9556a8166cd2919f7e9c99012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0246320000000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88acad4d6c07000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
+                        "total_amount": 0.04373715,
+                        "tx_hash": "4b6355e3e89ecf11902c72427366a633156c35db3f597a1a9e8b853e434c3c35",
+                        "tx_hex": "0400008085202f890103ef1c6dec7372fd82c76a84c5d9d13166e22d2eeae6b7f27dcd521e877c87d8010000006b483045022100cbae5fe8d0c81613ba46d3621822dd2f49a8dc75e7a04e51f88fd2754c4a3e74022023a4d18863e35af5dbc47041bb72fb0215e0060f25c1078a075b97d0c2d8e604012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0246320000000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88aca5864200000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
                     },
                     "type": "TakerFeeSent"
                 },
-                "timestamp": 1555663656254
+                "timestamp": 1556027001616
             },
             {
                 "event": {
                     "data": {
-                        "block_height": 0,
-                        "fee_details": null,
+                        "block_height": 106521,
+                        "coin": "BEER",
+                        "fee_details": {
+                            "amount": 1e-05
+                        },
                         "from": [
-                            ""
+                            "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh"
                         ],
+                        "my_balance_change": 0.0,
                         "received_by_me": 0.0,
                         "spent_by_me": 0.0,
                         "to": [
-                            ""
+                            "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
+                            "bWB6X1zjTuY5VdzLsrvAvF9y6QizLZvR5F"
                         ],
-                        "total_amount": 0.0,
-                        "tx_hash": "ea1ebb48d8d936f17afe6c6fa7ec1b16675d6090fac5a2657bb3f3d6d0422999",
-                        "tx_hex": "0400008085202f8901f72b8402a151b4e6956eb9630e93c7418d0cedbfa45faa57f02568bdcebdfadd010000006a4730440220595d1d95269499859b473fdc051a718bae9161039e4f83832c53701076f4e28702205b3435b347f1c72e04875ad5b2a7ab8185c93c1ecb1fa26e3201c13129fa6403012102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ffffffff02809698000000000017a91487b5808c912149a8765602f8e82037158f0cfeb28705772d79e50000001976a91464ae8510aac9546d5e7704e31ce177451386455588ac00000000000000000000000000000000000000"
+                        "total_amount": 9855.70532509,
+                        "tx_hash": "e224e28bea9bf47d4003f5fae4b591a6895a44c83c1f9992f040b6d652532f94",
+                        "tx_hex": "0400008085202f890143f27f20d8964200117483beabf1379f8e0db598b5a92c31769bbfa2059d4299010000006b483045022100df8da3cfe4179c3ab23279ce75095eb794d08d19d3a723461ca5f7c4a8a8ffa302205e60a2273e8abf6fab5f52e99c097d1f01a536a3a517d198d154789376db24b6012102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ffffffff02809698000000000017a914bf5c7571a0c472b6b4c8cd508fb684891d34aa93873542fc77e50000001976a91464ae8510aac9546d5e7704e31ce177451386455588ac00000000000000000000000000000000000000"
                     },
                     "type": "MakerPaymentReceived"
                 },
-                "timestamp": 1555663696666
+                "timestamp": 1556027046718
             },
             {
                 "event": {
                     "type": "MakerPaymentWaitConfirmStarted"
                 },
-                "timestamp": 1555663696667
+                "timestamp": 1556027046718
             },
             {
                 "event": {
                     "type": "MakerPaymentValidatedAndConfirmed"
                 },
-                "timestamp": 1555663697005
+                "timestamp": 1556027047611
             },
             {
                 "event": {
                     "data": {
                         "block_height": 0,
-                        "fee_details": null,
+                        "coin": "ETOMIC",
+                        "fee_details": {
+                            "amount": 1e-05
+                        },
                         "from": [
-                            ""
+                            "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
                         ],
-                        "received_by_me": 0.0,
-                        "spent_by_me": 0.0,
+                        "my_balance_change": -0.10001,
+                        "received_by_me": 9.94358845,
+                        "spent_by_me": 10.04359845,
                         "to": [
-                            ""
+                            "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
+                            "bJPg8HUb2kGsyydxvUXQKzQmBjkA8asPRZ"
                         ],
-                        "total_amount": 0.0,
-                        "tx_hash": "1fc1927e953ff466b484d402671df65fee9e3b721b926dfb81a13bb72ce92a04",
-                        "tx_hex": "0400008085202f890181fd97c5b2d4935ccb466adb9cbf51c48c0d424cba19d1fe5a1bb414c91a2bee010000006b483045022100add34ed2cebcdd60b253a55e6329ae1dea1e22cd50504edd6c07e375da20b9a702205ae3952c6323766cf541657966cba05734c3cc63257426c3a7205e80d56bfd33012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff02809698000000000017a9149d873af7a8335242420ac8994270dca8b1e56db98745b3d306000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
+                        "total_amount": 10.04359845,
+                        "tx_hash": "aba40df8c5fe5156f7941edbd5073fb87a7f72c69a5c607d347394f83e2eaafe",
+                        "tx_hex": "0400008085202f8902353c4c433e858b9e1a7a593fdb356c1533a6667342722c9011cf9ee8e355634b010000006b483045022100e5e04fb81890f0aeef098682dcb261458eef2fc71067f78e6057440bbd9559990220758f33400ced63e56e234d89a08a634ae1ddf340c49548e8f389dc2ac03668d9012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff97f56bf3b0f815bb737b7867e71ddb8198bba3574bb75737ba9c389a4d08edc6000000006b483045022100c3ff993183cdb3e79fb9d9226c3dc124b616df3b0a1c5da8ca6c6cc4092f0c8802201fe34e6dd901d9eedb1764acb2cb6fe8cb9d9e7b9a9826141587b9928b227ad4012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff02809698000000000017a9143e1bfed8566a153b6dd0bda73ff886f0c4c57515873db6443b000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
                     },
                     "type": "TakerPaymentSent"
                 },
-                "timestamp": 1555663701006
+                "timestamp": 1556027052624
             },
             {
                 "event": {
                     "data": [
                         {
                             "block_height": 0,
-                            "fee_details": null,
+                            "coin": "ETOMIC",
+                            "fee_details": {
+                                "amount": 1e-05
+                            },
                             "from": [
-                                ""
+                                "bJPg8HUb2kGsyydxvUXQKzQmBjkA8asPRZ"
                             ],
+                            "my_balance_change": 0.0,
                             "received_by_me": 0.0,
                             "spent_by_me": 0.0,
                             "to": [
-                                ""
+                                "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh"
                             ],
-                            "total_amount": 0.0,
-                            "tx_hash": "c6dd004559e97453d70dc3df06347d3a73bd8824457d705e97a0b420d11cf039",
-                            "tx_hex": "0400008085202f8901042ae92cb73ba181fb6d921b723b9eee5ff61d6702d484b466f43f957e92c11f00000000d8483045022100d3261227b2625a05c6f03930c33b33642a625c60305d279d761257f30a59a2cb0220163f02abfac84531c7ca057b2f2f3cce7299c6956d3a91fb07424876a952eede0120f2250f034ad417d241ebae6f9c70afa929cdf57051279828cf9aed74a29a1cd9004c6b630461a9b95cb1752102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac6782012088a91469dc854ff3466bb30aa1452306470e3f73f51a91882102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac68ffffffff0198929800000000001976a91464ae8510aac9546d5e7704e31ce177451386455588ac438bb95c000000000000000000000000000000"
+                            "total_amount": 0.1,
+                            "tx_hash": "ef760cd7c273c17d78d84835f28fecda8a5f948c1cab4d7b2853028bd864f17a",
+                            "tx_hex": "0400008085202f8901feaa2e3ef89473347d605c9ac6727f7ab83f07d5db1e94f75651fec5f80da4ab00000000d747304402207d6e0aa2ba23ae08fe8ab42bea293563d394b2f073e1f8287bf3820efaf612d20220230b75cb9721d4017393d689695439f836ae4dd70a8428a4983c5838cd82e3180120a884df81826a847f07d18c83bb15c3319284f6255ff1622f431e9eb23acc255c004c6b6304b034bf5cb1752102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac6782012088a914bcb61bb141fbbc589f7401569a65043c7cfe14c0882102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac68ffffffff0198929800000000001976a91464ae8510aac9546d5e7704e31ce177451386455588acc316bf5c000000000000000000000000000000"
                         },
-                        "f2250f034ad417d241ebae6f9c70afa929cdf57051279828cf9aed74a29a1cd9"
+                        "a884df81826a847f07d18c83bb15c3319284f6255ff1622f431e9eb23acc255c"
                     ],
                     "type": "TakerPaymentSpent"
                 },
-                "timestamp": 1555663722211
+                "timestamp": 1556027086229
             },
             {
                 "event": {
                     "data": {
                         "block_height": 0,
-                        "fee_details": null,
+                        "coin": "BEER",
+                        "fee_details": {
+                            "amount": 1e-05
+                        },
                         "from": [
-                            ""
+                            "bWB6X1zjTuY5VdzLsrvAvF9y6QizLZvR5F"
                         ],
-                        "received_by_me": 0.0,
+                        "my_balance_change": 0.09999,
+                        "received_by_me": 0.09999,
                         "spent_by_me": 0.0,
                         "to": [
-                            ""
+                            "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
                         ],
-                        "total_amount": 0.0,
-                        "tx_hash": "b69c3fe0a414125cfe10776a38105a45477ade1128922b60ffb33fbb82e45a1f",
-                        "tx_hex": "0400008085202f8901992942d0d6f3b37b65a2c5fa90605d67161beca76f6cfe7af136d9d848bb1eea00000000d8483045022100c0980b802969f90ffa1fbf2e43df4597255cfbf19baf7bf7e3aafc4392bab533022016c75fccd2920ebdcc48b6b06bc7fe2b4dc931113e1c1118afd3341e003767410120f2250f034ad417d241ebae6f9c70afa929cdf57051279828cf9aed74a29a1cd9004c6b6304b4c7b95cb1752102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac6782012088a91469dc854ff3466bb30aa1452306470e3f73f51a91882102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac68ffffffff0198929800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac6a8bb95c000000000000000000000000000000"
+                        "total_amount": 0.1,
+                        "tx_hash": "9e611de0f9e2c8ea81553246e789d4dbc82a9a0cb1a910ca3e3d4395e6ae9b4d",
+                        "tx_hex": "0400008085202f8901942f5352d6b640f092991f3cc8445a89a691b5e4faf503407df49bea8be224e200000000d8483045022100a83ed304d2793e1927adc0b1e8c5cd7ffc66e3f1a5f7ac1f31cd3de254e814ca02207ec2aeb9dd8749938a3036ebb236f582e7acdc29bda07bfb1c8ccab9a48a8b4f0120a884df81826a847f07d18c83bb15c3319284f6255ff1622f431e9eb23acc255c004c6b63042753bf5cb1752102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac6782012088a914bcb61bb141fbbc589f7401569a65043c7cfe14c0882102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac68ffffffff0198929800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788acce16bf5c000000000000000000000000000000"
                     },
                     "type": "MakerPaymentSpent"
                 },
-                "timestamp": 1555663723629
+                "timestamp": 1556027089482
             },
             {
                 "event": {
                     "type": "Finished"
                 },
-                "timestamp": 1555663723631
+                "timestamp": 1556027089484
             }
         ],
         "success_events": [
@@ -951,7 +997,7 @@ Response (success):
             "Finished"
         ],
         "type": "Taker",
-        "uuid": "fb5b23301f71a2d7262534e125915fc0dd088fc7d7919cb459aebee759db593d"
+        "uuid": "37779e94a72b0016bdc0c9d6a082f422e92005b5a627b7620980351f22b7dbbf"
     }
 }
 ```
@@ -1138,13 +1184,14 @@ Response (success):
             {
                 "block_height": 41459,
                 "coin": "RICK",
-                "confirmations": 10055,
+                "confirmations": 10235,
                 "fee_details": {
                     "amount": 1e-05
                 },
                 "from": [
                     "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
                 ],
+                "my_balance_change": -1e-05,
                 "received_by_me": 0.998363,
                 "spent_by_me": 0.998373,
                 "to": [
