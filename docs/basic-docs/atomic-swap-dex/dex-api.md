@@ -1145,15 +1145,15 @@ The `my_tx_history` method returns the blockchain transactions involving MM2 coi
 | --------- | -------- | ----------- |
 | coin      | string   | the name of the coin to get the history |
 | limit     | number   | limits the number of returned transactions |
-| from_tx_hash | string   | MM2 will skip records until this hash (skipping the `from_tx_hash` too) |
+| from_id   | string   | MM2 will skip records until this ID (skipping the `from_id` too, track the `internal_id` of last displayed transaction to get the value of this field fot next page) |
 
 ### Response:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | transactions | array of objects | transactions data |
-| from_tx_hash | string           | from_tx_hash that was set in request (null if it was not set) |
-| skipped   | number           | the number of skipped records (the position of `from_tx_hash` in list + 1, 0 if `from_tx_hash` was not set) | 
+| from_id   | string           | from_id specified in request (null if it was not set) |
+| skipped   | number           | the number of skipped records (the position of `from_id` in list + 1, 0 if `from_id` was not set) | 
 | limit     | number           | the limit that was set in request, note that actual number of transactions can differ from specified limit (e.g. on last page) |
 | total     | number           | total number of transactions available |
 
@@ -1162,7 +1162,7 @@ The `my_tx_history` method returns the blockchain transactions involving MM2 coi
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_tx_history\",\"coin\":\"RICK\",\"limit\":1,\"from_tx_hash\":\"1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_tx_history\",\"coin\":\"RICK\",\"limit\":1,\"from_id\":\"1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1\"}"
 ```
 
 Response (success):
@@ -1170,30 +1170,32 @@ Response (success):
 ```json
 {
     "result": {
-        "from_tx_hash": "1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1",
+        "from_id": null,
         "limit": 1,
-        "skipped": 1,
+        "skipped": 0,
         "total": 13,
         "transactions": [
             {
-                "block_height": 41459,
+                "block_height": 41464,
                 "coin": "RICK",
-                "confirmations": 10235,
+                "confirmations": 18740,
                 "fee_details": {
                     "amount": 1e-05
                 },
                 "from": [
                     "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
                 ],
+                "internal_id": "1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1",
                 "my_balance_change": -1e-05,
-                "received_by_me": 0.998363,
-                "spent_by_me": 0.998373,
+                "received_by_me": 0.998353,
+                "spent_by_me": 0.998363,
+                "timestamp": 1555410894,
                 "to": [
                     "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
                 ],
-                "total_amount": 0.998373,
-                "tx_hash": "7a9b407125ac245336dfed04084c5624dbc1c8851108364d5c6a5fae7fcf930f",
-                "tx_hex": "0400008085202f8902fd429d8dd29167c2f0e27760c0947a99be008c657d86836e1bb12f66918ef184000000006b483045022100ffc926e5ccd495dbde6b4882acc4b15ccb55f945401f2705ad735d4f9025938902201c399c1ad7fa21db2dbefe6d271f611337df0df3fe046fb8b49c64a25b08f171012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3fffffffffd429d8dd29167c2f0e27760c0947a99be008c657d86836e1bb12f66918ef184010000006a473044022079cb728081017df7a501635968fcd145bbe23d7039f20578245c38b0bb11674b022042e295a56a88535fae2eedc2fdfa1a5a80ea60023e3c7a6bbe39563f360c3d34012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0280969800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac0ccb5a05000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
+                "total_amount": 0.998363,
+                "tx_hash": "1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1",
+                "tx_hex": "0400008085202f89020f93cf7fae5f6a5c4d36081185c8c1db24564c0804eddf365324ac2571409b7a000000006b483045022100f565796fe1d89f5a93d84d2efe4f752b63313e99c5e687fede01ced2f58e20b802207b5a503e45db9ad530572551cf37a558aecaf29c65604e36fe4818cd3120424f012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0f93cf7fae5f6a5c4d36081185c8c1db24564c0804eddf365324ac2571409b7a010000006a473044022061c43c63c0dbf0eb50344e62708235d2807ddc89909bae518afa355f9d69d30302205135d6546dd08fbba592583276fc1189c16472dd11395acc3b568f8193a1f890012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0280969800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac24c75a05000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
             }
         ]
     }
@@ -1204,6 +1206,6 @@ Response (error)
 
 ```json
 {
-    "error": "lp_coins:1011] from_tx_hash 1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e2 is not found"
+    "error": "lp_coins:1011] from_id 1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e2 is not found"
 }
 ```
