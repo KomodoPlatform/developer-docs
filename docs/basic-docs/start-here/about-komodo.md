@@ -8,7 +8,9 @@ Komodo's philosophy for decentralization relies on four pillars: security, scala
 
 With these four pillars in place, all types of users of Komodo software will find powerful, customizable solutions that will set your blockchain creations free. 
 
-#### Enjoy the Protection of the Bitcoin Hash Rate
+#### Security: Enjoy the Protection of the Bitcoin Hash Rate
+
+(Need graphics here)
 
 Secure your project with the power of the Bitcoin network via Komodo’s delayed proof of work security mechanism. Don’t waste time worrying about attackers.
 
@@ -16,7 +18,7 @@ Secure your project with the power of the Bitcoin network via Komodo’s delayed
 - All transactions included in the hash are considered to have achieved finality
 - For the consensus mechanism, arbitarily choose between a mixture of Proof-of-Work and Proof-of-Stake
 
-#### Have a Blockchain All To Yourself. Want More Than One? No Problem.
+#### Scalability: Have a Blockchain All To Yourself. Want More Than One? No Problem.
 
 Developers and their users have a full Smart Chain all to themselves, and can combine any number of Smart Chains together into one cluster. 
 
@@ -26,7 +28,7 @@ Developers and their users have a full Smart Chain all to themselves, and can co
 - Scale your maximum transaction-per-second throughput into the millions, if desired
 - No gas fees. All transaction fees are paid in your Smart Chain’s coin
 
-#### Link Your Smart Chain to Other Smart Chains. Even Atomic-Swap Trade with Non-Smart Chains.
+#### Interoperability: Link Your Smart Chain to Other Smart Chains. Even Atomic-Swap Trade with Non-Smart Chains.
 
 Your project is interoperable with all others in the Komodo ecosystem, plus connected with over 99% of coins and tokens through Komodo’s industry-leading atomic-swap technology.
 
@@ -35,7 +37,7 @@ Your project is interoperable with all others in the Komodo ecosystem, plus conn
 - Transfer assets and tokens between compatible Smart Chains
 - Use Komodo's atomic-swap DEX software to trade your Smart Chain assets with Non-Smart assets.
 
-#### Adapt Your Smart Chain at Will.
+#### Adaptability: Develop Your Smart Chain at Will.
 
 Adapt your blockchain to create a purpose-built solution that fits your individual needs. Receive all new features developed by Komodo to ensure your project is future-proofed. 
 
@@ -49,6 +51,8 @@ Adapt your blockchain to create a purpose-built solution that fits your individu
 With the Smart Chain at their command, a developer is prepared to lift their decentralized application (dApp) to levels never before seen in the blockchain industry.
 
 ## The Fluidity Framework
+
+(Need to see Bob's graphics and the video before I can finish the content below.)
 
 Komodo provides a brand-new way to adopt blockchain technology: the Fluidity framework.
 
