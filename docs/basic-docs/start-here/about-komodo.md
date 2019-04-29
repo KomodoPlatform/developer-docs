@@ -50,7 +50,7 @@ Adapt your blockchain to create a purpose-built solution that fits your individu
 
 With the Smart Chain at their command, a developer is prepared to lift their decentralized application (dApp) to levels never before seen in the blockchain industry.
 
-## The Fluidity Framework
+## Understanding the Fluidity Framework
 
 (Need to see Bob's graphics and the video before I can finish the content below.)
 
@@ -62,7 +62,11 @@ This open-source technology allows anyone to customize and launch their own auto
 
 #### Fluidity Is Evolution
 
-The blockchain industry must evolve and Komodo is leading the charge.
+Fluidity takes what other blockchain platforms have created by way of executing arbitrary code, and accomplishes much more. 
+
+Unlike any other blockchain platform, Fluidity allows a developer the ability to add arbitrary code directly into the decentralized process of achieving blockchain consensus.
+
+This is a necessary innovation for the blockchain industry to evolve and meet the demands of our customers, and Komodo is leading the charge.
 
 [
 graphic:
