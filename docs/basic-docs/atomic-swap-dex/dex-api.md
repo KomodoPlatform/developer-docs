@@ -1135,7 +1135,7 @@ Response (error)
 
 ## my_tx_history
 
-**(from_tx_hash limit=10)**
+**(from_id limit=10)**
 
 The `my_tx_history` method returns the blockchain transactions involving MM2 coin address.  
 
