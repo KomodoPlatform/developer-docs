@@ -126,7 +126,7 @@ These are just a few (of many!) advantages that Komodo offers to our ecosystem d
 
 If you want a deep dive into how the tech works, [check out our full white paper here](https://www.komodoplatform.com/whitepaper).
 
-### A Caveat for Daemon and Smart-Contract Developers
+### A Caveat for Daemon and CC Developers
 
 There is one caveat. Under most circumstances, only a highly skilled developer should make adjustments to the code that affects the internal workings of the default daemon. This caveat includes creating smart-contract templates using our technology.
 
@@ -226,13 +226,13 @@ Once you understand the concept, you can test a few asset-chain tricks -- like m
 
 Or, you could make your asset chain suitable for a rapid mining period, followed by complete blockchain disposal. Use parameters such as [ac_end](../installations/asset-chain-parameters.html#ac-end), [ac_reward](../installations/asset-chain-parameters.html#ac-reward), [ac_decay](../installations/asset-chain-parameters.html#ac-decay), and [ac_perc](../installations/asset-chain-parameters.html#ac-perc) for this effect.
 
-## Discover CC Smart Contracts
+## Discover Custom Consensus Modules
 
-Now you should be ready to head into smart contract territory.
+Now you should be ready to head into the territory for utilizing Komodo's built-in methods to customize your own consensus mechanism.
 
-Smart contracts on Komodo are a bit different (and if you ask us, a bit better too, but we're admittedly biased).
+Playing with your consensus mechanism is akin to creating what other blockchain platforms call a "smart contract." However, on Komodo, things are different. We would argue this method is better, but we admit we're biased.
 
-If you need to catch the general idea, read the section, [Smart Contract Overview](custom-consensus-overview.html).
+If you need to catch the general idea, read the section, [Custom Consensus Overview](custom-consensus-overview.html).
 
 First, you must create an asset chain that has the [ac_cc runtime parameter properly enabled](../installations/asset-chain-parameters.html#ac-cc).
 
@@ -244,11 +244,11 @@ With this activated, you can try a few existing templates:
 
 ...and more!
 
-## Write Your Own Smart-Contract Templates
+## Write Your Own Custom Consensus Module
 
-If you're ready to try writing your own customized smart-contract template, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Custom Consensus](https://docs.komodoplatform.com/cc-jl/introduction.html).
+If you're ready to try writing your own Custom Consensus (CC) modules, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Custom Consensus](https://docs.komodoplatform.com/cc-jl/introduction.html).
 
-Most developers don't need to design smart contracts on Komodo, but rather, only need to implement existing smart-contracts templates while developing a dApp. So don't be discouraged if the technical documentation appears too thick for your level of experience. Come to Discord when you have questions.
+Most developers don't need to design CC modules on Komodo, but rather, only need to implement existing modules while developing a dApp. So don't be discouraged if the technical documentation appears too thick for your level of experience. Come to Discord when you have questions.
 
 ## Learn About BarterDEX and Agama
 

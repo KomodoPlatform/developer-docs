@@ -3,6 +3,10 @@ var sidebar = [{
     collapsable: true,
     children: [
       [
+        "/basic-docs/start-here/about-komodo.md",
+          "About Komodo"
+      ],
+      [
         "/basic-docs/start-here/outline-for-new-developers.md",
         "Outline for New Developers"
       ],
