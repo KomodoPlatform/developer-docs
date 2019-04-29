@@ -4,7 +4,7 @@
 
 <div class="introductoryImage">
 
-<img src="./Dev_Docs_Introduction_small.png">
+<img src="/start-here-pics/Dev_Docs_Introduction_small.png">
 
 </div>
 
@@ -16,7 +16,7 @@
 
 <div class="mobileIntroductoryImage">
 
-<img src="./Dev_Docs_Introduction_small.png">
+<img src="/start-here-pics/Dev_Docs_Introduction_small.png">
 
 </div>
 
