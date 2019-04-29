@@ -86,36 +86,36 @@ Using the Fluidity framework, you can build a customized, autonomous, and modula
 - Code games and dApps with RPC calls alone
 - All software runs natively on your Smart Chain
 
-### Fluidity Smart Chains are the optimal way to adopt blockchain technology
+#### Fluidity Smart Chains are the optimal way to adopt blockchain technology
 
 Fluidity Smart Chains are customizable, autonomous, purpose-built blockchains. They’re Turing complete and fully programmable, so they can natively support any game, app, or software.
 
 Don’t change your business to fit a specific blockchain. Craft a specific blockchain to fit your business.
 
-### Fluidity Modules are plugins that offer your Smart Chain endless possibilities.
+#### Fluidity Modules are plugins that offer your Smart Chain endless possibilities.
 
-#### Turing-Complete
+##### Turing-Complete
 
 The Fluidity framework supports C/C++, meaning that it allows for Turing-complete code. With Fluidity, any program or software can be coded to run on your blockchain.
 
-#### No Gas Fees
+##### No Gas Fees
 
 There are no gas fees with Fluidity. Regardless of how many processes a Fluidity module requires, running an instance of the module will only need a single transaction fee, paid in your blockchain’s coin.
 
-#### Fluidity Module Library
+##### Fluidity Module Library
 
 The Fluidity framework already hosts a library of plug-and-play modules. Each module can add special conditions that must be met in order for your Smart Chain’s network to reach consensus.
 
-#### Create Your Own Modules
+##### Create Your Own Modules
 
 Experienced developers can write custom modules, creating the building blocks and RPC calls they need to build more advanced blockchain-based games, dApps, and software.
 
-#### Komodo lowers the barrier to blockchain with an application layer
+##### Komodo lowers the barrier to blockchain with an application layer
 
 - Open API - Apps connect to your Smart Chain through Fluidity’s open API
 - Easy To Develop - Ordinary developers can now utilize blockchain technology
 
-#### White Label Products
+##### White Label Products
 
 Go-to-market faster with Komodo’s white-label applications
 
@@ -130,15 +130,15 @@ Go-to-market faster with Komodo’s white-label applications
 
 Komodo provides open-source atomic-swap software for trading seamlessly between essentially any blockchain asset in existence.
 
-### Keep Your Private Keys Private, At All Times
+#### Keep Your Private Keys Private, At All Times
 
 Unlike a centralized exchange, users maintain ownership over their blockchain assets at all times, right up until the moment when their assets are atomically swapped.
 
-### Skip the Centralized Middleman, and Trade Directly with Your Trading Partner
+#### Skip the Centralized Middleman, and Trade Directly with Your Trading Partner
 
 In an atomic swap, there is no need to lend your money to a third party for temporary holding. This reduces the cost of fees, mitigates and removes market manipulation, and prevents the users from coalescing their funds into a target for hackers.
 
-### Enjoy All the Benefits of the Old Centralized Exchange System, While Enjoying the Innovations of the New System
+#### Enjoy All the Benefits of the Old Centralized Exchange System, While Enjoying the Innovations of the New System
 
 Everything that was possible in the old system is also possible in the new system. All we need are users.
 
@@ -148,17 +148,17 @@ Everything that was possible in the old system is also possible in the new syste
 - Keep all your assets in one wallet
 - Decide which assets you want to directly trade against which. No need to always trade through Bitcoin or any other cryptocurrency medium.
 
-### Use Either an Existing Network, or Set Up Your Own
+#### Use Either an Existing Network, or Set Up Your Own
 
 Users create their own liquidity pools for trading between assets. 
 
 Use a pool that is already established, or start your own pool.
 
-### Trades Either Occur, or They Do Not. No Off-Chain Settlements Required
+#### Trades Either Occur, or They Do Not. No Off-Chain Settlements Required
 
 The Komodo software uses atomic-swap technology, pioneered by Tier Nolan and our very own JL777, to ensure that a trade either happens, or it doesn't. If a trade stalls or fails halfway through the process, blockchain software ensures that these funds automatically reappear in their wallet.
 
-### Integrate Your Smart Chain Asset with Our Software
+#### Integrate Your Smart Chain Asset with Our Software
 
 Integration requires only a few simple steps, and once up and running, you are free to trade your new blockchain-based asset with whomever you decide. Bring your own networks. Bring your own users.
 
