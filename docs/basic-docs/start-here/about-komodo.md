@@ -162,42 +162,11 @@ The Komodo software uses atomic-swap technology, pioneered by Tier Nolan and our
 
 Integration requires only a few simple steps, and once up and running, you are free to trade your new blockchain-based asset with whomever you decide. Bring your own networks. Bring your own users.
 
-## A Timeline of Komodo History
+## Layers of Komodo Technology
 
-For five years, Komodo team members have been technology pioneers and industry influencers.
+<div style="width: 100%">
 
-— Year 2014 – James ‘ jl777’ Lee builds a proxy token gateway on the NXT platform that lets users trade NXT to BTC and other popular cryptocurrencies without trusted third parties. 
+<img src="/start-here-pics/Komodo-layers-1.png">
 
-— Year 2015 – The NXT platform makes a series of major codebase upgrades that are not backward compatible. As a result, all of jl777’s backend code is no longer working.
-
-— February 2016 – Understanding the flaws of a single-chain platform architecture, jl777 issues his Blockchain Declaration of Independence and founds the Komodo Platform.
-
-::: tip JL777's Declaration of Independence
-We the asset holders hereby declare our independence from any single blockchain. An open and jointly developed specification on cross chain atomic asset transfers will be developed. Any current or future blockchain is invited to join. 
-
-— James ‘jl777’ Lee
-:::
-
-February 21, 2016
-
-— October 2016 – The Komodo ICO begins, raising funds to make Komodo’s remarkable multi-chain vision a reality. Komodo’s ICO lasts 35 days and brings in a total of 2,639 BTC.
-
-— January 2017 – The Komodo mainnet is launched, delivering on what was promised: Bitcoin-level security, zero-knowledge privacy, and independent blockchain creation.
-
-— March 2017 – Komodo releases the first iteration of its atomic swap powered DEX, allowing rudimentary peer-to-peer swaps among BTC-protocol coins from a CLI.
-
-— October 2017 – The Komodo team integrates Electrum SPV server support for atomic swaps, making it possible to do atomic swaps without downloading full blockchains.
-
-— February 2018 – Komodo bridges the gap between BTC-based coins and ERC-20 tokens, allowing direct atomic swaps between 95% of all coins and tokens.
-
-— July 2018 – Komodo announces new features: Blockchain Security Service, Multi-Chain Syncing, and Cross-Chain Interoperability Linking.
-
-— August 2018 – Komodo implements the Custom Consensus framework, allowing Turing-complete code to modify a blockchain’s consensus rules on a case-by-case basis. 
-
-— November 2018 — Komodo releases Agama wallet on mobile for both Android and iOS and integrates ETH and over 100 ERC-20 tokens to the desktop version of Agama.
-
-— December 2018 — Komodo successfully activated the largest-ever update to the Komodo code base, providing a huge technology boost to the entire ecosystem.
-
-— March 2019 — Komodo continues to build out the Custom Consensus module library, adding cutting-edge features like Dilithium quantum security and decentralized trustless oracles.
-
+</div>
 
