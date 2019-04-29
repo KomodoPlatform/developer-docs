@@ -164,9 +164,26 @@ Integration requires only a few simple steps, and once up and running, you are f
 
 ## Layers of Komodo Technology
 
-<div style="width: 100%">
+<div style="width: 100%; align-text: center; margin: 1rem;">
 
 <img src="/start-here-pics/Komodo-layers-1.png">
 
 </div>
 
+<div style="width: 100%; align-text: center; margin: 1rem;">
+
+<img src="/start-here-pics/Komodo-layers-2.png">
+
+</div>
+
+<div style="width: 100%; align-text: center; margin: 1rem;">
+
+<img src="/start-here-pics/Komodo-layers-3.png">
+
+</div>
+
+<div style="width: 100%; align-text: center; margin: 1rem;">
+
+<img src="/start-here-pics/Komodo-layers-4.png">
+
+</div>
