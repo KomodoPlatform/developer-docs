@@ -4,7 +4,7 @@ var sidebarImport = require("./sidebar.js");
 module.exports = {
   plugins: [
     [
-      "@vuepress/redirect",
+      "redirect",
       {
         alias: redirectAliases
       }
