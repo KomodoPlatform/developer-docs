@@ -2,11 +2,20 @@ var redirectAliases = require("./public/_redirects.js");
 var sidebarImport = require("./sidebar.js");
 
 module.exports = {
-  plugins: {
-    redirect: {
-      alias: redirectAliases
-    }
-  },
+  plugins: [
+    [
+      "@vuepress/redirect",
+      {
+        alias: redirectAliases
+      }
+    ],
+    [
+      "@vuepress/google-analytics",
+      {
+        ga: "UA-84859153-3"
+      }
+    ]
+  ],
   head: [
     [
       "link",
@@ -27,7 +36,8 @@ module.exports = {
     editLinkText: "Suggest an improvement for this page",
     lastUpdated: "Last Updated",
     logo: "/site-name-logo.png",
-    nav: [{
+    nav: [
+      {
         text: "Start Here",
         link: "/basic-docs/start-here/outline-for-new-developers.md"
       },
