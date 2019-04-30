@@ -43,87 +43,160 @@ Adapt your blockchain to create a purpose-built solution that fits your individu
 
 - Twenty-four different launch parameters are available to customize the functionality of your Smart Chain
 - Rely on the Fluidity framework to fully customize your Smart Chain with unique and arbitrary code within the consensus mechanism
+- Share and adopt code in Komodo's open-source community
 - Dispose of Smart Chains that become data-weight heavy, or transfer them to fresh Smart Chains for ease of use
 - No need for a virtual machine (VM) nor a VM-based programming language
 
 #### Together, Komodo's Security Service is Unlike Anything Else
 
-With the Smart Chain at their command, a developer is prepared to lift their decentralized application (dApp) to levels never before seen in the blockchain industry.
+With the Smart Chain at your command, your are prepared to lift your decentralized application (dApp) to levels never before seen in the blockchain industry.
 
-## Understanding the Fluidity Framework
+## Smart Chains: A New Alternative To Smart-Contract Platforms
 
-(Need to see Bob's graphics and the video before I can finish the content below.)
+Purpose-built blockchains offer a new approach to adopt blockchain technology.
 
-Komodo provides a brand-new way to adopt blockchain technology: the Fluidity framework.
+[Embedded video]
 
-This open-source technology allows anyone to customize and launch their own autonomous, purpose-built Smart Chain.
+#### Smart Chains Rely on the Next Step in Blockchain Evolution: The Fluidity Framework
 
-[Embedded Video]
+Komodo's Fluidity framework allows developers to add arbitrary code into the consensus mechansim of their Smart Chain.
 
-#### Fluidity Is Evolution
+This blockchain evolution allows innovators to better meet the demands of our customers.
 
-Fluidity takes what other blockchain platforms have created by way of executing arbitrary code, and accomplishes much more. 
+#### Comparing a Smart Chain to a Smart-Contract Platform
 
-Unlike any other blockchain platform, Fluidity allows a developer the ability to add arbitrary code directly into the decentralized process of achieving blockchain consensus.
+| Layer | Branded Terminology | Universally Defined As: | Smart-Contract Comparison |
+| ----- | ------------------- | ----------------------- | ------------------------- |
+| Application Layer | Fluidity Apps | Smart-Chain Apps | dApps |
+| API Layer | Fluidity API | Smart-Chain API | - |
+| Service Layer | Fluidity Module | Smart-Chain Module | Smart Contract |
+| Blockchain Layer | Fluidity Smart Chains | Smart Chains | (Shared Chain) |
+| Platform Layer | Komodo Platform | Smart-Chain Platform | Smart-Contract Platform |
 
-This is a necessary innovation for the blockchain industry to evolve and meet the demands of our customers, and Komodo is leading the charge.
+### Launch Smart Chains With Fluidity
 
-[
-graphic:
-Multi-Chain Architecture
-Sovereign Blockchains
-Customizable Consensus Rules
-Purpose-Built Solutions
-]
+The Fluidity framework accelerates blockchain technology adoption.
 
+- Creating purpose-built blockchains becomes easy
+- Developing on top of blockchains becomes easy
+- Scaling up a product/services becomes easy
+- Improving and upgrading blockchain technology becomes easy
 
-#### An adaptable framework for end-to-end blockchain development
+<div style="clear: both; width: 70%; margin-left: auto; margin-right: auto; margin-bottom: 4rem; display: block;">
 
-Using the Fluidity framework, you can build a customized, autonomous, and modular Smart Chain. After that, you can add custom consensus modules to design purpose-built, high-performing blockchain applications.
- 
-##### Fluidity Modules
+<img style="padding: 0.2rem; border: 0.05rem solid;" src="/start-here-pics/Komodo-layers-5.png">
 
-- Choose from a library of powerful, built-in modules 
-- All modules are plug-and-play
-- Create unique consensus rules by coding your own custom modules
-- Written in C/C++, Fluidity modules are Turing complete and secure
+</div>
 
-##### Fluidity API
+--------------------------------------
+<div style="clear: both; margin-top:1rem; float: right; display: block;">
+
+<img style="padding: 0.2rem; border: 0.05rem solid;" src="/start-here-pics/Komodo-layers-4.png">
+
+</div>
+
+<div style="margin-bottom: 2.5rem;">
+
+#### The Fluidity API
+
+Produced by Fluidity Modules
 
 - Open API
-- Code games and dApps with RPC calls alone
-- All software runs natively on your Smart Chain
+- Permissionless Innovation
+- Language Agnostic
 
-#### Fluidity Smart Chains are the optimal way to adopt blockchain technology
+</div>
 
-Fluidity Smart Chains are customizable, autonomous, purpose-built blockchains. They’re Turing complete and fully programmable, so they can natively support any game, app, or software.
+--------------------------------------
+<div style="clear: both; margin-top:1rem; float: right; display: block;">
 
-Don’t change your business to fit a specific blockchain. Craft a specific blockchain to fit your business.
+<img style="padding: 0.2rem; border: 0.05rem solid;" src="/start-here-pics/Komodo-layers-3.png">
 
-#### Fluidity Modules are plugins that offer your Smart Chain endless possibilities.
+</div>
 
-##### Turing-Complete
+<div style="margin-bottom: 2.5rem;">
+
+#### The Fluidity Modules 
+
+Attached to the chain daemon.
+
+- Pluggable modules
+- Growing module library
+- Build your own
+
+</div>
+
+--------------------------------------
+<div style="clear: both; margin-top:1rem; float: right; display: block;">
+
+<img style="padding: 0.2rem; border: 0.05rem solid;" src="/start-here-pics/Komodo-layers-2.png">
+
+</div>
+
+<div style="margin-bottom: 2.5rem;">
+
+#### Fluidity Smart Chains
+
+Purpose-built blockchains
+
+- Autonomous & Sovereign
+- Customizable Parameters
+- Atomic Swap Compatible
+
+</div>
+
+--------------------------------------
+<div style="clear: both; margin-top:1rem; float: right; display: block;">
+
+<img style="padding: 0.2rem; border: 0.05rem solid;" src="/start-here-pics/Komodo-layers-1.png">
+
+</div>
+
+<div style="margin-bottom: 2.5rem;">
+
+#### Komodo Platform
+
+Composable & Open
+
+- Composable Architecture
+- Open Platform Model
+- Open Source Innovation
+
+</div>
+
+--------------------------------------
+
+### Fluidity Feature Highlights
+
+#### Programmable Daemon
+
+Functionality is built into the blockchain daemon – as opposed to traditional smart-contract platforms, which abstract a smart contract on top of a virtual machine.
+
+#### Modular Design
+
+Smart Chains are composed of independent and autonomous modules that are decoupled from the underlying blockchain consensus mechanism.
+
+#### Autonomous & Sovereign
+
+Smart Chains are not child chains nor are they dependent on other blockchains.
+
+#### Turing-Complete
 
 The Fluidity framework supports C/C++, meaning that it allows for Turing-complete code. With Fluidity, any program or software can be coded to run on your blockchain.
 
-##### No Gas Fees
+#### No Gas Fees
 
 There are no gas fees with Fluidity. Regardless of how many processes a Fluidity module requires, running an instance of the module will only need a single transaction fee, paid in your blockchain’s coin.
 
-##### Fluidity Module Library
+#### Fluidity Module Library
 
 The Fluidity framework already hosts a library of plug-and-play modules. Each module can add special conditions that must be met in order for your Smart Chain’s network to reach consensus.
 
-##### Create Your Own Modules
+#### Create Your Own Modules
 
 Experienced developers can write custom modules, creating the building blocks and RPC calls they need to build more advanced blockchain-based games, dApps, and software.
 
-##### Komodo lowers the barrier to blockchain with an application layer
-
-- Open API - Apps connect to your Smart Chain through Fluidity’s open API
-- Easy To Develop - Ordinary developers can now utilize blockchain technology
-
-##### White Label Products
+#### White Label Products
 
 Go-to-market faster with Komodo’s white-label applications
 
@@ -134,64 +207,39 @@ Go-to-market faster with Komodo’s white-label applications
 - SPV Electrum Server Integration
 - Core Fluidity Modules
 
-## Komodo DEX
+## Komodo's Atomic-Swap Powered DEX
 
 Komodo provides open-source atomic-swap software for trading seamlessly between essentially any blockchain asset in existence.
+
+[Embedded video - atomic swaps]
+
+#### Enjoy All the Benefits of the Old Centralized Exchange System, While Enjoying the Innovations of the New System
+
+Everything that was possible in the old system is also possible in the new system.
+
+High-speed trading is easy, the DEX API allows you to create trading bots and app, and you can even trade on your mobile phone. 
+
+Our DEX software is not bound to Komodo-based blockchain assets, either. If a blockchain asset can trade on a centralized exchange, odds are you can atomic-swap it on our DEX software as well.
+
+#### Skip the Centralized Middleman, and Trade Directly with Your Trading Partner
+
+In an atomic swap, there is no need to lend your money to a third party for temporary holding. This reduces the cost of fees and prevents the users from coalescing their funds into a target for hackers.
 
 #### Keep Your Private Keys Private, At All Times
 
 Unlike a centralized exchange, users maintain ownership over their blockchain assets at all times, right up until the moment when their assets are atomically swapped.
 
-#### Skip the Centralized Middleman, and Trade Directly with Your Trading Partner
+#### Join the Crowd, or Start a New One
 
-In an atomic swap, there is no need to lend your money to a third party for temporary holding. This reduces the cost of fees, mitigates and removes market manipulation, and prevents the users from coalescing their funds into a target for hackers.
+Users create their own liquidity pools for trading between assets. You can use a pool that is already established, or start your own pool.
 
-#### Enjoy All the Benefits of the Old Centralized Exchange System, While Enjoying the Innovations of the New System
+#### No Off-Chain Settlements Required
 
-Everything that was possible in the old system is also possible in the new system. All we need are users.
-
-- High-speed trading is easy
-- Trade on your mobile phone
-- Create trading bots
-- Keep all your assets in one wallet
-- Decide which assets you want to directly trade against which. No need to always trade through Bitcoin or any other cryptocurrency medium.
-
-#### Use Either an Existing Network, or Set Up Your Own
-
-Users create their own liquidity pools for trading between assets. 
-
-Use a pool that is already established, or start your own pool.
-
-#### Trades Either Occur, or They Do Not. No Off-Chain Settlements Required
-
-The Komodo software uses atomic-swap technology, pioneered by Tier Nolan and our very own JL777, to ensure that a trade either happens, or it doesn't. If a trade stalls or fails halfway through the process, blockchain software ensures that these funds automatically reappear in their wallet.
+The Komodo software uses atomic-swap technology, pioneered by Tier Nolan and our very own JL777, to ensure that a trade either happens, or it doesn't. If a trade stalls or fails halfway through the process, blockchain software ensures that these funds automatically reappear in the user's wallet.
 
 #### Integrate Your Smart Chain Asset with Our Software
 
-Integration requires only a few simple steps, and once up and running, you are free to trade your new blockchain-based asset with whomever you decide. Bring your own networks. Bring your own users.
+Integration requires only a few simple steps, and once up and running, you are free to trade your new blockchain-based asset with whomever you decide. 
 
-## Layers of Komodo Technology
+Find your own networks. Bring your own users.
 
-<div style="width: 100%; align-text: center; margin: 1rem;">
-
-<img src="/start-here-pics/Komodo-layers-1.png">
-
-</div>
-
-<div style="width: 100%; align-text: center; margin: 1rem;">
-
-<img src="/start-here-pics/Komodo-layers-2.png">
-
-</div>
-
-<div style="width: 100%; align-text: center; margin: 1rem;">
-
-<img src="/start-here-pics/Komodo-layers-3.png">
-
-</div>
-
-<div style="width: 100%; align-text: center; margin: 1rem;">
-
-<img src="/start-here-pics/Komodo-layers-4.png">
-
-</div>
