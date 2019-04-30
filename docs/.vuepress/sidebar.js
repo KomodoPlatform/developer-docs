@@ -1,6 +1,5 @@
 var sidebar = {
-  "/basic-docs/": [
-    {
+  "/basic-docs/": [{
       title: "Start Here",
       collapsable: true,
       children: [
@@ -81,8 +80,7 @@ var sidebar = {
       ]
     }
   ],
-  "/whitepaper/": [
-    {
+  "/whitepaper/": [{
       title: "Komodo’s Method Of Security: Delayed Proof Of Work (dPoW)",
       collapsable: true,
       children: [
@@ -115,12 +113,16 @@ var sidebar = {
     {
       title: "Komodo’s Atomic-Swap Powered, Decentralized Exchange: Barterdex",
       collapsable: true,
-      children: [["/whitepaper/chapter6.md", "Abstract (BarterDEX)"]]
+      children: [
+        ["/whitepaper/chapter6.md", "Abstract (BarterDEX)"]
+      ]
     },
     {
       title: "Komodo’s Native Privacy Feature: Jumblr",
       collapsable: true,
-      children: [["/whitepaper/chapter7.md", "Abstract (Jumblr)"]]
+      children: [
+        ["/whitepaper/chapter7.md", "Abstract (Jumblr)"]
+      ]
     },
     {
       title: "Additional Information Regarding the Komodo Ecosystem",
@@ -132,7 +134,9 @@ var sidebar = {
     {
       title: "References",
       collapsable: true,
-      children: [["/whitepaper/references.md", "References"]]
+      children: [
+        ["/whitepaper/references.md", "References"]
+      ]
     }
   ],
   "/cc-jl/": [
@@ -158,8 +162,7 @@ var sidebar = {
     ["/cc-jl/chapter15.md", "Chapter 15 - RPC based dAPPS"],
     ["/cc-jl/faq.md", "Frequently asked Questions"]
   ],
-  "/gui/agama/": [
-    {
+  "/gui/agama/": [{
       title: "Agama",
       collapsable: true,
       children: [
@@ -218,8 +221,7 @@ var sidebar = {
       ]
     }
   ],
-  "/komodo/": [
-    {
+  "/komodo/": [{
       title: "General",
       collapsable: true,
       children: [
@@ -229,7 +231,8 @@ var sidebar = {
           "/komodo/security-setup-full-node.md",
           "Standard Security Setup for Nodes"
         ],
-        ["/komodo/setup-electrumX-server.md", "Setup ElectrumX Server"]
+        ["/komodo/setup-electrumX-server.md", "Setup ElectrumX Server"],
+        ["/komodo/multisig-transactions-on-komodo-or-assetchains.md", "Dealing with Multisig addresses and transactions"]
       ]
     },
     {
@@ -295,8 +298,7 @@ var sidebar = {
     ],
     ["/assetchains/checklist-new-coin.md", "Checklist for New Coins"]
   ],
-  "/mmV1/": [
-    {
+  "/mmV1/": [{
       title: "Installation",
       collapsable: true,
       children: [
@@ -435,8 +437,7 @@ var sidebar = {
       ]
     }
   ],
-  "/notary/": [
-    {
+  "/notary/": [{
       title: "Basics",
       collapsable: true,
       children: [
