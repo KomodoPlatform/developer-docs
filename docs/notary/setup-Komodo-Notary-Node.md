@@ -24,7 +24,7 @@ Komodo currently only works on Linux. To setup Komodo Notary Node be sure you ha
 
 ### Operating System
 
-Debian/Ubuntu x64 LTS minimal installation with Openssh server. _This tutorial has been successfully tested with 14.04 and 16.04_.
+Ubuntu LTS x64 - minimal installation with Openssh server.
 
 ### Security
 
@@ -60,7 +60,7 @@ sudo apt-get upgrade (and say Y when it wants to upgrade stuff)
 The following packages are needed:
 
 ```bash
-sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libqrencode-dev libdb++-dev ntp ntpdate nano software-properties-common curl libevent-dev libcurl4-gnutls-dev cmake clang libsodium-dev
+sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libqrencode-dev libdb++-dev ntp ntpdate nano software-properties-common curl libevent-dev libcurl4-gnutls-dev ibsodium-dev cmake clang libsodium-dev
 ```
 
 ### Install `nanomsg`
@@ -128,6 +128,7 @@ buildBITCOIN
 chmod +x build.sh
 ./build.sh
 ```
+
 ##### Symlink the binaries
 
 ```bash
