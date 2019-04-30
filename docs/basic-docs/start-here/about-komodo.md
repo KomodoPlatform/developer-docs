@@ -241,5 +241,5 @@ The Komodo software uses atomic-swap technology, pioneered by Tier Nolan and our
 
 Integration requires only a few simple steps, and once up and running, you are free to trade your new blockchain-based asset with whomever you decide. 
 
-Find your own networks. Bring your own users.
+You are free to discover your own audience.
 
