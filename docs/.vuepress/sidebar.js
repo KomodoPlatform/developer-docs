@@ -7,6 +7,10 @@ var sidebar = [{
           "About Komodo"
       ],
       [
+        "/basic-docs/start-here/before-you-begin.md",
+        "Before You Begin"
+      ],
+      [
         "/basic-docs/start-here/outline-for-new-developers.md",
         "Outline for New Developers"
       ],
