@@ -36,18 +36,18 @@ sidebar: auto
 - Website: [https://www.atomicexplorer.com/](https://www.atomicexplorer.com/)
 - Source: [https://github.com/pbca26/komodo-omni-explorer](https://github.com/pbca26/komodo-omni-explorer)
 
-## MarketmakerV1 (normal)
+## MarketmakerV1 (normal) (deprecated)
 
 - Source code: [https://github.com/jl777/SuperNET](https://github.com/jl777/SuperNET)
 - Setup guide: [Installation](../mmV1/install-marketmakerV1.md)
 - Knowledge base : [Introduction](../mmV1/introduction.md)
 
-## MarketmakerV1 CLI (etomic)
+## MarketmakerV1 CLI (etomic) (deprecated)
 
 - Source code: [https://github.com/artemii235/SuperNET/tree/etomic](https://github.com/artemii235/SuperNET/tree/etomic)
 - Setup guide: [Installation](../mmV1/install-ETOMIC-marketmakerV1.md)
 
-## BarterDEX GUI
+## BarterDEX GUI (deprecated)
 
 - Source code: [https://github.com/KomodoPlatform/BarterDEX](https://github.com/KomodoPlatform/BarterDEX)
 - Release package: [https://github.com/KomodoPlatform/BarterDEX/releases](https://github.com/KomodoPlatform/BarterDEX/releases)
@@ -107,6 +107,10 @@ sidebar: auto
 ### Latest Binary
 
 - [https://github.com/KomodoPlatform/komodo/releases](https://github.com/KomodoPlatform/komodo/releases)
+
+### Docker Image
+
+- https://github.com/imylomylo/docker-komodod
 
 ## Komodo-Qt (KomodoOcean)
 
