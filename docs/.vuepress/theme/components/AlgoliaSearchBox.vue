@@ -89,14 +89,17 @@ export default {
           background rgba(255, 255, 255, 0.6)      
       .algolia-docsearch-suggestion--title        
         color $textColor
+      .algolia-docsearch-suggestion--text
+        color #b3b3b3
+        .algolia-docsearch-suggestion--highlight
+          color $accentColor
       .algolia-docsearch-suggestion--subcategory-column
         border-color $borderColor
         background #000000        
       .algolia-docsearch-suggestion--subcategory-column-text
         color #FFF
-    .algolia-docsearch-footer
-      border-color $borderColor      
-      color $textColor       
+    .algolia-docsearch-footer      
+      border-color $borderColor             
     .ds-cursor .algolia-docsearch-suggestion--content
       background-color #2D6464 !important
       color $textColor
