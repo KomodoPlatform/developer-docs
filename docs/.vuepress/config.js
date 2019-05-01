@@ -2,11 +2,20 @@ var redirectAliases = require("./public/_redirects.js");
 var sidebarImport = require("./sidebar.js");
 var algoliaSecret = require("./algolia-secret.js")
 module.exports = {
-  plugins: {
-    redirect: {
-      alias: redirectAliases
-    }
-  },
+  plugins: [
+    [
+      "redirect",
+      {
+        alias: redirectAliases
+      }
+    ],
+    [
+      "@vuepress/google-analytics",
+      {
+        ga: "UA-84859153-3"
+      }
+    ]
+  ],
   head: [
     [
       "link",
