@@ -106,7 +106,9 @@ export default {
 
 @media (max-width: $MQMobile)
   .algolia-search-wrapper
+    .algolia-docsearch-suggestion--wrapper
+      background #2C313B !important   
     .algolia-docsearch-suggestion--subcategory-column
-      background white !important    
-
+      background #2C313B !important
+    
 </style>
