@@ -237,7 +237,7 @@ Users create their own liquidity pools for trading between assets. You can use a
 
 The Komodo software uses atomic-swap technology, pioneered by Tier Nolan and our very own JL777, to ensure that a trade either happens, or it doesn't. If a trade stalls or fails halfway through the process, blockchain software ensures that these funds automatically reappear in the user's wallet.
 
-#### Integrate Your Smart Chain Asset with Our Software
+#### Integrate Your Smart-Chain Asset with Our Software
 
 Integration requires only a few simple steps, and once up and running, you are free to trade your new blockchain-based asset with whomever you decide. 
 
