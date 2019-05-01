@@ -1,17 +1,16 @@
 # Crosschain (Migration) API
 
-Crosschain (Migration) API allows to move coin or token value between chains (or in the same chain).
-The principle of migration assumes that some amount of coins or tokens is burned in the source chain and then exactly the same amount
-is created in the destination chain  
-There are several ways of value migration in Komodo platform:
+Crosschain (Migration) API allows a user to transfer value in the form of either coins or tokens between chains (or in the same chain).
+
+The fundamental principle of migration is that some amount of coins or tokens is burned in the source chain and then exactly the same amount is created in the destination chain.
+
+There are several ways of value migration in the Komodo platform:
 
 - MoMoM notarised migration
 - alternative migration method with notarisation of the given burn transaction by notary operators (MoMoM backup solution)
 - selfimport.
 
-The migration process consists of making an export or burn transaction in the source chain and making an import transaction for the burned value
-which is created in the source chain but is sent to the destination chain. Komodo validation code checks that for the import transaction
-there exists a corresponding burn transaction and that it is not spent more than once.
+The migration process consists of making an export or burn transaction in the source chain and making an import transaction for the burned value which is created in the source chain but is sent to the destination chain. Komodo validation code checks that for the import transaction there exists a corresponding burn transaction and that it is not spent more than once.
 
 The following migration RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
@@ -19,10 +18,7 @@ Requerement: the source and destination chains should have the equal CCid parame
 
 # MoMoM notarised migration
 
-MoMoM notarised migration API allows the migration of coin or token value based on Komodo's highly scalable notarisation process when
-elected and trusted notary nodes store fingeprints (what is called MoM, merkle root of merkle roots) of assets blockchains' blocks
-in the main komodo chain and after that, fingerprints of fingerprints (what is called MoMoM, 'merkle root of merkle roots of merkle roots') are delivered back into the assets chain (as back notarisations)
-(more about the notarisation process is here: `<https://komodoplatform.com/komodo-platforms-new-scalability-tech/`>).
+MoMoM notarised migration API allows the migration of coin or token value based on Komodo's highly scalable notarisation process when elected and trusted notary nodes store fingeprints (what is called MoM, merkle root of merkle roots) of assets blockchains' blocks in the main komodo chain and after that, fingerprints of fingerprints (what is called MoMoM, 'merkle root of merkle roots of merkle roots') are delivered back into the assets chain (as back notarisations) (more about the notarisation process is here: `<https://komodoplatform.com/komodo-platforms-new-scalability-tech/`>).
 
 The workflow of the MoMoM value migration is following:
 
