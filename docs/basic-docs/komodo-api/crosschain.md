@@ -1,3 +1,7 @@
+---
+sidebar: auto
+---
+
 # Crosschain (Migration) API
 
 Crosschain (Migration) API allows a user to transfer value in the form of either coins or tokens between chains (or in the same chain).
