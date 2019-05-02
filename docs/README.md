@@ -7,7 +7,7 @@ actionLink: /basic-docs/start-here/outline-for-new-developers.html
 shortcuts:
   - title: Create Assetchains
     description: |-
-      Use Komodo's Texhnology to create your own indepndent blockchain. Customizations available include: Coin emission, PoW/PoW, Privacy, CC modules and many more...
+      Use Komodo's Technology to create your own indepndent blockchains. Customizations available include: Coin emission, PoW/PoS, Privacy, CC modules and many more...
     link: /basic-docs/installations/basic-instructions.html
     linkText: Create →
   - title: Explore Custom Consensus Modules
@@ -17,7 +17,7 @@ shortcuts:
     link: /basic-docs/customconsensus/custom-consensus-instructions.html
     linkText: Explore →
   - title: Browse Komodo API
-    description: Komodo API consists of almost all the commands available in Bitcoin version 0.14 and many other useful RPC that are specific to the Komodo ecosystem.
+    description: Komodo's API consists of almost all the commands available in Bitcoin version 0.14 and many other useful RPC that are specific to the Komodo ecosystem.
     link: /basic-docs/komodo-api/address.html
     linkText: Browse →
 footer: MIT Licensed | Copyright © 2018-present Komodo
