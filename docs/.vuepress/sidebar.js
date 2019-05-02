@@ -63,6 +63,7 @@ var sidebar = [{
       ["/basic-docs/komodo-api/blockchain.md", "Blockchain"],
       ["/basic-docs/komodo-api/cclib.md", "CC Lib"],
       ["/basic-docs/komodo-api/control.md", "Control"],
+      ["/basic-docs/komodo-api/crosschain.md", "Crosschain/Migration"],
       ["/basic-docs/komodo-api/disclosure.md", "Disclosure"],
       ["/basic-docs/komodo-api/generate.md", "Generate"],
       ["/basic-docs/komodo-api/mining.md", "Mining"],
