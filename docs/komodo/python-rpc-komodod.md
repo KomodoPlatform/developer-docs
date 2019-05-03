@@ -16,7 +16,7 @@ python3.6 -m pip3 install setuptools wheel slick-bitcoinrpc
 ## Usage
 
 - Once the `Proxy` method is called, the object it returns can be used to access `komodod`'s methods any number of times.
-- In general, there is no need to convert arguments to strings before they are passed in. But for the [cclib]() method, all the arguments need to be passed in as strings.
+- In general, there is no need to convert arguments to strings before they are passed in. But for the [cclib](../basic-docs/komodo-api/cclib.html) method, all the arguments need to be passed in as strings.
 
 ```python
 #!/usr/bin/env python3.6
