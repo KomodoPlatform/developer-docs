@@ -7,6 +7,7 @@ We use the package [slick-bitcoinrpc](https://github.com/barjomet/slick-bitcoinr
 Installing the module `slick-bitcoinrpc` and its dependencies.
 
 ```bash
+sudo add-apt-repository -y ppa:deadsnakes/ppa
 sudo apt-get update
 sudo apt-get install python3.6 python3.6-dev python3-pip libgnutls28-dev libssl-dev
 python3.6 -m pip3 install setuptools wheel slick-bitcoinrpc
