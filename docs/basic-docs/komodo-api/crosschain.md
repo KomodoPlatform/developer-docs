@@ -67,7 +67,7 @@ The source and destination chains should have the same `CCid` parameter ([-ac_cc
 | Name        | Type     | Description                                                                                              |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------- |
 | "payouts"   | (string) | a hex string of the created payouts (to be passed into migrate_createimporttransaction rpc method later) |
-| "BurnTxHex" | (string) | a hex string of the created burn transaction                                                             |
+| "BurnTxHex" | (string) | a hex string of the returned burn transaction                                                            |
 
 ### migrate_converttoexport
 
@@ -91,55 +91,55 @@ The source and destination chains should have the same `CCid` parameter ([-ac_cc
 | Name        | Type               | Description                        |
 | ----------- | ------------------ | ---------------------------------- |
 | "burntx"    | (string, required) | the burn transaction in hex format |
-| "destChain" | (string, required) | the destination chain name         |
+| "destChain" | (string, required) | the name of the destination chain  |
 
 #### Response
 
-| Name       | Type     | Description                                                                                              |
-| ---------- | -------- | -------------------------------------------------------------------------------------------------------- |
-| "payouts"  | (string) | a hex string of the created payouts (to be passed into migrate_createimporttransaction rpc method later) |
-| "exportTx" | (string) | a hex string of the returned burn transaction                                                            |
+| Name       | Type     | Description                                                                                                |
+| ---------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| "payouts"  | (string) | a hex string of the created payouts (to be passed into `migrate_createimporttransaction` rpc method later) |
+| "exportTx" | (string) | a hex string of the returned burn transaction                                                              |
 
 ### migrate_createimporttransaction
 
 **migrate_createimporttransaction burntx payouts [notaryTxid1]...[notaryTxidN]**
 
 - The `migrate_createimporttransaction` method performs the initial step in creating an import transaction. This method should be called on the source chain.
-  The method returns a created import transaction in hex. This string should be passed into the `migrate_completeimporttransaction` method on the main KMD chain to be extended with MoMoM proof object.
-  For MoMoM backup solution (see later) the created import transaction is not passed to `migrate_completeimporttransaction` method.
+- This method returns a created import transaction in hex format. This string should be passed to the `migrate_completeimporttransaction` method on the main KMD chain to be extended with the `MoMoM` proof object.
+- When using the MoMoM backup solution (described later), the created import transaction is not passed to the `migrate_completeimporttransaction` method.
+- In case of errors, it might be necessary to wait for some time before the back notarisations objects are stored in the destination chain.
 
 #### Arguments
 
-| Name          | Type               | Description                                                                                    |
-| ------------- | ------------------ | ---------------------------------------------------------------------------------------------- |
-| "burntx"      | (string, required) | burn transaction in hex created on the previous step                                           |
-| "payouts"     | (string, required) | payouts object in hex created on the previous step and used for creating an import transaction |
-| "notaryTxid1" | (string, optional) | notary approval transaction id 1, passed if MoMoM backup solution is used for notarisation     |
-| "notaryTxidN" | (string, optional) | notary approval transaction id N, passed if MoMoM backup solution is used for notarisation     |
+| Name          | Type               | Description                                                                                                    |
+| ------------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
+| "burntx"      | (string, required) | the burn transaction in hex format returned from the previous method                                           |
+| "payouts"     | (string, required) | the payouts object in hex format returned from the previous method and used for creating an import transaction |
+| "notaryTxid1" | (string, optional) | the notary approval transaction id 1, to be passed if the `MoMoM` backup solution is used for notarisation     |
+| "notaryTxidN" | (string, optional) | the notary approval transaction id N, to be passed if the `MoMoM` backup solution is used for notarisation     |
 
 #### Response
 
-| Name          | Type     | Description                                    |
-| ------------- | -------- | ---------------------------------------------- |
-| "ImportTxHex" | (string) | a hex string of the created import transaction |
-
-Or errors may be returned. In case of errors it might be necessary to wait for some time before the back notarisations objects are sent in the destination chain.
+| Name          | Type     | Description                                  |
+| ------------- | -------- | -------------------------------------------- |
+| "ImportTxHex" | (string) | the created import transaction in hex format |
 
 ### migrate_completeimporttransaction
 
 **migrate_completeimporttransaction importtx**
 
-The `migrate_completeimporttransaction` method performs the finalizing step in creating an import transaction. This method should be called on the KMD chain.
-The method returns the import transaction in hex updated with MoMoM proof object which would confirm that the burn transaction exists in the source chain.
-This value of finalized import transaction may be passed to [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) rpc on the destination chain.
-In case of errors which may be returned while sending the import transaction it might be necessary to wait for some time before the notarisations objects are stored in the destination chain.
+- The `migrate_completeimporttransaction` method performs the finalizing step in creating an import transaction. This method should be called on the KMD (Komodo) chain.
+- This method returns the import transaction in hex format, updated with the `MoMoM` proof object which would confirm that the burn transaction exists in the source chain.
+- This finalized import transaction should be broadcasted on the destination chain through the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+- It is recommended to wait till the notarisations objects are stored in the destination chain to broadcast the import transaction. Otherwise an error message is returned.
+- In case of errors, it might be necessary to wait for some time before the notarisations objects are stored in the KMD chain.
 
 #### Arguments
 
-| Name       | Type               | Description                                                       |
-| ---------- | ------------------ | ----------------------------------------------------------------- |
-| "importtx" | (string, required) | burn transaction in hex created on the previous step              |
-| "offset"   | (string, optional) | offset of the current kmd blockchain height to search for a MoMoM |
+| Name       | Type               | Description                                                                                                    |
+| ---------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
+| "importtx" | (string, required) | the import transaction in hex format created using the previous method                                         |
+| "offset"   | (string, optional) | the number of blocks below the current KMD(Komodo) blockchain height in which a `MoMoM` proof must be searched |
 
 #### Response
 
@@ -147,15 +147,15 @@ In case of errors which may be returned while sending the import transaction it 
 | ------------- | -------- | ------------------------------------------------------------------ |
 | "ImportTxHex" | (string) | import transaction in hex extended with MoMoM proof of the burn tx |
 
-Or errors may be returned. In case of errors it might be necessary to wait for some time before the notarisations objects are stored in the KMD chain.
-
 ## Notarisation backup solution
 
-There is an alternate solution for notarising burn transaction by the notary operators in case of MoMoM notarisation fails or slow.
-For this the notary operators pick burn transactions sent to a special publishing resource, check them and return ids of transactions with burn transaction proof objects which are created in destination chains.
-The worflow:
+There is an alternative solution for notarising burn transactions by the notary operators in case of MoMoM notarisation failing or being slow.
 
-- A user creates a burn transaction with the above stated `migrate_createburntransaction` rpc method and publishes its hexademical representation to a publishing resource which is monitored by the notary operators (currently the discord channel ...???)
+For this to work, the notary operators pick burn transactions sent to a special publishing resource, check them and return the ids of the transactions with the burn transaction proof objects which are created in destination chains.
+
+### The workflow
+
+- A user creates a burn transaction with the above described `migrate_createburntransaction` rpc method and publishes its hexademical representation to a publishing resource which is monitored by the notary operators (currently the discord channel ...???)
 - The notary operators pick the burn transaction and check its structure and existence in the source chain with the rpc method `migrate_checkburntransactionsource`. If the burn transaction is successfully validated, the notary operators create approval transactions in the destination chain and publish their transaction ids back into the publishing resource.
 - The user collects the transaction ids and calls `migrate_createimporttransaction` method, passing into it the collected notary approval transaction ids. Currently it is enough to have at least 5 successful notary approval transactions for an import transaction to be considered as valid in the destination chain.
 
