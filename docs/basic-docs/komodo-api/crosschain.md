@@ -153,229 +153,255 @@ There is an alternative solution for notarising burn transactions by the notary 
 
 For this to work, the notary operators pick burn transactions sent to a special publishing resource, check them and return the ids of the transactions with the burn transaction proof objects which are created in destination chains.
 
-### The workflow
+### The Workflow
 
-- A user creates a burn transaction with the above described `migrate_createburntransaction` rpc method and publishes its hexademical representation to a publishing resource which is monitored by the notary operators (currently the discord channel ...???)
-- The notary operators pick the burn transaction and check its structure and existence in the source chain with the rpc method `migrate_checkburntransactionsource`. If the burn transaction is successfully validated, the notary operators create approval transactions in the destination chain and publish their transaction ids back into the publishing resource.
-- The user collects the transaction ids and calls `migrate_createimporttransaction` method, passing into it the collected notary approval transaction ids. Currently it is enough to have at least 5 successful notary approval transactions for an import transaction to be considered as valid in the destination chain.
+- A user creates a burn transaction with the above described [migrate_createburntransaction](./crosschain.html#migrate-createburntransaction) method and publishes it in hex format to a publishing resource which is monitored by the notary operators (currently the discord channel: [#cc-momom](https://discord.gg/JE9tkmN))
+- The notary operators must pick a burn transaction and check its validity and existence in the source chain using the method `migrate_checkburntransactionsource`. If the burn transaction is successfully validated, the notary operators must create approval transactions in the destination chain and publish their transaction ids back into the publishing resource.
+- The user collects the transaction ids and calls the method [migrate_createimporttransaction](./crosschain.html#migrate-createimporttransaction), passing the collected notary approval transaction ids as arguments. Currently it is enough to have at least 5 successful notary approval transactions for an import transaction to be considered as valid in the destination chain.
 
 ### migrate_checkburntransactionsource
 
 **migrate_checkburntransactionsource burntx**
 
-The `migrate_checkburntransactionsource` method allows to a notary operator to check the burn transaction structure and verify its presence in the source chain.
+The `migrate_checkburntransactionsource` method allows a notary operator to check the burn transaction's structure and verify its presence in the source chain.
 
 #### Arguments
 
-| Name     | Type               | Description                 |
-| -------- | ------------------ | --------------------------- |
-| "burntx" | (string, required) | the burn transaction in hex |
+| Name     | Type               | Description                        |
+| -------- | ------------------ | ---------------------------------- |
+| "burntx" | (string, required) | the burn transaction in hex format |
 
 #### Response
 
-| Name           | Type               | Description                                             |
-| -------------- | ------------------ | ------------------------------------------------------- |
-| "sourceSymbol" | (string)           | source chain name                                       |
-| "targetSymbol" | (string)           | target chain name                                       |
-| "targetCCid"   | (number)           | target chain CCid                                       |
-| "tokenid"      | (string, optional) | token id if it is token to migrate                      |
-| "TxOutProof"   | (string)           | proof of burn transaction existence in the source chain |
+| Name           | Type               | Description                                                       |
+| -------------- | ------------------ | ----------------------------------------------------------------- |
+| "sourceSymbol" | (string)           | the source chain's name                                           |
+| "targetSymbol" | (string)           | the target chain's name                                           |
+| "targetCCid"   | (number)           | the target chain's `CCid`                                         |
+| "tokenid"      | (string, optional) | the token id if a token is to be migrated                         |
+| "TxOutProof"   | (string)           | the proof of the burn transaction's existence in the source chain |
 
 ### migrate_createnotaryapprovaltransaction
 
 **migrate_createnotaryapprovaltransaction burntxid txoutproof**
 
-A notary operator uses the `migrate_createnotaryapprovaltransaction` method to create an approval transaction in the destination chain with the proof of the burn transaction existence in the source chain.
-Returned notary transaction should be sent to the destination chain with [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method
+- A notary operator uses the `migrate_createnotaryapprovaltransaction` method to create an approval transaction in the destination chain with the proof of the burn transaction's existence in the source chain.
+- The returned notary approval transaction should be broadcasted to the destination chain using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 #### Arguments
 
-| Name         | Type               | Description                                 |
-| ------------ | ------------------ | ------------------------------------------- |
-| "burntxid"   | (string, required) | the burn transaction id                     |
-| "txoutproof" | (string, required) | the proof of the burn transaction existence |
+| Name         | Type               | Description                                   |
+| ------------ | ------------------ | --------------------------------------------- |
+| "burntxid"   | (string, required) | the burn transaction's id                     |
+| "txoutproof" | (string, required) | the proof of the burn transaction's existence |
 
 #### Response
 
-| Name          | Type     | Description                        |
-| ------------- | -------- | ---------------------------------- |
-| "NotaryTxHex" | (string) | notary approval transaction in hex |
+| Name          | Type     | Description                               |
+| ------------- | -------- | ----------------------------------------- |
+| "NotaryTxHex" | (string) | notary approval transaction in hex format |
 
 ## Self import API
 
-Self import API allows to a trusted pubkey to create more coins in the same chain.
-Requirement: the chain should have command line parameters `-ac_import=PUBLIC` and `-ac_pubkey` set to a pubkey which is allowed to create coins.
-For creating more coins in the chain with -ac_import=PUBKEY enabled there is an rpc method `selfimport`.
-The method return a source transaction that contains a parameter with amount of coins to create and is a proof of the trusted pubkey owner's intention to create coins in the chain.
-The returned source transaction should be sent into the chain with the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. The source transaction spends txfee=10000 satoshis amount from the ac_pubkey owner UXTOs.
-Then, after the source transaction is mined, the import transactions also should be sent to the chain with the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. After it is mined, its vout would contain the amount of created coins on the appointed destination address.
+The Self import API is a special api available only in chains that need a pubkey to create new coins arbitrarily.
 
 ### selfimport
 
 **selfimport destAddress amount**
 
+The Self import API allows a trusted pubkey to create more coins on the same chain.
+
+Requirements: The chain must have the custom parameters `-ac_import=PUBLIC` and `-ac_pubkey` set to a pubkey which is allowed to create coins.
+
+- For creating more coins in the chain with `-ac_import=PUBKEY` enabled, the method `selfimport` can be used.
+- The method returns a source transaction that contains a parameter with the amount of coins to create and is a proof of the trusted pubkey owner's intention to create new coins in the chain.
+- The returned source transaction should be broadcasted to the chain using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. The source transaction spends a `txfee=10000 satoshis` from the `-ac_pubkey` owner's UXTOs.
+- Later, after the source transaction is mined, the import transaction should also be broadcasted to the chain with the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. After it is mined, its vout would contain the amount of created coins in the chosen destination address.
+
 #### Arguments
 
-| Name          | Type               | Description                                |
-| ------------- | ------------------ | ------------------------------------------ |
-| "destAddress" | (string, required) | address where created coins should be sent |
-| "amount"      | (number, required) | amount in coins to create                  |
+| Name          | Type               | Description                                        |
+| ------------- | ------------------ | -------------------------------------------------- |
+| "destAddress" | (string, required) | the address where the created coins should be sent |
+| "amount"      | (number, required) | the amount in coins to create                      |
 
 #### Response
 
-| Name          | Type     | Description               |
-| ------------- | -------- | ------------------------- |
-| "SourceTxHex" | (string) | source transaction in hex |
-| "ImportTxHex" | (string) | import transaction in hex |
+| Name          | Type     | Description                          |
+| ------------- | -------- | ------------------------------------ |
+| "SourceTxHex" | (string) | the source transaction in hex format |
+| "ImportTxHex" | (string) | the import transaction in hex format |
 
 ## Notary API
 
-Several methods are used by notary nodes to get block chain 'fingerprints' and notarisation data from chain.
+Several methods can be used by the notary nodes to get the blockchain 'fingerprints' and notarisation data.
 
 ### calc_MoM
 
 **calc_MoM height MoMdepth**
 
-The `calc_MoM` method calculates merkle root of blocks' merkle roots (MoM) value starting from the block of the appointed height for the passed depth. This method should be run on an asset chain.
+The `calc_MoM` method calculates `the merkle root of the blocks' merkle roots (MoM)` value starting from the block of a given height for the chosen depth.
+
+:::tip Note
+This method should be run on an asset chain.
+:::
 
 #### Arguments
 
-| Name       | Type               | Description                                    |
-| ---------- | ------------------ | ---------------------------------------------- |
-| "height"   | (number, required) | block height from which MoM calculation begins |
-| "MoMdepth" | (number, required) | number of blocks to include in MoM calculation |
+| Name       | Type               | Description                                                  |
+| ---------- | ------------------ | ------------------------------------------------------------ |
+| "height"   | (number, required) | the block height from which the `MoM` calculation must begin |
+| "MoMdepth" | (number, required) | the number of blocks to include in the MoM calculation       |
 
 #### Response
 
-| Name       | Type     | Description                                    |
-| ---------- | -------- | ---------------------------------------------- |
-| "coin"     | (string) | chain name                                     |
-| "height"   | (string) | starting block height                          |
-| "MoMdepth" | (number) | number of blocks to include in MoM calculation |
-| "MoM"      | (string) | MoM value                                      |
+| Name       | Type     | Description                                            |
+| ---------- | -------- | ------------------------------------------------------ |
+| "coin"     | (string) | the chain's name                                       |
+| "height"   | (string) | the starting block height                              |
+| "MoMdepth" | (number) | the number of blocks included in the `MoM` calculation |
+| "MoM"      | (string) | the `MoM` value                                        |
 
 ### MoMoMdata
 
 **MoMoMdata symbol kmdheight ccid**
 
-The `MoMoMdata` method calculates merkle root of merkle roots of blocks' merkle roots (MoMoM) value starting from the block of the appointed height for the data of the chain with passed name and ccid. The method should be run on the KMD chain.
+The `MoMoMdata` method calculates `the merkle root of merkle roots of the blocks' merkle roots (MoMoM)` value starting from the block of a given height for the data of a chain whose name and CCid are passed in as arguments.
+
+:::tip Note
+This method should be run on the KMD chain.
+:::
 
 #### Arguments
 
-| Name        | Type               | Description                                         |
-| ----------- | ------------------ | --------------------------------------------------- |
-| "symbol"    | (string, required) | chain name for which data MoMoM value is calculated |
-| "kmdheight" | (number, required) | number of blocks to include in MoM calculation      |
-| "ccid"      | (number, required) | chain ccid                                          |
+| Name        | Type               | Description                                                     |
+| ----------- | ------------------ | --------------------------------------------------------------- |
+| "symbol"    | (string, required) | the chain's name whose data's `MoMoM` value is to be calculated |
+| "kmdheight" | (number, required) | the number of blocks to include in the `MoM` calculation        |
+| "ccid"      | (number, required) | the chain's CCid                                                |
 
 #### Response
 
 | Name               | Type     | Description                                               |
 | ------------------ | -------- | --------------------------------------------------------- |
-| "coin"             | (string) | chain name                                                |
-| "kmdheight"        | (string) | starting block height                                     |
-| "ccid"             | (number) | chain ccid                                                |
-| "MoMs"             | (string) | array of MoM values                                       |
+| "coin"             | (string) | the chain's name                                          |
+| "kmdheight"        | (string) | the starting block's height                               |
+| "ccid"             | (number) | the chain's `CCid`                                        |
+| "MoMs"             | (string) | the array of `MoM` values                                 |
 | "notarisationHash" | (string) | the first found notarisation transaction id for the chain |
-| "MoMoM"            | (string) | MoMoM value                                               |
+| "MoMoM"            | (string) | the MoMoM value                                           |
 
 ### assetchainproof
 
 **assetchainproof txid**
 
-For given transaction id the `assetchainproof` method scans the chain for the back MoM notarisation for this transaction and returns a proof object with MoM branch. Scanning is performed from the height upto the chain tip but no more than 1440 blocks.
+The `assetchainproof` method scans the chain for the back `MoM` notarisation for a transaction corresponding to the given transaction id and returns a proof object with MoM branch. Scanning is performed from the height upto the chain tip but no more than 1440 blocks.
 
 #### Arguments
 
-| Name   | Type               | Description                                         |
-| ------ | ------------------ | --------------------------------------------------- |
-| "txid" | (string, required) | transaction id for which a proof object is returned |
+| Name   | Type               | Description                                                  |
+| ------ | ------------------ | ------------------------------------------------------------ |
+| "txid" | (string, required) | the transaction id for which a proof object must be returned |
 
 #### Response
 
+<!--FIXME fill in the response box
+
 for a txid returns a proof object with MoM branch in hex.
+
+-->
 
 ### getNotarisationsForBlock
 
 **getNotarisationsForBlock blockHash**
 
-For the block hash returns notarisation transactions within the block.
+The `getNotarisationsForBlock` method returns the notarisation transactions within the block for a given block hash.
 
 #### Arguments
 
-| Name        | Type               | Description                                 |
-| ----------- | ------------------ | ------------------------------------------- |
-| "blockHash" | (string, required) | block hash where notarisations are searched |
+| Name        | Type               | Description                                                           |
+| ----------- | ------------------ | --------------------------------------------------------------------- |
+| "blockHash" | (string, required) | the block hash of the block in which notarisations are to be searched |
 
 #### Response
 
+<!--FIXME fill in the response box
+
 returns array of pairs of values `<notarisation txid`> `<notarisation data in hex`>
+
+-->
 
 ### scanNotarisationsDB
 
 **scanNotarisationsDB blockHeight symbol [blocksLimit=1440]**
 
-Scans notarisations db backwards from the block height for a notarisation of given symbol.
+The `scanNotarisationsDB` method scans the notarisations database backwards from the given block height for a notarisation of the chain with the given name (symbol).
 
 #### Arguments
 
-| Name          | Type               | Description                                                |
-| ------------- | ------------------ | ---------------------------------------------------------- |
-| "blockHeight" | (number, required) | starting block height where notarisations are searched     |
-| "symbol"      | (string, required) | chain name for which notarisations are searched            |
-| "blocksLimit" | (number, optional) | optional block number to search for notarisations in depth |
+| Name          | Type               | Description                                                           |
+| ------------- | ------------------ | --------------------------------------------------------------------- |
+| "blockHeight" | (number, required) | the starting block height from which notarisations are to be searched |
+| "symbol"      | (string, required) | the chain's name whose notarisations are to be searched               |
+| "blocksLimit" | (number, optional) | an optional block depth to search for notarisations                   |
 
 #### Response
 
+<!-- FIXME fill in the response box
+
 returns array of `<notarisation txid`> `<notarisation data in hex`>
+
+-->
 
 ## User API
 
-There are some utility methods for getting information about burn transactions or import transactions existing in a chain.
+There are some utility methods for getting information about burn transactions or import transactions that exist on a chain.
 
 ### getimports
 
 **getimports hash|height**
 
-The `getimports` lists import transactions in the chain's block appointed by a block number or block hash parameter.
+The `getimports` method lists import transactions in the chain's block chosen by a block number or block hash parameter.
 
 #### Arguments
 
-| Name             | Type                         | Description                                             |
-| ---------------- | ---------------------------- | ------------------------------------------------------- |
-| "hash or height" | (string or number, required) | block's hash or height to search import transactions in |
+| Name             | Type                         | Description                                                                |
+| ---------------- | ---------------------------- | -------------------------------------------------------------------------- |
+| "hash or height" | (string or number, required) | the block's hash or height in which import transactions are to be searched |
 
 #### Response
 
-| Name             | Type              | Description                                   |
-| ---------------- | ----------------- | --------------------------------------------- |
-| "transaction id" | (string)          | import transaction id                         |
-| "amount"         | (number)          | import transaction value in coins             |
-| "address"        | (string)          | destination address                           |
-| "export:"        |                   | export or burn transaction infomation         |
-| "txid"           | (string)          | export transaction id                         |
-| "amount"         | (number)          | export transaction value                      |
-| "txid"           | (string)          | export transaction id                         |
-| "source"         | (string)          | source chain name                             |
-| "tokenid"        | (string,optional) | source chain token id, if tokens are imported |
-| "TotalImported"  | (number)          | total imported amount in coins                |
+| Name             | Type                    | Description                                         |
+| ---------------- | ----------------------- | --------------------------------------------------- |
+| "transaction id" | (string)                | the import transaction id                           |
+| "amount"         | (number)                | the import transaction's value in coins             |
+| "address"        | (string)                | the destination address                             |
+| "export:"        | <!-- FIXME fill this--> | the export or burn transaction's infomation         |
+| "txid"           | (string)                | the export transaction's id                         |
+| "amount"         | (number)                | the export transaction's value                      |
+| "txid"           | (string)                | the export transaction's id                         |
+| "source"         | (string)                | the source chain's name                             |
+| "tokenid"        | (string,optional)       | the source chain's token id, if tokens are imported |
+| "TotalImported"  | (number)                | the total imported amount in coins                  |
 
 ### getwalletburntransaction
 
 **getwalletburntransactions**
 
-The `getwalletburntransactions` lists burn transactions in the current wallet.
+The `getwalletburntransactions` method lists all the burn transactions in the current wallet.
 
 #### Arguments
 
-none
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### Response
 
-| Name           | Type               | Description                    |
-| -------------- | ------------------ | ------------------------------ |
-| "txid"         | (string)           | burn transaction id            |
-| "burnedAmount" | (number)           | burned value in coins          |
-| "tokenid"      | (string, optional) | token id, if tokens are burned |
-| "targetSymbol" | (string)           | target chain name              |
-| "targetCCid"   | (number)           | target chain CCid              |
+| Name           | Type               | Description                        |
+| -------------- | ------------------ | ---------------------------------- |
+| "txid"         | (string)           | the burn transaction's id          |
+| "burnedAmount" | (number)           | the burned value in coins          |
+| "tokenid"      | (string, optional) | the token id, if tokens are burned |
+| "targetSymbol" | (string)           | the target chain's name            |
+| "targetCCid"   | (number)           | the target chain's `CCid`          |
