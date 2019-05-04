@@ -69,26 +69,29 @@ The source and destination chains should have the same `CCid` parameter ([-ac_cc
 | "payouts"   | (string) | a hex string of the created payouts (to be passed into migrate_createimporttransaction rpc method later) |
 | "BurnTxHex" | (string) | a hex string of the created burn transaction                                                             |
 
-#### An alternative method to create a customized burn transaction
-
-If it is needed to create a customized burn transaction there is an additional rpc method `migrate_converttoexport` which converts passed transaction to a burn transaction. It adds proof data to the passed transaction and extracts the transaction vouts and calculates and burns their amount by sending it to an OP_RETURN vout which is added to the transaction.
-It is responsibility of the caller to fund and sign the returned burn transaction with rpc methos `fundrawtransaction` and `signrawtransaction`.
-The signed burn transaction should be sent to the destination chain by the `sendrawtansaction` method.
-Note: this method supports only coins (tokens are not supported).
-
 ### migrate_converttoexport
 
 **migrate_converttoexport burntx**
 
-The `migrate_converttoexport` method adds OP_RETURN object to the passed transaction.
-The other returned value `payouts` should be passed to the next method `migrate_createimporttransaction`.
+- The method `migrate_converttoexport` provides an alternative method to the user if they desire to create a customized burn transaction. It converts a given transaction to a burn transaction.
+- It adds proof data to the transaction, extracts the transaction vouts, calculates their vaules and burns the value by sending it to an `OP_RETURN` vout which is added to the created transaction.
+- The other returned value - `payouts` is used in the next method that must be executed: `migrate_createimporttransaction`.
+- It is the responsibility of the caller to fund and sign the returned burn transaction using the methods [fundrawtransaction](../komodo-api/rawtransactions.html#fundrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction).
+- The signed burn transaction must be broadcasted to the <!-- FIXME destination chain ? --> source chain using the [sendrawtansaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+
+::: warning Limitations
+
+- The method `migrate_converttoexport` supports only coins (tokens are not supported).
+- The burn transaction has to be stored in the import transaction's `OP_RETURN` vout. As its size is limited to `10,001` bytes, it is recommended to limit the burn transaction's size to 30% of the `OP_RETURN` object.
+
+:::
 
 #### Arguments
 
-| Name        | Type               | Description                 |
-| ----------- | ------------------ | --------------------------- |
-| "burntx"    | (string, required) | the burn transaction in hex |
-| "destChain" | (string, required) | the destination chain name  |
+| Name        | Type               | Description                        |
+| ----------- | ------------------ | ---------------------------------- |
+| "burntx"    | (string, required) | the burn transaction in hex format |
+| "destChain" | (string, required) | the destination chain name         |
 
 #### Response
 
@@ -97,17 +100,13 @@ The other returned value `payouts` should be passed to the next method `migrate_
 | "payouts"  | (string) | a hex string of the created payouts (to be passed into migrate_createimporttransaction rpc method later) |
 | "exportTx" | (string) | a hex string of the returned burn transaction                                                            |
 
-#### Burn transaction size consideration
-
-Because the burn transaction is stored in import transaction OP_RETURN vout which size is limited by 10,001 bytes it is recommended to limit the burn transaction size to the 30% of the OP_RETURN object.
-
 ### migrate_createimporttransaction
 
 **migrate_createimporttransaction burntx payouts [notaryTxid1]...[notaryTxidN]**
 
-The `migrate_createimporttransaction` method performs a initial step in creating an import transaction. This method should be called on the source chain.
-The method returns a created import transaction in hex. This string should be passed into the `migrate_completeimporttransaction` method on the main KMD chain to be extended with MoMoM proof object.
-For MoMoM backup solution (see later) the created import transaction is not passed to `migrate_completeimporttransaction` method.
+- The `migrate_createimporttransaction` method performs the initial step in creating an import transaction. This method should be called on the source chain.
+  The method returns a created import transaction in hex. This string should be passed into the `migrate_completeimporttransaction` method on the main KMD chain to be extended with MoMoM proof object.
+  For MoMoM backup solution (see later) the created import transaction is not passed to `migrate_completeimporttransaction` method.
 
 #### Arguments
 
@@ -116,9 +115,7 @@ For MoMoM backup solution (see later) the created import transaction is not pass
 | "burntx"      | (string, required) | burn transaction in hex created on the previous step                                           |
 | "payouts"     | (string, required) | payouts object in hex created on the previous step and used for creating an import transaction |
 | "notaryTxid1" | (string, optional) | notary approval transaction id 1, passed if MoMoM backup solution is used for notarisation     |
-
-...
-"notaryTxidN" |(string, optional) |notary approval transaction id N, passed if MoMoM backup solution is used for notarisation
+| "notaryTxidN" | (string, optional) | notary approval transaction id N, passed if MoMoM backup solution is used for notarisation     |
 
 #### Response
 
