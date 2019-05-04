@@ -241,7 +241,6 @@ brew upgrade
     brew install protobuf
     brew install coreutils
     brew install wget
-    brew install nanomsg
 ```
 
 ### Clone the Komodo repository
