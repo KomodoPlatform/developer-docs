@@ -69,6 +69,38 @@ The source and destination chains should have the same `CCid` parameter ([-ac_cc
 | "payouts"   | (string) | a hex string of the created payouts (to be passed into migrate_createimporttransaction rpc method later) |
 | "BurnTxHex" | (string) | a hex string of the returned burn transaction                                                            |
 
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
 ### migrate_converttoexport
 
 **migrate_converttoexport burntx**
@@ -100,6 +132,38 @@ The source and destination chains should have the same `CCid` parameter ([-ac_cc
 | "payouts"  | (string) | a hex string of the created payouts (to be passed into `migrate_createimporttransaction` rpc method later) |
 | "exportTx" | (string) | a hex string of the returned burn transaction                                                              |
 
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
 ### migrate_createimporttransaction
 
 **migrate_createimporttransaction burntx payouts [notaryTxid1]...[notaryTxidN]**
@@ -124,6 +188,38 @@ The source and destination chains should have the same `CCid` parameter ([-ac_cc
 | ------------- | -------- | -------------------------------------------- |
 | "ImportTxHex" | (string) | the created import transaction in hex format |
 
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
 ### migrate_completeimporttransaction
 
 **migrate_completeimporttransaction importtx**
@@ -146,6 +242,38 @@ The source and destination chains should have the same `CCid` parameter ([-ac_cc
 | Name          | Type     | Description                                                        |
 | ------------- | -------- | ------------------------------------------------------------------ |
 | "ImportTxHex" | (string) | import transaction in hex extended with MoMoM proof of the burn tx |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
 
 ## Notarisation backup solution
 
@@ -181,6 +309,38 @@ The `migrate_checkburntransactionsource` method allows a notary operator to chec
 | "tokenid"      | (string, optional) | the token id if a token is to be migrated                         |
 | "TxOutProof"   | (string)           | the proof of the burn transaction's existence in the source chain |
 
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
 ### migrate_createnotaryapprovaltransaction
 
 **migrate_createnotaryapprovaltransaction burntxid txoutproof**
@@ -200,6 +360,38 @@ The `migrate_checkburntransactionsource` method allows a notary operator to chec
 | Name          | Type     | Description                               |
 | ------------- | -------- | ----------------------------------------- |
 | "NotaryTxHex" | (string) | notary approval transaction in hex format |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
 
 ## Self import API
 
@@ -232,6 +424,38 @@ Requirements: The chain must have the custom parameters `-ac_import=PUBLIC` and 
 | "SourceTxHex" | (string) | the source transaction in hex format |
 | "ImportTxHex" | (string) | the import transaction in hex format |
 
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
 ## Notary API
 
 Several methods can be used by the notary nodes to get the blockchain 'fingerprints' and notarisation data.
@@ -262,6 +486,38 @@ This method should be run on an asset chain.
 | "MoMdepth" | (number) | the number of blocks included in the `MoM` calculation |
 | "MoM"      | (string) | the `MoM` value                                        |
 
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
 ### MoMoMdata
 
 **MoMoMdata symbol kmdheight ccid**
@@ -291,6 +547,38 @@ This method should be run on the KMD chain.
 | "notarisationHash" | (string) | the first found notarisation transaction id for the chain |
 | "MoMoM"            | (string) | the MoMoM value                                           |
 
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
 ### assetchainproof
 
 **assetchainproof txid**
@@ -311,6 +599,38 @@ for a txid returns a proof object with MoM branch in hex.
 
 -->
 
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
 ### getNotarisationsForBlock
 
 **getNotarisationsForBlock blockHash**
@@ -330,6 +650,38 @@ The `getNotarisationsForBlock` method returns the notarisation transactions with
 returns array of pairs of values `<notarisation txid`> `<notarisation data in hex`>
 
 -->
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
 
 ### scanNotarisationsDB
 
@@ -352,6 +704,38 @@ The `scanNotarisationsDB` method scans the notarisations database backwards from
 returns array of `<notarisation txid`> `<notarisation data in hex`>
 
 -->
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
 
 ## User API
 
@@ -384,6 +768,38 @@ The `getimports` method lists import transactions in the chain's block chosen by
 | "tokenid"        | (string,optional)       | the source chain's token id, if tokens are imported |
 | "TotalImported"  | (number)                | the total imported amount in coins                  |
 
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
 ### getwalletburntransaction
 
 **getwalletburntransactions**
@@ -405,3 +821,35 @@ The `getwalletburntransactions` method lists all the burn transactions in the cu
 | "tokenid"      | (string, optional) | the token id, if tokens are burned |
 | "targetSymbol" | (string)           | the target chain's name            |
 | "targetCCid"   | (number)           | the target chain's `CCid`          |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+
+```
+
+</collapse-text>
