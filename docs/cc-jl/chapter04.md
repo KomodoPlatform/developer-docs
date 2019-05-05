@@ -31,7 +31,7 @@ In order to get the above values, follow these steps:
 
 1. update the `CCaddress` and `privkey` and dont forget to change the `-pubkey=` parameter
 
-The first rpc command to add is `<CC>address` and to do that, add a line to [rpcserver.h](https://github.com/jl777/komodo/tree/jl777/src/rpcserver.h) and update the commands array in [rpcserver.cpp](https://github.com/jl777/komodo/tree/jl777/src/rpcserver.cpp)
+The first rpc command to add is `<CC>address` and to do that, add a line to [rpcserver.h](https://github.com/jl777/komodo/blob/jl777/src/rpc/server.h) and update the commands array in [rpcserver.cpp](https://github.com/jl777/komodo/blob/jl777/src/rpc/server.cpp)
 
 In the [rpcwallet.cpp](https://github.com/jl777/komodo/tree/jl777/src/wallet/rpcwallet.cpp) file you will find the actual rpc functions, find one of the `<CC>address` ones, copy paste, change the eval code to your eval code and customize the function. Oh, and dont forget to add an entry into [eval.h](https://github.com/jl777/komodo/tree/jl777/src/cc/eval.h)
 
