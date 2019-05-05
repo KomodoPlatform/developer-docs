@@ -4,12 +4,19 @@
       <h1>404</h1>
       <blockquote>{{ getMsg() }}</blockquote>
       <blockquote>{{ getUrl() }}</blockquote>
+      <AlgoliaSearchBox
+        v-if="isAlgoliaSearch"
+        :options="algolia"
+      />
       <router-link to="/">Take me home.</router-link>
     </div>
   </div>
 </template>
 
 <script>
+
+import AlgoliaSearchBox from '@theme/components/AlgoliaSearchBox'
+
 const msgs = [
   `There's nothing here.`,
   `How did we get here?`,
