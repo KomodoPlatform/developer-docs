@@ -23,11 +23,16 @@ export default {
       return msgs[Math.floor(Math.random() * msgs.length)]
     },
     getUrl() {
-      return this.$route.query.page
+      return window.location.pathname
     }
   }
 }
 </script>
 
+<style lang="stylus">
 
+.theme-container
+  min-height 100vh
+  background-color #2C313B 
 
+</style>
