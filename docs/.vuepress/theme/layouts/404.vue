@@ -3,20 +3,13 @@
     <div class="content">
       <h1>404</h1>
       <blockquote>{{ getMsg() }}</blockquote>
-      <blockquote>{{ getUrl() }}</blockquote>
-      <AlgoliaSearchBox
-        v-if="isAlgoliaSearch"
-        :options="algolia"
-      />
-      <router-link to="/">Take me home.</router-link>
+     <!-- <h4>developers.komodoplatform.com{{ getUrl() }} doesn't exist or it has been moved</h4> -->      
+      <router-link to="/"><p>Take me home.</p></router-link>
     </div>
   </div>
 </template>
 
 <script>
-
-import AlgoliaSearchBox from '@theme/components/AlgoliaSearchBox'
-
 const msgs = [
   `There's nothing here.`,
   `How did we get here?`,
