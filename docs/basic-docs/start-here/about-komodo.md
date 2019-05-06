@@ -10,8 +10,6 @@ With these four pillars in place, all types of users of Komodo software will fin
 
 #### Security: Enjoy the Protection of the Bitcoin Hash Rate
 
-(Need graphics here)
-
 Secure your project with the power of the Bitcoin network via Komodo’s delayed proof of work security mechanism. Don’t waste time worrying about attackers.
 
 - Approximately every half hour, a hash of the developers blockchain is notarized to Bitcoin
