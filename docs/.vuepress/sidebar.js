@@ -12,19 +12,19 @@ var sidebar = [{
       ],
       [
         "/basic-docs/installations/basic-instructions.md",
-        "Komodo Software Installation"
+        "Install Software"
       ],
       [
         "/basic-docs/installations/creating-asset-chains.md",
-        "Asset Chain Creation"
+        "Create a Default Smart Chain"
       ],
       [
         "/basic-docs/installations/common-runtime-parameters.md",
-        "Launch Settings & Maintenance"
+        "combine"
       ],
       [
         "/basic-docs/installations/asset-chain-parameters.md",
-        "Custom Asset Chains Parameters"
+        "Create a Customize Smart Chain"
       ]
     ]
   },
