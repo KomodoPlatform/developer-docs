@@ -7,26 +7,12 @@ var sidebar = [{
           "About Komodo"
       ],
       [
-        "/basic-docs/start-here/before-you-begin.md",
-        "Before You Begin"
+        "/basic-docs/start-here/getting-started.md",
+        "Getting Started"
       ],
-      [
-        "/basic-docs/start-here/outline-for-new-developers.md",
-        "Outline for New Developers"
-      ],
-      [
-        "/basic-docs/start-here/custom-consensus-overview.md",
-        "Overview of Custom Consensus"
-      ]
-    ]
-  },
-  {
-    title: "Installation and Setup",
-    collapsable: true,
-    children: [
       [
         "/basic-docs/installations/basic-instructions.md",
-        "Basic Installation Instructions"
+        "Komodo Software Installation"
       ],
       [
         "/basic-docs/installations/creating-asset-chains.md",
@@ -41,6 +27,16 @@ var sidebar = [{
         "Custom Asset Chains Parameters"
       ]
     ]
+  },
+  {
+      title: "Developer Tutorials",
+      collapsable: true,
+      children: [
+          [
+            "/basic-docs/developer-tutorials/custom-consensus-overview.md",
+            "Custom Consensus Overview"
+          ]
+      ]
   },
   {
     title: "Custom Consensus",

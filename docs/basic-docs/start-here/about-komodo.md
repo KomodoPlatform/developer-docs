@@ -1,10 +1,10 @@
 # About Komodo
 
-After years of innovation and development, Komodo has built a multi-chain architecture that overcomes all of the challenges facing other traditional smart-contract platforms.
+After years of innovation and development, Komodo's multi-chain architecture overcomes the challenges faced by other smart-contract platforms.
 
 ## The Four Pillars of Blockchain Technology
 
-Komodo's philosophy for decentralization relies on four pillars: security, scalability, interoperability, and adaptability.
+The philosophy behind Komodo's multi-chain architecture relies on four pillars: security, scalability, interoperability, and adaptability.
 
 With these four pillars in place, all types of users of Komodo software will find powerful, customizable solutions that will set your blockchain creations free. 
 
@@ -47,7 +47,7 @@ Adapt your blockchain to create a purpose-built solution that fits your individu
 
 #### Together, Komodo's Security Service is Unlike Anything Else
 
-With the Smart Chain at your command, your are prepared to lift your decentralized application (dApp) to levels never before seen in the blockchain industry.
+With the Smart Chain at your command, you are prepared to lift your decentralized application (dApp) to levels never before seen in the blockchain industry.
 
 ## Smart Chains: A New Alternative To Smart-Contract Platforms
 
@@ -77,7 +77,7 @@ The Fluidity framework accelerates blockchain technology adoption.
 
 - Creating purpose-built blockchains becomes easy
 - Developing on top of blockchains becomes easy
-- Scaling up a product/services becomes easy
+- Scaling up a product/service becomes easy
 - Improving and upgrading blockchain technology becomes easy
 
 <div style="clear: both; width: 70%; margin-left: auto; margin-right: auto; margin-bottom: 4rem; display: block;">
@@ -180,7 +180,7 @@ Smart Chains are not child chains nor are they dependent on other blockchains.
 
 #### Turing-Complete
 
-The Fluidity framework supports C/C++, meaning that it allows for Turing-complete code. With Fluidity, any program or software can be coded to run on your blockchain.
+The Fluidity framework supports C/C++, and in the future it will also support other languages. Therefore, Fluidity allows for Turing-complete code. With Fluidity, any program or software can be coded to run on your blockchain.
 
 #### No Gas Fees
 
@@ -188,7 +188,7 @@ There are no gas fees with Fluidity. Regardless of how many processes a Fluidity
 
 #### Fluidity Module Library
 
-The Fluidity framework already hosts a library of plug-and-play modules. Each module can add special conditions that must be met in order for your Smart Chain’s network to reach consensus.
+The Fluidity framework already hosts a library of plug-and-play modules. Each module can add special conditions that affect the nature of transaction consensus on your Smart Chain.
 
 #### Create Your Own Modules
 
@@ -196,11 +196,11 @@ Experienced developers can write custom modules, creating the building blocks an
 
 #### White Label Products
 
-Go-to-market faster with Komodo’s white-label applications
+Go-to-market faster with Komodo’s white-label applications.
 
-- Multi-Asset Wallet For Desktop & Mobi
-- Atomic Swap Decentralized Exchange
-- Decentralized Crowdfunding App
+- Multi-Asset Wallet For Desktop & Mobile
+- Atomic-Swap Decentralized Exchange
+- Decentralized-Crowdfunding App
 - Custom Block Explorers 
 - SPV Electrum Server Integration
 - Core Fluidity Modules
@@ -211,17 +211,17 @@ Komodo provides open-source atomic-swap software for trading seamlessly between 
 
 [Embedded video - atomic swaps]
 
-#### Enjoy All the Benefits of the Old Centralized Exchange System, While Enjoying the Innovations of the New System
+#### Enjoy All the Benefits of the Old System, and of the New
 
 Everything that was possible in the old system is also possible in the new system.
 
-High-speed trading is easy, the DEX API allows you to create trading bots and app, and you can even trade on your mobile phone. 
+High-speed trading is easy, the DEX API allows you to create atomic-swap powered apps and trading bots, and you can even trade on your mobile phone. 
 
-Our DEX software is not bound to Komodo-based blockchain assets, either. If a blockchain asset can trade on a centralized exchange, odds are you can atomic-swap it on our DEX software as well.
+Our DEX software is not bound to Komodo-based blockchain assets, either. If a blockchain asset can trade on a centralized exchange, odds are you can atomic-swap it on our DEX software.
 
-#### Skip the Centralized Middleman, and Trade Directly with Your Trading Partner
+#### Skip the Centralized Middleman and Trade Directly with Your Trading Partner
 
-In an atomic swap, there is no need to lend your money to a third party for temporary holding. This reduces the cost of fees and prevents the users from coalescing their funds into a target for hackers.
+In an atomic swap, there is no need to lend your money to a third party for temporary holding. This keeps security in the hands of the user, reduces the cost of fees, and prevents the users from coalescing their funds into a large target for hackers.
 
 #### Keep Your Private Keys Private, At All Times
 
@@ -233,7 +233,7 @@ Users create their own liquidity pools for trading between assets. You can use a
 
 #### No Off-Chain Settlements Required
 
-The Komodo software uses atomic-swap technology, pioneered by Tier Nolan and our very own JL777, to ensure that a trade either happens, or it doesn't. If a trade stalls or fails halfway through the process, blockchain software ensures that these funds automatically reappear in the user's wallet.
+The Komodo software uses atomic-swap technology, pioneered by Tier Nolan and our very own JL777, to ensure that a trade either happens, or it doesn't. If a trade stalls or fails halfway through the process, blockchain software ensures that these funds automatically reappear in the users' wallets.
 
 #### Integrate Your Smart-Chain Asset with Our Software
 
@@ -241,3 +241,8 @@ Integration requires only a few simple steps, and once up and running, you are f
 
 You are free to discover your own audience.
 
+### Installing, Using, and Testing Komodo Software is Free
+
+The best way to learn about Komodo is to use it for yourself.
+
+Please visit the [<b>Get Started</b>]() section to begin.
