@@ -24,7 +24,7 @@ var sidebar = [{
       ],
       [
         "/basic-docs/installations/asset-chain-parameters.md",
-        "Create a Customize Smart Chain"
+        "Create a Custom Smart Chain"
       ]
     ]
   },

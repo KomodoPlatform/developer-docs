@@ -2,7 +2,7 @@
 
 After years of innovation and development, Komodo's multi-chain architecture overcomes the challenges faced by other smart-contract platforms.
 
-## The Four Pillars of Blockchain Technology
+## An Overview of Komodo
 
 The philosophy behind Komodo's multi-chain architecture relies on four pillars: security, scalability, interoperability, and adaptability.
 

@@ -6,14 +6,6 @@ Welcome to the Komodo ecosystem.
 
 The following section answers common questions a newcomer may have, and prepares the new reader before continuing on to the installation procedure.
 
-#### Connect with Our Community
-
-A new Komodo user is bound to have questions. Many of these questions can be quickly answered by a member of the Komodo community.
-
-The best place to reach out is our live-chat Discord server.
-
-[<b>Link to the Komodo Discord Chat Server</b>](https://komodoplatform.com/discord)
-
 #### Assumptions for this Documentation
 
 The Komodo Platform is cutting-edge blockchain technology. To limit the scope of what we cover on the technical-documentation website, we're going to list some prerequisite knowledge. 
@@ -26,11 +18,9 @@ The reader should be general familiar with the basic concept of blockchain techn
 
 ##### Simple Programming Skills
 
-The reader will often need to know how to enter commands in the command line.
+Much of the content on this site will be more understandable for the reader who has a rudimentary understanding of a mainstream programming language. Beginner-level knowledge should be sufficient for relevant tasks, such as entering commands on the command line and sending requests via an API. 
 
-Much of the content on this site will be more understandable for the reader who has general familiarity with a mainstream programming language. The reader will especially benefit from knowing how to send requests to a software daemon using an Application Programming Interface (API).
-
-If the reader is not familiar with these concepts, please reach out to our community on Discord. We will be happy to discuss your goals with you and help you to find appropriate tutorials for your learning approach.
+If you do not have these prerequisite experiences, please reach out to our community on [<b>Discord</b>](https://komodoplatform.com/discord) for advice on how to proceed.
 
 #### Testing a Komodo Smart Chain Is Free
 
@@ -46,13 +36,13 @@ We have a limited supply of early-adopter discounts. Please inquire while supply
 
 #### Komodo Is Compatible With All Mainstream Programming Languages
 
-Komodo is a highly capable blockchain technology, but not all developers will need to use its most advanced aspects.
+Komodo is a highly capable blockchain technology, and it is designed for compatability with essentially all mainstream programming languages. However, not all developers will need to use its most advanced aspects.
 
 ##### A Normal Developer in the Komodo Ecosystem
 
 A typical developer in the Komodo ecosystem will build all their application logic in a separate application that runs outside of their Smart Chain daemon. 
 
-Their app will send API requests to their Smart Chain daemon to update the blockchain state and to take advantage of Komodo's default Fluidity modules. (Fluidity modules are similar to "smart contracts," although we argue that they are far more powerful.) 
+The developer's app will send API requests to their Smart Chain's daemon to update the blockchain state and to take advantage of Komodo's default Fluidity modules. (Fluidity modules are similar to "smart contracts," although we argue that these modules are far more powerful.) 
 
 For this developer, any programming language that can send API requests to the software daemon is compatible.
 
@@ -62,9 +52,15 @@ A highly advanced developer may be interested to take advantage of the full pote
 
 This developer can utilize Komodo's Fluidity Framework to add arbitrary code to the consensus mechansim of their autonomous Smart Chain.
 
-While the Fluidity Framework can be compatible with essentially all mainstream programming languages, at this time, we encourage all developers to stay close to the C and C++ languages. 
+Although the Fluidity Framework can be compatible with essentially all mainstream programming languages, at this time we encourage all developers to stay close to the C/C++ languages. 
 
-## Outline for New Developers
+#### Connect with Our Community
+
+Engaging with our chat community for questions and advise can speed up the learning process. Connect with us here:
+
+[<b>Link to the Komodo Discord Chat Server</b>](https://komodoplatform.com/discord)
+
+## Orientation for New Developers
 
 #### Install the Basic Komodo Software
 
