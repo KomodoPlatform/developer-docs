@@ -585,7 +585,7 @@ The Self import API is a special api available only in chains that need a pubkey
 
 The Self import API allows a trusted pubkey to create more coins on the same chain.
 
-Requirements: The chain must have the custom parameters `-ac_import=PUBLIC` and `-ac_pubkey` set to a pubkey which is allowed to create coins.
+**Requirements:** The chain must have the custom parameters `-ac_import=PUBKEY` and `-ac_pubkey` set to a pubkey which is allowed to create coins.
 
 - For creating more coins in the chain with `-ac_import=PUBKEY` enabled, the method `selfimport` can be used.
 - The method returns a source transaction that contains a parameter with the amount of coins to create and is a proof of the trusted pubkey owner's intention to create new coins in the chain.
@@ -673,13 +673,18 @@ This method should be run on an asset chain.
 Command:
 
 ```bash
-
+./komodo-cli -ac_name=CFEKHOUND calc_MoM 1000 100
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "coin": "CFEKHOUND",
+  "height": 1000,
+  "MoMdepth": 100,
+  "MoM": "318e9e5636cb9ef99ca7343da72a3544fbcccb7889fa386083e69a8527557a4d"
+}
 ```
 
 </collapse-text>
@@ -689,13 +694,22 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "calc_MoM", "params": ["1000","100"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "result": {
+    "coin": "CFEKHOUND",
+    "height": 1000,
+    "MoMdepth": 100,
+    "MoM": "318e9e5636cb9ef99ca7343da72a3544fbcccb7889fa386083e69a8527557a4d"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
@@ -734,13 +748,34 @@ This method should be run on the KMD chain.
 Command:
 
 ```bash
-
+./komodo-cli MoMoMdata CFEKHOUND 1350074 533
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "coin": "CFEKHOUND",
+  "kmdheight": 1350069,
+  "ccid": 533,
+  "MoMs": [
+    "e02b0479aad97b3edf57eaffe951f9cd536c37ae2b4aa05c080798eac484e30b",
+    "24866dd7b381c2418e44aae5030b513160bd8d706f5f7bf1fa75db297052bf0d",
+    "4d5613567bbd3f169b96f51765487493129c0f9357a62318013e3b22b488d711",
+    "fc8f1911a109f506095bae52f9b4152a1469a42037b2aa22aa6f4d4d3b04101b",
+    "a0d872460a4a8a44261ec9201567636e62fcda5580164a00051e7dcb8f64511e",
+    "fbad42139d7d35947b9ae4f20f1a1e88cd83ac6732e246165eecc2d99b05ee36",
+    "323c3c9fd87c555f6795ecbbec607ce32007fe90b8e435512cd417a2fc6e2637",
+    "9677f063342198a462ea89c0542a79424219287bc8e025b8f976ef5841ce927b",
+    "154b989f4e9900da37710bfd5c00130a4c7d796382843706594ab6443e09297e",
+    "0e1b82ea82b5c97486e2620423ab5fe81085f32cc38bfd19f8aac9416b4c5b84",
+    "35ec0d4946bbcba8aae8fa1f939d020c13750ecc100eaa33035e620aed702d86",
+    "80bc23baef9c7b5555fb2a83323ae77b01f7747ead37a9f4f24bcd4b9485b28b"
+  ],
+  "notarization_hash": "3b202647603e18aeea6d07bb39cda4f1df12117ce1c9439772f066d6cbda72c5",
+  "MoMoM": "f944a1951bafc7548644c53745ed20a671f7fc574388e5e73ab5ae0929b46bba",
+  "data": "ba6bb42909aeb53ae7e5884357fcf771a620ed4537c5448654c7af1b95a144f900000000"
+}
 ```
 
 </collapse-text>
@@ -750,13 +785,38 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "MoMoMdata", "params": ["CFEKHOUND","1350074","533"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "result": {
+    "coin": "CFEKHOUND",
+    "kmdheight": 1350069,
+    "ccid": 533,
+    "MoMs": [
+      "e02b0479aad97b3edf57eaffe951f9cd536c37ae2b4aa05c080798eac484e30b",
+      "24866dd7b381c2418e44aae5030b513160bd8d706f5f7bf1fa75db297052bf0d",
+      "4d5613567bbd3f169b96f51765487493129c0f9357a62318013e3b22b488d711",
+      "fc8f1911a109f506095bae52f9b4152a1469a42037b2aa22aa6f4d4d3b04101b",
+      "a0d872460a4a8a44261ec9201567636e62fcda5580164a00051e7dcb8f64511e",
+      "fbad42139d7d35947b9ae4f20f1a1e88cd83ac6732e246165eecc2d99b05ee36",
+      "323c3c9fd87c555f6795ecbbec607ce32007fe90b8e435512cd417a2fc6e2637",
+      "9677f063342198a462ea89c0542a79424219287bc8e025b8f976ef5841ce927b",
+      "154b989f4e9900da37710bfd5c00130a4c7d796382843706594ab6443e09297e",
+      "0e1b82ea82b5c97486e2620423ab5fe81085f32cc38bfd19f8aac9416b4c5b84",
+      "35ec0d4946bbcba8aae8fa1f939d020c13750ecc100eaa33035e620aed702d86",
+      "80bc23baef9c7b5555fb2a83323ae77b01f7747ead37a9f4f24bcd4b9485b28b"
+    ],
+    "notarization_hash": "3b202647603e18aeea6d07bb39cda4f1df12117ce1c9439772f066d6cbda72c5",
+    "MoMoM": "f944a1951bafc7548644c53745ed20a671f7fc574388e5e73ab5ae0929b46bba",
+    "data": "ba6bb42909aeb53ae7e5884357fcf771a620ed4537c5448654c7af1b95a144f900000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
@@ -775,24 +835,22 @@ The `assetchainproof` method scans the chain for the back `MoM` notarisation for
 
 #### Response
 
-<!--FIXME fill in the response box
-
-for a txid returns a proof object with MoM branch in hex.
-
--->
+| Name           | Type     | Description                                             |
+| -------------- | -------- | ------------------------------------------------------- |
+| "proof object" | (string) | the returned proof object with MoM branch in hex format |
 
 #### :pushpin: Examples
 
 Command:
 
 ```bash
-
+./komodo-cli -ac_name=CFEKHOUND assetchainproof d19f1c3f7e630966e1d40838c56c8c63a6cbd828d34c3544be5a60b236cf1610
 ```
 
 <collapse-text hidden title="Response">
 
 ```bash
-
+da14c5a904dcf9dcc5c4471bae0f3e90274bc782fcaf7a828c23190dbbd3392205042cd74dc8b4504472d782478b374fe3fa406f9b9199d5b8ccac7c202a73c812b6f7fb8e5644af270917b10fa879a0c5636de719d308efd245ff5613450b934a5f32fd21b84a67d7b6be78b5d625af836cf7efddab3c6e8fea54345bab9ea7732cf073ef25f0b8a0764d928c8a420d45beb793fa8ea93432a908c808e4f47daadf
 ```
 
 </collapse-text>
@@ -802,28 +860,32 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "assetchainproof", "params": ["d19f1c3f7e630966e1d40838c56c8c63a6cbd828d34c3544be5a60b236cf1610"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "result": "da14c5a904dcf9dcc5c4471bae0f3e90274bc782fcaf7a828c23190dbbd3392205042cd74dc8b4504472d782478b374fe3fa406f9b9199d5b8ccac7c202a73c812b6f7fb8e5644af270917b10fa879a0c5636de719d308efd245ff5613450b934a5f32fd21b84a67d7b6be78b5d625af836cf7efddab3c6e8fea54345bab9ea7732cf073ef25f0b8a0764d928c8a420d45beb793fa8ea93432a908c808e4f47daadf",
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
 
 ### getNotarisationsForBlock
 
-**getNotarisationsForBlock blockHash**
+**getNotarisationsForBlock height**
 
 The `getNotarisationsForBlock` method returns the notarisation transactions within the block for a given block hash.
 
 #### Arguments
 
-| Name        | Type               | Description                                                           |
-| ----------- | ------------------ | --------------------------------------------------------------------- |
-| "blockHash" | (string, required) | the block hash of the block in which notarisations are to be searched |
+| Name     | Type               | Description                                                             |
+| -------- | ------------------ | ----------------------------------------------------------------------- |
+| "height" | (number, required) | the block number of the block in which notarisations are to be searched |
 
 #### Response
 
@@ -838,12 +900,12 @@ returns array of pairs of values `<notarisation txid`> `<notarisation data in he
 Command:
 
 ```bash
-
+./komodo-cli getNotarisationsForBlock 1350074
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
+```json
 
 ```
 
