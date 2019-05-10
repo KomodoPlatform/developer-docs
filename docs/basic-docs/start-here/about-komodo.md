@@ -2,11 +2,11 @@
 
 After years of innovation and development, Komodo's multi-chain architecture overcomes the challenges faced by other smart-contract platforms.
 
-## An Overview of Komodo
+## Platform Overview
 
 The philosophy behind Komodo's multi-chain architecture relies on four pillars: security, scalability, interoperability, and adaptability.
 
-With these four pillars in place, all types of users of Komodo software will find powerful, customizable solutions that will set your blockchain creations free. 
+With these four pillars in place, users of all types will find powerful, customizable solutions that will set your blockchain creativity free. 
 
 #### Security: Enjoy the Protection of the Bitcoin Hash Rate
 
@@ -45,11 +45,11 @@ Adapt your blockchain to create a purpose-built solution that fits your individu
 - Dispose of Smart Chains that become data-weight heavy, or transfer them to fresh Smart Chains for ease of use
 - No need for a virtual machine (VM) nor a VM-based programming language
 
-#### Together, Komodo's Security Service is Unlike Anything Else
+#### Together, the Komodo Platform is Unlike Anything Else
 
 With the Smart Chain at your command, you are prepared to lift your decentralized application (dApp) to levels never before seen in the blockchain industry.
 
-## Smart Chains: A New Alternative To Smart-Contract Platforms
+## Smart Chains
 
 Purpose-built blockchains offer a new approach to adopt blockchain technology.
 
@@ -71,14 +71,15 @@ This blockchain evolution allows innovators to better meet the demands of our cu
 | Blockchain Layer | Fluidity Smart Chains | Smart Chains | (Shared Chain) |
 | Platform Layer | Komodo Platform | Smart-Chain Platform | Smart-Contract Platform |
 
-### Launch Smart Chains With Fluidity
+#### Fluidity Makes Development Easier
 
-The Fluidity framework accelerates blockchain technology adoption.
+For developers, Fluidity simplifies and hastens the adoption of blockchain technology.
 
-- Creating purpose-built blockchains becomes easy
-- Developing on top of blockchains becomes easy
-- Scaling up a product/service becomes easy
-- Improving and upgrading blockchain technology becomes easy
+- Start by creating a new Smart Chain that will serve your specific application
+- Use existing Fluidity modules to craft application-specific functionality
+- As needed, use the Fluidity framework to add arbitrary code to your Smart Chain's consensus mechanism
+- When your Smart Chain becomes popular, scale into a cluster of Smart Chains
+- Stay up-to-date with the latest industry innovations through no-cost updates
 
 <div style="clear: both; width: 70%; margin-left: auto; margin-right: auto; margin-bottom: 4rem; display: block;">
 
@@ -164,11 +165,11 @@ Composable & Open
 
 --------------------------------------
 
-### Fluidity Feature Highlights
+### More Fluidity Feature Highlights
 
 #### Programmable Daemon
 
-Functionality is built into the blockchain daemon – as opposed to traditional smart-contract platforms, which abstract a smart contract on top of a virtual machine.
+Functionality is built into the blockchain daemon. This stands apart from the traditional smart-contract platforms, which abstract a smart contract on top of a virtual machine.
 
 #### Modular Design
 
@@ -194,18 +195,7 @@ The Fluidity framework already hosts a library of plug-and-play modules. Each mo
 
 Experienced developers can write custom modules, creating the building blocks and RPC calls they need to build more advanced blockchain-based games, dApps, and software.
 
-#### White Label Products
-
-Go-to-market faster with Komodo’s white-label applications.
-
-- Multi-Asset Wallet For Desktop & Mobile
-- Atomic-Swap Decentralized Exchange
-- Decentralized-Crowdfunding App
-- Custom Block Explorers 
-- SPV Electrum Server Integration
-- Core Fluidity Modules
-
-## Komodo's Atomic-Swap Powered DEX
+## AtomicDEX
 
 Komodo provides open-source atomic-swap software for trading seamlessly between essentially any blockchain asset in existence.
 
@@ -240,6 +230,17 @@ The Komodo software uses atomic-swap technology, pioneered by Tier Nolan and our
 Integration requires only a few simple steps, and once up and running, you are free to trade your new blockchain-based asset with whomever you decide. 
 
 You are free to discover your own audience.
+
+#### White Label Products
+
+Go-to-market faster with Komodo’s white-label applications.
+
+- Multi-Asset Wallet For Desktop & Mobile
+- Atomic-Swap Decentralized Exchange
+- Decentralized-Crowdfunding App
+- Custom Block Explorers 
+- SPV Electrum Server Integration
+- Core Fluidity Modules
 
 ### Installing, Using, and Testing Komodo Software is Free
 
