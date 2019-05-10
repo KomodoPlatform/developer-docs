@@ -23,9 +23,12 @@ The fundamental principle of migration is that some amount of coins or tokens is
 1. Make an import transaction for the burned value, which is created in the source chain but is sent to the destination chain.
 1. Komodo's validation code checks that for the import transaction there exists a corresponding burn transaction and that it is not spent more than once.
 
-<!--- FIXME (can be deleted?)
-The following migration RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
---->
+:::tip Note
+
+- The following migration RPC calls interact with the `komodod` daemon, and are made available through the `komodo-cli`.
+- In the examples, we use 2 chains: CHAIN1(source) and CHAIN2(destination) that have been launched with the same `-ac_cc` parameter (> 100)
+
+:::
 
 #### Requirement
 
@@ -74,13 +77,16 @@ The source and destination chains should have the same `CCid` parameter ([-ac_cc
 Command:
 
 ```bash
-
+./komodo-cli -ac_name=CFEKHOUND migrate_createburntransaction CFEKDRAGON RBQ1XwmzduHvciRJbXbWY9YBSNtaqZvfC4 7.77
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "payouts": "014014502e000000001976a914173a5c80d8956eed4f1b2d46e3855fc97b3b64cf88ac",
+  "BurnTxHex": "0400008085202f8901a91010764d209bb4bdc9586f44cfced36ea75289026e714e040acac9eea475c00c0000006b483045022100e57af148204d15daa51fde4d21f0a0e54e7dd237f2bb4ee4a82bf34b27002178022052dc8e4601dd0bcbab3024ef47517391258fe5ef0fc2d4be38cc10e0c15fdbb6012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ffffffff02403b5a0c00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac503b502e000000003b6a39e283150a4346454b445241474f4e8c5970dd6f483fef99e6be0bbc64adc1ab1060e341a5c2c8b0f0a56a6d7936e80a094346454b484f554e4400000000466c00000000000000000000000000"
+}
 ```
 
 </collapse-text>
@@ -90,20 +96,41 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "migrate_createburntransaction", "params": ["CFEKDRAGON","RBQ1XwmzduHvciRJbXbWY9YBSNtaqZvfC4","7.77"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": {
+    "payouts": "014014502e000000001976a914173a5c80d8956eed4f1b2d46e3855fc97b3b64cf88ac",
+    "BurnTxHex": "0400008085202f8901a91010764d209bb4bdc9586f44cfced36ea75289026e714e040acac9eea475c00c0000006b483045022100e57af148204d15daa51fde4d21f0a0e54e7dd237f2bb4ee4a82bf34b27002178022052dc8e4601dd0bcbab3024ef47517391258fe5ef0fc2d4be38cc10e0c15fdbb6012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ffffffff02403b5a0c00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac503b502e000000003b6a39e283150a4346454b445241474f4e8c5970dd6f483fef99e6be0bbc64adc1ab1060e341a5c2c8b0f0a56a6d7936e80a094346454b484f554e4400000000466c00000000000000000000000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
+
+Broadcast the transaction:
+
+```bash
+./komodo-cli CFEKHOUND sendrawtransaction 0400008085202f8901a91010764d209bb4bdc9586f44cfced36ea75289026e714e040acac9eea475c00c0000006b483045022100e57af148204d15daa51fde4d21f0a0e54e7dd237f2bb4ee4a82bf34b27002178022052dc8e4601dd0bcbab3024ef47517391258fe5ef0fc2d4be38cc10e0c15fdbb6012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ffffffff02403b5a0c00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac503b502e000000003b6a39e283150a4346454b445241474f4e8c5970dd6f483fef99e6be0bbc64adc1ab1060e341a5c2c8b0f0a56a6d7936e80a094346454b484f554e4400000000466c00000000000000000000000000
 ```
 
 <collapse-text hidden title="Response">
 
 ```bash
-
+d19f1c3f7e630966e1d40838c56c8c63a6cbd828d34c3544be5a60b236cf1610
 ```
 
 </collapse-text>
 
 ### migrate_converttoexport
 
-**migrate_converttoexport burntx**
+**migrate_converttoexport rawtx dest_symbol**
 
 - The method `migrate_converttoexport` provides an alternative method to the user if they desire to create a customized burn transaction. It converts a given transaction to a burn transaction.
 - It adds proof data to the transaction, extracts the transaction vouts, calculates their vaules and burns the value by sending it to an `OP_RETURN` vout which is added to the created transaction.
@@ -153,7 +180,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
@@ -193,13 +220,15 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 Command:
 
 ```bash
-
+./komodo-cli -ac_name=CFEKHOUND migrate_createimporttransaction 0400008085202f8901a91010764d209bb4bdc9586f44cfced36ea75289026e714e040acac9eea475c00c0000006b483045022100e57af148204d15daa51fde4d21f0a0e54e7dd237f2bb4ee4a82bf34b27002178022052dc8e4601dd0bcbab3024ef47517391258fe5ef0fc2d4be38cc10e0c15fdbb6012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ffffffff02403b5a0c00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac503b502e000000003b6a39e283150a4346454b445241474f4e8c5970dd6f483fef99e6be0bbc64adc1ab1060e341a5c2c8b0f0a56a6d7936e80a094346454b484f554e4400000000466c00000000000000000000000000 014014502e000000001976a914173a5c80d8956eed4f1b2d46e3855fc97b3b64cf88ac
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "ImportTxHex": "0400008085202f89011016cf36b2605abe44354cd328d8cba6638c6cc53808d4e16609637e3f1c9fd100ca9a3b0201e2ffffffff024014502e000000001976a914173a5c80d8956eed4f1b2d46e3855fc97b3b64cf88ac0000000000000000fdc9016a4dc501e211da14c5a904dcf9dcc5c4471bae0f3e90274bc782fcaf7a828c23190dbbd3392205042cd74dc8b4504472d782478b374fe3fa406f9b9199d5b8ccac7c202a73c812b6f7fb8e5644af270917b10fa879a0c5636de719d308efd245ff5613450b934a5f32fd21b84a67d7b6be78b5d625af836cf7efddab3c6e8fea54345bab9ea7732cf073ef25f0b8a0764d928c8a420d45beb793fa8ea93432a908c808e4f47daadf0400008085202f8901a91010764d209bb4bdc9586f44cfced36ea75289026e714e040acac9eea475c00c0000006b483045022100e57af148204d15daa51fde4d21f0a0e54e7dd237f2bb4ee4a82bf34b27002178022052dc8e4601dd0bcbab3024ef47517391258fe5ef0fc2d4be38cc10e0c15fdbb6012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ffffffff02403b5a0c00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac503b502e000000003b6a39e283150a4346454b445241474f4e8c5970dd6f483fef99e6be0bbc64adc1ab1060e341a5c2c8b0f0a56a6d7936e80a094346454b484f554e4400000000466c0000000000000000000000000000000000000000000000000000000000000000"
+}
 ```
 
 </collapse-text>
@@ -209,13 +238,19 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "migrate_createimporttransaction", "params": ["0400008085202f8901a91010764d209bb4bdc9586f44cfced36ea75289026e714e040acac9eea475c00c0000006b483045022100e57af148204d15daa51fde4d21f0a0e54e7dd237f2bb4ee4a82bf34b27002178022052dc8e4601dd0bcbab3024ef47517391258fe5ef0fc2d4be38cc10e0c15fdbb6012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ffffffff02403b5a0c00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac503b502e000000003b6a39e283150a4346454b445241474f4e8c5970dd6f483fef99e6be0bbc64adc1ab1060e341a5c2c8b0f0a56a6d7936e80a094346454b484f554e4400000000466c00000000000000000000000000","014014502e000000001976a914173a5c80d8956eed4f1b2d46e3855fc97b3b64cf88ac"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "result": {
+    "ImportTxHex": "0400008085202f89011016cf36b2605abe44354cd328d8cba6638c6cc53808d4e16609637e3f1c9fd100ca9a3b0201e2ffffffff024014502e000000001976a914173a5c80d8956eed4f1b2d46e3855fc97b3b64cf88ac0000000000000000fdc9016a4dc501e211da14c5a904dcf9dcc5c4471bae0f3e90274bc782fcaf7a828c23190dbbd3392205042cd74dc8b4504472d782478b374fe3fa406f9b9199d5b8ccac7c202a73c812b6f7fb8e5644af270917b10fa879a0c5636de719d308efd245ff5613450b934a5f32fd21b84a67d7b6be78b5d625af836cf7efddab3c6e8fea54345bab9ea7732cf073ef25f0b8a0764d928c8a420d45beb793fa8ea93432a908c808e4f47daadf0400008085202f8901a91010764d209bb4bdc9586f44cfced36ea75289026e714e040acac9eea475c00c0000006b483045022100e57af148204d15daa51fde4d21f0a0e54e7dd237f2bb4ee4a82bf34b27002178022052dc8e4601dd0bcbab3024ef47517391258fe5ef0fc2d4be38cc10e0c15fdbb6012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ffffffff02403b5a0c00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac503b502e000000003b6a39e283150a4346454b445241474f4e8c5970dd6f483fef99e6be0bbc64adc1ab1060e341a5c2c8b0f0a56a6d7936e80a094346454b484f554e4400000000466c0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
@@ -248,13 +283,15 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 Command:
 
 ```bash
-
+./komodo-cli migrate_completeimporttransaction 0400008085202f89011016cf36b2605abe44354cd328d8cba6638c6cc53808d4e16609637e3f1c9fd100ca9a3b0201e2ffffffff024014502e000000001976a914173a5c80d8956eed4f1b2d46e3855fc97b3b64cf88ac0000000000000000fdc9016a4dc501e211da14c5a904dcf9dcc5c4471bae0f3e90274bc782fcaf7a828c23190dbbd3392205042cd74dc8b4504472d782478b374fe3fa406f9b9199d5b8ccac7c202a73c812b6f7fb8e5644af270917b10fa879a0c5636de719d308efd245ff5613450b934a5f32fd21b84a67d7b6be78b5d625af836cf7efddab3c6e8fea54345bab9ea7732cf073ef25f0b8a0764d928c8a420d45beb793fa8ea93432a908c808e4f47daadf0400008085202f8901a91010764d209bb4bdc9586f44cfced36ea75289026e714e040acac9eea475c00c0000006b483045022100e57af148204d15daa51fde4d21f0a0e54e7dd237f2bb4ee4a82bf34b27002178022052dc8e4601dd0bcbab3024ef47517391258fe5ef0fc2d4be38cc10e0c15fdbb6012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ffffffff02403b5a0c00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac503b502e000000003b6a39e283150a4346454b445241474f4e8c5970dd6f483fef99e6be0bbc64adc1ab1060e341a5c2c8b0f0a56a6d7936e80a094346454b484f554e4400000000466c0000000000000000000000000000000000000000000000000000000000000000
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "ImportTxHex": "0400008085202f89011016cf36b2605abe44354cd328d8cba6638c6cc53808d4e16609637e3f1c9fd100ca9a3b0201e2ffffffff024014502e000000001976a914173a5c80d8956eed4f1b2d46e3855fc97b3b64cf88ac0000000000000000fd49026a4d4502e211a2f7550475bf21bac89b760b8c1e6a114d77c22de1584f3d65a09b98fe73360945082cd74dc8b4504472d782478b374fe3fa406f9b9199d5b8ccac7c202a73c812b6f7fb8e5644af270917b10fa879a0c5636de719d308efd245ff5613450b934a5f32fd21b84a67d7b6be78b5d625af836cf7efddab3c6e8fea54345bab9ea7732cf073ef25f0b8a0764d928c8a420d45beb793fa8ea93432a908c808e4f47daadfdfaa753cfdd54be8cc63b15bc2544964c03c43e0645a1ea9302522a1c9daf4c19dd9ff959973a556e4761ae171363572f782f5660a89acde315cd811a1b42140fa6d1de2ced3e371e4f8e4bca493a23d6121a608ccc0d66eb45b3ccce9518612bef75468f0fe5310972c8059e9aabf86b59a824bf5e2ac6f6b6eeb7dc171ebcb0400008085202f8901a91010764d209bb4bdc9586f44cfced36ea75289026e714e040acac9eea475c00c0000006b483045022100e57af148204d15daa51fde4d21f0a0e54e7dd237f2bb4ee4a82bf34b27002178022052dc8e4601dd0bcbab3024ef47517391258fe5ef0fc2d4be38cc10e0c15fdbb6012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ffffffff02403b5a0c00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac503b502e000000003b6a39e283150a4346454b445241474f4e8c5970dd6f483fef99e6be0bbc64adc1ab1060e341a5c2c8b0f0a56a6d7936e80a094346454b484f554e4400000000466c0000000000000000000000000000000000000000000000000000000000000000"
+}
 ```
 
 </collapse-text>
@@ -264,13 +301,33 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "migrate_completeimporttransaction", "params": ["0400008085202f89011016cf36b2605abe44354cd328d8cba6638c6cc53808d4e16609637e3f1c9fd100ca9a3b0201e2ffffffff024014502e000000001976a914173a5c80d8956eed4f1b2d46e3855fc97b3b64cf88ac0000000000000000fd49026a4d4502e211a2f7550475bf21bac89b760b8c1e6a114d77c22de1584f3d65a09b98fe73360945082cd74dc8b4504472d782478b374fe3fa406f9b9199d5b8ccac7c202a73c812b6f7fb8e5644af270917b10fa879a0c5636de719d308efd245ff5613450b934a5f32fd21b84a67d7b6be78b5d625af836cf7efddab3c6e8fea54345bab9ea7732cf073ef25f0b8a0764d928c8a420d45beb793fa8ea93432a908c808e4f47daadfdfaa753cfdd54be8cc63b15bc2544964c03c43e0645a1ea9302522a1c9daf4c19dd9ff959973a556e4761ae171363572f782f5660a89acde315cd811a1b42140fa6d1de2ced3e371e4f8e4bca493a23d6121a608ccc0d66eb45b3ccce9518612bef75468f0fe5310972c8059e9aabf86b59a824bf5e2ac6f6b6eeb7dc171ebcb0400008085202f8901a91010764d209bb4bdc9586f44cfced36ea75289026e714e040acac9eea475c00c0000006b483045022100e57af148204d15daa51fde4d21f0a0e54e7dd237f2bb4ee4a82bf34b27002178022052dc8e4601dd0bcbab3024ef47517391258fe5ef0fc2d4be38cc10e0c15fdbb6012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ffffffff02403b5a0c00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac503b502e000000003b6a39e283150a4346454b445241474f4e8c5970dd6f483fef99e6be0bbc64adc1ab1060e341a5c2c8b0f0a56a6d7936e80a094346454b484f554e4400000000466c0000000000000000000000000000000000000000000000000000000000000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": {
+    "ImportTxHex": "0400008085202f89011016cf36b2605abe44354cd328d8cba6638c6cc53808d4e16609637e3f1c9fd100ca9a3b0201e2ffffffff024014502e000000001976a914173a5c80d8956eed4f1b2d46e3855fc97b3b64cf88ac0000000000000000fd49026a4d4502e211a2f7550475bf21bac89b760b8c1e6a114d77c22de1584f3d65a09b98fe73360945082cd74dc8b4504472d782478b374fe3fa406f9b9199d5b8ccac7c202a73c812b6f7fb8e5644af270917b10fa879a0c5636de719d308efd245ff5613450b934a5f32fd21b84a67d7b6be78b5d625af836cf7efddab3c6e8fea54345bab9ea7732cf073ef25f0b8a0764d928c8a420d45beb793fa8ea93432a908c808e4f47daadfdfaa753cfdd54be8cc63b15bc2544964c03c43e0645a1ea9302522a1c9daf4c19dd9ff959973a556e4761ae171363572f782f5660a89acde315cd811a1b42140fa6d1de2ced3e371e4f8e4bca493a23d6121a608ccc0d66eb45b3ccce9518612bef75468f0fe5310972c8059e9aabf86b59a824bf5e2ac6f6b6eeb7dc171ebcb0400008085202f8901a91010764d209bb4bdc9586f44cfced36ea75289026e714e040acac9eea475c00c0000006b483045022100e57af148204d15daa51fde4d21f0a0e54e7dd237f2bb4ee4a82bf34b27002178022052dc8e4601dd0bcbab3024ef47517391258fe5ef0fc2d4be38cc10e0c15fdbb6012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ffffffff02403b5a0c00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac503b502e000000003b6a39e283150a4346454b445241474f4e8c5970dd6f483fef99e6be0bbc64adc1ab1060e341a5c2c8b0f0a56a6d7936e80a094346454b484f554e4400000000466c0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
+
+Broadcast the transaction:
+
+```bash
+./komodo-cli CFEKDRAGON sendrawtransaction 0400008085202f89011016cf36b2605abe44354cd328d8cba6638c6cc53808d4e16609637e3f1c9fd100ca9a3b0201e2ffffffff024014502e000000001976a914173a5c80d8956eed4f1b2d46e3855fc97b3b64cf88ac0000000000000000fd49026a4d4502e211a2f7550475bf21bac89b760b8c1e6a114d77c22de1584f3d65a09b98fe73360945082cd74dc8b4504472d782478b374fe3fa406f9b9199d5b8ccac7c202a73c812b6f7fb8e5644af270917b10fa879a0c5636de719d308efd245ff5613450b934a5f32fd21b84a67d7b6be78b5d625af836cf7efddab3c6e8fea54345bab9ea7732cf073ef25f0b8a0764d928c8a420d45beb793fa8ea93432a908c808e4f47daadfdfaa753cfdd54be8cc63b15bc2544964c03c43e0645a1ea9302522a1c9daf4c19dd9ff959973a556e4761ae171363572f782f5660a89acde315cd811a1b42140fa6d1de2ced3e371e4f8e4bca493a23d6121a608ccc0d66eb45b3ccce9518612bef75468f0fe5310972c8059e9aabf86b59a824bf5e2ac6f6b6eeb7dc171ebcb0400008085202f8901a91010764d209bb4bdc9586f44cfced36ea75289026e714e040acac9eea475c00c0000006b483045022100e57af148204d15daa51fde4d21f0a0e54e7dd237f2bb4ee4a82bf34b27002178022052dc8e4601dd0bcbab3024ef47517391258fe5ef0fc2d4be38cc10e0c15fdbb6012103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ffffffff02403b5a0c00000000232103336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8ac503b502e000000003b6a39e283150a4346454b445241474f4e8c5970dd6f483fef99e6be0bbc64adc1ab1060e341a5c2c8b0f0a56a6d7936e80a094346454b484f554e4400000000466c0000000000000000000000000000000000000000000000000000000000000000
 ```
 
 <collapse-text hidden title="Response">
 
 ```bash
-
+b2ed563617771d4a919fb13906e93c8ec485bed145a3f380583796663e285e0d
 ```
 
 </collapse-text>
@@ -289,15 +346,15 @@ For this to work, the notary operators pick burn transactions sent to a special 
 
 ### migrate_checkburntransactionsource
 
-**migrate_checkburntransactionsource burntx**
+**migrate_checkburntransactionsource burntxid**
 
 The `migrate_checkburntransactionsource` method allows a notary operator to check the burn transaction's structure and verify its presence in the source chain.
 
 #### Arguments
 
-| Name     | Type               | Description                        |
-| -------- | ------------------ | ---------------------------------- |
-| "burntx" | (string, required) | the burn transaction in hex format |
+| Name       | Type               | Description               |
+| ---------- | ------------------ | ------------------------- |
+| "burntxid" | (string, required) | the burn transaction's id |
 
 #### Response
 
@@ -314,13 +371,19 @@ The `migrate_checkburntransactionsource` method allows a notary operator to chec
 Command:
 
 ```bash
-
+./komodo-cli -ac_name=CFEKHOUND migrate_checkburntransactionsource d19f1c3f7e630966e1d40838c56c8c63a6cbd828d34c3544be5a60b236cf1610
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "SourceSymbol": "CFEKHOUND",
+  "TargetSymbol": "CFEKDRAGON",
+  "TargetCCid": "533",
+  "TxOutProof": "040000009c6c2e1c0607ea57d44d6d0518cebc341a76e8f294ad6d2844d84f09983b35013bfacfeb3d1a412c1261f59f122fae6ae3d657d3a1871902282519a0b0d08045fbc2f4300c01f0b7820d00e3347c8da4ee614674376cbc45359daa54f9b5493ec64bd45c8fab0220360057fb64b4378bb1a33d9dcf9acf6e5b7c42f6a08db8eb87bfaad001910000143427efb28257954cb4e6596f4e06bdcad43cb9a402000000022cd74dc8b4504472d782478b374fe3fa406f9b9199d5b8ccac7c202a73c812b61016cf36b2605abe44354cd328d8cba6638c6cc53808d4e16609637e3f1c9fd10105",
+  "result": "success"
+}
 ```
 
 </collapse-text>
@@ -330,13 +393,23 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "migrate_checkburntransactionsource", "params": ["d19f1c3f7e630966e1d40838c56c8c63a6cbd828d34c3544be5a60b236cf1610"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "result": {
+    "SourceSymbol": "CFEKHOUND",
+    "TargetSymbol": "CFEKDRAGON",
+    "TargetCCid": "533",
+    "TxOutProof": "040000009c6c2e1c0607ea57d44d6d0518cebc341a76e8f294ad6d2844d84f09983b35013bfacfeb3d1a412c1261f59f122fae6ae3d657d3a1871902282519a0b0d08045fbc2f4300c01f0b7820d00e3347c8da4ee614674376cbc45359daa54f9b5493ec64bd45c8fab0220360057fb64b4378bb1a33d9dcf9acf6e5b7c42f6a08db8eb87bfaad001910000143427efb28257954cb4e6596f4e06bdcad43cb9a402000000022cd74dc8b4504472d782478b374fe3fa406f9b9199d5b8ccac7c202a73c812b61016cf36b2605abe44354cd328d8cba6638c6cc53808d4e16609637e3f1c9fd10105",
+    "result": "success"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
@@ -382,7 +455,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
@@ -445,7 +518,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
@@ -507,7 +580,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
@@ -568,7 +641,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
@@ -620,7 +693,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
@@ -672,7 +745,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
@@ -726,7 +799,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
@@ -789,7 +862,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
@@ -843,7 +916,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
