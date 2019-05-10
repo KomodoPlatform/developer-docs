@@ -906,7 +906,61 @@ Command:
 <collapse-text hidden title="Response">
 
 ```json
-
+{
+  "KMD": [
+    {
+      "txid": "18c067eef7b264d3536e89e319e451d036f8c6a2256c60eb1132b9362f6d7dac",
+      "chain": "KMD",
+      "height": 1350060,
+      "blockhash": "027d124806ce2938e166450ae50c06f11c2b254c2603b3c2d1024d48431b04ff",
+      "notaries": [14, 17, 18, 19, 21, 25, 27, 28, 36, 43, 53, 55, 60]
+    },
+    {
+      "txid": "17e77666028aa94f7793b7c916e82085d2cd555a75c21b55ba60989a7c49fff9",
+      "chain": "HODL",
+      "height": 447018,
+      "blockhash": "0c321de920e0e3c342be96a8ffbe15c8dd738babfe7d7c5718ff2017f6f3247f",
+      "notaries": [4, 18, 23, 29, 32, 39, 40, 44, 47, 48, 55, 57, 58]
+    },
+    {
+      "txid": "2325ec9eebca3304b2b7587c5594659f40e0800d3add30c7209787af4393ded8",
+      "chain": "BOTS",
+      "height": 616740,
+      "blockhash": "0923bbf209a22644ebe5d59555b770658e8e788579a4da1a49bf3f9e45324aa0",
+      "notaries": [14, 15, 16, 25, 26, 30, 32, 43, 45, 46, 55, 57, 58]
+    },
+    {
+      "txid": "2282d6adaeb1daa3c112395df2efc4a37bbd91f40905aecc294f908cae9cf0a1",
+      "chain": "REVS",
+      "height": 655866,
+      "blockhash": "003dfc89999d585a92760ad335e4d3786b7860f1d1638ae0f4273cdc9dfa07e3",
+      "notaries": [4, 14, 15, 16, 24, 25, 27, 32, 46, 47, 53, 55, 57]
+    },
+    {
+      "txid": "5892ac6929f1e163ae8bad9219b52cd7d551bc295a461da9cae40accfd48ee8b",
+      "chain": "MSHARK",
+      "height": 631714,
+      "blockhash": "07d02c0676f3a862a02190424a904d066cb1614b3866a4b7f8e11771ad5f3dde",
+      "notaries": [4, 17, 23, 24, 27, 28, 30, 34, 36, 51, 56, 58, 60]
+    }
+  ],
+  "LABS": [
+    {
+      "txid": "aae98ab897cedcf93600cea0b44ee4186514b2d43ac3ef07404ff4d862ef6e65",
+      "chain": "LABSRCTEST",
+      "height": 11655,
+      "blockhash": "000e12b4d153f8e355d7ab76251c553c15116013cc678bcada5055342c1f7d7e",
+      "notaries": [0, 4, 10, 13, 14, 17]
+    },
+    {
+      "txid": "8c4ece82cc1aa467f61e9575718a06c5962934d573c13d60a715a349d5fe5694",
+      "chain": "CFEKDRAGON",
+      "height": 28990,
+      "blockhash": "00e5a29c351f2c92e2435f8ed8d27335f6dc255bf3b658e1753ba7d3bec38efd",
+      "notaries": [7, 10, 12, 13, 15, 17]
+    }
+  ]
+}
 ```
 
 </collapse-text>
@@ -916,13 +970,71 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getNotarisationsForBlock", "params": ["1350074"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "result": {
+    "KMD": [
+      {
+        "txid": "18c067eef7b264d3536e89e319e451d036f8c6a2256c60eb1132b9362f6d7dac",
+        "chain": "KMD",
+        "height": 1350060,
+        "blockhash": "027d124806ce2938e166450ae50c06f11c2b254c2603b3c2d1024d48431b04ff",
+        "notaries": [14, 17, 18, 19, 21, 25, 27, 28, 36, 43, 53, 55, 60]
+      },
+      {
+        "txid": "17e77666028aa94f7793b7c916e82085d2cd555a75c21b55ba60989a7c49fff9",
+        "chain": "HODL",
+        "height": 447018,
+        "blockhash": "0c321de920e0e3c342be96a8ffbe15c8dd738babfe7d7c5718ff2017f6f3247f",
+        "notaries": [4, 18, 23, 29, 32, 39, 40, 44, 47, 48, 55, 57, 58]
+      },
+      {
+        "txid": "2325ec9eebca3304b2b7587c5594659f40e0800d3add30c7209787af4393ded8",
+        "chain": "BOTS",
+        "height": 616740,
+        "blockhash": "0923bbf209a22644ebe5d59555b770658e8e788579a4da1a49bf3f9e45324aa0",
+        "notaries": [14, 15, 16, 25, 26, 30, 32, 43, 45, 46, 55, 57, 58]
+      },
+      {
+        "txid": "2282d6adaeb1daa3c112395df2efc4a37bbd91f40905aecc294f908cae9cf0a1",
+        "chain": "REVS",
+        "height": 655866,
+        "blockhash": "003dfc89999d585a92760ad335e4d3786b7860f1d1638ae0f4273cdc9dfa07e3",
+        "notaries": [4, 14, 15, 16, 24, 25, 27, 32, 46, 47, 53, 55, 57]
+      },
+      {
+        "txid": "5892ac6929f1e163ae8bad9219b52cd7d551bc295a461da9cae40accfd48ee8b",
+        "chain": "MSHARK",
+        "height": 631714,
+        "blockhash": "07d02c0676f3a862a02190424a904d066cb1614b3866a4b7f8e11771ad5f3dde",
+        "notaries": [4, 17, 23, 24, 27, 28, 30, 34, 36, 51, 56, 58, 60]
+      }
+    ],
+    "LABS": [
+      {
+        "txid": "aae98ab897cedcf93600cea0b44ee4186514b2d43ac3ef07404ff4d862ef6e65",
+        "chain": "LABSRCTEST",
+        "height": 11655,
+        "blockhash": "000e12b4d153f8e355d7ab76251c553c15116013cc678bcada5055342c1f7d7e",
+        "notaries": [0, 4, 10, 13, 14, 17]
+      },
+      {
+        "txid": "8c4ece82cc1aa467f61e9575718a06c5962934d573c13d60a715a349d5fe5694",
+        "chain": "CFEKDRAGON",
+        "height": 28990,
+        "blockhash": "00e5a29c351f2c92e2435f8ed8d27335f6dc255bf3b658e1753ba7d3bec38efd",
+        "notaries": [7, 10, 12, 13, 15, 17]
+      }
+    ]
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
@@ -954,13 +1066,17 @@ returns array of `<notarisation txid`> `<notarisation data in hex`>
 Command:
 
 ```bash
-
+./komodo-cli scanNotarisationsDB 1350074 EMC2
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "height": 1350067,
+  "hash": "1b86cd4512d02561359ecfc841ea49692a4c9da112393a17bd4479443fbd47a4",
+  "opreturn": "45dd5cbd1972b23bfd272279f3f0bd3878ad5e020aa18f31072a096e25c261dfb4f02300454d433200000000000000000000000000000000000000000000000000000000000000000000000000"
+}
 ```
 
 </collapse-text>
@@ -970,13 +1086,21 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "scanNotarisationsDB", "params": ["1350074","EMC2"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "result": {
+    "height": 1350067,
+    "hash": "1b86cd4512d02561359ecfc841ea49692a4c9da112393a17bd4479443fbd47a4",
+    "opreturn": "45dd5cbd1972b23bfd272279f3f0bd3878ad5e020aa18f31072a096e25c261dfb4f02300454d433200000000000000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
