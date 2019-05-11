@@ -1217,18 +1217,18 @@ The `getimports` method lists import transactions in the chain's block chosen by
 
 #### Response
 
-| Name             | Type                    | Description                                         |
-| ---------------- | ----------------------- | --------------------------------------------------- |
-| "transaction id" | (string)                | the import transaction id                           |
-| "amount"         | (number)                | the import transaction's value in coins             |
-| "address"        | (string)                | the destination address                             |
-| "export:"        | <!-- FIXME fill this--> | the export or burn transaction's infomation         |
-| "txid"           | (string)                | the export transaction's id                         |
-| "amount"         | (number)                | the export transaction's value                      |
-| "txid"           | (string)                | the export transaction's id                         |
-| "source"         | (string)                | the source chain's name                             |
-| "tokenid"        | (string,optional)       | the source chain's token id, if tokens are imported |
-| "TotalImported"  | (number)                | the total imported amount in coins                  |
+| Name            | Type              | Description                                         |
+| --------------- | ----------------- | --------------------------------------------------- |
+| "imports"       | (array)           |                                                     |
+| "txid"          | (string)          | the import transaction id                           |
+| "amount"        | (number)          | the import transaction's value in coins             |
+| "export"        | (json)            | the export or burn transaction's infomation         |
+| "txid"          | (string)          | the export transaction's id                         |
+| "amount"        | (number)          | the export transaction's value                      |
+| "txid"          | (string)          | the export transaction's id                         |
+| "source"        | (string)          | the source chain's name                             |
+| "tokenid"       | (string,optional) | the source chain's token id, if tokens are imported |
+| "TotalImported" | (number)          | the total imported amount in coins                  |
 
 #### :pushpin: Examples
 
@@ -1237,6 +1237,10 @@ Command:
 ```bash
 ./komodo-cli -ac_name=CFEKDRAGON getimports 027366fc75eb2adda37f54092f29130d3feafd5bf453b4005fbdc68a27391a8f
 ```
+
+:::tip Note
+If the transaction id of an import is known, use the [gettransaction](../komodo-api/wallet.html#gettransaction) method and get its block hash to use in the above method
+:::
 
 <collapse-text hidden title="Response">
 
