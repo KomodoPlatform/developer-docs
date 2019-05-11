@@ -611,13 +611,16 @@ The Self import API allows a trusted pubkey to create more coins on the same cha
 Command:
 
 ```bash
-
+./komodo-cli -ac_name=IMPORTTEST selfimport RM9n6rts1CBKX4oXziLp1WBBgEUjKKWHb3 100000
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "SourceTxHex": "0400008085202f8901011063706ccf8ccb228566bf94ff2c34e544a3d856b7f061d7d881789dd89d130000000049483045022100efc45823b3e190cd6fab3192d2f1c7ce2945396868f786c0c1f3fca6d4d54378022011d19799fb30e089cc16c38557da301aeb707e289ca911e1c99e6fcc603ba01e01ffffffff0310270000000000001976a914823a9534f765ff5f56d1d5bddc029087972f321c88ace092f5050000000023210257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634ac00000000000000000c6a0ae24100a0724e18090000000000008f0100000000000000000000000000",
+  "ImportTxHex": "0400008085202f89012764621f3e61d2b47b9f0595639db26b0455d5ac17f73676115e8967640a422400ca9a3b0201e2ffffffff0200a0724e180900001976a914823a9534f765ff5f56d1d5bddc029087972f321c88ac0000000000000000f16a4ceee211d51ab2be8a8c1439438b64a048ae4df3282234787d9c11574971f9429372dde089af17000400008085202f8901011063706ccf8ccb228566bf94ff2c34e544a3d856b7f061d7d881789dd89d130000000049483045022100efc45823b3e190cd6fab3192d2f1c7ce2945396868f786c0c1f3fca6d4d54378022011d19799fb30e089cc16c38557da301aeb707e289ca911e1c99e6fcc603ba01e01ffffffff0100a0724e18090000306a2ee28efefefe7f065055424b4559dded40d8b8826ad32af955a9ce0c2ebc0cd60d9978a1936d425b8f7bdc1c756700000000008f010000000000000000000000000000000000000000000000000000000000000000"
+}
 ```
 
 </collapse-text>
@@ -627,14 +630,102 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "selfimport", "params": ["RM9n6rts1CBKX4oXziLp1WBBgEUjKKWHb3","100000"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "result": {
+    "SourceTxHex": "0400008085202f8901011063706ccf8ccb228566bf94ff2c34e544a3d856b7f061d7d881789dd89d130000000049483045022100efc45823b3e190cd6fab3192d2f1c7ce2945396868f786c0c1f3fca6d4d54378022011d19799fb30e089cc16c38557da301aeb707e289ca911e1c99e6fcc603ba01e01ffffffff0310270000000000001976a914823a9534f765ff5f56d1d5bddc029087972f321c88ace092f5050000000023210257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634ac00000000000000000c6a0ae24100a0724e18090000000000008f0100000000000000000000000000",
+    "ImportTxHex": "0400008085202f89012764621f3e61d2b47b9f0595639db26b0455d5ac17f73676115e8967640a422400ca9a3b0201e2ffffffff0200a0724e180900001976a914823a9534f765ff5f56d1d5bddc029087972f321c88ac0000000000000000f16a4ceee211d51ab2be8a8c1439438b64a048ae4df3282234787d9c11574971f9429372dde089af17000400008085202f8901011063706ccf8ccb228566bf94ff2c34e544a3d856b7f061d7d881789dd89d130000000049483045022100efc45823b3e190cd6fab3192d2f1c7ce2945396868f786c0c1f3fca6d4d54378022011d19799fb30e089cc16c38557da301aeb707e289ca911e1c99e6fcc603ba01e01ffffffff0100a0724e18090000306a2ee28efefefe7f065055424b4559dded40d8b8826ad32af955a9ce0c2ebc0cd60d9978a1936d425b8f7bdc1c756700000000008f010000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
+
+</collapse-text>
+
+To see the rest of the process when migrate_converttoexport is used, click the following button:
+
+<collapse-text hidden title="the whole process">
+
+##### Node1
+
+Start a chain with the parameters `-ac_import=PUBKEY` and `-ac_pubkey=<pubkey>` (`<pubkey>` is the pubkey that can create coins at will ):
+
+```bash
+./komodod -ac_name=IMPORTTEST -ac_import=PUBKEY -ac_pubkey=0257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634 -ac_supply=777777 -ac_reward=100000000 -pubkey=0257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634
+```
+
+Import the privkey corresponding to the pubkey used when starting the chain:
+
+```bash
+./komodo-cli -ac_name=IMPORTTEST importprivkey xxxxx
+```
+
+##### Node2
+
+Connect to the chain created in Node1:
+
+```bash
+./komodod -ac_name=IMPORTTEST -ac_import=PUBKEY -ac_pubkey=0257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634 -ac_supply=777777 -ac_reward=100000000 -addnode=<ip address of Node1>
+```
+
+Notice that there is only `-ac_pubkey` in the above command but not `pubkey`. That's because, `-ac_pubkey` is part of the chain parameters and `-pubkey` is just [indicating the pubkey](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey) to the particular daemon for various features.
+
+Verify that `connections:1` from the [getinfo](../komodo-api/control.html#getinfo) method
+
+##### Node1
+
+Start mining in Node1:
+
+```bash
+./komodo-cli -ac_name=IMPORTTEST setgenerate true 1
+```
+
+Verify that the balance increased by atleast the amount specified in `-ac_supply` through the method [getbalance](../komodo-api/control.html#getbalances)
+
+Use the method `selfimport` to receive the `SourceTxHex` and the `ImportTxHex`
+
+```bash
+./komodo-cli -ac_name=IMPORTTEST selfimport RM9n6rts1CBKX4oXziLp1WBBgEUjKKWHb3 100000
+```
+
+```json
+{
+  "SourceTxHex": "0400008085202f8901011063706ccf8ccb228566bf94ff2c34e544a3d856b7f061d7d881789dd89d130000000049483045022100efc45823b3e190cd6fab3192d2f1c7ce2945396868f786c0c1f3fca6d4d54378022011d19799fb30e089cc16c38557da301aeb707e289ca911e1c99e6fcc603ba01e01ffffffff0310270000000000001976a914823a9534f765ff5f56d1d5bddc029087972f321c88ace092f5050000000023210257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634ac00000000000000000c6a0ae24100a0724e18090000000000008f0100000000000000000000000000",
+  "ImportTxHex": "0400008085202f89012764621f3e61d2b47b9f0595639db26b0455d5ac17f73676115e8967640a422400ca9a3b0201e2ffffffff0200a0724e180900001976a914823a9534f765ff5f56d1d5bddc029087972f321c88ac0000000000000000f16a4ceee211d51ab2be8a8c1439438b64a048ae4df3282234787d9c11574971f9429372dde089af17000400008085202f8901011063706ccf8ccb228566bf94ff2c34e544a3d856b7f061d7d881789dd89d130000000049483045022100efc45823b3e190cd6fab3192d2f1c7ce2945396868f786c0c1f3fca6d4d54378022011d19799fb30e089cc16c38557da301aeb707e289ca911e1c99e6fcc603ba01e01ffffffff0100a0724e18090000306a2ee28efefefe7f065055424b4559dded40d8b8826ad32af955a9ce0c2ebc0cd60d9978a1936d425b8f7bdc1c756700000000008f010000000000000000000000000000000000000000000000000000000000000000"
+}
+```
+
+Broadcast the `SourceTxHex`:
+
+```bash
+./komodo-cli -ac_name=IMPORTTEST sendrawtransaction 0400008085202f8901011063706ccf8ccb228566bf94ff2c34e544a3d856b7f061d7d881789dd89d130000000049483045022100efc45823b3e190cd6fab3192d2f1c7ce2945396868f786c0c1f3fca6d4d54378022011d19799fb30e089cc16c38557da301aeb707e289ca911e1c99e6fcc603ba01e01ffffffff0310270000000000001976a914823a9534f765ff5f56d1d5bddc029087972f321c88ace092f5050000000023210257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634ac00000000000000000c6a0ae24100a0724e18090000000000008f0100000000000000000000000000
+```
+
+Response:
+
+```bash
+e0dd729342f9714957119c7d78342228f34dae48a0648b4339148c8abeb21ad5
+```
+
+After the above transaction is confirmed, Broadcast the `ImportTxHex`:
+
+```bash
+./komodo-cli -ac_name=IMPORTTEST sendrawtransaction 0400008085202f89012764621f3e61d2b47b9f0595639db26b0455d5ac17f73676115e8967640a422400ca9a3b0201e2ffffffff0200a0724e180900001976a914823a9534f765ff5f56d1d5bddc029087972f321c88ac0000000000000000f16a4ceee211d51ab2be8a8c1439438b64a048ae4df3282234787d9c11574971f9429372dde089af17000400008085202f8901011063706ccf8ccb228566bf94ff2c34e544a3d856b7f061d7d881789dd89d130000000049483045022100efc45823b3e190cd6fab3192d2f1c7ce2945396868f786c0c1f3fca6d4d54378022011d19799fb30e089cc16c38557da301aeb707e289ca911e1c99e6fcc603ba01e01ffffffff0100a0724e18090000306a2ee28efefefe7f065055424b4559dded40d8b8826ad32af955a9ce0c2ebc0cd60d9978a1936d425b8f7bdc1c756700000000008f010000000000000000000000000000000000000000000000000000000000000000
+```
+
+Response:
+
+```bash
+e78096bb4139430276fd5176ff8ac97182be17606558eefb0c21c332192bd189
+```
+
+Confirm that the address given to the `selfimport` command received the newly created funds
 
 </collapse-text>
 
@@ -889,11 +980,14 @@ The `getNotarisationsForBlock` method returns the notarisation transactions with
 
 #### Response
 
-<!--FIXME fill in the response box
-
-returns array of pairs of values `<notarisation txid`> `<notarisation data in hex`>
-
--->
+| Name             | Type     | Description                                                                                                                |
+| ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
+| "Notary Cluster" | (string) | refers to the notary group which performed the notarisations; KMD for the main Komodo notaries, LABS for the LABS notaries |
+| "txid"           | (string) | the notarisation transaction's id                                                                                          |
+| "chain"          | (string) | the chain that has been notarised                                                                                          |
+| "height"         | (number) | the notarisation transaction's block height                                                                                |
+| "blockhash"      | (string) | the hash of the notarisation transaction's block                                                                           |
+| "notaries"       | (array)  | the [ids](https://github.com/jl777/komodo/blob/master/src/komodo_notary.h) of the notaries who performed the notarisation  |
 
 #### :pushpin: Examples
 
@@ -1055,11 +1149,11 @@ The `scanNotarisationsDB` method scans the notarisations database backwards from
 
 #### Response
 
-<!-- FIXME fill in the response box
-
-returns array of `<notarisation txid`> `<notarisation data in hex`>
-
--->
+| Name       | Type     | Description                                                             |
+| ---------- | -------- | ----------------------------------------------------------------------- |
+| "height"   | (number) | the block height of the notarisation transaction id that has been found |
+| "hash"     | (string) | the hash of the notarisation transaction id that has been found         |
+| "opreturn" | (string) | the notarisation data in hex format                                     |
 
 #### :pushpin: Examples
 
@@ -1141,13 +1235,27 @@ The `getimports` method lists import transactions in the chain's block chosen by
 Command:
 
 ```bash
-
+./komodo-cli -ac_name=CFEKDRAGON getimports 027366fc75eb2adda37f54092f29130d3feafd5bf453b4005fbdc68a27391a8f
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "imports": [
+    {
+      "txid": "b2ed563617771d4a919fb13906e93c8ec485bed145a3f380583796663e285e0d",
+      "amount": 0.0,
+      "export": {
+        "txid": "d19f1c3f7e630966e1d40838c56c8c63a6cbd828d34c3544be5a60b236cf1610",
+        "amount": 7.7701,
+        "source": "CFEKHOUND"
+      }
+    }
+  ],
+  "TotalImported": 7.77,
+  "time": 1557421253
+}
 ```
 
 </collapse-text>
@@ -1157,28 +1265,46 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getimports", "params": ["027366fc75eb2adda37f54092f29130d3feafd5bf453b4005fbdc68a27391a8f"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "result": {
+    "imports": [
+      {
+        "txid": "b2ed563617771d4a919fb13906e93c8ec485bed145a3f380583796663e285e0d",
+        "amount": 0.0,
+        "export": {
+          "txid": "d19f1c3f7e630966e1d40838c56c8c63a6cbd828d34c3544be5a60b236cf1610",
+          "amount": 7.7701,
+          "source": "CFEKHOUND"
+        }
+      }
+    ],
+    "TotalImported": 7.77,
+    "time": 1557421253
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
 
-### getwalletburntransaction
+### getwalletburntransactions
 
-**getwalletburntransactions**
+**getwalletburntransactions "count"**
 
 The `getwalletburntransactions` method lists all the burn transactions in the current wallet.
 
 #### Arguments
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |             |
+| Name    | Type               | Description                                                                                  |
+| ------- | ------------------ | -------------------------------------------------------------------------------------------- |
+| "count" | (number, optional) | the number of burn transactions to be returned; if omitted, defaults to 10 burn transactions |
 
 #### Response
 
@@ -1195,6 +1321,7 @@ The `getwalletburntransactions` method lists all the burn transactions in the cu
 Command:
 
 ```bash
+
 
 ```
 
