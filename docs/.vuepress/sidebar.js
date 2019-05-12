@@ -7,25 +7,13 @@ var sidebar = [{
           "About Komodo"
       ],
       [
-        "/basic-docs/start-here/getting-started.md",
-        "Getting Started"
+        "/basic-docs/start-here/before-we-begin.md",
+        "Before We Begin"
       ],
       [
-        "/basic-docs/installations/basic-instructions.md",
-        "Install Software"
+        "/basic-docs/start-here/get-started.md",
+        "Get Started"
       ],
-      [
-        "/basic-docs/installations/creating-asset-chains.md",
-        "Create a Default Smart Chain"
-      ],
-      [
-        "/basic-docs/installations/common-runtime-parameters.md",
-        "combine"
-      ],
-      [
-        "/basic-docs/installations/asset-chain-parameters.md",
-        "Create a Custom Smart Chain"
-      ]
     ]
   },
   {
@@ -33,10 +21,33 @@ var sidebar = [{
       collapsable: true,
       children: [
           [
+            "/basic-docs/developer-tutorials/create-a-default-smart-chain.md",
+            "Create a Default Smart Chain"
+          ],
+          [
             "/basic-docs/developer-tutorials/custom-consensus-overview.md",
             "Custom Consensus Overview"
-          ]
+          ],
       ]
+  },
+  {
+        title: "Smart Chain Setup",
+        collapsable: true,
+        children: [
+            [
+                "/basic-docs/smart-chain-setup/basic-launch-parameters.md",
+                "Maintenance Instructions"
+            ],
+            [
+                "/basic-docs/smart-chain-setup/basic-launch-parameters.md",
+                "Basic Launch Parameters"
+                
+            ],
+            [
+                "/basic-docs/smart-chain-setup/smart-chain-customization-parameters.md",
+                "Smart Chain Customization Parameters"
+            ],
+        ]
   },
   {
     title: "Custom Consensus",

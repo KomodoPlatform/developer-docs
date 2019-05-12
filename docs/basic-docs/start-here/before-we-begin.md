@@ -1,52 +1,65 @@
-# Getting Started
+# Before We Begin
 
-Welcome to the Komodo ecosystem.
+The following section answers common questions a newcomer may have, and prepares the new reader for the installation procedure.
 
-## Before We Begin
-
-The following section answers common questions a newcomer may have, and prepares the new reader before continuing on to the installation procedure.
-
-#### Assumptions for this Documentation
+## Assumptions for this Documentation
 
 The Komodo Platform is cutting-edge blockchain technology. To limit the scope of what we cover on the technical-documentation website, we're going to list some prerequisite knowledge. 
 
-##### Familiarity with the Concept of Blockchain Technology
+#### Familiarity with the Concept of Blockchain Technology
 
 The reader should be general familiar with the basic concept of blockchain technology and why it matters. If you're not yet familiar, we recommend that you first read Part I of the Komodo Whitepaper.
 
 [<b>Link to Komodo Whitepaper - Read Part 1 (~30 pages)</b>](https://www.komodoplatform.com/whitepaper)
 
-##### Simple Programming Skills
+#### Simple Programming Skills
 
-Much of the content on this site will be more understandable for the reader who has a rudimentary understanding of a mainstream programming language. Beginner-level knowledge should be sufficient for relevant tasks, such as entering commands on the command line and sending requests via an API. 
+Much of the content on this site will be more understandable for the reader who has a rudimentary understanding of a mainstream programming language. 
 
-If you do not have these prerequisite experiences, please reach out to our community on [<b>Discord</b>](https://komodoplatform.com/discord) for advice on how to proceed.
+Beginner-level knowledge should be sufficient for the majority of the site. For example, the reader should be able to:
 
-#### Testing a Komodo Smart Chain Is Free
+- Execute commands on the command line
+- Utilize an Application Programming Interface (API)
+- Write and execute a rudimentary script in any mainstream language
 
-Simply creating and developing a Komodo Smart Chain for testing purposes does not require contact with or payment to the Komodo team.
+If you do not have these prerequisite experiences, we encourage you to reach out to our community on [<b>Discord</b>](https://komodoplatform.com/discord). There are thousands of free tutorials online that can help you quickly cover these topics. We will be happy to help you in you search.
 
-However, in nearly all circumstances, a Smart Chain is only secure once it receives the Komodo dPoW Security Service.
+## Receiving a Cost Quote
 
-Please reach out to our team whenever you are ready to purchase this security.
+#### Installation and Testing is Free
+
+Installing and experimenting with Komodo Smart Chains is completely free.
+
+#### Production Smart Chains Typically Require Komodo's Security Services
+
+In nearly all circumstances, a Smart Chain is only secure once it receives the Komodo dPoW Security Service.
+
+Please reach out to our third-party service providers for a cost quote.
+
+Our third-party providers are available on our [<b>Discord</b>](https://komodoplatform.com/discord) live-chat server. Their usernames are:
+
+- @siu
+- @ptyx
+- @bitcoinbenny
+- @TwilightPunkster.
 
 ::: tip
 We have a limited supply of early-adopter discounts. Please inquire while supply last.
 :::
 
-#### Komodo Is Compatible With All Mainstream Programming Languages
+## Komodo Language Compatability 
 
 Komodo is a highly capable blockchain technology, and it is designed for compatability with essentially all mainstream programming languages. However, not all developers will need to use its most advanced aspects.
 
-##### A Normal Developer in the Komodo Ecosystem
+#### A Normal Developer in the Komodo Ecosystem
 
 A typical developer in the Komodo ecosystem will build all their application logic in a separate application that runs outside of their Smart Chain daemon. 
 
-The developer's app will send API requests to their Smart Chain's daemon to update the blockchain state and to take advantage of Komodo's default Fluidity modules. (Fluidity modules are similar to "smart contracts," although we argue that these modules are far more powerful.) 
+The developer's app will send API requests to their Smart Chain's daemon to update the blockchain state and to take advantage of Komodo's default Fluidity modules. (Fluidity modules provide functionality similar to the "smart contracts" that are common on other platforms. However, we argue that Fluidity modules are dramatically more powerful.) 
 
 For this developer, any programming language that can send API requests to the software daemon is compatible.
 
-##### An Advanced Fluidity Developer
+#### An Advanced Fluidity Developer
 
 A highly advanced developer may be interested to take advantage of the full potential of Komodo technology. 
 
@@ -54,13 +67,26 @@ This developer can utilize Komodo's Fluidity Framework to add arbitrary code to 
 
 Although the Fluidity Framework can be compatible with essentially all mainstream programming languages, at this time we encourage all developers to stay close to the C/C++ languages. 
 
-#### Connect with Our Community
+## Differences between KMD and an Asset Chain
+
+The main KMD blockchain runs on the same underlying framework as all Smart Chains in the ecosystem, but not all features are active on the KMD blockchain.
+
+The KMD chain's active features include Bitcoin-hash rate supported security and the ability to write Fluidity modules. Other features, such as zero-knowledge privacy, are disabled.
+
+This limitation is intentional. The KMD chain holds all the meta data of the ecosystem. By keeping the functionality limited, Komodo discourages rapid data growth on this central blockchain.
+
+All other Smart Chains in the ecosystem are fully customizable. 
+
+## Connect with Our Community
 
 Engaging with our chat community for questions and advise can speed up the learning process. Connect with us here:
 
 [<b>Link to the Komodo Discord Chat Server</b>](https://komodoplatform.com/discord)
 
-## Orientation for New Developers
+<!--
+## Educational Outline for New Developers
+
+The Komodo Platform offers a wide variety of functionality. Komodo can seem overwhelming at first. We hope this outline can help the reader to structure their approach. 
 
 #### Install the Basic Komodo Software
 
@@ -134,30 +160,11 @@ With this activated, you can try a few existing templates:
 
 ...and more!
 
-#### Write Your Own Custom Consensus Module
-
-If you're ready to try writing your own Custom Consensus (CC) modules, please read the detailed technical documentation written by our lead developer, JL777: [Mastering Custom Consensus](https://docs.komodoplatform.com/cc-jl/introduction.html).
-
-Most developers don't need to design CC modules on Komodo, but rather, only need to implement existing modules while developing a dApp. So don't be discouraged if the technical documentation appears too thick for your level of experience. Come to Discord when you have questions.
-
 #### Learn About BarterDEX and Agama
 
 Your Smart Chain can easily be integrated into our native atomic-swap powered DEX, [BarterDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), and our multi-coin wallet, [Agama](https://komodoplatform.com/komodo-wallets/).
 
 You can learn more about both on [docs.komodoplatform.com](https://docs.komodoplatform.com).
 
-#### Differences between KMD and an Asset Chain
 
-Newcomers to the Komodo ecosystem may benefit from understanding the differences between the main KMD blockchain and all other Smart Chains in the Komodo ecosystem.
-
-The main KMD blockchain runs on the same underlying framework as all Smart Chains in the ecosystem, but not all features are active on the KMD blockchain. The KMD chain's active features include Bitcoin-hash rate supported security and the ability to write Custom Consensus (CC) modules. Other features, such as zero-knowledge privacy, are disabled.
-
-This limitation is intentional. The KMD main-net blockchain holds all the meta data of the ecosystem. By keeping the functionality of this chain limited, Komodo discourages rapid data growth on this central blockchain.
-
-All other Smart Chains are fully customizable. 
-
-#### Visit Us in Discord
-
-Once again, we remind you to come visit us in [our Discord channel](https://komodoplatform.com/discord)!
-
-We appreciate your interest and hope to give you a pleasant developer experience.
+-->
