@@ -1,31 +1,23 @@
 dist: xenial
 sudo: required
 services:
-  - docker
-
+- docker
 script:
-  - docker build -t komodo_docs_image .
-  - docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) komodo_docs_image
-  - cd docs/.vuepress/dist/
-  - echo 'developers.komodoplatform.com' > CNAME 
-
+- docker build -t komodo_docs_image .
+- docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) komodo_docs_image
+- cd docs/.vuepress/dist/
+- echo 'developers.komodoplatform.com' > CNAME
 deploy:
-
--
-  provider: pages
+- provider: pages
   skip-cleanup: true
-  github-token: $GH_TOKEN  # Set in the settings page of your repository, as a secure variable
+  github-token: "$GH_TOKEN"
   local-dir: docs/.vuepress/dist/
   repo: komodoplatform/developer-docs
   on:
     branch: master
-
-# blocklist
-branches:
-  except:
-  - gcharang
-
-# safelist
 branches:
   only:
   - master
+env:
+  global:
+    secure: gmozqeWibtpXY2PMQW1/kL323JMUHY+CKnDbgfzdMTqKHIwIn44QzYQWt5AS4nGnDlDF+fDrz8rdWp96bk0/xrrWxo3Lg/pVjsLlxLMV+AJYa8k7mz0+MMW0sRkRl6MjQX/a3RQA+alyJk4fDRJ0RdilVaL9UWrL+/AKYk4NqsSp/14im3EZmAEIVEGzGLfsVy/ju0QfSvkqmNRvrpiOdxeFuCiGDfAYoTM2E63hWoT/SuTN6uwq+bYlIr/+g0d68J8OSeLt4luRr8iIwBjmz3iy292IivvQoYtwv7LlFhE3KYX3Nh4y45Hbo0MofU2qosMYFDkTeeTXjBfmuLe1SjnaLSyQsX5+Z5n1a05MIJVKnNRfgyHYUj1E2RWLTGDbL1RWUpRyayG7gfpfTSVBFV0KLE6/etF5VCygZCXozF7AWlavbdH3/jT700zcWPbuboy0gBEZbzVXjSPAFRmUrKpR5omaDARzV3Atv5TixpCG/yNShmDH4eIRb0W6Nszq7gp658IRe7YVPqXBFdJsW8kScX+E8a09cPZn9PzZs0+Eky+J3VUsqWfo0mWn9udtF3WPGLwZvCe28IBbwJZ4X5QKCRpRFrlq//+mstcu/I39su2WHS/vAirocNOa83ZD+3hB86WJCKt1qMmGMSIr0s54q6FyToq6DGrIKMJccbo=

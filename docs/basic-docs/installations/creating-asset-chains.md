@@ -108,7 +108,7 @@ Please note the requirements for [ac_supply](../installations/asset-chain-parame
 
 ## Part II: Connecting the Second Node
 
-On the second node you issue the same command, but witha key difference. This time, use the first node's IP address.
+On the second node you issue the same command, but with a key difference. This time, use the first node's IP address.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -addnode=<IP address of the first node> &
@@ -145,7 +145,7 @@ After issuing the mining command is issued, can check that the two nodes are con
 ./komodo-cli -ac_name=HELLOWORLD getinfo | grep connections
 ```
 
-If the nodes are properly connected, both nodes will response will response with: `"connections": 1`
+If the nodes are properly connected, both nodes will respond with: `"connections": 1`
 
 These are the coins you will later distribute to your community, using either our native DEX, [BarterDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), or our decentralized-ICO software (coming soon), or on any other third-party exchange.
 
