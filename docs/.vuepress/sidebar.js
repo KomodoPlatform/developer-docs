@@ -50,7 +50,7 @@ var sidebar = [{
         ]
   },
   {
-    title: "Custom Consensus",
+    title: "Fluidity Module API",
     collapsable: true,
     children: [
       [
