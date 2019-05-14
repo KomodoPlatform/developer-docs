@@ -1,8 +1,19 @@
 # How to Generate Address and Private Key (WIF) for 3rd Party Coins Using Passphrase
 
-## Requirements
+While this guide is intended for Notary Node operators, other users may find it useful too.
 
-- You need to have git and php7.0 or hhvm installed.
+Never enter your Notary Node's passphrase into any other computer/server other than your node itself for security purposes.
+
+:::tip Note
+For Notary Nodes, we will need `Compressed Public Key` as BTC pubkey, `Compressed WIF` as private key and `Compressed Address` as the public address.
+:::
+
+## Install dependencies
+
+```bash
+sudo apt-get update && sudo apt-get upgrade -y
+sudo apt-get install git php7.2-cli php7.2-gmp php7.2-mbstring
+```
 
 ## Steps
 
@@ -17,7 +28,7 @@ git submodule update --init --recursive
 
 - Edit `genkomodo.php` and fill your passphrase instead of `$passphrase = "myverysecretandstrongpassphrase_noneabletobrute"`. Change only the content inside `""` i.e., change `myverysecretandstrongpassphrase_noneabletobrute` with your passphrase
 
-- Run in terminal `php genkomodo.php`
+- Execute the command: `php genkomodo.php`
 
 - Copy and use your required WIF and delete your passphrase from `genkomodo.php` for security purposes.
 
@@ -72,4 +83,24 @@ Uncompressed Public Key: 04a854251adfee222bede8396fed0756985d4ea905f72611740867c
        Uncompressed WIF: 6vDezJMXr5a8bMdJd5ezFxURCbeJdthgkqNNNMNbhhsjbJoAQhU
   Compressed Address: EdF2quz8nWrJDwTbbTTieFYUMGfPsVB5dv
 Uncompressed Address: Eg7zuMSo7UAiA34ATZxQY21s3drd3WJM6h
+[ GIN ]
+         Network Prefix: 26
+  Compressed Public Key: 02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1
+Uncompressed Public Key: 04a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1767ae7bed159fca39dc26e2f9de31817bd32e0d6c5a870801bcd81fb7f1c2030
+            Private Key: 907ece717a8f94e07de7bf6f8b3e9f91abb8858ebf831072cdbb9016ef53bc5d
+         Compressed WIF: WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
+       Uncompressed WIF: 7ez2sQEEbST7ZQQpZqJyF1fTM7C6wPEx4tvjjeWKa82GSwnepa2
+  Compressed Address: Gdw3mTUaLRAgK7A2iZ8K4suQVnx7VRJ9rf
+Uncompressed Address: Ggp1ptwEfNV6FCkbafczxeNoCA9LcND32e
+[ SUQA ]
+         Network Prefix: 3F
+  Compressed Public Key: 02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1
+Uncompressed Public Key: 04a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1767ae7bed159fca39dc26e2f9de31817bd32e0d6c5a870801bcd81fb7f1c2030
+            Private Key: 907ece717a8f94e07de7bf6f8b3e9f91abb8858ebf831072cdbb9016ef53bc5d
+         Compressed WIF: VLbKFL17mvvJ8QEm5PU4fdGKYhvSN7GUv6qGi47kXqicD1GyyMiz
+       Uncompressed WIF: 7RNpdn61dTiXcfLtDmxyZmU2wJt5PTLpZRRz2bh3cXyYzcZxDiN
+  Compressed Address: ShP8PAvn5vkakweCL3THC1i5EQPhFCZEYr
+Uncompressed Address: SkG6ScPSQt4zh3EmC9wy5nBTvmavMv6xv2
+[ ETH/ERC20 ]
+   ETH/ERC20 Address: 0x85FE0A232fA144921d880BE72A3C5515e5C17A8c
 ```
