@@ -1,5 +1,23 @@
 # Change Log (Agama-Desktop)
 
+## v0.3.6
+
+- Latest KMD bins based on `beta` branch
+- Create wallet refactor
+- Restore wallet
+- Add coin modal spv kmd assets toggle
+- PIN login refactor
+- Added User Agreement
+- Store active coins list in PIN file
+- HUSH switched to HUSH3 asset chain using SPV/Lite mode
+- OUR native mode wallet `-ac_perc` param fix
+- K64 logo change
+- ILN name fix and logo change
+- SPV caching fix
+- Removed GBX
+- Import key modal multi rescan fix
+- Address book z-address fix
+
 ## v0.3.5
 
 - Enabled Notary Elections UI
