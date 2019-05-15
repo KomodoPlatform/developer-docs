@@ -1,8 +1,7 @@
 dist: xenial
 sudo: required
 services:
-  - docker
-
+- docker
 script:
   - docker build -t komodo_docs_image .
   - docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) komodo_docs_image
@@ -10,22 +9,13 @@ script:
   - echo 'docs.komodoplatform.com' > CNAME 
 
 deploy:
-
--
-  provider: pages
+- provider: pages
   skip-cleanup: true
-  github-token: $GH_TOKEN  # Set in the settings page of your repository, as a secure variable
+  github-token: "$GH_TOKEN"
   local-dir: docs/.vuepress/dist/
   repo: komodoplatform/Documentation
   on:
     branch: master
-
-# blocklist
-branches:
-  except:
-  - gcharang
-
-# safelist
 branches:
   only:
   - master

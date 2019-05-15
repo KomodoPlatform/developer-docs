@@ -1,3 +1,4 @@
+require("dotenv").config();
 var redirectAliases = require("./public/_redirects.js");
 var sidebarImport = require("./sidebar.js");
 var navbarImport = require("./navbar.js");
@@ -27,7 +28,7 @@ module.exports = {
     editLinks: true,
     editLinkText: "Suggest an improvement for this page",
     lastUpdated: "Last Updated",
-    logo: "/komodo-logo-icon-black.png",
+    logo: "/site-name-logo.png",
     nav: navbarImport,
     sidebar: sidebarImport
   }
