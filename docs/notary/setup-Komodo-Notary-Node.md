@@ -1,8 +1,6 @@
 # Setup Komodo Notary Node
 
-## Komodo Notary Nodes
-
-### Note
+## Note
 
 This guide is still in _BETA_ phase. It is here is to give you a good understanding on building a Komodo Notary Node. It is possible that some commands could be deprecated by the time you read it.
 
@@ -26,7 +24,7 @@ Komodo currently only works on Linux. To setup Komodo Notary Node be sure you ha
 
 Ubuntu LTS x64 - minimal installation with Openssh server.
 
-### Security
+## Security
 
 _Before doing anything further, please ensure that your server is secure._
 
@@ -38,14 +36,14 @@ _Before doing anything further, please ensure that your server is secure._
 
 - Please run processes as an unprivileged user and use `sudo` where necessary
 
-### Install Dependencies
+## Install Dependencies
 
 ```bash
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool libncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libgtest-dev libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate software-properties-common curl libcurl4-gnutls-dev cmake clang libsodium-dev jq htop -y
 ```
 
-### Install `nanomsg`
+## Install `nanomsg`
 
 Required by iguana
 
@@ -59,9 +57,9 @@ sudo make install
 sudo ldconfig
 ```
 
-### Install Komodo by compiling it from source
+## Install Komodo by compiling it from source
 
-#### Clone the source, checkout `beta` branch and compile
+### Clone the source, checkout `beta` branch and compile
 
 ```bash
 cd ~
@@ -74,14 +72,14 @@ git checkout beta
 
 `-j$(nproc)` uses all available processor threads while compiling. If you don't want to use all threads, you can use `-j8` which will use only 8 threads.
 
-#### Symlink the compiled binaries
+### Symlink the compiled binaries
 
 ```bash
 sudo ln -sf /home/$USER/komodo/src/komodo-cli /usr/local/bin/komodo-cli
 sudo ln -sf /home/$USER/komodo/src/komodod /usr/local/bin/komodod
 ```
 
-#### Create the data dir, `komodo.conf` file and secure it
+### Create the data dir, `komodo.conf` file and secure it
 
 ```bash
 cd ~
@@ -108,11 +106,11 @@ chmod 600 ~/.komodo/komodo.conf
 
 ---
 
-### Compile Bitcoin and other 3rd-party Coins from Source
+## Compile Bitcoin and other 3rd-party Coins from Source
 
-#### Bitcoin
+### Bitcoin
 
-##### Step 1: Clone Bitcoin source-code and checkout version 16.x
+#### Step 1: Clone Bitcoin source-code and checkout version 16.x
 
 ```bash
 cd ~
@@ -121,7 +119,7 @@ cd bitcoin
 git checkout 0.16
 ```
 
-##### Step 2: Create a build script
+#### Step 2: Create a build script
 
 Name the script as `build.sh` inside the `~/bitcoin` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
 
@@ -157,14 +155,14 @@ sudo ln -sf /home/$USER/bitcoin/src/bitcoin-cli /usr/local/bin/bitcoin-cli
 sudo ln -sf /home/$USER/bitcoin/src/bitcoind /usr/local/bin/bitcoind
 ```
 
-##### Step 3: Make the script executable and run it
+#### Step 3: Make the script executable and run it
 
 ```bash
 chmod +x build.sh
 ./build.sh
 ```
 
-##### Step 4: Create Bitcoin data dir, `bitcoin.conf` file and restrict access to it
+#### Step 4: Create Bitcoin data dir, `bitcoin.conf` file and restrict access to it
 
 ```bash
 cd ~
@@ -190,9 +188,9 @@ Restrict access to the `bitcoin.conf` file
 chmod 600 ~/.bitcoin/bitcoin.conf
 ```
 
-#### Chips
+### Chips
 
-##### Step 1: Clone CHIPS source
+#### Step 1: Clone CHIPS source
 
 ```bash
 cd ~
@@ -201,7 +199,7 @@ cd chips3
 git checkout dev
 ```
 
-##### Step 2: Create a build script
+#### Step 2: Create a build script
 
 Name the script as `build.sh` inside the `~/chips3` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
 
@@ -237,14 +235,14 @@ sudo ln -sf /home/$USER/chips3/src/chips-cli /usr/local/bin/chips-cli
 sudo ln -sf /home/$USER/chips3/src/chipsd /usr/local/bin/chipsd
 ```
 
-##### Step 3: Make the script executable and run it
+#### Step 3: Make the script executable and run it
 
 ```bash
 chmod +x build.sh
 ./build.sh
 ```
 
-##### Step 4: Create CHIPS data dir, `chips.conf` file and restrict access to it
+#### Step 4: Create CHIPS data dir, `chips.conf` file and restrict access to it
 
 ```bash
 cd ~
@@ -270,9 +268,9 @@ Restrict access to the `chips.conf` file
 chmod 600 ~/.chips/chips.conf
 ```
 
-#### GameCredits (GAME)
+### GameCredits (GAME)
 
-##### Step 1: Clone GAME source
+#### Step 1: Clone GAME source
 
 ```bash
 cd ~
@@ -281,7 +279,7 @@ cd GameCredits
 git checkout master
 ```
 
-##### Step 2: Create a build script
+#### Step 2: Create a build script
 
 Name the script as `build.sh` inside the `~/GameCredits` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
 
@@ -337,14 +335,14 @@ sudo ln -sf /home/$USER/GameCredits/src/gamecredits-cli /usr/local/bin/gamecredi
 sudo ln -sf /home/$USER/GameCredits/src/gamecreditsd /usr/local/bin/gamecreditsd
 ```
 
-##### Step 3: Make the script executable and run it
+#### Step 3: Make the script executable and run it
 
 ```bash
 chmod +x build.sh
 ./build.sh
 ```
 
-##### Step 4: Create GAME data dir, `gamecredits.conf` file and restrict access to it
+#### Step 4: Create GAME data dir, `gamecredits.conf` file and restrict access to it
 
 ```bash
 cd ~
@@ -370,9 +368,9 @@ Restrict access to the `gamecredits.conf` file
 chmod 600 ~/.gamecredits/gamecredits.conf
 ```
 
-#### Einsteinium (EMC2)
+### Einsteinium (EMC2)
 
-##### Step 1: Clone EMC2 source
+#### Step 1: Clone EMC2 source
 
 ```bash
 cd ~
@@ -381,7 +379,7 @@ cd einsteinium
 git checkout master
 ```
 
-##### Step 2: Create a build script
+#### Step 2: Create a build script
 
 Name the script as `build.sh` inside the `~/einsteinium` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
 
@@ -418,14 +416,14 @@ sudo ln -sf /home/$USER/einsteinium/src/einsteinium-cli /usr/local/bin/einsteini
 sudo ln -sf /home/$USER/einsteinium/src/einsteiniumd /usr/local/bin/einsteiniumd
 ```
 
-##### Step 3: Make the script executable and run it
+#### Step 3: Make the script executable and run it
 
 ```bash
 chmod +x build.sh
 ./build.sh
 ```
 
-##### Step 4: Create EMC2 data dir, `einsteinium.conf` file and restrict access to it
+#### Step 4: Create EMC2 data dir, `einsteinium.conf` file and restrict access to it
 
 ```bash
 cd ~
@@ -451,9 +449,9 @@ Restrict access to the `einsteinium.conf` file
 chmod 600 ~/.einsteinium/einsteinium.conf
 ```
 
-#### GinCoin (GIN)
+### GinCoin (GIN)
 
-##### Step 1: Clone GIN source
+#### Step 1: Clone GIN source
 
 ```bash
 cd ~
@@ -462,7 +460,7 @@ cd gincoin-core
 git checkout master
 ```
 
-##### Step 2: Create a build script
+#### Step 2: Create a build script
 
 Name the script as `build.sh` inside the `~/gincoin-core` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
 
@@ -498,14 +496,14 @@ sudo ln -sf /home/$USER/gincoin-core/src/gincoin-cli /usr/local/bin/gincoin-cli
 sudo ln -sf /home/$USER/gincoin-core/src/gincoind /usr/local/bin/gincoind
 ```
 
-##### Step 3: Make the script executable and run it
+#### Step 3: Make the script executable and run it
 
 ```bash
 chmod +x build.sh
 ./build.sh
 ```
 
-##### Step 4: Create GIN data dir, `gincoin.conf` file and restrict access to it
+#### Step 4: Create GIN data dir, `gincoin.conf` file and restrict access to it
 
 ```bash
 cd ~
@@ -531,9 +529,9 @@ Restrict access to the `gincoin.conf` file
 chmod 600 ~/.gincoincore/gincoin.conf
 ```
 
-#### HUSH3
+### HUSH3
 
-##### Clone HUSH3 source and compile
+#### Clone HUSH3 source and compile
 
 ```bash
 cd ~
@@ -545,9 +543,9 @@ git checkout dev
 
 ---
 
-#### VerusCoin (VRSC)
+### VerusCoin (VRSC)
 
-##### Clone VRSC source and compile
+#### Clone VRSC source and compile
 
 ```bash
 cd ~
@@ -557,11 +555,11 @@ git checkout master
 ./zcutil/build.sh -j$(nproc)
 ```
 
-### Start the daemons and sync all the chains
+## Start the daemons and sync all the chains
 
 For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarisation.
 
-#### Start the 3rd-party coins
+### Start the 3rd-party coins
 
 ```bash
 bitcoind &
@@ -571,7 +569,7 @@ einsteiniumd &
 gincoind &
 ```
 
-#### Start Komodo and all the assetchains including VRSC & HUSH3
+### Start Komodo and all the assetchains including VRSC & HUSH3
 
 ```bash
 cd ~/komodo/src
@@ -605,3 +603,252 @@ tail -f ~/.komodo/SUPERNET/debug.log
 ```
 
 For any other Komodo assetchain, use the example of VRSC, HUSH3 or SUPERNET and change the path with the coin name accordingly. Wait for all the coins to finish syncing.
+
+---
+
+## Generating `pubkey`, `address` & `WIF` from your secure passphrase
+
+The mainnet notary node operators will have 2 seed phrases (passphrase) which will generate 2 sets of pubkey, address and private key (WIF).
+
+**For security, you should never enter your seed phrase or privatekey in any other node than your notary node. If you ever expose a private key for any particular coin, it can be converted to all other coins easily.**
+
+### Generate
+
+The mainnet notary node operators need to provide 2 sets of pubkey to Kolo when he asks for it (pubkey starts with `02` or `03`). Follow [this guide](./generate-privkeys-third-party-coins-from-passphrase.html) to generate all the required info in your own server. You will need the "Compressed Public Key", "Compressed WIF" and "Compressed Address" from the output generated by the script. Based on the default seed used in the `genkomodo.php` file, we get the following information:
+
+```bash
+Pubkey: 02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1
+
+BTC Address: 1M68ML9dMZZPEdrjncUCe7ZWadAGUxMNyv
+BTC WIF: L24bEAJSkFCdjoQNEcboWfJdsLGLmkBgfGb4TSHnbhEmU9jenaes
+
+KMD Address: RVNKRr2uxPMxJeDwFnTKjdtiLtcs7UzCZn
+KMD WIF: UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+
+GAME Address: Gdw3mTUaLRAgK7A2iZ8K4suQVnx7VRJ9rf
+GAME WIF: Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
+
+EMC2 Address: EdF2quz8nWrJDwTbbTTieFYUMGfPsVB5dv
+EMC2 WIF: T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
+
+GIN Address: Gdw3mTUaLRAgK7A2iZ8K4suQVnx7VRJ9rf
+GIN WIF: WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
+```
+
+CHIPS & all Komodo assetchain including HUSH3 & VRSC uses the same address and WIF format as Komodo (KMD).
+
+It is recommended that you write down the randomly generated seed (24 words) in a piece of paper and type directly into your server. Do not keep the seed saved in your local computer.
+
+### Import private keys into the respective coin daemons
+
+**Important: Make sure your daemon is running and fully synced before importing any privkey. Importing key into daemon will trigger rescan which can take some time to finish depending on tx history.**
+
+- Follow the below example to import key into your coin daemons:
+
+```bash
+komodo-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+bitcoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
+chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+gamecredits-cli importprivkey Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
+einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
+gincoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
+komodo-cli -ac_name=HUSH3 importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+```
+
+- For all other Komodo assetchains, use the following command to import privkey
+
+```bash
+cd ~/komodo/src
+./fiat-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+```
+
+This command will import keys into all assetchains that are using the main Komodo daemon. This may take some time and will display the coin name and address after each import. You can tail the coin specific `debug.log` files to check the progress.
+
+### Validate the address
+
+After all the addresses are imported, using the respective `<COIN>-cli`, validate all addresses and make sure the response has `ismine:true`. If you have `ismine:false`, dPoW will not work for that coin. Sample command for that is below.
+
+```bash
+komodo-cli validateaddress RVNKRr2uxPMxJeDwFnTKjdtiLtcs7UzCZn
+```
+
+### Create `pubkey.txt` file
+
+We will need to create a `pubkey.txt` file inside `~/komodo/src/` directory. This will be used to start all assetchains including HUSH3 & VRSC with the `-pubkey=` param. `pubkey.txt` file should contain only the below information. Change `02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1` with your own pubkey.
+
+```bash
+pubkey=02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1
+```
+
+### Stop All the Coin Daemons Safely
+
+Never use `kill -9` to kill any Coin daemon if you don't like corrupt databases. Always shutdown wallet daemon and iguana gracefully with `pkill -15 iguana` or use the below RPC commands for wallets.
+
+```bash
+komodo-cli stop
+bitcoin-cli stop
+chips-cli stop
+gamecredits-cli stop
+einsteinium-cli stop
+gincoin-cli stop
+komodo-cli -ac_name=HUSH3 stop
+komodo-cli -ac_name=VRSC stop
+```
+
+For all other Komodo assetchains, use the following command to `stop` the daemons.
+
+```bash
+cd ~/komodo/src
+./fiat-cli stop
+```
+
+---
+
+## Setting up Iguana
+
+### Clone the source
+
+```bash
+cd ~
+git clone https://github.com/jl777/SuperNET
+cd SuperNET/iguana
+git checkout dev
+```
+
+#### Copy the `pubkey.txt` file that we created earlier from the `~/komodo/src/` dir
+
+```bash
+cp ~/komodo/src/pubkey.txt ~/SuperNET/iguana/pubkey.txt
+```
+
+#### Create `wp_7776`
+
+Create `wp_7776` file inside the `iguana` dir with your 24 words seed passphrase. The file should look as follows (replace `YOUR VERY SECURE PASSPHRASE` with your own):
+
+```bash
+curl --url "http://127.0.0.1:7776" --data "{\"method\":\"walletpassphrase\",\"params\":[\"YOUR VERY SECURE PASSPHRASE\", 9999999]}"
+```
+
+#### Make `wp_7776` file executable
+
+```bash
+chmod +x wp_7776
+```
+
+#### Create `userhome.txt`
+
+Create `userhome.txt` file inside the `iguana` dir with the location of your user's home directory. Here is an example using user `dextar` and how the file should look like.
+
+```bash
+home/dextar
+```
+
+There shouldn't be any other text or space.
+
+## Set `ulimit` parameters on Ubuntu permanently
+
+By default, the number of open files per user in Ubuntu is 1024. In our case this number is too small so we will increase it.
+
+This is done with the `ulimit` command:
+
+```bash
+$ulimit -a   # see all the kernel parameters
+$ulimit -n   # see the number of open files
+$ulimit -n 1000000  #  set the number open files to 1000000
+```
+
+The problem with this way is that the `ulimit` parameter is only set currently for this command terminal and user. This means that after a reboot you’ll need to set the parameter again. Do the following to set it permanently:
+
+### Edit the `/etc/security/limits.conf` file
+
+```bash
+sudo nano /etc/security/limits.conf
+```
+
+add these lines:
+
+```bash
+* soft nofile 1000000
+* hard nofile 1000000
+```
+
+Save and close file
+
+### Edit the `/etc/pam.d/common-session` file
+
+```bash
+sudo nano /etc/pam.d/common-session
+```
+
+add this line:
+
+```bash
+session required pam_limits.so
+```
+
+Save and close the file.
+
+We are done. Now let's stop all our wallet daemons safely with RPC commands and reboot the server using `sudo reboot` or `sudo shutdown -r` command.
+
+### Check the values now
+
+```bash
+ulimit -n
+```
+
+---
+
+## Create `start` Script
+
+We need a `start` script in the home dir to start Komodo, assetchains and all 3rd party coin daemons with the `-pubkey` option. `-pubkey` is not required for BTC daemon. All other coins need it. Here is an example of a start script (change the pubkey with your Notary Node pubkey):
+
+```shell
+bitcoind &
+chipsd -pubkey="02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1" &
+gamecreditsd -pubkey="02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1" &
+einsteiniumd -pubkey="02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1" &
+gincoind -pubkey="02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1" &
+cd komodo/src
+./komodod -gen -genproclimit=1 -notary -pubkey="02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1" &
+sleep 600
+./assetchains
+```
+
+Make the file executable:
+
+```bash
+chmod +x start
+```
+
+### Execute the script
+
+This may take upto 20-30 minutes maximum depending on your system spec.
+
+```bash
+cd ~
+./start
+```
+
+**Make sure all daemons started properly before starting iguana in the next step.**
+
+## Start `iguana`
+
+Once all required daemons are running, we have funds on all coins, we can go ahead and start `iguana`.
+
+```bash
+cd ~/SuperNET/iguana
+./m_notary
+```
+
+`m_notary` script will issue a `git pull` command to update the repo, remove old iguana, compile fresh and start all the process. This can take about 10 minutes maximum to finish. You will see `INIT with 64 notaries` once the process finishes.
+
+## Start dPoW
+
+After you see `INIT with 64 notaries`, you can safely start dPoW process. Just issue the following command from inside `iguana` dir to start with it.
+
+```bash
+./dpowassets
+```
+
+Iguana should split your utxos automatically. If you want to test or split manually, you can follow [this guide](./split-utxo-for-notarization.html).
