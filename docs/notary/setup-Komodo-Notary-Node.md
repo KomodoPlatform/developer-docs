@@ -703,7 +703,8 @@ cd ~/komodo/src
 ./fiat-cli stop
 ```
 
-### After all chains daemons were stopped gracefully, let's secure all Komodo Assetchin conf file inside `.komodo` dir.
+### After all the chains' daemons were stopped gracefully, let's restrict access to all the Komodo Assetchain's `.conf` files inside `~/.komodo` dir
+
 ```bash
 find ~/.komodo -type f -iname "*.conf" -exec chmod 600 {} \;
 ```
@@ -806,7 +807,7 @@ ulimit -n
 
 ## Create `start` Script
 
-We need a `start` script in the home dir to start Komodo, assetchains and all 3rd party coin daemons with the `-pubkey` option. `-pubkey` is not required for BTC daemon. All other coins need it. Here is an example of a start script (change the pubkey with your Notary Node pubkey):
+We need a `start` script in the home dir to start Komodo, assetchains and all 3rd party coin daemons with the `-pubkey` option. `-pubkey` is not required for BTC daemon. All other coins need it. Here is an example of a start script :
 
 ```bash
 #!/bin/bash
