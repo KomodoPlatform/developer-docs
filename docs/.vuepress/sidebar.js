@@ -16,6 +16,16 @@ var sidebar = [{
         ],
     ]
   },
+  {
+        title: "Smart Chain Setup",
+        collapsable: true,
+        children: [
+            [
+                "/basic-docs/smart-chains/get-started-smart-chains.md",
+                "Get Started | Smart Chains"
+            ],
+        ]
+  },
   // {
       // title: "Developer Tutorials",
       // collapsable: true,
@@ -54,138 +64,120 @@ var sidebar = [{
             // ],
       // ]
   // },
-  // {
-        // title: "Smart Chain Setup",
-        // collapsable: true,
-        // children: [
-            // [
-                // "/basic-docs/smart-chain-setup/basic-launch-parameters.md",
-                // "Maintenance Instructions"
-            // ],
-            // [
-                // "/basic-docs/smart-chain-setup/basic-launch-parameters.md",
-                // "Basic Launch Parameters"
-            // ],
-            // [
-                // "/basic-docs/smart-chain-setup/smart-chain-customization-parameters.md",
-                // "Customization Parameters"
-            // ],
-        // ]
-  // },
-  // {
-    // title: "Smart Chain API",
-    // collapsable: true,
-    // children: [
-      // [
-          // "/basic-docs/smart-chain-api/address.md",
-          // "Address"
-      // ],
-      // [
-          // "/basic-docs/smart-chain-api/blockchain.md",
-          // "Blockchain"
-      // ],
-      // [
-          // "/basic-docs/smart-chain-api/cclib.md",
-          // "CC Lib"
-      // ],
-      // [
-          // "/basic-docs/smart-chain-api/control.md",
-          // "Control"
-      // ],
-      // [
-          // "/basic-docs/smart-chain-api/disclosure.md", 
-          // "Disclosure"
-      // ],
-      // [
-          // "/basic-docs/smart-chain-api/generate.md",
-          // "Generate"
-      // ],
-      // [
-          // "/basic-docs/smart-chain-api/mining.md",
-          // "Mining"
-      // ],
-      // [
-          // "/basic-docs/smart-chain-api/jumblr.md",
-          // "Jumblr"
-      // ],
-      // [
-          // "/basic-docs/smart-chain-api/network.md",
-          // "Network"
-      // ],
-      // [
-          // "/basic-docs/smart-chain-api/rawtransactions.md",
-          // "Raw Transactions"
-      // ],
-      // [
-          // "/basic-docs/smart-chain-api/util.md",
-          // "Util"
-      // ],
-      // [
-          // "/basic-docs/smart-chain-api/wallet.md",
-          // "Wallet"
-      // ]
-    // ]
-  // },
-  // {
-    // title: "Fluidity Module API",
-    // collapsable: true,
-    // children: [
-      // [
-          // "/basic-docs/customconsensus/channels.md", 
-          // "Channels"
-      // ],
-      // [
-          // "/basic-docs/customconsensus/dice.md", 
-          // "Dice"
-      // ],
-      // [
-          // "/basic-docs/customconsensus/faucet.md", 
-          // "Faucet"
-      // ],
-      // [
-          // "/basic-docs/customconsensus/gateways.md", 
-          // "Gateways"
-      // ],
-      // [
-          // "/basic-docs/customconsensus/heir.md", 
-          // "Heir"
-      // ],
-      // [
-          // "/basic-docs/customconsensus/musig.md", 
-          // "MuSig"
-      // ],
-      // [
-          // "/basic-docs/customconsensus/oracles.md", 
-          // "Oracles"
-      // ],
-      // [
-          // "/basic-docs/customconsensus/rewards.md", 
-          // "Rewards"
-      // ],
-      // [
-          // "/basic-docs/customconsensus/rogue.md", 
-          // "Rogue"
-      // ],
-      // [
-          // "/basic-docs/customconsensus/sudoku.md", 
-          // "Sudoku"
-      // ],
-      // [
-          // "/basic-docs/customconsensus/tokens.md", 
-          // "Tokens"
-      // ]
-    // ]
-  // },
-  // {
-    // title: "AtomicDEX API",
-    // collapsable: true,
-    // children: [
-        // [
-            // "/basic-docs/atomicdex/atomicdex-api.md", 
-            // "AtomicDEX API"
-        // ]
-    // ]
-  // }
+  {
+    title: "Smart Chain API",
+    collapsable: true,
+    children: [
+      [
+          "/basic-docs/smart-chains/smart-chain-api/address.md",
+          "Address"
+      ],
+      [
+          "/basic-docs/smart-chains/smart-chain-api/blockchain.md",
+          "Blockchain"
+      ],
+      [
+          "/basic-docs/smart-chains/smart-chain-api/cclib.md",
+          "CC Lib"
+      ],
+      [
+          "/basic-docs/smart-chains/smart-chain-api/control.md",
+          "Control"
+      ],
+      [
+          "/basic-docs/smart-chains/smart-chain-api/disclosure.md", 
+          "Disclosure"
+      ],
+      [
+          "/basic-docs/smart-chains/smart-chain-api/generate.md",
+          "Generate"
+      ],
+      [
+          "/basic-docs/smart-chains/smart-chain-api/mining.md",
+          "Mining"
+      ],
+      [
+          "/basic-docs/smart-chains/smart-chain-api/jumblr.md",
+          "Jumblr"
+      ],
+      [
+          "/basic-docs/smart-chains/smart-chain-api/network.md",
+          "Network"
+      ],
+      [
+          "/basic-docs/smart-chains/smart-chain-api/rawtransactions.md",
+          "Raw Transactions"
+      ],
+      [
+          "/basic-docs/smart-chains/smart-chain-api/util.md",
+          "Util"
+      ],
+      [
+          "/basic-docs/smart-chains/smart-chain-api/wallet.md",
+          "Wallet"
+      ]
+    ]
+  },
+  {
+    title: "Fluidity Module API",
+    collapsable: true,
+    children: [
+      [
+          "/basic-docs/fluidity/channels.md", 
+          "Channels"
+      ],
+      [
+          "/basic-docs/fluidity/dice.md", 
+          "Dice"
+      ],
+      [
+          "/basic-docs/fluidity/faucet.md", 
+          "Faucet"
+      ],
+      [
+          "/basic-docs/fluidity/gateways.md", 
+          "Gateways"
+      ],
+      [
+          "/basic-docs/fluidity/heir.md", 
+          "Heir"
+      ],
+      [
+          "/basic-docs/fluidity/musig.md", 
+          "MuSig"
+      ],
+      [
+          "/basic-docs/fluidity/oracles.md", 
+          "Oracles"
+      ],
+      [
+          "/basic-docs/fluidity/rewards.md", 
+          "Rewards"
+      ],
+      [
+          "/basic-docs/fluidity/rogue.md", 
+          "Rogue"
+      ],
+      [
+          "/basic-docs/fluidity/sudoku.md", 
+          "Sudoku"
+      ],
+      [
+          "/basic-docs/fluidity/tokens.md", 
+          "Tokens"
+      ]
+    ]
+  },
+  {
+    title: "AtomicDEX API",
+    collapsable: true,
+    children: [
+        [
+            "/basic-docs/atomicdex/atomicdex-api.md", 
+            "AtomicDEX API"
+        ]
+    ]
+  }
 ]
 
 module.exports = sidebar;
