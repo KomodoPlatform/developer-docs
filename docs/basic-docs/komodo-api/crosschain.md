@@ -1360,13 +1360,36 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getwalletburntransactions", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
 <collapse-text hidden title="Response">
 
-```bash
-
+```json
+{
+  "result": [
+    {
+      "txid": "d19f1c3f7e630966e1d40838c56c8c63a6cbd828d34c3544be5a60b236cf1610",
+      "burnedAmount": 7.7701,
+      "targetSymbol": "CFEKDRAGON",
+      "targetCCid": "533"
+    },
+    {
+      "txid": "060f48ac5cf0f79370623320015dc243f49ef2c23fb1b60592f77bc77d6609df",
+      "burnedAmount": 0.7701,
+      "targetSymbol": "CFEKDRAGON",
+      "targetCCid": "533"
+    },
+    {
+      "txid": "ade1c02370f47004ad7c323fa1e456171fb3e508d7dff473a5b7fa1214480adb",
+      "burnedAmount": 0.0771,
+      "targetSymbol": "CFEKDRAGON",
+      "targetCCid": "533"
+    }
+  ],
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
