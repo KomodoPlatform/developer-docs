@@ -52,7 +52,7 @@ To launch another Smart Chain, include the necessary parameters.
 Always execute the launch command EXACTLY as indicated, and as the Smart Chain's developers instruct. If you make a mistake, you must delete the Smart Chain data and re-launch to regain access to the Smart Chain's network.
 :::
 
-For example, to launch the DEX asset chain, execute:
+For example, to launch the DEX Smart Chain, execute:
 
 ```bash
 ./komodod -ac_name=DEX -ac_supply=999999 -addnode=78.47.196.146 &

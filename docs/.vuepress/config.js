@@ -36,6 +36,7 @@ module.exports = {
     editLinks: true,
     editLinkText: "Suggest an improvement for this page",
     lastUpdated: "Last Updated",
+    sidebarDepth: 3,
     logo: "/site-name-logo.png",
     algolia: {
       apiKey: algoliaSecret.key,

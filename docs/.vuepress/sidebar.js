@@ -1,19 +1,23 @@
 var sidebar = [{
-    title: "Start Here",
+    title: "Komodo Platform Overview",
     collapsable: true,
     children: [
-      [
-        "/basic-docs/start-here/about-komodo.md",
-          "About Komodo"
-      ],
-      [
-        "/basic-docs/start-here/before-we-begin.md",
-        "Before We Begin"
-      ],
-      [
-        "/basic-docs/start-here/get-started.md",
-        "Get Started"
-      ],
+        [
+            "/basic-docs/komodo-platform-overview/start-here/about-komodo-platform.md",
+            "About The Komodo Platform"
+        ],
+        [
+            "/basic-docs/komodo-platform-overview/start-here/overview.md",
+            "Documentation Orientation"
+        ],
+        [
+            "/basic-docs/start-here/get-started-smart-chains.md",
+            "Get Started | Smart Chains"
+        ],
+        [
+            "/basic-docs/start-here/get-started-atomicdex.md",
+            "Get Started | AtomicDEX"
+        ],
     ]
   },
   {
@@ -21,13 +25,37 @@ var sidebar = [{
       collapsable: true,
       children: [
           [
+            "/basic-docs/developer-tutorials/tutorial-outline.md",
+            "Tutorial Outline"
+          ],
+          [
             "/basic-docs/developer-tutorials/create-a-default-smart-chain.md",
             "Create a Default Smart Chain"
           ],
           [
-            "/basic-docs/developer-tutorials/custom-consensus-overview.md",
-            "Custom Consensus Overview"
+            "/basic-docs/developer-tutorials/smart-chain-api-basics.md",
+            "Smart Chain API Basics"
           ],
+          [
+            "/basic-docs/developer-tutorials/fluidity-overview.md",
+            "Fluidity Overview (combine)"
+          ],
+          [
+            "/basic-docs/developer-tutorials/fluidity-instructions.md",
+            "About Fluidity (combine)"
+          ],
+          [
+            "/basic-docs/developer-tutorials/fluidity-conceptual-overview.md",
+            "Fluidity Conceptual Overview (combine)"
+          ],
+            [
+                "/basic-docs/developer-tutorials/introduction-to-atomicdex.md",
+                "Introduction to AtomicDEX"
+            ],
+            [
+                "/basic-docs/atomicdex/atomicdex-walkthrough.md",
+                "AtomicDEX Walkthrough"
+            ],
       ]
   },
   {
@@ -41,62 +69,125 @@ var sidebar = [{
             [
                 "/basic-docs/smart-chain-setup/basic-launch-parameters.md",
                 "Basic Launch Parameters"
-                
             ],
             [
                 "/basic-docs/smart-chain-setup/smart-chain-customization-parameters.md",
-                "Smart Chain Customization Parameters"
+                "Customization Parameters"
             ],
         ]
+  },
+  {
+    title: "Smart Chain API",
+    collapsable: true,
+    children: [
+      [
+          "/basic-docs/smart-chain-api/address.md",
+          "Address"
+      ],
+      [
+          "/basic-docs/smart-chain-api/blockchain.md",
+          "Blockchain"
+      ],
+      [
+          "/basic-docs/smart-chain-api/cclib.md",
+          "CC Lib"
+      ],
+      [
+          "/basic-docs/smart-chain-api/control.md",
+          "Control"
+      ],
+      [
+          "/basic-docs/smart-chain-api/disclosure.md", 
+          "Disclosure"
+      ],
+      [
+          "/basic-docs/smart-chain-api/generate.md",
+          "Generate"
+      ],
+      [
+          "/basic-docs/smart-chain-api/mining.md",
+          "Mining"
+      ],
+      [
+          "/basic-docs/smart-chain-api/jumblr.md",
+          "Jumblr"
+      ],
+      [
+          "/basic-docs/smart-chain-api/network.md",
+          "Network"
+      ],
+      [
+          "/basic-docs/smart-chain-api/rawtransactions.md",
+          "Raw Transactions"
+      ],
+      [
+          "/basic-docs/smart-chain-api/util.md",
+          "Util"
+      ],
+      [
+          "/basic-docs/smart-chain-api/wallet.md",
+          "Wallet"
+      ]
+    ]
   },
   {
     title: "Fluidity Module API",
     collapsable: true,
     children: [
       [
-        "/basic-docs/customconsensus/custom-consensus-instructions.md",
-        "About Custom Consensus (CC)"
+          "/basic-docs/customconsensus/channels.md", 
+          "Channels"
       ],
-      ["/basic-docs/customconsensus/channels.md", "Channels"],
-      ["/basic-docs/customconsensus/dice.md", "Dice"],
-      ["/basic-docs/customconsensus/faucet.md", "Faucet"],
-      ["/basic-docs/customconsensus/gateways.md", "Gateways"],
-      ["/basic-docs/customconsensus/heir.md", "Heir"],
-      ["/basic-docs/customconsensus/musig.md", "MuSig"],
-      ["/basic-docs/customconsensus/oracles.md", "Oracles"],
-      ["/basic-docs/customconsensus/rewards.md", "Rewards"],
-      ["/basic-docs/customconsensus/rogue.md", "Rogue"],
-      ["/basic-docs/customconsensus/sudoku.md", "Sudoku"],
-      ["/basic-docs/customconsensus/tokens.md", "Tokens"]
+      [
+          "/basic-docs/customconsensus/dice.md", 
+          "Dice"
+      ],
+      [
+          "/basic-docs/customconsensus/faucet.md", 
+          "Faucet"
+      ],
+      [
+          "/basic-docs/customconsensus/gateways.md", 
+          "Gateways"
+      ],
+      [
+          "/basic-docs/customconsensus/heir.md", 
+          "Heir"
+      ],
+      [
+          "/basic-docs/customconsensus/musig.md", 
+          "MuSig"
+      ],
+      [
+          "/basic-docs/customconsensus/oracles.md", 
+          "Oracles"
+      ],
+      [
+          "/basic-docs/customconsensus/rewards.md", 
+          "Rewards"
+      ],
+      [
+          "/basic-docs/customconsensus/rogue.md", 
+          "Rogue"
+      ],
+      [
+          "/basic-docs/customconsensus/sudoku.md", 
+          "Sudoku"
+      ],
+      [
+          "/basic-docs/customconsensus/tokens.md", 
+          "Tokens"
+      ]
     ]
   },
   {
-    title: "Komodo API",
+    title: "AtomicDEX API",
     collapsable: true,
     children: [
-      ["/basic-docs/komodo-api/address.md", "Address"],
-      ["/basic-docs/komodo-api/blockchain.md", "Blockchain"],
-      ["/basic-docs/komodo-api/cclib.md", "CC Lib"],
-      ["/basic-docs/komodo-api/control.md", "Control"],
-      ["/basic-docs/komodo-api/disclosure.md", "Disclosure"],
-      ["/basic-docs/komodo-api/generate.md", "Generate"],
-      ["/basic-docs/komodo-api/mining.md", "Mining"],
-      ["/basic-docs/komodo-api/jumblr.md", "Jumblr"],
-      ["/basic-docs/komodo-api/network.md", "Network"],
-      ["/basic-docs/komodo-api/rawtransactions.md", "Raw Transactions"],
-      ["/basic-docs/komodo-api/util.md", "Util"],
-      ["/basic-docs/komodo-api/wallet.md", "Wallet"]
-    ]
-  },
-  {
-    title: "DEX Software & API",
-    collapsable: true,
-    children: [
-        ["/basic-docs/atomic-swap-dex/introduction-to-komodo-dex.md", "Introduction to Komodo DEX Software"],
-        ["/basic-docs/atomic-swap-dex/about-dex.md", "Additional Notes"],
-        ["/basic-docs/atomic-swap-dex/installing-komodo-dex.md", "Installing DEX Software"],
-        ["/basic-docs/atomic-swap-dex/dex-walkthrough.md", "DEX Walkthrough Tutorial"],
-        ["/basic-docs/atomic-swap-dex/dex-api.md", "DEX API"]
+        [
+            "/basic-docs/atomicdex/atomicdex-api.md", 
+            "AtomicDEX API"
+        ]
     ]
   }
 ]

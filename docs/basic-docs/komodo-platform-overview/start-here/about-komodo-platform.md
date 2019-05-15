@@ -118,7 +118,7 @@ Adapt your blockchain to create a purpose-built solution that fits your individu
 
 With the Komodo architecture at your command, you are prepared to lift your Smart Chain software to levels never before seen in the blockchain industry.
 
-## Smart Chain Feature Highlights
+## Introduction to Smart Chains 
 
 Komodo's Smart Chain technology allows you to create secure and fully autonomous blockchains that are designed for a specific purpose.
 
@@ -324,4 +324,4 @@ The Komodo Platform offers many free white-label applications that can help you 
 
 The best way to learn about Komodo is to use it for yourself.
 
-Please visit the [<b>Get Started</b>](../start-here/getting-started.html#before-we-begin) section to begin.
+Please read the [<b>Before We Begin</b>](../start-here/before-we-begin.html#assumptions-for-this-documentation) section next.

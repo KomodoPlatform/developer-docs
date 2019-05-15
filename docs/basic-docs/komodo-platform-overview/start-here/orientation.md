@@ -4,7 +4,7 @@ The following section answers common questions a newcomer may have, and prepares
 
 ## Assumptions for this Documentation
 
-The Komodo Platform is cutting-edge blockchain technology. To limit the scope of what we cover on the technical-documentation website, we're going to list some prerequisite knowledge. 
+The Komodo Platform is cutting-edge blockchain technology. To limit the scope of what we cover on the technical-documentation website, we list the following prerequisite knowledge. 
 
 #### Familiarity with the Concept of Blockchain Technology
 
@@ -22,9 +22,11 @@ Beginner-level knowledge should be sufficient for the majority of the site. For 
 - Utilize an Application Programming Interface (API)
 - Write and execute a rudimentary script in any mainstream language
 
-If you do not have these prerequisite experiences, we encourage you to reach out to our community on [<b>Discord</b>](https://komodoplatform.com/discord). There are thousands of free tutorials online that can help you quickly cover these topics. We will be happy to help you in you search.
+If you do not have these prerequisite experiences, we encourage you to reach out to our community on [<b>Discord</b>](https://komodoplatform.com/discord). There are thousands of free tutorials online that can help you quickly cover these topics. We will be happy to help you in your search.
 
-## Receiving a Cost Quote
+## Smart Chain Orientation
+
+### Receiving a Cost Quote
 
 #### Installation and Testing is Free
 
@@ -47,7 +49,7 @@ Our third-party providers are available on our [<b>Discord</b>](https://komodopl
 We have a limited supply of early-adopter discounts. Please inquire while supply last.
 :::
 
-## Komodo Language Compatability 
+### Komodo Language Compatability 
 
 Komodo is a highly capable blockchain technology, and it is designed for compatability with essentially all mainstream programming languages. However, not all developers will need to use its most advanced aspects.
 
@@ -57,7 +59,7 @@ A typical developer in the Komodo ecosystem will build all their application log
 
 The developer's app will send API requests to their Smart Chain's daemon to update the blockchain state and to take advantage of Komodo's default Fluidity modules. (Fluidity modules provide functionality similar to the "smart contracts" that are common on other platforms. However, we argue that Fluidity modules are dramatically more powerful.) 
 
-For this developer, any programming language that can send API requests to the software daemon is compatible.
+For this developer, any programming language that is capable of sending API requests to the software daemon is compatible.
 
 #### An Advanced Fluidity Developer
 
@@ -67,23 +69,28 @@ This developer can utilize Komodo's Fluidity Framework to add arbitrary code to 
 
 Although the Fluidity Framework can be compatible with essentially all mainstream programming languages, at this time we encourage all developers to stay close to the C/C++ languages. 
 
-## Differences between KMD and an Asset Chain
+### Differences between KMD and a Smart Chain
 
 The main KMD blockchain runs on the same underlying framework as all Smart Chains in the ecosystem, but not all features are active on the KMD blockchain.
 
-The KMD chain's active features include Bitcoin-hash rate supported security and the ability to write Fluidity modules. Other features, such as zero-knowledge privacy, are disabled.
+The KMD chain's active features include Bitcoin-hash rate supported security and the ability to execute Fluidity modules. Other features, such as zero-knowledge privacy, are disabled.
 
 This limitation is intentional. The KMD chain holds all the meta data of the ecosystem. By keeping the functionality limited, Komodo discourages rapid data growth on this central blockchain.
 
 All other Smart Chains in the ecosystem are fully customizable. 
 
-## Connect with Our Community
+## Terminology
 
-Engaging with our chat community for questions and advise can speed up the learning process. Connect with us here:
+### Smart Chain
 
-[<b>Link to the Komodo Discord Chat Server</b>](https://komodoplatform.com/discord)
+A <b>Smart Chain</b> is a ...
+
+### Fluidity
+
+<b>Fluidity</b> is a development framework...
 
 <!--
+
 ## Educational Outline for New Developers
 
 The Komodo Platform offers a wide variety of functionality. Komodo can seem overwhelming at first. We hope this outline can help the reader to structure their approach. 
