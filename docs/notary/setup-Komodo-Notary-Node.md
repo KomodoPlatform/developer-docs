@@ -703,6 +703,11 @@ cd ~/komodo/src
 ./fiat-cli stop
 ```
 
+### After all chains daemons were stopped gracefully, let's secure all Komodo Assetchin conf file inside `.komodo` dir.
+```bash
+find ~/.komodo -type f -iname "*.conf" -exec chmod 600 {} \;
+```
+
 ---
 
 ## Setting up Iguana
@@ -724,7 +729,7 @@ cp ~/komodo/src/pubkey.txt ~/SuperNET/iguana/pubkey.txt
 
 #### Create `wp_7776`
 
-Create `wp_7776` file inside the `iguana` dir with your 24 words seed passphrase. The file should look as follows (replace `YOUR VERY SECURE PASSPHRASE` with your own):
+Create `wp_7776` file inside the `iguana` dir with your 24 words passphrase. The file should look as follows (replace `YOUR VERY SECURE PASSPHRASE` with your own):
 
 ```bash
 curl --url "http://127.0.0.1:7776" --data "{\"method\":\"walletpassphrase\",\"params\":[\"YOUR VERY SECURE PASSPHRASE\", 9999999]}"
@@ -733,7 +738,7 @@ curl --url "http://127.0.0.1:7776" --data "{\"method\":\"walletpassphrase\",\"pa
 #### Make `wp_7776` file executable
 
 ```bash
-chmod +x wp_7776
+chmod 700 wp_7776
 ```
 
 #### Create `userhome.txt`
@@ -803,14 +808,19 @@ ulimit -n
 
 We need a `start` script in the home dir to start Komodo, assetchains and all 3rd party coin daemons with the `-pubkey` option. `-pubkey` is not required for BTC daemon. All other coins need it. Here is an example of a start script (change the pubkey with your Notary Node pubkey):
 
-```shell
+```bash
+#!/bin/bash
+source ~/komodo/src/pubkey.txt
 bitcoind &
-chipsd -pubkey="02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1" &
-gamecreditsd -pubkey="02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1" &
-einsteiniumd -pubkey="02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1" &
-gincoind -pubkey="02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1" &
+chipsd -pubkey=$pubkey &
+gamecreditsd -pubkey=$pubkey &
+einsteiniumd -pubkey=$pubkey &
+gincoind -pubkey=$pubkey &
+~/VerusCoin/src/verusd -pubkey=$pubkey &
+~/hush3/src/hushd -pubkey=$pubkey &
+sleep 60
 cd komodo/src
-./komodod -gen -genproclimit=1 -notary -pubkey="02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1" &
+./komodod -gen -genproclimit=1 -notary -pubkey=$pubkey &
 sleep 600
 ./assetchains
 ```
