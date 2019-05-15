@@ -1,4 +1,3 @@
-require("dotenv").config();
 var redirectAliases = require("./public/_redirects.js");
 var sidebarImport = require("./sidebar.js");
 var navbarImport = require("./navbar.js");
