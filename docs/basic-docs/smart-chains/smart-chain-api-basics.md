@@ -64,7 +64,7 @@ There are many additional parameters that you can explore later in the [Asset Ch
 
 The daemon will return a response similar to the following: 
 
-```txt
+```
 [1] 22892
 ASSETCHAINS_SUPPLY 1000
 MAX_MONEY 106320417438 1063.20417438
@@ -81,7 +81,7 @@ From the response, note the following information:
 
 ##### Asset Chain Supply
 
-```txt
+```
 ASSETCHAINS_SUPPLY 1000
 ```
 
@@ -89,7 +89,7 @@ We see the 1000 coin initial supply.
 
 ##### Configuration File Location
 
-```txt
+```
 Created (/home/mylo/.komodo/RT1/RT1.conf)
 ```
 
@@ -99,7 +99,7 @@ Placing the configuration data here follows the Komodo convention of placing all
 
 ##### Relevant RPC Data
 
-```txt
+```
 >>>>>>>>>> RT1: p2p.13100 rpc.13101 magic.fd772ab9 4252445369 1000 coins
 ``` 
 
