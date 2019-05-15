@@ -1,24 +1,54 @@
+// We're using nested sidebar groups now.
+// See this PR on the VuePress Github for more information:
+//
+// https://github.com/vuejs/vuepress/pull/1257
+
 var sidebar = [{
     title: "Komodo Platform Overview",
-    collapsable: true,
+    collapsible: true,
     children: [
-        [
-            "/basic-docs/komodo-platform-overview/start-here/start-here.md",
-            "Start Here"
-        ],
-        [
-            "/basic-docs/komodo-platform-overview/educational-outline/educational-outline.md",
-            "Educational Outline"
-        ],
-        [
-            "/basic-docs/komodo-platform-overview/comprehensive-tutorials/comprehensive-tutorials.md",
-            "Comprehensive Tutorials"
-        ],
+        {
+            title: 'Start Here',
+            collapsible: true,
+            children: 
+            [
+                [
+                    "/basic-docs/komodo-platform-overview/start-here/about-komodo-platform.md",
+                    "About Komodo Platform"
+                ],
+                [
+                    "/basic-docs/komodo-platform-overview/start-here/orientation.md",
+                    "Orientation"
+                ],
+            ]
+        },
+        {
+            title: "Educational Outline",
+            collapsible: true,
+            children: 
+            [
+                [
+                    "/basic-docs/komodo-platform-overview/educational-outline/educational-outline.md",
+                    "Educational Outline"
+                ],
+            ]
+        },
+        {
+            title: "Comprehensive Tutorials",
+            collapsible: true,
+            children:
+            [
+                [
+                    "/basic-docs/komodo-platform-overview/comprehensive-tutorials/comprehensive-tutorials.md",
+                    "Comprehensive Tutorials"
+                ],
+            ]
+        },
     ]
   },
   {
         title: "Smart Chain Setup",
-        collapsable: true,
+        collapsible: true,
         children: [
             [
                 "/basic-docs/smart-chains/get-started-smart-chains.md",
@@ -28,7 +58,7 @@ var sidebar = [{
   },
   // {
       // title: "Developer Tutorials",
-      // collapsable: true,
+      // collapsible: true,
       // children: [
           // [
             // "/basic-docs/developer-tutorials/tutorial-outline.md",
@@ -66,7 +96,7 @@ var sidebar = [{
   // },
   {
     title: "Smart Chain API",
-    collapsable: true,
+    collapsible: true,
     children: [
       [
           "/basic-docs/smart-chains/smart-chain-api/address.md",
@@ -120,7 +150,7 @@ var sidebar = [{
   },
   {
     title: "Fluidity Module API",
-    collapsable: true,
+    collapsible: true,
     children: [
       [
           "/basic-docs/fluidity/channels.md", 
@@ -170,7 +200,7 @@ var sidebar = [{
   },
   {
     title: "AtomicDEX API",
-    collapsable: true,
+    collapsible: true,
     children: [
         [
             "/basic-docs/atomicdex/atomicdex-api.md", 
