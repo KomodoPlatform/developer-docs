@@ -184,7 +184,7 @@ var sidebar = [
                 collapsible: true,
                 children: [
                     [
-                        "/basic-docs/fluidity/fluidity-api/fluidity-instructions.md", 
+                        "/basic-docs/fluidity/fluidity-setup/fluidity-instructions.md", 
                         "Using Fluidity"
                     ],
                 ],
@@ -202,7 +202,7 @@ var sidebar = [
                             "Fluidity Conceptual Overview"
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/fluidity-instructions.md", 
+                            "/basic-docs/fluidity/fluidity-tutorials/advanced-fluidity-tutorial.md", 
                             "Advanced Fluidity Tutorial"
                         ],
                         [
@@ -300,7 +300,37 @@ var sidebar = [
             "AtomicDEX API"
         ]
     ]
-  }
+  },
+    {
+        title: "Chainlizards",
+        collapsible: true,
+        children: [
+            {
+                title: "Chainlizards Setup",
+                collapsible: true,
+                children: [
+                    [
+                        "/basic-docs/chainlizards/chainlizards-setup/introduction-to-chainlizards.md",
+                        "Chainlizards Introduction"
+                    ],
+                ]
+            },
+            {
+                title: "Chainlizards Tutorials",
+                collapsible: true,
+                children: [
+                    [
+                        "/basic-docs/chainlizards/chainlizards-tutorials/chainlizards-tutorial.md",
+                        "Chainlizard Tutorial"
+                    ],
+                ]
+            },
+            [
+                "/basic-docs/chainlizards/chainlizards-api/chainlizards-api.md",
+                "Chainlizards API"
+            ],
+        ],
+    },
 ]
 
 module.exports = sidebar;
