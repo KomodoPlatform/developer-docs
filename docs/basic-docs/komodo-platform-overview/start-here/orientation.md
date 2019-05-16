@@ -1,8 +1,8 @@
-# Orientation 
+# Documentation Orientation & FAQ
 
 The following section answers common questions a newcomer may have, and prepares the new reader for the installation procedure.
 
-## Assumptions for this Documentation
+### Assumptions for this Documentation
 
 The Komodo Platform is cutting-edge blockchain technology. To limit the scope of what we cover on the technical-documentation website, we list the following prerequisite knowledge. 
 
@@ -24,9 +24,27 @@ Beginner-level knowledge should be sufficient for the majority of the site. For 
 
 If you do not have these prerequisite experiences, we encourage you to reach out to our community on [<b>Discord</b>](https://komodoplatform.com/discord). There are thousands of free tutorials online that can help you quickly cover these topics. We will be happy to help you in your search.
 
-## Smart Chain Orientation
+### Komodo Language Compatability 
 
-### Receiving a Cost Quote
+Komodo is a highly capable blockchain technology, and it is designed for compatability with essentially all mainstream programming languages. However, not all developers will need to use its most advanced aspects.
+
+#### A Normal Developer in the Komodo Ecosystem
+
+A typical developer in the Komodo ecosystem will build all their application logic in a separate application that runs outside of their Smart Chain daemon. 
+
+The developer's app will send API requests to their Smart Chain's daemon to update the blockchain state and to take advantage of Komodo's default Fluidity modules. (Fluidity modules provide functionality similar to the "smart contracts" that are common on other platforms. However, we argue that Fluidity modules are dramatically more powerful.) 
+
+For this developer, any programming language that is capable of sending API requests to the software daemon is compatible.
+
+#### An Advanced Fluidity Developer
+
+A highly advanced developer may be interested to take advantage of the full potential of Komodo technology. 
+
+This developer can utilize Komodo's Fluidity Framework to add arbitrary code to the consensus mechansim of their autonomous Smart Chain.
+
+Although the Fluidity Framework can be compatible with essentially all mainstream programming languages, at this time we encourage all developers to stay close to the C/C++ languages. 
+
+### The Cost of a Smart Chain
 
 #### Installation and Testing is Free
 
@@ -49,25 +67,11 @@ Our third-party providers are available on our [<b>Discord</b>](https://komodopl
 We have a limited supply of early-adopter discounts. Please inquire while supply last.
 :::
 
-### Komodo Language Compatability 
+### The Cost of Using AtomicDEX Software
 
-Komodo is a highly capable blockchain technology, and it is designed for compatability with essentially all mainstream programming languages. However, not all developers will need to use its most advanced aspects.
+Currently, there are no additional costs for AtomicDEX beyond the fees listed for each trade. 
 
-#### A Normal Developer in the Komodo Ecosystem
-
-A typical developer in the Komodo ecosystem will build all their application logic in a separate application that runs outside of their Smart Chain daemon. 
-
-The developer's app will send API requests to their Smart Chain's daemon to update the blockchain state and to take advantage of Komodo's default Fluidity modules. (Fluidity modules provide functionality similar to the "smart contracts" that are common on other platforms. However, we argue that Fluidity modules are dramatically more powerful.) 
-
-For this developer, any programming language that is capable of sending API requests to the software daemon is compatible.
-
-#### An Advanced Fluidity Developer
-
-A highly advanced developer may be interested to take advantage of the full potential of Komodo technology. 
-
-This developer can utilize Komodo's Fluidity Framework to add arbitrary code to the consensus mechansim of their autonomous Smart Chain.
-
-Although the Fluidity Framework can be compatible with essentially all mainstream programming languages, at this time we encourage all developers to stay close to the C/C++ languages. 
+### The Cost of Using Chainlizards API
 
 ### Differences between KMD and a Smart Chain
 
@@ -78,16 +82,6 @@ The KMD chain's active features include Bitcoin-hash rate supported security and
 This limitation is intentional. The KMD chain holds all the meta data of the ecosystem. By keeping the functionality limited, Komodo discourages rapid data growth on this central blockchain.
 
 All other Smart Chains in the ecosystem are fully customizable. 
-
-## Terminology
-
-### Smart Chain
-
-A <b>Smart Chain</b> is a ...
-
-### Fluidity
-
-<b>Fluidity</b> is a development framework...
 
 <!--
 

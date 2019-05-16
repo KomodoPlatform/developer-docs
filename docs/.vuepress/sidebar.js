@@ -10,15 +10,19 @@ var sidebar = [{
         {
             title: 'Start Here',
             collapsible: true,
-            children: 
+            children:
             [
                 [
                     "/basic-docs/komodo-platform-overview/start-here/about-komodo-platform.md",
-                    "About Komodo Platform"
+                    "Platform Overview"
+                ],
+                [
+                    "/basic-docs/komodo-platform-overview/start-here/product-introductions.md",
+                    "Product Introductions"
                 ],
                 [
                     "/basic-docs/komodo-platform-overview/start-here/orientation.md",
-                    "Orientation"
+                    "Documentation Orientation & FAQ"
                 ],
             ]
         },
@@ -31,16 +35,36 @@ var sidebar = [{
                     "/basic-docs/komodo-platform-overview/educational-outline/educational-outline.md",
                     "Educational Outline"
                 ],
+                [
+                    "/basic-docs/komodo-platform-overview/educational-outline/terminology.md",
+                    "Terminology"
+                ],
             ]
         },
         {
-            title: "Comprehensive Tutorials",
+            title: "General Tutorials",
             collapsible: true,
             children:
             [
                 [
-                    "/basic-docs/komodo-platform-overview/comprehensive-tutorials/comprehensive-tutorials.md",
-                    "Comprehensive Tutorials"
+                    "/basic-docs/komodo-platform-overview/general-tutorials/general-tutorial-1.md",
+                    "General Tutorial 1"
+                ],
+                [
+                    "/basic-docs/komodo-platform-overview/general-tutorials/general-tutorial-2.md",
+                    "General Tutorial 2"
+                ],
+                [
+                    "/basic-docs/komodo-platform-overview/general-tutorials/comprehensive-tutorials-type-b-beginner.md",
+                    "Comprehensive Tutorial | Type B Beginner"
+                ],
+                [
+                    "/basic-docs/komodo-platform-overview/general-tutorials/comprehensive-tutorials-type-b-intermediate.md",
+                    "Comprehensive Tutorial | Type B Intermediate"
+                ],
+                [
+                    "/basic-docs/komodo-platform-overview/general-tutorials/comprehensive-tutorials-type-b-advanced.md",
+                    "Comprehensive Tutorial | Type B Advanced"
                 ],
             ]
         },
@@ -149,7 +173,7 @@ var sidebar = [{
     ]
   },
   {
-    title: "Fluidity Module API",
+    title: "Fluidity API",
     collapsible: true,
     children: [
       [
