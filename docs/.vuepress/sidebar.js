@@ -9,7 +9,7 @@ var sidebar = [
         collapsible: true,
         children: [
             {
-                title: 'Start Here',
+                title: 'About Komodo Platform',
                 collapsible: true,
                 children:
                 [
@@ -23,12 +23,12 @@ var sidebar = [
                     ],
                     [
                         "/basic-docs/komodo-platform-overview/start-here/orientation.md",
-                        "Orientation to Documentation & FAQ"
+                        "Doc Orientation & FAQ"
                     ],
                 ]
             },
             {
-                title: "Education Paths",
+                title: "Education Launchpad",
                 collapsible: true,
                 children: 
                 [
