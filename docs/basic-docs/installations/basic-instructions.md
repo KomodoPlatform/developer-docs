@@ -2,7 +2,27 @@
 
 ## Installing Basic Komodo Software
 
-To install the Komodo daemon, `komodod`, and its necessary counterpart, `komodo-cli`, the simplest method is to [download and unzip pre-compiled executables](https://github.com/KomodoPlatform/komodo/releases). Once unpacked, the executables do not require installation. Simply find `komodod` and `komodo-cli` in the directory where you unzipped the files.
+To install the Komodo daemon, `komodod`, and its necessary counterpart, `komodo-cli`, the simplest method requires two steps.
+
+First, download the following script to install the Zcash parameters.
+
+[<b>Link to Zcash-Parameter Download Script</b>](https://github.com/jl777/komodo/blob/master/zcutil/fetch-params.sh)
+
+Execute the file in the terminal.
+
+For example: 
+
+```bash
+/path_to_downloaded_file/fetch-params.sh
+```
+
+The script will automatically install the Zcash parameters on your local machine. This process may take time.
+
+Once the Zcash parameters are downloaded, you are prepared to install pre-compiled binaries of the Komodo daemon, `komodod`.
+
+[Download and unzip the pre-compiled executables found here](https://github.com/KomodoPlatform/komodo/releases). 
+
+Once unzipped, the executables do not require installation. Simply find `komodod` and `komodo-cli` in the directory where you unzipped the files.
 
 You may also build `komodod` and `komodo-cli` from source. This is not required, but it is considered the best practice. Building from source enables you to receive the latest patches and security upgrades the moment they are pushed to the `komodod` source.
 
