@@ -4,7 +4,9 @@
 
 To install the Komodo daemon, `komodod`, and its necessary counterpart, `komodo-cli`, the simplest method requires two steps.
 
-First, download the following script to install the Zcash parameters.
+**Step 1:**
+
+Download zcash parameters using the `fetch-params.sh` script for **Linux and MacOS** from below.
 
 [<b>Link to Zcash-Parameter Download Script</b>](https://github.com/jl777/komodo/blob/master/zcutil/fetch-params.sh)
 
@@ -16,9 +18,13 @@ For example:
 /path_to_downloaded_file/fetch-params.sh
 ```
 
-The script will automatically install the Zcash parameters on your local machine. This process may take time.
+The script will automatically download the Zcash parameters on your local machine. This process may take time depending on internet speed.
+
+For **Windows**, you will find `fetch-params.bat` file included inside the zip that you will download from Step 2. Double-click the file and it will download the zcash parameters in your machine.
 
 Once the Zcash parameters are downloaded, you are prepared to install pre-compiled binaries of the Komodo daemon, `komodod`.
+
+**Step 2:**
 
 [Download and unzip the pre-compiled executables found here](https://github.com/KomodoPlatform/komodo/releases). 
 
