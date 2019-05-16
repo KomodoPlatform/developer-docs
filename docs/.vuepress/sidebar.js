@@ -22,6 +22,10 @@ var sidebar = [
                         "Product Introductions"
                     ],
                     [
+                        "/basic-docs/komodo-platform-overview/start-here/simple-installations.md",
+                        "Simple Installations"
+                    ],
+                    [
                         "/basic-docs/komodo-platform-overview/start-here/orientation.md",
                         "Doc Orientation & FAQ"
                     ],
