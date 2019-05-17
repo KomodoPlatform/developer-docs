@@ -14,19 +14,19 @@ var sidebar = [
                 children:
                 [
                     [
-                        "/basic-docs/komodo-platform-overview/start-here/about-komodo-platform.md",
+                        "/basic-docs/start-here/about-komodo-platform/about-komodo-platform.md",
                         "Platform Overview"
                     ],
                     [
-                        "/basic-docs/komodo-platform-overview/start-here/product-introductions.md",
+                        "/basic-docs/start-here/about-komodo-platform/product-introductions.md",
                         "Product Introductions"
                     ],
                     [
-                        "/basic-docs/komodo-platform-overview/start-here/simple-installations.md",
+                        "/basic-docs/start-here/about-komodo-platform/simple-installations.md",
                         "Simple Installations"
                     ],
                     [
-                        "/basic-docs/komodo-platform-overview/start-here/orientation.md",
+                        "/basic-docs/start-here/about-komodo-platform/orientation.md",
                         "Doc Orientation & FAQ"
                     ],
                 ]
@@ -37,11 +37,11 @@ var sidebar = [
                 children: 
                 [
                     [
-                        "/basic-docs/komodo-platform-overview/education-paths/learning-path-outlines.md",
+                        "/basic-docs/start-here/education-paths/learning-path-outlines.md",
                         "Learning Path Outlines"
                     ],
                     [
-                        "/basic-docs/komodo-platform-overview/education-paths/terminology.md",
+                        "/basic-docs/start-here/education-paths/terminology.md",
                         "Terminology"
                     ],
                 ]
@@ -52,27 +52,27 @@ var sidebar = [
                 children:
                 [
                     [
-                        "/basic-docs/komodo-platform-overview/general-tutorials/introduction-to-general-tutorials.md",
+                        "/basic-docs/start-here/general-tutorials/introduction-to-general-tutorials.md",
                         "Introduction to General Tutorials"
                     ],
                     [
-                        "/basic-docs/komodo-platform-overview/general-tutorials/general-tutorial-1.md",
+                        "/basic-docs/start-here/general-tutorials/general-tutorial-1.md",
                         "General Tutorial 1"
                     ],
                     [
-                        "/basic-docs/komodo-platform-overview/general-tutorials/general-tutorial-2.md",
+                        "/basic-docs/start-here/general-tutorials/general-tutorial-2.md",
                         "General Tutorial 2"
                     ],
                     [
-                        "/basic-docs/komodo-platform-overview/general-tutorials/comprehensive-tutorials-type-b-beginner.md",
+                        "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-beginner.md",
                         "Comprehensive Tutorial | Type B Beginner"
                     ],
                     [
-                        "/basic-docs/komodo-platform-overview/general-tutorials/comprehensive-tutorials-type-b-intermediate.md",
+                        "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-intermediate.md",
                         "Comprehensive Tutorial | Type B Intermediate"
                     ],
                     [
-                        "/basic-docs/komodo-platform-overview/general-tutorials/comprehensive-tutorials-type-b-advanced.md",
+                        "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-advanced.md",
                         "Comprehensive Tutorial | Type B Advanced"
                     ],
                 ]

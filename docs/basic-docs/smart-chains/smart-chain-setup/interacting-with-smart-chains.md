@@ -1,5 +1,6 @@
 # Interacting with Komodo Chains
 
+## Using komodo-cli
 Initiate the `komodod` daemon by calling it from the command line and including any desired runtime parameters.
 
 When initiating any Smart Chain other than the main KMD chain, the user should always include all parameters that were used to create the Smart Chain.
@@ -48,5 +49,34 @@ To learn more via the terminal about a specific API command, execute:
 
 ```bash
 ./komodo-cli help API_COMMAND
+```
+## Using curl
+
+To access a coin daemon remotely -- for example, via a `curl` command in the shell -- the user will need to obtain the `rpcuser`, `rpcpassword`, and `rpcport` from the `.conf` file of the relevant coin daemon.
+
+Assuming the default installation location, the `.conf` file can be found by exploring the following directories:
+
+| Operating System | Directory |
+| ---------------- | --------- |
+| MacOS | `~/Library/Application Support/Komodo` |
+| Windows | `C:\Users\myusername\AppData\Roaming\Komodo\` |
+| GNU/Linux | `~/.komodo` |
+
+
+Within this directory there are also subdirectories containing all KMD-compatible `.conf` files used on this node.
+
+Contents of a KMD `.conf` file:
+
+```bash
+rpcuser=myusername
+rpcpassword=myrpcpassword
+server=1
+rpcport=7771
+addnode=78.47.196.146
+addnode=5.9.102.210
+addnode=178.63.69.164
+addnode=88.198.65.74
+addnode=5.9.122.241
+addnode=144.76.94.3
 ```
 

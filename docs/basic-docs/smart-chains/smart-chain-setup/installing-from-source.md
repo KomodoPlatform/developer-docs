@@ -24,7 +24,7 @@ You can download and unzip our pre-compiled binaries. This is the simplest metho
 
 For more information on this method, please see the link below.
 
-[<b>Link to simple installations section for pre-compiled executables</b>](../basic-docs/komodo-platform-overview/start-here/simple-installations.html)
+[<b>Link to simple installations section for pre-compiled executables</b>](../basic-docs/start-here/about-komodo-platform/simple-installations.html)
 
 ##### Building Smart Chain Software From Source
 
