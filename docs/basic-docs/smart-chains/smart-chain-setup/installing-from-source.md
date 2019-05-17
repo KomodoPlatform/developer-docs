@@ -1,26 +1,44 @@
-# Building the komodod Daemon From Source Code
+# Installing Smart Chain Software From Source Code
 
 The basic Komodo software package includes two applications.
 
-`komodod` - This is the Smart Chain daemon that powers all Komodo blockchains.
+##### komodod
 
-`komodo-cli` - This software allows a developer to execute API calls to `komodod` via the command line.
+The `komodod` software application is the Smart Chain daemon that powers all Komodo blockchains.
 
-#### (Optional) Pre-compiled Executable Software
+##### komodo-cli
 
-To install the basic Komodo software, the simplest method is to download and unzip pre-compiled executables. The can serve as a replacement method over building the `komodod` daemon from source for a typical (non-developer) user. Please see the linked section below, Simple Installations, for more information.
+The `komodo-cli` software application allows a developer to execute API calls to `komodod` via the command line.
 
-[<b>Link to Simple Installations section for pre-compiled executables</b>](../basic-docs/komodo-platform-overview/start-here/simple-installations.html)
+##### Both are Installed Automatically
 
-#### Building Komodo Software From Source
+Both of these software applications are installed in the `~/komodo/src/` directory as a part of any of the following installation procedures.
 
-You may also build Komodo software from source.
+### The Two Methods to Install Smart Chain Software
 
-This is not required, but building from source is considered the best practice in a production environment as this allows you to instantly update to the latest patches and upgrades.
+There are two methods available to install Smart Chain software.
+
+##### Precompiled Binaries
+
+You can download and unzip our pre-compiled binaries. This is the simplest method and requires no installation procedure.
+
+For more information on this method, please see the link below.
+
+[<b>Link to simple installations section for pre-compiled executables</b>](../basic-docs/komodo-platform-overview/start-here/simple-installations.html)
+
+##### Building Smart Chain Software From Source
+
+You may also build Smart Chain software from source.
+
+This is not required, but building from source is considered the best practice in a production environment, as this allows you to instantly update to the latest patches and upgrades.
 
 Source code exists for most major OS's, including Windows, MacOS, and Linux.
 
-## Linux (Ubuntu/Debian)
+- [<b>Linux</b>](../basic-docs/smart-chains/smart-chain-setup/building-smart-chain-daemon-from-source.html#linux-ubuntu-debian)
+- [<b>MacOS</b>](../basic-docs/smart-chains/smart-chain-setup/building-smart-chain-daemon-from-source.html#macos)
+- [<b>Windows</b>](../basic-docs/smart-chains/smart-chain-setup/building-smart-chain-daemon-from-source.html#windows-64-bit)
+
+## Linux
 
 #### Requirements
 
@@ -69,7 +87,7 @@ git checkout dev
 
 In the command below, the `-j$(nproc)` parameter instructs the script to utilize all available processors in your hardware. 
 
-Alternatively, you may instruct the script to use only a set number of processors. For example, `-j8` will instructs the script to use `8` processors.
+Alternatively, you may instruct the script to use only a set number of processors. For example, `-j8` instructs the script to use `8` processors; `-j4` instructs the script to use `4` processors, etc.
 
 ```bash
 ./zcutil/build.sh -j$(nproc)
@@ -141,7 +159,7 @@ For example:
 ./komodo-cli getinfo
 ```
 
-This command returns the latest state information about the KMD blockchain and your `wallet.dat` file.d
+This command returns the latest state information about the KMD blockchain and your `wallet.dat` file.
 
 ```json
 {
@@ -174,160 +192,105 @@ This command returns the latest state information about the KMD blockchain and y
 
 When the `blocks` and `longestchain` values are equal to each other, your machine is in sync with the network.
 
-### Updating komodod on Linux
+#### Backup your wallet
 
-To update your compiled `komodod` daemon, follow the steps below carefully. For each step, do not proceed to the next step until the current step is fully complete.
+We can not stress enough the importance of backing up your `wallet.dat` file.
 
-You may leave the `komodod` daemon running, if necessary, and if your machine has sufficient resources. 
+On Linux, the file is located here:  `~/.komodo/wallet.dat`
 
-Alternatively, you may stop the daemon by executing `~/komodo/src/komodo-cli stop`.
-
-#### Navigate to your komodo directory
+One method to backup this file is to archive a copy of the file.
 
 ```bash
-cd ~/komodo
-```
-
-#### Reset Your Local Repository
-
-```bash
-git reset --hard
-```
-
-#### Clean the Source Directory
-
-```bash
-make clean
-```
-
-#### Update Your Local Source Code
-
-```bash
-git pull
-```
-
-#### Compile the Latest Zcash Binary
-
-```bash
-./zcutil/build.sh -j$(nproc)
-```
-
-#### Reset the komodod Daemon
-
-Start your sevices as usual. 
-
-(If you did not stop the deamon before compiling, stop the daemon using `~/komodo/src/komodo-cli stop` and start the daemon again.)
-
-```bash
-~/komodo/src/komodod &
-```
-
-#### Rapid Update Method
-
-The steps below can often be used to update the daemon. These steps take a lesser amount of time, and occasionally may produce an error. If the steps below do not succeed, simply use the update steps listed above.
-
-```bash
-cd ~/komodo
-git checkout dev
-git pull
-make -j$(nproc)
-```
-
-### IMPORTANT: Backup your wallet
-
-We can not stress enough to take a backup of your wallet.dat file time to time. Here's the reason why:
-
-- When you send some funds from an address, sometimes the funds used from the unspent transaction outputs (utxo) leaves a change behind. This change doesn't go back to the same address the funds sent from. This change goes to a new address. And this new address is stored in the wallet.dat file located in Komodo data directory on your machine.
-
-- Sometimes your wallet.dat file may got corrupted. It's always good to have backup handy.
-
-If you are not sure when to take backup of your wallet.dat file, just take backup of it according to how often your use. If you use it regularly, then just take a backup of your wallet.dat file at then end of day. If not so often then maybe twice a week or depending on your use adjust your time period of taking backup.
-
-You can find your wallet.dat file under linux at `~/.komodo/wallet.dat`.
-
-To backup you can take a copy of this file and make archive of it.
-
-```bash
-# To copy
+# Copy the file
 cp -av ~/.komodo/wallet.dat ~/wallet.dat
 
-# To rename file
-mv ~/wallet.dat ~/wallet_backup_DATE_HERE.dat
-
-# example
-mv ~/wallet.dat ~/wallet_backup_21May2017.dat
+# Rename file
+mv ~/wallet.dat ~/2019-05-17-wallet_backup.dat
 
 # To make archive
-tar -czvf ~/wallet_backup_21May2017.dat.tgz ~/wallet_backup_21May2017.dat
+tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
+
+# Move the final file to secure location
 ```
 
-## Installing Komodo on OSX
+## MacOS
 
 ### Requirements
 
-Ensure commandline tools from apple/xcode are installed. Issue the following command in a terminal.
+- OSX (version > 10.11)
+- Minimum 4GB of free RAM (8GB+ recommended)
+
+##### Ensure Commandline Tools are Installed. 
+
+Issue the following command in a terminal.
 
 ```bash
 xcode-select --install
 ```
 
-`brew` is needed to install dependencies. If you have latest `brew` installed in your system already, skip this and install the deps directly.
+##### Ensure brew is Installed 
+
+We use the software `brew` to install dependencies. If you have the latest version of `brew` installed already, you may skip this step.
 
 ```bash
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-These are the dependencies needed to install with `brew`.
+##### Use brew to Install Dependencies
+
+Execute each command separately
 
 ```bash
 brew update
 brew upgrade
-    brew tap discoteq/discoteq; brew install flock
-    brew install autoconf autogen automake
-    brew install gcc@6
-    brew install binutils
-    brew install protobuf
-    brew install coreutils
-    brew install wget
+brew tap discoteq/discoteq; brew install flock
+brew install autoconf autogen automake
+brew install gcc@6
+brew install binutils
+brew install protobuf
+brew install coreutils
+brew install wget
 ```
 
-### Clone the Komodo repository
+#### Clone the Komodo repository
 
 ```bash
 git clone https://github.com/jl777/komodo
 ```
 
-### Get the Zcash params:
+#### Fetch the Zcash Parameters:
 
 ```bash
 cd komodo
 ./zcutil/fetch-params.sh
 ```
 
-### Compile Komodo
+#### Compile Komodo
 
 ```bash
 git checkout dev
 ./zcutil/build-mac.sh -j8
 ```
 
-This can take some time, so let's create a configuration file in the mean time using a fresh terminal.
+This can take some time.
 
-### Create configuration file
+While this process proceeds, open a new terminal for the next step.
 
-The configuration file should be created in the following directory:
+#### Create Configuration File
+
+Create the configuration file in the following directory:
 
 ```bash
 ~/Library/Application\ Support/Komodo
 ```
 
-Create the directory if it's missing:
+If the directory does not yet exist, create the directory.
 
 ```bash
 mkdir ~/Library/Application\ Support/Komodo
 ```
 
-and create the configuration file by entering this in terminal:
+Create the configuration file by entering the following commands in the terminal. Execute each line separately.
 
 ```bash
 echo "rpcuser=komodouser" >> ~/Library/Application\ Support/Komodo/komodo.conf
@@ -343,29 +306,54 @@ echo "addnode=5.9.122.241" >> ~/Library/Application\ Support/Komodo/komodo.conf
 echo "addnode=144.76.94.38" >> ~/Library/Application\ Support/Komodo/komodo.conf
 ```
 
-### Run Komodo
+#### Run Komodo
 
-If the build went well, run komodo:
+Once all processes are complete, run the `komodod` daemon.
 
 ```bash
 cd ~/komodo/src
 ./komodod &
 ```
 
-To track progress of downloading the Komodo blockchain:
+#### Track the Syncing Progress
+
+##### Using the tail Command
 
 ```bash
 tail -f ~/Library/Application\ Support/Komodo/debug.log
 ```
 
-or get info with the getinfo command:
+##### Using komodo-cli and getinfo
 
 ```bash
 cd ~/komodo/src
 ./komodo-cli getinfo
 ```
 
-## Installing Komodo on Windows 64-bit systems
+When the returned properties of `blocks` and `longestchain` are equal to each other, the daemon is finished syncing with the network.
+
+#### Backup your wallet
+
+We can not stress enough the importance of backing up your `wallet.dat` file.
+
+On MacOS, the file is located here:  `~/.komodo/wallet.dat`
+
+One method to backup this file is to archive a copy of the file.
+
+```bash
+# Copy the file
+cp -av ~/.komodo/wallet.dat ~/wallet.dat
+
+# Rename file
+mv ~/wallet.dat ~/2019-05-17-wallet_backup.dat
+
+# To make archive
+tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
+
+# Move the final file to secure location
+```
+
+## Windows
 
 PLEASE FOLLOW THE VIDEO TUTORIAL: [https://youtu.be/gfZZy8b222E](https://youtu.be/gfZZy8b222E)
 
@@ -454,69 +442,4 @@ Downloads:
 - [sapling-output.params](<[https://z.cash/downloads/sapling-output.params](https://z.cash/downloads/sapling-output.params)>)
 
 - [sprout-groth16.params](<[https://z.cash/downloads/sprout-groth16.params](https://z.cash/downloads/sprout-groth16.params)>)
-
-
-## Interacting with Komodo Chains
-
-<!--
-
-Sidd: We can move these sections below to separate files.
-
--->
-
-Initiate the `komodod` daemon by calling it from the command line and including any desired runtime parameters.
-
-When initiating any Smart Chain other than the main KMD chain, the user should always include all parameters that were used to create the Smart Chain.
-
-::: tip
-  Note to Windows Users: Replace ./komodod and ./komodo-cli with komodod.exe and komodo-cli.exe for each step.
-:::
-
-To launch the main KMD chain, execute the following command in the directory where `komodod` is installed.
-
-```bash
-./komodod &
-```
-
-After the daemon launches, you may interact with it using the `komodo-cli` software.
-
-```bash
-./komodo-cli API_COMMAND
-```
-
-To launch another Smart Chain, include the necessary parameters.
-
-::: tip IMPORTANT
-Always execute the launch command EXACTLY as indicated, and as the Smart Chain's developers instruct. If you make a mistake, you must delete the Smart Chain data and re-launch to regain access to the Smart Chain's network.
-:::
-
-For example, to launch the DEX Smart Chain, execute:
-
-```bash
-./komodod -ac_name=DEX -ac_supply=999999 -addnode=78.47.196.146 &
-```
-
-To interact with the DEX daemon, use `komodo-cli` like so:
-
-```bash
-./komodo-cli -ac_name=DEX API_COMMAND
-```
-
-In the terminal you can call the Komodo documentation by executing:
-
-```bash
-./komodo-cli help
-```
-
-To learn more via the terminal about a specific API command, execute:
-
-```bash
-./komodo-cli help API_COMMAND
-```
-
-## Ecosystem Launch Parameters
-
-A list of launch parameters for all Smart Chains in the Komodo ecosystem can be found here.
-
-[Link to list of all Smart Chain launch parameters](https://github.com/jl777/komodo/blob/master/src/assetchains.old)
 

@@ -92,8 +92,20 @@ var sidebar = [
             collapsible: true,
             children: [
                 [
-                    "/basic-docs/smart-chains/smart-chain-setup/get-started-smart-chains.md",
-                    "Building the komodod Daemon From Source"
+                    "/basic-docs/smart-chains/smart-chain-setup/installing-from-source.md",
+                    "Installing Smart Chain Software From Source Code"
+                ],
+                [
+                    "/basic-docs/smart-chains/smart-chain-setup/updating-from-source.md",
+                    "Updating Smart Chain Software From Source Code"
+                ],
+                [
+                    "/basic-docs/smart-chains/smart-chain-setup/interacting-with-smart-chains.md",
+                    "Interacting with Smart Chains"
+                ],
+                [
+                    "/basic-docs/smart-chains/smart-chain-setup/ecosystem-launch-parameters.md",
+                    "Ecosystem Smart Chain Launch Commands"
                 ],
                 [
                     "/basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.md",
