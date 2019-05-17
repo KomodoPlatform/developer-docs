@@ -210,7 +210,7 @@ mv ~/wallet.dat ~/2019-05-17-wallet_backup.dat
 # To make archive
 tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
 
-# Move the final file to secure location
+# Move the final file to a secure location
 ```
 
 ## MacOS
@@ -332,7 +332,7 @@ cd ~/komodo/src
 
 When the returned properties of `blocks` and `longestchain` are equal to each other, the daemon is finished syncing with the network.
 
-#### Backup your wallet
+#### Backup Your Wallet
 
 We can not stress enough the importance of backing up your `wallet.dat` file.
 
@@ -350,30 +350,44 @@ mv ~/wallet.dat ~/2019-05-17-wallet_backup.dat
 # To make archive
 tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
 
-# Move the final file to secure location
+# Move the final file to a secure location
 ```
 
 ## Windows
 
-PLEASE FOLLOW THE VIDEO TUTORIAL: [https://youtu.be/gfZZy8b222E](https://youtu.be/gfZZy8b222E)
+#### Follow the Video Tutorial
 
-1. First download komodo windows [binaries](https://github.com/KomodoPlatform/komodo/releases) and place the files in a new folder on the Desktop called kmd ('`C:\\Users\\YourUserName\\Desktop\\kmd`') .
+<div class="video-wrapper">
 
-Open a Command Prompt for the following steps.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gfZZy8b222E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-1. Next we'll create the Komodo directory in the `AppData` directory.
+</div>
+
+#### Download Komodo Software for Windows
+
+[Links to Komodo Binaries for Windows Here](https://github.com/KomodoPlatform/komodo/releases)
+
+Place the files in a new folder on the Desktop called kmd.
+
+`C:\\Users\\YourUserName\\Desktop\\kmd`
+
+Open a command prompt for the following steps.
+
+#### Create the Komodo Directory
 
 ```bash
 mkdir "%HOMEPATH%\AppData\Roaming\komodo"
 ```
 
-1. Next we will create our `komodo.conf` file.
+#### Create the Configuration File
 
 ```bash
 notepad “%HOMEPATH%\AppData\Roaming\Komodo\komodo.conf”
 ```
 
-When Notepad opens, click `Yes` to create the komodo.conf file. Copy the information below and paste it into Notepad.
+When the software dialogue box opens, click `Yes` to create the `komodo.conf` file.
+
+Copy the information below and paste it into Notepad.
 
 ```bash
 rpcuser=usernameChangeItToSomethingSecure
@@ -393,13 +407,13 @@ addnode=144.76.94.38
 
 After pasting, save and exit Notepad.
 
-1. Create the directory for ZcashParams:
+#### Create the Directory for the Zcash Parameters
 
 ```bash
 mkdir “%HOMEPATH%\AppData\Roaming\ZcashParams”
 ```
 
-And download following files in `ZcashParams` folder:
+Download following files and move them into the new directory.
 
 - [sprout-proving.key](<[https://z.cash/downloads/sprout-proving.key](https://z.cash/downloads/sprout-proving.key)>)
 
@@ -411,35 +425,36 @@ And download following files in `ZcashParams` folder:
 
 - [sprout-groth16.params](<[https://z.cash/downloads/sprout-groth16.params](https://z.cash/downloads/sprout-groth16.params)>)
 
-1. Now we can run `komodod.exe`
+#### Run Smart Chain Software
 
 ```bash
 "%HOMEPATH%\Desktop\kmd\komodod.exe"
 ```
 
-1. Komodod should start syncing. You can check progress by running
+#### Verify Syncing Progress
 
 ```bash
 "%HOMEPATH%\Desktop\kmd\komodo-cli.exe" getinfo
 ```
 
-1. To stop `komodod`, run:
+#### Backup Your Wallet
+
+We can not stress enough the importance of backing up your `wallet.dat` file.
+
+On MacOS, the file is located here:  `~/.komodo/wallet.dat`
+
+One method to backup this file is to archive a copy of the file.
 
 ```bash
-"%HOMEPATH%\Desktop\kmd\komodo-cli.exe" stop
+# Copy the file
+cp -av ~/.komodo/wallet.dat ~/wallet.dat
+
+# Rename file
+mv ~/wallet.dat ~/2019-05-17-wallet_backup.dat
+
+# To make archive
+tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
+
+# Move the final file to a secure location
 ```
-
-Downloads:
-
-- Windows Binaries: [https://github.com/KomodoPlatform/komodo/releases](https://github.com/KomodoPlatform/komodo/releases)
-
-- [sprout-proving.key](<[https://z.cash/downloads/sprout-proving.key](https://z.cash/downloads/sprout-proving.key)>)
-
-- [sprout-verifying.key](<[https://z.cash/downloads/sprout-verifying.key](https://z.cash/downloads/sprout-verifying.key)>)
-
-- [sapling-spend.params](<[https://z.cash/downloads/sapling-spend.params](https://z.cash/downloads/sapling-spend.params)>)
-
-- [sapling-output.params](<[https://z.cash/downloads/sapling-output.params](https://z.cash/downloads/sapling-output.params)>)
-
-- [sprout-groth16.params](<[https://z.cash/downloads/sprout-groth16.params](https://z.cash/downloads/sprout-groth16.params)>)
 
