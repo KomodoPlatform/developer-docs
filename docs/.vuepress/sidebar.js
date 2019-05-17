@@ -93,7 +93,7 @@ var sidebar = [
             children: [
                 [
                     "/basic-docs/smart-chains/smart-chain-setup/get-started-smart-chains.md",
-                    "Getting Started with Smart Chains"
+                    "Building the komodod Daemon From Source"
                 ],
                 [
                     "/basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.md",
