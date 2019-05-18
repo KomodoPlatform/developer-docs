@@ -341,13 +341,13 @@ When the returned properties of `blocks` and `longestchain` are equal to each ot
 
 We can not stress enough the importance of backing up your `wallet.dat` file.
 
-On MacOS, the file is located here:  `~/.komodo/wallet.dat`
+On MacOS, the file is located here:  `~/Library/Application\ Support/Komodo/wallet.dat`
 
 One method to backup this file is to archive a copy of the file.
 
 ```bash
 # Copy the file
-cp -av ~/.komodo/wallet.dat ~/wallet.dat
+cp -av ~/Library/Application\ Support/Komodo/wallet.dat ~/wallet.dat
 
 # Rename file
 mv ~/wallet.dat ~/2019-05-17-wallet_backup.dat
@@ -446,20 +446,6 @@ Download following files and move them into the new directory.
 
 We can not stress enough the importance of backing up your `wallet.dat` file.
 
-On MacOS, the file is located here:  `~/.komodo/wallet.dat`
+On Windows, the file is located here:  `%HOMEPATH%\AppData\Roaming\Komodo\wallet.dat`
 
-One method to backup this file is to archive a copy of the file.
-
-```bash
-# Copy the file
-cp -av ~/.komodo/wallet.dat ~/wallet.dat
-
-# Rename file
-mv ~/wallet.dat ~/2019-05-17-wallet_backup.dat
-
-# To make archive
-tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
-
-# Move the final file to a secure location
-```
-
+One method to backup this file is to create a copy and archive it.
