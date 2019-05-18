@@ -31,13 +31,13 @@ make clean
 git pull
 ```
 
-#### Compile the Latest Zcash Binary
+#### Compile the Latest Komodo Binary
 
 ```bash
 ./zcutil/build.sh -j$(nproc)
 ```
 
-#### Reset the komodod Daemon
+#### Restart the komodod Daemon
 
 Start your sevices as usual. 
 
@@ -51,7 +51,7 @@ Start your sevices as usual.
 
 The steps below can often be used to update the daemon. 
 
-These steps take a lesser amount of time, but they may occasionally may produce an error during compilation. If the steps below do not succeed, the compiler will cease and return an error. When this happens, simply switch to the update steps listed above.
+These steps take a lesser amount of time, but they may occasionally produce an error during compilation. If the steps below do not succeed, the compiler will cease and return an error. When this happens, simply switch to the update steps listed above.
 
 ```bash
 cd ~/komodo
