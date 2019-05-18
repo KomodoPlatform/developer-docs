@@ -32,16 +32,16 @@ var sidebar = [
                 ]
             },
             {
-                title: "Education Launchpad",
+                title: "Learning Launchpad",
                 collapsible: true,
                 children: 
                 [
                     [
-                        "/basic-docs/start-here/education-paths/learning-path-outlines.md",
+                        "/basic-docs/start-here/learning-launchpad/learning-path-outlines.md",
                         "Learning Path Outlines"
                     ],
                     [
-                        "/basic-docs/start-here/education-paths/terminology.md",
+                        "/basic-docs/start-here/learning-launchpad/terminology.md",
                         "Terminology"
                     ],
                 ]
@@ -125,6 +125,10 @@ var sidebar = [
             title: "Smart Chain Tutorials",
             collapsible: true,
             children: [
+                [
+                    "/basic-docs/smart-chains/smart-chain-tutorials/introduction-to-smart-chain-tutorials.md",
+                    "Introduction to Smart Chain Tutorials"
+                ],
                 [
                     "/basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.md",
                     "Create a Default Smart Chain"

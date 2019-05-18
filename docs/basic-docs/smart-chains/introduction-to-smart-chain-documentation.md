@@ -42,7 +42,7 @@ Topics include:
 
 Each tutorial intends to be self-containerized as much as possible.
 
-For a guide on learning Smart Chain technology is an organized fashion, please see the [Learning Launchpad]() section.
+For a walkthrough covering multiple tutorials in a targeted fashion, please see the [Learning Launchpad](../basic-docs/start-here/learning-launchpad/learning-path-outlines.html) section.
 
 ## About Smart Chain API
 
