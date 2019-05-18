@@ -73,13 +73,18 @@ Once completed, follow the steps below to install Komodo.
 At some point during the installation process, you will see a warning, "libgmp headers missing". This can safely be ignored.
 :::
 
-#### Installing Komodo
+#### Clone the Komodo Repository
 
 ```bash
 cd ~
 git clone https://github.com/jl777/komodo
 cd komodo
 git checkout dev
+```
+
+#### Fetch the Zcash Parameters
+
+```bash
 ./zcutil/fetch-params.sh
 ```
 
