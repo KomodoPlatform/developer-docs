@@ -75,8 +75,6 @@ At some point during the installation process, you will see a warning, "libgmp h
 
 #### Clone the Komodo Repository
 
-<!---FIXME This step just clones komodo repo and downloads the zcash params, the next step actually builds the daemon, might want to rename the steps or merge them--->
-
 ```bash
 cd ~
 git clone https://github.com/jl777/komodo
@@ -90,11 +88,11 @@ git checkout dev
 ./zcutil/fetch-params.sh
 ```
 
-#### Build the Komodo daemon `komodod`
+#### Build the Komodo Daemon
 
 In the command below, the `-j$(nproc)` parameter instructs the script to utilize all available processors in your hardware. 
 
-Alternatively, you may instruct the script to use only a set number of processors. For example, `-j8` instructs the script to use `8` processors; `-j4` instructs the script to use `4` processors, etc.
+Alternatively, you may instruct the script to use only a set number of processors. For example, `-j8` instructs the script to use `8` processors, `-j4` instructs the script to use `4` processors, etc.
 
 ```bash
 ./zcutil/build.sh -j$(nproc)
