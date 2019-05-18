@@ -1,20 +1,20 @@
 # Smart Chain Customizations 
 
-The Komodo platform offers various default customizations for determining the underlying nature of your asset chain. The desired combination of parameters should be included with the `komodod` execution every time the asset-chain daemon is launched.
+The Komodo platform offers various default customizations for determining the underlying nature of your Smart Chain. The desired combination of parameters should be included with the `komodod` execution every time the asset-chain daemon is launched.
 
-Changing these customizations at a later time is possible, but this typically requires a hard-fork of your asset chain. In general, it is best to have your asset chain's parameters finalized before decentralizing the ownership of your coin. Should you discover a need to change these parameters after the fact, please reach out to our development team for assistance.
+Changing these customizations at a later time is possible, but this typically requires a hard-fork of your Smart Chain. In general, it is best to have your Smart Chain's parameters finalized before decentralizing the ownership of your coin. Should you discover a need to change these parameters after the fact, please reach out to our development team for assistance.
 
 ## ac_name
 
 ::: warning
-All asset chains are required to set ac_name.
+All Smart Chains are required to set ac_name.
 :::
 
 This is the ticker symbol for the coin you wish to create. We recommended it consist only of numbers and uppercase letters.
 
 #### :pushpin: Examples:
 
-A simple asset chain
+A simple Smart Chain
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
@@ -31,12 +31,12 @@ If `ac_supply` is not set, [ac_reward](../installations/asset-chain-parameters.h
 The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
 
 ::: tip
-An additional fraction of a coin will be added to the initial supply based on the asset chain's parameters. This is used by nodes to verify the genesis block. For example, the DEX chain's `ac_supply` parameter is set to `999999`, but in reality the genesis block was `999999.13521376`. When using `ac_staked`, the additional amount may be more than a full coin, and can add up to two digits left of the decimal point.
+An additional fraction of a coin will be added to the initial supply based on the Smart Chain's parameters. This is used by nodes to verify the genesis block. For example, the DEX chain's `ac_supply` parameter is set to `999999`, but in reality the genesis block was `999999.13521376`. When using `ac_staked`, the additional amount may be more than a full coin, and can add up to two digits left of the decimal point.
 :::
 
 #### :pushpin: Examples:
 
-A simple asset chain with pre-mined coins and a block reward of 0.0005.
+A simple Smart Chain with pre-mined coins and a block reward of 0.0005.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=50000 &
@@ -45,16 +45,16 @@ A simple asset chain with pre-mined coins and a block reward of 0.0005.
 ## ac_reward
 
 ::: warning
-Komodo recommends that this parameter be included on all asset chains. Please see below for additional notes.
+Komodo recommends that this parameter be included on all Smart Chains. Please see below for additional notes.
 :::
 
 This is the block reward for each mined block, given in satoshis.
 
 If both `ac_reward` and `ac_staked` are not set, the default block reward will be `10000` satoshis and blocks will be on-demand after block 127 (a new block will not be mined unless there is a transaction in the mempool).
 
-Komodo recommends that `ac_reward` be included in all asset chains. This prevents the asset chain from becoming an on-demand blockchain, and therefore this increases the asset chain's security.
+Komodo recommends that `ac_reward` be included in all Smart Chains. This prevents the Smart Chain from becoming an on-demand blockchain, and therefore this increases the Smart Chain's security.
 
-To make an asset chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The asset chain's first block will reward only the `-ac_supply` value, after which the `ac_reward` value will be `0`.
+To make an Smart Chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The Smart Chain's first block will reward only the `-ac_supply` value, after which the `ac_reward` value will be `0`.
 
 #### :pushpin: Examples:
 
@@ -64,7 +64,7 @@ A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Note that
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 &
 ```
 
-A 0 coin pre-mine with a 1-coin block reward that does not end. This is an example of a pure PoW asset chain that has no pre-mined coins.
+A 0 coin pre-mine with a 1-coin block reward that does not end. This is an example of a pure PoW Smart Chain that has no pre-mined coins.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=100000000 &
@@ -82,9 +82,9 @@ This parameter sets the average time (in seconds) by which a new block should be
 
 If this parameter is not included, the default value is `ac_blocktime=60`.
 
-When the value of `ac_blocktime` is less than `60`, the asset chain's block time will stabilize within less than twelve hours after launch. If the asset chain's `ac_blocktime` value is greater than `60`, the asset chain's block time can require several days to stabilize.
+When the value of `ac_blocktime` is less than `60`, the Smart Chain's block time will stabilize within less than twelve hours after launch. If the Smart Chain's `ac_blocktime` value is greater than `60`, the Smart Chain's block time can require several days to stabilize.
 
-When the value of `ac_blocktime` is less than `12` seconds (a high speed asset chain), the variances in network quality between consensus nodes (miners and stakers) can create difficulties in achieving a stable blockchain consensus. High-speed asset chains may function effectively on a LAN or other stable network, but Komodo recommends caution when attempting to manage a high-speed asset chain on the public Internet.
+When the value of `ac_blocktime` is less than `12` seconds (a high speed Smart Chain), the variances in network quality between consensus nodes (miners and stakers) can create difficulties in achieving a stable blockchain consensus. High-speed Smart Chains may function effectively on a LAN or other stable network, but Komodo recommends caution when attempting to manage a high-speed Smart Chain on the public Internet.
 
 #### :pushpin: Examples:
 
@@ -122,11 +122,11 @@ A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases b
 
 **-ac_ccactivate=block_height**
 
-The `ac_ccactivate` launch parameter allows for the activation of Custom Consensus (CC) on an existing Komodo-based asset chain wherein CC was not originally enabled.
+The `ac_ccactivate` launch parameter allows for the activation of Fluidity on an existing Komodo-based Smart Chain wherein Fluidity was not originally enabled.
 
-Add the `ac_ccactivate` parameter to the existing launch command for the asset chain and set the value equal to a future block height. When this block height is reached, CC will be available on the asset chain.
+Add the `ac_ccactivate` parameter to the existing launch command for the Smart Chain and set the value equal to a future block height. When this block height is reached, Fluidity will be available on the Smart Chain.
 
-This change requires a hard fork of the asset chain. If the asset chain is receiving Komodo's dPoW security service, the notary nodes must relaunch their asset-chain daemons with the new launch parameter. All nodes must also update their daemons in the same manner.
+This change requires a hard fork of the Smart Chain. If the Smart Chain is receiving Komodo's dPoW security service, the notary nodes must relaunch their asset-chain daemons with the new launch parameter. All nodes must also update their daemons in the same manner.
 
 By default, `ac_ccactivate` uses the default `ac_cc` value of `ac_cc=2`. It is not necessary to further specify `ac_cc` in the launch parameters, unless a value other than `2` is required.
 
@@ -204,7 +204,7 @@ For example:
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_eras=3 -ac_reward=5000000000,7000000000,4000000000 -ac_end=1000,10000,0
 ```
 
-In this asset chain, the first era will have a reward of 5000000000, the second will have 7000000000, and the third will have 4000000000. The reward for the first era ends at block 1000, for the second era at block 10000, and the third era lasts indefinitely.
+In this Smart Chain, the first era will have a reward of 5000000000, the second will have 7000000000, and the third will have 4000000000. The reward for the first era ends at block 1000, for the second era at block 10000, and the third era lasts indefinitely.
 
 If any of the relevant parameters has fewer distinct values than eras, the parameter's final value will carry through the remaining eras.
 
@@ -214,11 +214,11 @@ For example:
 -ac_eras=2 -ac_reward=100000000,200000000 -ac_halving=100 -ac_end=10000,0
 ```
 
-In this asset chain, the `ac_halving` value for both eras is `100`.
+In this Smart Chain, the `ac_halving` value for both eras is `100`.
 
 One more feature of `ac_eras` is the ability to transition from one era to the next with a linear progression, rather than a direct switch. To achieve this effect, in the initial era (the point at which the linear progression should begin) set the `ac_decay` value to `100000000` and the `ac_halving` value to `1`.
 
-For example, the following parameters create an asset chain with a "slow start" reward:
+For example, the following parameters create an Smart Chain with a "slow start" reward:
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_reward=0,10000000000 -ac_eras=2 -ac_end=1000,0 -ac_decay=100000000,100000000 -ac_halving=1
@@ -227,7 +227,7 @@ For example, the following parameters create an asset chain with a "slow start" 
 This chain's block reward will grow linearly from 0 to 100 over 1000 blocks, then stay at 100 indefinitely.
 
 ::: tip
-Use the [getblocksubsidy](../komodo-api/mining.html#getblocksubsidy) rpc method to verify your asset chain will work as expected at each relevant height: `./komodo-cli -ac_name=HELLOWORLD getblocksubsidy <blockheight>`
+Use the [getblocksubsidy](../komodo-api/mining.html#getblocksubsidy) rpc method to verify your Smart Chain will work as expected at each relevant height: `./komodo-cli -ac_name=HELLOWORLD getblocksubsidy <blockheight>`
 :::
 
 ## ac_perc
@@ -390,35 +390,35 @@ This parameter is still in testing.
 
 The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via Custom Consensus modules and MoMoM technology.
 
-Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one asset chain can be directly transferred to any other asset chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
+Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one Smart Chain can be directly transferred to any other Smart Chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
 
 Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, cross-chain transaction validation and its dependent features, including cross-chain fungibility, require notarization.
 
 ### ac_cc=0
 
-Setting `ac_cc=0` disables Custom Consensus on the asset chain entirely.
+Setting `ac_cc=0` disables Custom Consensus on the Smart Chain entirely.
 
 ::: tip
-It is better to <b>NOT</b> use `ac_cc=0` for an asset chain where Custom Consensus should not be enabled. Omitting the `ac_cc` parameter altogether will achieve the same result.
+It is better to <b>NOT</b> use `ac_cc=0` for an Smart Chain where Custom Consensus should not be enabled. Omitting the `ac_cc` parameter altogether will achieve the same result.
 :::
 
 ### ac_cc=1
 
-Setting `ac_cc=1` permits Custom Consensus on the asset chain, but will not allow the asset chain to interact in cross-chain Custom Consensus functionality with other asset chains.
+Setting `ac_cc=1` permits Custom Consensus on the Smart Chain, but will not allow the Smart Chain to interact in cross-chain Custom Consensus functionality with other Smart Chains.
 
 ### ac_cc=2 to 99
 
-The values of `2` through `99` (inclusive) indicate asset chains that can validate transactions that occur on other asset chains on the same cluster (i.e. the same `ac_cc` value), but their coins are not fungible.
+The values of `2` through `99` (inclusive) indicate Smart Chains that can validate transactions that occur on other Smart Chains on the same cluster (i.e. the same `ac_cc` value), but their coins are not fungible.
 
 However, coins are not fungible, and therefore cannot be transferred between blockchains.
 
 ### ac_cc=100 to 9999
 
-Setting the value of `ac_cc` to any value greater than or equal to `100` will permit cross-chain interaction with any asset chain that has the same `ac_cc` value and is secured by notary nodes with the same `pubkey`.
+Setting the value of `ac_cc` to any value greater than or equal to `100` will permit cross-chain interaction with any Smart Chain that has the same `ac_cc` value and is secured by notary nodes with the same `pubkey`.
 
-All asset chains that have the same `ac_cc (>= 100)` value form a cluster, where the base tokens of all the chains in the cluster are fungible via the burn protocol.
+All Smart Chains that have the same `ac_cc (>= 100)` value form a cluster, where the base tokens of all the chains in the cluster are fungible via the burn protocol.
 
-For example, an asset chain set to `ac_cc=201` in its parameters can interact with other asset chains with `ac_cc=201` on the same notary-node network, but cannot interact with an asset chain set to `ac_cc=301`.
+For example, an Smart Chain set to `ac_cc=201` in its parameters can interact with other Smart Chains with `ac_cc=201` on the same notary-node network, but cannot interact with an Smart Chain set to `ac_cc=301`.
 
 ### Summary of `ac_cc`
 
@@ -427,7 +427,7 @@ For example, an asset chain set to `ac_cc=201` in its parameters can interact wi
 - If <b>N = 0</b>, Custom Consensus is disabled
 - If <b>N > 0</b>, Custom Consensus is enabled
 - If <b>N = 1</b>, on-chain Custom Consensus is active, cross-chain validation is disabled
-- If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in each asset chain are non-fungible across chains.
+- If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in each Smart Chain are non-fungible across chains.
 - If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
   :::
 
@@ -445,13 +445,13 @@ A 777777 pre-mined chain with smart contracts on-chain only; no cross-chain smar
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=1 &
 ```
 
-A 777777 pre-mined chain where smart-contracts are allowed between all fellow asset chains that have -ac_cc=2 in their launch parameters. However, the cross-chain burn protocol is not active, and therefore coins cannot be transferred between chains.
+A 777777 pre-mined chain where smart-contracts are allowed between all fellow Smart Chains that have -ac_cc=2 in their launch parameters. However, the cross-chain burn protocol is not active, and therefore coins cannot be transferred between chains.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=2 &
 ```
 
-A 777777 pre-mined chain. Smart-contracts are allowed between all fellow asset chains that have -ac_cc=102 in their launch parameters. Also, all -ac_cc=102 chains can use the cross-chain burn protocol to transfer coins from one chain to another.
+A 777777 pre-mined chain. Smart-contracts are allowed between all fellow Smart Chains that have -ac_cc=102 in their launch parameters. Also, all -ac_cc=102 chains can use the cross-chain burn protocol to transfer coins from one chain to another.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=102 &
@@ -468,13 +468,13 @@ When creating a chain with the `ac_staked` parameter, the creation process is sl
 - Start both the first and second nodes **without** `-gen -genproclimit=0`.
 - Once both are connected, execute `setgenerate true 1` on the node that should receive the pre-mine.
 - Observe the debug.log by executing `tail -f ~/.komodo/<CHAIN>/debug.log`
-- Wait for the asset chain to mine two blocks
+- Wait for the Smart Chain to mine two blocks
 - Execute `setgenerate false` to stop mining
 - All of the coins (including the pre-mine) are now located on the node that mined two blocks. Do not split them with a normal transaction. Rather, split them using this tool: [link](https://github.com/KMDLabs/pos64staker).
 - Send coins to the other node, and on both nodes use the `generate` method to begin staking.
 - Use the [getbalance64](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10.
 
-Following the above instructions will ensure that the asset chain is stable.
+Following the above instructions will ensure that the Smart Chain is stable.
 
 ::: warning
 On a chain using a high percentage for PoS, it's vital to have coins staking by block 100. If too many PoW blocks are mined consecutively at the start of the chain, the PoW difficulty may increase enough to stop the chain entirely. This can prevent users from sending transactions to staking nodes.
@@ -496,13 +496,13 @@ It is not possible to both PoW mine and stake on the same node. Therefore, when 
 
 Once staking is active, utxos available in the `wallet.dat` file will begin staking automatically.
 
-On an `ac_staked` asset chain there are 64 global segments (`segid`'s) to which all addresses and the corresponding utxos belong. These 64 `segid`'s become eligible to stake blocks in turns. The segment a utxo belongs to is determined automatically, according to the address in which the utxo resides.
+On an `ac_staked` Smart Chain there are 64 global segments (`segid`'s) to which all addresses and the corresponding utxos belong. These 64 `segid`'s become eligible to stake blocks in turns. The segment a utxo belongs to is determined automatically, according to the address in which the utxo resides.
 
 You can see which segment an address belongs to by using the [validateaddress](../komodo-api/util.html#validateaddress) rpc call. You can use the [getbalance64](../komodo-api/wallet.html#getbalance64) rpc call to observe how your staked coins are distributed across the separate segids.
 
 Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure.
 
-There are additional considerations when `ac_staked` is used in conjunction with [ac_perc](../installations/asset-chain-parameters.html#ac-perc) and [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey). The coins used to stake will be included in the `ac_perc` calculations until the asset chain reaches block height `1000000`. Therefore, the [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) address will receive more coins for each staked block compared to a mined block. After block `1000000`, `ac_perc` will no longer include the coins used for staking, and therefore the amount of coins sent to the `ac_pubkey` address will normalize.
+There are additional considerations when `ac_staked` is used in conjunction with [ac_perc](../installations/asset-chain-parameters.html#ac-perc) and [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey). The coins used to stake will be included in the `ac_perc` calculations until the Smart Chain reaches block height `1000000`. Therefore, the [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) address will receive more coins for each staked block compared to a mined block. After block `1000000`, `ac_perc` will no longer include the coins used for staking, and therefore the amount of coins sent to the `ac_pubkey` address will normalize.
 
 ### Rules for Staking a Block
 
@@ -510,7 +510,7 @@ The following are the (current) rules for staking a block:
 
 - Block timestamps are used as the monotonically increasing on-chain clock. It is important to have a synced system clock. Use the following sequence to sync your clock:`sudo apt-get install chrony`, `sudo systemctl restart chrony.service`, then check `timedatectl` for `NTP syncronized: Yes`
 
-- A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, between blocks `1` and `2000` the amount of time required for a utxo to be eligibile is `blockheight * 3 seconds`. After block `2000`, the required amount of time is 6000 seconds. More precisely, after block `2000` a utxo is not eligible for staking until `100 * the expected blocktime (i.e. 1 minute)`. For example, utxos on a one-minute block-time asset chain would be eligible for staking one-hundred minutes after their creation.
+- A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, between blocks `1` and `2000` the amount of time required for a utxo to be eligibile is `blockheight * 3 seconds`. After block `2000`, the required amount of time is 6000 seconds. More precisely, after block `2000` a utxo is not eligible for staking until `100 * the expected blocktime (i.e. 1 minute)`. For example, utxos on a one-minute block-time Smart Chain would be eligible for staking one-hundred minutes after their creation.
 
 - The `segid`s rotate through a cue to determine which `segid` has the most likely chance to stake a new block. The formula that determines this is based on the block height: `(height % 64) = the segid0 for this height`. For each block, the eligibility to stake a new block begins with `segid[0]`, and then the eligibility expands to the next segment in cue at every two-second interval until the block is staked. For example, if `segid[0]` has not mined a new block within two seconds, the consensus mechanism opens up the priority to include the second, `segid[1]`. This continues either until the block is staked, or all 64 `segid`'s are eligible to stake a new block. Once a block is staked, the `height` of the blockchain changes, pushing the `segid[0]` segment to the end of the cue, etc.
 
@@ -554,7 +554,7 @@ If `ac_public` is set to `1`, zk-SNARKs are disabled, and all z address function
 
 #### :pushpin: Examples:
 
-A public-only asset chain.
+A public-only Smart Chain.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_public=1 &
@@ -570,7 +570,7 @@ The dPoW security mechanism requires that transactions are sent to a transparent
 
 #### :pushpin: Examples:
 
-A private-only asset chain.
+A private-only Smart Chain.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_private=1 &
@@ -578,9 +578,9 @@ A private-only asset chain.
 
 ## ac_sapling
 
-The `ac_sapling` parameter adjusts the block height of an asset chain's default sapling activation. (Sapling is an upstream privacy technology provided by [Zcash](https://z.cash/), of which Komodo is a fork.)
+The `ac_sapling` parameter adjusts the block height of an Smart Chain's default sapling activation. (Sapling is an upstream privacy technology provided by [Zcash](https://z.cash/), of which Komodo is a fork.)
 
-By default, sapling will activate at block 61 on a newly created asset chain.
+By default, sapling will activate at block 61 on a newly created Smart Chain.
 
 This can also be used to activate sapling prior to block 61. (Activating sapling prior to block 61 should not be done on a chain intended for production use.)
 
@@ -592,7 +592,7 @@ To delay sapling activation, set `ac_sapling` to a block height far in the futur
 
 The `ac_timelock...` parameters enforce "coinbase locking".
 
-In coinbase locking, the asset chain's block-reward feature behaves in a different manner compared to a default asset chain. Any block reward that is greater than or equal to the `ac_timeunlockgte` satoshi amount is temporarily locked. It will be unlocked (and therefore spendable) on a random block between the `ac_timelockfrom` and `ac_timelockto` heights.
+In coinbase locking, the Smart Chain's block-reward feature behaves in a different manner compared to a default Smart Chain. Any block reward that is greater than or equal to the `ac_timeunlockgte` satoshi amount is temporarily locked. It will be unlocked (and therefore spendable) on a random block between the `ac_timelockfrom` and `ac_timelockto` heights.
 
 The random unlock time for each reward is independent of the unlock time of other rewards.
 
@@ -610,7 +610,7 @@ For the first 10000 blocks, any rewards that are greater than or equal to 100000
 This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
 :::
 
-Setting `-ac_txpow=1` enforces a transaction-rate limiter. This can help to prevent spam transactions on an asset chain.
+Setting `-ac_txpow=1` enforces a transaction-rate limiter. This can help to prevent spam transactions on an Smart Chain.
 
 `ac_txpow` forces all transactions (other than coinbase transactions) to have a txid starting and ending with `00`.
 
@@ -648,21 +648,21 @@ The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` doe
 
 The `ac_cclib` parameter is used in conjunction with various Custom Consensus modules.
 
-Typically, the asset chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each Custom Consensus module in question. Once the asset chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
+Typically, the Smart Chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each Custom Consensus module in question. Once the Smart Chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
 
 ```bash
 -ac_cclib=desired_CC_module
 ```
 
-Each CC module uses the `ac_cclib` parameter differently, and therefore the reader should refer to the desired Custom Consensus module for further instructions.
+Each Fluidity module uses the `ac_cclib` parameter differently, and therefore the reader should refer to the desired Custom Consensus module for further instructions.
 
 ## ac_ccenable
 
 ::: warning
-This parameter is at the end of the beta development phase and is prepared for public testing. If you are interested in adopting this feature for a production asset chain, please reach out to us so that we can assist you: [link](https://komodoplatform.com/discord).
+This parameter is at the end of the beta development phase and is prepared for public testing. If you are interested in adopting this feature for a production Smart Chain, please reach out to us so that we can assist you: [link](https://komodoplatform.com/discord).
 :::
 
-The `ac_ccenable` parameter restricts the asset chain so that only indicated Custom Consensus modules can be enabled. `ac_ccenable` requires [ac_cc](../installations/asset-chain-parameters.html#ac-cc) to be active.
+The `ac_ccenable` parameter restricts the Smart Chain so that only indicated Custom Consensus modules can be enabled. `ac_ccenable` requires [ac_cc](../installations/asset-chain-parameters.html#ac-cc) to be active.
 
 To indicate which Custom Consensus modules should be available, insert each module's eval code in decimal and separated by commas. 
 
@@ -686,7 +686,7 @@ The following table presents an abbreviated list of EVAL codes. For more informa
 | PAYMENTS           | 240      |
 | GATEWAYS           | 241      |
 
-For example, the following parameters create an asset chain where only the `faucet` and `rewards` modules are active:
+For example, the following parameters create an Smart Chain where only the `faucet` and `rewards` modules are active:
 
 ```bash
 ./komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable=228,229
