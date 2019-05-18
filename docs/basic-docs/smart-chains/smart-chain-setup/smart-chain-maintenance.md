@@ -2,7 +2,7 @@
 
 ## Accessing the Coin Daemon Remotely
 
-To access a coin daemon remotely -- for example, via a `curl` command in the shell -- the user will need to obtain the `rpcuser`, `rpcpassword`, and `rpcport` from the `.conf` file of the relevant coin daemon.
+To access a Smart Chain daemon remotely -- for example, via a `curl` command in the shell -- the user will need to obtain the `rpcuser`, `rpcpassword`, and `rpcport` from the relevant `.conf` file.
 
 Assuming the default installation location, the `.conf` file can be found by exploring the following directories:
 
@@ -13,9 +13,9 @@ Assuming the default installation location, the `.conf` file can be found by exp
 | GNU/Linux | `~/.komodo` |
 
 
-Within this directory there are also subdirectories containing all KMD-compatible `.conf` files used on this node.
+Within this directory there are also subdirectories containing all Smart Chain `.conf` files used on this node.
 
-Contents of a KMD `.conf` file:
+Contents of a Smart Chain `.conf` file:
 
 ```bash
 rpcuser=myusername
@@ -32,7 +32,7 @@ addnode=144.76.94.3
 
 ## Manually Deleting Blockchain Data
 
-Sometimes it is necessary to manually delete all blockchain data. This should automatically trigger a full resync of the blockchain.
+Sometimes it is necessary to manually delete all blockchain data. This should automatically trigger a full resync of the Smart Chain.
 
 Users should exercise caution not to delete the `wallet.dat` file during this procedure. We recommend that the user make frequent backups of the `wallet.dat` file, especially before deleting files from the data directory.
 

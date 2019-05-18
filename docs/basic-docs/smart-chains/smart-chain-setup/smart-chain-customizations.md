@@ -1,4 +1,4 @@
-# Custom Asset Chain Parameters
+# Smart Chain Customizations 
 
 The Komodo platform offers various default customizations for determining the underlying nature of your asset chain. The desired combination of parameters should be included with the `komodod` execution every time the asset-chain daemon is launched.
 

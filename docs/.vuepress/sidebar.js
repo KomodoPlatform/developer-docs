@@ -22,12 +22,12 @@ var sidebar = [
                         "Product Introductions"
                     ],
                     [
-                        "/basic-docs/start-here/about-komodo-platform/simple-installations.md",
-                        "Simple Installations"
-                    ],
-                    [
                         "/basic-docs/start-here/about-komodo-platform/orientation.md",
                         "Doc Orientation & FAQ"
+                    ],
+                    [
+                        "/basic-docs/start-here/about-komodo-platform/simple-installations.md",
+                        "Simple Installations"
                     ],
                 ]
             },
@@ -84,8 +84,8 @@ var sidebar = [
     collapsible: true,
     children: [
         [
-            "/basic-docs/smart-chains/smart-chain-setup/smart-chain-introduction.md",
-            "Introduction to Smart Chains"
+            "/basic-docs/smart-chains/introduction-to-smart-chain-documentation.md",
+            "Introduction to Smart Chain Documentation"
         ],
         {
             title: "Smart Chain Setup", 
@@ -112,12 +112,12 @@ var sidebar = [
                     "Smart Chain Maintenance"
                 ],
                 [
-                    "/basic-docs/smart-chains/smart-chain-setup/basic-launch-parameters.md",
-                    "Basic Launch Parameters"
+                    "/basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.md",
+                    "Common Runtime Parameters"
                 ],
                 [
-                    "/basic-docs/smart-chains/smart-chain-setup/smart-chain-customization-parameters.md",
-                    "Komodo Customization Parameters"
+                    "/basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.md",
+                    "Smart Chain Customizations"
                 ],
             ],
         },

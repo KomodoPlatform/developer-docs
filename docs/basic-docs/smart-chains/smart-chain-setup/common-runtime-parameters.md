@@ -1,68 +1,25 @@
-# Launch Settings & Maintenance
+# Common Runtime Parameters
 
-The following parameters and walkthroughs primarily concern the `komodod` software.
+## Introduction
 
-## Accessing the Coin Daemon Remotely
+The following is an abbreviated list of runtime parameters and settings that can be initiated in a [Smart Chain's .conf file.](../installations/common-runtime-parameters.html#accessing-the-coin-daemon-remotely)
 
-To access a coin daemon remotely -- for example, via a `curl` command in the shell -- the user will need to obtain the `rpcuser`, `rpcpassword`, and `rpcport` from the `.conf` file of the relevant coin daemon.
+These commands largely derive from the upstream Bitcoin software, `bitcoind`. 
 
-Assuming the default installation location, the `.conf` file can be found by exploring the following directories:
+Komodo is a fork of Zcash, and Zcash is a privacy-centric fork of Bitcoin. Therefore essentially all runtime parameters and API commands available in both Bitcoin and Zcash are available in Komodo.
 
-- **MacOS:** `~/Library/Application Support/Komodo`
-- **Windows:** `C:\Users\myusername\AppData\Roaming\Komodo\`
-- **GNU/Linux:** `~/.komodo`
-
-Within this directory there are also subdirectories containing all KMD-compatible `.conf` files used on this node.
-
-Contents of a KMD `.conf` file:
-
-```bash
-rpcuser=myusername
-rpcpassword=myrpcpassword
-server=1
-rpcport=7771
-addnode=78.47.196.146
-addnode=5.9.102.210
-addnode=178.63.69.164
-addnode=88.198.65.74
-addnode=5.9.122.241
-addnode=144.76.94.3
-```
-
-## Manually Deleting Blockchain Data
-
-Sometimes it is necessary to manually delete all blockchain data. This should automatically trigger a full resync of the blockchain.
-
-Users should exercise caution not to delete the `wallet.dat` file during this procedure. We recommend that the user make frequent backups of the `wallet.dat` file, especially before deleting files from the data directory.
-
-To erase all synced blockchain data, the following files should be deleted from the `.komodo` folder:
-
-**blocks** , **chainstate** , **notarisations** , **komodostate** , **komodostate.ind** , **peers.dat**
-
-These files can typically be found in the default file locations:
-
-- **MacOS:** `~/Library/Application Support/Komodo`
-- **Windows:** `C:\Users\myusername\AppData\Roaming\Komodo\`
-- **GNU/Linux:** `~/.komodo`
-
-## Intro to Parameters and Settings
-
-The following is an abbreviated list of runtime parameters and settings that can be initiated in a [coin daemon's .conf file](../installations/common-runtime-parameters.html#accessing-the-coin-daemon-remotely).
-
-These commands largely derive from the upstream Bitcoin software, `bitcoind`. (Komodo is a fork of Zcash, and Zcash is a privacy-centric fork of Bitcoin. Therefore essentially all commands available in both Bitcoin and Zcash are available in Komodo.)
-
-To see additional runtime parameters not included here, please visit [the relevant Bitcoin wiki page](https://en.bitcoin.it/wiki/Running_Bitcoin).
+To see additional Bitcoin-based runtime parameters not included here, please visit [the relevant Bitcoin wiki page](https://en.bitcoin.it/wiki/Running_Bitcoin).
 
 ## addressindex
 
-`addressindex` instructs a KMD-based coin daemon to maintain an index of all addresses and balances.
+`addressindex` instructs a Smart Chain to maintain an index of all addresses and balances.
 
-We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
+We recommend that the user [manually delete the blockchain data](../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) before initiating this parameter.
 
-`addressindex` is enabled by default on any asset chain that utilizes the Custom Consensus (CC) smart-contract protocol.
+`addressindex` is enabled by default on any Smart Chain that utilizes Fluidity.
 
 ::: tip
-The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
+The <b>reindex</b> parameter is not a viable alternative method for re-syncing the Smart Chain in this circumstance.
 :::
 
 #### :pushpin: Examples:
@@ -73,7 +30,7 @@ Using `addressindex` as a runtime parameter:
 komodod -addressindex=1
 ```
 
-Using `addressindex` as a default value in the coin's .conf file:
+Using `addressindex` as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 addressindex=1
@@ -81,12 +38,12 @@ addressindex=1
 
 ## txindex
 
-`txindex` instructs a KMD-based coin daemon to track every transaction made on the relevant blockchain.
+`txindex` instructs a Smart Chain to track every transaction made on the relevant blockchain.
 
-`txindex` is enabled by default on all KMD-based coin daemons, and is utilized in delayed Proof of Work (dPoW), JUMBLR, and the Custom Consensus (CC) smart-contract protocol.
+`txindex` is enabled by default on all Smart Chains, and is utilized in delayed Proof of Work (dPoW), privacy modules, and Fluidity.
 
 ::: danger Warning!
-Disabling `txindex` will cause the default KMD-based daemon to malfunction.
+Disabling `txindex` will cause the default Smart Chain daemon to malfunction.
 :::
 
 ## reindex
@@ -107,12 +64,12 @@ komodod -reindex
 
 ## timestampindex
 
-`timestampindex` instructs a KMD-based coin daemon to maintain a timestamp index for all block hashes.
+`timestampindex` instructs a Smart Chain to maintain a timestamp index for all block hashes.
 
 We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 ::: tip
-The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
+The <b>reindex</b> parameter is not a viable alternative method for re-syncing the Smart Chain in this circumstance.
 :::
 
 #### :pushpin: Examples:
@@ -123,7 +80,7 @@ Using timestampindex as a runtime parameter:
 ./komodod -timestampindex=1
 ```
 
-Using timestampindex as a default value in the coin's .conf file:
+Using timestampindex as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 timestampindex=1
@@ -131,11 +88,11 @@ timestampindex=1
 
 ## spentindex
 
-`spentindex` instructs a KMD-based coin daemon to maintain a full index of all spent transactions (txids).
+`spentindex` instructs a Smart Chain to maintain a full index of all spent transactions (txids).
 
 We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
-`spentindex` is enabled by default on any asset chain that utilizes the Custom Consensus (CC) smart contract protocol.
+`spentindex` is enabled by default on any Smart Chain that utilizes the Fluidity.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
@@ -149,7 +106,7 @@ Using spentindex as a runtime parameter:
 komodod -spentindex=1
 ```
 
-Using spentindex as a default value in the coin's `.conf` file:
+Using spentindex as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 spentindex=1
@@ -157,9 +114,9 @@ spentindex=1
 
 ## regtest
 
-`regtest` instructs the coin daemon to run a regression test network. Typically, the user will create a disposable asset chain for these purposes. The asset-chain coin supply parameter is not required in this instance.
+`regtest` instructs the Smart Chain daemon to run a regression test network. Typically, the user will create a disposable Smart Chain for these purposes. The [ac_supply](../basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.html#ac-supply) parameter is not required in this instance.
 
-(A regression-test network is a useful tool for rapid trial and testing. [Please reach out to us](https://komodoplatform.com/discord) if you are curious to implement this tool in your workflow and are unfamiliar with how it is done.)
+(A regression-test network is a useful tool for rapid trial and testing. [Please reach out to us](https://komodoplatform.com/discord) if you are curious to implement this tool in your workflow and are unfamiliar with the process.)
 
 #### :pushpin: Examples:
 
@@ -169,7 +126,7 @@ Using regtest as a runtime parameter:
 komodod -ac_name=TEST -regtest
 ```
 
-Using regtest as a default value in the coin's .conf file:
+Using regtest as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 regtest=0
@@ -187,7 +144,7 @@ Using bantime as a runtime parameter:
 komodod -bantime=100000
 ```
 
-Using bantime as a default value in the coin's .conf file:
+Using bantime as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 bantime=100000
@@ -213,7 +170,7 @@ Using proxy as a runtime parameter:
 komodod -proxy=127.0.0.1:9050
 ```
 
-Using proxy as a default value in the coin's `.conf` file:
+Using proxy as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 proxy=127.0.0.1:9050
@@ -221,7 +178,7 @@ proxy=127.0.0.1:9050
 
 ## bind
 
-`bind` instructs the coin daemon to bind to a given address and always listen on it.
+`bind` instructs the Smart Chain daemon to bind to a given address and always listen on it.
 
 Use `[host]:port` notation for IPv6.
 
@@ -233,7 +190,7 @@ Using bind as a runtime parameter:
 komodod -bind=127.0.0.1:9050
 ```
 
-Using bind as a default value in the coin's `.conf` file:
+Using bind as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 bind=127.0.0.1:9050
@@ -253,7 +210,7 @@ Using whitebind as a runtime parameter:
 komodod -whitebind=127.0.0.1:9050
 ```
 
-Using whitebind as a default value in the coin's `.conf` file:
+Using whitebind as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 whitebind=127.0.0.1:9050
@@ -277,7 +234,7 @@ The p2p port must not be blocked by a firewall. If the computers do not have pub
 
 `./komodod -ac_name=EXAMPLECHAIN -ac_supply=1000000 -addnode=<IP of the second node>:8096`
 
-Using addnode as a default value in the coin's `.conf` file:
+Using addnode as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 addnode=69.164.218.197
@@ -291,7 +248,7 @@ Please refer to the [addnode](../installations/common-runtime-parameters.html#ad
 
 #### :pushpin: Examples:
 
-Using connect as a default value in the coin's .conf file:
+Using connect as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 connect=69.164.218.197
@@ -304,7 +261,7 @@ connect=69.164.218.197
 See also [setgenerate](../komodo-api/generate.html#setgenerate).
 
 ::: warning
-This parameter should be avoided. Instead, start the daemon without the `-gen` parameter. Once the asset chain is launched, wait until the blockchain is synced to the current block and then execute the [setgenerate](../komodo-api/generate.html#setgenerate) method. The sync status of the blockchain can be found by executing the [getinfo](../komodo-api/control.html#getinfo) method and comparing the `blocks` and `longestchain` properties.
+This parameter should be avoided. Instead, start the daemon without the `-gen` parameter. Once the Smart Chain is launched, wait until the blockchain is synced to the current block and then execute the [setgenerate](../komodo-api/generate.html#setgenerate) method. The sync status of the blockchain can be found by executing the [getinfo](../komodo-api/control.html#getinfo) method and comparing the `blocks` and `longestchain` properties.
 :::
 
 ::: tip
@@ -314,7 +271,7 @@ This parameter should be avoided. Instead, start the daemon without the `-gen` p
   :::
 
 ::: tip
-`gen=0` in the .conf file on an asset chain where `ac_staked` is enabled sets the daemon to stake using all available coins
+`gen=0` in the .conf file on an Smart Chain where [<b>ac_staked</b>](../basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.html#ac-staked) is enabled sets the daemon to stake using all available coins
 :::
 
 #### :pushpin: Examples:
@@ -337,7 +294,7 @@ Using listen as a runtime parameter:
 komodod -listen=1
 ```
 
-Using listen as a default value in the coin's `.conf` file:
+Using listen as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 listen=1
@@ -355,7 +312,7 @@ Using maxconnections as a runtime parameter:
 komodod -maxconnections=NUMBER
 ```
 
-Using maxconnections as a default value in the coin's .conf file:
+Using maxconnections as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 maxconnections=NUMBER
@@ -373,7 +330,7 @@ Using server as a runtime parameter:
 komodod -server=1
 ```
 
-Using server as a default value in the coin's .conf file:
+Using server as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 server=1
@@ -397,7 +354,7 @@ Using rpcbind as a runtime parameter:
 komodod -rpcbind=127.0.0.1:9704
 ```
 
-Using rpcbind as a default value in the coin's .conf file:
+Using rpcbind as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 rpcbind=127.0.0.1:9704
@@ -415,7 +372,7 @@ Using rpcclienttimeout as a runtime parameter:
 komodod -rpcclienttimeout=SECONDS
 ```
 
-Using rpcclienttimeout as a default value in the coin's .conf file:
+Using rpcclienttimeout as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 rpcclientttimeout=SECONDS
@@ -435,7 +392,7 @@ Opening up the rpc port to hosts outside your local trusted network is NOT RECOM
 
 #### :pushpin: Examples:
 
-Using rpcallowip as a default value in the coin's .conf file:
+Using rpcallowip as a default value in the Smart Chain's `.conf` file:
 
 ```bash
   rpcallowip=10.1.1.34/255.255.255.0
@@ -449,7 +406,7 @@ Using rpcallowip as a default value in the coin's .conf file:
 
 #### :pushpin: Examples:
 
-Using rpcport as a default value in the coin's `.conf` file:
+Using rpcport as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 rpcport=8232
@@ -465,7 +422,7 @@ We DO NOT RECOMMEND that the average user set this value to anything other than 
 
 #### :pushpin: Examples:
 
-Using rpcconnect as a default value in the coin's `.conf` file:
+Using rpcconnect as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 rpcconnect=127.0.0.1
@@ -477,7 +434,7 @@ rpcconnect=127.0.0.1
 
 #### :pushpin: Examples:
 
-Using sendfreetransactions as a default value in the coin's .conf file:
+Using sendfreetransactions as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 sendfreetransactions=0
@@ -493,7 +450,7 @@ Setting `genproclimit=0` instructs the daemon to stake (if possible) using all a
 
 #### :pushpin: Examples:
 
-Using genproclimit as a default value in the coin's .conf file, to mine using 2 threads:
+Using genproclimit as a default value in the Smart Chain's `.conf` file, to mine using 2 threads:
 
 ```bash
 genproclimit=2
@@ -505,7 +462,7 @@ genproclimit=2
 
 #### :pushpin: Examples:
 
-Using keypool as a default value in the coin's .conf file:
+Using keypool as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 keypool=100
@@ -513,7 +470,7 @@ keypool=100
 
 ## rewind
 
-`rewind` rewinds the chain to specific block height. This is useful for creating snapshots at a given block height.
+`rewind` rewinds the chain to a specific block height. This is useful for creating snapshots at a given block height.
 
 #### :pushpin: Examples:
 
@@ -539,11 +496,11 @@ komodod -stopat=1000000
 
 `pubkey` sets an address to use as a change address for all transactions. This value must be set to a 33 byte pubkey. All mined/staked coins will also be sent to this address. We recommend that the user ensure they own the corresponding `privkey` of their chosen `pubkey`, lest their funds be sent to a `pubkey` they do not own or control.
 
-The `pubkey` parameter is required for all Custom Consensus (CC) smart-contract enabled chains. All smart-contract transactions will utilize the `pubkey` as an integral property.
+The `pubkey` parameter is required for all Fluidity-enabled chains. All Fluidity transactions will utilize the `pubkey` as an integral property.
 
 #### :pushpin: Examples:
 
-Using pubkey as a default value in the coin's `.conf` file:
+Using pubkey as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 pubkey=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
@@ -561,7 +518,7 @@ Using pubkey as a startup parameter:
 
 #### :pushpin: Examples:
 
-Using exchange as a default value in the coin's .conf file:
+Using exchange as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 exchange=1
@@ -573,7 +530,7 @@ exchange=1
 
 #### :pushpin: Examples:
 
-Using donation as a default value in the coin's .conf file:
+Using donation as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
@@ -581,11 +538,11 @@ donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 
 ## exportdir
 
-`exportdir` tells the coin daemon where to store the wallet backup files created through the [backupwallet](../komodo-api/wallet.html#backupwallet) and [dumpwallet](../komodo-api/wallet.html#dumpwallet) calls.
+`exportdir` tells the Smart Chain daemon where to store the wallet backup files created through the [backupwallet](../komodo-api/wallet.html#backupwallet) and [dumpwallet](../komodo-api/wallet.html#dumpwallet) calls.
 
 #### :pushpin: Examples:
 
-Using exportdir as a default value in the coin's `.conf` file:
+Using exportdir as a default value in the Smart Chain's `.conf` file:
 
 ```bash
 exportdir=/home/myusername/mydirectory
