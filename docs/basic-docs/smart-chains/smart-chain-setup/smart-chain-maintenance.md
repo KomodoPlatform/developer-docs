@@ -1,35 +1,5 @@
 # Smart Chain Maintenance
 
-## Accessing the Coin Daemon Remotely
-
-To access a Smart Chain daemon remotely -- for example, via a `curl` command in the shell -- the user will need to obtain the `rpcuser`, `rpcpassword`, and `rpcport` from the relevant `.conf` file.
-
-Assuming the default installation location, the `.conf` file can be found by exploring the following directories:
-
-| Operating System | Directory |
-| ---------------- | --------- |
-| MacOS | `~/Library/Application Support/Komodo` |
-| Windows | `C:\Users\myusername\AppData\Roaming\Komodo\` |
-| GNU/Linux | `~/.komodo` |
-
-
-Within this directory there are also subdirectories containing all Smart Chain `.conf` files used on this node.
-
-Contents of a Smart Chain `.conf` file:
-
-```bash
-rpcuser=myusername
-rpcpassword=myrpcpassword
-server=1
-rpcport=7771
-addnode=78.47.196.146
-addnode=5.9.102.210
-addnode=178.63.69.164
-addnode=88.198.65.74
-addnode=5.9.122.241
-addnode=144.76.94.3
-```
-
 ## Manually Deleting Blockchain Data
 
 Sometimes it is necessary to manually delete all blockchain data. This should automatically trigger a full resync of the Smart Chain.

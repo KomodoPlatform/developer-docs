@@ -1,6 +1,6 @@
 # Smart Chain Customizations 
 
-The Komodo platform offers various default customizations for determining the underlying nature of your Smart Chain. The desired combination of parameters should be included with the `komodod` execution every time the asset-chain daemon is launched.
+Smart Chains offer various default customizations. The desired combination of parameters should be included with the `komodod` execution every time the Smart Chain daemon is launched.
 
 Changing these customizations at a later time is possible, but this typically requires a hard-fork of your Smart Chain. In general, it is best to have your Smart Chain's parameters finalized before decentralizing the ownership of your coin. Should you discover a need to change these parameters after the fact, please reach out to our development team for assistance.
 
@@ -54,7 +54,7 @@ If both `ac_reward` and `ac_staked` are not set, the default block reward will b
 
 Komodo recommends that `ac_reward` be included in all Smart Chains. This prevents the Smart Chain from becoming an on-demand blockchain, and therefore this increases the Smart Chain's security.
 
-To make an Smart Chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The Smart Chain's first block will reward only the `-ac_supply` value, after which the `ac_reward` value will be `0`.
+To make a Smart Chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The Smart Chain's first block will reward only the `-ac_supply` value, after which the `ac_reward` value will be `0`.
 
 #### :pushpin: Examples:
 
@@ -126,25 +126,25 @@ The `ac_ccactivate` launch parameter allows for the activation of Fluidity on an
 
 Add the `ac_ccactivate` parameter to the existing launch command for the Smart Chain and set the value equal to a future block height. When this block height is reached, Fluidity will be available on the Smart Chain.
 
-This change requires a hard fork of the Smart Chain. If the Smart Chain is receiving Komodo's dPoW security service, the notary nodes must relaunch their asset-chain daemons with the new launch parameter. All nodes must also update their daemons in the same manner.
+This change requires a hard fork of the Smart Chain. If the Smart Chain is receiving Komodo's dPoW security service, the notary nodes must relaunch their Smart Chain daemons with the new launch parameter. All nodes must also update their daemons in the same manner.
 
 By default, `ac_ccactivate` uses the default `ac_cc` value of `ac_cc=2`. It is not necessary to further specify `ac_cc` in the launch parameters, unless a value other than `2` is required.
 
 #### :pushpin: Example:
 
-Before using `ac_ccactivate`:
+##### Before Using `ac_ccactivate`
 
 ```bash
 ./komodod -ac_name=EXAMPLE -ac_supply=72000000 -addnode=24.54.206.138 &
 ```
 
-After using `ac_ccactivate`:
+##### After Using `ac_ccactivate`
 
 ```bash
 ./komodod -ac_name=EXAMPLE -ac_supply=72000000 -ac_ccactivate=140 -addnode=24.54.206.138 &
 ```
 
-In this example, Custom Consensus will be available at blockheight `140`. All nodes, include the notary nodes, must relaunch the daemon with the new parameters before blockheight `140`.
+In this example, Fluidity will be available at blockheight `140`. All nodes, include the notary nodes, must relaunch the daemon with the new parameters before blockheight `140`.
 
 ## ac_halving
 
@@ -188,7 +188,7 @@ Each different time interval is called an "era" and a chain can have at most thr
 
 When active, `ac_eras` changes the behavior of coinbase coins (i.e. the coins that are created as a result of mining). `ac_eras` forces the `COINBASE_MATURITY` value of coinbase coins to be `100` instead of the normal value of `1`. Therefore, coinbase coins become spendable after `100` confirmations.
 
-The `ac_eras` parameter accepts only one value (`1`, `2`, or `3`). When activated, it allows certain other asset-chain parameters to accept multiple values.
+The `ac_eras` parameter accepts only one value (`1`, `2`, or `3`). When activated, it allows certain other Smart Chain parameters to accept multiple values.
 
 The principle parameter that is affected by `ac_eras` is [ac_reward](../installations/asset-chain-parameters.html#ac-reward), and it must receive at least one value.
 
@@ -218,7 +218,7 @@ In this Smart Chain, the `ac_halving` value for both eras is `100`.
 
 One more feature of `ac_eras` is the ability to transition from one era to the next with a linear progression, rather than a direct switch. To achieve this effect, in the initial era (the point at which the linear progression should begin) set the `ac_decay` value to `100000000` and the `ac_halving` value to `1`.
 
-For example, the following parameters create an Smart Chain with a "slow start" reward:
+For example, the following parameters create a Smart Chain with a "slow start" reward:
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_reward=0,10000000000 -ac_eras=2 -ac_end=1000,0 -ac_decay=100000000,100000000 -ac_halving=1
@@ -227,7 +227,7 @@ For example, the following parameters create an Smart Chain with a "slow start" 
 This chain's block reward will grow linearly from 0 to 100 over 1000 blocks, then stay at 100 indefinitely.
 
 ::: tip
-Use the [getblocksubsidy](../komodo-api/mining.html#getblocksubsidy) rpc method to verify your Smart Chain will work as expected at each relevant height: `./komodo-cli -ac_name=HELLOWORLD getblocksubsidy <blockheight>`
+Use the [getblocksubsidy](../komodo-api/mining.html#getblocksubsidy) API method to verify your Smart Chain will work as expected at each relevant height: `./komodo-cli -ac_name=HELLOWORLD getblocksubsidy <blockheight>`
 :::
 
 ## ac_perc
@@ -388,7 +388,7 @@ Set `ac_script` to the `"hex"` value from the returned json object.
 This parameter is still in testing.
 :::
 
-The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via Custom Consensus modules and MoMoM technology.
+The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via Fluidity modules and MoMoM technology.
 
 Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one Smart Chain can be directly transferred to any other Smart Chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
 
@@ -396,15 +396,15 @@ Most functionalities enabled by `ac_cc` can function with or without Komodo's no
 
 ### ac_cc=0
 
-Setting `ac_cc=0` disables Custom Consensus on the Smart Chain entirely.
+Setting `ac_cc=0` disables Fluidity on the Smart Chain entirely.
 
 ::: tip
-It is better to <b>NOT</b> use `ac_cc=0` for an Smart Chain where Custom Consensus should not be enabled. Omitting the `ac_cc` parameter altogether will achieve the same result.
+It is better to <b>NOT</b> use `ac_cc=0` for a Smart Chain where Fluidity should not be enabled. Omitting the `ac_cc` parameter altogether will achieve the same result.
 :::
 
 ### ac_cc=1
 
-Setting `ac_cc=1` permits Custom Consensus on the Smart Chain, but will not allow the Smart Chain to interact in cross-chain Custom Consensus functionality with other Smart Chains.
+Setting `ac_cc=1` permits Fluidity on the Smart Chain, but will not allow the Smart Chain to interact in cross-chain Fluidity functionality with other Smart Chains.
 
 ### ac_cc=2 to 99
 
@@ -418,40 +418,40 @@ Setting the value of `ac_cc` to any value greater than or equal to `100` will pe
 
 All Smart Chains that have the same `ac_cc (>= 100)` value form a cluster, where the base tokens of all the chains in the cluster are fungible via the burn protocol.
 
-For example, an Smart Chain set to `ac_cc=201` in its parameters can interact with other Smart Chains with `ac_cc=201` on the same notary-node network, but cannot interact with an Smart Chain set to `ac_cc=301`.
+For example, a Smart Chain set to `ac_cc=201` in its parameters can interact with other Smart Chains with `ac_cc=201` on the same notary-node network, but cannot interact with a Smart Chain set to `ac_cc=301`.
 
 ### Summary of `ac_cc`
 
 ::: tip Consider a chain with -ac_cc=N
 
-- If <b>N = 0</b>, Custom Consensus is disabled
-- If <b>N > 0</b>, Custom Consensus is enabled
-- If <b>N = 1</b>, on-chain Custom Consensus is active, cross-chain validation is disabled
+- If <b>N = 0</b>, Fluidity is disabled
+- If <b>N > 0</b>, Fluidity is enabled
+- If <b>N = 1</b>, on-chain Fluidity is active, cross-chain validation is disabled
 - If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in each Smart Chain are non-fungible across chains.
 - If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
   :::
 
 #### :pushpin: Examples:
 
-A 777777 pre-mined chain with no smart contracts enabled.
+A 777777 pre-mined chain with no Fluidity modules enabled.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
 ```
 
-A 777777 pre-mined chain with smart contracts on-chain only; no cross-chain smart contracts.
+A 777777 pre-mined chain with Fluidity modules on-chain only; no cross-chain Fluidity modules.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=1 &
 ```
 
-A 777777 pre-mined chain where smart-contracts are allowed between all fellow Smart Chains that have -ac_cc=2 in their launch parameters. However, the cross-chain burn protocol is not active, and therefore coins cannot be transferred between chains.
+A 777777 pre-mined chain where Fluidity modules are allowed between all fellow Smart Chains that have -ac_cc=2 in their launch parameters. However, the cross-chain burn protocol is not active, and therefore coins cannot be transferred between chains.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=2 &
 ```
 
-A 777777 pre-mined chain. Smart-contracts are allowed between all fellow Smart Chains that have -ac_cc=102 in their launch parameters. Also, all -ac_cc=102 chains can use the cross-chain burn protocol to transfer coins from one chain to another.
+A 777777 pre-mined chain. Fluidity modules are allowed between all fellow Smart Chains that have -ac_cc=102 in their launch parameters. Also, all -ac_cc=102 chains can use the cross-chain burn protocol to transfer coins from one chain to another.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=102 &
@@ -494,11 +494,11 @@ It is not possible to both PoW mine and stake on the same node. Therefore, when 
 
 ### Notes on How ac_staked Functions
 
-Once staking is active, utxos available in the `wallet.dat` file will begin staking automatically.
+Once staking is active, utxos available in the `wallet.dat` file will stake automatically.
 
 On an `ac_staked` Smart Chain there are 64 global segments (`segid`'s) to which all addresses and the corresponding utxos belong. These 64 `segid`'s become eligible to stake blocks in turns. The segment a utxo belongs to is determined automatically, according to the address in which the utxo resides.
 
-You can see which segment an address belongs to by using the [validateaddress](../komodo-api/util.html#validateaddress) rpc call. You can use the [getbalance64](../komodo-api/wallet.html#getbalance64) rpc call to observe how your staked coins are distributed across the separate segids.
+You can see which segment an address belongs to by using the [validateaddress](../komodo-api/util.html#validateaddress) API command. You can use the [getbalance64](../komodo-api/wallet.html#getbalance64) API command to observe how your staked coins are distributed across the separate segids.
 
 Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure.
 
@@ -578,7 +578,7 @@ A private-only Smart Chain.
 
 ## ac_sapling
 
-The `ac_sapling` parameter adjusts the block height of an Smart Chain's default sapling activation. (Sapling is an upstream privacy technology provided by [Zcash](https://z.cash/), of which Komodo is a fork.)
+The `ac_sapling` parameter adjusts the block height of a Smart Chain's default sapling activation. (Sapling is an upstream privacy technology provided by [Zcash](https://z.cash/), of which Komodo is a fork.)
 
 By default, sapling will activate at block 61 on a newly created Smart Chain.
 
@@ -610,11 +610,11 @@ For the first 10000 blocks, any rewards that are greater than or equal to 100000
 This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
 :::
 
-Setting `-ac_txpow=1` enforces a transaction-rate limiter. This can help to prevent spam transactions on an Smart Chain.
+Setting `-ac_txpow=1` enforces a transaction-rate limiter. This can help to prevent spam transactions on a Smart Chain.
 
 `ac_txpow` forces all transactions (other than coinbase transactions) to have a txid starting and ending with `00`.
 
-This parameter is currently a proof of concept. Many of the traditional rpc commands, such as `sendtoaddress` or `sendmany`, are not currently supported. Instead, use [createrawtransaction](../komodo-api/rawtransactions.html#createrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction).
+This parameter is currently a proof of concept. Many of the traditional API commands, such as `sendtoaddress` or `sendmany`, are not currently supported. Instead, use [createrawtransaction](../komodo-api/rawtransactions.html#createrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction).
 
 ## ac_algo
 
@@ -630,7 +630,7 @@ This activates verushash1.0. More recent versions of verushash are not yet suppo
 
 The verushash feature serves as a proof of concept for adding support for additional mining algorithms.
 
-We are currently testing methods to support compatibility for `ac_staked`, but this feature is not yet recommended for external testing.
+The Komodo team is currently testing methods to support compatibility for `ac_staked`, but this feature is not yet recommended for external testing.
 
 ## ac_veruspos
 
@@ -646,25 +646,25 @@ The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` doe
 
 ## ac_cclib
 
-The `ac_cclib` parameter is used in conjunction with various Custom Consensus modules.
+The `ac_cclib` parameter is used in conjunction with various Fluidity modules.
 
-Typically, the Smart Chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each Custom Consensus module in question. Once the Smart Chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
+Typically, the Smart Chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each Fluidity module in question. Once the Smart Chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
 
 ```bash
 -ac_cclib=desired_CC_module
 ```
 
-Each Fluidity module uses the `ac_cclib` parameter differently, and therefore the reader should refer to the desired Custom Consensus module for further instructions.
+Each Fluidity module uses the `ac_cclib` parameter differently, and therefore the reader should refer to the desired Fluidity module for further instructions.
 
 ## ac_ccenable
 
 ::: warning
-This parameter is at the end of the beta development phase and is prepared for public testing. If you are interested in adopting this feature for a production Smart Chain, please reach out to us so that we can assist you: [link](https://komodoplatform.com/discord).
+This parameter is at the end of the beta development phase and is prepared for public testing. If you are interested in adopting this feature for a production Smart Chain, please reach out to us so that we can assist you.
 :::
 
-The `ac_ccenable` parameter restricts the Smart Chain so that only indicated Custom Consensus modules can be enabled. `ac_ccenable` requires [ac_cc](../installations/asset-chain-parameters.html#ac-cc) to be active.
+The `ac_ccenable` parameter restricts the Smart Chain so that only indicated Fluidity modules can be enabled. `ac_ccenable` requires [ac_cc](../installations/asset-chain-parameters.html#ac-cc) to be active.
 
-To indicate which Custom Consensus modules should be available, insert each module's eval code in decimal and separated by commas. 
+To indicate which Fluidity modules should be available, insert each module's eval code in decimal and separated by commas. 
 
 The following table presents an abbreviated list of EVAL codes. For more information, please see [this linked content](https://github.com/jl777/komodo/blob/master/src/cc/eval.h).
 
@@ -686,18 +686,18 @@ The following table presents an abbreviated list of EVAL codes. For more informa
 | PAYMENTS           | 240      |
 | GATEWAYS           | 241      |
 
-For example, the following parameters create an Smart Chain where only the `faucet` and `rewards` modules are active:
+For example, the following parameters create a Smart Chain where only the `faucet` and `rewards` modules are active:
 
 ```bash
 ./komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable=228,229
 ```
 
-When `-ac_cc` is set, but `-ac_ccenable` is not, all Custom Consensus modules are enabled.
+When `-ac_cc` is set, but `-ac_ccenable` is not, all Fluidity modules are enabled.
 
 ::: warning
-`ac_ccenable` disables spending utxos that are created under a non-enabled Custom Consensus module. We have also implemented additional functionality that disables RPC functions. This prevents the user from creating a utxo that `ac_ccenable` would render unspendable. It is still possible to create raw transactions that bypass this security feature, and thus create utxos that are unspendable. A normal user or developer relying on our RPC functionality should not be concerned with this. However, those who experiment with raw transactions should be cautious.
+`ac_ccenable` disables spending utxos that are created under a non-enabled Fluidity module. We have also implemented additional functionality that disables API functions. This prevents the user from creating a utxo that `ac_ccenable` would render unspendable. It is still possible to create raw transactions that bypass this security feature, and thus create utxos that are unspendable. A normal user or developer relying on our API functionality should not be concerned with this. However, those who experiment with raw transactions should be cautious.
 :::
 
 ::: warning
-If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the evalcodes in the `libcc.so` will not disable Custom Consensus RPC calls. Therefore, there remains a risk that a disabled RPC call can still be used to create a utxo, which will then be non-spendable.
+If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the evalcodes in the `libcc.so` will not disable Fluidity API calls. Therefore, there remains a risk that a disabled API call can still be used to create a utxo, which will then be non-spendable.
 :::
