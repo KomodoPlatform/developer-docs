@@ -75,6 +75,8 @@ At some point during the installation process, you will see a warning, "libgmp h
 
 #### Installing Komodo
 
+<!---FIXME This step just clones komodo repo and downloads the zcash params, the next step actually builds the daemon, might want to rename the steps or merge them--->
+
 ```bash
 cd ~
 git clone https://github.com/jl777/komodo
@@ -83,7 +85,7 @@ git checkout dev
 ./zcutil/fetch-params.sh
 ```
 
-#### Build the Zcash Parameters
+#### Build the Komodo daemon `komodod`
 
 In the command below, the `-j$(nproc)` parameter instructs the script to utilize all available processors in your hardware. 
 
