@@ -122,3 +122,6 @@ git pull
 make -j8
 ```
 
+## Windows
+
+

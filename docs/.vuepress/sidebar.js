@@ -199,13 +199,17 @@ var sidebar = [
         title: "Fluidity",
         collapsible: true,
         children: [
+            [
+                "/basic-docs/fluidity/introduction-to-fluidity.md",
+                "Introduction to Fluidity Documentation"
+            ],
             {
                 title: "Fluidity Setup",
                 collapsible: true,
                 children: [
                     [
                         "/basic-docs/fluidity/fluidity-setup/fluidity-instructions.md", 
-                        "Using Fluidity"
+                        "Understanding Fluidity Addresses"
                     ],
                 ],
             },
@@ -213,6 +217,10 @@ var sidebar = [
                 title: "Fluidity Tutorials",
                 collapsible: true,
                 children: [
+                        [
+                            "/basic-docs/fluidity/fluidity-tutorials/introduction-to-fluidity-tutorials.md", 
+                            "Introduction to Fluidity Tutorials"
+                        ],
                         [
                             "/basic-docs/fluidity/fluidity-tutorials/fluidity-overview.md", 
                             "Fluidity Overview"
@@ -224,6 +232,14 @@ var sidebar = [
                         [
                             "/basic-docs/fluidity/fluidity-tutorials/advanced-fluidity-tutorial.md", 
                             "Advanced Fluidity Tutorial"
+                        ],
+                        [
+                            "/basic-docs/fluidity/fluidity-tutorials/musig-module-tutorial.md", 
+                            "Musig Module Tutorial" 
+                        ],
+                        [
+                            "/basic-docs/fluidity/fluidity-tutorials/gateways-module-tutorial.md", 
+                            "Gateways Module Tutorial" 
                         ],
                         [
                             "/basic-docs/fluidity/fluidity-tutorials/jl777-rewrite/00-chapter.md", 

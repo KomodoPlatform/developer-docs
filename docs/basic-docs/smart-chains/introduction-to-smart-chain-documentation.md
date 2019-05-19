@@ -34,7 +34,7 @@ The Smart Chain Setup section contains basic information about Smart Chains and 
 
 ## About Smart Chain Tutorials
 
-The Smart Chain Tutorials section contains various tutorials that instruct in Smart Chain creation and usage.
+The Smart Chain Tutorials section contains various tutorials that provide instruction in Smart Chain creation and usage.
 
 For a walkthrough covering multiple tutorials in a targeted fashion, please see the [Learning Launchpad](../basic-docs/start-here/learning-launchpad/learning-path-outlines.html) section.
 

@@ -2,9 +2,9 @@
 
 ## Introduction
 
-The Faucet Custom Consensus (CC) module enables anyone to fund an on-chain faucet on any chain where contracts are [enabled.](../installations/asset-chain-parameters.html#summary-of-ac-cc) An asset chain may have only one on-chain `faucet`.
+The Faucet Fluidity module enables anyone to fund an on-chain faucet on any chain where modules are [enabled.](../installations/asset-chain-parameters.html#summary-of-ac-cc) A Smart Chain may have only one on-chain `faucet`.
 
-To receive funds from a `faucet`, the [faucetget](../customconsensus/faucet.html#faucetget) method can be executed by anyone on the asset chain, as long as their public address satisfies a few constraints. Their daemon's pubkey (corresponding to the address) must have no history of funds or transactions, and an address can claim faucet funds only once on a chain. The call also requires the node to perform a small PoW calculation; this deters leeching.
+To receive funds from a `faucet`, the [faucetget](../customconsensus/faucet.html#faucetget) method can be executed by anyone on the Smart Chain, as long as their public address satisfies a few constraints. Their daemon's pubkey (corresponding to the address) must have no history of funds or transactions, and an address can claim faucet funds only once on a chain. The call also requires the node to perform a small PoW calculation; this deters leeching.
 
 When `faucetget` is executed, the on-chain `faucet` sends 0.1 coins to the address that corresponds to the node's pubkey. This requires about 30 seconds of CPU time.
 
@@ -12,7 +12,7 @@ When `faucetget` is executed, the on-chain `faucet` sends 0.1 coins to the addre
 
 **faucetaddress [pubkey]**
 
-The `faucetaddress` method returns the CC address information for the specified pubkey. If no pubkey is provided, the method returns information for the pubkey used to launch the daemon.
+The `faucetaddress` method returns the Fluidity address information for the specified pubkey. If no pubkey is provided, the method returns information for the pubkey used to launch the daemon.
 
 ### Arguments
 
@@ -24,12 +24,12 @@ The `faucetaddress` method returns the CC address information for the specified 
 
 | Name | Type | Description | 
 | --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| FaucetCCaddress | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the public address that corresponds to the faucet contract's privkey |
+| FaucetCCaddress | (string) | taking the faucet module's `EVAL` code as a modifier, this is the public address that corresponds to the faucet module's privkey |
 | Faucetmarker    | (string) | the internal address (not related to usage of faucet)                                                                                |
 | FaucetCCassets  | (string) | the internal address (not related to usage of faucet)                                                                                |
-| GatewaysPubkey  | (string) | the global pubkey for this Gateways contract module                                                                                  |
-| CCaddress       | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the CC address from the pubkey of the user                           |
-| myCCaddress     | (string) | taking the faucet contract's `EVAL` code as a modifier, this is the CC address from the pubkey of the user                           |
+| GatewaysPubkey  | (string) | the global pubkey for this Gateways module                                                                                  |
+| CCaddress       | (string) | taking the faucet module's `EVAL` code as a modifier, this is the Fluidity address from the pubkey of the user                           |
+| myCCaddress     | (string) | taking the faucet module's `EVAL` code as a modifier, this is the Fluidity address from the pubkey of the user                           |
 | myaddress       | (string) | the unmodified public address of the pubkey used to launch the chain                                                                 |
 
 #### :pushpin: Examples
@@ -181,7 +181,7 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 **faucetget**
 
-The `faucetget` method requests the `faucet` contract to send coins.
+The `faucetget` method requests the `faucet` module to send coins.
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
@@ -314,7 +314,7 @@ The `faucetinfo` method displays the balance of funds in the chain's faucet.
 | Name | Type | Description | 
 | --------- | -------- | ------------------------------------------- |
 | result    | (string) | whether the command executed successfully   |
-| name      | (string) | the name of the faucet contract             |
+| name      | (string) | the name of the faucet module             |
 | funding   | (number) | the amount of funds available in the faucet |
 
 #### :pushpin: Examples

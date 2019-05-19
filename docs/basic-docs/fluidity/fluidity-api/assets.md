@@ -1,4 +1,4 @@
-# Contract Module: CC Assets
+# Fluidity Module: Assets
 
 ## Introduction
 

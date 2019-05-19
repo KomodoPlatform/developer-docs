@@ -2,11 +2,11 @@
 
 ## Introduction
 
-The Channels Custom Consensus (CC) module facilitates instant payments in a trustless environment.
+The Channels Fluidity module facilitates instant payments in a trustless environment.
 
 When a payment is executed properly with `channels`, as soon as it enters the mempool the odds that the payment can be withdrawn or attacked decrease to almost zero. Many developers and users may find it advantageous to use `channels` to create a secure instant-payment network that can be used within their business environment.
 
-#### Channels CC Module Flow
+#### Channels Module Flow
 
 - Anyone can create a channel using [channelsopen](../customconsensus/channels.html#channelsopen)
   - When creating the channel, the user indicates the number and size of their potential payment(s), and what their destination is
@@ -15,7 +15,7 @@ When a payment is executed properly with `channels`, as soon as it enters the me
 - The creator of a channel may close the channel at any time using [channelsclose](../customconsensus/channels.html#channelsclose)
   - This shows the receiver that this payment stream is permanently ended
 - Once the channel's closure is notarized, the creator may withdraw remaining funds using [channelsrefund](../customconsensus/channels.html#channelsrefund)
-- The [channelsinfo](../customconsensus/channels.html#channelsinfo) method reveals public information for any or all available channels on an asset chain
+- The [channelsinfo](../customconsensus/channels.html#channelsinfo) method reveals public information for any or all available channels on an Smart Chain
 
 ## channelsaddress
 
@@ -25,7 +25,7 @@ The `channelsaddress` method displays the various addresses and their balances f
 
 Under normal circumstances, for the `pubkey` the user provides the destination address of the intended channel.
 
-The global addresses are not used in the Channels CC module. For more information about unique CC addresses, see [this linked explanation.](../customconsensus/custom-consensus-instructions.html#understanding-the-types-of-addresses)
+The global addresses are not used in the Channels Fluidity module. For more information about unique Fluidity addresses, see [this linked explanation.](../customconsensus/custom-consensus-instructions.html#understanding-the-types-of-addresses)
 
 ### Arguments
 
@@ -41,10 +41,10 @@ The global addresses are not used in the Channels CC module. For more informatio
 | ChannelsCCAddress           | (string)  | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                                                                                                                                                                                                            |
 | CCbalance                   | (numeric) | the unspent amount in `ChannelsCCaddress`                                                                                                                                                                                                                                                                                                                       |
 | ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey; this is generally used for markers                                                                                                                                                                                                                                                  |
-| ChannelsCC1of2Address       | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using coins <!--I'm confused. Do we need this whole sentence? Seems like we can cut out everything about "from the pubkey to the ...", and just the keep the part at the end about this being used for channels that deal with coins | from the `pubkey` [used to launch the daemon.](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey) to the supplied pubkey --> |
-| ChannelsCC1of2TokensAddress | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using tokens <!-- same                                                                                                                                                                                                               | the channel address where funds are stored when channel is opened from the `pubkey` [used to launch the daemon.](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey) to the supplied pubkey (if using tokens) --> |
-| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` [used to launch the daemon](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)                                                                                                                                                 |
-| PubkeyCCaddress(Channels)   | (string)  | taking the contract's EVAL code as a modifier, this is the CC address from the `pubkey` supplied as the argument                                                                                                                                                                                                                                                |
+| ChannelsCC1of2Address       | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using coins |
+| ChannelsCC1of2TokensAddress | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using tokens |
+| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the Fluidity address from the `pubkey` [used to launch the daemon](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)                                                                                                                                                 |
+| PubkeyCCaddress(Channels)   | (string)  | taking the contract's EVAL code as a modifier, this is the Fluidity address from the `pubkey` supplied as the argument                                                                                                                                                                                                                                                |
 | myCCbalance                 | (numeric) | the balance of `myccaddress` in coins                                                                                                                                                                                                                                                                                                                           |
 | myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)                                                                                                                                                                                      |
 | mybalance                   | (numeric) | the balance of `myaddress` in coins                                                                                                                                                                                                                                                                                                                             |
@@ -329,7 +329,7 @@ Check that the transaction is confirmed:
 
 **channelsrefund open_tx_id close_tx_id**
 
-The `channelsrefund` method withdraws funds directly to the CC address of the channel creator.
+The `channelsrefund` method withdraws funds directly to the Fluidity address of the channel creator.
 
 The method can only be executed after the channel `close_tx_id` has either one notarization or 60 confirmations.
 

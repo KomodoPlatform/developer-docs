@@ -372,7 +372,7 @@ tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
 
 [Links to Komodo Binaries for Windows Here](https://github.com/KomodoPlatform/komodo/releases)
 
-Place the files in a new folder on the Desktop called kmd.
+Place the files in a new folder on the Desktop called `kmd`.
 
 `C:\\Users\\YourUserName\\Desktop\\kmd`
 
