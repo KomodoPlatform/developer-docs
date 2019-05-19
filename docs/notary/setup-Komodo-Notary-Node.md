@@ -36,6 +36,8 @@ _Before doing anything further, please ensure that your server is secure._
 
 - Please run processes as an unprivileged user and use `sudo` where necessary
 
+**Here is a repo with automated script to prepare your fresh Ubuntu server with initial setup https://github.com/webworker01/freshubuntu**
+
 ## Install Dependencies
 
 ```bash
@@ -96,6 +98,7 @@ txindex=1
 server=1
 daemon=1
 rpcworkqueue=256
+rpcbind=127.0.0.1
 ```
 
 Restrict access to the `komodo.conf` file
