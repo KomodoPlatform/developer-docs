@@ -360,19 +360,47 @@ tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
 
 ## Windows
 
-#### Follow the Video Tutorial
+`komodod.exe` and `komodo-cli.exe` file needs to be cross-compiled using a Debian or Ubuntu machine. You can use a VM or dedicated machine for that.
 
-<div class="video-wrapper">
+#### Install dependencies
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gfZZy8b222E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+```bash
+sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-gnutls-dev bsdmainutils automake curl libsodium-dev cmake mingw-w64
+```
 
-</div>
+#### Install Rust
 
-#### Download Komodo Software for Windows
+```bash
+curl https://sh.rustup.rs -sSf | sh
+source $HOME/.cargo/env
+rustup target add x86_64-pc-windows-gnu
+```
 
-[Links to Komodo Binaries for Windows Here](https://github.com/KomodoPlatform/komodo/releases)
+#### Clone the Komodo Repository
 
-Place the files in a new folder on the Desktop called kmd.
+```bash
+git clone https://github.com/jl777/komodo
+cd komodo
+git checkout dev
+```
+
+#### Fetch the Zcash Parameters
+
+```bash
+./zcutil/fetch-params.sh
+```
+
+#### Build the Komodo Daemon
+
+In the command below, you may instruct the script to use only a set number of processors. For example, `-j8` instructs the script to use `8` processors, `-j4` instructs the script to use `4` processors, etc.
+
+```bash
+./zcutil/build-win.sh -j8
+```
+
+This script can take some time. Once completed, you will find `komodod.exe` & `komodo-cli.exe` files inside the `src` directory.
+
+Transfer these 2 executable files to your Windows computer and place the files in a new folder on the Desktop called kmd or any other location you prefer (remember the location and use that). For this guide we are using `kmd` directory on Desktop.
 
 `C:\\Users\\YourUserName\\Desktop\\kmd`
 
