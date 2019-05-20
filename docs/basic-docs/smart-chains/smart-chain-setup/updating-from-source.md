@@ -126,9 +126,9 @@ make -j8
 
 To update the Windows software, you will again need access to your available installation of Linux where your originally compiled the software. 
 
-###
+#### Build the New Executables
 
-Execute the following commands on your Linux machine.
+Execute the following commands on your Linux machine to build the new executable files.
 
 ```bash
 cd ~/komodo
@@ -138,7 +138,7 @@ git pull
 
 This can take some time.
 
-###  Move Executables to Windows OS
+####  Move Executables to Windows OS
 
 Once the process completes, find the `komodod.exe` and `komodo-cli.exe` files and move them to your Windows OS machine.
 
