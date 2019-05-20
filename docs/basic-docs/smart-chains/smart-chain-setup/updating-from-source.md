@@ -124,7 +124,7 @@ make -j8
 
 ## Windows
 
-To update the Windows software, you will again need access to your available installation of Linux where your originally compiled the software. 
+To update the Windows software, you will again need access to your available installation of Linux where you originally compiled the software. 
 
 #### Build the New Executables
 
@@ -133,7 +133,7 @@ Execute the following commands on your Linux machine to build the new executable
 ```bash
 cd ~/komodo
 git pull
-./zcutil/build-sh.sh -j8
+./zcutil/build-win.sh -j8
 ```
 
 This can take some time.
