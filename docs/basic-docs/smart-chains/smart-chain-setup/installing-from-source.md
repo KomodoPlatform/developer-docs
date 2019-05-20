@@ -44,7 +44,7 @@ Source code exists for most major OS's, including Windows, MacOS, and Linux.
 
 - Linux (easiest with a Debian-based distribution, such as Ubuntu)
 
-- For Ubuntu, we recommend using only the 16.04 or 18.04 releases
+  - For Ubuntu, we recommend using only the 16.04 or 18.04 releases
 
 - 64-bit Processor
 
@@ -360,21 +360,53 @@ tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
 
 ## Windows
 
-#### Follow the Video Tutorial
+The Windows software for `komodod` and `komodo-cli` files are slightly different than their MacOS and Linux counterparts in two ways.
 
-<div class="video-wrapper">
+- The Windows software cannot be directly compiled on a Windows machine. Rather, the software must be compiled on a Linux machine (Ubuntu recommended), and then transferred to the Windows machine
+  - You can use a Virtual Machine-based installation of Ubuntu Linux, running on a Windows machine, as a solution
+- The names of the software are `komodod.exe` and `komodo-cli.exe`
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gfZZy8b222E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Once you have access to an Ubuntu machine and have access to a terminal [with <b>sudo</b> privileges](https://help.ubuntu.com/community/RootSudo), you are prepared to continue the installation process.
 
-</div>
+#### Install dependencies
 
-#### Download Komodo Software for Windows
+```bash
+sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-gnutls-dev bsdmainutils automake curl libsodium-dev cmake mingw-w64
+```
 
-[Links to Komodo Binaries for Windows Here](https://github.com/KomodoPlatform/komodo/releases)
+#### Install Rust
 
-Place the files in a new folder on the Desktop called `kmd`.
+```bash
+curl https://sh.rustup.rs -sSf | sh
+source $HOME/.cargo/env
+rustup target add x86_64-pc-windows-gnu
+```
 
-`C:\\Users\\YourUserName\\Desktop\\kmd`
+#### Clone the Komodo Repository
+
+```bash
+git clone https://github.com/jl777/komodo
+cd komodo
+git checkout dev
+```
+
+#### Fetch the Zcash Parameters
+
+```bash
+./zcutil/fetch-params.sh
+```
+
+#### Build the Komodo Daemon
+
+In the command below, you may instruct the script to use only a set number of processors. For example, `-j8` instructs the script to use `8` processors, `-j4` instructs the script to use `4` processors, etc.
+
+```bash
+./zcutil/build-win.sh -j8
+```
+
+This script can take some time. Once completed, you will find `komodod.exe` & `komodo-cli.exe` files inside the `src` directory.
+
+Transfer these 2 executable files to your Windows computer and place the files in a new folder on the Desktop called kmd or any other location you prefer (remember the location and use that). For this guide we are using `kmd` directory on Desktop.
 
 Open a command prompt for the following steps.
 

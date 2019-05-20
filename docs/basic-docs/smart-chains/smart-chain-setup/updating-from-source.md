@@ -124,4 +124,25 @@ make -j8
 
 ## Windows
 
+To update the Windows software, you will again need access to your available installation of Linux where your originally compiled the software. 
+
+###
+
+Execute the following commands on your Linux machine.
+
+```bash
+cd ~/komodo
+git pull
+./zcutil/build-sh.sh -j8
+```
+
+This can take some time.
+
+###  Move Executables to Windows OS
+
+Once the process completes, find the `komodod.exe` and `komodo-cli.exe` files and move them to your Windows OS machine.
+
+You may drop these executable files into the same `kmd` folder to overwrite the old executables files.
+
+Once complete, run the `komodod.exe` and `komodo-cli` files to verify that they work properly.
 
