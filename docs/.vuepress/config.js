@@ -44,7 +44,7 @@ module.exports = {
     },
     nav: [{
         text: "Start Here",
-        link: "/basic-docs/komodo-platform-overview/start-here/about-komodo-platform.md"
+        link: "/basic-docs/start-here-about-komodo-platform/about-komodo-platform.md"
       },
       {
         text: "KomodoPlatform.com",
