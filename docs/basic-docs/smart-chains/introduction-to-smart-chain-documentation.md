@@ -2,7 +2,7 @@
 
 Welcome to the Smart Chain technical documentation.
 
-## About the Smart Chain Section
+#### About the Smart Chain Section
 
 This documentation is intended for developers learning about, building, and interacting with Smart Chain products.
 
@@ -12,7 +12,7 @@ Users who are not interested in these activities, but are searching for document
 
 [<b>Link to Simple Installation Procedure</b>](../basic-docs/start-here/about-komodo-platform/simple-installations.html#simple-installations)
 
-## Conceptual Overview
+#### Conceptual Overview
 
 A conceptual overview of Smart Chain technology can be found in the <b>Start Here</b> > <b>Product Introductions</b> section.
 
@@ -22,7 +22,7 @@ Also, the reader may turn to the Komodo Whitepaper for a thorough explanation.
 
 [<b>Link to Komodo Whitepaper</b>](https://komodoplatform.com/whitepaper)
 
-## About Smart Chain Setup
+#### About Smart Chain Setup
 
 The Smart Chain Setup section contains basic information about Smart Chains and their creation. Topics include the following:
 
@@ -32,13 +32,13 @@ The Smart Chain Setup section contains basic information about Smart Chains and 
 - [<b>Customizations Available for Smart Chains During Creation and Hard Forks </b>](../basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.html#smart-chain-customizations)
 
 
-## About Smart Chain Tutorials
+#### About Smart Chain Tutorials
 
 The Smart Chain Tutorials section contains various tutorials that provide instruction in Smart Chain creation and usage.
 
 For a walkthrough covering multiple tutorials in a targeted fashion, please see the [Learning Launchpad](../basic-docs/start-here/learning-launchpad/learning-path-outlines.html) section.
 
-## About Smart Chain API
+#### About Smart Chain API
 
 The Smart Chain API section contains all available API commands for a default Smart Chain daemon.
 

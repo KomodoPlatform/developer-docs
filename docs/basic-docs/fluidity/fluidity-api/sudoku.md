@@ -2,17 +2,17 @@
 
 ## Introduction
 
-The Sudoku Custom Consensus (CC) module serves as a proof-of-concept to demonstrate CC's capabilities as a blockchain-based gaming technology.
+The Sudoku Fluidity module serves as a proof-of-concept to demonstrate Fluidity's capabilities as a blockchain-based gaming technology.
 
-Sudoku CC is based on the classic game, Sudoku. To learn more about how Sudoku is played, read the associated Wikipedia article:
+The Sudoku module is based on the classic game, Sudoku. To learn more about how Sudoku is played, read the associated Wikipedia article:
 
 [Link to Sudoku Wikipedia article](https://en.wikipedia.org/wiki/Sudoku)
 
-The procedures to launch and finish a game require the execution of various methods (rpcs). By design, the Sudoku CC module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must  pass trough the Sudoku CC RPC captcha protection, as this deters bots.
+The procedures to launch and finish a game require the execution of various methods (rpcs). By design, the Sudoku module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must  pass trough the Sudoku RPC captcha protection, as this deters bots.
 
 The following installation and walkthrough tutorials can assist the reader in setting up and playing the Sudoku game. For more information, please reach out to our community on [Discord](https://komodoplatform.com/discord). The #cc-sudoku channel is available for questions and assistance.
 
-#### Sudoku CC Module Flow
+#### Sudoku Module Flow
 
 - Create a puzzle using the [gen](../customconsensus/sudoku.html#gen) method
   - commit the amount of `SUDOKU` coins that will serve as a bounty for the first node to complete this puzzle
@@ -229,7 +229,7 @@ For example:
 
 ### Install Sudoku Graphical User Interface (GUI)
 
-The Komodo team offers an unofficial graphical user interface (GUI) to assist the user with Sudoku-puzzle solving visualization. By design, the Sudoku CC module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must  pass trough the Sudoku CC RPC captcha protection, as this deters bots.
+The Komodo team offers an unofficial graphical user interface (GUI) to assist the user with Sudoku-puzzle solving visualization. By design, the Sudoku module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must  pass trough the Sudoku RPC captcha protection, as this deters bots.
 
 Download the portable GUI bundle from the following link: 
 
@@ -413,7 +413,7 @@ The `txidinfo` method returns information about the indicated `puzzle_txid` puzz
 | txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` | 
 | result | (string) | whether the command executed successfully |
 | height | (number) | the block height at which the puzzle was generated |
-| sudokuaddr | (string) | the CC address that owns this puzzle funds and will distribute the reward |
+| sudokuaddr | (string) | the Fluidity address that owns this puzzle funds and will distribute the reward |
 | amount | (number) | the reward provided to the first node to submit the correct solution |
 | unsolved | (string) | the unsolved puzzle, provided in concatenated form, filling playing field from left to right horizontally, and from top to bottom vertically |
 | name | (string) | name of the module |
@@ -543,7 +543,7 @@ JSON output:
 | txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` | 
 | amount | (number) | the reward provided to the first node to submit the correct solution |
 | result | (string) | whether the command executed successfully |
-| sudokuaddr | (string) | the CC address that owns this puzzle reward and will distribute the reward |
+| sudokuaddr | (string) | the Fluidity address that owns this puzzle reward and will distribute the reward |
 | method | (string) | name of the method |
 
 Daemon `stdout`:
@@ -552,7 +552,7 @@ Daemon `stdout`:
 | ---- | ---- | ----------- |
 | solved | (string) | this returns three values: the block height at which the puzzle was solved, the amount of coins rewarded, the solution txid |
 | solution | (number) | this contains three values: a number-based concatenated representation of the solved puzzle; a string representing the concatenated unsolved puzzle; the total score for solving this puzzle | 
-| statistics | (string) | information which helps this CC developer to detect was puzzle solved by robot or human | 
+| statistics | (string) | information which helps this module developer to detect was puzzle solved by robot or human | 
 
 #### :pushpin: Examples
 

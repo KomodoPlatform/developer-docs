@@ -2,9 +2,9 @@
 
 ## Introduction
 
-The Tokens Custom Consensus (CC) module enables core-asset support for the on-chain creation of colored coins, also called tokens. The functionality is facilitated by utxo technology. Tokens can be generated on any chain where the [ac_cc](../installations/asset-chain-parameters.html#ac-cc) is enabled.
+The Tokens Fluidity module enables core-asset support for the on-chain creation of colored coins, also called tokens. The functionality is facilitated by utxo technology. Tokens can be generated on any chain where the [ac_cc](../installations/asset-chain-parameters.html#ac-cc) is enabled.
 
-The `tokens` smart contract requires locking a proportional amount of satoshis of the native coins. These satoshis create the supply for the token.
+The `tokens` module requires locking a proportional amount of satoshis of the native coins. These satoshis create the supply for the token.
 
 For example, if you desire to create a one-of-a-kind token, use 1 satoshi in its creation.
 
@@ -25,10 +25,10 @@ The `tokenaddress` method returns information about a token address according to
 | Name | Type | Description | 
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | result          | (string) | whether the command executed successfully                                                                                        |
-| AssetsCCaddress | (string) | taking the token contract's EVAL code as a modifier, this is the public address that corresponds to the token contract's privkey |
+| AssetsCCaddress | (string) | taking the token module's EVAL code as a modifier, this is the public address that corresponds to the token contract's privkey |
 | Assetsmarker    | (string) | the unmodified public address generated from the token contract's privkey                                                        |
-| CCaddress       | (string) | taking the token contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                          |
-| myCCaddress     | (string) | taking the token contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                          |
+| CCaddress       | (string) | taking the token module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                          |
+| myCCaddress     | (string) | taking the token module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                          |
 | myaddress       | (string) | the public address of the pubkey used to launch the chain                                                                        |
 
 #### :pushpin: Examples
@@ -71,7 +71,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | --------- | -------- | ------------------------------------------------------------------------------ |
 | numtokens | (number) | the number of tokens to request in the order                                   |
 | tokenid   | (string) | the txid that identifies the token                                             |
-| price     | (number) | the price to pay for each token (units are in coins of the parent asset chain) |
+| price     | (number) | the price to pay for each token (units are in coins of the parent Smart Chain) |
 
 ### Response
 
@@ -137,7 +137,7 @@ The `tokenbalanced` method checks the token balance according to a provided `pub
 | Name | Type | Description | 
 | --------- | -------- | ------------------------------------------------------------------------------------------------------- |
 | result    | (string) | whether the command executed succesfully                                                                |
-| CCaddress | (string) | taking the token contract's EVAL code as a modifier, this is the CC address from the pubkey of the user |
+| CCaddress | (string) | taking the token module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user |
 | tokenid   | (string) | the txid that identifies the token                                                                      |
 | balance   | (number) | the balance of the address that corresponds to the pubkey                                               |
 
@@ -205,7 +205,7 @@ The `sendrawtransaction` method then returns a `txid`, which is the identificati
 | --------- | -------- | ------------------------------------------------------------------------------ |
 | numtokens | (number) | the number of tokens to request in the order                                   |
 | tokenid   | (string) | the txid that identifies the token                                             |
-| price     | (number) | the price to pay for each token (units are in coins of the parent asset chain) |
+| price     | (number) | the price to pay for each token (units are in coins of the parent Smart Chain) |
 
 ### Response
 
@@ -880,7 +880,7 @@ Command:
 
 **tokenlist**
 
-The `tokenlist` method lists all available tokens on the asset chain.
+The `tokenlist` method lists all available tokens on the Smart Chain.
 
 ### Arguments
 
@@ -958,7 +958,7 @@ Information about the `funcid` property:
 | origaddress         | (string)                   | the address that made the original bid `b` or ask `s`                          |
 | tokenid             | (string)                   | the tokenid for the relevant bid/ask request/fill                              |
 | totalrequired       | (number, `b` and `s` only) | the total amount available in the original big/ask request/fill                |
-| price               | (number, `b` and `s` only) | the price per token, units are in the parent asset chain's coin                |
+| price               | (number, `b` and `s` only) | the price per token, units are in the parent Smart Chain's coin                |
 
 #### :pushpin: Examples
 

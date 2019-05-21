@@ -2,17 +2,17 @@
 
 ## Introduction
 
-The Oracles Custom Consensus (CC) module allows a user to make off-chain data available on-chain. This enables developers to create and use software that responds to off-chain information and events.
+The Oracles Fluidity module allows a user to make off-chain data available on-chain. This enables developers to create and use software that responds to off-chain information and events.
 
 Those who publish data to an oracle are called publishers. There is a fee-based model to serve as an incentive for publishers.
 
-### Oracles CC Module Flow
+### Oracles Module Flow
 
 - Create an Oracle using [oraclescreate](../customconsensus/oracles.html#oraclescreate)
 - Register as a data publisher for the oracle using the [oraclesregister](../customconsensus/oracles.html#oraclesregister) method; at this stage, the publisher indicates the fee for their data updates
   - Anyone can register as a publisher for any oracle; users subscribe only to the publishers they desire
 - The [oracleslist](../customconsensus/oracles.html#oraclelist), [oraclesinfo](../customconsensus/oracles.html#oraclesinfo), and [oraclessamples](../customconsensus/oracles.html#oraclessamples) methods allow the user to find oracles and publishers, find more information about a specific oracle and publisher, and discover samples of an existing publisher, respectively
-- Anyone can subscribe to any specific publisher of any oracle using the [ oraclessubscribe](../customconsensus/oracles.html#oraclessubscribe) method
+- Anyone can subscribe to any specific publisher of any oracle using the [oraclessubscribe](../customconsensus/oracles.html#oraclessubscribe) method
 - A publisher can publish data using [oraclesdata](../customconsensus/oracles.html#oraclesdata), and thereby collect their fee from their subscribers
 
 ## oraclesaddress
@@ -32,12 +32,12 @@ The `oraclesaddress` method displays the oracle address for a specific pubkey.
 | Name | Type | Description | 
 | ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
 | result           | (string) | whether the method executed successfully                                                                             |
-| OraclesCCaddress | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
+| OraclesCCaddress | (string) | taking the module's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
 | Oraclesmarker    | (string) | the unmodified public address generated from the contract's privkey                                                  |
 | GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                       |
 | OraclesCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                                     |
-| CCaddress        | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
-| myCCaddress      | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
+| CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                    |
+| myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                    |
 | myaddress        | (string) | the public address of the pubkey used to launch the chain                                                            |
 
 #### :pushpin: Examples
@@ -498,7 +498,7 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 The `oraclesinfo` method displays information about a specific oracle using `oracletxid`. 
 
-For a list of all `oracletxid`'s available on the asset chain, see the [oracleslist](../customconsensus/oracles.html#oraclelist) method.
+For a list of all `oracletxid`'s available on the Smart Chain, see the [oracleslist](../customconsensus/oracles.html#oraclelist) method.
 
 ### Arguments
 
@@ -518,7 +518,7 @@ For a list of all `oracletxid`'s available on the asset chain, see the [oraclesl
 | marker      | (string) | the unmodified public address generated from the oracle contract's privkey                                                                              |
 | registered: | (array)  |
 | publisher   | (string) | the unique identifier for the publisher (see [oraclesregister](../customconsensus/oracles.html#oraclesregister))                                    |
-| baton       | (string) | the baton address of the publisher, which is a CC address (based on the pubkey of the publisher and the EVAL code of the oracle contract) |
+| baton       | (string) | the baton address of the publisher, which is a Fluidity address (based on the pubkey of the publisher and the EVAL code of the oracle contract) |
 | batontxid   | (string) | the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher               |
 | lifetime    | (number) | the length of time since publisher's inception                                                                                                          |
 | funds       | (number) | the funds committed by subscribers to the publisher's account, and which are used for payouts                                                           |
@@ -564,7 +564,7 @@ Command:
 
 **oracleslist**
 
-The `oraclelist` method lists all available oracle contracts on the asset chain.
+The `oraclelist` method lists all available oracle contracts on the Smart Chain.
 
 ### Arguments
 

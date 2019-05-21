@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Rewards Custom Consensus (CC) module creates a master-node like rewards program, giving a user the ability to earn rewards by locking coins.
+The Rewards Fluidity module creates a master-node like rewards program, giving a user the ability to earn rewards by locking coins.
 
 It features configurable parameters, such as a customizable APR, minimum deposit, a required holding period,etc.
 
@@ -30,8 +30,8 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | Name | Type | Description | 
 | ----------- | -------- | ----------------------------------------------------------------- |
 | name        | (string) | the desired name of your rewards plan                             |
-| fundingtxid | (string) | the txid of the transaction that created and funded this contract |
-| amount      | (number) | the amount of funds to add to the contract                        |
+| fundingtxid | (string) | the txid of the transaction that created and funded this plan |
+| amount      | (number) | the amount of funds to add to the plan                        |
 
 ### Response
 
@@ -165,12 +165,12 @@ The `rewardsaddress` method returns info about the `rewards` plan associated wit
 | Name | Type | Description | 
 | ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
 | result           | (string) | whether the method executed successfully                                                                             |
-| RewardsCCaddress | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
-| Rewardsmarker    | (string) | the unmodified public address generated from the contract's privkey                                                  |
+| RewardsCCaddress | (string) | taking the module's EVAL code as a modifier, this is the public address that corresponds to the plan's privkey |
+| Rewardsmarker    | (string) | the unmodified public address generated from the plan's privkey                                                  |
 | GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                       |
 | RewardsCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                                     |
-| CCaddress        | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
-| myCCaddress      | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
+| CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                    |
+| myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                    |
 | myaddress        | (string) | the public address of the pubkey used to launch the chain                                                            |
 
 #### :pushpin: Examples
@@ -212,7 +212,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 The `sendrawtransaction` method will then return a `txid`. This `txid` is the `fundingtxid` that serves to identify the `rewards` plan.
 
 ::: tip
-If you create a plan with <b>mindeposit: 10000</b>, make sure to also add 10000 of your coin and the transaction fees using the <b>rewardsaddfunding</b> call after creating the plan. The rewards contract won't allow locking of funds greater than the amount already locked in a single transaction as it needs to assure that it will have the required funds to pay.
+If you create a plan with <b>mindeposit: 10000</b>, make sure to also add 10000 of your coin and the transaction fees using the <b>rewardsaddfunding</b> call after creating the plan. The rewards module won't allow locking of funds greater than the amount already locked in a single transaction as it needs to assure that it will have the required funds to pay.
 :::
 
 ### Arguments
@@ -414,7 +414,7 @@ Command:
 
 **rewardslist**
 
-The `rewardslist` method lists the `fundingtxid`'s of all the rewards contracts available on the asset chain.
+The `rewardslist` method lists the `fundingtxid`'s of all the rewards plans available on the Smart Chain.
 
 ### Arguments
 
@@ -426,7 +426,7 @@ The `rewardslist` method lists the `fundingtxid`'s of all the rewards contracts 
 
 | Name | Type | Description | 
 | ----------- | -------- | ------------------------------------------------------------------------- |
-| fundingtxid | (string) | the txid of the transaction that created and funded the relevant contract |
+| fundingtxid | (string) | the txid of the transaction that created and funded the relevant plan |
 
 #### :pushpin: Examples
 

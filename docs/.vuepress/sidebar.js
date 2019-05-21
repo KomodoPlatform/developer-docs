@@ -56,6 +56,10 @@ var sidebar = [
                         "Introduction to General Tutorials"
                     ],
                     [
+                        "/basic-docs/start-here/general-tutorials/basic-environment-setup-for-linux-vps.md",
+                        "Basic Environment Setup for Linux VPS"
+                    ],
+                    [
                         "/basic-docs/start-here/general-tutorials/general-tutorial-1.md",
                         "General Tutorial 1"
                     ],
@@ -132,6 +136,18 @@ var sidebar = [
                 [
                     "/basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.md",
                     "Create a Default Smart Chain"
+                ],
+                [
+                    "/basic-docs/smart-chains/smart-chain-tutorials/launching-with-a-single-node-tutorial.md",
+                    "Launching with a Single Node"
+                ],
+                [
+                    "/basic-docs/smart-chains/smart-chain-tutorials/running-komodod-in-debug-mode.md",
+                    "Running komodod in Debug Mode"
+                ],
+                [
+                    "/basic-docs/smart-chains/smart-chain-tutorials/multisignature-transaction-creation-and-walkthrough.md",
+                    "Multisignature Transaction Creation and Walktrough"
                 ],
                 [
                     "/basic-docs/smart-chains/smart-chain-tutorials/smart-chain-api-basics.md",
@@ -238,8 +254,48 @@ var sidebar = [
                             "Musig Module Tutorial" 
                         ],
                         [
+                            "/basic-docs/fluidity/fluidity-tutorials/heir-module-tutorial.md", 
+                            "Heir Module Tutorial" 
+                        ],
+                        [
+                            "/basic-docs/fluidity/fluidity-tutorials/payments-module-tutorial.md", 
+                            "Payments Module Tutorial" 
+                        ],
+                        [
+                            "/basic-docs/fluidity/fluidity-tutorials/fluidity-design-and-methods.md", 
+                            "Fluidity Design and Methods" 
+                        ],
+                        [
+                            "/basic-docs/fluidity/fluidity-tutorials/ensuring-exclusivity-using-batontxid.md", 
+                            "Ensuring Exclusivity Using Batontxid" 
+                        ],
+                        [
+                            "/basic-docs/fluidity/fluidity-tutorials/supply-chain-fluidity-module-tutorial.md", 
+                            "Supply Chain Fluidity Module Tutorial" 
+                        ],
+                        [
+                            "/basic-docs/fluidity/fluidity-tutorials/create-an-oracles-plan-tutorial.md", 
+                            "Create anOracles Plan Tutorial" 
+                        ],
+                        [
+                            "/basic-docs/fluidity/fluidity-tutorials/transactionality-dao-fluidity-tutorial.md", 
+                            "Transactionality DAO Fluidity Tutorial" 
+                        ],
+                        [
+                            "/basic-docs/fluidity/fluidity-tutorials/attack-vector-on-commit-and-reveal-methods.md", 
+                            "Understanding the Attack Vector on Commit and Reveal Methods" 
+                        ],
+                        [
+                            "/basic-docs/fluidity/fluidity-tutorials/rogue-module-tutorial.md", 
+                            "Rogue Module Tutorial" 
+                        ],
+                        [
                             "/basic-docs/fluidity/fluidity-tutorials/gateways-module-tutorial.md", 
                             "Gateways Module Tutorial" 
+                        ],
+                        [
+                            "/basic-docs/fluidity/fluidity-tutorials/what-are-vin-vout-scriptpubkey.md", 
+                            "What are vin, vout, scriptPubkey" 
                         ],
                         [
                             "/basic-docs/fluidity/fluidity-tutorials/jl777-rewrite/00-chapter.md", 
@@ -303,21 +359,21 @@ var sidebar = [
     title: "AtomicDEX",
     collapsible: true,
     children: [
+        [
+            "/basic-docs/atomicdex/introduction-to-atomicdex.md",
+            "Introduction to AtomicDEX Documentation"
+        ],
         {
             title: "AtomicDEX Setup",
             collapsible: true,
             children: [
                 [
-                    "/basic-docs/atomicdex/atomicdex-setup/about-atomicdex.md",
-                    "About AtomicDEX"
-                ],
-                [
-                    "/basic-docs/atomicdex/atomicdex-setup/introduction-to-atomicdex.md",
-                    "Introduction to AtomicDEX"
-                ],
-                [
                     "/basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.md",
                     "Getting Started with AtomicDEX"
+                ],
+                [
+                    "/basic-docs/atomicdex/atomicdex-setup/additional-information-about-atomicdex.md",
+                    "Additional Information About AtomicDEX"
                 ],
             ],
         },
@@ -325,6 +381,10 @@ var sidebar = [
             title: "AtomicDEX Tutorials",
             collapsible: true,
             children: [
+                [
+                    "/basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.md",
+                    "Introduction to AtomicDEX"
+                ],
                 [
                     "/basic-docs/atomicdex/atomicdex-tutorials/atomicdex-walkthrough.md",
                     "AtomicDEX Walkthrough"
@@ -341,6 +401,10 @@ var sidebar = [
         title: "Chainlizards",
         collapsible: true,
         children: [
+            [
+                "/basic-docs/chainlizards/introduction-to-chainlizards.md",
+                "Introduction to Chainlizards Documentation"
+            ],
             {
                 title: "Chainlizards Setup",
                 collapsible: true,
