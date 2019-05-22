@@ -10,7 +10,7 @@ Furthermore, in the process of completing this tutorial the developer will learn
 
 ## Prerequisite Knowledge
 
-Tutorial readers should have the following prerequisite experience:
+Tutorial readers should have the following prerequisite experience. We provide links to relevant resources where available.
 
 - Confident programming skills with the C/C++ languages
 - Familiarity with the Komodo platform
@@ -19,6 +19,8 @@ Tutorial readers should have the following prerequisite experience:
 - Conceptual understanding of Fluidity
   - [Link to Overview of Fluidity - 1](../basic-docs/fluidity/fluidity-tutorials/fluidity-overview.html#fluidity-overview)
   - [Link to Overview of Fluidity - 2](../basic-docs/fluidity/fluidity-tutorials/fluidity-conceptual-overview.html#introduction)
+- Comprehension of the nature of Fluidity addresses
+  - [Link to Fluidity Address Explanation]()
 - Comprehension of concepts in the Main Path for Komodo Development
   - [Link to Main Path for Komodo Development in Learning Launchpad]()
 - Familiarity with Bitcoin protocol basics
@@ -30,13 +32,13 @@ Tutorial readers should have the following prerequisite experience:
 - The `komodod` software should be installed on your local machine
   - [Link to installation instructions](../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#linux)
 
-### WIP Link from @dimxy
+### (temporary section) WIP Link from @dimxy
 
 https://github.com/dimxy/komodo/wiki/Developing-my-first-cryptocondition-contract-Heir
 
 https://github.com/dimxy/doc-dev/blob/master/first-cc-heir.md
 
-## A Conceptual Understanding of the Finished Product
+## A Conceptual Understanding of the Intended Product
 
 Read the introduction of the finished Heir Module API to gain a vision of what we are about to create. (Read until the start of the section named <b>Heir Module Flow</b> and then pause.)
 
@@ -48,52 +50,114 @@ In terms of design, this is a relatively straightforward Fluidity module, which 
 
 ## Complete the Heir Module Flow Section
 
-To understand specifically how the final Heir module functions, we use the [<b>komodo-cli</b>](../basic-docs/smart-chains/smart-chain-setup/interacting-with-smart-chains.html#using-komodo-cli) software on the <b>RICK</b> test network to utilize all the Heir API commands. 
+To understand specifically how the final Heir module functions, we use the [<b>komodo-cli</b>](../basic-docs/smart-chains/smart-chain-setup/interacting-with-smart-chains.html#using-komodo-cli) software and the <b>RICK</b> Smart Chain to execute each Heir API command at least once.
 
-To obtain funds on the RICK Smart Chain, we utilize a different Fluidity module, [<b>Faucet</b>](../basic-docs/fluidity/fluidity-api/faucet.html#introduction). Our encounter with Faucet is fortuitous, as it presents an educational opportunity.
+To accomplish this, we first launch and sync the <b>RICK</b> Smart Chain.
 
 #### Launch the RICK Smart Chain
 
 ```bash
-# Command here
+./komodod -pubkey=$pubkey -ac_name=RICK -ac_supply=90000000000 -ac_reward=100000000 -ac_cc=3 -addnode=138.201.136.145 &
 ```
 
 #### Create a pubkey
 
-Use the following guide to create a Fluidity pubkey and address.
+Use the following guide to create a Fluidity pubkey and address on the <b>RICK</b> Smart Chain.
 
 [Link to Fluidity pubkey creation guide](../basic-docs/fluidity/fluidity-setup/fluidity-instructions.html#creating-and-launching-with-a-pubkey)
 
 #### Retrieve RICK Funds from the Community Faucet
 
-Use the community Faucet to obtain a nominal amount of funds for our test purposes.
+To obtain funds on the RICK Smart Chain, we utilize a different Fluidity module, [<b>Faucet</b>](../basic-docs/fluidity/fluidity-api/faucet.html#introduction). Our encounter with Faucet also presents a Fluidity-related educational opportunity.
+
+To understand the nature of the <b>Faucet</b> module, you may read the introduction to the Faucet API section.
+
+[Link to Faucet API Introduction](../basic-docs/fluidity/fluidity-api/faucet.html#introduction)
+
+Use the community Faucet to obtain a small amount of funds.
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD faucetget
+./komodo-cli -ac_name=RICK faucetget
 ```
 
-<b>Do we have an existing Smart Chain that they can launch and sync for this purpose? Or should/can they use a regtest chain?</b>
+In a few moments, you may use the [<b>getinfo</b>](../basic-docs/komodo-api/control.html#getinfo) method to verify that your wallet now contains RICK funds.
 
-### CC contract concept
+#### Complete Each API Method of the Heir Module
 
-To understand cc contract idea and structure I studied well-known simple Faucet cc contract which actually allows to lock some amount of funds on a crypto condition address and draw funds by small portions. The Faucet cc does not allow to do this fast as it requires to do some PoW for successful funds drawing.
+With funds in your wallet, you are prepared to experiment with the API commands available in the Heir Module Flow section. This may help you to envision the intended design of our Heir module immitation.
 
-What did I know from the first experience with a cc contract?
+[Link to Heir Module Flow](../basic-docs/fluidity/fluidity-api/heir.html#introduction)
 
-First, I'd say it implements some business logic: in faucet cc contract this logic is about storing funds on some address and set a 'faucet' to take them back (maybe like in some advanced moneybox which would not allow spend all the funds at once). For 'Heir' cc contract the business logic is inheritance of the blockchain funds.
+#### On the Relevance of Faucet
 
-The next, contract's business logic is bound to transactions. In some sense transactions are a data source for cc contract application. As a usual blockchain transaction simply moves coin value from one address to another we need some place for application data to put into it. This place is so-called opreturn and it is a transaction output which is never spendable and where contract's data is stored. Usually opreturn is the last output in a transaction.
-When a cc contract instance begins its lifecycle an initial transaction is created and later additional transactions are added and attached to the initial transaction by spending its outputs. Later more transactions might be added which spend outputs of newly added transactions.
+The Faucet module allows a user to lock an arbitrary amount of funds within a Fluidity address. Other users on the network are able to withdraw funds from this Fluidity address in small portions. To prevent spam requests, the Faucet requires a small amount of work from the requesting user's node. 
 
-The next important thing in a cc contract is cryptoconditions.
-What is a cryptocondition and why it is important?
+From this outline, we observe the basic business logic of the module. The module involves storing funds on a designated address, the creation of a faucet that can disburse funds, and the ability to limit the rate at which funds are withdrawn.
 
-### Cryptoconditions in simple terms
+Compare this to our desired Heir module. The Heir module's business logic must allow a designated address the ability to inherit designated blockchain funds.
 
-A cryptocondition in Komodo is basically a logical expression executed on electronic signatures and hashes of spending transactions and stored in transactions' scripts, plus a supporting c-library which allows to evaluate and check such expressions. 
-In wider sense, cryptoconditions is a technology which allows to build and evaluate complex logical expression based on results of cryptographic functions.
+In both cases, the module's business logic is bound to transactions. 
 
-A cryptocondition consists of two parts: a condition stored in the transaction (which to be spent) output's scriptPubKey and cryptocondition fulfillment which is in the spending transaction input's scriptSig. 
+#### Transactions as a Data Source for Blockchain-related Software
+
+When working with blockchain technology, transactions are a data source for Fluidity-based software. 
+
+Transactions can store data in multiple forms. In the simplest form, transaction data records the movement of coins from one address to another. However, blockchain transactions are capable of storing additional data beyond simple coin movement. 
+
+When we desire to place additional data into a transaction, we place this data into an <b>OP_RETURN</b>.
+
+Observe the following transaction data structure:
+
+##### Transaction Data Structure
+
+```bash
+# (Place an example OP_RETURN transaction here)
+```
+
+The <b>OP_RETURN</b> is the last output in a transaction, and this output is never spendable under any circumstances. 
+
+```bash
+# (focus on OP_RETURN here)
+```
+
+The <b>OP_RETURN</b> is the location where all Fluidity module information is stored. 
+
+When a Fluidity module instance begins its lifecycle, an initial transaction is created. For example, observe this initial transaction of the (Faucet module?):
+
+##### Initial Transaction of a Faucet Module Instance
+
+```bash
+# Insert example of initial Fluidity module transaction with OP_RETURN data here
+```
+
+As time progresses, more transactions on the Smart Chain are performed under this module. Each of the module's transactions spends from the previous transaction outputs associated with the module and creates new unspent transactions. This process effectively creates a [linked-list data structure.](https://en.wikipedia.org/wiki/Linked_list)
+
+With each transaction, the <b>OP_RETURN</b> data is never spent, and remains in the blockchain database for future recall.
+
+#### Understanding CryptoConditions
+
+Another important concept to understand is the nature of a <b>Crypto-Condition</b>. This technology is part of [an industry-wide standard](https://tools.ietf.org/html/draft-thomas-crypto-conditions-01), and other platforms may use Crypto-Conditions differently.
+
+Komodo has implemented our own unique version of Crypto-Conditions as a part of the Fluidity framework. Here, a Crypto-Condition is a logical expression. The expression is executed by electronic signatures and by the hashes of spent transactions. 
+
+The logical expressions of a Crypto-Condition are stored in the scripts of transactions, and also in a supporting C library. The library is included during the installation procedure of the associated Smart Chain, and the library evaluates and checks the logical expressions that are stored in the transaction scripts. 
+
+#### The Importance of Crypto-Conditions
+
+Crypto-Conditions allow a developer to build and evaluate complex logical expressions that are based on the results of cryptographic functions.
+
+This allows the developer to add arbitrary code into their Smart Chain's consensus mechanism. The consensus mechanism can rule over the outcome of the arbitrary code across the Smart Chain's decentralized network of nodes.
+
+#### Makeup of a Crypto-Condition
+
+<!-- the original stuff here was a little unclear for me when reading -->
+
+A Crypto-Condition consists of two parts: 
+
+- A condition stored in the transaction output's `scriptPubKey` 
+  - (which to be spent)
+-  fulfillment which is in the spending transaction input's scriptSig. 
+
 The condition contains instructions and data to check cryptocondition (like pubkey).
 The fulfillment has instructions and data how to evaluate cryptocondition (for example, an instruction to check spending transaction signature, signature value to be checked and the pubkey to verify the signature). 
 When a tx which spends some tx cc output is validated its input's cc fulfillment is evaluated and the result is checked with the condition in the output of the tx which is to be spent.
@@ -109,6 +173,8 @@ Cryptocondition might be a tree of subconditions which allows to build complex c
 I might say that cryptoconditions technology is very advanced development of basic bitcoin script security features like pubkey or pubkey hash scripts.
 
 We now know that in Komodo there might be advanced transactions having cryptocondition inputs and outputs. Later we will know that such transactions are attached to some cc contract by a eval code stored in tx cryptocondition inputs and outputs.
+
+<!--
 
 ### CC contract features
 
@@ -136,8 +202,6 @@ That being said, for a cc contract development you would need:
 * implement the contract's validation code
 
 ### CC contract architecture
-
-<!--
 
 A cc contract is actually a c/c++ source file. The one part of is an rpc (remote procedure call) implementation code that either creates the contract's transactions or gets info about contract state (from existing transactions). So when you deploy your contract (actually adding its code to the Komodo source code) your rpc calls are added to komodo-cli client command line.
 
