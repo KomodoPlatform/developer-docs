@@ -268,6 +268,7 @@ var sidebar = {
           "/komodo/convert-pubkey-address.md",
           "Convert Pubkey to Komodo Address"
         ],
+        ["/komodo/use-bitcore-lib-komodo.md", "Using `bitcore-lib-komodo`"],
         ["/komodo/using-Key-Value.md", "Using the Key-Value feature"]
       ]
     },
