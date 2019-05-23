@@ -36,11 +36,13 @@ _Before doing anything further, please ensure that your server is secure._
 
 - Please run processes as an unprivileged user and use `sudo` where necessary
 
+**Here is a repo with automated script to prepare your fresh Ubuntu server with initial setup https://github.com/webworker01/freshubuntu**
+
 ## Install Dependencies
 
 ```bash
 sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool libncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libgtest-dev libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate software-properties-common curl libcurl4-gnutls-dev cmake clang libsodium-dev jq htop -y
+sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool libncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libgtest-dev libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate software-properties-common libevent-dev curl libcurl4-gnutls-dev cmake clang libsodium-dev jq htop -y
 ```
 
 ## Install `nanomsg`
@@ -96,6 +98,7 @@ txindex=1
 server=1
 daemon=1
 rpcworkqueue=256
+rpcbind=127.0.0.1
 ```
 
 Restrict access to the `komodo.conf` file
