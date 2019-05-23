@@ -46,7 +46,7 @@ For developers, the unique combination of Smart Chain technology and Fluidity si
 </div>
 
 --------------------------------------
-<div style="clear: both; margin-top:1rem; float: right; display: block;">
+<div class="inlineImageDiv"  style="clear: both; margin-top:1rem; float: right; display: block;">
 
 <img style="padding: 0.2rem; border: 0.05rem solid;" src="/start-here-pics/Komodo-layers-4.png">
 

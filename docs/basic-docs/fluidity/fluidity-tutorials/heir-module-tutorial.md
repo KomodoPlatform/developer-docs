@@ -1,12 +1,12 @@
 # Heir Module Tutorial
 
-The Heir module tutorial shows advanced C/C++ developers the path and methods for developing a new Fluidity module. 
+This tutorial demonstrates for advanced C/C++ developers the path and methods for developing a new Antara module by building a prototype of the existing [<b>Heir Module</b>](../basic-docs/fluidity/fluidity-api/heir.html). 
 
 #### Tutorial Objectives
 
-The primary aim of the tutorial is to give the advanced Fluidity developer direct engagement with validation code in a Fluidity environment. By understanding validation, the developer should be more able to grasp the broad potential of the Fluidity framework.
+The primary aim is to give the Antara module developer direct engagement with validation code in a Antara environment. By understanding validation, the developer should be more able to grasp the broad potential of the Antara framework.
 
-Furthermore, in the process of completing this tutorial the developer will learn how the Fluidity code directories are organized.
+Furthermore, in the process of completing this tutorial the developer will learn how the Antara code directories are organized.
 
 ## Prerequisite Knowledge
 
@@ -16,11 +16,11 @@ Tutorial readers should have the following prerequisite experience. We provide l
 - Familiarity with the Komodo platform
   - [Link to the Komodo whitepaper](https://komodoplatform.com/whitepaper)
   - [Link to <b>About Komodo Platform</b> section](../basic-docs/start-here/about-komodo-platform/about-komodo-platform.html)
-- Conceptual understanding of Fluidity
-  - [Link to Overview of Fluidity - 1](../basic-docs/fluidity/fluidity-tutorials/fluidity-overview.html#fluidity-overview)
-  - [Link to Overview of Fluidity - 2](../basic-docs/fluidity/fluidity-tutorials/fluidity-conceptual-overview.html#introduction)
-- Comprehension of the nature of Fluidity addresses
-  - [Link to Fluidity Address Explanation]()
+- Conceptual understanding of Antara
+  - [Link to Overview of Antara - 1](../basic-docs/fluidity/fluidity-tutorials/fluidity-overview.html#fluidity-overview)
+  - [Link to Overview of Antara - 2](../basic-docs/fluidity/fluidity-tutorials/fluidity-conceptual-overview.html#introduction)
+- Comprehension of the nature of Antara addresses
+  - [Link to Antara Address Explanation]()
 - Comprehension of concepts in the Main Path for Komodo Development
   - [Link to Main Path for Komodo Development in Learning Launchpad]()
 - Familiarity with Bitcoin protocol basics
@@ -42,17 +42,15 @@ https://github.com/dimxy/doc-dev/blob/master/first-cc-heir.md
 
 Read the introduction of the finished Heir Module API to gain a vision of what we are about to create. (Read until the start of the section named <b>Heir Module Flow</b> and then pause.)
 
-[Link to Introduction to the Heir Fluidity Module](../basic-docs/fluidity/fluidity-api/heir.html#introduction)
+[Link to Introduction to the Heir Antara Module](../basic-docs/fluidity/fluidity-api/heir.html#introduction)
 
 The basic concept to understand is that the Heir module allows the owner of a Smart Chain digital asset to designate an inheritor of the asset, should the owner become inactive on the chain.
 
-In terms of design, this is a relatively straightforward Fluidity module, which is one reason why we use it here.
+In terms of design, this is a relatively straightforward Antara module, which is one reason why we use it here.
 
 ## Complete the Heir Module Flow Section
 
-To understand specifically how the final Heir module functions, we use the [<b>komodo-cli</b>](../basic-docs/smart-chains/smart-chain-setup/interacting-with-smart-chains.html#using-komodo-cli) software and the <b>RICK</b> Smart Chain to execute each Heir API command at least once.
-
-To accomplish this, we first launch and sync the <b>RICK</b> Smart Chain.
+To understand specifically how the final Heir module functions, we use the [<b>komodo-cli</b>](../basic-docs/smart-chains/smart-chain-setup/interacting-with-smart-chains.html#using-komodo-cli) software and the <b>RICK</b> Smart Chain to experiment with each Heir API command.
 
 #### Launch the RICK Smart Chain
 
@@ -62,17 +60,21 @@ To accomplish this, we first launch and sync the <b>RICK</b> Smart Chain.
 
 #### Create a pubkey
 
-Use the following guide to create a Fluidity pubkey and address on the <b>RICK</b> Smart Chain.
+Use the following guide to create a Antara pubkey and address on the <b>RICK</b> Smart Chain.
 
-[Link to Fluidity pubkey creation guide](../basic-docs/fluidity/fluidity-setup/fluidity-instructions.html#creating-and-launching-with-a-pubkey)
+[Link to Antara pubkey creation guide](../basic-docs/fluidity/fluidity-setup/fluidity-instructions.html#creating-and-launching-with-a-pubkey)
 
 #### Retrieve RICK Funds from the Community Faucet
 
-To obtain funds on the RICK Smart Chain, we utilize a different Fluidity module, [<b>Faucet</b>](../basic-docs/fluidity/fluidity-api/faucet.html#introduction). Our encounter with Faucet also presents a Fluidity-related educational opportunity.
+To obtain funds on the RICK Smart Chain, we utilize a different Antara module, [<b>Faucet</b>](../basic-docs/fluidity/fluidity-api/faucet.html#introduction). Our encounter with Faucet also presents an educational opportunity, which will discuss in a moment.
 
-To understand the nature of the <b>Faucet</b> module, you may read the introduction to the Faucet API section.
+::: tip
+
+If you need to gain a quick understanding of the <b>Faucet</b> module, you may read the introduction to the Faucet API section.
 
 [Link to Faucet API Introduction](../basic-docs/fluidity/fluidity-api/faucet.html#introduction)
+
+:::
 
 Use the community Faucet to obtain a small amount of funds.
 
@@ -80,27 +82,27 @@ Use the community Faucet to obtain a small amount of funds.
 ./komodo-cli -ac_name=RICK faucetget
 ```
 
-In a few moments, you may use the [<b>getinfo</b>](../basic-docs/komodo-api/control.html#getinfo) method to verify that your wallet now contains RICK funds.
+Wait a few moments, and then use the [<b>getinfo</b>](../basic-docs/komodo-api/control.html#getinfo) method to verify that your wallet now contains RICK funds.
 
 #### Complete Each API Method of the Heir Module
 
-With funds in your wallet, you are prepared to experiment with the API commands available in the Heir Module Flow section. This may help you to envision the intended design of our Heir module immitation.
+With funds in your wallet, you are prepared to experiment with the API commands available in the Heir Module Flow section. This may help you to envision the intended design of our Heir module prototype.
 
 [Link to Heir Module Flow](../basic-docs/fluidity/fluidity-api/heir.html#introduction)
 
 #### On the Relevance of Faucet
 
-The Faucet module allows a user to lock an arbitrary amount of funds within a Fluidity address. Other users on the network are able to withdraw funds from this Fluidity address in small portions. To prevent spam requests, the Faucet requires a small amount of work from the requesting user's node. 
+The Faucet module provides a simple example of the nature of a Antara module for our study. Faucet allows a user to lock an arbitrary amount of funds within a Antara address. Other users on the network are able to withdraw funds from this Antara address in small portions. To prevent spam requests, the Faucet requires a small amount of work from the requesting user's node. 
 
-From this outline, we observe the basic business logic of the module. The module involves storing funds on a designated address, the creation of a faucet that can disburse funds, and the ability to limit the rate at which funds are withdrawn.
+From this outline, we observe the basic business logic of the Faucet module. The module involves storing funds in a designated address, the creation of a faucet that can disburse funds, and the ability to limit the rate at which funds are withdrawn.
 
 Compare this to our desired Heir module. The Heir module's business logic must allow a designated address the ability to inherit designated blockchain funds.
 
 In both cases, the module's business logic is bound to transactions. 
 
-#### Transactions as a Data Source for Blockchain-related Software
+#### Transactions as a Data Source
 
-When working with blockchain technology, transactions are a data source for Fluidity-based software. 
+Transactions are a data source for Antara-based software. 
 
 Transactions can store data in multiple forms. In the simplest form, transaction data records the movement of coins from one address to another. However, blockchain transactions are capable of storing additional data beyond simple coin movement. 
 
@@ -120,17 +122,23 @@ The <b>OP_RETURN</b> is the last output in a transaction, and this output is nev
 # (focus on OP_RETURN here)
 ```
 
-The <b>OP_RETURN</b> is the location where all Fluidity module information is stored. 
+The <b>OP_RETURN</b> is the location where all Antara module information is stored. 
 
-When a Fluidity module instance begins its lifecycle, an initial transaction is created. For example, observe this initial transaction of the (Faucet module?):
+When a Antara module instance begins its lifecycle, an initial transaction is created. For example, observe this initial transaction of the (Faucet module?):
 
 ##### Initial Transaction of a Faucet Module Instance
 
 ```bash
-# Insert example of initial Fluidity module transaction with OP_RETURN data here
+# Insert example of initial Antara module transaction with OP_RETURN data here
 ```
 
+**An initial cc contract transaction usually sends value from normal inputs to cc outputs.**
+
 As time progresses, more transactions on the Smart Chain are performed under this module. Each of the module's transactions spends from the previous transaction outputs associated with the module and creates new unspent transactions. This process effectively creates a [linked-list data structure.](https://en.wikipedia.org/wiki/Linked_list)
+
+```bash
+# Place an example of the second transaction of a Faucet module here, and maybe provide notes showing how this transaction is tied to the initial transaction above
+```
 
 With each transaction, the <b>OP_RETURN</b> data is never spent, and remains in the blockchain database for future recall.
 
@@ -138,7 +146,7 @@ With each transaction, the <b>OP_RETURN</b> data is never spent, and remains in 
 
 Another important concept to understand is the nature of a <b>Crypto-Condition</b>. This technology is part of [an industry-wide standard](https://tools.ietf.org/html/draft-thomas-crypto-conditions-01), and other platforms may use Crypto-Conditions differently.
 
-Komodo has implemented our own unique version of Crypto-Conditions as a part of the Fluidity framework. Here, a Crypto-Condition is a logical expression. The expression is executed by electronic signatures and by the hashes of spent transactions. 
+Komodo has implemented our own unique version of Crypto-Conditions as a part of the Antara framework. Here, a Crypto-Condition is a logical expression. The expression is executed by electronic signatures and by the hashes of spent transactions. 
 
 The logical expressions of a Crypto-Condition are stored in the scripts of transactions, and also in a supporting C library. The library is included during the installation procedure of the associated Smart Chain, and the library evaluates and checks the logical expressions that are stored in the transaction scripts. 
 
@@ -146,111 +154,226 @@ The logical expressions of a Crypto-Condition are stored in the scripts of trans
 
 Crypto-Conditions allow a developer to build and evaluate complex logical expressions that are based on the results of cryptographic functions.
 
-This allows the developer to add arbitrary code into their Smart Chain's consensus mechanism. The consensus mechanism can rule over the outcome of the arbitrary code across the Smart Chain's decentralized network of nodes.
+This is a key aspect of Antara's ability to allow the developer to add arbitrary code into their Smart Chain's consensus mechanism. Through Crypto-Conditions and other elements, the consensus mechanism can rule over the outcome of the arbitrary code across the Smart Chain's decentralized network of nodes.
 
 #### Makeup of a Crypto-Condition
 
 <!-- the original stuff here was a little unclear for me when reading -->
 
-A Crypto-Condition consists of two parts: 
+A Crypto-Condition consists of three parts: 
 
-- A condition stored in the transaction output's `scriptPubKey` 
-  - (which to be spent)
--  fulfillment which is in the spending transaction input's scriptSig. 
+- <b>Part I: A logical condition that must be met</b>
+  - This is stored in the transaction output's `scriptPubKey` 
+  - This transaction output will be spent
+- <b>Part II: A logical fulfillment</b>
+  - This is stored in the `scriptSig` input of the transaction that spends the above output
+- <b>Part III: Data in OP_RETURN</b>
+  - (?)Data can be included in the OP_RETURN output of any Crypto-Conditions transaction
+-
+<!-- the original content below was difficult to decipher. Specifically, I had a hard time understanding what the differences were between the condition and fulfillment's abilities. -->
 
-The condition contains instructions and data to check cryptocondition (like pubkey).
-The fulfillment has instructions and data how to evaluate cryptocondition (for example, an instruction to check spending transaction signature, signature value to be checked and the pubkey to verify the signature). 
-When a tx which spends some tx cc output is validated its input's cc fulfillment is evaluated and the result is checked with the condition in the output of the tx which is to be spent.
+The <b>logical condition</b> (Part I) contains instructions and data that check the Crypto-Condition. For example, the condition can include a reference to a specific `pubkey` value that must be associated with any attempt to spend this transaction output.
 
-The simplest cryptocondition is evaluating a electronic signature of spending transaction scriptsig and by that allowing to spend funds from some other transaction cc output. 
-You might ask why we need this because this is already a function of any blockchain. Yes, but there is the difference: when a transaction cryptocondition output is spent the cc contract code might enforce additional logic to validate this spending.
+The <b>logical fulfillment</b> (Part II) contains instructions and data about how the (consensus mechanism?) should evaluate the Crypto-Condition. For example, the logical fulfillment could include an instruction to check that any spending-transaction's signature has the correct value and associated `pubkey`.
 
-Anyway, such a simple cryptocondition is only a basic feature.
+<!-- In the above, that was the best that I could interpret the original content, but the Part II description seems backwards to me. -->
 
-Cryptoconditions allows to do more. For example, another often used cryptocondition is a threshold of N which evaluates to true if a spending tx is signed with one of N possible keys. Also, application validation is possible for this too. In 'Heir' cc contract description further in this doc we will see what validation would allow.
+To fulfill the transaction output, first a node on the network must send a spending-transaction that is an attempt to spend the Crypto-Condition transaction output. The consensus mechanism of the Smart Chain uses the (logical fulfillment? C library? All of the above?) aspect of the Crypto-Condition to validate that this attempted spending-transaction meets all requirements. The result of this validation is checked against the logical condition included in this spending-transaction.
 
-Cryptocondition might be a tree of subconditions which allows to build complex cryptoconditions.
-I might say that cryptoconditions technology is very advanced development of basic bitcoin script security features like pubkey or pubkey hash scripts.
+#### The Simplest of Crypto-Conditions
 
-We now know that in Komodo there might be advanced transactions having cryptocondition inputs and outputs. Later we will know that such transactions are attached to some cc contract by a eval code stored in tx cryptocondition inputs and outputs.
+The simplest Crypto-Condition evaluates an electronic signature of a spending-transaction's `scriptsig`. Assuming the evaluation is successful, the spending-transaction is then able to spend funds from the output of another transaction.
 
-<!--
+At first glance, you may be confused about why a Crypto-Condition is useful in this event, as a normal blockchain protocol can already accomplish this task. 
 
-### CC contract features
+The answer is that there is an important difference in the Crypto-Condition implementation. When a Crypto-Condition transaction output is spent, the Antara module's code can enforce additional logic.
 
-We might call a cc contract as a data and business logic layer of an application. Where data layer is transactions related to a cc contract and business logic is the cc contract's code.
-A presentation layer could be a web or any other GUI application which connects to a cc contract.
-Or, it might be a server application that interacts to cc contract (that is, an oracle). For interaction cc contract has a set of rpc functions.
+This key difference illuminates the power of Crypto-Conditions, and of Antara. For example, additional arbitrary code could include a logical condition that any attempted spending-transaction must be signed by at least `M` of `N` acceptable `pubkeys`. When the attempted spending-transaction has a suitable logical fulfillment, the Crypto-Condition evaluates to `true`, and the transaction output is spent.
 
-When a transaction is created in the framework of a cc contract it sends some value from a cc address to another cc address (pubkey) on cc outputs plus some data in opreturn output. An initial cc contract transaction usually sends value from normal inputs to cc outputs.
+Furthermore, application validation can accomplish this as well. We will examine this possibility further on in the tutorial.
 
-Yet another often used cc contract property is cc global address. Each cc contract is assigned its own global publicly known address for which its private key is also available to all. This address might be used for sharing funds between cc contract users. Anyone might try to spend funds from such global cc contract address (it is also called 'unspendable' address in cc codebase which probably means 'unspendable without validation'). 
-A spending tx must pass through the cc contract validation code which enforces various rules for spending from this address. For instance, if a tx sent some amount to the global address to use it as a marker for future finding this transaction with a special API function, the cc validation code might capture and prohibit spending from such cc output.
-(Note that validation code might validate spending from any cc contract address, not only from the global cc address).
+As logical conditions and fulfillments can be added to a Crypto-Condition as desired, the developer can build a complex tree of subconditions that govern the movement of Smart Chain assets. In this sense, Antara is an advanced evolution of the basic Bitcoin Script security features of the original Bitcoin protocol (such as `pubkey` or `pubkey hash` scripts). 
 
-So a cc contract code has two parts: a set of rpc functions for creation of cc contract transactions and validation code which is triggered when a cc transaction is added to the chain.
-Note that cc contract validation code is activated only for the transactions which have at least one cc input with the contract's eval code cryptocondition inside the scriptSig.
-It is also important to understand that as cc contract's initial transaction might not have cc input at all, it never gets into the validation code. So it would be mined in the blockchain. If you still need to validate it you have to step back when validating the spending tx and also validate the initial tx. Plus, you cannot remove the initial tx from the chain if it turned out to be incorrect, so you just need to ignore it.
-The main purpose of validation code is to prevent inappropriate structure and spending of cc contract transaction,  especially if someone tries to create a tx bypassing the contract's rpc functions.
+In this section, we have become acquainted with the concept of logical conditions that are associated with transaction outputs, and logical fulfillments associated with spending-transactions. These two elements make up the rudimentary aspect of a Crypto-Condition.
 
-That being said, for a cc contract development you would need:
-* allocate a new eval code for your contract
-* assign global cc and normal addresses for the new contract
-* define the contract's transactions, their structure (inputs and outputs) and opreturn format
-* implement the contract's rpc functions for creation of these transactions and to return contract's data and/or state
-* implement standard rpc functions for getting list of all the contract's initial transactions and getting user's and global cc addresses
-* implement the contract's validation code
+There are yet other elements of a Antara-based Crypto-Condition. One element is called the `EVAL` code, and it is stored in the Crypto-Condition's inputs and outputs. We will touch on this topic soon. 
 
-### CC contract architecture
+### Antara Module Features 
 
-A cc contract is actually a c/c++ source file. The one part of is an rpc (remote procedure call) implementation code that either creates the contract's transactions or gets info about contract state (from existing transactions). So when you deploy your contract (actually adding its code to the Komodo source code) your rpc calls are added to komodo-cli client command line.
+A Antara module can be described as a combination of a data layer and a business-logic layer in an application. The data layer is the collection of transactions related to the Antara module, and the business-logic layer is the modules arbitrary code.
 
-Basically all contracts have two methods xxxlist and xxxinfo \<initialtxid\>.
-xxxlist rpc lists all initial transactions providing a key (inital txid) to an instance of cc contract data and xxxinfo outputs some info about a contract instance.
+These two layers tie in with other layers in a Antara-based software application. For example, the software could include a presentation layer, consistenting of a Graphical User Interface (GUI) and other visual/audio elements. 
 
-The other essential part of a cc contract is validation code. It will be uncovered later.
+Also, there can often be a server layer, wherein the application connects nodes and their data across the Internet. This is often the case in Antara-based software applications that make use of the [<b>Oracles</b>](../basic-docs/fluidity/fluidity-api/oracles.html#introduction) Antara module. 
 
-A unique 8-bit eval code is attached to each cc contract. It is used by komodo core transaction validation code to route transactions to a cc contract validation code, if a currently validated transaction is relevant to this contract.
-This eval code is actually a simple cryptocondition which is a byte value and is present in any transaction relevant to a cc contract.
+*
 
-### CC contract transaction structure
-Here on the diagram is a cc contract transaction structure sample.
+#### A Global Address in the Antara Framework
 
-![cc tx structure](https://github.com/dimxy/images/blob/master/cc-tx-structure-for-guide-v7.png)
+<!-- Who creates/uses/assigns this address? How can we see what it looks like? Where/when is it created? -->
 
-We can see on the diagram that cc transaction has one or more cryptocondition inputs (or vins) and one or more cryptocondition outputs (or vouts). 
-A cc input with cryptocondition contain the txid of a previous transaction which cc output is spent and a cryptocondition fulfillment which is evaluated when this tx is added to the blockchain. The previous tx cc output has the corresponding cryptocondition which value should match to the evaluated input cryptocondition fulfillment while validation occurs.
-The tx has also opreturn output with some contract data.
+Each Antara module has an associated global address. The private key to this global address is publicly available. The address can be used for such tasks as sharing funds between users of this module, and anyone can attempt to spend funds from this address. 
 
-### CC contract SDK
+In the Antara codebase, this global address is sometimes called the "unspendable" address. This is likely a reference to the fact that for any user to spend funds from this address, the spending-transaction must pass the module's validation code. 
 
-Although officially not called yet as SDK there is a set of functions for cc contract development. Most of it is in CCtx.cpp, CCutils.cc, cc.cpp, eval.cpp source files.
-I will describe most used functions in the following section where I decompose 'Heir' cc contract development process.
+<!-- I don't understand the content below? -->
 
-## 'Heir' cc contract development
-In this section I describe development of a simplified version of my 'Heir' cc contract.
-As I stated above we need to add new contract's eval code and global addresses, define 'Heir' cc contract transactions, implement the rpc interface and validation code.
-Adding new eval code and addresses is the same for all cc contracts and you might find hoe to do this in JL's 'Mastering Cryptocondions' book.
-Let's continue with defining 'Heir' cc contract transactions. 
+For example, a transaction can send funds to the global address so that these funds can later be used as a marker. This marker can be found later through a special API function. The module's validation code would capture these funds and prohibit any user from ever spending from the transaction output of these funds, thus making them permanently fixed in the global address.
 
-### 'Heir' cc contract transactions
+<!-- We've done the "two parts" thing above, need to reorganize. Perhaps this goes earlier? -->
 
-Actually we need three transactions: an initial tx with which a user would create fund for inheritance, a tx for additional funding and a tx for spending funds by the owner or heir.
+There are two parts to the module's code. 
+
+The first is a set of Remote Procedure Call (RPC) functions. These are used to create transactions that are associated with the module. 
+
+The second is the validation code that is triggered anytime a node attempts a spending-transaction that should be added to the module's chain of transactions.
+
+A module's validation code is activated only when a transaction has at least one Antara input that bears the module's <b>EVAL</b> code inside the <b>scriptSig</b> of the (transaction output?).
+
+A module's initial transaction may not have a (do I need to use "CC" or "Antara" here?) input. When this happens, the validation code is not triggered. Therefore, the transaction may be handled by the normal blockchain protocol.
+
+<!-- Should this information go here? Or towards the end, as an additional aside? Seems too prominent. -->
+
+A small aside here is that if you do need to write code that valdiates a spending-transaction that has no (module/Antara?) input, your code must first validate the initial transaction. If the result of the validation is `false`, then you can ignore the (spending-transaction?). 
+
+<!-- The below paragraph is important. It should probably go higher. -->
+
+The main purpose of validation code is to prevent inappropriate structure and spending of module's spending transaction, especially as a means of protecting against malicious spending-transactions. (For example, a malicious actor could attempt to manually create a spending-transaction that bypasses the module's built-in RPC functions.)
+
+<!-- This should probably go higher as well. -->
+
+For a Antara module, you will need to do the following:
+- allocate a new `EVAL` code for your contract
+  - If you would like this module to be available across the Komodo ecosystem, please reach out to our team to let us know your intended `EVAL` code <b>(?)</b>
+- assign a global address for the module
+- (? Something about normal addresses was in the original material, does the developer need to do anything to facilitate these normal addresses? Or can a user create them automatically?)
+- define the modules' transactions
+  - this includes the structure of their inputs, outputs, and OP_RETURN format
+- implement the common RPC functions that nearly all modules feature
+  - these are typically functions for retrieving a list of all of the module's initial transactions, and for retrieving user addresses and the global Antara address
+- implement the module's unique RPC functions
+  - these are used to create the module-related transactions, and to return relevant information about the module's data and state
+- implement the module's validation code
+
+### Antara Module Architecture
+
+From an architectural standpoint, a Antara module is simply a C/C++ source file.
+
+<!-- The original prose here had a few missing nouns in the sentences, so I'm not sure I understand this yet. Are the RPC's in the source file? Or are they separate? -->
+
+There are two parts to the module's source file, the implementation of RPC's and the validation code.
+
+_(Three for the EVAL code?)_
+<!-- Do we want to show a directory tree here, to show how the files are actually organized in the directory? -->
+
+#### RPC Implementations
+
+<!-- Specifically how do you include these so that they will automatically be added to komodo-cli ? --> 
+
+The first part of the source file consists of the implementation of all Remote Procedure Calls (RPC's) for this module. These typically either perform transactions or query information about state and data. 
+
+With this section properly added to the source file, the Smart Chain daemon's compiler will automatically make each RPC available at the command line and via `curl` through the `komodo-cli` software.
+
+Essentially all modules have at least these two RPC's.
+
+- XXXXlist
+  - This lists all initial transactions relevant to the module
+- XXXXinfo
+  - This RPC typically also requires an additional input -- a transaction ID for which information is desired
+  - When called, the method then returns information about this transaction ID
+
+Include other RPC implementations as desired.
+
+#### Validation Code
+
+The other essential part of a Antara module is the validation code. We will delve into this section in thorough detail further on in the tutorial
+
+#### The EVAL Code
+
+A unique 8-bit `EVAL` code is attached to each Antara module. The `EVAL` code is used by the core Smart Chain daemon's transaction-validation code to route any relevant transactions to the appropriate module's validation code.
+
+The `EVAL` code itself is actually a simple Crypto-Condition. The Crypto-Condition tests for the byte value and, if the value is `true`, routes the result according to the core Smart Chain daemon's code. 
+
+### Antara Module Transaction Structure
+
+Observe the following structural layout of a Antara module transaction.
+
+<div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; float: right; display: block;">
+
+<img style="border: 10px solid white;" src="/cc-tx-structure-for-guide-v7.png">
+
+</div>
+
+A Crypto-Condition input is called a "vin" and a Crypto-Condition output is called a "vout". 
+
+As displayed on the above diagram, a Antara transaction has one or more vins and one or more vouts.
+
+A vin with Crypto-Conditions contains the transaction ID (txid) of a previous transaction. In this transaction, the utxo of that txid is spent. The Crypto-Conditions transaction also includes a fulfillment vin. 
+
+The previous Crypto-conditions transaction has a vout that describes the requirements for the fulfillment vin. As the consensus mechanism of the Smart Chain attempts to add the current Crypto-Conditions transaction to the blockchain, if the fulfillment successfully matches the vout conditions of the last transaction, the consensus mechansim will approve the current transaction. 
+
+<! -- the above is too repetitive and can be paired down, and reorganized. -->
+
+The current transaction also has an OP_RETURN vout that contains module data.
+
+<!-- the above section should probably go earlier -->
+
+#### Antara Module SDK
+
+Komodo is building an SDK for Antara module development. The SDK is still in the early stages. Some of the SDK functions are already available, and can be found in the following source files:
+
+- CCtx.cpp
+- CCutils.cc
+- cc.cpp
+- eval.cpp
+
+We will return to the SDK functions later, when we discuss the Heir module development process.
+
+## Heir Module Development 
+
+Having finished an overlook of the Antara development layout, we are now prepared to create a simplified prototype of the [Heir module](../basic-docs/fluidity/fluidity-api/heir.html#introduction). 
+
+Our tasks are the following:
+
+- Add a new `EVAL` code to represent this module
+- Create a global address
+- Define the Heir module transactions
+  - vouts, or logical conditions
+  - vins, or logical fulfillments
+- Implement the RPC interface
+- Create the validation code
+
+(See ? Mastering CryptoConditions for info on adding `EVAL` and global addresses?)
+
+### Heir Module Transactions
+
+We require three types of module transactions
+
+- an initial transaction with which a user creates the fund for inheritance
+- a transaction for additional funding
+- a transaction for spending funds by the owner or heir
+
+(?
 I'll try to describe these tx structure with the semi-formal notation used in James Lee 'Mastering cryptocondition' book which allows to specify vins or vouts position in a tx and their description.
+)
 
-#### fund coins transaction (initial):
+#### The Initial Transaction: Creating a Fund
 
-* vins.*: normal inputs
-* vout.0: funding CC 1of2 addr for the owner and heir
-* vout.1: txfee for CC addr used as a marker
-* vout.2: normal change
-* vout.n-1: opreturn 'F' ownerpk heirpk inactivitytime heirname
+- `vins.*` - normal inputs
+- `vout.0` (?) - the funding CC 1 of 2 address for the owner and the heir
+- `vout.1` - the transaction fee for CC address
+  - this is used as a marker <!-- We probably need to explain the marker terminology sooner -->
+- `vout.2` - normal change
+  - recall that `change` is the leftover amount from the original utxo that the user does not intend to spend
+  - any amount leftover not included here is forfeited to the miner of the block; this is how miners receive their mining fee
+- `vout.n-1` - OP_RETURN `F` ownerpk heirpk inactivitytime heirname
 
 Here is some explanation of the used notation:
-* 'vins.*' means any number of inputs
-* 'normal' means usual and not cc inputs or outputs
-* 'vout.0' means an output with order number 0
-* 'vout.n-1' means the last vout in list (usually it is opreturn vout with contract data)
+
+- `vins.*`: any number of inputs
+- `normal`: vins and vouts that are typical of the core blockchain software; not related to CC
+- 'vout.0' means an output with order number 0
+- 'vout.n-1' means the last vout in list (usually it is opreturn vout with contract data)
 
 So by a funding transaction an owner creates a contract instance (a funding plan) and deposits some fund for future spending. The funding is added from normal coin inputs. 
 
@@ -267,10 +390,12 @@ Specification of the rest two transactions':
 
 #### add coins transaction:
 
+```
 * vins.*: normal inputs
 * vout.0: funding CC 1of2 addr for the owner and heir
 * vout.1: normal change
 * vout.n-1: opreturn 'A' fundingtxid HasHeirSpendingBegun
+```
 
 This transaction add more funds on the vout with 1of2 cryptocondition from normal coin inputs.
 In the opreturn the txid of the initial transaction is added to bind this tx to this contract instance (funding plan).
@@ -291,6 +416,8 @@ This tx allows to spend funds by either the funds owner or heir. It has a normal
 As to outputs, the claimed value is sent to claimer's normal address, unspent change is returned to 1of2 address.
 There is also the normal change.
 Note the functional id 'C' in the opreturn. The other opreturn data are the same as in the 'add' ('A') transaction.
+
+<!--
 
 ### 'Heir' cc contract rpc implementation
 Now let's develop rpc functions  to create the transactions describe in the previous section.
