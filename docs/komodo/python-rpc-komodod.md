@@ -35,5 +35,3 @@ print(komodo.getblock(komodo.getbestblockhash()))
 pubkeys = ['0225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a', '02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567']
 print(komodo.cclib("combine", "18", str(pubkeys)))
 ```
-
-
