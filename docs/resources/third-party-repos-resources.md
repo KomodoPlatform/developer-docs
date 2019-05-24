@@ -9,10 +9,12 @@ sidebar: auto
 - [https://github.com/KomodoPlatform/komodotools](https://github.com/KomodoPlatform/komodotools) - Scripts toolbox repository for Komodo and Iguana
 - [https://github.com/KMDLabs/PoS_scripts](https://github.com/KMDLabs/PoS_scripts) - Scripts that help with staking on a Komodo assetchain.
 - [https://github.com/DeckerSU/komodo_scripts](https://github.com/DeckerSU/komodo_scripts) - a set of komodo helper scripts
+- [https://github.com/gcharang/komodo-install-explorer](https://github.com/gcharang/komodo-install-explorer) - script to install an explorer for any Komodo assetchain
 
 ## Proof of Concept
 
 - [http://oracle.earth/](http://oracle.earth/) - Live demo of Oracles CC module
+- [https://github.com/gcharang/create-assetchain](https://github.com/gcharang/create-assetchain) - Simple scripts to create a Komodo assetchain using a single node for testing (Has automated explorer installation too)
 - [https://github.com/tonymorony/komodo_cryptoconditions_tui](https://github.com/tonymorony/komodo_cryptoconditions_tui) - TUI for various CC modules written in python
 - [https://github.com/imylomylo/komodo-cakeshop](https://github.com/imylomylo/komodo-cakeshop) - Work in progress; An integrated development environment and SDK
 - [https://github.com/tonymorony/Komodoku](https://github.com/tonymorony/Komodoku) - Sudoku CC
