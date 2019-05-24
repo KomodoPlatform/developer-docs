@@ -331,7 +331,7 @@ We will return to the SDK functions later, when we discuss the Heir module devel
 
 ## Heir Module Development 
 
-Having finished an overlook of the Antara development layout, we are now prepared to create a simplified prototype of the [Heir module](../basic-docs/fluidity/fluidity-api/heir.html#introduction). 
+Having finished an overview of the Antara development layout, we are now prepared to create a simplified prototype of the [Heir module](../basic-docs/fluidity/fluidity-api/heir.html#introduction). 
 
 Our tasks are the following:
 
@@ -344,6 +344,8 @@ Our tasks are the following:
 - Create the validation code
 
 (See ? Mastering CryptoConditions for info on adding `EVAL` and global addresses?)
+
+<!-- I think we should include them here, unless they are super complicated? Need to have this organized -->
 
 ### Heir Module Transactions
 
@@ -372,49 +374,72 @@ Here is some explanation of the used notation:
 
 - `vins.*`: any number of inputs
 - `normal`: vins and vouts that are typical of the core blockchain software; not related to CC
-- 'vout.0' means an output with order number 0
-- 'vout.n-1' means the last vout in list (usually it is opreturn vout with contract data)
+- 'vout.0' an output with an index of `0`
+- 'vout.n-1' the last vout in the list
+  - this is typically the OP_RETURN vout, and contains the module's relevant data
 
-So by a funding transaction an owner creates a contract instance (a funding plan) and deposits some fund for future spending. The funding is added from normal coin inputs. 
+Through a funding transaction, the owner of the initial funds creates a "plan," which we can also call a "contract," and deposits funds for future spending. 
 
-The main funding goes to vout.0. As we suppose that either the funds owner or heir might be able to spend the funds we use an advanced cryptocondition feature threshold of 2 (marked here as '1of2') which means that cryptocondition is fulfilled if a spending tx is signed by one of the two specified keys.
+The initial funds are taken from the normal `vout` values of a utxo. The initial transaction of this plan can be the beginning of the relationship between the funds in the utxo and the Heir module.
 
-Some fee is sent to vout.1 for use of it as a marker. Marker will be used to list all created contract initial transactions by a special sdk function. 
-There is a normal change to return back to the owner's pubkey the extra value.
-Note that we would need to provide inputs not only for the funding but for the marker value and some fee for miners. Usually we use a constant value of 10000 satoshis (0.0001 coin) for such fees.
+The main funds for the plan are allocated to `vout.0` of our Heir module transaction. 
 
-Note 'F' letter (from 'fund') in the opreturn structure. By convention the first byte of any opreturn is eval code (omitted in the description above) and the second byte is transaction functional id.
-In the opreturn also stored owner and heir pubkeys, inactivity time (in secinds) and the descriptive name of this funding plan (contract instance). Inactivity time means that if no new funding was added or spent by the owner during this time then the heir is able to spend the funds.
+<!-- Note after discussion with James:
 
-Specification of the rest two transactions':
+The acronym `CC` appears frequently in the Antara source code. The specific letters, `CC`, arose organically during the development process and no longer have any special meaning. `CC` now only serves as an indicator that the associated object in the source code is associated with Antara-specific functionality, and nothing more. -->
 
-#### add coins transaction:
+By design, and setting aside issues of timing, we desire that either the owner or the inheritor of the funds should be able to spend this utxo. We assume that the owner has one address, and the inheritor has another. To achieve this, we use an advanced Crypto-Conditions feature that states that either of two addresses can spend the funds. This is called a `1of2` Crypto-Condition, and it is placed as a logical condition for `vout.0 (?) or the OP_RETURN? vout.n-1`.
 
-```
-* vins.*: normal inputs
-* vout.0: funding CC 1of2 addr for the owner and heir
-* vout.1: normal change
-* vout.n-1: opreturn 'A' fundingtxid HasHeirSpendingBegun
-```
+A fee is allocated to `vout.1`. This is used as a marker. The marker allows a developer to use a special SDK function to create a list of all module initial transactions. 
 
-This transaction add more funds on the vout with 1of2 cryptocondition from normal coin inputs.
-In the opreturn the txid of the initial transaction is added to bind this tx to this contract instance (funding plan).
-There is an additional flag HasHeirSpendingBegun, which is turned to true when the Heir first time spends the inherited funding and therefore no need to wait ever again for the owner inactivity time. If this flag is still `false` the contract validation would not allow the heir to spend funds unless the inactivity time has passed. The cryptocondition features  does not allow to check timing so it is going to be the job for the 'Heir' cc contract validation code to check this. 
+As usual, out of the remaining amount of our initial utxo, we need to send all that we desire to keep to our `change` address.
 
-Note also the functional id 'A' which marks this tx as 'add' funding transaction.
+Also, we need to leave an amount as an incentive for the miner. Any remainder beyond the sum total of our new `vout` values will automatically be allocated in this manner. We typically leave `10000` satoshis of our Smart Chain coin, by convention.
 
-#### claim coins transaction:
+Note the `F` letter in the OP_RETURN structure. The `F` stands for "fund." By convention, the first byte of any OP_RETURN is the `EVAL` code. We omitted the `EVAL` code in the description above <!-- why? -->. The second byte is the transaction functional id.
 
-* vin.0: normal input txfee
-* vin.1+: input from CC 1of2 addr
-* vout.0: normal output to owner or heir address
-* vout.1: change to CC 1of2 addr
-* vout.2: change to user's addr from txfee input if any
-* vout.n-1: opreturn 'C' fundingtx HasHeirSpendingBegun
+We also stored other relevant data in OP_RETURN:
 
-This tx allows to spend funds by either the funds owner or heir. It has a normal input to add value for txfee for miners, a cc input foor spending the claimed value from 1of2 fund address.
+- the owner and inheritor pubkeys
+- inactivity time
+  - this is the amount of seconds during which the owner must exhibit activity to maintain sole control over the funds
+  - if the owner does not spend funds during this time period, the inheritor will gain the ability to spend these funds as well <!-- this should be explained earlier -->
+- the descriptive name of this funding plan
+  - we can also call this a "contract instance"
+
+#### The Add Coins Transaction
+
+- `vins.*` - normal inputs
+- `vout.0` - funding CC `1of2` addr for the owner and heir
+<!-- does the above mean that vout.0 can be either the owner or the heir's address? -->
+- `vout.1` - normal change
+- `vout.n-1` - OP_RETURN `A` fundingtxid HasHeirSpendingBegun
+
+This transaction serves the purpose of adding more funds to the owner's address. on the vout with 1of2 cryptocondition from normal coin inputs.
+
+<!-- can shorten transaction ID to txid, but needs to be explained earlier -->
+
+We include the `txid` of the initial transaction in the OP_RETURN to bind this add transaction to this Heir module instance.
+
+Note the functional ID, `A`. The ID marks this transaction as an `add` type of funding transaction.
+
+#### The Claim Coins Transaction
+
+| input/output | description |
+| ------------ | ----------- |
+| vin.0 | normal input transaction fee |
+| vin.1+` | input from CC `1of2` address |
+| vout.0` | normal output, sent to the owner or the heir address |
+| `vout.1` | `change` to CC `1of2` address |
+| `vout.2` | `change` to user's address from transaction fee input, if any |
+| `vout.n-1` | OP_RETURN `C` funding transaction HasHeirSpendingBegun |
+
+This transaction allows to spend funds by either the funds owner or heir. It has a normal input to add value for txfee for miners, a cc input foor spending the claimed value from 1of2 fund address.
+
 As to outputs, the claimed value is sent to claimer's normal address, unspent change is returned to 1of2 address.
+
 There is also the normal change.
+
 Note the functional id 'C' in the opreturn. The other opreturn data are the same as in the 'add' ('A') transaction.
 
 <!--
