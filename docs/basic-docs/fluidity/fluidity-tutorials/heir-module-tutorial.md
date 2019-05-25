@@ -428,60 +428,104 @@ Note the functional ID, `A`. The ID marks this transaction as an `add` type of f
 | input/output | description |
 | ------------ | ----------- |
 | vin.0 | normal input transaction fee |
-| vin.1+` | input from CC `1of2` address |
-| vout.0` | normal output, sent to the owner or the heir address |
-| `vout.1` | `change` to CC `1of2` address |
-| `vout.2` | `change` to user's address from transaction fee input, if any |
-| `vout.n-1` | OP_RETURN `C` funding transaction HasHeirSpendingBegun |
+| vin.1+ | input from CC `1of2` address |
+| vout.0 | normal output, sent to the owner or the heir address |
+| vout.1 | `change` to CC `1of2` address |
+| vout.2 | `change` to user's address from transaction fee input, if any |
+| vout.n-1 | OP_RETURN `C` funding transaction HasHeirSpendingBegun |
 
-This transaction allows to spend funds by either the funds owner or heir. It has a normal input to add value for txfee for miners, a cc input foor spending the claimed value from 1of2 fund address.
+This transaction allows either the owner or the heir to spend funds from this plan instance. 
 
-As to outputs, the claimed value is sent to claimer's normal address, unspent change is returned to 1of2 address.
+To pay the transaction fee to the miners, the transaction has a normal input that draws from the wallet of the transaction creator. 
 
-There is also the normal change.
+The transaction also has a CC input for spending the claimed value from the `1of2` fund address.
 
-Note the functional id 'C' in the opreturn. The other opreturn data are the same as in the 'add' ('A') transaction.
+As for outputs, the claimed value is sent to the claimer's normal address <!-- What's this about? -->, and unspent `change` is returned to the `1of2` address.
 
-<!--
+We also indicate the normal `change`.
 
-### 'Heir' cc contract rpc implementation
-Now let's develop rpc functions  to create the transactions describe in the previous section.
+The functional ID, `C`, in the OP_RETURN indicates that this is a "claim" type transaction. 
 
-#### heirfund rpc implementation
-To make a rpc call we would need its name and parameters. For rpc creating an initial tx I chose the name of 'heirfund' and its parameters are derived from the defined tx structure. The syntax is:
+We also include all the same OP_RETURN data as in the `A` transaction.
+
+<!-- What is in there specifically? The fundtxid, and anything else? -->
+
+#### Heir Module RPC implementation
+
+#### heirfund
+
+For a user to call the `heirfund` RPC, the user will need to supply the name of the RPC and its parameters as arguments.
+
+We model the syntax as follows:
+
+```bash
+./komodo-cli -ac_name=YOURCHAIN heirfund amount name heirpubkey inactivitytime
 ```
-komodo-cli -ac_name=YOURCHAIN heirfund amount name heirpubkey inactivitytime
-```
-where 'amount' is coins going to the initial tx vout.1, 'name' is some description, 'heirpubkey' is heir pubkey and 'inactivitytime' is in seconds.
 
-Now let's write some code for this rpc.
+##### Table: Descriptions of the heirfund Syntax
 
-To add a new command to komodo-cli we need to change source file src/server.cpp: add a new element to vRPCCommands array:
-```
+| Argument | Type | Description |
+| -------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| amount         | (number)           | the initial funding amount, in coins or tokens (this parameter is considered to be the amount of tokens if the (tokenid) parameter is present)   |
+| name           | (string)           | the name of the heir funding plan (arbitrary)                                                                                                    |
+| heirpubkey     | (string)           | the heir's public key (in hexademical)                                                                                                           |
+| inactivitytime | (number)           | the time (in seconds) that must pass without the owner executing an `heiradd` or `heirclaim` method, after which the address unlocks to the heir |
+
+#### Adding the Command to the Source File
+
+To add a new command to `komodo-cli` we open the `src/server.cpp` source file add a new element to the `vRPCCommands` array.
+
+```json
     { "heir",       "heirfund",   &heirfund,      true },
 ```
 
-where "heir" is a common name for all heir contract rpc calls
-"heirfund" is the name of the new command and '&heirfund' is the address of rpc interface function,
-true means that the command description will be shown in the help command output ('false' is to hide it)
+| Object | Description |
+| ------ | ----------- |
+| heir | a common name for all heir contract rpc calls |
+| heirfund | the name of the new command |
+| &heirfund | the address of rpc interface function |
+| true | indicates that the command description will be shown in the help command output; placing `false` here would hide this RPC from the help menu |
 
-It is also necessary to add `heirfund` rpc function definition into the rpc/server.h source file. All rpc functions have pretty much the same declaration `UniValue heirfund(const UniValue& params, bool fHelp)`.
+#### Add RPC Function Definition
 
-An rpc command implementation is actually two-level.
-The first level is short rpc function which name matches to the rpc command name itself like `heirfund`. Its body is created in rpc source file in rpc/ subdirectory. It is short and just checks rpc parameters and needed environment and forward the call to the transaction creation code what is the second level.
+We add the RPC function definitnion in the `rpc/server.h` source file. 
 
-I created rpc-level code in the wallet/rpcwallet.cpp file although it is much better to create a new rpc source file for each new cc contract's rpc functions.
+The declaration in this file is essentially the same across all RPC functions.
 
-heirfund first rpc level implementation:
+```C++
+UniValue heirfund(const UniValue& params, bool fHelp)
 ```
+
+<!-- We could use some surrounding context above -->
+
+#### The Two Levels of an RPC Implementation
+
+There are two levels to an RPC implementation.
+
+The first level is a short RPC function that has the same name as the RPC command itself (such as `heirfund`).
+
+The body of this level is added to the `rpc/` subdirectory in the source code. <!-- Is this in the `src/` directory? `src/rpc/` ?-->
+
+This function checks the RPC parameters and the needed environment, and then forwards the RPC to the second level. 
+
+Creating a new RPC source file for each Antara module's RPC functions is considered a best practice.
+
+To begin the RPC command, we declare the `heirfund` function and clear the global error object.
+
+```C++
 // heirfund command rpc-level implementation, src/wallet/rpcwallet.cpp
 UniValue heirfund(const UniValue& params, bool fHelp)
 {
     CCerror.clear(); // clear global error object
 ```
-Check that the wallet and 'Heir' cc contract features are available in the chain
-and check the rpc params' required number:
-```
+
+Recall that a Smart Chain must have the [<b>ac_cc</b>](../basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.html#ac-cc) and [<b>ac_ccenable</b>](../basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.html#ac-ccenable) customization parameters properly initiated for any Antara module to function.
+
+Therefore, we check that the wallet and Heir module features are available in the Smart Chain. We also check the RPC parameter's required number:
+
+<!-- Can you please add more inline commentary below? What is the EnsureWalletIsAvailable command? and what is the ensure_CCrequirements command? State what arguments they take, as well.-->
+
+```C++
     if (!EnsureWalletIsAvailable(fHelp))
         return NullUniValue;
     if (ensure_CCrequirements(EVAL_HEIR) < 0)
@@ -490,50 +534,92 @@ and check the rpc params' required number:
     if (fHelp || params.size() != 4 )
         throw runtime_error("heirfund funds heirname heirpubkey inactivitytime\n");
 ```	
+
 Lock the user's wallet:
-```
+
+```C++
     LOCK2(cs_main, pwalletMain->cs_wallet);	
 ```
-The UniValue object is a special type for passing data in rpc calls. Univalue params is actually an array of Univalue objects. We still need to convert them into usual c/c++ language types and pass to the contract implementation.
-Next convert the params from UniValue type to the basic c++ types. 
-```
-    CAmount amount = atof(params[0].get_str().c_str()) * COIN;  // Note conversion from satoshis to coins by multiplication by 10E8
+
+The UniValue object is a special type <!-- Is this unique to the Komodo source code? --> used to pass data in RPC calls. For parameters, UniValue requires an array of UniValue objects.
+
+We must convert these UniValue objects into normal C/C++ language types, and then pass them to the second level of our module implementation.
+
+Convert the parameters from the UniValue type to their basic C++ types and add checks to ensure that the converted parameter values are correct.
+
+<!-- 
+
+Sidd: Here, either we need to show these checks, or we can link to your source file for the example, if the content is inconviently long or something.
+
+Original Content:
+
+(what I ommitted in this sample), for example not negative or not exceeding some limit.
+
+-->
+
+Note the method for parsing the hex representation of the pubkey parameter and converting it to a `CPubKey` object.
+
+
+```C++
+    CAmount amount = atof(params[0].get_str().c_str()) * COIN;  // Note conversion from satoshis to coins through a multiplication of 10E8
     std::string name = params[1].get_str();
     std::vector<uint8_t> vheirpubkey = ParseHex(params[2].get_str().c_str());
     CPubKey heirpk = pubkey2pk(vheirpubkey);
     int64_t inactivitytime = atoll(params[3].get_str().c_str());
 ```
-We also need to add checks that the converted param values are correct (what I ommitted in this sample), for example not negative or not exceeding some limit.
-Note how to parse hex representation of the pubkey param and convert it to CPubKey object.
 
-And now time to call the 'Heir' cc contract code and pass the returned created tx in hexademical representation to the caller, ready to be sent to the chain:
-```
+Finally, call the Heir module code, pass our values (now in C++ type format), and set these as the value of the final `result` object. Bear in mind that the returned value from the Heir module code, `HeirFund`, returns a hexadecimal value.
+
+```C++
     UniValue result = HeirFund(amount, name, heirpk, inactivitytime);
     RETURN_IF_ERROR(CCerror);  // use a macro to throw runtime_error if CCerror is set in HeirFund()
     return result;
 }
 ```
 
-The second implementation level is located in the 'Heir' cc contract source file src/heir.cpp.
+<!-- there should be a link here to the completed file. -->
+
+#### Second Level Implementation
+
+The second level of the RPC implementation is the transaction creation code. This resides in the `src/heir.cpp` <!-- or src/cc/heir.cpp ? --> source file.
+
+<!-- 
+
+Sidd: does the below mean that we're not showing all the code?
+
+Original content:
+
 Here is the skeleton of the heirfund rpc implementation.
-```
+
+-->
+
+```C++
 // heirfund transaction creation code, src/cc/heir.cpp
 std::string HeirFund(int64_t amount, std::string heirName, CPubKey heirPubkey, int64_t inactivityTimeSec)
 {
 ```
-First, we need to create a mutable version of a transaction object.
-```
+
+Create a mutable version of a transaction object.
+
+```C++
     CMutableTransaction mtx = CreateNewContextualCMutableTransaction(Params().GetConsensus(), komodo_nextheight());
 ```
-Declare and initialize an CCcontract_info object with 'Heir' cc contract variables like cc global address, global private key etc.
-```
+
+Declare and initialize an `CCcontract_info` object with Heir module variables, such as our global CC address, our global private key, etc.
+
+```C++
     struct CCcontract_info *cp, C;
     cp = CCinit(&C, EVAL_HEIR);
 ```
-Next we need to add some inputs to transaction that are enough to make deposit of the requested amount to the heir fund, some fee for the marker and for miners.
+
+Add inputs to the transaction that are enough to make deposit of the requested amount to the heir fund, some fee for the marker and for miners.
+
 Let's use a constant fee = 10000 sat.
+
 We need the pubkey from the komodod -pubkey param.
+
 For adding normal inputs to the mutable transaction there is a corresponding function in the cc SDK. 
+
 ```
     const int64_t txfee = 10000;
     CPubKey myPubkey = pubkey2pk(Mypubkey());   
@@ -576,6 +662,8 @@ Also note E_MARSHAL function which serializes variables of various types to a by
 The returned transaction is ready to be sent to the blockchain with sendrawtransaction rpc.
 
 Now let's develop an rpc for claiming the funds.
+
+<!--
 
 #### heirclaim implementation
 
