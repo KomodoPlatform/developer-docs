@@ -9,7 +9,7 @@ Those who publish data to an oracle are called publishers. There is a fee-based 
 ### Oracles CC Module Flow
 
 - Create an Oracle using [oraclescreate](../cryptoconditions/cc-oracles.html#oraclescreate)
-- Fund the oracle with [oraclesfund](../cryptoconditions/cc-oracles.html#oraclesfund)
+- Fund the Oracle with [oraclesfund](../cryptoconditions/cc-oracles.html#oraclesfund)
 - Register as a data publisher for the oracle using the [oraclesregister](../cryptoconditions/cc-oracles.html#oraclesregister) method and specify the datafee it costs subscribers to access data updates
 - Anyone can subscribe to any specific publisher of any oracle using the [ oraclessubscribe](../cryptoconditions/cc-oracles.html#oraclessubscribe) method.
 - Anyone can register as a publisher for any oracle; users subscribe only to the publishers they desire
@@ -807,7 +807,7 @@ Response from Step 3:
 
 ## oraclessamples
 
-**oraclessamples oracletxid batonutxo num**
+**oraclessamples oracletxid baton num**
 
 The `oraclessample` method fetches data samples from a publisher.
 
@@ -818,7 +818,7 @@ The user indicates the desired publisher by inserting the `batonutxo` by the pub
 | Structure  | Type     | Description                                                               |
 | ---------- | -------- | ------------------------------------------------------------------------- |
 | oracletxid | (string) | the unique identifying transaction id of the oracle contract              |
-| batonutxo  | (string) | the baton transaction id, which can be found using the oraclesinfo method |
+| baton      | (string) | the baton address, which can be found using the oraclesinfo method |
 | num        | (number) | the number of sample data points required                                 |
 
 ### Response:
@@ -834,7 +834,7 @@ The user indicates the desired publisher by inserting the `batonutxo` by the pub
 Command:
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD oraclessamples 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203 abb4fc6d7fbff88c09b35fc40d96e3a04a891fbf3a2f21e8b8536acbd95d75d7 2
+./komodo-cli -ac_name=HELLOWORLD oraclessamples 7b6e7745058ffded423546eecc61dcc05069279b90776384c52692765246b64c RVerJvoYsXp3avQ3xxe54EhajZgn5xidKB 1
 ```
 
 Response:
@@ -842,7 +842,14 @@ Response:
 ```json
 {
   "result": "success",
-  "samples": [["4982091690320855040"], ["18446744069414584320"]]
+  "samples": [
+    {
+      "txid": "bbe51ad50a1a49e0275631c2b8e698ea3514b05bb60b944ee891bdbbd5ce0c17",
+      "data": [
+        "This here is some data stored on an oracle"
+      ]
+    }
+  ]
 }
 ```
 
