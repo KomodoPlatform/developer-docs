@@ -7,5 +7,6 @@ app:
   container_name: komodo_docs
   user: "1000:1000"
   command:
+    - ./algolia-key.sh
     - yarn install && yarn docs:build && tail -f /dev/null/
   stdin_open: true
