@@ -61,10 +61,6 @@ For terminal interface examples, see the examples section below.
 | mm2       | number (required if not set in the `coins` file) | this property informs the Komodo DEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
 | tx_history| bool | whether to enable `tx_history` preloading in background, must be `true` if you plan to use `my_tx_history` API |
 
-::: warning Note
-If the connection to at least one of the provided `urls` fails for any reason the software will not enable the coin. Instead, the software will return an error.
-:::
-
 ### Response:
 
 | Structure | Type     | Description |
@@ -89,14 +85,6 @@ Response (Success):
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": 10,
   "result": "success"
-}
-```
-
-Response (Error):
-
-```bash
-{
-  "error":"lp_coins:829] lp_coins:786] utxo:951] rpc_clients:557] rpc_clients:384] electrum4.cipig.net:10025 error Custom { kind: Other, error: StringError(\"failed to lookup address information: Name or service not known\") }"
 }
 ```
 
@@ -292,8 +280,8 @@ The `orderbook` method requests from the network the currently available orders 
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| base       | string | the name of the coin the user desires to receive |
-| rel       | string | the name of the coin the user desires to sell |
+| base       | string | base currency of a pair |
+| rel       | string | "related" currency, also can be called "quote currency" according to exchange terms |
 | duration  | number | `deprecated` |
 
 ### Response:
@@ -361,92 +349,64 @@ Response:
 
 ## buy
 
-**buy base rel price relvolume (timeout=number) (duration=number)**
+**buy base rel price volume**
 
 The `buy` method issues a buy request and attempts to match an order from the orderbook based on the provided arguments.
 
-MM2 will set the `timeout` value by default, but the user may override by giving it a value.
+::: tip
+Buy and sell methods always create the `taker` order first. It means that you will require to pay additional 1/777 fee 
+of the trade amount during the swap for taking the liquidity from market. If your order is not matched in 5 seconds it's 
+automatically converted to maker and stays in orderbook until it's matched or cancelled. 
+To always act as maker please use [setprice method](../atomic-swap-dex/dex-api.html#setprice)
+:::
 
 ### Arguments:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| base       | string | the name of the coin the user desires to receive |
+| base      | string | the name of the coin the user desires to receive |
 | rel       | string | the name of the coin the user desires to sell |
 | price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| relvolume | number | the amount of coins the user is willing to spend of the `rel` coin |
-| timeout | number | the amount of time to wait until the request expires; MM2 handles automatically |
-| duration | number | `deprecated |
+| volume    | number | the amount of coins the user is willing to receive of the `base` coin |
 
 ### Response:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| result | string | whether the request was entered successfully |
-| swaps | array | an array of swap ids; indicates current ongoing swaps |
-| netamounts | array | `deprecated, will be removed` |
-| pending |  object | an object containing the swap information |
-| pending.uuid | string | the pending swap uuid -- same as request uuid |
-| pending.expiration | number | indicates the time at which the swap expires |
-| pending.timeleft | number | indicates the amount of time remaining before the swap times out |
-| pending.tradeid | number | the unique id of this trade on this network |
-| pending.requestid | number | the unique id of this trade request |
-| pending.quoteid | number | `deprecated, will be removed` |
-| pending.bob | string | `deprecated, will be removed`; the name of the coin bob is trading, same as `base` |
-| pending.base | string | the name of the `base` coin the user desires |
-| pending.basevalue | number | the value of `base` coin to be exchanged | 
-| pending.alice | string | `deprecated, will be removed`; the name of the coin alice is trading, same as `rel` |
-| pending.rel | string | the name of the `rel` coin the user is trading |
-| pending.relvalue | number | the value of `rel` coin to be exchanged |
-| pending.desthash | string | `deprecated, will be renamed`; taker (alice) curve25519 pubkey |
-| pending.aliceid | number | `deprecated, will be removed or renamed`; alice's unique id on this network |
-| uuid | string | the request uuid |
+| result        | object | resulting order object |
+| result.action | string | the action of request (`Buy`) |
+| result.base   | string | base currency of request |
+| result.base_amount | string | the resulting amount of base currency that will be received if order matches |
+| result.rel    | string | rel currency of request |
+| result.rel_amount | string | the maximum amount of `rel` coin that will be spent to buy the `base_amount` (according to `price`) |
+| result.method | string | this field used for internal P2P interactions, always equals to "request" |
+| result.dest_pub_key    | string | reserved for future use, `dest_pub_key` will allow to choose the P2P node that will be eligible to match with our request. Defaults to zero pubkey which means `anyone` |
+| result.sender_pubkey   | string | the public key of our node |
+| result.uuid   | string | the request uuid |
 
 #### :pushpin: Examples:
 
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"relvolume\":1,\"price\":0.95}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":1,\"price\":1}"
 ```
 
 Response (success):
 
 ```json
 {
-  "result": "success",
-  "swaps": [
-    [
-      2840245791,
-      3687103952
-    ],
-    [
-      925874441,
-      2994130620
-    ],
-    [
-      2153536788,
-      640664548
-    ]
-  ],
-  "netamounts": [],
-  "pending": {
-    "uuid": "611b85f8721d37c71e77e8d116fb60b5ebe51d949aa8d2ff15c5b34da26bfdf3",
-    "expiration": 1549329023,
-    "timeleft": 29,
-    "tradeid": 329880305,
-    "requestid": 0,
-    "quoteid": 0,
-    "bob": "HELLO",
-    "base": "HELLO",
-    "basevalue": 1.0530423,
-    "alice": "WORLD",
-    "rel": "WORLD",
-    "relvalue": 1.0002,
-    "desthash": "edb2a3d86a7c1b3665a9bd269974ca154e005c0afa3e95e0e7da6e9bd231ae11",
-    "aliceid": 502776683
-  },
-  "uuid": "611b85f8721d37c71e77e8d116fb60b5ebe51d949aa8d2ff15c5b34da26bfdf3"
+    "result": {
+        "action": "Buy",
+        "base": "HELLO",
+        "base_amount": "1",
+        "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+        "method": "request",
+        "rel": "WORLD",
+        "rel_amount": "1",
+        "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+        "uuid": "288743e2-92a5-471e-92d5-bb828a2303c3"
+    }
 }
 ```
 
@@ -458,109 +418,92 @@ Response (error):
 
 ## sell
 
-**sell base rel price basevolume (timeout=number) (duration=number)**
+**sell base rel price volume**
 
 The `sell` method issues a sell request and attempts to match an order from the orderbook based on the provided arguments.
 
-Komodo software will set the `timeout` value by default, but the user may override by giving a value.
+::: tip
+Buy and sell methods always create the `taker` order first. It means that you will require to pay additional 1/777 fee 
+of the trade amount during the swap for taking the liquidity from market. If your order is not matched in 5 seconds it's 
+automatically converted to maker and stays in orderbook until it's matched or cancelled. 
+To always act as maker please use [setprice method](../atomic-swap-dex/dex-api.html#setprice)
+:::
 
 ### Arguments:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| base       | string | the name of the coin the user desires to receive |
-| rel       | string | the name of the coin the user desires to sell |
-| price     | number | the price in `base` the user is willing to receive per one unit of the `rel` coin |
-| basevolume | number | the amount of coins the user is willing to spend of the `base` coin |
-| timeout | number | the amount of time to wait until the request expires |
-| duration | number | `deprecated` |
+| base      | string | the name of the coin the user desires to sell |
+| rel       | string | the name of the coin the user desires to receive |
+| price     | number | the price in `rel` the user is willing to receive per one unit of the `base` coin |
+| volume    | number | the amount of coins the user is willing to sell of the `base` coin |
 
 ### Response:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| result | string | whether the request was entered successfully |
-| swaps | array | an array of swap ids; indicates current ongoing swaps |
-| netamounts | array | `deprecated, will be removed` |
-| pending |  object | an object containing the swap information |
-| pending.uuid | string | pending swap uuid, same as request uuid |
-| pending.expiration | number | indicates the time at which the swap expires |
-| pending.timeleft | number | indicates the amount of time remaining before the swap times out |
-| pending.tradeid | number | the unique id of this trade on this network |
-| pending.requestid | number | the unique id of this trade request |
-| pending.quoteid | number | `deprecated, will be removed` |
-| pending.bob | string | `deprecated, will be removed`, the name of the coin bob is trading, same as `base` |
-| pending.base | string | the name of the `base` coin the user desires |
-| pending.basevalue | number | the value of `base` coin to be exchanged | 
-| pending.alice | string | `deprecated, will be removed`, the name of the coin alice is trading, same as `rel` |
-| pending.rel | string | the name of the `rel` coin the user is trading |
-| pending.relvalue | number | the value of `rel` coin to be exchanged |
-| pending.desthash | string | `deprecated, will be renamed` the taker's (alice) curve25519 pubkey |
-| pending.aliceid | number | `deprecated, will be removed or renamed` alice's unique id on this network |
-| uuid | string | the request uuid |
+| result        | object | resulting order object |
+| result.action | string | the action of request (`Sell`) |
+| result.base   | string | base currency of request |
+| result.base_amount | string | the resulting amount of base currency that will be sold if order matches |
+| result.rel    | string | rel currency of request |
+| result.rel_amount | string | the minimum amount of `rel` coin that will be received to sell the `base_amount` of `base` (according to `price`) |
+| result.method | string | this field used for internal P2P interactions, always equals to "request" |
+| result.dest_pub_key    | string | reserved for future use, `dest_pub_key` will allow to choose the P2P node that will be eligible to match with our request. Defaults to zero pubkey which means `anyone` |
+| result.sender_pubkey   | string | the public key of our node |
+| result.uuid   | string | the request uuid |
 
 #### :pushpin: Examples:
 
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"basevolume\":0.1,\"price\":2}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":1,\"price\":1}"
 ```
 
 Response (success):
 
 ```json
 {
-"result":"success",
-"swaps":[[185307610, 3224582451], [1966701661, 660662362], [1689278922, 1884083697]],
-"netamounts":[],
-"pending":{
-    "uuid":"858b786db415182d8ff60e7a928b3350e16e632ceb95e3a0296ef78c1d28caac",
-    "expiration":1549376070,
-    "timeleft":9,
-    "tradeid":1486969254,
-    "requestid":0,
-    "quoteid":0,
-    "bob":"BASE",
-    "base":"BASE",
-    "basevalue":0.20060019,
-    "alice":"REL",
-    "rel":"REL",
-    "relvalue":0.10020000,
-    "desthash":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-    "aliceid":2946902639
-    },
-"uuid":"858b786db415182d8ff60e7a928b3350e16e632ceb95e3a0296ef78c1d28caac"}
+    "result": {
+        "action": "Sell",
+        "base": "BASE",
+        "base_amount": "1",
+        "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+        "method": "request",
+        "rel": "REL",
+        "rel_amount": "1",
+        "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+        "uuid": "d14452bb-e82d-44a0-86b0-10d4cdcb8b24"
+    }
+}
 ```
 
 Response (error):
 
 ```json
-{"error":"rpc:278] utxo:884] REL balance 12.88892991 is too low, required 21.15"}
+{"error":"rpc:278] utxo:884] BASE balance 12.88892991 is too low, required 21.15"}
 ```
 
 ## setprice
 
-**setprice base rel price broadcast=number**
+**setprice base rel price volume**
 
 ::: warning Note
 This API method's documentation is currently limited, as we are still testing.
 :::
 
-The `setprice` method places an order on the orderbook, and it relies on this node acting as a `maker` -- also called a `Bob` node.
-
-::: warning Note
-`setprice` currently requires that the node can bind ports on a public IP to accept direct TCP connections from other nodes for ordermatching. This requirement will be removed soon.
-:::
+The `setprice` method places an order on the orderbook, and it relies on this node acting as a `maker` -- also called a `Bob` node. 
+`setprice` order is always considered as `sell` for internal implementation convenience.
 
 ### Arguments:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| base       | string | the name of the coin the user desires to receive |
-| rel       | string | the name of the coin the user desires to sell |
-| price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| broadcast | number | defines whether the price should be broadcast to p2p network as an order; the default value is `1` |
+| base      | string | the name of the coin the user desires to sell |
+| rel       | string | the name of the coin the user desires to receive |
+| price     | number | the price in `rel` the user is willing to receive per one unit of the `base` coin |
+| volume    | number | the maximum amount of `base` coin available for the order |
 
 ### Response:
 
@@ -626,7 +569,7 @@ The `help` method returns the full API documentation in the terminal.
 
 ## withdraw
 
-**withdraw coin to amount**
+**withdraw coin to (amount, max)**
 
 The `withdraw` method generates, signs, and returns a transaction that transfers the `amount` of `coin` to the address indicated in the `to` argument.  
 
@@ -638,7 +581,8 @@ This method generates a raw transaction which should then be broadcast using [se
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin the user desires to withdraw |
 | to        | string | coins will be withdrawn to this address |
-| amount    | number | the amount the user desires to withdraw |
+| amount    | number | the amount the user desires to withdraw, ignored when `max=true` |
+| max       | bool   | withdraw the maximum available amount |
 
 ### Response:
 
@@ -690,6 +634,39 @@ Command (ETH, ERC20, and other ETH-based forks):
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"ETH\",\"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",\"amount\":10,\"userpass\":\"$userpass\"}"
+```
+
+Response (success):
+
+```json
+{
+    "block_height": 0,
+    "coin": "ETH",
+    "fee_details": {
+        "coin": "ETH",
+        "gas": 21000,
+        "gas_price": 1e-09,
+        "total_fee": 2.1e-05
+    },
+    "from": [
+        "0xbab36286672fbdc7b250804bf6d14be0df69fa29"
+    ],
+    "my_balance_change": -10.000021,
+    "received_by_me": 0.0,
+    "spent_by_me": 10.000021,
+    "to": [
+        "0xbab36286672fbdc7b250804bf6d14be0df69fa28"
+    ],
+    "total_amount": 10.000021,
+    "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
+    "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
+}
+```
+
+Command (max = true):
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"ETH\",\"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",\"max\":true,\"userpass\":\"$userpass\"}"
 ```
 
 Response (success):
@@ -781,7 +758,7 @@ The `my_swap_status` method returns the data of atomic swap that was done by MM2
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"params\":{\"uuid\":\"c3f1b83741966ebfdec621a58e480f40b1ab5342231fb6d0bc373ca21335999a\"},\"userpass\":\"$userpass\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"params\":{\"uuid\":\"d14452bb-e82d-44a0-86b0-10d4cdcb8b24\"},\"userpass\":\"$userpass\"}"
 ```
 
 Response (success):
@@ -807,32 +784,32 @@ Response (success):
                     "data": {
                         "lock_duration": 7800,
                         "maker": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-                        "maker_amount": 10000000,
+                        "maker_amount": "1",
                         "maker_coin": "BEER",
                         "maker_payment_confirmations": 1,
-                        "maker_payment_wait": 1556034635,
+                        "maker_payment_wait": 1558960071,
                         "my_persistent_pub": "02031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
-                        "started_at": 1556032035,
-                        "taker_amount": 10000000,
+                        "started_at": 1558957471,
+                        "taker_amount": "1",
                         "taker_coin": "ETOMIC",
                         "taker_payment_confirmations": 1,
-                        "taker_payment_lock": 1556039835,
-                        "uuid": "c3f1b83741966ebfdec621a58e480f40b1ab5342231fb6d0bc373ca21335999a"
+                        "taker_payment_lock": 1558965271,
+                        "uuid": "d14452bb-e82d-44a0-86b0-10d4cdcb8b24"
                     },
                     "type": "Started"
                 },
-                "timestamp": 1556032035640
+                "timestamp": 1558957471266
             },
             {
                 "event": {
                     "data": {
-                        "maker_payment_locktime": 1556047634,
+                        "maker_payment_locktime": 1558973070,
                         "maker_pubkey": "02631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
-                        "secret_hash": "04f01da1b5be47d89e853c0a0441ecb338fe0e44"
+                        "secret_hash": "5c6ed3232cabfd05072dd2c9f9061e379e09c5ac"
                     },
                     "type": "Negotiated"
                 },
-                "timestamp": 1556032096172
+                "timestamp": 1558957532139
             },
             {
                 "event": {
@@ -845,25 +822,27 @@ Response (success):
                         "from": [
                             "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
                         ],
-                        "my_balance_change": -0.0001387,
-                        "received_by_me": 9.54285495,
-                        "spent_by_me": 9.54299365,
+                        "internal_id": "acc4b3daf3c280b6b1be3c42a1795b07d60f3b9065e85e134f692a4e46d8cab3",
+                        "my_balance_change": -0.001297,
+                        "received_by_me": 5.76129422,
+                        "spent_by_me": 5.76259122,
+                        "timestamp": 0,
                         "to": [
                             "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
                             "RThtXup6Zo7LZAi8kRWgjAyi1s4u6U9Cpf"
                         ],
-                        "total_amount": 9.54299365,
-                        "tx_hash": "0ea28172df79d7050b4dc57f46ed71db84fc24bd943dcb7c71f4184f9f223452",
-                        "tx_hex": "0400008085202f89018af43c0b658bdd86c590df7f97a4f8ade27428762bd1a051a9caf9b9a1d96ba2010000006a47304402202ef8de906c97094402c26460da408cb90afd16f69889482444f4a37d12b1c0f9022071814e824515b63da8af75eb261e1d426b3e325d343a8dec1be0e2973bd1bb4f012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0246320000000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88acb73de138000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
+                        "total_amount": 5.76259122,
+                        "tx_hash": "acc4b3daf3c280b6b1be3c42a1795b07d60f3b9065e85e134f692a4e46d8cab3",
+                        "tx_hex": "0400008085202f8901a4cc32a7fb6abdf0919b090f888fbcb49a0763756d5d0b877249c17f481e4a3b010000006a47304402207aa35a94b4bc6c72bf46ff37051e301bcc86001898226ac6cf5507d2e580d6f902206b41bd7a31260118597e4e17da93e7da5d6f83702ab212ff3220a7121fd93313012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff02bcf60100000000001976a914ca1e04745e8ca0c60d8c5881531d51bec470743f88ac8e095722000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788acdccdeb5c000000000000000000000000000000"
                     },
                     "type": "TakerFeeSent"
                 },
-                "timestamp": 1556032102290
+                "timestamp": 1558957536556
             },
             {
                 "event": {
                     "data": {
-                        "block_height": 106676,
+                        "block_height": 144587,
                         "coin": "BEER",
                         "fee_details": {
                             "amount": 1e-05
@@ -871,37 +850,39 @@ Response (success):
                         "from": [
                             "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh"
                         ],
+                        "internal_id": "3fddd8e65d6364f98d9c8b25a0c511fa041ce2fb781cccee4d787a383d8edc2d",
                         "my_balance_change": 0.0,
                         "received_by_me": 0.0,
                         "spent_by_me": 0.0,
+                        "timestamp": 1558957575,
                         "to": [
                             "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
-                            "bV8CmxtjsPaVSjRj2M5wQNaKroNWW7xsvX"
+                            "bSNAPE147JxseW66zSMRKjss9XZCG9wchq"
                         ],
-                        "total_amount": 9855.60531509,
-                        "tx_hash": "47b0e6b7d6599539f134660b1ad5f2dfdca77f16f261fa19f7f93a302b7af8f6",
-                        "tx_hex": "0400008085202f8901942f5352d6b640f092991f3cc8445a89a691b5e4faf503407df49bea8be224e2010000006a47304402203105797be07d5d99f41c98ff01e95f76dc575c4c145c3e72a4cb257a6522b79e022006bb989f08519c44025239bcbbfa70b4f1cfdde844b22f810fc16d1fce711ab1012102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ffffffff02809698000000000017a914b3d84f0ad998df91eff7173deddf0b90b3b630d887cda76377e50000001976a91464ae8510aac9546d5e7704e31ce177451386455588ac00000000000000000000000000000000000000"
+                        "total_amount": 8480.19169389,
+                        "tx_hash": "3fddd8e65d6364f98d9c8b25a0c511fa041ce2fb781cccee4d787a383d8edc2d",
+                        "tx_hex": "0400008085202f8901d0d6df13d5a875c9458f63743ab778800e397a65a01dac3360b84b87a5c5dab3010000006b4830450221009380fa57812ce60c1d912abfde310e9f7756c15805e3512d0614933b745210e0022010f4998410cb8b0c7f83b062bbbf249784f9a4bb065ff5dfe1eb4ac8172082a7012102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ffffffff0200e1f5050000000017a9149593c211a25149bd67916af3aa27bad63f7ba6ef8785bbeb6bc50000001976a91464ae8510aac9546d5e7704e31ce177451386455588acfacdeb5c000000000000000000000000000000"
                     },
                     "type": "MakerPaymentReceived"
                 },
-                "timestamp": 1556032153604
+                "timestamp": 1558957588084
             },
             {
                 "event": {
                     "type": "MakerPaymentWaitConfirmStarted"
                 },
-                "timestamp": 1556032153604
+                "timestamp": 1558957588085
             },
             {
                 "event": {
                     "type": "MakerPaymentValidatedAndConfirmed"
                 },
-                "timestamp": 1556032154409
+                "timestamp": 1558957588883
             },
             {
                 "event": {
                     "data": {
-                        "block_height": 0,
+                        "block_height": 146176,
                         "coin": "ETOMIC",
                         "fee_details": {
                             "amount": 1e-05
@@ -909,48 +890,52 @@ Response (success):
                         "from": [
                             "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
                         ],
-                        "my_balance_change": -0.10001,
-                        "received_by_me": 9.44284495,
-                        "spent_by_me": 9.54285495,
+                        "internal_id": "cdf2d5c271ee144f77ae4da1f25f0b05377f51e8a3ab30bd10c0838d4797fd79",
+                        "my_balance_change": -1.00001,
+                        "received_by_me": 4.76128422,
+                        "spent_by_me": 5.76129422,
+                        "timestamp": 1558957590,
                         "to": [
                             "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
-                            "bTPJNZQtwRJxP3w4biYKVVgaF2UkX8EpHt"
+                            "bc1y3ghXrpd8fJR7VWjN4w44gsAH8mughL"
                         ],
-                        "total_amount": 9.54285495,
-                        "tx_hash": "47fc1bb5ea0d57e0aa0bd982a9f0e262aee5f6fe57376be3e7bce2753af6fea0",
-                        "tx_hex": "0400008085202f89015234229f4f18f4717ccb3d94bd24fc84db71ed467fc54d0b05d779df7281a20e010000006b483045022100c2114024815bfa6d2363485caed8328d5c7d6f040db996fa58b9827af340f86202205df16bff2375db3a3e05a0a391c4ba0da326ce84db6465701bd09b493a5201c6012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff02809698000000000017a914a0c2f7e3815f6e437ea1a0203a849f7accd9a910874fa34838000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000"
+                        "total_amount": 5.76129422,
+                        "tx_hash": "cdf2d5c271ee144f77ae4da1f25f0b05377f51e8a3ab30bd10c0838d4797fd79",
+                        "tx_hex": "0400008085202f8901b3cad8464e2a694f135ee865903b0fd6075b79a1423cbeb1b680c2f3dab3c4ac010000006b483045022100ffa2559a3bf918d2b77cc8095bd74d80a92f81b910b291f6e2dcde13878ee20d02203a5d8320c9125c102ccdf6dfc725b19eddcfa985668d8bbea8cf67073821be49012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f5050000000017a914ff733badf8c51b974856c00153bbc94fc91cfae487a624611c000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac15ceeb5c000000000000000000000000000000"
                     },
                     "type": "TakerPaymentSent"
                 },
-                "timestamp": 1556032157699
+                "timestamp": 1558957596570
             },
             {
                 "event": {
                     "data": {
-                        "secret": "d6e4f5b5e392780f6399567ba03d9cbda8848bbd7fa7f2c3126539cf589e65ce",
+                        "secret": "aeb31b60b8128174d336e2e96d8f414f2edb658b3f5ba601d147479ea44f249f",
                         "transaction": {
-                            "block_height": 143846,
+                            "block_height": 0,
                             "coin": "ETOMIC",
                             "fee_details": {
                                 "amount": 1e-05
                             },
                             "from": [
-                                "bTPJNZQtwRJxP3w4biYKVVgaF2UkX8EpHt"
+                                "bc1y3ghXrpd8fJR7VWjN4w44gsAH8mughL"
                             ],
+                            "internal_id": "c098456b6c4ff20b53f5e2abacc0d59ab3a274c623688be18b69811a956b0cc3",
                             "my_balance_change": 0.0,
                             "received_by_me": 0.0,
                             "spent_by_me": 0.0,
+                            "timestamp": 0,
                             "to": [
                                 "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh"
                             ],
-                            "total_amount": 0.1,
-                            "tx_hash": "4de5210388c538df570237c542dc614341f09788b0d5fbb264aa7757510c42b6",
-                            "tx_hex": "0400008085202f8901a0fef63a75e2bce7e36b3757fef6e5ae62e2f0a982d90baae0570deab51bfc4700000000d8483045022100b0ff9fbe57c0e01f01e0e8a61b068b2df8bfd11b2d2d7bccde2c916b2b01676002207bc6716747e111d84ba986be3d288a66defb74c84659688f17ada9bb5ce688030120d6e4f5b5e392780f6399567ba03d9cbda8848bbd7fa7f2c3126539cf589e65ce004c6b63049b48bf5cb1752102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac6782012088a91404f01da1b5be47d89e853c0a0441ecb338fe0e44882102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac68ffffffff0198929800000000001976a91464ae8510aac9546d5e7704e31ce177451386455588acb42abf5c000000000000000000000000000000"
+                            "total_amount": 1.0,
+                            "tx_hash": "c098456b6c4ff20b53f5e2abacc0d59ab3a274c623688be18b69811a956b0cc3",
+                            "tx_hex": "0400008085202f890179fd97478d83c010bd30aba3e8517f37050b5ff2a14dae774f14ee71c2d5f2cd00000000d747304402207f70ebc967a83cad8cf87f82c3ec43b2c9dd767fe61733621943802065cb631d0220174ca834423cd8a91b1c71f1ce5ba7bc14b2b89a3c79bf63df2d28fc5c5363a30120aeb31b60b8128174d336e2e96d8f414f2edb658b3f5ba601d147479ea44f249f004c6b630417eceb5cb1752102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac6782012088a9145c6ed3232cabfd05072dd2c9f9061e379e09c5ac882102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac68ffffffff0118ddf505000000001976a91464ae8510aac9546d5e7704e31ce177451386455588ac2eceeb5c000000000000000000000000000000"
                         }
                     },
                     "type": "TakerPaymentSpent"
                 },
-                "timestamp": 1556032191300
+                "timestamp": 1558957630487
             },
             {
                 "event": {
@@ -961,27 +946,29 @@ Response (success):
                             "amount": 1e-05
                         },
                         "from": [
-                            "bV8CmxtjsPaVSjRj2M5wQNaKroNWW7xsvX"
+                            "bSNAPE147JxseW66zSMRKjss9XZCG9wchq"
                         ],
-                        "my_balance_change": 0.09999,
-                        "received_by_me": 0.09999,
+                        "internal_id": "a2d29b87ce185cadc70af03e742f83d9ce3866874be613d839090a69a8b9f3d3",
+                        "my_balance_change": 0.99999,
+                        "received_by_me": 0.99999,
                         "spent_by_me": 0.0,
+                        "timestamp": 0,
                         "to": [
                             "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
                         ],
-                        "total_amount": 0.1,
-                        "tx_hash": "e729372c19bb0d638ca0f419a02400c86311d57fb9ba0925c91b0d6ee11768c0",
-                        "tx_hex": "0400008085202f8901f6f87a2b303af9f719fa61f2167fa7dcdff2d51a0b6634f1399559d6b7e6b04700000000d747304402203630bd0dd1fd1cc19b7b3cdbc2324265087866dccec06e93505d5b420c555dfb02205af849045797098cfc2944ec125fa24b6165e24f99526af4d9b1a7c6a999b8d10120d6e4f5b5e392780f6399567ba03d9cbda8848bbd7fa7f2c3126539cf589e65ce004c6b63041267bf5cb1752102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac6782012088a91404f01da1b5be47d89e853c0a0441ecb338fe0e44882102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac68ffffffff0198929800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788acbf2abf5c000000000000000000000000000000"
+                        "total_amount": 1.0,
+                        "tx_hash": "a2d29b87ce185cadc70af03e742f83d9ce3866874be613d839090a69a8b9f3d3",
+                        "tx_hex": "0400008085202f89012ddc8e3d387a784deecc1c78fbe21c04fa11c5a0258b9c8df964635de6d8dd3f00000000d747304402203edc6a5cf20a9627a4d0b035ad50e3198aaf7ba60323fb9b4b575df7ed029cdd0220016f67c1aa6bf779e7e700389e9eac9e44b10d0b6b1b46a51d86e0fb354b1d580120aeb31b60b8128174d336e2e96d8f414f2edb658b3f5ba601d147479ea44f249f004c6b63048e0aec5cb1752102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac6782012088a9145c6ed3232cabfd05072dd2c9f9061e379e09c5ac882102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac68ffffffff0118ddf505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac3eceeb5c000000000000000000000000000000"
                     },
                     "type": "MakerPaymentSpent"
                 },
-                "timestamp": 1556032195117
+                "timestamp": 1558957633573
             },
             {
                 "event": {
                     "type": "Finished"
                 },
-                "timestamp": 1556032195119
+                "timestamp": 1558957633575
             }
         ],
         "success_events": [
@@ -997,7 +984,7 @@ Response (success):
             "Finished"
         ],
         "type": "Taker",
-        "uuid": "c3f1b83741966ebfdec621a58e480f40b1ab5342231fb6d0bc373ca21335999a"
+        "uuid": "d14452bb-e82d-44a0-86b0-10d4cdcb8b24"
     }
 }
 ```
