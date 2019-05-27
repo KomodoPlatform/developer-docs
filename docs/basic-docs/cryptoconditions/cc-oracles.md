@@ -9,11 +9,13 @@ Those who publish data to an oracle are called publishers. There is a fee-based 
 ### Oracles CC Module Flow
 
 - Create an Oracle using [oraclescreate](../cryptoconditions/cc-oracles.html#oraclescreate)
-- Register as a data publisher for the oracle using the [oraclesregister](../cryptoconditions/cc-oracles.html#oraclesregister) method; at this stage, the publisher indicates the fee for their data updates
-  - Anyone can register as a publisher for any oracle; users subscribe only to the publishers they desire
+- Fund the oracle with [oraclesfund](../cryptoconditions/cc-oracles.html#oraclesfund)
+- Register as a data publisher for the oracle using the [oraclesregister](../cryptoconditions/cc-oracles.html#oraclesregister) method and specify the datafee it costs subscribers to access data updates
+- Anyone can subscribe to any specific publisher of any oracle using the [ oraclessubscribe](../cryptoconditions/cc-oracles.html#oraclessubscribe) method.
+- Anyone can register as a publisher for any oracle; users subscribe only to the publishers they desire
+- Publishers must also subscribe to the oracle before they can publish data
+- A publisher can publish data using [oraclesdata](../cryptoconditions/cc-oracles.html#oraclesdata), and thereby collect their datafee from their subscribers
 - The [oracleslist](../cryptoconditions/cc-oracles.html#oraclelist), [oraclesinfo](../cryptoconditions/cc-oracles.html#oraclesinfo), and [oraclessamples](../cryptoconditions/cc-oracles.html#oraclessamples) methods allow the user to find oracles and publishers, find more information about a specific oracle and publisher, and discover samples of an existing publisher, respectively
-- Anyone can subscribe to any specific publisher of any oracle using the [ oraclessubscribe](../cryptoconditions/cc-oracles.html#oraclessubscribe) method
-- A publisher can publish data using [oraclesdata](../cryptoconditions/cc-oracles.html#oraclesdata), and thereby collect their fee from their subscribers
 
 ## oraclesaddress
 
@@ -31,14 +33,17 @@ The `oraclesaddress` method displays the oracle address for a specific pubkey.
 
 | Structure        | Type     | Description                                                                                                          |
 | ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
-| result           | (string) | whether the method executed successfully                                                                             |
-| OraclesCCaddress | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
-| Oraclesmarker    | (string) | the unmodified public address generated from the contract's privkey                                                  |
-| GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                       |
-| OraclesCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                                     |
-| CCaddress        | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
-| myCCaddress      | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
-| myaddress        | (string) | the public address of the pubkey used to launch the chain                                                            |
+| OraclesCCAddress |  taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
+| OraclesCCBalance |  Amount of funds held in the `OracleCCAddress` |
+| OraclesNormalAddress | Address holding funds from created Oracles |
+| OraclesNormalBalance | Amount of funds held in the `OracleNormalAddress` |
+| OraclesCCTokensAddress | <-- TODO FIXME -->
+| PubkeyCCaddress(Oracles) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey supplied as the parameter |
+| PubkeyCCbalance(Oracles) |  amount of funds held in the `PubkeyCCaddress` |
+| myCCAddress(Oracles) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user |
+| myCCbalance(Oracles) |  amount of funds held in the `myCCAddress` |
+| myaddress |  the public address of the pubkey used to launch the daemon |
+| mybalance |  amount of funds held in the `myaddress` |
 
 #### :pushpin: Examples:
 
@@ -130,7 +135,7 @@ Step 2: Send raw transaction / broadcast the hex value
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000185b76ed0fbdb9ee2bdb5693f491b6ea23de6498f42c6e83f9f36c1eaf411dd990200000049483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01ffffffff0310270000000000002321038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac378740a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000001c6a1aec43064e5957544852014c0e5765617468657220696e204e594300000000
-# This will output an unique txid which will be refered as oracletxid or ID of the oracle.
+# This will output an unique txid which will be refered as oracletxid or transaction ID of the oracle.
 ```
 
 Response:
@@ -203,6 +208,128 @@ Response from Step 3:
     }
   ],
   "vjoinsplit": []
+}
+```
+
+## oraclesfund
+
+The `oraclesfund` allows you to register as a publisher on an oracle. It must be done before using `oraclesregister`
+
+### Arguments:
+
+| Structure   | Type     | Description                                                                                                                      |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| oracletxid | (string) | the unique identifying transaction id of the oracle                                                                                                           |
+
+
+#### :pushpin: Examples:
+
+Step 1: Create a customized oracle contract and get the hex value
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD oraclesfund 7b6e7745058ffded423546eecc61dcc05069279b90776384c52692765246b64c
+```
+
+Response from Step 1:
+
+```json
+{
+"result": "success",
+"hex": "0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000"
+}
+
+```
+
+Step 2: Send raw transaction / broadcast the hex value
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000
+
+# This will output an unique txid which will be refered as oracletxid or transaction ID of the oracle.
+```
+
+Response from Step 2:
+
+```bash
+ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192
+```
+
+(Use `./komodo-cli -ac_name=HELLOWORLD getrawmempool` to ensure that the transaction receives confirmation.)
+
+Step 3: Decode raw transaction (optional to check if the values are sane)
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000
+```
+
+Response from Step 3:
+
+```json
+{
+  "txid": "ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192",
+  "overwintered": true,
+  "version": 4,
+  "versiongroupid": "892f2085",
+  "locktime": 0,
+  "expiryheight": 1974,
+  "vin": [
+    {
+      "txid": "0e51062adc807c118451622957812428562a7487fa6325c484cacdf145948324",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "3045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be7[ALL]",
+        "hex": "483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701"
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.00010000,
+      "valueZat": 10000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "a22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401 OP_CHECKCRYPTOCONDITION",
+        "hex": "2ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cc",
+        "reqSigs": 1,
+        "type": "cryptocondition",
+        "addresses": [
+          "RUeZzWCuwGxJTtSDGfRFWL87oyrLWZav6Z"
+        ]
+      }
+    },
+    {
+      "value": 99.99980000,
+      "valueZat": 9999980000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "02c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5 OP_CHECKSIG",
+        "hex": "2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": [
+          "RFkogpvKojbChm9hMDdv2KUBasUmFNraqg"
+        ]
+      }
+    },
+    {
+      "value": 0.00000000,
+      "valueZat": 0,
+      "n": 2,
+      "scriptPubKey": {
+        "asm": "OP_RETURN ec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000",
+        "hex": "6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000",
+        "type": "nulldata"
+      }
+    }
+  ],
+  "vjoinsplit": [
+  ],
+  "valueBalance": 0.00000000,
+  "vShieldedSpend": [
+  ],
+  "vShieldedOutput": [
+  ]
 }
 ```
 
@@ -729,7 +856,7 @@ Every publisher must have at least one subscriber before the [oraclesdata](../cr
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-The `sendrawtransaction` method then returns a unique txid, also called the `oraclesubscribtiontxid`, or the id of the oracle subscription transaction. This can be used for further development purposes.
+The `sendrawtransaction` method then returns a unique txid, also called the `oraclesubscriptiontxid`, or the id of the oracle subscription transaction. This can be used for further development purposes.
 
 ::: tip
 If the **datafee** is 10 COINS and the `amount` submitted is 1000 COINS, the publisher can publish data 100 times based on this amount.
