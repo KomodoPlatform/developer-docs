@@ -612,52 +612,74 @@ Declare and initialize an `CCcontract_info` object with Heir module variables, s
     cp = CCinit(&C, EVAL_HEIR);
 ```
 
-Add inputs to the transaction that are enough to make deposit of the requested amount to the heir fund, some fee for the marker and for miners.
+Add inputs to the transaction that are enough to make a deposit of the requested amount to the Heir fund. Also add one fee to serve as a marker, and another for the miners.
 
-Let's use a constant fee = 10000 sat.
+By tradition, we use a constant fee of `10000` satoshis.
 
-We need the pubkey from the komodod -pubkey param.
+We use the `pubkey` from the komodod `-pubkey` launch parameter as the destination address for the funds withdrawn from the `1of2` plan address.
 
-For adding normal inputs to the mutable transaction there is a corresponding function in the cc SDK. 
+We use a function in the CC SDK, `AddNormalinputs`, to add the normal inputs to the mutable transaction. 
 
-```
+```C++
     const int64_t txfee = 10000;
     CPubKey myPubkey = pubkey2pk(Mypubkey());   
     if (AddNormalinputs(mtx, myPubkey, amount+2*txfee , 60) > 0) { 
 ```
-The parameters passed to the AddNormalinputs() are the tx itself, my pubkey, total value for the funding amount, marker and miners fees, for which the function will add the necessary quantity of uxto for the private key in the user's wallet. The last parameter is the limit of uxto to add. 
 
-Now let's add outputs to the transaction. Accordingly to our specification we need two outputs: for the funding deposit and marker
-```
+The parameters passed to the `AddNormalinputs()` function are the transaction itself, the user's pubkey, the total value for the funding amount, the marker and the miner fees, and the limit on the quantity of utxos the daemon can take from the wallet of the user. (Natuarlly, only utxos that are available via the user's wallet's private can be used for these inputs.)
+
+<!-- should we label the above "code the inputs" and the below "code the outputs"? -->
+
+#### Outputs
+
+According to our specification, we need two outputs: one for the funding deposit, and one for the marker.
+
+Here, we use two CC SDK functions that are designed to create CC vouts.
+
+The first is `MakeCC1of2vout`. This creates a CC vout with a threshold of `2` addresses that can spend from the plan funds. We supply as arguments the two potential addresses, represented here as `myPubkey` and `heirPubkey`.
+
+<!-- Sidd: maybe, for Crypto-Condition, we need another name that implies the logic pair. Is there something already like this in technology? --> 
+
+`MakeCC1vout` creates a vout with a simple Crypto-Condition which sends a transaction fee to the Heir module global address. (This is returned by the `GetUnspendable()` function call below.) We need the global address so that we can both mark the transaction, and to find all Heir funding plans. 
+
+You will always need some kind of marker for any Antara module instance for at least the initial transaction. Otherwise, you might lose the instance's data in the blockchain.
+
+We call this a <b>marker pattern</b> in Antara development, and we will explore this later in the tutorial.
+
+```C++
         mtx.vout.push_back( MakeCC1of2vout(EVAL_HEIR, amount, myPubkey, heirPubkey) );
         mtx.vout.push_back( MakeCC1vout(EVAL_HEIR, txfee, GetUnspendable(cp, NULL)) );
 ```
-In this example we used two cc sdk functions for creating cryptocondition vouts. 
 
-MakeCC1of2vout creates a vout with a threshold=2 cryptocondition allowing to spend funds from this vout with either myPubkey (which would be the pubkey of the funds owner) or heir pubkey
+Finish the creation of the transaction by calling the `FinalizeCCTx` function along with its parameters from the `cp` object, the `mtx` object itself, the owner's pubkey, and the transaction fee amount. 
 
-MakeCC1vout creates a vout with a simple cryptocondition which sends a txfee to 'Heir' cc contract global address (returned by GetUnspendable() function call). We need this output to mark the transaction and be able to find all cc heir funding plans. 
-You will always need some kind of marker for any cc contract at least for contract's initial transaction, otherwise you might lose contract's data in blockchain.
-We may call this as **marker pattern** in cc development. See more about the marker pattern later in the CC contract patterns section.
+Note the cast to `uint8_t` for the constants `EVAL_HEIR` and `F` function id. This is important, as it <!--what does "it" refer to in this sentence? I will edit the rest of the sentence when I find out. --> is supposed one-byte size for serialization of these values (otherwise they would be `int`). 
 
-Finishing the creation of the transaction by calling FinalizeCCTx with params of the cp object, mtx object itself, the owner pubkey, txfee amount. 
-Note the cast to uint8_t for the constants EVAL_HEIR and 'F' funcid, this is important as it is supposed one-byte size for serialization of these values (otherwise they would be 'int'). 
-Also an opreturn object with the contract data is passed which is created by serializing the needed ids and variables to a CScript object.
-```
+Also, an OP_RETURN object with the data from this module instance is passed. To create the OP_RETURN object, serialize the needed ids and variables to a `CScript` object.
+
+```C++
         std::string rawhextx = FinalizeCCTx(0, cp, mtx, myPubkey, txfee,
             CScript() << OP_RETURN << (uint8_t)EVAL_HEIR << (uint8_t)'F' << myPubkey << heirPubkey << inactivityTimeSec << heirName));
         return rawhextx;
     }
 ```
-Also, if AddNormalinputs could not find sufficient owner coins for the requested fund amount plus txfee, set error object.
+
+In case the `AddNormalinputs` function cannot find sufficient owner coins for the requested amount (including the transaction fee), we set the `CCerror` error object.
 ```
     CCerror = "not enough coins for requested amount and txfee";
     return std::string("");
 }
 ```
-Note that we do not need to add the normal change output here because this job is done by FinalizeCCTx.
-FinalizeCCTx also builds the transaction input scriptSigs (both normal and cryptocondition), adds signatures and returns signed transaction in hex.
-Also note E_MARSHAL function which serializes variables of various types to a byte array which in turn is serialized to CScript object which is stored in scriptPubKey transaction field. There is also the mirror E_UNMARSHAL function.
+
+Note that we do not need to add the normal change output here because the `FinalizeCCTx` function add the change output for us.
+
+`FinalizeCCTx` also builds the transaction input `scriptSigs` (both the normal and the Crypto-Condition <!-- instances? -->), adds signatures, and returns a signed transaction in hexadecimal.
+
+Also note the `E_MARSHAL` function. This serializes variables of various types to a byte array. The byte array is then serialized to `CScript` object. The object is stored in the `scriptPubKey` transaction field. 
+
+<!-- what about the E_UNMARSHAL function? -->
+
+There is also the mirror E_UNMARSHAL function.
 
 The returned transaction is ready to be sent to the blockchain with sendrawtransaction rpc.
 
