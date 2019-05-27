@@ -10,7 +10,7 @@ If you have any problems, please join `#notarynode` on the [Komodo Discord](http
 
 ### Hardware
 
-Komodo currently only works on Linux. To setup Komodo Notary Node be sure you have a good solid server with the following requirements:
+Komodo Notary Node currently only works on Linux. To setup Komodo Notary Node be sure you have a good solid server with the following minimum requirements:
 
 - CPU: A good CPU (Xeon/i7)
 
@@ -99,6 +99,7 @@ server=1
 daemon=1
 rpcworkqueue=256
 rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
 ```
 
 Restrict access to the `komodo.conf` file
@@ -183,6 +184,7 @@ rpcuser=bitcoinrpc
 rpcpassword=password
 bind=127.0.0.1
 rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
 ```
 
 Restrict access to the `bitcoin.conf` file
@@ -263,6 +265,8 @@ rpcuser=user
 rpcpassword=password
 addnode=5.9.253.195
 addnode=74.208.210.191
+rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
 ```
 
 Restrict access to the `chips.conf` file
@@ -363,6 +367,7 @@ rpcuser=user
 rpcpassword=password
 bind=127.0.0.1
 rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
 ```
 
 Restrict access to the `gamecredits.conf` file
@@ -444,6 +449,7 @@ rpcuser=user
 rpcpassword=password
 bind=127.0.0.1
 rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
 ```
 
 Restrict access to the `einsteinium.conf` file
@@ -524,6 +530,7 @@ rpcuser=user
 rpcpassword=password
 bind=127.0.0.1
 rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
 ```
 
 Restrict access to the `gincoin.conf` file
@@ -570,6 +577,7 @@ chipsd &
 gamecreditsd &
 einsteiniumd &
 gincoind &
+~/hush3/src/hushd &
 ```
 
 ### Start Komodo and all the assetchains including VRSC & HUSH3
