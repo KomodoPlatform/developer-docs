@@ -37,7 +37,7 @@ The `oraclesaddress` method displays the oracle address for a specific pubkey.
 | OraclesCCBalance |  Amount of funds held in the `OracleCCAddress` |
 | OraclesNormalAddress | Address holding funds from created Oracles |
 | OraclesNormalBalance | Amount of funds held in the `OracleNormalAddress` |
-| OraclesCCTokensAddress | <-- TODO FIXME -->
+| OraclesCCTokensAddress | The global CC address where tokens are stored |
 | PubkeyCCaddress(Oracles) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey supplied as the parameter |
 | PubkeyCCbalance(Oracles) |  amount of funds held in the `PubkeyCCaddress` |
 | myCCAddress(Oracles) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user |
