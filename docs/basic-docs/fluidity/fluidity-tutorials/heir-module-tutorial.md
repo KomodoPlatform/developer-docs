@@ -893,7 +893,7 @@ Iterate through the returned uxtos and add those that are appropriate to the tra
          std::vector<uint8_t> vopret;
 ```
 
-Load current uxto's transaction and check if it has an opreturn in the back of array of outputs: 
+Load the current uxto's transaction and check whether it has an OP_RETURN in the back of the array of outputs: 
 
 ```cpp
          if (GetTransaction(it->first.txhash, tx, hashBlock, false) && tx.vout.size() > 0 && GetOpReturnData(tx.vout.back().scriptPubKey, vopret) && vopret.size() > 2)
@@ -902,7 +902,7 @@ Load current uxto's transaction and check if it has an opreturn in the back of a
               uint256 txid;
 ```
 
-Check if the uxto is from this funding plan: 
+Check that the uxto matches this plan: 
 
 ```cpp
               if( it->first.txhash == fundingtxid ||   // if this is our contract instance coins 
@@ -911,16 +911,26 @@ Check if the uxto is from this funding plan:
               {
 ```
 
-Add the uxto to the transaction's vins, that is, set the txid of the transaction and vout number providing the uxto. Pass empty CScript() to scriptSig param because it will be filled by FinalizeCCtx:
+<!-- For the sentence below, is this an accurate rewrite?
+
+To add the utxo to the transaction's vins, set the utxo's vout number and transaction id in the transactions vins. 
+
+? -->
+
+Add the uxto to the transaction's vins, that is, set the txid of the transaction and vout number providing the uxto.
+
+<!-- paragraph separation may be removed -->
+
+Pass an empty call to the `CScript()` function in the `scriptSig` parameter. This will be filled by the `FinalizeCCtx` function.
 
 ```cpp
                   mtx.vin.push_back(CTxIn(it->first.txhash, it->first.index, CScript()));
                   totalinputs += it->second.satoshis;   
 ```
 
-Stop if sufficient cc inputs have been found.
+Stop once sufficient CC inputs are found.
 
-If amount parameter is 0 that would mean to add all available inputs to calculate all available fund amount
+In the event that the `amount` parameter is `0`, add all available inputs to calculate all available funds.
 
 ```cpp
                   if( amount > 0 && totalinputs >= amount || ++count > maxinputs )
@@ -930,23 +940,22 @@ If amount parameter is 0 that would mean to add all available inputs to calculat
     }
 ```
 
-Return the total inputs amount which has been added to the transaction vin array:
+Return the total amount of inputs added to the transaction's vin array:
 
 ```cpp
     return totalinputs;
 }
 ```
 
-<!--
+#### Simplified Implementation of the FindLatestOwnerTx Function
 
-#### Simplified FindLatestOwnerTx implementation
+To calculate the owner inactivity time and to enable the heir to <!-- claim? or send? --> the funds, we need a function which enumerates transactions from the module's funding plan and finds the latest owner transaction.
 
-To calculate the owner inactivity time and to enable the heir to send the funds we need a function which enumerates transactions from the contract funding plan and finds the latest owner transaction.
 This is this function implementation. The input parameter passed into it is initial funding txid. The function returns the owner and heir pubkeys, the owner inactivity time and a flag if the heir has already spent the funds. 
 
 All the function returned values are retrieved from the transactions' opreturns. 
 
-```
+```cpp
 // find the latest owner transaction id
 // this function also returns some values from the initial and latest transaction opreturns
 // Note: this function is also called from validation code (use non-locking calls)
@@ -954,20 +963,27 @@ uint256 FindLatestOwnerTx(uint256 fundingtxid, CPubKey& ownerPubkey, CPubKey& he
 {
     uint8_t eval, funcId;
 ```
+
 Initialize the flag as if the heir has not begun to spend the funds yet:
-```
+
+```cpp
     hasHeirSpendingBegun = 0; 
 ```
+
 Init some variables:
-```
+
+```cpp
     CTransaction fundingtx;
     uint256 hashBlock;
     std::vector<uint8_t> vopret;
     std::string name;
 ```
+
 Load the initial funding tx, check if it has a correct opreturn and deserialize it. 
+
 Check tx rules and return empty id if the funding tx could not be loaded or is incorrect:
-```
+
+```cpp
     if (!myGetTransaction(fundingtxid, fundingtx, hashBlock) ||  // NOTE: use non-locking version of GetTransaction as we may be called from validation code
         fundingtx.vout.size() == 0 ||    // no vouts, even opreturn
         !GetOpReturnData(fundingtx.vout.back().scriptPubKey, vopret) ||   // could not get opreturn from the last vout
@@ -976,22 +992,30 @@ Check tx rules and return empty id if the funding tx could not be loaded or is i
         funcId != 'F')    // incorrect funcid in the 2nd byte
         return zeroid;
 ```   
+
 Init cc contract object for heir contract eval code:
+
 ```
     struct CCcontract_info *cp, C;
     cp = CCinit(&C, EVAL_HEIR);
 ```
+
 Get the address of cryptocondition '1 of 2 pubkeys' into coinaddr array (where the fund is stored):
+
 ```       
     char coinaddr[64];
     GetCCaddress1of2(cp, coinaddr, ownerPubkey, heirPubkey); 
 ```
+
 Get the vector with uxtos for the `1 of 2 address`:
+
 ```
     std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue>> unspentOutputs;    
     SetCCunspents(unspentOutputs, coinaddr, true);				 
 ```
+
 Go through uxto's to find the last funding or spending owner tx:
+
 ```
     int32_t maxBlockHeight = 0; 
     uint256 latesttxid = fundingtxid;   // set to initial txid
@@ -1005,9 +1029,12 @@ Go through uxto's to find the last funding or spending owner tx:
 
         int32_t blockHeight = (int32_t)it->second.blockHeight;
 ```
+
 Get a transaction from the returned array,
+
 check and unmarshal its opret and check if the current tx is from this funding plan:
-```
+
+```cpp
         if (myGetTransaction(it->first.txhash, vintx, blockHash) &&     // NOTE: use non-locking version of GetTransaction as we may be called from validation code
             vintx.vout.size() > 0 &&
             GetOpReturnData(vintx.vout.back().scriptPubKey, vopret) &&
@@ -1016,19 +1043,27 @@ check and unmarshal its opret and check if the current tx is from this funding p
             (funcId == 'C' || funcId == 'A') &&
             fundingtxid == txidopret )   {
 ```
+
 As SetCCunspents function returns uxtos not in the chronological order we need to order them by the block height as we need the latest one:
-```
+
+```cpp
             if (blockHeight > maxBlockHeight) {
 
 ```
+
 Now check if this tx was the owner's activity:
+
 use pair of cc sdk functions that walk through vin array and find if the tx was signed with the owner's pubkey:
-```
+
+```cpp
                 if (TotalPubkeyNormalInputs(vintx, ownerPubkey) > 0 || TotalPubkeyCCInputs(vintx, ownerPubkey) > 0) {
 ```
+
 Reset the lastest txid to this current txid if this tx is owner's activity,
+
 set the flag from the tx opretun:
-```
+
+```cpp
                     latesttxid = it->first.txhash;
 		    hasHeirSpendingBegun = flagopret;
                     maxBlockHeight = blockHeight;
@@ -1037,11 +1072,15 @@ set the flag from the tx opretun:
         }
     }
 ```
+
 Return found the latest owner transaction id:
-```
+
+```cpp
     return latesttxid;
 }
 ```
+
+<!--
 
 #### Simplified validation function implementation
 
