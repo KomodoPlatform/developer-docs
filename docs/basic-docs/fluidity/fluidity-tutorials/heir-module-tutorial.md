@@ -949,28 +949,31 @@ Return the total amount of inputs added to the transaction's vin array:
 
 #### Simplified Implementation of the FindLatestOwnerTx Function
 
-To calculate the owner inactivity time and to enable the heir to <!-- claim? or send? --> the funds, we need a function which enumerates transactions from the module's funding plan and finds the latest owner transaction.
+To calculate the owner-inactivity time and to enable the heir to <!-- claim? or send? --> the funds, we implement the function, `FindLatestOwnerTx`.
 
-This is this function implementation. The input parameter passed into it is initial funding txid. The function returns the owner and heir pubkeys, the owner inactivity time and a flag if the heir has already spent the funds. 
+This function iterates through the transactions of the module's funding plan <!-- should this say "plans", i.e. plural ? --> and finds the owner's latest transaction. We pass into this function the initial funding transaction id of the plan we desire to inspect.
 
-All the function returned values are retrieved from the transactions' opreturns. 
+The function returns the pukeys of both the owner and the heir, the owner inactivity time, and a flag that indicates whether the heir has already spent funds from the `1of2` address. 
+
+All returned values of the function are retrieved from the transactions' OP_RETURNs. 
 
 ```cpp
 // find the latest owner transaction id
 // this function also returns some values from the initial and latest transaction opreturns
 // Note: this function is also called from validation code (use non-locking calls)
+
 uint256 FindLatestOwnerTx(uint256 fundingtxid, CPubKey& ownerPubkey, CPubKey& heirPubkey, int64_t& inactivityTime, uint8_t &hasHeirSpendingBegun)
 {
     uint8_t eval, funcId;
 ```
 
-Initialize the flag as if the heir has not begun to spend the funds yet:
+Initialize the flag as though the heir has not yet spent any of their plan's funds.
 
 ```cpp
     hasHeirSpendingBegun = 0; 
 ```
 
-Init some variables:
+Initialize the following variables.
 
 ```cpp
     CTransaction fundingtx;
@@ -979,9 +982,9 @@ Init some variables:
     std::string name;
 ```
 
-Load the initial funding tx, check if it has a correct opreturn and deserialize it. 
+Load the initial funding transaction, check whether it has a correct OP_RETURN, and deserialize it. 
 
-Check tx rules and return empty id if the funding tx could not be loaded or is incorrect:
+Check <!-- Check the transaction rules? Or check (general) transaction rules? --> transaction rules. Return an empty ID if the funding transaction cannot not be loaded or is incorrect.
 
 ```cpp
     if (!myGetTransaction(fundingtxid, fundingtx, hashBlock) ||  // NOTE: use non-locking version of GetTransaction as we may be called from validation code
@@ -993,30 +996,32 @@ Check tx rules and return empty id if the funding tx could not be loaded or is i
         return zeroid;
 ```   
 
-Init cc contract object for heir contract eval code:
+Initialize the CC contract object <!-- `CCcontract_info` or `cp` object? --> for the Heir module's `EVAL` code.
 
-```
+```cpp
     struct CCcontract_info *cp, C;
     cp = CCinit(&C, EVAL_HEIR);
 ```
 
-Get the address of cryptocondition '1 of 2 pubkeys' into coinaddr array (where the fund is stored):
+Declare the `coinaddr` array and use the `GetCCaddress1of2` function to pass the array the `1of2` address that holds our funds.
 
-```       
+```cpp       
     char coinaddr[64];
     GetCCaddress1of2(cp, coinaddr, ownerPubkey, heirPubkey); 
 ```
 
-Get the vector with uxtos for the `1 of 2 address`:
+<!-- I don't understand the sentence below or the code below. Will need more detail. -->
 
-```
+Get the vector with uxtos for the `1of2` address.
+
+```cpp
     std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue>> unspentOutputs;    
     SetCCunspents(unspentOutputs, coinaddr, true);				 
 ```
 
-Go through uxto's to find the last funding or spending owner tx:
+Iterate through the returned uxto's to find the last funding or spending owner transaction:
 
-```
+```cpp
     int32_t maxBlockHeight = 0; 
     uint256 latesttxid = fundingtxid;   // set to initial txid
     for (std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue>>::const_iterator it = unspentOutputs.begin(); it != unspentOutputs.end(); it++)
@@ -1030,9 +1035,7 @@ Go through uxto's to find the last funding or spending owner tx:
         int32_t blockHeight = (int32_t)it->second.blockHeight;
 ```
 
-Get a transaction from the returned array,
-
-check and unmarshal its opret and check if the current tx is from this funding plan:
+Retrieve the transaction from the returned array. Check and unmarshal the transaction's OP_RETURN and check whether this transaction is from the relevant Heir plan.
 
 ```cpp
         if (myGetTransaction(it->first.txhash, vintx, blockHash) &&     // NOTE: use non-locking version of GetTransaction as we may be called from validation code
@@ -1044,24 +1047,21 @@ check and unmarshal its opret and check if the current tx is from this funding p
             fundingtxid == txidopret )   {
 ```
 
-As SetCCunspents function returns uxtos not in the chronological order we need to order them by the block height as we need the latest one:
+As the `SetCCunspents` function does not return uxtos in chronological order, order them by block height to find the latest utxo.
 
 ```cpp
             if (blockHeight > maxBlockHeight) {
-
 ```
 
-Now check if this tx was the owner's activity:
-
-use pair of cc sdk functions that walk through vin array and find if the tx was signed with the owner's pubkey:
+Check whether this transaction indicates owner activity. Use a pair of CC SDK functions that iterate through the vin array to find if the transaction was signed with the owner's pubkey.
 
 ```cpp
                 if (TotalPubkeyNormalInputs(vintx, ownerPubkey) > 0 || TotalPubkeyCCInputs(vintx, ownerPubkey) > 0) {
 ```
 
-Reset the lastest txid to this current txid if this tx is owner's activity,
+If this transaction represents owner activity, reset the lastest transaction ID to this current transaction ID.
 
-set the flag from the tx opretun:
+Set the flag for the transaction OP_RETURN.
 
 ```cpp
                     latesttxid = it->first.txhash;
@@ -1073,20 +1073,19 @@ set the flag from the tx opretun:
     }
 ```
 
-Return found the latest owner transaction id:
+Return the latest owner transaction ID:
 
 ```cpp
     return latesttxid;
 }
 ```
 
-<!--
+#### Simplified Validation Function Implementation
 
-#### Simplified validation function implementation
-
-Validation is the second important part of cc contract source code (the first is rpc functions for cc contract transaction creation) as it provides the logic control of cc contract value being spent and the data being added to the block chain. 
+Validation is the second most important part of Antara module source code (the first most important part is the RPC functions for Antara module transaction creation). The reason for the importance of validation is that it provides the logic control of spent Antara-module value, and it provides the data added to the Smart Chain. 
 
 Remember that validation code is invoked for a transaction when the cc contract value is being spent and not when it just being added. In other words, the cc contract validation function invokation is triggered if at least one of a transaction inputs is a cc input with this contract eval code in it.
+
 So for the first cc contract initial transaction the validation code usually is not called. To provide the validation of the initial tx you need to step back when validating the successive tx which spends the initial tx. In this step back you could load the initial tx and validate it too. If it turned out to be invalid it would remain in the chain and should be skipped and not taken into account. (If cc marker is used it might be cleared and such tx is removed from the contract instances list output.)
 
 Not let's decide what validation we need for our simplified 'Heir' cc contract.
@@ -1200,6 +1199,8 @@ All rules are passed return okay:
 ```
 
 Supporting functions CheckSpentTxns and CheckInactivityTime both are in heir.cpp source
+
+<!--
 
 
 ### Validation code errors 
