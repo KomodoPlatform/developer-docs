@@ -492,7 +492,7 @@ We add the RPC function definitnion in the `rpc/server.h` source file.
 
 The declaration in this file is essentially the same across all RPC functions.
 
-```C++
+```cpp
 UniValue heirfund(const UniValue& params, bool fHelp)
 ```
 
@@ -512,7 +512,7 @@ Creating a new RPC source file for each Antara module's RPC functions is conside
 
 To begin the RPC command, we declare the `heirfund` function and clear the global error object.
 
-```C++
+```cpp
 // heirfund command rpc-level implementation, src/wallet/rpcwallet.cpp
 UniValue heirfund(const UniValue& params, bool fHelp)
 {
@@ -525,7 +525,7 @@ Therefore, we check that the wallet and Heir module features are available in th
 
 <!-- Can you please add more inline commentary below? What is the EnsureWalletIsAvailable command? and what is the ensure_CCrequirements command? State what arguments they take, as well.-->
 
-```C++
+```cpp
     if (!EnsureWalletIsAvailable(fHelp))
         return NullUniValue;
     if (ensure_CCrequirements(EVAL_HEIR) < 0)
@@ -537,7 +537,7 @@ Therefore, we check that the wallet and Heir module features are available in th
 
 Lock the user's wallet:
 
-```C++
+```cpp
     LOCK2(cs_main, pwalletMain->cs_wallet);	
 ```
 
@@ -560,7 +560,7 @@ Original Content:
 Note the method for parsing the hex representation of the pubkey parameter and converting it to a `CPubKey` object.
 
 
-```C++
+```cpp
     CAmount amount = atof(params[0].get_str().c_str()) * COIN;  // Note conversion from satoshis to coins through a multiplication of 10E8
     std::string name = params[1].get_str();
     std::vector<uint8_t> vheirpubkey = ParseHex(params[2].get_str().c_str());
@@ -570,7 +570,7 @@ Note the method for parsing the hex representation of the pubkey parameter and c
 
 Finally, call the Heir module code, pass our values (now in C++ type format), and set these as the value of the final `result` object. Bear in mind that the returned value from the Heir module code, `HeirFund`, returns a hexadecimal value.
 
-```C++
+```cpp
     UniValue result = HeirFund(amount, name, heirpk, inactivitytime);
     RETURN_IF_ERROR(CCerror);  // use a macro to throw runtime_error if CCerror is set in HeirFund()
     return result;
@@ -593,7 +593,7 @@ Here is the skeleton of the heirfund rpc implementation.
 
 -->
 
-```C++
+```cpp
 // heirfund transaction creation code, src/cc/heir.cpp
 std::string HeirFund(int64_t amount, std::string heirName, CPubKey heirPubkey, int64_t inactivityTimeSec)
 {
@@ -601,13 +601,13 @@ std::string HeirFund(int64_t amount, std::string heirName, CPubKey heirPubkey, i
 
 Create a mutable version of a transaction object.
 
-```C++
+```cpp
     CMutableTransaction mtx = CreateNewContextualCMutableTransaction(Params().GetConsensus(), komodo_nextheight());
 ```
 
 Declare and initialize an `CCcontract_info` object with Heir module variables, such as our global CC address, our global private key, etc.
 
-```C++
+```cpp
     struct CCcontract_info *cp, C;
     cp = CCinit(&C, EVAL_HEIR);
 ```
@@ -620,7 +620,7 @@ We use the `pubkey` from the komodod `-pubkey` launch parameter as the destinati
 
 We use a function in the CC SDK, `AddNormalinputs`, to add the normal inputs to the mutable transaction. 
 
-```C++
+```cpp
     const int64_t txfee = 10000;
     CPubKey myPubkey = pubkey2pk(Mypubkey());   
     if (AddNormalinputs(mtx, myPubkey, amount+2*txfee , 60) > 0) { 
@@ -646,7 +646,7 @@ You will always need some kind of marker for any Antara module instance for at l
 
 We call this a <b>marker pattern</b> in Antara development, and we will explore this later in the tutorial.
 
-```C++
+```cpp
         mtx.vout.push_back( MakeCC1of2vout(EVAL_HEIR, amount, myPubkey, heirPubkey) );
         mtx.vout.push_back( MakeCC1vout(EVAL_HEIR, txfee, GetUnspendable(cp, NULL)) );
 ```
@@ -657,7 +657,7 @@ Note the cast to `uint8_t` for the constants `EVAL_HEIR` and `F` function id. Th
 
 Also, an OP_RETURN object with the data from this module instance is passed. To create the OP_RETURN object, serialize the needed ids and variables to a `CScript` object.
 
-```C++
+```cpp
         std::string rawhextx = FinalizeCCTx(0, cp, mtx, myPubkey, txfee,
             CScript() << OP_RETURN << (uint8_t)EVAL_HEIR << (uint8_t)'F' << myPubkey << heirPubkey << inactivityTimeSec << heirName));
         return rawhextx;
@@ -665,7 +665,8 @@ Also, an OP_RETURN object with the data from this module instance is passed. To 
 ```
 
 In case the `AddNormalinputs` function cannot find sufficient owner coins for the requested amount (including the transaction fee), we set the `CCerror` error object.
-```
+
+```cpp
     CCerror = "not enough coins for requested amount and txfee";
     return std::string("");
 }
@@ -677,42 +678,51 @@ Note that we do not need to add the normal change output here because the `Final
 
 Also note the `E_MARSHAL` function. This serializes variables of various types to a byte array. The byte array is then serialized to `CScript` object. The object is stored in the `scriptPubKey` transaction field. 
 
-<!-- what about the E_UNMARSHAL function? -->
+<!-- what about the E_UNMARSHAL function? Can you describe what it does with a little more detail? -->
 
-There is also the mirror E_UNMARSHAL function.
+There is also the mirror `E_UNMARSHAL` function.
 
-The returned transaction is ready to be sent to the blockchain with sendrawtransaction rpc.
+The returned transaction is ready to be sent to the Smart Chain network using the [<b>sendrawtransaction</b>](../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) RPC.
 
-Now let's develop an rpc for claiming the funds.
+#### Implmenting the heirclaim RPC
 
-<!--
+As before, this implementation has two levels. The first level checks the required environment and converts the parameters. The second level creates creates the final transaction. 
 
-#### heirclaim implementation
+##### heirclaim syntax
 
-Again, this implementation will be two-level, with the first level to check the required environment and converting the parameters and the second level to create claiming transaction.
-the heirclaim rpc call syntax is very simple:
-```
-komodo-cli -ac_name=YOURCHAIN heirclaim fundingtxid amount
+```bash
+./komodo-cli -ac_name=YOURCHAIN heirclaim fundingtxid amount
 ```
 
-Add a new command to komodo-cli by adding a new element in to vRPCCommands array in the source file src/server.cpp::
-```
+##### Add the RPCto komodo-cli
+
+Add a new command to `komodo-cli` by adding a new element into the `vRPCCommands` array in the source file `src/server.cpp`.
+
+```cpp
     { "heir",       "heirclaim",   &heirclaim,      true },
 ```
 
-Add a heirclaim rpc call implementation (in rpc/wallet.cpp)
-Add the heirclaim declaration in rpc/server.h header file.
+Using the previous section of the tutorial as an example, add an `heirclaim` RPC implementation in the `src/rpc/wallet.cpp` source file.
 
-```
+<!-- No need to re-explain how and what is happening, but let's display the final code below. -->
+
+Add the `heirclaim` declaration in the the `src/rpc/server.h` header file.
+
+```cpp
 // heirclaim command rpc-level implementation, src/wallet/rpcwallet.cpp 
+
 UniValue heirclaim(const UniValue& params, bool fHelp)
 {
     CCerror.clear(); // clear global error object
 ```
-check that the wallet is available. 
-if asked for help or the param size is incorrect, return help message.
+
+Check that the wallet is available. 
+
+In case the user asks for help via the `--help` parameter, or in case the parameters are not correctly submitted, print a `help` message to the console.
+
 Also check that cc contract requirements are satisfied:
-```
+
+```cpp
     if (!EnsureWalletIsAvailable(fHelp))
         return NullUniValue;
     if (fHelp || params.size() != 2)
@@ -720,41 +730,55 @@ Also check that cc contract requirements are satisfied:
     if (ensure_CCrequirements(EVAL_HEIR) < 0)
 	throw runtime_error("to use CC contracts, you need to launch daemon with valid -pubkey= for an address in your wallet\n");
 ```
+
 Lock the wallet:
-```
+
+```cpp
     LOCK2(cs_main, pwalletMain->cs_wallet);
 ```
-Convert the parameters from UniValue to c++ types: 
-```
+
+Convert the parameters from `UniValue` to `c++` type: 
+
+```cpp
     uint256 fundingtxid = Parseuint256((char*)params[0].get_str().c_str());
     CAmount amount = atof(params[1].get_str().c_str()) * COIN;  // Note conversion from satoshis to coins by multiplication by 10E8
 ```
-Call the claim tx creation function and return the created tx in hexademical
-```
+
+Call the `HeirClaim` transaction creation function and return the created transaction in hexademical.
+
+```cpp
     UniValue result = HeirClaim(fundingtxid, amount);
     RETURN_IF_ERROR(CCerror);  // use a macro to throw runtime_error if CCerror is set in HeirFund()
     return result;
 }
 ```
 
-Now implement the claim tx creation code.
-```
+Implement the `HeirClaim` transaction creation code in the `src/cc/heir.cpp` source file.
+
+```cpp
 // heirclaim transaction creation function, src/cc/heir.cpp
 std::string HeirClaim(uint256 fundingtxid, int64_t amount)
 {
 ```
+
 Start with creating a mutable transaction object:
-```
+
+```cpp
     CMutableTransaction mtx = CreateNewContextualCMutableTransaction(Params().GetConsensus(), komodo_nextheight());
 ```
-Next, init the cc contract object:
-```
+
+Initialize the `cp` object:
+
+<!-- Sidd: I probably messed up the above. Need to check it over. -->
+
+```cpp
     struct CCcontract_info *cp, C;
     cp = CCinit(&C, EVAL_HEIR);
 ```
-Now we need to find the latest owner transaction to calculate the owner's inactivity time:
-Use a developed helper FindLatestOwnerTx function which returns the lastest txid, the owner and heir public keys, inactivity time setting value and the hasHeirSpendingBegun flag value:
-```
+
+Find the most recent owner transaction to calculate the owner's inactivity time. The helper function, `FindLatestOwnerTx`, returns the lastest transaction id, the `owner` and `heir` public keys, `inactivity time setting` value, and the `hasHeirSpendingBegun` flag value.
+
+```cpp
     const int64_t txfee = 10000;
     CPubKey ownerPubkey, heirPubkey;
     int64_t inactivityTimeSec;
@@ -765,9 +789,12 @@ Use a developed helper FindLatestOwnerTx function which returns the lastest txid
         return "";
     }
 ```
-Now check if the inactivity time has passed from the last owner transaction. Use cc sdk function which returns time in seconds from the block with the txid in the params to the chain tip block.
-If hasHeirSpendingBegun is set then no need to check again the owner inactivity time:
-```
+
+Check whether the inactivity time of the owner has surpassed the amount designated in the plan. The <!-- CCduration ? --> CC SDK function returns the time (in seconds) since the confirmation of the block that bears the provided transaction to the chain-tip block.
+
+If `hasHeirSpendingBegun` is already `true`, there is no need to also check the owner's inactivity time.
+
+```cpp
     int32_t numBlocks; // not used
     bool isAllowedToHeir = (hasHeirSpendingBegun || CCduration(numBlocks, latesttxid) > inactivityTimeSec) ? true : false;
     CPubKey myPubkey = pubkey2pk(Mypubkey());  // pubkey2pk sdk function converts pubkey from a byte array to CPubKey object
@@ -776,104 +803,142 @@ If hasHeirSpendingBegun is set then no need to check again the owner inactivity 
         return "";
     }
 ```
-Let's create the claim transaction inputs and outputs.
-add normal inputs for txfee:
-```
+
+Create the claim transaction inputs and outputs.
+
+Add normal inputs for the transaction fee:
+
+```cpp
     if (AddNormalinputs(mtx, myPubkey, txfee, 3) <= txfee)    {
         CCerror = "not enough normal inputs for txfee";
         return "";
     }
+```
 
-```
-Add cc inputs for the requested amount.
-first get the address of the 1 of 2 threshold cryptocondition output where the funds were deposited:
-```
+Get the address of the `1of2` threshold Crypto-Condition output (where the funds were deposited). Add CC inputs for the requested amount.
+
+```cpp
     char coinaddr[65];
     GetCCaddress1of2(cp, coinaddr, ownerPubkey, heirPubkey);
 ```
-Add cc inputs for this address with use of a custom function:
-```
+
+Add CC inputs for this address with the use of a custom function:
+
+```cpp
     int64_t inputs;
     if( (inputs = Add1of2AddressInputs(mtx, fundingtxid, coinaddr, amount, 64)) < amount )   {
         CCerror = "not enough funds claimed";
         return "";
     }
 ```
-Now add an normal output to send claimed funds to and cc change output for the fund remainder:
-```
+
+Add a normal output to receive the claimed funds, and a CC change output for the remaining amount.
+
+```cpp
     mtx.vout.push_back(CTxOut(amount, CScript() << ParseHex(HexStr(myPubkey)) << OP_CHECKSIG));  
     if (inputs > amount)
         mtx.vout.push_back(MakeCC1of2vout(EVAL_HEIR, inputs - amount, ownerPubkey, heirPubkey));  
 ```
-Add normal change if any, add opreturn data and sign the transaction:
-```
+
+Add normal change (if any), add OP_RETURN data, and sign the transaction:
+
+```cpp
      return FinalizeCCTx(0, cp, mtx, myPubkey, txfee, CScript() << OP_RETURN << E_MARSHAL(ss << (uint8_t)EVAL_HEIR << (uint8_t)'C' << fundingtxid << (myPubkey == heirPubkey ? (uint8_t)1 : hasHeirSpendingBegun)));
 }
 ```
-In the opreturn we just added a pair of standard ids: cc eval code and functional id plus the fundingtxid as the funding plan identifier
-We use a special flag hasHeirSpendingBegun that is turned to 1 when the heir first time spends funds. 
-That means that it is no need further in checking the owner's inactivity time
-Once set to 'true' this flag should be set to true in the following transaction opreturns
 
-#### heiradd, heirlist and heirinfo implementation
+In the OP_RETURN we add a pair of standard ids: the CC `EVAL` code, the functional id, <!-- which one? Also, can we see this? --> and the `fundingtxid` to serve as the funding plan identifier.
 
-The command `heiradd` allows to add more funding to the contract plan. The rpc command `heirlist` is a standard rpc method for all cc contracts and output a list of all initial txids (funding plans). The command `heirinfo` provides some data about a funding plan. 
-The implementation for these rpcs can be found in the github repository with the source code of this contract. 
+The `hasHeirSpendingBegun` value is a special flag. When this value is changed to `1`, it indicates that the heir has spent funds in the fund at least once. Therefore, it is no longer necessary to check the inactivity time of the owner.
+
+<!-- Above we say `1`, but below we say `true`? I know they are similar, but for consistency's sake, we need to choose one or the other? -->
+
+Once `hasHeirSpendingBegun` is set to `true`, this flag should also be set to `true` in the following transaction OP_RETURN values.
+
+#### Implementations for heiradd, heirlist and heirinfo
+
+- `heiradd` allows a user to add more funding to a plan.
+- `heirlist` is a standard RPC for all CC modules. This RPC outputs a list of all initial transaction IDs, which serve as the identifiers for each plan.
+- `heirinfo` provides some data about a funding plan 
+
+<!-- The implementation for these RPCs can be found in the github repository with the source code of this contract.  -->
+
+<!-- Let's provide links to each one. -->
 
 #### Simplified Add1of2AddressInputs function implementation
 
-```
+```cpp
 // add inputs from cc threshold=2 cryptocondition address to transaction object, src/cc/heir.cpp
 int64_t Add1of2AddressInputs(CMutableTransaction &mtx, uint256 fundingtxid, char *coinaddr, int64_t amount, int32_t maxinputs)
 {
     int64_t totalinputs = 0L;
     int32_t count = 0;
 ```
-Call the cc sdk function SetCCunspents that fills the provider vector with a list of unspent outputs for the provider bitcoin address coinaddr (actually we passed here the 1of2 address where fund is stored)
-```
+
+By default, the CC SDK function, `SetCCunspents`, fills the provider <!-- provider = returned ? --> vector with a list of unspent outputs of the provided `coinaddr` Bitcoin address.
+
+For our Heir module, we pass the `1of2` address where the plan's funds are stored.
+
+```cpp
     std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue>> unspentOutputs;
     SetCCunspents(unspentOutputs, coinaddr, true);  // get a vector of uxtos for the address in coinaddr[]
 ```
-Go through the returned uxtos and add appropriate ones to the transaction's vin array:
-```
+
+Iterate through the returned uxtos and add those that are appropriate to the transaction's vin array:
+
+```cpp
     for (std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue>>::const_iterator it = unspentOutputs.begin(); it != unspentOutputs.end(); it++) {
          CTransaction tx;
          uint256 hashBlock;
          std::vector<uint8_t> vopret;
 ```
+
 Load current uxto's transaction and check if it has an opreturn in the back of array of outputs: 
-```
+
+```cpp
          if (GetTransaction(it->first.txhash, tx, hashBlock, false) && tx.vout.size() > 0 && GetOpReturnData(tx.vout.back().scriptPubKey, vopret) && vopret.size() > 2)
          {
               uint8_t evalCode, funcId, hasHeirSpendingBegun;
               uint256 txid;
 ```
+
 Check if the uxto is from this funding plan: 
-```
+
+```cpp
               if( it->first.txhash == fundingtxid ||   // if this is our contract instance coins 
                   E_UNMARSHAL(vopret, { ss >> evalCode; ss >> funcId; ss >> txid >> hasHeirSpendingBegun; }) && // unserialize opreturn
                   fundingtxid == txid  ) // it is a tx from this funding plan
               {
 ```
+
 Add the uxto to the transaction's vins, that is, set the txid of the transaction and vout number providing the uxto. Pass empty CScript() to scriptSig param because it will be filled by FinalizeCCtx:
-```
+
+```cpp
                   mtx.vin.push_back(CTxIn(it->first.txhash, it->first.index, CScript()));
                   totalinputs += it->second.satoshis;   
 ```
+
 Stop if sufficient cc inputs have been found.
+
 If amount parameter is 0 that would mean to add all available inputs to calculate all available fund amount
-```
+
+```cpp
                   if( amount > 0 && totalinputs >= amount || ++count > maxinputs )
                       break;
               }
          } 
     }
 ```
+
 Return the total inputs amount which has been added to the transaction vin array:
-```
+
+```cpp
     return totalinputs;
 }
 ```
+
+<!--
+
 #### Simplified FindLatestOwnerTx implementation
 
 To calculate the owner inactivity time and to enable the heir to send the funds we need a function which enumerates transactions from the contract funding plan and finds the latest owner transaction.
