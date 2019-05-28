@@ -489,10 +489,6 @@ Response (error):
 
 **setprice base rel price volume**
 
-::: warning Note
-This API method's documentation is currently limited, as we are still testing.
-:::
-
 The `setprice` method places an order on the orderbook, and it relies on this node acting as a `maker` -- also called a `Bob` node. 
 `setprice` order is always considered as `sell` for internal implementation convenience.
 
@@ -502,14 +498,23 @@ The `setprice` method places an order on the orderbook, and it relies on this no
 | --------- | -------- | ----------- |
 | base      | string | the name of the coin the user desires to sell |
 | rel       | string | the name of the coin the user desires to receive |
-| price     | number | the price in `rel` the user is willing to receive per one unit of the `base` coin |
-| volume    | number | the maximum amount of `base` coin available for the order |
+| price     | string (numeric) | the price in `rel` the user is willing to receive per one unit of the `base` coin |
+| volume    | string (numeric) | the maximum amount of `base` coin available for the order |
 
 ### Response:
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| result | string | whether the request succeeded | 
+| result    | object   | resulting order object | 
+| result.base | string | base coin of the order | 
+| result.rel  | string | rel coin of the order  | 
+| result.price | string (numeric) | the expected amount of `rel` coin to be received per 1 unit of `base` coin, returned as string to avoid floating point representation errors | 
+| result.max_base_vol  | string (numeric) | maximum volume of base coin available to trade, returned as string to avoid floating point representation errors | 
+| result.min_base_vol  | string (numeric) | MM2 won't match with other orders that attempt to trade less than `min_base_vol`, returned as string to avoid floating point representation errors | 
+| result.created_at    | number | unix timestamp in milliseconds indicating the order creation time |
+| result.matches | object | contains the map of ongoing matches with other orders, empty as order is just created |
+| result.started_swaps | array of strings | uuids of swaps that were initiated by the order |
+| result.uuid | string | uuid of the created order |
 
 #### :pushpin: Examples:
 
@@ -522,13 +527,63 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 Response (success):
 
 ```json
-{"result":"success"}
+{
+    "result": {
+        "base": "BASE",
+        "rel": "REL",
+        "max_base_vol": "1",
+        "min_base_vol": "0",
+        "created_at": 1559052299258,
+        "matches": {},
+        "price": "1",
+        "started_swaps": [],
+        "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41"
+    }
+}
 ```
 
 Response (error):
 
 ```json
 {"error":"Rel coin REL is not found"}
+```
+
+## cancel_order
+
+**cancel_order uuid**
+
+The `cancel_order` cancels the active `maker` order. This method is not applicable to `taker` orders yet.
+
+### Arguments:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| uuid      | string   | the uuid of the order the user desires to cancel |
+
+### Response:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| result    | string   | indicates the status of operation | 
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"cancel_order\",\"uuid\":\"6a242691-6c05-474a-85c1-5b3f42278f41\"}"
+```
+
+Response (success):
+
+```json
+{"result":"success"}
+```
+
+Response (error):
+
+```json
+{"error":"Order with uuid 6a242691-6c05-474a-85c1-5b3f42278f42 is not found"}
 ```
 
 ## stop
