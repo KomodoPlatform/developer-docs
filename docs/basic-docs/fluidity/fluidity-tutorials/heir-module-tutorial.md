@@ -1053,7 +1053,9 @@ As the `SetCCunspents` function does not return uxtos in chronological order, or
             if (blockHeight > maxBlockHeight) {
 ```
 
-Check whether this transaction indicates owner activity. Use a pair of CC SDK functions that iterate through the vin array to find if the transaction was signed with the owner's pubkey.
+Check whether this transaction indicates owner activity. Use a pair of CC SDK functions, `TotalPubkeyNormalInputs()` and `TotalPubkeyCCInputs()`, that iterate through the vin array to find if the transaction was signed with the owner's pubkey.
+
+<!-- Do you want to link to the location of these SDK functions in the source code, since we don't have them documented anywhere? -->
 
 ```cpp
                 if (TotalPubkeyNormalInputs(vintx, ownerPubkey) > 0 || TotalPubkeyCCInputs(vintx, ownerPubkey) > 0) {
@@ -1082,58 +1084,96 @@ Return the latest owner transaction ID:
 
 #### Simplified Validation Function Implementation
 
-Validation is the second most important part of Antara module source code (the first most important part is the RPC functions for Antara module transaction creation). The reason for the importance of validation is that it provides the logic control of spent Antara-module value, and it provides the data added to the Smart Chain. 
+<!-- Is it important to clarify the level of importance between Validation and RPC implementations? Can rewrite, if needed --> Validation provides the logic control of spent Antara-module value, and validation also provides the data added to the Smart Chain. 
 
-Remember that validation code is invoked for a transaction when the cc contract value is being spent and not when it just being added. In other words, the cc contract validation function invokation is triggered if at least one of a transaction inputs is a cc input with this contract eval code in it.
+Recall that validation code is invoked for a transaction at the time the CC-related value is spent (as opposed to only being invoked at the time the value is added). <!-- I don't understand that previous sentence well enough still. --> We trigger the invokation of this validation function when at least one transaction input is a CC input bearing this module's `EVAL` code.
 
-So for the first cc contract initial transaction the validation code usually is not called. To provide the validation of the initial tx you need to step back when validating the successive tx which spends the initial tx. In this step back you could load the initial tx and validate it too. If it turned out to be invalid it would remain in the chain and should be skipped and not taken into account. (If cc marker is used it might be cleared and such tx is removed from the contract instances list output.)
+Validation code typically is not called for the CC module's initial transaction. Instead, we invoke validatation at the time the initial transaction is spent in a second transaction. 
 
-Not let's decide what validation we need for our simplified 'Heir' cc contract.
+One way to invoke validation for the first transaction when performing the second transaction is to load the initial transaction and validate it first. If the initial transaction turns out to be invalid, it can remain in the chain and is otherwise ignored. <!-- How does this affect the store of value of the customer? Can they lose funds if an initial CC transaction is improperly created? --> In this case, if a CC marker is used, it can be cleared <!-- How specifically? --> and the transaction is removed from the <!-- I changed this from "module instance" to "RPC", hope that's okay --> RPC list output.
 
-Actually we have just tree transaction in this contract: initial funding, adding more value and claiming tx. As initian or adding tx do not have cc vins they are validated together with claming transaction.
+#### Guidelines for Validation
 
-What needs to be validated? 
+In our Heir module prototype, we have three transactions to validate: the initial funding, the transaction that adds more value, and the transaction that claims the funds. The first and second of these transactions do not have any CC vins, and therefore all are validated together with the transaction that claims the funds.
 
-Here is some common rules relevant to most contracts:
+Here are several common aspects of a module that require validation:
 
-* Obviously the first is the basic transaction structure and especially basic data structure in opreturn to ensure data integrity in the chain.
-All opreturns should contain the eval code and functional id in the first two bytes. 
-* When validating a tx, please remember about possible attacks and do not allow DOS attacks if a tx is incorrectly formed, check array size before use of it.
-* Load and check the initial tx for this tx by retrieving the txid from the opreturn and load the initial tx.
+- The basic transaction structure
+- The basic data structure in OP_RETURN
+  - Validation here ensures data integrity in the chain
+  - All OP_RETURNs should contain the `EVAL` code and functional id in the first two bytes 
+- Avoid all foreseeable attack vectors
+  - Ensure DOS attacks are eliminated, especially in the event of a malformed transaction
+  - Check the array size before use of any transaction (?) <!-- the sentence was unclear here -->
+- Check the initial transaction for this transaction <!-- not clear what "this transaction" refers to --> by retrieving the transaction ID from the OP_RETURN and loading the initial transaction
 
-The specific rules for 'Heir' cc contract transactions:
+#### Heir Module Validations
 
-* For the funding tx it is good to validate that 1 of 2 address really matches pubkeys in the opreturn.
-* For the tx which spend the funds it is important to validate the txid in the opreturns and opreturn of the tx being spent ('vintx') which binds the tx to the contract instance data, so the txids should be equal to the initial txid.   
-* Obviously we should validate if the heir is allowed to spend the funds, that is either enough time has passed from the last owner activity or the heir has already begun spending (the flag is on).
-* Although 'Heir' cc contract is for the inheritance of the owner's funds, nothing prevents from adding more coins to the fund's address by anyone else. So we need to select only the owner transactions while checking the owner's inactivity (that is, the transactions with the owner pubkey in its vins).
-* Actually while checking these specific transaction rules we also would check opreturn format more fully.
+The following are the aspects of validation the Heir module requires. 
 
-To get the HeirValidate() validation function activated for the 'Heir cc contract eval code we followed JL's 'Mastering Cryptocondition' book instructions while we added a new cc contract to the system's code.
+- The funding transaction <!-- This is the same as the "initial" transaction, correct? -->
+  - Validate that the `1of2` address accurately matches `pubkeys` in the OP_RETURN
+- The spending transaction <!-- This is the same as the "claim" transaction, correct? -->
+  - Validate the transaction ID <!-- should ID be plural? --> in the OP_RETURNS and OP_RETURN of the transaction spent (`vintx`) <!-- I've never heard of a vintx? --> which binds the transaction to the contract instance data, so the txids should be equal to the initial txid. <!-- I don't understand this well enough to edit. -->
+- Validate whether the heir is allowed to spend the funds
+  - Check whether the flag indicates that the Heir is already spending the funds
+  - Check whether enough time has passed since the last time the owner was active on the chain
+- When validating, separate the owner's funding transaction from any other contributions to the `1of2` address
+    - Although the Heir module is initiated based on the owner's initial transaction, nothing prevents other users on the Smart Chain from contributing funds
+    - Therefore, when validating, for each utxo contained in the `1of2` address, calculate whether or not the utxo's vins contain the owner's pubkey
+- During the course of validation, we fully check OP_RETURN format
 
-This is HeirValidate implementation:
-```
-// Tx validation entry function, it is a callback actually
-// params: 
-// cpHeir pointer to contract variable structure
-// eval pointer to cc dispatching object, used to return invalid state
-// tx is the tx itself
-// nIn not used in validation code
+To activate the `HeirValidate()` function for the Heir module `EVAL` code <!-- Are we talking about what is happening in the daemon here? -->
+
+<!-- Do we not see in the tutorial what is happening in the below sentence? Can we, if not? Not fully clear. I need to re-read first, probably. -->
+
+(?), we followed JL's 'Mastering Cryptocondition' book instructions while we added a new cc contract to the system's code. (?)
+
+##### `HeirValidate()` Implementation
+
+Explanation of code:
+
+- Transaction-validation entry function
+  - (this is actually a callback)
+- Parameters
+  - `cpHeir` - pointer to the module's variable structure
+  - `eval` - pointer to the CC dispatching object
+    - used to return invalid state
+  - `tx` - the transaction itself
+  - `nIn` - not used in validation code
+
+```cpp
 bool HeirValidate(struct CCcontract_info* cpHeir, Eval* eval, const CTransaction& tx, uint32_t nIn)
 {
 ```
-Common validation rules for all funcid.
-First let's check basic tx structure, that is, has opreturn with correct basic evalcode and funcid
-Note: we do not check for 'F' or 'A' funcids because we never get into validation code for the initial tx or for an add tx as they have no heir cc vins ever:
-```
+
+<!-- I don't understand the sentence below well enough to edit yet. -->
+
+(?) Common validation rules for all funcid. (?)
+
+Check the basic transaction structure -- does it have the OP_RETURN, with the correct basic `evalcode` and `funcid`
+
+::: tip
+
+There is no need to check the function ids of the (`F`) funding transaction or the (`A`) add transaction, as these transactions have no Heir CC vins. Therefore, we do not create validation code for them.
+
+:::
+
+```cpp
     std::vector <uint8_t> vopret;
     if( tx.vout.size() < 1 || !GetOpReturnData(tx.vout.back().scriptPubKey, vopret) || vopret.size() < 2 || vopret.begin()[0] != EVAL_HEIR || 
         vopret.begin()[1] != 'C')
+
         // interrupt the validation and return invalid state:
+
         return eval->Invalid("incorrect or no opreturn data");  // note that you should not return simply 'false'
 ```
+
+<!-- Need help to parse the sentence below. -->
+
 Let's try to decode tx opreturn, fundingtxid is this contract instance id (the initial tx id):
-```
+
+```cpp
     uint8_t evalcode, funcId;
     uint256 fundingtxid; //initialized to null
     uint8_t hasHeirSpendingBegun;
@@ -1141,15 +1181,19 @@ Let's try to decode tx opreturn, fundingtxid is this contract instance id (the i
         // return invalid state if unserializing function returned false:
         return eval->Invalid("incorrect opreturn data");
 ```
-Important to check if fundingtxid parsed is okay:
-```
+
+Check that the `fundingtxid` is correctly parsed:
+
+```cpp
     if( fundingtxid.IsNull() )
         return eval->Invalid("incorrect funding plan id in tx opret");
 ```
-It is good place to load the initial tx and check if it exist and has correct opretun
-We are callinng FindLatestOwnerTx function to obtain opreturn parameters and hasHeirSpendingBegun flag,
-and this function also checks the initial tx:
-```
+
+Here we come to a good place to load the initial transaction, check whether it exists, and whether it has a correctly formed OP_RETURN. 
+
+Call the `FindLatestOwnerTx()` function. This function obtains the OP_RETURN parameters and the `hasHeirSpendingBegun` flag, and checks the initial transaction.
+
+```cpp
     CPubKey ownerPubkey, heirPubkey;
     int64_t inactivityTimeSec;
     uint8_t lastHeirSpendingBegun;
@@ -1158,125 +1202,162 @@ and this function also checks the initial tx:
         return eval->Invalid("no or incorrect funding tx found");
     }
 ```
-Just log we are in the validation code:
-```
+
+Log in the terminal that the daemon process is in the validation code:
+
+```cpp
     std::cerr << "HeirValidate funcid=" << (char)funcId << " evalcode=" << (int)cpHeir->evalcode << std::endl;
 ```
-Validation rules specific for each funcid:
-```
+Prepare for validation rules that are specific for each function id (`F`, `A`, and `C`).
+
+```cpp
     switch (funcId) {
 ```
-For F and A return invalid as we never could get here for the initial or add funding tx:
-```    
+
+For `F` and `A`, we return an invalid response, as the process should never be able to access these function IDs.
+
+```cpp
     case 'F':
     case 'A':
         return eval->Invalid("unexpected HeirValidate for heirfund");
 ```
-Validation for claiming transaction:
-```
+
+Validation for the claiming transaction.
+
+- Check whether we are spending the correct funding transactions
+  - For example, check that the transactions are from the correct module instance, as identified by the `fundingtxid`
+  - If incorrect, return `false`
+- If the heir is claiming the funds, check that he is allowed to do so
+  - For example, check the inactivity time of the owner and whether the heir has already spent funds from the `1of2` address
+- Check whether the new flag, `hasHeirSpendingBegun`, is set correctly
+
+Both of the following support functions, `CheckSpentTxns` and `CheckInactivityTime`, are in the (? link ?) `heir.cpp` source file.
+
+<!-- Let's at least link to these in a permanently location that is held within the docs center. Likely, we should have permanent downloadable files for this tutorial, so that we don't have to try to keep it in sync with any other development. -->
+
+```cpp
     case 'C':
-	// Check if the correct funding txns are being spent, like this txns are from this contract instance identified by fundingtxid
         if (!CheckSpentTxns(cpHeir, eval, tx, fundingtxid))
             return false;
-	// If the heir claiming the funds check whether he is allowed to do this 
-	// (inactivity time passed or he has already begun spending)
-        // Also check if the new flag hasHeirSpendingBegun is set correctly:
         if (!CheckInactivityTime(cpHeir, eval, tx, latesttxid, inactivityTimeSec, heirPubkey, lastHeirSpendingBegun, hasHeirSpendingBegun) )
             return false;
         break;
 ```
-For unsupported funcids return invalid state:
-```
+
+For unsupported function IDs, return an invalid state.
+
+```cpp
     default:
         std::cerr << "HeirValidate() illegal heir funcid=" << (char)funcId << std::endl;
         return eval->Invalid("unexpected HeirValidate funcid");
     }
 ```
-All rules are passed return okay:
-```
+
+If all rules pass, return a valid state.
+
+```cpp
     return eval->Valid();   
 }
 ```
 
-Supporting functions CheckSpentTxns and CheckInactivityTime both are in heir.cpp source
+#### Validation Code Errors 
 
-<!--
+During the development of validation code, you will likely receive validation errors when any CC module validation function returns an invalid state.
 
+For example, when sending a raw transaction, <!-- does the daemon do this? Need to know what specifically is acting here --> the daemon checks the transaction while adding it to the mempool. 
 
-### Validation code errors 
+During this process, if the CC validation code returns an invalid state you will see the following error:
 
-During the validation code development you will probably receive validation errors when cc contract validate function returns invalid state. Here how those errors looks like:
-
-when sending raw transaction the tx is checked while added to mempool, if cc validation returns invalid state ou would see error: 
-```
+```cpp
 error code: -26
 error message:
 16: mandatory-script-verify-flag-failed (Script evaluated without error but finished with a false/empty top stack element)
 ```
 
-In this case it is good to see the server output for more extended error:
-```
+When this happens, check the server output for a more specific error description. The first line of the output contains the `eval->invalid()` message from your validation code.
+
+```cpp
 CC Eval EVAL_HEIR Invalid: incorrect opreturn data spending tx 4b6e1ed868cf941dabf9edc7f675321bdb4258692ba02f56dc21100f88981ac4
 ERROR: CScriptCheck(): 7961fe4f9f3bdabef154404ea8ec7a11be1546febc34efe67faede8d930c0749:1 VerifySignature failed: Script evaluated without error but finished with a false/empty top stack element
 ERROR: AcceptToMemoryPool: BUG! PLEASE REPORT THIS! ConnectInputs failed against MANDATORY but not STANDARD flags 7961fe4f9f3bdabef154404ea8ec7a11be1546febc34efe67faede8d930c0749
 ```
-The first line actually contains your validation code eval->invalid() message.
-
 
 ## Links to heir cc contract source code and building instructions
 
-The complete working example of this simplified heir cc contract version is here:
-https://github.com/dimxy/komodo/tree/heir-simple, 
-The source files are:
-src/cc/heir.cpp
-src/cc/CCheir.h
-src/wallet/rpcwallet.cpp
-src/rpc/server.cpp
-src/rpc/server.h
+<!-- Move to top -->
 
-Instructions how to build Komodo binaries (including cc contracts) from the source code is here:
-https://docs.komodoplatform.com/komodo/installation.html#installing-komodo-on-ubuntu-debian 
+A complete working example of this simplified Heir CC module tutorial can be found at the following link.
 
-Instructions how to run your Komodo asset chain is here:
-https://docs.komodoplatform.com/basic-docs/installations/creating-asset-chains.html#creating-a-new-asset-chain
+[Link to Simplified Heir Module](https://github.com/dimxy/komodo/tree/heir-simple)
+
+The source files are found in the following directories.
+
+- src/cc/heir.cpp
+- src/cc/CCheir.h
+- src/wallet/rpcwallet.cpp
+- src/rpc/server.cpp
+- src/rpc/server.h
+
+Instructions to build the Komodo binaries, including the necessary CC modules, can be found here:
+
+<!-- Does it actually have the CC library here? Review link, and move this to section for pre-requisite experience. -->
+
+[Link to Instructions for Building from Source]()
 
 
-## Some used terminology
+#### Terminology
 
-Here is some terms and keywords which are used in the cc documentation, developers chats and cc contracts code 
-* cryptocondition - in simple terms an encoded expression and supporting c-library which allows to check several types of logical conditions based on electronic signatures and hashes. Frequently used cryptocondition is checking that some transaction is signed by one of several possible keys.
-* cc contract - custom consensus contract (rebranded cryptocondition contract)
-* cc input - tx cryptocondition input spending value from cc output
-* cc output - tx output with cryptocondition encoded
-* normal inputs - inputs spending value from normal tx outputs (not cryptocondition outputs)
-* normal outputs - not cryptocondition outputs but usual tx outputs like pubkey or pubkeyhash
-* opreturn, opret - a special output item in transaction, usually the last one, which is prepended by OP_RETURN script opcode and therefore is never able to spend. We put user and contract data into it.
-* plan - an instance of cc contract data, that is, a set of all the relevant transactions, usually beginning from an initial tx whose txid serves a whole plan's id. Any cc contract has a list function to return a list of all the created plans.
-* tx, txn - short of `transaction`
-* txid - transaction id, a hash of a transaction
-* 'unspendable' address - the global cc contract address, for which its public and private key are commonly known. It is used for conditionally sharing funds between contract users. As its private key is not a secret theoretically, anyone can request spending value from this address, but cc contract validation code might and usually does apply various business logic conditions and checks about who can spend the funds from the and what he or she should provide to be able to do this (usually the spending transaction and/or its previous transactions are checked)
-* vin - input or array of inputs in transaction structure (tx.vin)
-* vout - output or array of outputs in transaction structure (tx.vout)
+<!-- Move to front and evelop the definitions more. Or, make links for these words that we can reference each time they appear --> 
+
+| Term | Definition |
+| ---- | ---------- |
+| Crypto-Condition | in simple terms an encoded expression and supporting c-library which allows to check several types of logical conditions based on electronic signatures and hashes. Frequently used cryptocondition is checking that some transaction is signed by one of several possible keys |
+| CC module | custom consensus contract (rebranded cryptocondition contract) |
+| CC input | tx cryptocondition input spending value from cc output |
+| CC output | tx output with cryptocondition encoded |
+| normal inputs | inputs spending value from normal tx outputs (not cryptocondition outputs) |
+| normal outputs | not cryptocondition outputs but usual tx outputs like pubkey or pubkeyhash |
+| opreturn, opret | <!-- I prefer opreturn, so I'll need to go back and make it consistent --> a special output item in transaction, usually the last one, which is prepended by OP_RETURN script opcode and therefore is never able to spend. We put user and contract data into it. |
+| plan | an instance <!-- we can skip "module instance" and just use "plan" --> of cc contract data, that is, a set of all the relevant transactions, usually beginning from an initial tx whose txid serves a whole plan's id. Any cc contract has a list function to return a list of all the created plans. |
+| tx, txn | short for `transaction` |
+| txid | transaction id, a hash of a transaction |
+| "unspendable" address | the global cc contract address, for which its public and private key are commonly known. It is used for conditionally sharing funds between contract users. As its private key is not a secret theoretically, anyone can request spending value from this address, but cc contract validation code might and usually does apply various business logic conditions and checks about who can spend the funds from the and what he or she should provide to be able to do this (usually the spending transaction and/or its previous transactions are checked) |
+| vin | input or array of inputs in transaction structure (tx.vin) |
+| vout | output or array of outputs in transaction structure (tx.vout) |
 
 ## CC contract patterns
 
-Earlier I wrote about the marker pattern. Here I'd like collect other useful patterns (including the marker pattern too) which are useful in the development of custom consensus contracts.
+<!-- Perhaps we should include the marker pattern here, and possibly move this earlier in the docs, or something? -->
 
-### Baton pattern
-Baton pattern allows to organize a single-linked list in a blockchain. Starting from the first tx in a list we may iterate the other transactions in the list and retrieve the values stored in their opreturns.
+The following are useful patterns during Antara module development.
+
+#### Baton Pattern
+
+The baton pattern allows the developer to organize a single-linked list in a Smart Chain. 
+
+To traverse a linked list using the baton method, start with the first transaction in any plan instance and iterate through the other transactions to collect properties in their opreturns.
 
 ### Marker pattern
-Marker pattern is used to mark all similar transactions by sending some small value to a common fixed address (most commonly it is a cc contract global address).
-Actually you can create either normal marker or cc marker for future finding the transactions.
-If you create a normal marker you cannot control that someone can spend the value from it (as cc global address private key is not a secret). As such marker could be spent you should use cc sdk function Settxids() function to retrieve all transaction with markers in the cc contract list function.
 
-We may use another tecnique for marker and use an unspendable cc marker by using some value to a cc output into some known address. In this case for retrieving transaction list you may use another cc sdk function SetCCunspents which returns a list of transactions with unspent outputs for the appointed address.
-If you decide to use an unspendable cc marker you should disable its spending in the validation code otherwise as in some predefined way. If, for example, you allow spending from it by a burning tx you would have such burned markers hidden from the list of initial transactions.
-The cc contract validation code should disable unauthorised tries to spend such markers.
-An issue with the cc marker case which needs to be considered is if the cc global address is used for storing not only the marker value but other funds you would need to provide that the marker value . 
+The marker pattern is used to place a mark on all similar transactions. This is accomplished by sending a small value to a common fixed address. Typically, we use the CC global address.
 
-Code example for finding the transactions marked with normal marker:
-```
+You can also create either a normal marker or a CC marker for <!-- here it says "future finding", and I don't know what that means --> (? see `<!--` comment) the transactions.
+
+When using normal markers, there is a small problem that is easily solved. The problem is that the CC global address allows any user to spend its funds. Therefore, anyone can spend your marker transaction. To overcome this, use the CC SDK function, `Settxids()`, to retrieve all transactions with markers in the CC (?) contract list function. (?)
+
+Another method is to create an unspendable CC marker. In this method, send a small value to a CC output in a known address. To retrieve the list of CC-marker transactions, use the CC SDK function, `SetCCunspents()`. This returns a list of transactions with unspent outputs for the appointed address. <!-- The "appointed address" is the same as the "known address", correct? -->
+
+When using the unspendable CC marker method, in the validation code you should disable spending from this address. <!-- Not sure if I understood here. --> This prevents a scenario where spending from the address causes you to lose markers. (For example, if you were to allow spending from this address using a burn transaction, the burn transactions would take the burned markers into a hidden state, thus removing the markers from the list of initial transactions.)
+
+In all cases, the CC module validation code should disable unauthorized attempts to spend any markers. 
+
+Concerning the method that relies on the CC marker, if the CC global address is used for storing not only the marker value, but also other funds, you need to ensure that marker values are not spent.
+
+##### Another heading?
+
+A code example for finding transactions marked with a normal marker:
+
+```cpp
     std::vector<std::pair<CAddressIndexKey, CAmount> > addressIndex;
     struct CCcontract_info *cp, C;
     cp = CCinit(&C, <some eval code>);
@@ -1289,11 +1370,18 @@ Code example for finding the transactions marked with normal marker:
         }
     }
 ```
-You may find more examples how to find marked transactions in any cc contract standard list function.
-Note for SetCCtxids() function to work, the komodod `txindex` init parameter should be set to 1 (which is by default).
 
-Code example for finding transactions marked with an unspendable cc marker:
-```
+Many other Antara modules contain examples for finding marked transactions in any CC module standard list function.
+
+::: tip
+
+The <b>SetCCtxids()</b> function requires that the Smart Chain <b>-txindex</b> launch parameter be left with the default value of <b>1</b>. There is no need to include the <b>-txindex</b> parameter therefore in your manual Smart Chain customizations, and indeed this is not recommended.
+
+:::
+
+A code example for finding transactions marked with an unspendable CC marker:
+
+```cpp
     std::vector<std::pair<CAddressIndexKey, CAmount> > addressIndex;
     struct CCcontract_info *cp, C;
     cp = CCinit(&C, <some eval code>);
@@ -1306,15 +1394,21 @@ Code example for finding transactions marked with an unspendable cc marker:
         }
     }
 ```
+
 For CCunspents function to work komodod init parameters `addressindex` and `spentindex` should be both set to '1'
 
 ### Txidaddress pattern
+
 Txidaddress pattern might be used when you need to send some value to an address which never could be spent. For this there is a function to get an address for which no private key ever exists
 In payments CC we use this for a spendable address, by using:
+
+```cpp
 CTxOut MakeCC1of2vout(uint8_t evalcode,CAmount nValue,CPubKey pk1,CPubKey pk2, std::vector<std::vector<unsigned char>>* vData)
+```
 
 For the merge RPC we use the vData optional parameter to append the op_return directly to the ccvout itself, rather than an actual op_return as the last vout in a transaction. Like so: 
-```
+
+```cpp
 opret = EncodePaymentsMergeOpRet(createtxid);
 std::vector<std::vector<unsigned char>> vData = std::vector<std::vector<unsigned char>>();
 if ( makeCCopret(opret, vData) )
@@ -1323,8 +1417,10 @@ GetCCaddress1of2(cp,destaddr,Paymentspk,txidpk);
 CCaddr1of2set(cp,Paymentspk,txidpk,cp->CCpriv,destaddr);
 rawtx = FinalizeCCTx(0,cp,mtx,mypk,PAYMENTS_TXFEE,CScript());
 ```
+
 This allows a payments ccvout to be spent back to its own address, without needing a markervout or an OP_RETURN by using a modification made to IsPaymentsvout:
-```
+
+```cpp
 int64_t IsPaymentsvout(struct CCcontract_info *cp,const CTransaction& tx,int32_t v,char *cmpaddr, CScript &ccopret)
 {
     char destaddr[64];
@@ -1338,8 +1434,10 @@ int64_t IsPaymentsvout(struct CCcontract_info *cp,const CTransaction& tx,int32_t
 ```
  
 In place of IsPayToCryptoCondition we can use getCCopret function which is a lower level of the former call, that will return us any vData appended to the ccvout along with true/false for IsPayToCryptoCondition. 
+
 In validation we now have a totally diffrent transaction type than exists allowing to have diffrent validation paths for diffrent ccvouts. And also allowing multiple ccvouts of diffrent types per transaction.
-``` 
+
+```cpp
 if ( tx.vout.size() == 1 )
 {
     if ( IsPaymentsvout(cp,tx,0,coinaddr,ccopret) != 0 && ccopret.size() > 2 && DecodePaymentsMergeOpRet(ccopret,createtxid) )
@@ -1350,27 +1448,40 @@ if ( tx.vout.size() == 1 )
 ```
 
 ## Various tips and tricks in cc contract development
+
 ### Test chain mining issue
+
 On a test chain consisting of two nodes do not mine on both nodes - the chain might get out of sync. It is recommended to have only one miner node for two-node test chains.
 
 ### Try not to do more than one AddNormalInputs call in one tx creation code
+
 FillSell function calls AddNormalInputs two times at once: at the first time it adds txfee, at the second time it adds some coins to pay for tokens. 
+
 I had only 2 uxtos in my wallet: for 10,000 and 9 ,0000,000 sat. Seems my large uxto has been added during the first call and I receive 'filltx not enough utxos' message after the second call. I think it is always better to combine these calls into a single call.
 
 ### Nodes in your test chain are not syncing
+
 You deployed a new or updated developed cc contract in Komodo daemon and see a node could not sync with other nodes in your network (`komodo-cli ac_name=YOURCHAIN getpeerinfo` shows synced blocks less than synced heaeds). It might be seen errors in console log.
+
 Most commonly it is the cc contract validation code problem. Your might have changed the validation rules and old transactions might become invalid. It is easy to get into this if you try to resync a node from scratch. In this case old transactions should undergo the validation.
+
 Use validation code logging and gdb debug to investigate which is the failing rule.
+
 If you really do not want to validate old transactions you might set up the chain height at which a rule begin to action with the code like this:
+
+```cpp
 if (strcmp(ASSETCHAINS_SYMBOL, "YOURCHAIN") == 0 && chainActive.Height() <= 501)
     return true;
+```
+
 Use hidden `reconsiderblock` komodo-cli command to restart syncing from the block with the transaction which failed validation.
 
 ### Deadlocks in validation code
+
 If komodod hangs in cc contract validation code you should know that some blockchain functions use locks and might cause deadlocks. You should check with this functions and use non-locking versions.
+
 An example of such function is GetTransaction(). Instead you should use myGetTransaction() or eval->GetConfirmed()
 
 ## What next? Contract architecture extending for token support
-My contract should work both with coins and tokens. The program logic for inheritance coins and tokens was very the same, so I used templates for contract functions which were extended in specific points to deal either with coins or tokens (like to make opreturn and cc vouts). In the next part of this tutorial I will show ho to deal with tokens.
 
--->
+My contract should work both with coins and tokens. The program logic for inheritance coins and tokens was very the same, so I used templates for contract functions which were extended in specific points to deal either with coins or tokens (like to make opreturn and cc vouts). In the next part of this tutorial I will show ho to deal with tokens.
