@@ -1375,7 +1375,7 @@ Many other Antara modules contain examples for finding marked transactions in an
 
 ::: tip
 
-The <b>SetCCtxids()</b> function requires that the Smart Chain <b>-txindex</b> launch parameter be left with the default value of <b>1</b>. There is no need to include the <b>-txindex</b> parameter therefore in your manual Smart Chain customizations, and indeed this is not recommended.
+The <b>SetCCtxids()</b> function requires that the Smart Chain [<b>txindex</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#txindex) launch parameter NOT be adjusted beyond the default and automatic settings.
 
 :::
 
@@ -1395,18 +1395,27 @@ A code example for finding transactions marked with an unspendable CC marker:
     }
 ```
 
-For CCunspents function to work komodod init parameters `addressindex` and `spentindex` should be both set to '1'
+::: tip
 
-### Txidaddress pattern
+The <b>CCunspents()</b> function requires the Smart Chain [<b>addressindex</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#addressindex) and [<b>spentindex</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#spentindex) launch parameters to be set to `1`.
 
-Txidaddress pattern might be used when you need to send some value to an address which never could be spent. For this there is a function to get an address for which no private key ever exists
-In payments CC we use this for a spendable address, by using:
+:::
+
+#### Txidaddress Pattern
+
+You can use the txidaddress pattern to send value to an address from which the value should never again be spent. 
+
+A function is available for creating an address that is not associated with any known private key.
+
+<!-- What is it specifically? The `CTxOut` or the `MakeCC1of2vouct()` below? -->
+
+For example, the [<b>Payments</b>] Antara module uses <!-- this function? --> to create a spendable <!-- why spendable? Were we trying to create an unspendable address? --> as follows.
 
 ```cpp
 CTxOut MakeCC1of2vout(uint8_t evalcode,CAmount nValue,CPubKey pk1,CPubKey pk2, std::vector<std::vector<unsigned char>>* vData)
 ```
 
-For the merge RPC we use the vData optional parameter to append the op_return directly to the ccvout itself, rather than an actual op_return as the last vout in a transaction. Like so: 
+For the RPC that manages merge functionality, <!-- I couldn't quite tell what this was about? --> we use the `vData` optional parameter to append the opreturn directly to the `ccvout` itself, rather than an actual opreturn as the last `vout` in a transaction. 
 
 ```cpp
 opret = EncodePaymentsMergeOpRet(createtxid);
@@ -1418,7 +1427,7 @@ CCaddr1of2set(cp,Paymentspk,txidpk,cp->CCpriv,destaddr);
 rawtx = FinalizeCCTx(0,cp,mtx,mypk,PAYMENTS_TXFEE,CScript());
 ```
 
-This allows a payments ccvout to be spent back to its own address, without needing a markervout or an OP_RETURN by using a modification made to IsPaymentsvout:
+Using a modification to the `IsPaymentsvout` function, we can now spend a `ccvout` in the Payments module back to its own address, without needing a `markervout` or an opreturn.
 
 ```cpp
 int64_t IsPaymentsvout(struct CCcontract_info *cp,const CTransaction& tx,int32_t v,char *cmpaddr, CScript &ccopret)
@@ -1433,9 +1442,9 @@ int64_t IsPaymentsvout(struct CCcontract_info *cp,const CTransaction& tx,int32_t
 }
 ```
  
-In place of IsPayToCryptoCondition we can use getCCopret function which is a lower level of the former call, that will return us any vData appended to the ccvout along with true/false for IsPayToCryptoCondition. 
+In place of the `IsPayToCryptoCondition()` fucntion we can use the `getCCopret` function. This latter function is a lower level of the former call, and will return any `vData` appended to the `ccvout` along with a `true`/`false` value that would otherwise be returned by the `IsPayToCryptoCondition()` function. <!-- Did I get that right? -->
 
-In validation we now have a totally diffrent transaction type than exists allowing to have diffrent validation paths for diffrent ccvouts. And also allowing multiple ccvouts of diffrent types per transaction.
+In validation, we now have a totally diffrent transaction type than exists allowing to have diffrent validation paths for diffrent ccvouts. And also allowing multiple ccvouts of diffrent types per transaction.
 
 ```cpp
 if ( tx.vout.size() == 1 )
