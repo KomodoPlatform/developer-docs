@@ -1,10 +1,10 @@
 # Heir Module Tutorial
 
-This tutorial demonstrates for advanced C/C++ developers the path and methods for developing a new Antara module by building a prototype of the existing [<b>Heir Module</b>](../basic-docs/fluidity/fluidity-api/heir.html). 
+This tutorial demonstrates the process of developing a new Antara module. In the tutorial, we build a simplified prototype of the existing [<b>Heir</b>](../basic-docs/fluidity/fluidity-api/heir.html) Antara module.
 
 #### Tutorial Objectives
 
-The primary aim is to give the Antara module developer direct engagement with validation code in a Antara environment. By understanding validation, the developer should be more able to grasp the broad potential of the Antara framework.
+The primary aim is to give the Antara module developer direct engagement with validation code. By understanding validation, the developer should be more able to grasp the broad potential of the Antara framework.
 
 Furthermore, in the process of completing this tutorial the developer will learn how the Antara code directories are organized.
 
@@ -32,6 +32,8 @@ Tutorial readers should have the following prerequisite experience. We provide l
 - The `komodod` software should be installed on your local machine
   - [Link to installation instructions](../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#linux)
 
+<!-- Need to make sure this includes CC libs -->
+
 ### (temporary section) WIP Link from @dimxy
 
 https://github.com/dimxy/komodo/wiki/Developing-my-first-cryptocondition-contract-Heir
@@ -40,19 +42,25 @@ https://github.com/dimxy/doc-dev/blob/master/first-cc-heir.md
 
 ## A Conceptual Understanding of the Intended Product
 
-Read the introduction of the finished Heir Module API to gain a vision of what we are about to create. (Read until the start of the section named <b>Heir Module Flow</b> and then pause.)
+Read the introduction of the finished Heir Module API to gain a vision of what we are about to create. 
+
+(Read until the start of the section named <b>Heir Module Flow</b> and then pause.)
 
 [Link to Introduction to the Heir Antara Module](../basic-docs/fluidity/fluidity-api/heir.html#introduction)
 
 The basic concept to understand is that the Heir module allows the owner of a Smart Chain digital asset to designate an inheritor of the asset, should the owner become inactive on the chain.
 
-In terms of design, this is a relatively straightforward Antara module, which is one reason why we use it here.
+In terms of design, this is a relatively straightforward Antara module, which is one reason we use it here.
 
-## Complete the Heir Module Flow Section
+## Complete the Heir Module Flow Section (Optional)
 
-To understand specifically how the final Heir module functions, we use the [<b>komodo-cli</b>](../basic-docs/smart-chains/smart-chain-setup/interacting-with-smart-chains.html#using-komodo-cli) software and the <b>RICK</b> Smart Chain to experiment with each Heir API command.
+Before we begin the development process, it may be helpful to first experiment with the flow of RPC commands for the existing Heir module. 
+
+This section is optional, but recommended.
 
 #### Launch the RICK Smart Chain
+
+The community test chain, <b>RICK</b>, has the Heir module enabled and can serve our experiment purposes. Launch the chain as follows.
 
 ```bash
 ./komodod -pubkey=$pubkey -ac_name=RICK -ac_supply=90000000000 -ac_reward=100000000 -ac_cc=3 -addnode=138.201.136.145 &
@@ -60,13 +68,13 @@ To understand specifically how the final Heir module functions, we use the [<b>k
 
 #### Create a pubkey
 
-Use the following guide to create a Antara pubkey and address on the <b>RICK</b> Smart Chain.
+Use the following guide to create an Antara pubkey and address on the <b>RICK</b> Smart Chain.
 
 [Link to Antara pubkey creation guide](../basic-docs/fluidity/fluidity-setup/fluidity-instructions.html#creating-and-launching-with-a-pubkey)
 
 #### Retrieve RICK Funds from the Community Faucet
 
-To obtain funds on the RICK Smart Chain, we utilize a different Antara module, [<b>Faucet</b>](../basic-docs/fluidity/fluidity-api/faucet.html#introduction). Our encounter with Faucet also presents an educational opportunity, which will discuss in a moment.
+To obtain funds on the RICK Smart Chain, we utilize a different Antara module, [<b>Faucet</b>](../basic-docs/fluidity/fluidity-api/faucet.html#introduction). Our encounter with Faucet also presents an educational opportunity, which we discuss in a moment.
 
 ::: tip
 
@@ -86,13 +94,15 @@ Wait a few moments, and then use the [<b>getinfo</b>](../basic-docs/komodo-api/c
 
 #### Complete Each API Method of the Heir Module
 
-With funds in your wallet, you are prepared to experiment with the API commands available in the Heir Module Flow section. This may help you to envision the intended design of our Heir module prototype.
+With funds in your wallet, you are prepared to experiment with the API commands available in the Heir Module Flow section. 
+
+Look through the linked section below, <b>Heir Module Flow</b>, for a list of commands and the order in which they are typically executed.
 
 [Link to Heir Module Flow](../basic-docs/fluidity/fluidity-api/heir.html#introduction)
 
 #### On the Relevance of Faucet
 
-The Faucet module provides a simple example of the nature of a Antara module for our study. Faucet allows a user to lock an arbitrary amount of funds within a Antara address. Other users on the network are able to withdraw funds from this Antara address in small portions. To prevent spam requests, the Faucet requires a small amount of work from the requesting user's node. 
+The Faucet module provides a simple example of the nature of an Antara module for our study. Faucet allows a user to lock an arbitrary amount of funds within an Antara address. Other users on the network are able to withdraw funds from this Antara address in small portions. To prevent spam requests, the Faucet requires a small amount of work from the requesting user's node. 
 
 From this outline, we observe the basic business logic of the Faucet module. The module involves storing funds in a designated address, the creation of a faucet that can disburse funds, and the ability to limit the rate at which funds are withdrawn.
 
@@ -106,7 +116,7 @@ Transactions are a data source for Antara-based software.
 
 Transactions can store data in multiple forms. In the simplest form, transaction data records the movement of coins from one address to another. However, blockchain transactions are capable of storing additional data beyond simple coin movement. 
 
-When we desire to place additional data into a transaction, we place this data into an <b>OP_RETURN</b>.
+When we desire to place additional data into a transaction, we place this data into an <b>OP_RETURN</b>, or "<b>opreturn</b>" for short.
 
 Observe the following transaction data structure:
 
@@ -116,15 +126,15 @@ Observe the following transaction data structure:
 # (Place an example OP_RETURN transaction here)
 ```
 
-The <b>OP_RETURN</b> is the last output in a transaction, and this output is never spendable under any circumstances. 
+The <b>opreturn</b> is the last output in a transaction, and this output is never spendable under any circumstances. 
 
 ```bash
 # (focus on OP_RETURN here)
 ```
 
-The <b>OP_RETURN</b> is the location where all Antara module information is stored. 
+The <b>opreturn</b> is the location where all Antara module information is stored. 
 
-When a Antara module instance begins its lifecycle, an initial transaction is created. For example, observe this initial transaction of the (Faucet module?):
+When an Antara module instance begins its lifecycle, an initial transaction is created. For example, observe this initial transaction of the (Faucet module?):
 
 ##### Initial Transaction of a Faucet Module Instance
 
@@ -196,13 +206,13 @@ As logical conditions and fulfillments can be added to a Crypto-Condition as des
 
 In this section, we have become acquainted with the concept of logical conditions that are associated with transaction outputs, and logical fulfillments associated with spending-transactions. These two elements make up the rudimentary aspect of a Crypto-Condition.
 
-There are yet other elements of a Antara-based Crypto-Condition. One element is called the `EVAL` code, and it is stored in the Crypto-Condition's inputs and outputs. We will touch on this topic soon. 
+There are yet other elements of an Antara-based Crypto-Condition. One element is called the `EVAL` code, and it is stored in the Crypto-Condition's inputs and outputs. We will touch on this topic soon. 
 
 ### Antara Module Features 
 
 A Antara module can be described as a combination of a data layer and a business-logic layer in an application. The data layer is the collection of transactions related to the Antara module, and the business-logic layer is the modules arbitrary code.
 
-These two layers tie in with other layers in a Antara-based software application. For example, the software could include a presentation layer, consistenting of a Graphical User Interface (GUI) and other visual/audio elements. 
+These two layers tie in with other layers in an Antara-based software application. For example, the software could include a presentation layer, consistenting of a Graphical User Interface (GUI) and other visual/audio elements. 
 
 Also, there can often be a server layer, wherein the application connects nodes and their data across the Internet. This is often the case in Antara-based software applications that make use of the [<b>Oracles</b>](../basic-docs/fluidity/fluidity-api/oracles.html#introduction) Antara module. 
 
@@ -242,7 +252,7 @@ The main purpose of validation code is to prevent inappropriate structure and sp
 
 <!-- This should probably go higher as well. -->
 
-For a Antara module, you will need to do the following:
+For an Antara module, you will need to do the following:
 - allocate a new `EVAL` code for your contract
   - If you would like this module to be available across the Komodo ecosystem, please reach out to our team to let us know your intended `EVAL` code <b>(?)</b>
 - assign a global address for the module
@@ -257,7 +267,7 @@ For a Antara module, you will need to do the following:
 
 ### Antara Module Architecture
 
-From an architectural standpoint, a Antara module is simply a C/C++ source file.
+From an architectural standpoint, an Antara module is simply a C/C++ source file.
 
 <!-- The original prose here had a few missing nouns in the sentences, so I'm not sure I understand this yet. Are the RPC's in the source file? Or are they separate? -->
 
@@ -286,7 +296,7 @@ Include other RPC implementations as desired.
 
 #### Validation Code
 
-The other essential part of a Antara module is the validation code. We will delve into this section in thorough detail further on in the tutorial
+The other essential part of an Antara module is the validation code. We will delve into this section in thorough detail further on in the tutorial
 
 #### The EVAL Code
 
@@ -296,7 +306,7 @@ The `EVAL` code itself is actually a simple Crypto-Condition. The Crypto-Conditi
 
 ### Antara Module Transaction Structure
 
-Observe the following structural layout of a Antara module transaction.
+Observe the following structural layout of an Antara module transaction.
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; float: right; display: block;">
 
@@ -306,7 +316,7 @@ Observe the following structural layout of a Antara module transaction.
 
 A Crypto-Condition input is called a "vin" and a Crypto-Condition output is called a "vout". 
 
-As displayed on the above diagram, a Antara transaction has one or more vins and one or more vouts.
+As displayed on the above diagram, an Antara transaction has one or more vins and one or more vouts.
 
 A vin with Crypto-Conditions contains the transaction ID (txid) of a previous transaction. In this transaction, the utxo of that txid is spent. The Crypto-Conditions transaction also includes a fulfillment vin. 
 
@@ -1442,9 +1452,11 @@ int64_t IsPaymentsvout(struct CCcontract_info *cp,const CTransaction& tx,int32_t
 }
 ```
  
-In place of the `IsPayToCryptoCondition()` fucntion we can use the `getCCopret` function. This latter function is a lower level of the former call, and will return any `vData` appended to the `ccvout` along with a `true`/`false` value that would otherwise be returned by the `IsPayToCryptoCondition()` function. <!-- Did I get that right? -->
+In place of the `IsPayToCryptoCondition()` fucntion we can use the `getCCopret` function. This latter function is a lower level of the former call, and will return any `vData` appended to the `ccvout` along with a `true`/`false` value that would otherwise be returned by the `IsPayToCryptoCondition()` function. 
 
-In validation, we now have a totally diffrent transaction type than exists allowing to have diffrent validation paths for diffrent ccvouts. And also allowing multiple ccvouts of diffrent types per transaction.
+<!-- Did I get that right above? -->
+
+In validation, we now have a totally diffrent transaction type <!-- I don't understand where this new type came from? -->than the types that are normally available. This new type allows us to have different validation paths for different `ccvouts`, and it allows for multiple `ccvouts` of different types per transaction.
 
 ```cpp
 if ( tx.vout.size() == 1 )
@@ -1456,41 +1468,53 @@ if ( tx.vout.size() == 1 )
 }
 ```
 
-## Various tips and tricks in cc contract development
+## Various Tips and Tricks in Antara Module Development
 
-### Test chain mining issue
+<!-- These might belong in a separate document? -->
 
-On a test chain consisting of two nodes do not mine on both nodes - the chain might get out of sync. It is recommended to have only one miner node for two-node test chains.
+#### Test Chain Mining Issue
 
-### Try not to do more than one AddNormalInputs call in one tx creation code
+On a test chain consisting of two nodes, we do not recommend that you set both nodes to mine. When there are only two nodes, a blockchain struggles more to achieve consensus, and the chain can quickly stop syncing properly. Instead, have only one node mine for the two-node test chain.
 
-FillSell function calls AddNormalInputs two times at once: at the first time it adds txfee, at the second time it adds some coins to pay for tokens. 
+#### Limits on AddNormalInputs Function Calls per Transaction
 
-I had only 2 uxtos in my wallet: for 10,000 and 9 ,0000,000 sat. Seems my large uxto has been added during the first call and I receive 'filltx not enough utxos' message after the second call. I think it is always better to combine these calls into a single call.
+Keep the number of `AddNormalInputs` function calls to one for each block of code that creates a transaction.
 
-### Nodes in your test chain are not syncing
+As an example of why we should not exceed more than one call, we can look at the `FillSell` function. This function calls `AddNormalInputs` two times at once. The first time the `AddNormalInputs` function must add a txfee and the second time it adds coins to pay for tokens. 
 
-You deployed a new or updated developed cc contract in Komodo daemon and see a node could not sync with other nodes in your network (`komodo-cli ac_name=YOURCHAIN getpeerinfo` shows synced blocks less than synced heaeds). It might be seen errors in console log.
+Let us suppose we have only two utxos in our wallet, one for `9,000,000` satoshis and another for `10,000` satoshis. In this case, when we execute the `FillSell` function our large uxto is added during the first call and then we receive an error in the second call, `filltx not enough utxos`.
 
-Most commonly it is the cc contract validation code problem. Your might have changed the validation rules and old transactions might become invalid. It is easy to get into this if you try to resync a node from scratch. In this case old transactions should undergo the validation.
+<!-- I didn't understand this well enough to finish it. -->
 
-Use validation code logging and gdb debug to investigate which is the failing rule.
+Instead, we recommend that the developer place only one I think it is always better to combine these calls into a single call.
 
-If you really do not want to validate old transactions you might set up the chain height at which a rule begin to action with the code like this:
+#### Troubleshooting Node Syncing on Test CC Chain
+
+Sometimes, a developer may find after developing a new CC module that a node cannot sync with other nodes in their test network. Executing the [<b>getpeerinfo</b>](../basic-docs/smart-chains/smart-chain-api/network.html#getpeerinfo) shows fewer synced blocks than synced heads. The develop may also see errors in the console log on the malfunctioning node.
+
+<!-- Does the above mean that only one node is updated with the new CC module, or in this situation are we assuming that all nodes on the network are operating on the same version of the daemon? -->
+
+When this happens, the cause is most commonly rooted in the CC module's validation code. For example, the developer may have changed validation rules, and in so doing may have rendered old transactions invalid in the node's state. 
+
+A quick remedy in this situation is to [manually delete the blockchain data on the malfunctioning node and resync the network.](../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) Old transactions should pass validation, assuming the new validation code takes their situation into account.
+
+When resyncing the node is not a viable solution, another option is to use code loggin and the gdb debug software to investigate the cause of failure.
+
+Yet another solution, if necessary, is to setup the validation code to only be effective after a certain block height. See the following example.
 
 ```cpp
 if (strcmp(ASSETCHAINS_SYMBOL, "YOURCHAIN") == 0 && chainActive.Height() <= 501)
     return true;
 ```
 
-Use hidden `reconsiderblock` komodo-cli command to restart syncing from the block with the transaction which failed validation.
+You may also use the hidden `reconsiderblock` komodo-cli command to restart the malfunctioning node's syncing process at a desired block height.
 
-### Deadlocks in validation code
+#### Deadlocks in Validation Code
 
-If komodod hangs in cc contract validation code you should know that some blockchain functions use locks and might cause deadlocks. You should check with this functions and use non-locking versions.
+If komodod hangs while executing Antara module validation code, consider that some blockchain functions use locks. The combination of your validation code and the locks could be causing deadlocks in the consensus mechanism. If this is the case, use functiong that are non-locking instead. 
 
-An example of such function is GetTransaction(). Instead you should use myGetTransaction() or eval->GetConfirmed()
+For example, the `GetTransaction()` function is a locking function. Instead, use `myGetTransaction()` or `eval->GetConfirmed()`.
 
-## What next? Contract architecture extending for token support
+#### Upcoming Part II of this Tutorial
 
-My contract should work both with coins and tokens. The program logic for inheritance coins and tokens was very the same, so I used templates for contract functions which were extended in specific points to deal either with coins or tokens (like to make opreturn and cc vouts). In the next part of this tutorial I will show ho to deal with tokens.
+In the next part of this tutorial, we will extend the functionality of our Heir module to also work with tokens.
