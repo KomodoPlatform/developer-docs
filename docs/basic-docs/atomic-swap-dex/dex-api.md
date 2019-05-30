@@ -487,7 +487,7 @@ Response (error):
 
 ## setprice
 
-**setprice base rel price volume**
+**setprice base rel price (volume max)**
 
 The `setprice` method places an order on the orderbook, and it relies on this node acting as a `maker` -- also called a `Bob` node. 
 `setprice` order is always considered as `sell` for internal implementation convenience.
@@ -499,7 +499,8 @@ The `setprice` method places an order on the orderbook, and it relies on this no
 | base      | string | the name of the coin the user desires to sell |
 | rel       | string | the name of the coin the user desires to receive |
 | price     | string (numeric) | the price in `rel` the user is willing to receive per one unit of the `base` coin |
-| volume    | string (numeric) | the maximum amount of `base` coin available for the order |
+| volume    | string (numeric) | the maximum amount of `base` coin available for the order, ignored if max is `true` |
+| max       | bool | MM2 will use the entire coin balance - 0.001 (reserved for fees) for the order |
 
 ### Response:
 
@@ -624,7 +625,7 @@ The `help` method returns the full API documentation in the terminal.
 
 ## withdraw
 
-**withdraw coin to (amount, max)**
+**withdraw coin to (amount max)**
 
 The `withdraw` method generates, signs, and returns a transaction that transfers the `amount` of `coin` to the address indicated in the `to` argument.  
 
