@@ -6,12 +6,10 @@ The Payments Custom Consensus (CC) module allows a user to
 
 ### Payments CC Module Flow
 
-- Create an Oracle using [oraclescreate](../customconsensus/oracles.html#oraclescreate)
-- Register as a data publisher for the oracle using the [oraclesregister](../customconsensus/oracles.html#oraclesregister) method; at this stage, the publisher indicates the fee for their data updates
-  - Anyone can register as a publisher for any oracle; users subscribe only to the publishers they desire
-- The [oracleslist](../customconsensus/oracles.html#oraclelist), [oraclesinfo](../customconsensus/oracles.html#oraclesinfo), and [oraclessamples](../customconsensus/oracles.html#oraclessamples) methods allow the user to find oracles and publishers, find more information about a specific oracle and publisher, and discover samples of an existing publisher, respectively
-- Anyone can subscribe to any specific publisher of any oracle using the [ oraclessubscribe](../customconsensus/oracles.html#oraclessubscribe) method
-- A publisher can publish data using [oraclesdata](../customconsensus/oracles.html#oraclesdata), and thereby collect their fee from their subscribers
+- Use [paymentstxidopret](#paymentstxidopret) to create transactions that has the following data: weight, recipient, opret (optional) in its OP_RETURN, this step is to simply make some data available on the blockchain to be used by a later method. The transaction id is called `paytxnid` and is used as a reference to the recipient and their corresponding share
+- Use [paymentscreate](#paymentscreate) to create a payment plan. The number of blocks to lock the funds after funding , minimum release amount and the `paytxnid`s are passed as arguments. The `paytxnid`s contain the data about recipients and their corresponding shares. The transaction id is called `createtxid` and will be the reference for this payment plan used by other methods.
+- Use [paymentsfund](#paymentsfund)to fund any existing payment plan. The method takes `createtxid` and amount as arguments.
+- Use [paymentsrelease](#paymentsrelease) to release payments
 
 ## paymentstxidopret
 

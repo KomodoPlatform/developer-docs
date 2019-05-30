@@ -1,4 +1,5 @@
-var sidebar = [{
+var sidebar = [
+  {
     title: "Start Here",
     collapsable: true,
     children: [
@@ -49,6 +50,7 @@ var sidebar = [{
       ["/basic-docs/customconsensus/heir.md", "Heir"],
       ["/basic-docs/customconsensus/musig.md", "MuSig"],
       ["/basic-docs/customconsensus/oracles.md", "Oracles"],
+      ["/basic-docs/customconsensus/payments.md", "Payments"],
       ["/basic-docs/customconsensus/rewards.md", "Rewards"],
       ["/basic-docs/customconsensus/rogue.md", "Rogue"],
       ["/basic-docs/customconsensus/sudoku.md", "Sudoku"],
@@ -74,6 +76,6 @@ var sidebar = [{
       ["/basic-docs/komodo-api/wallet.md", "Wallet"]
     ]
   }
-]
+];
 
 module.exports = sidebar;
