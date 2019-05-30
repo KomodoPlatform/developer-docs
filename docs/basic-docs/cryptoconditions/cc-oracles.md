@@ -818,7 +818,7 @@ The user indicates the desired publisher by inserting the `batonutxo` by the pub
 | Structure  | Type     | Description                                                               |
 | ---------- | -------- | ------------------------------------------------------------------------- |
 | oracletxid | (string) | the unique identifying transaction id of the oracle contract              |
-| baton      | (string) | the baton address, which can be found using the oraclesinfo method |
+| batonaddress | (string) | the baton address, which can be found using the oraclesinfo method |
 | num        | (number) | the number of sample data points required                                 |
 
 ### Response:
