@@ -580,7 +580,7 @@ gincoind &
 ~/hush3/src/hushd &
 ```
 
-### Start Komodo and all the assetchains including VRSC & HUSH3
+### Start Komodo and all the assetchains
 
 ```bash
 cd ~/komodo/src
@@ -588,7 +588,7 @@ cd ~/komodo/src
 ./assetchains.old
 ```
 
-Now wait for all the chains to finish syncing. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories. Komodo assetchains have their own data directory inside the `~/.komodo` directory.
+Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories. Komodo assetchains have their own data directory inside the `~/.komodo` directory.
 
 Commands to tail `debug.log`
 
