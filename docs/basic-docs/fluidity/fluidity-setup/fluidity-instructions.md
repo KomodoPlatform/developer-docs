@@ -8,6 +8,16 @@ When making a transaction on an Smart Chain, you normally deal with a sending ad
 
 When using Fluidity, however, there are a few new types of addresses to keep in mind when working with transactions. It is not necessary to fully understand all of the address types; only a general understanding is needed.
 
+## The Meaning (or Lack Thereof) of the "CC" Moniker
+
+Often in data and code structures related to Fluidity you will see reference to the moniker, "CC." 
+
+For example, `CCaddress` or `CCvout`.
+
+The letters, "CC", developed organically during the creation of the Fluidity framework, and have since lost their original meaning. 
+
+Now, they simply indicate that the content is related to Fluidity, and nothing more.
+
 ## Creating and Launching With a Pubkey
 
 The first address you must understand is the pubkey. Any user using a Fluidity based module must have a pubkey indicated in their daemon. This forms the basis for all addresses related to various modules.
