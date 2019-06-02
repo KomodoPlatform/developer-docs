@@ -15,7 +15,6 @@ sidebar: auto
 
 - [http://oracle.earth/](http://oracle.earth/) - Live demo of Oracles CC module
 - [https://github.com/gcharang/create-assetchain](https://github.com/gcharang/create-assetchain) - Simple scripts to create a Komodo assetchain using a single node for testing (Has automated explorer installation too)
-- [https://github.com/gcharang/komodo-install-explorer](https://github.com/gcharang/komodo-install-explorer) - Simple scripts to install an explorer for a Komodo assetchain
 - [https://github.com/tonymorony/komodo_cryptoconditions_tui](https://github.com/tonymorony/komodo_cryptoconditions_tui) - TUI for various CC modules written in python
 - [https://github.com/imylomylo/komodo-cakeshop](https://github.com/imylomylo/komodo-cakeshop) - Work in progress; An integrated development environment and SDK
 - [https://github.com/tonymorony/Komodoku](https://github.com/tonymorony/Komodoku) - Sudoku CC
