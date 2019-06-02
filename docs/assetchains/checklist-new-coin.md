@@ -5,7 +5,7 @@ This document will guide you through creating an independent assetchain/coin usi
 ## Step 1: Create an Assetchain/Coin, Setup Insight based Explorer, Electrum Servers and Agama GUI Wallet
 
 1. The various parameters using which the new blockchain can be customized are explained here: [Parameters to customize Blockchains created using Komodo Platform](../basic-docs/installations/asset-chain-parameters.html)
-1. Install explorer: [DeckerSU/komodo-explorers-install](https://github.com/DeckerSU/komodo-explorers-install)
+1. Install explorer: [gcharang/komodo-install-explorer](https://github.com/gcharang/komodo-install-explorer)
 1. [Setup Electrum SPV server](../komodo/setup-electrumX-server.html)
 1. [Integrate into Agama Desktop wallet](../gui/agama/desktop/add-Komodo-Assetchains-Agama-Desktop.html)
 1. [Integrate into Agama Mobile wallet](../gui/agama/mobile/add-Komodo-Assetchains-Agama-Mobile.html)
