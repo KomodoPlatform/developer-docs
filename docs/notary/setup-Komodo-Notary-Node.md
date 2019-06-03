@@ -523,11 +523,12 @@ nano ~/.gincoincore/gincoin.conf
 Insert the following contents inside the `gincoin.conf` file and save it. (change the `rpcuser` and `rpcpassword` values)
 
 ```bash
+rpcuser=user
+rpcpassword=password
 server=1
 daemon=1
 txindex=1
-rpcuser=user
-rpcpassword=password
+litemode=1
 bind=127.0.0.1
 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1
