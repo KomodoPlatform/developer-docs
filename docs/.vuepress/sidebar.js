@@ -298,8 +298,8 @@ var sidebar = [
                             "What are vin, vout, scriptPubkey" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/jl777-rewrite/00-chapter.md", 
-                            "Rewrite Mastering Cryptoconditions" 
+                            "/basic-docs/fluidity/fluidity-tutorials/an-advanced-approach-to-komodos-antara-framework.md", 
+                            "An Advanced Approach to Komodo's Antara Framework" 
                         ],
                 ],
             },

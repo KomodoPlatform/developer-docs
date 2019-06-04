@@ -1,8 +1,8 @@
 # An Advanced Approach to Komodo's Antara Framework
 
-The following content is provided for the experienced C++ developer who desires to employ the Antara framework to create new modules for Komodo Smart Chains. 
+The following content is provided for the experienced C++ developer who desires to create new Antara modules for Komodo Smart Chains. 
 
-The content herein provides introductory instruction that can allow the developer to more easily read existing code and follow advanced tutorials that examine specific Antara modules.
+The content herein provides introductory instruction that can allow the developer to more easily read existing Antara-related code and follow advanced tutorials that examine specific Antara modules.
 
 ## Prerequisite Knowledge
 
@@ -19,44 +19,81 @@ Tutorial readers should have the following prerequisite experience. We provide l
   - [Link to Antara Address Explanation]()
 - Comprehension of concepts in the Main Path for Komodo Development
   - [Link to Main Path for Komodo Development in Learning Launchpad]()
-- Familiarity with Bitcoin protocol basics
+- Familiarity with Bitcoin basics
   - [Link to Mastering Bitcoin pdf book]()
 - The `komodod` software should be installed on your local machine
   - [Link to installation instructions](../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#linux)
 
-## How to write utxo based CryptoConditions contracts for KMD chains
+## The Starting Point of the Antara Framework
 
-This is not the only smart contracts methodology that is possible to build on top of `OP_CHECKCRYPTOCONDITION`, just the first one. All the credit for getting `OP_CHECKCRYPTOCONDITION` working in the Komodo codebase goes to @libscott. I am just hooking into the code that he made and tried to make it just a little easier to make new contracts.
+The Antara framework greatly enhances blockchain functionality. Antara allows a developer to write arbitrary code that can be enforced by their Smart Chain's consensus mechanism. In fact, Antara even allows clusters of Smart Chains to work together in this effort. 
 
-There is probably some fancy marketing name to use, but for now, I will just call it "CC contract" for short, knowing that it is not 100% technically accurate as the CryptoConditions aspect is not really the main attribute. However, the KMD contracts were built to make the CryptoConditions codebase that was integrated into it to be more accessible.
-Since CC contracts run native C/C++ code, it is turing complete and that means that any contract that is possible to do on any other platform will be possible to create via CC contract.
+The level of freedom this grants to the developer is sometimes difficult to comprehend until one has either seen the technology in action or engaged with the technology directly.
 
-UTXO based contracts are a bit harder to start writing than for balance based contracts. However, they are much more secure as they leverage the existing bitcoin UTXO system. That makes it much harder to have bugs that issue a zillion new coins from a bug, since all the CC contract operations needs to also obey the existing bitcoin UTXO protocol.
+The Antara framework takes into account several different advanced technologies. To limit the scope of our introduction, for now we focus only one on crucial aspect: "CryptoConditions," or "CC" for short.
 
-This document will be heavily example based so it will utilize many of the existing reference CC contracts. After understanding this document, you should be in a good position to start creating either a new CC contract to be integrated into komodod or to make RPC based dapps directly.
+#### A Brief Explanation of CryptoConditions
 
-- [Chapter 0 - Bitcoin Protocol Basics](#chapter-0---bitcoin-protocol-basics)
-- [Chapter 1 - OP_CHECKCRYPTOCONDITION](#chapter-1---op_checkcryptocondition)
-- [Chapter 2 - CC Contract Basics](#chapter-2---cc-contract-basics)
-- [Chapter 3 - CC vouts](#chapter-3---cc-vins-and-vouts)
-- [Chapter 4 - CC RPC Extensions](#chapter-4---cc-rpc-extensions)
-- [Chapter 5 - CC Validation](#chapter-5---cc-validation)
-- [Chapter 6 - Faucet Example](#chapter-6---faucet-example)
-- [Chapter 7 - Rewards Example](#chapter-7---rewards-example)
-- [Chapter 8 - Assets Example](#chapter-8---assets-example)
-- [Chapter 9 - Dice Example](#chapter-9---dice-example)
-- [Chapter 10 - Channels Example](#chapter-10---channels-example)
-- [Chapter 11 - Oracles Example](#chapter-11---oracles-example)
-- [Chapter 12 - Limitless Possibilities](#chapter-12---limitless-possibilities)
-- [Chapter 13 - Different Languages](#chapter-13---different-languages)
-- [Chapter 14 - Runtime Bindings](#chapter-14---runtime-bindings)
-- [Chapter 15 - RPC Based DApps](#chapter-15---rpc-based-dapps)
-- [Conclusion](#conclusion)
+CryptoConditions is a technology that allows for arbitrary logical conditions and fulfillments to be evaluated as a part of consensus. This allows for the consensus mechanism to evaluate the results of arbitrary code and update state in the blockchain's data in a decentralized and secure fashion.
+
+CryptoConditions technology is not a new concept. The [Interledger](https://interledger.org/) team originally proposed this technology in 2016. 
+
+The [original proposal](https://tools.ietf.org/html/draft-thomas-crypto-conditions-01) was that it would be an open-source industry-wide standard format. The Interledger team does not seem to have continued exploring the technology beyond the original proposal. 
+
+Komodo, on the other hand, found this concept to be intriguing. In 2018, Komodo adopted this open-source technology into the suite of offerings in our Antara framework. Our implementation uses many of the key ideas put forth by the Interledger team, and at the same time we depart in several significant ways.
+
+The specific details of the differences between Komodo and Interledger's versions of CryptoConditions are not necessary to understand here. However, those who are curious can explore the open-source code in the respective repositories. 
+
+The important takeaway is that the Antara framework encompasses several underlying technologies, one of which is CryptoConditions (CC). This technology allows a developer to add arbitrary logical conditions and fulfillments to their Smart Chain, and to rely on the consensus mechanism to ensure state integrity in a decentralized environment.
+
+#### CryptoConditions Depends Upon Transactions and Booleans
+
+At the most fundamental level, blockchain data is advanced only through transactions. A blockchain itself is but a list of transactions, bound into blocks. By design, each transaction must be confirmed by the consensus mechanism.
+
+Therefore, all decentralized data that a developer wishes to create or use with their arbitrary code must first be added to a transaction. This transaction is then passed through the consensus mechanism and, assuming the transaction is accepted, the data-bearing transaction is finally added to the blockchain.
+
+To take advantage of this functionality, a developer adds customized source code to the Antara framework to form a new module. Whenever a relevant transaction occurs on the blockchain, the consensus mechansim calls the module to execute its arbitrary code, validates the logical conditions and fulfillments that are found in the relevant CC transaction, and either confirms or denies the addition of this transaction to the blockchain.
+
+To simplify this process, the developer must build their module such that each CC-related transaction returns a boolean value as a part of the final results. If the returned boolean value is `true`, the Smart Chain's consensus mechanism will approve the transaction and add it to the Smart Chain's transaction history. If `false`, naturally, the consensus mechanism will ignore the attempted transaction. 
+
+With this framework in place, the developer can also add any other data to be saved as a part of the transaction. This data is included in a special part of the transaction called an OP_RETURN, or opreturn for short. 
+
+Through Antara, the developer receives a powerful tool for creating and executing decentralized arbitrary code, and securely adding arbitrary data to their Smart Chain. A developer can add data to any transaction, and their Smart Chain can utilize this data in future executions of arbitrary logic. The only requirement is that the arbitrary logic return a meaningful boolean value as a part of the final result. 
+
+#### Building an Antara Module is Harder Than Creating a Balance-Based Smart Contract 
+
+Antara modules are fundamentally different than the "smart contracts" that are familiar on other blockchain platforms. The key difference is that Antara modules directly rely on ["unspent transactions,"](https://komodoplatform.com/whats-utxo/) which are called "utxos" for short. Smart contracts, on the other hand, rely on the total funds held within an address. 
+
+Utxo-based modules are harder to create than balance-based smart contracts. However, utxo-based modules result in dramatically more powerful and secure functionality, as they leverage the existing Bitcoin-utxo system. 
+
+For example, with balance-based smart contracts, a bug in the smart-contract language could result in terrible events, such as the malicious printing of new coins in a smart contract, or the draining of all funds within a shared contract. Events such as these can happen even when the smart-contract author is a competent developer.
+
+In a utxo-based module, the risk of such events is exponentially reduced. The reason utxo-based modules are more secure is that every update of the blockchain's state must be executed as a transaction, and therefore the data must pass the normal rules of consensus. 
+
+Komodo is based on the Bitcoin protocol, and therefore Komodo's Smart Chain consensus mechanisms are built on the most rigorously tested and heavily supported software in the industry. Balance-based smart contracts cannot compare to this level of security.
+
+As the developer engages with Antara module development, they can learn how utxo-based modules allow for increased speed in achieving consensus, greater simplicity in software architecture, more flexible functionality between Smart Chains, and more features. 
+
+#### A Brief Look at an Antara Module Template
+
+The following file, `customcc.cpp`, is a blank template a developer can use when beginning the creation of a new Antara module. Take a brief look to familiarize yourself with the essential layout.
+
+[<b>Link to customcc.cpp file</b>](https://github.com/jl777/komodo/blob/dev/src/cc/customcc.cpp)
+
+The key takeaway to understand is that the entrypoints to Antara's CryptoConditions technology is broken down into a few functions and tables. Once the developer grasps the nature of working with these entrypoints, building Antara modules becomes a simple exercise in the common aspects of software development. 
+
+Komodo provides SDK functions, tutorials, and best practices to simplify the learning curve and development process.  
+
+Before the developer can begin creating new Antara modules, there are several key concepts to understand. Looking to the Bitcoin protocol basics, we first refresh our understanding of a utxo.
+
+## Aspects of Utxos that are Important for Antara Modules
+
+In the prerequisite material the reader was encouraged to first learn the basics of blockchain technology and the Bitcoin protocol. The book, [Mastering Bitcoin](https://github.com/bitcoinbook/bitcoinbook), provides a preliminary discussion, as does [the Komodo whitepaper.](https://komodoplatform.com/whitepaper) 
+
+A key concept in these texts is the unspent transaction, or utxo. For a brief reminder on the nature of a utxo, read [this post on the Komodo blog regarding utxos.](https://komodoplatform.com/whats-utxo/)
 
 
-
-## Chapter 0 - Bitcoin Protocol Basics
-There are many aspects of the bitcoin protocol that isnt needed to understand the CC contracts dependence on it. Such details will not be discussed. The primary aspect is the UTXO, Unspent Transaction Output. Just a fancy name for `txid/vout`, so when you sendtoaddress some coins, it creates a `txid` and the first output is `vout.0`, combine it and `txid/0` is a specific UTXO.
+ Just a fancy name for `txid/vout`, so when you sendtoaddress some coins, it creates a `txid` and the first output is `vout.0`, combine it and `txid/0` is a specific UTXO.
 
 Of course, to understand even this level of detail requires that you understand what a `txid` is, but there are plenty of reference materials on that. It is basically the 64 char long set of letters and numbers that you get when you send funds.
 
@@ -68,9 +105,13 @@ A useful example is to think about a queue of people lined up to get into an eve
 
 In the UTXO case, the ticket is the spending transaction and the event is the confirmed blockchain. The queue is the mempool.
 
+<!--
+
+
 
 
 ## Chapter 1 - OP_CHECKCRYPTOCONDITION
+
 In the prior chapter the UTXO was explained. However, the specific mechanism used to send a payment was not explained. Contrary to what most people might think, on the blockchain there are not entries that say "pay X amount to address". Instead what exists is a bitcoin script that must be satisfied in order for the funds to be able to be spent.
 
 Originally, there was the pay to pubkey script:
@@ -770,3 +811,4 @@ This codebase and tools in between the GUI and the RPC level will be a very good
 ## Conclusion
 I hope this document has helped you understand what a Komodo utxo based CC contract is and how it is different from the other smart contracts. If you are now able to dive into the cc directory and start making your own CC contract, then I am very happy!
 
+-->
