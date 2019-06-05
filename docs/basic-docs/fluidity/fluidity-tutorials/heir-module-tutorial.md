@@ -231,6 +231,8 @@ Observe the following transaction data structure for the existing Heir module:
 
 The <b>opreturn</b> is the last output in a transaction, and this output is never spendable under any circumstances. The <b>opreturn</b> is the location where all Antara module data is stored. 
 
+<!-- Dimxy: Further on in the tutorial, I show how to actually place opreturn data in place. May want to mention that here. -->
+
 ```bash
   "vout": [
     
@@ -251,6 +253,8 @@ The <b>opreturn</b> is the last output in a transaction, and this output is neve
   ...
 
 ```
+
+<!-- Dimxy: Let's be more descriptive about the asm and hex keys. They are the same, but asm is more descriptive. -->
 
 Note how the value for the key, `asm`, begins with `OP_RETURN ... `, and is followed by hex-encoded data. 
 
