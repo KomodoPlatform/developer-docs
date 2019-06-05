@@ -254,7 +254,7 @@ The <b>opreturn</b> is the last output in a transaction, and this output is neve
 
 ```
 
-<!-- Dimxy: Let's be more descriptive about the asm and hex keys. They are the same, but asm is more descriptive. -->
+<!-- Dimxy: Let's be more descriptive about the asm and hex keys. They are the same, but asm is more descriptive. asm is partially decoded. -->
 
 Note how the value for the key, `asm`, begins with `OP_RETURN ... `, and is followed by hex-encoded data. 
 
@@ -265,7 +265,15 @@ In the above example, the hex-encoded data can be decoded using the [<b>decodecc
 <!-- Dimxy: Will look into specific details of this content and get back to us. -->
 
 ```
-# Insert decoded hex data here
+{
+    "result": "success",
+    "OpRets": [
+        {
+            "eval_code": "EVAL_HEIR",
+            "function": "F"
+        }
+    ]
+}
 ```
 
 When an Antara module instance begins its lifecycle an initial transaction is created. In our example, the transaction we currently observe is an initial transaction of an Heir module.
