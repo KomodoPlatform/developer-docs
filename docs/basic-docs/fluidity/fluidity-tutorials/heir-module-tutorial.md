@@ -4,7 +4,7 @@ This tutorial demonstrates the process of developing a new Antara module. In the
 
 #### Tutorial Objectives
 
-The primary aim is to give the Antara module developer direct engagement with validation code. By understanding validation, the developer should be more able to grasp the broad potential of the Antara framework.
+The primary aim is to give the Antara module developer direct engagement with Antara module development, with a focus on the CryptoConditions aspects. By understanding validation, the developer should be more able to grasp the broad potential of the Antara framework.
 
 Furthermore, in the process of completing this tutorial the developer will learn how the Antara code directories are organized.
 
@@ -59,6 +59,8 @@ Before we begin the development process, it may be helpful to first experiment w
 This section is optional, but recommended.
 
 #### Launch the RICK Smart Chain
+
+<!-- Note, only use one chain. If it's RICK, keep it RICK. -->
 
 The community test chain, <b>RICK</b>, has the Heir module enabled and can serve our experiment purposes. Launch the chain as follows.
 

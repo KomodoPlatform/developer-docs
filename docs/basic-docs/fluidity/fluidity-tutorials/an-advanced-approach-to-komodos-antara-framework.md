@@ -1,6 +1,6 @@
 # An Advanced Approach to Komodo's Antara Framework
 
-The following content is provided for the experienced C++ developer who desires to create new Antara modules for Komodo Smart Chains. 
+The following content is provided for the experienced C/C++ developer who desires to create new Antara modules for Komodo Smart Chains. 
 
 The content herein provides introductory instruction that can allow the developer to more easily read existing Antara-related code and follow advanced tutorials that examine specific Antara modules.
 
@@ -26,9 +26,9 @@ Tutorial readers should have the following prerequisite experience. We provide l
 
 ## The Starting Point of the Antara Framework
 
-The Antara framework greatly enhances blockchain functionality. Antara allows a developer to write arbitrary code that can be enforced by their Smart Chain's consensus mechanism. In fact, Antara even allows clusters of Smart Chains to work together in this effort. 
+The Antara framework greatly enhances blockchain functionality. Antara allows a developer to write arbitrary code that can be enforced by their Smart Chain's consensus mechanism. Antara even allows clusters of Smart Chains to work together in this effort. 
 
-The level of freedom this grants to the developer is sometimes difficult to comprehend until one has either seen the technology in action or engaged with the technology directly.
+The level of freedom this grants to the blockchain developer is sometimes difficult to comprehend until one has either seen the technology in action or engaged with the technology directly.
 
 The Antara framework takes into account several different advanced technologies. To limit the scope of our introduction, for now we focus only one on crucial aspect: "CryptoConditions," or "CC" for short.
 
@@ -50,29 +50,29 @@ The important takeaway is that the Antara framework encompasses several underlyi
 
 At the most fundamental level, blockchain data is advanced only through transactions. A blockchain itself is but a list of transactions, bound into blocks. By design, each transaction must be confirmed by the consensus mechanism.
 
-Therefore, all decentralized data that a developer wishes to create or use with their arbitrary code must first be added to a transaction. This transaction is then passed through the consensus mechanism and, assuming the transaction is accepted, the data-bearing transaction is finally added to the blockchain.
+Therefore, all decentralized data that a developer wishes to create or use with their arbitrary code must first be added to a transaction. This transaction is then passed through the consensus mechanism. Transactions that are successfully confirmed are finally added to the blockchain, and therefore the data is also added.
 
-To take advantage of this functionality, a developer adds customized source code to the Antara framework to form a new module. Whenever a relevant transaction occurs on the blockchain, the consensus mechansim calls the module to execute its arbitrary code, validates the logical conditions and fulfillments that are found in the relevant CC transaction, and either confirms or denies the addition of this transaction to the blockchain.
+To take advantage of this functionality, a developer adds customized source code to the Antara framework to form a new module. Whenever a relevant transaction occurs on the blockchain, the consensus mechansim calls the developer's module, executes the arbitrary code, validates the logical conditions and fulfillments related to the transaction, and either confirms or denies the transaction.
 
-To simplify this process, the developer must build their module such that each CC-related transaction returns a boolean value as a part of the final results. If the returned boolean value is `true`, the Smart Chain's consensus mechanism will approve the transaction and add it to the Smart Chain's transaction history. If `false`, naturally, the consensus mechanism will ignore the attempted transaction. 
+To simplify this process, Antara requires that the developer build their module such that each CryptoConditions (CC) transaction returns a boolean value as a part of the final results. If the returned boolean value is `true`, the Smart Chain's consensus mechanism will approve the transaction. If `false`, naturally, the consensus mechanism will ignore the attempted transaction. 
 
-With this framework in place, the developer can also add any other data to be saved as a part of the transaction. This data is included in a special part of the transaction called an OP_RETURN, or opreturn for short. 
+With this framework in place, the developer can also add any other data to be saved as a part of the transaction.  This data is included in a special part of the transaction called an OP_RETURN, or opreturn for short. Also, not only does the Antara module contain arbitary source code, but the CC transaction itself can have simple scripts. (?)
 
-Through Antara, the developer receives a powerful tool for creating and executing decentralized arbitrary code, and securely adding arbitrary data to their Smart Chain. A developer can add data to any transaction, and their Smart Chain can utilize this data in future executions of arbitrary logic. The only requirement is that the arbitrary logic return a meaningful boolean value as a part of the final result. 
+Through Antara, the developer receives a powerful tool for creating and executing decentralized arbitrary code. A developer can add data to any transaction, and their Smart Chain can utilize this data in future executions of arbitrary code. The primary requirement is that the arbitrary code return a meaningful boolean value as a part of the final result. 
 
 #### Building an Antara Module is Harder Than Creating a Balance-Based Smart Contract 
 
-Antara modules are fundamentally different than the "smart contracts" that are familiar on other blockchain platforms. The key difference is that Antara modules directly rely on ["unspent transactions,"](https://komodoplatform.com/whats-utxo/) which are called "utxos" for short. Smart contracts, on the other hand, rely on the total funds held within an address. 
+Antara modules are fundamentally different than the "smart contracts" that are familiar on other blockchain platforms. The key difference is that Antara modules directly rely on ["unspent transactions,"](https://komodoplatform.com/whats-utxo/) which are called "utxos" for short. Smart contracts, on the other hand, rely on the total balance of funds held within an address. 
 
 Utxo-based modules are harder to create than balance-based smart contracts. However, utxo-based modules result in dramatically more powerful and secure functionality, as they leverage the existing Bitcoin-utxo system. 
 
-For example, with balance-based smart contracts, a bug in the smart-contract language could result in terrible events, such as the malicious printing of new coins in a smart contract, or the draining of all funds within a shared contract. Events such as these can happen even when the smart-contract author is a competent developer.
+For example, with balance-based smart contracts, a bug in the smart-contract language can result in terrible events, such as the malicious printing of new coins in a smart contract, or the draining of all funds within a shared contract. Events such as these can happen even when the smart-contract author is a competent developer.
 
 In a utxo-based module, the risk of such events is exponentially reduced. The reason utxo-based modules are more secure is that every update of the blockchain's state must be executed as a transaction, and therefore the data must pass the normal rules of consensus. 
 
-Komodo is based on the Bitcoin protocol, and therefore Komodo's Smart Chain consensus mechanisms are built on the most rigorously tested and heavily supported software in the industry. Balance-based smart contracts cannot compare to this level of security.
+Komodo is based on the Bitcoin protocol, and therefore Komodo's Smart Chain consensus mechanism is built on the most rigorously tested and heavily supported software in the industry. Balance-based smart contracts cannot compare to this level of security.
 
-As the developer engages with Antara module development, they can learn how utxo-based modules allow for increased speed in achieving consensus, greater simplicity in software architecture, more flexible functionality between Smart Chains, and more features. 
+As the developer engages with Antara module development, they can learn how utxo-based modules allow for increased speed in achieving consensus, greater simplicity in software architecture, more flexible functionality between Smart Chains, and many more superior features. 
 
 #### A Brief Look at an Antara Module Template
 
@@ -82,7 +82,7 @@ The following file, `customcc.cpp`, is a blank template a developer can use when
 
 The key takeaway to understand is that the entrypoints to Antara's CryptoConditions technology is broken down into a few functions and tables. Once the developer grasps the nature of working with these entrypoints, building Antara modules becomes a simple exercise in the common aspects of software development. 
 
-Komodo provides SDK functions, tutorials, and best practices to simplify the learning curve and development process.  
+Komodo already offers many SDK functions, tutorials, and best practices to simplify the learning curve and development process, and we continue to develop more of these sources of assistance.  
 
 Before the developer can begin creating new Antara modules, there are several key concepts to understand. Looking to the Bitcoin protocol basics, we first refresh our understanding of a utxo.
 
@@ -92,35 +92,61 @@ In the prerequisite material the reader was encouraged to first learn the basics
 
 A key concept in these texts is the unspent transaction, or utxo. For a brief reminder on the nature of a utxo, read [this post on the Komodo blog regarding utxos.](https://komodoplatform.com/whats-utxo/)
 
+Observe the data structure of a utxo.
+
+```json
+
+```
+
+Note how the <!-- vins and vouts -->
+
+Once we spend the transaction using the [<b>sendtoaddress</b>](../basic-docs/smart-chains/smart-chain-api/wallet.html#sendtoaddress) RPC, our utxo gains a `txid`. <!-- add stuff -->
+
+```json
+
+```
+
+Note how <!-- Note whatever. -->
+
+
 
  Just a fancy name for `txid/vout`, so when you sendtoaddress some coins, it creates a `txid` and the first output is `vout.0`, combine it and `txid/0` is a specific UTXO.
 
+(?)
+
 Of course, to understand even this level of detail requires that you understand what a `txid` is, but there are plenty of reference materials on that. It is basically the 64 char long set of letters and numbers that you get when you send funds.
 
-Implicit with the UTXO is that it prevents double spends. Once you spend a UTXO, you cant spend it again. This is quite an important characteristic and while advanced readers will point out chain reorgs can allow a double spend, we will not confuse the issue with such details. The important thing is that given a blockchain at a specific height's blockhash, you can know if a `txid/vout` has been spent or not.
+(?)
 
-There are also the transactions that are in memory waiting to be mined, the mempool. And it is possible for the utxo to be spent by a `tx` in the mempool. However since it isnt confirmed yet, it is still unspent at the current height, even if we are pretty sure it will be spent in the next block.
+The essence of blockchain technology is that once a utxo is spent, it cannot be spent again. At any given block height, you can check to see whether a `txid` has a `vout` indicating that it is spent. 
 
-A useful example is to think about a queue of people lined up to get into an event. They need to have a valid ticket and also to get into the queue. After some time passes, they get their ticket stamped and allowed into the event.
+In building modules for the Antara framework, we constantly keep this principle in mind, and the consensus mechanism is our guide. We create our modules such that while our Smart Chain awaits notarization to the Bitcoin network, a 51% attack on our transaction spent/unspent history has minimal negative effects on our module users. Examples of how Antara can turn a stressful situation such as this into a secure and easy-to-use product can be found in the [<b>Channels Module.</b>](../basic-docs/fluidity/fluidity-api/channels.html#introduction)
 
-In the UTXO case, the ticket is the spending transaction and the event is the confirmed blockchain. The queue is the mempool.
+One more aspect of utxos to consider is the nature of transactions in the mempool. A utxo is not consider spent under any circumstances until the consensus mechanism grants confirmation. Therefore, transactions sent to the [<b>mempool</b>](https://en.bitcoin.it/wiki/Protocol_documentation#mempool) are technically still unspent transactions, even if we are fairly certain the transaction will be confirmed in the next block.
 
-<!--
+A useful comparison here can be found by observing people seeking to attend a ticketed event, such as a music concert. To gain acceptance into the music hall, a person must first have a ticket. We compare this to the creation of a `txid`. The person must wait in line. This is similar to the mempool. The person must have their ticket stamped, and this is akin to the consensus mechanism approving the transaction. Then the person may enter the music hall. This is the act of the transaction becoming a part of the blockchain history.
 
+## The Formation of a Transaction
 
+The Antara module developer needs to understand the specific method and manner in which a transaction is created.
 
+Contrary to what one may think, a blockchain transaction is not a simple accounting entry that says, "Address X pays Y amount of funds to address Z." Rather, a transaction also contains a Bitcoin script that must be satisfied before the requested funds can be spent.
 
-## Chapter 1 - OP_CHECKCRYPTOCONDITION
+<!-- I changed the above paragraph according to my best knowledge. It used to say, "on the blockchain." This wasn't clear to me, as I wasn't sure if we were talking about blockchain database, or the actual transaction itself, or something else. I guessed. We should correct. -->
 
-In the prior chapter the UTXO was explained. However, the specific mechanism used to send a payment was not explained. Contrary to what most people might think, on the blockchain there are not entries that say "pay X amount to address". Instead what exists is a bitcoin script that must be satisfied in order for the funds to be able to be spent.
+The manner in which transactions are created has evolved over time. Originally, the process consisted only of a "Pay to Pubkey" script, or "P2PK" for short.
 
-Originally, there was the pay to pubkey script:
+The basic idea of a P2PK transaction is that the software checks the signature of the public key attempting to spend funds, and if the signature is correct the transaction is approved. 
 
-```
-<pubkey> <checksig>
-```
+These simple transactions are common in coinbase transactions. (Recall that a coinbase transaction is the transaction that mints new coins onto a blockchain. Coinbase transactions are often only used with block rewards for miners/stakers.)
 
-About as simple of a payment script that you can get. Basically the pubkey's signature is checked and if it is valid, you get to spend it. Once problem satoshi realized was that with Quantum Computers such payment scripts are vulnerable! So, he made a way to have a cold address, ie. an address whose pubkey isnt known. At least it isnt known until it is spent, so it is only Quantum resistant prior to the first spend. This line of reasoning is why we have one time use addresses and a new change address for each transaction. Maybe in some ways, this is too forward thinking as it makes things a lot more confusing to use and easier to lose track of all the required private keys.
+If the reader would like a more thorough technical explanation for P2PK transactions, tutorials and explanations abound across the web. [Here is one such example.](https://learnmeabitcoin.com/glossary/p2pk)
+
+As the early blockchain community of 
+
+<!-- stop here -->
+
+Once problem satoshi realized was that with Quantum Computers such payment scripts are vulnerable! So, he made a way to have a cold address, ie. an address whose pubkey isnt known. At least it isnt known until it is spent, so it is only Quantum resistant prior to the first spend. This line of reasoning is why we have one time use addresses and a new change address for each transaction. Maybe in some ways, this is too forward thinking as it makes things a lot more confusing to use and easier to lose track of all the required private keys.
 
 However, it is here to stay and its script is:
 
@@ -156,7 +182,7 @@ Which gets us to the CryptoConditions specification, which is a monster of a [IE
 
 The best part is that all these opcode level things are not needed at all. I just wanted to explain it for those that need to know all the details of everything.
 
-
+<!--
 
 ## Chapter 2 - CC Contract Basics
 Each CC contract has an eval code, this is just an arbitrary number that is associated with a specific CC contract. The details about a specific CC contract are all determined by the validation logic, that is ultimately what implements a CC contract.
