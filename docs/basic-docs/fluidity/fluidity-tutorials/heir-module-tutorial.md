@@ -4,7 +4,7 @@ This tutorial demonstrates the process of developing a new Antara module. In the
 
 #### Tutorial Objectives
 
-The primary aim is to give the Antara module developer direct engagement with Antara module development, with a focus on the CryptoConditions aspects. By understanding validation, the developer should be more able to grasp the broad potential of the Antara framework.
+The primary aim is to give the developer direct engagement with Antara module development, with a focus on the CryptoConditions aspects. By understanding validation, the developer should be more able to grasp the broad potential of the Antara framework.
 
 Furthermore, in the process of completing this tutorial the developer will learn how the Antara code directories are organized.
 
