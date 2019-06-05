@@ -410,20 +410,28 @@ A CryptoCondition consists of three parts:
 
 <!-- the original content below was difficult to decipher. Specifically, I had a hard time understanding what the differences were between the condition and fulfillment's abilities. -->
 
+<!-- Dimxy: The "For example..." content may not be accurate. It is more complicated. -->
+
 The <b>logical condition</b> (Part I) contains instructions and data that check the CryptoCondition. For example, the condition can include a reference to a specific `pubkey` value that must be associated with any attempt to spend this transaction output.
 
-```
+```json
 # Dimxy: Providing an example later
 ```
 
 <!-- Note question below.
 -->
 
-The <b>logical fulfillment</b> (Part II) contains instructions and data about how the (consensus mechanism?) should evaluate the CryptoCondition. For example, the logical fulfillment could include an instruction to check that any spending-transaction's signature has the correct value and associated `pubkey`.
+<!-- Dimxy: Review example in the content below.  -->
+
+The <b>logical fulfillment</b> (Part II) contains instructions and data about how the consensus mechanism should evaluate the CryptoCondition. For example, the logical fulfillment could include an instruction to check that any spending-transaction's signature has the correct value and associated `pubkey`.
 
 <!-- In the above, that was the best that I could interpret the original content, but the Part II description seems backwards to me. -->
 
-To fulfill the transaction output, first a node on the network must send a spending-transaction that is an attempt to spend the CryptoCondition transaction output. The consensus mechanism of the Smart Chain uses the (logical fulfillment? C library? All of the above?) aspect of the CryptoCondition to validate this attempted spending-transaction. The result of this validation is checked against the logical condition included in this spending-transaction.
+```json
+# Dimxy: providing an example later
+```
+
+To fulfill the transaction output, first a node on the network must send a spending-transaction that is an attempt to spend the CryptoCondition transaction output. The consensus mechanism of the Smart Chain uses the (logical fulfillment? C library? All of the above?) aspect of the CryptoCondition to validate this attempted spending-transaction. The result of this validation is checked against the logical condition included in the (previous, CryptoCondition transaction).
 
 #### The Simplest of CryptoConditions
 
