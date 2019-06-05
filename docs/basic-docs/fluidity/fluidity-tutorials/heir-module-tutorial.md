@@ -12,6 +12,8 @@ Furthermore, in the process of completing this tutorial the developer will learn
 
 Tutorial readers should have the following prerequisite experience. We provide links to relevant resources where available.
 
+<!-- This may be too many links. Perhaps simplify method of communicating prerequisite knowledge. -->
+
 - Confident programming skills with the C/C++ languages
 - Familiarity with the Komodo platform
   - [Link to the Komodo whitepaper](https://komodoplatform.com/whitepaper)
@@ -75,6 +77,8 @@ Use the following guide to create an Antara pubkey and address on the <b>RICK</b
 [Link to Antara pubkey creation guide](../basic-docs/fluidity/fluidity-setup/fluidity-instructions.html#creating-and-launching-with-a-pubkey)
 
 #### Retrieve RICK Funds from the Community Faucet
+
+<!-- Note from Dimxy: Change the header so that it's clear that we're temporarily using a separate module. Learning RPC aspects. -->
 
 To obtain funds on the RICK Smart Chain, we utilize a different Antara module, [<b>Faucet</b>](../basic-docs/fluidity/fluidity-api/faucet.html#introduction). Our encounter with Faucet also presents an educational opportunity, which we discuss in a moment.
 
