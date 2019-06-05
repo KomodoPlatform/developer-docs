@@ -267,6 +267,7 @@ In the above example, the hex-encoded data can be decoded using the [<b>decodecc
 <!-- below using decodeccopret -->
 
 <!-- 6a4c85: 6a = opreturn, 4c85 = length of the rest of the message, ea = eval_heir, 46 = F, 210... = customized data--> 
+
 ```
 {
     "result": "success",
@@ -279,15 +280,9 @@ In the above example, the hex-encoded data can be decoded using the [<b>decodecc
 }
 ```
 
-When an Antara module instance begins its lifecycle an initial transaction is created. In our example, the transaction we currently observe is an initial transaction of an Heir module.
+<!-- What's the maximum length of data. 10,000 bytes. -->
 
-<!--
-
-Need to check that the above is accurate.
-
-Also, need to resolve the type of cryptocondition in vouts and the CC outputs thing below.
-
--->
+When an Antara module instance begins its lifecycle an initial transaction is created. In our example, the transaction we see above is an initial transaction of an Heir module.
 
 Note that the transaction takes value from normal inputs and sends it to CC outputs.
 
@@ -364,11 +359,17 @@ Note that the transaction takes value from normal inputs and sends it to CC outp
 
 The important aspect to note here is that an initial transaction of a module instance typically takes value from normal inputs and sends it to CC outputs. 
 
-<!-- should the below first sentence say "module instance"? -->
+<!-- Make the above more clear by pointing specifically to "type": "cryptocondition" -->
+
+<!-- should the below first sentence say "module instance"? 
+
+Answer: it's about the specific plan
+
+-->
 
 As time progresses, more transactions on the Smart Chain are performed under this module. Each of the module's transactions spends from the previous transaction outputs associated with the module and creates new unspent transactions. This process effectively creates a [linked-list data structure.](https://en.wikipedia.org/wiki/Linked_list)
 
-With each transaction, the <b>opreturn</b> data is never spent, and remains in the blockchain database for future recall.
+With each transaction, the <b>opreturn</b> data is never spent, and remains in the blockchain database for future use.
 
 ## Understanding CryptoConditions
 
@@ -380,11 +381,15 @@ Komodo has implemented our own unique version of CryptoConditions as a part of t
 
 The logical expressions of a CryptoCondition are stored in the scripts of transactions, and also in a supporting C library. The library is included during the installation procedure of the associated Smart Chain, and the library evaluates and checks the logical expressions that are stored in the transaction scripts. 
 
+<!-- Dimxy: I will check the content above to work on the description. --> 
+
 #### The Importance of CryptoConditions
 
 CryptoConditions allow a developer to build and evaluate complex logical expressions that are based on the results of cryptographic functions.
 
 This is a key aspect of Antara's ability to allow the developer to add arbitrary code into their Smart Chain's consensus mechanism. Through CryptoConditions and other elements, the consensus mechanism can rule over the outcome of the arbitrary code across the Smart Chain's decentralized network of nodes.
+
+<!-- Dimxy: Probably accurate, but maybe we'll rephrase later. -->
 
 #### Makeup of a CryptoCondition
 
@@ -397,12 +402,19 @@ A CryptoCondition consists of three parts:
   - This transaction output will be spent
 - <b>Part II: A logical fulfillment</b>
   - This is stored in the `scriptSig` input of the transaction that spends the above output
-- <b>Part III: Data in OP_RETURN</b>
+ 
+<!-- Dimxy: part 3 is incorrect. opreturn is part of the transaction, but not part of the cryptocondition. -->
+
+- <b>Part III: Data in the OP_RETURN vout</b>
   - Data can be included in the opreturn output of any CryptoConditions transaction
 
 <!-- the original content below was difficult to decipher. Specifically, I had a hard time understanding what the differences were between the condition and fulfillment's abilities. -->
 
 The <b>logical condition</b> (Part I) contains instructions and data that check the CryptoCondition. For example, the condition can include a reference to a specific `pubkey` value that must be associated with any attempt to spend this transaction output.
+
+```
+# Dimxy: Providing an example later
+```
 
 <!-- Note question below.
 -->
