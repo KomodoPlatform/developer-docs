@@ -106,7 +106,9 @@ With funds in your wallet, you are prepared to experiment with the API commands 
 
 #### On the Relevance of Faucet
 
-The Faucet module provides a simple example of the nature of an Antara module for our study. Faucet allows a user to lock an arbitrary amount of funds within an Antara address. Other users on the network are able to withdraw funds from this Antara address in small portions. To prevent spam requests, the Faucet requires a small amount of work from the requesting user's node. 
+<!-- Dimxy: Maybe this section goes before the use of Faucet -->
+
+The Faucet module provides a simple example of the nature of an Antara module for our study. Faucet allows a user to lock an arbitrary amount of funds within an Antara address. Other users on the network are able to withdraw funds from this Antara address in small portions. To prevent spam requests, the Faucet requires a small amount of proof-of-work from the requesting user's node. 
 
 From this outline, we observe the basic business logic of the Faucet module. The module involves storing funds in a designated address, the creation of a faucet that can disburse funds, and the ability to limit the rate at which funds are withdrawn.
 
@@ -224,6 +226,8 @@ Observe the following transaction data structure for the existing Heir module:
   ]
 }
 ```
+
+<!-- Dimxy: Maybe seeing everything above is too much. Is it possible to reduce? -->
 
 The <b>opreturn</b> is the last output in a transaction, and this output is never spendable under any circumstances. The <b>opreturn</b> is the location where all Antara module information is stored. 
 
