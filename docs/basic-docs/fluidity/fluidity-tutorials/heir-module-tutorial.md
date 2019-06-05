@@ -431,7 +431,7 @@ The <b>logical fulfillment</b> (Part II) contains instructions and data about ho
 # Dimxy: providing an example later
 ```
 
-To fulfill the transaction output, first a node on the network must send a spending-transaction that is an attempt to spend the CryptoCondition transaction output. The consensus mechanism of the Smart Chain uses the (logical fulfillment? C library? All of the above?) aspect of the CryptoCondition to validate this attempted spending-transaction. The result of this validation is checked against the logical condition included in the (previous, CryptoCondition transaction).
+To fulfill the transaction output, first a node on the network must send a spending-transaction that is an attempt to spend the CryptoCondition transaction output. The consensus mechanism uses the C library to validate the logical fulfillment of the spending-transaction. The result of this validation is checked against the logical condition included in the (previous, CryptoCondition transaction).
 
 #### The Simplest of CryptoConditions
 
