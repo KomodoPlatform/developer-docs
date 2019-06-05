@@ -264,6 +264,9 @@ In the above example, the hex-encoded data can be decoded using the [<b>decodecc
 
 <!-- Dimxy: Will look into specific details of this content and get back to us. -->
 
+<!-- below using decodeccopret -->
+
+<!-- 6a4c85: 6a = opreturn, 4c85 = length of the rest of the message, ea = eval_heir, 46 = F, 210... = customized data--> 
 ```
 {
     "result": "success",
