@@ -431,6 +431,8 @@ The <b>logical fulfillment</b> (Part II) contains instructions and data about ho
 # Dimxy: providing an example later
 ```
 
+<!-- Fix content in parens below. -->
+
 To fulfill the transaction output, first a node on the network must send a spending-transaction that is an attempt to spend the CryptoCondition transaction output. The consensus mechanism uses the C library to validate the logical fulfillment of the spending-transaction. The result of this validation is checked against the logical condition included in the (previous, CryptoCondition transaction).
 
 #### The Simplest of CryptoConditions
@@ -439,9 +441,15 @@ The simplest CryptoCondition evaluates an electronic signature of a spending-tra
 
 At first glance, you may be confused about why a CryptoCondition is useful in this event, as a normal blockchain protocol can already accomplish this task. 
 
+<!-- Dimxy: When we are speaking about arbitrary code, we are speaking about validation. 
+
+The M of N thing is not provided by arbitrary code, but by the CC library. -->
+
 The answer is that there is an important difference in the CryptoCondition implementation. When a CryptoCondition transaction output is spent, the Antara module's code can enforce additional logic.
 
 This key difference illuminates the power of Antara. For example, additional arbitrary code could include a logical condition that any attempted spending-transaction must be signed by at least `M` of `N` acceptable `pubkeys`. When the attempted spending-transaction has a suitable logical fulfillment, the CryptoCondition evaluates to `true`, and the transaction output is spent.
+
+<!-- Dimxy: There is more here. CC allows for additional logic beyond what we have currently explained. Will provide example. -->
 
 Furthermore, application validation can accomplish this as well. We will examine this possibility further on in the tutorial.
 
@@ -450,6 +458,8 @@ As logical conditions and fulfillments can be added to a CryptoCondition as desi
 In this section, we became acquainted with the concept of logical conditions that are associated with transaction outputs, and logical fulfillments associated with spending-transactions. These two elements make up the rudimentary aspect of a CryptoCondition.
 
 There are yet other elements of an Antara-based CryptoCondition. One element is called the `EVAL` code, and it is stored in the CryptoCondition's inputs and outputs. We will touch on this topic soon. 
+
+<!-- Change the above for JL's content -->
 
 ## Antara Module Features 
 
