@@ -227,9 +227,9 @@ Observe the following transaction data structure for the existing Heir module:
 }
 ```
 
-<!-- Dimxy: Maybe seeing everything above is too much. Is it possible to reduce? -->
+<!-- Dimxy: Maybe seeing everything above is too much. Is it possible to reduce? Also, this transaction above has additional information not included in the simplified Heir module. Therefore, it may confuse them. -->
 
-The <b>opreturn</b> is the last output in a transaction, and this output is never spendable under any circumstances. The <b>opreturn</b> is the location where all Antara module information is stored. 
+The <b>opreturn</b> is the last output in a transaction, and this output is never spendable under any circumstances. The <b>opreturn</b> is the location where all Antara module data is stored. 
 
 ```bash
   "vout": [
@@ -256,11 +256,9 @@ Note how the value for the key, `asm`, begins with `OP_RETURN ... `, and is foll
 
 The hex-encoded data is arbitrary, and can be used for any purposes a developer sees fit.
 
-<!-- I need the command below.
-
---> 
-
 In the above example, the hex-encoded data can be decoded using the [<b>decodeccopret</b>](../../../basic-docs/smart-chains/smart-chain-api/util.html#decodeccopret) command. In our example, the decoded data is as follows.
+
+<!-- Dimxy: Will look into specific details of this content and get back to us. -->
 
 ```
 # Insert decoded hex data here
