@@ -34,13 +34,13 @@ The Antara framework takes into account several different advanced technologies.
 
 #### A Brief Explanation of CryptoConditions
 
-CryptoConditions is a technology that allows for arbitrary logical conditions and fulfillments to be evaluated as a part of consensus. This allows for the consensus mechanism to evaluate the results of arbitrary code and update state in the blockchain's data in a decentralized and secure fashion.
+CryptoConditions is a technology that allows for arbitrary logical conditions and fulfillments to be evaluated as a part of consensus. This allows for a Smart Chain's consensus mechanism to evaluate the results of arbitrary code and update state in the blockchain's data in a decentralized and secure fashion.
 
 CryptoConditions technology is not a new concept. The [Interledger](https://interledger.org/) team originally proposed this technology in 2016. 
 
 The [original proposal](https://tools.ietf.org/html/draft-thomas-crypto-conditions-01) was that it would be an open-source industry-wide standard format. The Interledger team does not seem to have continued exploring the technology beyond the original proposal. 
 
-Komodo, on the other hand, found this concept to be intriguing. In 2018, Komodo adopted this open-source technology into the suite of offerings in our Antara framework. Our implementation uses many of the key ideas put forth by the Interledger team, and at the same time we depart in several significant ways.
+Komodo, on the other hand, found the CryptoConditions concept to be intriguing. In 2018, Komodo adopted this open-source technology into the suite of offerings in our Antara framework. Our implementation uses many of the key ideas put forth by the Interledger team, and at the same time we depart in several significant ways.
 
 The specific details of the differences between Komodo and Interledger's versions of CryptoConditions are not necessary to understand here. However, those who are curious can explore the open-source code in the respective repositories. 
 
@@ -52,13 +52,13 @@ At the most fundamental level, blockchain data is advanced only through transact
 
 Therefore, all decentralized data that a developer wishes to create or use with their arbitrary code must first be added to a transaction. This transaction is then passed through the consensus mechanism. Transactions that are successfully confirmed are finally added to the blockchain, and therefore the data is also added.
 
-To take advantage of this functionality, a developer adds customized source code to the Antara framework to form a new module. Whenever a relevant transaction occurs on the blockchain, the consensus mechansim calls the developer's module, executes the arbitrary code, validates the logical conditions and fulfillments related to the transaction, and either confirms or denies the transaction.
+To take advantage of this functionality, a developer adds customized source code to the Antara framework to form a new module. Whenever a relevant transaction occurs on the blockchain, the consensus mechansim calls the developer's module, executes the arbitrary code, validates the logical conditions and fulfillments related to the transaction, and either confirms or denies it.
 
-To simplify this process, Antara requires that the developer build their module such that each CryptoConditions (CC) transaction returns a boolean value as a part of the final results. If the returned boolean value is `true`, the Smart Chain's consensus mechanism will approve the transaction. If `false`, naturally, the consensus mechanism will ignore the attempted transaction. 
+To simplify this process, Antara requires that the developer build their module such that each CryptoConditions (CC) transaction returns a boolean value as a part of the final results. If the returned boolean value is `true`, the transaction is approved.
 
-With this framework in place, the developer can also add any other data to be saved as a part of the transaction.  This data is included in a special part of the transaction called an OP_RETURN, or opreturn for short. Also, not only does the Antara module contain arbitary source code, but the CC transaction itself can have simple scripts. (?)
+With this framework in place, the developer can also add any other data to be saved as a part of the transaction.  This data is included in a special part of the transaction called an <b>OP_RETURN</b>, or <b>opreturn</b> for short. Also, not only does the Antara module contain arbitary source code, but the CC transaction itself contains the simple scripts that act as the logical conditions and expressions of a CryptoCondition. (?)
 
-Through Antara, the developer receives a powerful tool for creating and executing decentralized arbitrary code. A developer can add data to any transaction, and their Smart Chain can utilize this data in future executions of arbitrary code. The primary requirement is that the arbitrary code return a meaningful boolean value as a part of the final result. 
+Through Antara, the developer receives a powerful tool for creating and executing decentralized arbitrary code. A developer can add also data to any transaction, and their Smart Chain can utilize this data in future executions of arbitrary code. The primary requirement is that the arbitrary code return a meaningful boolean value as a part of the final result. 
 
 #### Building an Antara Module is Harder Than Creating a Balance-Based Smart Contract 
 
@@ -80,7 +80,7 @@ The following file, `customcc.cpp`, is a blank template a developer can use when
 
 [<b>Link to customcc.cpp file</b>](https://github.com/jl777/komodo/blob/dev/src/cc/customcc.cpp)
 
-The key takeaway to understand is that the entrypoints to Antara's CryptoConditions technology is broken down into a few functions and tables. Once the developer grasps the nature of working with these entrypoints, building Antara modules becomes a simple exercise in the common aspects of software development. 
+The key takeaway is that the entrypoints to Antara's CryptoConditions technology is broken down into a few functions and tables. Once the developer grasps the nature of working with these entrypoints, building Antara modules becomes a simple exercise in the common aspects of software development. 
 
 Komodo already offers many SDK functions, tutorials, and best practices to simplify the learning curve and development process, and we continue to develop more of these sources of assistance.  
 
@@ -120,15 +120,15 @@ Of course, to understand even this level of detail requires that you understand 
 
 The essence of blockchain technology is that once a utxo is spent, it cannot be spent again. At any given block height, you can check to see whether a `txid` has a `vout` indicating that it is spent. 
 
-In building modules for the Antara framework, we constantly keep this principle in mind, and the consensus mechanism is our guide. We create our modules such that while our Smart Chain awaits notarization to the Bitcoin network, a 51% attack on our transaction spent/unspent history has minimal negative effects on our module users. Examples of how Antara can turn a stressful situation such as this into a secure and easy-to-use product can be found in the [<b>Channels Module.</b>](../basic-docs/fluidity/fluidity-api/channels.html#introduction)
+In building modules for the Antara framework, we constantly keep this principle in mind, and the consensus mechanism is our guide. We create our modules such that while our Smart Chain awaits notarization to the Bitcoin network, a 51% attack on our transaction spent/unspent history has minimal negative effects on our module users. Examples of how Antara can turn the user's stressful requirement to wait for sufficient blockchain confirmations into a secure, fast, and convenient asset-transfer protocol can be found in the [<b>Channels Antara Module.</b>](../basic-docs/fluidity/fluidity-api/channels.html#introduction)
 
-One more aspect of utxos to consider is the nature of transactions in the mempool. A utxo is not consider spent under any circumstances until the consensus mechanism grants confirmation. Therefore, transactions sent to the [<b>mempool</b>](https://en.bitcoin.it/wiki/Protocol_documentation#mempool) are technically still unspent transactions, even if we are fairly certain the transaction will be confirmed in the next block.
+One more aspect of utxos to consider is the nature of transactions in the mempool. A utxo is not considered spent under any circumstances until the transaction that spends it receives confirmation from the consensus mechanism. Therefore, transactions sent to the [<b>mempool</b>](https://en.bitcoin.it/wiki/Protocol_documentation#mempool) are technically still unspent transactions, even if we are fairly certain the transaction will be confirmed in the next block.
 
-A useful comparison here can be found by observing people seeking to attend a ticketed event, such as a music concert. To gain acceptance into the music hall, a person must first have a ticket. We compare this to the creation of a `txid`. The person must wait in line. This is similar to the mempool. The person must have their ticket stamped, and this is akin to the consensus mechanism approving the transaction. Then the person may enter the music hall. This is the act of the transaction becoming a part of the blockchain history.
+A useful comparison here can be found by observing people seeking to attend a ticketed event, such as a music concert. To gain acceptance into the music hall, a person must first have a ticket. We compare this to the creation of a txid. The person must wait in line. This is similar to the mempool. The person must have their ticket stamped, and this is akin to the consensus mechanism approving the transaction. Then the person may enter the music hall. This is the transaction becoming a part of the blockchain history.
 
 ## The Formation of a Transaction
 
-The Antara module developer needs to understand the specific method and manner in which a transaction is created.
+The developer needs to understand the specific method and manner in which a transaction is created.
 
 Contrary to what one may think, a blockchain transaction is not a simple accounting entry that says, "Address X pays Y amount of funds to address Z." Rather, a transaction also contains a Bitcoin script that must be satisfied before the requested funds can be spent.
 
@@ -136,27 +136,49 @@ Contrary to what one may think, a blockchain transaction is not a simple account
 
 The manner in which transactions are created has evolved over time. Originally, the process consisted only of a "Pay to Pubkey" script, or "P2PK" for short.
 
-The basic idea of a P2PK transaction is that the software checks the signature of the public key attempting to spend funds, and if the signature is correct the transaction is approved. 
+The basic idea of a P2PK transaction is that the software checks the cryptographic signature of the public key attempting to spend funds, and if the signature is correct the transaction is approved. 
 
-These simple transactions are common in coinbase transactions. (Recall that a coinbase transaction is the transaction that mints new coins onto a blockchain. Coinbase transactions are often only used with block rewards for miners/stakers.)
+These simple transactions are common in coinbase transactions. (Recall that a coinbase transaction is the transaction that mints new coins onto a blockchain. Coinbase transactions are most frequently encountered as block rewards for miners/stakers.)
 
 If the reader would like a more thorough technical explanation for P2PK transactions, tutorials and explanations abound across the web. [Here is one such example.](https://learnmeabitcoin.com/glossary/p2pk)
 
-As the early blockchain community of 
+As the early Bitcoin community gained experience, Satoshi Nakamoto realized that in the future, quantum computers would be able to break the encryption protection surrounding pubkeys, and thereby steal funds in any pubkey address. 
+
+To solve this problem, Satoshi invented a method to have a "cold address." Cold addresses are based on a pubkey, but there are various cryptographic functions that separate the two. 
+
+A user can send their funds to a cold address without revealing the associated pubkey. This allows the user to keep their pubkey private, and thus protect their funds from being spent even by a quantum computer, so long as the relationship between the cold address and the pubkey remains a secret.
+
+Naturally, to spend their funds, the user must utilize their pubkey to create the transaction signature, and thus they reveal the relationship between the cold address and the pubkey. Once the secret is revealed, the cold address no longer offers any protection again quantum computers. 
+
+This encouraged Satoshi to redesign the Bitcoin protocol so that each time a utxo is spent, the leftover amount in the utxo is sent to a new cold address. This is the reason for the "change" addresses that a user sees in their wallet each time they send funds. 
+
+Some people complain about the confusion this causes to new users, and about the difficulty of keeping track of the private keys to each new "change" address, but the design is now a permanent part of the protocol.
+
+#### Pay to Pubkey Hash Transactions 
+
+Transactions that take place with a cold address are called "Pay to Pubkey Hash" transactions, or P2PKH for short. 
+
+The Internet contains many thorough explanations of P2PKH transactions, so we will not go into further details, but will keep our description brief.
+
+::: tip
+
+For more information on P2PKH transactions, [here is one useful Internet tutorial.](https://learnmeabitcoin.com/glossary/p2pkh)
+
+:::
+
+The cold addresses of a P2PKH transaction are base58 encoded, meaning that the address consists of a prefix and a hash of the pubkey. The structure of the script to spend this type of transaction is as follows.
+
+<!-- Let's give a specific example to go along with the descriptions. -->
+
+```
+<hash of the pubkey> <pubkey> <verify hash matches> <checksig>
+```
+
+Once a cold address is associated with a pubkey, the Bitcoin protocol no longer attempts to use these quantum-secure P2PKH transactions. Instead, the protocol reverts to the original P2PK transactions, to save 25 extra bytes of space per transction. The protocol does continue the "change" address habit, however. The reason for this is beyond the scope of our tutorial.
+
+In Antara module development, when we create address that we intend to have our users reuse repeatedly, we simply skip P2PKH transactions altogether, and only use P2PK transactions instead. 
 
 <!-- stop here -->
-
-Once problem satoshi realized was that with Quantum Computers such payment scripts are vulnerable! So, he made a way to have a cold address, ie. an address whose pubkey isnt known. At least it isnt known until it is spent, so it is only Quantum resistant prior to the first spend. This line of reasoning is why we have one time use addresses and a new change address for each transaction. Maybe in some ways, this is too forward thinking as it makes things a lot more confusing to use and easier to lose track of all the required private keys.
-
-However, it is here to stay and its script is:
-
-```
-<hash the pubkey> <pubkey> <verify hash matches> <checksig>
-```
-
-With this, the blockchain has what maps to "pay to address", just that the address is actually a base58 encoded (prefix + pubkeyhash). Hey, if it wasnt complicated, it would be easy!
-
-In order to spend a `p2pkh` (pay to pubkey hash) UTXO, you need to divulge the pubkey in addition to having a valid signature. After the first spend from an address, its security is degraded to `p2pk` (pay to pubkey) as its pubkey is now known. The net result is that each reused address takes 25 extra bytes on the blockchain, and that is why for addresses that are expected to be reused, I just use the `p2pk` script.
 
 Originally, bitcoin allowed any type of script opcodes to be used directly. The problem was some of them caused problems and satoshi decided to disable them and only allow standard forms of payments. Thus the `p2pk` and `p2pkh` became 99%+ of bitcoin transactions. However, going from having a fully scriptable language that can create countless payment scripts (and bugs!), to having just 2... well it was a "short term" limitation. It did last for some years but eventually a compromise `p2sh` script was allowed to be standard. This is a pay to script hash, so it can have a standard format as the normal `p2pkh`, but have infinitely more flexibility.
 
