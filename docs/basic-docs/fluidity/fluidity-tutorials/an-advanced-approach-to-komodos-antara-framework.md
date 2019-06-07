@@ -128,7 +128,7 @@ A useful comparison here can be found by observing people seeking to attend a ti
 
 ## The Formation of a Transaction
 
-The developer needs to understand the specific method and manner in which a transaction is created.
+The developer may benefit from understanding the specific method and manner in which a transaction is created.
 
 Contrary to what one may think, a blockchain transaction is not a simple accounting entry that says, "Address X pays Y amount of funds to address Z." Rather, a transaction also contains a Bitcoin script that must be satisfied before the requested funds can be spent.
 
@@ -158,13 +158,7 @@ Some people complain about the confusion this causes to new users, and about the
 
 Transactions that take place with a cold address are called "Pay to Pubkey Hash" transactions, or P2PKH for short. 
 
-The Internet contains many thorough explanations of P2PKH transactions, so we will not go into further details, but will keep our description brief.
-
-::: tip
-
-For more information on P2PKH transactions, [here is one useful Internet tutorial.](https://learnmeabitcoin.com/glossary/p2pkh)
-
-:::
+The Internet contains many thorough explanations of P2PKH transactions, so we will limit our description. For more information on P2PKH transactions, [here is a useful Internet tutorial.](https://learnmeabitcoin.com/glossary/p2pkh)
 
 The cold addresses of a P2PKH transaction are base58 encoded, meaning that the address consists of a prefix and a hash of the pubkey. The structure of the script to spend this type of transaction is as follows.
 
@@ -174,48 +168,49 @@ The cold addresses of a P2PKH transaction are base58 encoded, meaning that the a
 <hash of the pubkey> <pubkey> <verify hash matches> <checksig>
 ```
 
-Once a cold address is associated with a pubkey, the Bitcoin protocol no longer attempts to use these quantum-secure P2PKH transactions. Instead, the protocol reverts to the original P2PK transactions, to save 25 extra bytes of space per transction. The protocol does continue the "change" address habit, however. The reason for this is beyond the scope of our tutorial.
+Once a cold address is associated with a pubkey, the Bitcoin protocol no longer attempts to use these quantum-secure P2PKH transactions, as they require an extra 25 bytes of data space. Instead, the protocol reverts to the original P2PK transactions. The protocol does continue the "change" address pattern, however. The reason for this is beyond the scope of our tutorial.
 
-In Antara module development, when we create address that we intend to have our users reuse repeatedly, we simply skip P2PKH transactions altogether, and only use P2PK transactions instead. 
+As an aside, in Antara module development, when we create addresses that we intend to have our users reuse repeatedly, we simply skip P2PKH transactions altogether, and only use P2PK transactions instead. 
 
-<!-- stop here -->
+#### Pay to Script Hash Payments
 
-Originally, bitcoin allowed any type of script opcodes to be used directly. The problem was some of them caused problems and satoshi decided to disable them and only allow standard forms of payments. Thus the `p2pk` and `p2pkh` became 99%+ of bitcoin transactions. However, going from having a fully scriptable language that can create countless payment scripts (and bugs!), to having just 2... well it was a "short term" limitation. It did last for some years but eventually a compromise `p2sh` script was allowed to be standard. This is a pay to script hash, so it can have a standard format as the normal `p2pkh`, but have infinitely more flexibility.
+In addition to P2PK transactions, the original Bitcoin protocol allowed for any type of script opcode in transactions. This seemed like a promising idea at first, but developers quickly discovered that this level of freedom also brought many bugs to the code. Satoshi soon limited the transaction-type options available to only a few, and P2PK and P2PKH become the overwhelming majority of all transctions.
+
+The community still desired the freedom to execute scripts as a part of transactions, and this eventually led to the Pay to Script Hash, or P2SH, standard. This method allows the user to lock their funds to the hash of a script.
+
+To unlock the funds, a user provides the original script. The blockchain daemon checks that the script matches the hash, executes the script, and the funds are unlocked.
+
+The script itself is typically designed to ensure that the funds are spent in a secure manner, and this is often through a P2PK or P2PKH transaction that is included in the script. 
+
+For more information about P2SH transaction, [a useful tutorial can be found here.](https://learnmeabitcoin.com/glossary/p2sh)
+
+The structure of a P2SH transaction is as follows.
+
+<!-- Again, let's show a full example. I still don't understand what specifically I'm looking at. -->
 
 ```
 <hash the script> <script> <verify hash matches>
 ```
 
-Wait, something is wrong! If it was just that, then anybody that found out what the required script (called redeemscript) was, they could just spend it. I forgot to say that the redeemscript is then used to determine if the payment can be spent or not. So you can have a normal `p2pk` or `p2pkh` redeemscript inside a `p2sh` script.
+#### A New Op Code: CheckCryptoCondition 
 
-OK, I know that just got really confusing. Let us have a more clear example:
+Each of the above transactions relies on an operation code, also called "opcode", to execute. For example, the P2PKH transaction relies on the OP_CHECKSIG opcode, `172`, to execute. The opcode is included as a part of the transaction data, typically as a header and in hex format. When the daemon detects the opcode in the raw data, the daemon understands what is being asked by the developer and performs the appropriate action.
 
-```
-redeemscript <- pay to pubkey
-```
+Originally, Bitcoin had many opcodes available. Satoshi disabled many opcodes for stability reasons. To see a list of current opcodes in Bitcoin, [visit the Bitcoin wiki.](https://en.bitcoin.it/wiki/Script#Opcodes) 
 
-`p2sh` becomes the hash of the redeem script + the compares
+The CryptoConditions standard itself relies on a new opcode, OP_CHECKCRYPTOCONDITION, or OP_CCC for short. This opcode is not included in the Bitcoin protocol. Rather, the OP_CCC standard was originally written and designed by the Interledger team. The full, original OP_CCC specification is a thirty-three page document, [which you can see here.](https://tools.ietf.org/html/draft-thomas-crypto-conditions-04)
 
-So to spend it, you need to divulge the redeemscript, which in turn requires you to divulge the pubkey. Put it all together and the `p2sh` mechanism verifies you not only had the correct redeemscript by comparing its hash, but that when the redeemscript is run, it is satisfied. In this case, that the pubkey's signature was valid.
+There is no need to read and master the entire original proposal, however, as Komodo's Antara framework automates much of the underlying aspects. The primary takeaway is that the developer uses OP_CCC to create many types of CryptoConditions transactions, and the binary encodings of these CC transactions can be used in a Smart Chain utxo. This is the foundation of a CC-related Antara module.
 
-If you are still following, there is some good news! `OP_CHECKCRYPTOCONDITION` scripts are actually simpler than `p2sh` scripts in some sense as there isnt this extra level of script inside a scripthash. [@libscott](https://github.com/libscott) implemented the addition of `OP_CHECKCRYPTOCONDITION` to the set of bitcoin opcodes and what it does is makes sure that a CryptoConditions script is properly signed.
-
-Which gets us to the CryptoConditions specification, which is a monster of a [IETF (Internet standards) draft](https://tools.ietf.org/html/draft-thomas-crypto-conditions-04) and has hundred(s) of pages of specification. I am sure you are happy to know that you dont really need to know about it much at all! Just know that you can create all sorts of cryptoconditions and its binary encoding can be used in a bitcoin UTXO. If the standard CC contracts dont have the power you need, it is always possible to expand on it. So far, most all the CC contracts only need the power of a 1of1 CC script, which is 1 signature combined with custom constraints. The realtime payment channels CC is the only one of the reference CC contracts so far that didnt fit into this model, it needed a 1of2 CC script.
-
-The best part is that all these opcode level things are not needed at all. I just wanted to explain it for those that need to know all the details of everything.
-
-<!--
+OP_CCC provides many relatively convenient use cases, and the developer can expand on the common OP_CCC use cases when necessary. For example, a standard use case of OP_CCC is a `1of1` CC script. This type of CC transaction requires only 1 signature, and is accompanied by a few custom constraints. Many of the current default Antara modules rely on the `1of1` script OP_CCC. An more intricate use case of OP_CCC, on the other hand, is the Payments module. This module uses a `1of2` CC script, which allows for one of two signatures to sign a CC transction, and the script also features several customized constraints.
 
 ## Chapter 2 - CC Contract Basics
-Each CC contract has an eval code, this is just an arbitrary number that is associated with a specific CC contract. The details about a specific CC contract are all determined by the validation logic, that is ultimately what implements a CC contract.
 
-However, unlike the normal bitcoin payments, where it is validated with only information in the transaction, a CC contract has the power to do pretty much anything. It has full access to the blockchain and even the mempool, though using mempool information is inherently more risky and needs to be done carefully or for exclusions, rather than inclusions.
+#### The Eval Code
 
-However, this is the CC contract basics chapter, so let us ignore mempool issues and deal with just the basics. Fundamentally there is no structure for `OP_CHECKCRYPTOCONDITION` serialized scripts, but if you are like me, you want to avoid having to read and understand a 1000 page IETF standard. What we really want to do is have a logical way to make a new contract and have it be able to be coded and debugged in an efficient way.
+In the Komodo source code, each Antara module has an associated arbitrary number, called an "eval" code. This code can be any digit between `0` and `255`, there can be only one code per module, and each code is currently one byte in size. To add a new Antara module, the developer begins by adding a new eval code to the table of all active eval codes on their Smart Chain. 
 
-That means to just follow a known working template and only changing the things where the existing templates are not sufficient, ie. the core differentiator of your CC contract.
-
-In the [~/komodo/src/cc/eval.h](https://github.com/jl777/komodo/tree/jl777/src/cc/eval.h) file all the eval codes are defined, currently:
+We define all eval codes in the [~/komodo/src/cc/eval.h](https://github.com/jl777/komodo/tree/jl777/src/cc/eval.h) file. The following eval codes represent the essential, default modules in a Smart Chain.
 
 ```C
 #define FOREACH_EVAL(EVAL)             \
@@ -238,21 +233,54 @@ In the [~/komodo/src/cc/eval.h](https://github.com/jl777/komodo/tree/jl777/src/c
         EVAL(EVAL_GATEWAYS, 0xf1)
 ```
 
-Ultimately, we will probably end up with all 256 eval codes used, for now there is plenty of room. I imagined that similar to my coins repo, we can end up with a much larger than 256 number of CC contracts and you select the 256 that you want active for your blockchain. That does mean any specific chain will be limited to "only" having 256 contracts. Since there seems to be so few actually useful contracts so far, this limit seems to be sufficient. I am told that the evalcode can be of any length, but the current CC contracts assumes it is one byte.
+As the eval code must range between `0` and `255`, a Smart Chain can have up to 256 total modules. The developer of a Smart Chain can determine which modules to add from the available modules in the ecosystem. Currently, we do not yet have 256 total modules, and therefore at this time there is no need to choose; the existing modules can be left on their default eval settings.
 
-The simplest CC script would be one that requires a signature from a pubkey along with a CC validation. This is the equivalent of the pay to pubkey bitcoin script and is what most of the initial CC contracts use. Only the channels one needed more than this and it will be explained in its chapter.
-We end up with CC scripts of the form (`evalcode`) + (`pubkey`) + (other stuff), dont worry about the other stuff, it is automatically handled with some handy internal functions. The important thing to note is that each CC contract of this form needs a single pubkey and eval code and from that we get the CC script. Using the standard bitcoin's "hash and make an address from it" method, this means that the same pubkey will generate a different address for each different CC contract!
+#### Validation Code
 
-This is an important point, so I will say it in a different way. In bitcoin there used to be uncompressed pubkeys which had both the right and left half combined, into a giant 64 byte pubkey. But since you can derive one from the other, compressed pubkeys became the standard, that is why you have bitcoin pubkeys of 33 bytes instead of 65 bytes. There is a 02, 03 or 04 prefix, to mean odd or even or big pubkey. This means there are two different pubkeys for each privkey, the compressed and uncompressed. And in fact you can have two different bitcoin protocol addresses that are spendable by the same privkey. If you use some paper wallet generators, you might have noticed this.
+The developer adds validation code that will be executed any time the daemon encounters a transaction bearing the relevant module's eval code.
 
-CC contracts are like that, where each pubkey gets a different address for each evalcode. It is the same pubkey, just different address due to the actual script having a different evalcode, it ends up with a different hash and thus a different address. Now funds send to a specific CC address is only accessible by that CC contract and must follow the rules of that contract.
+This is where the true power of CC begins. When validating a normal transaction, the daemon has access only to information included in the transaction itself. With a CC transaction, however, the daemon is running arbitrary code, and therefore anything is possible. The validation code can look trough the blockchain history, observe transactions in the mempool, and even utilize Antara's cross-chain technology.
+
+Technically, OP_CCC scripts do not have a required structure. The scripts only need to follow the general structure of the initial layout, as provided in the proposal of the Interledger team (linked above).
+
+Naturally, the developer does not need to fully understand the entire proposal. Instead, the developer may follow the general guideline, as provided in our templates and tutorials. This allows the developer to code and debug their OP_CCC related modules in an efficient manner.
+
+<!-- Below content seems like it can be grouped with other "simplest" content, 1of1 and 1of2. -->
+
+A common and simple CC script exists in nearly all of the default Antara modules. This script consists of only a signature from a pubkey and CC validation. This is essentially the equivalent of a P2PK Bitcoin script; a plain CC validation returns `true` or `false`, and the P2PK Bitcoin script returns `1` or `0`, which are essentially the same.
+
+<!-- We say "CC script" below. It's not clear to me that the reader would know that a CC script and a CC address are essentially the same? -->
+
+The essential structure of a CC script is as follows. (The automatically generated content is handled by the daemon's internal functions and can be ignored.)
+
+```
+evalcode + pubkey + automatically generated content
+```
+
+Each CC script relies on the eval code unique to the module to which the CC script belongs.
+
+In the Bitcoin protocol, when creating an address that is tied to a script a common solution is to hash the script and use the hash as the address. Since the CC script includes both the pubkey and the module's unique eval code, a pubkey makes a unique CC address for each module. Funds that are sent to a CC address can be spent only by the module with the appropriate eval code, and therefore funds created and associated with an eval code maintain scarcity within this module.
+
+<!-- Maybe we rephrase based on content below. -->
+
+Originally, Bitcoin pubkeys were 64 bytes, as opposed to the 33 byte pubkeys of today. The 64 byte pubkeys had a left half and a right half which were used for internal functions in the daemon. Using cryptographic methods, a developer could derive the left half of the function from the right half, and vice verse. 
+
+Early Bitcoin developers took advantage of the ability to derive one half of the pubkey from the other, and compressed the pubkey to a smaller size. They also instituted prefixes that informed the daemon whether the pubkey was odd, even, or large (`02`, `03`, and `04` respectively). In the end, the developers compressed the 64 byte pubkey into a 33 byte version. 
+
+Today, there are multiple ways to express a pubkey. There are compressed and uncompressed versions of the pubkey, and the pubkey can also be expressed as two different base58 encoded address. All of these are associated with the same privkey.
+
+Now funds send to a specific CC address is only accessible by that CC contract and must follow the rules of that contract.
+
 I also added another very useful feature where the convention is for each CC contract to have a special address that is known to all, including its private key. Before you panic about publishing the private key, remember that to spend a CC output, you need to properly sign it AND satisfy all the rules. By everyone having the privkey for the CC contract, everybody can do the "properly sign" part, but they still need to follow the rest of the rules.
 
 From a user's perspective, there is the global CC address for a CC contract and some contracts also use the user pubkey's CC address. Having a pair of new addresses for each contract can get a bit confusing at first, but eventually we will get easy to use GUI that will make it all easy to use.
 
+<!-- stop here -->
 
+<!--
 
 ## Chapter 3 - CC vins and vouts
+
 You might want to review the bitcoin basics and other materials to refresh about how bitcoin outputs become inputs. It is a bit complicated, but ultimately it is about one specific amount of coins that are spent, once spent it is combined with the other coins that are also spent in that transaction and then various outputs are created.
 
 ```
@@ -284,9 +312,8 @@ In reality, we really dont want that much degrees of freedom as it will ensure a
 
 Ultimately the CC contract is all about how it constrains its inputs, but before it can constrain them, they need to be created as outputs. More about this in the CC validation chapter.
 
-
-
 ## Chapter 4 - CC RPC Extensions
+
 Currently, CC contracts need to be integrated at the source level. This limits who is able to create and add new CC contracts, which at first is good, but eventually will be a too strict limitation. The runtime bindings chapter will touch on how to break out of the source based limitation, but there is another key interface level, the RPC.
 
 By convention, each CC contract adds an associated set of RPC calls to the `komodo-cli`. This not only simplifies the creation of the CC contract transactions, it further will allow dapps to be created just via RPC calls. That will require there being enough foundational CC contracts already in place. As we find new usecases that cannot be implemented via rpc, then a new CC contract is made that can handle that (and more) and the power of the RPC level increases. This is a long term process.
@@ -323,9 +350,8 @@ In the [rpcwallet.cpp](https://github.com/jl777/komodo/tree/jl777/src/wallet/rpc
 
 Now you have made your own CC contract, but it wont link as you still need to implement the actual functions of it. This will be covered in the following chapters.
 
-
-
 ## Chapter 5 - CC Validation
+
 CC validation is what its all about, not the "hokey pokey"!
 
 Each CC must have its own validation function and when the blockchain is validating a transaction, it will call the CC validation code. It is totally up to the CC validation whether to validate it or not.
