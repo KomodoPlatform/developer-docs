@@ -204,7 +204,7 @@ There is no need to read and master the entire original proposal, however, as Ko
 
 OP_CCC provides many relatively convenient use cases, and the developer can expand on the common OP_CCC use cases when necessary. For example, a standard use case of OP_CCC is a `1of1` CC script. This type of CC transaction requires only 1 signature, and is accompanied by a few custom constraints. Many of the current default Antara modules rely on the `1of1` script OP_CCC. An more intricate use case of OP_CCC, on the other hand, is the Payments module. This module uses a `1of2` CC script, which allows for one of two signatures to sign a CC transction, and the script also features several customized constraints.
 
-## Chapter 2 - CC Contract Basics
+## CC Contract Basics
 
 #### The Eval Code
 
@@ -243,11 +243,11 @@ This is where the true power of CC begins. When validating a normal transaction,
 
 Technically, OP_CCC scripts do not have a required structure. The scripts only need to follow the general structure of the initial layout, as provided in the proposal of the Interledger team (linked above).
 
-Naturally, the developer does not need to fully understand the entire proposal. Instead, the developer may follow the general guideline, as provided in our templates and tutorials. This allows the developer to code and debug their OP_CCC related modules in an efficient manner.
+The developer does not need to fully understand the entire proposal. Instead, the developer may follow the general guideline, as provided in our templates and tutorials. This allows the developer to code and debug their OP_CCC related modules in an efficient manner.
 
 <!-- Below content seems like it can be grouped with other "simplest" content, 1of1 and 1of2. -->
 
-A common and simple CC script exists in nearly all of the default Antara modules. This script consists of only a signature from a pubkey and CC validation. This is essentially the equivalent of a P2PK Bitcoin script; a plain CC validation returns `true` or `false`, and the P2PK Bitcoin script returns `1` or `0`, which are essentially the same.
+A common and simple CC script exists in nearly all of the default Antara modules. This script consists of a single signature from a pubkey and CC validation. This is essentially the equivalent of a P2PK Bitcoin script; the CC validation returns `true` or `false`, and the P2PK Bitcoin script returns `1` or `0`.
 
 <!-- We say "CC script" below. It's not clear to me that the reader would know that a CC script and a CC address are essentially the same? -->
 
@@ -261,43 +261,35 @@ Each CC script relies on the eval code unique to the module to which the CC scri
 
 In the Bitcoin protocol, when creating an address that is tied to a script a common solution is to hash the script and use the hash as the address. Since the CC script includes both the pubkey and the module's unique eval code, a pubkey makes a unique CC address for each module. Funds that are sent to a CC address can be spent only by the module with the appropriate eval code, and therefore funds created and associated with an eval code maintain scarcity within this module.
 
-<!-- Maybe we rephrase based on content below. -->
+<!-- Maybe we rephrase based on content below. Also, maybe this content goes sooner, so that when we get to talking about CC addresses, we have more context. -->
 
 Originally, Bitcoin pubkeys were 64 bytes, as opposed to the 33 byte pubkeys of today. The 64 byte pubkeys had a left half and a right half which were used for internal functions in the daemon. Using cryptographic methods, a developer could derive the left half of the function from the right half, and vice verse. 
 
-Early Bitcoin developers took advantage of the ability to derive one half of the pubkey from the other, and compressed the pubkey to a smaller size. They also instituted prefixes that informed the daemon whether the pubkey was odd, even, or large (`02`, `03`, and `04` respectively). In the end, the developers compressed the 64 byte pubkey into a 33 byte version. 
+Early Bitcoin developers took advantage of the ability to derive one half of the pubkey from the other, and compressed the pubkey to a smaller size. They also instituted prefixes that informed the daemon whether the pubkey was odd, even, or large (`02`, `03`, and `04` respectively). In the end, the developers compressed the 64 byte pubkey into a 33 byte version.
 
 Today, there are multiple ways to express a pubkey. There are compressed and uncompressed versions of the pubkey, and the pubkey can also be expressed as two different base58 encoded address. All of these are associated with the same privkey.
 
-Now funds send to a specific CC address is only accessible by that CC contract and must follow the rules of that contract.
+Also, by convention, each Antara module has a global CC address where the privkey is publicly available. As usual, spending from this global CC address requires that the spender meet all validation rules set forth by the developer. Therefore, the lack of privacy for the privkey is not an issue. 
 
-I also added another very useful feature where the convention is for each CC contract to have a special address that is known to all, including its private key. Before you panic about publishing the private key, remember that to spend a CC output, you need to properly sign it AND satisfy all the rules. By everyone having the privkey for the CC contract, everybody can do the "properly sign" part, but they still need to follow the rest of the rules.
+One purpose for this global CC address is to create a repository that is global (within the module) for information regarding specific instances of this module on the chain. For example, each time a user initiates an instance of the module, the design of the module requires that a user send a small amount of funds to this global CC address. This transaction contains data about the instance the user desires to create. Other users on the network can retrieve the data in this global CC address, and thereby gain knowledge about the current state of all module instances on the Smart Chain.
 
-From a user's perspective, there is the global CC address for a CC contract and some contracts also use the user pubkey's CC address. Having a pair of new addresses for each contract can get a bit confusing at first, but eventually we will get easy to use GUI that will make it all easy to use.
+## CC vins and vouts
 
-<!-- stop here -->
-
-<!--
-
-## Chapter 3 - CC vins and vouts
-
-You might want to review the bitcoin basics and other materials to refresh about how bitcoin outputs become inputs. It is a bit complicated, but ultimately it is about one specific amount of coins that are spent, once spent it is combined with the other coins that are also spent in that transaction and then various outputs are created.
+A transaction in the Bitcoin protocol consists of input and outputs. The vins take funds from utxos, combine them into one "spend" transaction, and create new vouts. Some of the vouts may be new utxos.
 
 ```
-vin0 + vin1 + vin2 -> vout0 + vout1
+vin0 + vin1 + ... + vin[n-1] -> vout0 + vout1 + ... vout[n-1]
 ```
 
-That is a 3 input, 2 output transaction. The value from the three inputs are combined and then split into vout0 and vout1, each of the vouts gets a spend script that must be satisfied to be able to be spent. Which means for all three of out vins, all the requirements (as specified in the output that created them) are satisfied.
+Each of the vouts has a spend script that must be satisfied before the vout can be spent. 
 
-Yes, I know this is a bit too complicated without a nice chart, so we will hope that a nice chart is added here:
+Suppose vout0 is a normal utxo with a small amount of funds and the receiver of this utxo desires to spend it. They create a new transaction with a vin that consumes vout0. This vin must satisfy any scripts that are contained in vout0.
 
-`[nice chart goes here]`
+A key power of CryptoConditions (CC) is the ability to enhance the script that must be satisfied between a vin and a vout. In CC, the vout contains the logical condition, and the vin contains the logical fulfillment.
 
-Out of all the aspects of the CC contracts, the flexibility that different vins and vouts created was the biggest surprise. When I started writing the first of these a month ago, I had no idea the power inherent in the smart utxo contracts. I was just happy to have a way to lock funds and release them upon some specific conditions.
+With access to arbitrary code, CC allows the Bitcoin protocol to rival the "smart contracts" common on other platforms. Yet, CC accomplishes this without requiring the virtual-machine counterpart that other smart-contract platforms require. Instead, the consensus mechanism is directly engaged with the scripts in the vins and vouts of transactions.
 
-After the assets/tokens CC contract, I realized that it was just a tip of the iceberg. I knew it was Turing complete, but after all these years of restricted bitcoin script, to have the full power of any arbitrary algorithm, it was eye opening. Years of writing blockchain code and having really bad consequences with every bug naturally makes you gun shy about doing aggressive things at the consensus level. And that is the way it should be, if not very careful, some really bad things can and do happen. The foundation of building on top of the existing (well tested and reliable) utxo system is what makes the CC contracts less likely for the monster bugs. That being said, lack of validation can easily allow an improperly coded CC contract to have its funds drained.
-
-The CC contract breaks out of the standard limitations of a bitcoin transaction. Already, what I wrote explains the reason, but it was not obvious even to me at first, so likely you might have missed it too. If you are wondering what on earth I am talking about, THAT is what I am talking about!
+The Bitcoin protocol's consensus mechanism is constantly placed under the most intense of cryptocurrency pressure in the industry, and therefore is likely the most reliable consensus mechanism available. The ability to engage the consensus mechansim in arbitrary code while not changing the consensus mechanism itself grants Antara security and stability. The utxo system of the Bitcoin protocol reduces the likelihood that modules themselves will contain bugs internally. (The reader should note here that although CC reduces the likelihood of viable attack vectors on a module, CC cannot eliminate attack vectors altogether.)
 
 To recap, we have now a new standard bitcoin output type called a CC output. Further, there can be up to 256 different types of CC outputs active on any given blockchain. We also know that to spend any output, you need to satisfy its spending script, which in our case is the signature and whatever constraints the CC validation imposes. We also have the convention of a globally shared keypair, which gives us a general CC address that can have funds sent to it, along with a user pubkey specific CC address.
 Let us go back to the 3+2 transaction example:
@@ -311,6 +303,8 @@ Given the prior paragraph, try to imagine the possibilities the simple 3+2 trans
 In reality, we really dont want that much degrees of freedom as it will ensure a large degree of bugs! So we need to reduce things to a more manageable level where there are at most 3 types for each, and preferably just 1 type. That will make the job of validating it much simpler and simple is better as long as we dont sacrifice the power. We dont.
 
 Ultimately the CC contract is all about how it constrains its inputs, but before it can constrain them, they need to be created as outputs. More about this in the CC validation chapter.
+
+<!--
 
 ## Chapter 4 - CC RPC Extensions
 
