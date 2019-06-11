@@ -26,7 +26,7 @@ Tutorial readers should have the following prerequisite experience. We provide l
 
 ## The Starting Point of the Antara Framework
 
-The Antara framework greatly enhances blockchain functionality. Antara allows a developer to write arbitrary code that can be enforced by their Smart Chain's consensus mechanism. Antara even allows clusters of Smart Chains to work together in this effort. 
+The Antara framework greatly enhances blockchain functionality. Antara allows a developer to use their Smart Chain's consensus mechanism to enforce arbitrary code. Antara even allows clusters of Smart Chains to work together in this effort. 
 
 The level of freedom this grants to the blockchain developer is sometimes difficult to comprehend until one has either seen the technology in action or engaged with the technology directly.
 
@@ -40,9 +40,9 @@ CryptoConditions technology is not a new concept. The [Interledger](https://inte
 
 The [original proposal](https://tools.ietf.org/html/draft-thomas-crypto-conditions-01) was that it would be an open-source industry-wide standard format. The Interledger team does not seem to have continued exploring the technology beyond the original proposal. 
 
-Komodo, on the other hand, found the CryptoConditions concept to be intriguing. In 2018, Komodo adopted this open-source technology into the suite of offerings in our Antara framework. Our implementation uses many of the key ideas put forth by the Interledger team, and at the same time we depart in several significant ways.
+Komodo, on the other hand, found the CryptoConditions concept to be intriguing. In 2018, Komodo adopted this open-source technology into the suite of offerings in our Antara framework.
 
-The specific details of the differences between Komodo and Interledger's versions of CryptoConditions are not necessary to understand here. However, those who are curious can explore the open-source code in the respective repositories. 
+Our implementation uses many of the key ideas put forth by the Interledger team, and at the same time we depart in several significant ways. Those who are curious for specific details on this topic can explore the open-source code in the respective repositories. 
 
 The important takeaway is that the Antara framework encompasses several underlying technologies, one of which is CryptoConditions (CC). This technology allows a developer to add arbitrary logical conditions and fulfillments to their Smart Chain, and to rely on the consensus mechanism to ensure state integrity in a decentralized environment.
 
@@ -52,13 +52,13 @@ At the most fundamental level, blockchain data is advanced only through transact
 
 Therefore, all decentralized data that a developer wishes to create or use with their arbitrary code must first be added to a transaction. This transaction is then passed through the consensus mechanism. Transactions that are successfully confirmed are finally added to the blockchain, and therefore the data is also added.
 
-To take advantage of this functionality, a developer adds customized source code to the Antara framework to form a new module. Whenever a relevant transaction occurs on the blockchain, the consensus mechansim calls the developer's module, executes the arbitrary code, validates the logical conditions and fulfillments related to the transaction, and either confirms or denies it.
+To take advantage of this functionality, a developer adds customized source code to the Antara framework to form a new module. Whenever a relevant transaction occurs on the blockchain, the consensus mechansim calls the developer's module,  validates the logical conditions and fulfillments as put forth by the arbitrary code, and either confirms or denies the transaction.
 
 To simplify this process, Antara requires that the developer build their module such that each CryptoConditions (CC) transaction returns a boolean value as a part of the final results. If the returned boolean value is `true`, the transaction is approved.
 
 With this framework in place, the developer can also add any other data to be saved as a part of the transaction.  This data is included in a special part of the transaction called an <b>OP_RETURN</b>, or <b>opreturn</b> for short. Also, not only does the Antara module contain arbitary source code, but the CC transaction itself contains the simple scripts that act as the logical conditions and expressions of a CryptoCondition. (?)
 
-Through Antara, the developer receives a powerful tool for creating and executing decentralized arbitrary code. A developer can add also data to any transaction, and their Smart Chain can utilize this data in future executions of arbitrary code. The primary requirement is that the arbitrary code return a meaningful boolean value as a part of the final result. 
+Through Antara, the developer receives a powerful tool for creating and executing decentralized arbitrary code. A developer can also add data to any transaction, and their Smart Chain can utilize this data in future executions of arbitrary code. The primary requirement is that the arbitrary code return a meaningful boolean value as a part of the final result. 
 
 #### Building an Antara Module is Harder Than Creating a Balance-Based Smart Contract 
 
@@ -68,7 +68,7 @@ Utxo-based modules are harder to create than balance-based smart contracts. Howe
 
 For example, with balance-based smart contracts, a bug in the smart-contract language can result in terrible events, such as the malicious printing of new coins in a smart contract, or the draining of all funds within a shared contract. Events such as these can happen even when the smart-contract author is a competent developer.
 
-In a utxo-based module, the risk of such events is exponentially reduced. The reason utxo-based modules are more secure is that every update of the blockchain's state must be executed as a transaction, and therefore the data must pass the normal rules of consensus. 
+In a utxo-based module, the risk of such events is exponentially reduced. One reason utxo-based modules are more secure is that every update of the blockchain's state must be executed as a transaction, and therefore the data must pass the normal rules of consensus. 
 
 Komodo is based on the Bitcoin protocol, and therefore Komodo's Smart Chain consensus mechanism is built on the most rigorously tested and heavily supported software in the industry. Balance-based smart contracts cannot compare to this level of security.
 
@@ -80,7 +80,7 @@ The following file, `customcc.cpp`, is a blank template a developer can use when
 
 [<b>Link to customcc.cpp file</b>](https://github.com/jl777/komodo/blob/dev/src/cc/customcc.cpp)
 
-The key takeaway is that the entrypoints to Antara's CryptoConditions technology is broken down into a few functions and tables. Once the developer grasps the nature of working with these entrypoints, building Antara modules becomes a simple exercise in the common aspects of software development. 
+The key takeaway is that the entrypoints to Antara's CryptoConditions technology are broken down into a few functions and tables. Once the developer grasps the nature of working with these entrypoints, building Antara modules becomes a simple exercise in the common aspects of software development. 
 
 Komodo already offers many SDK functions, tutorials, and best practices to simplify the learning curve and development process, and we continue to develop more of these sources of assistance.  
 
@@ -90,7 +90,7 @@ Before the developer can begin creating new Antara modules, there are several ke
 
 In the prerequisite material the reader was encouraged to first learn the basics of blockchain technology and the Bitcoin protocol. The book, [Mastering Bitcoin](https://github.com/bitcoinbook/bitcoinbook), provides a preliminary discussion, as does [the Komodo whitepaper.](https://komodoplatform.com/whitepaper) 
 
-A key concept in these texts is the unspent transaction, or utxo. For a brief reminder on the nature of a utxo, read [this post on the Komodo blog regarding utxos.](https://komodoplatform.com/whats-utxo/)
+A key concept in these texts is the unspent transaction, or utxo. For a brief reminder on the nature of a utxo, read [this post on the Komodo blog.](https://komodoplatform.com/whats-utxo/)
 
 Observe the data structure of a utxo.
 
@@ -118,9 +118,9 @@ Of course, to understand even this level of detail requires that you understand 
 
 (?)
 
-The essence of blockchain technology is that once a utxo is spent, it cannot be spent again. At any given block height, you can check to see whether a `txid` has a `vout` indicating that it is spent. 
+The essence of blockchain technology is that a utxo can only be spent once. At any given block height, you can check to see whether a `txid` has a `vout` indicating that it is spent. 
 
-In building modules for the Antara framework, we constantly keep this principle in mind, and the consensus mechanism is our guide. We create our modules such that while our Smart Chain awaits notarization to the Bitcoin network, a 51% attack on our transaction spent/unspent history has minimal negative effects on our module users. Examples of how Antara can turn the user's stressful requirement to wait for sufficient blockchain confirmations into a secure, fast, and convenient asset-transfer protocol can be found in the [<b>Channels Antara Module.</b>](../basic-docs/fluidity/fluidity-api/channels.html#introduction)
+In building modules for the Antara framework, we constantly keep this principle in mind, and the consensus mechanism is our guide. We create our modules such that while our Smart Chain awaits notarization to the Bitcoin network, any attempted attack on our users' transaction spent or unspent history has minimal negative effects on our module users. For example, consider how the [<b>Channels Antara Module</b>](../basic-docs/fluidity/fluidity-api/channels.html#introduction) transforms the user's confirmation process into a secure, fast, and convenient asset-transfer protocol.
 
 One more aspect of utxos to consider is the nature of transactions in the mempool. A utxo is not considered spent under any circumstances until the transaction that spends it receives confirmation from the consensus mechanism. Therefore, transactions sent to the [<b>mempool</b>](https://en.bitcoin.it/wiki/Protocol_documentation#mempool) are technically still unspent transactions, even if we are fairly certain the transaction will be confirmed in the next block.
 
@@ -142,7 +142,7 @@ These simple transactions are common in coinbase transactions. (Recall that a co
 
 If the reader would like a more thorough technical explanation for P2PK transactions, tutorials and explanations abound across the web. [Here is one such example.](https://learnmeabitcoin.com/glossary/p2pk)
 
-As the early Bitcoin community gained experience, Satoshi Nakamoto realized that in the future, quantum computers would be able to break the encryption protection surrounding pubkeys, and thereby steal funds in any pubkey address. 
+As the early Bitcoin community gained experience, Satoshi Nakamoto foresaw a potential danger. Far in the future, a quantum computer will be able to break the encryption protection of any pubkey address and thereby steal funds.
 
 To solve this problem, Satoshi invented a method to have a "cold address." Cold addresses are based on a pubkey, but there are various cryptographic functions that separate the two. 
 
@@ -152,57 +152,51 @@ Naturally, to spend their funds, the user must utilize their pubkey to create th
 
 This encouraged Satoshi to redesign the Bitcoin protocol so that each time a utxo is spent, the leftover amount in the utxo is sent to a new cold address. This is the reason for the "change" addresses that a user sees in their wallet each time they send funds. 
 
-Some people complain about the confusion this causes to new users, and about the difficulty of keeping track of the private keys to each new "change" address, but the design is now a permanent part of the protocol.
-
 #### Pay to Pubkey Hash Transactions 
 
 Transactions that take place with a cold address are called "Pay to Pubkey Hash" transactions, or P2PKH for short. 
 
-The Internet contains many thorough explanations of P2PKH transactions, so we will limit our description. For more information on P2PKH transactions, [here is a useful Internet tutorial.](https://learnmeabitcoin.com/glossary/p2pkh)
+When performing a P2PKH transaction, the protocol has a few extra steps to perform. The protocol must check that the hash of the pubkey, which is included as a part of the cold address, is appropriately matched to the pubkey itself. The structure of a P2PKH transaction includes opreturns that instruct the daemon to perform these verification steps.
 
-The cold addresses of a P2PKH transaction are base58 encoded, meaning that the address consists of a prefix and a hash of the pubkey. The structure of the script to spend this type of transaction is as follows.
+The Internet contains many thorough explanations of P2PKH transactions. For more information, [here is one such tutorial.](https://learnmeabitcoin.com/glossary/p2pkh)
 
-<!-- Let's give a specific example to go along with the descriptions. -->
+Once a cold address is associated with a pubkey, the Bitcoin protocol no longer attempts to use these quantum-secure P2PKH transactions, as they require an extra 25 bytes of data space. Instead, the protocol reverts to the original P2PK transactions.
 
-```
-<hash of the pubkey> <pubkey> <verify hash matches> <checksig>
-```
-
-Once a cold address is associated with a pubkey, the Bitcoin protocol no longer attempts to use these quantum-secure P2PKH transactions, as they require an extra 25 bytes of data space. Instead, the protocol reverts to the original P2PK transactions. The protocol does continue the "change" address pattern, however. The reason for this is beyond the scope of our tutorial.
-
-As an aside, in Antara module development, when we create addresses that we intend to have our users reuse repeatedly, we simply skip P2PKH transactions altogether, and only use P2PK transactions instead. 
+As an aside, when dealing with addresses that the user should reuse repeatedly, the Antara module developer can simply skip P2PKH transactions and use only P2PK transactions instead. 
 
 #### Pay to Script Hash Payments
 
-In addition to P2PK transactions, the original Bitcoin protocol allowed for any type of script opcode in transactions. This seemed like a promising idea at first, but developers quickly discovered that this level of freedom also brought many bugs to the code. Satoshi soon limited the transaction-type options available to only a few, and P2PK and P2PKH become the overwhelming majority of all transctions.
+In addition to P2PK transactions, the original Bitcoin protocol allowed for any type of script opcode in transactions. This seemed like a promising idea at first, but developers quickly discovered that this level of freedom also brought instability. Satoshi soon limited the options available, and P2PK and P2PKH become the overwhelming majority of all transctions.
 
-The community still desired the freedom to execute scripts as a part of transactions, and this eventually led to the Pay to Script Hash, or P2SH, standard. This method allows the user to lock their funds to the hash of a script.
+The community still desired the freedom to execute scripts as a part of transactions, and this eventually led to the Pay to Script Hash, or P2SH, standard.
+
+This method allows the user to lock their funds to the hash of a script.  The script itself is typically designed to ensure that the funds are spent in a secure manner, and this is often through a P2PK or P2PKH transaction that is included in the script. 
 
 To unlock the funds, a user provides the original script. The blockchain daemon checks that the script matches the hash, executes the script, and the funds are unlocked.
 
-The script itself is typically designed to ensure that the funds are spent in a secure manner, and this is often through a P2PK or P2PKH transaction that is included in the script. 
-
 For more information about P2SH transaction, [a useful tutorial can be found here.](https://learnmeabitcoin.com/glossary/p2sh)
 
-The structure of a P2SH transaction is as follows.
+#### Understanding Op Codes
 
-<!-- Again, let's show a full example. I still don't understand what specifically I'm looking at. -->
+Each of the above transactions relies on an operation code, also called "opcode", to execute.
 
-```
-<hash the script> <script> <verify hash matches>
-```
-
-#### A New Op Code: CheckCryptoCondition 
-
-Each of the above transactions relies on an operation code, also called "opcode", to execute. For example, the P2PKH transaction relies on the OP_CHECKSIG opcode, `172`, to execute. The opcode is included as a part of the transaction data, typically as a header and in hex format. When the daemon detects the opcode in the raw data, the daemon understands what is being asked by the developer and performs the appropriate action.
+For example, the P2PKH transaction relies on the OP_CHECKSIG opcode, `172`, to execute. The opcode is included as a part of the transaction data, typically as a header and in hex format. When the daemon detects the opcode in the raw data, the daemon understands what is being asked by the developer and performs the appropriate action.
 
 Originally, Bitcoin had many opcodes available. Satoshi disabled many opcodes for stability reasons. To see a list of current opcodes in Bitcoin, [visit the Bitcoin wiki.](https://en.bitcoin.it/wiki/Script#Opcodes) 
 
-The CryptoConditions standard itself relies on a new opcode, OP_CHECKCRYPTOCONDITION, or OP_CCC for short. This opcode is not included in the Bitcoin protocol. Rather, the OP_CCC standard was originally written and designed by the Interledger team. The full, original OP_CCC specification is a thirty-three page document, [which you can see here.](https://tools.ietf.org/html/draft-thomas-crypto-conditions-04)
+#### A New Op Code: OP_CheckCryptoCondition 
 
-There is no need to read and master the entire original proposal, however, as Komodo's Antara framework automates much of the underlying aspects. The primary takeaway is that the developer uses OP_CCC to create many types of CryptoConditions transactions, and the binary encodings of these CC transactions can be used in a Smart Chain utxo. This is the foundation of a CC-related Antara module.
+The CryptoConditions standard itself relies on a new opcode, OP_CHECKCRYPTOCONDITION, or OP_CCC for short.
 
-OP_CCC provides many relatively convenient use cases, and the developer can expand on the common OP_CCC use cases when necessary. For example, a standard use case of OP_CCC is a `1of1` CC script. This type of CC transaction requires only 1 signature, and is accompanied by a few custom constraints. Many of the current default Antara modules rely on the `1of1` script OP_CCC. An more intricate use case of OP_CCC, on the other hand, is the Payments module. This module uses a `1of2` CC script, which allows for one of two signatures to sign a CC transction, and the script also features several customized constraints.
+This opcode is not included in the Bitcoin protocol. Rather, the OP_CCC standard was originally written and designed by the Interledger team. The full, original OP_CCC specification is a thirty-three page document, [which you can see here.](https://tools.ietf.org/html/draft-thomas-crypto-conditions-04)
+
+There is no need to read and master the entire original proposal, however, as Komodo's Antara framework automates much of the underlying aspects. The primary takeaway is that the developer uses OP_CCC to create a "<b>CryptoConditions transaction</b>," or "<b>CC transaction</b>" for short.
+
+A CC transaction includes several special features. This can include a logical condition that must be met for the utxo the transaction creates to be spent in the future. A CC transaction can also include a fulfillment of the logical conditions set forth in a previous CC transaction. The binary encodings of these CC transactions can be used in a Smart Chain utxo. These features are the foundation of a CC-related Antara module.
+
+OP_CCC provides many relatively convenient use cases, and the developer can expand on the common OP_CCC use cases when necessary. For example, a standard use case of OP_CCC is a `1of1` CC script. This type of CC transaction requires only 1 signature, and is accompanied by a few custom constraints. Many of the current default Antara modules rely on the `1of1` script OP_CCC.
+
+A more intricate use case of OP_CCC, on the other hand, is the Payments module. This module uses a `1of2` CC script, which allows for one of two signatures to sign a CC transaction, and the script also features several customized constraints.
 
 ## CC Contract Basics
 
@@ -233,7 +227,7 @@ We define all eval codes in the [~/komodo/src/cc/eval.h](https://github.com/jl77
         EVAL(EVAL_GATEWAYS, 0xf1)
 ```
 
-As the eval code must range between `0` and `255`, a Smart Chain can have up to 256 total modules. The developer of a Smart Chain can determine which modules to add from the available modules in the ecosystem. Currently, we do not yet have 256 total modules, and therefore at this time there is no need to choose; the existing modules can be left on their default eval settings.
+As the eval code must range between `0` and `255`, a Smart Chain can have up to 256 total modules. The developer of a Smart Chain can determine which modules to add from the available modules in the ecosystem. At this time, we do not yet have 256 total modules, and therefore there is no need to choose.
 
 #### Validation Code
 
@@ -241,37 +235,49 @@ The developer adds validation code that will be executed any time the daemon enc
 
 This is where the true power of CC begins. When validating a normal transaction, the daemon has access only to information included in the transaction itself. With a CC transaction, however, the daemon is running arbitrary code, and therefore anything is possible. The validation code can look trough the blockchain history, observe transactions in the mempool, and even utilize Antara's cross-chain technology.
 
-Technically, OP_CCC scripts do not have a required structure. The scripts only need to follow the general structure of the initial layout, as provided in the proposal of the Interledger team (linked above).
-
-The developer does not need to fully understand the entire proposal. Instead, the developer may follow the general guideline, as provided in our templates and tutorials. This allows the developer to code and debug their OP_CCC related modules in an efficient manner.
+Technically, OP_CCC scripts do not have a required structure. The scripts only need to follow the general structure of the initial layout. The developer may follow the general guideline, as provided in our templates and tutorials. This allows the developer to code and debug their OP_CCC related modules in an efficient manner.
 
 <!-- Below content seems like it can be grouped with other "simplest" content, 1of1 and 1of2. -->
 
-A common and simple CC script exists in nearly all of the default Antara modules. This script consists of a single signature from a pubkey and CC validation. This is essentially the equivalent of a P2PK Bitcoin script; the CC validation returns `true` or `false`, and the P2PK Bitcoin script returns `1` or `0`.
+#### Flexbile Pubkey Expression
 
-<!-- We say "CC script" below. It's not clear to me that the reader would know that a CC script and a CC address are essentially the same? -->
+To understand how CryptoConditions (CC) manages addresses and scripts, the developer should first understand a few basic concepts regarding pubkeys.
 
-The essential structure of a CC script is as follows. (The automatically generated content is handled by the daemon's internal functions and can be ignored.)
-
-```
-evalcode + pubkey + automatically generated content
-```
-
-Each CC script relies on the eval code unique to the module to which the CC script belongs.
-
-In the Bitcoin protocol, when creating an address that is tied to a script a common solution is to hash the script and use the hash as the address. Since the CC script includes both the pubkey and the module's unique eval code, a pubkey makes a unique CC address for each module. Funds that are sent to a CC address can be spent only by the module with the appropriate eval code, and therefore funds created and associated with an eval code maintain scarcity within this module.
-
-<!-- Maybe we rephrase based on content below. Also, maybe this content goes sooner, so that when we get to talking about CC addresses, we have more context. -->
-
-Originally, Bitcoin pubkeys were 64 bytes, as opposed to the 33 byte pubkeys of today. The 64 byte pubkeys had a left half and a right half which were used for internal functions in the daemon. Using cryptographic methods, a developer could derive the left half of the function from the right half, and vice verse. 
+Originally, Bitcoin pubkeys were 64 bytes, as opposed to the 33 byte pubkeys of today. The 64 byte pubkeys had a left half and a right half which were used for internal functions in the daemon. Using cryptographic methods, a developer could derive the left half of the function from the right half, and vice versa. 
 
 Early Bitcoin developers took advantage of the ability to derive one half of the pubkey from the other, and compressed the pubkey to a smaller size. They also instituted prefixes that informed the daemon whether the pubkey was odd, even, or large (`02`, `03`, and `04` respectively). In the end, the developers compressed the 64 byte pubkey into a 33 byte version.
 
 Today, there are multiple ways to express a pubkey. There are compressed and uncompressed versions of the pubkey, and the pubkey can also be expressed as two different base58 encoded address. All of these are associated with the same privkey.
 
-Also, by convention, each Antara module has a global CC address where the privkey is publicly available. As usual, spending from this global CC address requires that the spender meet all validation rules set forth by the developer. Therefore, the lack of privacy for the privkey is not an issue. 
+#### Pubkeys and CC Addresses 
 
-One purpose for this global CC address is to create a repository that is global (within the module) for information regarding specific instances of this module on the chain. For example, each time a user initiates an instance of the module, the design of the module requires that a user send a small amount of funds to this global CC address. This transaction contains data about the instance the user desires to create. Other users on the network can retrieve the data in this global CC address, and thereby gain knowledge about the current state of all module instances on the Smart Chain.
+When working with software based on the Bitcoin protocol, a common problem a developer encounters is found in creating an address that is associated with a script. A frequent solution is to hash the script and use the hash as the address. Komodo uses this solution in the Antara CC implementation. Using this method, the CC script serves as the CC address.
+
+<!-- We say "CC script" below. It's not clear to me that the reader would know that a CC script and a CC address are essentially the same? -->
+
+<!-- Above accurate? -->
+
+With this in mind, the essential structure of a CC script is as follows. (The automatically generated content is handled by the daemon's internal functions and can be ignored.)
+
+```
+evalcode + pubkey + automatically generated content
+```
+
+Each CC script utilizes the eval code of the module to which the CC script belongs. Since the CC script includes both the pubkey and the module's unique eval code, a pubkey makes a unique CC address for each module.
+
+Funds that are sent to a CC address can be spent only by the module with the appropriate eval code, and therefore funds created and associated with an eval code maintain scarcity within this module.
+
+<!-- Maybe we rephrase based on content below. Also, maybe this content goes sooner, so that when we get to talking about CC addresses, we have more context. -->
+
+A common and simple CC script exists in nearly all of the default Antara modules. The structure of this script consists of a single signature from a pubkey and CC validation. This is essentially the equivalent of a P2PK Bitcoin script; the CC validation returns `true` or `false`, whereas the P2PK Bitcoin script returns `1` or `0`.
+
+#### Global CC Address
+
+By convention, each Antara module has a global CC address where the privkey is publicly available. As usual, spending from this global CC address requires that the spender meet all validation rules set forth by the developer. Therefore, the lack of privacy for the privkey is not an issue. 
+
+One purpose for this global CC address is to create a repository that is global (within the module) for information regarding specific instances of this module on the chain.
+
+For example, each time a user initiates an instance of the module, the design of the module requires that a user send a small amount of funds to this global CC address. This transaction contains data about the instance the user desires to create. Other users on the network can retrieve the data in this global CC address, and thereby gain knowledge about the current state of all module instances on the Smart Chain.
 
 ## CC vins and vouts
 
@@ -289,35 +295,43 @@ A key power of CryptoConditions (CC) is the ability to enhance the script that m
 
 With access to arbitrary code, CC allows the Bitcoin protocol to rival the "smart contracts" common on other platforms. Yet, CC accomplishes this without requiring the virtual-machine counterpart that other smart-contract platforms require. Instead, the consensus mechanism is directly engaged with the scripts in the vins and vouts of transactions.
 
-The Bitcoin protocol's consensus mechanism is constantly placed under the most intense of cryptocurrency pressure in the industry, and therefore is likely the most reliable consensus mechanism available. The ability to engage the consensus mechansim in arbitrary code while not changing the consensus mechanism itself grants Antara security and stability. The utxo system of the Bitcoin protocol reduces the likelihood that modules themselves will contain bugs internally. (The reader should note here that although CC reduces the likelihood of viable attack vectors on a module, CC cannot eliminate attack vectors altogether.)
+The Bitcoin protocol's consensus mechanism is constantly placed under the most intense of pressure in the industry, and therefore is likely the most reliable consensus mechanism available. The ability to engage the consensus mechansim in arbitrary code while not changing the consensus mechanism itself grants Antara security and stability. The utxo system of the Bitcoin protocol reduces the likelihood that modules themselves will contain bugs internally. (The reader should note that CC cannot eliminate attack vectors altogether.)
 
-To recap, we have now a new standard bitcoin output type called a CC output. Further, there can be up to 256 different types of CC outputs active on any given blockchain. We also know that to spend any output, you need to satisfy its spending script, which in our case is the signature and whatever constraints the CC validation imposes. We also have the convention of a globally shared keypair, which gives us a general CC address that can have funds sent to it, along with a user pubkey specific CC address.
-Let us go back to the 3+2 transaction example:
+#### The Many Possibilities of OC_CHECKCRYPTOCONDITION
+
+Consider the implications of the combination of possibilities contained in this new opreturn, OP_CCC. As there can be up to 256 eval codes per Smart Chain, there can be up to 256 different types of CC outputs per chain. Each CC transactions can contain multiple vins and vouts, each of which provides CC related fulfillments and conditions. Also, each module has a globally available CC address to allow for chain-wide functionality, making the possibilities per vin or vout 257. 
+
+Observe the essential structure of a transaction with 3 vins and 2 vouts.
 
 ```
 vin0 + vin1 + vin2 -> vout0 + vout1
 ```
 
-Given the prior paragraph, try to imagine the possibilities the simple 3+2 transaction can be. Each `vin` could be a normal `vin`, from the global contract address, the user's CC address and the vouts can also have this range. Theoretically, there can be 257 * 257 * 257 * 257 * 257 forms of a 3+2 transaction!
+With the possibilities of OP_CCC, the combination allows for 1.12e+12 possibile combinations.
 
-In reality, we really dont want that much degrees of freedom as it will ensure a large degree of bugs! So we need to reduce things to a more manageable level where there are at most 3 types for each, and preferably just 1 type. That will make the job of validating it much simpler and simple is better as long as we dont sacrifice the power. We dont.
+```
+257 * 257 * 257 * 257 * 257 = 1.12e+12
+```
 
-Ultimately the CC contract is all about how it constrains its inputs, but before it can constrain them, they need to be created as outputs. More about this in the CC validation chapter.
+This is a dramatic increase in the possibilities over the limits of the original Bitcoin protocol. 
 
-<!--
+While the possibilities of a transaction are essentially limitless, the developer must create validation code that ensures the module and its transactions function as intended. Therefore, in practice the developer often limits the possibilities to `1` to `3` types per vin or vout.
 
-## Chapter 4 - CC RPC Extensions
+<!-- I don't understand how this works. Can you make a transaction that takes advantage of each module in each vin/vout? -->
 
-Currently, CC contracts need to be integrated at the source level. This limits who is able to create and add new CC contracts, which at first is good, but eventually will be a too strict limitation. The runtime bindings chapter will touch on how to break out of the source based limitation, but there is another key interface level, the RPC.
+## CC RPC Extensions
 
-By convention, each CC contract adds an associated set of RPC calls to the `komodo-cli`. This not only simplifies the creation of the CC contract transactions, it further will allow dapps to be created just via RPC calls. That will require there being enough foundational CC contracts already in place. As we find new usecases that cannot be implemented via rpc, then a new CC contract is made that can handle that (and more) and the power of the RPC level increases. This is a long term process.
+A Remote Procedure Call (RPC) allows a module developer the ability to offer easy access to the module's functionality. The role of the RPC calls are to create properly signed raw transactions that are ready for broadcasting.
 
-The typical RPC calls that are added `<CC>address`, `<CClist>`, `<CCinfo>` return the various special CC addresses, the list of CC contract instances and info about each CC contract instance. Along with an RPC that creates a CC instance and of course the calls to invoke a CC instance.
-The role of the RPC calls are to create properly signed `rawtransactions` that are ready for broadcasting. This then allows using only the RPC calls to not only invoke but to create a specific instance of a CC. The faucet contract is special in that it only has a single instance, so some of these RPC calls are skipped.
+The developer places the command name of each RPC they desire to create into a table in the CC source code. From this table, the built-in komodo-cli software is able to access and execute the RPC. In this manner, developers of all skills levels can integrate Antara modules into other software.  
 
-So, there is no MUSTHAVE RPC calls, just a sane convention to follow so it fits into the general pattern.
+Antara modules can have any RPCs the developer desires, or even have no RPCs. By convention, each Antara modules has a few default RPCs: `<CC_Name>address`, `<CC_name>list`, and `<CC_name>info`. For example, the Dice module has, `diceaddress`, `dDicelist`, and `diceinfo`. These RPCs return information about a CC-related address, the list of all instances of this module on the Smart Chain, and information about the chain-wide state of the module.  
 
-One thing that I forgot to describe was how to create a special CC address and even though this is not really an RPC issue, it is kind of separate from the core CC functions, so I will show how to do it here:
+## Creating a Global CC Address
+
+<!-- Maybe this goes before RPCs. And/or maybe we could break down the code below into a simpler example, or one for Heir? -->
+
+The following code from the Faucet module serves as an example of the manner in which we begin the creation of a global CC address for this module.
 
 ```C
 const char *FaucetCCaddr = "R9zHrofhRbub7ER77B7NrVch3A63R39GuC";
@@ -326,42 +340,91 @@ char FaucetCChexstr[67] = { "03682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518
 uint8_t FaucetCCpriv[32] = { 0xd4, 0x4f, 0xf2, 0x31, 0x71, 0x7d, 0x28, 0x02, 0x4b, 0xc7, 0xdd, 0x71, 0xa0, 0x39, 0xc4, 0xbe, 0x1a, 0xfe, 0xeb, 0xc2, 0x46, 0xda, 0x76, 0xf8, 0x07, 0x53, 0x3d, 0x96, 0xb4, 0xca, 0xa0, 0xe9 };
 ```
 
-Above are the specifics for the faucet CC, but each one has the equivalent in [CCcustom.cpp](https://github.com/jl777/komodo/tree/jl777/src/cc/CCcustom.cpp). At the bottom of the file is a big switch statement where these values are copied into an in memory data structure for each CC type. This allows all the CC codebase to access these special addresses in a standard way.
+<!-- For the below, let's just look at the switch statement here in the file? -->
 
-In order to get the above values, follow these steps:
+For a template of this logic pattern, view the [CCcustom.cpp](https://github.com/jl777/komodo/tree/jl777/src/cc/CCcustom.cpp) file. Note that at the bottom of the file there is a switch statement. There, the above values are copied into an in-memory data structure for each CC type. This allows the entire CC codebase to access the global CC addresses in a standard manner.
 
-A. use `getnewaddress` to get a new address and put that in the `<CC>Normaladdr = "";` line
+To create a global CC address for a new module, follow these steps.
 
-B. use `validateaddress` `<newaddress from A>` to get the pubkey, which is put into the `<CC>hexstr[67] = "";` line
+#### Create a value using getnewaddress
 
-C. stop the daemon [`komodod`] and start with `-pubkey=<pubkey from B>` and do a `<CC>address` RPC call. In the console you will get a printout of the hex for the privkey, assuming the if ( 0 ) in `Myprivkey()` is enabled ([CCutils.cpp](https://github.com/jl777/komodo/tree/jl777/src/cc/CCutils.cpp))
+With the `komodod` daemon running, use the [<b>getnewaddress</b>](../basic-docs/smart-chains/smart-chain-api/wallet.html#getnewaddress) RPC with `komodo-cli` to get a new address. 
 
-D. update the `CCaddress` and `privkey` and dont forget to change the `-pubkey=` parameter
+Copy this value into the first line of the code. For example, in the Faucet code above the result is as follows.
 
-The first RPC command to add is `<CC>address` and to do that, add a line to [rpcserver.h](https://github.com/jl777/komodo/tree/jl777/src/rpcserver.h) and update the commands array in [rpcserver.cpp](https://github.com/jl777/komodo/tree/jl777/src/rpcserver.cpp)
+```C
+const char *FaucetNormaladdr = "RKQV4oYs4rvxAWx1J43VnT73rSTVtUeckk";
+```
 
-In the [rpcwallet.cpp](https://github.com/jl777/komodo/tree/jl777/src/wallet/rpcwallet.cpp) file you will find the actual RPC functions, find one of the `<CC>address` ones, copy paste, change the eval code to your eval code and customize the function. Oh, and dont forget to add an entry into [eval.h](https://github.com/jl777/komodo/tree/jl777/src/cc/eval.h)
+### Retrieve the pubkey using validateaddress
 
-Now you have made your own CC contract, but it wont link as you still need to implement the actual functions of it. This will be covered in the following chapters.
+Use the [<b>validateaddress</b>](../basic-docs/smart-chains/smart-chain-api/util.html#validateaddress) RPC with `komodo-cli` to obtain the pubkey of the new normal address from the previous step.
+
+Place the returned value into the `<CChexstr[67]` line of code.
+
+```C
+char FaucetCChexstr[67] = { "03682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe12" };
+```
+
+#### Restart the Daemon with the pubkey 
+
+Stop the daemon and restart with the [<b>pubkey</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter enabled. Use the pubkey from the <b>validateaddress</b> as the pubkey value.
+
+#### Ensure Myprivkey Function is Properly Enabled
+
+Check that the `if ( 0 )` statement is enabled in the  `Myprivkey()` function in the `/src/cc/CCutils.cpp` file.
+
+<!-- And if it's not? How to fix? -->
+
+#### Obtain the CCaddress
+
+<!-- I didn't think the <CC>address RPC call was enabled at this point, unless the RPCs are implemented? -->
+
+Execute the `<CC>address` (?) RPC call and use the returned value to complete the `<CC_Name>CCaddress` line of code. (?)
+
+```
+const char *FaucetCCaddr = "R9zHrofhRbub7ER77B7NrVch3A63R39GuC";
+```
+
+#### Obtain the privkey in Hex Format
+
+From the response returned by the `<CC>address` RPC, use the hex value of the private key to complete the appropriate line of code.
+
+```
+uint8_t FaucetCCpriv[32] = { 0xd4, 0x4f, 0xf2, 0x31, 0x71, 0x7d, 0x28, 0x02, 0x4b, 0xc7, 0xdd, 0x71, 0xa0, 0x39, 0xc4, 0xbe, 0x1a, 0xfe, 0xeb, 0xc2, 0x46, 0xda, 0x76, 0xf8, 0x07, 0x53, 0x3d, 0x96, 0xb4, 0xca, 0xa0, 0xe9 };
+```
+
+<!-- How do we have a new pubkey from this? -->
+
+Stop the daemon and restart it using the new pubkey. (?)
+
+#### Add the First RPC
+
+<!-- This should be part of its own section? Also, still confused about how to execute <CC>address above, since we create the RPC below. -->
+
+Add a line to the `/src/rpcserver.h` file to create the `<CC>address` for the module.
+
+Update the commands array in the `/src/rpcserver.cpp` file.
+
+#### Copy the Existing Default RPCs to the New Module
+
+From the `/src/wallet/rpcwallet.cpp` file, copy and paste the existing RPC functions to create new versions for the new module. Change the eval code and customize the functions as desired.
+
+Add an entry into the `/src/cc/eval.h` file.
+
+<!-- Anything here about testing to ensure that it works properly, or anything? -->
 
 ## Chapter 5 - CC Validation
 
-CC validation is what its all about, not the "hokey pokey"!
+A large portion of Antara module customization pertains to the manner in which the validation code constrains CC transaction input.
 
-Each CC must have its own validation function and when the blockchain is validating a transaction, it will call the CC validation code. It is totally up to the CC validation whether to validate it or not.
+The CC validation code is called at the time that the consensus mechanism is validating a CC transaction. The consensus mechanism only calls the CC validation code and waits for a reseponse of `true` or `false`. Whether or not the CC validation code is effective is a matter for the developer to resolve. 
 
-Any set of rules that you can think of and implement can be part of the validation. Make sure that there is no ambiguity! Make sure that all transactions that should be rejected are in fact rejected.
+The developer is responsible for properly designing both the validation code and the RPC implementations. Both should work together to ensure that RPCs cannot create transactions that should not exist, and the CC validation code should never validate anything improper.
 
-Also, make sure any RPC calls that create a CC transaction dont create anything that doesnt validate.
+The CC validation code is already locked in the main loop of the Bitcoin protocol at the time the code is called. Care should be taken with the CC validation code to ensure that the code does not cause a deadlock on the chain.
 
-Really, that is all that needs to be said about validation that is generic, as it is just a concept and gets a dedicated function to determine if a transaction is valid or not.
-
-For most of the initial CC contracts, I made a function code for various functions of the CC contract and add that along with the creation txid. That enables the validation of the transactions much easier, as the required data is right there in the opreturn.
-
-You do need to be careful not to cause a deadlock as the CC validation code is called while already locked in the main loop of the bitcoin protocol. As long as the provided CC contracts are used as models, you should keep out of deadlock troubles.
-
-
-
+<!--
 
 ## Chapter 6 - Faucet Example
 Finally, we are ready for the first actual example of a CC contract. The faucet. This is a very simple contract and it ran into some interesting bugs in the first incarnation.
