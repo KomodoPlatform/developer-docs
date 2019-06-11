@@ -22,7 +22,7 @@ Komodo Notary Node currently only works on Linux. To setup Komodo Notary Node be
 
 ### Operating System
 
-Ubuntu LTS x64 - minimal installation with Openssh server.
+Debian/Ubuntu LTS x64 - minimal installation with Openssh server.
 
 ## Security
 
