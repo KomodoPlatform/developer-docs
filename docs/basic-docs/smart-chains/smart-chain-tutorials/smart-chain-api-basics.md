@@ -2,7 +2,7 @@
 
 ## API Tutorials: Introduction
 
-Now that the developer has an understanding of the general concepts of blockchain technology and Custom Consensus, the following tutorial can assist in gaining hands-on experience.
+The following tutorial can assist in gaining hands-on experience with the essential Smart Chain API.
 
 In this tutorial, we create two new blockchains, called RT1 & RT2. 
 
@@ -12,9 +12,18 @@ The RT2 blockchain demonstrates the creation of a custom application-specific bl
 
 For simplicity's sake, we use the blockchain [<b>regtest</b>](../installations/common-runtime-parameters.html#regtest) feature, which allows us to run a blockchain on a single node without having to connect to a network. 
 
-After the tutorial, the developer should be able to repeat the same concepts on live and fully functional Komodo asset chains, assuming the asset chain in question has the proper CC features enabled.
+After the tutorial, the developer should be able to repeat the same concepts on live and fully functional Komodo Smart Chains, assuming the Smart Chain in question has the proper CC features enabled.
 
-Also, after completing the tutorial, the developer should be prepared to continue learning more about CC through study of the source code of [existing CC modules](https://github.com/jl777/komodo/tree/master/src/cc).
+#### Tutorial Topics Outline
+
+Topics covered in this tutorial include:
+
+- How to create a simple Smart Chain for testing purposes
+- How to execute a komodo-cli command to query the blockchain for existing data
+- How to execute a curl command for the same purpose
+- Understanding common API methods ("RPC's")
+- Understanding common technology concepts in the Komodo ecosystem
+
 
 ### Tutorial Prerequisites
 
@@ -25,16 +34,6 @@ The following tutorials assume that you have already [compiled the Komodo daemon
 As with all software related to `komodod`, at the command line we use the terminal-based `komodo-cli` software, and the `curl` command, to access the daemon. 
 
 ## Komodo API Fundamentals Tutorial
-
-The following tutorial instructs the reader in basic fundamentals for utilizing the Komodo API. Familiarity with these fundamentals is prerequisite knowledge before attempting more advantanced usage of Komodo software.
-
-Topics covered in this tutorial include:
-
-- How to create a simple blockchain for testing purposes
-- How to execute a komodo-cli command to query the blockchain for existing data
-- How to execute a curl command for the same purpose
-- Understanding common API methods ("RPC's")
-- Understanding common technology concepts in the Komodo ecosystem
 
 ### Create a Regtest Blockchain
 
@@ -58,7 +57,7 @@ For more information, refer to the [<b>ac_supply</b>](../installations/asset-cha
 
 Also note the `-ac_name=RT1` argument. This is the blockchain ticker name we desire. For more information, refer to the [<b>ac_name</b>](../installations/asset-chain-parameters.html#ac-name) launch parameter.
 
-There are many additional parameters that you can explore later in the [Asset Chain Parameters](../installations/asset-chain-parameters.html) documentation.
+There are many additional parameters that you can explore later in the [Smart Chain Parameters](../installations/asset-chain-parameters.html) documentation.
 
 ##### Observe the Response
 
@@ -79,7 +78,7 @@ height.0 slowflag.1 possible.1 cmp.0
 
 From the response, note the following information:
 
-##### Asset Chain Supply
+##### Smart Chain Supply
 
 ```
 ASSETCHAINS_SUPPLY 1000
@@ -95,7 +94,7 @@ Created (/home/mylo/.komodo/RT1/RT1.conf)
 
 This is the location of the configuration file.
 
-Placing the configuration data here follows the Komodo convention of placing all relevant data for an asset chain in a subdirectory contained in the `~/.komodo/` directory. The new subdirectory for our regtest chain is named after the `RT1` value we gave to the `ac_name` parameter.
+Placing the configuration data here follows the Komodo convention of placing all relevant data for a Smart Chain in a subdirectory contained in the `~/.komodo/` directory. The new subdirectory for our regtest chain is named after the `RT1` value we gave to the `ac_name` parameter.
 
 ##### Relevant RPC Data
 
@@ -124,13 +123,13 @@ Here is an explanation of all of the output, as it appears in the above response
 
 ### Querying the Blockchain Using komodo-cli
 
-With the regtest asset chain operational we are prepared to execute our first API call. 
+With the regtest Smart Chain operational we are prepared to execute our first API call. 
 
-#### Access a Daemon via komodo-cli on an Asset Chain
+#### Access a Daemon via komodo-cli on a Smart Chain
 
-When using `komodo-cli` to access the daemon of an asset chain, we must add an additional argument to each terminal input.
+When using `komodo-cli` to access the daemon of a Smart Chain, we must add an additional argument to each terminal input.
 
-This required argument is the name of the asset chain for which the user desires `komodo-cli` to connect. The name is provided in the same format used to launch the chain. 
+This required argument is the name of the Smart Chain for which the user desires `komodo-cli` to connect. The name is provided in the same format used to launch the chain. 
 
 In our tutorial, the argument is: `-ac_name=RT1`
 
@@ -146,13 +145,15 @@ Therefore, each `komodo-cli` terminal input will begin with the following:
 
 The [<b>getinfo</b>](../komodo-api/control.html#getinfo) API method does not require any additional parameters when called and provides useful information about our chain.
 
-To execute the method in the terminal we can use the `komodo-cli` software:
+To execute the method in the terminal we can use the `komodo-cli` software.
+
+#### Command
 
 ```bash
 ./komodo-cli -regtest -ac_name=RT1 getinfo
 ```
 
-The response:
+#### Response
 
 ```json
 {
@@ -198,11 +199,11 @@ Alternatively, we can execute the [<b>getinfo</b>](../komodo-api/control.html#ge
 
 ##### Sourcing the Configuration File
 
-The `curl` command will also need information about which asset-chain daemon the user desires to connect. However, the `curl` command will receive these instructions in a different manner.
+The `curl` command will also need information about which Smart Chain daemon the user desires to connect. However, the `curl` command will receive these instructions in a different manner.
 
-The user must provide the `myrpcuser`, `myrpcpassword`, and `myrpcport` values from the asset chain's configuration file.
+The user must provide the `myrpcuser`, `myrpcpassword`, and `myrpcport` values from the Smart Chain's configuration file.
 
-The configuration file is automatically generated on asset-chain creation, and is formatted for use with the unix `source` command. 
+The configuration file is automatically generated on Smart Chain creation, and is formatted for use with the unix `source` command. 
 
 To import all values into our terminal process environment, execute the following:
 
@@ -326,13 +327,15 @@ The private key should never be shared under any circumstances. We have redacted
 
 #### getnewaddress
 
-A `curl` command to obtain a new address using the `getnewaddress` API method:
+A `curl` command to obtain a new address using the `getnewaddress` API method.
+
+##### Command
 
 ```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getnewaddress", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
 
-Response:
+##### Response
 
 ```json
 {
@@ -344,13 +347,15 @@ Response:
 
 #### validateaddress
 
-A `curl` command to obtain the `pubkey` using the `validateaddress` API method:
+A `curl` command to obtain the `pubkey` using the `validateaddress` API method.
+
+##### Command
 
 ```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "validateaddress", "params": ["RYNBgpcanNdfy4oGLbnVYnPPtu5JWcZM8B"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
 
-Response:
+##### Response
 
 ```json
 {
@@ -373,13 +378,15 @@ Response:
 
 #### dumpprivkey
 
-A `curl` command to obtain the `pubkey` using the `validateaddress` API method:
+A `curl` command to obtain the `pubkey` using the `validateaddress` API method.
+
+##### Command
 
 ```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "dumpprivkey", "params": ["RYNBgpcanNdfy4oGLbnVYnPPtu5JWcZM8B"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
 
-Response:
+##### Response
 
 ```json
 {
@@ -395,7 +402,7 @@ When connecting to an existing blockchain that already has a populated network o
 
 However, in this tutorial we are running a regtest chain, and therefore we must instruct the daemon to generate new blocks.
 
-This also provides us with a useful opportunity to discuss the nature of simple mining in the Komodo ecosystem. The methods we discuss here reflect mining on a proof-of-work based asset chain. 
+This also provides us with a useful opportunity to discuss the nature of simple mining in the Komodo ecosystem. The methods we discuss here reflect mining on a proof-of-work based Smart Chain. 
 
 The reader should be aware that Komodo also offers proof-of-stake mining, and hybrid models that blend proof-of-work with proof-of-stake. For more information, the reader may turn to the [<b>ac_staked</b>](../installations/asset-chain-parameters.html#ac-staked) feature.
 
@@ -423,7 +430,7 @@ While every other transaction on the blockchain can only take coins from the exi
 
 These new coins can be sent to any number of locations. The rules of the blockchain, as set by the blockchain's developer, determine how many coins are minted, and who receives the coins. 
 
-For more information about how to customize your `coinbase` transactions on a Komodo asset chain, observe the many different customization parameters in the [Custom Asset Chain Parameters](../installations/asset-chain-parameters.html#ac-name) documentation.
+For more information about how to customize your `coinbase` transactions on a Komodo Smart Chain, observe the many different customization parameters in the [Custom Smart Chain Parameters](../installations/asset-chain-parameters.html#ac-name) documentation.
 
 For example, read about [<b>ac_reward</b>](../installations/asset-chain-parameters.html#ac-reward), [<b>ac_eras</b>](../installations/asset-chain-parameters.html#ac-eras), [<b>ac_founders</b>](../installations/asset-chain-parameters.html#ac-founders), and many others.
 
@@ -433,13 +440,15 @@ In our tutorial, when we mine our first block, all of the `1000` new coins we in
 
 #### generate
 
-We now generate a few blocks using the `generate` API method:
+We now generate a few blocks using the `generate` API method.
+
+##### Command
 
 ```bash
 ./komodo-cli -regtest -ac_name=RT1 generate 2
 ```
 
-Response:
+##### Response
 
 ```json
 [
@@ -460,13 +469,15 @@ To inspect the particular information about any given block, we use the `getbloc
 
 Alternatively, with `getblock` we can instead include the desired block `height` of the block we wish to inspect. 
 
-In our case, we desire to inspect the genesis block, which is the first block ever mined on our asset chain. Therefore, the block `height` will be `1`.
+In our case, we desire to inspect the genesis block, which is the first block ever mined on our Smart Chain. Therefore, the block `height` will be `1`.
+
+##### Command
 
 ```bash
 ./komodo-cli -regtest -ac_name=RT1 getblock 1
 ```
 
-Here is the response:
+##### Response
 
 ```json
 {
@@ -533,11 +544,13 @@ This value is an array containing all transactions performed within this block. 
 
 To observe this transaction, we use the [<b>gettransaction</b>](../komodo-api/wallet.html#gettransaction) API method.
 
+##### Command
+
 ```bash
 ./komodo-cli -regtest -ac_name=RT1 gettransaction 4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006
 ```
 
-Response:
+##### Response
 
 ```json
 {
@@ -600,13 +613,13 @@ curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "cu
 
 #### getblock
 
-Here is a sample of using `curl` with the `getblock` API method on the blockhash of the genesis block:
+Here is a sample of using `curl` with the `getblock` API method on the blockhash of the genesis block.
 
 ```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblock", "params": ["0d2701895c90f48d80156fbe349bda661c80f38ad6b75acc2294763e348b4eab"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
 
-To use the block `height` instead, the `curl` command is formatted thus:
+To use the block `height` instead, the `curl` command is formatted as follows.
 
 ```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblock", "params": ["1"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
@@ -666,7 +679,7 @@ curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "cu
 
 #### gettransaction
 
-Here is the `curl` command to retrieve the first block's `coinbase` transaction:
+Here is the `curl` command to retrieve the first block's `coinbase` transaction.
 
 ```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "gettransaction", "params": ["4ceb1e5818ab6be66035d330217be1722212a1255bfda3c8a7eef832df20c006"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
@@ -845,6 +858,7 @@ curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "cu
 ```
 
 <collapse-text hidden title="Response">
+
 ```json
 {
   "result": [
@@ -978,15 +992,17 @@ The `pubkey` we input into this parameter can be the same `pubkey` we generated 
 
 #### Stopping the Daemon Using komodo-cli
 
-To place this pubkey at startup, we must first stop the asset chain.
+To place this pubkey at startup, we must first stop the Smart Chain.
 
-For this we use the [<b>stop</b>](../komodo-api/control.html#stop) API method:
+For this we use the [<b>stop</b>](../komodo-api/control.html#stop) API method.
+
+##### Command
 
 ```bash
 ./komodo-cli -regtest -ac_name=RT1 stop
 ```
 
-Response:
+##### Response
 
 ```
 RT1 server stopping
@@ -994,15 +1010,17 @@ RT1 server stopping
 
 #### Stopping the Daemon Using curl
 
-Using `curl` to stop the daemon:
+Using `curl` to stop the daemon.
 
-```
+##### Command
+
+```bash
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "stop", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq '.'
 ```
 
-Response:
+##### Response
 
-```
+```json
 {
   "result": "RT1 server stopping",
   "error": null,
@@ -1010,11 +1028,13 @@ Response:
 }
 ```
 
-#### Restarting the Asset Chain With the pubkey Parameter
+#### Restarting the Smart Chain With the pubkey Parameter
 
-Execute the following to relaunch `komodod` with the `pubkey` we saved at the beginning of the tutorial:
+Execute the following to relaunch `komodod` with the `pubkey` we saved at the beginning of the tutorial.
 
-```
+##### Command
+
+```bash
 ./komodod -regtest -ac_name=RT1 -ac_supply=1000 -pubkey=0350dd9b828e92600166dd74e521ac8510eb39064dfb30111c990396864542ce56 &
 ```
 
@@ -1066,7 +1086,7 @@ Note that the `address` in this output is the one associated with our desired `p
 
 Some of the fundamental blockchain and API skills we have learned include the following:
 
-- How to create a new Komodo asset chain
+- How to create a new Komodo Smart Chain
 - How to make a single-node regtest chain, for development purposes
 - How to launch with the pubkey set
 - How to generate new blocks
@@ -1076,4 +1096,3 @@ Some of the fundamental blockchain and API skills we have learned include the fo
 
 Having completed this tutorial, the developer should be able to explore the many API methods in the Komodo documentation.
 
-In our next tutorial, we will cover ... (continued)

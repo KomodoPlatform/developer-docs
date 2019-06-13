@@ -20,6 +20,10 @@ Please see the full [Smart Chains]() technical documentation for full software e
 
 You will find [a walkthrough on building from source here](https://docs.komodoplatform.com/komodo/installation.html).
 
+<!--
+
 ## AtomicDEX Installation
 
 Content
+
+-->

@@ -6,11 +6,11 @@ Welcome to the Smart Chain technical documentation.
 
 This documentation is intended for developers learning about, building, and interacting with Smart Chain products.
 
-Users who are not interested in these activities, but are searching for documentation assistance, can find support in the Komodo Support Center.
+Users who are not interested in these activities, but are searching for assistance, can find support in the Komodo Support Center.
 
 [<b>Link to Komodo Support Center</b>](https://support.komodoplatform.com/support/home)
 
-[<b>Link to Simple Installation Procedure</b>](../basic-docs/start-here/about-komodo-platform/simple-installations.html#simple-installations)
+[<b>Link to Simple Installation Procedure</b>](../../basic-docs/start-here/about-komodo-platform/simple-installations.html#simple-installations)
 
 #### Conceptual Overview
 
@@ -29,8 +29,6 @@ The Smart Chain Setup section contains basic information about Smart Chains and 
 - [<b>Installing Smart Chain Software from Source Code</b>](../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#installing-smart-chain-software-from-source-code)
 - [<b>Interacting with Smart Chains</b>](../basic-docs/smart-chains/smart-chain-setup/interacting-with-smart-chains.html)
 - [<b>Smart Chain Launch Parameters Common to Most Blockchain Software</b>](../basic-docs/smart-chains/smart-chain-setup/basic-launch-parameters.html#accessing-the-coin-daemon-remotely)
-- [<b>Customizations Available for Smart Chains During Creation and Hard Forks </b>](../basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.html#smart-chain-customizations)
-
 
 #### About Smart Chain Tutorials
 
@@ -42,6 +40,6 @@ For a walkthrough covering multiple tutorials in a targeted fashion, please see 
 
 The Smart Chain API section contains all available API commands for a default Smart Chain daemon.
 
-These API commands can also be called Remote Procedure Calls, or RPCs. However, we do not use this term in the technical documentation for readability purposes.
+These API commands can also be called Remote Procedure Calls, or RPCs. However, we avoid this term in the technical documentation for readability purposes.
 
-The API section does not include commands that are unique to Fluidity modules, as Fluidity modules are not active by default on a Smart Chain daemon. Please see the Fluidity section for further information.
+The API section does not include commands that are unique to Antara modules, as Antara modules are not active by default on a Smart Chain daemon. Please see the Antara section for further information.

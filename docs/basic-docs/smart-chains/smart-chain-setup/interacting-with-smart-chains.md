@@ -24,7 +24,7 @@ After the daemon launches, you may interact with it using the `komodo-cli` softw
 To launch another Smart Chain, include the necessary parameters.
 
 ::: tip IMPORTANT
-Always execute the launch command EXACTLY as indicated, and as the Smart Chain's developers instruct. If you make a mistake, you must delete the Smart Chain data and re-launch to regain access to the Smart Chain's network.
+Always execute the launch command EXACTLY as indicated, and as the Smart Chain's developers instruct. If you make a mistake, you must [<b>delete the Smart Chain data</b>](../../../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) and re-launch to regain access to the Smart Chain's network.
 :::
 
 For example, to launch the DEX Smart Chain, execute:

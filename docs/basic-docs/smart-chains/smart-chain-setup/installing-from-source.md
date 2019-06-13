@@ -32,11 +32,9 @@ You may also build Smart Chain software from source.
 
 This is not required, but building from source is considered the best practice in a production environment, as this allows you to instantly update to the latest patches and upgrades.
 
-Source code exists for most major OS's, including Windows, MacOS, and Linux.
-
-- [<b>Linux</b>](../basic-docs/smart-chains/smart-chain-setup/building-smart-chain-daemon-from-source.html#linux-ubuntu-debian)
-- [<b>MacOS</b>](../basic-docs/smart-chains/smart-chain-setup/building-smart-chain-daemon-from-source.html#macos)
-- [<b>Windows</b>](../basic-docs/smart-chains/smart-chain-setup/building-smart-chain-daemon-from-source.html#windows-64-bit)
+- [<b>Linux</b>](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#linux)
+- [<b>MacOS</b>](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#macos)
+- [<b>Windows</b>](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#windows)
 
 ## Linux
 

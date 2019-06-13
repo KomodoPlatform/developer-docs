@@ -84,7 +84,7 @@ var sidebar = [
         ]
     },
   {
-    title: "Smart Chains",
+    title: "Smart Chain Essentials",
     collapsible: true,
     children: [
         [
@@ -118,10 +118,6 @@ var sidebar = [
                 [
                     "/basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.md",
                     "Common Runtime Parameters"
-                ],
-                [
-                    "/basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.md",
-                    "Smart Chain Customizations"
                 ],
             ],
         },
@@ -212,143 +208,147 @@ var sidebar = [
     ]
   },
     {
-        title: "Fluidity",
+        title: "Antara",
         collapsible: true,
         children: [
             [
-                "/basic-docs/fluidity/introduction-to-fluidity.md",
-                "Introduction to Fluidity Documentation"
+                "/basic-docs/antara/introduction-to-antara.md",
+                "Introduction to Antara Documentation"
             ],
             {
-                title: "Fluidity Setup",
+                title: "Antara Setup",
                 collapsible: true,
                 children: [
                     [
-                        "/basic-docs/fluidity/fluidity-setup/fluidity-instructions.md", 
-                        "Understanding Fluidity Addresses"
+                        "/basic-docs/antara/antara-setup/antara-instructions.md", 
+                        "Understanding Antara Addresses"
+                    ],
+                    [
+                        "/basic-docs/antara/antara-setup/antara-customizations.md",
+                        "Antara Customizations"
                     ],
                 ],
             },
             {
-                title: "Fluidity Tutorials",
+                title: "Antara Tutorials",
                 collapsible: true,
                 children: [
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/introduction-to-fluidity-tutorials.md", 
-                            "Introduction to Fluidity Tutorials"
+                            "/basic-docs/antara/antara-tutorials/introduction-to-antara-tutorials.md", 
+                            "Introduction to Antara Tutorials"
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/fluidity-overview.md", 
-                            "Fluidity Overview"
+                            "/basic-docs/antara/antara-tutorials/antara-overview.md", 
+                            "Antara Overview"
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/fluidity-conceptual-overview.md", 
-                            "Fluidity Conceptual Overview"
+                            "/basic-docs/antara/antara-tutorials/antara-conceptual-overview.md", 
+                            "Antara Conceptual Overview"
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/advanced-fluidity-tutorial.md", 
-                            "Advanced Fluidity Tutorial"
+                            "/basic-docs/antara/antara-tutorials/advanced-antara-tutorial.md", 
+                            "Advanced Antara Tutorial"
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/musig-module-tutorial.md", 
+                            "/basic-docs/antara/antara-tutorials/musig-module-tutorial.md", 
                             "Musig Module Tutorial" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/heir-module-tutorial.md", 
+                            "/basic-docs/antara/antara-tutorials/heir-module-tutorial.md", 
                             "Heir Module Tutorial" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/payments-module-tutorial.md", 
+                            "/basic-docs/antara/antara-tutorials/payments-module-tutorial.md", 
                             "Payments Module Tutorial" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/fluidity-design-and-methods.md", 
-                            "Fluidity Design and Methods" 
+                            "/basic-docs/antara/antara-tutorials/antara-design-and-methods.md", 
+                            "Antara Design and Methods" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/ensuring-exclusivity-using-batontxid.md", 
+                            "/basic-docs/antara/antara-tutorials/ensuring-exclusivity-using-batontxid.md", 
                             "Ensuring Exclusivity Using Batontxid" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/supply-chain-fluidity-module-tutorial.md", 
-                            "Supply Chain Fluidity Module Tutorial" 
+                            "/basic-docs/antara/antara-tutorials/supply-chain-antara-module-tutorial.md", 
+                            "Supply Chain Antara Module Tutorial" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/create-an-oracles-plan-tutorial.md", 
+                            "/basic-docs/antara/antara-tutorials/create-an-oracles-plan-tutorial.md", 
                             "Create anOracles Plan Tutorial" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/transactionality-dao-fluidity-tutorial.md", 
-                            "Transactionality DAO Fluidity Tutorial" 
+                            "/basic-docs/antara/antara-tutorials/transactionality-dao-antara-tutorial.md", 
+                            "Transactionality DAO Antara Tutorial" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/attack-vector-on-commit-and-reveal-methods.md", 
+                            "/basic-docs/antara/antara-tutorials/attack-vector-on-commit-and-reveal-methods.md", 
                             "Understanding the Attack Vector on Commit and Reveal Methods" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/rogue-module-tutorial.md", 
+                            "/basic-docs/antara/antara-tutorials/rogue-module-tutorial.md", 
                             "Rogue Module Tutorial" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/gateways-module-tutorial.md", 
+                            "/basic-docs/antara/antara-tutorials/gateways-module-tutorial.md", 
                             "Gateways Module Tutorial" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/what-are-vin-vout-scriptpubkey.md", 
+                            "/basic-docs/antara/antara-tutorials/what-are-vin-vout-scriptpubkey.md", 
                             "What are vin, vout, scriptPubkey" 
                         ],
                         [
-                            "/basic-docs/fluidity/fluidity-tutorials/an-advanced-approach-to-komodos-antara-framework.md", 
+                            "/basic-docs/antara/antara-tutorials/an-advanced-approach-to-komodos-antara-framework.md", 
                             "An Advanced Approach to Komodo's Antara Framework" 
                         ],
                 ],
             },
           {
-            title: "Fluidity API",
+            title: "Antara API",
             collapsible: true,
             children: [
               [
-                  "/basic-docs/fluidity/fluidity-api/channels.md", 
+                  "/basic-docs/antara/antara-api/channels.md", 
                   "Channels"
               ],
               [
-                  "/basic-docs/fluidity/fluidity-api/dice.md", 
+                  "/basic-docs/antara/antara-api/dice.md", 
                   "Dice"
               ],
               [
-                  "/basic-docs/fluidity/fluidity-api/faucet.md", 
+                  "/basic-docs/antara/antara-api/faucet.md", 
                   "Faucet"
               ],
               [
-                  "/basic-docs/fluidity/fluidity-api/gateways.md", 
+                  "/basic-docs/antara/antara-api/gateways.md", 
                   "Gateways"
               ],
               [
-                  "/basic-docs/fluidity/fluidity-api/heir.md", 
+                  "/basic-docs/antara/antara-api/heir.md", 
                   "Heir"
               ],
               [
-                  "/basic-docs/fluidity/fluidity-api/musig.md", 
+                  "/basic-docs/antara/antara-api/musig.md", 
                   "MuSig"
               ],
               [
-                  "/basic-docs/fluidity/fluidity-api/oracles.md", 
+                  "/basic-docs/antara/antara-api/oracles.md", 
                   "Oracles"
               ],
               [
-                  "/basic-docs/fluidity/fluidity-api/rewards.md", 
+                  "/basic-docs/antara/antara-api/rewards.md", 
                   "Rewards"
               ],
               [
-                  "/basic-docs/fluidity/fluidity-api/rogue.md", 
+                  "/basic-docs/antara/antara-api/rogue.md", 
                   "Rogue"
               ],
               [
-                  "/basic-docs/fluidity/fluidity-api/sudoku.md", 
+                  "/basic-docs/antara/antara-api/sudoku.md", 
                   "Sudoku"
               ],
               [
-                  "/basic-docs/fluidity/fluidity-api/tokens.md", 
+                  "/basic-docs/antara/antara-api/tokens.md", 
                   "Tokens"
               ]
             ]

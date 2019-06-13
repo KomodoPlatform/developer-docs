@@ -2,9 +2,17 @@
 
 The following section answers common questions a newcomer may have, and prepares the new reader for the installation procedure.
 
+### Intended Audience of this Technical Documentation Website
+
+This website is targeted for developers in the Komodo ecosystem.
+
+Users who are not interested in developing Komodo-based software, but only in using existing software, should instead turn to the Komodo Support website for questions and answers.
+
+[<b>Link to Komodo Support Website</b>](https://support.komodoplatform.com)
+
 ### Assumptions for this Documentation
 
-The Komodo Platform is cutting-edge blockchain technology. To limit the scope of what we cover on the technical-documentation website, we list the following prerequisite knowledge. 
+To limit the scope of what we cover on the technical-documentation website, we list the following prerequisite knowledge. 
 
 #### Familiarity with the Concept of Blockchain Technology
 
@@ -32,17 +40,17 @@ Komodo is a highly capable blockchain technology, and it is designed for compata
 
 A typical developer in the Komodo ecosystem will build all their application logic in a separate application that runs outside of their Smart Chain daemon. 
 
-The developer's app will send API requests to their Smart Chain's daemon to update the blockchain state and to take advantage of Komodo's default Fluidity modules. (Fluidity modules provide functionality similar to the "smart contracts" that are common on other platforms. However, we argue that Fluidity modules are dramatically more powerful.) 
+The developer's software will send API requests to their Smart Chain's daemon to update the blockchain state and take advantage of Komodo's default Antara modules. (Antara modules provide functionality similar to the "smart contracts" that are common on other platforms. However, we argue that Antara modules are dramatically more powerful.) 
 
 For this developer, any programming language that is capable of sending API requests to the software daemon is compatible.
 
-#### An Advanced Fluidity Developer
+#### An Advanced Antara Developer
 
 A highly advanced developer may be interested to take advantage of the full potential of Komodo technology. 
 
-This developer can utilize Komodo's Fluidity Framework to add arbitrary code to the consensus mechansim of their autonomous Smart Chain.
+This developer can utilize Komodo's Antara Framework to add arbitrary code to the consensus mechansim of their autonomous Smart Chain.
 
-Although the Fluidity Framework can be compatible with essentially all mainstream programming languages, at this time we encourage all developers to stay close to the C/C++ languages. 
+Although the Antara Framework can be compatible with essentially all mainstream programming languages, at this time we encourage developers to stay close to the C/C++ languages. 
 
 ### The Cost of a Smart Chain
 
@@ -71,13 +79,17 @@ We have a limited supply of early-adopter discounts. Please inquire while supply
 
 Currently, there are no additional costs for AtomicDEX beyond the fees listed for each trade. 
 
+<!--
+
 ### The Cost of Using Chainlizards API
+
+-->
 
 ### Differences between KMD and a Smart Chain
 
 The main KMD blockchain runs on the same underlying framework as all Smart Chains in the ecosystem, but not all features are active on the KMD blockchain.
 
-The KMD chain's active features include Bitcoin-hash rate supported security and the ability to execute Fluidity modules. Other features, such as zero-knowledge privacy, are disabled.
+The KMD chain's active features include Bitcoin-hash rate supported security and the ability to execute Antara modules. Other features, such as zero-knowledge privacy, are disabled.
 
 This limitation is intentional. The KMD chain holds all the meta data of the ecosystem. By keeping the functionality limited, Komodo discourages rapid data growth on this central blockchain.
 

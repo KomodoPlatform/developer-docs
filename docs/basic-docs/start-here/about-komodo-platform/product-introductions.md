@@ -1,15 +1,15 @@
 # Product Introductions
 
-## Smart Chains & Fluidity
+## Smart Chains & Antara
 
 Komodo's Smart Chain technology allows you to create secure and fully autonomous blockchains that are designed for a specific purpose.
 
 | Embedded Video |
 | -------------- |
 
-#### Smart Chains Rely on the Next Step in Blockchain Evolution: The Fluidity Framework
+#### Smart Chains Rely on the Next Step in Blockchain Evolution: The Antara Framework
 
-The Fluidity framework allows you to add arbitrary code into the consensus mechansim of your Smart Chain.
+The Antara framework allows you to customize your Smart Chain and add arbitrary code to the consensus mechansim.
 
 This blockchain evolution allows innovators to better meet the demands of your customers.
 
@@ -17,27 +17,29 @@ This blockchain evolution allows innovators to better meet the demands of your c
 
 | Layer | Branded Terminology | Universally Defined As: | Smart-Contract Comparison |
 | ----- | ------------------- | ----------------------- | ------------------------- |
-| Application Layer | Fluidity Apps | Smart-Chain Apps | dApps |
-| API Layer | Fluidity API | Smart-Chain API | - |
-| Service Layer | Fluidity Module | Smart-Chain Module | Smart Contract |
-| Blockchain Layer | Fluidity Smart Chains | Smart Chains | (Shared Chain) |
+| Application Layer | Antara Apps | Smart-Chain Apps | dApps |
+| API Layer | Antara API | Smart-Chain API | - |
+| Service Layer | Antara Module | Smart-Chain Module | Smart Contract |
+| Blockchain Layer | Antara Smart Chains | Smart Chains | (Shared Chain) |
 | Platform Layer | Komodo Platform | Smart-Chain Platform | Smart-Contract Platform |
 
-### Smart Chains and Fluidity Create a Convenient Development Workflow
+### Smart Chains and Antara Create a Convenient Development Workflow
 
-For developers, the unique combination of Smart Chain technology and Fluidity simplifies the adoption of blockchain technology.
+For developers, the unique combination of Smart Chain technology and Antara simplifies the adoption of blockchain technology.
 
 - Start by creating a new Smart Chain that will serve your specific application
-- Use the library of existing Fluidity modules to craft application-specific functionality
-- Optionally, use Fluidity to add arbitrary code to your consensus mechanism
+- Use the library of existing Antara modules to craft application-specific functionality
+- Optionally, use Antara to add arbitrary code to your consensus mechanism
 - When your Smart Chain becomes popular, scale into a cluster of Smart Chains
-- Link your Smart Chain to other Smart Chains using Fluidity and Komodo technology
+- Link your Smart Chain to other Smart Chains using Antara and Komodo technology
 - Trade your assets with essentially any blockchain token using Komodo's AtomicDEX
 - Stay up-to-date with the latest industry innovations through no-cost updates
 
-[Link to Fluidity content]()
+[Link to Antara content]()
 
-### The Architecture of Fluidity-Powered Smart Chains
+### The Architecture of Antara-Powered Smart Chains
+
+<!-- The image below still uses Fluidity -->
 
 <div style="clear: both; width: 70%; margin-top: 1rem; margin-left: auto; margin-right: auto; margin-bottom: 4rem; display: block;">
 
@@ -54,9 +56,9 @@ For developers, the unique combination of Smart Chain technology and Fluidity si
 
 <div style="margin-bottom: 2.5rem;">
 
-#### Fluidity API
+#### Antara API
 
-Produced by Fluidity Modules
+Produced by Antara Modules
 
 - Open API
 - Permissionless Innovation
@@ -73,7 +75,7 @@ Produced by Fluidity Modules
 
 <div style="margin-bottom: 2.5rem;">
 
-#### Fluidity Modules
+#### Antara Modules
 
 Attached to the chain daemon.
 
@@ -92,7 +94,7 @@ Attached to the chain daemon.
 
 <div style="margin-bottom: 2.5rem;">
 
-#### Fluidity Smart Chains
+#### Antara Smart Chains
 
 Purpose-built blockchains
 
@@ -123,7 +125,7 @@ Composable & Open
 
 --------------------------------------
 
-### Advantages of the Fluidity Framework
+### Advantages of the Antara Framework
 
 #### Programmable Daemon
 
@@ -139,15 +141,15 @@ Smart Chains are not child chains, nor are they dependent on other blockchains.
 
 #### Turing-Complete
 
-The Fluidity framework supports C/C++, and in the future it will also support other languages. Therefore, Fluidity allows for Turing-complete code. With Fluidity, any program or software can be coded to run within your blockchain daemon.
+The Antara framework supports C/C++, and in the future it will also support other languages. Therefore, Antara allows for Turing-complete code. With Antara, any program or software can be coded to run within your blockchain daemon.
 
 #### No Gas Fees
 
-There are no gas fees with Fluidity. Regardless of how many processes a Fluidity module requires, running an instance of the module will only need a single transaction fee, paid in your blockchain’s coin.
+There are no gas fees with Antara. Regardless of how many processes a Antara module requires, running an instance of the module will only need a single transaction fee, paid in your blockchain’s coin.
 
-#### Fluidity Module Library
+#### Antara Module Library
 
-The Fluidity framework already hosts a library of plug-and-play modules. Each module can add special conditions that affect the nature of transaction consensus on your Smart Chain.
+The Antara framework already hosts a library of plug-and-play modules. Each module can add special conditions that affect the nature of transaction consensus on your Smart Chain.
 
 #### Create Your Own Modules
 
@@ -171,7 +173,7 @@ Everything that was possible in the old centralized-exchange system is also poss
 
 High-speed trading is easy, the DEX API allows you to create atomic-swap powered apps and trading bots, and you can even trade on your mobile phone.
 
-Our DEX software is not bound to Komodo-based blockchain assets, either. If a blockchain asset can trade on a centralized exchange, odds are you can atomically swap this asset on our DEX software.
+Our DEX software is not bound to Komodo-based blockchain assets. If a blockchain asset can trade on a centralized exchange, odds are you can atomically swap this asset on our DEX software.
 
 #### Skip the Centralized Middleman and Trade Directly with Your Trading Partner
 
@@ -197,6 +199,12 @@ You are free to discover your own audience.
 
 [Link to AtomicDEX]()
 
+<!-- 
+
+Chain lizards would go here.
+
 ## Chainlizards
 
 Introduction to Chain Lizards
+
+-->

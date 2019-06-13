@@ -6,7 +6,7 @@ The following is an abbreviated list of runtime parameters and settings that can
 
 These commands largely derive from the upstream Bitcoin software, `bitcoind`. 
 
-Komodo is a fork of Zcash, and Zcash is a privacy-centric fork of Bitcoin. Therefore essentially all runtime parameters and API commands available in both Bitcoin and Zcash are available in Komodo.
+Komodo is a fork of Zcash, and Zcash is a privacy-centric fork of Bitcoin. Therefore, essentially all runtime parameters and API commands available in both Bitcoin and Zcash are available in Komodo.
 
 To see additional Bitcoin-based runtime parameters not included here, please visit [the relevant Bitcoin wiki page](https://en.bitcoin.it/wiki/Running_Bitcoin).
 
@@ -14,7 +14,7 @@ To see additional Bitcoin-based runtime parameters not included here, please vis
 
 `addressindex` instructs a Smart Chain to maintain an index of all addresses and balances.
 
-We recommend that the user [manually delete the blockchain data](../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) before initiating this parameter.
+We recommend that the user [manually delete the blockchain data](../../../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 `addressindex` is enabled by default on any Smart Chain that utilizes Fluidity.
 
@@ -66,7 +66,7 @@ komodod -reindex
 
 `timestampindex` instructs a Smart Chain to maintain a timestamp index for all block hashes.
 
-We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
+We recommend that the user [manually delete the blockchain data](../../../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the Smart Chain in this circumstance.
@@ -90,7 +90,7 @@ timestampindex=1
 
 `spentindex` instructs a Smart Chain to maintain a full index of all spent transactions (txids).
 
-We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
+We recommend that the user [manually delete the blockchain data](../../../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) before initiating this parameter.
 
 `spentindex` is enabled by default on any Smart Chain that utilizes the Fluidity.
 

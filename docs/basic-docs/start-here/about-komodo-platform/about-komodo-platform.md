@@ -105,7 +105,7 @@ Adapt your blockchain to create a purpose-built solution that fits your individu
 <div style="clear: both;">
 
 - Twenty-four different launch parameters are available to customize the functionality of your Smart Chain
-- Rely on the Fluidity framework to fully customize your Smart Chain with unique and arbitrary code within the consensus mechanism
+- Rely on the Antara framework to fully customize your Smart Chain with unique and arbitrary code within the consensus mechanism
 - Share and adopt code in Komodo's open-source community
 - Dispose of Smart Chains that become data-weight heavy, or transfer them to fresh Smart Chains for ease of use
 - No need for a virtual machine (VM) nor a VM-based programming language
@@ -120,20 +120,14 @@ With the Komodo architecture at your command, you are prepared to lift your Smar
 
 The Komodo Platform offers many free white-label applications that can help you bring your innovation to market faster.
 
-- Multi-Asset Wallet For Desktop & Mobile
-- Atomic-Swap Decentralized Exchange
+- Atomic-Swap Decentralized Exchange & Multi-Asset Wallet
 - Decentralized-Crowdfunding App
 - Custom Block Explorers 
 - SPV Electrum Server Integration
-- Core Fluidity Modules
-
-| Explanations about the types of products on Komodo |
-| -------------------------------------------------- |
+- Core Antara Modules
 
 ### Installing, Using, and Testing Komodo Software is Free
 
 The best way to learn about Komodo is to use it for yourself.
 
-| Directions to next section (will write later) |
-| -------------------------------------------- |
-
+<!-- Needs directions to next section. -->
