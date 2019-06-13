@@ -22,7 +22,7 @@ Please consult our [Learning Path Outlines](../basic-docs/start-here/learning-la
 
 #### About AtomicDEX Setup
 
-The AtomicDEX Setup section contains basic information about setting up and using a AtomicDEX-enabled environment. 
+The AtomicDEX Setup section contains basic information about setting up and using an AtomicDEX-enabled environment. 
 
 #### About AtomicDEX Tutorials
 

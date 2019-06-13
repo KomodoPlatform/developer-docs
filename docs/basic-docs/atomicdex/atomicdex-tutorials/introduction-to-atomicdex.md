@@ -1,6 +1,10 @@
 # Introduction to Komodo's DEX Software
 
+<!--
+
 --Introductory graphic--
+
+-->
 
 One of Komodo's blockchain tools is an atomic-swap powered, decentralized exchange (DEX).
 
@@ -52,7 +56,14 @@ Furthermore, this database holds the assets of thousands of other users. Having 
 
 A CEX has several challenges to consider as a result of this danger. From a legal perspective, [the infamous Mt. Gox case](https://www.coindesk.com/mississippi-doctors-sued-mt-gox-for-bitcoin-loss-now-worth-135-million) illustrates how users may attempt to hold the CEX liabile in the event of a theft. A CEX may struggle to find an insurance provider that will protect them. Also, compared to fiat currency, government authorities can do little to assist in recovering stolen funds.
 
+<!--
+
 -- graphic title: The Centralized Exchange --
+
+-->
+
+### Pros and Cons of the Centralized Exchange
+
 | Perspective | Pros  | Cons |
 | ----------- | ----- | ---- |
 | User | The IOU exchange process is high-speed, simple, and often has a pleasant interface | Compromising the user's individual account is achievable for a determined hacker, and there are effectively no methods to recover funds stolen from a CEX |
@@ -67,7 +78,14 @@ In light of these concerns, many reputable and established CEX's are turning to 
 
 To understand why a CEX may wish to implement decentralized technologies, one must first understand how a typical decentralized exchange (DEX) works. There are many types of DEX's, each having a unique technical structure. Perhaps the most popular DEX format is a decentralized gateway.
 
+<!--
+
 -- Graphic title: Types of Decentralized Exchanges --
+
+-->
+
+### Types of Decentralized Exchanges
+
 | Type | Summary | Examples |
 | ---- | ------- | -------- |
 | Decentralized Gateway | A decentralized network of gateway keepers hold user funds in escrow and issue IOUs for trading | InstantDEX, Bitshares, Binance DEX |
@@ -86,7 +104,14 @@ Because a multi-signature address requires several different parties to sign the
 
 In many ways, this popular DEX model is an improvement over the CEX model, and this is why many CEX's are expanding into this territory. Users have control over their IOUs, making them responsible for individual attacks, rather than the exchange owners. The risk of an exchange-wide attack is also shared across multiple parties.
 
+<!--
+
 -- graphic title: The Decentralized Gateway --
+
+-->
+
+### The Decentralized Gateway
+
 | Pros | Cons |
 | ---- | ---- |
 | Tokens can be issued for any asset, including both cryptocurrency and fiat | This method requires a wide network of trustworthy and technically proficient business partners |
@@ -107,7 +132,14 @@ An atomic swap can do everything else that both the DEX and CEX models can do. A
 
 However, the nature of an atomic swap is unique in comparison with the opposing models, as an atomic swap does not require third-party intervention. This can provide simplicity for both the user, the entrepreneur, and even the developer. Depending on the application, the cost may also be dramatically cheaper, as far less infrastructure and manpower is required.
 
+<!--
+
 -- graphic title: Technical Comparisons --
+
+-->
+
+### Technical Comparisons
+
 | Capability | Atomic Swap | Decentralized Gateway | Centralized Exchange |
 | ---------- | ----------- | --------------------- | -------------------- |
 | Third party is not required | Check: The entire exchange happens between two users; no third party is required | X-cross: The exchange relies on a decentralized network of gateway nodes, who must be trusted | X-cross: Users depend on a centralized company to maintain and secure their funds |
@@ -134,7 +166,14 @@ Upon release of Komodo’s DEX 1.0, hundreds of members of the Komodo open-sourc
  
 Another point to mention is that while Komodo's DEX software is built upon atomic swaps, other software in the Komodo ecosystem is able to perform the rest of the functionality necessary to run other types of decentralized exchanges. As all Komodo software is natively integrated, this provides the Komodo entrepreneur with perhaps the widest range of DEX software packages in existence.
 
+<!--
+
 -- graphic title: Capabilities of Komodo Software --
+
+-->
+
+### Capabilities of Komodo Software
+
 | Atomic Swaps | Decentralized Gateway | On-Chain Token Exchange | Cross-Chain Asset Transfers | ... and more! |
 | -- | -- | -- | -- | -- |
 | check | check | check | check | check |

@@ -246,10 +246,6 @@ var sidebar = [
                             "Antara Conceptual Overview"
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/advanced-antara-tutorial.md", 
-                            "Advanced Antara Tutorial"
-                        ],
-                        [
                             "/basic-docs/antara/antara-tutorials/musig-module-tutorial.md", 
                             "Musig Module Tutorial" 
                         ],
@@ -258,32 +254,8 @@ var sidebar = [
                             "Heir Module Tutorial" 
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/payments-module-tutorial.md", 
-                            "Payments Module Tutorial" 
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/antara-design-and-methods.md", 
-                            "Antara Design and Methods" 
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/ensuring-exclusivity-using-batontxid.md", 
-                            "Ensuring Exclusivity Using Batontxid" 
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/supply-chain-antara-module-tutorial.md", 
-                            "Supply Chain Antara Module Tutorial" 
-                        ],
-                        [
                             "/basic-docs/antara/antara-tutorials/create-an-oracles-plan-tutorial.md", 
                             "Create anOracles Plan Tutorial" 
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/transactionality-dao-antara-tutorial.md", 
-                            "Transactionality DAO Antara Tutorial" 
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/attack-vector-on-commit-and-reveal-methods.md", 
-                            "Understanding the Attack Vector on Commit and Reveal Methods" 
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/rogue-module-tutorial.md", 
@@ -292,10 +264,6 @@ var sidebar = [
                         [
                             "/basic-docs/antara/antara-tutorials/gateways-module-tutorial.md", 
                             "Gateways Module Tutorial" 
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/what-are-vin-vout-scriptpubkey.md", 
-                            "What are vin, vout, scriptPubkey" 
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/an-advanced-approach-to-komodos-antara-framework.md", 
