@@ -1252,3 +1252,140 @@ Response (error)
     "error": "lp_coins:1011] from_id 1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e2 is not found"
 }
 ```
+
+## my_orders
+
+**my_orders()**
+
+The `my_orders` method returns the data of all active orders that were placed by MM2 node.  
+
+### Arguments:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| (none)    | | |
+
+### Response:
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| maker_orders   | map of objects | orders that are currently active in market maker mode |
+| taker_orders   | map of objects | orders that are currently active in market taker mode |
+
+#### :pushpin: Examples:
+
+Command:
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_orders\"}"
+```
+
+Response:
+
+```json
+{
+    "result": {
+         "maker_orders": {
+            "fedd5261-a57e-4cbf-80ac-b3507045e140": {
+                "base": "BEER",
+                "created_at": 1560529042434,
+                "matches": {
+                    "60aaacca-ed31-4633-9326-c9757ea4cf78": {
+                        "connect": {
+                            "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+                            "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
+                            "method": "connect",
+                            "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+                            "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
+                        },
+                        "connected": {
+                            "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+                            "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
+                            "method": "connected",
+                            "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+                            "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
+                        },
+                        "last_updated": 1560529572571,
+                        "request": {
+                            "action": "Buy",
+                            "base": "BEER",
+                            "base_amount": "1",
+                            "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+                            "method": "request",
+                            "rel": "PIZZA",
+                            "rel_amount": "1",
+                            "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+                            "uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
+                        },
+                        "reserved": {
+                            "base": "BEER",
+                            "base_amount": "1",
+                            "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+                            "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
+                            "method": "reserved",
+                            "rel": "PIZZA",
+                            "rel_amount": "1",
+                            "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+                            "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
+                        }
+                    }
+                },
+                "max_base_vol": "1",
+                "min_base_vol": "0",
+                "price": "1",
+                "rel": "PIZZA",
+                "started_swaps": [
+                    "60aaacca-ed31-4633-9326-c9757ea4cf78"
+                ],
+                "uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140"
+            }
+        },
+        "taker_orders": {
+            "45252de5-ea9f-44ae-8b48-85092a0c99ed": {
+                "created_at": 1560529048998,
+                "matches": {
+                    "15922925-cc46-4219-8cbd-613802e17797": {
+                        "connect": {
+                            "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+                            "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
+                            "method": "connect",
+                            "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+                            "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
+                        },
+                        "connected": {
+                            "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+                            "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
+                            "method": "connected",
+                            "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+                            "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
+                        },
+                        "last_updated": 1560529049477,
+                        "reserved": {
+                            "base": "BEER",
+                            "base_amount": "1",
+                            "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+                            "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
+                            "method": "reserved",
+                            "rel": "ETOMIC",
+                            "rel_amount": "1",
+                            "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+                            "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
+                        }
+                    }
+                },
+                "request": {
+                    "action": "Buy",
+                    "base": "BEER",
+                    "base_amount": "1",
+                    "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+                    "method": "request",
+                    "rel": "ETOMIC",
+                    "rel_amount": "1",
+                    "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+                    "uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
+                }
+            }
+        }
+    }
+}
+```
