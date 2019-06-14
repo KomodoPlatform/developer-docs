@@ -157,7 +157,6 @@ Transactions can store data in multiple forms. In the simplest form, transaction
 When we desire to place additional data into a transaction, we place this data into an <b>OP_RETURN</b>, or "<b>opreturn</b>" for short.
 
 Observe the following transaction data structure for the existing Heir module:
-<!-- dimxy2 suggestion is to add descriptions to the parts of this long tx output, like: -->
 
 ##### Command
 
@@ -306,7 +305,7 @@ Taking the value in the fully encoded key-value pair, `hex`, here is an approxim
 | 4c85 | Length of the data string |
 | ea | Stands for "EVAL_HEIR". The eval code here tells the daemon that this is an Antara module, and that the specific module is HEIR |
 | 46 | Stands for "F", which is a letter marker to indicate that this Heir transaction is a "Funding" transaction |
-| 210... | The remaining portion of the hex encoded data is not related to the core software, but rather to the arbitrary data designed by the developer |
+| 210... | The remaining portion of the hex encoded data is not related to the core software, but rather to the arbitrary data designed by the developer. Maximum data length is 10000 bytes |
 
 In all modules, some of the hex-encoded data can be decoded using the [<b>decodeccopret</b>](../../../basic-docs/smart-chains/smart-chain-api/util.html#decodeccopret) command on the data contained in the `hex` key-value pair. In our example, the decoded data is as follows.
 
@@ -321,14 +320,6 @@ In all modules, some of the hex-encoded data can be decoded using the [<b>decode
     ]
 }
 ```
-
-<!-- Dimxy: Will look into specific details of this content and get back to us. -->
-
-<!-- below using decodeccopret -->
-
-<!-- 6a4c85: 6a = opreturn, 4c85 = length of the rest of the message, ea = eval_heir, 46 = F, 210... = customized data--> 
-
-<!-- What's the maximum length of data. 10,000 bytes. -->
 
 When an Antara module instance begins its lifecycle an initial transaction is created. In our example, the transaction we see above is an initial transaction of an Heir module.
 
@@ -850,22 +841,7 @@ We must convert these UniValue objects into normal C/C++ language types, and the
 
 Convert the parameters from the UniValue type to their basic C++ types and add checks to ensure that the converted parameter values are correct.
 
-<!-- 
-
-Sidd: Here, either we need to show these checks, or we can link to your source file for the example, if the content is inconviently long or something.
-
-Original Content:
-
-(what I ommitted in this sample), for example not negative or not exceeding some limit.
-
--->
-<!-- 
-
-dimxy2 there is a link to the full source code in my repo
-
-Sidd: I checked just now and couldn't find the specific link in question. Do you mind please copy/pasting it here and I will edit it in? Thanks.
-
--->
+This content is abbreviated. [For links to the full source code and example files, click here.](../../../basic-docs/antara/antara-tutorials/heir-module-tutorial.html#links-to-heir-source-code-and-building-instructions)
 
 Note the method for parsing the hex representation of the pubkey parameter and converting it to a `CPubKey` object.  
 
@@ -896,19 +872,7 @@ The second level of the RPC implementation is the transaction creation code. Thi
 
 The following content displays the skeleton of the <b>heirfund</b> RPC implementation. 
 
-<!-- For the full source code, please click here. -->
-
-<!-- 
-
-Sidd: does the below mean that we're not showing all the code?
-
-Original content:
-
-Here is the skeleton of the heirfund rpc implementation.
-
--->
-<!-- dimxy3 we provide a link to full sources at the end 
-the idea of the code shown here was to give extended descriptions for most important parts of module -->
+[For links to the full source code and example files, click here.](../../../basic-docs/antara/antara-tutorials/heir-module-tutorial.html#links-to-heir-source-code-and-building-instructions)
 
 ```cpp
 // heirfund transaction creation code, src/cc/heir.cpp
@@ -1592,7 +1556,7 @@ ERROR: CScriptCheck(): 7961fe4f9f3bdabef154404ea8ec7a11be1546febc34efe67faede8d9
 ERROR: AcceptToMemoryPool: BUG! PLEASE REPORT THIS! ConnectInputs failed against MANDATORY but not STANDARD flags 7961fe4f9f3bdabef154404ea8ec7a11be1546febc34efe67faede8d930c0749
 ```
 
-## Links to heir cc contract source code and building instructions
+## Links to Heir Source Code and Building Instructions
 
 A complete working example of this simplified Heir CC module tutorial can be found at the following link.
 
