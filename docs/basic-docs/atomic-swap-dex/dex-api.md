@@ -359,7 +359,7 @@ Response:
 
 ## buy
 
-**buy base rel price relvolume (timeout=number) (duration=number)**
+**buy base rel price volume (timeout=number) (duration=number)**
 
 The `buy` method issues a buy request and attempts to match an order from the orderbook based on the provided arguments.
 
@@ -372,7 +372,7 @@ MM2 will set the `timeout` value by default, but the user may override by giving
 | base       | string | the name of the coin the user desires to receive |
 | rel       | string | the name of the coin the user desires to sell |
 | price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| relvolume | number | the amount of coins the user is willing to spend of the `rel` coin |
+| volume | number | the amount of coins the user is willing to spend of the `rel` coin |
 | timeout | number | the amount of time to wait until the request expires; MM2 handles automatically |
 | duration | number | `deprecated |
 
@@ -405,7 +405,7 @@ MM2 will set the `timeout` value by default, but the user may override by giving
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"relvolume\":1,\"price\":0.95}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":1,\"price\":0.95}"
 ```
 
 Response (success):
