@@ -471,8 +471,8 @@ When creating a chain with the `ac_staked` parameter, the creation process is sl
 - Wait for the asset chain to mine two blocks
 - Execute `setgenerate false` to stop mining
 - All of the coins (including the pre-mine) are now located on the node that mined two blocks. Do not split them with a normal transaction. Rather, split them using this tool: [link](https://github.com/KMDLabs/pos64staker).
-- On the first node use 'set generate true 0' to enable staking.
-- On the second node use 'set generate true 1' (or use a desired processor number instead '1') to enable mining.
+- On the first node use 'setgenerate true 0' to enable staking.
+- On the second node use 'setgenerate true 1' (or use a desired processor number instead '1') to enable mining.
 - Use the [getbalance64](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10.
 
 Following the above instructions will ensure that the asset chain is stable.
