@@ -41,6 +41,10 @@ var sidebar = [
                         "Learning Path Outlines"
                     ],
                     [
+                        "/basic-docs/start-here/learning-launchpad/normal-developer-outline.md",
+                        "Outline for a Normal Developer"
+                    ],
+                    [
                         "/basic-docs/start-here/learning-launchpad/terminology.md",
                         "Terminology"
                     ],
@@ -54,10 +58,6 @@ var sidebar = [
                     [
                         "/basic-docs/start-here/general-tutorials/introduction-to-general-tutorials.md",
                         "Introduction to General Tutorials"
-                    ],
-                    [
-                        "/basic-docs/start-here/general-tutorials/basic-environment-setup-for-linux-vps.md",
-                        "Basic Environment Setup for Linux VPS"
                     ],
                     // [
                         // "/basic-docs/start-here/general-tutorials/general-tutorial-1.md",
@@ -130,20 +130,24 @@ var sidebar = [
                     "Introduction to Smart Chain Tutorials"
                 ],
                 [
+                    "/basic-docs/smart-chains/smart-chain-tutorials/basic-environment-setup-for-linux-vps.md",
+                    "Basic Environment Setup for Linux VPS"
+                ],
+                [
                     "/basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.md",
                     "Create a Default Smart Chain"
                 ],
                 [
-                    "/basic-docs/smart-chains/smart-chain-tutorials/launching-with-a-single-node-tutorial.md",
-                    "Launching with a Single Node"
+                    "/basic-docs/smart-chains/smart-chain-tutorials/creating-a-smart-chain-on-a-single-node.md",
+                    "Creating a Smart Chain on a Single Node"
                 ],
                 [
-                    "/basic-docs/smart-chains/smart-chain-tutorials/running-komodod-in-debug-mode.md",
-                    "Running komodod in Debug Mode"
+                    "/basic-docs/smart-chains/smart-chain-tutorials/running-komodo-software-in-debug-mode.md",
+                    "Running Komodo Software in Debug Mode"
                 ],
                 [
                     "/basic-docs/smart-chains/smart-chain-tutorials/multisignature-transaction-creation-and-walkthrough.md",
-                    "Multisignature Transaction Creation and Walktrough"
+                    "Multisignature Transaction Creation and Walkthrough"
                 ],
                 [
                     "/basic-docs/smart-chains/smart-chain-tutorials/smart-chain-api-basics.md",
