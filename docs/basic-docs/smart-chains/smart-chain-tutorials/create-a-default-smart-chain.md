@@ -7,8 +7,8 @@
 - 2 nodes with the ability to open ports (a node can be either a computer or a VPS)
 - At least 4GB RAM each
 - At least 2 CPU cores each
-- 64-bit Operating System (Ubuntu 16.04 recommended)
-- `komodod` built on each
+- 64-bit Operating System (Ubuntu 18.04 recommended)
+- Komodo Smart Chain software installed on each
   - (when the goal is only to build a new Smart Chain, there is no need to sync the KMD main chain)
 
 ::: tip
@@ -21,15 +21,15 @@ The word "node" is used throughout this documentation, and it can be confusing f
 
 ### Basic Info for Connecting At Least Two Nodes
 
-If you are ready to press forward with your first test Smart Chain, some basic knowledge about how to connect two nodes is recommended for the initial setup.
+Basic knowledge about how to connect two nodes is recommended for the initial setup.
 
-As per the original blockchain designs of Satoshi Nakamoto, on which Komodo is based, a Komodo Smart Chain does not exist on a single node. Rather, it exists via a connection between two or more nodes. This is the nature of decentralization: it is on the network we rely, rather than a single authority. Therefore, the design of the technology requires you to have two separate nodes, which are able to connect over a network.
+As per the original blockchain designs of Satoshi Nakamoto, a Komodo Smart Chain does not exist on a single node. Rather, it exists via a connection between two or more nodes. This is the nature of decentralization: it is on the network we rely, rather than a single authority. Therefore, the design of the technology encourages the developer to have two separate nodes which are able to connect over a network.
 
-In the most ideal circumstance, the new Komodo developer will already have two virtual private servers (VPS's) available for testing. VPS's can be cheap and easy to manage. A typical VPS will either have a static external IP or can be assigned one; this makes it simple to create a connection between the two VPS nodes.
+In the most ideal circumstance, the new Komodo developer will already have two virtual private servers (VPS's) available for testing. VPS's can be cheap and easy to manage. A typical VPS will either have a static external IP or can be assigned one.
 
-If the new developer does not have two VPS's available, setting up a test Smart Chain on two local machines in a home or office-type setting is still achievable, but it may require a little more troubleshooting.
+If the new developer does not have two VPS's available, setting up a test Smart Chain on two local machines in a home or office-type setting is still achievable, but it may require more troubleshooting.
 
-If using a home or office-type setup, the challenge lies in the way the network is created, and there are myriad network setups.
+When using a home or office-type setup, the challenge lies in the way the network is created, and there are myriad network setups.
 
 For example, if the developers are operating on a local router, where the two machines are connected via wi-fi, the local ip addresses of the machines are harder to find. This is because the router assigns new local ip addresses to the machines each time they re-connect to the router. It is not possible to see the ip addresses from the Internet. In this situation, the developer must log into the router's software interface and search for the currently assigned local ip addresses.
 

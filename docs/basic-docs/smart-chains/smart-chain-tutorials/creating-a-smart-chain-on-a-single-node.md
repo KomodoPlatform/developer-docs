@@ -1,93 +1,152 @@
 # Creating a Smart Chain on a Single Node
 
-Normally at least two different nodes are required to setup and [create an Asset Chain](../basic-docs/installations/creating-asset-chains.html).
+## Introduction
 
-If you are in a situation where you have control over a single computer or have access to two machines but they aren't able to connect to each other, you can create an assetchain by running two daemons with slightly different configurations on the same computer.
+Under most circumstances, a developer should [use two separte nodes to set up and create a Smart Chain.](../../../basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html)
 
-Get `komodod` and `komodo-cli` by following the instructions here: [Installing Basic Komodo Software](../basic-docs/installations/basic-instructions.html#installing-basic-komodo-software)
+However, occasionally a developer may need to create a Smart Chain on a single node.
+
+In this situation, the developer may create a Smart Chain by running two daemons with slightly different configurations on the same node.
+
+#### Tutorial Prerequisites
+
+- Komodo Smart Chain software installed on a compatible machine
+  - [Install instructions here](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html)
 
 ## Launch the First daemon
 
-Select the assetchain parameters applicable and launch the daemon from the list here: [Custom Asset Chain Parameters](/basic-docs/installations/asset-chain-parameters.html)
+Select the desired Antara customization parameters.
 
-Here we are running a very simple configuration:
+[Link to Antara Customization Parameters](../../../basic-docs/antara/antara-setup/antara-customizations.html)
+
+For this example, we use simple configurations.
+
+##### Command
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777
 ```
 
-In the output, take note of the string that starts with `>>>>>>>>>>`
+##### Response (truncated)
+
+Search for the part of the response that begins with this string: `>>>>>>>>>`
 
 ```bash
 >>>>>>>>>> HELLOWORLD: p2p.14165 rpc.14166 magic.01362c2a 20327466 777777 coins
 ```
 
-The default `p2p` and `rpc` ports of a chain with the above selected parameters are `14165` and `14166` respectively.
+The default `p2p` and `rpc` ports of our chain are `14165` and `14166` respectively.
 
-To interact with the first daemon, use the `komodo-cli` command:
+#### Test komodo-cli
+
+To interact with this first daemon, use a `komodo-cli` command as follows.
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD getinfo
 ```
 
-## Create the data directory for the Second daemon
+## Create a Data Directory for the Second Daemon
 
-Create a directory in any location of your machine. In this guide we will use a directory named `coinData` in the user's Home directory:
+Create a directory on your machine for the second daemon.
+
+In this guide, we use a directory named `coinData` in the Home directory:
 
 ```bash
 mkdir ~/coinData
 ```
 
-Then create the data directory for the second daemon:
+Create the data directory for the second daemon.
 
 ```bash
 mkdir ~/coinData/HELLOWORLD
 ```
 
-Copy the `.conf` file created for the first daemon to this new data directory
+Copy the `.conf` file created for the first daemon to this new data directory.
 
 ```bash
 cp ~/.komodo/HELLOWORLD/HELLOWORLD.conf ~/coinData/HELLOWORLD/
 ```
 
-Change the values of `rpcuser`, `rpcpassword`, and `rpcport` in the file `~/coinData/HELLOWORLD/HELLOWORLD.conf`
+Change the values of `rpcuser`, `rpcpassword`, and `rpcport` in the file `~/coinData/HELLOWORLD/HELLOWORLD.conf`.
 
-Add a new line `port=<desired_p2p_port>` to the above file. The `port` and `rpcport` must be distinct from the ports found in the previous step where we ran the first daemon.
+##### The HELLOWORLD.CONF File
+
+```
+rpcuser=changethis
+rpcpassword=changethis
+... (ommitted) ...
+rpcport=12345
+```
+
+(Change all values shown above on the right side of the `=` side.)
+
+Add a new line `port=<choose a port number betwen 1 and 65000>` to the file.
+
+```
+... (file continued) ...
+port=22020
+```
+
+In all values above, the chosen values must be different from the values in the first daemon's .conf file. 
 
 ## Launch the Second daemon
 
-When launching the second daemon,we use the same parameters as the first deamon, but specify the data directory it must use and the p2p connection to the first node using `-datadir` and `-addnode` respectively.
+When launching the second daemon, use the same Antara customization parameters as the first deamon.
+
+However, now we specify the data directory for the daemon, as well as the `p2p` connection.
+
+To accomplish this, we use the <b>datadir</b> and <b>addnode</b> common launch parameters.
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -datadir=/home/<USERNAME>/coinData/HELLOWORLD -addnode=localhost
 ```
 
-Replace `<USERNAME>` with the USERNAME of the account logged in. It can be found using `echo $USER`
+::: tip
 
-To interact with the second daemon, add the `-datadir` parameter to the `komodo-cli` command:
+Replace `<USERNAME>` with the USERNAME for your local node. You can find this vluae use the `echo $USER` command in the terminal.
+
+:::
+
+To interact with the second daemon, add the <b>datadir</b> parameter to the `komodo-cli` command:
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD -datadir=/home/<USERNAME>/coinData/HELLOWORLD getinfo
 ```
 
-After launching the second daemon, `getinfo` to either of the daemons should report `"connections":1`
+After launching the second daemon, calling `getinfo` to either of the daemons should report `"connections":1`.
 
-## Using `curl` to interact with the daemons
+## Using curl
 
-To issue a `getinfo` call, execute:
+To issue a `getinfo` call using curl, observe the following example.
+
+Replace `<rpcuser>`, `<rpcpassword>`, `<rpcport>` with the values from the `.conf` file in the data directory corresponding to the daemon that needs to be queried.
 
 ```bash
 curl -s --user <rpcuser>:<rpcpassword> --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:<rpcport>/
 ```
 
-Replace `<rpcuser>`,`<rpcpassword>`,`<rpcport>` with the values from the `.conf` file in the data directory corresponding to the daemon that needs to be queried.
+Alternatively, source the `.conf` file before using the curl command. Each time you desire to switch daemons, source the `.conf` file of your target daemon.
 
-Or `source` the `.conf` file before using the curl command. For example, for the first daemon:
+##### Source the First Daemon's .conf File
 
 ```bash
+# Source the .conf file
+
 source ~/.komodo/HELLOWORLD/HELLOWORLD.conf
+
+# Execute the curl command
+
 curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-`source` the file: `~/coinData/HELLOWORLD/HELLOWORLD.conf` to interact with the second daemon using curl.
+##### Source the Second Daemon's .conf File
 
+```bash
+# Source the .conf file
+
+source ~/coinData/HELLOWORLD/HELLOWORLD.conf
+
+# Execute the curl command
+
+curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
