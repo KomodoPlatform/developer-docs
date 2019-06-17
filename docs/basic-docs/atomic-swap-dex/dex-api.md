@@ -1395,7 +1395,7 @@ Response:
 
 ## order_status
 
-**my_orders()**
+**order_status uuid**
 
 The `order_status` method returns the data of active order with selected `uuid` created by MM2 node.  
 
