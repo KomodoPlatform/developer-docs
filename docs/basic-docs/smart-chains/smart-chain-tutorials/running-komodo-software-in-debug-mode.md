@@ -1,36 +1,54 @@
 # Running Komodo Software in Debug Mode
 
-# Debug Komodo
+## Introduction
 
-To run Komodo in debug mode and help developer troubleshoot issues found at client end systems, please follow these steps:
+To run Komodo software in debug mode, follow these steps.
 
-::: tip Note
-These steps are including notary node references in komodod command, but in case you are not a notary node, you don't need to include those command parameters.
-:::
-
-## Prerequisite is to install gdb
+## Install gdb
 
 ```bash
 sudo apt-get install gdb
 ```
 
-## Run Komodo daemon with `gdb` tool
+## Run Komodo Daemon With `gdb` Tool
 
-Whichever komodod command you are running which results in crashing or problematic behavior run it with `gdb -args`
+Initiate your daemon using with `gdb -args` as a prefix.
+
+For example, the below command would initiate the Komodod daemon with mining active and a designated pubkey.
 
 ```bash
-gdb -args  ./src/komodod -gen -genproclimit=2 -notary -pubkey="03af2412ebf9517a43d192193490476fd0a44312c70755e07eb03b6d71338ebc9d"
+gdb -args ./src/komodod -gen -genproclimit=2 -pubkey="03af2412ebf9517a43d192193490476fd0a44312c70755e07eb03b6d71338ebc9d"
+```
+::: tip
+
+If you are having trouble initiating komodod in the shell, try use the absolute path to komodod. For example, <b>/home/$USERNAME/komodo/src/komodod</b>
+
+:::
+
+The shell should return the following prompt.
+
+```bash
+gdb>
 ```
 
-*If you have trouble getting it started, try using the full path to the executable.*
+Execute `run` in the shell to start Komodo in debug mode.
 
-The above command initialize debugging.
+```bash
+gdb> run
+```
 
-Once you see `gdb>` command prompt type `run` to start komodo in debug mode.
+## Retrieving Backtrace Data
 
-## Getting backtrace data
+Whenever komodod crashes, you will again see `gdb>` as a prompt.
 
-Then when it crashes you'll again see `gdb>` prompt, and some message from komodod daemon itself left some output in gdb before `gdb>`.
+To recall the last stages of komodod before the crash, execute the following command.
 
-Type `backtrace` and and it will show further very important info that you need to pass to Komodo developers. Post whatever output you get from `backtrace` command to help troubleshoot issues.
+##### Command
 
+```bash
+gdb> backtrace
+```
+
+The returned data can be shared with any Komodo developer to assist in troubleshooting Komodo development.
+
+Select and highlight all relevant data using the cursor, and then use `CTRL + SHIFT + C` to copy to the clipboard.
