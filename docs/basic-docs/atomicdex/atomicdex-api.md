@@ -487,7 +487,7 @@ Response (error):
 
 ## setprice
 
-**setprice base rel price (volume max)**
+**setprice base rel price (volume max cancel_previous=true)**
 
 The `setprice` method places an order on the orderbook, and it relies on this node acting as a `maker` -- also called a `Bob` node. 
 `setprice` order is always considered as `sell` for internal implementation convenience.
