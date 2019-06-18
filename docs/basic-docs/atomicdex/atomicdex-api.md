@@ -501,6 +501,7 @@ The `setprice` method places an order on the orderbook, and it relies on this no
 | price     | string (numeric) | the price in `rel` the user is willing to receive per one unit of the `base` coin |
 | volume    | string (numeric) | the maximum amount of `base` coin available for the order, ignored if max is `true` |
 | max       | bool | MM2 will use the entire coin balance - 0.001 (reserved for fees) for the order |
+| cancel_previous | bool | MM2 will cancel all existing orders for selected pair by default, set to `false` to avoid such behavior |
 
 ### Response:
 
