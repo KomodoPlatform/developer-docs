@@ -579,13 +579,13 @@ Information about the `funcid` property:
 
 - An uppercase `S` describes the ask fill.
 
-### Arguments:
+### Arguments
 
 | Structure | Type               | Description                           |
 | --------- | ------------------ | ------------------------------------- |
 | tokenid   | (string, optional) | the identifying txid for the token id |
 
-### Response:
+### Response
 
 | Structure           | Type                       | Description                                                                    |
 | ------------------- | -------------------------- | ------------------------------------------------------------------------------ |
@@ -737,6 +737,6 @@ Show orders for specific token
 
 The `mytokenorders` method displays the public on-chain orders created by the user's pubkey, which is set in `-pubkey` parameter of komodod.
 
-The additional evalcode parameter allows the display of orders for non-fungible tokens bound to this evalcode.
+The additional `evalcode` parameter allows the display of orders for non-fungible tokens bound to this evalcode.
 
-The information returned by `mytokenorders` is the same as for `tokenorders`.
+The Response from this method is similar to the response from the `tokenorders` method.
