@@ -243,11 +243,11 @@ var sidebar = [
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/antara-overview.md", 
-                            "Antara Overview"
+                            "Overview of Antara Modules - Part I"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/antara-conceptual-overview.md", 
-                            "Antara Conceptual Overview"
+                            "Overview of Antara Modules - Part II"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/musig-module-tutorial.md", 

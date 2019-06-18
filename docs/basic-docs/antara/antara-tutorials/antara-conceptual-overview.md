@@ -1,16 +1,16 @@
+# Overview of Antara Modules - Part II
+
 ## Introduction
 
-The following content and tutorial are provided for advanced developers desiring to discover deeper levels of potential in Komodo software. The content focuses around Komodo's framework for building blockchain-based decentralized applications (dApps). This framework is called, Custom Consensus, or CC for short.
+Welcome to an <b>Overview of Antara Modules - Part II.</b>
+
+The following content and tutorial are provided for developers desiring to discover deeper levels of potential in Komodo software. The content focuses around Komodo's framework for building Antara Modules. This framework is called, Custom Consensus, or CC for short.
 
 #### Assumptions for this Content
 
-This discussion is intended for developers who have a strong understanding of the C/C++ languages and who understand the core fundamentals of blockchain engineering, as these are prerequisites for use of the Custom Consensus (CC) framework.
+This discussion is intended for developers who feel confident in at least one mainstream programming language, and who understand the core concepts of blockchain technology.
 
-Developers who possess this knowledge and who are already familiar with the essential nature of the CC framework may optionally skip all the following conceptual content and [proceed directly to the tutorial](../customconsensus/tutorial-introduction.html).
-
-If the developer needs more experience with blockchain technology, the Komodo team recommends that the developer first study the seminal textbook, [Mastering Bitcoin,](https://bitcoinbook.info/) before approaching the CC framework.
-
-Also, experienced developers who write in other languages, such as Python, JavaScript, or Solidity, may find value in skimming this discussion to understand key concepts at a high level. At this time, the CC framework has not expanded to include other languages, but Komodo may change this offering in the forseeable future.
+If the developer needs more experience with blockchain technology, the Komodo team recommends that the developer first study the seminal textbook, [Mastering Bitcoin,](https://bitcoinbook.info/) before approaching the Antara Module framework.
 
 #### Note for Other Developers
 
