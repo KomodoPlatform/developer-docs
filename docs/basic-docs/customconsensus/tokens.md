@@ -18,7 +18,7 @@ This module enables the basic functionality of `tokens` like creation, transfer 
 
 **tokenaddress (pubkey)**
 
-The `tokenaddress` method returns information about a token address according to a specific `pubkey`. If no `pubkey` is provided, the `pubkey` used to the launch the daemon is the default.
+The `tokenaddress` method returns information about a token address according to a specific `pubkey`. If no `pubkey` is provided, the `pubkey` used to launch the daemon is the default.
 
 ### Arguments
 

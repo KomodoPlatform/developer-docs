@@ -1,5 +1,4 @@
-var sidebar = [
-  {
+var sidebar = [{
     title: "Start Here",
     collapsable: true,
     children: [
@@ -43,6 +42,7 @@ var sidebar = [
         "/basic-docs/customconsensus/custom-consensus-instructions.md",
         "About Custom Consensus (CC)"
       ],
+      ["/basic-docs/customconsensus/assets.md", "Assets"],
       ["/basic-docs/customconsensus/channels.md", "Channels"],
       ["/basic-docs/customconsensus/dice.md", "Dice"],
       ["/basic-docs/customconsensus/faucet.md", "Faucet"],
