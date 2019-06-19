@@ -43,18 +43,15 @@ var sidebar = {
           "/basic-docs/customconsensus/custom-consensus-instructions.md",
           "About Custom Consensus (CC)"
         ],
-        [
-          "/basic-docs/customconsensus/activate-custom-consensus-assetchain.md",
-          "Activate Custom Consensus modules on an Existing Komodo Assetchain"
-        ],
+        ["/basic-docs/customconsensus/assets.md", "Assets"],
         ["/basic-docs/customconsensus/channels.md", "Channels"],
         ["/basic-docs/customconsensus/dice.md", "Dice"],
         ["/basic-docs/customconsensus/faucet.md", "Faucet"],
-        ["/basic-docs/customconsensus/dilithium.md", "Dilithium"],
         ["/basic-docs/customconsensus/gateways.md", "Gateways"],
         ["/basic-docs/customconsensus/heir.md", "Heir"],
         ["/basic-docs/customconsensus/musig.md", "MuSig"],
         ["/basic-docs/customconsensus/oracles.md", "Oracles"],
+        //   ["/basic-docs/customconsensus/payments.md", "Payments"],
         ["/basic-docs/customconsensus/rewards.md", "Rewards"],
         ["/basic-docs/customconsensus/rogue.md", "Rogue"],
         ["/basic-docs/customconsensus/sudoku.md", "Sudoku"],

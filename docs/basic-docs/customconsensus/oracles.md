@@ -9,11 +9,13 @@ Those who publish data to an oracle are called publishers. There is a fee-based 
 ### Oracles CC Module Flow
 
 - Create an Oracle using [oraclescreate](../customconsensus/oracles.html#oraclescreate)
-- Register as a data publisher for the oracle using the [oraclesregister](../customconsensus/oracles.html#oraclesregister) method; at this stage, the publisher indicates the fee for their data updates
-  - Anyone can register as a publisher for any oracle; users subscribe only to the publishers they desire
-- The [oracleslist](../customconsensus/oracles.html#oraclelist), [oraclesinfo](../customconsensus/oracles.html#oraclesinfo), and [oraclessamples](../customconsensus/oracles.html#oraclessamples) methods allow the user to find oracles and publishers, find more information about a specific oracle and publisher, and discover samples of an existing publisher, respectively
-- Anyone can subscribe to any specific publisher of any oracle using the [ oraclessubscribe](../customconsensus/oracles.html#oraclessubscribe) method
-- A publisher can publish data using [oraclesdata](../customconsensus/oracles.html#oraclesdata), and thereby collect their fee from their subscribers
+- Fund the Oracle with [oraclesfund](../customconsensus/cc-oracles.html#oraclesfund)
+- Register as a data publisher for the oracle using the [oraclesregister](../customconsensus/cc-oracles.html#oraclesregister) method and specify the datafee it costs subscribers to access data updates
+- Anyone can subscribe to any specific publisher of any oracle using the [oraclessubscribe](../customconsensus/cc-oracles.html#oraclessubscribe) method.
+- Anyone can register as a publisher for any oracle; users subscribe only to the publishers they desire
+- Publishers must also subscribe to the oracle before they can publish data
+- A publisher can publish data using [oraclesdata](../customconsensus/cc-oracles.html#oraclesdata), and thereby collect their datafee from their subscribers
+- The [oracleslist](../customconsensus/cc-oracles.html#oraclelist), [oraclesinfo](../customconsensus/cc-oracles.html#oraclesinfo), and [oraclessamples](../customconsensus/cc-oracles.html#oraclessamples) methods allow the user to find oracles and publishers, find more information about a specific oracle and publisher, and discover samples of an existing publisher, respectively
 
 ## oraclesaddress
 
@@ -23,22 +25,25 @@ The `oraclesaddress` method displays the oracle address for a specific pubkey.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | -------------------------------------------------------------------------------------- |
-| pubkey    | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
+| Name   | Type               | Description                                                                            |
+| ------ | ------------------ | -------------------------------------------------------------------------------------- |
+| pubkey | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
 
 ### Response
 
-| Name | Type | Description | 
-| ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
-| result           | (string) | whether the method executed successfully                                                                             |
-| OraclesCCaddress | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
-| Oraclesmarker    | (string) | the unmodified public address generated from the contract's privkey                                                  |
-| GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                       |
-| OraclesCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                                     |
-| CCaddress        | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
-| myCCaddress      | (string) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
-| myaddress        | (string) | the public address of the pubkey used to launch the chain                                                            |
+| Name                     | Type                                                                                                                 | Description |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------- | ----------- |
+| OraclesCCAddress         | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
+| OraclesCCBalance         | Amount of funds held in the `OracleCCAddress`                                                                        |
+| OraclesNormalAddress     | Address holding funds from created Oracles                                                                           |
+| OraclesNormalBalance     | Amount of funds held in the `OracleNormalAddress`                                                                    |
+| OraclesCCTokensAddress   | The global CC address where tokens are stored                                                                        |
+| PubkeyCCaddress(Oracles) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey supplied as the parameter      |
+| PubkeyCCbalance(Oracles) | amount of funds held in the `PubkeyCCaddress`                                                                        |
+| myCCAddress(Oracles)     | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
+| myCCbalance(Oracles)     | amount of funds held in the `myCCAddress`                                                                            |
+| myaddress                | the public address of the pubkey used to launch the daemon                                                           |
+| mybalance                | amount of funds held in the `myaddress`                                                                              |
 
 #### :pushpin: Examples
 
@@ -48,9 +53,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD oraclesaddress 03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -67,7 +70,6 @@ Command:
 
 </collapse-text>
 
-
 ## oraclescreate
 
 **oraclescreate name description format**
@@ -78,7 +80,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                                                                                      |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | name        | (string) | the desired name of the oracle contract                                                                                          |
 | description | (string) | the description of the oracle                                                                                                    |
@@ -109,10 +111,10 @@ If data to be submitted is larger than `8KB`, break it into chunks of size `8KB`
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command succeeded                                                                        |
-| hex       | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name   | Type     | Description                                                                                          |
+| ------ | -------- | ---------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command succeeded                                                                        |
+| hex    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -122,9 +124,7 @@ Step 1: Create a customized oracle contract and get the hex value
 ./komodo-cli -ac_name=HELLOWORLD oraclescreate "NYWTHR" "Weather in NYC" "L"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -135,24 +135,20 @@ Step 1: Create a customized oracle contract and get the hex value
 
 </collapse-text>
 
-
 Step 2: Send raw transaction / broadcast the hex value
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000185b76ed0fbdb9ee2bdb5693f491b6ea23de6498f42c6e83f9f36c1eaf411dd990200000049483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01ffffffff0310270000000000002321038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac378740a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000001c6a1aec43064e5957544852014c0e5765617468657220696e204e594300000000
-# This will output an unique txid which will be refered as oracletxid or ID of the oracle.
+# This will output an unique txid which will be refered as oracletxid or transaction ID of the oracle.
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203
 ```
 
 </collapse-text>
-
 
 (Use `./komodo-cli -ac_name=HELLOWORLD getrawmempool` to ensure that the transaction receives confirmation.)
 
@@ -162,9 +158,7 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 ./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000185b76ed0fbdb9ee2bdb5693f491b6ea23de6498f42c6e83f9f36c1eaf411dd990200000049483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01ffffffff0310270000000000002321038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac378740a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000001c6a1aec43064e5957544852014c0e5765617468657220696e204e594300000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -225,6 +219,132 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 </collapse-text>
 
+## oraclesfund
+
+**oraclesfund oracletxid**
+
+The `oraclesfund` allows you to register as a publisher on an oracle. It must be done before using `oraclesregister`
+
+### Arguments:
+
+| Structure  | Type     | Description                                         |
+| ---------- | -------- | --------------------------------------------------- |
+| oracletxid | (string) | the unique identifying transaction id of the oracle |
+
+#### :pushpin: Examples
+
+Step 1: Create a customized oracle contract and get the hex value
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD oraclesfund 7b6e7745058ffded423546eecc61dcc05069279b90776384c52692765246b64c
+```
+
+Response from Step 1:
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "hex": "0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000"
+}
+```
+
+</collapse-text>
+
+Step 2: Send raw transaction / broadcast the hex value
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000
+
+# This will output an unique txid which will be refered as oracletxid or transaction ID of the oracle.
+```
+
+Response from Step 2:
+
+<collapse-text hidden title="Response">
+
+```bash
+ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192
+```
+
+</collapse-text>
+
+(Use `./komodo-cli -ac_name=HELLOWORLD getrawmempool` to ensure that the transaction receives confirmation.)
+
+Step 3: Decode raw transaction (optional to check if the values are sane)
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000
+```
+
+Response from Step 3:
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "txid": "ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192",
+  "overwintered": true,
+  "version": 4,
+  "versiongroupid": "892f2085",
+  "locktime": 0,
+  "expiryheight": 1974,
+  "vin": [
+    {
+      "txid": "0e51062adc807c118451622957812428562a7487fa6325c484cacdf145948324",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "3045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be7[ALL]",
+        "hex": "483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701"
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.0001,
+      "valueZat": 10000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "a22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401 OP_CHECKCRYPTOCONDITION",
+        "hex": "2ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cc",
+        "reqSigs": 1,
+        "type": "cryptocondition",
+        "addresses": ["RUeZzWCuwGxJTtSDGfRFWL87oyrLWZav6Z"]
+      }
+    },
+    {
+      "value": 99.9998,
+      "valueZat": 9999980000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "02c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5 OP_CHECKSIG",
+        "hex": "2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": ["RFkogpvKojbChm9hMDdv2KUBasUmFNraqg"]
+      }
+    },
+    {
+      "value": 0.0,
+      "valueZat": 0,
+      "n": 2,
+      "scriptPubKey": {
+        "asm": "OP_RETURN ec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000",
+        "hex": "6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000",
+        "type": "nulldata"
+      }
+    }
+  ],
+  "vjoinsplit": [],
+  "valueBalance": 0.0,
+  "vShieldedSpend": [],
+  "vShieldedOutput": []
+}
+```
+
+</collapse-text>
 
 ## oraclesdata
 
@@ -281,7 +401,6 @@ while True:
     print(fullhex)
 ```
 
-
 </collapse-text>
 
 ::: tip Note
@@ -317,17 +436,17 @@ while True:
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name       | Type     | Description                                                                                                                                                   |
 | ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | oracletxid | (string) | the unique identifying transaction id of the oracle                                                                                                           |
 | hexstring  | (string) | the first half of the string indicates the length of the string in bytes, the second half of the string is the data, typically provided in hex-encoded format |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command succeeded                                                                        |
-| hex       | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name   | Type     | Description                                                                                          |
+| ------ | -------- | ---------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command succeeded                                                                        |
+| hex    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -337,9 +456,7 @@ Step 1: Subscribe to a oracle plan and get the hex value
 ./komodo-cli -ac_name=HELLOWORLD oraclesdata 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203 00000000ffffffff
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -350,16 +467,13 @@ Step 1: Subscribe to a oracle plan and get the hex value
 
 </collapse-text>
 
-
 Step 2: Send raw transaction / broadcast the hex value
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000359db76b9b8e9cfaa4514dcc198c375f910b9fb7367d1c9d556cd5eb43b5f4d2d02000000484730440220645b49d6d85454b1015d82a53ec51685fc3b8bf1d092696c3c253b88cab3033a02207023511219897a374ad94951dd2af70b14d99eccbb404eaf783120f3170bd5e301ffffffff75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f010000007b4c79a276a072a26ba067a5658021035933ab0bd2e2ceb712e7cab393a8c9096ba4be2e3a76f5aaeab72bce4aa61857814047697a246e4442888a3b6ffc4a8c5ae940eec7d19f72053a07b6d8a2968a260626c8001c9138e9fd0e3cfabb811ae71bd8c1c555ca8c8410cb9121ce25860507a100af038001eca10001ffffffff59db76b9b8e9cfaa4514dcc198c375f910b9fb7367d1c9d556cd5eb43b5f4d2d000000007b4c79a276a072a26ba067a565802103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b581404fa0de32bbb96b2e2f61fe823cdba4c3b9fef786ea8c65196f97653a942656812e675e91643ff0ec33853fd2481d40fc48fa51e18c9cbffb49e714c15b47babda100af038001eca10001ffffffff05c09ee60500000000302ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc1027000000000000302ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc40420f0000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acd7bb49a204000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac0000000000000000706a4c6dec4403921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b50800000000ffffffff00000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 9530bdf82744ac57a5ffe0855595f5510c339341cdc3c8728ee547d3f3153433
@@ -367,16 +481,13 @@ Step 2: Send raw transaction / broadcast the hex value
 
 </collapse-text>
 
-
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000359db76b9b8e9cfaa4514dcc198c375f910b9fb7367d1c9d556cd5eb43b5f4d2d02000000484730440220645b49d6d85454b1015d82a53ec51685fc3b8bf1d092696c3c253b88cab3033a02207023511219897a374ad94951dd2af70b14d99eccbb404eaf783120f3170bd5e301ffffffff75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f010000007b4c79a276a072a26ba067a5658021035933ab0bd2e2ceb712e7cab393a8c9096ba4be2e3a76f5aaeab72bce4aa61857814047697a246e4442888a3b6ffc4a8c5ae940eec7d19f72053a07b6d8a2968a260626c8001c9138e9fd0e3cfabb811ae71bd8c1c555ca8c8410cb9121ce25860507a100af038001eca10001ffffffff59db76b9b8e9cfaa4514dcc198c375f910b9fb7367d1c9d556cd5eb43b5f4d2d000000007b4c79a276a072a26ba067a565802103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b581404fa0de32bbb96b2e2f61fe823cdba4c3b9fef786ea8c65196f97653a942656812e675e91643ff0ec33853fd2481d40fc48fa51e18c9cbffb49e714c15b47babda100af038001eca10001ffffffff05c09ee60500000000302ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc1027000000000000302ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc40420f0000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acd7bb49a204000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac0000000000000000706a4c6dec4403921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b50800000000ffffffff00000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -491,38 +602,37 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 </collapse-text>
 
-
 ## oraclesinfo
 
 **oraclesinfo oracletxid**
 
-The `oraclesinfo` method displays information about a specific oracle using `oracletxid`. 
+The `oraclesinfo` method displays information about a specific oracle using `oracletxid`.
 
 For a list of all `oracletxid`'s available on the asset chain, see the [oracleslist](../customconsensus/oracles.html#oraclelist) method.
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name       | Type     | Description                                         |
 | ---------- | -------- | --------------------------------------------------- |
 | oracletxid | (string) | the unique identifying transaction id of the oracle |
 
 ### Response
 
-| Name | Type | Description | 
-| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result      | (string) | whether the command executed successfully                                                                                                               |
-| txid        | (string) | the unique txid, or oracletxid, that identifies the oracle                                                                                              |
-| name        | (string) | the name of the oracle contract                                                                                                                         |
-| description | (string) | the description of the oracle contract                                                                                                                  |
-| format      | (string) | a string that identifies the data type accepted for the oracle contract (see [oraclescreate](../customconsensus/oracles.html#oraclescreate))        |
-| marker      | (string) | the unmodified public address generated from the oracle contract's privkey                                                                              |
+| Name        | Type     | Description                                                                                                                                  |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| result      | (string) | whether the command executed successfully                                                                                                    |
+| txid        | (string) | the unique txid, or oracletxid, that identifies the oracle                                                                                   |
+| name        | (string) | the name of the oracle contract                                                                                                              |
+| description | (string) | the description of the oracle contract                                                                                                       |
+| format      | (string) | a string that identifies the data type accepted for the oracle contract (see [oraclescreate](../customconsensus/oracles.html#oraclescreate)) |
+| marker      | (string) | the unmodified public address generated from the oracle contract's privkey                                                                   |
 | registered: | (array)  |
-| publisher   | (string) | the unique identifier for the publisher (see [oraclesregister](../customconsensus/oracles.html#oraclesregister))                                    |
-| baton       | (string) | the baton address of the publisher, which is a CC address (based on the pubkey of the publisher and the EVAL code of the oracle contract) |
-| batontxid   | (string) | the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher               |
-| lifetime    | (number) | the length of time since publisher's inception                                                                                                          |
-| funds       | (number) | the funds committed by subscribers to the publisher's account, and which are used for payouts                                                           |
-| datafee     | (number) | the amount a subscriber pays for each data upload                                                                                                       |
+| publisher   | (string) | the unique identifier for the publisher (see [oraclesregister](../customconsensus/oracles.html#oraclesregister))                             |
+| baton       | (string) | the baton address of the publisher, which is a CC address (based on the pubkey of the publisher and the EVAL code of the oracle contract)    |
+| batontxid   | (string) | the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher    |
+| lifetime    | (number) | the length of time since publisher's inception                                                                                               |
+| funds       | (number) | the funds committed by subscribers to the publisher's account, and which are used for payouts                                                |
+| datafee     | (number) | the amount a subscriber pays for each data upload                                                                                            |
 
 #### :pushpin: Examples
 
@@ -532,9 +642,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD oraclesinfo 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -559,7 +667,6 @@ Command:
 
 </collapse-text>
 
-
 ## oraclelist
 
 **oracleslist**
@@ -568,13 +675,13 @@ The `oraclelist` method lists all available oracle contracts on the asset chain.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
+| Name       | Type               | Description                          |
 | ---------- | ------------------ | ------------------------------------ |
 | oracletxid | (array of strings) | the unique identifying oracletxid(s) |
 
@@ -586,9 +693,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD oracleslist
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 [
@@ -624,7 +729,6 @@ Command:
 
 </collapse-text>
 
-
 ## oraclesregister
 
 **oraclesregister oracletxid datafee**
@@ -645,17 +749,17 @@ After the transaction confirms, use `oraclesinfo` to output registration informa
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name       | Type      | Description                                                                                 |
 | ---------- | --------- | ------------------------------------------------------------------------------------------- |
 | oracletxid | (string)  | the unique identifying transaction id of the oracle                                         |
 | datafee    | (numbers) | the fee required of a subscriber for each data point the publisher publishes in this oracle |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -665,9 +769,7 @@ Step 1: Set your parameters to create a raw transaction and get the hex value
 ./komodo-cli -ac_name=HELLOWORLD oraclesregister 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203 1000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -678,16 +780,13 @@ Step 1: Set your parameters to create a raw transaction and get the hex value
 
 </collapse-text>
 
-
 Step 2: Send/broadcast the raw transaction hex
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000103921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d010000004847304402207241f313ef2fb65d9eb1f870068ceba436f14996ce79d16ff85f2937c75357ee022025f0b888e742546469ad0b7fae9b85cf7c89cddf307170bbcf794e5e90ae28b101ffffffff04102700000000000023210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac1027000000000000302ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc071240a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000004f6a4c4cec5203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b540420f000000000000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575
@@ -695,16 +794,13 @@ Step 2: Send/broadcast the raw transaction hex
 
 </collapse-text>
 
-
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000103921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d010000004847304402207241f313ef2fb65d9eb1f870068ceba436f14996ce79d16ff85f2937c75357ee022025f0b888e742546469ad0b7fae9b85cf7c89cddf307170bbcf794e5e90ae28b101ffffffff04102700000000000023210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac1027000000000000302ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc071240a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000004f6a4c4cec5203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b540420f000000000000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -777,10 +873,9 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 </collapse-text>
 
-
 ## oraclessamples
 
-**oraclessamples oracletxid batonutxo num**
+**oraclessamples oracletxid baton num**
 
 The `oraclessample` method fetches data samples from a publisher.
 
@@ -788,15 +883,15 @@ The user indicates the desired publisher by inserting the `batonutxo` by the pub
 
 ### Arguments
 
-| Name | Type | Description | 
-| ---------- | -------- | ------------------------------------------------------------------------- |
-| oracletxid | (string) | the unique identifying transaction id of the oracle contract              |
-| batonutxo  | (string) | the baton transaction id, which can be found using the oraclesinfo method |
-| num        | (number) | the number of sample data points required                                 |
+| Name         | Type     | Description                                                        |
+| ------------ | -------- | ------------------------------------------------------------------ |
+| oracletxid   | (string) | the unique identifying transaction id of the oracle contract       |
+| batonaddress | (string) | the baton address, which can be found using the oraclesinfo method |
+| num          | (number) | the number of sample data points required                          |
 
 ### Response
 
-| Name | Type | Description | 
+| Name          | Type               | Description                               |
 | ------------- | ------------------ | ----------------------------------------- |
 | result        | (string)           | whether the command executed successfully |
 | samples:      | (array of strings) |
@@ -807,22 +902,24 @@ The user indicates the desired publisher by inserting the `batonutxo` by the pub
 Command:
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD oraclessamples 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203 abb4fc6d7fbff88c09b35fc40d96e3a04a891fbf3a2f21e8b8536acbd95d75d7 2
+./komodo-cli -ac_name=HELLOWORLD oraclessamples 7b6e7745058ffded423546eecc61dcc05069279b90776384c52692765246b64c RVerJvoYsXp3avQ3xxe54EhajZgn5xidKB 1
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
   "result": "success",
-  "samples": [["4982091690320855040"], ["18446744069414584320"]]
+  "samples": [
+    {
+      "txid": "bbe51ad50a1a49e0275631c2b8e698ea3514b05bb60b944ee891bdbbd5ce0c17",
+      "data": ["This here is some data stored on an oracle"]
+    }
+  ]
 }
 ```
 
 </collapse-text>
-
 
 ## oraclessubscribe
 
@@ -834,7 +931,7 @@ Every publisher must have at least one subscriber before the [oraclesdata](../cu
 
 The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
-The `sendrawtransaction` method then returns a unique txid, also called the `oraclesubscribtiontxid`, or the id of the oracle subscription transaction. This can be used for further development purposes.
+The `sendrawtransaction` method then returns a unique txid, also called the `oraclesubscriptiontxid`, or the id of the oracle subscription transaction. This can be used for further development purposes.
 
 ::: tip
 If the **datafee** is 10 COINS and the `amount` submitted is 1000 COINS, the publisher can publish data 100 times based on this amount.
@@ -842,7 +939,7 @@ If the **datafee** is 10 COINS and the `amount` submitted is 1000 COINS, the pub
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name       | Type     | Description                                                                                                                                           |
 | ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | oracletxid | (string) | the unique identifying transaction id of the oracle                                                                                                   |
 | publisher  | (string) | the unique publisher id, which can be found using the oraclesinfo method                                                                              |
@@ -850,10 +947,10 @@ If the **datafee** is 10 COINS and the `amount` submitted is 1000 COINS, the pub
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command succeeded                                                                        |
-| hex       | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name   | Type     | Description                                                                                          |
+| ------ | -------- | ---------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command succeeded                                                                        |
+| hex    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -863,9 +960,7 @@ Step 1: Subscribe to an oracle plan and get the hex value:
 ./komodo-cli -ac_name=HELLOWORLD oraclessubscribe 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203 03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 1
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -876,16 +971,13 @@ Step 1: Subscribe to an oracle plan and get the hex value:
 
 </collapse-text>
 
-
 Step 2: Send raw transaction / broadcast the hex value
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000175a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f0200000048473044022006449e2f324ba8c262ca73eea4642f77ccf906fee5bab4fdc85bcc8c350ce81b022047d76840076f6e02aebe77ffb59b052974badb8747c7b435fd77351fcfbee95e01ffffffff0400e1f50500000000302ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc102700000000000023210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dace7e249a204000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000004f6a4c4cec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b500e1f5050000000000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 2d4d5f3bb45ecd56d5c9d16773fbb910f975c398c1dc1445aacfe9b8b976db59
@@ -893,16 +985,13 @@ Step 2: Send raw transaction / broadcast the hex value
 
 </collapse-text>
 
-
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000175a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f0200000048473044022006449e2f324ba8c262ca73eea4642f77ccf906fee5bab4fdc85bcc8c350ce81b022047d76840076f6e02aebe77ffb59b052974badb8747c7b435fd77351fcfbee95e01ffffffff0400e1f50500000000302ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc102700000000000023210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dace7e249a204000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000004f6a4c4cec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b500e1f5050000000000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -974,4 +1063,3 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 ```
 
 </collapse-text>
-
