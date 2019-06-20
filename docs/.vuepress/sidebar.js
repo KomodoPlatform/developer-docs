@@ -42,6 +42,7 @@ var sidebar = [{
         "/basic-docs/customconsensus/custom-consensus-instructions.md",
         "About Custom Consensus (CC)"
       ],
+      ["/basic-docs/customconsensus/assets.md", "Assets"],
       ["/basic-docs/customconsensus/channels.md", "Channels"],
       ["/basic-docs/customconsensus/dice.md", "Dice"],
       ["/basic-docs/customconsensus/faucet.md", "Faucet"],
@@ -49,6 +50,7 @@ var sidebar = [{
       ["/basic-docs/customconsensus/heir.md", "Heir"],
       ["/basic-docs/customconsensus/musig.md", "MuSig"],
       ["/basic-docs/customconsensus/oracles.md", "Oracles"],
+   //   ["/basic-docs/customconsensus/payments.md", "Payments"],
       ["/basic-docs/customconsensus/rewards.md", "Rewards"],
       ["/basic-docs/customconsensus/rogue.md", "Rogue"],
       ["/basic-docs/customconsensus/sudoku.md", "Sudoku"],
@@ -63,6 +65,7 @@ var sidebar = [{
       ["/basic-docs/komodo-api/blockchain.md", "Blockchain"],
       ["/basic-docs/komodo-api/cclib.md", "CC Lib"],
       ["/basic-docs/komodo-api/control.md", "Control"],
+      ["/basic-docs/komodo-api/crosschain.md", "Crosschain/Migration"],
       ["/basic-docs/komodo-api/disclosure.md", "Disclosure"],
       ["/basic-docs/komodo-api/generate.md", "Generate"],
       ["/basic-docs/komodo-api/mining.md", "Mining"],
@@ -73,6 +76,6 @@ var sidebar = [{
       ["/basic-docs/komodo-api/wallet.md", "Wallet"]
     ]
   }
-]
+];
 
 module.exports = sidebar;
