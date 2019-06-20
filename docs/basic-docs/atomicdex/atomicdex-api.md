@@ -1254,6 +1254,17 @@ Response (error)
 }
 ```
 
+Response (History too large in electrum mode)
+
+```json
+{
+    "error": {
+        "code": -1,
+        "message": "Got `history too large` error from Electrum server. History is not available"
+    }
+}
+```
+
 ## my_orders
 
 **my_orders()**
