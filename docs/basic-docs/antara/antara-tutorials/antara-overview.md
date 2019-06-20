@@ -1,4 +1,4 @@
-# Antara Module Overview - Part I
+# Overview of Antara Modules - Part I
 
 ## Introduction
 
@@ -118,7 +118,7 @@ Recall that Satoshi Nakamoto's Bitcoin Script is not Turing complete. This choic
 
 However, at the same time, the lack of Turing completeness also prevented smart-contract-like functionality on Bitcoin-protocol based blockchains — until now.
 
-Komodo now offers Antara Modules. These modules allow for the same functionalities found in smart contracts, and even more advanced functionality. This new technology is compatible with Bitcoin-protocol based blockchains, and this includes all Komodo Smart Chains.
+Komodo now offers Antara Modules. These modules allow for the same functionalities found in smart contracts, and even more advanced features. This new technology is compatible with Bitcoin-protocol based blockchains, and this includes all Komodo Smart Chains.
 
 Furthermore, Antara Modules gain more usefulness when combined with Komodo's unique design. Recall that Komodo is built not to require all developers and users to function on the main Komodo blockchain. Rather, Komodo empowers developers with their own independent blockchain, each secured with the hash rate of Bitcoin. This facilitates an interconnected network between all Smart Chains through Komodo's other technologies, such as atomic-swaps, cross-chain syncing, and more.
 
@@ -136,15 +136,11 @@ Antara Modules function in a completely different manner from the popular gas-ba
 
 A utxo is simply a bill of value sitting in your digital wallet — much like the many small fiat dollar bills you may have sitting in your physical wallet. The collection of utxos in your digital wallet make up the total balance.
 
-For example, a user could have in their digital wallet a utxo worth 1 KMD, another utxo worth 2 KMD, and another worth 7 KMD. Altogether, in the software GUI the user would see that they have 10 KMD total. Most users would never know that they actually have three separate utxos that make up the full balance, as utxos are typically managed automatically by blockchain software.
+For example, a user could have in their digital wallet a utxo worth 1 KMD, another utxo worth 2 KMD, and another worth 7 KMD. Altogether, in the software interface the user would see that they have 10 KMD total. Most users would never know that they actually have three separate utxos that make up the full balance, as utxos are typically managed automatically by blockchain software.
 
 When the user spends money, the blockchain software automatically splits the money they spend into new utxos. If our user desires to spend 6 KMD, the software splits the 7 KMD utxo into two pieces: a 6 KMD utxo is sent to the destination address, as the user instructed, and the remaining 1 KMD is returned to the user as "change."
 
 The user now has a 1 KMD utxo, a 2 KMD utxo, and another 1 KMD utxo. The total that they see in their wallet is 4 KMD.
-
-#### Antara Modules Rely on CryptoConditions, an Interledger Team Creation
-
-Antara Modules rely on a concept that was created by different blockchain company, [Interledger](https://interledger.org/). The technology is called [CryptoConditions](https://tools.ietf.org/html/draft-thomas-crypto-conditions-01), and we won't delve deeply into the details yet. See later tutorials and discussions for more information.  
 
 ## Antara Modules: Utxo-based Smart Contracts
 
@@ -156,27 +152,42 @@ It is fundamentally different than the gas-based model. In the gas-based model, 
 
 With Komodo's Antara Modules, a user locks a series of utxos in a contract with a set of instructions that must be met before the utxo can be sent to its final destination.
 
-This is a dramatically more secure setup. Only the utxos that have been indicated as belonging to an instance of an Anatara Module can be spent. This is different from the gas-based model, where a bug in the software can (and frequently does) allow a faulty smart contract to drain the full balance of a wallet.
+This is a dramatically more secure setup. Only the utxos that have been indicated as belonging to an instance of an Antara Module can be spent. This is different from the gas-based model, where a bug in the software can (and frequently does) allow a faulty smart contract to drain the full balance of a wallet.
 
-Before diving any deeper into how Antara Modules work, we need to understand a few things about Bitcoin payments scripts.
+Before diving any deeper into Antara Modules, we need to understand a few things about Bitcoin Scripts.
 
 ## How Antara Modules Interact with Bitcoin Script
 
-Let's dive even deeper. The following terminology may be a little thick even for some developers, when you are new to blockchain technology. If it's too confusing, simply skip to the next section.
+There are several different ways to execute a Bitcoin payment. In particular, there are pay-to-pubkey payments, pay-to-pubkey-hash payments, and pay-to-script-hash payments. These three payment types represent the overwhelming majority of Bitcoin transactions, and each type of payment is limited in the possibilities it allows to the user and the developer.  
 
-There are several different ways to execute a Bitcoin payment. In particular, there are Pay-To-Pubkey payments, Pay-To-Pubkey-Hash payments, and Pay-to-Script-Hash payments.
+Now, Komodo has implemented an additional type of payment script that designates a utxo as belonging to a specific instance of an Antara Module. In other words, this new payment script puts constraints on the utxo. The name of this new script is called a "CryptoCondition," and we explore the specifications of this script in later articles.
 
-Now, Komodo has created an additional payment script that designates a utxo as belonging to a specific instance of an Antara Module. In other words, this new payment script puts constraints on the utxo.
+#### Antara Modules Maintain Scarcity Within the Module
 
-Every Antara Module has its own unique EVAL code. When a user spends funds in a manner that links a utxo with an Antara Module, the utxo is locked to this EVAL code in utxo-data structure. This keeps the utxo associated with the Antara Module, and thus the utxo is not free to enter into another Antara Module unles the current module allows this behavior.
+Every Antara Module has its own unique code, called an "EVAL" code, and this keeps funds in one module separate from another, and separate from the main Smart Chain's coins.
 
-For each Antara Module, the user has a unique address that can only be used with funds created as a part of this module. This keeps funds that are created within an Anatar Module separate from funds that are created in other Antara Modules. In this manner, there is never any confusion about where funds are sent.
+When a user spends funds in a manner that links a utxo with an Antara Module, the utxo is locked to this EVAL code in the utxo-data structure.
 
-Each Antara Module also has a global address that is known and usable by everyone. Even the private key to this address is public. Making the private key public enables SPV-based interaction with the module. Also, the global address serves as a repository of information for all users within the module. This allows all users to query the state of the module and discover current and past behavior.
+This keeps the utxo associated with the Antara Module, and thus the utxo is not free to enter into another Antara Module unles the current module allows this behavior.
 
-At the same time, the funds within this module cannot be moved until all the conditions of the module are satisfied. For example, the module can require that funds only be spent to a specific and approved address, as set in advance by a group of collaborating users. This is similar to the Bitcoin Lightning Network's intended effect, yet dramatically simpler in design.
+#### A User Has a Unique Address for Each Antara Module
+For each Antara Module, the user has a unique address that can only be used with funds created as a part of this module. This keeps funds that are created within an Antara Module separate from funds that are created in other Antara Modules. In this manner, there is never any confusion about where funds are sent.
 
-With these rules in place, an Antara Module becomes somewhat of a mini-consensus mechanism. The module forces consensus for its participants, just like the master consensus mechanism of the blockchain.
+#### Each Module Has a Global Address
+
+Each Antara Module also has a global address that is known and usable by everyone. Even the private key to this address is public.
+
+Making the private key public allows users to interact with the module using lite-mode software (i.e. syncing the blockchain is not required). Also, the global address serves as a repository of information for all users within the module.
+
+The global address allows all users to query the state of the module and discover current and past behavior.
+
+#### Developers Set the Rules for Each Module-Related Transaction
+
+At the same time, the funds within this module cannot be moved until all the conditions of the module are satisfied.
+
+For example, the module can require that funds only be spent to a specific and approved address, as set in advance by a group of collaborating users. This is similar to the Bitcoin Lightning Network's intended effect, yet dramatically simpler in design.
+
+With these rules in place, an Antara Module effectively becomes a miniature consensus mechanism. The module forces consensus for its participants, just like the master consensus mechanism of the Smart Chain.
 
 Now let's take a closer look at the many advantages of Antara Modules.
 
@@ -194,9 +205,9 @@ Because Antara Modules on Komodo run in the daemon, developers can avoid the lim
 
 #### Utxos are More Secure Than Balance-Based Programming
 
-Utxo-based contracts are more secure than balance-based smart contracts. This is true in several ways. For one thing, because Komodo’s smart contracts are utxo-based, it is far more difficult, if not impossible, to use a smart contract to flood the parent coin's coin supply with illegitimate coins.
+Utxo-based modules are more secure than balance-based smart contracts. This is true in several ways. For example, because Komodo’s modules are utxo-based, it is far more difficult, if not impossible, to use a module to flood the main chain's coin supply with illegitimate coins.
 
-This is not the case with balance-based smart contracts, like those on Ethereum. Because the smart contracts are linked to balances, rather than blockchain-enforced utxos, a malicious actor can manipulate balances to disastrous ends. We have seen this happen again and again and again.
+This is not the case with balance-based smart contracts. Because the smart contracts are linked to balances, rather than blockchain-enforced utxos, a malicious actor can manipulate balances to disastrous ends. We have seen this happen again and again and again.
 
 #### RPCs Make Module Consumption Easy
 
@@ -208,13 +219,27 @@ With many Antara Modules, a Graphic User Interface (GUI) can allow non-technical
 
 A challenge that many developers face in the blockchain industry is the aspect of creating software that must wait for decentralized consensus before the software's users can assume finality.
 
-Antara Modules allow the developer to overcome this challenge. Antara Modules allow for zero-confirmation micro-payments. These 0-conf micro-payments are secured by Komodo’s delayed Proof of Work security mechanism. The payments are fully peer-to-peer, and are considered confirmed as soon as they enter the mempool. (The mempool is the part of the confirmation process where a transaction waits while the miners of the blockchain network attempt to confirm the transaction.)
+Antara Modules allow the developer to overcome this challenge. Antara Modules allow for zero-confirmation micro-payments. These micro-payments are secured by Komodo’s delayed Proof of Work security mechanism. The payments are fully peer-to-peer, and are considered confirmed as soon as they are initiated.
 
 #### No Need for Gas
 
-Antara Modules do not require “gas” or any sort of fee for every process executed. Recall that the smart contracts and dApps built on Ethereum must pay for gas for every single process. The gas-based model makes complex blockchain-based softare impossible.
+Antara Modules do not require a shared “gas” coin for every process executed. Recall that the smart contracts and dApps built on Ethereum must pay in Ethereum's ecosystem-wide gas (Ether) for every single step of progress. The tremendous expense placed on common users and developers makes complex blockchain-based software nigh impossible.
 
-Komodo, on the other hand, is far more scalable and will not require a fee for every single process, other than a single, ordinary transaction fee for sending funds. This fee is not paid in KMD, but in the coin of the developer and user's choice.
+Komodo, on the other hand, is far more scalable as the cost of blockchain processing is tied only to an individual Smart Chain's native coin, and not to the main Komodo coin (KMD) that ties the ecosystem together. 
+
+## Difficult to Create, but Easy to Reuse
+
+Creating a new Antara Module is more difficult than creating a new smart contract on a gas-based platform. However, the functionality of a module need only be programmed once, and then other users in the Komodo ecosystem can reuse the finished module.
+
+Building and designing a new Antara Module requires a strong proficiency in blockchain technology and in advanced programming techniques. The module must be stable and secure enough to withstand the pressure of the wild-open Internet.
+
+However, once created, other users may rely on the modules' RPC commands to utilize the module's functionality without having to understand how the module functions.
+
+For example, consider how the MuSig Antara Module serves non-blockchain developers. This module relies on Antara to enable a complicated technology called Schnorr Signatures, which are a new method for creating multi-signature blockchain transactions. The RPC's for this module allow any developer of essentially any skill level to adopt the MuSig functionality into the developer's software without having to gain an in-depth understanding of Schnorr technology.
+
+[See the MuSig module documentation here](../customconsensus/musig.html#introduction)
+
+As the library of available modules grows, so too do the advantages to the many types of developers in the Komodo ecosystem. For this reason, members of the Komodo community express gratitude to the more experienced blockchain developers who build and share Antara Modules via open-source ideology.
 
 ## Komodo is Developing and Testing Default Modules
 
@@ -224,7 +249,7 @@ Once complete, the modules are embedded into the default source code of a Komodo
 
 If you would like to have an Antara Module available that is not already in the code base, submit a Pull Request to the Komodo repository on Github with the details of your desired module. If accepted, Komodo will write the module and make it available to all users during our next hard fork. This occurs on an annual or semi-annual basis.
 
-To our knowledge, no other blockchain project has successfully implemented utxo-based contracts on a live chain. Considering atomic swaps, on-demand scalability, cross-chain interoperability syncing, utxo-based contracts, the Komodo team continues to develop technologies at the bleeding edge of the blockchain industry.
+To our knowledge, no other blockchain project has successfully implemented utxo-based contracts on a live chain. Considering atomic swaps, on-demand scalability, cross-chain interoperability syncing, and utxo-based modules, the Komodo team continues to develop technologies at the bleeding edge of the blockchain industry.
 
 Join us for Part II of this discussion. Part II delves a little deeper into the methods of Antara Module functionality, and continues preparing the developer for Antara Module utilization.
 
