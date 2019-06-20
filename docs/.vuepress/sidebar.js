@@ -257,10 +257,10 @@ var sidebar = [
                             "/basic-docs/antara/antara-tutorials/heir-module-tutorial.md", 
                             "Heir Module Tutorial" 
                         ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/create-an-oracles-plan-tutorial.md", 
-                            "Create anOracles Plan Tutorial" 
-                        ],
+                        // [
+                            // "/basic-docs/antara/antara-tutorials/create-an-oracles-plan-tutorial.md", 
+                            // "Create an Oracles Plan Tutorial" 
+                        // ],
                         [
                             "/basic-docs/antara/antara-tutorials/rogue-module-tutorial.md", 
                             "Rogue Module Tutorial" 
