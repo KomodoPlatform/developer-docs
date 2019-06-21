@@ -45,9 +45,9 @@ The fingerprints of fingerprints are delivered back into the blockchain of the a
 ### Workflow of the MoMoM value migration
 
 - On the source chain, the user calls the method [migrate_createburntransaction](./crosschain.html#migrate-createburntransaction) and broadcasts the hex of the returned burn transaction (`BurnTxHex`) using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. The user also receives the `payouts object` from this method
-- On the source chain, the user runs [migrate_createimporttransaction](./crosschain.html#migrate-createimporttransaction) with the hex value of the burn transaction  and the `payouts object` in hex format as arguments
+- On the source chain, the user runs [migrate_createimporttransaction](./crosschain.html#migrate-createimporttransaction) with the hex value of the burn transaction and the `payouts object` in hex format as arguments
 - On the main Komodo chain (KMD) the user calls [migrate_completeimporttransaction](./crosschain.html#migrate-completeimporttransaction) with the import transaction in hex format which was received from the previous call as an argument.
-    - As a part of this process, the proof object for the burn transaction inside the import transaction is extended with MoMoM data. This allows verification of the burn transaction on the destination chain by using the standard Komodo notarization process without the need to create additional proof objects
+  - As a part of this process, the proof object for the burn transaction inside the import transaction is extended with MoMoM data. This allows verification of the burn transaction on the destination chain by using the standard Komodo notarization process without the need to create additional proof objects
 
 ### migrate_createburntransaction
 
@@ -57,23 +57,29 @@ The `migrate_createburntransaction` method creates a transaction burning a speci
 
 The method creates a burn transaction and returns it. This should be broadcast to the source chain using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. After the burn transaction is successfully mined, the user might have to wait for some amount of time for the back notarization to reach the source chain. The back notarization contains the `MoMoM` fingerprints of the mined block that contains the burn transaction.
 
-The hex value of the burn transaction along with the other returned value `payouts` are used as arguments for the `migrate_createimporttransaction` method. This concludes the migration process.
+The hex value of the burn transaction along with the other returned value `payouts` are used as arguments for the `migrate_createimporttransaction` method.
+
+<!---FIXME
+This concludes the migration process.
+
+gcharang: it doesn't though
+ --->
 
 #### Arguments
 
-| Name          | Type                | Description                                                                                                                                                                                                                          |
-| ------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| "destChain"   | (string, required)  | the name of the destination chain                                                                                                                                                                                                    |
-| "destAddress" | (string, required)  | the address on the destination chain where coins are to be sent; the pubkey if tokens are to be sent                                                                                                                                 |
+| Name          | Type                | Description                                                                                                                                                                                                                                            |
+| ------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| "destChain"   | (string, required)  | the name of the destination chain                                                                                                                                                                                                                      |
+| "destAddress" | (string, required)  | the address on the destination chain where coins are to be sent; the pubkey if tokens are to be sent                                                                                                                                                   |
 | "amount"      | (numeric, required) | the amount in coins or tokens that should be burned on the source chain and created on the destination chain; if the indicated assets are tokens, the amount can be set only to 1, as only migration of non-fungible tokens are supported at this time |
-| "tokenid"     | (string, optional)  | token id in hex; if set, the software assumes that the user is migrating tokens                                                                                                                                                             |
+| "tokenid"     | (string, optional)  | token id in hex; if set, the software assumes that the user is migrating tokens                                                                                                                                                                        |
 
 #### Response
 
-| Name        | Type     | Description                                                                                              |
-| ----------- | -------- | -------------------------------------------------------------------------------------------------------- |
+| Name        | Type     | Description                                                                                               |
+| ----------- | -------- | --------------------------------------------------------------------------------------------------------- |
 | "payouts"   | (string) | a hex string of the created payouts; this value is passed into the migrate_createimporttransaction method |
-| "BurnTxHex" | (string) | a hex string of the returned burn transaction                                                            |
+| "BurnTxHex" | (string) | a hex string of the returned burn transaction                                                             |
 
 #### :pushpin: Examples
 
@@ -161,10 +167,10 @@ The signed burn transaction must be broadcast to the <!-- FIXME destination chai
 
 #### Response
 
-| Name       | Type     | Description                                                                                                |
-| ---------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| Name       | Type     | Description                                                                                         |
+| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
 | "payouts"  | (string) | a hex string of the created payouts; this is passed into the migrate_createimporttransaction method |
-| "exportTx" | (string) | a hex string of the returned burn transaction                                                              |
+| "exportTx" | (string) | a hex string of the returned burn transaction                                                       |
 
 #### :pushpin: Examples
 
@@ -375,7 +381,7 @@ The finalized import transaction should be broadcast on the destination chain th
 
 Komodo recommends that the user wait until the notarization objects are stored in the destination chain before broadcasting the import transaction. Otherwise an error message is returned.
 
-In the event that an error is returned,  simply wait until the notarization objects are stored in the KMD chain and try again.
+In the event that an error is returned, simply wait until the notarization objects are stored in the KMD chain and try again.
 
 #### Arguments
 
@@ -386,8 +392,8 @@ In the event that an error is returned,  simply wait until the notarization obje
 
 #### Response
 
-| Name          | Type     | Description                                                        |
-| ------------- | -------- | ------------------------------------------------------------------ |
+| Name          | Type     | Description                                                                 |
+| ------------- | -------- | --------------------------------------------------------------------------- |
 | "ImportTxHex" | (string) | import transaction in hex extended with the MoMoM proof of burn transaction |
 
 #### :pushpin: Examples
@@ -450,11 +456,18 @@ There is an alternative solution to notarize burn transactions. This method is u
 
 In this method, the user sends burn transactions to a special publishing resource that is monitored by the notary operators. The notary operators check this publishing resource and return the ids of the transactions that bear the burn transaction proof objects which are created in the destination chains.
 
-<!-- The above is a run-on sentence and I don't understand the sentence enough to fix it. 
+<!-- The above is a run-on sentence and I don't understand the sentence enough to fix it.
 
 Would this be accurate?
 
-The notary operators check this publishing resource and return the ids of the transactions that bear the burn-transaction proof objects. The new objects are then created on the destination chains. --> 
+The notary operators check this publishing resource and return the ids of the transactions that bear the burn-transaction proof objects. The new objects are then created on the destination chains.
+
+
+gcharang: "In this method, the user sends burn transactions to a special publishing resource that is monitored by the notary operators. The notary operators check this publishing resource, pick a burn transaction, validate and check the existence of the burn transaction in its source chain. Then, they create an approval transaction in the destination chain and return the transaction ids to the publishing resourse."
+
+is the summary, but deleting the line won't cause an issue as it is all explained in the "Flow" section
+
+ -->
 
 ### Alternative Transfer Method Flow
 
@@ -462,8 +475,8 @@ The notary operators check this publishing resource and return the ids of the tr
   - The publishing resource is monitored by the notary operators (currently the discord channel: [#cc-momom](https://discord.gg/JE9tkmN))
 - The notary operators must collect the burn transaction, and check its validity and existence in the source chain
   - To check the transaction, the notary operators use the `migrate_checkburntransactionsource` method
-  - If the burn transaction is successfully validated, the notary operators must create approval transactions in the destination chain and publish their transaction ids back into the publishing resource
-- The user collects the transaction ids and calls the [migrate_createimporttransaction](./crosschain.html#migrate-createimporttransaction) method, passing the collected notary approval transaction ids as arguments
+  - If the burn transaction is successfully validated, the notary operators must create approval transactions using the method [migrate_createnotaryapprovaltransaction](#migrate_createnotaryapprovaltransaction) in the destination chain and publish their transaction ids back into the publishing resource
+- The user collects the transaction ids and calls the [migrate_createimporttransaction](./crosschain.html#migrate-createimporttransaction) method, passing the collected notary approval transaction ids as arguments in the destination chain
   - Currently, the user must have at least 5 successful notary-approval transactions for an import transaction to be considered as valid in the destination chain
 
 ### migrate_checkburntransactionsource
@@ -607,7 +620,7 @@ The Self Import API is a special API available only in chains that need a pubkey
 
 The Self Import API allows a trusted pubkey to create more coins on the same chain.
 
-#### Requirements 
+#### Requirements
 
 The chain must have the custom parameters `-ac_import=PUBKEY` and `-ac_pubkey` set to a pubkey which is allowed to create coins.
 
@@ -715,7 +728,7 @@ Start mining in Node1.
 
 Verify that the balance increased by atleast the amount specified in `-ac_supply` through the [getbalance](../komodo-api/control.html#getbalances) method.
 
-Use the method `selfimport` to receive the `SourceTxHex` and the `ImportTxHex.
+Use the method `selfimport` to receive the `SourceTxHex` and the `ImportTxHex`.
 
 ```bash
 ./komodo-cli -ac_name=IMPORTTEST selfimport RM9n6rts1CBKX4oXziLp1WBBgEUjKKWHb3 100000
@@ -1003,8 +1016,8 @@ The `getNotarisationsForBlock` method returns the notarization transactions with
 
 #### Arguments
 
-| Name     | Type               | Description                                                             |
-| -------- | ------------------ | ----------------------------------------------------------------------- |
+| Name     | Type               | Description                                  |
+| -------- | ------------------ | -------------------------------------------- |
 | "height" | (number, required) | the block number of the block to be searched |
 
 #### Response
@@ -1240,8 +1253,8 @@ The `getimports` method lists import transactions in the indicated block of the 
 
 #### Arguments
 
-| Name             | Type                         | Description                                                                |
-| ---------------- | ---------------------------- | -------------------------------------------------------------------------- |
+| Name             | Type                         | Description                               |
+| ---------------- | ---------------------------- | ----------------------------------------- |
 | "hash or height" | (string or number, required) | the block's hash or height to be searched |
 
 #### Response
