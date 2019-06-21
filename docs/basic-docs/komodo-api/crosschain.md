@@ -59,12 +59,6 @@ The method creates a burn transaction and returns it. This should be broadcast t
 
 The hex value of the burn transaction along with the other returned value `payouts` are used as arguments for the `migrate_createimporttransaction` method.
 
-<!---FIXME
-This concludes the migration process.
-
-gcharang: it doesn't though
- --->
-
 #### Arguments
 
 | Name          | Type                | Description                                                                                                                                                                                                                                            |
@@ -454,20 +448,7 @@ b2ed563617771d4a919fb13906e93c8ec485bed145a3f380583796663e285e0d
 
 There is an alternative solution to notarize burn transactions. This method is useful when the automated MoMoM notarization method fails or is slow.
 
-In this method, the user sends burn transactions to a special publishing resource that is monitored by the notary operators. The notary operators check this publishing resource and return the ids of the transactions that bear the burn transaction proof objects which are created in the destination chains.
-
-<!-- The above is a run-on sentence and I don't understand the sentence enough to fix it.
-
-Would this be accurate?
-
-The notary operators check this publishing resource and return the ids of the transactions that bear the burn-transaction proof objects. The new objects are then created on the destination chains.
-
-
-gcharang: "In this method, the user sends burn transactions to a special publishing resource that is monitored by the notary operators. The notary operators check this publishing resource, pick a burn transaction, validate and check the existence of the burn transaction in its source chain. Then, they create an approval transaction in the destination chain and return the transaction ids to the publishing resourse."
-
-is the summary, but deleting the line won't cause an issue as it is all explained in the "Flow" section
-
- -->
+In this method, the user sends burn transactions to a special publishing resource that is monitored by the notary operators. The notary operators check this publishing resource, pick a burn transaction, validate and check the existence of the burn transaction in its source chain. The notary operators then create an approval transaction in the destination chain and return the transaction ids to the publishing resource.
 
 ### Alternative Transfer Method Flow
 
