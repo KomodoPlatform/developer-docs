@@ -478,15 +478,20 @@ When creating a chain with the `ac_staked` parameter, the creation process is sl
 Following the above instructions will ensure that the asset chain is stable.
 
 ::: warning
+
 On a chain using a high percentage for PoS, it's vital to have coins staking by block 100. If too many PoW blocks are mined consecutively at the start of the chain, the PoW difficulty may increase enough to stop the chain entirely. This can prevent users from sending transactions to staking nodes.
+
 :::
 
 ::: warning
-It is also necessary to set [ac_reward](../installations/asset-chain-parameters.html#ac-reward) parameter to some value for staking to work.
+
+Set [ac_reward](../installations/asset-chain-parameters.html#ac-reward) parameter to any desired value for staking to function properly.
 :::
 
 ::: warning
+
 It is vital to stake coins in all 64 segids. You can use the genaddresses.py script in [this repository](https://github.com/KMDLabs/pos64staker) to generate an address for each segid. This functionality will soon be integrated directly into the daemon.
+
 :::
 
 ::: tip

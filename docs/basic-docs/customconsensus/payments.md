@@ -2,14 +2,22 @@
 
 ## Introduction
 
-The Payments Custom Consensus (CC) module allows a payment to be distributed between multiple recipients in a pre-defined proportion.
+The Payments Module allows a payment to be distributed between multiple recipients in a pre-defined proportion.
 
 ### Payments CC Module Flow
 
-- Use [paymentstxidopret](#paymentstxidopret) to create as many transactions as there are recipients that have the following data: weight(share), recipient, destopret (optional; data to be stored in the OP_RETURN of the subsequent payment transaction) in its OP_RETURN, this step is to simply make the data available on the blockchain to be used by a later method. The transaction id is called `paytxnid` and is used as a reference to the data.
-- Use [paymentscreate](#paymentscreate) to create a new Payment plan. The number of blocks to lock the funds after funding , minimum release amount and the `paytxnid`s are passed as arguments. The `paytxnid`s contain the data about recipients and their corresponding shares. The transaction id is called `createtxid` and will be the reference for this payment plan used by other methods.
-- Use [paymentsfund](#paymentsfund)to fund any existing payment plan. The method takes `createtxid` and amount as arguments.
-- Use [paymentsrelease](#paymentsrelease) to release payments to a Payments plan refered by the `createtxid`.
+<!-- 
+
+Sidd:
+
+I'm having a hard time understanding the paragraph below. Can you please provide more information? Thank you.
+
+-->
+
+- Use [paymentstxidopret](#paymentstxidopret) to create as many transactions as there are recipients. Each recipient must have the following data: weight (also called "share"), recipient, destopret (optional; data to be stored in the OP_RETURN of the subsequent payment transaction) in its OP_RETURN, this step is to simply make the data available on the blockchain to be used by a later method. The transaction id is called `paytxnid` and is used as a reference to the data
+- Use [paymentscreate](#paymentscreate) to create a new Payment plan. The number of blocks to lock the funds after funding, minimum release amount and the `paytxnid`s are passed as arguments. The `paytxnid`s contain the data about the recipients and their corresponding shares. The transaction id is called `createtxid` and will be the reference for this payment plan used by other methods
+- Use [paymentsfund](#paymentsfund) to fund any existing payment plan. The method takes <b>createtxid</b> and amount as arguments
+- Use [paymentsrelease](#paymentsrelease) to release payments to a Payments plan refered by the `createtxid`
 
 ## paymentstxidopret
 

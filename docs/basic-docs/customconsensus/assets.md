@@ -2,25 +2,25 @@
 
 ## Introduction
 
-The Assets Custom Consensus (CC) module provides basic distributed exchange (DEX) functionality for trading `tokens` created using the [Tokens](../../basic-docs/customconsensus/tokens.html) module.
+The Assets Module provides basic distributed exchange (DEX) functionality for trading `tokens` created using the [Tokens]() module.
 
-### Assets CC Module Flow
+The Asset Module allows anyone to buy or sell tokens using the Smart Chain's coins.
 
-This module allows anyone to buy or sell tokens using the parent chain's coins.
+#### Assets Module Flow
 
-The workflow to sell tokens:
+##### Seller's Perspective
 
-- a token owner places a new ask with the `tokenask` method specifying the amount of tokens they want to sell and the price. The Assets module then creates a new token ask order and the specified amount of tokens is locked in the CC Assets global address.
-- a buyer who wants to buy some amount of tokens in an ask for the proposed price runs the `tokenfillask` method. The purchased token amount moves from the global cc address to the buyer's token CC address and at the same time, the required amount of coins move from the buyer to seller's address. Such purchases can be repeated while there are tokens remaining in the ask order.
-- at any time, the creator of an order can cancel it with the `tokencancelask` method. The remaining tokens will return to his token cc address.
+- A token owner places a new "ask" request with the <b>tokenask</b> method specifying the amount of tokens they want to sell and the price. The assets module then creates a new token ask order and the specified amount of tokens is locked in the CC Assets global address
+- To fulfill the ask, a buyer executes the <b>tokenfillask</b> method. The purchased token amount moves from the global CC address to the buyer's token CC address. At the same time, the required amount of coins move from the buyer to seller's address. This process can be repeated so long as tokens remaining in the ask order
+- At any time, the creator of an order can cancel it via the <b>tokencancelask</b> method. The remaining tokens will return to their token CC address
 
-The workflow to buy tokens:
+##### Buyer's Perspective
 
-- a user who wants to buy tokens places a new bid using the `tokenbid` method specifying the amount of tokens and the price. The Assets module creates a new token bid order and the specified amount of coins is locked in the CC Assets global address.
-- a token owner who wants to sell some amount of tokens for the price proposed in the order runs the `tokenfillbid` method. The token amount sold moves from the seller's token cc address to the buyer's token CC address and at the same time, the locked coins move from the global cc address to the seller's address. Such sells might be repeated while there is a remainder of coins in the bid order.
-- at any time the creator of an order can cancel it with `tokencancelbid` method. The remaining coins will return to his address.
+- A buyer places a new bid using the <b>tokenbid</b> method. The bid specifies the amount of tokens and the price. The Assets Module creates a new token bid order and the specified amount of coins is locked in the modules' global CC address.
+- A willing seller executes the <b>tokenfillbid</b> method. The token amount sold moves from the seller's token CC address to the buyer's token CC address. At the same time, the locked coins move from the global CC address to the seller's address. This process can be repeated so long as tokens remain in the bid order
+- At any time, the creator of an order can cancel it via the <b>tokencancelbid</b> method. The remaining coins will return to their token CC address
 
-To get the current list of active orders, there are the `tokenorders` or `mytokenorders` methods.
+To retrieve a current list of all active orders, use the <b>tokenorders</b> or <b>mytokenorders</b> methods.
 
 ## assetsaddress
 
@@ -52,6 +52,8 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD assetsaddress 028702e30d8465d6aa85f35d2f58c06a6ee17f23f376b56044dadf7b793f2c12b9
 ```
 
+<collapse-text hidden title="Response">
+
 Response:
 
 ```json
@@ -63,6 +65,8 @@ Response:
   "myaddress": "RDjG4sM1y4udiJSszF6BLotqUnZX79Rom9"
 }
 ```
+
+</collapse-text>
 
 ## tokenask
 
