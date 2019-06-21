@@ -57,7 +57,10 @@ For terminal interface examples, see the examples section below.
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin you want to enable |
-| urls      | array of strings | the urls of Electrum servers to which you want to connect |
+| servers   | array of objects | the list of Electrum servers to which you want to connect |
+| servers.url | string | server url |
+| servers.protocol | string | the transport protocol that MM2 will use to connect to server, possible values: `TCP`, `SSL`. default: `TCP` |
+| servers.disable_cert_verification | bool | whether to disable server SSL/TLS certificate verification (e.g. to use self-signed certificate), default is `false`. `Use at your own risk` |
 | mm2       | number (required if not set in the `coins` file) | this property informs the Komodo DEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
 | tx_history| bool | whether to enable `tx_history` preloading in background, must be `true` if you plan to use `my_tx_history` API |
 
@@ -74,7 +77,7 @@ For terminal interface examples, see the examples section below.
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"urls\":[\"electrum1.cipig.net:10022\",\"electrum2.cipig.net:10022\",\"electrum3.cipig.net:10022\"]}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"servers\":[{\"url\":\"localhost:20025\",\"protocol\":\"SSL\",\"disable_cert_verification\":true},{\"url\":\"localhost:10025\"}]}"
 ```
 
 Response (Success):
@@ -91,7 +94,7 @@ Response (Success):
 Command (With `mm2` argument):
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"urls\":[\"electrum1.cipig.net:10022\",\"electrum2.cipig.net:10022\",\"electrum3.cipig.net:10022\"],\"mm2\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"servers\":[{\"url\":\"localhost:20025\",\"protocol\":\"SSL\",\"disable_cert_verification\":true},{\"url\":\"localhost:10025\"}],\"mm2\":1}"
 ```
 
 Response (Success):
