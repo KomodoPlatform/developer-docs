@@ -2,59 +2,62 @@
 sidebarDepth: 3
 ---
 
-# Crosschain (Migration) API
+# Crosschain API
 
 ## Introduction
 
-Crosschain (Migration) API allows a user to transfer value in the form of either coins or tokens between chains (or in the same chain).
+The Crosschain API allows a user to transfer (or "migrate") assets from one chain to another. Compatible forms of assets include coins and tokens.
 
-The fundamental principle of migration is that some amount of coins or tokens is burned in the source chain and then exactly the same amount is created in the destination chain.
+The fundamental principle of migration is that a specific amount of assets are burned in the source chain and then the same specific amount of assets are created on the destination chain.
 
-### Different ways of value migration using the Komodo platform
+#### Different methods of migration using the Komodo Platform
 
-- MoMoM notarised migration
-  - `MoMoM : Merkle root of Merkle roots of Merkle roots`
-- An alternative migration method with notarisation of the given burn transaction by notary operators (A backup solution to the above MoMoM method)
-- Selfimport
+- MoMoM notarized migration
+  - "MoMoM" stands for "Merkle root of Merkle roots of Merkle roots"
+- An alternative migration method with notarization of the given burn transaction by notary operators (this is a backup solution to the above MoMoM method)
+- Self-managed import
 
-### The migration process
+#### Crosschain API Flow
 
-1. Make an `export/burn` transaction in the source chain.
-1. Make an import transaction for the burned value, which is created in the source chain but is sent to the destination chain.
-1. Komodo's validation code checks that for the import transaction there exists a corresponding burn transaction and that it is not spent more than once.
-
-:::tip Note
-
-- The following migration RPC calls interact with the `komodod` daemon, and are made available through the `komodo-cli`.
-- In the examples, we use 2 chains: CFEKHOUND(source) and CFEKDRAGON(destination) that have been launched with the same `-ac_cc` parameter (> 100)
-
-:::
+- Make an <b>export</b> or <b>burn</b> transaction in the source chain.
+- Create an "import" transaction for the burned value.
+  - This is created on the source chain, but the transaction is sent on the destination chain
+- Komodo's validation code checks that for the import transaction there exists a corresponding burn transaction, and that this transaction is not spent more than once.
 
 #### Requirement
 
-The source and destination chains should have the same `CCid` parameter ([-ac_cc](../installations/asset-chain-parameters.html#ac-cc)) and it should be greater than 100 (which means that the chains are fungible).
+The source and destination chains should have the same `CCid` parameter ([ac_cc](../installations/asset-chain-parameters.html#ac-cc)). The value of this parameter should be greater than 100; this indicates to the Komodo software that the coins on both chains are fungible with each other.
 
-## MoMoM notarised migration
+:::tip Note
 
-- The MoMoM notarised migration API allows the migration of coin or token value using Komodo's notary network, which allows the secure existence of highly scalable multichain architectures.
-- Notary nodes store fingeprints (refered to as `MoM`, 'merkle root of merkle roots') of the blocks belonging to the blockchains of the various assets in the main Komodo (KMD) chain.
-- After that, the fingerprints of fingerprints (refered to as `MoMoM`, 'merkle root of merkle roots of merkle roots') are delivered back into the blockchain of the assets (as back notarisations). More about the notarisation process is in this [article.](https://komodoplatform.com/komodo-platforms-new-scalability-tech/)
+- In the examples, we use two chains. The source chain is <b>CFEKHOUND</b> and the destination chain is <b>CFEKDRAGON</b>.
+
+:::
+
+## MoMoM Notarized Migration
+
+The MoMoM notarized migration API allows the migration of coin or token value using Komodo's notary network. This facilitates the highly scalable multichain architecture of Smart Chains on the Komodo Platform.
+
+Notary nodes store "fingeprints" of the blocks belonging to the blockchains of the various assets in the main Komodo chain (KMD). The "fingerprints" can also be referred to as <b>MoM</b>, or `merkle root of merkle roots`.
+
+The fingerprints of fingerprints are delivered back into the blockchain of the assets as back notarizations. To learn more about the notarization process, [please visit this linked article](https://komodoplatform.com/komodo-platforms-new-scalability-tech/).
 
 ### Workflow of the MoMoM value migration
 
-- On the source chain, the user calls the method [migrate_createburntransaction](./crosschain.html#migrate-createburntransaction) and broadcasts the hex of burn transaction (`BurnTxHex`) that is output using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) call.
-- After that, on the source chain, the user runs [migrate_createimporttransaction](./crosschain.html#migrate-createimporttransaction) with `hex of the burn transaction` and `payouts object in hex format` (which the user received as output from the previous call) as arguments.
-- On the main Komodo (KMD) chain the user calls [migrate_completeimporttransaction](./crosschain.html#migrate-completeimporttransaction) with the import transaction in hex format which was received from the previous call as an argument.
-- At this stage the proof object for the burn transaction inside the import transaction is extended with MoMoM data. This allows verification of the burn transaction on the destination chain by using the standard Komodo notarisation process without the need to create additional proof objects.
+- On the source chain, the user calls the method [migrate_createburntransaction](./crosschain.html#migrate-createburntransaction) and broadcasts the hex of the returned burn transaction (`BurnTxHex`) using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. The user also receives the `payouts object` from this method
+- On the source chain, the user runs [migrate_createimporttransaction](./crosschain.html#migrate-createimporttransaction) with the hex value of the burn transaction  and the `payouts object` in hex format as arguments
+- On the main Komodo chain (KMD) the user calls [migrate_completeimporttransaction](./crosschain.html#migrate-completeimporttransaction) with the import transaction in hex format which was received from the previous call as an argument.
+    - As a part of this process, the proof object for the burn transaction inside the import transaction is extended with MoMoM data. This allows verification of the burn transaction on the destination chain by using the standard Komodo notarization process without the need to create additional proof objects
 
 ### migrate_createburntransaction
 
 **migrate_createburntransaction destChain destAddress amount [tokenid]**
 
-- The `migrate_createburntransaction` method creates a transaction burning some amount of coins or tokens. This method also creates a `payouts object` which is later used for creating an import transaction for the value corresponding to the burned amount. This method should be called on the source chain.
-- The method creates a burn transaction and returns it. It should be broadcasted to the source chain using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
-  After the burn transaction is successfully mined, it might be necessary to wait for some amount of time for the back notarisation with the "MoMoM fingerprints of the mined block with the burn transaction" to reach the source chain.
-- The hex value of the burn transaction along with the other returned value `payouts` are used as arguments to the next method `migrate_createimporttransaction`.
+The `migrate_createburntransaction` method creates a transaction burning a specific amount of coins or tokens. This method also creates a `payouts object` which is later used to create an import transaction for the value corresponding to the burned amount. This method should be called on the source chain.
+
+The method creates a burn transaction and returns it. This should be broadcast to the source chain using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. After the burn transaction is successfully mined, the user might have to wait for some amount of time for the back notarization to reach the source chain. The back notarization contains the `MoMoM` fingerprints of the mined block that contains the burn transaction.
+
+The hex value of the burn transaction along with the other returned value `payouts` are used as arguments for the `migrate_createimporttransaction` method. This concludes the migration process.
 
 #### Arguments
 
@@ -62,14 +65,14 @@ The source and destination chains should have the same `CCid` parameter ([-ac_cc
 | ------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | "destChain"   | (string, required)  | the name of the destination chain                                                                                                                                                                                                    |
 | "destAddress" | (string, required)  | the address on the destination chain where coins are to be sent; the pubkey if tokens are to be sent                                                                                                                                 |
-| "amount"      | (numeric, required) | the amount in coins or tokens that should be burned on the source chain and created on the destination chain; If it is tokens, the amount can be set only to 1 (as only migration of non-fungible tokens are supported at this time) |
-| "tokenid"     | (string, optional)  | token id in hex; if set, it is considered that tokens are to be migrated                                                                                                                                                             |
+| "amount"      | (numeric, required) | the amount in coins or tokens that should be burned on the source chain and created on the destination chain; if the indicated assets are tokens, the amount can be set only to 1, as only migration of non-fungible tokens are supported at this time |
+| "tokenid"     | (string, optional)  | token id in hex; if set, the software assumes that the user is migrating tokens                                                                                                                                                             |
 
 #### Response
 
 | Name        | Type     | Description                                                                                              |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------- |
-| "payouts"   | (string) | a hex string of the created payouts (to be passed into migrate_createimporttransaction rpc method later) |
+| "payouts"   | (string) | a hex string of the created payouts; this value is passed into the migrate_createimporttransaction method |
 | "BurnTxHex" | (string) | a hex string of the returned burn transaction                                                            |
 
 #### :pushpin: Examples
@@ -132,16 +135,20 @@ d19f1c3f7e630966e1d40838c56c8c63a6cbd828d34c3544be5a60b236cf1610
 
 **migrate_converttoexport rawtx dest_symbol**
 
-- The method `migrate_converttoexport` provides an alternative method to the user if they desire to create a customized burn transaction. It converts a given transaction to a burn transaction.
-- It adds proof data to the transaction, extracts the transaction vouts, calculates their vaules and burns the value by sending it to an `OP_RETURN` vout which is added to the created transaction.
-- The other returned value - `payouts` is used in the next method that must be executed: `migrate_createimporttransaction`.
-- It is the responsibility of the caller to fund and sign the returned burn transaction using the methods [fundrawtransaction](../komodo-api/rawtransactions.html#fundrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction).
-- The signed burn transaction must be broadcasted to the <!-- FIXME destination chain ? --> source chain using the [sendrawtansaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The `migrate_converttoexport` method allows the user to create a customized burn transaction (as opposed to a fully automated burn transaction). This method converts a given transaction to a burn transaction.
+
+The method adds proof data to the transaction, extracts the transaction vouts, calculates their value, and burns the value by sending it to an opreturn vout. This vout is then added to the created transaction. (An opreturn vout cannot be spent at a later date, and therefore funds sent to an opreturn vout are permanently burnt.)
+
+The other returned value, `payouts`, is used in the `migrate_createimporttransaction` method.
+
+The caller of the method bears the responsibility to fund and sign the returned burn transaction using the methods [fundrawtransaction](../komodo-api/rawtransactions.html#fundrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction).
+
+The signed burn transaction must be broadcast to the <!-- FIXME destination chain ? --> source chain using the [sendrawtansaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ::: warning Limitations
 
-- The method `migrate_converttoexport` supports only coins (tokens are not supported).
-- The burn transaction has to be stored in the import transaction's `OP_RETURN` vout. As its size is limited to `10,001` bytes, it is recommended to limit the burn transaction's size to 30% of the `OP_RETURN` object.
+- The <b>migrate_converttoexport</b> method supports only coins (tokens are not supported).
+- The burn transaction must be stored in the import transaction's opreturn vout. Because an opreturn's data size is limited to 10,001 bytes, we recommend that the user limit the burn transaction's size to 30% of the opreturn object.
 
 :::
 
@@ -156,7 +163,7 @@ d19f1c3f7e630966e1d40838c56c8c63a6cbd828d34c3544be5a60b236cf1610
 
 | Name       | Type     | Description                                                                                                |
 | ---------- | -------- | ---------------------------------------------------------------------------------------------------------- |
-| "payouts"  | (string) | a hex string of the created payouts (to be passed into `migrate_createimporttransaction` rpc method later) |
+| "payouts"  | (string) | a hex string of the created payouts; this is passed into the migrate_createimporttransaction method |
 | "exportTx" | (string) | a hex string of the returned burn transaction                                                              |
 
 #### :pushpin: Examples
@@ -299,7 +306,7 @@ f8285da90da40f929598652cd90e6dd9968d91b1f69bdba79c46890bfd210d63
 - The `migrate_createimporttransaction` method performs the initial step in creating an import transaction. This method should be called on the source chain.
 - This method returns a created import transaction in hex format. This string should be passed to the `migrate_completeimporttransaction` method on the main KMD chain to be extended with the `MoMoM` proof object.
 - When using the MoMoM backup solution (described later), the created import transaction is not passed to the `migrate_completeimporttransaction` method.
-- In case of errors, it might be necessary to wait for some time before the back notarisations objects are stored in the destination chain.
+- The user may need to wait for some time before the back notarizations objects are stored in the destination chain.
 
 #### Arguments
 
@@ -307,8 +314,8 @@ f8285da90da40f929598652cd90e6dd9968d91b1f69bdba79c46890bfd210d63
 | ------------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
 | "burntx"      | (string, required) | the burn transaction in hex format returned from the previous method                                           |
 | "payouts"     | (string, required) | the payouts object in hex format returned from the previous method and used for creating an import transaction |
-| "notaryTxid1" | (string, optional) | the notary approval transaction id 1, to be passed if the `MoMoM` backup solution is used for notarisation     |
-| "notaryTxidN" | (string, optional) | the notary approval transaction id N, to be passed if the `MoMoM` backup solution is used for notarisation     |
+| "notaryTxid1" | (string, optional) | the notary approval transaction id 1, to be passed if the `MoMoM` backup solution is used for notarization     |
+| "notaryTxidN" | (string, optional) | the notary approval transaction id N, to be passed if the `MoMoM` backup solution is used for notarization     |
 
 #### Response
 
@@ -360,11 +367,15 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **migrate_completeimporttransaction importtx**
 
-- The `migrate_completeimporttransaction` method performs the finalizing step in creating an import transaction. This method should be called on the KMD (Komodo) chain.
-- This method returns the import transaction in hex format, updated with the `MoMoM` proof object which would confirm that the burn transaction exists in the source chain.
-- This finalized import transaction should be broadcasted on the destination chain through the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
-- It is recommended to wait till the notarisations objects are stored in the destination chain to broadcast the import transaction. Otherwise an error message is returned.
-- In case of errors, it might be necessary to wait for some time before the notarisations objects are stored in the KMD chain.
+The `migrate_completeimporttransaction` method performs the finalizing step in creating an import transaction. This method should be called on the KMD (Komodo) chain.
+
+This method returns the import transaction in hex format, updated with the `MoMoM` proof object. This object provides confirmation that the burn transaction exists in the source chain.
+
+The finalized import transaction should be broadcast on the destination chain through the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+
+Komodo recommends that the user wait until the notarization objects are stored in the destination chain before broadcasting the import transaction. Otherwise an error message is returned.
+
+In the event that an error is returned,  simply wait until the notarization objects are stored in the KMD chain and try again.
 
 #### Arguments
 
@@ -377,7 +388,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 | Name          | Type     | Description                                                        |
 | ------------- | -------- | ------------------------------------------------------------------ |
-| "ImportTxHex" | (string) | import transaction in hex extended with MoMoM proof of the burn tx |
+| "ImportTxHex" | (string) | import transaction in hex extended with the MoMoM proof of burn transaction |
 
 #### :pushpin: Examples
 
@@ -433,17 +444,27 @@ b2ed563617771d4a919fb13906e93c8ec485bed145a3f380583796663e285e0d
 
 </collapse-text>
 
-## Notarisation backup solution
+## Notarisation Backup Solution
 
-There is an alternative solution for notarising burn transactions by the notary operators in case of MoMoM notarisation failing or being slow.
+There is an alternative solution to notarize burn transactions. This method is useful when the automated MoMoM notarization method fails or is slow.
 
-For this to work, the notary operators pick burn transactions sent to a special publishing resource, check them and return the ids of the transactions with the burn transaction proof objects which are created in destination chains.
+In this method, the user sends burn transactions to a special publishing resource that is monitored by the notary operators. The notary operators check this publishing resource and return the ids of the transactions that bear the burn transaction proof objects which are created in the destination chains.
 
-### The Workflow
+<!-- The above is a run-on sentence and I don't understand the sentence enough to fix it. 
 
-- A user creates a burn transaction with the above described [migrate_createburntransaction](./crosschain.html#migrate-createburntransaction) method and publishes it in hex format to a publishing resource which is monitored by the notary operators (currently the discord channel: [#cc-momom](https://discord.gg/JE9tkmN))
-- The notary operators must pick a burn transaction and check its validity and existence in the source chain using the method `migrate_checkburntransactionsource`. If the burn transaction is successfully validated, the notary operators must create approval transactions in the destination chain and publish their transaction ids back into the publishing resource.
-- The user collects the transaction ids and calls the method [migrate_createimporttransaction](./crosschain.html#migrate-createimporttransaction), passing the collected notary approval transaction ids as arguments. Currently it is enough to have at least 5 successful notary approval transactions for an import transaction to be considered as valid in the destination chain.
+Would this be accurate?
+
+The notary operators check this publishing resource and return the ids of the transactions that bear the burn-transaction proof objects. The new objects are then created on the destination chains. --> 
+
+### Alternative Transfer Method Flow
+
+- A user creates a burn transaction using the [migrate_createburntransaction](./crosschain.html#migrate-createburntransaction) method and publishes the transaction in hex format to a publishing resource
+  - The publishing resource is monitored by the notary operators (currently the discord channel: [#cc-momom](https://discord.gg/JE9tkmN))
+- The notary operators must collect the burn transaction, and check its validity and existence in the source chain
+  - To check the transaction, the notary operators use the `migrate_checkburntransactionsource` method
+  - If the burn transaction is successfully validated, the notary operators must create approval transactions in the destination chain and publish their transaction ids back into the publishing resource
+- The user collects the transaction ids and calls the [migrate_createimporttransaction](./crosschain.html#migrate-createimporttransaction) method, passing the collected notary approval transaction ids as arguments
+  - Currently, the user must have at least 5 successful notary-approval transactions for an import transaction to be considered as valid in the destination chain
 
 ### migrate_checkburntransactionsource
 
@@ -519,8 +540,9 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **migrate_createnotaryapprovaltransaction burntxid txoutproof**
 
-- A notary operator uses the `migrate_createnotaryapprovaltransaction` method to create an approval transaction in the destination chain with the proof of the burn transaction's existence in the source chain.
-- The returned notary approval transaction should be broadcasted to the destination chain using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+A notary operator uses the `migrate_createnotaryapprovaltransaction` method to create an approval transaction in the destination chain with the proof of the burn transaction's existence in the source chain.
+
+The returned notary approval transaction should be broadcast to the destination chain using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 #### Arguments
 
@@ -575,22 +597,27 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
-## Self import API
+## Self Import API
 
-The Self import API is a special api available only in chains that need a pubkey to create new coins arbitrarily.
+The Self Import API is a special API available only in chains that need a pubkey to create new coins arbitrarily.
 
 ### selfimport
 
 **selfimport destAddress amount**
 
-The Self import API allows a trusted pubkey to create more coins on the same chain.
+The Self Import API allows a trusted pubkey to create more coins on the same chain.
 
-**Requirements:** The chain must have the custom parameters `-ac_import=PUBKEY` and `-ac_pubkey` set to a pubkey which is allowed to create coins.
+#### Requirements 
 
-- For creating more coins in the chain with `-ac_import=PUBKEY` enabled, the method `selfimport` can be used.
-- The method returns a source transaction that contains a parameter with the amount of coins to create and is a proof of the trusted pubkey owner's intention to create new coins in the chain.
-- The returned source transaction should be broadcasted to the chain using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. The source transaction spends a `txfee=10000 satoshis` from the `-ac_pubkey` owner's UXTOs.
-- Later, after the source transaction is mined, the import transaction should also be broadcasted to the chain with the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. After it is mined, its vout would contain the amount of created coins in the chosen destination address.
+The chain must have the custom parameters `-ac_import=PUBKEY` and `-ac_pubkey` set to a pubkey which is allowed to create coins.
+
+#### Self Import Flow
+
+- For creating more coins in the chain with `-ac_import=PUBKEY` enabled, use the <b>selfimport</b> method
+- The method returns a source transaction that contains a parameter with the amount of coins to create
+  - The returned value is a proof of the trusted pubkey owner's intention to create new coins in the chain
+- The returned source transaction should be broadcast to the chain using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. The source transaction spends a `txfee=10000 satoshis` from the `-ac_pubkey` owner's uxtos
+- After the source transaction is mined, the import transaction should also be broadcasted to the chain with the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. After this transaction is mined, its vout contains the amount of created coins in the chosen destination address
 
 #### Arguments
 
@@ -648,19 +675,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
-To see the rest of the process when migrate_converttoexport is used, click the following button:
+To see the rest of the process of the `migrate_converttoexport` method, click the following button.
 
-<collapse-text hidden title="the whole process">
+<collapse-text hidden title="the Whole Process">
 
 ##### Node1
 
-Start a chain with the parameters `-ac_import=PUBKEY` and `-ac_pubkey=<pubkey>` (`<pubkey>` is the pubkey that can create coins at will ):
+Start a chain with the parameters `-ac_import=PUBKEY` and `-ac_pubkey=<pubkey>` (`<pubkey>` is the pubkey that can create coins at will ).
 
 ```bash
 ./komodod -ac_name=IMPORTTEST -ac_import=PUBKEY -ac_pubkey=0257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634 -ac_supply=777777 -ac_reward=100000000 -pubkey=0257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634
 ```
 
-Import the privkey corresponding to the pubkey used when starting the chain:
+Import the privkey corresponding to the pubkey used when starting the chain.
 
 ```bash
 ./komodo-cli -ac_name=IMPORTTEST importprivkey xxxxx
@@ -668,7 +695,7 @@ Import the privkey corresponding to the pubkey used when starting the chain:
 
 ##### Node2
 
-Connect to the chain created in Node1:
+Connect to the chain created in Node1.
 
 ```bash
 ./komodod -ac_name=IMPORTTEST -ac_import=PUBKEY -ac_pubkey=0257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634 -ac_supply=777777 -ac_reward=100000000 -addnode=<ip address of Node1>
@@ -676,19 +703,19 @@ Connect to the chain created in Node1:
 
 Notice that there is only `-ac_pubkey` in the above command but not `pubkey`. That's because, `-ac_pubkey` is part of the chain parameters and `-pubkey` is just [indicating the pubkey](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey) to the particular daemon for various features.
 
-Verify that `connections:1` from the [getinfo](../komodo-api/control.html#getinfo) method
+Verify that `connections:1` from the [getinfo](../komodo-api/control.html#getinfo) method.
 
 ##### Node1
 
-Start mining in Node1:
+Start mining in Node1.
 
 ```bash
 ./komodo-cli -ac_name=IMPORTTEST setgenerate true 1
 ```
 
-Verify that the balance increased by atleast the amount specified in `-ac_supply` through the method [getbalance](../komodo-api/control.html#getbalances)
+Verify that the balance increased by atleast the amount specified in `-ac_supply` through the [getbalance](../komodo-api/control.html#getbalances) method.
 
-Use the method `selfimport` to receive the `SourceTxHex` and the `ImportTxHex`
+Use the method `selfimport` to receive the `SourceTxHex` and the `ImportTxHex.
 
 ```bash
 ./komodo-cli -ac_name=IMPORTTEST selfimport RM9n6rts1CBKX4oXziLp1WBBgEUjKKWHb3 100000
@@ -701,43 +728,43 @@ Use the method `selfimport` to receive the `SourceTxHex` and the `ImportTxHex`
 }
 ```
 
-Broadcast the `SourceTxHex`:
+Broadcast the `SourceTxHex`.
 
 ```bash
 ./komodo-cli -ac_name=IMPORTTEST sendrawtransaction 0400008085202f8901011063706ccf8ccb228566bf94ff2c34e544a3d856b7f061d7d881789dd89d130000000049483045022100efc45823b3e190cd6fab3192d2f1c7ce2945396868f786c0c1f3fca6d4d54378022011d19799fb30e089cc16c38557da301aeb707e289ca911e1c99e6fcc603ba01e01ffffffff0310270000000000001976a914823a9534f765ff5f56d1d5bddc029087972f321c88ace092f5050000000023210257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634ac00000000000000000c6a0ae24100a0724e18090000000000008f0100000000000000000000000000
 ```
 
-Response:
+Response.
 
 ```bash
 e0dd729342f9714957119c7d78342228f34dae48a0648b4339148c8abeb21ad5
 ```
 
-After the above transaction is confirmed, Broadcast the `ImportTxHex`:
+After the above transaction is confirmed, Broadcast the `ImportTxHex`.
 
 ```bash
 ./komodo-cli -ac_name=IMPORTTEST sendrawtransaction 0400008085202f89012764621f3e61d2b47b9f0595639db26b0455d5ac17f73676115e8967640a422400ca9a3b0201e2ffffffff0200a0724e180900001976a914823a9534f765ff5f56d1d5bddc029087972f321c88ac0000000000000000f16a4ceee211d51ab2be8a8c1439438b64a048ae4df3282234787d9c11574971f9429372dde089af17000400008085202f8901011063706ccf8ccb228566bf94ff2c34e544a3d856b7f061d7d881789dd89d130000000049483045022100efc45823b3e190cd6fab3192d2f1c7ce2945396868f786c0c1f3fca6d4d54378022011d19799fb30e089cc16c38557da301aeb707e289ca911e1c99e6fcc603ba01e01ffffffff0100a0724e18090000306a2ee28efefefe7f065055424b4559dded40d8b8826ad32af955a9ce0c2ebc0cd60d9978a1936d425b8f7bdc1c756700000000008f010000000000000000000000000000000000000000000000000000000000000000
 ```
 
-Response:
+Response.
 
 ```bash
 e78096bb4139430276fd5176ff8ac97182be17606558eefb0c21c332192bd189
 ```
 
-Confirm that the address given to the `selfimport` command received the newly created funds
+Confirm that the address given to the `selfimport` command received the newly created funds.
 
 </collapse-text>
 
 ## Notary API
 
-Several methods can be used by the notary nodes to get the blockchain 'fingerprints' and notarisation data.
+The following methods are available to the notary nodes for retrieving the blockchain "fingerprints" and notarization data.
 
 ### calc_MoM
 
 **calc_MoM height MoMdepth**
 
-The `calc_MoM` method calculates `the merkle root of the blocks' merkle roots (MoM)` value starting from the block of a given height for the chosen depth.
+The `calc_MoM` method calculates the value of the merkle root of the blocks' merkle roots (MoM), starting from the block of the indicated height for the chosen depth.
 
 :::tip Note
 This method should be run on an asset chain.
@@ -809,10 +836,12 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **MoMoMdata symbol kmdheight ccid**
 
-The `MoMoMdata` method calculates `the merkle root of merkle roots of the blocks' merkle roots (MoMoM)` value starting from the block of a given height for the data of a chain whose name and CCid are passed in as arguments.
+The `MoMoMdata` method calculates the value of the merkle root of merkle roots of the blocks' merkle roots (MoMoM), starting from the block of the indicated height for the data of the indicated chain.
 
 :::tip Note
-This method should be run on the KMD chain.
+
+Execute this method on the KMD chain.
+
 :::
 
 #### Arguments
@@ -831,7 +860,7 @@ This method should be run on the KMD chain.
 | "kmdheight"        | (string) | the starting block's height                               |
 | "ccid"             | (number) | the chain's `CCid`                                        |
 | "MoMs"             | (string) | the array of `MoM` values                                 |
-| "notarisationHash" | (string) | the first found notarisation transaction id for the chain |
+| "notarizationHash" | (string) | the first found notarization transaction id for the chain |
 | "MoMoM"            | (string) | the MoMoM value                                           |
 
 #### :pushpin: Examples
@@ -916,7 +945,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **assetchainproof txid**
 
-The `assetchainproof` method scans the chain for the back `MoM` notarisation for a transaction corresponding to the given transaction id and returns a proof object with MoM branch. Scanning is performed from the height upto the chain tip but no more than 1440 blocks.
+The `assetchainproof` method scans the chain for the back `MoM` notarization for a transaction corresponding to the given transaction id and returns a proof object with MoM branch. Scanning is performed from the height up to the chain tip, with a limit of `1440` blocks.
 
 #### Arguments
 
@@ -970,24 +999,24 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **getNotarisationsForBlock height**
 
-The `getNotarisationsForBlock` method returns the notarisation transactions within the block for a given block hash.
+The `getNotarisationsForBlock` method returns the notarization transactions within the block of the given block hash.
 
 #### Arguments
 
 | Name     | Type               | Description                                                             |
 | -------- | ------------------ | ----------------------------------------------------------------------- |
-| "height" | (number, required) | the block number of the block in which notarisations are to be searched |
+| "height" | (number, required) | the block number of the block to be searched |
 
 #### Response
 
 | Name             | Type     | Description                                                                                                                |
 | ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
-| "Notary Cluster" | (string) | refers to the notary group which performed the notarisations; KMD for the main Komodo notaries, LABS for the LABS notaries |
-| "txid"           | (string) | the notarisation transaction's id                                                                                          |
-| "chain"          | (string) | the chain that has been notarised                                                                                          |
-| "height"         | (number) | the notarisation transaction's block height                                                                                |
-| "blockhash"      | (string) | the hash of the notarisation transaction's block                                                                           |
-| "notaries"       | (array)  | the [ids](https://github.com/jl777/komodo/blob/master/src/komodo_notary.h) of the notaries who performed the notarisation  |
+| "Notary Cluster" | (string) | refers to the notary group which performed the notarizations; KMD for the main Komodo notaries, LABS for the LABS notaries |
+| "txid"           | (string) | the notarization transaction's id                                                                                          |
+| "chain"          | (string) | the chain that has been notarized                                                                                          |
+| "height"         | (number) | the notarization transaction's block height                                                                                |
+| "blockhash"      | (string) | the hash of the notarization transaction's block                                                                           |
+| "notaries"       | (array)  | the [ids](https://github.com/jl777/komodo/blob/master/src/komodo_notary.h) of the notaries who performed the notarization  |
 
 #### :pushpin: Examples
 
@@ -1137,23 +1166,23 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **scanNotarisationsDB blockHeight symbol [blocksLimit=1440]**
 
-The `scanNotarisationsDB` method scans the notarisations database backwards from the given block height for a notarisation of the chain with the given name (symbol).
+The `scanNotarisationsDB` method scans the notarizations database backwards from the given block height for a notarization of the chain with the given name (symbol).
 
 #### Arguments
 
 | Name          | Type               | Description                                                           |
 | ------------- | ------------------ | --------------------------------------------------------------------- |
-| "blockHeight" | (number, required) | the starting block height from which notarisations are to be searched |
-| "symbol"      | (string, required) | the chain's name whose notarisations are to be searched               |
-| "blocksLimit" | (number, optional) | an optional block depth to search for notarisations                   |
+| "blockHeight" | (number, required) | the starting block height from which notarizations are to be searched |
+| "symbol"      | (string, required) | the chain's name whose notarizations are to be searched               |
+| "blocksLimit" | (number, optional) | an optional block depth to search for notarizations                   |
 
 #### Response
 
 | Name       | Type     | Description                                                             |
 | ---------- | -------- | ----------------------------------------------------------------------- |
-| "height"   | (number) | the block height of the notarisation transaction id that has been found |
-| "hash"     | (string) | the hash of the notarisation transaction id that has been found         |
-| "opreturn" | (string) | the notarisation data in hex format                                     |
+| "height"   | (number) | the block height of the notarization transaction id that has been found |
+| "hash"     | (string) | the hash of the notarization transaction id that has been found         |
+| "opreturn" | (string) | the notarization data in hex format                                     |
 
 #### :pushpin: Examples
 
@@ -1201,19 +1230,19 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 ## User API
 
-There are some utility methods for getting information about burn transactions or import transactions that exist on a chain.
+The following are utility methods available to user. These methods assist in retrieving information about burn and import transactions.
 
 ### getimports
 
 **getimports hash|height**
 
-The `getimports` method lists import transactions in the chain's block chosen by a block number or block hash parameter.
+The `getimports` method lists import transactions in the indicated block of the chain.
 
 #### Arguments
 
 | Name             | Type                         | Description                                                                |
 | ---------------- | ---------------------------- | -------------------------------------------------------------------------- |
-| "hash or height" | (string or number, required) | the block's hash or height in which import transactions are to be searched |
+| "hash or height" | (string or number, required) | the block's hash or height to be searched |
 
 #### Response
 
@@ -1239,7 +1268,9 @@ Command:
 ```
 
 :::tip Note
-If the transaction id of an import is known, use the [gettransaction](../komodo-api/wallet.html#gettransaction) method and get its block hash to use in the above method
+
+If the transaction id of an import is known, use the [gettransaction](../komodo-api/wallet.html#gettransaction) method to retrieve its block hash.
+
 :::
 
 <collapse-text hidden title="Response">

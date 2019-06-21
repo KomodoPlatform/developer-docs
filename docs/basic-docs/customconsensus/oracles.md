@@ -11,7 +11,7 @@ Those who publish data to an oracle are called publishers. There is a fee-based 
 - Create an Oracle using [oraclescreate](../customconsensus/oracles.html#oraclescreate)
 - Fund the Oracle with [oraclesfund](../customconsensus/cc-oracles.html#oraclesfund)
 - Register as a data publisher for the oracle using the [oraclesregister](../customconsensus/cc-oracles.html#oraclesregister) method and specify the datafee it costs subscribers to access data updates
-- Anyone can subscribe to any specific publisher of any oracle using the [oraclessubscribe](../customconsensus/cc-oracles.html#oraclessubscribe) method.
+- Anyone can subscribe to any specific publisher of any oracle using the [oraclessubscribe](../customconsensus/cc-oracles.html#oraclessubscribe) method
 - Anyone can register as a publisher for any oracle; users subscribe only to the publishers they desire
 - Publishers must also subscribe to the oracle before they can publish data
 - A publisher can publish data using [oraclesdata](../customconsensus/cc-oracles.html#oraclesdata), and thereby collect their datafee from their subscribers
@@ -34,10 +34,10 @@ The `oraclesaddress` method displays the oracle address for a specific pubkey.
 | Name                     | Type                                                                                                                 | Description |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------------- | ----------- |
 | OraclesCCAddress         | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
-| OraclesCCBalance         | Amount of funds held in the `OracleCCAddress`                                                                        |
-| OraclesNormalAddress     | Address holding funds from created Oracles                                                                           |
-| OraclesNormalBalance     | Amount of funds held in the `OracleNormalAddress`                                                                    |
-| OraclesCCTokensAddress   | The global CC address where tokens are stored                                                                        |
+| OraclesCCBalance         | amount of funds held in the `OracleCCAddress`                                                                        |
+| OraclesNormalAddress     | address holding funds from created Oracles                                                                           |
+| OraclesNormalBalance     | amount of funds held in the `OracleNormalAddress`                                                                    |
+| OraclesCCTokensAddress   | the global CC address where tokens are stored                                                                        |
 | PubkeyCCaddress(Oracles) | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey supplied as the parameter      |
 | PubkeyCCbalance(Oracles) | amount of funds held in the `PubkeyCCaddress`                                                                        |
 | myCCAddress(Oracles)     | taking the contract's EVAL code as a modifier, this is the CC address from the pubkey of the user                    |
@@ -223,7 +223,9 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 **oraclesfund oracletxid**
 
-The `oraclesfund` allows you to register as a publisher on an oracle. It must be done before using `oraclesregister`
+The `oraclesfund` method allows a user to register as a publisher on an oracle.
+
+This method must be executed before the user attempts to use the <b>oraclesregister</b> method.
 
 ### Arguments:
 
