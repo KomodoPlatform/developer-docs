@@ -72,13 +72,49 @@ Using either `RN727JeeiZ6NXic7PUKTCiHT1HvuBN4RDa` or `2102d3431950c2f0f9654217b6
 
 ### destopret (optional)
 
-`destopret` is the data to be stored the OP_RETURN of the transaction that sends any funds to the scriptPubkey.
+`destopret` is the data to be stored the OP_RETURN of the transaction that sends funds to the scriptPubkey.
 
 If the scriptPubkey belongs to a CC module that expects OP_RETURN data in the txn that sends coins to it, then `destopret` will be used by it
 
 Example:
 
 If a Payments plan is created which has to send a part of the funds to the Rewards CC module, it needs to add some data to the OP_RETURN of the transaction to specify which rewards plan the payment is funding.
+
+#### Arguments
+
+| Name         | Type               | Description                                                                                 |
+| ------------ | ------------------ | ------------------------------------------------------------------------------------------- |
+| allocation   | (number)           | defines the share of a payment to the given `scriptPubkey`.                                 |
+| scriptPubKey | (string)           | [scriptPubkey](https://learnmeabitcoin.com/glossary/scriptPubKey) of the recipient          |
+| destopret    | (string, optional) | data to be stored in the OP_RETURN of the transaction that sends funds to the scriptPubkey. |
+
+#### Response
+
+| Name   | Type     | Description                                                           |
+| ------ | -------- | --------------------------------------------------------------------- |
+| hex    | (string) | the paytransaction in raw-transaction format, provided in hexadecimal |
+| txid   | (string) | the transaction id of the send transaction                            |
+| result | (string) | whether the call executed successfully                                |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD paymentstxidopret '[9,"222102d6f13a8f745921cdb811e32237bb98950af1a5952be7b3d429abd9152f8e388dac"]'
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "hex": "0400008085202f89010012d25c46d1f831d74c7c3e71fd32343f53ead192cc70e9e8edf7586571759a0000000048473044022004f5a7e3eb7f5010953c2bca7af2113ee3559b5f7adc86ad09b872526e3b36f6022040b6409eb612c847185b274eb76a3ff60f0e970e5e78d3eee9269b5f0661611001ffffffff02f0b9f50500000000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac0000000000000000326a30f054090000000000000024222102d6f13a8f745921cdb811e32237bb98950af1a5952be7b3d429abd9152f8e388dac00000000000b0400000000000000000000000000",
+  "txid": "9c731f6bbdaa6159b7c0955f3d1e1df72a64a38cd20198d59cd11f0fc506e00e",
+  "result": "success"
+}
+```
+
+</collapse-text>
 
 ## paymentscreate
 
