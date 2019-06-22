@@ -31,6 +31,7 @@ Sidd: Noted. We'll come back to this section after we finish Mylo's tutorials an
 -->
 
 - Confident programming skills with the C/C++ languages
+
 - Familiarity with the Komodo platform
   - [Link to the Komodo whitepaper](https://komodoplatform.com/whitepaper)
   - [Link to <b>About Komodo Platform</b> section](../basic-docs/start-here/about-komodo-platform/about-komodo-platform.html)
@@ -45,8 +46,10 @@ Sidd: Noted. We'll come back to this section after we finish Mylo's tutorials an
   - [Link to Mastering Bitcoin pdf book]()
 - The `komodod` software should be installed on your local machine
   - [Link to installation instructions](../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#linux)
+- cryptocondition c-language library
+  - [Link to cryptoconditions library](https://github.com/libscott/libcryptoconditions)
 
-<!-- Need to make sure this includes CC libs -->
+<!-- Need to make sure this includes CC libs --><!--dimxy6 added ^^^ -->
 
 ## A Conceptual Understanding of the Intended Product
 
@@ -83,7 +86,7 @@ This section is optional, but recommended.
 #### Launch the RICK Smart Chain (Optional)
 
 <!-- Note, only use one chain. If it's RICK, keep it RICK. -->
-<!-- dimxy: if the reader wanted to develop his own antara module he would still  need his own chain  -->
+<!-- dimxy: if the reader wanted to develop his own antara module he would still  need his own chain, so let it be RICK chain for testing rpc, and HELLOWORLD chain for developmment -->
 <!-- dimxy maybe a paragraph like 'Setting Environment' is needed here -->
 
 <!--
@@ -174,11 +177,11 @@ dimxy I suggest using 'jsonc' syntax (not 'json'): seems comments are looking be
 
 sidd: jsonc doesn't have any color on my end. It looks all white? From what I can tell, it looks like there's no library for a jsonc syntax. Let me know if you're seeing something different?
 
--->
+--><!-- dimxy6 aha, maybe this syntax extension is not supported everywhere. In my chrome it looks very pretty with gray colored comments and black json field names and blue values, pity -->
 
 <collapse-text hidden="true" style="margin-top: 1rem;" title="Full Response">
 
-```json
+```jsonc
 {
   "txid": "9307989767c1d10b3c97834c7e9f50583387907848bc9776b4b77a705791864c",
   "overwintered": false,
