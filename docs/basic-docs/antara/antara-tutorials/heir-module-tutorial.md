@@ -39,7 +39,7 @@ Sidd: Noted. We'll come back to this section after we finish Mylo's tutorials an
   - [Link to Overview of Antara - 1](../basic-docs/fluidity/fluidity-tutorials/fluidity-overview.html#fluidity-overview)
   - [Link to Overview of Antara - 2](../basic-docs/fluidity/fluidity-tutorials/fluidity-conceptual-overview.html#introduction)
 - Comprehension of the nature of Antara addresses
-  - [Link to Antara Address Explanation]()
+  - [Link to Antara Address Explanation]() <!-- dimxy6 What is 'Antara Address'? is this the address extracted from cc scriptPubKey? --> 
 - Comprehension of concepts in the Main Path for Komodo Development
   - [Link to Main Path for Komodo Development in Learning Launchpad]()
 - Familiarity with Bitcoin protocol basics
@@ -49,7 +49,7 @@ Sidd: Noted. We'll come back to this section after we finish Mylo's tutorials an
 - cryptocondition c-language library
   - [Link to cryptoconditions library](https://github.com/libscott/libcryptoconditions)
 
-<!-- Need to make sure this includes CC libs --><!--dimxy6 added ^^^ -->
+<!-- Need to make sure this includes CC libs --><!--dimxy6 added link to the cryptocondition library (from the source) ^^^ -->
 
 ## A Conceptual Understanding of the Intended Product
 
@@ -177,11 +177,11 @@ dimxy I suggest using 'jsonc' syntax (not 'json'): seems comments are looking be
 
 sidd: jsonc doesn't have any color on my end. It looks all white? From what I can tell, it looks like there's no library for a jsonc syntax. Let me know if you're seeing something different?
 
---><!-- dimxy6 aha, maybe this syntax extension is not supported everywhere. In my chrome it looks very pretty with gray colored comments and black json field names and blue values, pity -->
+--><!-- dimxy6 aha, maybe this syntax extension is not supported everywhere. In my chrome it looks nice with gray comments and black json field names and blue values, pity -->
 
 <collapse-text hidden="true" style="margin-top: 1rem;" title="Full Response">
 
-```jsonc
+```json
 {
   "txid": "9307989767c1d10b3c97834c7e9f50583387907848bc9776b4b77a705791864c",
   "overwintered": false,
@@ -514,7 +514,7 @@ Sidd:
 I don't fully understand the above comment. What would you like me to change in the paragraph below? I tried adding in more details about CC + Validation Code = Antara Module. ? Does that solve the issue?
 -->
 
-As logical conditions and subconditions can be added to a CryptoCondition as desired, the developer can utilize both the validation code and CryptoConditions to build complex logic that governs the movement of Smart Chain assets. In this sense, Antara is an advanced evolution of the basic Bitcoin Script security features, such as pubkey or pubkey hash scripts. We will examine validation code in greater detail later in this tutorial.
+As logical conditions and subconditions can be added to a CryptoCondition as desired, the developer can utilize both the CryptoConditions features and customized module's validation code to build complex logic that governs the movement of Smart Chain assets. In this sense, Antara is an advanced evolution of the basic Bitcoin Script security features, such as pubkey or pubkey hash scripts. We will examine validation code in greater detail later in this tutorial.
 
 <!-- dimxy The Module validation (also called arbitrary code above) can do things more advanced than basic cryptocondition-->
 
@@ -525,7 +525,7 @@ As logical conditions and subconditions can be added to a CryptoCondition as des
 
 Sidd: I don't fully understand what the distinction is between the validation code and basic CryptoConditions. The CryptoConditions are in the transaction, while the validation code is in the daemon's source code? Is that that idea?
 
--->
+--><!-- dimxy6 I mean that cryptocondition library is a common usage tool. It performs only fixed set of operations. By 'validation code' I assume the arbitrary validation code which is invoked by adding a eval code to a cryptocondition. Eval code is an extension to cryptocondition library. So with this eval code extension we can create a customized validation code which 'knows' about the specific data in the antara module. So I wanted to underline that cryptconditions lib is itself very big advancement from the basic bitcoin script featutes but the customized validation code is the further advancement.  And yes, using just the term 'validation code' is not clear in this context, I augmented it above to make it more clear (plus, put the cryptoconditon lib in the first place as it is primary and customized code is secondary in the sense of their origin) -->   
 
 In this section, we became acquainted with the concept of logical conditions that are associated with transaction outputs, and logical fulfillments associated with spending-transactions. These two elements make up the rudimentary aspect of a CryptoCondition.
 
