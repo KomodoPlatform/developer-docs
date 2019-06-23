@@ -451,7 +451,8 @@ For example, a condition can be a requirement that only a specific `pubkey` (fin
 
 The <b>fulfillment</b> (Part II) contains instructions and data about how the consensus mechanism should evaluate the CryptoCondition. For example, the fulfillment could include an instruction to check a spending-transaction's electronic signature as well as the the `pubkey` associated with this signature.
 
-To spend a CC output, a node on the network sends a spending transaction that contains a CC input that fulfills the CC output's conditions. The consensus mechanism of the Smart Chain checks that the fulfillment is correct.
+To spend a CC output of a transaction, a node on the network sends a spending transaction that contains a CC input that fulfills the CC output's condition. The consensus mechanism of the Smart Chain checks that the fulfillment is correct. For this it uses the C CryptoCondition library to evaluate the fulfillment of the spending transaction. The result of this evaluation is checked against the condition stored in the previous transaction output.
+
 
 For our example above of an electronic signature, the consensus mechanism runs the logical conditions and fulfillments of the CryptoCondition to verify the electronic signature with the provided pubkey. Then the validation logic calculates the fingerprint of the pubkey and checks it against the condition.
 
@@ -489,9 +490,7 @@ Okay. i don't understand all of that, but I don't think I need to. I tried to ke
 
 -->
 
-The consensus mechanism uses the C CryptoCondition library to evaluate the fulfillment of the spending transaction. The result of this evaluation is checked against the condition stored in the transaction output.
-
-<!-- Sidd: That paragraph above seems out of place. Can we move it somewhere to where it's tied in with something else? I don't understand it well enough to do it myself. -->
+<!-- Sidd: That paragraph above seems out of place. Can we move it somewhere to where it's tied in with something else? I don't understand it well enough to do it myself. --><!-- dimxy6 I moved it up, it now begins with 'For this it uses the C CryptoCondition library...' -->
 
 #### The Simplest form of a CryptoCondition
 
@@ -525,7 +524,7 @@ As logical conditions and subconditions can be added to a CryptoCondition as des
 
 Sidd: I don't fully understand what the distinction is between the validation code and basic CryptoConditions. The CryptoConditions are in the transaction, while the validation code is in the daemon's source code? Is that that idea?
 
---><!-- dimxy6 I mean that cryptocondition library is a common usage tool. It performs only fixed set of operations. By 'validation code' I assume the arbitrary validation code which is invoked by adding a eval code to a cryptocondition. Eval code is an extension to cryptocondition library. So with this eval code extension we can create a customized validation code which 'knows' about the specific data in the antara module. So I wanted to underline that cryptconditions lib is itself very big advancement from the basic bitcoin script featutes but the customized validation code is the further advancement.  And yes, using just the term 'validation code' is not clear in this context, I augmented it above to make it more clear (plus, put the cryptoconditon lib in the first place as it is primary and customized code is secondary in the sense of their origin) -->   
+--><!-- dimxy6 I meant that cryptocondition library is a common usage tool. It performs only predefined set of operations. By 'validation code' I assumed the arbitrary validation code which is invoked by adding a eval code to a cryptocondition. Eval code is an extension to cryptocondition library. So with this eval code extension we can create a customized validation code which 'knows' about the specific business data in the antara module. So I wanted to underline that cryptconditions lib is itself a very big advancement from the basic bitcoin script features but the customized validation code is an even further advancement.  And yes, using just the term 'validation code' is not clear and confusing in this context, I augmented it above to make it more clear (plus, I put the cryptoconditon lib in the first place as it is primary and customized code is secondary in the sense of their origin) -->   
 
 In this section, we became acquainted with the concept of logical conditions that are associated with transaction outputs, and logical fulfillments associated with spending-transactions. These two elements make up the rudimentary aspect of a CryptoCondition.
 
