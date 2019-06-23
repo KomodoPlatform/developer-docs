@@ -511,7 +511,7 @@ Even the basic CryptoCondition features offer more complex logical expressions t
 Sidd:
 
 I don't fully understand the above comment. What would you like me to change in the paragraph below? I tried adding in more details about CC + Validation Code = Antara Module. ? Does that solve the issue?
--->
+--><!-- dimxy6 now this is okay. My comment was simply about that I rearranged the phrases because that feature of M of N pubkeys is not a provided of Antara module application validation code (as it was stated) but the standard feature of the cryptocondition library. -->
 
 As logical conditions and subconditions can be added to a CryptoCondition as desired, the developer can utilize both the CryptoConditions features and customized module's validation code to build complex logic that governs the movement of Smart Chain assets. In this sense, Antara is an advanced evolution of the basic Bitcoin Script security features, such as pubkey or pubkey hash scripts. We will examine validation code in greater detail later in this tutorial.
 
