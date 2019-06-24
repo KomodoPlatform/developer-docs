@@ -6,14 +6,6 @@ This tutorial demonstrates the process of developing a new [<b>Antara module</b>
 
 The primary aim is to give the developer direct engagement with Antara module development, with a focus on the CryptoConditions aspects. This process will give the developer a better grasp of the broad potential of the Antara framework.
 
-<!--
-
-dimxy: why are we speaking of modules. Isn't 'contract' a more accurate term? Term 'module' is too broad, 'contract is more specific IMO
-
-Sidd: It's a marketing thing. We're using modules instead of contract. The discussion has gone on at length and I haven't followed all of it. I know that JL and the support team were involved in the decision, so I think everyone's had a chance to come to some conclusion, and that's where we wound up.
-
--->
-
 Furthermore, in the process of completing this tutorial the developer will learn how the source code is organized.
 
 ## Prerequisite Knowledge
@@ -46,10 +38,8 @@ Sidd: Noted. We'll come back to this section after we finish Mylo's tutorials an
   - [Link to Mastering Bitcoin pdf book]()
 - The `komodod` software should be installed on your local machine
   - [Link to installation instructions](../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#linux)
-- cryptocondition c-language library
-  - [Link to cryptoconditions library](https://github.com/libscott/libcryptoconditions)
-
-<!-- Need to make sure this includes CC libs --><!--dimxy6 added link to the cryptocondition library (from the source) ^^^ -->
+- Cryptocondition C-language Library
+  - [Link to CryptoConditions library](https://github.com/libscott/libcryptoconditions)
 
 ## A Conceptual Understanding of the Intended Product
 
@@ -170,14 +160,6 @@ Observe the following transaction data structure for the existing Heir module:
 ```
 
 ##### Response (annotated) 
-
-<!-- 
-
-dimxy I suggest using 'jsonc' syntax (not 'json'): seems comments are looking better with it
-
-sidd: jsonc doesn't have any color on my end. It looks all white? From what I can tell, it looks like there's no library for a jsonc syntax. Let me know if you're seeing something different?
-
---><!-- dimxy6 aha, maybe this syntax extension is not supported everywhere. In my chrome it looks nice with gray comments and black json field names and blue values, pity -->
 
 <collapse-text hidden="true" style="margin-top: 1rem;" title="Full Response">
 
@@ -315,7 +297,7 @@ Taking the value in the fully encoded key-value pair, `hex`, here is an approxim
 | Translation | Hex Value |
 | ----------- | --------- |
 | 6a | OP_RETURN |
-| 4c85 | Encoded length of the following data | <!-- dimxy it is encoded in the smart bitcoin variable length format, not directly readable. And it is not a string -->
+| 4c85 | Encoded length of the following data. This value is not a string, the value is encoded in the Smart Bitcoin variable length format, and the value is not directly readable. | 
 | ea | Stands for "EVAL_HEIR". The eval code here tells the daemon that this is an Antara module, and that the specific module is HEIR |
 | 46 | Stands for "F", which is a letter marker to indicate that this Heir transaction is a "Funding" transaction |
 | 210... | The remaining portion of the hex encoded data is not related to the core software, but rather to the arbitrary data designed by the developer. Maximum data length is 10000 bytes |
@@ -468,30 +450,6 @@ The process of validation of an Antara Module's transaction is depicted on the d
 
 </div>
 
-<!-- dimxy Actually there is no a dedicated fulfillment evaluation. There is always evaluation of the fulfillment in spending tx and checking the condition in the tx being spent. That's why I wrote 'So to evaluate this CryptoCondition..'.
-
-Seems this is confusing (with fulfillment evaluation). Here is how the standard says about condition and fulfillment:
-
-'A condition uniquely identifies a logical "boolean circuit"...
-
-A fulfillment is a data structure encoding one or more cryptographic signatures and hash digest preimages that define the structure of the circuit and provide inputs to the logic gates allowing for the result of the circuit to be evaluated.
-
-A fulfillment is validated by evaluating that the circuit output is TRUE but also that the provided fulfillment matches the circuit    fingerprint, the condition.'
-
-So a spending tx must fulfill the condition in the tx that it spends.
-
-With this in mind I suggest corrections (see above) -->
-
-<!--
-
-Sidd:
-
-Okay. i don't understand all of that, but I don't think I need to. I tried to keep what you added changed and only correct grammar. Let me know if there are any other changes. 
-
--->
-
-<!-- Sidd: That paragraph above seems out of place. Can we move it somewhere to where it's tied in with something else? I don't understand it well enough to do it myself. --><!-- dimxy6 I moved it up, it now begins with 'For this it uses the C CryptoCondition library...' -->
-
 #### The Simplest form of a CryptoCondition
 
 The simplest CryptoCondition evaluates an electronic signature of a spending-transaction's `scriptsig`. Assuming the evaluation is successful, the spending-transaction is then able to spend funds from the output of another transaction.
@@ -504,27 +462,7 @@ The ability to enforce additional logic is the key difference that illuminates t
 
 Even the basic CryptoCondition features offer more complex logical expressions than a normal Bitcoin Script. For example, with CC a spending transaction could be required to have signatures from at least `M` of `N` acceptable `pubkeys`.
 
- <!--dimxy here we are speaking about basic cryptocoondition lib feature, not the arbitrary module validation code. So this phrase is attached to the previous where it is said that basic cryptocondition features allows to build logic expressions on signatures and keys.  --> 
-
-<!-- 
-
-Sidd:
-
-I don't fully understand the above comment. What would you like me to change in the paragraph below? I tried adding in more details about CC + Validation Code = Antara Module. ? Does that solve the issue?
---><!-- dimxy6 now this is okay. My comment was about that I rearranged the previous phrases because that feature of M of N pubkeys is provided not by the Antara module application validation code (as it was stated) but it is a standard feature of the cryptocondition library. -->
-
 As logical conditions and subconditions can be added to a CryptoCondition as desired, the developer can utilize both the CryptoConditions features and customized module's validation code to build complex logic that governs the movement of Smart Chain assets. In this sense, Antara is an advanced evolution of the basic Bitcoin Script security features, such as pubkey or pubkey hash scripts. We will examine validation code in greater detail later in this tutorial.
-
-<!-- dimxy The Module validation (also called arbitrary code above) can do things more advanced than basic cryptocondition-->
-
-
-<!-- dimxy maybe that upper section 'Antara Extensions to CryptoConditions' to put after the current section as it describes more about the arbitrary validation? -->
-
-<!-- 
-
-Sidd: I don't fully understand what the distinction is between the validation code and basic CryptoConditions. The CryptoConditions are in the transaction, while the validation code is in the daemon's source code? Is that that idea?
-
---><!-- dimxy6 I meant that cryptocondition library is a common usage tool. It performs only predefined set of operations. By 'validation code' I assumed the arbitrary validation code which is invoked by adding a eval code to a cryptocondition. Eval code is an extension to cryptocondition library. So with this eval code extension we can create a customized validation code which 'knows' about the specific business data in the antara module. So I wanted to underline that cryptconditions lib is itself a very big advancement from the basic bitcoin script features but the customized validation code is an even further advancement.  And yes, using just the term 'validation code' is not clear and confusing in this context, I corrected (augmented) it above to make it more clear (plus, I put the cryptoconditon lib in the first place as it is primary and customized code is secondary in the sense of their origin) -->   
 
 In this section, we became acquainted with the concept of logical conditions that are associated with transaction outputs, and logical fulfillments associated with spending-transactions. These two elements make up the rudimentary aspect of a CryptoCondition.
 
@@ -582,23 +520,16 @@ Development requirements for each Antara module:
 
 From an architectural standpoint, an Antara module is simply a C/C++ source file.
 
-<!--
-
-dimxy2 actually there are yet additions to the common cc source file src/cc/custom.cpp with module evalcode, a link to the validation function and the module global pubkey and privkey. This would integrate the antara module into validation framework
-
-sidd: how do I change the surrounding content to accommodate what you mention above?
-
--->
-<!-- dimxy6 added some phrases below -->
-
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; float: right; display: block;">
 
 <img src="/CC-Antara-arch-v2.3.png" style="border: 0.5rem solid white; margin: 1rem 0rem 1rem 0rem;" >
 
 </div>
 
-There are two parts to the module's source file: the implementation of RPC's and the validation code.
-You need also to provide some additions in the komodod basic code to make it know about your new Antara module: allocate a new eval code for your Antara module in src/cc/eval.h, add module's global addresses and validation code entry function into the registry of Antara modules in src/cc/CCcustom.cpp.
+There are two parts to the module's source file: the implementation of RPC's and the validation code. You also need to inform the basic komodod source code of your new Antara Module through the following steps.
+
+- Allocate a new eval code for your Antara module in `src/cc/eval.h`
+- add your module's global addresses and the validation code entry function into the registry of Antara Modules in `src/cc/CCcustom.cpp`
 
 #### RPC Implementations
 
@@ -624,17 +555,7 @@ Include other RPC implementations as desired.
 
 #### Antara Module Validation Code
 
-The main purpose of Antara Module validation code is two-fold. First, it prevents inappropriate Antara-related transactions from entering the chain. Second, it ensures that the structure of the chain of these transactions and their data is accurate. Most importantly, validation code should protect against malicious transactions.
-
-<!-- Sidd: I rephrased the grammar above after your recent changes. Please check accuracy again. -->
-<!-- dimxy6 First, it prevents inappropiate... Second, ensures that the structure is accurate... Then: most importantly, should protect agaist malicious tx. The last phrase seems is related to the 'first'.
-Actually an Antara module's rpcs should not allow to create inappropriate txns, so any inappropriate tx seems is malicious.
-And maybe it is better not using 'chain' in that context
-Suggestion:
-
-The main purpose of Antara Module validation code is two-fold. First, it ensures that the structure of the sequence of an Antara Module related transactions and their data is accurate. Second, it prevents inappropriate Antara-related transactions from entering the chain. That is, module validation code should protect against malicious transactions, what is its the most important task.
-
---> 
+The main purpose of Antara Module validation code is two-fold. First, it ensures that the structure of the sequence of an Antara Module related transactions and their data is accurate. Second, the validation code prevents inappropriate Antara-related transactions from entering the chain. In other words, module validation code should protect against malicious transactions, and this is the code's most important task.
 
 Antara Module Validation code is triggered anytime a node attempts to add a CC spending-transaction to the chain.
 
@@ -1443,8 +1364,6 @@ The following are the aspects of validation the Heir module requires.
 
 This validation logic is performed in the `HeirValidate()` function. The function is invoked whenever a CC transaction bearing the appropriate eval code occurs on the chain. When this eval code appears, the consensus mechansim calls the `HeirValidate()` function, executes the indicated validation code, and adds the transaction to the chain.
 
-<!-- Rephrased the above to break it into smaller sentences. Please check accuracy. -->
-
 #### HeirValidate() Implementation
 
 Explanation of code:
@@ -1707,10 +1626,18 @@ You can use the txidaddress pattern to send value to an address from which the v
 
 A function CCtxidaddr is available for creating an address that is not associated with any known private key. It creates a public key with no private key from a transaction id.
 
-For example, the [<b>Payments</b>]() Antara Module uses CCtxidaddr to create a never spendable txidpk from the createtxid.
-Further it also uses GetCCaddress1of2 function<!-- there's a missing noun here. Do we say, "Antara Module uses this function to create ..." ? And if so, are we referring to the MakeCC1of2vout function below, or something else? --><!-- dimxy6 I tried to reconstruct the phrases --> to create a '1of2' address from both the Payments module global pubkey and txid-pubkey. This allows to collect some funds on a special Antara Module's address that is unique for a particular creation transaction. Funds are sent to this address by the use of MakeCC1of2vout function accepting both the Payments module global pubkey and txid-pubkey.
+For example, the [<b>Payments</b>]() Antara Module uses `CCtxidaddr` to create a non-spendable txidpk from the `createtxid`. Furthermore, the module also uses the `GetCCaddress1of2` function to create a `1of2` address from both the Payments module global pubkey and txid-pubkey.
 
-For this RPC, we also use the `vData` optional parameter to append the opreturn directly to the `ccvout` itself, rather than an actual opreturn as the last `vout` in a transaction. <!-- dimxy6 seems this looks very much like yet another pattern -->
+This allows the module to collect funds on a special CC address that is intended only for a particular type of creation transaction. Funds are sent to this address via the `MakeCC1of2vout` function. Only the Payments module global pubkey and txid-pubkey can successfully create transaction that can be sent to this special address.
+
+For this RPC, we also use the `vData` optional parameter to append the opreturn directly to the `ccvout` itself, rather than an actual opreturn as the last `vout` in a transaction. 
+
+<!-- 
+
+dimxy6 seems this looks very much like yet another pattern 
+
+sidd: would you like to rename it and/or add in a separate headline? Feel free to do so, if that would be best.
+-->
 
 ```cpp
 opret = EncodePaymentsMergeOpRet(createtxid);
