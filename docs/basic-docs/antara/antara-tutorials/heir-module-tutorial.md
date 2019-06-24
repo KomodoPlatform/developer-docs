@@ -31,6 +31,7 @@ Sidd: Noted. We'll come back to this section after we finish Mylo's tutorials an
 -->
 
 - Confident programming skills with the C/C++ languages
+
 - Familiarity with the Komodo platform
   - [Link to the Komodo whitepaper](https://komodoplatform.com/whitepaper)
   - [Link to <b>About Komodo Platform</b> section](../basic-docs/start-here/about-komodo-platform/about-komodo-platform.html)
@@ -38,15 +39,17 @@ Sidd: Noted. We'll come back to this section after we finish Mylo's tutorials an
   - [Link to Overview of Antara - 1](../basic-docs/fluidity/fluidity-tutorials/fluidity-overview.html#fluidity-overview)
   - [Link to Overview of Antara - 2](../basic-docs/fluidity/fluidity-tutorials/fluidity-conceptual-overview.html#introduction)
 - Comprehension of the nature of Antara addresses
-  - [Link to Antara Address Explanation]()
+  - [Link to Antara Address Explanation]() <!-- dimxy6 What is 'Antara Address'? is this the address extracted from cc scriptPubKey? --> 
 - Comprehension of concepts in the Main Path for Komodo Development
   - [Link to Main Path for Komodo Development in Learning Launchpad]()
 - Familiarity with Bitcoin protocol basics
   - [Link to Mastering Bitcoin pdf book]()
 - The `komodod` software should be installed on your local machine
   - [Link to installation instructions](../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#linux)
+- cryptocondition c-language library
+  - [Link to cryptoconditions library](https://github.com/libscott/libcryptoconditions)
 
-<!-- Need to make sure this includes CC libs -->
+<!-- Need to make sure this includes CC libs --><!--dimxy6 added link to the cryptocondition library (from the source) ^^^ -->
 
 ## A Conceptual Understanding of the Intended Product
 
@@ -83,7 +86,7 @@ This section is optional, but recommended.
 #### Launch the RICK Smart Chain (Optional)
 
 <!-- Note, only use one chain. If it's RICK, keep it RICK. -->
-<!-- dimxy: if the reader wanted to develop his own antara module he would still  need his own chain  -->
+<!-- dimxy: if the reader wanted to develop his own antara module he would still  need his own chain, so let it be RICK chain for testing rpc, and HELLOWORLD chain for developmment -->
 <!-- dimxy maybe a paragraph like 'Setting Environment' is needed here -->
 
 <!--
@@ -174,7 +177,7 @@ dimxy I suggest using 'jsonc' syntax (not 'json'): seems comments are looking be
 
 sidd: jsonc doesn't have any color on my end. It looks all white? From what I can tell, it looks like there's no library for a jsonc syntax. Let me know if you're seeing something different?
 
--->
+--><!-- dimxy6 aha, maybe this syntax extension is not supported everywhere. In my chrome it looks nice with gray comments and black json field names and blue values, pity -->
 
 <collapse-text hidden="true" style="margin-top: 1rem;" title="Full Response">
 
@@ -448,7 +451,8 @@ For example, a condition can be a requirement that only a specific `pubkey` (fin
 
 The <b>fulfillment</b> (Part II) contains instructions and data about how the consensus mechanism should evaluate the CryptoCondition. For example, the fulfillment could include an instruction to check a spending-transaction's electronic signature as well as the the `pubkey` associated with this signature.
 
-To spend a CC output, a node on the network sends a spending transaction that contains a CC input that fulfills the CC output's conditions. The consensus mechanism of the Smart Chain checks that the fulfillment is correct.
+To spend a CC output of a transaction, a node on the network sends a spending transaction that contains a CC input that fulfills the CC output's condition. The consensus mechanism of the Smart Chain checks that the fulfillment is correct. For this it uses the C CryptoCondition library to evaluate the fulfillment of the spending transaction. The result of this evaluation is checked against the condition stored in the previous transaction output.
+
 
 For our example above of an electronic signature, the consensus mechanism runs the logical conditions and fulfillments of the CryptoCondition to verify the electronic signature with the provided pubkey. Then the validation logic calculates the fingerprint of the pubkey and checks it against the condition.
 
@@ -486,9 +490,7 @@ Okay. i don't understand all of that, but I don't think I need to. I tried to ke
 
 -->
 
-The consensus mechanism uses the C CryptoCondition library to evaluate the fulfillment of the spending transaction. The result of this evaluation is checked against the condition stored in the transaction output.
-
-<!-- Sidd: That paragraph above seems out of place. Can we move it somewhere to where it's tied in with something else? I don't understand it well enough to do it myself. -->
+<!-- Sidd: That paragraph above seems out of place. Can we move it somewhere to where it's tied in with something else? I don't understand it well enough to do it myself. --><!-- dimxy6 I moved it up, it now begins with 'For this it uses the C CryptoCondition library...' -->
 
 #### The Simplest form of a CryptoCondition
 
@@ -509,9 +511,9 @@ Even the basic CryptoCondition features offer more complex logical expressions t
 Sidd:
 
 I don't fully understand the above comment. What would you like me to change in the paragraph below? I tried adding in more details about CC + Validation Code = Antara Module. ? Does that solve the issue?
--->
+--><!-- dimxy6 now this is okay. My comment was about that I rearranged the previous phrases because that feature of M of N pubkeys is provided not by the Antara module application validation code (as it was stated) but it is a standard feature of the cryptocondition library. -->
 
-As logical conditions and subconditions can be added to a CryptoCondition as desired, the developer can utilize both the validation code and CryptoConditions to build complex logic that governs the movement of Smart Chain assets. In this sense, Antara is an advanced evolution of the basic Bitcoin Script security features, such as pubkey or pubkey hash scripts. We will examine validation code in greater detail later in this tutorial.
+As logical conditions and subconditions can be added to a CryptoCondition as desired, the developer can utilize both the CryptoConditions features and customized module's validation code to build complex logic that governs the movement of Smart Chain assets. In this sense, Antara is an advanced evolution of the basic Bitcoin Script security features, such as pubkey or pubkey hash scripts. We will examine validation code in greater detail later in this tutorial.
 
 <!-- dimxy The Module validation (also called arbitrary code above) can do things more advanced than basic cryptocondition-->
 
@@ -522,7 +524,7 @@ As logical conditions and subconditions can be added to a CryptoCondition as des
 
 Sidd: I don't fully understand what the distinction is between the validation code and basic CryptoConditions. The CryptoConditions are in the transaction, while the validation code is in the daemon's source code? Is that that idea?
 
--->
+--><!-- dimxy6 I meant that cryptocondition library is a common usage tool. It performs only predefined set of operations. By 'validation code' I assumed the arbitrary validation code which is invoked by adding a eval code to a cryptocondition. Eval code is an extension to cryptocondition library. So with this eval code extension we can create a customized validation code which 'knows' about the specific business data in the antara module. So I wanted to underline that cryptconditions lib is itself a very big advancement from the basic bitcoin script features but the customized validation code is an even further advancement.  And yes, using just the term 'validation code' is not clear and confusing in this context, I corrected (augmented) it above to make it more clear (plus, I put the cryptoconditon lib in the first place as it is primary and customized code is secondary in the sense of their origin) -->   
 
 In this section, we became acquainted with the concept of logical conditions that are associated with transaction outputs, and logical fulfillments associated with spending-transactions. These two elements make up the rudimentary aspect of a CryptoCondition.
 
@@ -587,6 +589,7 @@ dimxy2 actually there are yet additions to the common cc source file src/cc/cust
 sidd: how do I change the surrounding content to accommodate what you mention above?
 
 -->
+<!-- dimxy6 added some phrases below -->
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; float: right; display: block;">
 
@@ -595,6 +598,7 @@ sidd: how do I change the surrounding content to accommodate what you mention ab
 </div>
 
 There are two parts to the module's source file: the implementation of RPC's and the validation code.
+You need also to provide some additions in the komodod basic code to make it know about your new Antara module: allocate a new eval code for your Antara module in src/cc/eval.h, add module's global addresses and validation code entry function into the registry of Antara modules in src/cc/CCcustom.cpp.
 
 #### RPC Implementations
 
@@ -623,6 +627,14 @@ Include other RPC implementations as desired.
 The main purpose of Antara Module validation code is two-fold. First, it prevents inappropriate Antara-related transactions from entering the chain. Second, it ensures that the structure of the chain of these transactions and their data is accurate. Most importantly, validation code should protect against malicious transactions.
 
 <!-- Sidd: I rephrased the grammar above after your recent changes. Please check accuracy again. -->
+<!-- dimxy6 First, it prevents inappropiate... Second, ensures that the structure is accurate... Then: most importantly, should protect agaist malicious tx. The last phrase seems is related to the 'first'.
+Actually an Antara module's rpcs should not allow to create inappropriate txns, so any inappropriate tx seems is malicious.
+And maybe it is better not using 'chain' in that context
+Suggestion:
+
+The main purpose of Antara Module validation code is two-fold. First, it ensures that the structure of the sequence of an Antara Module related transactions and their data is accurate. Second, it prevents inappropriate Antara-related transactions from entering the chain. That is, module validation code should protect against malicious transactions, what is its the most important task.
+
+--> 
 
 Antara Module Validation code is triggered anytime a node attempts to add a CC spending-transaction to the chain.
 
@@ -1420,7 +1432,7 @@ The following are the aspects of validation the Heir module requires.
 - The inital funding transaction 
   - Validate that the `1of2` address accurately matches `pubkeys` in the opreturn
 - The claiming transaction 
-  - Validate that this transaction spends transactions from the same funding plan. This funding transaction id's values from the opreturn outputs of the transactions should match. (`vintx`) 
+  - Validate that this transaction spends transactions from the same funding plan. This funding transaction id's values from the opreturn outputs of the previous transactions should match. (the previous transactions are often refered as `vintx` in code) 
 - Validate whether the heir is allowed to spend the funds
   - Check whether the flag indicates that the Heir is already spending the funds
   - Check whether enough time has passed since the last time the owner was active on the chain
@@ -1693,35 +1705,33 @@ The <b>CCunspents()</b> function requires the Smart Chain [<b>addressindex</b>](
 
 You can use the txidaddress pattern to send value to an address from which the value should never again be spent.
 
-A function is available for creating an address that is not associated with any known private key.
+A function CCtxidaddr is available for creating an address that is not associated with any known private key. It creates a public key with no private key from a transaction id.
 
-For example, the [<b>Payments</b>]() Antara Module uses <!-- there's a missing noun here. Do we say, "Antara Module uses this function to create ..." ? And if so, are we referring to the MakeCC1of2vout function below, or something else? --> to create a spendable address as follows.
+For example, the [<b>Payments</b>]() Antara Module uses CCtxidaddr to create a never spendable txidpk from the createtxid.
+Further it also uses GetCCaddress1of2 function<!-- there's a missing noun here. Do we say, "Antara Module uses this function to create ..." ? And if so, are we referring to the MakeCC1of2vout function below, or something else? --><!-- dimxy6 I tried to reconstruct the phrases --> to create a '1of2' address from both the Payments module global pubkey and txid-pubkey. This allows to collect some funds on a special Antara Module's address that is unique for a particular creation transaction. Funds are sent to this address by the use of MakeCC1of2vout function accepting both the Payments module global pubkey and txid-pubkey.
 
-```cpp
-CTxOut MakeCC1of2vout(uint8_t evalcode,CAmount nValue,CPubKey pk1,CPubKey pk2, std::vector<std::vector<unsigned char>>* vData)
-```
-
-For the RPC that manages merge functionality, we use the `vData` optional parameter to append the opreturn directly to the `ccvout` itself, rather than an actual opreturn as the last `vout` in a transaction.
+For this RPC, we also use the `vData` optional parameter to append the opreturn directly to the `ccvout` itself, rather than an actual opreturn as the last `vout` in a transaction. <!-- dimxy6 seems this looks very much like yet another pattern -->
 
 ```cpp
 opret = EncodePaymentsMergeOpRet(createtxid);
+CPubKey txidpk = CCtxidaddr(txidaddr, createtxid);
 std::vector<std::vector<unsigned char>> vData = std::vector<std::vector<unsigned char>>();
 if ( makeCCopret(opret, vData) )
-    mtx.vout.push_back(MakeCC1of2vout(EVAL_PAYMENTS,inputsum-PAYMENTS_TXFEE,Paymentspk,txidpk,&vData));
-GetCCaddress1of2(cp,destaddr,Paymentspk,txidpk);
-CCaddr1of2set(cp,Paymentspk,txidpk,cp->CCpriv,destaddr);
-rawtx = FinalizeCCTx(0,cp,mtx,mypk,PAYMENTS_TXFEE,CScript());
+    mtx.vout.push_back(MakeCC1of2vout(EVAL_PAYMENTS, inputsum-PAYMENTS_TXFEE, Paymentspk, txidpk, &vData));
+GetCCaddress1of2(cp, destaddr, Paymentspk, txidpk);
+CCaddr1of2set(cp, Paymentspk, txidpk, cp->CCpriv, destaddr);
+rawtx = FinalizeCCTx(0, cp, mtx, mypk, PAYMENTS_TXFEE, CScript());
 ```
 
 Using a modification to the `IsPaymentsvout` function, we can now spend a `ccvout` in the Payments module back to its own address, without needing a `markervout` or an opreturn.
 
 ```cpp
-int64_t IsPaymentsvout(struct CCcontract_info *cp,const CTransaction& tx,int32_t v,char *cmpaddr, CScript &ccopret)
+int64_t IsPaymentsvout(struct CCcontract_info *cp, const CTransaction& tx, int32_t v, char *cmpaddr, CScript &ccopret)
 {
     char destaddr[64];
     if ( getCCopret(tx.vout[v].scriptPubKey, ccopret) )
     {
-        if ( Getscriptaddress(destaddr,tx.vout[v].scriptPubKey) > 0 && (cmpaddr[0] == 0 || strcmp(destaddr,cmpaddr) == 0) )
+        if ( Getscriptaddress(destaddr, tx.vout[v].scriptPubKey) > 0 && (cmpaddr[0] == 0 || strcmp(destaddr, cmpaddr) == 0) )
             return(tx.vout[v].nValue);
     }
     return(0);
@@ -1730,12 +1740,12 @@ int64_t IsPaymentsvout(struct CCcontract_info *cp,const CTransaction& tx,int32_t
 
 In place of the `IsPayToCryptoCondition()` function we can use the `getCCopret()` function. This latter function is a lower level of the former call, and will return any `vData` appended to the `ccvout` along with a `true`/`false` value that would otherwise be returned by the `IsPayToCryptoCondition()` function.
 
-In validation, we now have a totally diffrent transaction type than the types that are normally available. This new type allows us to have different validation paths for different `ccvouts`, and it allows for multiple `ccvouts` of different types per transaction.
+In validation, we now have a totally different transaction type than the types that are normally available. This new type allows us to have different validation paths for different `ccvouts`, and it allows for multiple `ccvouts` of different types per transaction.
 
 ```cpp
 if ( tx.vout.size() == 1 )
 {
-    if ( IsPaymentsvout(cp,tx,0,coinaddr,ccopret) != 0 && ccopret.size() > 2 && DecodePaymentsMergeOpRet(ccopret,createtxid) )
+    if ( IsPaymentsvout(cp, tx, 0, coinaddr, ccopret) != 0 && ccopret.size() > 2 && DecodePaymentsMergeOpRet(ccopret, createtxid) )
     {
         fIsMerge = true;
     } else return(eval->Invalid("not enough vouts"));
