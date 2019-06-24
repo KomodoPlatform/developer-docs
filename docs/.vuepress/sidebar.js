@@ -273,6 +273,22 @@ var sidebar = [
                             "/basic-docs/antara/antara-tutorials/an-advanced-approach-to-komodos-antara-framework.md", 
                             "An Advanced Approach to Komodo's Antara Framework" 
                         ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-1.md",
+                            "An Overview of Development on the Komodo Platform | Part I"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-2.md",
+                            "An Overview of Development on the Komodo Platform | Part II"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-3.md",
+                            "An Overview of Development on the Komodo Platform | Part III"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-4.md",
+                            "An Overview of Development on the Komodo Platform | Part IV"
+                        ],
                 ],
             },
           {
