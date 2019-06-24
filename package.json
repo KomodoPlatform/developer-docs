@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "dotenv": "^7.0.0",
+    "js-yaml": "^3.13.1",
     "vuetify": "^1.5.0"
   }
 }

@@ -404,5 +404,4 @@ var sidebar = [
         ],
     },
 ]
-
 module.exports = sidebar;

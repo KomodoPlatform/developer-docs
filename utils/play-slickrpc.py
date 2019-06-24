@@ -36,12 +36,14 @@ except:
         if len(rpcport) == 0:
             if chain == 'KMD':
                 rpcport = 7771
+                with open(coin_config_file, 'a') as f:
+                    f.write('rpcport=7771\n')
             else:
                 print("rpcport not in conf file, exiting")
                 print("check " + coin_config_file)
                 exit(1)
         return Proxy(conf_file=coin_config_file), rpcport, "http://" + rpcuser + ":" + rpcpassword + "@127.0.0.1:" + str(rpcport)
-
+# The above code may not work properly in all the cases
     komodo, rpcport, service_url = def_credentials("ROGUE")
 
     def url_to_conf(service_url):
