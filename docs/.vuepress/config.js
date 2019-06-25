@@ -36,6 +36,7 @@ module.exports = {
     editLinks: true,
     editLinkText: "Suggest an improvement for this page",
     lastUpdated: "Last Updated",
+    // sidebarDepth: 3,
     logo: "/site-name-logo.png",
     algolia: {
       apiKey: algoliaSecret.key,
@@ -43,7 +44,7 @@ module.exports = {
     },
     nav: [{
         text: "Start Here",
-        link: "/basic-docs/start-here/outline-for-new-developers.md"
+        link: "/basic-docs/start-here/about-komodo-platform/about-komodo-platform.md"
       },
       {
         text: "KomodoPlatform.com",
