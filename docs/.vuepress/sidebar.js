@@ -275,19 +275,19 @@ var sidebar = [
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-1.md",
-                            "An Overview of Development on the Komodo Platform | Part I"
+                            "Komodo Developer Path | Part I"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-2.md",
-                            "An Overview of Development on the Komodo Platform | Part II"
+                            "Komodo Developer Path | Part II"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-3.md",
-                            "An Overview of Development on the Komodo Platform | Part III"
+                            "Komodo Developer Path | Part III"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-4.md",
-                            "An Overview of Development on the Komodo Platform | Part IV"
+                            "Komodo Developer Path | Part IV"
                         ],
                 ],
             },
