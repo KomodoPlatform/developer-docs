@@ -2,17 +2,19 @@
 
 ## Introduction
 
-The Tokens Custom Consensus (CC) module enables support for the on-chain creation of colored coins, also called tokens. Usually tokens represent some real-world assets on a blockchain. The functionality is facilitated by utxo technology. Tokens can be generated on any chain where the [ac_cc](../installations/asset-chain-parameters.html#ac-cc) is enabled.
+The Tokens Module enables support for the on-chain creation of colored coins, also called tokens. Typically, tokens represent real-world assets on a blockchain. 
+
+This module enables the basic functionality of `tokens`, such as creation, transfer and balance validation. The created tokens are typically used with another module that supports operations on tokens. For example, the Assets Module provides buy/sell operations for `tokens`.
+
+Functionality for this module is facilitated by utxo technology. Tokens can be generated on any chain where the [ac_cc](../installations/asset-chain-parameters.html#ac-cc) customization is enabled
 
 Each token is identified by its unique token id.
 
-The `tokens` smart contract requires locking a proportional amount of satoshis of the native coins. These satoshis create the supply for the token.
+The `tokens` module requires locking a proportional amount of satoshis of the native coins. These satoshis create the supply for the token.
 
-For example, if you desire to create a non-fungible token ( one-of-a-kind token - NFT), use 1 satoshi in its creation.
+For example, if you desire to create a non-fungible token, use 1 satoshi in its creation.
 
-Each non-fungible token has the amount of 1 and contains additional array of data describing its corresponding asset. These data has a evalcode inside which binds this non-fungible token to a cc contract responsible for validation. The `tokeninfo` method outputs data for non-fungible tokens.
-
-This module enables the basic functionality of `tokens` like creation, transfer and balance validation. The created tokens are usually used with some other module which supports operations on tokens. Example: The Assets CC module which provides buy/sell operations for `tokens`.
+Each non-fungible token has the amount of 1 and contains an additional array of data describing its corresponding asset. The data has an eval code which binds this non-fungible token to an Antara Module responsible for validation. The `tokeninfo` method outputs data for non-fungible tokens.
 
 ## tokenaddress
 

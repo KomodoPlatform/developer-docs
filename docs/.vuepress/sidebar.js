@@ -46,6 +46,7 @@ var sidebar = {
         ["/basic-docs/customconsensus/assets.md", "Assets"],
         ["/basic-docs/customconsensus/channels.md", "Channels"],
         ["/basic-docs/customconsensus/dice.md", "Dice"],
+        ["/basic-docs/customconsensus/dilithium.md", "Dilithium"],
         ["/basic-docs/customconsensus/faucet.md", "Faucet"],
         ["/basic-docs/customconsensus/gateways.md", "Gateways"],
         ["/basic-docs/customconsensus/heir.md", "Heir"],
