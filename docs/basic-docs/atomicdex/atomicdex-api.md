@@ -34,7 +34,9 @@ The value of the `mm2` parameter informs the software as to whether the `coin` i
 - `1` = `functioning`
 
 ::: tip
+
 GUI software developers may refer to the `coins` file [in this link](https://github.com/jl777/coins) for the default coin json configuration.
+
 :::
 
 Volunteers are welcome to test coins with AtomicDEX software at any time. After testing a coin, please create a pull request with the desired coin configuration and successful swap details using the guide linked below.
@@ -52,19 +54,19 @@ mm2=1
 
 For terminal interface examples, see the examples section below.
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin you want to enable |
 | servers   | array of objects | the list of Electrum servers to which you want to connect |
 | servers.url | string | server url |
-| servers.protocol | string | the transport protocol that MM2 will use to connect to server, possible values: `TCP`, `SSL`. default: `TCP` |
-| servers.disable_cert_verification | bool | whether to disable server SSL/TLS certificate verification (e.g. to use self-signed certificate), default is `false`. `Use at your own risk` |
+| servers.protocol | string | the transport protocol that MM2 will use to connect to the server. Possible values: `TCP`, `SSL`. Default value: `TCP` |
+| servers.disable_cert_verification | bool | when set to true, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). Defaul value is `false`. <b>Use at your own risk</b> |
 | mm2       | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
-| tx_history| bool | whether to enable `tx_history` preloading in background, must be `true` if you plan to use `my_tx_history` API |
+| tx_history| bool | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -72,15 +74,19 @@ For terminal interface examples, see the examples section below.
 | balance   | number    | the amount of `coin` the user holds in their wallet |
 | result    | string    | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"servers\":[{\"url\":\"localhost:20025\",\"protocol\":\"SSL\",\"disable_cert_verification\":true},{\"url\":\"localhost:10025\"}]}"
 ```
 
-Response (Success):
+#### Response (Success)
 
 ```json
 {
@@ -91,13 +97,13 @@ Response (Success):
 }
 ```
 
-Command (With `mm2` argument):
+#### Command (With `mm2` argument)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"servers\":[{\"url\":\"localhost:20025\",\"protocol\":\"SSL\",\"disable_cert_verification\":true},{\"url\":\"localhost:10025\"}],\"mm2\":1}"
 ```
 
-Response (Success):
+#### Response (Success)
 
 ```bash
 {
@@ -108,13 +114,17 @@ Response (Success):
 }
 ```
 
-Response (Error, `mm2` is not set):
+#### Response (Error, `mm2` is not set)
 
 ```bash
 {
   "error":"lp_coins:943] lp_coins:693] mm2 param is not set neither in coins config nor enable request, assuming that coin is not supported"
 }
 ```
+
+</collapse-text>
+
+</div>
 
 ## enable
 
@@ -155,7 +165,7 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 
 [Link to repository code for Ethereum-based networks](https://github.com/artemii235/etomic-swap)
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -163,9 +173,9 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | urls      | array of strings (required for ETH/ERC20) | urls of Ethereum RPC nodes to which the user desires to connect |
 | swap_contract_address | string (required for ETH/ERC20) | address of etomic swap smart contract |
 | mm2       | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
-| tx_history| bool | whether to enable `tx_history` preloading in background, must be `true` if you plan to use `my_tx_history` API |
+| tx_history| bool | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -173,15 +183,19 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | balance   | number    | the amount of `coin` the user holds in their wallet |
 | result    | string    | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command (for Bitcoin-based blockchains):
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command (for Bitcoin-based blockchains)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\"}"
 ```
 
-Response:
+#### Response
 
 ```json
 {
@@ -192,13 +206,13 @@ Response:
 }
 ```
 
-Command (for Ethereum and ERC20-based blockchains):
+#### Command (for Ethereum and ERC20-based blockchains)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\"}"
 ```
 
-Response:
+#### Response
 
 ```json
 {
@@ -209,13 +223,13 @@ Response:
 }
 ```
 
-Command (With `mm2` argument):
+#### Command (With `mm2` argument)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\",\"mm2\":1}"
 ```
 
-Response (Success):
+#### Response (Success):
 
 ```bash
 {
@@ -226,7 +240,7 @@ Response (Success):
 }
 ```
 
-Response (Error, `mm2` is not set):
+#### Response (Error, `mm2` is not set)
 
 ```bash
 {
@@ -234,20 +248,23 @@ Response (Error, `mm2` is not set):
 }
 ```
 
+</collapse-text>
+
+</div>
+
 ## my_balance
 
 **my_balance coin**
 
 The `my_balance` method returns the current balance of the specified `coin`.
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin to retrieve the balance |
 
-### Response:
-
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -255,15 +272,19 @@ The `my_balance` method returns the current balance of the specified `coin`.
 | balance | number | the number of coins in the address |
 | coin  | string    | the name of the coin |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_balance\",\"coin\":\"HELLOWORLD\"}"
 ```
 
-Response:
+#### Response
 
 ```json
 {
@@ -273,13 +294,17 @@ Response:
 }
 ```
 
+</collapse-text>
+
+</div>
+
 ## orderbook
 
 **orderbook base rel (duration=number)**
 
 The `orderbook` method requests from the network the currently available orders for the specified trading pair.
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -287,7 +312,7 @@ The `orderbook` method requests from the network the currently available orders 
 | rel       | string | "related" currency, also can be called "quote currency" according to exchange terms |
 | duration  | number | `deprecated` |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -314,13 +339,17 @@ The `orderbook` method requests from the network the currently available orders 
 
 #### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"orderbook\",\"base\":\"HELLO\",\"rel\":\"WORLD\"}"
 ```
 
-Response:
+#### Response
 
 ```json
 {
@@ -350,6 +379,10 @@ Response:
 }
 ```
 
+</collapse-text>
+
+</div>
+
 ## buy
 
 **buy base rel price volume**
@@ -357,13 +390,12 @@ Response:
 The `buy` method issues a buy request and attempts to match an order from the orderbook based on the provided arguments.
 
 ::: tip
-Buy and sell methods always create the `taker` order first. It means that you will require to pay additional 1/777 fee 
-of the trade amount during the swap for taking the liquidity from market. If your order is not matched in 30 seconds it's 
-automatically converted to maker and stays in orderbook until it's matched or cancelled. 
-To always act as maker please use [setprice method](../atomic-swap-dex/dex-api.html#setprice)
+
+Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from market. If your order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice method.](../atomic-swap-dex/dex-api.html#setprice)
+
 :::
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -372,30 +404,34 @@ To always act as maker please use [setprice method](../atomic-swap-dex/dex-api.h
 | price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
 | volume    | number | the amount of coins the user is willing to receive of the `base` coin |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| result        | object | resulting order object |
-| result.action | string | the action of request (`Buy`) |
-| result.base   | string | base currency of request |
-| result.base_amount | string | the resulting amount of base currency that will be received if order matches |
-| result.rel    | string | rel currency of request |
+| result        | object | the resulting order object |
+| result.action | string | the action of the request (`Buy`) |
+| result.base   | string | the base currency of request |
+| result.base_amount | string | the resulting amount of base currency that will be received if the order matches |
+| result.rel    | string | the rel currency of the request |
 | result.rel_amount | string | the maximum amount of `rel` coin that will be spent to buy the `base_amount` (according to `price`) |
-| result.method | string | this field used for internal P2P interactions, always equals to "request" |
-| result.dest_pub_key    | string | reserved for future use, `dest_pub_key` will allow to choose the P2P node that will be eligible to match with our request. Defaults to zero pubkey which means `anyone` |
-| result.sender_pubkey   | string | the public key of our node |
+| result.method | string | this field is used for internal P2P interactions; the value is always equal to "request" |
+| result.dest_pub_key    | string | reserved for future use. `dest_pub_key` will allow the user to choose the P2P node that will be eligible to match with the request. This value defaults to a "zero pubkey", which means `anyone` can be a match |
+| result.sender_pubkey   | string | the public key of this node |
 | result.uuid   | string | the request uuid |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":1,\"price\":1}"
 ```
 
-Response (success):
+#### Response (success)
 
 ```json
 {
@@ -413,11 +449,15 @@ Response (success):
 }
 ```
 
-Response (error):
+#### Response (error)
 
 ```json
 {"error":"rpc:278] utxo:884] REL balance 12.88892991 is too low, required 21.15"}
 ```
+
+</collapse-text>
+
+</div>
 
 ## sell
 
@@ -426,13 +466,12 @@ Response (error):
 The `sell` method issues a sell request and attempts to match an order from the orderbook based on the provided arguments.
 
 ::: tip
-Buy and sell methods always create the `taker` order first. It means that you will require to pay additional 1/777 fee 
-of the trade amount during the swap for taking the liquidity from market. If your order is not matched in 5 seconds it's 
-automatically converted to maker and stays in orderbook until it's matched or cancelled. 
-To always act as maker please use [setprice method](../atomic-swap-dex/dex-api.html#setprice)
+
+Buy and sell methods always create the `taker` order first. Therefore, you must pay an additional 1/777 fee of the trade amount during the swap when taking liquidity from market. If your order is not matched in 30 seconds, the order is automatically converted to a `maker` request and stays on the orderbook until the request is matched or cancelled. To always act as a maker, please use the [setprice method.](../atomic-swap-dex/dex-api.html#setprice)
+
 :::
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -441,30 +480,34 @@ To always act as maker please use [setprice method](../atomic-swap-dex/dex-api.h
 | price     | number | the price in `rel` the user is willing to receive per one unit of the `base` coin |
 | volume    | number | the amount of coins the user is willing to sell of the `base` coin |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| result        | object | resulting order object |
-| result.action | string | the action of request (`Sell`) |
-| result.base   | string | base currency of request |
-| result.base_amount | string | the resulting amount of base currency that will be sold if order matches |
-| result.rel    | string | rel currency of request |
+| result        | object | the resulting order object |
+| result.action | string | the action of the request (`Sell`) |
+| result.base   | string | the base currency of the request |
+| result.base_amount | string | the resulting amount of base currency that will be sold if the order matches |
+| result.rel    | string | the rel currency of the request |
 | result.rel_amount | string | the minimum amount of `rel` coin that will be received to sell the `base_amount` of `base` (according to `price`) |
-| result.method | string | this field used for internal P2P interactions, always equals to "request" |
-| result.dest_pub_key    | string | reserved for future use, `dest_pub_key` will allow to choose the P2P node that will be eligible to match with our request. Defaults to zero pubkey which means `anyone` |
+| result.method | string | this field is used for internal P2P interactions; the value is always equal to "request" |
+| result.dest_pub_key    | string | reserved for future use. The `dest_pub_key` will allow the user to choose the P2P node that is be eligible to match with the request. This value defaults to "zero pubkey", which means that `anyone` can match |
 | result.sender_pubkey   | string | the public key of our node |
 | result.uuid   | string | the request uuid |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":1,\"price\":1}"
 ```
 
-Response (success):
+#### Response (success)
 
 ```json
 {
@@ -482,20 +525,25 @@ Response (success):
 }
 ```
 
-Response (error):
+#### Response (error)
 
 ```json
 {"error":"rpc:278] utxo:884] BASE balance 12.88892991 is too low, required 21.15"}
 ```
 
+</collapse-text>
+
+</div>
+
 ## setprice
 
 **setprice base rel price (volume max cancel_previous=true)**
 
-The `setprice` method places an order on the orderbook, and it relies on this node acting as a `maker` -- also called a `Bob` node. 
-`setprice` order is always considered as `sell` for internal implementation convenience.
+The `setprice` method places an order on the orderbook, and it relies on this node acting as a `maker`, also called a `Bob` node. 
 
-### Arguments:
+The `setprice` order is always considered a `sell`, for internal implementation convenience.
+
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -503,33 +551,37 @@ The `setprice` method places an order on the orderbook, and it relies on this no
 | rel       | string | the name of the coin the user desires to receive |
 | price     | string (numeric) | the price in `rel` the user is willing to receive per one unit of the `base` coin |
 | volume    | string (numeric) | the maximum amount of `base` coin available for the order, ignored if max is `true` |
-| max       | bool | MM2 will use the entire coin balance - 0.001 (reserved for fees) for the order |
-| cancel_previous | bool | MM2 will cancel all existing orders for selected pair by default, set to `false` to avoid such behavior |
+| max       | bool | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees |
+| cancel_previous | bool | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| result    | object   | resulting order object | 
-| result.base | string | base coin of the order | 
-| result.rel  | string | rel coin of the order  | 
-| result.price | string (numeric) | the expected amount of `rel` coin to be received per 1 unit of `base` coin, returned as string to avoid floating point representation errors | 
-| result.max_base_vol  | string (numeric) | maximum volume of base coin available to trade, returned as string to avoid floating point representation errors | 
-| result.min_base_vol  | string (numeric) | MM2 won't match with other orders that attempt to trade less than `min_base_vol`, returned as string to avoid floating point representation errors | 
-| result.created_at    | number | unix timestamp in milliseconds indicating the order creation time |
-| result.matches | object | contains the map of ongoing matches with other orders, empty as order is just created |
+| result    | object   | the resulting order object | 
+| result.base | string | the base coin of the order | 
+| result.rel  | string | the rel coin of the order  | 
+| result.price | string (numeric) | the expected amount of `rel` coin to be received per 1 unit of `base` coin, returned as a string to avoid floating point representation errors | 
+| result.max_base_vol  | string (numeric) | the maximum volume of base coin available to trade, returned as a string to avoid floating point representation errors | 
+| result.min_base_vol  | string (numeric) | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; returned as a string to avoid floating point representation errors | 
+| result.created_at    | number | unix timestamp in milliseconds, indicating the order creation time |
+| result.matches | object | contains the map of ongoing matches with other orders, empty as the order was recently created |
 | result.started_swaps | array of strings | uuids of swaps that were initiated by the order |
 | result.uuid | string | uuid of the created order |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BASE\",\"rel\":\"REL\",\"price\":0.9}
 ```
 
-Response (success):
+#### Response (success)
 
 ```json
 {
@@ -547,49 +599,61 @@ Response (success):
 }
 ```
 
-Response (error):
+#### Response (error)
 
 ```json
 {"error":"Rel coin REL is not found"}
 ```
 
+</collapse-text>
+
+</div>
+
 ## cancel_order
 
 **cancel_order uuid**
 
-The `cancel_order` cancels the active order created by MM2 node.
+The `cancel_order` cancels the active order created by the MM2 node.
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | uuid      | string   | the uuid of the order the user desires to cancel |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | result    | string   | indicates the status of operation | 
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"cancel_order\",\"uuid\":\"6a242691-6c05-474a-85c1-5b3f42278f41\"}"
 ```
 
-Response (success):
+#### Response (success)
 
 ```json
 {"result":"success"}
 ```
 
-Response (error):
+#### Response (error)
 
 ```json
 {"error":"Order with uuid 6a242691-6c05-474a-85c1-5b3f42278f42 is not found"}
 ```
+
+</collapse-text>
+
+</div>
 
 ## stop
 
@@ -597,13 +661,13 @@ Response (error):
 
 The `stop` method stops the MM2 software if there are no swaps in process. 
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | (none)    |   | |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -615,13 +679,13 @@ The `stop` method stops the MM2 software if there are no swaps in process.
 
 The `help` method returns the full API documentation in the terminal. 
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | (none)    |   | |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -635,7 +699,7 @@ The `withdraw` method generates, signs, and returns a transaction that transfers
 
 This method generates a raw transaction which should then be broadcast using [send_raw_transaction](../atomic-swap-dex/dex-api.html#send-raw-transaction).
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
@@ -644,29 +708,33 @@ This method generates a raw transaction which should then be broadcast using [se
 | amount    | number | the amount the user desires to withdraw, ignored when `max=true` |
 | max       | bool   | withdraw the maximum available amount |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| from      | array of strings    | coins will be withdrawn from this address, the array contains single element, but in common case transactions might be sent from several addresses (UTXO coins) |
-| to        | array of strings    | coins with be withdrawn to this address, might contain `my_address` for UTXO coins as change address |
-| my_balance_change | number      | expected balance change after transaction will be broadcasted |
-| received_by_me    | number      | the amount of coins received by `my_address` after transaction will be broadcasted, might be above zero for UTXO coins when MM2 has to send the change to `my_address` |
-| spent_by_me       | number      | the amount of coins spent by `my_address`, might differ from request amount as transaction fee is added to this |
-| total_amount      | number      | total amount of coins transferred |
+| from      | array of strings    | coins will be withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins) |
+| to        | array of strings    | coins will be withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent |
+| my_balance_change | number      | the expected balance of change, after the transaction broadcasts |
+| received_by_me    | number      | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that MM2 send change to `my_address` |
+| spent_by_me       | number      | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here |
+| total_amount      | number      | the total amount of coins transferred |
 | fee_details | object    | the fee details of the generated transaction; this value differs for utxo and ETH/ERC20 coins, check the examples for more details |
-| tx_hash   | string    | hash of generated transaction |
+| tx_hash   | string    | the hash of the generated transaction |
 | tx_hex    | string    | transaction bytes in hexadecimal format; use this value as input for the `send_raw_transaction` method |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command (BTC, KMD, and other BTC-based forks):
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command (BTC, KMD, and other BTC-based forks)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"KMD\",\"to\":\"RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh\",\"amount\":10,\"userpass\":\"$userpass\"}"
 ```
 
-Response (success):
+#### Response (success)
 
 ```json
 {
@@ -690,13 +758,13 @@ Response (success):
 }
 ```
 
-Command (ETH, ERC20, and other ETH-based forks):
+#### Command (ETH, ERC20, and other ETH-based forks)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"ETH\",\"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",\"amount\":10,\"userpass\":\"$userpass\"}"
 ```
 
-Response (success):
+#### Response (success)
 
 ```json
 {
@@ -723,13 +791,13 @@ Response (success):
 }
 ```
 
-Command (max = true):
+#### Command (max = true)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"ETH\",\"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",\"max\":true,\"userpass\":\"$userpass\"}"
 ```
 
-Response (success):
+#### Response (success)
 
 ```json
 {
@@ -755,6 +823,10 @@ Response (success):
     "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
 }
 ```
+
+</collapse-text>
+
+</div>
 
 ## send_raw_transaction
 
@@ -762,28 +834,32 @@ Response (success):
 
 The `send_raw_transaction` method broadcasts the transaction to the network of selected coin.  
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin network on which to broadcast the transaction |
 | tx_hex    | string | the transaction bytes in hexadecimal format; this is typically generated by the `withdraw` method |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | tx_hash   | string   | the hash of the broadcasted transaction |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"send_raw_transaction\",\"coin\":\"KMD\",\"tx_hex\":\"0400008085202f8902d6a5b976db5e5c9e8f9ead50713b25f22cd061edc8ff0ff1049fd2cd775ba087000000006b483045022100bf2073c1ecfef3fc78f272045f46a722591401f61c2d2fac87fc474a17df7c3102200ca1bd0664ba75f3383e5cbbe96127ad534a86238dbea256e000b0fe2067ab8c012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffffd04d4e07ac5dacd08fb76e08d2a435fc4fe2b16eb0158695c820b44f42f044cb010000006a47304402200a0c21e8c0ae4a740f3663fe08aeff02cea6495157d531045b58d2dd79fb802702202f80dddd264db33f55e49799363997a175d39a91242a95f268c40f7ced97030b012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788acc3b3ca27000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000\",\"userpass\":\"$userpass\"}"
 ```
 
-Response (success):
+#### Response (success)
 
 ```json
 {
@@ -791,38 +867,46 @@ Response (success):
 }
 ```
 
+</collapse-text>
+
+</div>
+
 ## my_swap_status
 
 **uuid**
 
-The `my_swap_status` method returns the data of atomic swap that was done by MM2 node.  
+The `my_swap_status` method returns the data of an atomic swap executed on a MM2 node.  
 
-### Arguments:
-
-| Structure | Type     | Description |
-| --------- | -------- | ----------- |
-| params uuid | string | the uuid of swap, typically received from buy/sell call |
-
-### Response:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| events         | array of objects | events happened during the swap |
-| success_events | array of strings | list of events that considered as `success` swap state, they are also listed in order which they should occur in `events` array |
-| error_events   | array of strings | list of events that considered as `error` swap state, if at least 1 of the event happens swap is considered as failed  |
-| type           | string           | whether the node acted as market `Maker` or `Taker` |
+| params uuid | string | the uuid of swap, typically received from the buy/sell call |
+
+#### Response
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| events         | array of objects | the events that occurred during the swap |
+| success_events | array of strings | a list of events that gained a `success` swap state; the contents are listed in the order in which they should occur in the `events` array |
+| error_events   | array of strings | a list of events that fell into an `error` swap state; if at least 1 of the events happens, the swap is considered a failure  |
+| type           | string           | whether the node acted as a market `Maker` or `Taker` |
 | uuid           | string           | swap uuid |
-| my_info        | object           | maps events data to make displaying swap data in GUI simpler (`my_coin`, `my_amount`, etc.) |
+| my_info        | object           | this object maps event data to make displaying swap data in a GUI simpler (`my_coin`, `my_amount`, etc.) |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"params\":{\"uuid\":\"d14452bb-e82d-44a0-86b0-10d4cdcb8b24\"},\"userpass\":\"$userpass\"}"
 ```
 
-Response (Taker swap):
+#### Response (Taker swap)
 
 ```json
 {
@@ -1059,7 +1143,7 @@ Response (Taker swap):
 }
 ```
 
-Response (Maker swap):
+#### Response (Maker swap)
 
 ```json
 {
@@ -1263,7 +1347,7 @@ Response (Maker swap):
 }
 ```
 
-Response (error)
+#### Response (error)
 
 ```json
 {
@@ -1271,38 +1355,46 @@ Response (error)
 }
 ```
 
+</collapse-text>
+
+</div>
+
 ## my_recent_swaps
 
 **(from_uuid limit=10)**
 
-The `my_recent_swaps` method returns the data of the most recent atomic swaps that was done by MM2 node.  
+The `my_recent_swaps` method returns the data of the most recent atomic swaps executed by the MM2 node. 
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | limit     | number   | limits the number of returned swaps |
-| from_uuid | string   | MM2 will skip records until this uuid (skipping the `from_uuid` too) |
+| from_uuid | string   | MM2 will skip records until this uuid, skipping the `from_uuid` as well |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| swaps     | array of objects | swaps data, each record has format of `my_swap_status` response |
-| from_uuid | string           | from_uuid that was set in request (null if it was not set) |
-| skipped   | number           | the number of skipped records (the position of `from_uuid` in list + 1, 0 if `from_uuid` was not set) | 
-| limit     | number           | the limit that was set in request, note that actual number of swaps can differ from specified limit (e.g. on last page) |
+| swaps     | array of objects | swaps data; each record has the format of the `my_swap_status` response |
+| from_uuid | string           | the from_uuid that was set in the request; this value is null if nothing was set |
+| skipped   | number           | the number of skipped records (i.e. the position of `from_uuid` in the list + 1; the value is 0 if `from_uuid` was not set | 
+| limit     | number           | the limit that was set in the request; note that the actual number of swaps can differ from the specified limit (e.g. on the last page) |
 | total     | number           | total number of swaps available |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"from_uuid\":\"e299c6ece7a7ddc42444eda64d46b163eaa992da65ce6de24eb812d715184e4c\",\"limit\":2}"
 ```
 
-Response (success):
+#### Response (success)
 
 ```json
 {
@@ -1752,39 +1844,47 @@ Response (error)
 }
 ```
 
+</collapse-text>
+
+</div>
+
 ## my_tx_history
 
 **(from_id limit=10)**
 
-The `my_tx_history` method returns the blockchain transactions involving MM2 coin address.  
+The `my_tx_history` method returns the blockchain transactions involving the MM2 node's coin address.  
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| coin      | string   | the name of the coin to get the history |
+| coin      | string   | the name of the coin for the history request |
 | limit     | number   | limits the number of returned transactions |
-| from_id   | string   | MM2 will skip records until this ID (skipping the `from_id` too, track the `internal_id` of last displayed transaction to get the value of this field fot next page) |
+| from_id   | string   | MM2 will skip records until it reaches this ID, skipping the `from_id` as well; track the `internal_id` of the last displayed transaction to find the value of this field for the next page |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | transactions | array of objects | transactions data |
-| from_id   | string           | from_id specified in request (null if it was not set) |
-| skipped   | number           | the number of skipped records (the position of `from_id` in list + 1, 0 if `from_id` was not set) | 
-| limit     | number           | the limit that was set in request, note that actual number of transactions can differ from specified limit (e.g. on last page) |
-| total     | number           | total number of transactions available |
+| from_id   | string           | the from_id specified in the request; this value is null if from_id was not set |
+| skipped   | number           | the number of skipped records (i.e. the position of `from_id` in the list + 1); this value is 0 if `from_id` was not set | 
+| limit     | number           | the limit that was set in the request; note that the actual number of transactions can differ from the specified limit (e.g. on the last page) |
+| total     | number           | the total number of transactions available |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_tx_history\",\"coin\":\"RICK\",\"limit\":1,\"from_id\":\"1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1\"}"
 ```
 
-Response (success):
+#### Response (success)
 
 ```json
 {
@@ -1821,7 +1921,7 @@ Response (success):
 }
 ```
 
-Response (error)
+#### Response (error)
 
 ```json
 {
@@ -1829,7 +1929,7 @@ Response (error)
 }
 ```
 
-Response (History too large in electrum mode)
+#### Response (History too large in electrum mode)
 
 ```json
 {
@@ -1840,34 +1940,42 @@ Response (History too large in electrum mode)
 }
 ```
 
+</collapse-text>
+
+</div>
+
 ## my_orders
 
 **my_orders()**
 
-The `my_orders` method returns the data of all active orders that were created by MM2 node.  
+The `my_orders` method returns the data of all active orders created by the MM2 node.  
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | (none)    | | |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | maker_orders   | map of objects | orders that are currently active in market maker mode |
 | taker_orders   | map of objects | orders that are currently active in market taker mode |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_orders\"}"
 ```
 
-Response:
+#### Response
 
 ```json
 {
@@ -1980,34 +2088,42 @@ Response:
 }
 ```
 
+</collapse-text>
+
+</div>
+
 ## order_status
 
 **order_status uuid**
 
-The `order_status` method returns the data of active order with selected `uuid` created by MM2 node.  
+The `order_status` method returns the data of the active order with the selected `uuid` created by the MM2 node.  
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | uuid      | string   | uuid of order to display |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | type      | string   | type of the order ("Maker" or "Taker") |
 | order     | object   | order data |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"order_status\",\"uuid\":\"c3b3105c-e914-4ed7-9f1c-604783b054a1\"}"
 ```
 
-Response (Maker order):
+#### Response (Maker order)
 
 ```json
 {
@@ -2072,7 +2188,7 @@ Response (Maker order):
 }
 ```
 
-Response (Taker order):
+#### Response (Taker order)
 
 ```json
 {
@@ -2127,48 +2243,58 @@ Response (Taker order):
 }
 ```
 
-Response (No order found):
+#### Response (No order found)
 
 ```json
 {"error":"Order with uuid c3b3105c-e914-4ed7-9f1c-604783b054a1 is not found"}
 ```
 
+</collapse-text>
+
+</div>
+
 ## coins_needed_for_kick_start
 
 **coins_needed_for_kick_start()**
 
-If MM2 is stopped while making a swap/having the active order it will attempt to kick-start them on next launch and continue from the point where it's stopped.
-`coins_needed_for_kick_start` returns the tickers of coins that should be activated ASAP after MM2 is started to continue the interrupted swaps.
-Consider calling this method on MM2 startup and activate the returned coins using `enable` or `electrum` methods.
+If MM2 is stopped while making a swap/having the active order it will attempt to kick-start them on next launch and continue from the point where it's stopped. `coins_needed_for_kick_start` returns the tickers of coins that should be activated ASAP after MM2 is started to continue the interrupted swaps. Consider calling this method on MM2 startup and activate the returned coins using `enable` or `electrum` methods.
 
-### Arguments:
+#### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | (none)    | | |
 
-### Response:
+#### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | result    | array of strings | tickers of coins that should be activated to kick-start swaps and orders |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
-Command:
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Examples">
+
+#### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"coins_needed_for_kick_start\"}"
 ```
 
-Response (BTC and KMD should be activated ASAP in this case):
+#### Response (BTC and KMD should be activated ASAP in this case)
 
 ```json
 {"result":["BTC","KMD"]}
 ```
 
-Response (no swaps and orders waiting to be started):
+#### Response (no swaps and orders waiting to be started)
 
 ```json
 {"result":[]}
 ```
+
+</collapse-text>
+
+</div>

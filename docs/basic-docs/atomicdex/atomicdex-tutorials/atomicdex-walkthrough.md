@@ -301,7 +301,7 @@ You should receive a similar response:
 }
 ```
 
-If you see order data in response, it means the order was successfully submitted to the network.
+If you see order data in the response, the order was successfully submitted to the network.
 
 Your swap is not yet started, however.
 
@@ -365,14 +365,12 @@ You should receive a similar response, the balance will be a bit less than volum
 }
 ```
 
-Congratulations! You've just been one of the first people in history to trade a currency without any help from a middleman and without even having to know your trading partner.
+Congratulations! You are one of the first people in history to trade a currency without any help from a middleman and without even having to know your trading partner.
 
-Once you've completed all the trades you want to do, you can exit with:
+When you are finished, exit using the following command:
 
 ```
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"stop\"}"
 ```
 
 Please reach out to us [on Discord](https://komodoplatform.com/discord) and tell us about your experience.
-
-Onward and upward...
