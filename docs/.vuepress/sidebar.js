@@ -274,8 +274,12 @@ var sidebar = [
                             "An Advanced Approach to Komodo's Antara Framework" 
                         ],
                         [
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-0.md",
+                            "Komodo Developer Path | Preparation"
+                        ],
+                        [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-1.md",
-                            "Komodo Developer Path | Part I"
+                            "Komodo Developer Path | Create a Blockchain"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-2.md",

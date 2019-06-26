@@ -1,5 +1,11 @@
 # Heir Module Development Tutorial
 
+<!-- 
+
+dimxy6: suggest testing the json5 syntax
+
+-->
+
 This tutorial demonstrates the process of developing a new [<b>Antara module</b>](). In the tutorial, we build a simplified prototype of the existing [<b>Heir</b>](../basic-docs/fluidity/fluidity-api/heir.html) Antara module.
 
 #### Tutorial Objectives
