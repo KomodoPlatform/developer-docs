@@ -1,10 +1,10 @@
-# Introduction to AtomicDEX Software
+# Introduction to AtomicDEX
 
-One of Komodo's blockchain tools is an atomic-swap powered, decentralized exchange (DEX).
+One of Komodo's blockchain tools is an atomic-swap powered, decentralized exchange (DEX), called AtomicDEX.
 
-Komodo’s DEX software is entirely separate from the `komodod` software that powers the rest of Komodo.
+Komodo’s AtomicDEX software is entirely separate from the `komodod` software that powers the rest of Komodo.
 
-Because this DEX software is built on atomic swaps, developers and users can rely on it to exchange cryptocurrencies at will, and without any middleman involvement. Users of this software maintain full control over the private keys of their assets at all times. This dramatically increases the security of the exchange process.
+Because AtomicDEX is built on atomic swaps, developers and users can rely on it to exchange cryptocurrencies at will, and without any middleman involvement. Users of this software maintain full control over the private keys of their assets at all times. This dramatically increases the security of the exchange process.
 
 This software is capable of facilitating atomic-swap exchanges between approximately 99% of the coins listed on [coinmarketcap.com](https://coinmarketcap.com). All coins were listed without charge.
 
@@ -130,7 +130,7 @@ In September 2015, James performed an experimental atomic swap between Bitcoin a
 
 At this time, James also began the creation of his current endeavor, the Komodo ecosystem. Additional team members were hired, money was raised, and large-scale software and company development began.
 
-From its foundation, the Komodo ecosystem is designed to facilitate blockchain interoperability and scalability, and our atomic-swap DEX software plays a key role. In August 2017, Komodo released version 1.0 of the first atomic-swap based DEX to the public. Releasing this entirely new DEX software to the masses was an endeavor many years in the making, and countless volunteer developers and other dreamers contributed.
+From its foundation, the Komodo ecosystem is designed to facilitate blockchain interoperability and scalability, and our atomic-swap software plays a key role. In August 2017, Komodo released version 1.0 of the first atomic-swap based DEX to the public. Releasing this entirely new DEX software to the masses was an endeavor many years in the making, and countless volunteer developers and other dreamers contributed.
 
 Upon release of Komodo’s DEX 1.0, hundreds of members of the Komodo open-source community collectively performed over 100,000 atomic swaps. It was the first time in history that users with no coding knowledge could trade assets without either a third-party acting as an arbiter, or even without any public knowledge of who was trading with whom.
  
@@ -144,7 +144,7 @@ Another point to mention is that while AtomicDEX is built upon atomic swaps, oth
 
 Today, Komodo developers took what they learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is the AtomicDEX 2.0 software. Komodo is also partnered with Ideas By Nature, a UX/UI design and development firm, to create a well designed atomic-swap trading experience.
 
-Recently, yet again Komodo forged into new territory with atomic swaps. In February of 2019, the Komodo team performed the first mobile-based atomic swap. The mobile version of our atomic-swap DEX software is available for Android and iOS devices, and the software interfaces seamlessly with our desktop software.
+Recently, yet again Komodo forged into new territory with atomic swaps. In February of 2019, the Komodo team performed the first mobile-based atomic swap. The mobile version of AtomicDEX is available for Android and iOS devices, and the software interfaces seamlessly with our desktop software.
 
 While the code behind Komodo's technology is complex, the good news is, the code takes care of itself. A developer and entrepreneur building on Komodo can simply fire up the software and access its functionalities through the API.
 
