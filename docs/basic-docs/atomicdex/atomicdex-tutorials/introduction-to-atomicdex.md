@@ -1,4 +1,4 @@
-# Introduction to Komodo's DEX Software
+# Introduction to AtomicDEX Software
 
 <!--
 
@@ -14,13 +14,13 @@ Because this DEX software is built on atomic swaps, developers and users can rel
 
 This software is capable of facilitating atomic-swap exchanges between approximately 99% of the coins listed on [coinmarketcap.com](https://coinmarketcap.com). All coins were listed without charge.
 
-## Why is Komodo's DEX Special?
+## Why is AtomicDEX Special?
 
 When it comes to DEX technology, Komodo has a remarkable story.
 
 In April 2014, Komodo’s lead developer experimented with his first atomic-swap prototypes. By August of 2017, Komodo released version 1.0 of the atomic-swap DEX software, allowing anonymous Internet users to perform over 100,000 atomic swaps via automation. These are but two examples of how Komodo has led the way in atomic-swap DEX technology since the beginning.
 
-To understand Komodo DEX software, one must first understand what a decentralized exchange is, why it is important, and how atomic swaps come into play.
+To understand AtomicDEX software, one must first understand what a decentralized exchange is, why it is important, and how atomic swaps come into play.
 
 This discussion requires a small amount of foundational knowledge. The reader should be generally familiar with blockchain technology and should understand the basic ideas of the Komodo project. If an overview of Komodo is needed, head to the documentation introduction, ["Why Komodo?"](../start-here/outline-for-new-developers.html#why-komodo) For a more thorough understanding of general blockchain technology, check out [Part I of the Komodo whitepaper.](https://komodoplatform.com/whitepaper) This section of the whitepaper gives an overview of how a blockchain works and why it matters. After reading those articles, the following discussion should be attainable.
 
@@ -164,7 +164,7 @@ From its foundation, the Komodo ecosystem is designed to facilitate blockchain i
 
 Upon release of Komodo’s DEX 1.0, hundreds of members of the Komodo open-source community collectively performed over 100,000 atomic swaps. It was the first time in history that users with no coding knowledge could trade assets without either a third-party acting as an arbiter, or even without any public knowledge of who was trading with whom.
  
-Another point to mention is that while Komodo's DEX software is built upon atomic swaps, other software in the Komodo ecosystem is able to perform the rest of the functionality necessary to run other types of decentralized exchanges. As all Komodo software is natively integrated, this provides the Komodo entrepreneur with perhaps the widest range of DEX software packages in existence.
+Another point to mention is that while AtomicDEX software is built upon atomic swaps, other software in the Komodo ecosystem is able to perform the rest of the functionality necessary to run other types of decentralized exchanges. As all Komodo software is natively integrated, this provides the Komodo entrepreneur with perhaps the widest range of DEX software packages in existence.
 
 <!--
 
@@ -178,15 +178,15 @@ Another point to mention is that while Komodo's DEX software is built upon atomi
 | -- | -- | -- | -- | -- |
 | check | check | check | check | check |
 
-Today, Komodo developers took what they learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is the Komodo DEX 2.0 software. Komodo is also partnered with Ideas By Nature, a UX/UI design and development firm, to create a well designed atomic-swap trading experience.
+Today, Komodo developers took what they learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is the AtomicDEX 2.0 software. Komodo is also partnered with Ideas By Nature, a UX/UI design and development firm, to create a well designed atomic-swap trading experience.
 
 Recently, yet again Komodo forged into new territory with atomic swaps. In February of 2019, the Komodo team performed the first mobile-based atomic swap. The mobile version of our atomic-swap DEX software is available for Android and iOS devices, and the software interfaces seamlessly with our desktop software.
 
 While the code behind Komodo's technology is complex, the good news is, the code takes care of itself. A developer and entrepreneur building on Komodo can simply fire up the software and access its functionalities through the API.
 
-## Komodo's DEX Software is an Industry-Wide Invitation
+## AtomicDEX Software is an Industry-Wide Invitation
 
-Komodo DEX software is open source, meaning that we do not keep the software's source code private. Also, the Komodo team is creating a network that is open to other financially motivated businesses and organizations seeking profit in the cryptocurrency-exchange industry. 
+AtomicDEX software is open source, meaning that we do not keep the software's source code private. Also, the Komodo team is creating a network that is open to other financially motivated businesses and organizations seeking profit in the cryptocurrency-exchange industry. 
 
 Many opportunities are available for cryptocurrency-exchange entrepreneurs to build their own audiences and businesses using Komodo software. Entrepreneurs can create their own market places on the main Komodo network for trading, or they can create their own private and public networks. Developers can use Komodo's back-end software API to feature atomic-swap DEX functionality in their existing or upcoming software innovations, including mobile software. Enterprise and other large-scale companies can reach out to Komodo for integration with Komodo technology, or even for consulting services.
 
@@ -197,7 +197,7 @@ Many opportunities are available for cryptocurrency-exchange entrepreneurs to bu
 
 ## A Back End for Front-End Implementations
 
-Komodo's DEX software is built to have a core component that can serve many front-end graphical-user interfaces (GUIs). 
+AtomicDEX software is built to have a core component that can serve many front-end graphical-user interfaces (GUIs). 
 
 The core component is called MarketMaker 2.0, or MM2 for brevity.
 
@@ -217,7 +217,7 @@ Users who worked with the previous version of the MM software, MarketMaker 1.0 (
 
 MM1 used nanomsg technology for its off-chain network layer (e.g. orderbook propagation, ordermatching, client traffic routing, and other technologies that are not active on the blockchain itself).
 
-MM2 uses `libtorrent` as a torrent/DHT network system for the off-chain network layer. This p2p software is widely used and highly reliable, granting a greater development experience.
+MM2 replaced nanomsg with Rust TCP implementation and also uses `libtorrent` as a torrent/DHT network system for the off-chain network layer. This p2p software is widely used and highly reliable, granting a greater development experience.
 
 ### Rust Implementation
 
