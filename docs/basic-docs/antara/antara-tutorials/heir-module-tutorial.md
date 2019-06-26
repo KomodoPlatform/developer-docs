@@ -6,22 +6,14 @@ This tutorial demonstrates the process of developing a new [<b>Antara module</b>
 
 The primary aim is to give the developer direct engagement with Antara module development, with a focus on the CryptoConditions aspects. This process will give the developer a better grasp of the broad potential of the Antara framework.
 
-<!--
-
-dimxy: why are we speaking of modules. Isn't 'contract' a more accurate term? Term 'module' is too broad, 'contract is more specific IMO
-
-Sidd: It's a marketing thing. We're using modules instead of contract. The discussion has gone on at length and I haven't followed all of it. I know that JL and the support team were involved in the decision, so I think everyone's had a chance to come to some conclusion, and that's where we wound up.
-
--->
-
-Furthermore, in the process of completing this tutorial the developer will learn how the Antara code directories and source code are organized.
+Furthermore, in the process of completing this tutorial the developer will learn how the source code is organized.
 
 ## Prerequisite Knowledge
 
 Tutorial readers should have the following prerequisite experience. We provide links to relevant resources where available.
 
 <!-- This may be too many links. Perhaps simplify method of communicating prerequisite knowledge. -->
-<!-- dimxy yes, I suggest moving most of the links to the end of the document as additional info. The idea of this is not to make impression for a developer that he would need to learn too much first before starting developing antara modules --> 
+<!-- dimxy yes, I suggest moving most of the links to the end of the document as additional info. The idea of this is not to make impression for a developer that he would need to learn too much first before starting developing antara modules -->
 <!-- dimxy As we spoke on the voice call I'd like also to suggest making an additional simple and informal doc for absolute beginners which would explain most of concept of development in very simple terms without needing to read much before. Just engage into development and answer most of the questions right in the doc. Learn things by example -->
 
 <!--
@@ -31,6 +23,7 @@ Sidd: Noted. We'll come back to this section after we finish Mylo's tutorials an
 -->
 
 - Confident programming skills with the C/C++ languages
+
 - Familiarity with the Komodo platform
   - [Link to the Komodo whitepaper](https://komodoplatform.com/whitepaper)
   - [Link to <b>About Komodo Platform</b> section](../basic-docs/start-here/about-komodo-platform/about-komodo-platform.html)
@@ -38,17 +31,17 @@ Sidd: Noted. We'll come back to this section after we finish Mylo's tutorials an
   - [Link to Overview of Antara - 1](../basic-docs/fluidity/fluidity-tutorials/fluidity-overview.html#fluidity-overview)
   - [Link to Overview of Antara - 2](../basic-docs/fluidity/fluidity-tutorials/fluidity-conceptual-overview.html#introduction)
 - Comprehension of the nature of Antara addresses
-  - [Link to Antara Address Explanation]()
+  - [Link to Antara Address Explanation]() <!-- dimxy6 What is 'Antara Address'? is this the address extracted from cc scriptPubKey? --> 
 - Comprehension of concepts in the Main Path for Komodo Development
   - [Link to Main Path for Komodo Development in Learning Launchpad]()
 - Familiarity with Bitcoin protocol basics
   - [Link to Mastering Bitcoin pdf book]()
 - The `komodod` software should be installed on your local machine
   - [Link to installation instructions](../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#linux)
+- Cryptocondition C-language Library
+  - [Link to CryptoConditions library](https://github.com/libscott/libcryptoconditions)
 
-<!-- Need to make sure this includes CC libs -->
-
-## A Conceptual Understanding of the Intended Product  
+## A Conceptual Understanding of the Intended Product
 
 In this tutorial we will create a simplified version of the default Antara Heir module. To gain an idea of the intended result, read the introduction of the Heir Module API.
 
@@ -64,7 +57,7 @@ In terms of design, this is a relatively straightforward Antara module, which is
 
 <!-- dimxy: this 2-level header looks like it is prepended the following text and paragraphs. But seems it is not. Maybe it should not be the 2-level header, but of the same level as 'Launch the Rick Smart Chain' header  -->
 
-<!-- dimxy maybe add a 2-level header like 'Learn how to work with Smart Chains' for the next 3 headers about faucet usage  -->  
+<!-- dimxy maybe add a 2-level header like 'Learn how to work with Smart Chains' for the next 3 headers about faucet usage  -->
 
 <!--
 
@@ -76,15 +69,15 @@ Some of this content is going to be restructured anyway, as we'll be cutting and
 
 -->
 
-Before we begin the development process, it may be helpful to first experiment with the flow of RPC commands for the existing Heir module. 
+Before we begin the development process, it may be helpful to first experiment with the flow of RPC commands for the existing Heir module.
 
 This section is optional, but recommended.
 
-#### Launch the RICK Smart Chain
+#### Launch the RICK Smart Chain (Optional)
 
 <!-- Note, only use one chain. If it's RICK, keep it RICK. -->
-<!-- dimxy: if the reader wanted to develop his own antara module he would still  need his own chain  -->
-<!-- dimxy maybe a paragraph like 'Setting Environment' is needed here -->  
+<!-- dimxy: if the reader wanted to develop his own antara module he would still  need his own chain, so let it be RICK chain for testing rpc, and HELLOWORLD chain for developmment -->
+<!-- dimxy maybe a paragraph like 'Setting Environment' is needed here -->
 
 <!--
 
@@ -92,7 +85,9 @@ Sidd: Good point. Let me come back to this later.
 
 -->
 
-The community test chain, <b>RICK</b>, has the Heir module enabled and can serve our experiment purposes. Launch the chain as follows.
+The live community test chain, <b>RICK</b>, has the Heir module enabled and can serve the purpose of providing a live demonstration of the Heir module.
+
+Launch the chain as follows.
 
 ```bash
 ./komodod -pubkey=$pubkey -ac_name=RICK -ac_supply=90000000000 -ac_reward=100000000 -ac_cc=3 -addnode=138.201.136.145 &
@@ -102,7 +97,7 @@ The community test chain, <b>RICK</b>, has the Heir module enabled and can serve
 
 Use the following guide to create an Antara pubkey and address on the <b>RICK</b> Smart Chain.
 
-[Link to Antara pubkey creation guide](../basic-docs/fluidity/fluidity-setup/fluidity-instructions.html#creating-and-launching-with-a-pubkey)
+[<b>Link to Antara pubkey creation guide</b>](../basic-docs/fluidity/fluidity-setup/fluidity-instructions.html#creating-and-launching-with-a-pubkey)
 
 #### Retrieve RICK Funds Using the Faucet Module
 
@@ -110,9 +105,9 @@ To obtain funds on the RICK Smart Chain, we utilize a different Antara module, [
 
 ::: tip
 
-If you need to gain a quick understanding of the <b>Faucet</b> module, you may read the introduction to the Faucet API section.
+If you need to gain a quick understanding of the <b>Faucet</b> module, you may read the introduction to the Faucet API section. 
 
-[Link to Faucet API Introduction](../basic-docs/fluidity/fluidity-api/faucet.html#introduction)
+[<b>Link to Faucet API Introduction</b>](../basic-docs/fluidity/fluidity-api/faucet.html#introduction)
 
 :::
 
@@ -126,9 +121,9 @@ Wait a few moments, and then use the [<b>getinfo</b>](../basic-docs/komodo-api/c
 
 #### Complete Each API Method of the Heir Module
 
-With funds in your wallet, you are prepared to experiment with the API commands available in the Heir Module Flow section. 
+With funds in your wallet, you are prepared to experiment with the API commands available in the Heir Module Flow section. We recommend experimenting with each command until you have executed each at least once.
 
-[Link to Heir Module Flow](../basic-docs/fluidity/fluidity-api/heir.html#introduction)
+[<b>Link to Heir Module Flow</b>](../basic-docs/fluidity/fluidity-api/heir.html#introduction)
 
 #### On the Relevance of Faucet
 
@@ -140,19 +135,19 @@ Sidd: Good point. Let me come back to this after restructuring all content.
 
 -->
 
-The Faucet module provides a simple example of the nature of an Antara module for our study. Faucet allows a user to lock an arbitrary amount of funds within an Antara address. Other users on the network are able to withdraw funds from this Antara address in small portions. To prevent spam requests, the Faucet requires a small amount of proof-of-work from the requesting user's node. 
+The Faucet module provides a simple example of the nature of an Antara module for our study. Faucet allows a user to lock an arbitrary amount of funds within an Antara address. Other users on the network are able to withdraw funds from this Antara address in small portions. To prevent spam requests, the Faucet requires a small amount of proof-of-work from the requesting user's node.
 
 From this outline, we observe the basic business logic of the Faucet module. The module involves storing funds in a designated address, the creation of a faucet that can disburse funds, and the ability to limit the rate at which funds are withdrawn.
 
 Compare this to our desired Heir module. The Heir module's business logic must allow a designated address the ability to inherit designated blockchain funds.
 
-In both cases, the module's business logic is bound to transactions. 
+In both cases, the module's business logic is bound to transactions.
 
 #### Transactions as a Data Source
 
-Transactions are a data source for Antara-based software. 
+Transactions are a data source for Antara-based software.
 
-Transactions can store data in multiple forms. In the simplest form, transaction data records the movement of coins from one address to another. However, blockchain transactions are capable of storing additional data beyond simple coin movement. 
+Transactions can store data in multiple forms. In the simplest form, transaction data records the movement of coins from one address to another. However, blockchain transactions are capable of storing additional data beyond simple coin movement.
 
 When we desire to place additional data into a transaction, we place this data into an <b>OP_RETURN</b>, or "<b>opreturn</b>" for short.
 
@@ -164,7 +159,7 @@ Observe the following transaction data structure for the existing Heir module:
 ./komodo-cli -ac_name=HELLOWORLD heirfund 0 5 MyDogHeir 037736c263991316c6a23397a982a1f8c18ae8642e944448162a93a824c31f9299 100 'http://billionaire.com/mywill md5=5385639869'
 ```
 
-##### Response (annotated)
+##### Response (annotated) 
 
 <collapse-text hidden="true" style="margin-top: 1rem;" title="Full Response">
 
@@ -174,10 +169,10 @@ Observe the following transaction data structure for the existing Heir module:
   "overwintered": false,
   "version": 1,
   "locktime": 0,
-  
+
     // List of transaction inputs
-    // These are the references to the transaction outputs of older transactions
-    // The transactions of older outputs are spent in this transaction input
+        // These are the references to the transaction outputs of older transactions
+        // The transactions of older outputs are spent in this transaction input
 
   "vin": [
     {
@@ -217,7 +212,7 @@ Observe the following transaction data structure for the existing Heir module:
         ]
       }
     },
-    
+
     // This is a cryptocondition output
     // It contains a fingerprinted condition
 
@@ -235,8 +230,8 @@ Observe the following transaction data structure for the existing Heir module:
         ]
       }
     },
-    
-    // A normal output (i.e. not a cryptocondition) with a standard OP_CHECKSIG script 
+
+    // A normal output (i.e. not a cryptocondition) with a standard OP_CHECKSIG script
     {
       "value": 999994.06084534,
       "valueZat": 99999406084534,
@@ -251,7 +246,7 @@ Observe the following transaction data structure for the existing Heir module:
         ]
       }
     },
-    
+
     // Normal output with a standard OP_CHECKSIG script
 
     {
@@ -268,7 +263,7 @@ Observe the following transaction data structure for the existing Heir module:
         ]
       }
     },
-    
+
     // At the end of the output array there is an opreturn output with serialized data
     // This is created by the Anatara Heir module
 
@@ -282,7 +277,7 @@ Observe the following transaction data structure for the existing Heir module:
         "type": "nulldata"
       }
     }
-    
+
   ],
   "vjoinsplit": [
   ]
@@ -291,7 +286,7 @@ Observe the following transaction data structure for the existing Heir module:
 
 </collapse-text>
 
-The <b>opreturn</b> is the last output in a transaction, and this output is never spendable under any circumstances. The <b>opreturn</b> is the location where all Antara module data is stored. We will demonstrate how this is accomplished further on. 
+The <b>opreturn</b> is the last output in a transaction, and this output is never spendable under any circumstances. The <b>opreturn</b> is the location where all Antara module data is stored. We will demonstrate how this is accomplished further on.
 
 The opreturn vout contains two key-value pairs that are related to each other, `asm` and `hex`. The first, `asm`, is simply a less encoded version of the `hex` value.
 
@@ -302,7 +297,7 @@ Taking the value in the fully encoded key-value pair, `hex`, here is an approxim
 | Translation | Hex Value |
 | ----------- | --------- |
 | 6a | OP_RETURN |
-| 4c85 | Length of the data string |
+| 4c85 | Encoded length of the following data. This value is not a string, the value is encoded in the Smart Bitcoin variable length format, and the value is not directly readable. | 
 | ea | Stands for "EVAL_HEIR". The eval code here tells the daemon that this is an Antara module, and that the specific module is HEIR |
 | 46 | Stands for "F", which is a letter marker to indicate that this Heir transaction is a "Funding" transaction |
 | 210... | The remaining portion of the hex encoded data is not related to the core software, but rather to the arbitrary data designed by the developer. Maximum data length is 10000 bytes |
@@ -321,7 +316,7 @@ In all modules, some of the hex-encoded data can be decoded using the [<b>decode
 }
 ```
 
-When an Antara module instance begins its lifecycle an initial transaction is created. In our example, the transaction we see above is an initial transaction of an Heir module.
+When an Antara module instance begins its lifecycle an initial transaction is created. In our example, the transaction we see above is an initial transaction of a full, non-simplified Heir module.
 
 Note that the transaction takes value from normal inputs and sends it to CC outputs, as indicated in the `type` key-value pair.
 
@@ -390,13 +385,13 @@ Note that the transaction takes value from normal inputs and sends it to CC outp
         ]
       }
     },
-    
+
     ...
 
 ```
 </collapse-text>
 
-The important aspect to note here is that an initial transaction of a module instance typically takes value from normal inputs and sends it to CC outputs. 
+The important aspect to note here is that an initial transaction of a module instance typically takes value from normal inputs and sends it to CC outputs.
 
 As time progresses, more transactions on the Smart Chain are performed under this module instance. Each of the module instance's transactions spends from the previous transaction outputs associated with the instance and creates new unspent transactions. This process effectively creates a [linked-list data structure.](https://en.wikipedia.org/wiki/Linked_list)
 
@@ -404,97 +399,86 @@ With each transaction, the <b>opreturn</b> output is never spent, and remains in
 
 ## Understanding CryptoConditions
 
-Another important concept to understand is the nature of a <b>CryptoCondition</b>. This technology is part of [an industry-wide standard](https://tools.ietf.org/html/draft-thomas-crypto-conditions-01), and other platforms may use CryptoConditions differently.
+Another important concept to understand is the nature of a <b>CryptoCondition</b> (CC). This technology is part of [an industry-wide standard](https://tools.ietf.org/html/draft-thomas-crypto-conditions-01), and other platforms may use CryptoConditions (CC) differently.
 
-A CryptoCondition is a logical expression evaluated on electronic signatures and hashes of transaction data. CryptoConditions are stored in the scripts of transactions and are evaluated by a supporting CryptoCondition C library. The default CC library is included during the installation procedure of a Smart Chain. 
+A CryptoCondition is a logical expression evaluated on electronic signatures and hashes of transaction data. CryptoConditions are stored in the scripts of transactions and are evaluated by a supporting CryptoCondition C library. The default CC library is included during the installation procedure of a Smart Chain.
 
-#### The Importance of CryptoConditions
+#### Antara Extensions to CryptoConditions
 
-In addition to the industry-standard CryptoCondition (CC) library, Komodo's implementation of CC integrates the ability to add arbitrary code into a Smart Chain's consensus mechanism. This allows developers to create essentially an unlimited number of application-specific transaction-validation rules. 
+In addition to the industry-standard CryptoCondition (CC) library, Komodo's implementation of CC integrates the ability to add arbitrary code into a Smart Chain's consensus mechanism. This allows developers to create essentially an unlimited number of application-specific transaction-validation rules.
 
-For example, in the Heir module the developer adds a check as to whether the receiver of an Heir fund has received funds previously. If this is false, the developer runs all other validation code. However, if this is true, the developer allows the module to ignore all other validation logic, as there is no need to check the same validation logic twice, once successfully passed.
+For example, in the Heir Module, if the heir attempts to claim funds, the validation code checks whether the owner of the fund has shown recent activity, according to a specified amount of time. The owner can show activity by either adding to or spending from the fund. If the owner has not shown signs of activity, the validation code allows the heir to claim funds.
 
 Through CryptoConditions and Antara's extensions, the consensus mechanism can rule over the outcome of the cryptocondition logic and arbitrary validation code across the Smart Chain's decentralized network of nodes.
 
 #### Makeup of a CryptoCondition
 
-A CryptoCondition consists of two parts: 
+A CryptoCondition consists of two parts:
 
 - <b>Part I: A condition that must be met</b>
-  - This is stored in the transaction output's `scriptPubKey` 
+  - This is stored in the transaction output's `scriptPubKey`
 - <b>Part II: A fulfillment</b>
-  - This is stored in the `scriptSig` filed of the input of the transaction that spends the above output
+  - This is stored in the `scriptSig` field of the input of the transaction that spends the above output
 
 
-<!-- 
+The <b>condition</b> (Part I) contains data that checks the CryptoCondition in "fingeprinted" form. 
 
-What is "fingerprinted" form? Hashed? 
+::: tip
 
--->
+The term, "fingerprinted," is in the industry-wide standard CC library. To fingerprint data, the CC library acquires the target data, combines it with other data that the developer does not need to manage, and then creates a hash, or "fingerprint."
 
-The <b>condition</b> (Part I) contains data that checks the CryptoCondition in fingeprinted form. For example, a condition can be a requirement that only a specific `pubkey` (fingerprinted) be allowed to spend this transaction output.
+:::
+
+For example, a condition can be a requirement that only a specific `pubkey` (fingerprinted) be allowed to spend this transaction output.
 
 The <b>fulfillment</b> (Part II) contains instructions and data about how the consensus mechanism should evaluate the CryptoCondition. For example, the fulfillment could include an instruction to check a spending-transaction's electronic signature as well as the the `pubkey` associated with this signature.
 
-To evaluate the fulfillment of this CryptoCondition, the validation logic would first verify the electronic signature with the provided pubkey. Then the validation logic would use the pubkey to calculate the fingerprint of the result and check it against the condition.
+To spend a CC output of a transaction, a node on the network sends a spending transaction that contains a CC input that fulfills the CC output's condition. The consensus mechanism of the Smart Chain checks that the fulfillment is correct. For this it uses the C CryptoCondition library to evaluate the fulfillment of the spending transaction. The result of this evaluation is checked against the condition stored in the previous transaction output.
 
-<!-- Language above wasn't clear. Tried to fix as best as I can. I don't fully understand what a fingerprint is, so I don't know what this is referring to specifically. -->
 
-To spend a transaction CryptoCondition output, first a node on the network must send a spending transaction which provides a fulfillment in its input for this CryptoCondition. 
+For our example above of an electronic signature, the consensus mechanism runs the logical conditions and fulfillments of the CryptoCondition to verify the electronic signature with the provided pubkey. Then the validation logic calculates the fingerprint of the pubkey and checks it against the condition.
 
-The consensus mechanism uses the C library to evaluate the fulfillment of the spending transaction. The result of this evaluation is checked against the condition stored in the transaction output. 
+In adding Cryptoconditions to the Antara framework, Komodo extended the original CC protocol by adding an additional aspect beyond the inputs and outputs. This additional part is called the <b>EVAL</b> CryptoCondition, or eval code.
+
+Each Antara Module has its own unique eval code. The eval code is a number between 0 and 255, and it identifies the specific Antara Module that is associated with a CC transaction. When the consensus validation logic encounters the Antara Module's eval code in a transaction input, the validation logic calls the module's validation function.
+
+The process of validation of an Antara Module's transaction is depicted on the diagram below:
+
+<div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; float: right; display: block;">
+
+<img style="border: 1rem solid white; margin: 1rem 0rem 1rem 0rem;" src="/cc-verify-work-v2.3.png">
+
+</div>
 
 #### The Simplest form of a CryptoCondition
 
 The simplest CryptoCondition evaluates an electronic signature of a spending-transaction's `scriptsig`. Assuming the evaluation is successful, the spending-transaction is then able to spend funds from the output of another transaction.
 
-At first glance, you may be confused about why a CryptoCondition is useful in this event, as a normal blockchain protocol can already accomplish this task. 
+At first glance, you may be confused about why a CryptoCondition is useful in this event, as a normal blockchain protocol can already accomplish this task.
 
-The answer is that there is an important difference in the CryptoCondition implementation. When a CryptoCondition transaction output is spent, the Antara module's code can enforce additional validation logic.
+The answer is that there is an important difference in the CryptoCondition implementation. When a CryptoCondition transaction output is spent, the Antara Module's code can enforce additional validation logic. This is accomplished via the eval code that is stored as a part of the CryptoCondition's inputs and outputs. We will describe this further in the Heir Module development section.
 
-This key difference illuminates the power of Antara. For example, additional arbitrary module code could include validation logic that allows a user to spend the output only at the appropriate time. The transaction output is spend only once an attempting spending-transaction has the matching fulfillment, and both the CryptoCondition and the Antara module validation code evaluate to `true`.
+The ability to enforce additional logic is the key difference that illuminates the power of Antara. For example, additional arbitrary validation code can include logic that allows a user to spend the output only at the appropriate time. The transaction output can be spent only via a spending transaction that has the matching fulfillment, and both the CryptoCondition and the Antara module validation code evaluate to `true`.
 
-Even the basic CryptoCondition features offer more complex logical expressions than a normal Bitcoin script. For example, with CC a spending transaction could be requir signatures from at least `M` of `N` acceptable `pubkeys`.
+Even the basic CryptoCondition features offer more complex logical expressions than a normal Bitcoin Script. For example, with CC a spending transaction could be required to have signatures from at least `M` of `N` acceptable `pubkeys`.
 
-Application validation can accomplish this as well. We will examine this possibility further on in the tutorial.
-
-As logical conditions and subconditions can be added to a CryptoCondition as desired, the developer can build complex logic that governs the movement of Smart Chain assets. In this sense, Antara is an advanced evolution of the basic Bitcoin Script security features, such as pubkey or pubkey hash scripts. 
+As logical conditions and subconditions can be added to a CryptoCondition as desired, the developer can utilize both the CryptoConditions features and customized module's validation code to build complex logic that governs the movement of Smart Chain assets. In this sense, Antara is an advanced evolution of the basic Bitcoin Script security features, such as pubkey or pubkey hash scripts. We will examine validation code in greater detail later in this tutorial.
 
 In this section, we became acquainted with the concept of logical conditions that are associated with transaction outputs, and logical fulfillments associated with spending-transactions. These two elements make up the rudimentary aspect of a CryptoCondition.
 
-<!-- Sidd: I'll need to go over the above again. Making my brain melt for some reason. -->
+There are yet other elements of an Antara-based CryptoCondition. One element is called the `EVAL` code, and it is stored in the CryptoCondition's inputs and outputs. We will touch on this topic soon.
 
-There are yet other elements of an Antara-based CryptoCondition. One element is called the `EVAL` code, and it is stored in the CryptoCondition's inputs and outputs. We will touch on this topic soon. 
+#### Antara Module as Data and Business Logic Layer of Business Application
 
-<!-- The above paragraph is out of place. -->
+An Antara module can be described as a combination of a data layer and a business-logic layer in an application. The data layer is the collection of transactions related to the Antara Module, and the business-logic layer is the module's arbitrary code.
 
-## Antara Module Features 
+These two layers tie in with other layers in an Antara-based software application. For example, the software external to the blockchain could include a presentation layer, consisting of a Graphical User Interface (GUI) and other visual elements. External applications interact with an Antara Module via its RPC calls.
 
-#### Two Layers to Each Module
-
-An Antara module can be described as a combination of a data layer and a business-logic layer in an application. The data layer is the collection of transactions related to the Antara module, and the business-logic layer is the modules arbitrary code.
-
-These two layers tie in with other layers in an Antara-based software application. For example, the software external to the blockchain could include a presentation layer, consisting of a Graphical User Interface (GUI) and other visual elements. 
-
-<!--
-
-dimxy3 why audio?
-
-Sidd: I don't see a reference to audio above? Perhaps you removed it? Fine either way.
-
---> 
-
-<!--
-
-Sidd: Is the below a reference to another external layer? Should we make a heading for external layers?
-
--->
-
-Also, there can often be an oracle layer, wherein oracle software connects nodes to external data sources across the Internet. This can be the case in Antara-based software applications that make use of the [<b>Oracles</b>](../basic-docs/fluidity/fluidity-api/oracles.html#introduction) Antara module. 
+Also, there can often be an additional oracle layer, wherein oracle software connects nodes to external data sources across the Internet. This can be the case in Antara-based software applications that make use of the [<b>Oracles</b>](../basic-docs/fluidity/fluidity-api/oracles.html#introduction) Antara module.
 
 #### A Global CC Address in the Antara Framework
 
-Each Antara module has an associated global CC address. The private key to this global CC address is publicly available. The address can be used for such tasks as sharing funds between users of this module, and anyone can attempt to spend funds from this address. 
+Each Antara module has an associated global CC address. The private key to this global CC address is publicly available. The address can be used for such tasks as sharing funds between users of this module, and anyone can attempt to spend funds from this address.
 
 The following is an example of a global CC address created and assigned for the Heir module.
 
@@ -510,28 +494,20 @@ uint8_t HeirCCpriv[32] = { 0x9d, 0xa1, 0xf8, 0xf7, 0xba, 0x0a, 0x91, 0x36, 0x89,
 | HeirCCaddr | the global CC address itself |
 | HeirCChexstr | the pubkey |
 | HeirCCpriv | the privkey for the global CC address |
-| HeirNormaladdr | The normal address for the same pubkey and privkey. This can be used when spending from this address does not need to be validated by the Antara module |
+| HeirNormaladdr | The normal address for the same pubkey and privkey. Spending from this address does not validation by the Antara module |
 
-In the Antara codebase, the global CC address is sometimes called the "unspendable" address. This is likely a reference to the fact that for any user to spend funds from this address, the spending-transaction must pass the module's validation code. 
+In the Antara codebase, the global CC address is sometimes called the "unspendable" address. This is likely a reference to the fact that for any user to spend funds from this address, the spending transaction must pass the module's validation code.
 
-For example, the global CC address could store funds shared between several users. As a global CC address's privkey is publicly available, anyone might try to spend these funds. This is where the Antara validation code will exercise control over whom is allowed to spend funds, and by which rules. Of course, the RPC aspect of the Antara module also should prevent the creation of inappropriate transactions.
+For example, the global CC address could store funds shared between several users. As a global CC address's privkey is publicly available, anyone might try to spend these funds. This is where the Antara validation code will exercise control over whom is allowed to spend funds, and by which rules. The RPC aspect of the Antara module must prevent the creation of inappropriate transactions as well.
 
-A transaction can also send a nominal fee to the global CC address with the intention of turning this transaction's output into a search key, also called a marker. The module's validation code could disable spending for these markers. With this combination, the developer can use the `SetCCunspents` SDK function to enumerate all transactions in the global CC address, and thus discover the module's transaction history. 
+A transaction can also send a nominal fee to the global CC address with the intention of turning this transaction's output into a search key (called a marker). To ensure these markers remain publicly visible forever, the module's validation code can disable spending for these markers. With this combination, the developer can use the `SetCCunspents` SDK function to enumerate all transactions in the global CC address, and thus discover the module's transaction history.
 
 ## Antara Development Checklist
-
-<!-- 
-
-dimxy3: - normal addresses are usual addresses like in Bicoin to send or receive coins. The transaction inputs referred by such normal addresses are bypassed by Antara's module validation
-
-sidd: what specifically should we put here as a bullet point for this topic? Do we say that normal addresses are already
-
--->
 
 Development requirements for each Antara module:
 
 - Allocate a new `EVAL` code for your contract
-- Assign a global CC address for the module
+- Assign a global address for the module
 - Define the module's transactions
   - This includes the structure of their inputs, outputs, and opreturn format
 - Implement the common RPC functions that nearly all modules feature
@@ -544,33 +520,26 @@ Development requirements for each Antara module:
 
 From an architectural standpoint, an Antara module is simply a C/C++ source file.
 
-<!--
-
-dimxy2 actually there are yet additions to the common cc source file src/cc/custom.cpp with module evalcode, a link to the validation function and the module global pubkey and privkey. This would integrate the antara module into validation framework
-
-sidd: how do I change the surrounding content to accommodate what you mention above?
-
--->
-
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; float: right; display: block;">
 
-<img src="/CC-Antara-arch-v1.0.1.png" style="border: 0.5rem solid white; margin: 1rem 0rem 1rem 0rem;" >
+<img src="/CC-Antara-arch-v2.3.png" style="border: 0.5rem solid white; margin: 1rem 0rem 1rem 0rem;" >
 
 </div>
 
-There are two parts to the module's source file, the implementation of RPC's and the validation code.
+There are two parts to the module's source file: the implementation of RPC's and the validation code. You also need to inform the basic komodod source code of your new Antara Module through the following steps.
+
+- Allocate a new eval code for your Antara module in `src/cc/eval.h`
+- add your module's global addresses and the validation code entry function into the registry of Antara Modules in `src/cc/CCcustom.cpp`
 
 #### RPC Implementations
 
-The first part of the Antara's module source file consists of the implementation of all Remote Procedure Calls (RPC's) for this module. These typically either perform transactions or query information about state and data. 
+The first part of the Antara's module source file consists of the implementation of all Remote Procedure Calls (RPC's) for this module. These typically either perform transactions or query information about state and data.
 
-The developer must also implement high-level functions for any desired RPC commands that are called by the RPC engine and are responsible for converting the RPC data to native C++ data types. 
+The developer must also implement high-level functions for any desired RPC commands that are called by the RPC engine and are responsible for converting the RPC data to native C++ data types.
 
-These functions should be added into an existing source in the `/src/rpc` directory. Alternatively, the developer might create their own RPC source file.
+These functions should be added into an existing source in the `/src/rpc` directory. Alternatively, the developer might create his own RPC source file.
 
-A reference to the RPC-command functions should be added to the global RPC command table in the `/server.cpp` source file.
-
-<!-- Is the server.cpp file in the root dir? -->
+A reference to the RPC-command functions should be added to the global RPC command table in the `/src/rpc/server.cpp` source file.
 
 With this properly completed, the Smart Chain daemon's compiler will automatically make each RPC available at the command line through the `komodo-cli` software and via the `curl` utility.
 
@@ -584,43 +553,35 @@ Essentially all modules have at least these two RPC's.
 
 Include other RPC implementations as desired.
 
-#### Validation Code
+#### Antara Module Validation Code
 
-The main purpose of validation code is to prevent inappropriate spending transactions in an Antara module, and to ensure that the structure of the chain of transactions and their data is accurate. Most importantly, validation vode should protect against malicious spending transactions.
+The main purpose of Antara Module validation code is two-fold. First, it ensures that the structure of the sequence of an Antara Module related transactions and their data is accurate. Second, the validation code prevents inappropriate Antara-related transactions from entering the chain. In other words, module validation code should protect against malicious transactions, and this is the code's most important task.
 
-<!-- 
+Antara Module Validation code is triggered anytime a node attempts to add a CC spending-transaction to the chain.
 
-Sidd: I rephrased above paragraph. Please check accruacy.
-
--->
-
-Validation code is triggered anytime a node attempts a spending-transaction that should be added to the module's chain of CC transactions.
-
-A module's validation code is activated only when a transaction has at least one CC input that bears the module's `EVAL` code inside the <b>scriptSig</b> of the (transaction output?).
+A module's validation code is activated only when a transaction has at least one CC input that bears the module's `EVAL` code inside the <b>scriptSig</b> in the transaction.
 
 A module's initial transaction may not have a CC input. When this happens, the validation code is not triggered. Therefore, the transaction may be handled by the normal blockchain protocol.
 
-As an aside, if the developer does need to write code that validates a spending transaction that spends a utxo that has no CC inputs, the code must first validate the utxo as well. If the result of the validation of the utxo is `false`, then the code can also reject the spending transaction. 
-
-We will delve into this section in thorough detail further on in the tutorial
+As an aside, when the developer needs to write code that validates a spending transaction that spends a utxo that has no CC inputs, the code must first validate the utxo as well. If the result of the validation of the utxo is `false`, then the code can also reject the spending transaction. We will delve into this topic in thorough detail further in the tutorial.
 
 #### The EVAL Code
 
 A unique 8-bit `EVAL` code is attached to each Antara module. The `EVAL` code is used by the core Smart Chain daemon's transaction-validation code to route any relevant transactions to the appropriate module's validation code.
 
-The `EVAL` code itself is actually a simple CryptoCondition. The CryptoCondition tests for the byte value and, if the value is `true`, routes the result according to the core Smart Chain daemon's code. 
+The `EVAL` code itself is actually a simple CryptoCondition. The CryptoCondition tests for the byte value and, if the value is `true`, routes the result according to the core Smart Chain daemon's code.
 
 ### Antara Module Transaction Structure
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; float: right; display: block;">
 
-<img style="border: 10px solid white;" src="/cc-tx-structure-for-guide-v7.png">
+<img style="border: 1rem solid white;" src="/cc-tx-structure-for-guide-v3.2.png">
 
 </div>
 
 A CryptoCondition (CC) input is called a "vin" and a CryptoCondition output is called a "vout".
 
-A CC transaction (tx) has one or more vins and one or more vouts.
+A CC transaction has one or more vins and one or more vouts.
 
 When creating a CC transaction, the transaction's vins can consume the vouts of previous transactions that were either related to CC, or not related.
 
@@ -635,15 +596,15 @@ A CC transaction typically also has an opreturn vout that contains module data.
 Komodo is building an SDK for Antara module development. The SDK is still in the early stages. Some of the SDK functions are already available, and can be found in the following source files:
 
 - CCtx.cpp
-- CCutils.cc
+- CCutils.cpp
 - cc.cpp
 - eval.cpp
 
 We will return to the SDK functions when we discuss the Heir module development process.
 
-## Heir Module Development 
+## Heir Module Development
 
-Having finished an overview of the Antara development layout, we are now prepared to create a simplified prototype of the [Heir module](../basic-docs/fluidity/fluidity-api/heir.html#introduction). 
+Having finished an overview of the Antara development layout, we are now prepared to create a simplified prototype of the [Heir module](../basic-docs/fluidity/fluidity-api/heir.html#introduction).
 
 Our tasks are the following:
 
@@ -655,9 +616,12 @@ Our tasks are the following:
 - Implement the RPC interface
 - Create the validation code
 
+<!-- 
 (See ? Mastering CryptoConditions Chapter 2 for info on adding `EVAL` and global CC addresses?)
 
-<!-- Sidd: We need to note that the previous advanced tutorial, the rewrite of JL's content, contains instructions for EVAL and global CC addresses. -->
+Sidd: We need to note that the previous advanced tutorial, the rewrite of JL's content, contains instructions for EVAL and global CC addresses.
+
+-->
 
 ### Heir Module Transactions
 
@@ -672,26 +636,26 @@ We require three types of module transactions
 | Input/Output | Description |
 | ------------ | ----------- |
 | `vins.*` | <b>Normal input</b> <br> - The `*` notation implies that this can apply to any number of inputs <br> - These vins are typical of core blockchain software and not related to CC |
-| `vout.0` (?) | <b>The `1of2` CC address that holds the funds that belong to the owner and, once available, to the heir</b> |
+| `vout.0` | <b>The `1of2` CC address that holds the funds that belong to the owner and, once available, to the heir</b> |
 | `vout.1` | <b>The transaction fee to account for the `vout.0` amount above</b> <br> - The amount in `vout.1` is used as a marker. We will discuss markers and their uses cases further on in the tutorial |
 | `vout.2` | <b>Normal change</b> <br> - Recall that `change` is the leftover amount from the original utxo that the user does not intend to send to the destination address, and which the user desires to keep <br> - Any amount of leftover funds not included in the `change` utxo is forfeited to the miner of the block; this is how miners receive their mining fee |
 | `vout.n-1` | <b>OP_RETURN EVAL_HEIR 'F' ownerpk heirpk inactivitytime heirname</b> <br> - This is the is the opreturn vout, and it contains any data relevant to the module <br> - The 'F' is a flag that indicates that this transaction is a "Funding" CC transaction <br> - `ownerpk` and `heirpk` respectively represent the pubkeys of the owner and heir <br> - Concerning `inactivitytime`, the owner should either make a donation to or spend from the `1of2` address within the `inactivitytime` amount of time to prevent opening the `1of2` address to the heir for spending. <br> - `heirname` is the name of this instance of the Heir module |
 
-Through a funding transaction, the owner of the initial funds creates a "plan," which we can also call a "contract," and deposits funds for future spending. 
+Through a funding transaction, the owner of the initial funds creates a "plan," which we can also call a "contract," and deposits funds for future spending.
 
 The initial funds are taken from the normal `vout` values of a utxo. The initial transaction of this plan can be the beginning of the relationship between the funds in the utxo and the Heir module.
 
-The main funds for the plan are allocated to `vout.0` of our CC transaction. 
+The main funds for the plan are allocated to `vout.0` of our CC transaction.
 
-By design, and setting aside issues of timing, we desire that either the owner or the inheritor of the funds should be able to spend this utxo. We assume that the owner has one address, and the inheritor has another. To achieve this, we use an advanced CryptoConditions feature that states that either of two addresses can spend the funds. This is called a `1of2` CryptoCondition, and it is placed as a logical condition for (?) `vout.0 (?) or the OP_RETURN? vout.n-1`.
+By design, and setting aside issues of timing, we desire that either the owner or the inheritor of the funds should be able to spend this utxo. We assume that the owner has one address, and the inheritor has another. To achieve this, we use an advanced CryptoConditions feature that states that either of two addresses can spend the funds. This is called a `1of2` CryptoCondition, and it is placed as a logical condition into `vout.0`. 
 
-A fee is allocated to `vout.1`. This is used as a marker. The marker allows a developer to use a special SDK function, `SetCCunspents()`, to create a list of all initial transactions for the module. 
+A fee is allocated to `vout.1`. This is used as a marker. The marker allows a developer to use a special SDK function, `SetCCunspents()`, to create a list of all initial transactions for the module.
 
 As usual, out of the remaining amount of our initial utxo, we need to send all that we desire to keep to our `change` address.
 
 Also, we need to leave an amount as an incentive for the miner. Any remainder beyond the sum total of our new `vout` values will automatically be allocated in this manner. We typically leave `10000` satoshis of our Smart Chain coin, by convention.
 
-Note the `F` letter in the opreturn structure. The `F` stands for "fund." By convention, the first byte of any opreturn is the `EVAL` code. The second byte is the transaction functional id, we use it to understand the transaction data structure in the opreturn. 
+Note the `F` letter in the opreturn structure. The `F` stands for "fund." By convention, the first byte of any opreturn is the `EVAL` code. The second byte is the transaction functional id, we use it to understand the transaction data structure in the opreturn.
 
 We also stored other relevant data in the opreturn:
 
@@ -727,9 +691,9 @@ Note the functional id, `A`. This flag indicates that this transaction is an `ad
 | vout.2 | `change` to user's address from transaction fee input, if any |
 | vout.n-1 | OP_RETURN EVAL_HEIR `C` fundingtxid HasHeirSpendingBegun |
 
-This transaction allows either the owner or the heir to spend funds from this plan instance. 
+This transaction allows either the owner or the heir to spend funds from this plan instance.
 
-To pay the transaction fee to the miners, the transaction has a normal input that draws from the wallet of the transaction creator. 
+To pay the transaction fee to the miners, the transaction has a normal input that draws from the wallet of the transaction creator.
 
 The transaction also has a CC input for spending the claimed value from the `1of2` fund address.
 
@@ -737,7 +701,7 @@ As for outputs, the claimed value is sent to the claimer's normal address, allow
 
 We also indicate the normal `change`.
 
-The functional id, `C`, in the opreturn indicates that this is a "claim" type transaction. 
+The functional id, `C`, in the opreturn indicates that this is a "claim" type transaction.
 
 We also include all the same opreturn data as in the `A` transaction, include the `fundingtxid` and the `HasHeirSpendingBegun` flag.
 
@@ -757,7 +721,7 @@ We model the syntax as follows:
 
 | Argument | Type | Description |
 | -------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| amount         | (number)           | The initial funding amount, in coins or tokens <br> - This parameter is considered to be the amount of tokens if the (?) tokenid parameter is present)   |
+| amount         | (number)           | The initial funding amount, in coins or tokens <br> - This parameter is considered to be the amount of tokens if the tokenid parameter is present)   |
 | name           | (string)           | The name of the heir funding plan (arbitrary)                                                                                                    |
 | heirpubkey     | (string)           | The heir's public key (in hexademical)                                                                                                           |
 | inactivitytime | (number)           | The time (in seconds) that must pass without the owner executing an `heiradd` or `heirclaim` method, after which the address unlocks to the heir |
@@ -766,7 +730,7 @@ We model the syntax as follows:
 
 To add a new command to `komodo-cli` we open the `src/server.cpp` source file add a new element to the `vRPCCommands` array.
 
-```json
+```cpp
     { "heir",       "heirfund",   &heirfund,      true },
 ```
 
@@ -777,27 +741,27 @@ To add a new command to `komodo-cli` we open the `src/server.cpp` source file ad
 | &heirfund | the address of the rpc interface function |
 | true | indicates that the command description will be shown in the help command output; placing `false` here would hide this RPC from the help menu |
 
-#### Add the RPC Function Definition
+#### Add the RPC Function ~~Definition~~Declaraion
 
-We add the RPC function definitnion in the `rpc/server.h` source file. 
+We add the RPC function declaration in the `rpc/server.h` source file.
 
 The declaration in this file is essentially the same across all RPC functions.
 
 ```cpp
-UniValue heirfund(const UniValue& params, bool fHelp)
+UniValue heirfund(const UniValue& params, bool fHelp);
 ```
 
-#### The Two Levels of an RPC Implementation
+### The Two Levels of an RPC Implementation
 
 There are two levels to an RPC implementation.
 
 The first level is a short RPC function that has the same name as the RPC command itself (such as `heirfund`).
 
-The body of this level is added to the `rpc/` subdirectory in the source code.
-
-This function checks the RPC parameters and the needed environment, and then forwards the RPC to the second level. 
+The body of this level is added to a source file in the `rpc/` subdirectory in the source code (for this example, we added the rpc functions for Heir module in the wallet/rpcwallet.cpp).
 
 Creating a new RPC source file for each Antara module's RPC functions is considered a best practice.
+
+This function checks the RPC parameters and the needed environment, and then forwards the RPC to the second level.
 
 To begin the RPC command, we declare the `heirfund` function and clear the global error object.
 
@@ -827,12 +791,12 @@ Ensure that the chain parameters needed for Antara modules are correctly set. Fo
     // output help message if asked or params count is incorrect:
     if (fHelp || params.size() != 4 )
         throw runtime_error("heirfund funds heirname heirpubkey inactivitytime\n");
-```	
+```
 
 Lock the user's wallet:
 
 ```cpp
-    LOCK2(cs_main, pwalletMain->cs_wallet);	
+    LOCK2(cs_main, pwalletMain->cs_wallet);
 ```
 
 The `UniValue` object is a special type used to pass data in RPC calls. The `UniValue` object is native to all blockchains based on the Bitcoin protocol. For parameters, UniValue requires an array of UniValue objects.
@@ -843,7 +807,7 @@ Convert the parameters from the UniValue type to their basic C++ types and add c
 
 This content is abbreviated. [For links to the full source code and example files, click here.](../../../basic-docs/antara/antara-tutorials/heir-module-tutorial.html#links-to-heir-source-code-and-building-instructions)
 
-Note the method for parsing the hex representation of the pubkey parameter and converting it to a `CPubKey` object.  
+Note the method for parsing the hex representation of the pubkey parameter and converting it to a `CPubKey` object.
 
 ```cpp
     CAmount amount = atof(params[0].get_str().c_str()) * COIN;  // Note conversion from satoshis to coins through a multiplication of 10E8
@@ -864,13 +828,14 @@ Finally, call the Heir module code, pass our values (now in C++ type format), an
 }
 ```
 
-<!-- there should be a link here to the completed file. -->
+[See the linked source code (line number is approximate.)](https://github.com/dimxy/komodo/blob/heir-simple/src/wallet/rpcwallet.cpp#L7740)
 
-#### Second Level Implementation
+### Second Level Implementation
 
-The second level of the RPC implementation is the transaction creation code. This resides in the `src/heir.cpp` <!-- or src/cc/heir.cpp ? --> source file.
+The second level of the RPC implementation is the transaction creation code. This resides in the `src/cc/heir.cpp` source file.
 
-The following content displays the skeleton of the <b>heirfund</b> RPC implementation. 
+#### Implementing heirfund transaction creation
+The following content displays the skeleton of the <b>heirfund</b> RPC implementation.
 
 [For links to the full source code and example files, click here.](../../../basic-docs/antara/antara-tutorials/heir-module-tutorial.html#links-to-heir-source-code-and-building-instructions)
 
@@ -901,12 +866,12 @@ By tradition, we use a constant fee of `10000` satoshis.
 
 We use the `pubkey` from the komodod `-pubkey` launch parameter as the destination address for the funds withdrawn from the `1of2` plan address.
 
-We use a function in the CC SDK, `AddNormalinputs`, to add the normal inputs to the mutable transaction. 
+We use a function in the CC SDK, `AddNormalinputs`, to add the normal inputs to the mutable transaction.
 
 ```cpp
     const int64_t txfee = 10000;
-    CPubKey myPubkey = pubkey2pk(Mypubkey());   
-    if (AddNormalinputs(mtx, myPubkey, amount+2*txfee , 60) > 0) { 
+    CPubKey myPubkey = pubkey2pk(Mypubkey());
+    if (AddNormalinputs(mtx, myPubkey, amount+2*txfee , 60) > 0) {
 ```
 
 The parameters passed to the `AddNormalinputs()` function are:
@@ -915,7 +880,7 @@ The parameters passed to the `AddNormalinputs()` function are:
 - The user's pub
 - The total value for the funding amount
 - he marker and the miner fees
-- The limit on the quantity of utxos the daemon can take from the wallet of the user 
+- The limit on the quantity of utxos the daemon can take from the wallet of the user
   - Natuarlly, only utxos that are available via the wallet's private keys can be used for these inputs
 
 #### Adding Outputs to the Transaction
@@ -926,7 +891,7 @@ Here, we use two CC SDK functions that are designed to create CC vouts.
 
 The first is `MakeCC1of2vout`. This creates a CC vout with a threshold of `2` addresses that can spend from the plan funds. We supply as arguments the two potential addresses, represented here as `myPubkey` and `heirPubkey`.
 
-`MakeCC1vout` creates a vout with a simple CryptoCondition which sends a transaction fee to the Heir module global CC address. (This is returned by the `GetUnspendable()` function call below.) We need the global CC address so that we can both mark the transaction, and to find all Heir funding plans. 
+`MakeCC1vout` creates a vout with a simple CryptoCondition which sends a transaction fee to the Heir module global CC address. (This is returned by the `GetUnspendable()` function call below.) We need the global CC address so that we can both mark the transaction, and to find all Heir funding plans.
 
 You will always need some kind of marker for any instance of an Antara module plan for at least the initial transaction. Otherwise, you might lose the instance's data in the blockchain.
 
@@ -943,7 +908,7 @@ The second statement creates a marker vout with a simple CryptoCondition. There 
         mtx.vout.push_back( MakeCC1vout(EVAL_HEIR, txfee, GetUnspendable(cp, NULL)) );
 ```
 
-Finish the creation of the transaction by calling the `FinalizeCCTx` function along with its parameters from the `cp` object, the `mtx` object itself, the owner's pubkey, and the transaction fee amount. 
+Finish the creation of the transaction by calling the `FinalizeCCTx` function along with its parameters from the `cp` object, the `mtx` object itself, the owner's pubkey, and the transaction fee amount.
 
 Note the cast to `uint8_t` for the constants `EVAL_HEIR` and `F` function id. This is important, as the cast supposes a one-byte size for the serialization of these values. If this size was not inferred, then the type would be an `int`.
 
@@ -968,7 +933,7 @@ Note that we do not need to add the normal change output here because the `Final
 
 `FinalizeCCTx` also builds the transaction input `scriptSigs` (both normal and CC aspects), adds tx signatures to them, and returns a signed transaction in hexadecimal encoding.
 
-Also note the `E_MARSHAL()` function. This serializes variables of various supported types to a byte array. The byte array is then serialized to a `CScript` object. The object is stored in the `scriptPubKey` transaction field in the last opreturn vout with transaction data. 
+Also note the `E_MARSHAL()` function. This serializes variables of various supported types to a byte array. The byte array is then serialized to a `CScript` object. The object is stored in the `scriptPubKey` transaction field in the last opreturn vout with transaction data.
 
 There is also the mirror `E_UNMARSHAL()` function. This is used for unpacking opreturn data from a CScript object to C++ variables, and for further processing.
 
@@ -976,7 +941,7 @@ The returned transaction is ready to be sent to the Smart Chain network using th
 
 #### Implementing the heirclaim RPC
 
-As before, this implementation has two levels. The first level checks the required environment and converts the parameters. The second level creates the final transaction. 
+As before, this implementation has two levels. The first level checks the required environment and converts the parameters. The second level creates the final transaction.
 
 ##### heirclaim syntax
 
@@ -984,7 +949,7 @@ As before, this implementation has two levels. The first level checks the requir
 ./komodo-cli -ac_name=YOURCHAIN heirclaim fundingtxid amount
 ```
 
-##### Add the RPC to komodo-cli
+##### Add the RPC command to komodo-cli
 
 Add a new command to `komodo-cli` by adding a new element into the `vRPCCommands` array in the source file `src/server.cpp`.
 
@@ -997,14 +962,14 @@ Using the previous section of the tutorial as an example, add an `heirclaim` RPC
 Add the `heirclaim` declaration in the the `src/rpc/server.h` header file.
 
 ```cpp
-// heirclaim command rpc-level implementation, src/wallet/rpcwallet.cpp 
+// heirclaim command rpc-level implementation, src/wallet/rpcwallet.cpp
 
 UniValue heirclaim(const UniValue& params, bool fHelp)
 {
     CCerror.clear(); // clear global error object
 ```
 
-Check that the wallet is available. 
+Check that the wallet is available.
 
 In case the user asks for help via the `--help` parameter, or in case the parameters are not correctly submitted, print a `help` message to the console.
 
@@ -1025,7 +990,7 @@ Lock the wallet:
     LOCK2(cs_main, pwalletMain->cs_wallet);
 ```
 
-Convert the parameters from `UniValue` to `c++` type: 
+Convert the parameters from `UniValue` to `c++` type:
 
 ```cpp
     uint256 fundingtxid = Parseuint256((char*)params[0].get_str().c_str());
@@ -1040,7 +1005,7 @@ Call the `HeirClaim` transaction creation function and return the created transa
     return result;
 }
 ```
-
+#### Transaction creation code for heirclaom rpc
 Implement the `HeirClaim` transaction creation code in the `src/cc/heir.cpp` source file.
 
 ```cpp
@@ -1068,7 +1033,7 @@ Find the most recent owner transaction to calculate the owner's inactivity time.
     const int64_t txfee = 10000;
     CPubKey ownerPubkey, heirPubkey;
     int64_t inactivityTimeSec;
-    uint8_t hasHeirSpendingBegun;    
+    uint8_t hasHeirSpendingBegun;
     uint256 latesttxid = FindLatestOwnerTx(fundingtxid, ownerPubkey, heirPubkey, inactivityTimeSec, hasHeirSpendingBegun);
     if( latesttxid.IsNull() )   {
         CCerror = "no funding tx found";
@@ -1121,9 +1086,9 @@ Add CC inputs for this address with the use of a custom function:
 Add a normal output to receive the claimed funds, and a CC change output for the remaining amount.
 
 ```cpp
-    mtx.vout.push_back(CTxOut(amount, CScript() << ParseHex(HexStr(myPubkey)) << OP_CHECKSIG));  
+    mtx.vout.push_back(CTxOut(amount, CScript() << ParseHex(HexStr(myPubkey)) << OP_CHECKSIG));
     if (inputs > amount)
-        mtx.vout.push_back(MakeCC1of2vout(EVAL_HEIR, inputs - amount, ownerPubkey, heirPubkey));  
+        mtx.vout.push_back(MakeCC1of2vout(EVAL_HEIR, inputs - amount, ownerPubkey, heirPubkey));
 ```
 
 Add normal change (if any), add OP_RETURN data, and sign the transaction:
@@ -1143,11 +1108,15 @@ Once `hasHeirSpendingBegun` is set to `true`, this flag should also be set to `t
 
 - `heiradd` allows a user to add more funding to a plan.
 - `heirlist` is a standard RPC for all CC modules. This RPC outputs a list of all initial transaction IDs, which serve as the identifiers for each plan.
-- `heirinfo` provides some data about a funding plan 
+- `heirinfo` provides some data about a funding plan
 
-<!-- The implementation for these RPCs can be found in the github repository with the source code of this contract.  -->
+The implementation for these RPCs can be found in the github repository with the source code of this contract.
 
-<!-- Let's provide links to each one. -->
+[RPC implementation can be found here.](https://github.com/dimxy/komodo/blob/heir-simple/src/wallet/rpcwallet.cpp)
+
+[Transaction creation and retrieval code can be found here.](https://github.com/dimxy/komodo/blob/heir-simple/src/cc/heir.cpp)
+
+### Heir Module Helper functions
 
 #### Simplified Add1of2AddressInputs() Function Implementation
 
@@ -1159,13 +1128,13 @@ int64_t Add1of2AddressInputs(CMutableTransaction &mtx, uint256 fundingtxid, char
     int32_t count = 0;
 ```
 
-By default, the CC SDK function, `SetCCunspents`, fills the provider vector with a list of unspent outputs of the provided `coinaddr` Bitcoin address.
+By default, the CC SDK function, `SetCCunspents`, fills the provider vector with a list of unspent cc outputs of the provided `coinaddr` Bitcoin address.
 
 For our Heir module, we pass the `1of2` address where the plan's funds are stored.
 
 ```cpp
     std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue>> unspentOutputs;
-    SetCCunspents(unspentOutputs, coinaddr, true);  // get a vector of uxtos for the address in coinaddr[]
+    SetCCunspents(unspentOutputs, coinaddr, true);  // get a vector of cc uxtos for the address in coinaddr[]
 ```
 
 Iterate through the returned uxtos and add those that are appropriate to the transaction's vin array:
@@ -1189,7 +1158,7 @@ Load the current uxto's transaction and check whether it has an opreturn in the 
 Check that the uxto matches this plan.
 
 ```cpp
-              if( it->first.txhash == fundingtxid ||   // if this is our contract instance coins 
+              if( it->first.txhash == fundingtxid ||   // if this is our contract instance coins
                   E_UNMARSHAL(vopret, { ss >> evalCode; ss >> funcId; ss >> txid >> hasHeirSpendingBegun; }) && // unserialize opreturn
                   fundingtxid == txid  ) // it is a tx from this funding plan
               {
@@ -1199,7 +1168,7 @@ To add the utxo to the transaction's vins, set the utxo's vout number and transa
 
 ```cpp
                   mtx.vin.push_back(CTxIn(it->first.txhash, it->first.index, CScript()));
-                  totalinputs += it->second.satoshis;   
+                  totalinputs += it->second.satoshis;
 ```
 
 Stop once sufficient CC inputs are found.
@@ -1210,7 +1179,7 @@ In the event that the `amount` parameter is `0`, add all available inputs to cal
                   if( amount > 0 && totalinputs >= amount || ++count > maxinputs )
                       break;
               }
-         } 
+         }
     }
 ```
 
@@ -1227,9 +1196,9 @@ To calculate the owner-inactivity time and to enable the heir to claim the funds
 
 This function iterates through the transactions of this plan, (which we can also call this instance of the Heir module) and finds the owner's latest transaction. We pass into this function the initial funding txid of the plan we desire to inspect.
 
-The function returns the pukeys of both the owner and the heir, the owner inactivity time, and a flag that indicates whether the heir has already spent funds from the `1of2` address. 
+The function returns the pukeys of both the owner and the heir, the owner inactivity time, and a flag that indicates whether the heir has already spent funds from the `1of2` address.
 
-All returned values of the function are retrieved from the transactions' opreturns. 
+All returned values of the function are retrieved from the transactions' opreturns.
 
 ```cpp
 // find the latest owner transaction id
@@ -1244,7 +1213,7 @@ uint256 FindLatestOwnerTx(uint256 fundingtxid, CPubKey& ownerPubkey, CPubKey& he
 Initialize the flag as though the heir has not yet spent any of their plan's funds.
 
 ```cpp
-    hasHeirSpendingBegun = 0; 
+    hasHeirSpendingBegun = 0;
 ```
 
 Initialize the following variables.
@@ -1256,7 +1225,7 @@ Initialize the following variables.
     std::string name;
 ```
 
-Load the initial funding transaction, check whether it has a correct opreturn, and deserialize it. 
+Load the initial funding transaction, check whether it has a correct opreturn, and deserialize it.
 
 Check the transaction rules. Return an empty id if the funding transaction cannot not be loaded or is incorrect.
 
@@ -1265,10 +1234,10 @@ Check the transaction rules. Return an empty id if the funding transaction canno
         fundingtx.vout.size() == 0 ||    // no vouts, even opreturn
         !GetOpReturnData(fundingtx.vout.back().scriptPubKey, vopret) ||   // could not get opreturn from the last vout
         !E_UNMARSHAL(vopret, ss >> eval; ss >> funcId; ss >> ownerPubkey; ss >> heirPubkey; ss >> inactivityTime; ss >> name;) ||  // could not unmarshal opreturn
-        eval != EVAL_HEIR ||   // incorrect eval code in 1st byte 
+        eval != EVAL_HEIR ||   // incorrect eval code in 1st byte
         funcId != 'F')    // incorrect funcid in the 2nd byte
         return zeroid;
-```   
+```
 
 Initialize the CC contract object for the Heir module's `EVAL` code.
 
@@ -1279,22 +1248,22 @@ Initialize the CC contract object for the Heir module's `EVAL` code.
 
 Declare the `coinaddr` array and use the `GetCCaddress1of2` function to pass the array the `1of2` address that holds our funds.
 
-```cpp       
+```cpp
     char coinaddr[64];
-    GetCCaddress1of2(cp, coinaddr, ownerPubkey, heirPubkey); 
+    GetCCaddress1of2(cp, coinaddr, ownerPubkey, heirPubkey);
 ```
 
 Get the vector with uxtos for the `1of2` address.
 
 ```cpp
-    std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue>> unspentOutputs;    
-    SetCCunspents(unspentOutputs, coinaddr, true);				 
+    std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue>> unspentOutputs;
+    SetCCunspents(unspentOutputs, coinaddr, true);
 ```
 
 Iterate through the returned uxto's to find the last funding or spending owner transaction:
 
 ```cpp
-    int32_t maxBlockHeight = 0; 
+    int32_t maxBlockHeight = 0;
     uint256 latesttxid = fundingtxid;   // set to initial txid
     for (std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue>>::const_iterator it = unspentOutputs.begin(); it != unspentOutputs.end(); it++)
     {
@@ -1354,37 +1323,37 @@ Return the latest owner txid.
 
 #### Simplified Validation Function Implementation
 
-Validation provides the logic control of spent Antara-module value, and validation also provides the data added to the Smart Chain. 
+Validation provides the logic control of spent Antara-module value, and validation also provides the data added to the Smart Chain.
 
 Recall that validation code is invoked for a transaction at the time the CC-related value is spent (as opposed to only being invoked at the time the value is added). We trigger the invokation of this validation function when at least one transaction input is a CC input bearing this module's `EVAL` code.
 
-Validation code typically is not called for the CC module's initial transaction. Instead, we invoke validatation at the time the initial transaction is spent in a second transaction. 
+Validation code typically is not called for the CC module's initial transaction. Instead, we invoke validatation at the time the initial transaction is spent in a second transaction.
 
 One way to invoke validation for the first transaction when performing the second transaction is to load the initial transaction and validate it first. If the initial transaction turns out to be invalid, it can remain in the chain and is otherwise ignored. In this case, if a CC marker is used, it can be cleared and the transaction is removed from the RPC list output.
 
 #### Guidelines for Validation
 
-In our Heir module prototype, we have three transactions to validate: the initial funding, the transaction that adds more value, and the transaction that claims the funds. The first and second of these transactions do not have any CC vins, and therefore all are validated together with the transaction that claims the funds.
+In our Heir module prototype, we have three transactions to validate: the initial funding, the adding transaction that adds more funds, and the transaction that claims the funds. The first and second of these transactions do not have any CC vins, and therefore all are validated together with the transaction that claims the funds.
 
 Here are several common aspects of a module that require validation:
 
 - The basic transaction structure
 - The basic data structure in the OP_RETURN
   - Validation here ensures data integrity in the chain
-  - All OP_RETURNs should contain the `EVAL` code and functional id in the first two bytes 
+  - All OP_RETURNs should contain the `EVAL` code and functional id in the first two bytes
 - Avoid all foreseeable attack vectors
   - Ensure DOS attacks are eliminated, especially in the event of a malformed transaction
-  - Check the array size before use of any transaction 
-- Check the initial transaction for this transaction <!-- not clear what "this transaction" refers to --> by retrieving the txid from the OP_RETURN and loading the initial transaction
+  - Check the array size before use of any transaction
+- Check the previous Heir module transactions which this transaction spends and which have no cc inputs. This is accomplished by retrieving the transaction id from the opreturn and loading and validating the previous transaction
 
-#### Heir Module Validations
+#### Heir Module Validation Rules
 
-The following are the aspects of validation the Heir module requires. 
+The following are the aspects of validation the Heir module requires.
 
-- The funding transaction <!-- This is the same as the "initial" transaction, correct? -->
-  - Validate that the `1of2` address accurately matches `pubkeys` in the OP_RETURN
-- The spending transaction <!-- This is the same as the "claim" transaction, correct? -->
-  - Validate the txid <!-- should ID be plural? --> in the OP_RETURNS and OP_RETURN of the transaction spent (`vintx`) <!-- I've never heard of a vintx? --> which binds the transaction to the contract instance data, so the txids should be equal to the initial txid. <!-- I don't understand this well enough to edit. -->
+- The inital funding transaction 
+  - Validate that the `1of2` address accurately matches `pubkeys` in the opreturn
+- The claiming transaction 
+  - Validate that this transaction spends transactions from the same funding plan. This funding transaction id's values from the opreturn outputs of the previous transactions should match. (the previous transactions are often refered as `vintx` in code) 
 - Validate whether the heir is allowed to spend the funds
   - Check whether the flag indicates that the Heir is already spending the funds
   - Check whether enough time has passed since the last time the owner was active on the chain
@@ -1393,11 +1362,7 @@ The following are the aspects of validation the Heir module requires.
     - Therefore, when validating, for each utxo contained in the `1of2` address, calculate whether or not the utxo's vins contain the owner's pubkey
 - During the course of validation, we fully check opreturn format
 
-To activate the `HeirValidate()` function for the Heir module `EVAL` code <!-- Are we talking about what is happening in the daemon here? -->
-
-<!-- Do we not see in the tutorial what is happening in the below sentence? Can we, if not? Not fully clear. I need to re-read first, probably. -->
-
-(?), we followed JL's 'Mastering Cryptocondition' book instructions while we added a new cc contract to the system's code. (?)
+This validation logic is performed in the `HeirValidate()` function. The function is invoked whenever a CC transaction bearing the appropriate eval code occurs on the chain. When this eval code appears, the consensus mechansim calls the `HeirValidate()` function, executes the indicated validation code, and adds the transaction to the chain.
 
 #### HeirValidate() Implementation
 
@@ -1417,15 +1382,7 @@ bool HeirValidate(struct CCcontract_info* cpHeir, Eval* eval, const CTransaction
 {
 ```
 
-<!-- I don't understand the sentence below well enough to edit yet. 
-
-Original Content:
-
-Common validation rules for all funcid. (?)
-
--->
-
-Check the basic transaction structure -- does it have the opreturn, with the correct basic `evalcode` and `funcid`
+Check that the basic transaction structure has the opreturn with the correct basic `evalcode` and `funcid`.
 
 ::: tip
 
@@ -1435,7 +1392,7 @@ There is no need to check the function ids of the (`F`) funding transaction or t
 
 ```cpp
     std::vector <uint8_t> vopret;
-    if( tx.vout.size() < 1 || !GetOpReturnData(tx.vout.back().scriptPubKey, vopret) || vopret.size() < 2 || vopret.begin()[0] != EVAL_HEIR || 
+    if( tx.vout.size() < 1 || !GetOpReturnData(tx.vout.back().scriptPubKey, vopret) || vopret.size() < 2 || vopret.begin()[0] != EVAL_HEIR ||
         vopret.begin()[1] != 'C')
 
         // interrupt the validation and return invalid state:
@@ -1443,9 +1400,7 @@ There is no need to check the function ids of the (`F`) funding transaction or t
         return eval->Invalid("incorrect or no opreturn data");  // note that you should not return simply 'false'
 ```
 
-<!-- Need help to parse the sentence below. -->
-
-Decode the transaction's opreturn. The `fundingtxid` is the txid of the initial transaction of this instance of the Heir module.
+Decode the transaction's opreturn with the `E_UNMARSHAL` function. This function places the opreturn serialized data into several variables. One of them, the `fundingtxid` variable, is the transaction id (txid) of the initial funding transaction. We will use it further to find the latest owner transaction to check when the owner was last active on the chain.
 
 ```cpp
     uint8_t evalcode, funcId;
@@ -1456,14 +1411,14 @@ Decode the transaction's opreturn. The `fundingtxid` is the txid of the initial 
         return eval->Invalid("incorrect opreturn data");
 ```
 
-Check that the `fundingtxid` is correctly parsed:
+Check that the `fundingtxid` is a valid txid:
 
 ```cpp
     if( fundingtxid.IsNull() )
         return eval->Invalid("incorrect funding plan id in tx opret");
 ```
 
-Here we come to a good place to load the initial transaction, check whether it exists, and whether it has a correctly formed opreturn. 
+Here we come to a good place to load the initial transaction, check whether it exists, and whether it has a correctly formed opreturn.
 
 Call the `FindLatestOwnerTx()` function. This function obtains the opreturn parameters and the `hasHeirSpendingBegun` flag, and checks the initial transaction.
 
@@ -1505,9 +1460,9 @@ Validation for the claiming transaction.
   - For example, check the inactivity time of the owner and whether the heir has already spent funds from the `1of2` address
 - Check whether the new flag, `hasHeirSpendingBegun`, is set correctly
 
-Both of the following support functions, `CheckSpentTxns` and `CheckInactivityTime`, are in the (? link ?) `heir.cpp` source file.
+Both of the following support functions, `CheckSpentTxns` and `CheckInactivityTime`, are in the `heir.cpp` source file.
 
-<!-- Let's at least link to these in a permanently location that is held within the docs center. Likely, we should have permanent downloadable files for this tutorial, so that we don't have to try to keep it in sync with any other development. -->
+[Link to heir.cpp source file](https://github.com/dimxy/komodo/blob/heir-simple/src/cc/heir.cpp]
 
 ```cpp
     case 'C':
@@ -1530,15 +1485,15 @@ For unsupported function ids, return an invalid state.
 If all rules pass, return a valid state.
 
 ```cpp
-    return eval->Valid();   
+    return eval->Valid();
 }
 ```
 
-#### Validation Code Errors 
+#### Validation Code Errors
 
 During the development of validation code, you will likely receive validation errors when any CC module validation function returns an invalid state.
 
-For example, when sending a raw transaction, the daemon checks the transaction while adding it to the mempool. 
+For example, when sending a raw transaction, the daemon checks the transaction while adding it to the mempool.
 
 During this process, if the CC validation code returns an invalid state you will see the following error:
 
@@ -1572,14 +1527,10 @@ The source files are found in the following directories.
 
 Instructions to build the Komodo binaries, including the necessary CC modules, can be found here:
 
-<!-- Does it actually have the CC library here? Review link, and move this to section for pre-requisite experience. -->
-
 [Link to Instructions for Building from Source]()
 
 
 #### Terminology
-
-<!-- Move to front and evelop the definitions more. Or, make links for these words that we can reference each time they appear --> 
 
 | Term | Definition |
 | ---- | ---------- |
@@ -1587,10 +1538,10 @@ Instructions to build the Komodo binaries, including the necessary CC modules, c
 | Antara module | A collection of customized code that a developer adds into the default daemon to add unique functionality, including customized consensus rules and more |
 | CC input | A transaction input, CC encoded. Typically spends value from a CC output |
 | CC output | A transaction output, CC encoded |
+| funding plan | The txid of an Antara Module's initial transaction, it is the identifier for all of the Antara module's CC transactions, related to this funding plan |
 | normal inputs | Inputs spending value from normal transaction outputs (not CC outputs) |
 | normal outputs | Not CC outputs, but normal transaction outputs (pubkey, pubkey hash, etc.) |
 | OP_RETURN, opreturn | A special output in a transaction that holds user and module data. The output is prepended by  an OP_RETURN script opcode and therefore spending from this output is impossible |
-| plan | An instance of an Antara module data. In other words, this is a collection of all CC transactions related to an initial CC transaction, that is itself one instance of an Antara module |
 | tx, txn | Short for "transaction" |
 | txid | Transaction id; a hash of a transaction |
 | unspendable address | The global cc contract address, for which its public and private key are commonly known. This address is used for conditionally sharing funds between contract users. As the address's private key is not a secret, by default anyone can spend value from this address. However, CC validation code often applies business logic conditions and checks to ensure that only transactions that meet the given criteria are actually able to spend funds in this address |
@@ -1599,13 +1550,11 @@ Instructions to build the Komodo binaries, including the necessary CC modules, c
 
 ## CC contract patterns
 
-<!-- Perhaps we should include the marker pattern here, and possibly move this earlier in the docs, or something? -->
-
 The following are useful patterns during Antara module development.
 
 #### Baton Pattern
 
-The baton pattern allows the developer to organize a single-linked list in a Smart Chain. 
+The baton pattern allows the developer to organize a single-linked list in a Smart Chain.
 
 To traverse a linked list using the baton method, start with the first transaction in any plan instance and iterate through the other transactions to collect properties in their opreturns.
 
@@ -1615,17 +1564,15 @@ The marker pattern is used to place a mark on all similar transactions. This is 
 
 You can also create either a normal marker or a CC marker for the purpose of finding transactions related to your module.
 
-When using normal markers, there is a small problem that is easily solved. The global CC address allows any user to spend its funds, and therefore anyone can spend your marker transaction. To overcome this, use the CC SDK function, `Settxids()`, to retrieve all transactions with markers in the CC (?) contract list function. (?)
+When using normal markers, there is a small problem that is easily solved. The global CC address allows any user to spend its funds, and therefore anyone can spend your marker transaction. To overcome this, use the CC SDK function, `Settxids()`, to retrieve all transactions with markers in the CC contract list function.
 
-Another method is to create an unspendable CC marker. In this method, send a small value to a CC output in a known address. To retrieve the list of CC-marker transactions, use the CC SDK function, `SetCCunspents()`. This returns a list of transactions with unspent outputs for the appointed address. <!-- The "appointed address" is the same as the "known address", correct? -->
+Another method is to create an unspendable CC marker. In this method, send a small value to a CC output with a well-known address. To retrieve the list of CC-marker transactions, use the CC SDK function, `SetCCunspents()`. This returns a list of transactions with unspent outputs for that known address.
 
-When using the unspendable CC marker method, in the validation code you should disable spending from this address. <!-- Not sure if I understood here. --> This prevents a scenario where spending from the address causes you to lose markers. (For example, if you were to allow for spending from this address using a burn transaction, the burn transactions would take the burned markers into a hidden state, thus removing the markers from the list of initial transactions.)
+When using the unspendable CC marker method, in the validation code you should disable spending from this address.  This prevents a scenario where spending from the address causes you to lose markers. (For example, if you were to allow for spending from this address using a burn transaction, the burn transactions would take the burned markers into a hidden state, thus removing the markers from the list of initial transactions.)
 
-In all cases, the CC module validation code should disable unauthorized attempts to spend any markers. 
+In all cases, the CC module validation code should disable unauthorized attempts to spend any markers.
 
 Concerning the method that relies on the CC marker, if the global CC address is used for storing not only the marker value, but also other funds, you need to ensure that marker values are not spent.
-
-##### Another heading?
 
 A code example for finding transactions marked with a normal marker:
 
@@ -1633,7 +1580,7 @@ A code example for finding transactions marked with a normal marker:
     std::vector<std::pair<CAddressIndexKey, CAmount> > addressIndex;
     struct CCcontract_info *cp, C;
     cp = CCinit(&C, <some eval code>);
-    SetCCtxids(addressIndex, cp->normaladdr, false);                      
+    SetCCtxids(addressIndex, cp->normaladdr, false);
     for (std::vector<std::pair<CAddressIndexKey, CAmount> >::const_iterator it = addressIndex.begin(); it != addressIndex.end(); it++) 	{
         CTransaction vintx;
         uint256 blockHash;
@@ -1657,7 +1604,7 @@ A code example for finding transactions marked with an unspendable CC marker:
     std::vector<std::pair<CAddressIndexKey, CAmount> > addressIndex;
     struct CCcontract_info *cp, C;
     cp = CCinit(&C, <some eval code>);
-    SetCCunspents(addressIndexCCMarker, cp->unspendableCCaddr, true);    
+    SetCCunspents(addressIndexCCMarker, cp->unspendableCCaddr, true);
     for (std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> >::const_iterator it = addressIndexCCMarker.begin(); it != addressIndexCCMarker.end(); it++) {
         CTransaction vintx;
         uint256 blockHash;
@@ -1675,55 +1622,57 @@ The <b>CCunspents()</b> function requires the Smart Chain [<b>addressindex</b>](
 
 #### Txidaddress Pattern
 
-You can use the txidaddress pattern to send value to an address from which the value should never again be spent. 
+You can use the txidaddress pattern to send value to an address from which the value should never again be spent.
 
-A function is available for creating an address that is not associated with any known private key.
+A function CCtxidaddr is available for creating an address that is not associated with any known private key. It creates a public key with no private key from a transaction id.
 
-<!-- What is it specifically? The `CTxOut` or the `MakeCC1of2vouct()` below? -->
+For example, the [<b>Payments</b>]() Antara Module uses `CCtxidaddr` to create a non-spendable txidpk from the `createtxid`. Furthermore, the module also uses the `GetCCaddress1of2` function to create a `1of2` address from both the Payments module global pubkey and txid-pubkey.
 
-For example, the [<b>Payments</b>]() Antara module uses <!-- this function? --> to create a spendable <!-- why spendable? Were we trying to create an unspendable address? --> address as follows.
+This allows the module to collect funds on a special CC address that is intended only for a particular type of creation transaction. Funds are sent to this address via the `MakeCC1of2vout` function. Only the Payments module global pubkey and txid-pubkey can successfully create transaction that can be sent to this special address.
 
-```cpp
-CTxOut MakeCC1of2vout(uint8_t evalcode,CAmount nValue,CPubKey pk1,CPubKey pk2, std::vector<std::vector<unsigned char>>* vData)
-```
+For this RPC, we also use the `vData` optional parameter to append the opreturn directly to the `ccvout` itself, rather than an actual opreturn as the last `vout` in a transaction. 
 
-For the RPC that manages merge functionality, <!-- I couldn't quite tell what this was about? --> we use the `vData` optional parameter to append the opreturn directly to the `ccvout` itself, rather than an actual opreturn as the last `vout` in a transaction. 
+<!-- 
+
+dimxy6 seems this looks very much like yet another pattern 
+
+sidd: would you like to rename it and/or add in a separate headline? Feel free to do so, if that would be best.
+-->
 
 ```cpp
 opret = EncodePaymentsMergeOpRet(createtxid);
+CPubKey txidpk = CCtxidaddr(txidaddr, createtxid);
 std::vector<std::vector<unsigned char>> vData = std::vector<std::vector<unsigned char>>();
 if ( makeCCopret(opret, vData) )
-    mtx.vout.push_back(MakeCC1of2vout(EVAL_PAYMENTS,inputsum-PAYMENTS_TXFEE,Paymentspk,txidpk,&vData));
-GetCCaddress1of2(cp,destaddr,Paymentspk,txidpk);
-CCaddr1of2set(cp,Paymentspk,txidpk,cp->CCpriv,destaddr);
-rawtx = FinalizeCCTx(0,cp,mtx,mypk,PAYMENTS_TXFEE,CScript());
+    mtx.vout.push_back(MakeCC1of2vout(EVAL_PAYMENTS, inputsum-PAYMENTS_TXFEE, Paymentspk, txidpk, &vData));
+GetCCaddress1of2(cp, destaddr, Paymentspk, txidpk);
+CCaddr1of2set(cp, Paymentspk, txidpk, cp->CCpriv, destaddr);
+rawtx = FinalizeCCTx(0, cp, mtx, mypk, PAYMENTS_TXFEE, CScript());
 ```
 
 Using a modification to the `IsPaymentsvout` function, we can now spend a `ccvout` in the Payments module back to its own address, without needing a `markervout` or an opreturn.
 
 ```cpp
-int64_t IsPaymentsvout(struct CCcontract_info *cp,const CTransaction& tx,int32_t v,char *cmpaddr, CScript &ccopret)
+int64_t IsPaymentsvout(struct CCcontract_info *cp, const CTransaction& tx, int32_t v, char *cmpaddr, CScript &ccopret)
 {
     char destaddr[64];
     if ( getCCopret(tx.vout[v].scriptPubKey, ccopret) )
     {
-        if ( Getscriptaddress(destaddr,tx.vout[v].scriptPubKey) > 0 && (cmpaddr[0] == 0 || strcmp(destaddr,cmpaddr) == 0) )
+        if ( Getscriptaddress(destaddr, tx.vout[v].scriptPubKey) > 0 && (cmpaddr[0] == 0 || strcmp(destaddr, cmpaddr) == 0) )
             return(tx.vout[v].nValue);
     }
     return(0);
 }
 ```
- 
-In place of the `IsPayToCryptoCondition()` function we can use the `getCCopret()` function. This latter function is a lower level of the former call, and will return any `vData` appended to the `ccvout` along with a `true`/`false` value that would otherwise be returned by the `IsPayToCryptoCondition()` function. 
 
-<!-- Did I get that right above? -->
+In place of the `IsPayToCryptoCondition()` function we can use the `getCCopret()` function. This latter function is a lower level of the former call, and will return any `vData` appended to the `ccvout` along with a `true`/`false` value that would otherwise be returned by the `IsPayToCryptoCondition()` function.
 
-In validation, we now have a totally diffrent transaction type <!-- I don't understand where this new type came from? --> than the types that are normally available. This new type allows us to have different validation paths for different `ccvouts`, and it allows for multiple `ccvouts` of different types per transaction.
+In validation, we now have a totally different transaction type than the types that are normally available. This new type allows us to have different validation paths for different `ccvouts`, and it allows for multiple `ccvouts` of different types per transaction.
 
 ```cpp
 if ( tx.vout.size() == 1 )
 {
-    if ( IsPaymentsvout(cp,tx,0,coinaddr,ccopret) != 0 && ccopret.size() > 2 && DecodePaymentsMergeOpRet(ccopret,createtxid) )
+    if ( IsPaymentsvout(cp, tx, 0, coinaddr, ccopret) != 0 && ccopret.size() > 2 && DecodePaymentsMergeOpRet(ccopret, createtxid) )
     {
         fIsMerge = true;
     } else return(eval->Invalid("not enough vouts"));
@@ -1731,8 +1680,6 @@ if ( tx.vout.size() == 1 )
 ```
 
 ## Various Tips and Tricks in Antara Module Development
-
-<!-- These might belong in a separate document? -->
 
 #### Test Chain Mining Issue
 
@@ -1742,11 +1689,9 @@ On a test chain consisting of two nodes, we do not recommend that you set both n
 
 Keep the number of `AddNormalInputs()` function calls to one for each block of code that creates a transaction.
 
-As an example of why we should not exceed more than one call, we can look at the `FillSell()` function. This function calls `AddNormalInputs()` two times at once. The first time the `AddNormalInputs()` function must add a txfee and the second time it adds coins to pay for tokens. 
+As an example of why we should not exceed more than one call, we can look at the `FillSell()` function. This function calls `AddNormalInputs()` two times at once. The first time the `AddNormalInputs()` function must add a txfee and the second time it adds coins to pay for tokens.
 
 Let us suppose we have only two utxos in our wallet, one for `9,000,000` satoshis and another for `10,000` satoshis. In this case, when we execute the `FillSell()` function our large uxto is added during the first call and then we receive an error in the second call, `filltx not enough utxos`.
-
-<!-- I didn't understand this next part well enough to finish it. -->
 
 Instead, we recommend that the developer place only one I think it is always better to combine these calls into a single call.
 
@@ -1754,9 +1699,7 @@ Instead, we recommend that the developer place only one I think it is always bet
 
 Sometimes, a developer may find after developing a new CC module that a node cannot sync with other nodes in their test network. Executing the [<b>getpeerinfo</b>](../basic-docs/smart-chains/smart-chain-api/network.html#getpeerinfo) shows fewer synced blocks than synced heads. The developer may also see errors in the console log on the malfunctioning node.
 
-<!-- Does the above mean that only one node is updated with the new CC module, or in this situation are we assuming that all nodes on the network are operating on the same version of the daemon? -->
-
-When this happens, the cause is most commonly rooted in the CC module's validation code. For example, the developer may have changed validation rules, and in so doing may have rendered old transactions invalid in the node's state. 
+When this happens, the cause is most commonly rooted in the CC module's validation code. For example, the developer may have changed validation rules, and in so doing may have rendered old transactions invalid in the node's state.
 
 A quick remedy in this situation is to [manually delete the blockchain data on the malfunctioning node and resync the network.](../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) Old transactions should pass validation, assuming the new validation code takes their situation into account.
 
@@ -1773,7 +1716,7 @@ You may also use the hidden `reconsiderblock` komodo-cli command to restart the 
 
 #### Deadlocks in Validation Code
 
-If komodod hangs while executing Antara module validation code, consider that some blockchain functions use locks. The combination of your validation code and the locks could be causing deadlocks in the consensus mechanism. If this is the case, use functions that are non-locking instead. 
+If komodod hangs while executing Antara module validation code, consider that some blockchain functions use locks. The combination of your validation code and the locks could be causing deadlocks in the consensus mechanism. If this is the case, use functions that are non-locking instead.
 
 For example, the `GetTransaction()` function is a locking function. Instead, use `myGetTransaction()` or `eval->GetConfirmed()`.
 
@@ -1786,3 +1729,4 @@ Sidd: Let's wait on putting this in here until the tutorial is done.
 In the next part of this tutorial, we will extend the functionality of our Heir module to also work with tokens.
 
 -->
+

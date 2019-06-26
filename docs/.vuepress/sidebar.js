@@ -243,11 +243,11 @@ var sidebar = [
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/antara-overview.md", 
-                            "Antara Overview"
+                            "Overview of Antara Modules - Part I"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/antara-conceptual-overview.md", 
-                            "Antara Conceptual Overview"
+                            "Overview of Antara Modules - Part II"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/musig-module-tutorial.md", 
@@ -257,10 +257,10 @@ var sidebar = [
                             "/basic-docs/antara/antara-tutorials/heir-module-tutorial.md", 
                             "Heir Module Tutorial" 
                         ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/create-an-oracles-plan-tutorial.md", 
-                            "Create anOracles Plan Tutorial" 
-                        ],
+                        // [
+                            // "/basic-docs/antara/antara-tutorials/create-an-oracles-plan-tutorial.md", 
+                            // "Create an Oracles Plan Tutorial" 
+                        // ],
                         [
                             "/basic-docs/antara/antara-tutorials/rogue-module-tutorial.md", 
                             "Rogue Module Tutorial" 
@@ -272,6 +272,22 @@ var sidebar = [
                         [
                             "/basic-docs/antara/antara-tutorials/an-advanced-approach-to-komodos-antara-framework.md", 
                             "An Advanced Approach to Komodo's Antara Framework" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-1.md",
+                            "Komodo Developer Path | Part I"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-2.md",
+                            "Komodo Developer Path | Part II"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-3.md",
+                            "Komodo Developer Path | Part III"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-4.md",
+                            "Komodo Developer Path | Part IV"
                         ],
                 ],
             },
@@ -404,5 +420,4 @@ var sidebar = [
         ],
     },
 ]
-
 module.exports = sidebar;
