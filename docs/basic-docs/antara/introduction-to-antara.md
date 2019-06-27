@@ -37,4 +37,4 @@ For a walkthrough covering multiple tutorials in a targeted fashion, please see 
 
 The Antara API section contains all available API commands for all default Antara modules.
 
-These API commands can also be called Remote Procedure Calls, or RPCs. However, we do not use this term in the technical documentation for readability purposes.
+These API commands can also be called Remote Procedure Calls, or RPCs. 

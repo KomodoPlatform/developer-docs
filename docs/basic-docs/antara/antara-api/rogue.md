@@ -255,7 +255,7 @@ After a game concludes the complete list of keystrokes can be found in the `~/ko
 | Name       | Type     | Description                                                                                                      |
 | ---------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
 | gametxid   | (string) | the `gametxid` transaction id that identifies the game for which the user would like to bail out their character |
-| keystrokes | (string) | the desired keystrokes, provided in ASCII format and contactenated into a single string                          |
+| keystrokes | (string) | the desired keystrokes, provided in ASCII format and concatenated into a single string                          |
 
 #### Response
 

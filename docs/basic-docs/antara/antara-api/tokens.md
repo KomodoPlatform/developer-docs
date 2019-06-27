@@ -136,7 +136,7 @@ The `tokenbalance` method checks the token balance according to a provided `pubk
 
 | Name      | Type     | Description                                                                                             |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command executed succesfully                                                                |
+| result    | (string) | whether the command executed successfully                                                                |
 | CCaddress | (string) | taking the token module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user |
 | tokenid   | (string) | the txid that identifies the token                                                                      |
 | balance   | (number) | the balance of the address that corresponds to the pubkey                                               |

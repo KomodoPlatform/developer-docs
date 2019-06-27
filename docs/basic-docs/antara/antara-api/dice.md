@@ -214,7 +214,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | ----------- | -------- | ----------------------------------------------------------------------- |
 | name        | (string) | the name of the dice contract for which the user desires to place a bet |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract       |
-| amount      | (number) | the amount the user dires to place as a bet                             |
+| amount      | (number) | the amount the user desires to place as a bet                             |
 | odds        | (number) | specify the user's odds                                                 |
 
 ### Response
