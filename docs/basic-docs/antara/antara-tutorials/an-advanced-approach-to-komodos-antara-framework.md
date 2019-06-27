@@ -38,7 +38,7 @@ The Antara framework takes into account several different advanced technologies.
 
 #### CryptoConditions in Brief
 
-CryptoConditions is a technology that allows for arbitrary logical conditions and fulfillments to be evaluated as a part of consensus. This allows for a Smart Chain's consensus mechanism to evaluate the results of arbitrary code and update state in the blockchain's data in a decentralized and secure fashion.
+CryptoConditions is a technology that allows for arbitrary logical conditions and fulfillment to be evaluated as a part of consensus. This allows for a Smart Chain's consensus mechanism to evaluate the results of arbitrary code and update state in the blockchain's data in a decentralized and secure fashion.
 
 CryptoConditions technology is not a new concept. The [Interledger](https://interledger.org/) team originally proposed this technology in 2016. 
 
@@ -48,7 +48,7 @@ Komodo, on the other hand, found the CryptoConditions concept to be intriguing. 
 
 Our implementation uses many of the key ideas put forth by the Interledger team, and at the same time we depart in several significant ways. Those who are curious for specific details on this topic can explore the open-source code in the respective repositories. 
 
-The important takeaway is that the Antara framework encompasses several underlying technologies, one of which is CryptoConditions (CC). This technology allows a developer to add arbitrary logical conditions and fulfillments to their Smart Chain, and to rely on the consensus mechanism to ensure state integrity in a decentralized environment.
+The important takeaway is that the Antara framework encompasses several underlying technologies, one of which is CryptoConditions (CC). This technology allows a developer to add arbitrary logical conditions and fulfillment to their Smart Chain, and to rely on the consensus mechanism to ensure state integrity in a decentralized environment.
 
 #### CryptoConditions Depends Upon Transactions and Booleans
 
@@ -56,7 +56,7 @@ At the most fundamental level, blockchain data is advanced only through transact
 
 Therefore, all decentralized data that a developer wishes to create or use with their arbitrary code must first be added to a transaction. This transaction is then passed through the consensus mechanism. Transactions that are successfully confirmed are finally added to the blockchain, and therefore the data is also added.
 
-To take advantage of this functionality, a developer adds customized source code to the Antara framework to form a new module. Whenever a relevant transaction occurs on the blockchain, the consensus mechansim calls the developer's module,  validates the logical conditions and fulfillments as put forth by the arbitrary code, and either confirms or denies the transaction.
+To take advantage of this functionality, a developer adds customized source code to the Antara framework to form a new module. Whenever a relevant transaction occurs on the blockchain, the consensus mechanism calls the developer's module, validates the logical conditions and fulfillment as put forth by the arbitrary code, and either confirms or denies the transaction.
 
 To simplify this process, Antara requires that the developer build their module such that each CryptoConditions (CC) transaction returns a boolean value as a part of the final results. If the returned boolean value is `true`, the transaction is approved.
 
@@ -84,7 +84,7 @@ The following file, `customcc.cpp`, is a blank template a developer can use when
 
 [<b>Link to customcc.cpp file</b>](https://github.com/jl777/komodo/blob/dev/src/cc/customcc.cpp)
 
-The key takeaway is that the entrypoints to Antara's CryptoConditions technology are broken down into a few functions and tables. Once the developer grasps the nature of working with these entrypoints, building Antara modules becomes a simple exercise in the common aspects of software development. 
+The key takeaway is that the entrypoints to Antara's CryptoConditions technology are broken down into a few functions and tables. Once the developer grasps the nature of working with these entry points, building Antara modules becomes a simple exercise in the common aspects of software development. 
 
 Komodo already offers many SDK functions, tutorials, and best practices to simplify the learning curve and development process, and we continue to develop more of these sources of assistance.  
 

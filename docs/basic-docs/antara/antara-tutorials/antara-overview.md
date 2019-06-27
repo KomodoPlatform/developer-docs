@@ -38,7 +38,7 @@ In the essay, Turing describes a hypothetical machine that, when granted a few b
 
 Turing called this device a “universal machine” but it is now better known as a “Turing machine.”
 
-Turing machines are generally described in this way: Imagine a simple device that can read and write numbers. This device also has the ability to store data. (Turing assumes that the device has an infinitely large storage capacity, but this isn’t essential to understanding the concept of Turing completeness.)
+Turing machines are generally described in this way: Imagine a simple device that can read and write numbers. This device also has the ability to store data. (Turing assumes that the device has an infinitely large storage capacity, but this is not essential to understanding the concept of Turing completeness.)
 
 Now, imagine that this simple machine moves from left to right along a thin, infinitely long piece of tape. It reads a number, decides what to do based on a series of instructions to which it is bound, and then executes the instructions accordingly.
 

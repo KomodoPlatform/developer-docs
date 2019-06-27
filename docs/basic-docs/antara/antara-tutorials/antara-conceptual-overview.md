@@ -82,11 +82,11 @@ Komodo, on the other hand, found the CryptoConditions concept to be intriguing. 
 
 Our implementation uses many of the key ideas put forth by the Interledger team, and at the same time we depart in several significant ways. Those who are curious for specific details on this topic can explore the open-source code in the respective repositories.
 
-The important takeaway is that Antara Modules rely on a core technology called, CryptoConditions (CC). This technology allows a developer to add arbitrary logical conditions and fulfillments to their Smart Chain, and to rely on the consensus mechanism to ensure state integrity in a decentralized environment.
+The important takeaway is that Antara Modules rely on a core technology called, CryptoConditions (CC). This technology allows a developer to add arbitrary logical conditions and fulfillment to their Smart Chain, and to rely on the consensus mechanism to ensure state integrity in a decentralized environment.
 
 ## Creativity at the Consensus Level, Without Losing the Consensus Mechanism
 
-Antara Modules and CryptoConditions together allow a developer to add arbitrary code at the consensus level, and within the core software's daemon, without interferring with the existing consensus mechanism (CM). This grants the developer the ability to add core-level features and innovations without waiting for the approval of other members of the Komodo ecosystem. Combined with Komodo's Bitcoin-hash rate security, the simplicity of Antara Modules provides the developer with a competitive level of creative freedom.
+Antara Modules and CryptoConditions together allow a developer to add arbitrary code at the consensus level, and within the core software's daemon, without interfering with the existing consensus mechanism (CM). This grants the developer the ability to add core-level features and innovations without waiting for the approval of other members of the Komodo ecosystem. Combined with Komodo's Bitcoin-hash rate security, the simplicity of Antara Modules provides the developer with a competitive level of creative freedom.
 
 The entry point between Antara Modules and the CM is a new Bitcoin-script [operation code](https://bitcoin.org/en/glossary/op-code), "OP_CHECKCRYPTOCONDITIONS", or OP_CCC for short. When executed, OP_CCC is able to initiate additional arbitrary code that is written in any programming language, assuming the language can call and execute C/C++ code in return. The arbitrary code is separate from the CM, thus maintaining the CM's reliability. When the arbitrary code completes, OP_CCC returns a `true` or `false` statement to the daemon. If the returned OP_CCC value is `true`, the daemon performs a transaction.
 
@@ -98,7 +98,7 @@ In addition, once the data is notarized, it can also be called by other Komodo-b
 
 Also of note is the simplicity of the Antara Module architecture. All new code created for an individual Antara Module is contained in an optional library. Modules from the library are included in compilation only on participating blockchains. In this manner, developers who desire a module's functionality can include the necessary libraries, and those who do not require the module can avoid this excess baggage.
 
-The Komodo daemon has no need of an external VM. This eliminates what would otherwises be a cumbersome requirement for the developer and the core engineers. At the same time, the daemon offers all the capabilities of a VM-based blockchain — ⁠and arguably more.
+The Komodo daemon has no need of an external VM. This eliminates what would otherwise be a cumbersome requirement for the developer and the core engineers. At the same time, the daemon offers all the capabilities of a VM-based blockchain — ⁠and arguably more.
 
 ## Antara Modules In Action: Accomplishing Years' Worth of Work In But A Weekend
 

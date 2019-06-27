@@ -322,7 +322,7 @@ In all modules, some of the hex-encoded data can be decoded using the [<b>decode
 }
 ```
 
-When an Antara module instance begins its lifecycle an initial transaction is created. In our example, the transaction we see above is an initial transaction of a full, non-simplified Heir module.
+When an Antara module instance begins its life cycle an initial transaction is created. In our example, the transaction we see above is an initial transaction of a full, non-simplified Heir module.
 
 Note that the transaction takes value from normal inputs and sends it to CC outputs, as indicated in the `type` key-value pair.
 
@@ -742,12 +742,12 @@ To add a new command to `komodo-cli` we open the `src/server.cpp` source file ad
 
 | Object | Description |
 | ------ | ----------- |
-| heir | a common name for all heir contract rpc calls |
+| heir | a common name for all heir contract RPC calls |
 | heirfund | the name of the new command |
-| &heirfund | the address of the rpc interface function |
+| &heirfund | the address of the RPC interface function |
 | true | indicates that the command description will be shown in the help command output; placing `false` here would hide this RPC from the help menu |
 
-#### Add the RPC Function ~~Definition~~Declaraion
+#### Add the RPC Function Declaration
 
 We add the RPC function declaration in the `rpc/server.h` source file.
 
@@ -763,7 +763,7 @@ There are two levels to an RPC implementation.
 
 The first level is a short RPC function that has the same name as the RPC command itself (such as `heirfund`).
 
-The body of this level is added to a source file in the `rpc/` subdirectory in the source code (for this example, we added the rpc functions for Heir module in the wallet/rpcwallet.cpp).
+The body of this level is added to a source file in the `rpc/` subdirectory in the source code (for this example, we added the RPC functions for Heir module in the wallet/rpcwallet.cpp).
 
 Creating a new RPC source file for each Antara module's RPC functions is considered a best practice.
 
@@ -774,7 +774,7 @@ To begin the RPC command, we declare the `heirfund` function and clear the globa
 ```cpp
 // heirfund command rpc-level implementation, src/wallet/rpcwallet.cpp
 UniValue heirfund(const UniValue& params, bool fHelp)
-{
+
     CCerror.clear(); // clear global error object
 ```
 
@@ -887,7 +887,7 @@ The parameters passed to the `AddNormalinputs()` function are:
 - The total value for the funding amount
 - he marker and the miner fees
 - The limit on the quantity of utxos the daemon can take from the wallet of the user
-  - Natuarlly, only utxos that are available via the wallet's private keys can be used for these inputs
+  - Naturally, only utxos that are available via the wallet's private keys can be used for these inputs
 
 #### Adding Outputs to the Transaction
 
@@ -965,7 +965,7 @@ Add a new command to `komodo-cli` by adding a new element into the `vRPCCommands
 
 Using the previous section of the tutorial as an example, add an `heirclaim` RPC implementation in the `src/rpc/wallet.cpp` source file.
 
-Add the `heirclaim` declaration in the the `src/rpc/server.h` header file.
+Add the `heirclaim` declaration in the `src/rpc/server.h` header file.
 
 ```cpp
 // heirclaim command rpc-level implementation, src/wallet/rpcwallet.cpp
@@ -1003,7 +1003,7 @@ Convert the parameters from `UniValue` to `c++` type:
     CAmount amount = atof(params[1].get_str().c_str()) * COIN;  // Note conversion from satoshis to coins by multiplication by 10E8
 ```
 
-Call the `HeirClaim` transaction creation function and return the created transaction in hexademical.
+Call the `HeirClaim` transaction creation function and return the created transaction in hexadecimal.
 
 ```cpp
     UniValue result = HeirClaim(fundingtxid, amount);
@@ -1011,7 +1011,8 @@ Call the `HeirClaim` transaction creation function and return the created transa
     return result;
 }
 ```
-#### Transaction creation code for heirclaom rpc
+#### Transaction creation code for heirclaom RPC
+
 Implement the `HeirClaim` transaction creation code in the `src/cc/heir.cpp` source file.
 
 ```cpp
@@ -1033,7 +1034,7 @@ Initialize the `cp` object:
     cp = CCinit(&C, EVAL_HEIR);
 ```
 
-Find the most recent owner transaction to calculate the owner's inactivity time. The helper function, `FindLatestOwnerTx()`, returns the lastest transaction id, the `owner` and `heir` public keys, `inactivity time setting` value, and the `hasHeirSpendingBegun` flag value.
+Find the most recent owner transaction to calculate the owner's inactivity time. The helper function, `FindLatestOwnerTx()`, returns the latest transaction id, the `owner` and `heir` public keys, `inactivity time setting` value, and the `hasHeirSpendingBegun` flag value.
 
 ```cpp
     const int64_t txfee = 10000;
@@ -1202,7 +1203,7 @@ To calculate the owner-inactivity time and to enable the heir to claim the funds
 
 This function iterates through the transactions of this plan, (which we can also call this instance of the Heir module) and finds the owner's latest transaction. We pass into this function the initial funding txid of the plan we desire to inspect.
 
-The function returns the pukeys of both the owner and the heir, the owner inactivity time, and a flag that indicates whether the heir has already spent funds from the `1of2` address.
+The function returns the pubkeys of both the owner and the heir, the owner inactivity time, and a flag that indicates whether the heir has already spent funds from the `1of2` address.
 
 All returned values of the function are retrieved from the transactions' opreturns.
 
@@ -1231,7 +1232,7 @@ Initialize the following variables.
     std::string name;
 ```
 
-Load the initial funding transaction, check whether it has a correct opreturn, and deserialize it.
+Load the initial funding transaction, check whether it has a correct opreturn, and de-serialize it.
 
 Check the transaction rules. Return an empty id if the funding transaction cannot not be loaded or is incorrect.
 
@@ -1306,7 +1307,7 @@ Check whether this transaction indicates owner activity. Use a pair of CC SDK fu
                 if (TotalPubkeyNormalInputs(vintx, ownerPubkey) > 0 || TotalPubkeyCCInputs(vintx, ownerPubkey) > 0) {
 ```
 
-If this transaction represents owner activity, reset the lastest txid to this current txid.
+If this transaction represents owner activity, reset the latest txid to this current txid.
 
 Set the flag for the transaction opreturn.
 
@@ -1331,7 +1332,7 @@ Return the latest owner txid.
 
 Validation provides the logic control of spent Antara-module value, and validation also provides the data added to the Smart Chain.
 
-Recall that validation code is invoked for a transaction at the time the CC-related value is spent (as opposed to only being invoked at the time the value is added). We trigger the invokation of this validation function when at least one transaction input is a CC input bearing this module's `EVAL` code.
+Recall that validation code is invoked for a transaction at the time the CC-related value is spent (as opposed to only being invoked at the time the value is added). We trigger the invocation of this validation function when at least one transaction input is a CC input bearing this module's `EVAL` code.
 
 Validation code typically is not called for the CC module's initial transaction. Instead, we invoke validatation at the time the initial transaction is spent in a second transaction.
 
@@ -1356,10 +1357,10 @@ Here are several common aspects of a module that require validation:
 
 The following are the aspects of validation the Heir module requires.
 
-- The inital funding transaction 
+- The initial funding transaction 
   - Validate that the `1of2` address accurately matches `pubkeys` in the opreturn
 - The claiming transaction 
-  - Validate that this transaction spends transactions from the same funding plan. This funding transaction id's values from the opreturn outputs of the previous transactions should match. (the previous transactions are often refered as `vintx` in code) 
+  - Validate that this transaction spends transactions from the same funding plan. This funding transaction id's values from the opreturn outputs of the previous transactions should match. (the previous transactions are often referred as `vintx` in code) 
 - Validate whether the heir is allowed to spend the funds
   - Check whether the flag indicates that the Heir is already spending the funds
   - Check whether enough time has passed since the last time the owner was active on the chain
@@ -1368,7 +1369,7 @@ The following are the aspects of validation the Heir module requires.
     - Therefore, when validating, for each utxo contained in the `1of2` address, calculate whether or not the utxo's vins contain the owner's pubkey
 - During the course of validation, we fully check opreturn format
 
-This validation logic is performed in the `HeirValidate()` function. The function is invoked whenever a CC transaction bearing the appropriate eval code occurs on the chain. When this eval code appears, the consensus mechansim calls the `HeirValidate()` function, executes the indicated validation code, and adds the transaction to the chain.
+This validation logic is performed in the `HeirValidate()` function. The function is invoked whenever a CC transaction bearing the appropriate eval code occurs on the chain. When this eval code appears, the consensus mechanism calls the `HeirValidate()` function, executes the indicated validation code, and adds the transaction to the chain.
 
 #### HeirValidate() Implementation
 

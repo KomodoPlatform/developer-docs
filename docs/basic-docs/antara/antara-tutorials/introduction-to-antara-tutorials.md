@@ -6,7 +6,7 @@ This section contains tutorials that are specifically designed for the aspects o
 
 The Antara framework encompasses many of the enhancements and innovations that Komodo adds to upstream technologies. Aspects of Antara include the Antara Customizations for a Smart Chain and Antara Modules, which allow for advanced blockchain functionality.
 
-For tutorials regarding other Komodo softwares, such as <b>AtomicDEX</b>, which offers cross-chain atomic-swap compatibility, please see the respective documentation centers.
+For tutorials regarding other Komodo software, such as <b>AtomicDEX</b>, which offers cross-chain atomic-swap compatibility, please see the respective documentation centers.
 
 For a targeted learning approach to Komodo's Smart Chain software, please see the Learning Launchpad.
 

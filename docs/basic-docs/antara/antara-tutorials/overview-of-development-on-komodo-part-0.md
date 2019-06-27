@@ -28,7 +28,7 @@ The following is a brief summary of the docker tutorial stages.
 The options from the main menu of the docker image are the following.
 
 - TUTORIALS
-  - Go through the tutorials, including starting a blockchain, run a faucet, create a token dex, use a musig schnorr signature
+  - Go through the tutorials, including starting a blockchain, run a faucet, create a token dex, use a MuSig Schnorr Signature
 - RICK
   - dPoW community testnet blockchain
 - MORTY
