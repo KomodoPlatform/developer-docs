@@ -39,8 +39,6 @@ For developers, the unique combination of Smart Chain technology and Antara simp
 
 ### The Architecture of Antara-Powered Smart Chains
 
-<!-- The image below still uses Fluidity -->
-
 <div style="clear: both; width: 70%; margin-top: 1rem; margin-left: auto; margin-right: auto; margin-bottom: 4rem; display: block;">
 
 <img style="padding: 0.2rem; border: 0.05rem solid;" src="/start-here-pics/Komodo-layers-5.png">
