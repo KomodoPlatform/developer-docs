@@ -1,15 +1,3 @@
-# Common Runtime Parameters
-
-## Introduction
-
-The following is an abbreviated list of runtime parameters and settings that can be initiated in a [Smart Chain's .conf file.](../installations/common-runtime-parameters.html#accessing-the-coin-daemon-remotely)
-
-These commands largely derive from the upstream Bitcoin software, `bitcoind`. 
-
-Komodo is a fork of Zcash, and Zcash is a privacy-centric fork of Bitcoin. Therefore, essentially all runtime parameters and API commands available in both Bitcoin and Zcash are available in Komodo.
-
-To see additional Bitcoin-based runtime parameters not included here, please visit [the relevant Bitcoin wiki page](https://en.bitcoin.it/wiki/Running_Bitcoin).
-
 ## addnode
 
 `addnode` tells the daemon which nodes are trusted to act as seed nodes. After connecting to a node via `addnode`, the trusted node will send your node the list of all nodes that it is connected to, and your node will then connect to these additional nodes until [the max limit](../installations/common-runtime-parameters.html#maxconnections) is reached.
