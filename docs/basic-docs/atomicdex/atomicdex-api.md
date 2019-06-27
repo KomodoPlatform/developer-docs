@@ -174,7 +174,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## electrum
 
-**electrum coin urls (mm2 tx_history=false)**
+**electrum coin servers (mm2 tx_history=false)**
 
 ::: warning Important
 
@@ -1656,6 +1656,14 @@ The `my_tx_history` method returns the blockchain transactions involving the MM2
 | skipped   | number           | the number of skipped records (i.e. the position of `from_id` in the list + 1); this value is 0 if `from_id` was not set |
 | limit     | number           | the limit that was set in the request; note that the actual number of transactions can differ from the specified limit (e.g. on the last page) |
 | total     | number           | the total number of transactions available |
+| current_block | number       | the number of the latest block of coin blockchain |
+| sync_status | object         | provides the information that helps to track the progress of transaction history preloading at background |
+| sync_status.state | string   | current state of sync; possible values: `NotEnabled`, `NotStarted`, `InProgress`, `Error`, `Finished` | 
+| sync_status.additional_info  | object   | additional info that helps to track the progress; present for `InProgress` and `Error` states only | 
+| sync_status.additional_info.blocks_left  | number   | present for ETH/ERC20 coins only; displays the number of blocks left to be processed for `InProgress` state | 
+| sync_status.additional_info.transactions_left  | number   | present for UTXO coins only; displays the number of transactions left to be processed for `InProgress` state | 
+| sync_status.additional_info.code  | number   | displays the error code for `Error` state | 
+| sync_status.additional_info.message  | number | displays the error message for `Error` state | 
 
 #### :pushpin: Examples
 
@@ -1718,9 +1726,62 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-    "error": {
-        "code": -1,
-        "message": "Got `history too large` error from Electrum server. History is not available"
+    "result": {
+        "current_block": 144753,
+        "from_id": null,
+        "limit": 0,
+        "skipped": 0,
+        "sync_status": {
+            "additional_info": {
+                "code": -1,
+                "message": "Got `history too large` error from Electrum server. History is not available"
+            },
+            "state": "Error"
+        },
+        "total": 0,
+        "transactions": []
+    }
+}
+```
+
+#### Response (Sync in progress for UTXO coins)
+
+```json
+{
+    "result": {
+        "current_block": 148300,
+        "from_id": null,
+        "limit": 0,
+        "skipped": 0,
+        "sync_status": {
+            "additional_info": {
+                "transactions_left": 1656
+            },
+            "state": "InProgress"
+        },
+        "total": 3956,
+        "transactions": []
+    }
+}
+```
+
+#### Response (Sync in progress for ETH/ERC20 coins)
+
+```json
+{
+    "result": {
+        "current_block": 8039935,
+        "from_id": null,
+        "limit": 0,
+        "skipped": 0,
+        "sync_status": {
+            "additional_info": {
+                "blocks_left": 2158991
+            },
+            "state": "InProgress"
+        },
+        "total": 0,
+        "transactions": []
     }
 }
 ```
