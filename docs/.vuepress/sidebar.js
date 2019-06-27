@@ -224,10 +224,6 @@ var sidebar = [
                 collapsible: true,
                 children: [
                     [
-                        "/basic-docs/antara/antara-setup/antara-instructions.md", 
-                        "Understanding Antara Addresses"
-                    ],
-                    [
                         "/basic-docs/antara/antara-setup/antara-customizations.md",
                         "Antara Customizations"
                     ],
@@ -240,6 +236,10 @@ var sidebar = [
                         [
                             "/basic-docs/antara/antara-tutorials/introduction-to-antara-tutorials.md", 
                             "Introduction to Antara Tutorials"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/understanding-antara-addresses.md", 
+                            "Understanding Antara Addresses"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/antara-overview.md", 
@@ -296,7 +296,7 @@ var sidebar = [
                 ],
             },
           {
-            title: "Antara API",
+            title: "Antara Modules",
             collapsible: true,
             children: [
               [

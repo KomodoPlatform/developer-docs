@@ -68,6 +68,16 @@ Response:
 
 </collapse-text>
 
+## mytokenorders
+
+**mytokenorders [evalcode]**
+
+The `mytokenorders` method displays the public on-chain orders created by the user's pubkey, which is set in `-pubkey` parameter of komodod.
+
+The additional `evalcode` parameter allows the display of orders for non-fungible tokens bound to this evalcode.
+
+The Response from this method is similar to the response from the `tokenorders` method.
+
 ## tokenask
 
 **tokenask numtokens tokenid price**
@@ -735,12 +745,4 @@ Show orders for specific token
 
 </collapse-text>
 
-## mytokenorders
 
-**mytokenorders [evalcode]**
-
-The `mytokenorders` method displays the public on-chain orders created by the user's pubkey, which is set in `-pubkey` parameter of komodod.
-
-The additional `evalcode` parameter allows the display of orders for non-fungible tokens bound to this evalcode.
-
-The Response from this method is similar to the response from the `tokenorders` method.
