@@ -72,7 +72,7 @@ To understand why a CEX may wish to implement decentralized technologies, one mu
 | ---- | ------- | -------- |
 | Decentralized Gateway | A decentralized network of gateway keepers hold user funds in escrow and issue IOUs for trading | InstantDEX, Bitshares, Binance DEX |
 | On-Chain Token Exchange | Tokens created on the parent blockchain are traded within the consensus rules; by adding gateway nodes, this can also extend to become a decentralized gateway | EtherDelta, 0x |
-| Non-Custodial Exchange | A centralized website arranges for a moderately secure, but non-decentralized trade between liqiduity providers and purchasers; there is no order book and the exchange's control over user funds is limited | ShapeShift, Changelly |
+| Non-Custodial Exchange | A centralized website arranges for a moderately secure, but non-decentralized trade between liquidity providers and purchasers; there is no order book and the exchange's control over user funds is limited | ShapeShift, Changelly |
 
 A decentralized gateway can be thought of as a cryptocurrency holding station that is owned and controlled by several different parties. The gateway performs two functions: it holds the assets that users send to it, and it issues IOUs.
 
@@ -114,7 +114,7 @@ However, the nature of an atomic swap is unique in comparison with the opposing 
 | ---------- | ----------- | --------------------- | -------------------- |
 | Third party is not required | Check: The entire exchange happens between two users; no third party is required | X-cross: The exchange relies on a decentralized network of gateway nodes, who must be trusted | X-cross: Users depend on a centralized company to maintain and secure their funds |
 | An exchange can be set up by anyone | Check: Requires only two users and an Internet connection | X-cross: Requires sufficient technical knowledge, funding, and committed business partners to serve as gateway nodes | Partial check: Requires sufficient technical knowledge, funding, and a higher level of business and legal knowledge | 
-| Users maintain control over the funds throughout the process | Check: Users maintain control over their funds until the trade is completed, at which point ownership is swapped atomically | X-cross: Users relenquish ownership to the gateway nodes, although users do hold private keys to IOUs | X-cross: Once the user sends funds to the CEX, they only own their funds in theory until the funds are returned |
+| Users maintain control over the funds throughout the process | Check: Users maintain control over their funds until the trade is completed, at which point ownership is swapped atomically | X-cross: Users relinquish ownership to the gateway nodes, although users do hold private keys to IOUs | X-cross: Once the user sends funds to the CEX, they only own their funds in theory until the funds are returned |
 | User funds remain distributed and decentralized throughout process | Check: As users maintain ownership over their funds at all times, all funds in the exchange process are never in a central location | X-cross: User funds are held in a collection of multi-signature addresses that are maintained by a small group of people | X-cross: User funds are held in a centralized database, managed by company employees |
 
 

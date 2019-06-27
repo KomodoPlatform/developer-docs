@@ -31,7 +31,7 @@ Secure your project with the power of the Bitcoin network via Komodo’s delayed
 
 - Approximately every half hour, a hash of the developers blockchain is notarized to Bitcoin
 - All transactions included in the hash are considered to have achieved finality
-- For the consensus mechanism, arbitarily choose between a mixture of Proof-of-Work and Proof-of-Stake
+- For the consensus mechanism, arbitrarily choose between a mixture of Proof-of-Work and Proof-of-Stake
 
 </div>
 

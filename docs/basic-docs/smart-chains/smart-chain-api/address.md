@@ -564,7 +564,7 @@ The method requires [addressindex](../installations/common-runtime-parameters.ht
 | "amount"          | (number)         | the amount of coins in the above address            |
 | "total"           | (numeric)        | the total amount in snapshot                        |
 | "average"         | (numeric)        | the average amount in each address                  |
-| "utxos"           | (number)         | the total number of UTXOs in snapshot               |
+| "utxos"           | (number)         | the total number of utxos in snapshot               |
 | "total_addresses" | (number)         | the total number of addresses in snapshot,          |
 | "start_height"    | (number)         | the block height snapshot began                     |
 | "ending_height"   | (number)         | the block height snapshot finished,                 |

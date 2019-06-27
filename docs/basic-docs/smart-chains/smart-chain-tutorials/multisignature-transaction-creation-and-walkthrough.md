@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Multisignature (multisig) is a technology used to increase the number of signatures required for a transaction from an address. This provides an adiditional layer of security to cryptocurrency transactions.
+Multisignature (multisig) is a technology used to increase the number of signatures required for a transaction from an address. This provides an additional layer of security to cryptocurrency transactions.
 
 In this guide we demonstrate the creation and usage of a `2of2` multisignature wallet. We use two nodes with the KMD main chain.
 
@@ -242,7 +242,7 @@ Sign the raw transaction using both nodes.
 
 Use the hex value from node one, but change the privkey to the privkey of node two's address.
 
-##### Comamnd
+##### Command
 
 ```shell
 ./komodo-cli signrawtransaction "0400008085202f89011ce899dd6d796f06eaae4c771e119a9fb71372c5d861d225ae74548c38ea4f19010000009200483045022100a5f4bdf5b61a4f4baf0b5b48f69488b8f752e36cbac23ec0c762bba99552ac9e022036e658c7c8c19ec4bd423fcc6a109a811b189311fc874dd466e58a1755ef4e940147522102dd22c272504af79b220ba37c12f777596eff4f54598e2db65be325a9393a3a2621032a73cd31fb86150c33f26312b665c21e5f9391829f29cf48aca03bbb4f9a281652aeffffffff014014502e000000001976a91497d5106d5f69619803eb8d72a2bf45a4f033338a88ac00000000a80000000000000000000000000000" '[{"txid":"194fea388c5474ae25d261d8c57213b79f9a111e774caeea066f796ddd99e81c","vout":1,"scriptPubKey":"a914121cbc7a828772bd4612bc7b9765cbbf13d0b3cc87","redeemScript":"522102dd22c272504af79b220ba37c12f777596eff4f54598e2db65be325a9393a3a2621032a73cd31fb86150c33f26312b665c21e5f9391829f29cf48aca03bbb4f9a281652ae","amount":7.77}]' '["UsuE7jG8BD1CV2xuCoBCwgzzbs4HqZ2P2im5fdyJmP2tSd3arAv7"]'

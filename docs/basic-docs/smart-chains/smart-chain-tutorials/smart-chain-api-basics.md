@@ -102,7 +102,7 @@ Placing the configuration data here follows the Komodo convention of placing all
 >>>>>>>>>> RT1: p2p.13100 rpc.13101 magic.fd772ab9 4252445369 1000 coins
 ``` 
 
-This information is the blockchain name, its network ports used for p2p (13100), and rpc control (13101).  The magic number is a number the Komodo daemon uses for network purposes, and the number of coins is informational.
+This information is the blockchain name, its network ports used for p2p (13100), and RPC control (13101).  The magic number is a number the Komodo daemon uses for network purposes, and the number of coins is informational.
 
 ##### Explanation of All Initial Daemon Output
 
@@ -112,10 +112,10 @@ Here is an explanation of all of the output, as it appears in the above response
 | ----- | ----------- |
 | [1] 22892 | the process number; the value is dependent on your machine and will be different | 
 | ASSETCHAINS_SUPPLY 1000 | the number of coins when the blockchain initiates for its first time |
-| MAX_MONEY 106320417438 1063.20417438 | this value is not important at this time; it states that 100 billion coins is the maxmium possible amount the blockchain can mathematically support |
+| MAX_MONEY 106320417438 1063.20417438 | this value is not important at this time; it states that 100 billion coins is the maximum possible amount the blockchain can mathematically support |
 | Created (/home/mylo/.komodo/RT1/RT1.conf) | the location of the configuration file |
 | call komodo_args.(./komodod) NOTARY_PUBKEY.() | this value specifies where the new coins from block rewards are sent; by default, the coins will be sent to your node's local wallet |
-| >>>>>>>>>> RT1: p2p.13100 rpc.13101 magic.fd772ab9 4252445369 1000 coins | the blockchain name, its network ports and rpc controls; the magic number is used in Komodo networking and the number of coins derives from the <b>ac_supply</b> parameter included at runtime |  
+| >>>>>>>>>> RT1: p2p.13100 rpc.13101 magic.fd772ab9 4252445369 1000 coins | the blockchain name, its network ports and RPC controls; the magic number is used in Komodo networking and the number of coins derives from the <b>ac_supply</b> parameter included at runtime |  
 | initialized RT1 at 1555581638 | the time in seconds, past epoch, when the blockchain was initialized | 
 | finished loading blocks RT1 | informational |
 | fAddressIndex.0/0 fSpentIndex.0/0 | informational and can be ignored for now |
@@ -195,7 +195,7 @@ Note the `blocks` count of zero `0` and the `balance` sum of `0`. While our regt
 
 ### Querying the Blockchain Using curl
 
-Alternatively, we can execute the [<b>getinfo</b>](../komodo-api/control.html#getinfo) method using the unix `curl` command. 
+Alternatively, we can execute the [<b>getinfo</b>](../komodo-api/control.html#getinfo) method using the Unix `curl` command. 
 
 ##### Sourcing the Configuration File
 
@@ -203,7 +203,7 @@ The `curl` command will also need information about which Smart Chain daemon the
 
 The user must provide the `myrpcuser`, `myrpcpassword`, and `myrpcport` values from the Smart Chain's configuration file.
 
-The configuration file is automatically generated on Smart Chain creation, and is formatted for use with the unix `source` command. 
+The configuration file is automatically generated on Smart Chain creation, and is formatted for use with the Unix `source` command. 
 
 To import all values into our terminal process environment, execute the following:
 

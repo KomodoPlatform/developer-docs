@@ -50,37 +50,37 @@ var sidebar = [
                     ],
                 ]
             },
-            {
-                title: "General Tutorials",
-                collapsible: true,
-                children:
-                [
-                    [
-                        "/basic-docs/start-here/general-tutorials/introduction-to-general-tutorials.md",
-                        "Introduction to General Tutorials"
-                    ],
+            // {
+                // title: "General Tutorials",
+                // collapsible: true,
+                // children:
+                // [
                     // [
-                        // "/basic-docs/start-here/general-tutorials/general-tutorial-1.md",
-                        // "General Tutorial 1"
+                        // "/basic-docs/start-here/general-tutorials/introduction-to-general-tutorials.md",
+                        // "Introduction to General Tutorials"
                     // ],
-                    // [
-                        // "/basic-docs/start-here/general-tutorials/general-tutorial-2.md",
-                        // "General Tutorial 2"
-                    // ],
-                    // [
-                        // "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-beginner.md",
-                        // "Comprehensive Tutorial | Type B Beginner"
-                    // ],
-                    // [
-                        // "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-intermediate.md",
-                        // "Comprehensive Tutorial | Type B Intermediate"
-                    // ],
-                    // [
-                        // "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-advanced.md",
-                        // "Comprehensive Tutorial | Type B Advanced"
-                    // ],
-                ]
-            },
+                    // // [
+                        // // "/basic-docs/start-here/general-tutorials/general-tutorial-1.md",
+                        // // "General Tutorial 1"
+                    // // ],
+                    // // [
+                        // // "/basic-docs/start-here/general-tutorials/general-tutorial-2.md",
+                        // // "General Tutorial 2"
+                    // // ],
+                    // // [
+                        // // "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-beginner.md",
+                        // // "Comprehensive Tutorial | Type B Beginner"
+                    // // ],
+                    // // [
+                        // // "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-intermediate.md",
+                        // // "Comprehensive Tutorial | Type B Intermediate"
+                    // // ],
+                    // // [
+                        // // "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-advanced.md",
+                        // // "Comprehensive Tutorial | Type B Advanced"
+                    // // ],
+                // ]
+            // },
         ]
     },
   {

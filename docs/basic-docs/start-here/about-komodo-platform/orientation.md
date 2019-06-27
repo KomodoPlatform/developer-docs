@@ -48,7 +48,7 @@ For this developer, any programming language that is capable of sending API requ
 
 A highly advanced developer may be interested to take advantage of the full potential of Komodo technology. 
 
-This developer can utilize Komodo's Antara Framework to add arbitrary code to the consensus mechansim of their autonomous Smart Chain.
+This developer can utilize Komodo's Antara Framework to add arbitrary code to the consensus mechanism of their autonomous Smart Chain.
 
 Although the Antara Framework can be compatible with essentially all mainstream programming languages, at this time we encourage developers to stay close to the C/C++ languages. 
 

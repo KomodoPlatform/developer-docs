@@ -9,7 +9,7 @@ Komodo's Smart Chain technology allows you to create secure and fully autonomous
 
 #### Smart Chains Rely on the Next Step in Blockchain Evolution: The Antara Framework
 
-The Antara framework allows you to customize your Smart Chain and add arbitrary code to the consensus mechansim.
+The Antara framework allows you to customize your Smart Chain and add arbitrary code to the consensus mechanism.
 
 This blockchain evolution allows innovators to better meet the demands of your customers.
 

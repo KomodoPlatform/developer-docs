@@ -18,7 +18,7 @@ Both of these software applications are installed in the `~/komodo/src/` directo
 
 There are two methods available to install Smart Chain software.
 
-##### Precompiled Binaries
+##### Pre-compiled Binaries
 
 You can download and unzip our pre-compiled binaries. This is the simplest method and requires no installation procedure.
 
@@ -223,7 +223,7 @@ tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
 - OSX (version > 10.11)
 - Minimum 4GB of free RAM (8GB+ recommended)
 
-##### Ensure Commandline Tools are Installed. 
+##### Ensure Command Line Tools are Installed. 
 
 Issue the following command in a terminal.
 

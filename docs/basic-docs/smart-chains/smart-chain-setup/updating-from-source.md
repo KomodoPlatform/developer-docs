@@ -40,9 +40,9 @@ git pull
 
 #### Restart the komodod Daemon
 
-Start your sevices as usual. 
+Start your services as usual. 
 
-(If you did not stop the deamon before compiling, stop the daemon using `~/komodo/src/komodo-cli stop` and start the daemon again.)
+(If you did not stop the daemon before compiling, stop the daemon using `~/komodo/src/komodo-cli stop` and start the daemon again.)
 
 ```bash
 ~/komodo/src/komodod &
@@ -101,9 +101,9 @@ git pull
 
 #### Restart the komodod Daemon
 
-Start your sevices as usual. 
+Start your services as usual. 
 
-(If you did not stop the deamon before compiling, stop the daemon using `~/komodo/src/komodo-cli stop` and start the daemon again.)
+(If you did not stop the daemon before compiling, stop the daemon using `~/komodo/src/komodo-cli stop` and start the daemon again.)
 
 ```bash
 ~/komodo/src/komodod &

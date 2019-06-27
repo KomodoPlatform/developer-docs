@@ -24,7 +24,7 @@ The `electrum` method enables a `coin` by connecting the user's software instanc
 
 Each `coin` can be enabled only once, and in either Electrum or Native mode. The DEX software does not allow a `coin` to be active in both modes at once.  
 
-#### Notes on the mm2 Parameter
+#### Notes on the MM2 Parameter
 
 For each `coin`, Komodo software requires the user/developer to set the `mm2` parameter. This can be achieved either in the [coins](../atomic-swap-dex/dex-walkthrough.md#setting-up-coin-list) for more details), or via the [electrum](../atomic-swap-dex/dex-api.html#electrum) and [enable](../atomic-swap-dex/dex-api.html#enable) methods.
 
@@ -335,7 +335,7 @@ The `orderbook` method requests from the network the currently available orders 
 | base | string | the name of the coin the user desires to receive |
 | rel | string | the name of the coin the user will trade |
 | timestamp | number | the timestamp of the orderbook request |
-| netid | number | the id of the network on which the requst is made (default is `0`) |
+| netid | number | the id of the network on which the request is made (default is `0`) |
 
 #### :pushpin: Examples
 

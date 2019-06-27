@@ -1,5 +1,11 @@
 # Jumblr
 
+::: note 
+
+At this time, all z-transaction functionality on the main KMD chain is disabled. Other Smart Chains in the Komodo ecosystem offer zk-SNARK functionality. Please check with the developers of your desired Smart Chain to learn about z-transaction availability.
+
+:::
+
 The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
 ## Basic Instructions
