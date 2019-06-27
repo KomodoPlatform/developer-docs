@@ -771,5 +771,5 @@ When `-ac_cc` is set, but `-ac_ccenable` is not, all Antara modules are enabled.
 :::
 
 ::: warning
-If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the evalcodes in the `libcc.so` will not disable Antara API calls. Therefore, there remains a risk that a disabled API call can still be used to create a utxo, which will then be non-spendable.
+If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the eval codes in the `libcc.so` will not disable Antara API calls. Therefore, there remains a risk that a disabled API call can still be used to create a utxo, which will then be non-spendable.
 :::
