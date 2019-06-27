@@ -14,7 +14,7 @@ This is the ticker symbol for the coin you wish to create. We recommended it con
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
 
 A simple Smart Chain
 
@@ -40,7 +40,7 @@ An additional fraction of a coin will be added to the initial supply based on th
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples"> 
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example"> 
 
 A simple Smart Chain with pre-mined coins and a block reward of 0.0005.
 
@@ -336,7 +336,7 @@ The `pubkey` must be a 66 character string (a compressed pubkey). You can find t
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
 
 This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
 
@@ -479,7 +479,7 @@ For example, a Smart Chain set to `ac_cc=201` in its parameters can interact wit
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
 
 A 777777 pre-mined chain with no Antara modules enabled.
 
@@ -578,7 +578,7 @@ The following are the (current) rules for staking a block:
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
 
 A 777777-coin pre-mine with a 1-coin block reward. The chain adjusts difficulty to keep 90% of blocks mined via PoS, and 10% mined via PoW.
 
@@ -618,7 +618,7 @@ If `ac_public` is set to `1`, zk-SNARKs are disabled, and all z address function
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
 
 A public-only Smart Chain.
 
@@ -638,7 +638,7 @@ The dPoW security mechanism requires that transactions are sent to a transparent
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
 
 A private-only Smart Chain.
 

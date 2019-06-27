@@ -345,6 +345,24 @@ var sidebar = [
               ]
             ]
           },
+          {
+            title: "Antara Composer",
+            collapsible: true,
+            children: [
+                [
+                    "/basic-docs/antara/antara-composer/introduction-to-antara-composer.md",
+                    "Introduction to Antara Composer"
+                ],
+                [
+                    "/basic-docs/antara/antara-composer/antara-composer-tutorial.md",
+                    "Antara Composer Tutorial"
+                ],
+                [
+                    "/basic-docs/antara/antara-composer/antara-composer-api.md",
+                    "Antara Composer API"
+                ],
+            ]
+          },
         ],
     },
   {
@@ -389,39 +407,5 @@ var sidebar = [
         ]
     ]
   },
-    {
-        title: "Chainlizards",
-        collapsible: true,
-        children: [
-            [
-                "/basic-docs/chainlizards/introduction-to-chainlizards.md",
-                "Introduction to Chainlizards Documentation"
-            ],
-            {
-                title: "Chainlizards Setup",
-                collapsible: true,
-                children: [
-                    [
-                        "/basic-docs/chainlizards/chainlizards-setup/introduction-to-chainlizards.md",
-                        "Chainlizards Introduction"
-                    ],
-                ]
-            },
-            {
-                title: "Chainlizards Tutorials",
-                collapsible: true,
-                children: [
-                    [
-                        "/basic-docs/chainlizards/chainlizards-tutorials/chainlizards-tutorial.md",
-                        "Chainlizard Tutorial"
-                    ],
-                ]
-            },
-            [
-                "/basic-docs/chainlizards/chainlizards-api/chainlizards-api.md",
-                "Chainlizards API"
-            ],
-        ],
-    },
 ]
 module.exports = sidebar;

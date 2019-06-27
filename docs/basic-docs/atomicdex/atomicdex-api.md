@@ -76,15 +76,15 @@ For terminal interface examples, see the examples section below.
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"servers\":[{\"url\":\"localhost:20025\",\"protocol\":\"SSL\",\"disable_cert_verification\":true},{\"url\":\"localhost:10025\"}]}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (Success)
 
@@ -97,11 +97,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 }
 ```
 
+</collapse-text>
+
+</div>
+
 #### Command (With `mm2` argument)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"servers\":[{\"url\":\"localhost:20025\",\"protocol\":\"SSL\",\"disable_cert_verification\":true},{\"url\":\"localhost:10025\"}],\"mm2\":1}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (Success)
 
@@ -185,15 +193,15 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command (for Bitcoin-based blockchains)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response
 
@@ -206,11 +214,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 }
 ```
 
+</collapse-text>
+
+</div>
+
 #### Command (for Ethereum and ERC20-based blockchains)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response
 
@@ -223,11 +239,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 }
 ```
 
+</collapse-text>
+
+</div>
+
 #### Command (With `mm2` argument)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"HELLOWORLD\",\"mm2\":1}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (Success):
 
@@ -274,15 +298,15 @@ The `my_balance` method returns the current balance of the specified `coin`.
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_balance\",\"coin\":\"HELLOWORLD\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response
 
@@ -339,15 +363,15 @@ The `orderbook` method requests from the network the currently available orders 
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"orderbook\",\"base\":\"HELLO\",\"rel\":\"WORLD\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response
 
@@ -421,15 +445,15 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":1,\"price\":1}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -497,15 +521,15 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":1,\"price\":1}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -571,15 +595,15 @@ The `setprice` order is always considered a `sell`, for internal implementation 
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BASE\",\"rel\":\"REL\",\"price\":0.9}
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -629,15 +653,15 @@ The `cancel_order` cancels the active order created by the MM2 node.
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"cancel_order\",\"uuid\":\"6a242691-6c05-474a-85c1-5b3f42278f41\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -724,15 +748,15 @@ This method generates a raw transaction which should then be broadcast using [se
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command (BTC, KMD, and other BTC-based forks)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"KMD\",\"to\":\"RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh\",\"amount\":10,\"userpass\":\"$userpass\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -758,11 +782,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"K
 }
 ```
 
+</collapse-text>
+
+</div>
+
 #### Command (ETH, ERC20, and other ETH-based forks)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"ETH\",\"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",\"amount\":10,\"userpass\":\"$userpass\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -791,11 +823,19 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"E
 }
 ```
 
+</collapse-text>
+
+</div>
+
 #### Command (max = true)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"ETH\",\"to\":\"0xbab36286672fbdc7b250804bf6d14be0df69fa28\",\"max\":true,\"userpass\":\"$userpass\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -849,15 +889,15 @@ The `send_raw_transaction` method broadcasts the transaction to the network of s
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"send_raw_transaction\",\"coin\":\"KMD\",\"tx_hex\":\"0400008085202f8902d6a5b976db5e5c9e8f9ead50713b25f22cd061edc8ff0ff1049fd2cd775ba087000000006b483045022100bf2073c1ecfef3fc78f272045f46a722591401f61c2d2fac87fc474a17df7c3102200ca1bd0664ba75f3383e5cbbe96127ad534a86238dbea256e000b0fe2067ab8c012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffffd04d4e07ac5dacd08fb76e08d2a435fc4fe2b16eb0158695c820b44f42f044cb010000006a47304402200a0c21e8c0ae4a740f3663fe08aeff02cea6495157d531045b58d2dd79fb802702202f80dddd264db33f55e49799363997a175d39a91242a95f268c40f7ced97030b012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788acc3b3ca27000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac00000000000000000000000000000000000000\",\"userpass\":\"$userpass\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -896,15 +936,15 @@ The `my_swap_status` method returns the data of an atomic swap executed on a MM2
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"params\":{\"uuid\":\"d14452bb-e82d-44a0-86b0-10d4cdcb8b24\"},\"userpass\":\"$userpass\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (Taker swap)
 
@@ -1384,15 +1424,15 @@ The `my_recent_swaps` method returns the data of the most recent atomic swaps ex
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_recent_swaps\",\"from_uuid\":\"e299c6ece7a7ddc42444eda64d46b163eaa992da65ce6de24eb812d715184e4c\",\"limit\":2}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -1874,15 +1914,15 @@ The `my_tx_history` method returns the blockchain transactions involving the MM2
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_tx_history\",\"coin\":\"RICK\",\"limit\":1,\"from_id\":\"1d5c1b67f8ebd3fc480e25a1d60791bece278f5d1245c5f9474c91a142fee8e1\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (success)
 
@@ -1965,15 +2005,15 @@ The `my_orders` method returns the data of all active orders created by the MM2 
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_orders\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response
 
@@ -2113,15 +2153,15 @@ The `order_status` method returns the data of the active order with the selected
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"order_status\",\"uuid\":\"c3b3105c-e914-4ed7-9f1c-604783b054a1\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (Maker order)
 
@@ -2273,15 +2313,15 @@ If MM2 is stopped while making a swap/having the active order it will attempt to
 
 #### :pushpin: Examples
 
-<div style="margin-top: 0.5rem;">
-
-<collapse-text hidden title="Examples">
-
 #### Command
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"coins_needed_for_kick_start\"}"
 ```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
 
 #### Response (BTC and KMD should be activated ASAP in this case)
 
