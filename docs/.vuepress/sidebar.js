@@ -23,7 +23,7 @@ var sidebar = [
                     ],
                     [
                         "/basic-docs/start-here/about-komodo-platform/orientation.md",
-                        "Doc Orientation & FAQ"
+                        "Doc Orientation"
                     ],
                     [
                         "/basic-docs/start-here/about-komodo-platform/simple-installations.md",

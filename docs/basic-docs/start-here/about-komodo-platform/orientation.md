@@ -1,4 +1,4 @@
-# Documentation Orientation & FAQ
+# Documentation Orientation
 
 The following section answers common questions a newcomer may have, and prepares the new reader for the installation procedure.
 
