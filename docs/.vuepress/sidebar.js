@@ -212,7 +212,7 @@ var sidebar = [
     ]
   },
     {
-        title: "Antara",
+        title: "Antara Framework",
         collapsible: true,
         children: [
             [
