@@ -4,15 +4,15 @@
 
 ::: tip Notice
 
-The MuSig module is an experimental feature. It is provided as a demonstration of Fluidity capabilities and of the MuSig concept. If you would like to use MuSig on a production-level asset chain, please reach out to the Komodo team on [Discord](https://komodoplatform.com/discord)
+The MuSig module is an experimental feature. It is provided as a demonstration of Antara capabilities and of the MuSig concept. If you would like to use MuSig on a production-level asset chain, please reach out to the Komodo team on [Discord.](https://komodoplatform.com/discord)
 
 :::
 
-The MuSig Fluidity module implements a new type of multi-signature functionality. MuSig allows a blockchain to process multi-signature transactions in a more data-efficient manner. MuSig also keeps private the number of signers partaking in a multi-signature transaction.
+The MuSig Antara module implements a new type of multi-signature functionality. MuSig allows a blockchain to process multi-signature transactions in a more data-efficient manner. MuSig also keeps private the number of signers partaking in a multi-signature transaction.
 
 This functionality is facilitated by MuSig's implementation of Schnorr Signature technology. Schnorr Signatures are unique in that each signature is 64 bytes in size, regardless of the number of signers in a transaction. Also, a multi-signature Schnorr Signature can be processed in one verification.
 
-Schnorr Signatures differs from the existing multi-signature method (ECDSA), as the ECDSA method requires each signer of a transaction to be verified separately. Also, with the ECDSA method each set of signers must be collected into a final verification. The size of the ECDSA multi-signature transaction can vary according to the number of signers in the set, and this can disclose information that would otherwise be kept private.
+Schnorr Signatures differs from the existing multi-signature method (ECDSA), as the ECDSA method requires each signer of a transaction to be verified separately. Also, with the ECDSA method each set of signers must be collected into a final verification. The size of the ECDSA multi-signature transaction can vary according to the number of signers in the set, and this can disclose information that would otherwise remain private.
 
 Therefore, Schnorr Signatures greatly reduce verification time and data-storage requirements, and enhance user privacy.
 
@@ -47,7 +47,7 @@ For further information, see this [article.](https://blockstream.com/2019/02/18/
 
 ## Musig Tutorial Availability
 
-The Fluidity Tutorials section features a full installation and walkthrough tutorial of the Musig module.
+The Antara Tutorials section features a full installation and walkthrough tutorial of the Musig module.
 
 [<b>Link to Musig Module Tutorial</b>](../../../basic-docs/antara/antara-tutorials/musig-module-tutorial.md)
 

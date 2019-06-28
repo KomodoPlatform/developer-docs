@@ -4,8 +4,11 @@
 
 Komodo's Smart Chain technology allows you to create secure and fully autonomous blockchains that are designed for a specific purpose.
 
+<!--
+
 | Embedded Video |
-| -------------- |
+
+-->
 
 #### Smart Chains Rely on the Next Step in Blockchain Evolution: The Antara Framework
 
@@ -38,8 +41,6 @@ For developers, the unique combination of Smart Chain technology and Antara simp
 [Link to Antara content]()
 
 ### The Architecture of Antara-Powered Smart Chains
-
-<!-- The image below still uses Fluidity -->
 
 <div style="clear: both; width: 70%; margin-top: 1rem; margin-left: auto; margin-right: auto; margin-bottom: 4rem; display: block;">
 

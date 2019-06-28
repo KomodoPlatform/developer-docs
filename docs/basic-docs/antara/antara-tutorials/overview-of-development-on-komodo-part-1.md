@@ -6,36 +6,80 @@
 
 The following tutorial uses the Komodo tutorial docker image to create a blockchain. This tutorial is part of a series.
 
+[<b>To return to the previous tutorial, click here.</b>](../../../basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-0.md)
+
+#### Select the Appropriate Tutorial from the Menu
+
+Begin with the first guided tutorial by selecting `TUTORIALS` and then `TUT1` from the menu. The following screen should appear. Note the detailed instructions onscreen. You may follow these through the tutorial.
+
+<div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
+
+<img src="/2019-06-24-tutorial-1-img-8.png">
+
+</div>
+
 #### Create a Seed Node 
 
-##### Estimated Time: 30 seconds
+##### Estimated Time: < 1 Minute
 
 The guided tutorial interface follows these screens:
 
-- SEED menu > SPINUP node
-- Enter: `1000` coins as the supply when prompted
-- `GETINFO` will query the chain has started with `0` blocks waiting for a mining node to mine the first several blocks
+- From the `SEED-MENU` select `SPINUP-SEEDNODE`
 
-Back to go to the main TUT1 menu for the next step in setting up the mining node for your custom blockchain
+<div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
-Querying any blockchain with `getinfo` or `getblockchaininfo` returns the current state of the blockchain for this node.
+<img src="/2019-06-24-tutorial-1-img-9.png">
 
-The chain created has default options and is a blocks-on-demand type of smart chain. A blocks-on-demand chain runs with regular proof of work for the first 128 blocks then processes blocks on demand when there are transactions to mine. This style of chain saves computing resources.
+</div>
 
-## Create Mining Node (30 seconds)
+- Enter `1000` coins as the supply when prompted
+- Use the `SEED-GETINFO` menu item to query the chain's current state
+  - At this time, you will notice that although our `TUT1` chain has started, the `GETINFO` menu item replies that the chain has `0` blocks
+  - This is due to the fact that the chain is still waiting for a mining node to mine blocks
 
-The guided tutorial interface follows these screens:
+Return to the main `TUT1` menu.
 
-- MINING menu > SPINUP node
-- Enter: 1000 coins as the supply when prompted (or whatever value matches the supply you entered for the seed node)
-- GETINFO will query this node's blockchain. It will have 0 blocks but should have 1 connection to the seed node.
+<div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
-## Start Mining (20 seconds)
+<img src="/2019-06-24-tutorial-1-img-10.png">
 
-The guided totuaial interface follow these screens:
+</div>
 
-- MINING MENU > START MINING, this will start mining, it will take 30-90 seconds to mine the first few blocks
-- MINING MENU > GETMININGINFO queries the mining of the network and this node, you will see approximately 1.0 solutions per second
+## Create Mining Node
+
+##### Estimated Time: < 1 Minute
+
+The `TUT1` chain is designed as a blocks-on-demand Smart Chain. This type of chain uses a Proof of Work consensus mechanism for the first 128 blocks, thus forcing the mining of these first blocks, regardless of the number of transactions occurring on the chain. After block 128, the chain stops automatically mining blocks and instead waits until there are a few transactions in the mempool. This style of chain saves computing resources.
+
+For the `TUT1` chain these settings are managed within the pre-built docker image. Later, you will learn how to adjust these settings manually. 
+
+While the settings of the Smart Chain are set to blocks-on-demand, a node on the network has to indicate a desire to mine for the process to begin. Follow the instructions below to launch a mining node on `TUT1`.
+
+Go `BACK` in the menu until you see the options for both `SEED-MENU` and `MINING-MENU`
+
+<div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
+
+<img src="/2019-06-24-tutorial-1-img-3.png">
+
+</div>
+
+Select `MINING-MENU`, then `SPINUP-MININGNODE`.
+
+Enter `1000` coins as the supply when prompted (we assume here that you entered 1000 coins earlier).
+
+Use the `GETINFO` command to query blockchain state. The chain will still have `0` blocks, but should have `1` connection. This is the connection to the seed node.
+
+## Start Mining
+
+##### Estimated Time: < 1 Minute
+
+- From the `MINING MENU` select `MINING-START`
+  - The mining process now begins
+  - Mining the first several blocks requires 30 to 90 seconds
+- From the `MINING MENU` select `MINER-GETMININGINFO`
+  - This queries the mining state of both the network and this node
+  - You may see approximately 1.0 solutions per second (`localsolps`)
+  - You should see the number of blocks increase when you repeat the `MINER-GETMININGINFO` menu item
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
@@ -44,11 +88,35 @@ The guided totuaial interface follow these screens:
 </div>
 
 
-## Mining Node RPC Method: validateaddress - Validate An Address (15 seconds)
+## Validate An Address
 
-The guided tutorials enable a quick validation of the current dev wallet, the returned data is useful for developers to validate their software is in control of the address being queried.
+##### Estimated Time: < 1 Minute
 
-- WALLET > VALIDATE to call validateaddress
+The guided tutorial in the docker image automatically creates a blockchain address for the user during the startup process. 
+
+Typically, when blockchain software creates an address for a user, the address is automatically imported into the user's wallet so that the user can use it.
+
+In these tutorials, however, we generate an address that is not automatically imported. This gives you a chance to import the address yourself under the tutorial guidance.
+
+Make sure that you are still in the `MINING-MENU` menu.
+
+Enter the `WALLET` section.
+
+<div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
+
+<img src="/2019-06-24-tutorial-1-img-11.png">
+
+</div>
+
+- Select `VALIDATE` to call the [<b>validateaddress</b>](../../../basic-docs/komodo-api/util.html#validateaddress) Remote Procedure Call (RPC) method.
+
+<div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
+
+<img src="/2019-06-24-tutorial-1-img-12.png">
+
+</div>
+
+The results should be similar to the following.
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
@@ -56,18 +124,55 @@ The guided tutorials enable a quick validation of the current dev wallet, the re
 
 </div>
 
-If the response has `false` for the attribute `ismine`, then the private key needs to be imported that has been automatically generated when the guided tutorial started up.  The validateaddress uses this generated dev wallet by reading in the guided tutorial configurations.
+Note the `address` in the response. This is the address that was generated for this tutorial.
 
-## Mining Node RPC Method: importprivkey – Import Dev Wallet
+However, note that the `ismine` value is `false`. (`ismine` stands for "is mine".)
 
-Go to:
+The private key that was automatically generated by the docker image needs to be imported. 
 
-WALLET > IMPORT-DEV-WALLET so the guided tutorial imports the generated keys by using the RPC method importprivkey.
+## Import Private Key for the Wallet
 
-## Mining Node RPC Method: getbalance - Get Wallet Balance (15 seconds)
+In the guided tutorials, you do not need to manage the private key directly. However, this is a good time to become familiar with the concept.
 
-Still using the wallet submenu, select BALANCE to query the wallet by calling getbalance.
+A private key could look like the following.
 
+```
+E9873D79C6D87DC0FB6A5778633389_SAMPLE_PRIVATE_KEY_DO_NOT_IMPORT_F4453213303DA61F20BD67FC233AA33262
+```
+
+When you enter a private key such as the above into the blockchain software, the automated encryption will match this address with a public key, also called a "pubkey". 
+
+A pubkey can look like the following.
+
+```
+04fe53c78e36b86aae8082484a4007b706d5678cabb92d178fc95020d4d8dc41ef44cfbb8dfa7a593c7910a5b6f94d079061a7766cbeed73e24ee4f654f1e51904
+```
+
+The public key is the address that receives and holds money. The private key unlocks the address and allows the user to spend money.
+
+Keep the private key private at all times. Never share it - not even with a member of the Komodo team.
+
+<!--
+
+Sidd:
+
+Mylo, we should simply show the address and the private key as a part of the docker tutorial.
+
+-->
+
+To import the private key that was automatically generated for you, select `WALLET`, then `IMPORT-DEV-WALLET`.
+
+This automatically executes the [<b>importprivkey</b>](../../../basic-docs/komodo-api/wallet.html#importprivkey) RPC method, importing the private key and thus the address.
+
+Now, when funds are sent to this address, your wallet has the keys necessary to spend them.
+
+## Check the Wallet Balance
+
+##### Estimated Time: < 1 Minute
+
+From within the `WALLET` menu, select `BALANCE`.
+
+This automatically executes the [<b>getbalance</b>](../../../basic-docs/komodo-api/wallet.html#getbalance) RPC method.  
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
@@ -75,9 +180,35 @@ Still using the wallet submenu, select BALANCE to query the wallet by calling ge
 
 </div>
 
-## Mining Node RPC Method: listunspent - Get Wallet Balance (15 seconds)
+Note that your wallet has the full `1000` coins, and a little extra.
 
-The mining node has funds.  The funds are represented on the blockchain as unspent outputs.  To list them, still in the WALLET submenu, choose LISTUNSPENT to call the RPC method listunspent.
+These `1000` coins were mined into your address as a reward for mining the first block of the blockchain. This is called the Genesis Block.
+
+The extra fraction of a coin should be of an amount similar to the displayed `.12532156` above.
+
+This extra fraction of a coin comes in part as a reward for the blocks mined.
+
+By default, each block mined on a Komodo Smart Chain rewards the miner with `0.001` coins.
+
+At the time the screenshot above was taken, the mining node had mined approximately `125` blocks, thus accounting for the extra fraction of a coin.
+
+## List Unspent Transactions (Utxos)
+
+##### Estimated Time: < 1 Minute
+
+The mining node holds the funds. The funds are represented on the blockchain as "unspent transactions," or "utxos." 
+
+Utxos can be difficult for a complete beginner to understand.
+
+A utxo is similar in nature to a dollar bill in your physical wallet. You can have many bills in your wallet, and the total amount of bills you have determines your total amount in your wallet.
+
+Likewise, you can have many utxos in your digital wallet, and the total value of all utxos determines the total amount in your digital wallet.
+
+If you would like a full explanation, [read this post on the Komodo blog](https://komodoplatform.com/whats-utxo/), or read section III of the [Komodo Whitepaper](https://komodoplatform.com/whitepaper).
+
+In this guided tutorial, we will automatically execute a command that allows us to look at the utxos in our wallet. 
+
+Still within the `WALLET` submenu, choose the `LISTUNSPENT` option. This executes the [<b>listunspent</b>]() RPC method. The result should be similar to the following.
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
@@ -85,24 +216,31 @@ The mining node has funds.  The funds are represented on the blockchain as unspe
 
 </div>
 
-The number of UTXOs will differ depending how many blocks have been mined (added to the blockchain) which the mining node gets rewarded for solving.  Each additional block reward by default on this blocks-on-demand chain is 0.001 TUT1 coins.  Maybe there are an extra 2-3 in yours or maybe you got interrupted by and off-chain event, like making a cup of tea or coffee.
+The number of utxos here will differ according to the number of blocks your mining node has mined. Each block mined generates a new utxo in your wallet.
 
-## Mining Node RPC Method: setgenerate - Stop Mining (15 seconds)
+## Stop Mining
 
-The setgenerate RPC command tells a node to mine or mint (in a proof of stake blockchain) and to switch these functions off.
+##### Estimated Time: < 1 Minute
 
-Choose MINING-STOP from the submenu for the MINING node.
+The [<b>setgenerate</b>]() RPC method tells a node to start and stop mining.
 
-Because this blockchain has 2 nodes and one of them is a seed node not set to mine, there are no longer miners to solve the cryptographic puzzle of the block.  No blocks will be produced, and no block rewards for the mining node.  No more UTXOs will be generated and the state of the blockchain will remain the same.
+Within the `MINING` menu, choose the `MINING-STOP` menu item.
 
-## Continue to tutorial 2 for Faucet Module To Enable The SEED (or any user) To Get A Small Amount Of Coins
+The screen will flash and then return to the `MINING` menu. This indicates that mining is stopped.
 
+Recall that in this guided tutorial there are only two nodes on the `TUT1` blockchain, and that only one of the nodes is a mining node.
 
-Optional: Mining Node RPC Method: stop - Shutdown Node (15 seconds)
+As we have stopped the mining node, the blockchain itself is stopped. If we were to attempt to use the other node to send a transaction to the blockchain, no node would mine this transaction, and therefore the transaction would wait indefinitely for confirmation.
 
-- MINING > SHUTDOWN
+## (Optional) Shut Down Both Nodes
 
-Optional: Seed Node RPC Method: stop - Shutdown Node (15 seconds)
+If you would like to exit the tutorial at this time, you may shut down both nodes from within the docker menu.
 
-- SEED > SHUTDOWN 
+- `MINING-MENU` -> `SHUTDOWN-NODE-MINER`
+- `SEED-MENU` -> `SHUTDOWN-NODE-SEED` 
 
+Otherwise, you may proceed with the tutorial series by clicking on the link below.
+
+--------
+
+[<b>Link to the next tutorial in this series</b>](../../../basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-2.md)

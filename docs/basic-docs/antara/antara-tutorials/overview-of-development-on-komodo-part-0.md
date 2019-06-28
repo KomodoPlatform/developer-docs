@@ -56,7 +56,7 @@ learn-kmd
 
 After the last command, follow the onscreen instructions.
 
-From here, the reader may optionally skip all of the following content in Part I, and proceed directly to Part II.
+From here, the reader may optionally skip all of the following content and proceed directly to the next article in this tutorial series.
 
 ## The Unique Nature of the Docker-Image Tutorials
 
@@ -225,11 +225,6 @@ The "quick start" menu opens with the following screen.
 
 </div>
 
-For tutorial 1, select the `TUTORIALS` -> `TUT1` menu.
+-------------------------------
 
-<div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
-
-<img src="/2019-06-24-tutorial-1-img-3.png">
-
-</div>
-
+[<b>Click here to proceed to the next tutorial in this series</b>](../../../basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-1.md)
