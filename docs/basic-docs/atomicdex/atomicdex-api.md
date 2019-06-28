@@ -2319,7 +2319,7 @@ This method generates a raw transaction which should then be broadcast using [se
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin the user desires to withdraw |
 | to        | string | coins will be withdrawn to this address |
-| amount    | number | the amount the user desires to withdraw, ignored when `max=true` |
+| amount    | string (numeric) | the amount the user desires to withdraw, ignored when `max=true` |
 | max       | bool   | withdraw the maximum available amount |
 
 #### Response
