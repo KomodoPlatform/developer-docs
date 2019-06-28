@@ -22,8 +22,8 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | --------- | -------- | ----------- |
 | base      | string | the name of the coin the user desires to receive |
 | rel       | string | the name of the coin the user desires to sell |
-| price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| volume    | number | the amount of coins the user is willing to receive of the `base` coin |
+| price     | string (numeric) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| volume    | string (numeric) | the amount of coins the user is willing to receive of the `base` coin |
 
 #### Response
 
@@ -297,7 +297,7 @@ For terminal interface examples, see the examples section below.
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | address    | string  | the address of the user's `coin` wallet, based on the user's passphrase |
-| balance   | number    | the amount of `coin` the user holds in their wallet |
+| balance   | string (numeric) | the amount of `coin` the user holds in their wallet |
 | result    | string    | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
 #### :pushpin: Examples
@@ -318,7 +318,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 {
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": 10,
+  "balance": "10",
   "result": "success"
 }
 ```
@@ -343,7 +343,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 {
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": 10,
+  "balance": "10",
   "result": "success"
 }
 ```
@@ -414,7 +414,7 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | address    | string  | the address of the user's `coin` wallet, based on the user's passphrase |
-| balance   | number    | the amount of `coin` the user holds in their wallet |
+| balance   | string (numeric)    | the amount of `coin` the user holds in their wallet |
 | result    | string    | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
 #### :pushpin: Examples
@@ -435,7 +435,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 {
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": 10,
+  "balance": "10",
   "result": "success"
 }
 ```
@@ -460,7 +460,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 {
   "coin": "ETH",
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-  "balance": 50,
+  "balance": "50",
   "result": "success"
 }
 ```
@@ -485,7 +485,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 {
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": 10,
+  "balance": "10",
   "result": "success"
 }
 ```
@@ -537,7 +537,7 @@ The `my_balance` method returns the current balance of the specified `coin`.
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | address | string | the address that holds the coins |
-| balance | number | the number of coins in the address |
+| balance | string (numeric) | the number of coins in the address |
 | coin  | string    | the name of the coin |
 
 #### :pushpin: Examples
@@ -557,7 +557,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 ```json
 {
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": 10,
+  "balance": "10",
   "coin": "HELLOWORLD"
 }
 ```
@@ -2112,8 +2112,8 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | --------- | -------- | ----------- |
 | base      | string | the name of the coin the user desires to sell |
 | rel       | string | the name of the coin the user desires to receive |
-| price     | number | the price in `rel` the user is willing to receive per one unit of the `base` coin |
-| volume    | number | the amount of coins the user is willing to sell of the `base` coin |
+| price     | string (numeric) | the price in `rel` the user is willing to receive per one unit of the `base` coin |
+| volume    | string (numeric) | the amount of coins the user is willing to sell of the `base` coin |
 
 #### Response
 
