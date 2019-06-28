@@ -4,7 +4,7 @@
 
 ::: tip Notice
 
-The MuSig module is an experimental feature. It is provided as a demonstration of Antara capabilities and of the MuSig concept. If you would like to use MuSig on a production-level asset chain, please reach out to the Komodo team on [Discord](https://komodoplatform.com/discord)
+The MuSig module is an experimental feature. It is provided as a demonstration of Antara capabilities and of the MuSig concept. If you would like to use MuSig on a production-level asset chain, please reach out to the Komodo team on [Discord.](https://komodoplatform.com/discord)
 
 :::
 
