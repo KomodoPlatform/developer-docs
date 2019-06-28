@@ -10,46 +10,105 @@ This tutorial is part of a series.
 
 Until now we have relied on automated functions in the guided tutorials for assistance in executing Remote Procedure Calls (RPC's). Such RPC's include <b>getinfo</b>, <b>listunspent</b>, <b>faucetfund</b>, and more.
 
-The very purpose of an RPC is to allow another programming environment to access the functionality of the software. For example, an RPC allows source code in a Python or JavaScript programming environment to send a secure call to the Komodo Smart Chain with a request to perform an action, and to return information about the result.
+The very purpose of an RPC is to allow another programming environment to access the functionality of the software. For example, an RPC allows Python or JavaScript source code to send a secure call to the Komodo Smart Chain with a request to perform an action, and to return information about the result.
 
-All RPC's are available in any mainstream programming language, and we are now prepared to integrate our `TUT1` blockchain with another programming environment.
+All RPC's are available in any mainstream programming language, and we are now prepared to experiment with this feature.
 
 In this tutorial, we focus on the most essential aspect of this process, the Unix `curl` command. Using `curl` to access Komodo software from the source code of another environment is relatively straightforward, depending upon the programming language itself. 
 
-However, in the Komodo community, many of the popular languages feature enhancements beyond `curl` that allow the developer to more easily integrate with Komodo. In these languages, someone from the Komodo community has created a language "wrapper." 
+The guided-tutorial software that holds our `TUT1` Smart Chain has an exposed RPC port that we use to connect to our seed node.
 
-A wrapper essentially allows a developer to import all the Komodo RPC calls directly into the source files of their chosen language.
+#### Inquiring About Language Wrappers
 
-Therefore, the developer can often simply call the Komodo RPC suite as an extension of a variable, and access each RPC on demand from within the source code.
+Before we continue with the tutorial, there is a tangential point to mention.
 
-The guided-tutorial software that holds our `TUT1` Smart Chain has an exposed RPC port that allows us to connect to our seed node. Through this exposed port we will perform our experiments.
+In the Komodo community, for many popular programming languages there are available enhancements beyond the `curl` command. These enhancements allow a developer to more easily integrate with Komodo. 
 
-## List of Available Methods and Wrappers
+In these languages, someone from the Komodo community has created a language "wrapper." A wrapper essentially allows a developer to import all the Komodo RPC calls directly into the source files of their chosen language.
 
-The following languages feature wrappers, either in the Komodo community, or (in a more limited sense) in the Bitcoin or Zcash communities.
+Therefore, the developer can often simply call the Komodo RPC suite into the source file and access each RPC on demand.
 
-- Python
-- Javascript
-- C++
-- Java
-- Perl
-- Go
-- Dart
-- Ruby
-- Rust
+For information regarding availability of language wrappers for your preferred language, please reach out to our team and to the community on [Discord.](https://komodoplatform.com/discord)
 
-If your preferred language is not listed, please make a request in our discord channel.
+## Obtaining the Necessary Passwords and Credentials
 
+##### Estimated Time: 1 minute
 
-## Getting The rpcuser & rpcpassword For TUT1 Seed Node User (1 minute)
+The Smart Chain software controls access to all your valuable assets. Allowing other software on your node to access and manipulate these assets is a potential security risk. Therefore, the Smart Chain software requires a password and username from any software that attempts to access the Smart Chain's exposed port.
 
-The credentials for the seed node are stored in /root/.komodo/TUT1/TUT1.conf so if you know how to read that file you can get them there.   Alternatively, dump the user and password with the guided tutorial DUMP-RPCCREDENTIALS command for convenience.  It will also exit out of the text menu, but you can just run learn-kmd to get back into it.
+These credentials are called the rpcpassword, rpcuser, and rpcport.
 
-- SEED-NODE > DUMP-RPCCREDENTIALS
+The file that holds these values is typically installed in a `~/komodo/COINNAME/COINNAME.conf` file. You can change the values in this file before launching the Komodo software, and they will be loaded at runtime.
 
-## Snippet 1: curl (5 minutes)
+In our guided tutorial, the name of our coin is `TUT1`, and therefore the name of the credential file is `TUT1.conf`. 
 
-Using the rpcuser and rpcpassword, the TUT1 blockchain with 1000 initial coins can connect to the RPC server on port 9253.
+We have placed the `TUT1.conf` file for the `SEED` node in a different location, to allow for the underlying tutorial software to function properly.
+
+Here is the location: `/root/.komodo/TUT1/TUT1.conf`
+
+<!--
+
+Sidd: The function below doesn't return the RPC port. 
+
+Alternatively, the `SEED-MENU` also features a function to display, or "dump," the credentials: `DUMP-RPCCREDENTIALS`. Executing this function will kill the guided-tutorial software. Execute `learn-kmd` at the terminal prompt to re-enter the software.
+
+-->
+
+Obtain your `TUT1` RPC credentials and copy/paste them into a nearby location before continuing with the tutorial.
+
+## Using curl
+
+##### Estimated Time: 5 minutes
+
+#### Conceptualizing the curl Command
+
+A `curl` command must be sent to the Komodo software daemon through a Unix shell, or terminal.
+
+When using `curl` from another programming environment, the developer's source code first opens an instance of a Unix terminal. This is typically achieved through some type of environment enhancement. For example, a JavaScript developer might use Node.js to open a Unix terminal instance. The specific Node.js function the developer would use is [<b>child_process.exec().</b>](https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback)
+
+The developer's source file then creates a `curl` command that fulfills the intended purposes of the developer's software, and sends this `curl` command to the Komodo software daemon.
+
+The `curl` command sends a json reply, which the developer captures in their source code and utilizes in any manner the developer desires.
+
+#### Installing jq
+
+The returned json object is provided without human-friendly json formatting.
+
+To make json responses easier to read, Komodo developers typically make use of a third-party software called "jq".
+
+[You can download and install jq at this link.](https://stedolan.github.io/jq/)
+
+Once installed, with each `curl` command simply include a pipe and a call to jq, along with any desired jq optional parameters. Komodo developers typically include the  `-r` parameter for raw outputs, to help jq interpret the raw string.
+
+#### The Anatomy of a curl Command
+
+Observe the anatomy of a sample `curl` command, as executed in the terminal. 
+
+#### Command
+
+```bash
+curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e6011630cc98880ec5c47320 --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curl test\", \"method\": \"getinfo\", \"params\": []}" -H 'content-type: text/plain;' http://127.0.0.1:9253/ | jq -r '.result'
+```
+
+| Property | Description |
+| -------- | ----------- |
+| curl | the name of the Unix command |
+| -s | the "silent" option; this prevents the shell from extraneous information about the command's progress |
+| --user | informs the shell that there will be a username and a password directly following this property |
+| userXXXX:passXXXX | the rpcuser and rpcpassword, as provided in the coin's .conf file |
+| --data-binary | informs the shell that additional data should be included with the curl command, and that the data should be sent exactly as it is provided |
+| "{ | begin the string that contains the data object; everything within this string is sent directly to the Komodo daemon for processing |
+| \"jsonrpc\": \"1.0\" | informs the Komodo daemon that it is receiving a json rpc object, and that the object is formatted according to version 1.0 of the Komodo RPC's source code |
+| \"id\": \"curl test\" | informs the daemon that the json object sent is a curl command |
+| \"method\": \"getinfo\" | informs the daemon that the developer is using the [<b>getinfo</b>]() RPC |
+| \"params\": [] | provides the required or optional parameters that accompany the Komodo RPC; in this case, the <b>getinfo</b> RPC does not have any parameters, and therefore the array is empty |
+| -H | informs the shell that there is an extra http header to include |
+| 'content-type: text/plain;' | the http character set parameter; states that the header is provided in plain-text format |
+| http://127.0.0.1:9253/ | the http destination. The 127.0.0.1 tells the shell to serve the content to the node's localhost server. The :9253 extension is the rpcport, as provided in the coin's .conf file |
+
+<!-- 
+jq
+-->
 
 #### Command
 
