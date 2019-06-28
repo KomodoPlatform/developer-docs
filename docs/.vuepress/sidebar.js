@@ -283,11 +283,11 @@ var sidebar = [
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-2.md",
-                            "Komodo Developer Path | Part II"
+                            "Komodo Developer Path | Using a Faucet"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-3.md",
-                            "Komodo Developer Path | Part III"
+                            "Komodo Developer Path | Connecting to Another Programming Environment"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-4.md",

@@ -1,46 +1,45 @@
-# Tutorial 3: Connecting Your Programming Language Into The Tutorials & Getting Network Traces Of Client/Server Communication (~10 minutes per language) 
+# Komodo Developer Path | Connecting to Another Programming Environment
+
+#### Total Estimate Time: ~10 (per language)
+
+This tutorial is part of a series. 
+
+[To return to the previous tutorial, click here.]()
 
 ## Introduction
 
-Now is the time to test your programming skills against the blockchain we’ve been working with so far.  If you want to recreate these tutorials with a “better user interface”, this is the first step.
+Until now we have relied on automated functions in the guided tutorials for assistance in executing Remote Procedure Calls (RPC's). Such RPC's include <b>getinfo</b>, <b>listunspent</b>, <b>faucetfund</b>, and more.
 
-All of the previous RPC methods are available in any programminig language.  Some languages require more plumbing because someone from the community hasn’t made a handy wrapper API yet.
+The very purpose of an RPC is to allow another programming environment to access the functionality of the software. For example, an RPC allows source code in a Python or JavaScript programming environment to send a secure call to the Komodo Smart Chain with a request to perform an action, and to return information about the result.
 
-Various language wrappers exist in some form within the Komodo community, the Bitcoin developer community or other crypto community.  We will include a short snipped of python code from the bitcoin community and the peer coin community.
+All RPC's are available in any mainstream programming language, and we are now prepared to integrate our `TUT1` blockchain with another programming environment.
 
-## Language Snippets Tutorial
-We will connect from our host machine to the container because we’ve exposed the RPC port of the seed node.
+In this tutorial, we focus on the most essential aspect of this process, the Unix `curl` command. Using `curl` to access Komodo software from the source code of another environment is relatively straightforward, depending upon the programming language itself. 
 
-The host machine, if linux will have python already included but these language snippets will be shown:
-- curl from a linux host running the learn-kmd guided tutorial container
-- python using a peercoin developed python wrapper
-- javascript using a nodejs wrapper example
+However, in the Komodo community, many of the popular languages feature enhancements beyond `curl` that allow the developer to more easily integrate with Komodo. In these languages, someone from the Komodo community has created a language "wrapper." 
+
+A wrapper essentially allows a developer to import all the Komodo RPC calls directly into the source files of their chosen language.
+
+Therefore, the developer can often simply call the Komodo RPC suite as an extension of a variable, and access each RPC on demand from within the source code.
+
+The guided-tutorial software that holds our `TUT1` Smart Chain has an exposed RPC port that allows us to connect to our seed node. Through this exposed port we will perform our experiments.
+
+## List of Available Methods and Wrappers
+
+The following languages feature wrappers, either in the Komodo community, or (in a more limited sense) in the Bitcoin or Zcash communities.
+
+- Python
+- Javascript
 - C++
 - Java
-- perl
-- go
-- dart
-- ruby
-- rust
+- Perl
+- Go
+- Dart
+- Ruby
+- Rust
 
-If your preferred language is not listed, please make a request in our discord channel and we’ll try to add it in short time.
+If your preferred language is not listed, please make a request in our discord channel.
 
-#### Prerequisites
-The running blockchain from Tutorial 1 having optionally completed Tutorial 2.  If you haven’t, simply follow these steps to quickly start the TUT1 blockchain and interact with it using docker.
-
-```bash
-docker pull komodocakeshop/dev-allinone-learn-kmd
-```
-
-```bash
-docker run -it -p 127.0.0.1:9253:9253 komodocakeshop/dev-allinone-learn-kmd
-```
-
-Execute the following in the container’s prompt and follow the onscreen instructions.
-
-```bash
-learn-kmd
-```
 
 ## Getting The rpcuser & rpcpassword For TUT1 Seed Node User (1 minute)
 
