@@ -80,9 +80,9 @@ To make json responses easier to read, Komodo developers typically make use of a
 
 Once installed, with each `curl` command simply include a pipe and a call to jq, along with any desired jq optional parameters. Komodo developers typically include the  `-r` parameter for raw outputs, to help jq interpret the raw string.
 
-#### The Anatomy of a curl Command
+## The Anatomy of a curl Command
 
-Observe the anatomy of a sample `curl` command, as executed in the terminal. 
+Observe the anatomy of a sample `curl` command, as executed in the terminal. For this example, we use the <b>getinfo</b> RPC. 
 
 #### Command
 
@@ -93,7 +93,7 @@ curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e601
 | Property | Description |
 | -------- | ----------- |
 | curl | the name of the Unix command |
-| -s | the "silent" option; this prevents the shell from extraneous information about the command's progress |
+| -s | the "silent" option; this prevents the shell from returning extraneous information about the command's progress |
 | --user | informs the shell that there will be a username and a password directly following this property |
 | userXXXX:passXXXX | the rpcuser and rpcpassword, as provided in the coin's .conf file |
 | --data-binary | informs the shell that additional data should be included with the curl command, and that the data should be sent exactly as it is provided |
@@ -102,19 +102,14 @@ curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e601
 | \"id\": \"curl test\" | informs the daemon that the json object sent is a curl command |
 | \"method\": \"getinfo\" | informs the daemon that the developer is using the [<b>getinfo</b>]() RPC |
 | \"params\": [] | provides the required or optional parameters that accompany the Komodo RPC; in this case, the <b>getinfo</b> RPC does not have any parameters, and therefore the array is empty |
+| }" | end of the string that contains the data object |
 | -H | informs the shell that there is an extra http header to include |
 | 'content-type: text/plain;' | the http character set parameter; states that the header is provided in plain-text format |
 | http://127.0.0.1:9253/ | the http destination. The 127.0.0.1 tells the shell to serve the content to the node's localhost server. The :9253 extension is the rpcport, as provided in the coin's .conf file |
+| \| jq -r | instructs the shell to pipe the response through the jq software; the -r instruction informs jq that this is a raw object |
 
-<!-- 
-jq
--->
 
-#### Command
-
-```bash
-curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e6011630cc98880ec5c47320 --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curl test\", \"method\": \"getinfo\", \"params\": []}" -H 'content-type: text/plain;' http://127.0.0.1:9253/ | jq -r '.result'
-```
+The response to the <b>getinfo</b> RPC `curl` command is as follows. Note that this is a json string and the developer must actively convert the response into a json object. For example, in JavaScript the appropriate function is `JSON.parse()`.
 
 #### Response
 
@@ -137,7 +132,7 @@ curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e601
  "longestchain": 0, 
  "timeoffset": 0, 
  "tiptime": 1231006505, 
- "connections": 0, 
+ "connections": 1, 
  "proxy": "", 
  "difficulty": 1, 
  "testnet": false, 
@@ -157,13 +152,11 @@ curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e601
 }
 ```
 
-You will likely have a few differences to me, I have not got a mining node running – my instance is at block 0 and connections is also 0.   Also my balance is 0.  I have not run through the faucet tutorial yet, but these are easy to fix.  I will start the mining node, mine some blocks and make sure the faucet is funded.
+## Mine on the Seed Node Using curl
 
-The pubkey will be different because there are more public keys in elliptic curve cryptography than there are oxygen atoms in the known universe.
+Use `curl` to tell the `SEED` node to begin mining the `TUT1` Smart Chain. Use the [<b>setgenerate</b>]() RPC for this function. 
 
-I start the second node, and I’m calling it the second node this time because that is all it is acting as.  The names “seed” node and “mining” node are only used so we can differentiate our actions to a specific node without speaking in vague terms.  We’ve informally labeled them “seed” and “mining” for functional purposes.  The second node is up and when I issue getinfo now, my connections attribute is 1.
-
-I start mining on the first node (“seed” node) by sending a curl request from my workstation into the docker container (the passthrrough port is exposed locally)
+Note that this RPC requires parameters in the `curl` command: `\"params\": [true,1]`
 
 #### Command
 
@@ -171,13 +164,17 @@ I start mining on the first node (“seed” node) by sending a curl request fro
 curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e6011630cc98880ec5c47320 --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curl test\", \"method\": \"setgenerate\", \"params\": [true,1]}" -H 'content-type: text/plain;' http://127.0.0.1:9253/ | jq -r '.result'
 ```
 
+The <b>setgenerate</b> RPC always returns `null` as a response.
+
 #### Response
 
 ```json
 null
 ```
 
-The setgenerate RPC method returns null, which we accept as having started and can check by sending RPC getmininginfo method.
+## Discover the State of Mining on the Seed Node
+
+Use the [<b>getmininginfo</b>]() RPC to ensure that the command executed successfully. 
 
 #### Command
 
@@ -207,7 +204,9 @@ curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e601
 }
 ```
 
-Stopping mining we use the same setgenerate RPC method as starting, but instead of passing it a true (and how many threads we want to mine with), we send false to stop mining – again returning null from this method.
+## Stop Mining on the Seed Node
+
+To instruct the node to cease mining, we again use the [<b>setgenerate</b>] RPC, but this time we provide the parameter as `false`.
 
 ```bash
 curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e6011630cc98880ec5c47320 --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curl test\", \"method\": \"setgenerate\", \"params\": [false]}" -H 'content-type: text/plain;' http://127.0.0.1:9253/ | jq -r '.result'       
@@ -219,56 +218,11 @@ curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e601
 null
 ```
 
-Just to see where we are leaving the blockchain state we send the <b>getinfo</b> RPC method again and get this response.
+--------------------
 
-```bash
-curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e6011630cc98880ec5c47320 --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curl test\", \"method\": \"getinfo\", \"params\": []}" -H 'content-type: text/plain;' http://127.0.0.1:9253/ | jq -r '.result'          
-```
+[Proceed to next tutorial article in the series.]()
 
-#### Response
-
-```json
-{ 
- "version": 2001526, 
- "protocolversion": 170007, 
- "KMDversion": "0.4.0a", 
- "synced": false, 
- "notarized": 0, 
- "prevMoMheight": 0, 
- "notarizedhash": "0000000000000000000000000000000000000000000000000000000000000000", 
- "notarizedtxid": "0000000000000000000000000000000000000000000000000000000000000000", 
- "notarizedtxid_height": "mempool", 
- "KMDnotarized_height": 0, 
- "notarized_confirms": 0, 
- "walletversion": 60000, 
- "balance": 1000.12692156, 
- "blocks": 17, 
- "longestchain": 0, 
- "timeoffset": 0, 
- "tiptime": 1561273759, 
- "connections": 1, 
- "proxy": "", 
- "difficulty": 1, 
- "testnet": false, 
- "keypoololdest": 1561273223, 
- "keypoolsize": 101, 
- "paytxfee": 0, 
- "relayfee": 1e-06, 
- "errors": "", 
- "pubkey": "02213ab9f0d6765a4075757e6e2ab0eb8d5099293a19218888f967d598915ae94b", 
- "CCid": 2, 
- "name": "TUT1", 
- "sapling": -1, 
- "p2pport": 9252, 
- "rpcport": 9253, 
- "magic": 230635964, 
- "premine": 1000 
-}
-```
-
-Yes it is fiddly doing it manually from the command line that enough time goes by for a dozen blocks to be mined quickly on a new chain.
-
-Let’s explore how to use python or javascript wrapper libraries.
+<!--
 
 ## Snippet 2: python (5 minutes)
 
@@ -303,3 +257,4 @@ The same notary node operator that created the C++ wrapper also contributed to s
 ## Snippet 8: Go (5 minutes)
 A go-lang library was created by a notary operator.  This snippet 
 
+-->

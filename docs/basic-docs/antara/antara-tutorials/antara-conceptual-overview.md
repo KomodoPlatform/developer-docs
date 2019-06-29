@@ -32,7 +32,7 @@ As the library of available modules grows, so too do the advantages to the many 
 
 ## Understanding the Problem that Antara Modules Solve
 
-Antara is Komodo's technology framework that facilitates ecosystem developers in creating software with varying levels of decentralization. Antara Modules are but one aspect of the wider Antara framework. The modules are a crucial element as they allow any capable developer of directly adding arbitrary code into the Smart Chain itself.
+Antara is Komodo's technology framework that developers use while creating decentralized software. Antara Modules are but one aspect of the wider Antara framework. The modules are a crucial element of the framework, as they allow any capable developer to directly add arbitrary code into the Smart Chain itself.
 
 The reader may better understand the purpose and use case of Antara Modules by first understanding the key problem that they solve.
 
