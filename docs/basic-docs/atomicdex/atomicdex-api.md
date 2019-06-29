@@ -22,8 +22,8 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | --------- | -------- | ----------- |
 | base      | string | the name of the coin the user desires to receive |
 | rel       | string | the name of the coin the user desires to sell |
-| price     | number | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| volume    | number | the amount of coins the user is willing to receive of the `base` coin |
+| price     | string (numeric) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| volume    | string (numeric) | the amount of coins the user is willing to receive of the `base` coin |
 
 #### Response
 
@@ -45,7 +45,7 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 #### Command
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":1,\"price\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":\"1\",\"price\":\"1\"}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -74,6 +74,64 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {"error":"rpc:278] utxo:884] REL balance 12.88892991 is too low, required 21.15"}
+```
+
+</collapse-text>
+
+</div>
+
+## cancel_all_orders
+
+**cancel_order cancel_by**
+
+The `cancel_all_orders` cancels the active orders created by the MM2 node by specified condition.
+
+#### Arguments
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| cancel_by | object   | orders matching this condition will be cancelled |
+| cancel_by.type | string   | `All` to cancel all orders or `Pair` to cancel all orders for specific coins pair |
+| cancel_by.data | object   | additional data of cancel condition, present only for `Pair` type |
+| cancel_by.data.base | string   | base coin of the pair |
+| cancel_by.data.rel  | string   | rel coin of the pair |
+
+#### Response
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| result    | object   | |
+| result.cancelled | array of strings (uuids) | uuids of cancelled orders |
+| result.currently_matching | array of strings (uuids) | uuids of the orders being matched with other orders; these are not cancelled even if they fit cancel condition |
+
+#### :pushpin: Examples
+
+#### Command (All orders)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"cancel_all_orders\",\"cancel_by\":{\"type\":\"All\"}}"
+```
+
+#### Command (Cancel by pair)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"cancel_all_orders\",\"cancel_by\":{\"type\":\"Pair\",\"data\":{\"base\":\"RICK\",\"rel\":\"MORTY\"}}}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (1 order cancelled)
+
+```json
+{"result":{"cancelled":["2aae69d1-0167-493e-ad15-c6a8b43546d6"],"currently_matching":[]}}
+```
+
+#### Response (1 order cancelled and 1 is currently matching)
+
+```json
+{"result":{"cancelled":["2aae69d1-0167-493e-ad15-c6a8b43546d6"],"currently_matching":["e9a6f422-e378-437f-bb74-ba4307a90e68"]}}
 ```
 
 </collapse-text>
@@ -174,7 +232,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ## electrum
 
-**electrum coin urls (mm2 tx_history=false)**
+**electrum coin servers (mm2 tx_history=false)**
 
 ::: warning Important
 
@@ -239,7 +297,7 @@ For terminal interface examples, see the examples section below.
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | address    | string  | the address of the user's `coin` wallet, based on the user's passphrase |
-| balance   | number    | the amount of `coin` the user holds in their wallet |
+| balance   | string (numeric) | the amount of `coin` the user holds in their wallet |
 | result    | string    | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
 #### :pushpin: Examples
@@ -260,7 +318,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 {
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": 10,
+  "balance": "10",
   "result": "success"
 }
 ```
@@ -285,7 +343,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 {
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": 10,
+  "balance": "10",
   "result": "success"
 }
 ```
@@ -356,7 +414,7 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | address    | string  | the address of the user's `coin` wallet, based on the user's passphrase |
-| balance   | number    | the amount of `coin` the user holds in their wallet |
+| balance   | string (numeric)    | the amount of `coin` the user holds in their wallet |
 | result    | string    | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
 #### :pushpin: Examples
@@ -377,7 +435,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 {
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": 10,
+  "balance": "10",
   "result": "success"
 }
 ```
@@ -402,7 +460,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 {
   "coin": "ETH",
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
-  "balance": 50,
+  "balance": "50",
   "result": "success"
 }
 ```
@@ -427,7 +485,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 {
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": 10,
+  "balance": "10",
   "result": "success"
 }
 ```
@@ -479,7 +537,7 @@ The `my_balance` method returns the current balance of the specified `coin`.
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | address | string | the address that holds the coins |
-| balance | number | the number of coins in the address |
+| balance | string (numeric) | the number of coins in the address |
 | coin  | string    | the name of the coin |
 
 #### :pushpin: Examples
@@ -499,7 +557,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 ```json
 {
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": 10,
+  "balance": "10",
   "coin": "HELLOWORLD"
 }
 ```
@@ -1656,6 +1714,14 @@ The `my_tx_history` method returns the blockchain transactions involving the MM2
 | skipped   | number           | the number of skipped records (i.e. the position of `from_id` in the list + 1); this value is 0 if `from_id` was not set |
 | limit     | number           | the limit that was set in the request; note that the actual number of transactions can differ from the specified limit (e.g. on the last page) |
 | total     | number           | the total number of transactions available |
+| current_block | number       | the number of the latest block of coin blockchain |
+| sync_status | object         | provides the information that helps to track the progress of transaction history preloading at background |
+| sync_status.state | string   | current state of sync; possible values: `NotEnabled`, `NotStarted`, `InProgress`, `Error`, `Finished` | 
+| sync_status.additional_info  | object   | additional info that helps to track the progress; present for `InProgress` and `Error` states only | 
+| sync_status.additional_info.blocks_left  | number   | present for ETH/ERC20 coins only; displays the number of blocks left to be processed for `InProgress` state | 
+| sync_status.additional_info.transactions_left  | number   | present for UTXO coins only; displays the number of transactions left to be processed for `InProgress` state | 
+| sync_status.additional_info.code  | number   | displays the error code for `Error` state | 
+| sync_status.additional_info.message  | number | displays the error message for `Error` state | 
 
 #### :pushpin: Examples
 
@@ -1718,9 +1784,62 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-    "error": {
-        "code": -1,
-        "message": "Got `history too large` error from Electrum server. History is not available"
+    "result": {
+        "current_block": 144753,
+        "from_id": null,
+        "limit": 0,
+        "skipped": 0,
+        "sync_status": {
+            "additional_info": {
+                "code": -1,
+                "message": "Got `history too large` error from Electrum server. History is not available"
+            },
+            "state": "Error"
+        },
+        "total": 0,
+        "transactions": []
+    }
+}
+```
+
+#### Response (Sync in progress for UTXO coins)
+
+```json
+{
+    "result": {
+        "current_block": 148300,
+        "from_id": null,
+        "limit": 0,
+        "skipped": 0,
+        "sync_status": {
+            "additional_info": {
+                "transactions_left": 1656
+            },
+            "state": "InProgress"
+        },
+        "total": 3956,
+        "transactions": []
+    }
+}
+```
+
+#### Response (Sync in progress for ETH/ERC20 coins)
+
+```json
+{
+    "result": {
+        "current_block": 8039935,
+        "from_id": null,
+        "limit": 0,
+        "skipped": 0,
+        "sync_status": {
+            "additional_info": {
+                "blocks_left": 2158991
+            },
+            "state": "InProgress"
+        },
+        "total": 0,
+        "transactions": []
     }
 }
 ```
@@ -1993,8 +2112,8 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 | --------- | -------- | ----------- |
 | base      | string | the name of the coin the user desires to sell |
 | rel       | string | the name of the coin the user desires to receive |
-| price     | number | the price in `rel` the user is willing to receive per one unit of the `base` coin |
-| volume    | number | the amount of coins the user is willing to sell of the `base` coin |
+| price     | string (numeric) | the price in `rel` the user is willing to receive per one unit of the `base` coin |
+| volume    | string (numeric) | the amount of coins the user is willing to sell of the `base` coin |
 
 #### Response
 
@@ -2016,7 +2135,7 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 #### Command
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":1,\"price\":1}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":\"1\",\"price\":\"1\"}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -2130,10 +2249,16 @@ The `setprice` order is always considered a `sell`, for internal implementation 
 
 #### :pushpin: Examples
 
-#### Command
+#### Command (with volume)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BASE\",\"rel\":\"REL\",\"price\":0.9}
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BASE\",\"rel\":\"REL\",\"price\":\"0.9\",\"volume\":\"1\"}
+```
+
+#### Command (max = true)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"setprice\",\"base\":\"BASE\",\"rel\":\"REL\",\"price\":\"0.9\",\"max\":true}
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -2200,7 +2325,7 @@ This method generates a raw transaction which should then be broadcast using [se
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin the user desires to withdraw |
 | to        | string | coins will be withdrawn to this address |
-| amount    | number | the amount the user desires to withdraw, ignored when `max=true` |
+| amount    | string (numeric) | the amount the user desires to withdraw, ignored when `max=true` |
 | max       | bool   | withdraw the maximum available amount |
 
 #### Response
@@ -2222,7 +2347,7 @@ This method generates a raw transaction which should then be broadcast using [se
 #### Command (BTC, KMD, and other BTC-based forks)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"KMD\",\"to\":\"RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh\",\"amount\":10,\"userpass\":\"$userpass\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"KMD\",\"to\":\"RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh\",\"amount\":\"10\",\"userpass\":\"$userpass\"}"
 ```
 
 <div style="margin-top: 0.5rem;">
