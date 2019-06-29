@@ -206,7 +206,7 @@ curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e601
 
 ## Stop Mining on the Seed Node
 
-To instruct the node to cease mining, we again use the [<b>setgenerate</b>] RPC, but this time we provide the parameter as `false`.
+To instruct the node to cease mining, we again use the [<b>setgenerate</b>]() RPC, but this time we provide the parameter as `false`.
 
 ```bash
 curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e6011630cc98880ec5c47320 --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curl test\", \"method\": \"setgenerate\", \"params\": [false]}" -H 'content-type: text/plain;' http://127.0.0.1:9253/ | jq -r '.result'       

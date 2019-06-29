@@ -10,7 +10,7 @@ For example, tokens can be used to represent real world assets, and users can th
 
 #### A Token is a Satoshi
 
-All Smart Chains coins abide by the Bitcoin-protocol standard wherein 1 coin is divisible for up to eight decimal places: `1.00000000`. The smallest unit of a Smart Coin therefore is `0.00000001` coins. By convention it is called a "satoshi," in honor of the inventor of the Bitcoin protocol.
+All Smart Chain coins abide by the Bitcoin-protocol standard wherein 1 coin is divisible for up to eight decimal places: `1.00000000`. The smallest unit of a Smart Coin therefore is `0.00000001` coins. By convention it is called a "satoshi," in honor of the inventor of the Bitcoin protocol.
 
 On a Smart Chain, each individual token is derived from one individual satoshi. Therefore, each coin can be transformed into 100,000,000 tokens. 
 
