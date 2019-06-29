@@ -57,11 +57,11 @@ For terminal interface examples, see the examples section below.
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | coin      | string | the name of the coin you want to enable |
-| urls      | array of strings | the urls of Electrum servers to which you want to connect |
+| servers   | array of electrum objects | one object contains the url of an Electrum server to which you want to connect |
 | mm2       | number (required if not set in the `coins` file) | this property informs the Komodo DEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
 
 ::: warning Note
-If the connection to at least one of the provided `urls` fails for any reason the software will not enable the coin. Instead, the software will return an error.
+If the connection to at least one of the provided `servers` fails for any reason the software will not enable the coin. Instead, the software will return an error.
 :::
 
 ### Response:
@@ -77,7 +77,7 @@ If the connection to at least one of the provided `urls` fails for any reason th
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"urls\":[\"electrum1.cipig.net:10022\",\"electrum2.cipig.net:10022\",\"electrum3.cipig.net:10022\"]}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"HELLOWORLD\",\"servers\":[{\"url\":\"electrum1.cipig.net:10022\"},{\"url\":\"electrum2.cipig.net:10022\"},{\"url\":\"electrum3.cipig.net:10022\"}]}"
 ```
 
 Response (Success):
