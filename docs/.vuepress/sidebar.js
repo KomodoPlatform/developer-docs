@@ -291,7 +291,7 @@ var sidebar = [
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-4.md",
-                            "Komodo Developer Path | Part IV"
+                            "Komodo Developer Path | Understanding Tokens"
                         ],
                 ],
             },
