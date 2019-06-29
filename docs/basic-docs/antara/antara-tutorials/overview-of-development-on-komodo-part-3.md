@@ -1,6 +1,6 @@
 # Komodo Developer Path | Connecting to Another Programming Environment
 
-#### Total Estimate Time: ~10 (per language)
+#### Total Estimate Time: ~10-20 Minutes
 
 This tutorial is part of a series. 
 
@@ -222,39 +222,3 @@ null
 
 [Proceed to next tutorial article in the series.]()
 
-<!--
-
-## Snippet 2: python (5 minutes)
-
-A more detailed python snippet follows in Snippet 5 using a more optimized package.
-
-If you’re using ubuntu as your host (or many other linux distributions)  python comes pre-installed as it runs many of the package managers to manage software.
-
-Let’s validate our address, list the unspent transaction outputs and send the balance to ourselves to create a UTXO that derives from a previous spend (and not generated from mining or pre-mine supply at chain start) so that we can send to the on-chain Antara Faucet module with javascript (nodejs) in the next section.
-
-Using  peercoin’s RPC for a quick entry into using a wrapper library 
-
-## Snippet 3: javascript/nodejs (7 minutes)
-
-This nodejs wrapper was started by a notary node operator and uses the popular axios library to connect with the RPC server.
-
-## Snippet 4: javascript/browser (8 minutes)
-
-Browser integration is limited because the RPC server does not support CORS requests, so we need to put a proxy between the browser and the blockchain’s RPC interface.  A very quick how to is at the end of this tutorial.
-
-The browser integration is also from the same notary operator that started the nodejs wrapper library.  The difference is that it uses the browser’s native fetch http method,  so there are no 3rd party depenencies for the deployment.
-
-## Snippet 5: python (5 minutes)
-
-Yet another notary node operator has been using the biitcoin-slickrpc package for a python integration.
-
-## Snippet 6: C++ (5 minutes)
-Again, a notary node operator created a C++ binding.  
-
-## Snippet 7: Java (5 minutes)
-The same notary node operator that created the C++ wrapper also contributed to some Java integratioin.
-
-## Snippet 8: Go (5 minutes)
-A go-lang library was created by a notary operator.  This snippet 
-
--->
