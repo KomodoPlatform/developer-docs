@@ -50,6 +50,41 @@ var sidebar = [
                     ],
                 ]
             },
+            {
+                title: "Whitepaper",
+                collapsible: true,
+                children: 
+                [
+                    [
+                        "/basic-docs/start-here/whitepaper/whitepaper-introduction.md",
+                        "Introduction"
+                    ],
+                    [
+                        "/basic-docs/start-here/whitepaper/whitepaper-delayed-proof-of-work.md",
+                        "Delayed Proof of Work"
+                    ],
+                    [
+                        "/basic-docs/start-here/whitepaper/whitepaper-the-decentralized-initial-coin-offering.md",
+                        "The Decentralized Initial Coin Offering"
+                    ],
+                    [
+                        "/basic-docs/start-here/whitepaper/whitepaper-atomicdex.md",
+                        "AtomicDEX: The Atomic Swap Exchange"
+                    ],
+                    [
+                        "/basic-docs/start-here/whitepaper/whitepaper-jumblr.md",
+                        "Jumblr: Zero-Knowledge Transactions"
+                    ],
+                    [
+                        "/basic-docs/start-here/whitepaper/whitepaper-miscellaneous.md",
+                        "Additional Topics"
+                    ],
+                    [
+                        "/basic-docs/start-here/whitepaper/whitepaper-references.md",
+                        "References"
+                    ],
+                ]
+            },
             // {
                 // title: "General Tutorials",
                 // collapsible: true,

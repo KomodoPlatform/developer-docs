@@ -30,7 +30,7 @@ All of the tokens created from this single transaction are fungible one with ano
 
 #### Non-Fungible Token Creation
 
-Alternatively, rather than creating a large collective of many fungible tokens, you could instead create non-fungible tokens. To achieve this, use the <b>tokencreate</b> RPC to create one token at a time. (For each token, this would cost `1` satoshi, which is converted into a token, and the miner's fee.)
+Alternatively, rather than creating a large collective of many fungible tokens, you could instead create non-fungible tokens. To achieve this, use the <b>tokencreate</b> RPC to create one token at a time. Each token requires `1` satoshi, plus transaction fees.
 
 #### Attaching Data to Tokens
 
