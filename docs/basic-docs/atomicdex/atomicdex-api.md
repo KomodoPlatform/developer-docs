@@ -406,6 +406,7 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | coin      | string | the name of the coin the user desires to enable |
 | urls      | array of strings (required for ETH/ERC20) | urls of Ethereum RPC nodes to which the user desires to connect |
 | swap_contract_address | string (required for ETH/ERC20) | address of etomic swap smart contract |
+| gas_station_url | string (optional for ETH/ERC20) | url of [ETH gas station API](https://docs.ethgasstation.info/); MM2 uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; If this param is set MM2 will request the current gas price from Station for new transactions which results in lower fees usually |
 | mm2       | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
 | tx_history| bool | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API |
 
@@ -448,6 +449,31 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "coin": "ETH",
+  "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
+  "balance": "50",
+  "result": "success"
+}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (for Ethereum and ERC20-based blockchains with gas_station_url)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\",\"gas_station_url\":\"https://ethgasstation.info/json/ethgasAPI.json\"}"
 ```
 
 <div style="margin-top: 0.5rem;">
