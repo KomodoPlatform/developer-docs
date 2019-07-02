@@ -502,6 +502,104 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
+## get_trade_fee
+
+**get_trade_fee coin**
+
+The `get_trade_fee` method returns approximate amount of miner fee that will be paid per swap transaction.
+This amount should be multiplied by 2 and deducted from the volume on `buy/sell` calls if user is about to trade entire balance of selected coin.
+
+#### Arguments
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| coin      | string | the name of the coin to get the trade fee |
+
+#### Response
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| result    | object   | |
+| result.coin | string | the fee will be paid from this coin balance; it might differ from the requested coin, for example ERC20 fees are paid by ETH (gas) |
+| result.amount | string (numeric) | the approximate fee amount to be paid per swap transaction |
+
+#### :pushpin: Examples
+
+#### Command (BTC)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"get_trade_fee\",\"coin\":\"BTC\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+    "result":{
+        "amount":"0.00096041",
+        "coin":"BTC"
+    }
+}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (ETH)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"get_trade_fee\",\"coin\":\"ETH\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+    "result":{
+        "amount":"0.00121275",
+        "coin":"ETH"
+    }
+}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (ERC20)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"get_trade_fee\",\"coin\":\"BAT\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+    "result":{
+        "amount":"0.00121275",
+        "coin":"ETH"
+    }
+}
+```
+
+</collapse-text>
+
+</div>
+
 ## help
 
 **help()**
