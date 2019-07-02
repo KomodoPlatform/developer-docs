@@ -99,20 +99,6 @@ Wait for confirmation and then verify that our `0.0993` TUT1 balance is reduced 
 
 </div>
 
-<!--
-
-Until we have more of the next tutorial, the BRONZE tokens don't add anything to the tutorial.
-
--->
-
-## Create BRONZE Tokens
-
-- `TOKENS` > `CREATE`
-- Name: `BRONZE`
-- Amount: `0.005`
-- Description: `Some BRONZE Tokens`
-
-
 ## Create ROCK Tokens
 
 - `TOKENS` > `CREATE`
@@ -185,6 +171,5 @@ If you are ready to proceed with the next tutorials in our educational series, r
   - [<b>Faucet Antara Module</b>]()
 - Mine transactions
   - [<b>setgenerate</b>]()
-- Executed a curl commands
 - Create fungible and non-fungible tokens
-  - [<b>Tokens AntaraModule </b>]()
+  - [<b>Tokens Antara Module </b>]()

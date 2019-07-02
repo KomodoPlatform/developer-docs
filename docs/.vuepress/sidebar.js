@@ -51,36 +51,36 @@ var sidebar = [
                 ]
             },
             {
-                title: "Whitepaper",
+                title: "Core Technology Discussions",
                 collapsible: true,
                 children: 
                 [
                     [
-                        "/basic-docs/start-here/whitepaper/whitepaper-introduction.md",
+                        "/basic-docs/start-here/core-technology-discussions/introduction.md",
                         "Introduction"
                     ],
                     [
-                        "/basic-docs/start-here/whitepaper/whitepaper-delayed-proof-of-work.md",
+                        "/basic-docs/start-here/core-technology-discussions/delayed-proof-of-work.md",
                         "Delayed Proof of Work"
                     ],
                     [
-                        "/basic-docs/start-here/whitepaper/whitepaper-the-decentralized-initial-coin-offering.md",
+                        "/basic-docs/start-here/core-technology-discussions/the-decentralized-initial-coin-offering.md",
                         "The Decentralized Initial Coin Offering"
                     ],
                     [
-                        "/basic-docs/start-here/whitepaper/whitepaper-atomicdex.md",
+                        "/basic-docs/start-here/core-technology-discussions/atomicdex.md",
                         "AtomicDEX: The Atomic Swap Exchange"
                     ],
                     [
-                        "/basic-docs/start-here/whitepaper/whitepaper-jumblr.md",
+                        "/basic-docs/start-here/core-technology-discussions/jumblr.md",
                         "Jumblr: Zero-Knowledge Transactions"
                     ],
                     [
-                        "/basic-docs/start-here/whitepaper/whitepaper-miscellaneous.md",
+                        "/basic-docs/start-here/core-technology-discussions/miscellaneous.md",
                         "Additional Topics"
                     ],
                     [
-                        "/basic-docs/start-here/whitepaper/whitepaper-references.md",
+                        "/basic-docs/start-here/core-technology-discussions/references.md",
                         "References"
                     ],
                 ]

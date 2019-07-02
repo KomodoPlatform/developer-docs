@@ -27,16 +27,16 @@ Komodo also has powerful privacy features built into our platform. When activate
 
 There are many other technologies and features in the Komodo ecosystem, and we are experiencing a rapid growth of both entrepreneurs and investors.
 
-This Komodo whitepaper provides an in-depth discussion about Komodo’s unique security features, our decentralized exchange, the method of releasing new products on it, and our native privacy features.
+The documentation in the <b>Core Technology Discussion</b> section provides an in-depth discussion about Komodo’s unique security features, our decentralized exchange, the method of releasing new products on it, and our native privacy features.
 
 We welcome feedback from our readers. If you have any questions or concerns over the course of reading this material, please reach out to our team directly. You may find our contact information on our accompanying website: [https://komodoplatform.com](https://komodoplatform.com)
 
 #### Note on Changes Since Whitepaper Creation (cr. 2019)
 
-This version of the whitepaper was written in 2017. The content herein remains applicable and provides a foundational understanding of the Komodo Platform. We recommend that all newcomers read this whitepaper; it can greatly enhance a user's understanding of the nature and design of Komodo.
+The documentation in this section is based on the Komodo whitepaper that was written in 2017. The content herein remains applicable and provides a foundational understanding of the Komodo Platform. We recommend that all newcomers read this documentation; it can greatly enhance a user's understanding of the nature and design of Komodo.
 
-Since authoring the whitepaper, the Komodo team has greatly advanced the technologies on the Komodo Platform, and these new technologies are discussed in other areas of the technical-documentation website.
+Since 2017, the Komodo team has greatly advanced the technologies on the Komodo Platform, and these new technologies are discussed in other areas of the technical-documentation website.
 
-For example, the Antara Framework provides functionality that is similar to the smart contracts found on other platforms (although we argue Antara is dramatically more powerful). Antara is a relatively new feature, and it is not covered in the whitepaper, but it is covered extensively in the [Antara Framework]() documentation.
+For example, the Antara Framework provides functionality that is similar to the smart contracts found on other platforms (although we argue Antara is dramatically more powerful). Antara is a relatively new feature, and it is not covered here, but it is covered extensively in the [Antara Framework]() documentation.
 
 The Jumblr feature and zero-knowledge transactions are still available on Komodo-based blockchains, but they are no longer available on the KMD main chain. This change was made largely in response to community feedback and industry developments.

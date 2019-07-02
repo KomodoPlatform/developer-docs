@@ -322,7 +322,7 @@ In addition, the dPoW security provided by Komodo is not only greater than Bitco
 
 #### A Note About Komodo’s Iguana Core Technology
 
-All the following processes are supported by a deeper Komodo technology called Iguana Core. Readers of our entire whitepaper will note that Iguana Core is featured in each section. This is because Iguana Core is the heart of the underlying technology that enables the vast Komodo ecosystem to work together. The Iguana Core code itself is complex and to fully explain would require a separate whitepaper.
+All the following processes are supported by a deeper Komodo technology called Iguana Core. Readers of this entire section of documentation will note that Iguana Core is featured in each section. This is because Iguana Core is the heart of the underlying technology that enables the vast Komodo ecosystem to work together. The Iguana Core code itself is complex and to fully explain would require a separate whitepaper.
 
 In short, Iguana Core is a collection of code that serves many purposes. One function of Iguana Core is to empower the blockchain technologies Komodo either builds or adopts to act in coordination with each other. Often, Iguana Core can advance their initial capabilities beyond original expectations. In the case of dPoW, the code that underlies notary-node functionality spawned from Iguana Core technology.
 
@@ -493,13 +493,13 @@ There are myriad ways that an attacker can assail a blockchain project, and the 
 
 In a separate technical whitepaper, written by our lead developer, we provide several more discussions on how Komodo responds to many other forms of attack.
 
-::: tip Note
+Some mentioned therein include the Sybil Attack, the Eclipse Attack, and more. We encourage any reader searching for information about the deepest levels of Komodo security not only to read the accompanying whitepaper, but also to reach out to our team directly.
 
-Please reach out to our team directly for a copy of this separate whitepaper, if interested.
+::: tip Note (2019)
+
+The whitepaper referred to above was written in ~2016 and is now obsolete, and therefore is no longer posted here. Please reach out to our team directly for a copy, if interested.
 
 :::
-
-Some mentioned therein include the Sybil Attack, the Eclipse Attack, and more. We encourage any reader searching for information about the deepest levels of Komodo security not only to read the accompanying whitepaper, but also to reach out to our team directly.
 
 #### Notarizations Provide a Defense Against Both the 51% Attack and the Genesis Attack
 
