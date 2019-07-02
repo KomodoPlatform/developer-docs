@@ -604,7 +604,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **get_enabled_coins**
 
-The `get_enabled_coins` method returns tickers of coins currently enabled on MM2 node.
+The `get_enabled_coins` method returns data of coins currently enabled on MM2 node.
 
 #### Arguments
 
