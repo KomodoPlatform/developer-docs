@@ -18,7 +18,7 @@ You may also build `komodod` and `komodo-cli` from source. This is not required,
 
 Please see the full [Smart Chains]() technical documentation for full software explanations.
 
-You will find [a walkthrough on building from source here](https://docs.komodoplatform.com/komodo/installation.html).
+You will find [a walkthrough on building from source here.](https://docs.komodoplatform.com/komodo/installation.html)
 
 ## AtomicDEX Installation
 

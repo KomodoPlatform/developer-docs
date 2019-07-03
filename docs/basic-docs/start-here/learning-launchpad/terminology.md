@@ -2,12 +2,7 @@
 
 ## Smart Chain
 
-A <b>Smart Chain</b> is a ...
-
 ## Fluidity
-
-<b>Fluidity</b> is a development framework...
-
 
 ## Proof of Work
 
@@ -15,3 +10,6 @@ A <b>Smart Chain</b> is a ...
 
 ## Blocks on Demand
 
+## Daemon
+
+## RPC

@@ -30,9 +30,9 @@ Beginner-level knowledge should be sufficient for the majority of the site. For 
 - Utilize an Application Programming Interface (API)
 - Write and execute a rudimentary script in any mainstream language
 
-If you do not have these prerequisite experiences, we encourage you to reach out to our community on [<b>Discord</b>](https://komodoplatform.com/discord). There are thousands of free tutorials online that can help you quickly cover these topics. We will be happy to help you in your search.
+If you do not have these prerequisite experiences, we encourage you to reach out to our community on [<b>Discord.</b>](https://komodoplatform.com/discord) There are thousands of free tutorials online that can help you quickly cover these topics. We will be happy to help you in your search.
 
-### Komodo Language Compatability 
+### A Note Regarding Komodo Language Compatability 
 
 Komodo is a highly capable blockchain technology, and it is designed for compatability with essentially all mainstream programming languages. However, not all developers will need to use its most advanced aspects.
 
@@ -40,7 +40,7 @@ Komodo is a highly capable blockchain technology, and it is designed for compata
 
 A typical developer in the Komodo ecosystem will build all their application logic in a separate application that runs outside of their Smart Chain daemon. 
 
-The developer's software will send API requests to their Smart Chain's daemon to update the blockchain state and take advantage of Komodo's default Antara modules. (Antara modules provide functionality similar to the "smart contracts" that are common on other platforms. However, we argue that Antara modules are dramatically more powerful.) 
+The developer's software will send API requests to their Smart Chain's daemon to update the blockchain state and take advantage of Komodo's default Antara Modules. (Antara Modules provide functionality similar to the "smart contracts" that are common on other platforms. However, we argue that Antara Modules are dramatically more powerful.) 
 
 For this developer, any programming language that is capable of sending API requests to the software daemon is compatible.
 
@@ -56,7 +56,7 @@ Although the Antara Framework can be compatible with essentially all mainstream 
 
 #### Installation and Testing is Free
 
-Installing and experimenting with Komodo Smart Chains is completely free.
+Creating and experimenting with Komodo Smart Chains is completely free.
 
 #### Production Smart Chains Typically Require Komodo's Security Services
 
@@ -89,7 +89,7 @@ Currently, there are no additional costs for AtomicDEX beyond the fees listed fo
 
 The main KMD blockchain runs on the same underlying framework as all Smart Chains in the ecosystem, but not all features are active on the KMD blockchain.
 
-The KMD chain's active features include Bitcoin-hash rate supported security and the ability to execute Antara modules. Other features, such as zero-knowledge privacy, are disabled.
+The KMD chain's active features include Bitcoin-hash rate supported security and the ability to execute Antara Modules. Other features, such as zero-knowledge privacy, are disabled.
 
 This limitation is intentional. The KMD chain holds all the meta data of the ecosystem. By keeping the functionality limited, Komodo discourages rapid data growth on this central blockchain.
 

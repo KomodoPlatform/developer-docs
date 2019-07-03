@@ -50,6 +50,41 @@ var sidebar = [
                     ],
                 ]
             },
+            {
+                title: "Core Technology Discussions",
+                collapsible: true,
+                children: 
+                [
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/introduction.md",
+                        "Introduction"
+                    ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/delayed-proof-of-work.md",
+                        "Delayed Proof of Work"
+                    ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/creating-and-distributing-a-new-komodo-smart-chain.md",
+                        "Creating and Distributing a New Komodo Smart Chain"
+                    ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/antara.md",
+                        "The Antara Framework"
+                    ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/atomicdex.md",
+                        "AtomicDEX: The Atomic-Swap Exchange"
+                    ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/miscellaneous.md",
+                        "Miscellaneous"
+                    ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/references.md",
+                        "References"
+                    ],
+                ]
+            },
             // {
                 // title: "General Tutorials",
                 // collapsible: true,
@@ -257,6 +292,10 @@ var sidebar = [
                             "/basic-docs/antara/antara-tutorials/heir-module-tutorial.md", 
                             "Heir Module Tutorial" 
                         ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/jumblr.md",
+                            "An Explanation of Jumblr"
+                        ],
                         // [
                             // "/basic-docs/antara/antara-tutorials/create-an-oracles-plan-tutorial.md", 
                             // "Create an Oracles Plan Tutorial" 
@@ -283,15 +322,15 @@ var sidebar = [
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-2.md",
-                            "Komodo Developer Path | Part II"
+                            "Komodo Developer Path | Using a Faucet"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-3.md",
-                            "Komodo Developer Path | Part III"
+                            "Komodo Developer Path | Connecting to Another Programming Environment"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-4.md",
-                            "Komodo Developer Path | Part IV"
+                            "Komodo Developer Path | Understanding Tokens"
                         ],
                 ],
             },

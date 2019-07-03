@@ -1,58 +1,80 @@
-# Tutorial 4 Token Balance & Creating Tokens – Fungible & Non-Fungible
+# Komodo Developer Path | Understanding Tokens
 
 ## Introduction
 
-The possibilities that a token platform provides can include:
+Each Smart Chain in the Komodo ecosystem can act as a fully tokenizable platform. This provides many opportunities to the developer in creating on-chain assets that represent varying types of value for their users.
 
-- Tokenization of real world assets • Trading of tokens
-- Tokenomics as a layer for incentivizing an audience
-- Collectibles markets
-- Many more …
+For example, tokens can be used to represent real world assets, and users can then trade these tokens using Komodo's [Token DEX]() and [AtomicDEX]() features. The developer could also create tokens that provide incentives to their audience. Or, tokens can represent collectible assets. These are but a few examples of the usefulness of on-chain tokenization. 
 
-For the historical romantic, colored coins were one of the earliest ways of achieving some tokenization on the Bitcoin blockchain.  The history of Komodo can be traced back to the NXT Asset Exchange where “sub-atomic” non-custodial trading was pioneered.  Non-custodial trading (where the owner of the asset retains control through the entire process) between native coins and  tokens (e.g. ERC20 tokens on Ethereum) of different protocols is now part of the atomic swap platform Atomic DEX founded by the Komodo Core Team.
+## Conceptualizing Tokens
 
-1 coin is divisible by 100 million.  Each 100,000,000th of a TUT1 coin is a satoshi.  With 0.1 TUT1, we have 10,000,000 satoshis.  Each satoshi in the Antara Tokens module represents 1 token.  The token can now represent other things of value and where a token economy can exist.
+#### A Token is a Satoshi
 
-Non-Fungible Token Creation
-When 1 satoshi is used to create a token, the token is derived from 1 satoshi.   This means that from this creation event (transaction) this satoshi is unique – therefore the token is unique.  There are no other satoshis that have been used to create this token.
+All Smart Chain coins abide by the Bitcoin-protocol standard wherein 1 coin is divisible for up to eight decimal places: `1.00000000`. The smallest unit of a Smart Coin therefore is `0.00000001` coins. By convention it is called a "satoshi," in honor of the inventor of the Bitcoin protocol.
 
-## Fungible Token Creation
-The other method of creating tokens involves more than 1 satoshi at creation.  With 0.1 TUT1 coins, we can create 10,000,000 tokens in one creation transaction, or we can use 0.005 TUT1 coins to create 500,000 tokens.  These 500,000 tokens are all derived from the 0.005 TUT1 that was used for  creating them.  They are collectively the “ABC” token derived from the satoshis in the the token creation transaction 0f329824ccbaba8198715 for example.  These are fungible.
+On a Smart Chain, each individual token is derived from one individual satoshi. Therefore, each coin can be transformed into 100,000,000 tokens. 
 
-## Attaching Data To Tokens
+At the time of the creation of these tokens, the creator can define their properties, grant meta data to them, and establish the nature of their scarcity. 
 
-Data can be attached to these tokens at creation.  When using the 1 satoshi derived token, it adds a new level of uniqueness and collectibility.  Attaching data is not limited to NFTs, fungible tokens can equally be used – so there can be 5,000 tokens with one set of rare data and 495,000 tokens with more common data.  The data can be anything from geo-location data points for augmented reality games, to a substring of some algorithm to determine the genes of a cuddly digital card game animal.
+All of this functionality is established and secured through the [Tokens Antara Module]().
 
-#### Prerequisites
+#### Fungible Token Creation
 
-This tutorial follows on from the Antara Faucet module tutorial, Tutorial 2.  One node, the seed node has received 0.1 TUT1 coins from a single request to the faucet.
+With `0.1` of our `TUT1` tutorial coins, we can create `10,000,000` tokens in one creation transaction using the [<b>tokencreate</b>](../../../basic-docs/antara/antara-api/tokens.html#tokencreate) RPC.
 
-Seed Node RPC: tokencreate to create 50,000 GOLD tokens
-On the seed node menu go the the tokens submenu and press create:
-- SEED-NODE > TOKENS > CREATE
-- Token Name: GOLD
-- How Many Satoshis To Use:  0.0005
-- A Short Description: Some GOLD tokens.
+In the process of creation we can choose a name for these tokens.
 
-This will create 50,000 GOLD tokens by sending 0.0005 TUT1 coins to the Antara Tokens module.  The record of these 50,000 satoshis will now be used as GOLD tokens.
+All of the tokens created from this single transaction are fungible one with another, and maintain scarcity across the Smart Chain.
 
-Waiting for this action to be confirmed, our balance from SEED-NODE > GETINFO will be 0.0993.
+*(It is even possible with Antara technology to maintain token scarcity across multiple chains, but this is an advanced topic that we do not cover here.)*
 
-Why 0.0993?
+#### Non-Fungible Token Creation
 
-Starting with 0.1 TUT1 coins, 0.0005 has been used for creating GOLD tokens.  This create transaction requires a transaction fee to be consumed by the network and awarded to the miner for solving the cryptographic puzzle, this is 0.0001.   Another 0.0001 is used as a marker within the Antara Tokens module.
+Alternatively, rather than creating a large collective of many fungible tokens, you could instead create non-fungible tokens. To achieve this, use the <b>tokencreate</b> RPC to create one token at a time. Each token requires `1` satoshi, plus transaction fees.
 
-The marker transaction pattern is an efficient blockchain method of keeping track of specific and special events.  The efficiency is notably used for listing tokens that exist on the TUT1 blockchain.
+#### Attaching Data to Tokens
+
+We can attach meta data to the tokens at their creation. 
+
+The maximum size of data that can fit in a single Komodo transaction is `10000` bytes. This is enough to include all sorts of data, and even simple images.
+
+The developer is naturally free to use their imagination in the design of this data. For example, you can describe their purpose and add a json data structure that informs other software of the properties of this token.
+
+Advanced developers can even add functionality to allow the tokens to gain new data over time as they are passed through transactions.
+
+## Create a Token Set on TUT1 Smart Chain
+
+In our guided tutorial, we now create `50,000` tokens that we give the name `GOLD`.
+
+- Enter the `SEED-MENU`
+- Select the `TOKENS` submenu
+- Select `CREATE`
+- Enter the name `GOLD`
+- Use `0.0005` tokens
+- For the short description `Some GOLD tokens`
+
+This creates 50,000 GOLD tokens by sending 0.0005 TUT1 coins to the [Tokens Antara Module.]()
+
+Wait a minute or so for the transaction to be mined and then use the `GETINFO` function to check the balance of our wallet. There are now `0.0993` coins remaining from the `0.1` coins we had previously.
+
+We used `0.0005` coins to create the tokens. 
+
+We had a fee paid to the miners of `0.0001` coins. 
+
+We also had another fee of `0.0001` coins that were sent to a special address in the Tokens Antara Module, called the "global address." The transaction for this fee had a small amount of data that permanently tells the entire `TUT1` Smart Chain community that we created these tokens. Therefore, if other users or developers want to learn about our `GOLD` tokens, they have a starting point in this global address.
 
 ## Seed or Mining Node RPC: tokenlist & tokeninfo to find details of the tokens
 
-Going back to the TOKENS submenu of either of the nodes, the blockchain has recorded the creation of GOLD tokens.
-- SEED-MENU > TOKENS > LIST
-- SEED-MENU > TOKENS > INFO > GOLD
+To see our tokens afterwards, we can use the [<b>tokenlist</b>]() and [<b>tokeninfo</b>]() RPC's.
 
-LIST calls the tokenlist RPC method.   This returns an array of token-ids.  The token id is the transaction id of the tokencreate method used above.
+In our guided tutorial, we have automated functions available to make this simpler.
 
-INFO calls the tokeninfo RPC method and returns the details of the token passed as an argument. The guided tutorials application uses the list RPC method and loops through each item to get the name, for the purpose of making a nice human readable list.
+- `SEED-MENU` > `TOKENS` > `LIST`
+- `SEED-MENU` > `TOKENS` > `INFO` > `GOLD`
+
+`LIST` calls the <b>tokenlist</b> RPC. This returns an array of token ids. A "token id" is the id of the transaction that created the token. We use this token id nearly every time hereafter when we transact with these tokens.
+
+`INFO` calls the <b>tokeninfo</b> RPC. This RPC requires the token id of the token we desire to inspect. In our case, we chose the `GOLD` token.
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
@@ -60,15 +82,16 @@ INFO calls the tokeninfo RPC method and returns the details of the token passed 
 
 </div>
 
-## Seed Node RPC: tokencreate to create 200,000 SILVER tokens
+## Create SILVER Tokens
 
-Repeating the process for SILVER tokens:
-- SEED-NODE > TOKENS > CREATE
-- Name: SILVER
-- Amount: 0.002
-- Description: Some Silver TOKENS
+Repeat the process to create `SILVER` tokens.
 
-Wait for confirm, and the 0.0993 TUT1 balance is reduced down to 0.0971.
+- `SEED-NODE` > `TOKENS` > `CREATE`
+- Name: `SILVER`
+- Amount: `0.002`
+- Description: `Some SILVER tokens`
+
+Wait for confirmation and then verify that our `0.0993` TUT1 balance is reduced to `0.0971`.
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
@@ -76,23 +99,14 @@ Wait for confirm, and the 0.0993 TUT1 balance is reduced down to 0.0971.
 
 </div>
 
-## Seed Node RPC: tokencreate to create 500,000 BRONZE tokens
-Repeat for BRONZE tokens:
-- TOKENS > CREATE
-- Name: BRONZE
-- Amount: 0.005
-- Description: Some BRONZE tokens
+## Create ROCK Tokens
 
-Wait for the transaction to confirm.
+- `TOKENS` > `CREATE`
+- Name: `ROCK`
+- Amount: `0.04`
+- Description: `Some ROCK Tokens`
 
-## Seed Node RPC: tokencreate to create 4,000,000 ROCK tokens
-
-Repeat for ROCK tokens taking note of the transaction id after creating it.
-
-- TOKENS > CREATE
-- Name: ROCK
-- Amount: 0.04
-- Description: Some ROCK tokens 
+Use the `LIST` function to find the token id for `ROCK`, and then use the `TOKENS` > `ROCK` function to retrieve the token's full information. We see the token id included as a part of the returned data.
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
@@ -100,45 +114,31 @@ Repeat for ROCK tokens taking note of the transaction id after creating it.
 
 </div>
 
-Checking this against the TOKENS > LIST, you will find the transaction id is the token id in this list or checking the details of TOKENS > INFO > ROCK the same transction id is used as the token id.  Very efficient re-use of existing data!
-
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
 <img src="/2019-06-24-tutorial-4-img-4.png">
 
 </div>
 
-## Mining Node RPC: tokencreate to create an NFT with 1 satoshi
+## Create a Non-Fungible Token
 
-Let’s change to the mining node just to see a different owner pubkey on the token creation details and use 1 satoshi 0.00000001  (0. seven zeroes 1)
+Switch to the mining node.
 
-- MINING-NODE > TOKENS
-- TOKENS > CREATE
-- Name: NFT1
-- Amount: 0.00000001
-- Description: First unique token
+Recall that to create a non-fungible token, we simply use only one satoshi of the coin.
 
-## User Balance Of Tokens Using RPC Method: tokenbalance
+- `MINING-MENU` > `TOKENS`
+- `TOKENS` > `CREATE`
+- Name: `NFT1`
+- Amount: `0.00000001`
+- Description: `First unique token`
 
-The seed & mining node in this tutorial have both made tokens.  So, by rights, each user will have a different balance.  The mining node will have a balance of 0 for the GOLD, SILVER, BRONZE & ROCK tokens, but have a balance of 1 for the NFT1 token.
+## Compare the Tokens on One Node Against the Other
 
-Repeat the following from the SEED-NODE and MINING-NODE:
+Check the balance of the `NFT1` token on both the `SEED` node and the `MINING` node.
 
-- TOKENS > BALANCE > GOLD
-- TOKENS > BALANCE > SILVER
-- TOKENS > BALANCE > BRONZE
-- TOKENS > BALANCE > ROCK
-- TOKENS > BALANCE > NFT1
+- `TOKENS` > `BALANCE` > `NFT1`
 
-The seed node GOLD balance is above in the tokeninfo example, but the mining node balance is shown here.
-
-<div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
-
-<img src="/2019-06-24-tutorial-4-img-5.png">
-
-</div>
-
-Comparing the NFT1 balance of both the seed & mining nodes below.
+Note that the balance is different for the two.
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
@@ -152,8 +152,24 @@ Comparing the NFT1 balance of both the seed & mining nodes below.
 
 </div>
 
-## Trading Token DEX
+## Tutorial Series Conclusion
 
-In the following tutorial, we will place some orders so the mining node can buy all the gold tokens from the seed node.  Once the seed node is holding only silver, bronze and rock tokens but has a large quantity of TUT1 coins, they will want to buy the NFT1 token because of some emotional reason for owning a scarce resource...or maybe it’s strategic…?  We will never know until we complete the next tutorial!
+Thank you for following along on this introductory tutorial.
 
+We have covered many topics using our guided-tutorial software.
 
+To learn more about any particular aspect, visit the links below.
+
+If you are ready to proceed with the next tutorials in our educational series, return to the [<b>Learning Launchpad</b>]() section.
+
+- Create a new Smart Chain
+  - [<b>Create a Default Smart Chain</b>](../../../basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html#creating-a-new-smart-chain)
+  - [<b>ac_name</b>]()
+- Create a coin supply
+  - [<b>ac_supply</b>]()
+- Create and use a faucet
+  - [<b>Faucet Antara Module</b>]()
+- Mine transactions
+  - [<b>setgenerate</b>]()
+- Create fungible and non-fungible tokens
+  - [<b>Tokens Antara Module </b>]()
