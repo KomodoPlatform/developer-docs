@@ -406,7 +406,7 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | coin      | string | the name of the coin the user desires to enable |
 | urls      | array of strings (required for ETH/ERC20) | urls of Ethereum RPC nodes to which the user desires to connect |
 | swap_contract_address | string (required for ETH/ERC20) | address of etomic swap smart contract |
-| gas_station_url | string (optional for ETH/ERC20) | url of [ETH gas station API](https://docs.ethgasstation.info/); MM2 uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; If this param is set MM2 will request the current gas price from Station for new transactions which results in lower fees usually |
+| gas_station_url | string (optional for ETH/ERC20) | url of [ETH gas station API](https://docs.ethgasstation.info/); MM2 uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; when this parameter is set, MM2 will request the current gas price from Station for new transactions, and this often results in lower fees |
 | mm2       | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
 | tx_history| bool | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API |
 
@@ -532,7 +532,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **get_enabled_coins**
 
-The `get_enabled_coins` method returns data of coins currently enabled on MM2 node.
+The `get_enabled_coins` method returns data of coins that are currently enabled on the user's MM2 node.
 
 #### Arguments
 
@@ -545,6 +545,8 @@ The `get_enabled_coins` method returns data of coins currently enabled on MM2 no
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
 | result    | array of objects | tickers and adresses of enabled coins |
+| result.address    | string | the user's address for this coin |
+| result.ticker    | string | the ticker name of this coin |
 
 #### :pushpin: Examples
 
@@ -603,21 +605,22 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **get_trade_fee coin**
 
-The `get_trade_fee` method returns approximate amount of miner fee that will be paid per swap transaction.
-This amount should be multiplied by 2 and deducted from the volume on `buy/sell` calls if user is about to trade entire balance of selected coin.
+The `get_trade_fee` method returns the approximate amount of the miner fee that will be paid per swap transaction.
+
+This amount should be multiplied by 2 and deducted from the volume on `buy/sell` calls when the user is about to trade the entire balance of the selected coin.
 
 #### Arguments
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| coin      | string | the name of the coin to get the trade fee |
+| coin      | string | the name of the coin for the requested trade fee |
 
 #### Response
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| result    | object   | |
-| result.coin | string | the fee will be paid from this coin balance; it might differ from the requested coin, for example ERC20 fees are paid by ETH (gas) |
+| result    | object   | an object containing the relevant information |
+| result.coin | string | the fee will be paid from the user's balance of this coin. This coin name may differ from the requested coin. For example ERC20 fees are paid by ETH (gas) |
 | result.amount | string (numeric) | the approximate fee amount to be paid per swap transaction |
 
 #### :pushpin: Examples
