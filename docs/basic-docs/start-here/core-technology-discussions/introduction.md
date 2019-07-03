@@ -33,7 +33,7 @@ We welcome feedback from our readers. If you have any questions or concerns over
 
 #### Note on Changes Since Whitepaper Creation (cr. 2019)
 
-The documentation in this section is based on the Komodo whitepaper that was written in 2017. The content herein remains applicable and provides a foundational understanding of the Komodo Platform. We recommend that all newcomers read this documentation to enhance your understanding of the nature and design of Komodo.
+The documentation in this section is based on the Komodo whitepaper that was written in 2017. The content was updated in July 2019 to ensure technical accuracy. We recommend that all newcomers read this documentation to enhance their understanding of the nature and design of Komodo.
 
 Since 2017, the Komodo team has greatly advanced the technologies on the Komodo Platform, and these new technologies are discussed in other areas of the technical-documentation website.
 

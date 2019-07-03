@@ -294,7 +294,7 @@ var sidebar = [
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/jumblr.md",
-                            "Jumblr"
+                            "An Explanation of Jumblr"
                         ],
                         // [
                             // "/basic-docs/antara/antara-tutorials/create-an-oracles-plan-tutorial.md", 

@@ -1,16 +1,29 @@
-# Zero-knowledge Transactions
+# An Explanation of Jumblr
 
-::: tip Note (2019)
+::: tip
 
-As discussed in the [<b>Introduction</b>](../../../basic-docs/start-here/core-technology-discussions/introduction.html#note-on-changes-since-whitepaper-creation-cr-2019), the following content was written in 2017 as a part of the original Komodo whitepaper.
+To activate Jumblr, a Smart Chain must include the [<b>ac_private</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-private) Antara Customization parameter.
 
-The content here is adapted for present use and as an introduction to the Komodo ecosystem.
+
+[<b>Link to ac_private parameter</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-private)
+
+:::
+
+::: tip Update 2019
+
+There are two aspects to the privacy features of Komodo: the zero-knowledge transactions inherited from Zcash, and the Jumblr privacy enhancement.
+
+Zero-knowledge transactions are optionally available on all Smart Chains in the Komodo ecosystem, depending upon the wishes of the chains' developers. 
+
+Jumblr was originally intended only for the Komodo main chain, KMD. In spring of 2019, due to community feedback and industry developments, the Komodo team disabled Jumblr and zero-knowledge transactions on the KMD chain. 
+
+The content below was included in the original full Komodo whitepaper, authored in 2017. The content contains information that is relevant to privacy-driven Smart Chains in the Komodo ecosystem, and therefore we include this content below. 
 
 :::
 
 ## Abstract
 
-Jumblr is a Komodo technology that enables users to anonymize their cryptocurrencies. At its foundational level, Jumblr takes non-private funds from a transparent (non-private) address, moves the funds through a series of private and non-traceable zk-SNARK addresses—which disconnects the currency trail and anonymizes the funds—and then returns the funds to a new transparent address of the user’s choosing. Through a connected Komodo technology, AtomicDEX, Jumblr can provide this service not only for Komodo’s native coin, KMD, but also for any cryptocurrency connected to the Komodo ecosystem.
+Jumblr is a Komodo technology that enables users to anonymize their cryptocurrencies. At its foundational level, Jumblr takes non-private funds from a transparent (non-private) address, moves the funds through a series of private and non-traceable zk-SNARK addresses—which disconnects the currency trail and anonymizes the funds—and then returns the funds to a new transparent address of the user’s choosing. Through a connected Komodo technology, AtomicDEX, Jumblr can provide this service not only for a Komodo Smart Chain, but also for any cryptocurrency connected to the Komodo ecosystem.
 
 ## Introduction
 
@@ -20,7 +33,7 @@ One primary goal of the Komodo ecosystem is to provide our users with the highes
 
 Many of humanity’s most meaningful advancements in art, technology, and other human endeavors began in situations where the creator had the security of privacy in which to explore, to discover, to make mistakes, and to learn thereby.
 
-The roots of the Komodo ecosystem stem from the seminal work of Satoshi Nakamoto and his Bitcoin protocol 1 . One of the key challenges in this technology is that the original protocol does not make any account for privacy. Therefore, in advancing blockchain technology, we created Jumblr to empower Komodo-ecosystem members with this necessary security.
+The roots of the Komodo ecosystem stem from the seminal work of Satoshi Nakamoto and his Bitcoin protocol. One of the key challenges in this technology is that the original protocol does not make any account for privacy. Therefore, in advancing blockchain technology, we created Jumblr to empower Komodo-ecosystem members with this necessary security.
 
 ### Challenges for Privacy-centric Systems and the Komodo Solution
 
@@ -28,7 +41,7 @@ Current pathways to obtain privacy in the blockchain industry have many problems
 
 One of the most popular methods to obtain privacy is the use of a centralized mixing service. In this process, users send their cryptocurrencies to service providers, who then mix all the participants’ coins together, and return the coins according to the relevant contributions. With this method, the most dangerous issue, among many, is that for the duration of the mixing period users lose control over their currency.  The funds, therefore, are subject to theft and human error.
 
-Other decentralized coin-mixing methods, such as the [coin shuffle](https://bitcoinmagazine.com/articles/shuffling-coins-to-protect-privacy-and-fungibility-a-new-take-on-traditional-mixing-1465934826/) , require coordinating with other human parties. This also introduces the potential for the same issues of theft and human error, and adds yet another risk: the coordination between human parties can result in the disclosure of a user’s privacy.
+Other decentralized coin-mixing methods, such as the [coin shuffle,](https://bitcoinmagazine.com/articles/shuffling-coins-to-protect-privacy-and-fungibility-a-new-take-on-traditional-mixing-1465934826/) require coordinating with other human parties. This also introduces the potential for the same issues of theft and human error, and adds yet another risk: the coordination between human parties can result in the disclosure of a user’s privacy.
 
 Some cryptocurrencies support mixing as a part of the normal transaction process out of a desire to provide constant anonymization. Varying methods for randomizing these transaction-mixing patterns exist among the many different brands of relevant cryptocurrencies. The most popular is Monero.
 
@@ -36,19 +49,19 @@ Some cryptocurrencies support mixing as a part of the normal transaction process
 
 ### An Introduction to Jumblr
 
-Our Jumblr technology solves these issues through a two-layered approach, relying on connected technologies in the Komodo ecosystem—AtomicDEX, our native Komodo coin (KMD), and the upstream Zcash parameters. The Jumblr process is managed locally on the user’s machine and requires no third parties, human coordination, or other mixing services.
+Our Jumblr technology solves these issues through a two-layered approach, relying on connected technologies in the Komodo ecosystem—AtomicDEX, Komodo Smart Chains, and the upstream Zcash parameters. The Jumblr process is managed locally on the user’s machine and requires no third parties, human coordination, or other mixing services.
 
 ### A Brief Explanation of the Two Foundational Technologies
 
-#### Komodo Coin(KMD)
+#### A Komodo Smart Chain
 
-KMD is a cryptocurrency that enables users to conduct both transparent and private transactions. In developing the Komodo ecosystem, we use KMD as the native cryptocurrency for many connecting technologies. KMD thereby continually gains usefulness as more Komodo tools are built upon it, including Jumblr.
+The native currency of a Komodo Smart Chain can optionally provide both transparent and private transactions.
 
-#### KMD Began as a Fork of Zcash
+#### Komodo Began as a Fork of Zcash
 
-This coin began as a fork of the popular privacy coin, [Zcash](https://z.cash/). As such, KMD retains the same inherent privacy features. Notable among these features are the Zcash parameters and zk-SNARK technology. These enable users to move funds on a public blockchain without leaving a data trail for later analysis.
+The Komodo Smart Chain software, komodod, began as a fork of the popular privacy coin, [Zcash](https://z.cash/). As such, komodod retains the same inherent privacy features. Notable among these features are the Zcash parameters and zk-SNARK technology. These enable users to move funds on a public blockchain without leaving a data trail for later analysis.
 
-This is one of the most powerful forms of blockchain privacy in existence, as the provided privacy is effectively permanent. The Zcash parameters and zk-SNARK technology provide the initial foundation for users to take transparent KMD funding and make it anonymous (with the assistance of Komodo’s Jumblr technology) without leaving behind a cryptocurrency trail.
+This is one of the most powerful forms of blockchain privacy in existence, as the provided privacy is effectively permanent. The Zcash parameters and zk-SNARK technology provide the initial foundation for users to take transparent currency and make it anonymous (with the assistance of Komodo’s Jumblr technology) without leaving behind a cryptocurrency trail.
 
 The Zcash project itself is a fork of Bitcoin. Thus, all the features designed by Satoshi Nakamoto in the Bitcoin protocol are also available in Komodo.
 
@@ -56,31 +69,25 @@ The Zcash project itself is a fork of Bitcoin. Thus, all the features designed b
 
 AtomicDEX is an open-source protocol designed and pioneered by the Komodo team. It allows people to trade cryptocurrency coins without a counterparty risk. The protocol is open-source and trading is available for any coin that developers choose to connect to AtomicDEX.
 
-An in-depth discussion of AtomicDEX is provided in the previous [Part III](./chapter5.md) section of this paper.
-
 #### Iguana Core
 
-A core Komodo technology, called Iguana Core, is fundamental to the overall functionality of the Komodo ecosystem. It is at the center of nearly all Komodo projects, and Jumblr is no exception. For more information on Iguana Core, please see our Komodo GitHub repository. There is also more detail provided in the AtomicDEX section of this whitepaper.
-
-#### Komodod
-
-Komodod is the name of the background software (also called a daemon) that runs behind the scenes of essentially all Komodo-related software. There is more information provided on Komodod in the dICO part of this paper.
+A core Komodo technology, called Iguana Core, is fundamental to the overall functionality of the Komodo ecosystem. It is at the center of nearly all Komodo projects, and Jumblr is no exception. For more information on Iguana Core, please see our Komodo GitHub repository. 
 
 ## The Jumblr Process
 
-Jumblr enables users to anonymize their funds. The Jumblr process is rooted in our native Komodo coin (KMD), and the privacy features can extend thereby to any blockchain project connected to the Komodo ecosystem.
+Jumblr enables users to anonymize their funds. The Jumblr process is rooted in komodod, the Komodo Smart Chain software, and the privacy features can extend thereby to any blockchain project connected to the Komodo ecosystem.
 
-### Anonymizing Native Komodo Coin (KMD)
+### Anonymizing Smart Chain Currency
 
-At its most simple level, Jumblr takes non-private KMD funds from a transparent (non-private) address, moves the funds through a series of private and non-traceable zk-SNARK addresses—which disconnects the currency trail and anonymizes the funds—and then returns the funds to a new transparent address of the user’s choosing.
+At its most simple level, Jumblr takes non-private funds from a transparent (non-private) address, moves the funds through a series of private and non-traceable zk-SNARK addresses—which disconnects the currency trail and anonymizes the funds—and then returns the funds to a new transparent address of the user’s choosing.
 
 The entirety of the anonymization process is conducted through the user’s local machine(s), with one exception—that of sending the data to the network for mining.  Therefore, Jumblr eliminates many dangers, including the issues of theft, human error, the disclosure of user privacy through human coordination, and the unraveling of privacy by ever-increasing nature of computer processing power.
 
 ### User Actions
 
-The commands that initiate Jumblr exist within Komodo’s foundational program on the user’s local machine, Komodod. This program is included in a typical Komodo installation, and, under normal circumstances, Komodod is natively connected to the same KMD addresses accessed by the user.
+The commands that initiate Jumblr exist within Komodo’s foundational program on the user’s local machine, komodod. This program is included in a typical Komodo installation, and, under normal circumstances, komodod is natively connected to the same addresses accessed by the user.
 
-Therefore, users in the Komodo ecosystem have access to Jumblr’s privacy tech- nology without any further effort. Developers of standalone GUI applications for the Komodo ecosystem can integrate Jumblr commands into user interfaces in any de- sired manner.
+Therefore, users on a participating Smart Chain have access to Jumblr’s privacy technology without any further effort. Developers of standalone GUI applications for the Komodo ecosystem can integrate Jumblr commands into user interfaces in any desired manner.
 
 There are two main commands, or API calls, available:
 
@@ -92,7 +99,7 @@ There are two main commands, or API calls, available:
 
 This command initiates the anonymization of KMD.
 
-Before executing the command, the user prepares the funds by placing them within the chosen `<KMDaddress>`. So long as Komodod has access to the private keys of the `<KMDaddress>`, nothingfurther is required. The user simply executes the command "jumblr_deposit `<KMDaddress>`" and Jumblr begins watching for and processing any funds in the `<KMDaddress>`.
+Before executing the command, the user prepares the funds by placing them within the chosen `<KMDaddress>`. So long as komodod has access to the private keys of the `<KMDaddress>`, nothingfurther is required. The user simply executes the command "jumblr_deposit `<KMDaddress>`" and Jumblr begins watching for and processing any funds in the `<KMDaddress>`.
 
 ::: tip Note
 
@@ -104,31 +111,43 @@ Before executing the command, the user prepares the funds by placing them within
 
 The first step Jumblr takes is to move the user’s funds from a T address to a Z address.
 
-The First Step of the Jumblr Anonymization Process
-
----
+#### The First Step of the Jumblr Anonymization Process
 
 Moving the funds from a transparent address to a privacy-enabled address.
 
-T -> Z
+------
+
+<div style="text-align: center;">
+
+<b>T -> Z</b>
+
+</div>
+
+-----
 
 Naturally, as the T address is fully public, an outside observer can see the funds as they leave for the respective Z address. Therefore, to fully disconnect the currency trail, Jumblr then moves the funds from the initial Z address to yet another Z address.
 
 Jumblr creates a new Z address for each individual lot.
 
-The Second Step of the Jumblr Anonymization Process
-
----
+#### The Second Step of the Jumblr Anonymization Process
 
 Moving the funds from one unique and untraceable Z address to another
 
-Z -> Z
+------
+
+<div style="text-align: center;">
+
+<b>Z -> Z</b>
+
+</div>
+
+------
 
 Through the technology of the Zcash parameters, zk-SNARKs, and Jumblr, the specific whereabouts of the funds are known only to the user. The user does not need to follow the movements of T → Z and Z → Z. However, for the advanced user, there are Jumblr commands available that allow for more active interaction at these stages (see the Komodo wiki for further details). One command to mention here is `z_gettotalbalance`. This reveals to the user the total balance they hold within all their Z addresses.
 
-Upon executing the command [jumblr_deposit `<KMDaddress>`], Jumblr begins continually observing the `<KMDaddress>`. Should the user send more funds into their `<KMDaddress>` while Jumblr is already processing the previous amount, Jum- blr will simply take these new funds into account, perform any necessary actions to properly adopt them into the process, and continue its course.
+Upon executing the command `jumblr_deposit <KMDaddress>`, Jumblr begins continually observing the `<KMDaddress>`. Should the user send more funds into their `<KMDaddress>` while Jumblr is already processing the previous amount, Jumblr will simply take these new funds into account, perform any necessary actions to properly adopt them into the process, and continue its course.
 
-Jumblr includes two subcommands that allow the user to pause Jumblr manually: `<jumblr_pause>` and `<jumblr_resume>`. The user can also halt Jumblr by shutting down Komodod (and any relevant standalone GUI applications).
+Jumblr includes two subcommands that allow the user to pause Jumblr manually: `<jumblr_pause>` and `<jumblr_resume>`. The user can also halt Jumblr by shutting down komodod (and any relevant standalone GUI applications).
 
 Once the funds have reached their final Z address(es), they lay dormant, awaiting the user’s next command.
 
@@ -136,17 +155,23 @@ Once the funds have reached their final Z address(es), they lay dormant, awaitin
 
 The user executes this command to complete the Jumblr process. Jumblr will extract all the user’s hidden currency from each Z address and place the funds in a new T address, which we call the `<secretKMDaddress>`. This makes the funds spendable again.
 
-The Third and Final Step of the Jumblr Anonymization Process
-
----
+#### The Third and Final Step of the Jumblr Anonymization Process
 
 Moving the funds from one unique and untraceable Z address to another
 
-Z -> T
+------
 
-We recommend that you keep these private addresses primarily for storage. You should never share with anyone any information regarding your `<secretKMDad- dress>`’s. Treat all relevant information like a password.
+<div style="text-align: center;">
 
-When you are prepared to spend from your private funds, we recommend that you repeat the Jumblr process again on the amount that you desire to spend. This will keep the bulk of your stored funds within a privacy "air gap," as it were. For maximum privacy, we also suggest that after emptying the public node of all funds, the user delete and destroy the wallet.dat file in which the initial privacy- creation process took place. This destroys the last remnants of the cryptocurrency trail.
+<b>Z -> T</b>
+
+</div>
+
+------
+
+We recommend that you keep these private addresses primarily for storage. You should never share with anyone any information regarding your `<secretKMDaddresses>`. Treat all relevant information like a password.
+
+When you are prepared to spend from your private funds, we recommend that you repeat the Jumblr process again on the amount that you desire to spend. This will keep the bulk of your stored funds within a privacy "air gap," as it were. For maximum privacy, we also suggest that after emptying the public node of all funds, the user delete and destroy the wallet.dat file in which the initial privacy-creation process took place. This destroys the last remnants of the cryptocurrency trail.
 
 ## Additional Security Layers
 
@@ -186,7 +211,7 @@ Through these actions, Jumblr adds a layer of obfuscation on top of the Zcash pa
 
 ## Additional Privacy Considerations
 
-Although the KMD anonymization process provides a measure of privacy and may appear to be sufficient, there are still more precautions a user must take. Two main attacks are available to a would- be sleuth.
+Although the KMD anonymization process provides a measure of privacy and may appear to be sufficient, there are still more precautions a user must take. Two main attacks are available to a would-be sleuth.
 
 ### The Timing Attack
 
@@ -208,9 +233,9 @@ Jumblr has another feature, Multiple Secret Addresses, that also protects agains
 
 #### More Defense Against the Knapsack Attack: Multiple Secret Addresses
 
-As another layer of security, users can create multiple secret KMD addresses (`<secretKMDaddress>`’s) and actively use them in the Jumblr process.
+As another layer of security, users can create multiple secret KMD addresses (`<secretKMDaddresses>`) and actively use them in the Jumblr process.
 
-When using multiple `<secretKMDaddress>`’s, whenever Jumblr reaches the stage of Z → T for any given lot of KMD, Jumblr will randomly choose one of the `<secretKMDaddress>`’s for this lot’s final T address. This enables the user to split their initial funding into many different `<secretKMDaddress>`’s, thus providing another layer of security against the Knapsack Attack.
+When using multiple `<secretKMDaddress>`’s, whenever Jumblr reaches the stage of Z → T for any given lot of KMD, Jumblr will randomly choose one of the `<secretKMDaddresses>` for this lot’s final T address. This enables the user to split their initial funding into many different `<secretKMDaddresses>`, thus providing another layer of security against the Knapsack Attack.
 
 Jumblr manages up to 777 `<secretKMDaddress>`’s at one time.
 
@@ -218,7 +243,7 @@ Jumblr manages up to 777 `<secretKMDaddress>`’s at one time.
 
 The simplest and strongest defense against the Timing Attack is in the hands of the users. Recall that a user chooses the times they execute the commands `<jumblr_deposit>` and `<jumblr_secret>`. The longer a user maintains their currency within the shielded Z address(es), the more security they have against the Timing Attack.  This is because the Jumblr actions of other users during the interim obfuscate the trail. We therefore encourage users who are mindful for protection against this attack to delay the period of execution between the two commands.
 
-We also developed Jumblr to have additional inherent protections against the Timing Attack for cases where users desire a more immediate transfer. Assuming Jumblr is activated on the user’s local computer, as soon as Jumblr detects a new deposit in the `<KMDaddress>`, it can begin the anonymization process. However, Jumblr de- liberately delays its own progress to provide a layer of security against The Timing Attack.
+We also developed Jumblr to have additional inherent protections against the Timing Attack for cases where users desire a more immediate transfer. Assuming Jumblr is activated on the user’s local computer, as soon as Jumblr detects a new deposit in the `<KMDaddress>`, it can begin the anonymization process. However, Jumblr deliberately delays its own progress to provide a layer of security against The Timing Attack.
 
 Recall that all user actions are clustered around block numbers that are multiples of ten, and half the time, Jumblr decides to do nothing. Therefore, in statistical terms, although the Jumblr background process may be constantly running in Komodod, Jumblr only activates to check for pending tasks every tenth minute, and only performs tasks every twentieth minute. Thus, each hour has roughly three different moments when Jumblr will perform one of the three available actions: T → Z, Z → Z, and Z → T. This program randomizes the amount of time it takes to complete the Jumblr process.
 
@@ -226,29 +251,29 @@ Assuming during a given period of activity Jumblr decides to perform the action 
 
 However, when Jumblr performs either of the other two actions (Z → Z and Z → T) it will make the transfers for all lots that are in play.
 
-Through these additional securities, therefore, Jumblr defeats the Timing Attack and the Knapsack Attack, relying on the power of the Zcash parameters and zk- SNARK technology. The more participants in Jumblr, the more privacy users gain.  For those who use Jumblr on a consistent basis, the 0.3% cost of utilizing Jumblr is offset by the 5.1% rewards that can be earned with the Komodo coin (KMD). Thus, for a small fee, Jumblr users can provide both themselves and their community with privacy.
+Through these additional securities, therefore, Jumblr defeats the Timing Attack and the Knapsack Attack, relying on the power of the Zcash parameters and zk-SNARK technology. The more participants in Jumblr, the more privacy users gain.  For those who use Jumblr on a consistent basis, the 0.3% cost of utilizing Jumblr is offset by the 5.1% rewards that can be earned with the Komodo coin (KMD). Thus, for a small fee, Jumblr users can provide both themselves and their community with privacy.
 
 ## Offering Privacy to Other Cryptocurrencies
 
-Jumblr can provide privacy to any cryptocurrency that is connected to the Komodo ecosystem, as AtomicDEX is natively integrated. Currently, the user is required to perform the first and final steps of trading in the Jumblr process of non-KMD cryptocurrencies. In the long term, however, Jumblr is capable of fully automating the process. We await larger adoption to complete the non-KMD automation features.
+Jumblr can provide privacy to any cryptocurrency that is connected to the Komodo ecosystem, as AtomicDEX is natively integrated. Currently, the user is required to perform the first and final steps of trading in the Jumblr process of non-Smart-Chain cryptocurrencies. In the long term, however, Jumblr is capable of fully automating the process. We await larger adoption to complete the non-Smart-Chain automation features.
 
-### The Current Jumblr Process: Manual non-KMD to KMD Trading on AtomicDEX
+### The Current Jumblr Process: Manual non-Smart-Chain to Smart Chain Trading on AtomicDEX
 
-Overall, to provide privacy to a non-KMD cryptocurrency in the Komodo ecosystem, that currency must first be traded on AtomicDEX into KMD. Once the underlying value is held as KMD in a `<KMDaddress>`, Jumblr can complete its work. Upon completion, the anonymized KMD is then exchanged on AtomicDEX again for the relevant non-KMD cryptocurrency and returned to a secret address of the user’s choosing.
+Overall, to provide privacy to a non-Komodo cryptocurrency in the Komodo ecosystem, that currency must first be traded on AtomicDEX into Komodo-based currency. Jumblr can then complete its work. Upon completion, the anonymized Komodo-based currency is then exchanged on AtomicDEX again for the relevant non-Komodo cryptocurrency and returned to a secret address of the user’s choosing.
 
 At present, while AtomicDEX is in its early stages, we are focusing our energies on increasing overall AtomicDEX usability.
 
 ### Future Capabilities: Jumblr Automates the AtomicDEX Trading Process for the User
 
-In the future, Jumblr will simply be a client of the AtomicDEX service when providing privacy to non-KMD cryptocurrencies.
+In the future, Jumblr will simply be a client of the AtomicDEX service when providing privacy to non-Komodo cryptocurrencies.
 
-When a user activates Jumblr for a non-KMD coin, Jumblr will instruct AtomicDEX to trade the non-KMD coin into transparent KMD according to the current prices.  The underlying value now being in KMD, the Jumblr protocol performs the entirety of the process previously described. With the underlying value made private, Jumblr will direct AtomicDEX to exchange the value back to the user’s chosen cryptocurrency.  Finally, Jumblr will return the final sum to a new cryptocurrency address, provided by the user at the outset of the process.
+When a user activates Jumblr for a non-Komodo coin, Jumblr will instruct AtomicDEX to trade the non-Komodo coin into transparent Smart Chain currency, according to the current prices.  The underlying value now being in Komodo currency, the Jumblr protocol performs the entirety of the process previously described. With the underlying value made private, Jumblr will direct AtomicDEX to exchange the value back to the user’s chosen cryptocurrency.  Finally, Jumblr will return the final sum to a new cryptocurrency address, provided by the user at the outset of the process.
 
-Due to market fluctuations, depending on liquidity, it is possible that a user will experience slippage in the underlying value of their non-KMD cryptocurrency. While it would be possible to prearrange the trade on AtomicDEX (thereby eliminating any slippage), there is no available method to make such an arrangement without leaking privacy information. The party performing the second half of the trade onAtomicDEX would be a central point of failure. Therefore, the most private method for non-KMD privacy creation is to simply rely on the active AtomicDEX liquidity providers.
+Due to market fluctuations, depending on liquidity, it is possible that a user will experience slippage in the underlying value of their non-Komodo cryptocurrency. While it would be possible to prearrange the trade on AtomicDEX (thereby eliminating any slippage), there is no available method to make such an arrangement without leaking privacy information. The party performing the second half of the trade onAtomicDEX would be a central point of failure. Therefore, the most private method for non-Komodo privacy creation is to simply rely on the active AtomicDEX liquidity providers.
 
 ## A Word on Risks Inherent in Jumblr and the Komodo Ecosystem
 
-The Komodo coin (KMD), and therefore Jumblr by association, both rely on the Zcash parameters as put forth by the Zcash team. The Zcash parameters are a "zero-knowledge" form of technology. This is a powerful form of privacy, and arguably superior to other forms as it is effectively permanent. Relying on the Zcash parameters allows us to turn our creative resources to other blockchain-technology challenges, while still empowering members of the Komodo ecosystem with the option of privacy.
+Zero-knowledge transactions and Jumblr together rely on the Zcash parameters as put forth by the Zcash team. The Zcash parameters are a "zero-knowledge" form of technology. This is a powerful form of privacy, and arguably superior to other forms as it is effectively permanent. Relying on the Zcash parameters allows us to turn our creative resources to other blockchain-technology challenges, while still empowering members of the Komodo ecosystem with the option of privacy.
 
 To create the Zcash parameters, the original Zcash developers had to create a series of keys that, when combined, created a master key that could unlock and lock the parameters. After using the master key to create the parameters, the team destroyed every individual key. The team conducted this endeavor in a public manner. We encourage interested readers to view the "Zcash Ceremony" explanation, and to search for other viewpoints as well.
 
@@ -258,9 +283,11 @@ By our observation, the team performed this endeavor with sufficient competence 
 
 Nevertheless, there are privacy advocates in the cryptocurrency industry who maintain a degree of suspicion over any project that requires an element of human trust.  This suspicion extends to the Zcash parameters. These observers continually scrutinize the Zcash project, searching for more and more processes by which the creation ceremony could have failed. Yet, while various theories have been put forth, no actual failure in the Zcash parameters has been discovered.
 
-In adopting the Zcash parameters, we receive frequent questions regarding how they affect the Komodo coin. The answer is that the privacy in the Komodo ecosystem is permanent, regardless of any potential fault by the Zcash team. Furthermore, we can adopt any updates the Zcash team releases to the parameters.
+In adopting the Zcash parameters, we receive frequent questions regarding how they affect Komodo-based currency. The answer is that the privacy in the Komodo ecosystem is permanent, regardless of any potential fault by the Zcash team. Furthermore, we can adopt any updates the Zcash team releases to the parameters.
 
-In the unlikely event that someone was able to retain a complete copy of the master key, the only power the holder would have, would be the ability to create new private money in our system. This holder could then trade that for transparent, spendable money. This could negatively impact the Komodo coin, and we would be required to adapt our platform. If a fault in the Zcash parameters were to be discovered, the Komodo team has various contingency methods at our disposal to remove the Zcash parameters and replace them with a new set of parameters.
+In the unlikely event that someone was able to retain a complete copy of the master key, the only power the holder would have, would be the ability to create new private money in the currency of any Smart Chains utilizing zero-knowledge transactions.
+
+This holder could then shift that value into transparent, spendable money. This could negatively impact any affected Smart Chain's local community, and we would be required to adapt our platform. If a fault in the Zcash parameters were to be discovered, the Komodo team has various contingency methods at our disposal to remove the Zcash parameters and replace them with a new set of parameters.
 
 Though in Komodo we do not see this as a realistic threat, we nevertheless include the information here in our white paper to provide complete transparency for any user who seeks to invest their resources in the Komodo project.
 
@@ -268,6 +295,6 @@ Though in Komodo we do not see this as a realistic threat, we nevertheless inclu
 
 For the Komodo ecosystem to reach its full potential, the option of enhanced privacy must be available to Komodo users. Jumblr fills this demand.
 
-Jumblr relies on AtomicDEX, KMD, and Iguana Core to connect to the Komodo ecosystem. The foundational privacy it offers is built upon the KMD coin, the Zcash parameters, and zk-SNARK technology. Additional enhancements are built into the Jumblr process to maximize user privacy, including protections against the Timing Attack and the Knapsack Attack. Through AtomicDEX and Iguana Core, these privacy features extend to any cryptocurrency connected to the Komodo ecosystem.
+Jumblr relies on AtomicDEX and komodod to connect to the Komodo ecosystem. The foundational privacy it offers is built upon Smart Chain software, the Zcash parameters, and zk-SNARK technology. Additional enhancements are built into the Jumblr process to maximize user privacy, including protections against the Timing Attack and the Knapsack Attack. Through AtomicDEX, these privacy features extend to any cryptocurrency connected to the Komodo ecosystem.
 
-As more users become a part of the Komodo ecosystem, they can work together to enhance both their own privacy and the privacy of fellow ecosystem members. As the ecosystem continues to grow, there are various levels of growth the Komodo team can offer to Jumblr, including automating the non-KMD Jumblr process. We look forward to receiving your feedback on this privacy-enhancing technology.
+As more users become a part of the Komodo ecosystem, they can work together to enhance both their own privacy and the privacy of fellow ecosystem members. As the ecosystem continues to grow, there are various levels of growth the Komodo team can offer to Jumblr, including automating the Jumblr process for non-Komodo cryptocurrencies. We look forward to receiving your feedback on this privacy-enhancing technology.
