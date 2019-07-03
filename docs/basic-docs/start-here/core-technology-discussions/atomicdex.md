@@ -1,6 +1,8 @@
 # AtomicDEX
 
-Komodo’s decentralized exchange, AtomicDEX, allows people to trade cryptocurrency coins without a counterparty risk. The protocol is open source and trading is available for any coin that any developers choose to connect to AtomicDEX. The parent project, Komodo, freely provides AtomicDEX technology through open-source philosophy. Our service fully realizes decentralized order matching, trade clearing, and settlement. The order-matching aspect uses a low-level pubkey-to-pubkey messaging protocol, and the final settlement is executed through an atomic cross-chain protocol. Like any exchange, our decentralized alternative requires liquidity, and we provide methods and incentives therein.
+Komodo’s decentralized exchange, AtomicDEX, allows people to trade cryptocurrency coins without a counterparty risk. The protocol is open source and trading is available for any coin that any developers choose to connect to AtomicDEX. The parent project, Komodo, freely provides AtomicDEX technology through open-source philosophy. 
+
+Our service fully realizes decentralized order matching, trade clearing, and settlement. The order-matching aspect uses a low-level pubkey-to-pubkey messaging protocol, and the final settlement is executed through an atomic cross-chain protocol. 
 
 ## Introduction
 
@@ -14,7 +16,13 @@ The speed advantage of a centralized exchange, therefore, creates a compounding 
 
 In 2014 Komodo began one of the earliest instances of a decentralized exchange (DEX). The project was called The MultiGateway. This DEX relied on a separate, though related, blockchain project called the NXT Asset Exchange. The latter facilitated the decentralized exchange of blockchain coins by using proxy tokens (as opposed to vouchers), and these proxy tokens represented external cryptocurrencies (such as Bitcoin).
 
-The underlying technology of this solution is still in use by many blockchain platforms, but the proxy-token protocol is too limited to compete with centralized exchanges. Because trading by the means of proxy tokens requires trading on an actual blockchain, the trading process loses the speed of a centralized exchange. Also, a proxy-token decentralized exchange must still have a storage center to hold the external cryptocurrencies represented by the proxy tokens. At best, this storage center is only distributed, and therefore end-users are under the same counterparty risk that exists in centralized exchanges. Furthermore, the process of trading on proxy-token platforms requires using a set ofgateways (i.e. "The MultiGateway") to convert external native coins (such as Bitcoin) to and from the affiliated proxy tokens. Together, these many problems make the proxy-token method of decentralized trading an impractical solution.
+The underlying technology of this solution is still in use by many blockchain platforms, but the proxy-token protocol is too limited to compete with centralized exchanges. Because trading by the means of proxy tokens requires trading on an actual blockchain, the trading process loses the speed of a centralized exchange. 
+
+Also, a proxy-token decentralized exchange must still have a storage center to hold the external cryptocurrencies represented by the proxy tokens. At best, this storage center is only distributed, and therefore end-users are under the same counterparty risk that exists in centralized exchanges.
+
+Furthermore, the process of trading on proxy-token platforms requires using a set ofgateways (i.e. "The MultiGateway") to convert external native coins (such as Bitcoin) to and from the affiliated proxy tokens. 
+
+Together, these many problems make the proxy-token method of decentralized trading an impractical solution.
 
 Therefore, a decentralized exchange alternative that seeks to successfully remove the threats and limitations of centralized exchanges must feature the same speed, liquidity, and convenience of a centralized exchange. As of today, no decentralized exchange has successfully replaced any of their centralized counterparts.
 
@@ -38,7 +46,7 @@ AtomicDEX holds support for [SPV Electrum-based](https://en.bitcoin.it/wiki/Elec
 
 AtomicDEX also enables a feature known as Liquidity Multiplication, a protocol that allows the same funds to be used in multiple requests on AtomicDEX "orderbooks." The first request to fill completes the trade, and all outstanding requests are immediately cancelled. This feature is available to the user when providing liquidity to the exchange (called a "Bob-side" trade).
 
-Liquidity Multiplication therefore allows an initial amount of funding to create an exponentially higher amount of liquidity on the exchange. This also provides a special advantage for traders that like to wait for below-market dumps. While this feature is something that any other exchange could implement, few do. On AtomicDEX, all orderbook entries are 100% backed by real funds, as opposed to a centralized exchange’s vouchers, which are not as reliable and therefore would present yet another danger for their end-users.
+Liquidity Multiplication therefore allows an initial amount of funding to create an exponentially higher amount of liquidity on the exchange. This also provides a special advantage for traders that like to wait for below-market dumps. While this feature is something that any other exchange could implement, few do. On AtomicDEX, all orderbook entries are 100% backed by real funds, as opposed to a centralized exchange’s vouchers, which may be one reason why AtomicDEX can more readily offer this feature.
 
 ## AtomicDEX Technology
 
@@ -533,7 +541,7 @@ for an orderbook, which in turn requests the listunspent data for the most likel
 
 ## The AtomicDEX API
 
-We created an API model that is the same for all coins—with the obvious exceptions of the electrum-API call itself, and within some of the returned JSON files that have different calls, such as "listunspent."
+We created an API model that is the same for all coins—with the obvious exceptions of the electrum-API call itself, and within some of the returned JSON files that have different calls, such as [<b>listunspent</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#listunspent).
 
 Furthermore, the underlying technology of AtomicDEX enables the API to treat all bitcoin-protocol compatible coins with a universal-coin model. Therefore, when working with the AtomicDEX API, an independent developer working to feature their coin on AtomicDEX need only use the API "coin" symbol to receive the full set of AtomicDEX features.
 

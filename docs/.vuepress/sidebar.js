@@ -64,20 +64,20 @@ var sidebar = [
                         "Delayed Proof of Work"
                     ],
                     [
-                        "/basic-docs/start-here/core-technology-discussions/the-decentralized-initial-coin-offering.md",
-                        "The Decentralized Initial Coin Offering"
+                        "/basic-docs/start-here/core-technology-discussions/creating-and-distributing-a-new-komodo-smart-chain.md",
+                        "Creating and Distributing a New Komodo Smart Chain"
+                    ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/antara.md",
+                        "The Antara Framework"
                     ],
                     [
                         "/basic-docs/start-here/core-technology-discussions/atomicdex.md",
-                        "AtomicDEX: The Atomic Swap Exchange"
-                    ],
-                    [
-                        "/basic-docs/start-here/core-technology-discussions/jumblr.md",
-                        "Jumblr: Zero-Knowledge Transactions"
+                        "AtomicDEX: The Atomic-Swap Exchange"
                     ],
                     [
                         "/basic-docs/start-here/core-technology-discussions/miscellaneous.md",
-                        "Additional Topics"
+                        "Miscellaneous"
                     ],
                     [
                         "/basic-docs/start-here/core-technology-discussions/references.md",
@@ -291,6 +291,10 @@ var sidebar = [
                         [
                             "/basic-docs/antara/antara-tutorials/heir-module-tutorial.md", 
                             "Heir Module Tutorial" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/jumblr.md",
+                            "Jumblr"
                         ],
                         // [
                             // "/basic-docs/antara/antara-tutorials/create-an-oracles-plan-tutorial.md", 

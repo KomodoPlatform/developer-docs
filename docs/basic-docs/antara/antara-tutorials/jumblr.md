@@ -1,6 +1,16 @@
-# Abstract (Jumblr)
+# Zero-knowledge Transactions
 
-Jumblr is a Komodo technology that enables users to anonymize their cryptocurrencies. At its foundational level, Jumblr takes non-private funds from a transparent (non-private) address, moves the funds through a series of private and non-traceable zk-SNARK addresses—which disconnects the currency trail and anonymizes the funds—and then returns the funds to a new transparent address of the user’s choosing. Through a connected Komodo technology, BarterDEX, Jumblr can provide this service not only for Komodo’s native coin, KMD, but also for any cryptocurrency connected to the Komodo ecosystem.
+::: tip Note (2019)
+
+As discussed in the [<b>Introduction</b>](../../../basic-docs/start-here/core-technology-discussions/introduction.html#note-on-changes-since-whitepaper-creation-cr-2019), the following content was written in 2017 as a part of the original Komodo whitepaper.
+
+The content here is adapted for present use and as an introduction to the Komodo ecosystem.
+
+:::
+
+## Abstract
+
+Jumblr is a Komodo technology that enables users to anonymize their cryptocurrencies. At its foundational level, Jumblr takes non-private funds from a transparent (non-private) address, moves the funds through a series of private and non-traceable zk-SNARK addresses—which disconnects the currency trail and anonymizes the funds—and then returns the funds to a new transparent address of the user’s choosing. Through a connected Komodo technology, AtomicDEX, Jumblr can provide this service not only for Komodo’s native coin, KMD, but also for any cryptocurrency connected to the Komodo ecosystem.
 
 ## Introduction
 
@@ -26,7 +36,7 @@ Some cryptocurrencies support mixing as a part of the normal transaction process
 
 ### An Introduction to Jumblr
 
-Our Jumblr technology solves these issues through a two-layered approach, relying on connected technologies in the Komodo ecosystem—BarterDEX, our native Komodo coin (KMD), and the upstream Zcash parameters. The Jumblr process is managed locally on the user’s machine and requires no third parties, human coordination, or other mixing services.
+Our Jumblr technology solves these issues through a two-layered approach, relying on connected technologies in the Komodo ecosystem—AtomicDEX, our native Komodo coin (KMD), and the upstream Zcash parameters. The Jumblr process is managed locally on the user’s machine and requires no third parties, human coordination, or other mixing services.
 
 ### A Brief Explanation of the Two Foundational Technologies
 
@@ -42,15 +52,15 @@ This is one of the most powerful forms of blockchain privacy in existence, as th
 
 The Zcash project itself is a fork of Bitcoin. Thus, all the features designed by Satoshi Nakamoto in the Bitcoin protocol are also available in Komodo.
 
-#### BarterDEX
+#### AtomicDEX
 
-BarterDEX is an open-source protocol designed and pioneered by the Komodo team. It allows people to trade cryptocurrency coins without a counterparty risk. The protocol is open-source and trading is available for any coin that developers choose to connect to BarterDEX.
+AtomicDEX is an open-source protocol designed and pioneered by the Komodo team. It allows people to trade cryptocurrency coins without a counterparty risk. The protocol is open-source and trading is available for any coin that developers choose to connect to AtomicDEX.
 
-An in-depth discussion of BarterDEX is provided in the previous [Part III](./chapter5.md) section of this paper.
+An in-depth discussion of AtomicDEX is provided in the previous [Part III](./chapter5.md) section of this paper.
 
 #### Iguana Core
 
-A core Komodo technology, called Iguana Core, is fundamental to the overall functionality of the Komodo ecosystem. It is at the center of nearly all Komodo projects, and Jumblr is no exception. For more information on Iguana Core, please see our Komodo GitHub repository. There is also more detail provided in the BarterDEX section of this whitepaper.
+A core Komodo technology, called Iguana Core, is fundamental to the overall functionality of the Komodo ecosystem. It is at the center of nearly all Komodo projects, and Jumblr is no exception. For more information on Iguana Core, please see our Komodo GitHub repository. There is also more detail provided in the AtomicDEX section of this whitepaper.
 
 #### Komodod
 
@@ -220,21 +230,21 @@ Through these additional securities, therefore, Jumblr defeats the Timing Attack
 
 ## Offering Privacy to Other Cryptocurrencies
 
-Jumblr can provide privacy to any cryptocurrency that is connected to the Komodo ecosystem, as BarterDEX is natively integrated. Currently, the user is required to perform the first and final steps of trading in the Jumblr process of non-KMD cryptocurrencies. In the long term, however, Jumblr is capable of fully automating the process. We await larger adoption to complete the non-KMD automation features.
+Jumblr can provide privacy to any cryptocurrency that is connected to the Komodo ecosystem, as AtomicDEX is natively integrated. Currently, the user is required to perform the first and final steps of trading in the Jumblr process of non-KMD cryptocurrencies. In the long term, however, Jumblr is capable of fully automating the process. We await larger adoption to complete the non-KMD automation features.
 
-### The Current Jumblr Process: Manual non-KMD to KMD Trading on BarterDEX
+### The Current Jumblr Process: Manual non-KMD to KMD Trading on AtomicDEX
 
-Overall, to provide privacy to a non-KMD cryptocurrency in the Komodo ecosystem, that currency must first be traded on BarterDEX into KMD. Once the underlying value is held as KMD in a `<KMDaddress>`, Jumblr can complete its work. Upon completion, the anonymized KMD is then exchanged on BarterDEX again for the relevant non-KMD cryptocurrency and returned to a secret address of the user’s choosing.
+Overall, to provide privacy to a non-KMD cryptocurrency in the Komodo ecosystem, that currency must first be traded on AtomicDEX into KMD. Once the underlying value is held as KMD in a `<KMDaddress>`, Jumblr can complete its work. Upon completion, the anonymized KMD is then exchanged on AtomicDEX again for the relevant non-KMD cryptocurrency and returned to a secret address of the user’s choosing.
 
-At present, while BarterDEX is in its early stages, we are focusing our energies on increasing overall BarterDEX usability.
+At present, while AtomicDEX is in its early stages, we are focusing our energies on increasing overall AtomicDEX usability.
 
-### Future Capabilities: Jumblr Automates the BarterDEX Trading Process for the User
+### Future Capabilities: Jumblr Automates the AtomicDEX Trading Process for the User
 
-In the future, Jumblr will simply be a client of the BarterDEX service when providing privacy to non-KMD cryptocurrencies.
+In the future, Jumblr will simply be a client of the AtomicDEX service when providing privacy to non-KMD cryptocurrencies.
 
-When a user activates Jumblr for a non-KMD coin, Jumblr will instruct BarterDEX to trade the non-KMD coin into transparent KMD according to the current prices.  The underlying value now being in KMD, the Jumblr protocol performs the entirety of the process previously described. With the underlying value made private, Jumblr will direct BarterDEX to exchange the value back to the user’s chosen cryptocurrency.  Finally, Jumblr will return the final sum to a new cryptocurrency address, provided by the user at the outset of the process.
+When a user activates Jumblr for a non-KMD coin, Jumblr will instruct AtomicDEX to trade the non-KMD coin into transparent KMD according to the current prices.  The underlying value now being in KMD, the Jumblr protocol performs the entirety of the process previously described. With the underlying value made private, Jumblr will direct AtomicDEX to exchange the value back to the user’s chosen cryptocurrency.  Finally, Jumblr will return the final sum to a new cryptocurrency address, provided by the user at the outset of the process.
 
-Due to market fluctuations, depending on liquidity, it is possible that a user will experience slippage in the underlying value of their non-KMD cryptocurrency. While it would be possible to prearrange the trade on BarterDEX (thereby eliminating any slippage), there is no available method to make such an arrangement without leaking privacy information. The party performing the second half of the trade onBarterDEX would be a central point of failure. Therefore, the most private method for non-KMD privacy creation is to simply rely on the active BarterDEX liquidity providers.
+Due to market fluctuations, depending on liquidity, it is possible that a user will experience slippage in the underlying value of their non-KMD cryptocurrency. While it would be possible to prearrange the trade on AtomicDEX (thereby eliminating any slippage), there is no available method to make such an arrangement without leaking privacy information. The party performing the second half of the trade onAtomicDEX would be a central point of failure. Therefore, the most private method for non-KMD privacy creation is to simply rely on the active AtomicDEX liquidity providers.
 
 ## A Word on Risks Inherent in Jumblr and the Komodo Ecosystem
 
@@ -258,6 +268,6 @@ Though in Komodo we do not see this as a realistic threat, we nevertheless inclu
 
 For the Komodo ecosystem to reach its full potential, the option of enhanced privacy must be available to Komodo users. Jumblr fills this demand.
 
-Jumblr relies on BarterDEX, KMD, and Iguana Core to connect to the Komodo ecosystem. The foundational privacy it offers is built upon the KMD coin, the Zcash parameters, and zk-SNARK technology. Additional enhancements are built into the Jumblr process to maximize user privacy, including protections against the Timing Attack and the Knapsack Attack. Through BarterDEX and Iguana Core, these privacy features extend to any cryptocurrency connected to the Komodo ecosystem.
+Jumblr relies on AtomicDEX, KMD, and Iguana Core to connect to the Komodo ecosystem. The foundational privacy it offers is built upon the KMD coin, the Zcash parameters, and zk-SNARK technology. Additional enhancements are built into the Jumblr process to maximize user privacy, including protections against the Timing Attack and the Knapsack Attack. Through AtomicDEX and Iguana Core, these privacy features extend to any cryptocurrency connected to the Komodo ecosystem.
 
 As more users become a part of the Komodo ecosystem, they can work together to enhance both their own privacy and the privacy of fellow ecosystem members. As the ecosystem continues to grow, there are various levels of growth the Komodo team can offer to Jumblr, including automating the non-KMD Jumblr process. We look forward to receiving your feedback on this privacy-enhancing technology.

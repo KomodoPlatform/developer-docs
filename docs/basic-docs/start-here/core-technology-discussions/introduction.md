@@ -33,10 +33,8 @@ We welcome feedback from our readers. If you have any questions or concerns over
 
 #### Note on Changes Since Whitepaper Creation (cr. 2019)
 
-The documentation in this section is based on the Komodo whitepaper that was written in 2017. The content herein remains applicable and provides a foundational understanding of the Komodo Platform. We recommend that all newcomers read this documentation; it can greatly enhance a user's understanding of the nature and design of Komodo.
+The documentation in this section is based on the Komodo whitepaper that was written in 2017. The content herein remains applicable and provides a foundational understanding of the Komodo Platform. We recommend that all newcomers read this documentation to enhance your understanding of the nature and design of Komodo.
 
 Since 2017, the Komodo team has greatly advanced the technologies on the Komodo Platform, and these new technologies are discussed in other areas of the technical-documentation website.
 
-For example, the Antara Framework provides functionality that is similar to the smart contracts found on other platforms (although we argue Antara is dramatically more powerful). Antara is a relatively new feature, and it is not covered here, but it is covered extensively in the [Antara Framework]() documentation.
-
-The Jumblr feature and zero-knowledge transactions are still available on Komodo-based blockchains, but they are no longer available on the KMD main chain. This change was made largely in response to community feedback and industry developments.
+Also, the Jumblr feature and zero-knowledge transactions are still available on Komodo-based blockchains, but they are no longer available on the KMD main chain. This change was made largely in response to community feedback and industry developments.

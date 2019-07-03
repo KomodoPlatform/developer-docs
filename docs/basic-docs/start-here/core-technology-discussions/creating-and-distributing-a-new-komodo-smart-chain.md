@@ -1,14 +1,10 @@
-# The Decentralized Initial Coin Offering
-
-::: tip Note (2019)
-
-As discussed in the [<b>Introduction</b>](../../../basic-docs/start-here/core-technology-discussions/introduction.html#note-on-changes-since-whitepaper-creation-cr-2019), the following content was written in 2017 as a part of the original Komodo whitepaper. 
-
-:::
+# Creating and Distributing a New Komodo Smart Chain
 
 ## Abstract
 
-There lies a great power in the idea that any person, regardless of nationality, creed, or background, can obtain funding to innovate and prosper. An integral tenet of blockchain technology is "decentralization." By decentralizing systems, we reduce the number of control points that can be compromised and manipulated. Decentralization plays a more common role in our new cryptocurrency economy, but there is one area of the market that remains centralized and vulnerable: the initial coin offering (ICO). The cryptocurrency industry needs a solution, and Komodo presents an answer with our decentralized initial coin offering (dICO).
+There lies a great power in the idea that any person, regardless of nationality, creed, or background, can obtain funding to innovate and prosper. An integral tenet of blockchain technology is "decentralization." By decentralizing systems, we reduce the number of control points that can be compromised and manipulated.
+
+Decentralization plays a more common role in our new cryptocurrency economy, but there is one area of the market that remains centralized and vulnerable: the initial coin offering (ICO). The cryptocurrency industry needs a solution, and Komodo presents an answer with our decentralized initial coin offering (dICO).
 
 In today’s common ICO model, the high level of centralization creates many problems. Third-parties can block or manipulate entrepreneurs’ efforts to innovate and prosper. The centralized location of releasing the ICO blockchain product is vulnerable, allowing whales, hackers, and human error to corrupt or destroy an entrepreneur’s efforts. The negative experience of users in these situations can also impact the perception and adoption of cryptocurrency. Furthermore, the traceable nature of an ICO prevents society from crowdsourcing and purchasing within our inherent right to barter in private.
 
@@ -16,11 +12,11 @@ The dICO model, as created by the Komodo project, overcomes these challenges. It
 
 Entrepreneurs building on our platform begin by creating a Smart Chain, and our technology simplifies this process. One need only install the necessary software, execute a few commands on a command prompt, and then establish a connection between two or more Komodo-enabled devices. Komodo’s core technology will do the rest of the work necessary to create a fully independent blockchain, empowered with an array of Komodo features.
 
-Our dPoW technology is a key feature, as explained in [Part I.](chapter1.md) dPoW provides the necessary security to protect the integrity of the blockchain. Use of dPoW is optional, and since Smart Chains in the Komodo ecosystem are independent by nature, entrepreneurs can discontinue dPoW services at will.
+Our dPoW technology is a key feature. dPoW provides the necessary security to protect the integrity of the blockchain. Use of dPoW is optional, and since Smart Chains in the Komodo ecosystem are independent by nature, entrepreneurs can discontinue dPoW services at will.
 
-Having thus created the blockchain, the entrepreneur then uses our software to release the project to the world. Our decentralized exchange, AtomicDEX, is a useful software solution to conduct their decentralized initial coin offering. The software is thoroughly explained in [Part III](../../../basic-docs/start-here/core-technology-discussions/atomicdex.html) of this documentation. Because AtomicDEX relies on "atomic swaps," no third-party manipulators can prevent the entrepreneur from their crowdsourcing and innovative endeavors.
+Having thus created the blockchain, the entrepreneur then uses our software to release the project to the world. Our decentralized exchange, AtomicDEX, is a useful software solution to conduct their decentralized initial coin offering. Because AtomicDEX relies on "atomic swaps," no third-party manipulators can prevent the entrepreneur from their crowdsourcing and innovative endeavors.
 
-Through the privacy technology available on Komodo Smart Chains, dICO participants can purchase the product within their inherent right to barter in private. A detailed explanation of our privacy technology is provided in [Part IV](../../../basic-docs/start-here/core-technology-discussions/jumblr.html) of this documentation.
+Through [the privacy technology](../../../basic-docs/antara/antara-tutorials/jumblr.html#abstract) available on Komodo Smart Chains, dICO participants can purchase the product within their inherent right to barter in private.
 
 ## The Challenges in Current ICO Platforms
 
@@ -88,11 +84,9 @@ The Komodo ecosystem presents a solution, the decentralized initial coin offerin
 
 The decentralized nature of the dICO enables the entrepreneur to release a blockchain product beyond the reach of a malicious third-party influencer.
 
-Furthermore, through our decentralized exchange, AtomicDEX, the dICO allows an entrepreneur to release their product in a manner that mitigates and even eliminates many of the issues regarding whales, hackers, and human error.
+Furthermore, through our decentralized exchange, AtomicDEX, the dICO allows an entrepreneur to release their product in a manner that mitigates and even eliminates many of the issues regarding hackers and human error.
 
-Our decentralized exchange, AtomicDEX, is explained in detail in [Part III](./chapter6.md). An in-depth discussion of our privacy technology, Jumblr, is provided in [Part IV](./chapter7.md).
-
-With the advantage of Komodo’s privacy technology, Jumblr, the participants in a dICO are empowered with their right to barter in private.
+With the advantage of Komodo’s privacy technology, the participants in a dICO are empowered with their right to barter in private.
 
 ## The Process of Creating a New Blockchain in the Komodo Ecosystem
 
@@ -134,11 +128,11 @@ Komodod now begins the automated process of creating a new Smart Chain in the Ko
 
 #### The Features of the New Smart Chain
 
-There are several primary differences between a Smart Chain and the main Komodo chain. For example, the Smart Chain will not automatically generate 5.1% rewards for all wallet addresses holding coins, unlike the main chain. Furthermore, the Smart Chain’s dPoW consensus mechanism is built to notarize to the KMD main chain (as explained in [Part I.](chapter1.md))
+There are several primary differences between a Smart Chain and the main Komodo chain. For example, the Smart Chain will not automatically generate 5.1% rewards for all wallet addresses holding coins, unlike the main chain. Furthermore, the Smart Chain’s dPoW consensus mechanism is built to notarize to the KMD main chain.
 
 Some of the differences reveal strong advantages held by members of the Komodo ecosystem. By design, this Smart Chain is capable of automatically adopting any updates that the Komodo core development team add to the framework. The Smart Chain also has a built-in capacity within the framework to allow the entrepreneur to code new rules.
 
-For example, the entrepreneur may decide not to use a PoW consensus mechanism, but may instead prefer PoS (discussed in [Part I.](chapter1.md) Other changes can also be made, according to the entrepreneur’s imagination and developer knowledge. So long as the new code that the entrepreneur adds to the Smart Chain does not interfere with the overall framework, the Smart Chain will smoothly integrate with the rest of the Komodo ecosystem. We provide more details on this topic in [Part V's](chapter8.md) section regarding Antara.
+For example, the entrepreneur may decide not to use a PoW consensus mechanism, but may instead prefer PoS. Other changes can also be made, according to the entrepreneur’s imagination and developer knowledge. So long as the new code that the entrepreneur adds to the Smart Chain does not interfere with the overall framework, the Smart Chain will smoothly integrate with the rest of the Komodo ecosystem.
 
 For the purposes of our discussion, this new Smart Chain is otherwise the same as the Komodo main chain, including the features to communicate natively with other blockchains via AtomicDEX. The reader may note that this new Komodo Smart Chain is not a colored-token running on top of a parent blockchain, as is often the case in other blockchain ecosystems (consider the ERC20 token of the Ethereum platform).  Instead, this Smart Chain is an entirely unique and independent blockchain unto itself.
 
@@ -154,7 +148,7 @@ The reason for the wait is that a blockchain’s essence depends upon existing n
 
 ##### The Entire Coin Supply is Distributed in the Genesis Block
 
-Typically, the entire coin supply for the dICO is created and distributed immediately to the device that mines the first block, the Genesis Block. The code performs this distribution as a one-time reward for discovering the first valid block hash (as explained in [Part I](chapter1.md)). Due to the sensitive nature of this step, we recommend that the entrepreneur use a Virtual Private Server (VPS) service.
+Typically, the entire coin supply for the dICO is created and distributed immediately to the device that mines the first block, the Genesis Block. The code performs this distribution as a one-time reward for discovering the first valid block hash.
 
 Having established a secure connection with a second device, the entrepreneur will enter the following command on the second device.
 
@@ -176,8 +170,6 @@ There is another key difference in the command.
 -addnode=[INSERT IP ADDRESS OF FIRST DEVICE]
 ```
 
-An "IP address" can be compared to a human being’s home mailing address, where the IP address is designed for computers to be able to geographically find each other.
-
 With the execution of the IP address command, the second device knows to look across the available connection (the Internet, VPS service, etc.) for the first device, which is already running an instance of Komodod and the new coin. The command here simply tells the computer the proper IP address of the first device.
 
 As soon as these two devices connect, having all the proper Komodod software running and set in place, the mining begins. One of the devices will mine the first block and instantly receive the total coin supply of the entire blockchain into the user’s chosen wallet.
@@ -191,8 +183,6 @@ To receive the security of the dPoW consensus mechanism, the entrepreneur simply
 The process of adding a new notarization service can be executed by the notary nodes with just a simple command. While we are at this early stage of development, this sign-up process for new dICO products is not yet automated. In the future, we intend to automate as much of this process as possible.
 
 There is a fee for receiving notarization services. This helps to cover the business costs associated with notarization (recall that all notarizations are financial transactions, by nature).
-
-We already have over fifteen partners successfully notarizing to the Komodo main chain. We are actively seeking more partners, and we encourage the reader to reach out to our team directly with inquiries.
 
 Entrepreneurs are thus able to use the Smart Chain’s native dPoW consensus mechanism to notarize to the Komodo main chain to create a secure backup of the coin’s history. Even in the event of an attack at this early state of existence the entrepreneur can rest assured that their product will survive, so long as one copy of the blockchain’s history exists.
 
@@ -216,9 +206,9 @@ The centralized ICO process can be arduous and, at times, disastrous.
 
 #### Enter the dICO
 
-##### Powered by Komodo’s AtomicDEX & Jumblr Technology
+##### Powered by Komodo’s AtomicDEX & Privacy Technology
 
-The Komodo dICO model is an extension of Komodo’s AtomicDEX technology.  AtomicDEX is an atomic-swap powered, decentralized exchange. It enables users to directly exchange cryptocurrencies from one person to another without third-party involvement (i.e. no centralized exchanges, escrow services, vouchers, etc.). Furthermore, as the dICO model is entirely decentralized, anyone can use it at will. There are no centralized authority figures capable of creating artificial control points that can be manipulated at the expense of the users. Please turn to [Part III](./chapter6.md) for more details.
+The Komodo dICO model is an extension of Komodo’s AtomicDEX technology.  AtomicDEX is an atomic-swap powered, decentralized exchange. It enables users to directly exchange cryptocurrencies from one person to another without third-party involvement (i.e. no centralized exchanges, escrow services, vouchers, etc.). Furthermore, as the dICO model is entirely decentralized, anyone can use it at will. There are no centralized authority figures capable of creating artificial control points that can be manipulated at the expense of the users
 
 To begin the distribution process, the entrepreneur first chooses how many nodes they would like to use for the distribution. Nodes can be any type of machine capable of connecting to AtomicDEX. Typically, a small-business entrepreneur may choose to use server machines. Server capacity can be rented online, and the servers can be distributed geographically throughout the world, if desired.
 
@@ -226,9 +216,9 @@ While renting a multiplicity of servers may be the method of choice for an estab
 
 Having decided the method of distribution, the entrepreneur will then prepare the total supply of coins. (We are assuming the coins are still located on the first device that mined the entrepreneur’s Genesis Block.) The entrepreneur will first break down the total collection of coins into smaller digital pouches. These small bags of coins are ultimately what will be traded on AtomicDEX with their audience.
 
-The size of the bags is chosen by the entrepreneur, and therefore the entrepreneur can choose a size that is agreeable to their outlook on any KYC legal requirements. For a detailed explanation of the process of breaking down the total collection into smaller bags of coins, we also recommend reading about UTXO technology in [Part III](./chapter6.md) of this paper.
+The size of the bags is chosen by the entrepreneur, and therefore the entrepreneur can choose a size that is agreeable to their outlook on any KYC legal requirements. 
 
-Having created these bags of coins, the entrepreneur then sends them to all chosen nodes throughout the AtomicDEX network. Coins are distributed to each node’s wallet(s) by a normal transaction.  With the coins distributed as desired, the entrepreneur sets the time and date when each bag of coins will be available for purchase. When a bag of coins becomes available on AtomicDEX for trading, members of the Komodo ecosystem simply purchase the coins. Please see our discussion on atomic- swap technology in [Part III](./chapter6.md) for more details.
+Having created these bags of coins, the entrepreneur then sends them to all chosen nodes throughout the AtomicDEX network. Coins are distributed to each node’s wallet(s) by a normal transaction.  With the coins distributed as desired, the entrepreneur sets the time and date when each bag of coins will be available for purchase. When a bag of coins becomes available on AtomicDEX for trading, members of the Komodo ecosystem simply purchase the coins. 
 
 ##### The Many Solutions of the dICO Model: Security, Privacy, Decentralization, and Freedom
 

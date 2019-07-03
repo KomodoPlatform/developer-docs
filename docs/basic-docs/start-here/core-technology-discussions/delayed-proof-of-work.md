@@ -2,7 +2,9 @@
 
 ## A Foundational Discussion of Blockchain Security
 
-Komodo’s form of providing security is called Delayed Proof of Work technology (dPoW). It builds on the most advanced form of blockchain security in existence, Proof of Work technology (PoW). The latter form of security is the method that the Bitcoin network utilizes. To understand the value of Komodo’s dPoW security, we must first explain how PoW works and why it is the most secure method of maintaining a decentralized blockchain. We must also examine PoW’s shortcomings, so that we may understand the need for Komodo’s dPoW method and the advantages it provides to the blockchain community.
+Komodo’s form of providing security is called Delayed Proof of Work technology (dPoW). It builds on the most advanced form of blockchain security in existence, Proof of Work technology (PoW). The latter form of security is the method that the Bitcoin network utilizes.
+
+To understand the value of Komodo’s dPoW security, we must first explain how PoW works and why it is the most secure method of maintaining a decentralized blockchain. We must also examine PoW’s shortcomings, so that we may understand the need for Komodo’s dPoW method and the advantages it provides to the blockchain community.
 
 To understand how PoW technology functions, we begin by explaining the roots that make the Bitcoin protocol a viable means of securely transferring value.
 
@@ -555,5 +557,5 @@ The total yearly cost for the Komodo notary nodes to notarize the KMD main chain
 
 On the other hand, the total cost for the Smart Chain developer to notarize their independent chain into the KMD main chain is but a fraction of the cost. This security mechanism is not limited to Smart Chains created within the Komodo ecosystem. In fact, Komodo’s Blockchain Security Services are available to any existing blockchain. With Komodo, any blockchain can be protected with the power of the Bitcoin hash rate for a tiny percentage of the cost.
 
-Thus, an entrepreneur in our ecosystem can have their own independent blockchain that is backed up by the hash rate of the Bitcoin mining network, at only a fraction of the cost. In the following section, [Part II](./chapter5.md), we begin our discussion of an entrepreneur’s formation and distribution of a Komodo Smart Chain. In [Part III](./chapter6.md), we discuss in detail our method of distribution and trading, using our atomic-swap technology, AtomicDEX. [Part IV](./chapter7.md) discusses how with each of these components, users have the option of zero-knowledge privacy. In [Part V](./chapter8.md), we mention our "smart contract" like technology, the Antara Framework.
+Thus, an entrepreneur in our ecosystem can have their own independent blockchain that is backed up by the hash rate of the Bitcoin mining network, at only a fraction of the cost. In the following sections, we discuss the formation of a new Komodo Smart Chain, the method of distribution and trading using our atomic-swap technology, AtomicDEX, and our "smart contract" like technology, the Antara Framework.
 
