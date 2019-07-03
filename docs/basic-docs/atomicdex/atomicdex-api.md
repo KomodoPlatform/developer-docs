@@ -406,6 +406,7 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | coin      | string | the name of the coin the user desires to enable |
 | urls      | array of strings (required for ETH/ERC20) | urls of Ethereum RPC nodes to which the user desires to connect |
 | swap_contract_address | string (required for ETH/ERC20) | address of etomic swap smart contract |
+| gas_station_url | string (optional for ETH/ERC20) | url of [ETH gas station API](https://docs.ethgasstation.info/); MM2 uses [eth_gasPrice RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice) by default; If this param is set MM2 will request the current gas price from Station for new transactions which results in lower fees usually |
 | mm2       | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
 | tx_history| bool | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API |
 
@@ -469,6 +470,31 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
+#### Command (for Ethereum and ERC20-based blockchains with gas_station_url)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\",\"gas_station_url\":\"https://ethgasstation.info/json/ethgasAPI.json\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+  "coin": "ETH",
+  "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
+  "balance": "50",
+  "result": "success"
+}
+```
+
+</collapse-text>
+
+</div>
+
 #### Command (With `mm2` argument)
 
 ```bash
@@ -495,6 +521,175 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 ```bash
 {
   "error":"lp_coins:943] lp_coins:693] mm2 param is not set neither in coins config nor enable request, assuming that coin is not supported"
+}
+```
+
+</collapse-text>
+
+</div>
+
+## get_enabled_coins
+
+**get_enabled_coins**
+
+The `get_enabled_coins` method returns data of coins currently enabled on MM2 node.
+
+#### Arguments
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| (none)    | | |
+
+#### Response
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| result    | array of objects | tickers and adresses of enabled coins |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"get_enabled_coins\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+    "result":[
+        {
+            "address":"1WxswvLF2HdaDr4k77e92VjaXuPQA8Uji",
+            "ticker":"BTC"
+        },
+        {
+            "address":"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
+            "ticker":"PIZZA"
+        },
+        {
+            "address":"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
+            "ticker":"BEER"
+        },
+        {
+            "address":"0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29",
+            "ticker":"ETH"
+        },
+        {
+            "address":"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
+            "ticker":"ETOMIC"
+        },
+        {
+            "address":"0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29",
+            "ticker":"DEC8"
+        },
+        {
+            "address":"0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29",
+            "ticker":"BAT"
+        }
+    ]
+}
+```
+
+</collapse-text>
+
+</div>
+
+## get_trade_fee
+
+**get_trade_fee coin**
+
+The `get_trade_fee` method returns approximate amount of miner fee that will be paid per swap transaction.
+This amount should be multiplied by 2 and deducted from the volume on `buy/sell` calls if user is about to trade entire balance of selected coin.
+
+#### Arguments
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| coin      | string | the name of the coin to get the trade fee |
+
+#### Response
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| result    | object   | |
+| result.coin | string | the fee will be paid from this coin balance; it might differ from the requested coin, for example ERC20 fees are paid by ETH (gas) |
+| result.amount | string (numeric) | the approximate fee amount to be paid per swap transaction |
+
+#### :pushpin: Examples
+
+#### Command (BTC)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"get_trade_fee\",\"coin\":\"BTC\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+    "result":{
+        "amount":"0.00096041",
+        "coin":"BTC"
+    }
+}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (ETH)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"get_trade_fee\",\"coin\":\"ETH\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+    "result":{
+        "amount":"0.00121275",
+        "coin":"ETH"
+    }
+}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (ERC20)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"get_trade_fee\",\"coin\":\"BAT\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+    "result":{
+        "amount":"0.00121275",
+        "coin":"ETH"
+    }
 }
 ```
 

@@ -83,11 +83,11 @@ sudo apt-get install -y build-essential git llvm-3.9-dev libclang-3.9-dev clang-
 Install additional Rust components:
 
 ```bash
-rustup install nightly-2019-03-10
+rustup install nightly-2019-06-26
 ```
 
 ```bash
-rustup default nightly-2019-03-10
+rustup default nightly-2019-06-26
 ```
 
 ```bash
@@ -132,7 +132,7 @@ git clone https://github.com/artemii235/SuperNET.git --branch mm2 --single-branc
 Compile the source code:
 
 ```bash
-cargo build -vv
+cargo build --features native -vv
 ```
 
 If everything installs successfully you will see something similar:
