@@ -159,7 +159,7 @@ This holder could then shift that value into transparent, spendable money. This 
 
 Though in Komodo we do not see this as a realistic threat, we nevertheless include the information here in our documentation to provide complete transparency for any user who seeks to invest their resources in a privacy-enabled Komodo Smart Chain.
 
-## The Utxo: an Elusive, Yet Fundamental Concept
+## The Utxo: An Elusive, Yet Fundamental Concept
 
 All Bitcoin-based software relies heavily on a technology called the "utxo," short for Unspent Transaction. This technology was invented in the original Bitcoin protocol. Yet despite the technology's age, even the most active of cryptocurrency users rarely know what utxos are or why they exist.
 

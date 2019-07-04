@@ -44,7 +44,7 @@ Unlike previous DEXs, AtomicDEX does not require users to send funds to either a
 
 ## The Decentralized Orderbook
 
-The first component of AtomicDEX is Order Matching. This is the process of pairing a user’s offer to buy with another user’s offer to sell. This forms an orderbook.
+The first component of AtomicDEX is Order Matching. This is the process of pairing a user’s offer to buy with another user’s offer to sell. The data of these offers form an orderbook.
 
 The process of matching orders is not the actual trade itself, but is only a digitally created promise between users stating that they will perform their parts of the trade.
 
@@ -171,7 +171,7 @@ A summary of the procedure, starting from the beginning.
 
 7.  Seeing both temporary holding wallets now empty, the AtomicDEX protocol recognizes that the atomic swap was a complete success.
 
-    - AtomicDEX now refunds `<bobdeposit>` back to Bob and the process is complete.
+    - AtomicDEX now refunds `<bobdeposit>` back to Bob and the process is complete
 
 While it may seem inefficient to have seven transactions for a swap that could be done with two, the complexity of this process provides us with the requisite "trustless-ness" to maintain user safety.
 
