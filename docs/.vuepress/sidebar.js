@@ -281,10 +281,6 @@ var sidebar = [
                             "Overview of Antara Modules — Part II"
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/understanding-antara-addresses.md", 
-                            "Understanding Antara Addresses"
-                        ],
-                        [
                             "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-0.md",
                             "Beginner Series — Preparation"
                         ],
@@ -305,12 +301,28 @@ var sidebar = [
                             "Beginner Series — Understanding Tokens"
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/an-advanced-approach-to-komodos-antara-framework.md", 
+                            "/basic-docs/antara/antara-tutorials/advanced-series-introduction.md", 
                             "Advanced Series — Introduction" 
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/heir-module-tutorial.md", 
+                            "/basic-docs/antara/antara-tutorials/advanced-series-smart-chain-development-basics.md", 
+                            "Advanced Series — Smart Chain Development Basics" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/advanced-series-antara-module-development-basics.md", 
+                            "Advanced Series — Antara Module Development Basics" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/advanced-series-simplified-heir-module-prototype.md", 
                             "Advanced Series — Simplified Heir Module Prototype" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/advanced-series-miscellaneous.md", 
+                            "Advanced Series — Miscellaneous" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/understanding-antara-addresses.md", 
+                            "Understanding Antara Addresses"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/musig-module-tutorial.md", 
