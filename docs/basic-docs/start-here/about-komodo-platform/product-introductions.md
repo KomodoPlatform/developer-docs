@@ -146,7 +146,7 @@ The Antara framework supports C/C++, and in the future it will also support othe
 
 #### No Gas Fees
 
-There are no gas fees with Antara. Regardless of how many processes a Antara module requires, running an instance of the module will only need a single transaction fee, paid in your blockchain’s coin.
+There are no gas fees with Antara. Regardless of how many processes an Antara module requires, running an instance of the module will only need a single transaction fee, paid in your blockchain’s coin.
 
 #### Antara Module Library
 

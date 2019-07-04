@@ -1,8 +1,3 @@
-// We're using nested sidebar groups now.
-// See this PR on the VuePress Github for more information:
-//
-// https://github.com/vuejs/vuepress/pull/1257
-
 var sidebar = [
     {
         title: "Start Here",
@@ -39,10 +34,6 @@ var sidebar = [
                     [
                         "/basic-docs/start-here/learning-launchpad/learning-path-outlines.md",
                         "Learning Path Outlines"
-                    ],
-                    [
-                        "/basic-docs/start-here/learning-launchpad/normal-developer-outline.md",
-                        "Outline for a Normal Developer"
                     ],
                     [
                         "/basic-docs/start-here/learning-launchpad/terminology.md",
@@ -85,37 +76,6 @@ var sidebar = [
                     ],
                 ]
             },
-            // {
-                // title: "General Tutorials",
-                // collapsible: true,
-                // children:
-                // [
-                    // [
-                        // "/basic-docs/start-here/general-tutorials/introduction-to-general-tutorials.md",
-                        // "Introduction to General Tutorials"
-                    // ],
-                    // // [
-                        // // "/basic-docs/start-here/general-tutorials/general-tutorial-1.md",
-                        // // "General Tutorial 1"
-                    // // ],
-                    // // [
-                        // // "/basic-docs/start-here/general-tutorials/general-tutorial-2.md",
-                        // // "General Tutorial 2"
-                    // // ],
-                    // // [
-                        // // "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-beginner.md",
-                        // // "Comprehensive Tutorial | Type B Beginner"
-                    // // ],
-                    // // [
-                        // // "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-intermediate.md",
-                        // // "Comprehensive Tutorial | Type B Intermediate"
-                    // // ],
-                    // // [
-                        // // "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-advanced.md",
-                        // // "Comprehensive Tutorial | Type B Advanced"
-                    // // ],
-                // ]
-            // },
         ]
     },
   {
@@ -328,14 +288,6 @@ var sidebar = [
                             "/basic-docs/antara/antara-tutorials/musig-module-tutorial.md", 
                             "Musig Module Tutorial" 
                         ],
-                        // [
-                            // "/basic-docs/antara/antara-tutorials/jumblr.md",
-                            // "An Explanation of Jumblr"
-                        // ],
-                        // [
-                            // "/basic-docs/antara/antara-tutorials/create-an-oracles-plan-tutorial.md", 
-                            // "Create an Oracles Plan Tutorial" 
-                        // ],
                         [
                             "/basic-docs/antara/antara-tutorials/rogue-module-tutorial.md", 
                             "Rogue Module Tutorial" 
@@ -396,24 +348,6 @@ var sidebar = [
               ]
             ]
           },
-          // {
-            // title: "Antara Composer",
-            // collapsible: true,
-            // children: [
-                // [
-                    // "/basic-docs/antara/antara-composer/introduction-to-antara-composer.md",
-                    // "Introduction to Antara Composer"
-                // ],
-                // [
-                    // "/basic-docs/antara/antara-composer/antara-composer-tutorial.md",
-                    // "Antara Composer Tutorial"
-                // ],
-                // [
-                    // "/basic-docs/antara/antara-composer/antara-composer-api.md",
-                    // "Antara Composer API"
-                // ],
-            // ]
-          // },
         ],
     },
   {

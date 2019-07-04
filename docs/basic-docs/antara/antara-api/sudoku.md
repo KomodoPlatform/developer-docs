@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Sudoku Fluidity module serves as a proof-of-concept to demonstrate Fluidity's capabilities as a blockchain-based gaming technology.
+The Sudoku Antara Module serves as a proof-of-concept to demonstrate Antara's capabilities as a blockchain-based gaming technology.
 
 The Sudoku module is based on the classic game, Sudoku. To learn more about how Sudoku is played, read the associated Wikipedia article:
 
@@ -488,7 +488,7 @@ JSON output:
 | txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` |
 | amount | (number) | the reward provided to the first node to submit the correct solution |
 | result | (string) | whether the command executed successfully |
-| sudokuaddr | (string) | the Fluidity address that owns this puzzle reward and will distribute the reward |
+| sudokuaddr | (string) | the Antara address that owns this puzzle reward and will distribute the reward |
 | method | (string) | name of the method |
 
 Daemon `stdout`:
@@ -559,7 +559,7 @@ The `txidinfo` method returns information about the indicated `puzzle_txid` puzz
 | txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` |
 | result | (string) | whether the command executed successfully |
 | height | (number) | the block height at which the puzzle was generated |
-| sudokuaddr | (string) | the Fluidity address that owns this puzzle funds and will distribute the reward |
+| sudokuaddr | (string) | the Antara address that owns this puzzle funds and will distribute the reward |
 | amount | (number) | the reward provided to the first node to submit the correct solution |
 | unsolved | (string) | the unsolved puzzle, provided in concatenated form, filling playing field from left to right horizontally, and from top to bottom vertically |
 | name | (string) | name of the module |

@@ -16,9 +16,9 @@ To limit the scope of what we cover on the technical-documentation website, we l
 
 #### Familiarity with the Concept of Blockchain Technology
 
-The reader should be general familiar with the basic concept of blockchain technology and why it matters. If you're not yet familiar, we recommend that you first read Part I of the Komodo Whitepaper.
+The reader should be generally familiar with the basic concept of blockchain technology and why it matters. If you're not yet familiar, we recommend that you first read our Core Technology Discussion regarding our <b>Delayed Proof of Work</b> consensus mechanism.
 
-[<b>Link to Komodo Whitepaper - Read Part 1 (~30 pages)</b>](https://komodoplatform.com/whitepaper)
+[<b>Link to Core Technology Discussion: Delayed Proof of Work</b>](../../../basic-docs/start-here/core-technology-discussions/delayed-proof-of-work.html)
 
 #### Simple Programming Skills
 
