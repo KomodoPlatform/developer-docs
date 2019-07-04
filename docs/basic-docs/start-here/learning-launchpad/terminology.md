@@ -13,3 +13,7 @@
 ## Daemon
 
 ## RPC
+
+## Node 
+
+Take this from the tutorial that explains nodes

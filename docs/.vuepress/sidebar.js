@@ -73,7 +73,7 @@ var sidebar = [
                     ],
                     [
                         "/basic-docs/start-here/core-technology-discussions/atomicdex.md",
-                        "AtomicDEX: The Atomic-Swap Exchange"
+                        "AtomicDEX and Atomic Swaps"
                     ],
                     [
                         "/basic-docs/start-here/core-technology-discussions/miscellaneous.md",
@@ -292,10 +292,10 @@ var sidebar = [
                             "/basic-docs/antara/antara-tutorials/heir-module-tutorial.md", 
                             "Heir Module Tutorial" 
                         ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/jumblr.md",
-                            "An Explanation of Jumblr"
-                        ],
+                        // [
+                            // "/basic-docs/antara/antara-tutorials/jumblr.md",
+                            // "An Explanation of Jumblr"
+                        // ],
                         // [
                             // "/basic-docs/antara/antara-tutorials/create-an-oracles-plan-tutorial.md", 
                             // "Create an Oracles Plan Tutorial" 
@@ -384,24 +384,24 @@ var sidebar = [
               ]
             ]
           },
-          {
-            title: "Antara Composer",
-            collapsible: true,
-            children: [
-                [
-                    "/basic-docs/antara/antara-composer/introduction-to-antara-composer.md",
-                    "Introduction to Antara Composer"
-                ],
-                [
-                    "/basic-docs/antara/antara-composer/antara-composer-tutorial.md",
-                    "Antara Composer Tutorial"
-                ],
-                [
-                    "/basic-docs/antara/antara-composer/antara-composer-api.md",
-                    "Antara Composer API"
-                ],
-            ]
-          },
+          // {
+            // title: "Antara Composer",
+            // collapsible: true,
+            // children: [
+                // [
+                    // "/basic-docs/antara/antara-composer/introduction-to-antara-composer.md",
+                    // "Introduction to Antara Composer"
+                // ],
+                // [
+                    // "/basic-docs/antara/antara-composer/antara-composer-tutorial.md",
+                    // "Antara Composer Tutorial"
+                // ],
+                // [
+                    // "/basic-docs/antara/antara-composer/antara-composer-api.md",
+                    // "Antara Composer API"
+                // ],
+            // ]
+          // },
         ],
     },
   {

@@ -419,6 +419,8 @@ After the first `100000` blocks, the rewards from `ac_staked` are no longer incl
 
 If `ac_private` is set to `1`, all transactions other than coinbase transactions (block rewards) must use zk-SNARKs. Beyond sending mined coins from a transparent addresses to a z address, all other transparent activity is disabled.
 
+[Click here for more information about privacy features in the Komodo ecosystem.](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem)
+
 ::: tip Note
 The dPoW security mechanism requires that transactions are sent to a transparent address. Therefore, on a chain with `ac_private` enabled, any address can send funds to the transparent notary-node addresses.
 :::

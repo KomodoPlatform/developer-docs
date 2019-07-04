@@ -1,8 +1,8 @@
 # Jumblr
 
-::: note 
+::: tip Note 
 
-At this time, all z-transaction functionality on the main KMD chain is disabled. Other Smart Chains in the Komodo ecosystem offer zk-SNARK functionality. Please check with the developers of your desired Smart Chain to learn about z-transaction availability.
+At this time, all z-transaction functionality on the main KMD chain is disabled. Other Smart Chains in the Komodo ecosystem offer zk-SNARK functionality. Please check with the developers of your desired Smart Chain to learn about z-transaction and Jumblr availability.
 
 :::
 

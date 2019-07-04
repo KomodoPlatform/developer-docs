@@ -59,3 +59,18 @@ To add your BTC or ETH-based coin to MM2, first follow the linked checklist belo
 [Link to checklist for adding coin to MM2](https://github.com/jl777/coins#0-the-coin-must-be-tested-with-barterdex-atomic-swaps)
 
 Upon completing the checklist, please submit your proposed coin configuration files to the same repository with a pull request. 
+
+## Features Carried From MM1
+
+##### SPV-based Trading
+
+AtomicDEX holds support for [SPV Electrum-based](https://en.bitcoin.it/wiki/Electrum) coins. This feature allows a user to trade with their coins without downloading their coins' blockchain data. This feature is available for all Bitcoin-protocol based coins running native-coin daemons, Ethereum, and Ethereum-based ERC20 tokens. The AtomicDEX API is built to handle the nature of the SPV requirements, providing additional functionality to developers.
+
+##### Liquidity Multiplication
+
+AtomicDEX also enables a feature known as Liquidity Multiplication, a protocol that allows the same funds to be used in multiple requests on AtomicDEX "orderbooks." The first request to fill completes the trade, and all outstanding requests are immediately cancelled. This feature is available to the user when providing liquidity to the exchange (called a "Bob-side" trade).
+
+Liquidity Multiplication therefore allows an initial amount of funding to create an exponentially higher amount of liquidity on the exchange. This also provides a special advantage for traders that like to wait for below-market dumps. While this feature is something that any other exchange could implement, few do. 
+
+On AtomicDEX, all orderbook entries are 100% backed by real funds, as opposed to a centralized exchange’s vouchers, which may be one reason why AtomicDEX can more readily offer this feature.
+
