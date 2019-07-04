@@ -22,7 +22,7 @@ module.exports = {
       "link",
       {
         rel: "icon",
-        href: "komodo-logo-icon-black.png"
+        href: "KMD_Mark_Black.png"
       }
     ]
   ],
@@ -37,7 +37,7 @@ module.exports = {
     editLinkText: "Suggest an improvement for this page",
     lastUpdated: "Last Updated",
     // sidebarDepth: 3,
-    logo: "/site-name-logo.png",
+    logo: "/KMD_Horiz_White.svg",
     algolia: {
       apiKey: algoliaSecret.key,
       indexName: 'komodoplatform'

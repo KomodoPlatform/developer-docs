@@ -156,7 +156,7 @@ Having established a secure connection with a second device, the entrepreneur wi
 ./komodod -ac_name=[ENTREPRENUER'S COIN] -ac_supply=[TOTAL COIN SUPPLY] -addnode=[INSERT IP ADDRESS OF FIRST DEVICE]
 ```
 
-Note that the first three elements of the command, [./komodod], [-ac_name], and [-ac_supply], are the same. It is important that the parameters inserted into these commands match exactly. Otherwise, the instances of Komodod running on the separate devices will ignore each other, and the coin will not be mined.
+Note that the first three elements of the command, `./komodod`, `-ac_name`, and `-ac_supply`, are the same. It is important that the parameters inserted into these commands match exactly. Otherwise, the instances of Komodod running on the separate devices will ignore each other, and the coin will not be mined.
 
 ::: tip Note
 
@@ -232,7 +232,7 @@ Regarding human error, should one of the node’s databases be corrupted by acci
 
 Since the coins are immediately available on the AtomicDEX exchange for trading, the entrepreneur’s audience has an immediate trading market. This stands in contrast to today’s ICO model, where users often wait weeks or even months before liquidity for their ICO product arises in a centralized exchange.
 
-Finally, through Jumblr technology, participants have the option of privacy when purchasing the dICO product. This enables them to support the crowdsourcing efforts of the entrepreneur within their inherent right to barter in private.
+Finally, through Komodo's [inherent zero-knowledge technology](), participants have the option of privacy when purchasing the dICO product. This enables them to support the crowdsourcing efforts of the entrepreneur within their inherent right to barter in private.
 
 Upon conclusion of the distribution of the dICO coin supply the entrepreneur has successfully and immediately completed all the crowdsourcing-related steps that could have taken months in today’s typical ICO model.
 

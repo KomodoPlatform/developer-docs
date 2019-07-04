@@ -513,7 +513,11 @@ The Komodo ecosystem is also well protected against the 51% Attack, so long as u
 
 ::: tip Update 2019
 
-At the time this was written, the Antara Framework did not yet exist. Antara provides many additional advantages to the developer and user in the above circumstance that can reduce the required wait time dramatically. In some instances, Bitcoin-level security can be obtained almost instantaneously. Please reach out to our team on [Discord](https://komodoplatform.com/discord) for more details.
+Additionally, Komodo's new (2019) Antara Framework provides additional options that allow Smart Chain users to greatly reduce the required wait time for notarizations. In some instances, the wait time can be effectively eliminated.
+
+An introduction to the Antara Framework is discussed [in this linked Core Technology Discussion section.](../../../basic-docs/start-here/core-technology-discussions/antara.html#introduction)
+
+On the other hand, for the full Antara documentation, [click here](../../../basic-docs/antara/introduction-to-antara.html)
 
 :::
 
