@@ -140,7 +140,7 @@ Another point to mention is that while AtomicDEX is built upon atomic swaps, oth
 
 | Atomic Swaps | Decentralized Gateway | On-Chain Token Exchange | Cross-Chain Asset Transfers | ... and more! |
 | -- | -- | -- | -- | -- |
-| check | check | check | check | check |
+| Check! | Check! | Check! | Check! | Check! |
 
 Today, Komodo developers took what they learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is the AtomicDEX 2.0 software. Komodo is also partnered with Ideas By Nature, a UX/UI design and development firm, to create a well designed atomic-swap trading experience.
 
