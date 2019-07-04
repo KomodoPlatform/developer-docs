@@ -233,7 +233,7 @@ Creating a new Antara Module is more difficult than creating a new smart contrac
 
 Building and designing a new Antara Module requires a strong proficiency in blockchain technology and in advanced programming techniques. The module must be stable and secure enough to withstand the pressure of the wild-open Internet.
 
-However, once created, other users may rely on the modules' RPC commands to utilize the module's functionality without having to understand how the module functions.
+However, once created, other users may rely on the module's RPC commands to utilize the module's functionality without having to understand how the module functions.
 
 For example, consider how the MuSig Antara Module serves non-blockchain developers. This module relies on Antara to enable a complicated technology called Schnorr Signatures, which are a new method for creating multi-signature blockchain transactions. The RPC's for this module allow any developer of essentially any skill level to adopt the MuSig functionality into the developer's software without having to gain an in-depth understanding of Schnorr technology.
 

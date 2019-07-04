@@ -103,7 +103,7 @@ This is <b>not</b> a private transaction. An observer of the blockchain can obse
 
 This <b>is</b> a private transaction. Using zk-SNARK technology inherited from Zcash, this transaction moves funds from one address <b>without leaving any data available in the public domain for later observation.</b> 
 
-So long as the user does not reveal any information regarding this transaction, no other party may ever know the amount, specific time, or destination of funds in this transaction. The user may also consider enhancing their privacy through services such as the [Tor](https://www.torproject.org/).
+So long as the user does not reveal any information regarding this transaction, no other party may ever know the amount, specific time, or destination of funds in this transaction. The user may also consider enhancing their privacy through services such as [Tor](https://www.torproject.org/).
 
 All privacy from zk-SNARK technology is derived solely as a part of this type of transaction.
 
@@ -125,7 +125,7 @@ Observers on the blockchain can observe both the Z address from which the funds 
 
 ### Additional Privacy Considerations
 
-Although the KMD anonymization process provides a measure of privacy and may appear to be sufficient, there are still more precautions a user must take. Two main attacks are available to a would-be sleuth.
+Although the anonymization process provides a measure of privacy and may appear to be sufficient, there are still more precautions a user must take. Two main attacks are available to a would-be sleuth.
 
 #### The Timing Attack
 

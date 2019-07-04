@@ -273,24 +273,48 @@ var sidebar = [
                             "Introduction to Antara Tutorials"
                         ],
                         [
+                            "/basic-docs/antara/antara-tutorials/antara-overview.md", 
+                            "Overview of Antara Modules — Part I"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/antara-conceptual-overview.md", 
+                            "Overview of Antara Modules — Part II"
+                        ],
+                        [
                             "/basic-docs/antara/antara-tutorials/understanding-antara-addresses.md", 
                             "Understanding Antara Addresses"
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/antara-overview.md", 
-                            "Overview of Antara Modules - Part I"
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-0.md",
+                            "Beginner Series — Preparation"
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/antara-conceptual-overview.md", 
-                            "Overview of Antara Modules - Part II"
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-1.md",
+                            "Beginner Series — Create a Blockchain"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-2.md",
+                            "Beginner Series — Using a Faucet"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-3.md",
+                            "Beginner Series — Connecting to Another Programming Environment"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-4.md",
+                            "Beginner Series — Understanding Tokens"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/an-advanced-approach-to-komodos-antara-framework.md", 
+                            "Advanced Series — Introduction" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/heir-module-tutorial.md", 
+                            "Advanced Series — Simplified Heir Module Prototype" 
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/musig-module-tutorial.md", 
                             "Musig Module Tutorial" 
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/heir-module-tutorial.md", 
-                            "Heir Module Tutorial" 
                         ],
                         // [
                             // "/basic-docs/antara/antara-tutorials/jumblr.md",
@@ -307,30 +331,6 @@ var sidebar = [
                         [
                             "/basic-docs/antara/antara-tutorials/gateways-module-tutorial.md", 
                             "Gateways Module Tutorial" 
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/an-advanced-approach-to-komodos-antara-framework.md", 
-                            "An Advanced Approach to Komodo's Antara Framework" 
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-0.md",
-                            "Komodo Developer Path | Preparation"
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-1.md",
-                            "Komodo Developer Path | Create a Blockchain"
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-2.md",
-                            "Komodo Developer Path | Using a Faucet"
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-3.md",
-                            "Komodo Developer Path | Connecting to Another Programming Environment"
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-4.md",
-                            "Komodo Developer Path | Understanding Tokens"
                         ],
                 ],
             },
