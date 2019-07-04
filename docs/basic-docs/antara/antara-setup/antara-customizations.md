@@ -415,6 +415,8 @@ After the first `100000` blocks, the rewards from `ac_staked` are no longer incl
 
 </collapse-text>
 
+<!--
+
 ## ac_private
 
 If `ac_private` is set to `1`, all transactions other than coinbase transactions (block rewards) must use zk-SNARKs. Beyond sending mined coins from a transparent addresses to a z address, all other transparent activity is disabled.
@@ -436,6 +438,8 @@ A private-only Smart Chain.
 ```
 
 </collapse-text>
+
+-->
 
 ## ac_pubkey
 
