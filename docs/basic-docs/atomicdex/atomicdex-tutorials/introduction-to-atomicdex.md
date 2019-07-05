@@ -48,14 +48,14 @@ The primary concern for a CEX is security. When a user places their assets on a 
 
 Furthermore, this database holds the assets of thousands of other users. Having a large amount of vulnerable funds on the Internet is an additional incentive for attackers. [As reported by IG Group studies,](https://www.group-ib.com/resources/threat-research/2018-report.html) from 2017 to 2018, nearly 1 billion US dollar's worth of digital assets were stolen from major exchanges around the world. 
 
-A CEX has several challenges to consider as a result of this danger. From a legal perspective, [the infamous Mt. Gox case](https://www.coindesk.com/mississippi-doctors-sued-mt-gox-for-bitcoin-loss-now-worth-135-million) illustrates how users may attempt to hold the CEX liabile in the event of a theft. A CEX may struggle to find an insurance provider that will protect them. Also, compared to fiat currency, government authorities can do little to assist in recovering stolen funds.
+A CEX has several challenges to consider as a result of this danger. From a legal perspective, [the infamous Mt. Gox case](https://www.coindesk.com/mississippi-doctors-sued-mt-gox-for-bitcoin-loss-now-worth-135-million) illustrates how users may attempt to hold the CEX liable in the event of a theft. A CEX may struggle to find an insurance provider that will protect them. Also, compared to fiat currency, government authorities can do little to assist in recovering stolen funds.
 
 ### Pros and Cons of the Centralized Exchange
 
 | Perspective | Pros  | Cons |
 | ----------- | ----- | ---- |
 | User | The IOU exchange process is high-speed, simple, and often has a pleasant interface | Compromising the user's individual account is achievable for a determined hacker, and there are effectively no methods to recover funds stolen from a CEX |
-| User | Because the CEX model has many users, a CEX is more likely to achieve high liquidity | The high user population motivates sophisicated attackers to compromise the entire site |
+| User | Because the CEX model has many users, a CEX is more likely to achieve high liquidity | The high user population motivates sophisticated attackers to compromise the entire site |
 | User | A large CEX can handle the complexities of holding and using cryptocurrencies | Once a user gives up control over their funds to the CEX, the user can only trust that the funds will be returned |
 | Exchange Owner | Without decentralization, business development is often faster | In holding thousands of user's personal funds, the exchange owners assume an enormous amount of liability |
 | Exchange Owner | The automated aspect of cryptocurrency allows for fast profits through small fees | The owner must be wary of thieves even among their own employees |
@@ -116,7 +116,6 @@ However, the nature of an atomic swap is unique in comparison with the opposing 
 | An exchange can be set up by anyone | Check: Requires only two users and an Internet connection | X-cross: Requires sufficient technical knowledge, funding, and committed business partners to serve as gateway nodes | Partial check: Requires sufficient technical knowledge, funding, and a higher level of business and legal knowledge | 
 | Users maintain control over the funds throughout the process | Check: Users maintain control over their funds until the trade is completed, at which point ownership is swapped atomically | X-cross: Users relinquish ownership to the gateway nodes, although users do hold private keys to IOUs | X-cross: Once the user sends funds to the CEX, they only own their funds in theory until the funds are returned |
 | User funds remain distributed and decentralized throughout process | Check: As users maintain ownership over their funds at all times, all funds in the exchange process are never in a central location | X-cross: User funds are held in a collection of multi-signature addresses that are maintained by a small group of people | X-cross: User funds are held in a centralized database, managed by company employees |
-
 
 This is probably enough to get the basic idea. If the reader desires a more thorough understanding of the atomic swap process, read Part III of [the Komodo whitepaper,](https://komodoplatform.com/whitepaper) or [this blog post for a condensed explanation.](https://komodoplatform.com/atomic-swaps/)
 

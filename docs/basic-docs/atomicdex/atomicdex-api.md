@@ -288,7 +288,7 @@ For terminal interface examples, see the examples section below.
 | servers   | array of objects | the list of Electrum servers to which you want to connect |
 | servers.url | string | server url |
 | servers.protocol | string | the transport protocol that MM2 will use to connect to the server. Possible values: `TCP`, `SSL`. Default value: `TCP` |
-| servers.disable_cert_verification | bool | when set to true, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). Defaul value is `false`. <b>Use at your own risk</b> |
+| servers.disable_cert_verification | bool | when set to true, this disables server SSL/TLS certificate verification (e.g. to use self-signed certificate). Default value is `false`. <b>Use at your own risk</b> |
 | mm2       | number (required if not set in the `coins` file) | this property informs the AtomicDEX software as to whether the coin is expected to function; accepted values are either `0` or `1` |
 | tx_history| bool | whether the node should enable `tx_history` preloading as a background process; this must be set to `true` if you plan to use the `my_tx_history` API |
 
@@ -544,7 +544,7 @@ The `get_enabled_coins` method returns data of coins that are currently enabled 
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| result    | array of objects | tickers and adresses of enabled coins |
+| result    | array of objects | tickers and addresses of enabled coins |
 | result.address    | string | the user's address for this coin |
 | result.ticker    | string | the ticker name of this coin |
 
@@ -2385,7 +2385,7 @@ The `send_raw_transaction` method broadcasts the transaction to the network of s
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| tx_hash   | string   | the hash of the broadcasted transaction |
+| tx_hash   | string   | the hash of the broadcast transaction |
 
 #### :pushpin: Examples
 

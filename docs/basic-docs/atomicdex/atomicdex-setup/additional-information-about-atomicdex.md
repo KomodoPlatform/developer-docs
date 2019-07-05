@@ -52,7 +52,7 @@ Please reach out to our team on [Discord](https://komodoplatform.com/discord) to
 
 ## Add Your Coin to MarketMaker 2.0
 
-All coins that are built on the BTC and ETH core softwares can be added to MarketMaker 2.0 (MM2) quickly and simply. Coins built on other software frameworks may be able to be added as well, depending on specific details. Specifically, a coin must support functionality that is similar to the "CheckLockTimeVerify" of the Bitcoin protocol, wherein a utxo can be locked for a specific amount of time and then released in a manner determined by the developer. For more information, please reach out to our team on Discord.
+All coins that are built on the BTC and ETH core software can be added to MarketMaker 2.0 (MM2) quickly and simply. Coins built on other software frameworks may be able to be added as well, depending on specific details. Specifically, a coin must support functionality that is similar to the "CheckLockTimeVerify" of the Bitcoin protocol, wherein a utxo can be locked for a specific amount of time and then released in a manner determined by the developer. For more information, please reach out to our team on Discord.
 
 To add your BTC or ETH-based coin to MM2, first follow the linked checklist below:
 
