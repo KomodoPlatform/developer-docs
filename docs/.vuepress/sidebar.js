@@ -32,7 +32,7 @@ var sidebar = [
                 children: 
                 [
                     [
-                        "/basic-docs/start-here/learning-launchpad/learning-path-outlines.md",
+                        "/basic-docs/start-here/learning-launchpad/learning-path-outline.md",
                         "Learning Path Outlines"
                     ],
                     [

@@ -1,4 +1,4 @@
-# Learning Path Outlines
+# Learning Path Outline
 
 ## Introduction
 
