@@ -366,10 +366,6 @@ var sidebar = [
                     "/basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.md",
                     "Getting Started with AtomicDEX"
                 ],
-                [
-                    "/basic-docs/atomicdex/atomicdex-setup/additional-information-about-atomicdex.md",
-                    "Additional Information About AtomicDEX"
-                ],
             ],
         },
         {
@@ -383,7 +379,11 @@ var sidebar = [
                 [
                     "/basic-docs/atomicdex/atomicdex-tutorials/atomicdex-walkthrough.md",
                     "AtomicDEX Walkthrough"
-                ]
+                ],
+                [
+                    "/basic-docs/atomicdex/atomicdex-tutorials/additional-information-about-atomicdex.md",
+                    "Additional Information About AtomicDEX"
+                ],
             ]
         },
         [
