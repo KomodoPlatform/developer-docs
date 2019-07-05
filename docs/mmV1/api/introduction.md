@@ -1,6 +1,6 @@
 # Marketmaker Version1 API
 
-## BarterDEX is officially deprecated as of this writing and mm2 is under testing before public release.
+## BarterDEX is officially deprecated as of this writing and mm2 is in BETA testing. Click [here](https://atomicdex.io/) for more details. The api for Marketmaker Version2 can be found [here](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html)
 
 MarketmakerV1 was the backend for GUI like barterDEX and initial versions of HyperDEX. It facilitates trustless, p2p, [atomic,](https://www.youtube.com/watch?v=PeavTHz8LSA) swaps between almost 95% of the available cryptocurrencies like BTC, ETH, majority of Bitcoin forks and ERC20 tokens.
 

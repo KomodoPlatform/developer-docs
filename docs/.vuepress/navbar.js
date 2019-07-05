@@ -7,6 +7,10 @@ var navbar = [{
         link: "/whitepaper/introduction.md"
     },
     {
+        text: "AtomicDEX Docs",
+        link: "https://developers.atomicdex.io"
+    },
+    {
         text: "Guides",
         items: [{
                 text: "Komodo",
@@ -23,6 +27,14 @@ var navbar = [{
             {
                 text: "Marketmaker V1",
                 link: "/mmV1/introduction.md"
+            },
+            {
+                text: "Marketmaker V2",
+                link: "https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html"
+            },
+            {
+                text: "Agama",
+                link: "/gui/agama/introduction.md"
             }
         ]
     },
@@ -30,10 +42,7 @@ var navbar = [{
         text: "CC Book",
         link: "/cc-jl/introduction.md"
     },
-    {
-        text: "Agama",
-        link: "/gui/agama/introduction.md"
-    },
+
     {
         text: "Resources",
         items: [{
