@@ -204,8 +204,13 @@ cd chips3
 git checkout dev
 ./build.sh
 ```
+#### Step 2: Symlink the compiled binaries
+```shell
+sudo ln -sf /home/$USER/chips3/src/chips-cli /usr/local/bin/chips-cli
+sudo ln -sf /home/$USER/chips3/src/chipsd /usr/local/bin/chipsd
+```
 
-#### Step 2: Create CHIPS data dir, `chips.conf` file and restrict access to it
+#### Step 3: Create CHIPS data dir, `chips.conf` file and restrict access to it
 
 ```bash
 cd ~
