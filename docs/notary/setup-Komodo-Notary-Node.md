@@ -263,8 +263,13 @@ daemon=1
 txindex=1
 rpcuser=user
 rpcpassword=password
-addnode=5.9.253.195
-addnode=74.208.210.191
+addnode=159.69.23.29
+addnode=95.179.192.102"
+addnode=149.56.29.163
+addnode=145.239.149.173
+addnode=178.63.53.110
+addnode=151.80.108.76
+addnode=185.137.233.199
 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1
 ```
