@@ -202,52 +202,10 @@ cd ~
 git clone https://github.com/jl777/chips3
 cd chips3
 git checkout dev
-```
-
-#### Step 2: Create a build script
-
-Name the script as `build.sh` inside the `~/chips3` dir for easy compiling and add the contents below to the script. The script will also create symlinks gor the binaries at `/usr/local/bin/` and for that, you will be asked to provide the `sudo` password.
-
-```bash
-#!/bin/bash
-berkeleydb () {
-    CHIPS_ROOT=$(pwd)
-    CHIPS_PREFIX="${CHIPS_ROOT}/db4"
-    mkdir -p $CHIPS_PREFIX
-    wget -N 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
-    echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef db-4.8.30.NC.tar.gz' | sha256sum -c
-    tar -xzvf db-4.8.30.NC.tar.gz
-    cd db-4.8.30.NC/build_unix/
-
-    ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$CHIPS_PREFIX
-
-    make install
-    cd $CHIPS_ROOT
-}
-
-buildCHIPS () {
-    git pull
-    make clean
-    ./autogen.sh
-    ./configure LDFLAGS="-L${CHIPS_PREFIX}/lib/" CPPFLAGS="-I${CHIPS_PREFIX}/include/" --with-gui=no --disable-tests --disable-bench --without-miniupnpc --enable-experimental-asm --enable-static --disable-shared
-    make -j$(nproc)
-}
-
-cd ~/chips3
-berkeleydb
-buildCHIPS
-sudo ln -sf /home/$USER/chips3/src/chips-cli /usr/local/bin/chips-cli
-sudo ln -sf /home/$USER/chips3/src/chipsd /usr/local/bin/chipsd
-```
-
-#### Step 3: Make the script executable and run it
-
-```bash
-chmod +x build.sh
 ./build.sh
 ```
 
-#### Step 4: Create CHIPS data dir, `chips.conf` file and restrict access to it
+#### Step 2: Create CHIPS data dir, `chips.conf` file and restrict access to it
 
 ```bash
 cd ~
@@ -264,7 +222,7 @@ txindex=1
 rpcuser=user
 rpcpassword=password
 addnode=159.69.23.29
-addnode=95.179.192.102"
+addnode=95.179.192.102
 addnode=149.56.29.163
 addnode=145.239.149.173
 addnode=178.63.53.110
