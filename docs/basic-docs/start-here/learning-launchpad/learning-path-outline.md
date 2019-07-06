@@ -224,7 +224,7 @@ The following tutorials are optional, but we still recommend that the developer 
 
 ##### Basic Environment Setup for Linux VPS
 
-Many, if not most, developers in the Komodo ecosystem use a Linux-based Virtual Private Server to build software. Working on a VPS simplifies many aspects of the development process, as the VPS grants the developer a disposable and rapidly customizable environment for troubleshooting.
+Many, if not most, developers in the Komodo ecosystem use a Linux-based Virtual Private Server (VPS) to build software. Working on a VPS simplifies many aspects of the development process, as the VPS grants the developer a disposable and rapidly customizable environment for troubleshooting.
 
 There are free VPS services available and links are provided.
 
@@ -356,7 +356,7 @@ Time: 15 Minutes
 
 -------------
 
-A simple application of the Antara Framework is the Heir Antara Module. This simple module allows a users to designate an inheritor of their funds, should the user become inactive on a Smart Chain. 
+A simple application of the Antara Framework is the Heir Antara Module. This simple module allows a user to designate an inheritor of their funds, should the user become inactive on a Smart Chain. 
 
 Read the introductory section to gain a more thorough understanding, and then try executing each command found in the Heir Module Flow section.
 

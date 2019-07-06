@@ -1,5 +1,9 @@
 # Advanced Series — Miscellaneous
 
+This last tutorial in the Advanced Series provides miscellaneous information that our development team considered to be useful for prospective developers. 
+
+Congratulations on finishing the Advanced Series. Make sure to reach out to the Komodo team to see if there are any bounties that you can fill with your new ability to create Antara Modules. And we welcome you to the Komodo ecosystem as a prepared developer. We look forward to seeing what you create.
+
 ## Terminology
 
 | Term | Definition |
@@ -189,14 +193,3 @@ You may also use the hidden `reconsiderblock` komodo-cli command to restart the 
 If komodod hangs while executing Antara module validation code, consider that some blockchain functions use locks. The combination of your validation code and the locks could be causing deadlocks in the consensus mechanism. If this is the case, use functions that are non-locking instead.
 
 For example, the `GetTransaction()` function is a locking function. Instead, use `myGetTransaction()` or `eval->GetConfirmed()`.
-
-<!--
-
-Sidd: Let's wait on putting this in here until the tutorial is done.
-
-#### Upcoming Part II of this Tutorial
-
-In the next part of this tutorial, we will extend the functionality of our Heir module to also work with tokens.
-
--->
-

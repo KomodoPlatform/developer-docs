@@ -261,23 +261,31 @@ var sidebar = [
                             "Beginner Series — Understanding Tokens"
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/advanced-series-introduction.md", 
+                            "/basic-docs/antara/antara-tutorials/advanced-series-0.md", 
                             "Advanced Series — Introduction" 
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/advanced-series-smart-chain-development-basics.md", 
+                            "/basic-docs/antara/antara-tutorials/advanced-series-1.md", 
                             "Advanced Series — Smart Chain Development Basics" 
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/advanced-series-antara-module-development-basics.md", 
+                            "/basic-docs/antara/antara-tutorials/advanced-series-2.md", 
                             "Advanced Series — Antara Module Development Basics" 
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/advanced-series-simplified-heir-module-prototype.md", 
-                            "Advanced Series — Simplified Heir Module Prototype" 
+                            "/basic-docs/antara/antara-tutorials/advanced-series-3.md", 
+                            "Advanced Series — Preparing for Heir Development" 
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/advanced-series-miscellaneous.md", 
+                            "/basic-docs/antara/antara-tutorials/advanced-series-4.md", 
+                            "Advanced Series — Final Conceptual Discussion" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/advanced-series-5.md", 
+                            "Advanced Series — Developing the Heir Module Prototype" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/advanced-series-6.md", 
                             "Advanced Series — Miscellaneous" 
                         ],
                         [

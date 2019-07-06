@@ -1,8 +1,8 @@
-# Antara Module Development Basics
+# Advanced Series — Antara Module Development Basics
 
 ## The Eval Code
 
-In the Komodo source code, each Antara module has an associated arbitrary number, called an "eval" code. This code can be any digit between `0` and `255`, there can be only one code per module, and each code is currently one byte in size. To add a new Antara module, the developer begins by adding a new eval code to the table of all active eval codes on their Smart Chain. 
+In the Komodo source code, each Antara Module has an associated arbitrary number, called an "eval" code. This code can be any digit between `0` and `255`, there can be only one code per module, and each code is currently one byte in size. To add a new Antara Module, the developer begins by adding a new eval code to the table of all active eval codes on their Smart Chain. 
 
 We define all eval codes in the [~/komodo/src/cc/eval.h](https://github.com/jl777/komodo/tree/jl777/src/cc/eval.h) file. The following eval codes represent the essential, default modules in a Smart Chain.
 
@@ -37,8 +37,6 @@ This is where the true power of CC begins. When validating a normal transaction,
 
 Technically, OP_CCC scripts do not have a required structure. The scripts only need to follow the general structure of the initial layout. The developer may follow the general guideline, as provided in our templates and tutorials. This allows the developer to code and debug their OP_CCC related modules in an efficient manner.
 
-<!-- Below content seems like it can be grouped with other "simplest" content, 1of1 and 1of2. -->
-
 #### Flexbile Pubkey Expression
 
 To understand how CryptoConditions (CC) manages addresses and scripts, the developer should first understand a few basic concepts regarding pubkeys.
@@ -53,10 +51,6 @@ Today, there are multiple ways to express a pubkey. There are compressed and unc
 
 When working with software based on the Bitcoin protocol, a common problem a developer encounters is found in creating an address that is associated with a script. A frequent solution is to hash the script and use the hash as the address. Komodo uses this solution in the Antara CC implementation. Using this method, the CC script serves as the CC address.
 
-<!-- We say "CC script" below. It's not clear to me that the reader would know that a CC script and a CC address are essentially the same? -->
-
-<!-- Above accurate? -->
-
 With this in mind, the essential structure of a CC script is as follows. (The automatically generated content is handled by the daemon's internal functions and can be ignored.)
 
 ```
@@ -67,17 +61,15 @@ Each CC script utilizes the eval code of the module to which the CC script belon
 
 Funds that are sent to a CC address can be spent only by the module with the appropriate eval code, and therefore funds created and associated with an eval code maintain scarcity within this module.
 
-<!-- Maybe we rephrase based on content below. Also, maybe this content goes sooner, so that when we get to talking about CC addresses, we have more context. -->
-
-A common and simple CC script exists in nearly all of the default Antara modules. The structure of this script consists of a single signature from a pubkey and CC validation. This is essentially the equivalent of a P2PK Bitcoin script; the CC validation returns `true` or `false`, whereas the P2PK Bitcoin script returns `1` or `0`.
+A common and simple CC script exists in nearly all of the default Antara Modules. The structure of this script consists of a single signature from a pubkey and CC validation. This is essentially the equivalent of a P2PK Bitcoin script; the CC validation returns `true` or `false`, whereas the P2PK Bitcoin script returns `1` or `0`.
 
 #### Global CC Address
 
-By convention, each Antara module has a global CC address where the privkey is publicly available. As usual, spending from this global CC address requires that the spender meet all validation rules set forth by the developer. Therefore, the lack of privacy for the private key is not an issue. 
+By convention, each Antara Module has a global CC address where the privkey is publicly available. As usual, spending from this global CC address requires that the spender meet all validation rules set forth by the developer. Therefore, the lack of privacy for the private key is not an issue. 
 
 One purpose for this global CC address is to create a repository that is global (within the module) for information regarding specific instances of this module on the chain.
 
-For example, typically the design of an Antara module requires that each time a user initiates an instance of the module, the user also sends a small amount of funds to this global CC address. This transaction contains data about the instance the user desires to create. Other users on the network can retrieve the data in this global CC address, and thereby gain knowledge about the current state of all module instances on the Smart Chain.
+For example, typically the design of an Antara Module requires that each time a user initiates an instance of the module, the user also sends a small amount of funds to this global CC address. This transaction contains data about the instance the user desires to create. Other users on the network can retrieve the data in this global CC address, and thereby gain knowledge about the current state of all module instances on the Smart Chain.
 
 ## Vector Inputs and Outputs
 
@@ -97,7 +89,7 @@ A key power of CryptoConditions (CC) is the ability to enhance the script that m
 
 With access to arbitrary code, CC allows the Bitcoin protocol to rival the "smart contracts" common on other platforms. Yet, CC accomplishes this without requiring the virtual-machine counterpart that other smart-contract platforms require. Instead, the consensus mechanism is directly engaged with the scripts in the vins and vouts of transactions.
 
-The Bitcoin protocol's consensus mechanism is constantly placed under the most intense of pressure in the industry, and therefore is likely the most reliable consensus mechanism available. The ability to engage the consensus mechansim in arbitrary code while not changing the consensus mechanism itself grants Antara security and stability. The utxo system of the Bitcoin protocol also reduces the likelihood that modules themselves will contain bugs internally. (The reader should note that CC cannot eliminate attack vectors altogether.)
+The Bitcoin protocol's consensus mechanism is constantly placed under the most intense of pressure in the industry, and therefore is likely the most reliable consensus mechanism available. The ability to engage the consensus mechanism in arbitrary code while not changing the consensus mechanism itself grants Antara security and stability. The utxo system of the Bitcoin protocol also reduces the likelihood that modules themselves will contain bugs internally. (The reader should note that CC cannot eliminate attack vectors altogether.)
 
 #### The Many Possibilities of OC_CHECKCRYPTOCONDITION
 
@@ -119,19 +111,15 @@ This is a dramatic increase in the possibilities over the limits of the original
 
 While the possibilities of a transaction are essentially limitless, the developer must create validation code that ensures the module and its transactions function as intended. Therefore, in practice the developer often limits the possibilities to `1` to `3` types per vin or vout.
 
-<!-- I don't understand how this works. Can you make a transaction that takes advantage of each module in each vin/vout? -->
-
 ## Introduction to the Remote Procedure Call (RPC)
 
 A Remote Procedure Call (RPC) allows a module developer the ability to offer easy access to their module's functionality. The role of the RPC calls are to create properly signed raw transactions that are ready for broadcasting.
 
-The developer places the command name of each RPC they desire to create into a table in the CC source code. <!-- Can we get a directory link to this file? --> From this table, the built-in komodo-cli software is able to access and execute the RPC. In this manner, developers of all skills levels can integrate Antara modules into other software.  
+The developer places the command name of each RPC they desire to create into a table in the CC source code. From this table, the built-in komodo-cli software is able to access and execute the RPC. In this manner, developers of all skills levels can integrate Antara Modules into other software.  
 
-Antara modules can have any RPCs the developer desires, or even have no RPCs. By convention, each Antara modules has a few default RPCs: `<CC_Name>address`, `<CC_name>list`, and `<CC_name>info`. For example, the Dice module has, `diceaddress`, `dicelist`, and `diceinfo`. These RPCs return information about a CC-related address, the list of all instances of this module on the Smart Chain, and information about the chain-wide state of the module.  
+Antara Modules can have any RPCs the developer desires, or even have no RPCs. By convention, each Antara Modules has a few default RPCs: `<CC_Name>address`, `<CC_name>list`, and `<CC_name>info`. For example, the Dice module has, `diceaddress`, `dicelist`, and `diceinfo`. Respectively, these RPCs return information about a CC-related address, the list of all instances of this module on the Smart Chain, and information about the chain-wide state of the module.  
 
 ## Creating a Global CC Address
-
-<!-- Maybe this goes before RPCs. And/or maybe we could break down the code below into a simpler example, or one for Heir? -->
 
 The following code from the Faucet module serves as an example of the manner in which we begin the creation of a global CC address for this module.
 
@@ -142,15 +130,17 @@ char FaucetCChexstr[67] = { "03682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518
 uint8_t FaucetCCpriv[32] = { 0xd4, 0x4f, 0xf2, 0x31, 0x71, 0x7d, 0x28, 0x02, 0x4b, 0xc7, 0xdd, 0x71, 0xa0, 0x39, 0xc4, 0xbe, 0x1a, 0xfe, 0xeb, 0xc2, 0x46, 0xda, 0x76, 0xf8, 0x07, 0x53, 0x3d, 0x96, 0xb4, 0xca, 0xa0, 0xe9 };
 ```
 
-<!-- For the below, let's just look at the switch statement here in the file? -->
+For a template of this logic pattern, view the [CCcustom.cpp](https://github.com/jl777/komodo/tree/jl777/src/cc/CCcustom.cpp) file.
 
-For a template of this logic pattern, view the [CCcustom.cpp](https://github.com/jl777/komodo/tree/jl777/src/cc/CCcustom.cpp) file. Note that at the bottom of the file there is a switch statement. There, the above values are copied into an in-memory data structure for each CC type. This allows the entire CC codebase to access the global CC addresses in a standard manner.
+[<b>Link to CCcustom.cpp file</b>](https://github.com/jl777/komodo/tree/jl777/src/cc/CCcustom.cpp)
+
+Note that at the bottom of the file there is a switch statement. There, the above values are copied into an in-memory data structure for each CC type. This allows the entire CC codebase to access the global CC addresses in a standard manner.
 
 To create a global CC address for a new module, follow these steps.
 
 #### Create a value using getnewaddress
 
-With the `komodod` daemon running, use the [<b>getnewaddress</b>](../basic-docs/smart-chains/smart-chain-api/wallet.html#getnewaddress) RPC with `komodo-cli` to get a new address. 
+With the `komodod` daemon running, use the [<b>getnewaddress</b>](../basic-docs/smart-chains/smart-chain-api/wallet.html#getnewaddress) RPC with `komodo-cli` to get a new address. (You may use any Komodo Smart Chain, such as the KMD main chain, for this procedure.)
 
 Copy this value into the first line of the code. For example, in the Faucet code above the result is as follows.
 
@@ -170,13 +160,11 @@ char FaucetCChexstr[67] = { "03682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518
 
 #### Restart the Daemon with the pubkey 
 
-Stop the daemon and restart with the [<b>pubkey</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter enabled. Use the pubkey from the <b>validateaddress</b> as the pubkey value.
+Stop the daemon and restart with the [<b>pubkey</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter enabled. Use the pubkey from the <b>validateaddress</b> RPC as the pubkey value.
 
 #### Ensure the Myprivkey Function is Properly Enabled
 
 Check that the `if ( 0 )` statement is enabled in the  `Myprivkey()` function in the `/src/cc/CCutils.cpp` file.
-
-<!-- And if it's not? How to fix? -->
 
 #### Obtain the CCaddress
 
@@ -218,7 +206,7 @@ Add an entry into the `/src/cc/eval.h` file.
 
 ## Introduction to Validation
 
-A large portion of Antara module customization pertains to the manner in which the validation code constrains CC transaction input.
+A large portion of Antara Module customization pertains to the manner in which the validation code constrains CC transaction input.
 
 The CC validation code is called at the time that the consensus mechanism is validating a CC transaction. The consensus mechanism only calls the CC validation code and waits for a response of `true` or `false`. Whether or not the CC validation code is effective is a matter for the developer to resolve. 
 
@@ -226,19 +214,6 @@ The developer is responsible for properly designing both the validation code and
 
 The CC validation code is already locked in the main loop of the Bitcoin protocol at the time the code is called. Care should be taken with the CC validation code to ensure that the code does not cause a deadlock on the chain.
 
-#### Next Steps
+------------
 
-This concludes this introductory discussion of Antara module development. 
-
-The CryptoConditions aspect of Antara is a foundational aspect of this technology. CryptoConditions allows a developer to add arbitrary code into their Smart Chain daemon, and to rely on the consensus mechanism and utxo framework to provide a more secure and effective decentralized environment. 
-
-<!-- 
-
-This should probably be lumped in with the Heir CC tutorial. 
-
-We didn't cover the method of adding data to an OP_RETURN
-
--->
-
-
-To learn more about other Antara technologies, such as MoMoM, we recommend reaching out to our community on [<b>Discord.</b>](https://komodoplatform.com/discord) Documentation for other aspects of Antara is not yet developed, but these technologies can be explored through direct engagement.
+[<b>Link to Next Tutorial in Advanced Series</b>](../../../basic-docs/antara/antara-tutorials/advanced-series-3.html)

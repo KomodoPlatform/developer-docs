@@ -2,9 +2,9 @@
 
 #### Understanding Utxos is Important in Antara Modules
 
-In the prerequisite material the reader received encouragement to first learn the basics of blockchain technology and the Bitcoin protocol. The book, [Mastering Bitcoin](https://github.com/bitcoinbook/bitcoinbook), provides a preliminary discussion, as does [the Komodo whitepaper.](https://komodoplatform.com/whitepaper) 
+In the [Learning Launchpad Outline](../../../basic-docs/start-here/learning-launchpad/learning-path-outline.html) the reader received encouragement to understand the basics of blockchain technology in preparation for this tutorial. The [<b>Core Technology Discussions section</b>](../../../basic-docs/start-here/core-technology-discussions/introduction.html) provides a useful introduction to most concepts that are necessary for blockchain engineers. 
 
-A key concept in these texts is the unspent transaction, or utxo. For a brief reminder on the nature of a utxo, read [this post on the Komodo blog.](https://komodoplatform.com/whats-utxo/)
+A key basic concept to understand is the unspent transaction, or utxo. For a brief reminder on the nature of a utxo, read [this section in the Core Technology Discussions section.](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept)
 
 Observe the data structure of a transaction.
 
@@ -199,37 +199,19 @@ Therefore, transactions sent to the [<b>mempool</b>](https://en.bitcoin.it/wiki/
 
 A useful comparison here can be found by observing people seeking to attend a ticketed event, such as a music concert. To gain acceptance into the music hall, a person must first have a ticket. We compare this to the creation of a txid. The person must wait in line. This is similar to the mempool. The person must have their ticket stamped, and this is akin to the consensus mechanism approving the transaction. Then the person may enter the music hall. This is the transaction becoming a part of the blockchain history.
 
-The essence of blockchain technology is that a utxo can only be spent once. In building modules for the Antara framework, we constantly keep this principle in mind, and the consensus mechanism is our guide.
-
-<!-- The example below is no longer needed, but we can keep it in case I change my mind later. 
-
-Consider how the [<b>Channels module</b>]() uses CryptoConditions to enhance user security and convenience during the process of spending utxos.
-
-Without CryptoConditions, a utxo in the Komodo ecosystem reaches effective finality once it is notarized to the Bitcoin network. For a typical smart chain, this process can take from twenty to forty minutes, on average.
-
-While the user waits for their transaction to be notarized, they must rely on their Smart Chain's consensus mechansim to protect their transaction from a 51% attack. This period of waiting can be irritating to a user.
-
-The Channels module effectively eliminates this waiting period for transactions that a user anticipates in advance. The developer allows their users to create a series of possible utxos that can happen. The utxos still belong to the user, but they are effectively locked to a destination address. This is typically the address of the potential recipient of the funds. 
-
-With the utxos effectively locked to the destination address, the user can safely release the private key for this utxo at any time. When the user states that they are ready to spend their funds, CC forces them to publicly release the private key to these funds as a part of the transaction. 
-
-At this point, with the private key for the utxos publicly available, the receiver can safely assume that they will receive their funds without having to wait for notarization. Even an attempted 51% attack would not remove the receiver's knowledge of the private keys. 
-
--->
+The essence of blockchain technology is that a utxo can only be spent once. In building modules for the Antara Framework, we constantly keep this principle in mind, and the consensus mechanism is our guide.
 
 ## Formation of a Transaction
 
 Contrary to what one may think, a blockchain transaction is not a simple accounting entry that says, "Address X pays Y amount of funds to address Z." Rather, a transaction also contains a Bitcoin script that must be satisfied before the requested funds can be spent.
 
-<!-- I changed the above paragraph according to my best knowledge. It used to say, "on the blockchain." This wasn't clear to me, as I wasn't sure if we were talking about blockchain database, or the actual transaction itself, or something else. I guessed. We should correct. -->
-
 The manner in which transactions are created has evolved over time. Originally, the process consisted only of a "Pay to Pubkey" script, or "P2PK" for brevity.
 
 In a P2PK transaction, the software checks the cryptographic signature of the public key attempting to spend funds and if the signature is correct the transaction is approved. 
 
-These simple transactions are common in coinbase transactions. (Recall that a coinbase transaction is the transaction that mints new coins onto a blockchain. Coinbase transactions are most frequently encountered as block rewards for miners/stakers.)
+These simple transactions are common in coinbase transactions. (Recall that a coinbase transaction is the transaction that mints new coins onto a blockchain. Coinbase transactions are most frequently encountered as block rewards for miners/stakers, and in the Gensis Block of a chain.)
 
-If the reader would like a more thorough technical explanation for P2PK transactions, tutorials and explanations abound across the web. [Here is one such example.](https://learnmeabitcoin.com/glossary/p2pk)
+If the reader would like a more thorough technical explanation of P2PK transactions, tutorials and explanations abound across the web. [Here is one such example.](https://learnmeabitcoin.com/glossary/p2pk)
 
 #### Quantum Computers, Cold Addresses, and Change
 
@@ -251,7 +233,7 @@ When using CC technology, the user typically must provide a designated pubkey vi
 
 A side effect of using this <b>pubkey</b> parameter is that once this is set, the software will stop creating new "change" addresses with each transaction. Instead, the software will send the "change" back to the same cold address that is associated with the pubkey.
 
-If a user wants to keep funds safe from quantum computers, there are separate CC-related modules that provide protection. For example, [the upcoming Dilithium Antara module.](https://komodoplatform.com/dilithium-quantum-secure-blockchain/)
+If a user wants to keep funds safe from quantum computers, there are separate CC-related modules that provide protection. For example, [the upcoming Dilithium Antara Module.](https://komodoplatform.com/dilithium-quantum-secure-blockchain/)
 
 #### Pay to Pubkey Hash Transactions 
 
@@ -263,7 +245,7 @@ The Internet contains many thorough explanations of P2PKH transactions. For more
 
 Once a cold address is associated with a pubkey, the Bitcoin protocol no longer attempts to use these quantum-secure P2PKH transactions, as they require an extra 25 bytes of data space. Instead, the protocol reverts to the original P2PK transactions.
 
-Because CryptoConditions typically requires the <b>pubkey</b> launch parameter to be enabled, users nearly always reuse the same addresses. For this reason, the Antara module developer can simply skip P2PKH transactions and use only P2PK transactions instead. 
+CryptoConditions typically requires the [<b>ac_pubkey</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-pubkey) Antara Customization parameter to be enabled. One of the effects of this parameter is that each time a user makes a transaction, the "change" is automatically sent back not to a new cold address, but rather to the pubkey included in the `ac_pubkey` parameter. Therefore, as user transactions are already always returning to a default pubkey, the Antara Module developer can simply skip P2PKH transactions altogether and use only P2PK transactions instead. 
 
 #### Pay to Script Hash Payments
 
@@ -281,7 +263,7 @@ For more information about P2SH transactions, [a useful tutorial can be found he
 
 Each of the above transactions relies on an operation code, also called "opcode", to execute.
 
-For example, the P2PKH transaction relies on the OP_CHECKSIG opcode, `172`, to execute. The opcode is included as a part of the transaction data, typically as a header and in hex format.
+For example, the P2PKH transaction relies on the OP_CHECKSIG opcode `172` to execute. The opcode is included as a part of the transaction data, typically as a header and in hex format.
 
 When the daemon detects the opcode in the raw data, the daemon understands what is being asked by the developer and performs the appropriate action.
 
@@ -293,11 +275,15 @@ The CryptoConditions standard itself relies on a new opcode, OP_CHECKCRYPTOCONDI
 
 This opcode is not included in the Bitcoin protocol. Rather, the OP_CCC standard was originally written and designed by the Interledger team. The full, original OP_CCC specification is a thirty-three page document, [which you can see here.](https://tools.ietf.org/html/draft-thomas-crypto-conditions-04)
 
-There is no need to read and master the entire original proposal, however, as Komodo's Antara framework automates much of the underlying aspects. The primary takeaway is that the developer uses OP_CCC to create a "<b>CryptoConditions transaction</b>," or "<b>CC transaction</b>" for brevity.
+There is no need to read and master the entire original proposal, however, as Komodo's Antara Framework automates much of the underlying aspects. The primary takeaway is that the developer uses OP_CCC to create a "<b>CryptoConditions transaction</b>," also called a "<b>CC transaction</b>" for brevity.
 
-A CC transaction includes several special features. This can include a logical condition that must be met for the utxo the transaction creates to be spent in the future. A CC transaction can also include a fulfillment of the logical conditions set forth in a previous CC transaction. The binary encodings of these CC transactions can be used in a Smart Chain utxo. These features are the foundation of a CC-related Antara module.
+A CC transaction includes several special features. This can include a logical condition that must be met for the utxo the transaction creates to be spent in the future. A CC transaction can also include a fulfillment of the logical conditions set forth in a previous CC transaction. The binary encodings of these CC transactions can be used in a Smart Chain utxo. These features are the foundation of a CC-related Antara Module.
 
-OP_CCC provides many relatively convenient use cases, and the developer can expand on the common OP_CCC use cases when necessary. For example, a standard use case of OP_CCC is a `1of1` CC script. This type of CC transaction requires only 1 signature, and is accompanied by a few custom constraints. Many of the current default Antara modules rely on the `1of1` script OP_CCC.
+OP_CCC provides many relatively convenient use cases, and the developer can expand on these use cases when necessary. For example, a standard use case of OP_CCC is a `1of1` CC script. This type of CC transaction requires only 1 signature, and is accompanied by a few custom constraints. Many of the current default Antara Modules rely on the `1of1` script OP_CCC.
 
-A more intricate use case of OP_CCC, on the other hand, can be found in the Payments module. This module uses a `1of2` CC script, which allows for one of two signatures to sign a CC transaction, and the script also features several customized constraints.
+A more intricate use case of OP_CCC, on the other hand, can be found in the upcoming Payments Module. This module uses a `1of2` CC script, which allows for one of two signatures to sign a CC transaction, and the script also features several customized constraints.
+
+----------
+
+[<b>Link to Next Tutorial in the Advanced Series</b>](../../../basic-docs/antara/antara-tutorials/advanced-series-2.html)
 
