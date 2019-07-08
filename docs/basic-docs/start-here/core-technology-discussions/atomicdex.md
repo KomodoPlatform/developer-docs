@@ -4,7 +4,7 @@
 
 Komodo’s decentralized exchange, AtomicDEX, allows people to trade cryptocurrency coins without a counterparty risk. The protocol is open source and trading is available for any coin that any developers choose to connect to AtomicDEX.
 
-Our service fully realizes decentralized order matching and trade clearing. The order-matching aspect relies on a peer-to-peer network to build public orderbooks, and the trade clearing is executed through an atomic cross-chain protocol, also called an "atomic swap." 
+Our service fully realizes decentralized order matching and trade clearing. The order-matching aspect relies on a peer-to-peer network to build public orderbooks, and trade clearing is executed through an atomic cross-chain protocol, also called an "atomic swap." 
 
 ## Current Problems in Cryptocurrency Exchange
 
@@ -12,17 +12,17 @@ Our service fully realizes decentralized order matching and trade clearing. The 
 
 The current, most practical method for cryptocurrency exchange requires the use of centralized exchange services. 
 
-These centralized solutions require vouchers to perform the exchange, wherein the user sends their funds into the care of a corporate entity and receives "I Owe You" (IOU) statements in return. The user then uses these IOUs to trade within a controlled environment and, when finished, returns their IOUs to the corporate entity for reimbursement. 
+These centralized solutions require vouchers to perform the exchange, wherein the user sends their funds into the care of a corporate entity and receives "I Owe You" (IOU) statements in return. The user then trades these IOUs within a controlled environment and, when finished, returns their IOUs to the corporate entity for reimbursement. 
 
 Centralized exchanges carry great risk. Among many dangers present in this system, users are under the constant risk of their assets being stolen either by an inside theft or an outside hack. Furthermore, the operators of centralized exchanges are under intense legal and social pressure, as the operators are responsible both for the safety of thousands of users' funds and for the users' behaviors on their platforms. 
 
 To eliminate such dangers and limitations requires the creation of a decentralized alternative, wherein either the entity holding the funds during the trading process is not centralized, or the users are allowed to trade directly without middleman involvement.
 
-### The Beginnings and Travails of Decentralized Exchanges
+#### The Concept and Shortcomings of a Normal Decentralized Exchange
 
 A decentralized exchange (DEX) allows users to trade funds within an environment that is at least partially decentralized. 
 
-Decentralization of an exchange can take many forms. For example, in 2014 Komodo began one of the earliest instances of a decentralized exchange, called "The MultiGateway." 
+Decentralization of an exchange can take many forms. For example, in 2014 Komodo developers began one of the earliest instances of a decentralized exchange, called "InstantDEX." 
 
 In this DEX, users sent their blockchain coins not to a centralized entity, but rather to a decentralized "gateway." The gateway was owned and controlled by several cooperating entities who were chosen from the online community. The gateway automatically distributed IOUs (called "proxy tokens") to the users, who then traded within the partially decentralized environment.
 
@@ -87,7 +87,7 @@ Therefore, one person must release control over their money first. The atomic-sw
 
 A key aspect of a proper atomic swap is that at each stage of the trade-clearing process, each user has incentives to proceed to the next step in the proper manner and disincentives to avoid abandoning the procedure. With this structure in place, regardless of a failure by either user to complete the protocol, each user receives a proper reward.
 
-#### AtomicDEX Manages a Public Trading Profile for Bob and Alice
+#### AtomicDEX Manages a Public Trading Profile for Maker and Taker
 
 In addition to the atomic-swap protocol, AtomicDEX also allows users to track the behavior of trading partners on the network via a Trust API. 
 
@@ -97,9 +97,9 @@ As a user practices good behavior on the network while maintaining a consistent 
 
 Use of the Trust API is optional for all users.
 
-#### Introducing Alice and Bob
+#### Introducing Taker and Maker
 
-There are two parties in an atomic swap: the liquidity provider and the liquidity receiver. We call the provider "Bob" and the receiver "Alice."
+There are two parties in an atomic swap: the liquidity provider and the liquidity receiver. We call the provider "Maker" and the receiver "Taker."
 
 ##### Taker Makes a Request
 
@@ -125,19 +125,24 @@ A summary of the procedure, starting from the beginning.
 
 2. Maker receives the `<dexfee>`, verifies it, and sends `<makerpayment>`
 
-    - Maker generates a secret (32 random bytes) and shares the hash of the secret with Taker
+    - Maker generates a "secret", creates a hash of the secret, and shares this hash with Taker
     
-    - Maker does not send the payment to Taker directly, but rather into a temporary holding address - P2SH hash/time locked output (UTXO) or etomic swap smart contract (ETH/ERC20) 
+    - Maker does not send the payment to Taker directly, but rather into a temporary holding address 
+        - On [utxo-based](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept) blockchains, this holding address is a P2SH hash/time locked output
+        - On ETH/ERC20 based blockchains, this address is an etomic swap smart contract
     
-    - `<makerpayment>` enters a state of limbo on the Maker's coin network, held safely by encryption, awaiting either Taker  to spend it, or for the swap to time out
+    - `<makerpayment>` enters a state of limbo on the Maker's coin network, held safely by encryption, awaiting either for Taker to spend the payment, or for the swap to time out
         
     - If the latter occurs, `<makerpayment>` is automatically refunded to Maker via the AtomicDEX protocol
 
 3. Taker now sends `<takerpayment>`
 
-    - Taker does not send the payment to Maker directly, but rather into a temporary holding address - P2SH hash/time locked output (UTXO) or etomic swap smart contract (ETH/ERC20) 
+    - Taker does not send the payment to Maker directly, but rather into a temporary holding address
+        - On [utxo-based](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept) blockchains, this holding address is a P2SH hash/time locked output
+        - On ETH/ERC20 based blockchains, this address is an etomic swap smart contract
     
-    - `<takerpayment>` enters a state of limbo on the Taker's coin network, held safely by encryption, awaiting either Maker to spend it, or for the swap to time out
+    
+    - `<takerpayment>` enters a state of limbo on the Taker's coin network, held safely by encryption, awaiting either for Maker to spend the payment, or for the swap to time out
         
     - If the latter occurs, `<takerpayment>` is automatically refunded to Taker via the AtomicDEX protocol
     
@@ -147,7 +152,7 @@ A summary of the procedure, starting from the beginning.
 
 5.  Taker now "spends" the `<makerpayment>`
 
-    - Taker finds that `<takerpayment>` is spent and extracts the secret from spending transaction. The secret can be used to unlock the `<makerpayment>` and send the coins to Taker's address.
+    - Taker finds that `<takerpayment>` is spent and extracts the secret from the spending transaction. The secret can be used to unlock the `<makerpayment>` and send the coins to Taker's address
 
 While it may seem inefficient to have five transactions for a swap that could be done with two, the complexity of this process provides us with the requisite "trustless-ness" to maintain user safety.
 
@@ -163,13 +168,13 @@ Let us now examine what is happening after each step.
 
 If Maker accepts the offer to trade, but does not send `<makerpayment>`, Taker only stands to lose the `<dexfee>`. This is only 1/777th of the entire transaction amount, so she loses very little.
 
-Maker, on the other hand, stands to lose more. Since Bob did not follow through with his end of the bargain, the AtomicDEX network indicates on his public AtomicDEX trading profile that he failed in a commitment, thus decreasing his profile’s reputation. If Bob continues this behavior as a habit, he may find it difficult to discover trading partners.
+Maker, on the other hand, stands to lose more. Since Maker did not follow through with his end of the bargain, the AtomicDEX network indicates on his public AtomicDEX trading profile that he failed in a commitment, thus decreasing his profile’s reputation. If Maker continues this behavior as a habit, he may find it difficult to discover trading partners.
 
-So long as the frequency of "Bobs" failing is low, the occasional extra `<dexfee>` paid by an Alice is a minor issue. However, if there is a sudden spike in misbehavior, the AtomicDEX code has in-built contingency plans which can provide refunds to Alice(s).
+So long as the frequency of Makers failing is low, the occasional extra `<dexfee>` paid by a Taker is a minor issue. However, if there is a sudden spike in misbehavior, the AtomicDEX code has in-built contingency plans which can provide refunds to Takers.
 
 #### 2 - Maker Successfully Sends `<makerpayment>`
 
-If Taker does not follow with her next step, the `<takerpayment>`, then Taker loses not only the `<dexfee>`, but she also receives a mark on her public AtomicDEX profile. She gains nothing, and Bob has no reason to fear as `<makerpayment>` will automatically return to him via the AtomicDEX protocol.
+If Taker does not follow with her next step, the `<takerpayment>`, then Taker loses not only the `<dexfee>`, but she also receives a mark on her public AtomicDEX profile. She gains nothing, and Maker has no reason to fear as `<makerpayment>` will automatically return to him via the AtomicDEX protocol.
 
 #### 3 - Taker Successfully Sends `<takerpayment>`
 
@@ -179,7 +184,7 @@ If Maker does not proceed with his next step (spending the payment), then after 
 
 If Taker does not follow by also "spending" the `<makerpayment>`, it is of no concern to Maker because he has already received his funds. If Taker is simply sleeping and forgets to spend the `<makerpayment>`, she can only hurt herself.
 
-Naturally, for Taker this is slightly dangerous. Taker’s best course of action is to remain alert and spend the `<makerpayment>` once the `<takerpayment>` is spent and secret is revealed.
+Naturally, for Taker this is slightly dangerous. Taker’s best course of action is to remain alert and spend the `<makerpayment>` once the `<takerpayment>` is spent and the secret is revealed.
 
 #### 5 - Taker Spends `<makerpayment>`
 
@@ -200,7 +205,7 @@ Performing a successful connection between Maker and Taker, and verifying their 
 
 Myriad factors are involved in a successful attempt for Maker and Taker to connect: human motivation; the experience level of the users; economics; connection technology; user hardware setups; normal variations within Internet connections; etc.
 
-We emphasize to users here that the process of performing these actions over a peer-to-peer network has almost an artistic element to it. An attempt to successfully connect Bob and Alice can be thought of more like fishing, where we must simply cast and recast our line until we successfully connect with our target.
+We emphasize to users here that the process of performing these actions over a peer-to-peer network has almost an artistic element to it. An attempt to successfully connect Maker and Taker can be thought of more like fishing, where we must simply cast and recast our line until we successfully connect with our target.
 
 If a user attempts a trade and no response returns from the network, the user should slightly adjust the parameters of their offer and try again. As AtomicDEX continues to iterate and improve, and as the number of users increases, we expect any required effort to lessen for users, the network, and the AtomicDEX GUI apps.
 
@@ -214,7 +219,7 @@ It is possible that some atomic swaps can initiate, and then fail to complete, w
 
 However, this failure should not be looked upon in isolation. The AtomicDEX protocol is based on statistics. Statistically speaking, there will be some percentage of atomic swaps that start and will not complete. 
 
-Let us suppose a 15% failure rate at this stage of the atomic swap (15% is three times higher than the rate of failure we currently observe in our testing). Even in this scenario, the effective `<dexfee>` cost is still only 0.15% to all Alice-side requests across the entire network.
+Let us suppose a 15% failure rate at this stage of the atomic swap (15% is three times higher than the rate of failure we currently observe in our testing). Even in this scenario, the effective `<dexfee>` cost is still only 0.15% to all Taker-side requests across the entire network.
 
 If you experience the loss of a `<dexfee>` transaction for an atomic swap that fails to complete, know that this is all part of the statistical process. If you find yourself paying more than 0.15% of your completed trades in fees, please let us know.
 
@@ -225,18 +230,6 @@ As an organization, when speaking generally to our audience online, we state tha
 Since AtomicDEX is trading permanently on blockchains — as opposed to updating an internal database of vouchers — both sides of the trading pair need to wait and watch as miners on the respective blockchains calculate transaction confirmations.
 
 Because the payments that occur on one blockchain will proceed regardless of the actions on the other blockchain — a confirmation failure on one chain will not stop with the other blockchain performing its duties as normal — it is therefore important that the AtomicDEX protocol observe and adjust as necessary. 
-
-~~Each side of the AtomicDEX protocol (Maker-side and Taker-side) watches and attempts to provide a level of protection for the human users.~~ 
-
-~~AtomicDEX achieves this protection by an array of `<setconfirms>` API calls, which gives each side the option to specify how many confirmations they expect before the automated process should be satisfied on behalf of the human users’ interests.~~ 
-
-~~If the users have differing preferences for the total `<numconfirms>` they prefer, the AtomicDEX protocol automatically sets the larger of the two preferences as the requirement for both parties.~~
-
-~~Furthermore, this feature also includes a `<maxconfirms>` value to prevent one side from specifying an unreasonable or malicious number of required confirmations.~~
-
-~~#### Zero Confirmations~~
-
-~~AtomicDEX also supports a high-speed trading mode. Using this feature, a user can activate an extremely fast mode of trading: `<zeroconf>`. This initiates a form of atomic-swap trading that does not wait for any confirmations at all. When using this feature, atomic swaps can be completed in as little as three seconds. This is a high-risk endeavor, naturally, and users should exercise extreme caution when implementing it.~~
 
 #### AtomicDEX is Entirely Experimental, and Should Be Treated As Such
 
