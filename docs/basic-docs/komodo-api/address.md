@@ -4,24 +4,24 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## getaddressbalance
 
-**getaddressbalance '{ "addresses" : [ "address" , ...  ] }'**
+**getaddressbalance '{ "addresses" : [ "address" , ... ] }'**
 
-The ``getaddressbalance`` method returns the confirmed balance for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressbalance` method returns the confirmed balance for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
-### Arguments:
+### Arguments
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
+| Name | Type | Description | 
+| --------- | -------- | ----------- |
+| "address" | (string) | the address |
 
-### Response:
+### Response
 
-Structure|Type|Description
----------|----|-----------
-"balance"                                    |(number)                     |the current confirmed balance in satoshis
-"received"                                   |(number)                     |the total confirmed number of satoshis received (including change)
+| Name | Type | Description | 
+| ---------- | -------- | ------------------------------------------------------------------ |
+| "balance"  | (number) | the current confirmed balance in satoshis                          |
+| "received" | (number) | the total confirmed number of satoshis received (including change) |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -29,7 +29,9 @@ Command:
 ./komodo-cli getaddressbalance '{"addresses":["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -37,6 +39,9 @@ Response:
   "received": 1011916229
 }
 ```
+
+</collapse-text>
+
 
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -46,7 +51,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -59,34 +66,37 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## getaddressdeltas
 
-**getaddressdeltas '{ "addresses" : [ "address" , ...  ] }'**
+**getaddressdeltas '{ "addresses" : [ "address" , ... ] }'**
 
-**getaddressdeltas '{ "addresses" : [ "address" , ...  ] , "start": start, "end": end, "chainInfo": boolean }'**
+**getaddressdeltas '{ "addresses" : [ "address" , ... ] , "start": start, "end": end, "chainInfo": boolean }'**
 
-The ``getaddressdeltas`` method returns all confirmed balance changes of an address. The user can optionally limit the response to a given interval of blocks. The method requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressdeltas` method returns all confirmed balance changes of an address. The user can optionally limit the response to a given interval of blocks. The method requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
-"start"                                      |(number)                     |the start block height
-"end"                                        |(number)                     |the end block height
-"chainInfo"                                  |(boolean)                    |include chain info in results (only applies if start and end specified)
+| Name | Type | Description | 
+| ----------- | --------- | ----------------------------------------------------------------------- |
+| "address"   | (string)  | the address                                                             |
+| "start"     | (number)  | the start block height                                                  |
+| "end"       | (number)  | the end block height                                                    |
+| "chainInfo" | (boolean) | include chain info in results (only applies if start and end specified) |
 
 ### Response
 
-Structure|Type|Description
----------|----|-----------
-"satoshis"                                   |(number)                     |the difference in satoshis
-"txid"                                       |(string)                     |the related transaction id
-"index"                                      |(number)                     |the related input or output index
-"height"                                     |(number)                     |the block height
-"address"                                    |(string)                     |the address
+| Name | Type | Description | 
+| ---------- | -------- | --------------------------------- |
+| "satoshis" | (number) | the difference in satoshis        |
+| "txid"     | (string) | the related transaction id        |
+| "index"    | (number) | the related input or output index |
+| "height"   | (number) | the block height                  |
+| "address"  | (string) | the address                       |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -94,7 +104,9 @@ Command:
 ./komodo-cli getaddressdeltas '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 [
@@ -109,13 +121,18 @@ Response:
 ]
 ```
 
+</collapse-text>
+
+
 Command:
 
 ```bash
 ./komodo-cli getaddressdeltas '{"addresses":["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"],"start":1,"end":200,"chainInfo":true}'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -140,6 +157,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -148,7 +168,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -167,6 +189,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -175,7 +200,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"],"start":1,"end":200,"chainInfo":true}]}' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -204,31 +231,34 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## getaddressmempool
 
-**getaddressmempool '{ "addresses" : [ "address" , ...  ] }'**
+**getaddressmempool '{ "addresses" : [ "address" , ... ] }'**
 
-The `getaddressmempool` method returns all mempool deltas for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressmempool` method returns all mempool deltas for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
+| Name | Type | Description | 
+| --------- | -------- | ----------- |
+| "address" | (string) | the address |
 
 ### Response
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
-"txid"                                       |(string)                     |the related txid
-"index"                                      |(number)                     |the related input or output index
-"satoshis"                                   |(number)                     |the difference in satoshis
-"timestamp"                                  |(number)                     |the time the transaction entered the mempool (seconds)
-"prevtxid"                                   |(string)                     |the previous txid (if spending)
-"prevout"                                    |(string)                     |the previous transaction output index (if spending)
+| Name | Type | Description | 
+| ----------- | -------- | ------------------------------------------------------ |
+| "address"   | (string) | the address                                            |
+| "txid"      | (string) | the related txid                                       |
+| "index"     | (number) | the related input or output index                      |
+| "satoshis"  | (number) | the difference in satoshis                             |
+| "timestamp" | (number) | the time the transaction entered the mempool (seconds) |
+| "prevtxid"  | (string) | the previous txid (if spending)                        |
+| "prevout"   | (string) | the previous transaction output index (if spending)    |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -236,7 +266,9 @@ Command:
 ./komodo-cli getaddressmempool '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 [
@@ -250,6 +282,9 @@ Response:
 ]
 ```
 
+</collapse-text>
+
+
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -258,7 +293,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressmempool", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -278,27 +315,30 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 ## getaddresstxids
 
-**getaddresstxids '{ "addresses" : [ "address" , ...  ] }'**
+**getaddresstxids '{ "addresses" : [ "address" , ... ] }'**
 
-The `getaddresstxids` method returns the txids for an address, or addresses. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddresstxids` method returns the txids for an address, or addresses. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
-"start"                                      |(number)                     |the start block height
-"end"                                        |(number)                     |the end block height
+| Name | Type | Description | 
+| --------- | -------- | ---------------------- |
+| "address" | (string) | the address            |
+| "start"   | (number) | the start block height |
+| "end"     | (number) | the end block height   |
 
 ### Response
 
-Structure|Type|Description
----------|----|-----------
-"transaction_id"                             |(string)                     |the transaction id
+| Name | Type | Description | 
+| ---------------- | -------- | ------------------ |
+| "transaction_id" | (string) | the transaction id |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -306,7 +346,9 @@ Command:
 	komodo-cli getaddresstxids '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb","RQUAkqRiRMqxcNrB29B4duTK4qkqfV9HVJ"]}'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```bash
   [
@@ -318,6 +360,9 @@ Response:
 
 ```
 
+</collapse-text>
+
+
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -326,7 +371,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddresstxids", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -338,34 +385,36 @@ Response:
   "error": null,
   "id": "curltest"
 }
-
 ```
+
+</collapse-text>
+
 
 ## getaddressutxos
 
-**getaddressutxos '{ "addresses" : [ "address" , ... ] }'**
+**getaddressutxos '{ "addresses" : [ "address" , ... ], "chaininfo" }'**
 
-The `getaddressutxos` method returns all unspent outputs for an address. It requires [`addressindex`](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+The `getaddressutxos` method returns all unspent outputs for an address. It requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
-"chainInfo"                                  |(boolean)                    |include chain info with results
+| Name | Type | Description | 
+| ----------- | --------- | ------------------------------- |
+| "address"   | (string)  | the address                     |
+| "chainInfo" | (boolean) | include chain info with results |
 
 ### Response
 
-Structure|Type|Description
----------|----|-----------
-"address"                                    |(string)                     |the address
-"txid"                                       |(string)                     |the output txid
-"height"                                     |(number)                     |the block height
-"outputIndex"                                |(number)                     |the output index
-"script"                                     |(string)                     |the script hex encoded
-"satoshis"                                   |(number)                     |the number of satoshis of the output
+| Name | Type | Description | 
+| ------------- | -------- | ------------------------------------ |
+| "address"     | (string) | the address                          |
+| "txid"        | (string) | the output txid                      |
+| "height"      | (number) | the block height                     |
+| "outputIndex" | (number) | the output index                     |
+| "script"      | (string) | the script hex encoded               |
+| "satoshis"    | (number) | the number of satoshis of the output |
 
-#### :pushpin: Examples:
+#### :pushpin: Examples
 
 Command:
 
@@ -373,7 +422,9 @@ Command:
 ./komodo-cli getaddressutxos '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 [
@@ -388,6 +439,9 @@ Response:
 ]
 ```
 
+</collapse-text>
+
+
 Command:
 
 ```bash
@@ -395,7 +449,9 @@ Command:
 
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -414,6 +470,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -422,7 +481,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -441,6 +502,9 @@ Response:
 }
 ```
 
+</collapse-text>
+
+
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -449,7 +513,9 @@ Command:
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"], "chainInfo": true}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
-Response:
+
+<collapse-text hidden title="Response">
+
 
 ```json
 {
@@ -471,3 +537,152 @@ Response:
   "id": "curltest"
 }
 ```
+
+</collapse-text>
+
+
+## getsnapshot
+
+**getsnapshot top**
+
+The `getsnapshot` method returns a snapshot of addresses and their amounts at the asset chain's current height. 
+
+The method requires [addressindex](../installations/common-runtime-parameters.html#addressindex) to be enabled.
+
+### Arguments
+
+| Name | Type | Description | 
+| --------- | ------------------ | ---------------------------------------------------- |
+| "top"     | (number, optional) | Only return this many addresses, i.e. top N rich list |
+
+### Response
+
+| Name | Type | Description | 
+| ----------------- | ---------------- | --------------------------------------------------- |
+| "addresses"       | (array of jsons) | the array containing the address and amount details |
+| "addr"            | (string)         | an address                                          |
+| "amount"          | (number)         | the amount of coins in the above address            |
+| "total"           | (numeric)        | the total amount in snapshot                        |
+| "average"         | (numeric)        | the average amount in each address                  |
+| "utxos"           | (number)         | the total number of UTXOs in snapshot               |
+| "total_addresses" | (number)         | the total number of addresses in snapshot,          |
+| "start_height"    | (number)         | the block height snapshot began                     |
+| "ending_height"   | (number)         | the block height snapshot finished,                 |
+| "start_time"      | (number)         | the unix epoch time snapshot started                |
+| "end_time"        | (number)         | the unix epoch time snapshot finished               |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli getsnapshot 5
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```json
+{
+  "start_time": 1552473201,
+  "addresses": [
+    {
+      "addr": "RRyyejME7LRTuvdziWsXkAbSW1fdiohGwK",
+      "amount": "6193787.46198546",
+      "segid": 13
+    },
+    {
+      "addr": "RNaNh2fDvnoimuFGSFtp2c6xb5pN7mMWQV",
+      "amount": "6169247.09074260",
+      "segid": 44
+    },
+    {
+      "addr": "RTu3JZZKLJTcfNwBa19dWRagEfQq49STqC",
+      "amount": "5124337.23955756",
+      "segid": 61
+    },
+    {
+      "addr": "RBpEnyzuQNj1hNdAG1pKLALpAWEUS67PBj",
+      "amount": "3029259.10629025",
+      "segid": 24
+    },
+    {
+      "addr": "RCyANUW2H5985zk8p6NHJfPyNBXnTVzGDh",
+      "amount": "2700034.72826615",
+      "segid": 48
+    }
+  ],
+  "total": 23216665.62684202,
+  "average": 4643333,
+  "utxos": 2416430,
+  "total_addresses": 5,
+  "ignored_addresses": 31,
+  "start_height": 1266933,
+  "ending_height": 1266933,
+  "end_time": 1552473348
+}
+```
+
+</collapse-text>
+
+
+You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getsnapshot", "params": ["5"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```json
+{
+  "result": {
+    "start_time": 1552473714,
+    "addresses": [
+      {
+        "addr": "RRyyejME7LRTuvdziWsXkAbSW1fdiohGwK",
+        "amount": "6193787.46198546",
+        "segid": 13
+      },
+      {
+        "addr": "RNaNh2fDvnoimuFGSFtp2c6xb5pN7mMWQV",
+        "amount": "6169247.09074260",
+        "segid": 44
+      },
+      {
+        "addr": "RTu3JZZKLJTcfNwBa19dWRagEfQq49STqC",
+        "amount": "5124337.23955756",
+        "segid": 61
+      },
+      {
+        "addr": "RBpEnyzuQNj1hNdAG1pKLALpAWEUS67PBj",
+        "amount": "3029259.10629025",
+        "segid": 24
+      },
+      {
+        "addr": "RCyANUW2H5985zk8p6NHJfPyNBXnTVzGDh",
+        "amount": "2700034.72826615",
+        "segid": 48
+      }
+    ],
+    "total": 23216665.62684202,
+    "average": 4643333,
+    "utxos": 2416443,
+    "total_addresses": 5,
+    "ignored_addresses": 31,
+    "start_height": 1266941,
+    "ending_height": 1266941,
+    "end_time": 1552473829
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
+

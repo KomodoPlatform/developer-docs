@@ -33,11 +33,11 @@ addnode=144.76.94.3
 
 Sometimes it is necessary to manually delete all blockchain data. This should automatically trigger a full resync of the blockchain.
 
-Users should exercise caution not to delete the `wallet.dat` file during this procedure. We recommend that the user make frequent backups of the `wallet.dat` file, especially before deleting files from the application directory.
+Users should exercise caution not to delete the `wallet.dat` file during this procedure. We recommend that the user make frequent backups of the `wallet.dat` file, especially before deleting files from the data directory.
 
 To erase all synced blockchain data, the following files should be deleted from the `.komodo` folder:
 
-**blocks** , **chainstate** , **notarisations** , **komodostate** , **komodostate.ind**
+**blocks** , **chainstate** , **notarisations** , **komodostate** , **komodostate.ind** , **peers.dat**
 
 These files can typically be found in the default file locations:
 
@@ -59,7 +59,7 @@ To see additional runtime parameters not included here, please visit [the releva
 
 We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
-`addressindex` is enabled by default on any asset chain that utilizes the Crypto Conditions (CC) smart-contract protocol.
+`addressindex` is enabled by default on any asset chain that utilizes the Custom Consensus (CC) smart-contract protocol.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
@@ -75,7 +75,7 @@ komodod -addressindex=1
 
 Using `addressindex` as a default value in the coin's .conf file:
 
-```
+```bash
 addressindex=1
 ```
 
@@ -83,7 +83,7 @@ addressindex=1
 
 `txindex` instructs a KMD-based coin daemon to track every transaction made on the relevant blockchain.
 
-`txindex` is enabled by default on all KMD-based coin daemons, and is utilized in delayed Proof of Work (dPoW), JUMBLR, and the Crypto Conditions (CC) smart-contract protocol.
+`txindex` is enabled by default on all KMD-based coin daemons, and is utilized in delayed Proof of Work (dPoW), JUMBLR, and the Custom Consensus (CC) smart-contract protocol.
 
 ::: danger Warning!
 Disabling `txindex` will cause the default KMD-based daemon to malfunction.
@@ -101,13 +101,13 @@ Depending on the size and state of the chain you are re-indexing, this parameter
 
 Using reindex as a runtime parameter:
 
-```
-  komodod -reindex
+```bash
+komodod -reindex
 ```
 
 ## timestampindex
 
-`timestampindex` instructs a KMD-based coin daemon to maintain a timestamp index for all blockhashes.
+`timestampindex` instructs a KMD-based coin daemon to maintain a timestamp index for all block hashes.
 
 We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
@@ -119,14 +119,14 @@ The <b>reindex</b> parameter is not a viable alternative method for re-syncing t
 
 Using timestampindex as a runtime parameter:
 
-```
-  ./komodod -timestampindex=1
+```bash
+./komodod -timestampindex=1
 ```
 
 Using timestampindex as a default value in the coin's .conf file:
 
-```
-  timestampindex=1
+```bash
+timestampindex=1
 ```
 
 ## spentindex
@@ -135,7 +135,7 @@ Using timestampindex as a default value in the coin's .conf file:
 
 We recommend that the user [manually delete the blockchain data](../installations/common-runtime-parameters.html#manually-deleting-blockchain-data) before initiating this parameter.
 
-`spentindex` is enabled by default on any asset chain that utilizes the Crypto Conditions (CC) smart contract protocol.
+`spentindex` is enabled by default on any asset chain that utilizes the Custom Consensus (CC) smart contract protocol.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
@@ -145,14 +145,14 @@ The <b>reindex</b> parameter is not a viable alternative method for re-syncing t
 
 Using spentindex as a runtime parameter:
 
-```
-  komodod -spentindex=1
+```bash
+komodod -spentindex=1
 ```
 
 Using spentindex as a default value in the coin's `.conf` file:
 
-```
-  spentindex=1
+```bash
+spentindex=1
 ```
 
 ## regtest
@@ -171,7 +171,7 @@ komodod -ac_name=TEST -regtest
 
 Using regtest as a default value in the coin's .conf file:
 
-```
+```bash
 regtest=0
 ```
 
@@ -183,14 +183,14 @@ regtest=0
 
 Using bantime as a runtime parameter:
 
-```
-  komodod -bantime=100000
+```bash
+komodod -bantime=100000
 ```
 
 Using bantime as a default value in the coin's .conf file:
 
-```
-  bantime=100000
+```bash
+bantime=100000
 ```
 
 ## mempooltxinputlimit
@@ -215,7 +215,7 @@ komodod -proxy=127.0.0.1:9050
 
 Using proxy as a default value in the coin's `.conf` file:
 
-```
+```bash
 proxy=127.0.0.1:9050
 ```
 
@@ -230,13 +230,13 @@ Use `[host]:port` notation for IPv6.
 Using bind as a runtime parameter:
 
 ```bash
-  komodod -bind=127.0.0.1:9050
+komodod -bind=127.0.0.1:9050
 ```
 
 Using bind as a default value in the coin's `.conf` file:
 
-```
-  bind=127.0.0.1:9050
+```bash
+bind=127.0.0.1:9050
 ```
 
 ## whitebind
@@ -250,20 +250,20 @@ Use `[host]:port` notation for IPv6
 Using whitebind as a runtime parameter:
 
 ```bash
-  komodod -whitebind=127.0.0.1:9050
+komodod -whitebind=127.0.0.1:9050
 ```
 
 Using whitebind as a default value in the coin's `.conf` file:
 
-```
-  whitebind=127.0.0.1:9050
+```bash
+whitebind=127.0.0.1:9050
 ```
 
 ## addnode
 
 `addnode` tells the daemon which nodes are trusted to act as seed nodes. After connecting to a node via `addnode`, the trusted node will send your node the list of all nodes that it is connected to, and your node will then connect to these additional nodes until [the max limit](../installations/common-runtime-parameters.html#maxconnections) is reached.
 
-This contrasts from the [`connect`](../installations/common-runtime-parameters.html#connect) runtime parameter, as the latter does not attempt to connect your node to additional nodes.
+This contrasts from the [connect](../installations/common-runtime-parameters.html#connect) runtime parameter, as the latter does not attempt to connect your node to additional nodes.
 
 If you are behind a firewall or are having issues connecting to the network, `addnode` is a stronger option.
 
@@ -279,21 +279,21 @@ The p2p port must not be blocked by a firewall. If the computers do not have pub
 
 Using addnode as a default value in the coin's `.conf` file:
 
-```
-  addnode=69.164.218.197
+```bash
+addnode=69.164.218.197
 ```
 
 ## connect
 
 `connect` connects the `komodod` server to a trusted peer node, but not to request or add any additional nodes.
 
-Please refer to the [`addnode`](../installations/common-runtime-parameters.html#addnode) parameter entry for more information.
+Please refer to the [addnode](../installations/common-runtime-parameters.html#addnode) parameter entry for more information.
 
 #### :pushpin: Examples:
 
 Using connect as a default value in the coin's .conf file:
 
-```
+```bash
 connect=69.164.218.197
 ```
 
@@ -301,20 +301,28 @@ connect=69.164.218.197
 
 `gen` instructs the daemon to attempt to generate new blocks, and thereby mine new coins.
 
-See also [`setgenerate`](../komodo-api/generate.html#setgenerate).
+See also [setgenerate](../komodo-api/generate.html#setgenerate).
+
+::: warning
+This parameter should be avoided. Instead, start the daemon without the `-gen` parameter. Once the asset chain is launched, wait until the blockchain is synced to the current block and then execute the [setgenerate](../komodo-api/generate.html#setgenerate) method. The sync status of the blockchain can be found by executing the [getinfo](../komodo-api/control.html#getinfo) method and comparing the `blocks` and `longestchain` properties.
+:::
+
+::: tip
+
+- If the `genproclimit` property is not specified after the `gen` option, the daemon mines using 1 thread.
+- To mine using all available threads, use: `-genproclimit=-1`
+  :::
+
+::: tip
+`gen=0` in the .conf file on an asset chain where `ac_staked` is enabled sets the daemon to stake using all available coins
+:::
 
 #### :pushpin: Examples:
 
-Using gen as a runtime parameter:
+Using gen as a runtime parameter to mine using 4 threads:
 
 ```bash
-komodod -gen
-```
-
-Using gen as a default value in the coin's .conf file:
-
-```
-gen=0
+./komodod -gen -genproclimit=4
 ```
 
 ## listen
@@ -331,7 +339,7 @@ komodod -listen=1
 
 Using listen as a default value in the coin's `.conf` file:
 
-```
+```bash
 listen=1
 ```
 
@@ -349,7 +357,7 @@ komodod -maxconnections=NUMBER
 
 Using maxconnections as a default value in the coin's .conf file:
 
-```
+```bash
 maxconnections=NUMBER
 ```
 
@@ -362,13 +370,13 @@ maxconnections=NUMBER
 Using server as a runtime parameter:
 
 ```bash
-  komodod -server=1
+komodod -server=1
 ```
 
 Using server as a default value in the coin's .conf file:
 
-```
-  server=1
+```bash
+server=1
 ```
 
 ## rpcbind
@@ -391,8 +399,8 @@ komodod -rpcbind=127.0.0.1:9704
 
 Using rpcbind as a default value in the coin's .conf file:
 
-```
-  rpcbind=127.0.0.1:9704
+```bash
+rpcbind=127.0.0.1:9704
 ```
 
 ## rpcclienttimeout
@@ -409,27 +417,27 @@ komodod -rpcclienttimeout=SECONDS
 
 Using rpcclienttimeout as a default value in the coin's .conf file:
 
-```
+```bash
 rpcclientttimeout=SECONDS
 ```
 
 ## rpcallowip
 
-`rpcallowip` tells the daemon which ip addresses are acceptable for receiving RPC commands.
+`rpcallowip` tells the daemon which ip addresses are acceptable for receiving rpc commands.
 
-By default, only RPC connections from localhost are allowed.
+By default, only rpc connections from localhost are allowed.
 
 Specify as many `rpcallowip=` settings as you like to allow connections from other hosts, either as a single IPv4/IPv6 or with a subnet specification.
 
 ::: warning
-Opening up the RPC port to hosts outside your local trusted network is NOT RECOMMENDED. The rpcpassword is transmitted over the network unencrypted. Also note that anyone that can authenticate on the RPC port can steal your keys and take over the server. [For more information click here](https://github.com/zcash/zcash/issues/1497).
+Opening up the rpc port to hosts outside your local trusted network is NOT RECOMMENDED. The rpcpassword is transmitted over the network unencrypted. Also note that anyone that can authenticate on the rpc port can steal your keys and take over the server. [For more information click here](https://github.com/zcash/zcash/issues/1497).
 :::
 
 #### :pushpin: Examples:
 
 Using rpcallowip as a default value in the coin's .conf file:
 
-```
+```bash
   rpcallowip=10.1.1.34/255.255.255.0
   rpcallowip=1.2.3.4/24
   rpcallowip=2001:db8:85a3:0:0:8a2e:370:7334/96
@@ -437,19 +445,19 @@ Using rpcallowip as a default value in the coin's .conf file:
 
 ## rpcport
 
-`rpcport` tells the daemon to listen for RPC connections on the indicated TCP port.
+`rpcport` tells the daemon to listen for rpc connections on the indicated TCP port.
 
 #### :pushpin: Examples:
 
 Using rpcport as a default value in the coin's `.conf` file:
 
-```
-  rpcport=8232
+```bash
+rpcport=8232
 ```
 
 ## rpcconnect
 
-`rpcconnect` allows the user to connect to `komodod` and send RPC commands from a host. By default, it is set to localhost.
+`rpcconnect` allows the user to connect to `komodod` and send rpc commands from a host. By default, it is set to localhost.
 
 ::: warning
 We DO NOT RECOMMEND that the average user set this value to anything other than the localhost, as it can grant access to a foreign party, who are then able to take control over komodod and all funds in your wallet.dat file.
@@ -459,7 +467,7 @@ We DO NOT RECOMMEND that the average user set this value to anything other than 
 
 Using rpcconnect as a default value in the coin's `.conf` file:
 
-```
+```bash
 rpcconnect=127.0.0.1
 ```
 
@@ -471,20 +479,24 @@ rpcconnect=127.0.0.1
 
 Using sendfreetransactions as a default value in the coin's .conf file:
 
-```
-  sendfreetransactions=0
+```bash
+sendfreetransactions=0
 ```
 
 ## genproclimit
 
-`genproclimit` sets the number of threads to be used for mining. To initiate all cores, use the value `-1`.
+`genproclimit` sets the number of threads to be used for mining. To use all the available processors, use the value `-1`.
+
+::: tip
+Setting `genproclimit=0` instructs the daemon to stake (if possible) using all available coins.
+:::
 
 #### :pushpin: Examples:
 
-Using genproclimit as a default value in the coin's .conf file:
+Using genproclimit as a default value in the coin's .conf file, to mine using 2 threads:
 
-```
-  genproclimit=1
+```bash
+genproclimit=2
 ```
 
 ## keypool
@@ -495,7 +507,7 @@ Using genproclimit as a default value in the coin's .conf file:
 
 Using keypool as a default value in the coin's .conf file:
 
-```
+```bash
 keypool=100
 ```
 
@@ -519,27 +531,27 @@ komodod -rewind=777777
 
 Using stopat as a runtime parameter:
 
-```
-  komodod -stopat=1000000
+```bash
+komodod -stopat=1000000
 ```
 
 ## pubkey
 
-`pubkey` sets an address to use as a change address for all transactions. This value must be set to a 33 byte pubkey. All mined coins will also be sent to this address. We recommend that the user ensure they own the corresponding `privkey` of their chosen `pubkey`, lest their funds be sent to a `pubkey` they do not own or control.
+`pubkey` sets an address to use as a change address for all transactions. This value must be set to a 33 byte pubkey. All mined/staked coins will also be sent to this address. We recommend that the user ensure they own the corresponding `privkey` of their chosen `pubkey`, lest their funds be sent to a `pubkey` they do not own or control.
 
-The `pubkey` parameter is required for all Crypto Conditions (CC) smart-contract enabled chains. All smart-contract transactions will utilize the `pubkey` as an integral property.
+The `pubkey` parameter is required for all Custom Consensus (CC) smart-contract enabled chains. All smart-contract transactions will utilize the `pubkey` as an integral property.
 
 #### :pushpin: Examples:
 
 Using pubkey as a default value in the coin's `.conf` file:
 
-```
+```bash
 pubkey=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 ```
 
 Using pubkey as a startup parameter:
 
-```
+```bash
 -pubkey=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 ```
 
@@ -551,7 +563,7 @@ Using pubkey as a startup parameter:
 
 Using exchange as a default value in the coin's .conf file:
 
-```
+```bash
 exchange=1
 ```
 
@@ -563,7 +575,7 @@ exchange=1
 
 Using donation as a default value in the coin's .conf file:
 
-```
+```bash
 donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 ```
 
@@ -575,6 +587,6 @@ donation=027dc7b5cfb5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392
 
 Using exportdir as a default value in the coin's `.conf` file:
 
-```
-  exportdir=/home/myusername/mydirectory
+```bash
+exportdir=/home/myusername/mydirectory
 ```

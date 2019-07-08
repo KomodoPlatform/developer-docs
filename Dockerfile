@@ -2,10 +2,8 @@ FROM node:alpine
 
 EXPOSE 8080
 
-RUN mkdir /app
+RUN mkdir -p /app/
 
-WORKDIR /app
+WORKDIR /app/
 
-RUN yarn add -D vuepress
-RUN yarn install 
-
+ENTRYPOINT yarn install && yarn docs:build

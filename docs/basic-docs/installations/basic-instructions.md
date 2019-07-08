@@ -2,11 +2,41 @@
 
 ## Installing Basic Komodo Software
 
-To install the Komodo daemon, `komodod`, and its necessary counterpart, `komodo-cli`, the simplest method is to [download and unzip pre-compiled executables](https://github.com/KomodoPlatform/komodo/releases). Once unpacked, the executables do not require installation. Simply find `komodod` and `komodo-cli` in the directory where you unzipped the files.
+To install the Komodo daemon, `komodod`, and its necessary counterpart, `komodo-cli`, the simplest method requires two steps.
+
+#### Step 1 | MacOS & Linux
+
+Download zcash parameters using the `fetch-params.sh` script for **Linux and MacOS** from below.
+
+[<b>Link to Zcash-Parameter Download Script</b>](https://github.com/jl777/komodo/blob/master/zcutil/fetch-params.sh)
+
+Execute the file in the terminal.
+
+For example: 
+
+```bash
+/path_to_downloaded_file/fetch-params.sh
+```
+
+The script will automatically download the Zcash parameters on your local machine. This process may take time depending on internet speed.
+
+#### Step One | Windows
+
+For **Windows**, you will find the `fetch-params.bat` file included inside the zip that you will download in Step 2 below.
+
+Double-click the file to download the Zcash parameters.
+
+Once the Zcash parameters are downloaded, you are prepared to install pre-compiled binaries of the Komodo daemon, `komodod`.
+
+#### Step 2 | All OS's
+
+[Download and unzip the pre-compiled executables found here](https://github.com/KomodoPlatform/komodo/releases). 
+
+Once unzipped, the executables do not require installation. Simply find `komodod` and `komodo-cli` in the directory where you unzipped the files.
 
 You may also build `komodod` and `komodo-cli` from source. This is not required, but it is considered the best practice. Building from source enables you to receive the latest patches and security upgrades the moment they are pushed to the `komodod` source.
 
-You will find [a walkthrough on building from source here](https://docs.komodoplatform.com/komodo/install-Komodo-manually.html).
+You will find [a walkthrough on building from source here](https://docs.komodoplatform.com/komodo/installation.html).
 
 ## Interacting with Komodo Chains
 
@@ -84,6 +114,10 @@ Follow this link to find information on [accessing the coin daemon remotely](../
 Typically, a blockchain is vulnerable to double-spend attacks when its hash power is low. A Komodo-based blockchain can be secured against such attacks by enabling the dPoW security service. Please reach out to us when you are ready to purchase.
 :::
 
+## List of Asset-Chain Launch Parameters in the Komodo Ecosystem
+
+A list of launch parameters for all chains in the Komodo ecosystem is found [at this linked repository.](https://github.com/jl777/komodo/blob/master/src/assetchains.old)
+
 ## Komodo's Native DEX: BarterDEX
 
 Komodo offers a native decentralized-exchange (DEX) compatibility through our software, BarterDEX. This software is separate from `komodod` and `komodo-cli`.
@@ -98,4 +132,4 @@ Via our open-source philosophy, anyone is welcome to use BarterDEX without restr
 Developers should consult with their local authorities about the legal nature of these decisions.
 :::
 
-Because the BarterDEX software is separate from `komodod` and `komodo-cli`, at this time we do not yet include it in this API documentation. Rather, you may find [API documentation for BarterDEX here](https://docs.komodoplatform.com/barterDEX/barterDEX-API.html).
+Because the BarterDEX software is separate from `komodod` and `komodo-cli`, at this time we do not yet include it in this API documentation. Rather, you may find [API documentation for BarterDEX here](https://docs.komodoplatform.com/mmV1/api/introduction.html).
