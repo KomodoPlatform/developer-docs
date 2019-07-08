@@ -101,133 +101,90 @@ Use of the Trust API is optional for all users.
 
 There are two parties in an atomic swap: the liquidity provider and the liquidity receiver. We call the provider "Bob" and the receiver "Alice."
 
-##### Alice Makes a Request
+##### Taker Makes a Request
 
-The process of an atomic swap begins with the person who makes the initial request. Typically, this is Alice.
+The process of an atomic swap begins with the person who makes the initial request.
 
-Alice will need two transactions to perform her swap. One transaction will cover the protocol fee, which is roughly 1/777th the size of her desired order. We call this fee the `<dexfee>`, and its primary purpose is to serve as a disincentive to Alice from spamming the network with rapid requests.
+Taker will need two transactions to perform her swap. One transaction will cover the protocol fee, which is roughly 1/777th the size of the desired order. We call this fee the `<dexfee>`, and its primary purpose is to serve as a disincentive to Taker from spamming the network with rapid requests.
 
-The second transaction required of Alice sends the actual amount she intends to swap. AtomicDEX first verifies that she has these funds, but for the moment she retains these funds in the safety of her own digital wallet.
+The second transaction required of Taker sends the actual amount she intends to swap. AtomicDEX first verifies that she has these funds, but for the moment she retains these funds in the safety of her own digital wallet.
 
-##### Bob Answers Alice
+##### Maker Answers Taker
 
-On the other side of the atomic swap, we have the liquidity provider—we call this person "Bob." Bob sees the request on the network for Alice’s atomic swap and decides to accept the trade. Now his part of the process begins.
+On the other side of the atomic swap, we have the liquidity provider — Maker. Maker sees the request on the network for Taker’s atomic swap and decides to accept the trade. Now his part of the process begins.
 
-To complete the trade, he must also perform two transactions, but with one important difference.
+To complete the trade, he must send one transaction. It will be worth 100% of what he and Taker intend to actually trade.
 
-The first transaction sends to the AtomicDEX network an amount equal to 112.5% of the amount that Alice requested. This acts as a security deposit. The network’s encryption holds the deposit safely in view, but untouchable. We call this transaction, `<bobdeposit>`.
+#### Taker and Maker Are Committed
 
-When Bob completes his side of the bargain in full, or should Alice’s request for a swap time out, Bob will receive `<bobdeposit>` in return from the network.
-
-The second transaction Bob makes will be worth 100% of what he and Alice intend to actually trade. The second transaction does yet take place, however, but waits for Alice to continue with her part.
-
-Note that Bob must hold liquidity of 212.5% of the total amount of the currency that he and Alice intend to trade.
-
-#### Alice and Bob Are Committed
-
-Assuming Alice and Bob are successfully connected, the process from this point forward becomes quite simple:
+Assuming Taker and Maker are successfully connected, the process from this point forward becomes quite simple:
 
 A summary of the procedure, starting from the beginning.
 
-1. Alice requests a swap and sends the `<dexfee>` to the AtomicDEX full-relay nodes.
+1. Taker requests a swap and sends the `<dexfee>` transaction data to Maker.
 
-    - The full-relay nodes receive her request and publish it to the network
+2. Maker receives the `<dexfee>`, verifies it, and sends `<makerpayment>`
 
-2. Bob sees the request on the network, accepts it, and sends out `<bobdeposit>`
+    - Maker generates a secret (32 random bytes) and shares the hash of the secret with Taker
+    
+    - Maker does not send the payment to Taker directly, but rather into a temporary holding address - P2SH hash/time locked output (UTXO) or etomic swap smart contract (ETH/ERC20) 
+    
+    - `<makerpayment>` enters a state of limbo on the Maker's coin network, held safely by encryption, awaiting either Taker  to spend it, or for the swap to time out
+        
+    - If the latter occurs, `<makerpayment>` is automatically refunded to Maker via the AtomicDEX protocol
 
-    - `<bobdeposit>` enters a state of limbo on the AtomicDEX network, held safely by encryption, awaiting either Alice to proceed, or for the swap to time out
+3. Taker now sends `<takerpayment>`
 
-    - If the latter occurs, `<bobdeposit>` is automatically refunded to Bob via the AtomicDEX protocol
+    - Taker does not send the payment to Maker directly, but rather into a temporary holding address - P2SH hash/time locked output (UTXO) or etomic swap smart contract (ETH/ERC20) 
+    
+    - `<takerpayment>` enters a state of limbo on the Taker's coin network, held safely by encryption, awaiting either Maker to spend it, or for the swap to time out
+        
+    - If the latter occurs, `<takerpayment>` is automatically refunded to Taker via the AtomicDEX protocol
+    
+4.  Maker now spends the `<takerpayment>`
 
-3. Alice now sends her `<alicepayment>` to Bob
+    - To spend the payment Maker reveals the secret 
 
-    - She does not send the payment to Bob directly, but rather into a temporary holding wallet on the AtomicDEX exchange
+5.  Taker now "spends" the `<makerpayment>`
 
-    - Only Bob has access to this wallet, via the set of private keys that only he owns
+    - Taker finds that `<takerpayment>` is spent and extracts the secret from spending transaction. The secret can be used to unlock the `<makerpayment>` and send the coins to Taker's address.
 
-    - However, the AtomicDEX code does not yet allow Bob to unlock this temporary holding wallet; he must continue his end of the bargain first
-
-    - The `<alicepayment>` will remain in Bob’s temporary holding wallet for a limited amount of time, giving him the opportunity to proceed
-
-4.  Bob now sends his `<bobpayment>` to Alice
-
-    - Again, this is not sent to Alice directly, but rather into yet another temporary holding wallet
-
-    - Likewise, only Alice has access to the necessary private keys for this wallet
-
-    - The `<bobpayment>` will automatically be refunded if she does not complete her part of the process
-
-5.  Alice now "spends" the `<bobpayment>`
-
-    - By the word "spends," we simply mean that she activates her private keys and moves all the funds to another wallet—most likely to her own personal address
-
-    - AtomicDEX registers that Alice’s temporary holding wallet successfully "spent" the funds
-
-6.  Bob "spends" the `<alicepayment>`
-
-    - Likewise, Bob simply moves the entirety of the `<alicepayment>` into a wallet of his own—again, it will most typically be his own address
-
-    - AtomicDEX now knows that Bob also successfully received his money
-
-7.  Seeing both temporary holding wallets now empty, the AtomicDEX protocol recognizes that the atomic swap was a complete success.
-
-    - AtomicDEX now refunds `<bobdeposit>` back to Bob and the process is complete
-
-While it may seem inefficient to have seven transactions for a swap that could be done with two, the complexity of this process provides us with the requisite "trustless-ness" to maintain user safety.
+While it may seem inefficient to have five transactions for a swap that could be done with two, the complexity of this process provides us with the requisite "trustless-ness" to maintain user safety.
 
 ### Incentives and Disincentives to Maintain Good Behavior
 
 As we will now explain, at every step along the way there are incentives for each side to proceed, and there are various financial protections in place should one side fail.
 
-Also, because payments are sent to these "temporary holding wallets" that exist within the AtomicDEX protocol, the protocol itself can assist in the process of moving money at the appropriate steps.
+Also, because payments are sent to these "temporary holding addresses" that exist within the AtomicDEX protocol, the protocol itself can assist in the process of moving money at the appropriate steps.
 
 Let us now examine what is happening after each step.
 
-#### 1 - Alice Sends `<dexfee>`
+#### 1 - Taker Sends `<dexfee>`
 
-If Bob accepts the offer to trade, but does not send `<bobdeposit>`, Alice only stands to lose her `<dexfee>`. This is only 1/777th of the entire transaction amount, so she loses very little.
+If Maker accepts the offer to trade, but does not send `<makerpayment>`, Taker only stands to lose the `<dexfee>`. This is only 1/777th of the entire transaction amount, so she loses very little.
 
-Bob, on the other hand, stands to lose more. Since Bob did not follow through with his end of the bargain, the AtomicDEX network indicates on his public AtomicDEX trading profile that he failed in a commitment, thus decreasing his profile’s reputation. If Bob continues this behavior as a habit, he may find it difficult to discover trading partners.
+Maker, on the other hand, stands to lose more. Since Bob did not follow through with his end of the bargain, the AtomicDEX network indicates on his public AtomicDEX trading profile that he failed in a commitment, thus decreasing his profile’s reputation. If Bob continues this behavior as a habit, he may find it difficult to discover trading partners.
 
 So long as the frequency of "Bobs" failing is low, the occasional extra `<dexfee>` paid by an Alice is a minor issue. However, if there is a sudden spike in misbehavior, the AtomicDEX code has in-built contingency plans which can provide refunds to Alice(s).
 
-#### 2 - Bob Successfully Sends `<bobdeposit>`
+#### 2 - Maker Successfully Sends `<makerpayment>`
 
-If Alice does not follow with her next step, the `<alicepayment>`, then Alice loses not only the `<dexfee>`, but she also receives a mark on her public AtomicDEX profile. She gains nothing, and Bob has no reason to fear as `<bobdeposit>` will automatically return to him via the AtomicDEX protocol.
+If Taker does not follow with her next step, the `<takerpayment>`, then Taker loses not only the `<dexfee>`, but she also receives a mark on her public AtomicDEX profile. She gains nothing, and Bob has no reason to fear as `<makerpayment>` will automatically return to him via the AtomicDEX protocol.
 
-#### 3 - Alice Successfully Sends `<alicepayment>`
+#### 3 - Taker Successfully Sends `<takerpayment>`
 
-If Bob does not proceed with his next step, the `<bobpayment>`, then after 4 hours Alice can simply activate an AtomicDEX protocol that will allow her to claim `<bobdeposit>`. 
+If Maker does not proceed with his next step (spending the payment), then after lock time expires Taker can simply activate an AtomicDEX protocol that will refund the payment. 
 
-Recall that `<bobdeposit>` is 112.5% of the original intended trade; Bob has every incentive therefore to continue with his end of the bargain, and Alice has nothing to fear should Bob fail. She even stands to gain a 12.5% bonus, at Bob’s expense.
+#### 4 - Maker Spends `<takerpayment>`
 
-#### 4 - Bob Sends `<bobpayment>`
+If Taker does not follow by also "spending" the `<makerpayment>`, it is of no concern to Maker because he has already received his funds. If Taker is simply sleeping and forgets to spend the `<makerpayment>`, she can only hurt herself.
 
-Now, if Alice does not follow by claiming the `<bobpayment>`, then after 2 hours Bob can activate an AtomicDEX protocol that allows him to reclaim his `<bobpayment>`. Furthermore, four hours later Bob may activate a refund of `<bobdeposit>`.
+Naturally, for Taker this is slightly dangerous. Taker’s best course of action is to remain alert and spend the `<makerpayment>` once the `<takerpayment>` is spent and secret is revealed.
 
-For Alice, the AtomicDEX protocol allows Alice to reclaim her `<alicepayment>` after Bob reclaims both of his payments.
+#### 5 - Taker Spends `<makerpayment>`
 
-At this integral stage of the process, every step of the path is intricately interconnected and maintains various levels of protection.
+The process is complete. Taker received the `<makerpayment>`. Maker received the `<takerpayment>`. The entire process only cost Taker the original `<dexfee>`.
 
-#### 5 - Alice Spends `<bobpayment>`
-
-At this point, Alice is entirely through with any risk to her reputation, her `<dexfee>` payment, or of the loss of her time.
-
-If Bob does not follow by also "spending" the `<alicepayment>`, it is of no concern to Alice because she has already received her funds. If Bob is simply sleeping and forgets to spend the `<alicepayment>`, he can only hurt himself.
-
-Naturally, for Bob this is slightly dangerous. Bob’s best course of action is to remain alert and spend the `<alicepayment>` once it is received.
-
-If after four hours, Bob is still sleeping, Alice can still activate the protocol that allows her to claim `<bobdeposit>`. In this scenario, she receives both the `<bobpayment>` and `<bobdeposit>`, at only the costs of the `<alicepayment>` and `<dexfee>`.
-
-Bob can still make a later claim for the `<alicepayment>` when he regains his awareness.
-
-#### 6 - Bob Spends `<alicepayment>`
-
-Assuming all has gone according to plan, and having spent the `<alicepayment>`, Bob may now reclaim `<bobdeposit>`. Just as before, if Bob does not refund his own deposit, it is his loss; in four hours Alice will be able to activate a claim on `<bobdeposit>`.
-
-#### 7 - Bob Reclaims `<bobdeposit>`
-
-The process is complete. Alice received the `<bobpayment>`. Bob received the `<alicepayment>`. Bob has `<bobdeposit>` back in his own possession. The entire process only cost Alice the original `<dexfee>`.
 
 At each step along the way, the side that needs to take the next step is motivated to do so, with greater and greater urgency until the process is complete.
 
@@ -235,13 +192,13 @@ At each step along the way, the side that needs to take the next step is motivat
 
 #### Always Manage Risk Appropriately
 
-Naturally, users must understand that outside forces can disable the process and thereby damage one of the users. For instance, an Internet outage for Bob could be particularly dangerous. Therefore, users are advised only to trade manageable sums that they are willing to put at risk, and only with nodes that have reliable reputations.
+Naturally, users must understand that outside forces can disable the process and thereby damage one of the users. For instance, an Internet outage for Taker could be particularly dangerous. Therefore, users are advised only to trade manageable sums that they are willing to put at risk, and only with nodes that have reliable reputations.
 
 #### The Connection is the True Challenge of an Atomic Swap
 
-Performing a successful connection between Bob and Alice, and verifying their funds, is the most complex and difficult aspect of creating the AtomicDEX network.
+Performing a successful connection between Maker and Taker, and verifying their funds, is the most complex and difficult aspect of creating the AtomicDEX network.
 
-Myriad factors are involved in a successful attempt for Bob and Alice to connect: human motivation; the experience level of the users; economics; connection technology; user hardware setups; normal variations within Internet connections; etc.
+Myriad factors are involved in a successful attempt for Maker and Taker to connect: human motivation; the experience level of the users; economics; connection technology; user hardware setups; normal variations within Internet connections; etc.
 
 We emphasize to users here that the process of performing these actions over a peer-to-peer network has almost an artistic element to it. An attempt to successfully connect Bob and Alice can be thought of more like fishing, where we must simply cast and recast our line until we successfully connect with our target.
 
@@ -249,7 +206,7 @@ If a user attempts a trade and no response returns from the network, the user sh
 
 #### The DEX Fee
 
-People will notice that there is a small `<dexfee>` required as part of the AtomicDEX protocol. This is 1/777 of the transaction amount and it is calibrated to make spam attacks impractical. The 1/777 fee is about equal to 0.1287% of the `<alicepayment>`.
+People will notice that there is a small `<dexfee>` required as part of the AtomicDEX protocol. This is 1/777 of the transaction amount and it is calibrated to make spam attacks impractical. The 1/777 fee is about equal to 0.1287% of the `<takerpayment>`.
 
 By forcing a would-be attacker to spend real money, attacking the network becomes costly. Without this spam prevention, the AtomicDEX could otherwise be attacked at the protocol level by any person performing a plethora of trade requests.
 
@@ -269,15 +226,17 @@ Since AtomicDEX is trading permanently on blockchains — as opposed to updating
 
 Because the payments that occur on one blockchain will proceed regardless of the actions on the other blockchain — a confirmation failure on one chain will not stop with the other blockchain performing its duties as normal — it is therefore important that the AtomicDEX protocol observe and adjust as necessary. 
 
-Each side of the AtomicDEX protocol (Bob-side and Alice-side) watches and attempts to provide a level of protection for the human users. AtomicDEX achieves this protection by an array of `<setconfirms>` API calls, which gives each side the option to specify how many confirmations they expect before the automated process should be satisfied on behalf of the human users’ interests. 
+~~Each side of the AtomicDEX protocol (Maker-side and Taker-side) watches and attempts to provide a level of protection for the human users.~~ 
 
-If the users have differing preferences for the total `<numconfirms>` they prefer, the AtomicDEX protocol automatically sets the larger of the two preferences as the requirement for both parties.
+~~AtomicDEX achieves this protection by an array of `<setconfirms>` API calls, which gives each side the option to specify how many confirmations they expect before the automated process should be satisfied on behalf of the human users’ interests.~~ 
 
-Furthermore, this feature also includes a `<maxconfirms>` value to prevent one side from specifying an unreasonable or malicious number of required confirmations.
+~~If the users have differing preferences for the total `<numconfirms>` they prefer, the AtomicDEX protocol automatically sets the larger of the two preferences as the requirement for both parties.~~
 
-#### Zero Confirmations
+~~Furthermore, this feature also includes a `<maxconfirms>` value to prevent one side from specifying an unreasonable or malicious number of required confirmations.~~
 
-AtomicDEX also supports a high-speed trading mode. Using this feature, a user can activate an extremely fast mode of trading: `<zeroconf>`. This initiates a form of atomic-swap trading that does not wait for any confirmations at all. When using this feature, atomic swaps can be completed in as little as three seconds. This is a high-risk endeavor, naturally, and users should exercise extreme caution when implementing it.
+~~#### Zero Confirmations~~
+
+~~AtomicDEX also supports a high-speed trading mode. Using this feature, a user can activate an extremely fast mode of trading: `<zeroconf>`. This initiates a form of atomic-swap trading that does not wait for any confirmations at all. When using this feature, atomic swaps can be completed in as little as three seconds. This is a high-risk endeavor, naturally, and users should exercise extreme caution when implementing it.~~
 
 #### AtomicDEX is Entirely Experimental, and Should Be Treated As Such
 
