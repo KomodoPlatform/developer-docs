@@ -115,7 +115,7 @@ module.exports = {
           ]
         },
         {
-          title: "Geting Listed in Komodo's DEX",
+          title: "Geting Listed in AtomicDEX",
           collapsable: true,
           children: [
             ["/bsk/create-kic.md", "Create a Komodo based Independent Chain"],

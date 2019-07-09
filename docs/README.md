@@ -4,7 +4,7 @@
 
 <div class="introductoryImage">
 
-<img src="./Dev_Docs_Introduction_small.png">
+<img src="/start-here-pics/Dev_Docs_Introduction_small.png">
 
 </div>
 
@@ -16,7 +16,7 @@
 
 <div class="mobileIntroductoryImage">
 
-<img src="./Dev_Docs_Introduction_small.png">
+<img src="/start-here-pics/Dev_Docs_Introduction_small.png">
 
 </div>
 
@@ -24,13 +24,11 @@
 
 <hr style="clear: both;">
 
-Komodo's blockchain technology enables developers to create and run fully independent blockchains in a secure and highly competitive environment.
+Komodo's blockchain technology enables developers to create fully independent blockchains in a secure and highly competitive environment.
 
 Each independent blockchain built on the Komodo framework has a wide range of capabilities, including:
 
 * Bitcoin-hash rate supported security
-
-* Zero-knowledge privacy
 
 * Enterprise-level scalability
 
@@ -43,7 +41,7 @@ Each independent blockchain built on the Komodo framework has a wide range of ca
 Because a Komodo-based blockchain is independently managed, the developer has complete freedom, so long as the essential connections to the Komodo ecosystem remain.
 
 
-[Get Started →](/basic-docs/start-here/outline-for-new-developers.html)
+[Get Started →](./basic-docs/start-here/about-komodo-platform/about-komodo-platform.html)
 
 <!-- Sidd: Divs below cause issues when loading page. Very ugly, and blinks. 
 
