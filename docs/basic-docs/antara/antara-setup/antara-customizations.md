@@ -271,7 +271,7 @@ The `ac_eras` parameter allows the value of a chain's block reward to vary over 
 
 Each different time interval is called an "era" and a chain can have at most three eras.
 
-When active, `ac_eras` changes the behavior of coinbase coins (i.e. the coins that are created as a result of mining). `ac_eras` forces the `COINBASE_MATURITY` value of coinbase coins to be `100` instead of the normal value of `1`. Therefore, coinbase coins become spendable after `100` confirmations.
+When active, `ac_eras` changes the behavior of coinbase coins (i.e. the coins that are created as a result of mining). `ac_eras` forces the `COINBASE_MATURITY` value of coinbase coins to be `100` instead of the normal value of `1`. Therefore, coinbase coins become spendable after `100` confirmations. This `COINBASE_MATURITY` value can be explicitly changed using the [ac_cbmaturity](../installations/asset-chain-parameters.html#ac-cbmaturity) parameter. Changing this `COINBASE_MATURITY` value to `1` is recommended if a chain uses `ac_eras` in conjunction with [ac_staked](../installations/asset-chain-parameters.html#ac-staked).
 
 The `ac_eras` parameter accepts only one value (`1`, `2`, or `3`). When activated, it allows certain other Smart Chain parameters to accept multiple values.
 
@@ -779,4 +779,10 @@ The `ac_veruspos` parameter is an alternative to [ac_staked](../installations/as
 When activated, the chain uses [Verus](http://veruscoin.io/)'s proof of stake implementation instead.
 
 The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` does not have the same segid mechanism as `-ac_staked`.)
+
+
+## ac_cbmaturity
+
+The `ac_cbmaturity` parameter allows the "coinbase maturity" value to be changed. By default, this value is set to `1` on Smart Chains without `ac_eras` and set to `100` on Smart Chains with `ac_eras`. This "coinbase maturity" value is the amount of blocks before newly created coins can be spent. For example, if a chain has `ac_cbmaturity=10`, newly mined coins will not be able to be spent until they have 10 confirmations total.
+
 
