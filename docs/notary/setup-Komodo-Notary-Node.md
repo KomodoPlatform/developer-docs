@@ -2,14 +2,47 @@
 
 ## Note
 
-This guide is still in _BETA_ phase. It is here is to give you a good understanding on building a Komodo Notary Node. It is possible that some commands could be deprecated by the time you read it.
+This guide is still in _BETA_ phase. It is here is to give you a good understanding on building your Komodo Notary Node servers. It is possible that some commands could be deprecated by the time you read it. It is intended to give guidance on how to build your two notary node servers from a fresh install.
+
+For simplicity, whenever "Main Server" is referenced, it is referring to the server that is used to notarise Komodo & it's assetchains to Bitcoin. Whenever 3rd Party server is referenced, it is referencing the server used to notarise any 3rd party coin to Komodo.
+
+This guide will explain how to setup your Main Server, then go through how to setup the 3rd Party Server seperately. Below that describes how to create your NN pubkeys, import them and create a basic start script for each server. Having a second server (or VM) is now a requirement of Komodo Notary Nodes. There are methods of having a single server and creating seperate virtual machines, instead of having two seperate servers, but this guide won't touch on how to do that.
 
 If you have any problems, please join `#notarynode` on the [Komodo Discord](https://komodoplatform.com/discord)
+
+## NN Repo Quick Reference
+
+Below are the current list of repo's NN's are to use. It will be kept up-to-date as possible, but if you see something you're not expecting, jump on the discord and let us know.
+
+Iguana with AutoSplit: https://github.com/jl777/SuperNET -b beta
+
+Iguana without AutoSplit: https://github.com/jl777/SuperNET -b blackjok3r
+
+KMD: https://github.com/jl777/komodo -b beta
+
+### Main Server
+
+BTC: https://github.com/bitcoin/bitcoin -b 0.16
+
+HUSH: https://github.com/MyHush/hush3 -b dev
+
+### 3rd Party Server:
+
+VRSC: https://github.com/VerusCoin/VerusCoin -b master
+
+EMC2: https://github.com/emc2foundation/einsteinium.git -b master
+
+GAME: https://github.com/gamecredits-project/GameCredits.git -b master
+
+GIN: https://github.com/GIN-coin/gincoin-core.git -b master
+
+CHIPS:  https://github.com/jl777/chips3.git -b dev
 
 ## Requirements
 
 ### Hardware
 
+#### Main Server
 Komodo Notary Node currently only works on Linux. To setup Komodo Notary Node be sure you have a good solid server with the following minimum requirements:
 
 - CPU: A good CPU (Xeon/i7)
@@ -20,11 +53,26 @@ Komodo Notary Node currently only works on Linux. To setup Komodo Notary Node be
 
 - Bandwidth: 100Mbps
 
+- Location: The region where you were elected (refer to Komodo region documentation, but you should already know based on elections)
+
+#### 3rd Party Server
+At the moment the current minimum server specs are listed below, however, this may change as more 3rd party coins require notarising.
+
+- CPU: A good CPU (8 threads minimum)
+
+- RAM: 16Gb
+
+- Disk: 256Gb SSD
+
+- Bandwidth: 100Mbps
+
+- Location: Within the same region as your main server (not required to be in the same datacenter)
+
 ### Operating System
 
 Debian/Ubuntu LTS x64 - minimal installation with Openssh server.
 
-## Security
+### Security
 
 _Before doing anything further, please ensure that your server is secure._
 
@@ -38,14 +86,18 @@ _Before doing anything further, please ensure that your server is secure._
 
 **Here is a repo with automated script to prepare your fresh Ubuntu server with initial setup https://github.com/webworker01/freshubuntu**
 
-## Install Dependencies
+## Initial Server Setup
+
+The instructions below are required on both of your servers.
+
+### Install Required Dependencies
 
 ```bash
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool libncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libgtest-dev libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate software-properties-common libevent-dev curl libcurl4-gnutls-dev cmake clang libsodium-dev jq htop -y
 ```
 
-## Install `nanomsg`
+### Install `nanomsg`
 
 Required by iguana
 
@@ -110,7 +162,9 @@ chmod 600 ~/.komodo/komodo.conf
 
 ---
 
-## Compile Bitcoin and other 3rd-party Coins from Source
+## Main Server Setup
+
+The instructions below are only required on your main server, which is the one that will be notarising Komodo & all assetchains and runtime forks to Bitcoin.
 
 ### Bitcoin
 
@@ -192,6 +246,60 @@ Restrict access to the `bitcoin.conf` file
 ```bash
 chmod 600 ~/.bitcoin/bitcoin.conf
 ```
+
+### HUSH3
+
+#### Clone HUSH3 source and compile
+
+```bash
+cd ~
+git clone https://github.com/MyHush/hush3
+cd hush3
+git checkout dev
+./zcutil/build.sh -j$(nproc)
+```
+
+## Start the daemons and sync all the chains
+
+For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarisation.
+
+### Start the coins
+
+```bash
+komodod &
+bitcoind &
+~/hush3/src/hushd &
+```
+
+### Start Komodo and all the assetchains
+
+```bash
+cd ~/komodo/src
+./assetchains.old
+```
+
+Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories. Komodo assetchains have their own data directory inside the `~/.komodo` directory.
+
+Commands to tail `debug.log`
+
+```bash
+# BTC
+tail -f ~/.bitcoin/debug.log
+# KMD
+tail -f ~/.komodo/debug.log
+# HUSH3
+tail -f ~/.komodo/HUSH3/debug.log
+# SUPERNET
+tail -f ~/.komodo/SUPERNET/debug.log
+```
+
+For any other Komodo assetchain, use the example of HUSH3 or SUPERNET and change the path with the coin name that you are looking for accordingly. Wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
+
+---
+
+## 3rd Party Server Setup
+
+The instructions below are only required on your 3rd party server, which is the one that will be notarising 3rd party coins to Komodo.
 
 ### Chips
 
@@ -508,20 +616,6 @@ Restrict access to the `gincoin.conf` file
 chmod 600 ~/.gincoincore/gincoin.conf
 ```
 
-### HUSH3
-
-#### Clone HUSH3 source and compile
-
-```bash
-cd ~
-git clone https://github.com/MyHush/hush3
-cd hush3
-git checkout dev
-./zcutil/build.sh -j$(nproc)
-```
-
----
-
 ### VerusCoin (VRSC)
 
 #### Clone VRSC source and compile
@@ -534,36 +628,34 @@ git checkout master
 ./zcutil/build.sh -j$(nproc)
 ```
 
+Symlink the compiled binary
+
+```
+sudo ln -sf /home/$USER/VerusCoin/src/verusd /usr/local/bin/verusd
+```
+
 ## Start the daemons and sync all the chains
 
 For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarisation.
 
-### Start the 3rd-party coins
+### Start the coins
 
 ```bash
-bitcoind &
+komodod &
 chipsd &
 gamecreditsd &
 einsteiniumd &
 gincoind &
-~/hush3/src/hushd &
+verusd &
 ```
 
-### Start Komodo and all the assetchains
-
-```bash
-cd ~/komodo/src
-./komodod &
-./assetchains.old
-```
-
-Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories. Komodo assetchains have their own data directory inside the `~/.komodo` directory.
+Now wait for all the chains to finish syncing. This might take about 8-10 hours depending on your machine and internet connection. You can check check sync progress by using `tail -f` on the `debug.log` file in the respective coin data directories.
 
 Commands to tail `debug.log`
 
 ```bash
-# BTC
-tail -f ~/.bitcoin/debug.log
+# KMD
+tail -f ~/.komodo/debug.log
 # CHIPS
 tail -f ~/.chips/debug.log
 # GAME
@@ -572,27 +664,21 @@ tail -f ~/.gamecredits/debug.log
 tail -f ~/.einsteinium/debug.log
 # GIN
 tail -f ~/.gincoincore/debug.log
-# KMD
-tail -f ~/.komodo/debug.log
 # VRSC
 tail -f ~/.komodo/VRSC/debug.log
-# HUSH3
-tail -f ~/.komodo/HUSH3/debug.log
-# SUPERNET
-tail -f ~/.komodo/SUPERNET/debug.log
 ```
 
-For any other Komodo assetchain, use the example of VRSC, HUSH3 or SUPERNET and change the path with the coin name accordingly. Wait for all the coins to finish syncing.
+Wait for all the coins to finish syncing. You will then follow the directions below, only importing your 3rd party pubkey and ensure you're completing the actions for the 3rd party coins(ones listed at the top for reference) only.
 
 ---
 
 ## Generating `pubkey`, `address` & `WIF` from your secure passphrase
 
-The mainnet notary node operators will have 2 seed phrases (passphrase) which will generate 2 sets of pubkey, address and private key (WIF).
+The mainnet notary node operators have to provide 2 seperate pubkeys, one for your Main Server and one for your 3rd Party Server. This means you will have to generate 2 seed phrases individually(passphrase) which will generate the 2 pubkeys, addresses and private keys (WIF). You will need to create your Main pubkey on your Main Server & follow the same actions on your 3rd Party Server for your 3rd Party pubkey.
 
-**For security, you should never enter your seed phrase or privatekey in any other node than your notary node. If you ever expose a private key for any particular coin, it can be converted to all other coins easily.**
+**DO NOT IMPORT YOUR MAIN PUBKEY INTO ANY 3RD PARTY DAEMON. For security, you should never enter your seed phrase or privatekey in any other node than your notary node. If you ever expose a private key for any particular coin, it can be converted to all other coins easily.**
 
-### Generate
+### Generating a pubkey
 
 The mainnet notary node operators need to provide 2 sets of pubkey to Kolo when he asks for it (pubkey starts with `02` or `03`). Follow [this guide](./generate-privkeys-third-party-coins-from-passphrase.md) to generate all the required info in your own server. You will need the "Compressed Public Key", "Compressed WIF" and "Compressed Address" from the output generated by the script. Based on the default seed used in the `genkomodo.php` file, we get the following information:
 
@@ -623,17 +709,14 @@ It is recommended that you write down the randomly generated seed (24 words) in 
 
 **Important: Make sure your daemon is running and fully synced before importing any privkey. Importing key into daemon will trigger rescan which can take some time to finish depending on tx history.**
 
-- Follow the below example to import key into your coin daemons:
+- Follow the below example to import key into your coin daemons.
+
+For your Main Server:
 
 ```bash
 komodo-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 bitcoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
-chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
-gamecredits-cli importprivkey Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
-einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
-gincoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
 komodo-cli -ac_name=HUSH3 importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
-komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 ```
 
 - For all other Komodo assetchains, use the following command to import privkey
@@ -644,6 +727,15 @@ cd ~/komodo/src
 ```
 
 This command will import keys into all assetchains that are using the main Komodo daemon. This may take some time and will display the coin name and address after each import. You can tail the coin specific `debug.log` files to check the progress.
+
+Using the same method on your 3rd party server, generate a second pubkey and import it using the following:
+```
+chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+gamecredits-cli importprivkey Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
+einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
+gincoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
+komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
+```
 
 ### Validate the address
 
@@ -665,15 +757,11 @@ pubkey=02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1
 
 Never use `kill -9` to kill any Coin daemon if you don't like corrupt databases. Always shutdown wallet daemon and iguana gracefully with `pkill -15 iguana` or use the below RPC commands for wallets.
 
+Main:
 ```bash
 komodo-cli stop
 bitcoin-cli stop
-chips-cli stop
-gamecredits-cli stop
-einsteinium-cli stop
-gincoin-cli stop
 komodo-cli -ac_name=HUSH3 stop
-komodo-cli -ac_name=VRSC stop
 ```
 
 For all other Komodo assetchains, use the following command to `stop` the daemons.
@@ -681,6 +769,16 @@ For all other Komodo assetchains, use the following command to `stop` the daemon
 ```bash
 cd ~/komodo/src
 ./fiat-cli stop
+```
+
+
+3rd Party:
+```
+chips-cli stop
+gamecredits-cli stop
+einsteinium-cli stop
+gincoin-cli stop
+komodo-cli -ac_name=VRSC stop
 ```
 
 ### After all the chains' daemons were stopped gracefully, let's restrict access to all the Komodo Assetchain's `.conf` files inside `~/.komodo` dir
@@ -692,6 +790,7 @@ find ~/.komodo -type f -iname "*.conf" -exec chmod 600 {} \;
 ---
 
 ## Setting up Iguana
+You will need to do this on both servers individually.
 
 ### Clone the source
 
@@ -702,7 +801,7 @@ cd SuperNET/iguana
 git checkout dev
 ```
 
-#### Copy the `pubkey.txt` file that we created earlier from the `~/komodo/src/` dir
+#### Copy the `pubkey.txt` file associated with the server you're on, that we created earlier from the `~/komodo/src/` dir
 
 ```bash
 cp ~/komodo/src/pubkey.txt ~/SuperNET/iguana/pubkey.txt
@@ -785,25 +884,37 @@ ulimit -n
 
 ---
 
-## Create `start` Script
+## Create a `start` Script
 
-We need a `start` script in the home dir to start Komodo, assetchains and all 3rd party coin daemons with the `-pubkey` option. `-pubkey` is not required for BTC daemon. All other coins need it. Here is an example of a start script :
+We need a `start` script in the home dir to start Komodo, assetchains and all 3rd party coin daemons with the `-pubkey` option. `-pubkey` is not required for BTC daemon. All other coins need it. 
+
+Here is an example of a Main Server start script that will start Notary easy mining on Komodo as well:
 
 ```bash
 #!/bin/bash
 source ~/komodo/src/pubkey.txt
 bitcoind &
-chipsd -pubkey=$pubkey &
-gamecreditsd -pubkey=$pubkey &
-einsteiniumd -pubkey=$pubkey &
-gincoind -pubkey=$pubkey &
-~/VerusCoin/src/verusd -pubkey=$pubkey &
 ~/hush3/src/hushd -pubkey=$pubkey &
 sleep 60
 cd komodo/src
 ./komodod -gen -genproclimit=1 -notary -pubkey=$pubkey &
 sleep 600
 ./assetchains
+```
+
+Here is an example of a 3rd Party Server start script :
+
+```bash
+#!/bin/bash
+source ~/komodo/src/pubkey.txt
+chipsd -pubkey=$pubkey &
+gamecreditsd -pubkey=$pubkey &
+einsteiniumd -pubkey=$pubkey &
+gincoind -pubkey=$pubkey &
+~/VerusCoin/src/verusd -pubkey=$pubkey &
+sleep 60
+cd komodo/src
+./komodod -pubkey=$pubkey &
 ```
 
 Make the file executable:
@@ -827,9 +938,10 @@ cd ~
 
 Once all required daemons are running, we have funds on all coins, we can go ahead and start `iguana`.
 
+###Main Server:
 ```bash
 cd ~/SuperNET/iguana
-./m_notary
+./m_notary_run
 ```
 
 `m_notary` script will issue a `git pull` command to update the repo, remove old iguana, compile fresh and start all the process. This can take about 10 minutes maximum to finish. You will see `INIT with 64 notaries` once the process finishes.
@@ -842,4 +954,15 @@ After you see `INIT with 64 notaries`, you can safely start dPoW process. Just i
 ./dpowassets
 ```
 
-Iguana should split your utxos automatically. If you want to test or split manually, you can follow [this guide](./split-utxo-for-notarization.html).
+###3rd Party Server
+```bash
+cd ~/SuperNET/iguana
+./m_notary_3rdparty
+```
+
+The dpowassets command isn't required on your 3rd Party Server as the ./m_notary_3rdparty command starts the dpow process.
+
+If you're using the `beta` branch of Iguana, it should split your utxos automatically. If you use the `blackjok3r` branch and want to test or split manually, you can follow [this guide](./split-utxo-for-notarization.html). I would recommend manually managing UTXO's for the best performance.
+
+There are many open sourced scripts for managing your Komodo Notary Node servers. If you're having trouble with something, you can have a look at [these tools](https://github.com/KomodoPlatform/komodotools), or ask the other NN's, who I'm sure will show you the scripts they use to overcome issues. With that being said, if you find a way to make a job easier or find a way to better the ecosystem, please let the rest of the NN team know, we would love to hear it.
+
