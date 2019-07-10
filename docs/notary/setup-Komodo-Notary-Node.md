@@ -14,29 +14,29 @@ If you have any problems, please join `#notarynode` on the [Komodo Discord](http
 
 Below are the current list of repo's NN's are to use. It will be kept up-to-date as possible, but if you see something you're not expecting, jump on the discord and let us know.
 
-Iguana with AutoSplit: https://github.com/jl777/SuperNET -b beta
+**Iguana with AutoSplit:** https://github.com/jl777/SuperNET -b beta
 
-Iguana without AutoSplit: https://github.com/jl777/SuperNET -b blackjok3r
+**Iguana without AutoSplit:** https://github.com/jl777/SuperNET -b blackjok3r
 
-KMD: https://github.com/jl777/komodo -b beta
+**KMD:** https://github.com/jl777/komodo -b beta
 
 ### Main Server
 
-BTC: https://github.com/bitcoin/bitcoin -b 0.16
+**BTC:** https://github.com/bitcoin/bitcoin -b 0.16
 
-HUSH: https://github.com/MyHush/hush3 -b dev
+**HUSH:** https://github.com/MyHush/hush3 -b dev
 
 ### 3rd Party Server:
 
-VRSC: https://github.com/VerusCoin/VerusCoin -b master
+**VRSC:** https://github.com/VerusCoin/VerusCoin -b master
 
-EMC2: https://github.com/emc2foundation/einsteinium.git -b master
+**EMC2:** https://github.com/emc2foundation/einsteinium.git -b master
 
-GAME: https://github.com/gamecredits-project/GameCredits.git -b master
+**GAME:** https://github.com/gamecredits-project/GameCredits.git -b master
 
-GIN: https://github.com/GIN-coin/gincoin-core.git -b master
+**GIN:** https://github.com/GIN-coin/gincoin-core.git -b master
 
-CHIPS:  https://github.com/jl777/chips3.git -b dev
+**CHIPS:**  https://github.com/jl777/chips3.git -b dev
 
 ## Requirements
 
