@@ -14,29 +14,29 @@ If you have any problems, please join `#notarynode` on the [Komodo Discord](http
 
 Below are the current list of repo's NN's are to use. It will be kept up-to-date as possible, but if you see something you're not expecting, jump on the discord and let us know.
 
-Iguana with AutoSplit: https://github.com/jl777/SuperNET -b beta
+**Iguana with AutoSplit:** https://github.com/jl777/SuperNET -b beta
 
-Iguana without AutoSplit: https://github.com/jl777/SuperNET -b blackjok3r
+**Iguana without AutoSplit:** https://github.com/jl777/SuperNET -b blackjok3r
 
-KMD: https://github.com/jl777/komodo -b beta
+**KMD:** https://github.com/jl777/komodo -b beta
 
 ### Main Server
 
-BTC: https://github.com/bitcoin/bitcoin -b 0.16
+**BTC:** https://github.com/bitcoin/bitcoin -b 0.16
 
-HUSH: https://github.com/MyHush/hush3 -b dev
+**HUSH:** https://github.com/MyHush/hush3 -b dev
 
 ### 3rd Party Server:
 
-VRSC: https://github.com/VerusCoin/VerusCoin -b master
+**VRSC:** https://github.com/VerusCoin/VerusCoin -b master
 
-EMC2: https://github.com/emc2foundation/einsteinium.git -b master
+**EMC2:** https://github.com/emc2foundation/einsteinium.git -b master
 
-GAME: https://github.com/gamecredits-project/GameCredits.git -b master
+**GAME:** https://github.com/gamecredits-project/GameCredits.git -b master
 
-GIN: https://github.com/GIN-coin/gincoin-core.git -b master
+**GIN:** https://github.com/GIN-coin/gincoin-core.git -b master
 
-CHIPS:  https://github.com/jl777/chips3.git -b dev
+**CHIPS:**  https://github.com/jl777/chips3.git -b dev
 
 ## Requirements
 
@@ -259,7 +259,7 @@ git checkout dev
 ./zcutil/build.sh -j$(nproc)
 ```
 
-## Start the daemons and sync all the chains
+### Start the daemons and sync all the chains
 
 For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarisation.
 
@@ -634,7 +634,7 @@ Symlink the compiled binary
 sudo ln -sf /home/$USER/VerusCoin/src/verusd /usr/local/bin/verusd
 ```
 
-## Start the daemons and sync all the chains
+### Start the daemons and sync all the chains
 
 For the first time sync, we will run all the coin daemons normally. Make sure you have successfully compiled all the daemons from the above section. We will create a `start` script later in this guide to start the chains with `-pubkey` option for notarisation.
 
@@ -938,7 +938,7 @@ cd ~
 
 Once all required daemons are running, we have funds on all coins, we can go ahead and start `iguana`.
 
-###Main Server:
+### Main Server:
 ```bash
 cd ~/SuperNET/iguana
 ./m_notary_run
@@ -954,7 +954,7 @@ After you see `INIT with 64 notaries`, you can safely start dPoW process. Just i
 ./dpowassets
 ```
 
-###3rd Party Server
+### 3rd Party Server
 ```bash
 cd ~/SuperNET/iguana
 ./m_notary_3rdparty
@@ -963,6 +963,8 @@ cd ~/SuperNET/iguana
 The dpowassets command isn't required on your 3rd Party Server as the ./m_notary_3rdparty command starts the dpow process.
 
 If you're using the `beta` branch of Iguana, it should split your utxos automatically. If you use the `blackjok3r` branch and want to test or split manually, you can follow [this guide](./split-utxo-for-notarization.html). I would recommend manually managing UTXO's for the best performance.
+
+## NN Scripts
 
 There are many open sourced scripts for managing your Komodo Notary Node servers. If you're having trouble with something, you can have a look at [these tools](https://github.com/KomodoPlatform/komodotools), or ask the other NN's, who I'm sure will show you the scripts they use to overcome issues. With that being said, if you find a way to make a job easier or find a way to better the ecosystem, please let the rest of the NN team know, we would love to hear it.
 
