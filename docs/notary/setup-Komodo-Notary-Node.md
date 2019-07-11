@@ -728,8 +728,9 @@ cd ~/komodo/src
 
 This command will import keys into all assetchains that are using the main Komodo daemon. This may take some time and will display the coin name and address after each import. You can tail the coin specific `debug.log` files to check the progress.
 
-Using the same method on your 3rd party server, generate a second pubkey and import it using the following:
+Using the same method on your 3rd party server, generate a second pubkey and import it using the following commands:
 ```
+komodo-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 chips-cli importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 gamecredits-cli importprivkey Re6YxHzdQ61rmTuZFVbjmGu9Kqu8VeVJr4G1ihTPFsspAjGiErDL
 einsteinium-cli importprivkey T7trfubd9dBEWe3EnFYfj1r1pBueqqCaUUVKKEvLAfQvz3JFsNhs
@@ -774,6 +775,7 @@ cd ~/komodo/src
 
 3rd Party:
 ```
+komodo-cli stop
 chips-cli stop
 gamecredits-cli stop
 einsteinium-cli stop
