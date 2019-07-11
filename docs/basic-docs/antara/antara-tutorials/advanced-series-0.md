@@ -50,7 +50,7 @@ Through Antara, the developer receives a powerful tool for creating and executin
 
 #### Building an Antara Module is Harder Than Creating a Balance-Based Smart Contract 
 
-Antara Modules are fundamentally different than the "smart contracts" that are familiar on other blockchain platforms. The key difference is that Antara Modules directly rely on ["unspent transactions,"](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept) which are called "utxos" for brevity. Smart contracts, on the other hand, rely on the total balance of funds held within an address. 
+Antara Modules are fundamentally different than the "smart contracts" that are familiar on other blockchain platforms. The key difference is that Antara Modules directly rely on ["unspent transactions,"](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept) which are called "utxos" for brevity. Balance-based smart contracts, on the other hand, rely on the total balance of funds held within an address. 
 
 Utxo-based modules are harder to create than balance-based smart contracts. However, utxo-based modules result in dramatically more powerful and secure functionality, as they leverage the existing Bitcoin-utxo system. 
 
