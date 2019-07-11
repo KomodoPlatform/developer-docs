@@ -338,11 +338,11 @@ Time: 5 Minutes
 
 ---------------
 
-At this point, the developer is likely familiar with common blockchain addresses.
+At this point, the developer is familiar with common blockchain addresses.
 
 However, Antara requires the user to manage additional addresses for Antara-based currency. The passphrase for these addresses can all be the same, but the public address will not be. 
 
-These addresses keep funds separate between difficult modules on a Smart Chain, and assist in maintaining token scarcity, among other uses.
+These addresses keep funds separate between different modules on a Smart Chain, and assist in maintaining token scarcity, among other uses.
 
 [<b>Understanding Antara Addresses</b>](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html)
 
@@ -473,7 +473,7 @@ The Komodo team is looking for talented C/C++ developers to build new Antara Mod
 
 Creating a new default module can take up to a month's worth of time, and we try to make sure the value of the bounties is worth your while. 
 
-[<b>Link to Komodo Bounties</b>]()
+[<b>Link to Komodo Bounties</b>](https://forum.komodoplatform.com/c/jobs-bounties)
 
 Alternatively, reach out to the Komodo development team on the `#dev-general` channel on [Discord](https://komodoplatform.com/discord) and ask where help is needed. 
 

@@ -37,4 +37,4 @@ The documentation in this section is based on the Komodo whitepaper that was wri
 
 Since 2017, the Komodo team has greatly advanced the technologies on the Komodo Platform, and these new technologies are discussed in other areas of the technical-documentation website.
 
-Also, the Jumblr feature and zero-knowledge transactions are still available on Komodo-based blockchains, but they are no longer available on the KMD main chain. This change was made largely in response to community feedback and industry developments.
+Also, zero-knowledge transactions are still available on Komodo-based blockchains, but they are no longer available on the KMD main chain. This change was made largely in response to community feedback and industry developments.

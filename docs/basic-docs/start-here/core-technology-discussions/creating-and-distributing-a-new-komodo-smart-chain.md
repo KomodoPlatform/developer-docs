@@ -92,7 +92,7 @@ With the advantage of Komodo’s privacy technology, the participants in a dICO 
 
 Formerly, coding and generating the blockchain itself were a most difficult aspect of the development process. Now, the Komodo team has simplified the process into easy steps. Through Komodo’s Iguana Core technology (introduced in Part I), the entrepreneur can create a new independent blockchain by entering just two simple commands in the command prompt of their computer.
 
-The following steps rely on one of Komodo’s underlying software processes that run in the background on a user’s computer. The name of this software is the "Komodo daemon," or `komodod`, for short. `komodod` is rooted in Iguana Core technology.
+The following steps rely on one of Komodo’s underlying software processes that run in the background on a user’s computer. The name of this software is the "Komodo daemon," or `komodod`, for brevity. `komodod` is rooted in Iguana Core technology.
 
 #### The First Command to Create a New Coin
 
@@ -190,7 +190,7 @@ Everything is set on the backend for the entrepreneur, and they are now fully pr
 
 ## The Distribution of Coins
 
-#### The Trials and Travails of the Centralized ICO Method
+#### Observations on the Centralized ICO Method
 
 Previously, the entrepreneur at this point would have been required to go through a centralized ICO process.
 

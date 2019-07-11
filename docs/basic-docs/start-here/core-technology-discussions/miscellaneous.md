@@ -101,9 +101,9 @@ This is <b>not</b> a private transaction. An observer of the blockchain can obse
 
 ------
 
-This <b>is</b> a private transaction. Using zk-SNARK technology inherited from Zcash, this transaction moves funds from one address <b>without leaving any data available in the public domain for later observation.</b> 
+This <b>is</b> a private transaction. Using zk-SNARK technology inherited from Zcash, this transaction moves funds from one address to another <b>without leaving any data available in the public domain for later observation.</b> 
 
-So long as the user does not reveal any information regarding this transaction, no other party may ever know the amount, specific time, or destination of funds in this transaction. The user may also consider enhancing their privacy through services such as [Tor](https://www.torproject.org/).
+The user may also consider enhancing their privacy through services such as [Tor](https://www.torproject.org/).
 
 All privacy from zk-SNARK technology is derived solely as a part of this type of transaction.
 
@@ -129,7 +129,7 @@ Although the anonymization process provides a measure of privacy and may appear 
 
 #### The Timing Attack
 
-In this attack, the sleuth simply studies the time the funds disappear from a T address and looks for funds to appear in another T address soon thereafter. If the privacy-user persistently chooses predictable timing for initiating and completing their transfer of funds from a T address, through a series of Z addresses, and back to a public T address, a determined sleuth may deduce the user's trail of funds.
+In this attack, the sleuth simply studies the time the funds disappear from a T address and looks for funds to appear in another T address soon thereafter. If the privacy-user persistently chooses predictable timing for initiating and completing their transfer of funds, a determined sleuth may deduce the user's trail of funds.
 
 For effective privacy, the user should wait for other users on the Smart Chain to exercise privacy transactions, and thereby conceal their own privacy behavior. The more users using privacy features, the more private the transactions become.
 
