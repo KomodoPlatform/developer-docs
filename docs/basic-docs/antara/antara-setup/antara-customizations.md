@@ -341,6 +341,24 @@ Use `ac_script` to send the founder's reward to a multi-signature address.
 
 Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
 
+
+## ac_founders_reward
+
+This parameter functions similarly to `ac_perc` with `ac_founders`. However, the value specified for this parameter is in satoshis rather than a percentage the block reward, and the founder's reward does not accumulate over several blocks. This parameter can be used in place of `ac_perc`. It must include `ac_founders` and either `ac_script` or `ac_pubkey`. This value is entirely independent of the `ac_reward` value. For example, `-ac_reward=1000000000 -ac_perc=10000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f` would pay this pubkey's address 10 coins every 10 blocks, whereas `ac_reward=1000000000 -ac_founders_reward=100000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f` would pay this pubkey's address 1 coin every 10 blocks.
+ This parameter is not compatible with the [ac_eras](../installations/asset-chain-parameters.html#ac-eras) parameter. 
+
+#### :pushpin: Examples
+
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+
+A 777777-coin pre-mine, with a 5-coin block reward, and founder's reward of 10 coins sent to `034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f` every 10 blocks.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_founders_reward=1000000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f &
+```
+
+</collapse-text>
+
 ## ac_halving
 
 This is the number of blocks between each block reward halving. This parameter will have no effect if [ac_reward](../installations/asset-chain-parameters.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [ac_decay](../installations/asset-chain-parameters.html#ac-decay) is not, the reward will decrease by 50% each halving.
