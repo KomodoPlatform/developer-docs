@@ -234,7 +234,7 @@ Command:
 </collapse-text>
 
 
-##### Turning the setting on via json rpc
+##### Turning the setting on via json RPC
 
 Command:
 

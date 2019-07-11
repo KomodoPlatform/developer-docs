@@ -16,7 +16,7 @@ The core aspects of Rogue gameplay occur on the blockchain. These aspects includ
 
 Komodo's Rogue implementation makes use of the classic on-screen visual representation of gameplay. This interface relies on ASCII characters to represent characters, items, and other in-game objects and actions.
 
-The procedures to launch and finish a game require the execution of various methods (rpcs). To make the game more easy to start and finish for players who are not comfortable with the terminal, the Komodo team has created a Terminal User Interface (TUI).
+The procedures to launch and finish a game require the execution of various methods (RPCs). To make the game more easy to start and finish for players who are not comfortable with the terminal, the Komodo team has created a Terminal User Interface (TUI).
 
 The following installation and walkthrough tutorials can assist the reader in testing Rogue. For more information, please reach out to our community on [Discord](https://komodoplatform.com/discord). The #cc-rogue channel is available for questions and assistance.
 
@@ -49,7 +49,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libgtest-dev libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate software-properties-common curl libcurl4-gnutls-dev cmake clang libsodium-dev -y
 ```
 
-##### macOS (OSX)
+##### MacOS (OSX)
 
 Use the terminal to ensure the MacOS XCode tools are installed:
 
@@ -83,7 +83,7 @@ Playing Rogue on Windows requires an installation of MinGW, which can be downloa
 
 [Link to MinGW](http://www.mingw.org/)
 
-Once installed, use a debian cross-compilation setup and run the following commands in Linux:
+Once installed, use a Debian cross-compilation setup and run the following commands in Linux:
 
 ```bash
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-gnutls-dev bsdmainutils automake curl cmake mingw-w64

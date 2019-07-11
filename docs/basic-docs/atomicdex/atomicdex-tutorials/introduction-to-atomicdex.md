@@ -1,26 +1,20 @@
-# Introduction to Komodo's DEX Software
+# Introduction to AtomicDEX
 
-<!--
+One of Komodo's blockchain tools is an atomic-swap powered, decentralized exchange (DEX), called AtomicDEX.
 
---Introductory graphic--
+Komodo’s AtomicDEX software is entirely separate from the `komodod` software that powers the rest of Komodo.
 
--->
-
-One of Komodo's blockchain tools is an atomic-swap powered, decentralized exchange (DEX).
-
-Komodo’s DEX software is entirely separate from the `komodod` software that powers the rest of Komodo.
-
-Because this DEX software is built on atomic swaps, developers and users can rely on it to exchange cryptocurrencies at will, and without any middleman involvement. Users of this software maintain full control over the private keys of their assets at all times. This dramatically increases the security of the exchange process.
+Because AtomicDEX is built on atomic swaps, developers and users can rely on it to exchange cryptocurrencies at will, and without any middleman involvement. Users of this software maintain full control over the private keys of their assets at all times. This dramatically increases the security of the exchange process.
 
 This software is capable of facilitating atomic-swap exchanges between approximately 99% of the coins listed on [coinmarketcap.com](https://coinmarketcap.com). All coins were listed without charge.
 
-## Why is Komodo's DEX Special?
+## Why is AtomicDEX Special?
 
 When it comes to DEX technology, Komodo has a remarkable story.
 
 In April 2014, Komodo’s lead developer experimented with his first atomic-swap prototypes. By August of 2017, Komodo released version 1.0 of the atomic-swap DEX software, allowing anonymous Internet users to perform over 100,000 atomic swaps via automation. These are but two examples of how Komodo has led the way in atomic-swap DEX technology since the beginning.
 
-To understand Komodo DEX software, one must first understand what a decentralized exchange is, why it is important, and how atomic swaps come into play.
+To understand AtomicDEX, one must first understand what a decentralized exchange is, why it is important, and how atomic swaps come into play.
 
 This discussion requires a small amount of foundational knowledge. The reader should be generally familiar with blockchain technology and should understand the basic ideas of the Komodo project. If an overview of Komodo is needed, head to the documentation introduction, ["Why Komodo?"](../start-here/outline-for-new-developers.html#why-komodo) For a more thorough understanding of general blockchain technology, check out [Part I of the Komodo whitepaper.](https://komodoplatform.com/whitepaper) This section of the whitepaper gives an overview of how a blockchain works and why it matters. After reading those articles, the following discussion should be attainable.
 
@@ -54,20 +48,14 @@ The primary concern for a CEX is security. When a user places their assets on a 
 
 Furthermore, this database holds the assets of thousands of other users. Having a large amount of vulnerable funds on the Internet is an additional incentive for attackers. [As reported by IG Group studies,](https://www.group-ib.com/resources/threat-research/2018-report.html) from 2017 to 2018, nearly 1 billion US dollar's worth of digital assets were stolen from major exchanges around the world. 
 
-A CEX has several challenges to consider as a result of this danger. From a legal perspective, [the infamous Mt. Gox case](https://www.coindesk.com/mississippi-doctors-sued-mt-gox-for-bitcoin-loss-now-worth-135-million) illustrates how users may attempt to hold the CEX liabile in the event of a theft. A CEX may struggle to find an insurance provider that will protect them. Also, compared to fiat currency, government authorities can do little to assist in recovering stolen funds.
-
-<!--
-
--- graphic title: The Centralized Exchange --
-
--->
+A CEX has several challenges to consider as a result of this danger. From a legal perspective, [the infamous Mt. Gox case](https://www.coindesk.com/mississippi-doctors-sued-mt-gox-for-bitcoin-loss-now-worth-135-million) illustrates how users may attempt to hold the CEX liable in the event of a theft. A CEX may struggle to find an insurance provider that will protect them. Also, compared to fiat currency, government authorities can do little to assist in recovering stolen funds.
 
 ### Pros and Cons of the Centralized Exchange
 
 | Perspective | Pros  | Cons |
 | ----------- | ----- | ---- |
 | User | The IOU exchange process is high-speed, simple, and often has a pleasant interface | Compromising the user's individual account is achievable for a determined hacker, and there are effectively no methods to recover funds stolen from a CEX |
-| User | Because the CEX model has many users, a CEX is more likely to achieve high liquidity | The high user population motivates sophisicated attackers to compromise the entire site |
+| User | Because the CEX model has many users, a CEX is more likely to achieve high liquidity | The high user population motivates sophisticated attackers to compromise the entire site |
 | User | A large CEX can handle the complexities of holding and using cryptocurrencies | Once a user gives up control over their funds to the CEX, the user can only trust that the funds will be returned |
 | Exchange Owner | Without decentralization, business development is often faster | In holding thousands of user's personal funds, the exchange owners assume an enormous amount of liability |
 | Exchange Owner | The automated aspect of cryptocurrency allows for fast profits through small fees | The owner must be wary of thieves even among their own employees |
@@ -78,19 +66,13 @@ In light of these concerns, many reputable and established CEX's are turning to 
 
 To understand why a CEX may wish to implement decentralized technologies, one must first understand how a typical decentralized exchange (DEX) works. There are many types of DEX's, each having a unique technical structure. Perhaps the most popular DEX format is a decentralized gateway.
 
-<!--
-
--- Graphic title: Types of Decentralized Exchanges --
-
--->
-
 ### Types of Decentralized Exchanges
 
 | Type | Summary | Examples |
 | ---- | ------- | -------- |
 | Decentralized Gateway | A decentralized network of gateway keepers hold user funds in escrow and issue IOUs for trading | InstantDEX, Bitshares, Binance DEX |
 | On-Chain Token Exchange | Tokens created on the parent blockchain are traded within the consensus rules; by adding gateway nodes, this can also extend to become a decentralized gateway | EtherDelta, 0x |
-| Non-Custodial Exchange | A centralized website arranges for a moderately secure, but non-decentralized trade between liqiduity providers and purchasers; there is no order book and the exchange's control over user funds is limited | ShapeShift, Changelly |
+| Non-Custodial Exchange | A centralized website arranges for a moderately secure, but non-decentralized trade between liquidity providers and purchasers; there is no order book and the exchange's control over user funds is limited | ShapeShift, Changelly |
 
 A decentralized gateway can be thought of as a cryptocurrency holding station that is owned and controlled by several different parties. The gateway performs two functions: it holds the assets that users send to it, and it issues IOUs.
 
@@ -103,12 +85,6 @@ Now comes another key difference. The actual assets that the gateway is holding 
 Because a multi-signature address requires several different parties to sign the release of funds, the gateway is able to provide an improved measure of security. For an attacker to succeed, they must compromise several different parties, rather than a central authority. 
 
 In many ways, this popular DEX model is an improvement over the CEX model, and this is why many CEX's are expanding into this territory. Users have control over their IOUs, making them responsible for individual attacks, rather than the exchange owners. The risk of an exchange-wide attack is also shared across multiple parties.
-
-<!--
-
--- graphic title: The Decentralized Gateway --
-
--->
 
 ### The Decentralized Gateway
 
@@ -132,21 +108,14 @@ An atomic swap can do everything else that both the DEX and CEX models can do. A
 
 However, the nature of an atomic swap is unique in comparison with the opposing models, as an atomic swap does not require third-party intervention. This can provide simplicity for both the user, the entrepreneur, and even the developer. Depending on the application, the cost may also be dramatically cheaper, as far less infrastructure and manpower is required.
 
-<!--
-
--- graphic title: Technical Comparisons --
-
--->
-
 ### Technical Comparisons
 
 | Capability | Atomic Swap | Decentralized Gateway | Centralized Exchange |
 | ---------- | ----------- | --------------------- | -------------------- |
-| Third party is not required | Check: The entire exchange happens between two users; no third party is required | X-cross: The exchange relies on a decentralized network of gateway nodes, who must be trusted | X-cross: Users depend on a centralized company to maintain and secure their funds |
-| An exchange can be set up by anyone | Check: Requires only two users and an Internet connection | X-cross: Requires sufficient technical knowledge, funding, and committed business partners to serve as gateway nodes | Partial check: Requires sufficient technical knowledge, funding, and a higher level of business and legal knowledge | 
-| Users maintain control over the funds throughout the process | Check: Users maintain control over their funds until the trade is completed, at which point ownership is swapped atomically | X-cross: Users relenquish ownership to the gateway nodes, although users do hold private keys to IOUs | X-cross: Once the user sends funds to the CEX, they only own their funds in theory until the funds are returned |
-| User funds remain distributed and decentralized throughout process | Check: As users maintain ownership over their funds at all times, all funds in the exchange process are never in a central location | X-cross: User funds are held in a collection of multi-signature addresses that are maintained by a small group of people | X-cross: User funds are held in a centralized database, managed by company employees |
-
+| Third party is not required | <b>Yes:</b> The entire exchange happens between two users; no third party is required | <b>No:</b> The exchange relies on a decentralized network of gateway nodes, who must be trusted | <b>No:</b> Users depend on a centralized company to maintain and secure their funds |
+| An exchange can be set up by anyone | <b>Yes:</b> Requires only two users and an Internet connection | <b>No:</b> Requires sufficient technical knowledge, funding, and committed business partners to serve as gateway nodes | <b>No:</b> Requires sufficient technical knowledge, funding, and a higher level of business and legal knowledge | 
+| Users maintain control over the funds throughout the process | <b>Yes:</b> Users maintain control over their funds until the trade is completed, at which point ownership is swapped atomically | <b>No:</b> Users relinquish ownership to the gateway nodes, although users do hold private keys to IOUs | <b>No:</b> Once the user sends funds to the CEX, they only own their funds in theory until the funds are returned |
+| User funds remain distributed and decentralized throughout process | <b>Yes:</b> As users maintain ownership over their funds at all times, all funds in the exchange process are never in a central location | <b>No:</b> User funds are held in a collection of multi-signature addresses that are maintained by a small group of people | <b>No:</b> User funds are held in a centralized database, managed by company employees |
 
 This is probably enough to get the basic idea. If the reader desires a more thorough understanding of the atomic swap process, read Part III of [the Komodo whitepaper,](https://komodoplatform.com/whitepaper) or [this blog post for a condensed explanation.](https://komodoplatform.com/atomic-swaps/)
 
@@ -160,103 +129,29 @@ In September 2015, James performed an experimental atomic swap between Bitcoin a
 
 At this time, James also began the creation of his current endeavor, the Komodo ecosystem. Additional team members were hired, money was raised, and large-scale software and company development began.
 
-From its foundation, the Komodo ecosystem is designed to facilitate blockchain interoperability and scalability, and our atomic-swap DEX software plays a key role. In August 2017, Komodo released version 1.0 of the first atomic-swap based DEX to the public. Releasing this entirely new DEX software to the masses was an endeavor many years in the making, and countless volunteer developers and other dreamers contributed.
+From its foundation, the Komodo ecosystem is designed to facilitate blockchain interoperability and scalability, and our atomic-swap software plays a key role. In August 2017, Komodo released version 1.0 of the first atomic-swap based DEX to the public. Releasing this entirely new DEX software to the masses was an endeavor many years in the making, and countless volunteer developers and other dreamers contributed.
 
 Upon release of Komodo’s DEX 1.0, hundreds of members of the Komodo open-source community collectively performed over 100,000 atomic swaps. It was the first time in history that users with no coding knowledge could trade assets without either a third-party acting as an arbiter, or even without any public knowledge of who was trading with whom.
  
-Another point to mention is that while Komodo's DEX software is built upon atomic swaps, other software in the Komodo ecosystem is able to perform the rest of the functionality necessary to run other types of decentralized exchanges. As all Komodo software is natively integrated, this provides the Komodo entrepreneur with perhaps the widest range of DEX software packages in existence.
-
-<!--
-
--- graphic title: Capabilities of Komodo Software --
-
--->
+Another point to mention is that while AtomicDEX is built upon atomic swaps, other software in the Komodo ecosystem is able to perform the rest of the functionality necessary to run other types of decentralized exchanges. As all Komodo software is natively integrated, this provides the Komodo entrepreneur with perhaps the widest range of DEX software packages in existence.
 
 ### Capabilities of Komodo Software
 
 | Atomic Swaps | Decentralized Gateway | On-Chain Token Exchange | Cross-Chain Asset Transfers | ... and more! |
 | -- | -- | -- | -- | -- |
-| check | check | check | check | check |
+| Check! | Check! | Check! | Check! | Check! |
 
-Today, Komodo developers took what they learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is the Komodo DEX 2.0 software. Komodo is also partnered with Ideas By Nature, a UX/UI design and development firm, to create a well designed atomic-swap trading experience.
+Today, Komodo developers took what they learned from version 1.0 and rewrote the code from the ground up to enhance essentially all aspects of the user experience. This is the AtomicDEX 2.0 software. Komodo is also partnered with Ideas By Nature, a UX/UI design and development firm, to create a well designed atomic-swap trading experience.
 
-Recently, yet again Komodo forged into new territory with atomic swaps. In February of 2019, the Komodo team performed the first mobile-based atomic swap. The mobile version of our atomic-swap DEX software is available for Android and iOS devices, and the software interfaces seamlessly with our desktop software.
+Recently, yet again Komodo forged into new territory with atomic swaps. In February of 2019, the Komodo team performed the first mobile-based atomic swap. The mobile version of AtomicDEX is available for Android and iOS devices, and the software interfaces seamlessly with our desktop software.
 
 While the code behind Komodo's technology is complex, the good news is, the code takes care of itself. A developer and entrepreneur building on Komodo can simply fire up the software and access its functionalities through the API.
 
-## Komodo's DEX Software is an Industry-Wide Invitation
+## AtomicDEX Software is an Industry-Wide Invitation
 
-Komodo DEX software is open source, meaning that we do not keep the software's source code private. Also, the Komodo team is creating a network that is open to other financially motivated businesses and organizations seeking profit in the cryptocurrency-exchange industry. 
+AtomicDEX is open source, meaning that we do not keep the software's source code private. Also, the Komodo team is creating a network that is open to other financially motivated businesses and organizations seeking profit in the cryptocurrency-exchange industry. 
 
 Many opportunities are available for cryptocurrency-exchange entrepreneurs to build their own audiences and businesses using Komodo software. Entrepreneurs can create their own market places on the main Komodo network for trading, or they can create their own private and public networks. Developers can use Komodo's back-end software API to feature atomic-swap DEX functionality in their existing or upcoming software innovations, including mobile software. Enterprise and other large-scale companies can reach out to Komodo for integration with Komodo technology, or even for consulting services.
 
 [Please reach out to the Komodo team for further information.](https://komodoplatform.com/contact-us/)
 
-
-# Additional Notes
-
-## A Back End for Front-End Implementations
-
-Komodo's DEX software is built to have a core component that can serve many front-end graphical-user interfaces (GUIs). 
-
-The core component is called MarketMaker 2.0, or MM2 for brevity.
-
-Various front-end GUIs exist in our ecosystem, some of them built by the volunteer efforts of our community members. We are also working to release a Komodo-supported User Experience and User Interface, in coordination with Ideas By Nature, a UX/UI design firm.
-
-This also allows developers and entrepreneurs the freedom to create your own front-end implementation for your own purposes. For example, you can create your own front-end implementation that acts on the same atomic-swap network as other communities. Or, you could make a front-end implementation for your own private network. 
-
-The documentation here only concerns the core component, MarketMaker 2.0 (MM2). This component is typically accessed via an API or a terminal interface.
-
-Documentation for a GUI for MM2 is not yet available.
-
-## New Features of MarketMaker 2.0 (Desktop)
-
-Users who worked with the previous version of the MM software, MarketMaker 1.0 (MM1), will note several differences with the new release.  
-
-### New Off-Chain Technology
-
-MM1 used nanomsg technology for its off-chain network layer (e.g. orderbook propagation, ordermatching, client traffic routing, and other technologies that are not active on the blockchain itself).
-
-MM2 uses `libtorrent` as a torrent/DHT network system for the off-chain network layer. This p2p software is widely used and highly reliable, granting a greater development experience.
-
-### Rust Implementation
-
-MM1 was based on ANSI C.
-
-For MM2 we ported the system to Rust, utilizing the cargo ecosystem. Internal benchmarks prove this to be more efficient. Furthermore, the Rust code base supports mobile devices, including Android & iOS. This is a key benefit, as we expect mobile devices to be a key component of MM2 adoption.
-
-### Multi-Threading and Other Multi-Tasking Improvements
-
-MM1 had limited multi-tasking capabilities. Also, the bob-side technology was not reliable when using MM1 in lite mode (SPV), wherein blockchain syncing is not required for end-users.
-
-MM2 has multi-threading. This allows it to reliably manage multiple concurrent requests.
-
-###  Each Node is a Standalone P2P Solution
-
-MM1 had two separate types of nodes: full relay and non-full relay. Non-full relay nodes had to rely on full relay nodes for network functionality. This additional layer of complexity was not optimal.
-
-With MM2, each node is a full standalone p2p solution (e.g. there are no longer two types of nodes).
-
-## MarketMaker 2.0 for Mobile (New!)
-
-Komodo is pleased to announce that MarketMaker 2.0 is preparing for release on compatible Android and iOS devices. The software is currently undergoing quality tests and external reviews before publication.
-
-Notable aspects of the Mobile MM2 software include:
-
-- Optimization for low-data usage and CPU consumption
-- Low storage requirements (less than 50 MB)
-- Integrates seamlessly with the desktop MarketMaker 2.0 software
-
-Through the Komodo API, mobile-device developers can integrate MM2 for Mobile into other software packages.
-
-Please reach out to our team on [Discord](https://komodoplatform.com/discord) to be involved with the software release.
-
-## Add Your Coin to MarketMaker 2.0
-
-All coins that are built on the BTC and ETH core softwares can be added to MarketMaker 2.0 (MM2) quickly and simply. Coins built on other software frameworks may be able to be added as well, depending on specific details. Specifically, a coin must support functionality that is similar to the "CheckLockTimeVerify" of the Bitcoin protocol, wherein a utxo can be locked for a specific amount of time and then released in a manner determined by the developer. For more information, please reach out to our team on Discord.
-
-To add your BTC or ETH-based coin to MM2, first follow the linked checklist below:
-
-[Link to checklist for adding coin to MM2](https://github.com/jl777/coins#0-the-coin-must-be-tested-with-barterdex-atomic-swaps)
-
-Upon completing the checklist, please submit your proposed coin configuration files to the same repository with a pull request. 

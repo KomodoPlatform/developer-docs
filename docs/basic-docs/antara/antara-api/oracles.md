@@ -15,6 +15,68 @@ Those who publish data to an oracle are called publishers. There is a fee-based 
 - Anyone can subscribe to any specific publisher of any oracle using the [oraclessubscribe](../customconsensus/oracles.html#oraclessubscribe) method
 - A publisher can publish data using [oraclesdata](../customconsensus/oracles.html#oraclesdata), and thereby collect their fee from their subscribers
 
+## oraclelist
+
+**oracleslist**
+
+The `oraclelist` method lists all available oracle contracts on the Smart Chain.
+
+### Arguments
+
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
+
+### Response
+
+| Name       | Type               | Description                          |
+| ---------- | ------------------ | ------------------------------------ |
+| oracletxid | (array of strings) | the unique identifying oracletxid(s) |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD oracleslist
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+[
+    "66fa795f43534e4d6b038c172172a7c46a3cf37b1628e075e38e94a20cfeae5a",
+    "79d02351968e6616f3044cb14523d8d2cbdbd1a8b7b75bd14b1aa80ad41a5845",
+    "665b893bdb801f77fd6620969371f8fc391df568150f0a671c1c23e67a0cf039",
+    "0fa3c6e12ee4be636f44ce4b2af3b0f213d0403dc46cd42add07816526dd46b2",
+    "b24a00e2a895baad4c0246ba5b3d36790b43cc0fb5a4c4ea98161299165a8c96",
+    "8790ee741042eedce012a46483143e277851754300da7b7171ce46d63d51b3d3",
+    "1ba8f3f9e98cbb41af8cb0bf3a6c1953ea5a89bd44455b8e9078f2216e9ed0fc",
+    "2353e77dd3ad18bed4ea053055234424ba7c05fb04f97a323859d0445b64ad33",
+    "a594a239f29d0df2f27eda05186ac7fdb26302f8268106a04edfde0c1a03b5e8",
+    "4dfd22a3a56b274054cc651c70dc0b35778a3eb12ba025598f4510669b8e88c8",
+    "0ae8cf1b008f7c652c1e85aa45832aac8dc62cfd8d73105800f4e3603d4cc15f",
+    "7eaa75392e3b634ebf9eb4a67455dedeb503cdd235c932ec49559906394d89c5",
+    "59e44ee58435f01dbbadd1ac54f7e6d5e1323c52561e3ab656555b099886217f",
+    "e953e88d3f1713aed28510d9bff85e3a09cc96107f1122f1f244273ab1196ca6",
+    "128e6c6fa4cde1be654da5f006caf341415e0d19300f7c33578d7f5242bdf033",
+    "104f701ccd6cd78b347d68a461bc45031e56cbdbdd895662e3fbc48c8335feb0",
+    "161bdf47cc246a4b725676c4c3d08a685ccca8edba11edfbd9c90205bc555212",
+    "4a32675232ff020c0ef868ff167ae17754823899bee7b5e96fac210c7030573f",
+    "57600b613c7355e768323c7197910ca45ed713b14ed4fdf01a5181bfa1d55753",
+    "9755eede3831f003bc1425bdfa9f7f889befd6b8ce7028b17f50c30b0d8088d1",
+    "8ed3b092677aec71169a7a11fdfbfe0a855e8120af0ae1ea2d97eb7cfd29835e",
+    "03d9e6b199173935c57ebffee93fa1ac91b809e268f50610f31fa14253f7f7bc",
+    "0803edf92f40541cf988c2ca1e0bfee6902a5ccf60bbf90bed51cff8a4f91489",
+    "482be3ce8bf8607bd501a5aed3018770420a9f6dc48ee21fe423b09d5fe19f16",
+    "65fe29870b7ea766365b7c55881f4246ab8d84cba865f3bffa9c1f1e92f97113",
+    "8a0810bba8fdf8e0fe20d07ea618bc4810657d1b5aafdc7362b67be1aebf1cf3",
+    "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203"
+]
+```
+
+</collapse-text>
+
 ## oraclesaddress
 
 **oraclesaddress (pubkey)**
@@ -29,7 +91,7 @@ The `oraclesaddress` method displays the oracle address for a specific pubkey.
 
 ### Response
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
 | result           | (string) | whether the method executed successfully                                                                             |
 | OraclesCCaddress | (string) | taking the module's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
@@ -209,135 +271,6 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
     }
   ],
   "vjoinsplit": []
-}
-```
-
-</collapse-text>
-
-## oraclesfund
-
-**oraclesfund oracletxid**
-
-The `oraclesfund` method allows a user to register as a publisher on an oracle.
-
-This method must be executed before the user attempts to use the <b>oraclesregister</b> method.
-
-### Arguments:
-
-| Structure  | Type     | Description                                         |
-| ---------- | -------- | --------------------------------------------------- |
-| oracletxid | (string) | the unique identifying transaction id of the oracle |
-
-#### :pushpin: Examples
-
-Step 1: Create a customized oracle contract and get the hex value
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD oraclesfund 7b6e7745058ffded423546eecc61dcc05069279b90776384c52692765246b64c
-```
-
-Response from Step 1:
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "result": "success",
-  "hex": "0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000"
-}
-```
-
-</collapse-text>
-
-Step 2: Send raw transaction / broadcast the hex value
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000
-
-# This will output an unique txid which will be refered as oracletxid or transaction ID of the oracle.
-```
-
-Response from Step 2:
-
-<collapse-text hidden title="Response">
-
-```bash
-ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192
-```
-
-</collapse-text>
-
-(Use `./komodo-cli -ac_name=HELLOWORLD getrawmempool` to ensure that the transaction receives confirmation.)
-
-Step 3: Decode raw transaction (optional to check if the values are sane)
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000
-```
-
-Response from Step 3:
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "txid": "ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192",
-  "overwintered": true,
-  "version": 4,
-  "versiongroupid": "892f2085",
-  "locktime": 0,
-  "expiryheight": 1974,
-  "vin": [
-    {
-      "txid": "0e51062adc807c118451622957812428562a7487fa6325c484cacdf145948324",
-      "vout": 0,
-      "scriptSig": {
-        "asm": "3045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be7[ALL]",
-        "hex": "483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701"
-      },
-      "sequence": 4294967295
-    }
-  ],
-  "vout": [
-    {
-      "value": 0.0001,
-      "valueZat": 10000,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "a22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401 OP_CHECKCRYPTOCONDITION",
-        "hex": "2ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cc",
-        "reqSigs": 1,
-        "type": "cryptocondition",
-        "addresses": ["RUeZzWCuwGxJTtSDGfRFWL87oyrLWZav6Z"]
-      }
-    },
-    {
-      "value": 99.9998,
-      "valueZat": 9999980000,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "02c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5 OP_CHECKSIG",
-        "hex": "2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac",
-        "reqSigs": 1,
-        "type": "pubkey",
-        "addresses": ["RFkogpvKojbChm9hMDdv2KUBasUmFNraqg"]
-      }
-    },
-    {
-      "value": 0.0,
-      "valueZat": 0,
-      "n": 2,
-      "scriptPubKey": {
-        "asm": "OP_RETURN ec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000",
-        "hex": "6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000",
-        "type": "nulldata"
-      }
-    }
-  ],
-  "vjoinsplit": [],
-  "valueBalance": 0.0,
-  "vShieldedSpend": [],
-  "vShieldedOutput": []
 }
 ```
 
@@ -599,6 +532,135 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 </collapse-text>
 
+## oraclesfund
+
+**oraclesfund oracletxid**
+
+The `oraclesfund` method allows a user to register as a publisher on an oracle.
+
+This method must be executed before the user attempts to use the <b>oraclesregister</b> method.
+
+### Arguments:
+
+| Structure  | Type     | Description                                         |
+| ---------- | -------- | --------------------------------------------------- |
+| oracletxid | (string) | the unique identifying transaction id of the oracle |
+
+#### :pushpin: Examples
+
+Step 1: Create a customized oracle contract and get the hex value
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD oraclesfund 7b6e7745058ffded423546eecc61dcc05069279b90776384c52692765246b64c
+```
+
+Response from Step 1:
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "hex": "0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000"
+}
+```
+
+</collapse-text>
+
+Step 2: Send raw transaction / broadcast the hex value
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000
+
+# This will output an unique txid which will be refered as oracletxid or transaction ID of the oracle.
+```
+
+Response from Step 2:
+
+<collapse-text hidden title="Response">
+
+```bash
+ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192
+```
+
+</collapse-text>
+
+(Use `./komodo-cli -ac_name=HELLOWORLD getrawmempool` to ensure that the transaction receives confirmation.)
+
+Step 3: Decode raw transaction (optional to check if the values are sane)
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000
+```
+
+Response from Step 3:
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "txid": "ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192",
+  "overwintered": true,
+  "version": 4,
+  "versiongroupid": "892f2085",
+  "locktime": 0,
+  "expiryheight": 1974,
+  "vin": [
+    {
+      "txid": "0e51062adc807c118451622957812428562a7487fa6325c484cacdf145948324",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "3045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be7[ALL]",
+        "hex": "483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701"
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.0001,
+      "valueZat": 10000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "a22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401 OP_CHECKCRYPTOCONDITION",
+        "hex": "2ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cc",
+        "reqSigs": 1,
+        "type": "cryptocondition",
+        "addresses": ["RUeZzWCuwGxJTtSDGfRFWL87oyrLWZav6Z"]
+      }
+    },
+    {
+      "value": 99.9998,
+      "valueZat": 9999980000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "02c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5 OP_CHECKSIG",
+        "hex": "2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": ["RFkogpvKojbChm9hMDdv2KUBasUmFNraqg"]
+      }
+    },
+    {
+      "value": 0.0,
+      "valueZat": 0,
+      "n": 2,
+      "scriptPubKey": {
+        "asm": "OP_RETURN ec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000",
+        "hex": "6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000",
+        "type": "nulldata"
+      }
+    }
+  ],
+  "vjoinsplit": [],
+  "valueBalance": 0.0,
+  "vShieldedSpend": [],
+  "vShieldedOutput": []
+}
+```
+
+</collapse-text>
+
 ## oraclesinfo
 
 **oraclesinfo oracletxid**
@@ -660,68 +722,6 @@ Command:
     }
   ]
 }
-```
-
-</collapse-text>
-
-## oraclelist
-
-**oracleslist**
-
-The `oraclelist` method lists all available oracle contracts on the Smart Chain.
-
-### Arguments
-
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
-
-### Response
-
-| Name       | Type               | Description                          |
-| ---------- | ------------------ | ------------------------------------ |
-| oracletxid | (array of strings) | the unique identifying oracletxid(s) |
-
-#### :pushpin: Examples
-
-Command:
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD oracleslist
-```
-
-<collapse-text hidden title="Response">
-
-```bash
-[
-    "66fa795f43534e4d6b038c172172a7c46a3cf37b1628e075e38e94a20cfeae5a",
-    "79d02351968e6616f3044cb14523d8d2cbdbd1a8b7b75bd14b1aa80ad41a5845",
-    "665b893bdb801f77fd6620969371f8fc391df568150f0a671c1c23e67a0cf039",
-    "0fa3c6e12ee4be636f44ce4b2af3b0f213d0403dc46cd42add07816526dd46b2",
-    "b24a00e2a895baad4c0246ba5b3d36790b43cc0fb5a4c4ea98161299165a8c96",
-    "8790ee741042eedce012a46483143e277851754300da7b7171ce46d63d51b3d3",
-    "1ba8f3f9e98cbb41af8cb0bf3a6c1953ea5a89bd44455b8e9078f2216e9ed0fc",
-    "2353e77dd3ad18bed4ea053055234424ba7c05fb04f97a323859d0445b64ad33",
-    "a594a239f29d0df2f27eda05186ac7fdb26302f8268106a04edfde0c1a03b5e8",
-    "4dfd22a3a56b274054cc651c70dc0b35778a3eb12ba025598f4510669b8e88c8",
-    "0ae8cf1b008f7c652c1e85aa45832aac8dc62cfd8d73105800f4e3603d4cc15f",
-    "7eaa75392e3b634ebf9eb4a67455dedeb503cdd235c932ec49559906394d89c5",
-    "59e44ee58435f01dbbadd1ac54f7e6d5e1323c52561e3ab656555b099886217f",
-    "e953e88d3f1713aed28510d9bff85e3a09cc96107f1122f1f244273ab1196ca6",
-    "128e6c6fa4cde1be654da5f006caf341415e0d19300f7c33578d7f5242bdf033",
-    "104f701ccd6cd78b347d68a461bc45031e56cbdbdd895662e3fbc48c8335feb0",
-    "161bdf47cc246a4b725676c4c3d08a685ccca8edba11edfbd9c90205bc555212",
-    "4a32675232ff020c0ef868ff167ae17754823899bee7b5e96fac210c7030573f",
-    "57600b613c7355e768323c7197910ca45ed713b14ed4fdf01a5181bfa1d55753",
-    "9755eede3831f003bc1425bdfa9f7f889befd6b8ce7028b17f50c30b0d8088d1",
-    "8ed3b092677aec71169a7a11fdfbfe0a855e8120af0ae1ea2d97eb7cfd29835e",
-    "03d9e6b199173935c57ebffee93fa1ac91b809e268f50610f31fa14253f7f7bc",
-    "0803edf92f40541cf988c2ca1e0bfee6902a5ccf60bbf90bed51cff8a4f91489",
-    "482be3ce8bf8607bd501a5aed3018770420a9f6dc48ee21fe423b09d5fe19f16",
-    "65fe29870b7ea766365b7c55881f4246ab8d84cba865f3bffa9c1f1e92f97113",
-    "8a0810bba8fdf8e0fe20d07ea618bc4810657d1b5aafdc7362b67be1aebf1cf3",
-    "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203"
-]
 ```
 
 </collapse-text>
@@ -1060,3 +1060,5 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 ```
 
 </collapse-text>
+
+

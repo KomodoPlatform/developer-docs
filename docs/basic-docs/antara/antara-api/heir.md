@@ -25,15 +25,328 @@ The Heir Fluidity module accepts both coins and tokens. These can be the base co
 - To retrieve a list of all funding plans on the asset chain, use [heirlist](../customconsensus/heir.html#heirlist)
 - To output Heir Fluidity addresses, use [heiraddress](../customconsensus/heir.html#heiraddress)
 
-<!--The image below needs to be adjusted via @808 before it can be added to the live site:
+<div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-![sequence diagram of this Fluidity](/heirCC-with-labels.png)
+<img style="border: 1rem solid white;" src="/heirCC-with-labels.png">
 
--->
+</div>
 
 ::: warning
+
 If an owner of an Heir Fluidity address seeking to add funds to their account avoids the normal methods (the RPC provided) and instead manually creates a utxo contribution, this utxo will not follow the normal patterns. Specifically, if the owner manually creates a contribution utxo that derives from both the owner pubkey and also from another pubkey, this utxo will not affect the `inactivitytime` calculation. Instead of resetting the `inactivitytime`, the utxo will count only as a donation.
+
 :::
+
+## heiradd
+
+**heiradd txfee amount fundingtxid**
+
+The `heiradd` method adds more funds to the Heir plan.
+
+When the owner uses the `heiradd` method the `inactivitytime` calculations are reset, thus renewing the owner's sole access to the funds.
+
+When anyone other than the owner uses the `heiradd` method to add funds, these funds are considered to be donations and won't affect the calculation of the elapsed `inactivitytime`. The method also sends a warning to the contributor to ensure they agree to submit the given funds as a donation.
+
+For each transaction using `heiradd`, the funds may be sent either from the owner's pubkey, or from a non-owner's pubkey. Funds cannot be sent from both owner and non-owner pubkeys at the same time. This can cause confusion for the owner if the funds available in their wallet are held partially in the owner's declared pubkey for this Heir account, and partially in other pubkeys. Therefore, the owner should ensure that all funds they desire to add to the account are within their declared Heir Fluidity pubkey before attempting to use `heiradd`.
+
+::: tip
+Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
+:::
+
+### Arguments
+
+| Name | Type | Description |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
+| amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
+| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction                                                                              |
+
+### Response
+
+| Name | Type | Description |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result:   | (string) | whether the command succeeded                                                                        |
+| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+
+#### :pushpin: Examples
+
+##### Step 1: Create a raw transaction (in coins) and get the HEX value
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD heiradd 0 5 b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```json
+{
+  "result": "success",
+  "hex": "0400008085202f8902f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80200000049483045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a01fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80300000049483045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d01ffffffff050065cd1d00000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc1027000000000000232102f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8ace0303e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eace0144a8a040000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000620000000000000000000000000000"
+}
+```
+
+</collapse-text>
+
+
+##### Step 2: Broadcast raw transaction
+
+```bash
+ ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f8902f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80200000049483045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a01fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80300000049483045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d01ffffffff050065cd1d00000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc1027000000000000232102f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8ace0303e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eace0144a8a040000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000620000000000000000000000000000
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```bash
+e7b8f58539e2554a51d8438e5e58b0a12896f076e2a2850a503f372e402521b
+```
+
+</collapse-text>
+
+
+##### Step 3: Decode raw transaction to ensure values are sane (optional)
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 0400008085202f8902f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80200000049483045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a01fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80300000049483045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d01ffffffff050065cd1d00000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc1027000000000000232102f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8ace0303e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eace0144a8a040000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000620000000000000000000000000000
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```json
+{
+  "txid": "e7b8f58539e2554a51d8438e5e58b0a12896f076e2a2850a503f372e402521b3",
+  "overwintered": true,
+  "version": 4,
+  "versiongroupid": "892f2085",
+  "locktime": 0,
+  "expiryheight": 98,
+  "vin": [
+    {
+      "txid": "b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0",
+      "vout": 2,
+      "scriptSig": {
+        "asm": "3045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a[ALL]",
+        "hex": "483045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a01"
+      },
+      "sequence": 4294967295
+    },
+    {
+      "txid": "b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0",
+      "vout": 3,
+      "scriptSig": {
+        "asm": "3045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d[ALL]",
+        "hex": "483045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d01"
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 5.0,
+      "valueZat": 500000000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "a22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401 OP_CHECKCRYPTOCONDITION",
+        "hex": "2ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc",
+        "reqSigs": 1,
+        "type": "cryptocondition",
+        "addresses": ["RL4bWeVxLen2np68Uxp7eNHRVqquwzSPHV"]
+      }
+    },
+    {
+      "value": 0.0001,
+      "valueZat": 10000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "02f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8 OP_CHECKSIG",
+        "hex": "2102f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8ac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": ["RDyrGQzYgjS9urojBjcSMPaecHpLQiLruB"]
+      }
+    },
+    {
+      "value": 94.9998,
+      "valueZat": 9499980000,
+      "n": 2,
+      "scriptPubKey": {
+        "asm": "036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e OP_CHECKSIG",
+        "hex": "21036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": ["REXP3kgaa5wbio76aqnTJDb8CQJHBiZy2b"]
+      }
+    },
+    {
+      "value": 194.9998,
+      "valueZat": 19499980000,
+      "n": 3,
+      "scriptPubKey": {
+        "asm": "036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e OP_CHECKSIG",
+        "hex": "21036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": ["REXP3kgaa5wbio76aqnTJDb8CQJHBiZy2b"]
+      }
+    },
+    {
+      "value": 0.0,
+      "valueZat": 0,
+      "n": 4,
+      "scriptPubKey": {
+        "asm": "OP_RETURN ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f000",
+        "hex": "6a23ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f000",
+        "type": "nulldata"
+      }
+    }
+  ],
+  "vjoinsplit": [],
+  "valueBalance": 0.0,
+  "vShieldedSpend": [],
+  "vShieldedOutput": []
+}
+```
+
+</collapse-text>
+
+
+## heiraddress
+
+**heiraddress pubkey**
+
+The `heiraddress` method shows the owner's addresses and balances for the Heir plan.
+
+::: warning
+
+- The functionality of this method is only applicable when executed on a daemon that was launched using the pubkey of the owner of the relevant Heir plan. For all other daemons, the method is available, but has no functional purpose.
+- The argument of this method is the **heir's** pubkey.
+
+:::
+
+### Arguments
+
+| Name | Type | Description |
+| --------- | -------- | ---------------------------------- |
+| pubkey    | (string) | the heir's pubkey (in hexademical) |
+
+### Response
+
+| Name | Type | Description |
+| ------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                    | (string) | whether the method executed successfully                                                                                                                                                                                                                                                                                                                         |
+| HeirCCaddress             | (string) | taking the module's EVAL code as a modifier, this is the public address that corresponds to the module's privkey                                                                                                                                                                                                                                             |
+| CCbalance                 | (number) | the unspent amount in the HeirCCaddress                                                                                                                                                                                                                                                                                                                          |
+| HeirNormalAddress         | (string) | the unmodified normal public address generated from the module's privkey, used for markers                                                                                                                                                                                                                                                                     |
+| HeirCC`1of2`Address       | (string) | the address for storing funds in **coins** spendable by either the owner or the heir (funds address)                                                                                                                                                                                                                                                             |
+| HeirCC`1of2`TokensAddress | (string) | the address for storing funds in **tokens** spendable by either the owner or the heir (token funds address)                                                                                                                                                                                                                                                      |
+| myCCaddress(Heir)         | (string) | taking the module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the **heir**                                                                                                                                                                                                                                                            |
+| myaddress                 | (string) | the unmodified normal public address of the pubkey [used to launch the daemon.](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey) This is the normal address used to withdraw funds in coins from from HeirCC`1of2`Address. This property is applicable to any user who wants to use the Heir plan (owner or heir) |
+| mybalance                 | (number) | the balance of myaddress in coins                                                                                                                                                                                                                                                                                                                                |
+| MyTokenAddress            | (string) | the user's address to withdraw funds in tokens from HeirCC`1of2`TokensAddress (in development)                                                                                                                                                                                                                                                                   |
+
+#### :pushpin: Example
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD heiraddress 036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```json
+{
+  "result": "success",
+  "HeirCCAddress": "RDVHcSekmXgeYBqRupNTmqo3Rn8QRXNduy",
+  "CCbalance": 0.0001,
+  "HeirNormalAddress": "RTPwUjKYECcGn6Y4KYChLhgaht1RSU4jwf",
+  "HeirCC`1of2`Address": "RCiaNQq9yVb5biyEy8xWrAJCjjvQ9oW8rn",
+  "HeirCC`1of2`TokensAddress": "RGKHD8UaTU2avj6LdmuSgpuaukk6XY4fss",
+  "myAddress": "REXP3kgaa5wbio76aqnTJDb8CQJHBiZy2b",
+  "myCCAddress(Heir)": "RTF9g6SRzbgZXTT7arGZrmTeNKuLoGYyZA",
+  "PubkeyCCaddress(Heir)": "RTF9g6SRzbgZXTT7arGZrmTeNKuLoGYyZA",
+  "myCCaddress": "RTF9g6SRzbgZXTT7arGZrmTeNKuLoGYyZA",
+  "myCCbalance": 0.0,
+  "myaddress": "REXP3kgaa5wbio76aqnTJDb8CQJHBiZy2b",
+  "mybalance": 296.9995
+}
+```
+
+</collapse-text>
+
+
+## heirclaim
+
+**heirclaim txfee amount fundingtxid**
+
+The `heirclaim` method allows the owner to claim funds from the plan.
+
+After the `inactivitytime` period has elapsed, the `heirclaim` method also allows the heir to claim funds.
+
+::: tip
+Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
+:::
+
+### Arguments
+
+| Name | Type | Description |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
+| amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
+| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction                                                                              |
+
+### Response
+
+| Name | Type | Description |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result:   | (string) | whether the command succeeded                                                                        |
+| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+
+#### :pushpin: Examples
+
+##### Step 1 Create a raw transaction (in coins) and get the HEX value
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD heirclaim 0 7 b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```json
+{
+  "result": "success",
+  "hex": "0400008085202f8903b32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e70200000049483045022100f3805c1424472626ee89e2f4c5ab4f7c310d37774604eb97860200d1dfb120d102202a0ffcc6e5c1f8893dde1ab3a67eafa554ac1af17dce14cf0580a55f5b9fdc6e01ffffffffb32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e700000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e81404827886fbbd2c8d3337dabfa69e69e5af03151a00fa1c7d3b6f33b68e36974f2228bf0aac209eaa55d16e8c2cdcb9c3993590e47c3e524a29a223db7042b7fa1a129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b800000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e8140bb6e5c5c6b1e3a97d99e5dd1cf8e30942069260f8a482f7004d7638b4f5a53dd4d592d4a1d099cc7c0d6b79fcaeec262606d38c56abd7d13cea0753e73a3985aa129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001ffffffff040027b929000000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac00a3e11100000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401ccd0093e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea43b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000680000000000000000000000000000"
+}
+```
+
+</collapse-text>
+
+
+##### Step 2: Broadcast raw transaction
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction  0400008085202f8903b32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e70200000049483045022100f3805c1424472626ee89e2f4c5ab4f7c310d37774604eb97860200d1dfb120d102202a0ffcc6e5c1f8893dde1ab3a67eafa554ac1af17dce14cf0580a55f5b9fdc6e01ffffffffb32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e700000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e81404827886fbbd2c8d3337dabfa69e69e5af03151a00fa1c7d3b6f33b68e36974f2228bf0aac209eaa55d16e8c2cdcb9c3993590e47c3e524a29a223db7042b7fa1a129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b800000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e8140bb6e5c5c6b1e3a97d99e5dd1cf8e30942069260f8a482f7004d7638b4f5a53dd4d592d4a1d099cc7c0d6b79fcaeec262606d38c56abd7d13cea0753e73a3985aa129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001ffffffff040027b929000000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac00a3e11100000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401ccd0093e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea43b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000680000000000000000000000000000
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```bash
+f0f7f536a261ee8e02fb592d81305b6052939a510e3e3435280b0bad454626c7
+```
+
+</collapse-text>
+
 
 ## heirfund
 
@@ -45,7 +358,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | -------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | txfee          | (number)           | the transaction fee in satoshis, defaults to 10000 satoshis when set to `0`                                                                      |
 | amount         | (number)           | the initial funding amount, in coins or tokens (this parameter is considered to be the amount of tokens if the (tokenid) parameter is present)   |
@@ -64,7 +377,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Response
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -224,250 +537,6 @@ Wait until the transaction is confirmed.
 </collapse-text>
 
 
-## heiradd
-
-**heiradd txfee amount fundingtxid**
-
-The `heiradd` method adds more funds to the Heir plan.
-
-When the owner uses the `heiradd` method the `inactivitytime` calculations are reset, thus renewing the owner's sole access to the funds.
-
-When anyone other than the owner uses the `heiradd` method to add funds, these funds are considered to be donations and won't affect the calculation of the elapsed `inactivitytime`. The method also sends a warning to the contributor to ensure they agree to submit the given funds as a donation.
-
-For each transaction using `heiradd`, the funds may be sent either from the owner's pubkey, or from a non-owner's pubkey. Funds cannot be sent from both owner and non-owner pubkeys at the same time. This can cause confusion for the owner if the funds available in their wallet are held partially in the owner's declared pubkey for this Heir account, and partially in other pubkeys. Therefore, the owner should ensure that all funds they desire to add to the account are within their declared Heir Fluidity pubkey before attempting to use `heiradd`.
-
-::: tip
-Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
-:::
-
-### Arguments
-
-| Name | Type | Description | 
-| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
-| amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
-| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction                                                                              |
-
-### Response
-
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
-
-#### :pushpin: Examples
-
-##### Step 1: Create a raw transaction (in coins) and get the HEX value
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD heiradd 0 5 b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```json
-{
-  "result": "success",
-  "hex": "0400008085202f8902f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80200000049483045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a01fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80300000049483045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d01ffffffff050065cd1d00000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc1027000000000000232102f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8ace0303e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eace0144a8a040000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000620000000000000000000000000000"
-}
-```
-
-</collapse-text>
-
-
-##### Step 2: Broadcast raw transaction
-
-```bash
- ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f8902f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80200000049483045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a01fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80300000049483045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d01ffffffff050065cd1d00000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc1027000000000000232102f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8ace0303e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eace0144a8a040000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000620000000000000000000000000000
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```bash
-e7b8f58539e2554a51d8438e5e58b0a12896f076e2a2850a503f372e402521b
-```
-
-</collapse-text>
-
-
-##### Step 3: Decode raw transaction to ensure values are sane (optional)
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 0400008085202f8902f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80200000049483045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a01fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b80300000049483045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d01ffffffff050065cd1d00000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc1027000000000000232102f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8ace0303e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eace0144a8a040000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000620000000000000000000000000000
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```json
-{
-  "txid": "e7b8f58539e2554a51d8438e5e58b0a12896f076e2a2850a503f372e402521b3",
-  "overwintered": true,
-  "version": 4,
-  "versiongroupid": "892f2085",
-  "locktime": 0,
-  "expiryheight": 98,
-  "vin": [
-    {
-      "txid": "b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0",
-      "vout": 2,
-      "scriptSig": {
-        "asm": "3045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a[ALL]",
-        "hex": "483045022100a37d7b5929af0928f1dad10ddd686a8e2e47503c96ba5485e982c72d6fb3dfb00220304b039011774652f89eb3e7b6bf187e441ed4a82339623d5d8f058816e2f43a01"
-      },
-      "sequence": 4294967295
-    },
-    {
-      "txid": "b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0",
-      "vout": 3,
-      "scriptSig": {
-        "asm": "3045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d[ALL]",
-        "hex": "483045022100c9297262cc12d300ef068d4de7a3d8e6006b87002e4c7a5c8b262be8d87da86102203f73e991704ef492ae57550a3c3cbb57494299d5ef2b3b64b6d88a1fff36a19d01"
-      },
-      "sequence": 4294967295
-    }
-  ],
-  "vout": [
-    {
-      "value": 5.0,
-      "valueZat": 500000000,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "a22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401 OP_CHECKCRYPTOCONDITION",
-        "hex": "2ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401cc",
-        "reqSigs": 1,
-        "type": "cryptocondition",
-        "addresses": ["RL4bWeVxLen2np68Uxp7eNHRVqquwzSPHV"]
-      }
-    },
-    {
-      "value": 0.0001,
-      "valueZat": 10000,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "02f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8 OP_CHECKSIG",
-        "hex": "2102f0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b8ac",
-        "reqSigs": 1,
-        "type": "pubkey",
-        "addresses": ["RDyrGQzYgjS9urojBjcSMPaecHpLQiLruB"]
-      }
-    },
-    {
-      "value": 94.9998,
-      "valueZat": 9499980000,
-      "n": 2,
-      "scriptPubKey": {
-        "asm": "036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e OP_CHECKSIG",
-        "hex": "21036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac",
-        "reqSigs": 1,
-        "type": "pubkey",
-        "addresses": ["REXP3kgaa5wbio76aqnTJDb8CQJHBiZy2b"]
-      }
-    },
-    {
-      "value": 194.9998,
-      "valueZat": 19499980000,
-      "n": 3,
-      "scriptPubKey": {
-        "asm": "036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e OP_CHECKSIG",
-        "hex": "21036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac",
-        "reqSigs": 1,
-        "type": "pubkey",
-        "addresses": ["REXP3kgaa5wbio76aqnTJDb8CQJHBiZy2b"]
-      }
-    },
-    {
-      "value": 0.0,
-      "valueZat": 0,
-      "n": 4,
-      "scriptPubKey": {
-        "asm": "OP_RETURN ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f000",
-        "hex": "6a23ea41b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f000",
-        "type": "nulldata"
-      }
-    }
-  ],
-  "vjoinsplit": [],
-  "valueBalance": 0.0,
-  "vShieldedSpend": [],
-  "vShieldedOutput": []
-}
-```
-
-</collapse-text>
-
-
-## heirclaim
-
-**heirclaim txfee amount fundingtxid**
-
-The `heirclaim` method allows the owner to claim funds from the plan.
-
-After the `inactivitytime` period has elapsed, the `heirclaim` method also allows the heir to claim funds.
-
-::: tip
-Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
-:::
-
-### Arguments
-
-| Name | Type | Description | 
-| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
-| amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
-| fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction                                                                              |
-
-### Response
-
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
-
-#### :pushpin: Examples
-
-##### Step 1 Create a raw transaction (in coins) and get the HEX value
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD heirclaim 0 7 b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f0
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```json
-{
-  "result": "success",
-  "hex": "0400008085202f8903b32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e70200000049483045022100f3805c1424472626ee89e2f4c5ab4f7c310d37774604eb97860200d1dfb120d102202a0ffcc6e5c1f8893dde1ab3a67eafa554ac1af17dce14cf0580a55f5b9fdc6e01ffffffffb32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e700000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e81404827886fbbd2c8d3337dabfa69e69e5af03151a00fa1c7d3b6f33b68e36974f2228bf0aac209eaa55d16e8c2cdcb9c3993590e47c3e524a29a223db7042b7fa1a129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b800000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e8140bb6e5c5c6b1e3a97d99e5dd1cf8e30942069260f8a482f7004d7638b4f5a53dd4d592d4a1d099cc7c0d6b79fcaeec262606d38c56abd7d13cea0753e73a3985aa129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001ffffffff040027b929000000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac00a3e11100000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401ccd0093e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea43b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000680000000000000000000000000000"
-}
-```
-
-</collapse-text>
-
-
-##### Step 2: Broadcast raw transaction
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction  0400008085202f8903b32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e70200000049483045022100f3805c1424472626ee89e2f4c5ab4f7c310d37774604eb97860200d1dfb120d102202a0ffcc6e5c1f8893dde1ab3a67eafa554ac1af17dce14cf0580a55f5b9fdc6e01ffffffffb32125402e373f500a85a2e276f09628a1b0585e8e43d8514a55e23985f5b8e700000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e81404827886fbbd2c8d3337dabfa69e69e5af03151a00fa1c7d3b6f33b68e36974f2228bf0aac209eaa55d16e8c2cdcb9c3993590e47c3e524a29a223db7042b7fa1a129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001fffffffff0e19c37f7b97f00041baf06404980ddfeaade5aebbab3ba8f5445b546fab5b800000000a74ca5a281a1a0819ca28194a067a5658021036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e8140bb6e5c5c6b1e3a97d99e5dd1cf8e30942069260f8a482f7004d7638b4f5a53dd4d592d4a1d099cc7c0d6b79fcaeec262606d38c56abd7d13cea0753e73a3985aa129a52780201011d4a0870dff12319f1b00e9a537fb9ddda81d2bba8b0d492cc6b4e9f7b1c98103020000af038001eaa10001ffffffff040027b929000000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac00a3e11100000000302ea22c8020fa433cc47b98f7d1eed7441a529eaa6a91425abdda9b28306a9f19e5fda64ab481031210008203000401ccd0093e36020000002321036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562eac0000000000000000256a23ea43b8b5fa46b545548fbab3baeb5adeaafedd80494006af1b04007fb9f7379ce1f00000000000680000000000000000000000000000
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```bash
-f0f7f536a261ee8e02fb592d81305b6052939a510e3e3435280b0bad454626c7
-```
-
-</collapse-text>
-
-
 ## heirinfo
 
 **heirinfo fundingtxid**
@@ -480,13 +549,13 @@ Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find 
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | ----------- | -------- | --------------------------------------------------------------------------------------------------------------- |
 | fundingtxid | (string) | the transaction id returned from the original [heirfund](../customconsensus/heir.html#heirfund) transaction |
 
 ### Response
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | --------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | fundingtxid           | (string)  | the id of the funding plan, the txid of [heirfund](../customconsensus/heir.html#heirfund) transaction                              |
 | name                  | (string)  | the name of the heir plan                                                                                                              |
@@ -540,13 +609,13 @@ The `heirlist` method outputs a list of all available `fundingtxid`'s on the ass
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | --------- | ---- | ----------- |
 | (none)    | ---- | ----        |
 
 ### Response
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | ----------- | ------------------ | ---------------------------------------------------------- |
 | fundingtxid | (array of strings) | an array containing all `fundingtxid`'s on the asset chain |
 
@@ -569,69 +638,4 @@ The `heirlist` method outputs a list of all available `fundingtxid`'s on the ass
 </collapse-text>
 
 
-## heiraddress
-
-**heiraddress pubkey**
-
-The `heiraddress` method shows the owner's addresses and balances for the Heir plan.
-
-::: warning
-
-- The functionality of this method is only applicable when executed on a daemon that was launched using the pubkey of the owner of the relevant Heir plan. For all other daemons, the method is available, but has no functional purpose.
-- The argument of this method is the **heir's** pubkey.
-
-:::
-
-### Arguments
-
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------- |
-| pubkey    | (string) | the heir's pubkey (in hexademical) |
-
-### Response
-
-| Name | Type | Description | 
-| ------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                    | (string) | whether the method executed successfully                                                                                                                                                                                                                                                                                                                         |
-| HeirCCaddress             | (string) | taking the module's EVAL code as a modifier, this is the public address that corresponds to the module's privkey                                                                                                                                                                                                                                             |
-| CCbalance                 | (number) | the unspent amount in the HeirCCaddress                                                                                                                                                                                                                                                                                                                          |
-| HeirNormalAddress         | (string) | the unmodified normal public address generated from the module's privkey, used for markers                                                                                                                                                                                                                                                                     |
-| HeirCC`1of2`Address       | (string) | the address for storing funds in **coins** spendable by either the owner or the heir (funds address)                                                                                                                                                                                                                                                             |
-| HeirCC`1of2`TokensAddress | (string) | the address for storing funds in **tokens** spendable by either the owner or the heir (token funds address)                                                                                                                                                                                                                                                      |
-| myCCaddress(Heir)         | (string) | taking the module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the **heir**                                                                                                                                                                                                                                                            |
-| myaddress                 | (string) | the unmodified normal public address of the pubkey [used to launch the daemon.](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey) This is the normal address used to withdraw funds in coins from from HeirCC`1of2`Address. This property is applicable to any user who wants to use the Heir plan (owner or heir) |
-| mybalance                 | (number) | the balance of myaddress in coins                                                                                                                                                                                                                                                                                                                                |
-| MyTokenAddress            | (string) | the user's address to withdraw funds in tokens from HeirCC`1of2`TokensAddress (in development)                                                                                                                                                                                                                                                                   |
-
-#### :pushpin: Example
-
-Command:
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD heiraddress 036a2ec9095b7c2abb748548e6cec53e0c462121aa6037fd83a01ce1b2affa562e
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```json
-{
-  "result": "success",
-  "HeirCCAddress": "RDVHcSekmXgeYBqRupNTmqo3Rn8QRXNduy",
-  "CCbalance": 0.0001,
-  "HeirNormalAddress": "RTPwUjKYECcGn6Y4KYChLhgaht1RSU4jwf",
-  "HeirCC`1of2`Address": "RCiaNQq9yVb5biyEy8xWrAJCjjvQ9oW8rn",
-  "HeirCC`1of2`TokensAddress": "RGKHD8UaTU2avj6LdmuSgpuaukk6XY4fss",
-  "myAddress": "REXP3kgaa5wbio76aqnTJDb8CQJHBiZy2b",
-  "myCCAddress(Heir)": "RTF9g6SRzbgZXTT7arGZrmTeNKuLoGYyZA",
-  "PubkeyCCaddress(Heir)": "RTF9g6SRzbgZXTT7arGZrmTeNKuLoGYyZA",
-  "myCCaddress": "RTF9g6SRzbgZXTT7arGZrmTeNKuLoGYyZA",
-  "myCCbalance": 0.0,
-  "myaddress": "REXP3kgaa5wbio76aqnTJDb8CQJHBiZy2b",
-  "mybalance": 296.9995
-}
-```
-
-</collapse-text>
 

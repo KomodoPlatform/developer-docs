@@ -40,6 +40,6 @@ For a walkthrough covering multiple tutorials in a targeted fashion, please see 
 
 The Smart Chain API section contains all available API commands for a default Smart Chain daemon.
 
-These API commands can also be called Remote Procedure Calls, or RPCs. However, we avoid this term in the technical documentation for readability purposes.
+These API commands can also be called Remote Procedure Calls, or RPCs. 
 
 The API section does not include commands that are unique to Antara modules, as Antara modules are not active by default on a Smart Chain daemon. Please see the Antara section for further information.

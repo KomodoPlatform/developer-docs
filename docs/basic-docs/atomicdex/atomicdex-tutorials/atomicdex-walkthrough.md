@@ -8,12 +8,12 @@ Let's open up the terminal and get started.
 
 ## Setting Up the Coin List 
 
-In the Komodo ecosystem we use two blockchain coins, BEER and PIZZA, for testing purposes. These coins are freely distributed and have no blockchain scarcity, so you don't want to treat these coins as real currency. Also, if you lose them or destroy them, there's no need to stress. You can always grab more from our faucet. 
+In the Komodo ecosystem we use two blockchain coins, RICK and MORTY, for testing purposes. These coins are freely distributed and have no blockchain scarcity, so you don't want to treat these coins as real currency. Also, if you lose them or destroy them, there's no need to stress. You can always grab more from our faucet. 
 
 Let's set up a file in the `~/KomodoPlatform/target/debug` directory to import the settings for these test coins. Make a file called `coins` and place the following text into it:
 
 ```
-[{"coin": "PIZZA","asset": "PIZZA","txversion":4,"rpcport": 11608,"mm2":1},{"coin": "BEER","txversion":4,"asset": "BEER","rpcport": 8923,"mm2":1}]
+[{"coin":"RICK","asset":"RICK","fname":"RICK (TESTCOIN)","rpcport":28223,"mm2":1},{"coin":"MORTY","asset":"MORTY","fname":"MORTY (TESTCOIN)","rpcport":63812,"mm2":1}]
 ```
 
 Save this file. MM2 will search for it automatically on launch.
@@ -124,32 +124,32 @@ We'll tell MM2 that we're ready to activate these coins now.
 Execute the following command:
 
 ```
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"BEER\",\"urls\":[\"electrum1.cipig.net:10022\",\"electrum2.cipig.net:10022\",\"electrum3.cipig.net:10022\"]}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"RICK\",\"servers\":[{\"url\":\"electrum1.cipig.net:10017\"},{\"url\":\"electrum2.cipig.net:10017\"},{\"url\":\"electrum3.cipig.net:10017\"}]}"
 ```
 
 You should get a similar response:
 
 ```
-{"address":"RLgAgBFHFbG2ma9MDTHyKL5vovftMepBkE","balance":16.95595733,"result":"success"}
+{"address":"RLgAgBFHFbG2ma9MDTHyKL5vovftMepBkE","coin":"RICK",balance":16.95595733,"result":"success"}
 ```
 
-You are now connected to the BEER test-blockchain network.
+You are now connected to the RICK test-blockchain network.
 
-Let's connect to PIZZA.
+Let's connect to MORTY (note it uses a different Electrum port).
 
 ```
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"PIZZA\",\"urls\":[\"electrum1.cipig.net:10024\",\"electrum2.cipig.net:10024\",\"electrum3.cipig.net:10024\"]}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"MORTY\",\"servers\":[{\"url\":\"electrum1.cipig.net:10018\"},{\"url\":\"electrum2.cipig.net:10018\"},{\"url\":\"electrum3.cipig.net:10018\"}]}"
 ```
 
 You should get a similar response:
 
 ```
-{"address":"RLgAgBFHFbG2ma9MDTHyKL5vovftMepBkE","balance":11.27710708,"result":"success"}
+{"address":"RLgAgBFHFbG2ma9MDTHyKL5vovftMepBkE","coin":"MORTY","balance":11.27710708,"result":"success"}
 ```
 
-You are now connected to the PIZZA test-blockchain network.
+You are now connected to the MORTY test-blockchain network.
 
-## Get PIZZA From a Faucet
+## Get MORTY From a Faucet
 
 Note that in the examples the address, `RLgAgBFHFbG2ma9MDTHyKL5vovftMepBkE`, is present in both returned responses.
 
@@ -159,29 +159,29 @@ This address is unique to you and you will use it for our trades here.
 
 We don't recommend placing anything valuable in this address for now, as MM2 is still in testing.
 
-On the other hand, BEER and PIZZA have no real value, so you can place as much in here as you like!
+On the other hand, RICK and MORTY have no real value, so you can place as much in here as you like!
 
-Let's retrieve some PIZZA.
+Let's retrieve some MORTY.
 
-[Click on this link](https://www.atomicexplorer.com/#/faucet/pizza) and you should see an address input box. 
+[Click on this link](https://www.atomicexplorer.com/#/faucet/morty) and you should see an address input box. 
 
 Place your address in there, fill out the reCaptcha to prove you're a human, and hit `OK`.
 
-In a minute or so a few PIZZA coins will arrive in your address. 
+In a minute or so a few MORTY coins will arrive in your address. 
 
 You can check by executing this command:
 
 ```
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_balance\",\"coin\":\"PIZZA\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_balance\",\"coin\":\"MORTY\"}"
 ```
 
 You should see a similar response:
 
 ```
-{"address":"RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ","balance":77.7,"coin":"PIZZA"}
+{"address":"RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ","balance":77.7,"coin":"MORTY"}
 ```
 
-You now have PIZZA.
+You now have MORTY.
 
 ## Observing the Orderbook
 
@@ -190,15 +190,15 @@ MarketMaker 2.0 uses a decentralized orderbook to allow users to buy and sell fr
 To see the orderbook's current state, execute the following command:
 
 ```
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"orderbook\",\"base\":\"BEER\",\"rel\":\"PIZZA\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"orderbook\",\"base\":\"RICK\",\"rel\":\"MORTY\"}"
 ```
 
-This sends a request to MM2 to see who is willing to give up BEER for PIZZA.
+This sends a request to MM2 to see who is willing to give up RICK for MORTY.
 
 The call will return a similar result:
 
 ```
-{"bids":[],"numbids":0,"biddepth":0,"asks":[{"coin":"BEER","address":"RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh","price":0.89999998,"numutxos":0,"avevolume":0,"maxvolume":10855.85028615,"depth":0,"pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12","age":5,"zcredits":0}],"numasks":1,"askdepth":0,"base":"BEER","rel":"PIZZA","timestamp":1549319941,"netid":9999}
+{"bids":[],"numbids":0,"biddepth":0,"asks":[{"coin":"RICK","address":"RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh","price":0.89999998,"numutxos":0,"avevolume":0,"maxvolume":10855.85028615,"depth":0,"pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12","age":5,"zcredits":0}],"numasks":1,"askdepth":0,"base":"RICK","rel":"MORTY","timestamp":1549319941,"netid":9999}
 ```
 
 This is the current orderbook.
@@ -212,7 +212,7 @@ To activate `jq`, simply add the following to the end of any command: ` | jq`.
 For example:
 
 ```
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"orderbook\",\"base\":\"BEER\",\"rel\":\"PIZZA\"}" | jq
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"orderbook\",\"base\":\"RICK\",\"rel\":\"MORTY\"}" | jq
 ```
 
 (If using `jq` gives you troubles, you can remove it from any of the commands without issue. It is only here for convenience.)
@@ -229,9 +229,9 @@ Here's the response:
   "biddepth": 0,
   "asks": [
     {
-      "coin": "BEER",
+      "coin": "RICK",
       "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
-      "price": 0.89999998,
+      "price": 1,
       "numutxos": 0,
       "avevolume": 0,
       "maxvolume": 10855.85028615,
@@ -243,8 +243,8 @@ Here's the response:
   ],
   "numasks": 1,
   "askdepth": 0,
-  "base": "BEER",
-  "rel": "PIZZA",
+  "base": "RICK",
+  "rel": "MORTY",
   "timestamp": 1549320152,
   "netid": 9999
 }
@@ -256,17 +256,17 @@ That's much easier to read. We can easily see someone with the address `RJTYiYeJ
 "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
 ```
 
-They are willing to give up BEER for PIZZA.
+They are willing to give up RICK for MORTY.
 
 ```
-"base": "BEER",
-"rel": "PIZZA",
+"base": "RICK",
+"rel": "MORTY",
 ```
 
-They are asking for `0.89999998` PIZZA for every 1 BEER. 
+They are asking for `1` MORTY for every 1 RICK. 
 
 ```
-"price": 0.89999998,
+"price": 1,
 ```
 
 They have a total of `10855.85028615` available to trade. 
@@ -275,109 +275,69 @@ They have a total of `10855.85028615` available to trade.
 "maxvolume": 10855.85028615,
 ```
 
-## MM2 Needs Wiggle Room
-
-Here's the only tricky part about executing atomic swaps.
-
-Earlier, you saw that the user selling `BEER` is willing to go as low as `0.89999998` PIZZA for every `1` BEER coin. 
-
-Naturally, you want to get as much BEER for your PIZZA as you can manage. Therefore, as you prepare to sell your PIZZA you are inclined to say that you want to give up `0.89999998` PIZZA for every `1` BEER coin.
-
-This is where the nature of atomic swaps differentiates from the traditional method. 
-
-There's a tremendous amount of automation happening inside MM2, and the Internet environment of both your machine and the machine of your trading partner are likely of varying quality. Therefore, you need to give MM2 some wiggle room in the price. This will help ensure that both sides of the trade are certain they can commit. 
-
-You need to list your price a bit higher than the price that your trading partner originally offered.
-
-This aspect of your experience can later be refined through a proper user-experience and user-interface design (UX/UI) treatment. 
-
-::: tip
-The need to give MM2 some wiggle room goes down as more users create trade offers for these coin on this network. If a trading pair on a MM2 network becomes extremely popular, the need for wiggle room can all but disappear. 
-:::
-
 ## Initiate a Swap
 
-Let's say that we'll set the wiggle room for a few decimal points higher, `0.95`. That should be enough.
+Let's create a RICK/MORTY `buy` order
 
 ```
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"BEER\",\"rel\":\"PIZZA\",\"relvolume\":1,\"price\":0.95}" | jq
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"RICK\",\"rel\":\"MORTY\",\"volume\":\"1\",\"price\":\"1\"}" | jq
 ```
 
 You should receive a similar response:
 
 ```
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   714  100   565  100   149    464    122  0:00:01  0:00:01 --:--:--   587
 {
-  "result": "success",
-  "swaps": [
-    [
-      877267405,
-      379810065
-    ]
-  ],
-  "netamounts": [],
-  "pending": {
-    "uuid": "78103b83916dac9948a46ac3406281f20e0e17accb2efc491c3de2e6e81f5c4e",
-    "expiration": 1549320550,
-    "timeleft": 29,
-    "tradeid": 1275602112,
-    "requestid": 0,
-    "quoteid": 0,
-    "bob": "BEER",
-    "base": "BEER",
-    "basevalue": 1.0530423,
-    "alice": "PIZZA",
-    "rel": "PIZZA",
-    "relvalue": 1.0002,
-    "desthash": "edb2a3d86a7c1b3665a9bd269974ca154e005c0afa3e95e0e7da6e9bd231ae11",
-    "aliceid": 4041324791
-  },
-  "uuid": "78103b83916dac9948a46ac3406281f20e0e17accb2efc491c3de2e6e81f5c4e"
+    "result": {
+        "action": "Buy",
+        "base": "RICK",
+        "base_amount": "1",
+        "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+        "method": "request",
+        "rel": "MORTY",
+        "rel_amount": "1",
+        "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+        "uuid": "288743e2-92a5-471e-92d5-bb828a2303c3"
+    }
 }
 ```
 
-If you see `"result": "success"`, it means the swap was successfully submitted to the network.
+If you see order data in the response, the order was successfully submitted to the network.
 
-Your swap is not yet complete, however.
+Your swap is not yet started, however.
 
 From here, everything is automated.
 
-Watch the terminal output for something similar:
+If your order is matched you will see something similar in terminal output:
 
 ```
-29 22:46:03, lp_ordermatch:601] Alice max price: 0.92092
->>>>>>>>>> received quote BEER/PIZZA 0.90733223
-29 22:46:04, lp_ordermatch:1158] aliceid.3362797489 got new bestprice 0.9073322323244047 dynamictrust -1.10236255 (unconf 0) slowresponse.0
->>>>>>>>>> received quote BEER/PIZZA 0.91685482
-29 22:46:06, lp_ordermatch:1225] send LP_connect aliceid.3362797489 0.9073322323244047
-29 22:46:06, lp_ordermatch:1540] CONNECTED.({"address":"RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh","aliceid":3362797489,"base":"BEER","desthash":"ab44ae49d2ff89295ee9a0574e89a2bdd7bfbb4f1a34f7d5c0256cf06e89485d","destsatoshis":"100020000","desttxfee":"1000","etomicdest":"","etomicsrc":"","gui":"cli","maxprice":0.92092,"method":"connected","method2":"connected","pair":"tcp://333.333.333.333:29721","price":0.90733223,"proofsend CONNECT for %u-%u\n":[],"quoteid":3584635608,"quotetime":1548801966,"rel":"PIZZA","requestid":1448202645,"satoshis":"110236255","srchash":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12","timestamp":1548801962,"tradeid":2144325567,"txfee":"1000","uuid":"647413d73cb57d22782e94f88bc576b94b2bd1ead20c8dccea54de89f50ffdef"})
-29 22:46:07, lp_ordermatch:1110] alice ab44ae49d2ff89295ee9a0574e89a2bdd7bfbb4f1a34f7d5c0256cf06e89485d received CONNECTED.(3362797489) mpnet.0 fill.0 gtc.0
-CONNECTED mpnet.0 fill.0 gtc.0 numpending.0 tradeid.2144325567 requestid.1448202645 quoteid.3584635608 pairstr.tcp://333.333.333.333:29721
-BEER/PIZZA bid 0.92092000 ask 0.00000000
-alice pairstr.(tcp://333.333.333.333:29721) pairsock.15
-29 22:46:07, lp_ordermatch:779] Entering the taker_swap_loop
-29 22:46:23, lp_swap:521] Received 'negotiation@tcp://333.333.333.333:29721' (102 bytes, crc 385155296)
-29 22:46:23, lp_swap:544] Sending 'negotiation-reply@tcp://333.333.333.333:29721' (102 bytes, crc 3978676337)
-29 22:47:00, lp_swap:545] Received 'negotiated@tcp://333.333.333.333:29721' (1 bytes, crc 2768625435)
-29 22:47:01, lp_swap:567] Taker fee tx hash 1b8ac4dc89e28888f06905226d08a357d06453ced24f58744b889e11f4cad3ec
-29 22:47:01, lp_swap:568] Sending 'taker-fee@tcp://333.333.333.333:29721' (252 bytes, crc 334610828)
-29 22:47:39, lp_swap:573] Received 'maker-payment@tcp://333.333.333.333:29721' (358 bytes, crc 675425064)
-29 22:47:39, lp_swap:593] Got maker payment cbe2f6e361260f85b99f4e16b00769c221d5b93b05c9eca1c5338c8d03fe93b0
-29 22:47:41, lp_swap:623] Taker payment tx hash f29a0e07ad0c961c1728c851c6b6fa4524d98beeb6be4aa6789ed3f5be331830
-29 22:47:41, lp_swap:626] Sending 'taker-payment@tcp://333.333.333.333:29721' (358 bytes, crc 2915550252)
-29 22:48:01, lp_swap:638] Taker payment spend tx 94bd9bbbc351eda3fc1b82d460c295e65142574ca1f4214491fca2715124630e
-29 22:48:03, lp_swap:667] Maker payment spend tx e7bbd4750dd17bf2e719c6953c2f3b57d3b02b39008dc3dad7e447d29689d270
-· 2019-01-29 23:48:03 +0100 [swap] Spending maker payment…
-    Waiting for taker payment spend…
-    Sending the Taker fee…
-    Waiting for the confirmation of the Maker payment…
-    Waiting for Maker payment… Done.
-    Sending Taker fee…
-    Waiting for Maker negotiated… Done.
-    Waiting for Maker negotiation data… Done.
-29 22:48:03, lp_ordermatch:781] Swap finished successfully
+26 10:51:50, lp_ordermatch:333] Entering the taker_swap_loop RICK/MORTY
+26 10:51:51, lp_ordermatch:490] CONNECTED.({"dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920","maker_order_uuid":"cbe664e7-3be5-4b45-9bd0-03c6a785e636","method":"connected","sender_pubkey":"199fe4169c30f464bc022273de0c893b4e2864128cdc9f7126fa24bc0910fd0e","taker_order_uuid":"c4d1b840-ebe8-4e44-9cb8-f6c767d3972f"})
+26 10:52:12, lp_swap:1629] Received 'negotiation@c4d1b840-ebe8-4e44-9cb8-f6c767d3972f' (69 bytes, crc 794323698)
+26 10:52:12, lp_swap:1658] Sending 'negotiation-reply@c4d1b840-ebe8-4e44-9cb8-f6c767d3972f' (69 bytes, crc 2294558621)
+26 10:52:53, lp_swap:1665] Received 'negotiated@c4d1b840-ebe8-4e44-9cb8-f6c767d3972f' (1 bytes, crc 2768625435)
+26 10:53:00, lp_swap:1731] Taker fee tx hash 2e019f6eb2e43b4d96c6400c86c0b65364024a21e8feb555aa108d3c9518989c
+26 10:53:00, lp_swap:1740] Sending 'taker-fee@c4d1b840-ebe8-4e44-9cb8-f6c767d3972f' (244 bytes, crc 3461506896)
+26 10:53:44, lp_swap:1748] Received 'maker-payment@c4d1b840-ebe8-4e44-9cb8-f6c767d3972f' (242 bytes, crc 2227964296)
+26 10:53:44, lp_swap:1764] Got maker payment 5648da6db5143551fa6ceffe7ef7b0a21b2a4dd479cb7a12dd46f73f2fd87597
+26 10:53:45, rpc_clients:111] Waiting for tx 5648da6db5143551fa6ceffe7ef7b0a21b2a4dd479cb7a12dd46f73f2fd87597 confirmations, now 0, required 1
+26 10:53:56, rpc_clients:111] Waiting for tx 5648da6db5143551fa6ceffe7ef7b0a21b2a4dd479cb7a12dd46f73f2fd87597 confirmations, now 0, required 1
+26 10:54:06, rpc_clients:111] Waiting for tx 5648da6db5143551fa6ceffe7ef7b0a21b2a4dd479cb7a12dd46f73f2fd87597 confirmations, now 0, required 1
+26 10:54:16, rpc_clients:111] Waiting for tx 5648da6db5143551fa6ceffe7ef7b0a21b2a4dd479cb7a12dd46f73f2fd87597 confirmations, now 0, required 1
+26 10:54:27, rpc_clients:111] Waiting for tx 5648da6db5143551fa6ceffe7ef7b0a21b2a4dd479cb7a12dd46f73f2fd87597 confirmations, now 0, required 1
+26 10:54:43, lp_swap:1863] Taker payment tx hash 368a9ee2db36feb6870266695be72e8ed8d1beb2afd95d62920f1d620941fff2
+26 10:54:44, lp_swap:1885] Sending 'taker-payment@c4d1b840-ebe8-4e44-9cb8-f6c767d3972f' (242 bytes, crc 3588913089)
+26 10:57:11, lp_swap:1902] Taker payment spend tx 364c0df46028be2439f15a31ddae534a98d0e20ec22464c69a9086807f3afc89
+26 10:57:14, lp_swap:1949] Maker payment spend tx b8c2a30f23cebb48f0d8fe0a048a65755ca5b8f56f4c68f80d044acd0f8e1ce6
+· 2019-06-26 17:57:14 +0700 [swap uuid=c4d1b840-ebe8-4e44-9cb8-f6c767d3972f] Finished
+    Maker payment spent...
+    Taker payment spent...
+    Taker payment sent...
+    Maker payment validated and confirmed...
+    Maker payment wait confirm started...
+    Maker payment received...
+    Taker fee sent...
+    Negotiated...
+    Started...
 ```
 
 When you see that last line, you know that your swap went through:
@@ -386,13 +346,13 @@ When you see that last line, you know that your swap went through:
 29 22:48:03, lp_ordermatch:781] Swap finished successfully
 ```
 
-Let's check by looking at your BEER balance. Execute this command:
+Let's check by looking at your RICK balance. Execute this command:
 
 ```
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_balance\",\"coin\":\"BEER\"}" | jq
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"my_balance\",\"coin\":\"RICK\"}" | jq
 ```
 
-You should receive a similar response:
+You should receive a similar response, the balance will be a bit less than volume set on trade as you have to pay the fee to mine your swap transaction:
 
 ```
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -400,13 +360,17 @@ You should receive a similar response:
 100   192  100    77  100   115    377    563 --:--:-- --:--:-- --:--:--   945
 {
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": 1.1,
-  "coin": "BEER"
+  "balance": 0.99999,
+  "coin": "RICK"
 }
 ```
 
-Congratulations! You've just been one of the first people in history to trade a currency without any help from a middleman and without even having to know your trading partner.
+Congratulations! You are one of the first people in history to trade a currency without any help from a middleman and without even having to know your trading partner.
+
+When you are finished, exit using the following command:
+
+```
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"stop\"}"
+```
 
 Please reach out to us [on Discord](https://komodoplatform.com/discord) and tell us about your experience.
-
-Onward and upward...

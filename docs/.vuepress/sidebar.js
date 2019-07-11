@@ -1,8 +1,3 @@
-// We're using nested sidebar groups now.
-// See this PR on the VuePress Github for more information:
-//
-// https://github.com/vuejs/vuepress/pull/1257
-
 var sidebar = [
     {
         title: "Start Here",
@@ -23,7 +18,7 @@ var sidebar = [
                     ],
                     [
                         "/basic-docs/start-here/about-komodo-platform/orientation.md",
-                        "Doc Orientation & FAQ"
+                        "Doc Orientation"
                     ],
                     [
                         "/basic-docs/start-here/about-komodo-platform/simple-installations.md",
@@ -37,12 +32,8 @@ var sidebar = [
                 children: 
                 [
                     [
-                        "/basic-docs/start-here/learning-launchpad/learning-path-outlines.md",
-                        "Learning Path Outlines"
-                    ],
-                    [
-                        "/basic-docs/start-here/learning-launchpad/normal-developer-outline.md",
-                        "Outline for a Normal Developer"
+                        "/basic-docs/start-here/learning-launchpad/learning-path-outline.md",
+                        "Learning Path Outline"
                     ],
                     [
                         "/basic-docs/start-here/learning-launchpad/terminology.md",
@@ -51,34 +42,38 @@ var sidebar = [
                 ]
             },
             {
-                title: "General Tutorials",
+                title: "Core Technology Discussions",
                 collapsible: true,
-                children:
+                children: 
                 [
                     [
-                        "/basic-docs/start-here/general-tutorials/introduction-to-general-tutorials.md",
-                        "Introduction to General Tutorials"
+                        "/basic-docs/start-here/core-technology-discussions/introduction.md",
+                        "Introduction"
                     ],
-                    // [
-                        // "/basic-docs/start-here/general-tutorials/general-tutorial-1.md",
-                        // "General Tutorial 1"
-                    // ],
-                    // [
-                        // "/basic-docs/start-here/general-tutorials/general-tutorial-2.md",
-                        // "General Tutorial 2"
-                    // ],
-                    // [
-                        // "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-beginner.md",
-                        // "Comprehensive Tutorial | Type B Beginner"
-                    // ],
-                    // [
-                        // "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-intermediate.md",
-                        // "Comprehensive Tutorial | Type B Intermediate"
-                    // ],
-                    // [
-                        // "/basic-docs/start-here/general-tutorials/comprehensive-tutorials-type-b-advanced.md",
-                        // "Comprehensive Tutorial | Type B Advanced"
-                    // ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/delayed-proof-of-work.md",
+                        "Delayed Proof of Work"
+                    ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/creating-and-distributing-a-new-komodo-smart-chain.md",
+                        "Creating and Distributing a New Komodo Smart Chain"
+                    ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/antara.md",
+                        "The Antara Framework"
+                    ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/atomicdex.md",
+                        "AtomicDEX and Atomic Swaps"
+                    ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/miscellaneous.md",
+                        "Miscellaneous"
+                    ],
+                    [
+                        "/basic-docs/start-here/core-technology-discussions/references.md",
+                        "References"
+                    ],
                 ]
             },
         ]
@@ -212,7 +207,7 @@ var sidebar = [
     ]
   },
     {
-        title: "Antara",
+        title: "Antara Framework",
         collapsible: true,
         children: [
             [
@@ -223,10 +218,6 @@ var sidebar = [
                 title: "Antara Setup",
                 collapsible: true,
                 children: [
-                    [
-                        "/basic-docs/antara/antara-setup/antara-instructions.md", 
-                        "Understanding Antara Addresses"
-                    ],
                     [
                         "/basic-docs/antara/antara-setup/antara-customizations.md",
                         "Antara Customizations"
@@ -242,25 +233,69 @@ var sidebar = [
                             "Introduction to Antara Tutorials"
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/antara-overview.md", 
-                            "Overview of Antara Modules - Part I"
+                            "/basic-docs/antara/antara-tutorials/overview-of-antara-modules-part-i.md", 
+                            "Overview of Antara Modules — Part I"
                         ],
                         [
-                            "/basic-docs/antara/antara-tutorials/antara-conceptual-overview.md", 
-                            "Overview of Antara Modules - Part II"
+                            "/basic-docs/antara/antara-tutorials/overview-of-antara-modules-part-ii.md", 
+                            "Overview of Antara Modules — Part II"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/beginner-series-part-0.md",
+                            "Beginner Series — Preparation"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/beginner-series-part-1.md",
+                            "Beginner Series — Create a Blockchain"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/beginner-series-part-2.md",
+                            "Beginner Series — Using a Faucet"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/beginner-series-part-3.md",
+                            "Beginner Series — Connecting to Another Programming Environment"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/beginner-series-part-4.md",
+                            "Beginner Series — Understanding Tokens"
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/advanced-series-0.md", 
+                            "Advanced Series — Introduction" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/advanced-series-1.md", 
+                            "Advanced Series — Smart Chain Development Basics" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/advanced-series-2.md", 
+                            "Advanced Series — Antara Module Development Basics" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/advanced-series-3.md", 
+                            "Advanced Series — Preparing for Heir Development" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/advanced-series-4.md", 
+                            "Advanced Series — Final Conceptual Discussion" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/advanced-series-5.md", 
+                            "Advanced Series — Developing the Heir Module Prototype" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/advanced-series-6.md", 
+                            "Advanced Series — Miscellaneous" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/understanding-antara-addresses.md", 
+                            "Understanding Antara Addresses"
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/musig-module-tutorial.md", 
                             "Musig Module Tutorial" 
                         ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/heir-module-tutorial.md", 
-                            "Heir Module Tutorial" 
-                        ],
-                        // [
-                            // "/basic-docs/antara/antara-tutorials/create-an-oracles-plan-tutorial.md", 
-                            // "Create an Oracles Plan Tutorial" 
-                        // ],
                         [
                             "/basic-docs/antara/antara-tutorials/rogue-module-tutorial.md", 
                             "Rogue Module Tutorial" 
@@ -269,30 +304,10 @@ var sidebar = [
                             "/basic-docs/antara/antara-tutorials/gateways-module-tutorial.md", 
                             "Gateways Module Tutorial" 
                         ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/an-advanced-approach-to-komodos-antara-framework.md", 
-                            "An Advanced Approach to Komodo's Antara Framework" 
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-1.md",
-                            "Komodo Developer Path | Part I"
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-2.md",
-                            "Komodo Developer Path | Part II"
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-3.md",
-                            "Komodo Developer Path | Part III"
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-4.md",
-                            "Komodo Developer Path | Part IV"
-                        ],
                 ],
             },
           {
-            title: "Antara API",
+            title: "Antara Modules",
             collapsible: true,
             children: [
               [
@@ -359,10 +374,6 @@ var sidebar = [
                     "/basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.md",
                     "Getting Started with AtomicDEX"
                 ],
-                [
-                    "/basic-docs/atomicdex/atomicdex-setup/additional-information-about-atomicdex.md",
-                    "Additional Information About AtomicDEX"
-                ],
             ],
         },
         {
@@ -376,7 +387,11 @@ var sidebar = [
                 [
                     "/basic-docs/atomicdex/atomicdex-tutorials/atomicdex-walkthrough.md",
                     "AtomicDEX Walkthrough"
-                ]
+                ],
+                [
+                    "/basic-docs/atomicdex/atomicdex-tutorials/additional-information-about-atomicdex.md",
+                    "Additional Information About AtomicDEX"
+                ],
             ]
         },
         [
@@ -385,39 +400,5 @@ var sidebar = [
         ]
     ]
   },
-    {
-        title: "Chainlizards",
-        collapsible: true,
-        children: [
-            [
-                "/basic-docs/chainlizards/introduction-to-chainlizards.md",
-                "Introduction to Chainlizards Documentation"
-            ],
-            {
-                title: "Chainlizards Setup",
-                collapsible: true,
-                children: [
-                    [
-                        "/basic-docs/chainlizards/chainlizards-setup/introduction-to-chainlizards.md",
-                        "Chainlizards Introduction"
-                    ],
-                ]
-            },
-            {
-                title: "Chainlizards Tutorials",
-                collapsible: true,
-                children: [
-                    [
-                        "/basic-docs/chainlizards/chainlizards-tutorials/chainlizards-tutorial.md",
-                        "Chainlizard Tutorial"
-                    ],
-                ]
-            },
-            [
-                "/basic-docs/chainlizards/chainlizards-api/chainlizards-api.md",
-                "Chainlizards API"
-            ],
-        ],
-    },
 ]
 module.exports = sidebar;

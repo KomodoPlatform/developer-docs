@@ -1,5 +1,15 @@
 # Jumblr
 
+::: tip Note 
+
+At this time, all zero-knowledge transaction and Jumblr functionality on the main KMD chain is disabled. 
+
+Other Smart Chains in the Komodo ecosystem offer zero-knowledge transaction functionality. However, no Smart Chain currently offers Jumblr, and therefore this documentation is currently deprecated.
+
+Please check with the developers of your desired Smart Chain to learn more.
+
+:::
+
 The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
 ## Basic Instructions

@@ -2,13 +2,13 @@
 
 ## Introduction
 
-The Sudoku Fluidity module serves as a proof-of-concept to demonstrate Fluidity's capabilities as a blockchain-based gaming technology.
+The Sudoku Antara Module serves as a proof-of-concept to demonstrate Antara's capabilities as a blockchain-based gaming technology.
 
 The Sudoku module is based on the classic game, Sudoku. To learn more about how Sudoku is played, read the associated Wikipedia article:
 
 [Link to Sudoku Wikipedia article](https://en.wikipedia.org/wiki/Sudoku)
 
-The procedures to launch and finish a game require the execution of various methods (rpcs). By design, the Sudoku module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must  pass trough the Sudoku RPC captcha protection, as this deters bots.
+The procedures to launch and finish a game require the execution of various Remote Procedure Calls (RPCs). By design, the Sudoku module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must pass trough the Sudoku RPC captcha protection, as this deters bots.
 
 The following installation and walkthrough tutorials can assist the reader in setting up and playing the Sudoku game. For more information, please reach out to our community on [Discord](https://komodoplatform.com/discord). The #cc-sudoku channel is available for questions and assistance.
 
@@ -292,7 +292,7 @@ Daemon `stdout`:
 | (numbers remaining)                  | (string)             | a description of how many numbers are remaining to solve in the Sudoku puzzle                       |
 | (Sudoku Puzzle - integer)            | (number, multi-line) | a multi-line number-based representation of the solved Sudoku puzzle; no visual embellishments      |
 | solve | (number) | a number-based concatenated representation of the unsolved Sudoku puzzle; `0`'s represent empty spaces in the puzzle |
-| score | (string) | `score` returns three values: the difficulty of the puzzle calculated by the generator, the solution in concatenated format, the number of numbers left to fill |  
+| score | (string) | `score` returns three values: the difficulty of the puzzle calculated by the generator, the solution in concatenated format, the number of numbers left to fill |
 
 JSON output:
 
@@ -337,7 +337,7 @@ Command:
 | 9 : 1 : 2 | 7 : 4 : 5 | 8 : 6 : 3 |
 |- - - - - -|- - - - - -|- - - - - -|
 | 5 : 4 : 8 | 3 : 6 : 2 | 1 : 7 : 9 |
------------------------------------ 
+-----------------------------------
 -----------------------------------
 | 2 : 5 : | 1 : : | : 8 : 4 |
 |- - - - - -|- - - - - -|- - - - - -|
@@ -356,7 +356,7 @@ Command:
 | : : | 7 : : | : : |
 |- - - - - -|- - - - - -|- - - - - -|
 | 5 : : | : : 2 | : : |
------------------------------------ 
+-----------------------------------
 *** 26 numbers left ***
 257136984
 891457326
@@ -387,61 +387,6 @@ solve: 2501000840900503203040280100090000010206000071000030400000100000007000005
    "amount":898.00000000,
    "hex":"0400008085202f890159a377ff60f9c0173b2de965fa902608490c339626642e5bcfeea4fd13facbf4010000007b4c79a276a072a26ba067a56580210223b2b9d35fb6383bbbc0dd6668825c91713bc21081b9ce33df3d7edbafa883058140460886e61f55924af187b34ed1bffe114bc4af194ab57c9e50301ea9c134135d00dc34c44a42b1ba54390da0b8c2637239a008b6b11fee535be5aecfd73e10b9a100af03800111a10001ffffffff041027000000000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc00427fe814000000302ea22c802033c7f0d5d7327fbe86a1c94d56a6acbc59b2d24e00ed83864bfbf9e9dab41eed8103120c008203000401cc48f28f6002000000302ea22c80203d1579313abe7d8ea85f48c65ea66fc512c878c0d0e6f6d54036669de940febf8103120c008203000401cc0000000000000000576a4c541147510205000100000008040009000005000302000300040002080001000000090000000000010002000600000000070100000000030004000000000001000000000000000700000000000500000000020000000000000067e300000000000000000000000000",
    "txid":"3b00b64e5892987ea2afc1c66384bf304ab2f8ca90d98ebef1d7784ca7347645"
-}
-```
-
-</collapse-text>
-
-
-## txidinfo
-
-**cclib txidinfo 17 '["puzzle_txid"]'**
-
-The `txidinfo` method returns information about the indicated `puzzle_txid` puzzle.
-
-#### Arguments
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| puzzle_txid | (string) | the unique transaction id of the requested puzzle, as returned from the broadcast hex of the [gen](../customconsensus/sudoku.html#gen) method  |
-
-#### Response
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| result | (string) | whether the command executed successfully |
-| txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` | 
-| result | (string) | whether the command executed successfully |
-| height | (number) | the block height at which the puzzle was generated |
-| sudokuaddr | (string) | the Fluidity address that owns this puzzle funds and will distribute the reward |
-| amount | (number) | the reward provided to the first node to submit the correct solution |
-| unsolved | (string) | the unsolved puzzle, provided in concatenated form, filling playing field from left to right horizontally, and from top to bottom vertically |
-| name | (string) | name of the module |
-| method | (string) | name of the method |
-
-#### :pushpin: Examples
-
-Command:
-
-```bash
-./komodo-cli -ac_name=SUDOKU cclib txidinfo 17 \%220aaa8fdc83aa9111b1f1d143ca7baf5730cd68c02f1422b3f8cf4186959db6ff%22\"
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```json
-{
-  "result": "success",
-  "txid": "0aaa8fdc83aa9111b1f1d143ca7baf5730cd68c02f1422b3f8cf4186959db6ff",
-  "result": "success",
-  "height": 766,
-  "sudokuaddr": "RAFVbQbZ5esSkktLQq9mdQWrvi7UBnzqwE",
-  "amount": 10.0,
-  "unsolved": "4--13--6---89--2--37-2--541--5-8-1-66---4-----1-7------8-------------3---------9-",
-  "name": "sudoku",
-  "method": "txidinfo"
 }
 ```
 
@@ -528,7 +473,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| txid | (string) | a transaction id representing the generation of this puzzle, also called the `puzzle_txid` | 
+| txid | (string) | a transaction id representing the generation of this puzzle, also called the `puzzle_txid` |
 | solution | (numeric string) | the proposed solution, provided in a concatenated format |
 | tX... | (81 UNIX timestamps separated by comma) | there are `81` total `t...` arguments. `X` is the index of the indicated argument. The argument is a timestamp representing the time at which `X` number was input. Timestamp value should be 0 for numbers which were already known |
 
@@ -540,10 +485,10 @@ JSON output:
 | ---- | ---- | ----------- |
 | name | (string) | name of the module |
 | hex | (string) | a `hex` value representing the encoded data; this must be broadcast using `sendrawtransaction` |
-| txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` | 
+| txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` |
 | amount | (number) | the reward provided to the first node to submit the correct solution |
 | result | (string) | whether the command executed successfully |
-| sudokuaddr | (string) | the Fluidity address that owns this puzzle reward and will distribute the reward |
+| sudokuaddr | (string) | the Antara address that owns this puzzle reward and will distribute the reward |
 | method | (string) | name of the method |
 
 Daemon `stdout`:
@@ -551,8 +496,8 @@ Daemon `stdout`:
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | solved | (string) | this returns three values: the block height at which the puzzle was solved, the amount of coins rewarded, the solution txid |
-| solution | (number) | this contains three values: a number-based concatenated representation of the solved puzzle; a string representing the concatenated unsolved puzzle; the total score for solving this puzzle | 
-| statistics | (string) | information which helps this module developer to detect was puzzle solved by robot or human | 
+| solution | (number) | this contains three values: a number-based concatenated representation of the solved puzzle; a string representing the concatenated unsolved puzzle; the total score for solving this puzzle |
+| statistics | (string) | information which helps this module developer to detect was puzzle solved by robot or human |
 
 #### :pushpin: Examples
 
@@ -589,6 +534,61 @@ Command:
 SOLVED ht.58521 100.00000000 4c3fb21e60ef0af863da43c5ebbdf38651f080a3fff1c04855fc42857479f9e5
 157392864829461357436587129795634218381279645642815973978146532563728491214953786 score.55 ---3-28---2------------------5---21-3----9-4-----1---3-78--6-3-5-3-284-1--49-3--6
 1 2 1 2 0 2 1 2 2 0 1 1 1 2 1 1 1 1 2 1 1 1 2 1 2 1 1 2 3 1 1 5 2 1 3 1 1 2 1 1 2 2 1 1 4 2 2 2 1 1 1 2 0 100 solvetime.179 n.55 avetime.3 variance.177 vs ave2 9
+```
+
+</collapse-text>
+
+
+## txidinfo
+
+**cclib txidinfo 17 '["puzzle_txid"]'**
+
+The `txidinfo` method returns information about the indicated `puzzle_txid` puzzle.
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| puzzle_txid | (string) | the unique transaction id of the requested puzzle, as returned from the broadcast hex of the [gen](../customconsensus/sudoku.html#gen) method  |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| result | (string) | whether the command executed successfully |
+| txid | (string) | a transaction id representing the generation of this Sudoku puzzle, also called the `puzzle_txid` |
+| result | (string) | whether the command executed successfully |
+| height | (number) | the block height at which the puzzle was generated |
+| sudokuaddr | (string) | the Antara address that owns this puzzle funds and will distribute the reward |
+| amount | (number) | the reward provided to the first node to submit the correct solution |
+| unsolved | (string) | the unsolved puzzle, provided in concatenated form, filling playing field from left to right horizontally, and from top to bottom vertically |
+| name | (string) | name of the module |
+| method | (string) | name of the method |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=SUDOKU cclib txidinfo 17 \%220aaa8fdc83aa9111b1f1d143ca7baf5730cd68c02f1422b3f8cf4186959db6ff%22\"
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```json
+{
+  "result": "success",
+  "txid": "0aaa8fdc83aa9111b1f1d143ca7baf5730cd68c02f1422b3f8cf4186959db6ff",
+  "result": "success",
+  "height": 766,
+  "sudokuaddr": "RAFVbQbZ5esSkktLQq9mdQWrvi7UBnzqwE",
+  "amount": 10.0,
+  "unsolved": "4--13--6---89--2--37-2--541--5-8-1-66---4-----1-7------8-------------3---------9-",
+  "name": "sudoku",
+  "method": "txidinfo"
+}
 ```
 
 </collapse-text>

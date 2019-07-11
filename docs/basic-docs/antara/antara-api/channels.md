@@ -29,13 +29,13 @@ The global addresses are not used in the Channels Fluidity module. For more info
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | --------- | ------------------ | ---------------------- |
 | pubkey    | (string, required) | the destination pubkey |
 
 ### Response
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | --------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result                      | (string)  | whether the method executed successfully                                                                                                                                                                                                                                                                                                                        |
 | ChannelsCCAddress           | (string)  | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                                                                                                                                                                                                            |
@@ -93,13 +93,13 @@ The `sendrawtransaction` method then returns a `txid` which is used in the [chan
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | --------- | -------- | -------------------------------------------------------------------------- |
 | open_txid | (string) | the unique identifying txid that is created when a channel is first opened |
 
 ### Response
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -145,13 +145,13 @@ If no `open_tx_id` argument is included, the method returns a list of all channe
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | --------- | ------------------ | -------------------------------------------------------------------------- |
 | open_txid | (string, optional) | the unique identifying txid that is created when a channel is first opened |
 
 ### Response
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | --------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | result    | (string) | whether the command executed successfully                                                                                                           |
 | name      | (string) | the name of the channel                                                                                                                             |
@@ -209,7 +209,7 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | ------------------------ | -------- | ------------------------------------------------------- |
 | destination_pubkey       | (string) | the public key of the intended recipient of the channel |
 | total_number_of_payments | (number) | the total number of payments to allocate in the channel |
@@ -217,7 +217,7 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 
 ### Response
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -273,7 +273,7 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | ------------------------ | -------- | ------------------------------------------------------- |
 | destination_pubkey       | (string) | the public key of the intended recipient of the channel |
 | total_number_of_payments | (number) | the total number of payments to allocate in the channel |
@@ -281,7 +281,7 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 
 ### Response
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -337,7 +337,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | ------------------------ | -------- | ------------------------------------------------------- |
 | destination_pubkey       | (string) | the public key of the intended recipient of the channel |
 | total_number_of_payments | (number) | the total number of payments to allocate in the channel |
@@ -345,7 +345,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Response
 
-| Name | Type | Description | 
+| Name | Type | Description |
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | result:   | (string) | whether the command succeeded                                                                        |
 | hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
@@ -374,3 +374,5 @@ Step 2: Broadcast the hex using `sendrawtransaction`
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0100000003e51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc479200300000049483045022100bbed947e3c33b21b8519a7d78dc08cb70d3fe3e6c788119db95a459448caa64c02200a1c73431d118a7fad4f58b760b025f399747e127a46da5c421add2e599b897f01ffffffffe51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc4792000000000a74ca5a281a1a0819ca28194a067a56580210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127281403fe5789a3f0e25f46a000f381fc2e7f7b759855184532a6e1e0c5e84d1dc284b4d37422735aa93175ea74d6829ac3b68a7c8c928c22b870ab4b9507bc872dbd6a129a5278020e73e4b0745bdf31657ac09e3cf99fd65cb262d8498f86c977ece01b551925f028103020000af038001eba10001ffffffffe51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc47920010000007b4c79a276a072a26ba067a56580210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127281400b4d6aaeb127417839b76dc78d78379147cfff760f03824e5565aae1c371bbd34559d951cdd2e8622bd5f5aa5528d2a20ee95174c3fea09ef48824ecd647c0b2a100af038001eba10001ffffffff051027000000000000302ea22c8020c9ada2adfc6c6dec0bd9dd29f4e48c86f84c016abc3552b8815ca3c4a44c561b8103120c008203000401cc1027000000000000302ea22c802019be575785c322e9c7d2ae4b5f3df78c9a38ff7357e9e689f26de8e224cb186c8103120c008203000401cc008793030000000023210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba01272ac805f96a60100000023210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba01272ac0000000000000000956a4c92eb523146ff925aab06943c3178536fe7443fffc9009847f9c0ebf5e7dbe3f4b0952f210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127221027166e21e9579307a1ae4f8c223516e70aae3cbfab4bd6ac7cebfa625dcc0a2a4060000008096980000000000e51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc4792000000000
 ```
+
+

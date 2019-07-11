@@ -148,7 +148,7 @@ This returns a transaction id, which is the `oracleid`:
 
 Record this in the text editor.
 
-To prepare for the oraclefeed dApp, use [oraclesregister](../customconsensus/oracles.html#oraclesregister) to register as a publisher for the oracle. This must be done on a node which can post KMD blockheaders and which can execute withdrawal transactions:
+To prepare for the oraclefeed dApp, use [oraclesregister](../customconsensus/oracles.html#oraclesregister) to register as a publisher for the oracle. This must be done on a node which can post KMD block headers and which can execute withdrawal transactions:
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD oraclesregister insert_oracleid data_fee_in_satoshis`

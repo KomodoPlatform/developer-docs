@@ -13,7 +13,7 @@ With these four pillars in place, users of all types will find powerful, customi
 
 <div style="clear: both; margin-top: 1.4rem; margin-right: 1.3rem; float: left; display: block;">
 
-<img style="padding: 0.2rem; border: 0.05rem solid; height: 6rem;" src="/standby.png">
+<img style="padding: 0.2rem; height: 6rem;" src="/Documentation_Portal_Icons/Security/Security_Light.svg">
 
 </div>
 
@@ -31,13 +31,13 @@ Secure your project with the power of the Bitcoin network via Komodo’s delayed
 
 - Approximately every half hour, a hash of the developers blockchain is notarized to Bitcoin
 - All transactions included in the hash are considered to have achieved finality
-- For the consensus mechanism, arbitarily choose between a mixture of Proof-of-Work and Proof-of-Stake
+- For the consensus mechanism, arbitrarily choose between a mixture of Proof-of-Work and Proof-of-Stake
 
 </div>
 
 <div style="clear: both; margin-top: 1.4rem; margin-right: 1.3rem; float: left; display: block;">
 
-<img style="padding: 0.2rem; border: 0.05rem solid; height: 6rem;" src="/standby.png">
+<img style="padding: 0.2rem; height: 6rem;" src="/Documentation_Portal_Icons/Scalability/Scalability_Light.svg">
 
 </div>
 
@@ -63,7 +63,7 @@ Developers and their users have a full Smart Chain all to themselves, and can co
 
 <div style="clear: both; margin-top: 1.4rem; margin-right: 1.3rem; float: left; display: block;">
 
-<img style="padding: 0.2rem; border: 0.05rem solid; height: 6rem;" src="/standby.png">
+<img style="padding: 0.2rem; height: 6rem;" src="/Documentation_Portal_Icons/Interoperability/Interoperability_Light.svg">
 
 </div>
 
@@ -88,7 +88,7 @@ Your project is interoperable with all others in the Komodo ecosystem, plus conn
 
 <div style="clear: both; margin-top: 1.4rem; margin-right: 1.3rem; float: left; display: block;">
 
-<img style="padding: 0.2rem; border: 0.05rem solid; height: 6rem;" src="/standby.png">
+<img style="padding: 0.2rem; height: 6rem;" src="/Documentation_Portal_Icons/Adaptability/Adaptability_Light.svg">
 
 </div>
 

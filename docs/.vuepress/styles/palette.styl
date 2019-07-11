@@ -1,20 +1,21 @@
 /* This file is for overrides of existing styles. It is not for new Komodo-created classes or other non-default stylizations. Please see the index.styl file in .vuepress/styles/ directory for the latter */
 
-/* Import Montserrat */
+/* Import Montserrat & Rubik */
 
 @import url("/fonts/Montserrat/Montserrat.css")
+@import url("/fonts/Rubik/Rubik.css")
 
 /* Set default values */
 
 * {
-    font-family: 'Montserrat', Arial, sans-serif;
+    font-family: 'Rubik-Light', Arial, sans-serif;
 }
 
-$borderColor = rgba(30,92,110,1);
+$borderColor = #04748E;
 
 $textColor = #FFFFFF;
 
-$accentColor = #18F4BF;
+$accentColor = #00EDD3; 
 
 $codeBgColor = #000000;
 
@@ -31,7 +32,7 @@ span .site-name .can-hide {
 }
 
 div .navbar, .navbar .links, .search-box, .nav-links, .nav-links .can-hide {
-    background-color: #222832;
+    background-color: #026782;
 }
 
 div .navbar .search-box input, div .navbar .search-box .suggestions, div .navbar .search-box .suggestions .focused {
@@ -39,16 +40,16 @@ div .navbar .search-box input, div .navbar .search-box .suggestions, div .navbar
 }
 
 .navbar .site-name, h1, h2, h3 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-weight: 600;
 }
 
 div .sidebar {
-    background-color: #000000; 
+    background-color: #051019; 
 }
 
 div .page {
-    background-image: linear-gradient(135deg, #2C313B, #2C313B);
+    background-image: linear-gradient(135deg, #003A4B, #0B141B);
     min-height: 100vh;
     background-attachment: fixed;
 }
@@ -57,14 +58,38 @@ div .page {
     background-color: hsla(0,0,0,.7);
 }
 
+div .page h1 {
+    font-size: 2.2rem;
+}
+
+div .page h2 {
+    font-size: 1.9rem;
+}
+
+div .page h3 {
+    font-size: 1.7rem;
+}
+
+div .page h4 {
+    font-size: 1.4rem;
+}
+
+div .page h5 {
+    font-size: 1.2rem;
+}
+
+div .page h6 {
+    font-size: 0.8rem;
+}
+
 thead tr {
-    background-color: #2D6464;
-    color: #18F4BF;
+    background-color: #026782;
+    color: #00EDD3;
     font-weight: 500;
 }
 
 tbody tr a {
-    color: #00ADEE;
+    color: #3FA9F5;
 }
 
 table tbody tr:nth-child(2n) {
@@ -72,19 +97,19 @@ table tbody tr:nth-child(2n) {
 }
 
 body .custom-block.tip, body .custom-block.tip .custom-block-title {
-    background-color: #2D6464;
-    border-color: #18F4BF;
+    background-color: #026782;
+    border-color: #00EDD3;
 }
 
 body .custom-block.warning, body .custom-block.warning .custom-block-title {
     background-color: #1B456E;
-    border-color: #00ADEE;
+    border-color: #3FA9F5;
     color: #FFFFFF;
 }
 
 body .custom-block.danger, body .custom-block.danger .custom-block-title {
-    background-color: #3C3266;
-    border-color: #957DFD;
+    background-color: #003038;
+    border-color: #0474BE;
     color: #FFFFFF;
 }
 

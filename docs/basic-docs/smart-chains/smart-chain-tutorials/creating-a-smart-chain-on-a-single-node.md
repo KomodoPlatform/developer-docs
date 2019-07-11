@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Under most circumstances, a developer should [use two separte nodes to set up and create a Smart Chain.](../../../basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html)
+Under most circumstances, a developer should [use two separate nodes to set up and create a Smart Chain.](../../../basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html)
 
 However, occasionally a developer may need to create a Smart Chain on a single node.
 
@@ -91,7 +91,7 @@ In all values above, the chosen values must be different from the values in the 
 
 ## Launch the Second daemon
 
-When launching the second daemon, use the same Antara customization parameters as the first deamon.
+When launching the second daemon, use the same Antara customization parameters as the first daemon.
 
 However, now we specify the data directory for the daemon, as well as the `p2p` connection.
 
@@ -103,7 +103,7 @@ To accomplish this, we use the <b>datadir</b> and <b>addnode</b> common launch p
 
 ::: tip
 
-Replace `<USERNAME>` with the USERNAME for your local node. You can find this vluae use the `echo $USER` command in the terminal.
+Replace `<USERNAME>` with the USERNAME for your local node. You can find this value use the `echo $USER` command in the terminal.
 
 :::
 

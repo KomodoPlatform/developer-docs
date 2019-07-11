@@ -18,7 +18,7 @@ VPS's are also relatively cheap. Both AWS and DigitalOcean provide the basic nec
 
 ::: tip
 
-Alternatively, you can use your own personal computer, or a bare-metal server. However, troubleshooting on a personal setup can proove to be more time consuming than on a VPS.
+Alternatively, you can use your own personal computer, or a bare-metal server. However, troubleshooting on a personal setup can prove to be more time consuming than on a VPS.
 
 :::
 

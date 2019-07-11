@@ -4,89 +4,21 @@ Smart Chains offer various default customizations. The desired combination of pa
 
 Changing these customizations at a later time is possible, but this typically requires a hard-fork of your Smart Chain. In general, it is best to have your Smart Chain's parameters finalized before decentralizing the ownership of your coin. Should you discover a need to change these parameters after the fact, please reach out to our development team for assistance.
 
-## ac_name
+## ac_algo
 
 ::: warning
-All Smart Chains are required to set ac_name.
+This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
 :::
 
-This is the ticker symbol for the coin you wish to create. We recommended it consist only of numbers and uppercase letters.
+The `ac_algo` parameter changes the chain's mining algorithm from the default equihash to the verushash.
 
-#### :pushpin: Examples
+To enable this feature, set `-ac_algo=verushash`.
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+This activates verushash1.0. More recent versions of verushash are not yet supported.
 
-A simple Smart Chain
+The verushash feature serves as a proof of concept for adding support for additional mining algorithms.
 
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
-```
-
-</collapse-text>
-
-## ac_supply
-
-This is the amount of pre-mined coins you would like the chain to have.
-
-The node that sets [gen](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
-
-If `ac_supply` is not set, [ac_reward](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [ac_founders](../installations/asset-chain-parameters.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
-
-The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
-
-::: tip
-An additional fraction of a coin will be added to the initial supply based on the Smart Chain's parameters. This is used by nodes to verify the genesis block. For example, the DEX chain's `ac_supply` parameter is set to `999999`, but in reality the genesis block was `999999.13521376`. When using `ac_staked`, the additional amount may be more than a full coin, and can add up to two digits left of the decimal point.
-:::
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples"> 
-
-A simple Smart Chain with pre-mined coins and a block reward of 0.0005.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=50000 &
-```
-
-</collapse-text>
-
-## ac_reward
-
-::: warning
-Komodo recommends that this parameter be included on all Smart Chains. Please see below for additional notes.
-:::
-
-This is the block reward for each mined block, given in satoshis.
-
-If both `ac_reward` and `ac_staked` are not set, the default block reward will be `10000` satoshis and blocks will be on-demand after block `127` (a new block will not be mined unless there is a transaction in the mempool).
-
-Komodo recommends that `ac_reward` be included in all Smart Chains. This prevents the Smart Chain from becoming an on-demand blockchain, and therefore this increases the Smart Chain's security.
-
-To make a Smart Chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The Smart Chain's first block will reward only the `-ac_supply` value, after which the `ac_reward` value will be `0`.
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
-
-A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Note that ac_supply is given in coins, while ac_reward is given in satoshis.)
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 &
-```
-
-A 0 coin pre-mine with a 1-coin block reward that does not end. This is an example of a pure PoW Smart Chain that has no pre-mined coins.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=100000000 &
-```
-
-A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
-```
-
-</collapse-text>
+The Komodo team is currently testing methods to support compatibility for `ac_staked`, but this feature is not yet recommended for external testing.
 
 ## ac_blocktime
 
@@ -110,30 +42,81 @@ A 777777 coin pre-mine with a 1-coin block reward and a block speed of 20 second
 
 </collapse-text>
 
-## ac_end
+## ac_cc
 
-This is the block height at which block rewards will end. Every block after this height will have 0 block reward (this means that, assuming all other settings are default, the only incentive to mine a new block will be transaction fees).
+::: warning Notice
+This parameter is still in testing.
+:::
+
+The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via Antara modules and MoMoM technology.
+
+Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one Smart Chain can be directly transferred to any other Smart Chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
+
+Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, cross-chain transaction validation and its dependent features, including cross-chain fungibility, require notarization.
+
+### ac_cc=0
+
+Setting `ac_cc=0` disables Antara on the Smart Chain entirely.
+
+::: tip
+It is better to <b>NOT</b> use `ac_cc=0` for a Smart Chain where Antara should not be enabled. Omitting the `ac_cc` parameter altogether will achieve the same result.
+:::
+
+### ac_cc=1
+
+Setting `ac_cc=1` permits Antara on the Smart Chain, but will not allow the Smart Chain to interact in cross-chain Antara functionality with other Smart Chains.
+
+### ac_cc=2 to 99
+
+The values of `2` through `99` (inclusive) indicate Smart Chains that can validate transactions that occur on other Smart Chains on the same cluster (i.e. the same `ac_cc` value), but their coins are not fungible.
+
+However, coins are not fungible, and therefore cannot be transferred between blockchains.
+
+### ac_cc=100 to 9999
+
+Setting the value of `ac_cc` to any value greater than or equal to `100` will permit cross-chain interaction with any Smart Chain that has the same `ac_cc` value and is secured by notary nodes with the same `pubkey`.
+
+All Smart Chains that have the same `ac_cc (>= 100)` value form a cluster, where the base tokens of all the chains in the cluster are fungible via the burn protocol.
+
+For example, a Smart Chain set to `ac_cc=201` in its parameters can interact with other Smart Chains with `ac_cc=201` on the same notary-node network, but cannot interact with a Smart Chain set to `ac_cc=301`.
+
+### Summary of `ac_cc`
+
+::: tip Consider a chain with -ac_cc=N
+
+- If <b>N = 0</b>, Antara is disabled
+- If <b>N > 0</b>, Antara is enabled
+- If <b>N = 1</b>, on-chain Antara is active, cross-chain validation is disabled
+- If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in each Smart Chain are non-fungible across chains.
+- If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
+  :::
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
 
-A 777777-coin pre-mine, with a block reward of 0.0005 coin. The block reward ends at block 25000.
+A 777777 pre-mined chain with no Antara modules enabled.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=50000 -ac_end=25000 &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
 ```
 
-A 777777-coin pre-mine, with a 5-coin block reward, and the block reward ends at block 200.
+A 777777 pre-mined chain with Antara modules on-chain only; no cross-chain Antara modules.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_end=200 &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=1 &
 ```
 
-A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases by 50% every 2000 blocks, and the block reward ends at block 10000.
+A 777777 pre-mined chain where Antara modules are allowed between all fellow Smart Chains that have -ac_cc=2 in their launch parameters. However, the cross-chain burn protocol is not active, and therefore coins cannot be transferred between chains.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_halving=2000 -ac_end=10000 &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=2 &
+```
+
+A 777777 pre-mined chain. Antara modules are allowed between all fellow Smart Chains that have -ac_cc=102 in their launch parameters. Also, all -ac_cc=102 chains can use the cross-chain burn protocol to transfer coins from one chain to another.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=102 &
 ```
 
 </collapse-text>
@@ -170,21 +153,63 @@ In this example, Antara will be available at blockheight `140`. All nodes, inclu
 
 </collapse-text>
 
-## ac_halving
+## ac_ccenable
 
-This is the number of blocks between each block reward halving. This parameter will have no effect if [ac_reward](../installations/asset-chain-parameters.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [ac_decay](../installations/asset-chain-parameters.html#ac-decay) is not, the reward will decrease by 50% each halving.
+::: warning
+This parameter is at the end of the beta development phase and is prepared for public testing. If you are interested in adopting this feature for a production Smart Chain, please reach out to us so that we can assist you.
+:::
 
-#### :pushpin: Examples
+The `ac_ccenable` parameter restricts the Smart Chain so that only indicated Antara modules can be enabled. `ac_ccenable` requires [ac_cc](../installations/asset-chain-parameters.html#ac-cc) to be active.
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+To indicate which Antara modules should be available, insert each module's eval code in decimal and separated by commas.
 
-A 777777-coin pre-mine, with a 5-coin block reward, and the block reward decreases by 50% every 2000 blocks.
+The following table presents an abbreviated list of EVAL codes. For more information, please see [this linked content](https://github.com/jl777/komodo/blob/master/src/cc/eval.h).
+
+| Name of the module | EvalCode |
+| ------------------ | -------- |
+| ASSETS             | 227      |
+| FAUCET             | 228      |
+| REWARDS            | 229      |
+| DICE               | 230      |
+| FSM                | 231      |
+| AUCTION            | 232      |
+| LOTTO              | 233      |
+| HEIR               | 234      |
+| CHANNELS           | 235      |
+| ORACLES            | 236      |
+| PRICES             | 237      |
+| PEGS               | 238      |
+| TRIGGERS           | 239      |
+| PAYMENTS           | 240      |
+| GATEWAYS           | 241      |
+
+For example, the following parameters create a Smart Chain where only the `faucet` and `rewards` modules are active:
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_halving=2000 &
-``` 
+./komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable=228,229
+```
 
-</collapse-text>
+When `-ac_cc` is set, but `-ac_ccenable` is not, all Antara modules are enabled.
+
+::: warning
+`ac_ccenable` disables spending utxos that are created under a non-enabled Antara module. We have also implemented additional functionality that disables API functions. This prevents the user from creating a utxo that `ac_ccenable` would render unspendable. It is still possible to create raw transactions that bypass this security feature, and thus create utxos that are unspendable. A normal user or developer relying on our API functionality should not be concerned with this. However, those who experiment with raw transactions should be cautious.
+:::
+
+::: warning
+If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the eval codes in the `libcc.so` will not disable Antara API calls. Therefore, there remains a risk that a disabled API call can still be used to create a utxo, which will then be non-spendable.
+:::
+
+## ac_cclib
+
+The `ac_cclib` parameter is used in conjunction with various Antara modules.
+
+Typically, the Smart Chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each Antara module in question. Once the Smart Chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
+
+```bash
+-ac_cclib=desired_CC_module
+```
+
+Each Antara module uses the `ac_cclib` parameter differently, and therefore the reader should refer to the desired Antara module for further instructions.
 
 ## ac_decay
 
@@ -208,6 +233,34 @@ A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decrea
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
+```
+
+</collapse-text>
+
+## ac_end
+
+This is the block height at which block rewards will end. Every block after this height will have 0 block reward (this means that, assuming all other settings are default, the only incentive to mine a new block will be transaction fees).
+
+#### :pushpin: Examples
+
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+
+A 777777-coin pre-mine, with a block reward of 0.0005 coin. The block reward ends at block 25000.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=50000 -ac_end=25000 &
+```
+
+A 777777-coin pre-mine, with a 5-coin block reward, and the block reward ends at block 200.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_end=200 &
+```
+
+A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases by 50% every 2000 blocks, and the block reward ends at block 10000.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_halving=2000 -ac_end=10000 &
 ```
 
 </collapse-text>
@@ -262,6 +315,68 @@ This chain's block reward will grow linearly from 0 to 100 over 1000 blocks, the
 Use the [getblocksubsidy](../komodo-api/mining.html#getblocksubsidy) API method to verify your Smart Chain will work as expected at each relevant height: `./komodo-cli -ac_name=HELLOWORLD getblocksubsidy <blockheight>`
 :::
 
+## ac_founders
+
+The `ac_founders` parameter creates a "founder's reward."
+
+This parameter requires [ac_perc](../installations/asset-chain-parameters.html#ac-perc). If the `ac_perc` value is not declared, the `ac_founders` value defaults to `35%`. Also, either [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) OR [ac_script](../installations/asset-chain-parameters.html#ac-script) must be set.
+
+The `ac_perc` value determines the percentage of block rewards paid to the founder. These rewards are not paid out immediately, but rather according to the `ac_founders` setting.
+
+`ac_founders` determines the frequency at which the founder's reward is paid.
+
+For example:
+
+```bash
+-ac_reward=100000000 -ac_perc=10000000 -ac_founders=100
+```
+
+The above parameters result in mining rewards of 100000000 satoshis (1 coin) per block, with a difference on every 100th block. On the 100th block exception, 1000000000 additional satoshis (10 coins) are paid to the founder's address.
+
+The coins rewarded to the founder are created at the moment of payment, thus increasing the overall coin supply. See [ac_perc](../installations/asset-chain-parameters.html#ac-perc) for more details.
+
+Use `ac_pubkey` to send the founder's reward to a normal address.
+
+Use `ac_script` to send the founder's reward to a multi-signature address.
+
+Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
+
+## ac_halving
+
+This is the number of blocks between each block reward halving. This parameter will have no effect if [ac_reward](../installations/asset-chain-parameters.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [ac_decay](../installations/asset-chain-parameters.html#ac-decay) is not, the reward will decrease by 50% each halving.
+
+#### :pushpin: Examples
+
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+
+A 777777-coin pre-mine, with a 5-coin block reward, and the block reward decreases by 50% every 2000 blocks.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_halving=2000 &
+```
+
+</collapse-text>
+
+## ac_name
+
+::: warning
+All Smart Chains are required to set ac_name.
+:::
+
+This is the ticker symbol for the coin you wish to create. We recommended it consist only of numbers and uppercase letters.
+
+#### :pushpin: Examples
+
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
+
+A simple Smart Chain
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
+```
+
+</collapse-text>
+
 ## ac_perc
 
 The `ac_perc` parameter has two different functionalities depending on the configuration of the chain parameters.
@@ -300,31 +415,31 @@ After the first `100000` blocks, the rewards from `ac_staked` are no longer incl
 
 </collapse-text>
 
-## ac_founders
+<!--
 
-The `ac_founders` parameter creates a "founder's reward."
+## ac_private
 
-This parameter requires [ac_perc](../installations/asset-chain-parameters.html#ac-perc). If the `ac_perc` value is not declared, the `ac_founders` value defaults to `35%`. Also, either [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) OR [ac_script](../installations/asset-chain-parameters.html#ac-script) must be set.
+If `ac_private` is set to `1`, all transactions other than coinbase transactions (block rewards) must use zk-SNARKs. Beyond sending mined coins from a transparent addresses to a z address, all other transparent activity is disabled.
 
-The `ac_perc` value determines the percentage of block rewards paid to the founder. These rewards are not paid out immediately, but rather according to the `ac_founders` setting.
+[Click here for more information about privacy features in the Komodo ecosystem.](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem)
 
-`ac_founders` determines the frequency at which the founder's reward is paid.
+::: tip Note
+The dPoW security mechanism requires that transactions are sent to a transparent address. Therefore, on a chain with `ac_private` enabled, any address can send funds to the transparent notary-node addresses.
+:::
 
-For example:
+#### :pushpin: Examples
+
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
+
+A private-only Smart Chain.
 
 ```bash
--ac_reward=100000000 -ac_perc=10000000 -ac_founders=100
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_private=1 &
 ```
 
-The above parameters result in mining rewards of 100000000 satoshis (1 coin) per block, with a difference on every 100th block. On the 100th block exception, 1000000000 additional satoshis (10 coins) are paid to the founder's address.
+</collapse-text>
 
-The coins rewarded to the founder are created at the moment of payment, thus increasing the overall coin supply. See [ac_perc](../installations/asset-chain-parameters.html#ac-perc) for more details.
-
-Use `ac_pubkey` to send the founder's reward to a normal address.
-
-Use `ac_script` to send the founder's reward to a multi-signature address.
-
-Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
+-->
 
 ## ac_pubkey
 
@@ -336,7 +451,7 @@ The `pubkey` must be a 66 character string (a compressed pubkey). You can find t
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
 
 This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
 
@@ -351,6 +466,70 @@ After the first `100000` blocks, the rewards from `ac_staked` are no longer incl
 ```
 
 </collapse-text>
+
+## ac_public
+
+If `ac_public` is set to `1`, zk-SNARKs are disabled, and all z address functionality is disabled. Therefore, all transactions on the blockchain are public.
+
+#### :pushpin: Examples
+
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
+
+A public-only Smart Chain.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_public=1 &
+```
+
+</collapse-text>
+
+## ac_reward
+
+::: warning
+Komodo recommends that this parameter be included on all Smart Chains. Please see below for additional notes.
+:::
+
+This is the block reward for each mined block, given in satoshis.
+
+If both `ac_reward` and `ac_staked` are not set, the default block reward will be `10000` satoshis and blocks will be on-demand after block `127` (a new block will not be mined unless there is a transaction in the mempool).
+
+Komodo recommends that `ac_reward` be included in all Smart Chains. This prevents the Smart Chain from becoming an on-demand blockchain, and therefore this increases the Smart Chain's security.
+
+To make a Smart Chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The Smart Chain's first block will reward only the `-ac_supply` value, after which the `ac_reward` value will be `0`.
+
+#### :pushpin: Examples
+
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+
+A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Note that ac_supply is given in coins, while ac_reward is given in satoshis.)
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 &
+```
+
+A 0 coin pre-mine with a 1-coin block reward that does not end. This is an example of a pure PoW Smart Chain that has no pre-mined coins.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=100000000 &
+```
+
+A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
+```
+
+</collapse-text>
+
+## ac_sapling
+
+The `ac_sapling` parameter adjusts the block height of a Smart Chain's default sapling activation. (Sapling is an upstream privacy technology provided by [Zcash](https://z.cash/), of which Komodo is a fork.)
+
+By default, sapling will activate at block 61 on a newly created Smart Chain.
+
+This can also be used to activate sapling prior to block 61. (Activating sapling prior to block 61 should not be done on a chain intended for production use.)
+
+To delay sapling activation, set `ac_sapling` to a block height far in the future. For example, `-ac_sapling=5000000` will delay sapling activation to block `5000000`. At block `5000000` sapling will be activated.
 
 ## ac_script
 
@@ -428,85 +607,6 @@ Set `ac_script` to the `"hex"` value from the returned json object.
 -ac_script=a9142706324daaac92c93420e985f55d88ea20e22ae187
 ```
 
-## ac_cc
-
-::: warning Notice
-This parameter is still in testing.
-:::
-
-The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via Antara modules and MoMoM technology.
-
-Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one Smart Chain can be directly transferred to any other Smart Chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
-
-Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, cross-chain transaction validation and its dependent features, including cross-chain fungibility, require notarization.
-
-### ac_cc=0
-
-Setting `ac_cc=0` disables Antara on the Smart Chain entirely.
-
-::: tip
-It is better to <b>NOT</b> use `ac_cc=0` for a Smart Chain where Antara should not be enabled. Omitting the `ac_cc` parameter altogether will achieve the same result.
-:::
-
-### ac_cc=1
-
-Setting `ac_cc=1` permits Antara on the Smart Chain, but will not allow the Smart Chain to interact in cross-chain Antara functionality with other Smart Chains.
-
-### ac_cc=2 to 99
-
-The values of `2` through `99` (inclusive) indicate Smart Chains that can validate transactions that occur on other Smart Chains on the same cluster (i.e. the same `ac_cc` value), but their coins are not fungible.
-
-However, coins are not fungible, and therefore cannot be transferred between blockchains.
-
-### ac_cc=100 to 9999
-
-Setting the value of `ac_cc` to any value greater than or equal to `100` will permit cross-chain interaction with any Smart Chain that has the same `ac_cc` value and is secured by notary nodes with the same `pubkey`.
-
-All Smart Chains that have the same `ac_cc (>= 100)` value form a cluster, where the base tokens of all the chains in the cluster are fungible via the burn protocol.
-
-For example, a Smart Chain set to `ac_cc=201` in its parameters can interact with other Smart Chains with `ac_cc=201` on the same notary-node network, but cannot interact with a Smart Chain set to `ac_cc=301`.
-
-### Summary of `ac_cc`
-
-::: tip Consider a chain with -ac_cc=N
-
-- If <b>N = 0</b>, Antara is disabled
-- If <b>N > 0</b>, Antara is enabled
-- If <b>N = 1</b>, on-chain Antara is active, cross-chain validation is disabled
-- If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in each Smart Chain are non-fungible across chains.
-- If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
-  :::
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
-
-A 777777 pre-mined chain with no Antara modules enabled.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
-```
-
-A 777777 pre-mined chain with Antara modules on-chain only; no cross-chain Antara modules.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=1 &
-```
-
-A 777777 pre-mined chain where Antara modules are allowed between all fellow Smart Chains that have -ac_cc=2 in their launch parameters. However, the cross-chain burn protocol is not active, and therefore coins cannot be transferred between chains.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=2 &
-```
-
-A 777777 pre-mined chain. Antara modules are allowed between all fellow Smart Chains that have -ac_cc=102 in their launch parameters. Also, all -ac_cc=102 chains can use the cross-chain burn protocol to transfer coins from one chain to another.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=102 &
-```
-
-</collapse-text>
-
 ## ac_staked
 
 `ac_staked` indicates the percentage of blocks the chain will aim to mine via Proof of Stake (PoS), with the remainder via Proof of Work (PoW). For example, an `ac_staked=90` chain will have ~90% PoS blocks and ~10% PoW blocks.
@@ -523,7 +623,7 @@ When creating a chain with the `ac_staked` parameter, the creation process is sl
 - All of the coins (including the pre-mine) are now located on the node that mined two blocks. Do not split them with a normal transaction. Rather, split them using this tool: [link](https://github.com/KMDLabs/pos64staker).
 - On the first node use 'setgenerate true 0' to enable staking.
 - On the second node use 'setgenerate true 1' (or use a desired processor number instead '1') to enable mining.
-- Use the [getbalance64](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10.
+- Use the [getbalance64](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10. The utxos may appear on any list, including both staking and nonstaking.
 
 Following the above instructions will ensure that the Smart Chain is stable.
 
@@ -578,7 +678,7 @@ The following are the (current) rules for staking a block:
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
 
 A 777777-coin pre-mine with a 1-coin block reward. The chain adjusts difficulty to keep 90% of blocks mined via PoS, and 10% mined via PoW.
 
@@ -612,51 +712,31 @@ A 777777-coin pre-mine, a 1000-coin block reward, the block reward decreases by 
 
 </collapse-text>
 
-## ac_public
+## ac_supply
 
-If `ac_public` is set to `1`, zk-SNARKs are disabled, and all z address functionality is disabled. Therefore, all transactions on the blockchain are public.
+This is the amount of pre-mined coins you would like the chain to have.
 
-#### :pushpin: Examples
+The node that sets [gen](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+If `ac_supply` is not set, [ac_reward](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [ac_founders](../installations/asset-chain-parameters.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
 
-A public-only Smart Chain.
+The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
 
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_public=1 &
-```
-
-</collapse-text>
-
-## ac_private
-
-If `ac_private` is set to `1`, all transactions other than coinbase transactions (block rewards) must use zk-SNARKs. Beyond sending mined coins from a transparent addresses to a z address, all other transparent activity is disabled.
-
-::: tip Note
-The dPoW security mechanism requires that transactions are sent to a transparent address. Therefore, on a chain with `ac_private` enabled, any address can send funds to the transparent notary-node addresses.  
+::: tip
+An additional fraction of a coin will be added to the initial supply based on the Smart Chain's parameters. This is used by nodes to verify the genesis block. For example, the DEX chain's `ac_supply` parameter is set to `999999`, but in reality the genesis block was `999999.13521376`. When using `ac_staked`, the additional amount may be more than a full coin, and can add up to two digits left of the decimal point.
 :::
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
 
-A private-only Smart Chain.
+A simple Smart Chain with pre-mined coins and a block reward of 0.0005.
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_private=1 &
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=50000 &
 ```
 
 </collapse-text>
-
-## ac_sapling
-
-The `ac_sapling` parameter adjusts the block height of a Smart Chain's default sapling activation. (Sapling is an upstream privacy technology provided by [Zcash](https://z.cash/), of which Komodo is a fork.)
-
-By default, sapling will activate at block 61 on a newly created Smart Chain.
-
-This can also be used to activate sapling prior to block 61. (Activating sapling prior to block 61 should not be done on a chain intended for production use.)
-
-To delay sapling activation, set `ac_sapling` to a block height far in the future. For example, `-ac_sapling=5000000` will delay sapling activation to block `5000000`. At block `5000000` sapling will be activated.
 
 ## ac_timelock...
 
@@ -688,22 +768,6 @@ Setting `-ac_txpow=1` enforces a transaction-rate limiter. This can help to prev
 
 This parameter is currently a proof of concept. Many of the traditional API commands, such as `sendtoaddress` or `sendmany`, are not currently supported. Instead, use [createrawtransaction](../komodo-api/rawtransactions.html#createrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction).
 
-## ac_algo
-
-::: warning
-This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
-:::
-
-The `ac_algo` parameter changes the chain's mining algorithm from the default equihash to the verushash.
-
-To enable this feature, set `-ac_algo=verushash`.
-
-This activates verushash1.0. More recent versions of verushash are not yet supported.
-
-The verushash feature serves as a proof of concept for adding support for additional mining algorithms.
-
-The Komodo team is currently testing methods to support compatibility for `ac_staked`, but this feature is not yet recommended for external testing.
-
 ## ac_veruspos
 
 ::: warning
@@ -716,60 +780,3 @@ When activated, the chain uses [Verus](http://veruscoin.io/)'s proof of stake im
 
 The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` does not have the same segid mechanism as `-ac_staked`.)
 
-## ac_cclib
-
-The `ac_cclib` parameter is used in conjunction with various Antara modules.
-
-Typically, the Smart Chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each Antara module in question. Once the Smart Chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
-
-```bash
--ac_cclib=desired_CC_module
-```
-
-Each Antara module uses the `ac_cclib` parameter differently, and therefore the reader should refer to the desired Antara module for further instructions.
-
-## ac_ccenable
-
-::: warning
-This parameter is at the end of the beta development phase and is prepared for public testing. If you are interested in adopting this feature for a production Smart Chain, please reach out to us so that we can assist you.
-:::
-
-The `ac_ccenable` parameter restricts the Smart Chain so that only indicated Antara modules can be enabled. `ac_ccenable` requires [ac_cc](../installations/asset-chain-parameters.html#ac-cc) to be active.
-
-To indicate which Antara modules should be available, insert each module's eval code in decimal and separated by commas. 
-
-The following table presents an abbreviated list of EVAL codes. For more information, please see [this linked content](https://github.com/jl777/komodo/blob/master/src/cc/eval.h).
-
-| Name of the module | EvalCode |
-| ------------------ | -------- |
-| ASSETS             | 227      |
-| FAUCET             | 228      |
-| REWARDS            | 229      |
-| DICE               | 230      |
-| FSM                | 231      |
-| AUCTION            | 232      |
-| LOTTO              | 233      |
-| HEIR               | 234      |
-| CHANNELS           | 235      |
-| ORACLES            | 236      |
-| PRICES             | 237      |
-| PEGS               | 238      |
-| TRIGGERS           | 239      |
-| PAYMENTS           | 240      |
-| GATEWAYS           | 241      |
-
-For example, the following parameters create a Smart Chain where only the `faucet` and `rewards` modules are active:
-
-```bash
-./komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable=228,229
-```
-
-When `-ac_cc` is set, but `-ac_ccenable` is not, all Antara modules are enabled.
-
-::: warning
-`ac_ccenable` disables spending utxos that are created under a non-enabled Antara module. We have also implemented additional functionality that disables API functions. This prevents the user from creating a utxo that `ac_ccenable` would render unspendable. It is still possible to create raw transactions that bypass this security feature, and thus create utxos that are unspendable. A normal user or developer relying on our API functionality should not be concerned with this. However, those who experiment with raw transactions should be cautious.
-:::
-
-::: warning
-If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the evalcodes in the `libcc.so` will not disable Antara API calls. Therefore, there remains a risk that a disabled API call can still be used to create a utxo, which will then be non-spendable.
-:::

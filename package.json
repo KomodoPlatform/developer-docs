@@ -9,8 +9,8 @@
   "author": "Contributors from Komodo Platform",
   "license": "MIT",
   "devDependencies": {
-    "@vuepress/plugin-google-analytics": "^1.0.0-alpha.47",
-    "vuepress": "^1.0.0-alpha.47",
+    "@vuepress/plugin-google-analytics": "^1.0.2",
+    "vuepress": "^1.0.2",
     "vuepress-plugin-redirect": "1.2.0-alpha.0"
   },
   "scripts": {
@@ -18,8 +18,8 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "dotenv": "^7.0.0",
+    "dotenv": "^8.0.0",
     "js-yaml": "^3.13.1",
-    "vuetify": "^1.5.0"
+    "vuetify": "^1.5.16"
   }
 }

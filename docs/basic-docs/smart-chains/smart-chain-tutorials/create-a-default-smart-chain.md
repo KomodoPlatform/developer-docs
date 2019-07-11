@@ -31,7 +31,7 @@ If the new developer does not have two VPS's available, setting up a test Smart 
 
 When using a home or office-type setup, the challenge lies in the way the network is created, and there are myriad network setups.
 
-For example, if the developers are operating on a local router, where the two machines are connected via wi-fi, the local ip addresses of the machines are harder to find. This is because the router assigns new local ip addresses to the machines each time they re-connect to the router. It is not possible to see the ip addresses from the Internet. In this situation, the developer must log into the router's software interface and search for the currently assigned local ip addresses.
+For example, if the developers are operating on a local router, where the two machines are connected via wifi, the local ip addresses of the machines are harder to find. This is because the router assigns new local ip addresses to the machines each time they re-connect to the router. It is not possible to see the ip addresses from the Internet. In this situation, the developer must log into the router's software interface and search for the currently assigned local ip addresses.
 
 A home or office-type setup can suffice, if you're just looking to test an Smart Chain quickly and don't want to spend money on a VPS. However, don't be surprised if you need to ask for help. Please reach out to us, and we'll help the best we can.
 
@@ -92,7 +92,7 @@ After issuing this command in the terminal on both machines, you will find the p
 >>>>>>>>>> HELLOWORLD: p2p.8096 rpc.8097 magic.c89a5b16 3365559062 777777 coins
 ```
 
-In the above string, take note of the p2p and rpc ports, as well as the magic number. These values must match on both nodes for the chains to be identical. If they are not the same, verify that the launch command is the same on both the nodes.
+In the above string, take note of the p2p and RPC ports, as well as the magic number. These values must match on both nodes for the chains to be identical. If they are not the same, verify that the launch command is the same on both the nodes.
 
 In the example above, the p2p port is `8096`. Make sure that the p2p port is open to the internet or any other network from which the second node connects.
 
@@ -122,7 +122,7 @@ Mining can be started on a node using the following command:
 ./komodo-cli -ac_name=HELLOWORLD setgenerate true $(nproc)
 ```
 
-`$(nproc)` in the above command makes the daemon mine using all the available CPU threads, which might be necesary in a low end VPS.
+`$(nproc)` in the above command makes the daemon mine using all the available CPU threads, which might be necessary in a low end VPS.
 
 On a Komodo-based blockchain, all of the pre-mined coins are mined in the first block. Therefore, whichever machine executes the mining command will receive the entirety of the blockchain's pre-mined coin supply, as set in the [ac_supply](../installations/asset-chain-parameters.html#ac-supply) parameter. Upon mining the first block, these coins are available in the default `wallet.dat` file.
 
@@ -205,7 +205,7 @@ To see general information about your new Smart Chain, execute this command:
 
 `./komodo-cli -ac_name=HELLOWORLD getinfo`
 
-The following command returns information about all available rpc and API commands:
+The following command returns information about all available RPC and API commands:
 
 `./komodo-cli -ac_name=HELLOWORLD help`
 

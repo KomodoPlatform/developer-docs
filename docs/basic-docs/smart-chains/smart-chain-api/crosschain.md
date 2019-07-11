@@ -36,9 +36,9 @@ The source and destination chains should have the same `CCid` parameter ([ac_cc]
 
 ## MoMoM Notarized Migration
 
-The MoMoM notarized migration API allows the migration of coin or token value using Komodo's notary network. This facilitates the highly scalable multichain architecture of Smart Chains on the Komodo Platform.
+The MoMoM notarized migration API allows the migration of coin or token value using Komodo's notary network. This facilitates the highly scalable multi-chain architecture of Smart Chains on the Komodo Platform.
 
-Notary nodes store "fingeprints" of the blocks belonging to the blockchains of the various assets in the main Komodo chain (KMD). The "fingerprints" can also be referred to as <b>MoM</b>, or `merkle root of merkle roots`.
+Notary nodes store "fingerprints" of the blocks belonging to the blockchains of the various assets in the main Komodo chain (KMD). The "fingerprints" can also be referred to as <b>MoM</b>, or `merkle root of merkle roots`.
 
 The fingerprints of fingerprints are delivered back into the blockchain of the assets as back notarizations. To learn more about the notarization process, [please visit this linked article](https://komodoplatform.com/komodo-platforms-new-scalability-tech/).
 
@@ -444,7 +444,7 @@ b2ed563617771d4a919fb13906e93c8ec485bed145a3f380583796663e285e0d
 
 </collapse-text>
 
-## Notarisation Backup Solution
+## Notarization Backup Solution
 
 There is an alternative solution to notarize burn transactions. This method is useful when the automated MoMoM notarization method fails or is slow.
 
@@ -707,7 +707,7 @@ Start mining in Node1.
 ./komodo-cli -ac_name=IMPORTTEST setgenerate true 1
 ```
 
-Verify that the balance increased by atleast the amount specified in `-ac_supply` through the [getbalance](../komodo-api/control.html#getbalances) method.
+Verify that the balance increased by at least the amount specified in `-ac_supply` through the [getbalance](../komodo-api/control.html#getbalances) method.
 
 Use the method `selfimport` to receive the `SourceTxHex` and the `ImportTxHex`.
 
@@ -1160,7 +1160,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **scanNotarisationsDB blockHeight symbol [blocksLimit=1440]**
 
-The `scanNotarisationsDB` method scans the notarizations database backwards from the given block height for a notarization of the chain with the given name (symbol).
+The `scanNotarisationsDB` method scans the notarization database backwards from the given block height for a notarization of the chain with the given name (symbol).
 
 #### Arguments
 
