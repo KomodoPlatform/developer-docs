@@ -790,7 +790,7 @@ find ~/.komodo -type f -iname "*.conf" -exec chmod 600 {} \;
 ---
 
 ## Setting up Iguana
-You will need to do this on both servers individually.
+You will need to do this on both servers individually and use port 7776 for your Main Server and port 7779 for the 3rd Party Server.
 
 ### Clone the source
 
@@ -801,15 +801,16 @@ cd SuperNET/iguana
 git checkout dev
 ```
 
-#### Copy the `pubkey.txt` file associated with the server you're on, that we created earlier from the `~/komodo/src/` dir
+#### Copy the appropriate `pubkey.txt` file associated with the server you're on, that we created earlier from the `~/komodo/src/` dir
 
 ```bash
 cp ~/komodo/src/pubkey.txt ~/SuperNET/iguana/pubkey.txt
 ```
 
+Main Server:
 #### Create `wp_7776`
 
-Create `wp_7776` file inside the `iguana` dir with your 24 words passphrase. The file should look as follows (replace `YOUR VERY SECURE PASSPHRASE` with your own):
+Create `wp_7776` file inside the `iguana` dir with the same passphrase you used to generate your Main address/pubkey. The file should look as follows (replace `YOUR VERY SECURE PASSPHRASE` with your own):
 
 ```bash
 curl --url "http://127.0.0.1:7776" --data "{\"method\":\"walletpassphrase\",\"params\":[\"YOUR VERY SECURE PASSPHRASE\", 9999999]}"
@@ -821,9 +822,26 @@ curl --url "http://127.0.0.1:7776" --data "{\"method\":\"walletpassphrase\",\"pa
 chmod 700 wp_7776
 ```
 
+3rdParty Server:
+#### Create `wp_7779`
+
+Create `wp_7779` file inside the `iguana` dir with the same passphrase you used to generate your 3rd Party address/pubkey. The file should look as follows (replace `YOUR VERY SECURE PASSPHRASE` with your own):
+
+```bash
+curl --url "http://127.0.0.1:7779" --data "{\"method\":\"walletpassphrase\",\"params\":[\"YOUR VERY SECURE PASSPHRASE\", 9999999]}"
+```
+
+#### Make `wp_7779` file executable
+
+```bash
+chmod 700 wp_7779
+```
+
+For Both:
+
 #### Create `userhome.txt`
 
-Create `userhome.txt` file inside the `iguana` dir with the location of your user's home directory. Here is an example using user `dextar` and how the file should look like.
+Create `userhome.txt` file inside the `iguana` dir with the location of your user's home directory. Here is an example using the user `dextar` and how the file should look like.
 
 ```bash
 home/dextar
