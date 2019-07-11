@@ -715,13 +715,13 @@ Wait for all the coins to finish syncing. You will then follow the directions be
 
 ## Setup 3rd Party Iguana
 
-### Clone the blackjok3rtt/SuperNET -b beta source
+### Clone the blackjok3rtt/SuperNET -b blackjok3r_3rdparty source
 
 ```bash
 cd ~
 git clone https://github.com/blackjok3rtt/SuperNET/
 cd SuperNET/iguana
-git checkout beta
+git checkout blackjok3r_3rdparty
 ```
 
 #### Copy the appropriate `pubkey.txt` file associated with the server you're on, that we created earlier from the `~/komodo/src/` dir
@@ -1000,6 +1000,7 @@ After you see `INIT with 64 notaries`, you can safely start dPoW process. Just i
 ### 3rd Party Server
 ```bash
 cd ~/SuperNET/iguana
+./m_notary_build
 ./m_notary_3rdparty
 ```
 
