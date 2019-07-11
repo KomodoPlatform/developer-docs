@@ -136,7 +136,7 @@ Note also HasHeirSpendingBegun flag, it will be described later, in the module s
 | vout.0 | normal output, sent to the owner or the heir address |
 | vout.1 | `change` to CC `1of2` address |
 | vout.2 | `change` to user's address from transaction fee input, if any |
-| vout.n-1 | OP_RETURN EVAL_HEIR `C` fundingtxid HasHeirSpendingBegun |
+| vout.n-1 | OP_RETURN EVAL_HEIR 'C' fundingtxid HasHeirSpendingBegun |
 
 This transaction allows either the owner or the heir to spend funds from this plan instance.
 
