@@ -22,7 +22,7 @@ The Antara Framework takes into account several different advanced technologies.
 
 #### CryptoConditions in Brief
 
-CryptoConditions is a technology that allows for arbitrary logical conditions and fulfillment to be evaluated as a part of consensus. This allows for a Smart Chain's consensus mechanism to evaluate the results of arbitrary code and update state in the blockchain's data in a decentralized and secure fashion.
+CryptoConditions is a technology that allows for logical conditions and fulfillments to be evaluated as a part of consensus.<!-- dimxy originally cryptconditions themselves are not arbitrary code but limited to logical expressions on signatures and hashes --> CryptoConditions operate with electronic signatures and hashes, this technology was enhanced by Komodo team to allow for a Smart Chain's consensus mechanism to evaluate the results of arbitrary code and update state in the blockchain's data in a decentralized and secure fashion.
 
 CryptoConditions technology is not a new concept. The [Interledger](https://interledger.org/) team originally proposed this technology in 2016. 
 
@@ -32,11 +32,11 @@ Komodo, on the other hand, found the CryptoConditions concept to be intriguing. 
 
 Our implementation uses many of the key ideas put forth by the Interledger team, and at the same time we depart in several significant ways. Those who are curious for specific details on this topic can explore the open-source code in the respective repositories. 
 
-The important takeaway is that the Antara Framework encompasses several underlying technologies, one of which is CryptoConditions (CC). This technology allows a developer to add arbitrary logical conditions and fulfillment to their Smart Chain, and to rely on the consensus mechanism to ensure state integrity in a decentralized environment.
+The important takeaway is that the Antara Framework encompasses several underlying technologies, one of which is CryptoConditions (CC). This technology allows a developer to add complex logical conditions and fulfillments plus arbitrary code to their Smart Chain, and to rely on the consensus mechanism to ensure state integrity in a decentralized environment.
 
 #### CryptoConditions Depends Upon Transactions and Booleans
 
-At the most fundamental level, blockchain data is advanced only through transactions. A blockchain itself is but a list of transactions, bound into blocks. By design, each transaction must be confirmed by the consensus mechanism.
+At the most fundamental level, blockchain data is advanced only through transactions. A blockchain itself is nothing but a list of transactions, bound into blocks. By design, each transaction must be confirmed by the consensus mechanism.
 
 Therefore, all decentralized data that a developer wishes to create or use with their arbitrary code must first be added to a transaction. This transaction is then passed through the consensus mechanism. Transactions that are successfully confirmed are finally added to the blockchain, and therefore the data is also added.
 
