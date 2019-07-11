@@ -14,19 +14,19 @@ If you have any problems, please join `#notarynode` on the [Komodo Discord](http
 
 Below are the current list of repo's NN's are to use. It will be kept up-to-date as possible, but if you see something you're not expecting, jump on the discord and let us know.
 
-**Iguana with AutoSplit:** https://github.com/jl777/SuperNET -b beta
-
-**Iguana without AutoSplit:** https://github.com/jl777/SuperNET -b blackjok3r
-
 **KMD:** https://github.com/jl777/komodo -b beta
 
 ### Main Server
+
+**Iguana:** https://github.com/blackjok3rtt/SuperNET/ -b beta
 
 **BTC:** https://github.com/bitcoin/bitcoin -b 0.16
 
 **HUSH:** https://github.com/MyHush/hush3 -b dev
 
 ### 3rd Party Server:
+
+**Iguana:** https://github.com/jl777/SuperNET -b blackjok3r
 
 **VRSC:** https://github.com/VerusCoin/VerusCoin -b master
 
@@ -294,6 +294,47 @@ tail -f ~/.komodo/SUPERNET/debug.log
 ```
 
 For any other Komodo assetchain, use the example of HUSH3 or SUPERNET and change the path with the coin name that you are looking for accordingly. Wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
+
+## Setup Main Server Iguana
+
+### Clone the jl777/SuperNET -b blackjok3r source
+
+```bash
+cd ~
+git clone https://github.com/jl777/SuperNET
+cd SuperNET/iguana
+git checkout blackjok3r
+```
+
+#### Copy the appropriate `pubkey.txt` file associated with the server you're on, that we created earlier from the `~/komodo/src/` dir
+
+```bash
+cp ~/komodo/src/pubkey.txt ~/SuperNET/iguana/pubkey.txt
+```
+
+#### Create `wp_7776`
+
+Create `wp_7776` file inside the `iguana` dir with the same passphrase you used to generate your Main address/pubkey. The file should look as follows (replace `YOUR VERY SECURE PASSPHRASE` with your own):
+
+```bash
+curl --url "http://127.0.0.1:7776" --data "{\"method\":\"walletpassphrase\",\"params\":[\"YOUR VERY SECURE PASSPHRASE\", 9999999]}"
+```
+
+#### Make `wp_7776` file executable
+
+```bash
+chmod 700 wp_7776
+```
+
+#### Create `userhome.txt`
+
+Create `userhome.txt` file inside the `iguana` dir with the location of your user's home directory. Here is an example using the user `dextar` and how the file should look like.
+
+```bash
+home/dextar
+```
+
+There shouldn't be any other text or spaces in that file.
 
 ---
 
@@ -672,6 +713,48 @@ Wait for all the coins to finish syncing. You will then follow the directions be
 
 ---
 
+## Setup 3rd Party Iguana
+
+### Clone the blackjok3rtt/SuperNET -b beta source
+
+```bash
+cd ~
+git clone https://github.com/blackjok3rtt/SuperNET/
+cd SuperNET/iguana
+git checkout beta
+```
+
+#### Copy the appropriate `pubkey.txt` file associated with the server you're on, that we created earlier from the `~/komodo/src/` dir
+
+```bash
+cp ~/komodo/src/pubkey.txt ~/SuperNET/iguana/pubkey.txt
+```
+#### Create `wp_7779`
+
+Create `wp_7779` file inside the `iguana` dir with the same passphrase you used to generate your 3rd Party address/pubkey. The file should look as follows (replace `YOUR VERY SECURE PASSPHRASE` with your own):
+
+```bash
+curl --url "http://127.0.0.1:7779" --data "{\"method\":\"walletpassphrase\",\"params\":[\"YOUR VERY SECURE PASSPHRASE\", 9999999]}"
+```
+
+#### Make `wp_7779` file executable
+
+```bash
+chmod 700 wp_7779
+```
+
+#### Create `userhome.txt`
+
+Create `userhome.txt` file inside the `iguana` dir with the location of your user's home directory. Here is an example using the user `dextar` and how the file should look like.
+
+```bash
+home/dextar
+```
+
+There shouldn't be any other text or space.
+
+---
+
 ## Generating `pubkey`, `address` & `WIF` from your secure passphrase
 
 The mainnet notary node operators have to provide 2 seperate pubkeys, one for your Main Server and one for your 3rd Party Server. This means you will have to generate 2 seed phrases individually(passphrase) which will generate the 2 pubkeys, addresses and private keys (WIF). You will need to create your Main pubkey on your Main Server & follow the same actions on your 3rd Party Server for your 3rd Party pubkey.
@@ -748,7 +831,7 @@ komodo-cli validateaddress RVNKRr2uxPMxJeDwFnTKjdtiLtcs7UzCZn
 
 ### Create `pubkey.txt` file
 
-We will need to create a `pubkey.txt` file inside `~/komodo/src/` directory. This will be used to start all assetchains including HUSH3 & VRSC with the `-pubkey=` param. `pubkey.txt` file should contain only the below information. Change `02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1` with your own pubkey.
+You will need to create a `pubkey.txt` file inside `~/komodo/src/` directory on both your servers with their respective pubkeys. This will be used to start all assetchains including HUSH3 & VRSC with the `-pubkey=` param. `pubkey.txt` file should contain only the below information. Change `02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1` with either your Main pubkey or 3rd Party pubkey, on their respective servers.
 
 ```bash
 pubkey=02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1
@@ -790,66 +873,6 @@ find ~/.komodo -type f -iname "*.conf" -exec chmod 600 {} \;
 ```
 
 ---
-
-## Setting up Iguana
-You will need to do this on both servers individually and use port 7776 for your Main Server and port 7779 for the 3rd Party Server.
-
-### Clone the source
-
-```bash
-cd ~
-git clone https://github.com/jl777/SuperNET
-cd SuperNET/iguana
-git checkout beta
-```
-
-#### Copy the appropriate `pubkey.txt` file associated with the server you're on, that we created earlier from the `~/komodo/src/` dir
-
-```bash
-cp ~/komodo/src/pubkey.txt ~/SuperNET/iguana/pubkey.txt
-```
-
-Main Server:
-#### Create `wp_7776`
-
-Create `wp_7776` file inside the `iguana` dir with the same passphrase you used to generate your Main address/pubkey. The file should look as follows (replace `YOUR VERY SECURE PASSPHRASE` with your own):
-
-```bash
-curl --url "http://127.0.0.1:7776" --data "{\"method\":\"walletpassphrase\",\"params\":[\"YOUR VERY SECURE PASSPHRASE\", 9999999]}"
-```
-
-#### Make `wp_7776` file executable
-
-```bash
-chmod 700 wp_7776
-```
-
-3rdParty Server:
-#### Create `wp_7779`
-
-Create `wp_7779` file inside the `iguana` dir with the same passphrase you used to generate your 3rd Party address/pubkey. The file should look as follows (replace `YOUR VERY SECURE PASSPHRASE` with your own):
-
-```bash
-curl --url "http://127.0.0.1:7779" --data "{\"method\":\"walletpassphrase\",\"params\":[\"YOUR VERY SECURE PASSPHRASE\", 9999999]}"
-```
-
-#### Make `wp_7779` file executable
-
-```bash
-chmod 700 wp_7779
-```
-
-For Both:
-
-#### Create `userhome.txt`
-
-Create `userhome.txt` file inside the `iguana` dir with the location of your user's home directory. Here is an example using the user `dextar` and how the file should look like.
-
-```bash
-home/dextar
-```
-
-There shouldn't be any other text or space.
 
 ## Set `ulimit` parameters on Ubuntu permanently
 
