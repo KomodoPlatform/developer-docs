@@ -2,7 +2,7 @@
 
 ## A Foundational Discussion of Blockchain Security
 
-Komodo’s form of providing security is called Delayed Proof of Work technology (dPoW). It builds on the most advanced form of blockchain security in existence, Proof of Work technology (PoW). The latter form of security is the method that the Bitcoin network utilizes.
+Komodo’s form of providing security is called Delayed Proof of Work (dPoW). It builds on the most advanced form of blockchain security in existence, Proof of Work (PoW). The latter form of security is the method utilized by the Bitcoin network.
 
 To understand the value of Komodo’s dPoW security, we must first explain how PoW works and why it is the most secure method of maintaining a decentralized blockchain. We must also examine PoW’s shortcomings, so that we may understand the need for Komodo’s dPoW method and the advantages it provides to the blockchain community.
 
@@ -28,7 +28,7 @@ The consensus mechanism created by Nakamoto is perhaps one of the most powerful 
 
 Let us suppose a user, Alice, indicates in her digital wallet that she wants to send cryptocurrency money to a friend. Alice’s computer now gathers several pieces of information, including any necessary permissions and passwords, the amount that Alice wants to spend, and the receiving address of her friend’s wallet. All this information is gathered into a packet of data, called a "transaction," and Alice’s device sends the transaction to the Internet.
 
-There are several types of devices that will interact with Alice’s transaction on the Internet. These devices will share the transaction information with other devices supporting the cryptocurrency network. For this discussion, we need only focus on one type of device: a cryptocurrency miner.
+There are several types of devices that will interact with Alice’s transaction. These devices will share the transaction information with other devices supporting the cryptocurrency network. For this discussion, we need only focus on one type of device: a cryptocurrency miner.
 
 ::: tip Note
 
@@ -64,7 +64,7 @@ Bob will prepare potentially hundreds of transaction hashes before proceeding to
 
 The Cascade Effect simply means that were Bob to attempt to change even the smallest bit in the raw data—whether from a desire to cheat, or by mistake, or for any other reason—the entire transaction hash would dramatically change. In this way, the mathematical formulas in the Bitcoin protocol ensure that Bob cannot create an improper history.
 
-Were Bob to attempt to create an incorrect transaction hash, other miners on the network could use the raw transaction data from Alice, perform the proper mathematical formulas in the Bitcoin protocol, and immediately discover that Bob’s hashes are incorrect. Thus, all the devices on the network would reject Bob’s incorrect attempts and prevent him from claiming rewards.
+Were Bob to attempt to create an incorrect transaction hash, other miners would discover the falseness of the hash during their automated mining process. The miners would use the same raw transaction data from Alice, perform the proper mathematical formulas in the Bitcoin protocol, and immediately discover that Bob's attempted hash was incorrect.  All the devices on the network would reject Bob’s attempt and this would prevent Bob from claiming rewards.
 
 ##### Step One Continued: Finishing the Preliminary Calculations
 
@@ -104,7 +104,7 @@ Bob’s mining device will make random guesses at the nonce, one after another, 
 000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
 ```
 
-Recall now The Cascade Effect, and how it states that changing one small number in the data before performing the mathematical computations creates a vastly different outcome. Since Bob is continually including new guesses at the nonce with each computation of a block hash, each block-hash attempt will produce a widely different sequence of numbers. Miners on the Bitcoin network know when a miner, such as Bob, solves the puzzle; by observing the clues that were provided earlier. Recall that the last time a miner successfully added data to the blockchain, they provided these clues in their block header. One of the clues from the previous block header can look like this:
+Recall now The Cascade Effect, and how it states that changing one small number in the data before performing the mathematical computations creates a vastly different outcome. Since Bob is continually including new guesses at the nonce with each computation of a block hash, each block-hash attempt will produce a widely different sequence of numbers. Miners on the Bitcoin network know when a miner, such as Bob, solves the puzzle; by observing the clues that were provided earlier. Recall that the last time a miner successfully added data to the blockchain, they provided these clues in their block header. One of the clues can look like this:
 
 ```bash
 "difficulty" : 1.00000000
