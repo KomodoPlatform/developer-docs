@@ -798,7 +798,7 @@ You will need to do this on both servers individually and use port 7776 for your
 cd ~
 git clone https://github.com/jl777/SuperNET
 cd SuperNET/iguana
-git checkout dev
+git checkout beta
 ```
 
 #### Copy the appropriate `pubkey.txt` file associated with the server you're on, that we created earlier from the `~/komodo/src/` dir
