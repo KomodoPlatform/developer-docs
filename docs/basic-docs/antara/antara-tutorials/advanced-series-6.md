@@ -26,11 +26,60 @@ Congratulations on finishing the Advanced Series. Make sure to reach out to the 
 
 The following are useful patterns during Antara module development.
 
-#### Baton Pattern
+### Baton Pattern
 
-The baton pattern allows the developer to organize a single-linked list in a Smart Chain.
+The baton pattern allows the developer to organize a single-linked list in a Smart Chain. This list is formed by transactions which spend the baton from a previous transaction.
 
 To traverse a linked list using the baton method, start with the first transaction in any plan instance and iterate through the other transactions to collect properties in their opreturns.
+
+Example:
+
+Add a baton to a transaction by sending a small fixed fee to a predefined output:
+```cpp
+mtx.vout.push_back(MakeCC1vout(cp->evalcode, 10000, Mypubkey()));  // BATON_VOUT
+```
+We use the baton on my pubkey here (the pubkey from the '-pubkey' daemon parameter).
+
+Iterate through the transactions marked with the baton:
+```cpp
+int64_t EnumerateBatons(uint256 initialtxid)
+{
+    int64_t total = 0LL;
+    int32_t vini;
+    int32_t height;
+    int32_t retcode;
+
+    uint256 batontxid;
+    uint256 sourcetxid = initialtxid;
+
+    // iterate through the tx spending the baton, adding up amount from the tx opreturn
+    while ((retcode = CCgetspenttxid(batontxid, vini, height, sourcetxid, BATON_VOUT)) == 0)  // find a tx which spent the baton vout
+    {
+        CTransaction txBaton;
+        uint256 hashBlock;
+        uint8_t funcId;
+        int64_t amount;
+
+        if (GetTransaction(batontxid, txBaton, hashBlock, true) &&  // load the transaction which spent the baton
+            !hashBlock.IsNull() &&                           // tx not in mempool
+            txBaton.vout.size() > BATON_VOUT &&             
+            txBaton.vout[BATON_VOUT].nValue == 10000 &&     // check baton fee 
+            (funcId = DecodeOpReturn(txBaton.vout.back().scriptPubKey, amount)) != 0) // decode opreturn
+        {    
+             total += amount;
+        }
+        else
+        {
+            // some error:
+            return -1;
+        }
+        sourcetxid = batontxid;
+    }
+    return total;
+}
+```
+
+
 
 ### Marker Pattern
 
@@ -94,7 +143,7 @@ The <b>CCunspents()</b> function requires the Smart Chain [<b>addressindex</b>](
 
 :::
 
-#### Txidaddress Pattern
+### Txidaddress Pattern
 
 You can use the txidaddress pattern to send value to an address from which the value should never again be spent.
 
