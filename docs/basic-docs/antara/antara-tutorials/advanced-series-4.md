@@ -36,7 +36,7 @@ A CryptoCondition consists of two parts:
 
 The <b>condition</b> (Part I) contains data that checks the CryptoCondition in "fingeprinted" form. 
 
-The term, "fingerprinted," comes from the industry-wide standard CC library. To fingerprint data, the CC library acquires the target data, combines it with other data that the developer does not need to manage, and then creates a hash, or "fingerprint."
+The term, "fingerprinted," comes from the industry-wide standard CC library. <!-- dimxy actually, 'fingerprint' is a more common term than 'hash' (hash is a special case) -- https://en.wikipedia.org/wiki/Fingerprint_(computing) --> "Fingerprint" means the conversion of some arbitrary set of data to a fixed length byte array. A "fingerprint" uniquely identifies the source data. To fingerprint data, the CC library acquires the target data, combines it with other data that the developer does not need to manage, and then creates a hash, or "fingerprint."
 
 For example, a condition can be a requirement that only a specific fingerprinted `pubkey` be allowed to spend this transaction output.
 
@@ -115,7 +115,7 @@ A transaction can also send a nominal fee to the global CC address with the inte
 
 Development requirements for each Antara Module:
 
-- Allocate a new `EVAL` code for your contract
+- Allocate a new `EVAL` code for your module
 - Assign a global address for the module
 - Define the module's transactions
   - This includes the structure of their inputs, outputs, and opreturn format
