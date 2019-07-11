@@ -1,6 +1,6 @@
 # Introduction
 
-## BarterDEX is officially deprecated as of this writing and mm2 is under testing before public release.
+## BarterDEX is officially deprecated as of this writing and mm2 is in BETA testing. Click [here](https://atomicdex.io/) to learn more
 
 Komodo’s decentralized exchange, mmV1, allows people to trade cryptocurrency coins without a counterparty risk. The protocol is open-source and trading is
 available for any coin that any developers choose to connect to mmV1. The parent
