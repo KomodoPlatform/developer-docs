@@ -129,7 +129,7 @@ A summary of the procedure, starting from the beginning.
     
     - Maker does not send the payment to Taker directly, but rather into a temporary holding address 
         - On [utxo-based](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept) blockchains, this holding address is a P2SH hash/time locked output
-        - On ETH/ERC20 based blockchains, this address is an etomic swap smart contract
+        - On ETH/ERC20 based blockchains, this address is an etomic-swap smart contract
     
     - `<makerpayment>` enters a state of limbo on the Maker's coin network, held safely by encryption, awaiting either for Taker to spend the payment, or for the swap to time out
         
@@ -139,7 +139,7 @@ A summary of the procedure, starting from the beginning.
 
     - Taker does not send the payment to Maker directly, but rather into a temporary holding address
         - On [utxo-based](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept) blockchains, this holding address is a P2SH hash/time locked output
-        - On ETH/ERC20 based blockchains, this address is an etomic swap smart contract
+        - On ETH/ERC20 based blockchains, this address is an etomic-swap smart contract
     
     
     - `<takerpayment>` enters a state of limbo on the Taker's coin network, held safely by encryption, awaiting either for Maker to spend the payment, or for the swap to time out
@@ -170,7 +170,7 @@ If Maker accepts the offer to trade, but does not send `<makerpayment>`, Taker o
 
 Maker, on the other hand, stands to lose more. Since Maker did not follow through with his end of the bargain, the AtomicDEX network indicates on his public AtomicDEX trading profile that he failed in a commitment, thus decreasing his profile’s reputation. If Maker continues this behavior as a habit, he may find it difficult to discover trading partners.
 
-So long as the frequency of Makers failing is low, the occasional extra `<dexfee>` paid by a Taker is a minor issue. However, if there is a sudden spike in misbehavior, the AtomicDEX code has in-built contingency plans which can provide refunds to Takers.
+So long as the frequency of Makers failing is low, the occasional extra `<dexfee>` paid by a Taker is a minor issue. However, if there is a sudden spike in misbehavior, the AtomicDEX code has built-in contingency plans which can provide refunds to Takers.
 
 #### 2 - Maker Successfully Sends `<makerpayment>`
 
@@ -213,9 +213,9 @@ If a user attempts a trade and no response returns from the network, the user sh
 
 People will notice that there is a small `<dexfee>` required as part of the AtomicDEX protocol. This is 1/777 of the transaction amount and it is calibrated to make spam attacks impractical. The 1/777 fee is about equal to 0.1287% of the `<takerpayment>`.
 
-By forcing a would-be attacker to spend real money, attacking the network becomes costly. Without this spam prevention, the AtomicDEX could otherwise be attacked at the protocol level by any person performing a plethora of trade requests.
+By forcing a would-be attacker to spend real money, attacking the network becomes costly. Without this spam prevention, AtomicDEX could otherwise be attacked at the protocol level by any person performing a plethora of trade requests.
 
-It is possible that some atomic swaps can initiate, and then fail to complete, which raises questions about what happens to the `<dexfee>` in this scenario. The `<dexfee>` is the first charge in the protocol; in this sense, there is a `<dexfee>` charged for these failed atomic swaps.
+Naturally, some atomic swaps can initiate and then fail to complete, which raises questions about what happens to the `<dexfee>` in this scenario. The `<dexfee>` is the first charge in the protocol; in this sense, there is a `<dexfee>` charged for these failed atomic swaps.
 
 However, this failure should not be looked upon in isolation. The AtomicDEX protocol is based on statistics. Statistically speaking, there will be some percentage of atomic swaps that start and will not complete. 
 
@@ -229,11 +229,11 @@ As an organization, when speaking generally to our audience online, we state tha
 
 Since AtomicDEX is trading permanently on blockchains — as opposed to updating an internal database of vouchers — both sides of the trading pair need to wait and watch as miners on the respective blockchains calculate transaction confirmations.
 
-Because the payments that occur on one blockchain will proceed regardless of the actions on the other blockchain — a confirmation failure on one chain will not stop with the other blockchain performing its duties as normal — it is therefore important that the AtomicDEX protocol observe and adjust as necessary. 
+Because the payments that occur on one blockchain will proceed regardless of the actions on the other blockchain — a confirmation failure on one chain will not stop with the other blockchain performing its duties as normal — the AtomicDEX protocol must automatically observe and adjust as necessary. 
 
 #### AtomicDEX is Entirely Experimental, and Should Be Treated As Such
 
-We should warn our readers, nevertheless. Every element of the Komodo ecosystem is still considered to be highly experimental. We provide no investment advice, nor any guarantees of any funds utilized on our network. Use our products only at your own risk.
+We warn our readers, nevertheless. Every element of the Komodo ecosystem is still considered to be highly experimental. We provide no investment advice, nor any guarantees of any funds utilized on our network. Use our products only at your own risk.
 
 #### The AtomicDEX API
 

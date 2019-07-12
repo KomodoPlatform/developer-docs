@@ -668,7 +668,7 @@ Naturally, as each level of notarization takes time to perform, there is an addi
 
 Another difference between the KMD main chain and a Smart Chain is that the notary nodes only mine the KMD main chain. Asset-chain developers are responsible to create any required network of miners to process their Smart Chain’s transactions.  
 
-This does not need to be a full network of mining farms, such as those in Bitcoin. Rather, power only needs to be of alevel necessary to process transactions, and to provide any desired level of hash-rate security. For a small business with intermittent periods of transaction activity, a single, dedicated, full-time server may be enough. Larger businesses can scale as desired and can also work to attract a network of freelance miners.
+This does not need to be a full network of mining farms, such as those in Bitcoin. Rather, power only needs to be of a level necessary to process transactions, and to provide any desired level of hash-rate security. For a small business with intermittent periods of transaction activity, a single, dedicated, full-time server may be enough. Larger businesses can scale as desired and can also work to attract a network of freelance miners.
 
 Furthermore, developers of Smart Chains need not create their chain so that it relies solely on a PoW consensus mechanism. Instead, developers can utilize Antara Customizations (discussed later in the Core Technology Discussions section and elsewhere in this documentation). These Antara Customizations allow the developer to utilize a hybrid consensus model that combines Proof-of-Stake (PoS) with Proof-of-Work (PoW).
 

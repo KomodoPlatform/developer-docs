@@ -140,4 +140,26 @@ Take this from the tutorial that explains nodes
 
 ## Genesis Attack
 
-## 
+## T Address
+
+## Z Address
+
+## T Transaction
+
+## Z Transaction
+
+## Iguana Core
+
+## Notarization
+
+## Notary Node
+
+## Block Reward
+
+## On-Demand Notarization
+
+## Centralized Exchange (CEX)
+
+## Virtual Private Server (VPS)
+
+## Public Key (pubkey)

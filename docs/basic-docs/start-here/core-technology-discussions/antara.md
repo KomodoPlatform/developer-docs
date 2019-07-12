@@ -24,7 +24,7 @@ The third layer is the technology that integrates a Komodo Smart chain with othe
 
 Chains launched with Antara are not ordinary blockchains. They’re “Smart Chains.” They’re smart because they’re customizable, completely independent, scalable, and modular.
 
-Smart Chains are customizable along 18 different parameters, allowing for customization of block time, block rewards, consensus rules, algorithm, privacy settings, and much more.
+Smart Chains are customizable along 18 different parameters, allowing for customization of block time, block rewards, consensus rules, algorithms, privacy settings, and much more.
 
 Smart Chains are also infinitely scalable, as multiple Smart Chains can be clustered together to function as one. Moreover, each Smart Chain comes with built-in modules that accelerate development. This leads us to the second layer of the Antara Framework.
 
@@ -38,7 +38,7 @@ Advanced developers can optionally program new modules, giving the developer com
 
 ### Antara Integration Layer 
 
-The third layer of the Antara Framework is the Integration Layer. The Integration Layer offers a series of white label products, including a multi-coin wallet, a fully decentralized exchange, a decentralized crowdfunding application, custom block explorers, and SPV server integration. 
+The third layer of the Antara Framework is the Integration Layer. The Integration Layer offers a series of white-label products, including a multi-coin wallet, a fully decentralized exchange, a decentralized crowdfunding application, custom block explorers, and SPV server integration. 
 
 The Antara Integration Layer also provides an open API that can be used to write blockchain-based applications and software in any programming language. All custom-built apps and software run natively and at the consensus level of each individual Smart Chain.
 
@@ -73,7 +73,7 @@ Antara Smart Chains are customizable along 18 different parameters, offering hun
 | Time Locking | the option to make block rewards frozen for a set number of blocks |
 | Taxation | an optional, inflationary feature that generates a small tax for all transactions |
 | Founder’s Bonus | optional feature that makes periodic payouts to the chain’s founder |
-| Pub Key | designate the address to which pre-mine supply, tax, and bonuses are paid |
+| Pubkey | designate the address to which pre-mine supply, tax, and bonuses are paid |
 | Multi-Signature | the option to designate a multi-sig address to receive pub key payouts |
 | Antara Modules | choose which Antara Modules that you would like to activate |
 
@@ -108,7 +108,7 @@ The option to code custom modules is also available to all Smart Chain projects.
 
 ## Antara Integration Layer
 
-The third and final layer of Komodo’s Antara Framework is the Integration Layer, which consists of an open API and a selection of white label applications to accelerate development.
+The third and final layer of Komodo’s Antara Framework is the Integration Layer, which consists of an open API and a selection of white-label applications to accelerate development.
 
 Each Antara Module activated on a Smart Chain provides a number of remote procedure calls (RPC). Each individual call executes a different process and offers a unique functionality. Together, these RPCs from all of the the Antara Modules make up the open API.
 
@@ -122,5 +122,4 @@ Further still, the Antara Integration Layer comes with a series of white label p
 - A custom block explorer to make your Smart Chain’s ledger publicly visible.
 Integration to SPV servers, which allows users to access their assets on mobile devices.
 
-These products can be adjusted to fit any project’s branding, accelerating a go-to-market.
-
+These products can be adjusted to fit any project’s branding, accelerating a go-to-market strategy.
