@@ -6,7 +6,7 @@ This action cannot be undone. [Make sure that you backup your seed beforehand.](
 
 :::
 
-- Click on Settings then scroll down to bottom and select "Delete Wallet" which is highlighted in Red
+- Click on "Settings" then scroll to the bottom and select the red "Delete Wallet" option
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -22,7 +22,7 @@ This action cannot be undone. [Make sure that you backup your seed beforehand.](
 
 </div>
 
-- Click on "DELETE" button if you are sure to delete this wallet
+- Click on the "DELETE" button
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 

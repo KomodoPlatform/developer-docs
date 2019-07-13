@@ -1,6 +1,6 @@
 # How to View Your Receiving Address to Send Funds for Trading
 
-- From "Portfolio" tab select the coin you want to view receive address for. This will take you to the specific coin page
+- From the "Portfolio" tab, select the coin for the receiving address to view
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -8,7 +8,13 @@
 
 </div>
 
-- On the coin page, press "RECEIVE" button. This will display your receiving address including a QR code of your address. Different coins may have different receiving address derived from your seed. Komodo and any other Komodo based smartchains will have same address
+- On the coin page, press the "RECEIVE" button
+
+This will display your receiving address, including a QR code of your address. 
+
+Different coins may have different receiving addresses derived from your seed.
+
+On the other hand, Komodo (KMD) and any other Komodo-based Smart Chain will have same address.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -16,7 +22,7 @@
 
 </div>
 
-- Example of KMD receiving address
+Example of a KMD receiving address.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -24,7 +30,7 @@
 
 </div>
 
-- Example of BTC receiving address
+Example of a BTC receiving address.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 

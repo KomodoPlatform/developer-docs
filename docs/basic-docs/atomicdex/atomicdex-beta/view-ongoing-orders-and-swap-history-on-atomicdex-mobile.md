@@ -2,7 +2,9 @@
 
 #### View Ongoing Swaps and Orders
 
-- Click on "DEX" tab from the bottom and swipe from right to left or click on "ORDERS" to view your current ongoing swaps or the orders you placed
+- Click on the "DEX" tab at the bottom of the screen and swipe from right to left
+
+- Alternatively, click on the "ORDERS" button to view your ongoing swaps and your orders
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -12,7 +14,13 @@
 
 #### View Your Swap History
 
-- The swap history tab is on the right of "ORDERS" tab where you should see all your swap history. Note: If you delete app data from settings or restore seed on another phone, you will not see previous  swap data
+The swap history tab is on the right of the "ORDERS" tab. You should see your swap history here. 
+
+::: tip
+
+If you delete app data in the settings menu or restore this seed on another phone, your previous swap data will be lost.
+
+:::
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 

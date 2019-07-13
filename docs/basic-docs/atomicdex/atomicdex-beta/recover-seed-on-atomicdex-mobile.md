@@ -16,7 +16,7 @@
 
 </div>
 
-- The app will display your seed that you used
+The app will display your seed that you used.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 

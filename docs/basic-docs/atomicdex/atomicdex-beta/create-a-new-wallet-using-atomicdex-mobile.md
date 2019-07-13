@@ -1,6 +1,7 @@
 # How to Create a New Wallet Using AtomicDEX Mobile
 
 - Start AtomicDEX Mobile app
+
 - Select "CREATE A WALLET" button
 
 <div style="margin: 2rem; text-align: center; width: 80%">
@@ -17,7 +18,7 @@
 
 </div>
 
-- Write down your 12 words seed phrase and store in a safe place. Then press "NEXT"
+- Write down your 12 words seed phrase and store in a safe place, then press "NEXT"
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -45,7 +46,13 @@
 
 </div>
 
-- Create a password to encrypt your seed. Make sure to use strong password with combination of at least one capital letter, one small letter, symbol and numbers and press "CONFIRM PASSWORD". If normal encryption takes longer in your phone, enable "Fast encryption" and try again
+- Create a password to encrypt your seed
+
+Make sure to use a strong password with a combination of at least one capital letter, one small letter, a symbol, and numbers.
+
+- Press "CONFIRM PASSWORD"
+
+If normal encryption takes longer on your phone, enable "Fast encryption" and try again.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -53,7 +60,9 @@
 
 </div>
 
-- On next 2 steps, you will be asked to provide  a custom 6 digit PIN and to confirm it. You will need it every time you want to access atomicDEX
+- Create a PIN
+
+In the next two steps you will be asked to provide a custom six digit PIN. You will need this PIN every time you want to access atomicDEX.
 
 
 <div style="margin: 2rem; text-align: center; width: 80%">
@@ -68,8 +77,7 @@
 
 </div>
 
-- You will be taken to dashboard (Portfolio section) as soon as the previous steps are completed
-
+Upon completion, AtomicDEX Mobile returns you to the dashboard.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 

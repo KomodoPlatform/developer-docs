@@ -1,6 +1,6 @@
 # How to Withdraw or Send Funds Using AtomicDEX Mobile
 
-- Click on the coin you want to send from "Portfolio" page then press on "SEND" button
+- On the "Portfolio" page, click on the coin you want to send and press the "SEND" button
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -8,7 +8,11 @@
 
 </div>
 
-- Enter amount and the receiving address (you can also use QR scanner by pressing on the camera icon on left), then press on "WITHDRAW" button
+- Enter the amount and the destination address
+
+Yyou can also use a QR scanner by pressing on the camera icon on left.
+
+- Then press on the "WITHDRAW" button
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -16,7 +20,9 @@
 
 </div>
 
-- On next screen you will be shown details of your transaction. If you are satisfied with the details, press "CONFIRM" button
+On the next screen you will be shown details of your transaction.
+
+- If you are satisfied with the details, press the "CONFIRM" button
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -24,7 +30,9 @@
 
 </div>
 
-- Once your transaction is completed, you will see "Success!" message. You can check respective coin explorer to verify the transaction if you like
+Once your transaction is completed you will see a "Success!" message.
+
+You may check the block explorer of your coin to verify the transaction, if you like.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 

@@ -1,6 +1,6 @@
 # How to Add and Activate Coins on AtomicDEX Mobile
 
-- Click on the "+" icon on "Portfolio" screen
+- Click on the "+" icon on the "Portfolio" screen
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -8,7 +8,7 @@
 
 </div>
 
-- Select the coin you want to activate by clicking on left of each coin and press "DONE"
+- Select the coin you want to activate by clicking on the left side of each coin and press "DONE"
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -16,7 +16,7 @@
 
 </div>
 
-- Once activated you will be brought back to "Portfolio" tab where you will see the coins you activated
+Once activated, AtomicDEX Mobile brings you back to the "Portfolio" tab. Your coins should now be activated.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 

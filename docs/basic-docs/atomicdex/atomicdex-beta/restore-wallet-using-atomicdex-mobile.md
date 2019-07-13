@@ -1,6 +1,7 @@
 # How to Restore Wallet Using AtomicDEX Mobile
 
 - Start atomicDEX Mobile app
+
 - Click "RESTORE" button
 
 <div style="margin: 2rem; text-align: center; width: 80%">
@@ -17,7 +18,13 @@
 
 </div>
 
-- Select "Allow custom seed", then, paste or type your seed words including spaces as you used them before. If you would like to see your seed or what you are typing, click on the eye icon on the right to make the field visible. Once ready, press the "CONFIRM" button
+- Select "Allow custom seed" and paste or type your seed words
+
+Make sure to include spaces in your seed, just as before.
+
+If you would like to see what you are typing, click on the eye icon on the right to make the field visible.
+
+- Once ready, press the "CONFIRM" button
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -25,7 +32,13 @@
 
 </div>
 
-- Create a password to encrypt your seed. Make sure to use strong password with combination of at least one capital letter, one small letter, symbol and numbers and press "CONFIRM PASSWORD". If normal encryption takes longer in your phone, enable "Fast encryption" and try again
+- Create a password to encrypt your seed
+
+Make sure to use strong password with a combination of at least one capital letter, one small letter, a symbol, and numbers.
+
+- Press "CONFIRM PASSWORD"
+
+If normal encryption takes longer on your phone, enable "Fast encryption" and try again.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -33,7 +46,9 @@
 
 </div>
 
-- On next 2 steps, you will be asked to provide  a custom 6 digit PIN and to confirm it. You will need it every time you want to access atomicDEX Mobile
+- Create a PIN
+
+In the next two steps you will be asked to provide a custom six digit PIN. You will need this PIN every time you want to access atomicDEX.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
@@ -47,7 +62,7 @@
 
 </div>
 
-- You will be brought to dashboard as soon as the previous steps are completed
+Upon completion, AtomicDEX Mobile returns you to the dashboard.
 
 <div style="margin: 2rem; text-align: center; width: 80%">
 
