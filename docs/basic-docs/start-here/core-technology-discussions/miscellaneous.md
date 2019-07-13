@@ -2,10 +2,11 @@
 
 ## Details Regarding KMD Main Chain
 
-
-| Circulating Coin Supply:      | \~100000000 |
-|-------------------------------|-------------|
-| Total Coin Supply (yr. 2030): | \~200000000 |
+| Era of Block Rewards | Block Height | Block Reward | Coin Supply |
+| ----------- | ------------ | ------------ | ----------- |
+| Current Block Rewards | \~1150000 | 3 KMD | \~115000000 |
+| First Reward Reduction | 7777777 | 2 KMD | \~200000000 |
+| Final Reward Reduction | 15555553 | 1 KMD | \~215000000 |
 
 The foundational coin of the Komodo ecosystem is named after the ecosystem itself, Komodo (KMD).
 

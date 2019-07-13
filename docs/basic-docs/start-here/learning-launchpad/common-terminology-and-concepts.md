@@ -10,9 +10,11 @@ A Komodo Smart Chain that uses the Komodo Notary Node dPoW service receives prot
 
 In a 51% Attack, an attacker first performs a transaction that spends funds to their intended victim. 
 
-Once the victim distributes to the attacker the item of value, the attacker then provides 51% of the total hash rate of the blockchain network to support a version of the blockchain history wherein the transaction never took place. The attacker must maintain this hash rate long enough for the "false" version of history to become so deeply embedded, removal is impossible. Once accomplished, the attacker may discontinue their hash rate and leave with their spoils.
+Once the victim distributes to the attacker the purchased item of value, the attacker then provides 51% of the total hash rate of the blockchain network to support a version of the blockchain history wherein the transaction never took place.
 
-When successfully executed, the attacker erases the transaction history from the blockchain, thus stealing their funds back from the victim, while still keeping the item of value received.
+The attacker must maintain this hash rate long enough for the "false" version of history to become so deeply embedded, removal is impossible. Once accomplished, the attacker may discontinue their hash rate and leave with their spoils.
+
+#### Komodo's dPoW Security Service is Designed to Prevent 51% Attacks
 
 The Komodo blockchain's consensus mechanism protects Komodo Smart Chains from 51% Attacks. For more information, see the [Delayed Proof of Work Core Technology Discussion.](../../../basic-docs/start-here/core-technology-discussions/delayed-proof-of-work.html#the-51-attack)
 
