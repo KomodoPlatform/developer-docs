@@ -829,7 +829,7 @@ tail -f ~/.gincoincore/debug.log
 tail -f ~/.komodo/VRSC/debug.log
 ```
 
-Wait for all the coins to finish syncing. You will then follow the directions below, only importing your 3rd party pubkey and ensure you're completing the actions for the 3rd party coins(ones listed at the top for reference) only.
+You can now wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
 
 ### Import 3rd party private key
 
