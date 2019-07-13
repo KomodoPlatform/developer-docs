@@ -192,9 +192,9 @@ Stop the daemon and restart it using the new pubkey.
 
 <!-- This should be part of its own section? Also, still confused about how to execute <CC>address above, since we create the RPC below. -->
 
-Add a line to the `/src/rpcserver.h` file to create the `<CC_name>address` function for the module.
+Add a line to the `/src/server.h` file to create the `<CC_name>address` function for the module.
 
-Update the commands array in the `/src/rpcserver.cpp` file.
+Update the commands array in the `/src/server.cpp` file. <!-- dimxy the correct name src/server.cpp and src/server.h -->
 
 #### Copy the Existing Default RPCs to the New Module
 
