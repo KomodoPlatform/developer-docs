@@ -390,13 +390,11 @@ tail -f ~/.komodo/HUSH3/debug.log
 tail -f ~/.komodo/SUPERNET/debug.log
 ```
 
-For any other Komodo assetchain, use the example of HUSH3 or SUPERNET and change the path with the coin name that you are looking for accordingly. Wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
+For any other Komodo assetchain, use the example of HUSH3 or SUPERNET and change the path with the coin name that you are looking for accordingly. You can now wait for all the coins to finish syncing. Just double check the block you've downloaded with an explorer to verify.
 
 ### Import your main private key
 
-**Important: Make sure your daemon is running and fully synced before importing any privkey. Importing key into daemon will trigger rescan which can take some time to finish depending on tx history.**
-
-If your daemons haven't finished syncing, feel free to come back to this step once they have.
+Feel free to import these as the daemons are syncing.
 
 - Follow the below example to import your main pubkey **only** into your coin daemons.
 
@@ -417,7 +415,7 @@ This command will import keys into all assetchains that are using the main Komod
 
 ### Validate the addresses
 
-After all the addresses are imported, using the respective `<COIN>-cli`, validate all addresses and make sure the response has `ismine:true`. If you have `ismine:false`, dPoW will not work for that coin. Sample command for that is below.
+After all the addresses are imported, using the respective `<COIN>-cli`, validate all addresses and make sure the response has `ismine:true`. If you have `ismine:false`, your address hasn't imported correctly and dPoW will not work for that coin. Sample command for that is below.
 
 ```bash
 komodo-cli validateaddress RVNKRr2uxPMxJeDwFnTKjdtiLtcs7UzCZn
@@ -433,7 +431,7 @@ cp ~/SuperNET/iguana/pubkey.txt ~/komodo/src/pubkey.txt
 
 ### Stop All the Coin Daemons Safely
 
-Once you've completed syncing, and have imported and validated your keys in all your daemons, complete the following.
+Once you've completed syncing, imported and validated your keys in all your daemons, complete the following.
 
 Never use `kill -9` to kill any Coin daemon if you don't like corrupt databases. Always shutdown wallet daemon and iguana gracefully with `pkill -15 iguana` or use the below RPC commands for wallets.
 
@@ -455,6 +453,8 @@ cd ~/komodo/src
 ```bash
 find ~/.komodo -type f -iname "*.conf" -exec chmod 600 {} \;
 ```
+
+To complete setting up your main server, go to the `Set `ulimit` parameters on Ubuntu permanently` section.
 
 ---
 
@@ -833,9 +833,7 @@ Wait for all the coins to finish syncing. You will then follow the directions be
 
 ### Import 3rd party private key
 
-**Important: Make sure your daemon is running and fully synced before importing any privkey. Importing key into daemon will trigger rescan which can take some time to finish depending on tx history.**
-
-If your daemons haven't finished syncing, feel free to come back to this step once they have (you may want to create the pubkey file if you want to copy it into the iguana directory in the next step).
+Feel free to import your addresses whilst your daemons are syncing.
 
 - Follow the example below to import your 3rd party pubkey **only** into your coin daemons.
 
@@ -848,9 +846,11 @@ gincoin-cli importprivkey WNejFTXR11LFx2L8wvEKEqvjHkL1D3Aa4CCBdEYQyBzbBKjPLHJQ
 komodo-cli -ac_name=VRSC importprivkey UtrRXqvRFUAtCrCTRAHPH6yroQKUrrTJRmxt2h5U4QTUN1jCxTAh
 ```
 
-### Validate the address
+This may take some time and will display the coin name and address after each import. You can tail the coin specific `debug.log` files to check the progress.
 
-After all the addresses are imported, using the respective `<COIN>-cli`, validate all addresses and make sure the response has `ismine:true`. If you have `ismine:false`, dPoW will not work for that coin. Sample command for that is below.
+### Validate the addresses
+
+After all the addresses are imported, using the respective `<COIN>-cli`, validate all addresses and make sure the response has `ismine:true`. If you have `ismine:false`, your address hasn't imported correctly and dPoW will not work for that coin. Sample command for that is below.
 
 ```bash
 komodo-cli validateaddress RVNKRr2uxPMxJeDwFnTKjdtiLtcs7UzCZn
@@ -866,7 +866,7 @@ cp ~/SuperNET/iguana/pubkey.txt ~/komodo/src/pubkey.txt
 
 ### Stop All the Coin Daemons Safely
 
-Once you've completed syncing, and have imported and validated all your keys, complete the following.
+Once your daemons have completed syncing, you've imported and validated all your keys, complete the following.
 
 Never use `kill -9` to kill any Coin daemon if you don't like corrupt databases. Always shutdown wallet daemon and iguana gracefully with `pkill -15 iguana` or use the below RPC commands for wallets.
 
