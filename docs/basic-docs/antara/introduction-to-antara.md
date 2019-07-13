@@ -14,7 +14,7 @@ Users who are not interested in these activities, but are searching for document
 
 A brief conceptual overview of the Antara framework can be found in the <b>Start Here</b> > <b>Product Introductions</b> > <b>Smart Chains & Antara </b> section.
 
-[<b>Link to "Smart Chains & Antara" Introduction</b>](../basic-docs/start-here/about-komodo-platform/product-introductions.html#smart-chains-fluidity)
+[<b>Link to "Smart Chains & Antara" Introduction</b>](../basic-docs/start-here/about-komodo-platform/product-introductions.html#smart-chains-antara)
 
 The [<b>Antara Tutorials</b>](../basic-docs/fluidity/fluidity-tutorials/introduction-to-fluidity-tutorials.md) section contains more thorough conceptual explanations of Antara.
 
