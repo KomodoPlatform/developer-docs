@@ -1,8 +1,8 @@
 # Creating Komodo Smart Chains
 
-## Creating A New Smart Chain
+## Introduction
 
-### Requirements for Creating a New Chain
+#### Requirements for Creating a New Chain
 
 - 2 nodes with the ability to open ports (a node can be either a computer or a VPS)
 - At least 4GB RAM each
@@ -13,10 +13,6 @@
 
 ::: tip
 When you are building and testing a Komodo Smart Chain, please do not hesitate to reach out to us when you are stuck. We wish to make this as easy as possible. Our support agents are available in our <a href="https://komodoplatform.com/discord">#support channel in Discord</a> for many hours each day, and during off hours you can file a ticket on <a href="https://support.komodoplatform.com/support/home">our support page</a>.
-:::
-
-::: tip
-The word "node" is used throughout this documentation, and it can be confusing for beginners. A node can be a unique desktop computer connected to the Internet. It can also be a virtual-private server (VPS) that is rented or purchased, and which the developer can access at will. Or, it can be another type of unique instance of a computational machine.
 :::
 
 ### Basic Info for Connecting At Least Two Nodes

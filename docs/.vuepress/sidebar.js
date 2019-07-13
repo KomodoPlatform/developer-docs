@@ -36,8 +36,8 @@ var sidebar = [
                         "Learning Path Outline"
                     ],
                     [
-                        "/basic-docs/start-here/learning-launchpad/terminology.md",
-                        "Terminology"
+                        "/basic-docs/start-here/learning-launchpad/common-terminology-and-concepts.md",
+                        "Common Terminology and Concepts"
                     ],
                 ]
             },
@@ -169,6 +169,10 @@ var sidebar = [
               [
                   "/basic-docs/smart-chains/smart-chain-api/control.md",
                   "Control"
+              ],
+              [
+                  "/basic-docs/smart-chains/smart-chain-api/crosschain.md",
+                  "Cross-Chain API"
               ],
               [
                   "/basic-docs/smart-chains/smart-chain-api/disclosure.md", 
