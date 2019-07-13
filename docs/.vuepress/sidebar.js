@@ -398,6 +398,20 @@ var sidebar = [
                 ],
             ]
         },
+        {
+            title: "AtomicDEX Beta",
+            collapsible: true,
+            children: [
+                [
+                    "/basic-docs/atomicdex/atomicdex-beta/how-to-create-a-new-wallet-using-atomicdex-mobile.md",
+                    "How to Create a New Wallet Using AtomicDEX Mobile"
+                ],
+                [
+                    "/basic-docs/atomicdex/atomicdex-beta/how-to-restore-wallet-using-atomicdex-mobile.md",
+                    "How to Restore Wallet Using AtomicDEX Mobile"
+                ],
+            ],
+        },
         [
             "/basic-docs/atomicdex/atomicdex-api.md", 
             "AtomicDEX API"
