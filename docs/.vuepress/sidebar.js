@@ -403,40 +403,40 @@ var sidebar = [
             collapsible: true,
             children: [
                 [
-                    "/basic-docs/atomicdex/atomicdex-beta/how-to-create-a-new-wallet-using-atomicdex-mobile.md",
-                    "How to Create a New Wallet Using AtomicDEX Mobile"
+                    "/basic-docs/atomicdex/atomicdex-beta/create-a-new-wallet-using-atomicdex-mobile.md",
+                    "Create a New Wallet Using AtomicDEX Mobile"
                 ],
                 [
-                    "/basic-docs/atomicdex/atomicdex-beta/how-to-restore-wallet-using-atomicdex-mobile.md",
-                    "How to Restore Wallet Using AtomicDEX Mobile"
+                    "/basic-docs/atomicdex/atomicdex-beta/restore-wallet-using-atomicdex-mobile.md",
+                    "Restore Wallet Using AtomicDEX Mobile"
                 ],
                 [
-                    "/basic-docs/atomicdex/atomicdex-beta/how-to-add-and-activate-coins-on-atomicdex-mobile.md",
-                    "How to Add and Activate Coins on AtomicDEX Mobile"
+                    "/basic-docs/atomicdex/atomicdex-beta/add-and-activate-coins-on-atomicdex-mobile.md",
+                    "Add and Activate Coins on AtomicDEX Mobile"
                 ],
                 [
-                    "/basic-docs/atomicdex/atomicdex-beta/how-to-view-your-receiving-address-to-send-funds-for-trading.md",
-                    "How to View Your Receiving Address to Send Funds for Trading"
+                    "/basic-docs/atomicdex/atomicdex-beta/view-your-receiving-address-to-send-funds-for-trading.md",
+                    "View Your Receiving Address to Send Funds for Trading"
                 ],
                 [
-                    "/basic-docs/atomicdex/atomicdex-beta/how-to-withdraw-or-send-funds-using-atomicdex-mobile.md",
-                    "How to Withdraw or Send Funds Using AtomicDEX Mobile"
+                    "/basic-docs/atomicdex/atomicdex-beta/withdraw-or-send-funds-using-atomicdex-mobile.md",
+                    "Withdraw or Send Funds Using AtomicDEX Mobile"
                 ],
                 [
-                    "/basic-docs/atomicdex/atomicdex-beta/how-to-perform-cross-chain-atomic-swaps-using-atomicdex-mobile.md",
-                    "How to Perform Cross-Chain Atomic Swaps Using AtomicDEX Mobile"
+                    "/basic-docs/atomicdex/atomicdex-beta/perform-cross-chain-atomic-swaps-using-atomicdex-mobile.md",
+                    "Perform Cross-Chain Atomic Swaps Using AtomicDEX Mobile"
                 ],
                 [
-                    "/basic-docs/atomicdex/atomicdex-beta/how-to-view-ongoing-orders-and-swap-history-on-atomicdex-mobile.md",
-                    "How to View Ongoing Orders and Swap History on AtomicDEX Mobile"
+                    "/basic-docs/atomicdex/atomicdex-beta/view-ongoing-orders-and-swap-history-on-atomicdex-mobile.md",
+                    "View Ongoing Orders and Swap History on AtomicDEX Mobile"
                 ],
                 [
-                    "/basic-docs/atomicdex/atomicdex-beta/how-to-recover-seed-on-atomicdex-mobile.md",
-                    "How to Recover Seed on AtomicDEX Mobile"
+                    "/basic-docs/atomicdex/atomicdex-beta/recover-seed-on-atomicdex-mobile.md",
+                    "Recover Seed on AtomicDEX Mobile"
                 ],
                 [
-                    "/basic-docs/atomicdex/atomicdex-beta/how-to-delete-seed-from-atomicdex-mobile.md",
-                    "How to Delete Seed (Wallet) on AtomicDEX Mobile"
+                    "/basic-docs/atomicdex/atomicdex-beta/delete-seed-from-atomicdex-mobile.md",
+                    "Delete Seed (Wallet) on AtomicDEX Mobile"
                 ],
             ],
         },
