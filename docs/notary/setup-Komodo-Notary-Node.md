@@ -213,16 +213,6 @@ cd SuperNET/iguana
 git checkout beta_season3
 ```
 
-#### Create `userhome.txt`
-
-Create `userhome.txt` file inside the `~/SuperNET/iguana` dir with the location of your user's home directory. Here is an example using the user `dextar` and how the file should look like.
-
-```bash
-home/dextar
-```
-
-There shouldn't be any other text or spaces in that file.
-
 ### Create a `pubkey.txt` file
 
 You will need to create a `pubkey.txt` file inside `~/SuperNET/iguana` directory. This will be used to start the dPoW process in the `dpowassets` script later on. `pubkey.txt` file should contain only the pubkey of the appropriate server. The file should contain only the information in the example below. Change `02a854251adfee222bede8396fed0756985d4ea905f72611740867c7a4ad6488c1` with the appropriate pubkey for the server the file is on.
