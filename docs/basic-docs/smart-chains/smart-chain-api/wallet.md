@@ -2648,6 +2648,66 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 </collapse-text>
 
 
+## opreturn_burn
+
+**opreturn_burn burn_amount hexstring ( txfee )**
+
+The `opreturn_burn` method is a simple way to create an OP_RETURN transaction. Returns transaction raw hex that must then be broadcast via the sendrawtransaction method.
+
+### Arguments
+
+| Name | Type | Description | 
+| ------------- | ----------------------------------- | ---------------------------------------- |
+| "burn_amount" | (numeric, required)                 | Amount of coins to burn.                 |
+| "hexstring"   | (string, required)                  | Hex string to include in OP_RETURN data. |
+| "txfee"       | (numeric, optional, defalut=0.0001) | Transaction fee                          |
+
+### Response
+
+| Name | Type | Description | 
+| ----- | -------- | ---------------------- |
+| "hex" | (string) | raw hex of transaction |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli opreturn_burn 10 deadbeef 0.00005
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```bash
+{
+  "hex": "0100000001edbf323e5a3eac2699018550ca0594cf742184d4b8575a653520849f3c0ddae4000000004847304402207d83e3ac59c59a1027c7be57cfc6bf9b225385eea464922bbb8f53184c60216e02203ba941dfb9f54785f3935a23ceb55d7203d70034656a59d5eafa77bef67a919b01ffffffff0200ca9a3b00000000076a0504deadbeeff35ab511955b0000232103fff5c0697d69b9df458ef3ec4e9b08ba1df66deec876bfe56a4d35159e0caf33ac00000000"
+}
+```
+
+</collapse-text>
+
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
+
+Command:
+
+```bash
+curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "opreturn_burn", "params": [10,"deadbeef",0.0005] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+```
+
+
+<collapse-text hidden title="Response">
+
+
+```json
+{"result":{"hex":"0100000001edbf323e5a3eac2699018550ca0594cf742184d4b8575a653520849f3c0ddae4000000004847304402207d83e3ac59c59a1027c7be57cfc6bf9b225385eea464922bbb8f53184c60216e02203ba941dfb9f54785f3935a23ceb55d7203d70034656a59d5eafa77bef67a919b01ffffffff0200ca9a3b00000000076a0504deadbeeff35ab511955b0000232103fff5c0697d69b9df458ef3ec4e9b08ba1df66deec876bfe56a4d35159e0caf33ac00000000"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 ## resendwallettransactions
 
 **resendwallettransactions**
