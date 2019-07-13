@@ -159,7 +159,7 @@ In this example, Antara will be available at blockheight `140`. All nodes, inclu
 This parameter is at the end of the beta development phase and is prepared for public testing. If you are interested in adopting this feature for a production Smart Chain, please reach out to us so that we can assist you.
 :::
 
-The `ac_ccenable` parameter restricts the Smart Chain so that only indicated Antara modules can be enabled. `ac_ccenable` requires [ac_cc](../installations/asset-chain-parameters.html#ac-cc) to be active.
+The `ac_ccenable` parameter restricts the Smart Chain so that only indicated Antara modules can be enabled. `ac_ccenable` requires [ac_cc](#ac-cc) to be active.
 
 To indicate which Antara modules should be available, insert each module's eval code in decimal and separated by commas.
 
@@ -215,7 +215,7 @@ Each Antara module uses the `ac_cclib` parameter differently, and therefore the 
 
 This is the percentage which determines the block reward decrease on each block-reward "halving".
 
-This parameter will have no effect if [ac_reward](../installations/asset-chain-parameters.html#ac-reward) is not set.
+This parameter will have no effect if [ac_reward](#ac-reward) is not set.
 
 This is the formula that `ac_decay` follows:
 
@@ -271,13 +271,15 @@ The `ac_eras` parameter allows the value of a chain's block reward to vary over 
 
 Each different time interval is called an "era" and a chain can have at most seven eras.
 
-When active, `ac_eras` changes the behavior of coinbase coins (i.e. the coins that are created as a result of mining). `ac_eras` forces the `COINBASE_MATURITY` value of coinbase coins to be `100` instead of the normal value of `1`. Therefore, coinbase coins become spendable after `100` confirmations. This `COINBASE_MATURITY` value can be explicitly changed using the [ac_cbmaturity](../installations/asset-chain-parameters.html#ac-cbmaturity) parameter. Changing this `COINBASE_MATURITY` value to `1` is recommended if a chain uses `ac_eras` in conjunction with [ac_staked](../installations/asset-chain-parameters.html#ac-staked).
+When active, `ac_eras` changes the behavior of coinbase coins (i.e., the coins that are created as a result of mining). `ac_eras` forces the `COINBASE_MATURITY` value of coinbase coins to be `100` instead of the normal value of `1`. Therefore, coinbase coins become spendable after `100` confirmations. 
+
+This `COINBASE_MATURITY` value can be explicitly changed using the [ac_cbmaturity](#ac-cbmaturity) parameter. Changing this `COINBASE_MATURITY` value to `1` is recommended if a chain uses `ac_eras` in conjunction with [ac_staked](#ac-staked).
 
 The `ac_eras` parameter accepts only one value (`2`-`7`). When activated, it allows certain other Smart Chain parameters to accept multiple values.
 
-The principle parameter that is affected by `ac_eras` is [ac_reward](../installations/asset-chain-parameters.html#ac-reward), and it must receive at least one value.
+The principle parameter that is affected by `ac_eras` is [ac_reward](#ac-reward), and it must receive at least one value.
 
-Also, [ac_decay](../installations/asset-chain-parameters.html#ac-decay), [ac_halving](../installations/asset-chain-parameters.html#ac-halving), [ac_end](../installations/asset-chain-parameters.html#ac-end), and [ac_notarypay](../installations/asset-chain-parameters.html#ac-notarypay) can each receive multiple values and thereby affect reward functionality.
+Also, [ac_decay](#ac-decay), [ac_halving](#ac-halving), [ac_end](#ac-end), and [ac_notarypay](#ac-notarypay) can each receive multiple values and thereby affect reward functionality.
 
 For every era, there must be a corresponding value in `ac_end` that indicates the block height at which this era ends. To set the final era to last indefinitely, set the `ac_end` value of that era to `0`; the `0` setting should only be used for the last era. If the last era's `ac_end` value is not `0`, the chain's block rewards will stop after the final `ac_end` value, and every block after the final `ac_end` value will have no block reward.
 
@@ -319,7 +321,7 @@ Use the [getblocksubsidy](../komodo-api/mining.html#getblocksubsidy) API method 
 
 The `ac_founders` parameter creates a "founder's reward."
 
-This parameter requires [ac_perc](../installations/asset-chain-parameters.html#ac-perc). If the `ac_perc` value is not declared, the `ac_founders` value defaults to `35%`. Also, either [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) OR [ac_script](../installations/asset-chain-parameters.html#ac-script) must be set.
+This parameter requires [ac_perc](#ac-perc). If the `ac_perc` value is not declared, the `ac_founders` value defaults to `35%`. Also, either [ac_pubkey](#ac-pubkey) OR [ac_script](#ac-script) must be set.
 
 The `ac_perc` value determines the percentage of block rewards paid to the founder. These rewards are not paid out immediately, but rather according to the `ac_founders` setting.
 
@@ -333,7 +335,7 @@ For example:
 
 The above parameters result in mining rewards of 100000000 satoshis (1 coin) per block, with a difference on every 100th block. On the 100th block exception, 1000000000 additional satoshis (10 coins) are paid to the founder's address.
 
-The coins rewarded to the founder are created at the moment of payment, thus increasing the overall coin supply. See [ac_perc](../installations/asset-chain-parameters.html#ac-perc) for more details.
+The coins rewarded to the founder are created at the moment of payment, thus increasing the overall coin supply. See [ac_perc](#ac-perc) for more details.
 
 Use `ac_pubkey` to send the founder's reward to a normal address.
 
@@ -345,7 +347,7 @@ Set `ac_founders=1` to stay compatible with most stratum implementations. Any ot
 ## ac_founders_reward
 
 This parameter functions similarly to `ac_perc` with `ac_founders`. However, the value specified for this parameter is in satoshis rather than a percentage the block reward, and the founder's reward does not accumulate over several blocks. This parameter can be used in place of `ac_perc`. It must include `ac_founders` and either `ac_script` or `ac_pubkey`. This value is entirely independent of the `ac_reward` value. For example, `-ac_reward=1000000000 -ac_perc=10000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f` would pay this pubkey's address 10 coins every 10 blocks, whereas `ac_reward=1000000000 -ac_founders_reward=100000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f` would pay this pubkey's address 1 coin every 10 blocks.
- This parameter is not compatible with the [ac_eras](../installations/asset-chain-parameters.html#ac-eras) parameter. 
+ This parameter is not compatible with the [ac_eras](#ac-eras) parameter. 
 
 #### :pushpin: Examples
 
@@ -361,7 +363,7 @@ A 777777-coin pre-mine, with a 5-coin block reward, and founder's reward of 10 c
 
 ## ac_halving
 
-This is the number of blocks between each block reward halving. This parameter will have no effect if [ac_reward](../installations/asset-chain-parameters.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [ac_decay](../installations/asset-chain-parameters.html#ac-decay) is not, the reward will decrease by 50% each halving.
+This is the number of blocks between each block reward halving. This parameter will have no effect if [ac_reward](#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [ac_decay](#ac-decay) is not, the reward will decrease by 50% each halving.
 
 #### :pushpin: Examples
 
@@ -401,7 +403,7 @@ The `ac_perc` parameter has two different functionalities depending on the confi
 
 #### ac_perc without ac_founders
 
-When `ac_perc` is used without [-ac_founders](../installations/asset-chain-parameters.html#ac-founders) the chain will follow an inflation tax model. In this model, the `-ac_perc` parameter is the percentage added to the block reward, and the transactions that allocate these rewards are sent to the `-ac_pubkey` address. Naturally, for this configuration to function the `-ac_pubkey` parameter must be included.
+When `ac_perc` is used without [-ac_founders](#ac-founders) the chain will follow an inflation tax model. In this model, the `-ac_perc` parameter is the percentage added to the block reward, and the transactions that allocate these rewards are sent to the `-ac_pubkey` address. Naturally, for this configuration to function the `-ac_pubkey` parameter must be included.
 
 For example, if `-ac_reward=100000000` and `-ac_perc=10000000`, for each block mined the miner receives 100000000 satoshis (1 coin), and the owner of the `-ac_pubkey` address receives 10000000 satoshis (0.1 coin, which is 10% of the miner's reward). The amount sent to the pubkey is not taken from the user, rather it is created at this point. Therefore, each transaction inflates the overall coin supply.
 
@@ -413,13 +415,13 @@ Vout 1 of each coinbase transaction must be the correct amount sent to the corre
 
 #### ac_perc with ac_founders
 
-Please see the [-ac_founders](../installations/asset-chain-parameters.html#ac-founders) documentation for this functionality.
+Please see the [-ac_founders](#ac-founders) documentation for this functionality.
 
 #### :pushpin: Examples
 
 <collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
 
-This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
+This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
 
 Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW.
 
@@ -471,7 +473,7 @@ The `pubkey` must be a 66 character string (a compressed pubkey). You can find t
 
 <collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
 
-This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
+This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
 
 Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW.
 
@@ -653,7 +655,7 @@ On a chain using a high percentage for PoS, it's vital to have coins staking by 
 
 ::: warning
 
-Set [ac_reward](../installations/asset-chain-parameters.html#ac-reward) parameter to any desired value for staking to function properly.
+Set [ac_reward](#ac-reward) parameter to any desired value for staking to function properly.
 :::
 
 ::: warning
@@ -680,7 +682,7 @@ You can see which segment an address belongs to by using the [validateaddress](.
 
 Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure.
 
-There are additional considerations when `ac_staked` is used in conjunction with [ac_perc](../installations/asset-chain-parameters.html#ac-perc) and [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey). The coins used to stake will be included in the `ac_perc` calculations until the Smart Chain reaches block height `1000000`. Therefore, the [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) address will receive more coins for each staked block compared to a mined block. After block `1000000`, `ac_perc` will no longer include the coins used for staking, and therefore the amount of coins sent to the `ac_pubkey` address will normalize.
+There are additional considerations when `ac_staked` is used in conjunction with [ac_perc](#ac-perc) and [ac_pubkey](#ac-pubkey). The coins used to stake will be included in the `ac_perc` calculations until the Smart Chain reaches block height `1000000`. Therefore, the [ac_pubkey](#ac-pubkey) address will receive more coins for each staked block compared to a mined block. After block `1000000`, `ac_perc` will no longer include the coins used for staking, and therefore the amount of coins sent to the `ac_pubkey` address will normalize.
 
 ### Rules for Staking a Block
 
@@ -736,7 +738,7 @@ This is the amount of pre-mined coins you would like the chain to have.
 
 The node that sets [gen](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
 
-If `ac_supply` is not set, [ac_reward](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [ac_founders](../installations/asset-chain-parameters.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
+If `ac_supply` is not set, [ac_reward](#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [ac_founders](#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
 
 The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
 
@@ -792,7 +794,7 @@ This parameter is currently a proof of concept. Many of the traditional API comm
 This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
 :::
 
-The `ac_veruspos` parameter is an alternative to [ac_staked](../installations/asset-chain-parameters.html#ac-staked).
+The `ac_veruspos` parameter is an alternative to [ac_staked](#ac-staked).
 
 When activated, the chain uses [Verus](http://veruscoin.io/)'s proof of stake implementation instead.
 
@@ -801,12 +803,12 @@ The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` doe
 
 ## ac_cbmaturity
 
-The `ac_cbmaturity` parameter allows the "coinbase maturity" value to be changed. By default, this value is set to `1` on Smart Chains without [ac_eras](../installations/asset-chain-parameters.html#ac-eras) and set to `100` on Smart Chains with [ac_eras](../installations/asset-chain-parameters.html#ac-eras). This "coinbase maturity" value is the amount of blocks before newly created coins can be spent. For example, if a chain has `ac_cbmaturity=10`, newly mined coins will not be able to be spent until they have 10 confirmations total.
+The `ac_cbmaturity` parameter allows the "coinbase maturity" value to be changed. By default, this value is set to `1` on Smart Chains without [ac_eras](#ac-eras) and set to `100` on Smart Chains with [ac_eras](#ac-eras). This "coinbase maturity" value is the amount of blocks before newly created coins can be spent. For example, if a chain has `ac_cbmaturity=10`, newly mined coins will not be able to be spent until they have 10 confirmations total.
 
 
 ## ac_notarypay
 
-The `ac_notarypay` parameter can be used to reward the notary nodes each time they participate in a notarization. This value should be set in the amount of sats to be split between the participating notaries for each notarization they make. On the KMD dpow network, the amount of signers is 13 notary nodes, so for example, if this value is set to `ac_notarypay=1300000000`, each notary will be paid 1 coin for each notarization they participate in. Notarizations will on average happen every 10 blocks by default. This parameter is compatible with the [ac_eras](../installations/asset-chain-parameters.html#ac-eras) parameter. 
+The `ac_notarypay` parameter can be used to reward the notary nodes each time they participate in a notarization. This value should be set in the amount of sats to be split between the participating notaries for each notarization they make. On the KMD dpow network, the amount of signers is 13 notary nodes, so for example, if this value is set to `ac_notarypay=1300000000`, each notary will be paid 1 coin for each notarization they participate in. Notarizations will on average happen every 10 blocks by default. This parameter is compatible with the [ac_eras](#ac-eras) parameter. 
 
 #### :pushpin: Examples
 
