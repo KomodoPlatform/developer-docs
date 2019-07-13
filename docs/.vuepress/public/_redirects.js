@@ -34,7 +34,23 @@ var redirectAliases = {
   "/basic-docs/customconsensus/assets.html": "/basic-docs/antara/antara-api/assets.html",
   "/basic-docs/customconsensus/oracles.html": "/basic-docs/antara/antara-api/oracles.html",
   "/basic-docs/customconsensus/rogue.html": "/basic-docs/antara/antara-api/rogue.html",
-  "/basic-docs/start-here/custom-consensus-overview.html": "/basic-docs/antara/introduction-to-antara.html"
+  "/basic-docs/start-here/custom-consensus-overview.html": "/basic-docs/antara/introduction-to-antara.html",
+  "/basic-docs/installations/asset-chain-parameters.html": "/basic-docs/antara/antara-setup/antara-customizations.md",
+  "/basic-docs/komodo-api/address.md": "/basic-docs/smart-chains/smart-chain-api/address.md",
+  "/basic-docs/komodo-api/blockchain.md": "/basic-docs/smart-chains/smart-chain-api/blockchain.md",
+  "/basic-docs/komodo-api/cclib.md": "/basic-docs/smart-chains/smart-chain-api/cclib.md",
+  "/basic-docs/komodo-api/control.md": "/basic-docs/smart-chains/smart-chain-api/control.md",
+  "/basic-docs/komodo-api/crosschain.md": "/basic-docs/smart-chains/smart-chain-api/crosschain.md",
+  "/basic-docs/komodo-api/disclosure.md": "/basic-docs/smart-chains/smart-chain-api/disclosure.md",
+  "/basic-docs/komodo-api/generate.md": "/basic-docs/smart-chains/smart-chain-api/generate.md",
+  "/basic-docs/komodo-api/jumblr.md": "/basic-docs/smart-chains/smart-chain-api/jumblr.md",
+  "/basic-docs/komodo-api/mining.md": "/basic-docs/smart-chains/smart-chain-api/mining.md",
+  "/basic-docs/komodo-api/network.md": "/basic-docs/smart-chains/smart-chain-api/network.md",
+  "/basic-docs/komodo-api/rawtransactions.md": "/basic-docs/smart-chains/smart-chain-api/rawtransactions.md",
+  "/basic-docs/komodo-api/util.md": "/basic-docs/smart-chains/smart-chain-api/util.md",
+  "/basic-docs/komodo-api/wallet.md": "/basic-docs/smart-chains/smart-chain-api/wallet.md",
+
+
 
 };
 module.exports = redirectAliases;
