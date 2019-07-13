@@ -74,7 +74,7 @@ The right to barter in private, however, is under modern threat as the recent mo
 
 Yet, the highly traceable nature of today’s centralized ICO model is in direct contradiction to this human need.
 
-#### The Blockchain Industry Needs a Solution, and Komodo Presents an Answer
+#### The Blockchain Industry Needs a Solution
 
 Together, these issues show that the current state of the ICO market is plagued with limitations that inhibit freedom, security, entrepreneurship, and even human growth. The cryptocurrency industry needs a solution to these problems, and Komodo presents an answer.
 
@@ -100,7 +100,7 @@ The following steps rely on one of Komodo’s underlying software processes that
 ./komodod -ac_name=[ENTREPRENEUR'S COIN] -ac_supply=[TOTAL COIN SUPPLY] -gen
 ```
 
-The first part of the command, `./komodod`, initiates a new instance of Komodod.
+The first part of the command, `./komodod`, initiates a new instance of komodod.
 
 By default, the initial `./komodod` command executed alone would launch the Komodo main chain, KMD, on the user’s computer. However, the next part of the command tells komodod to behave differently.
 
@@ -108,7 +108,7 @@ By default, the initial `./komodod` command executed alone would launch the Komo
 -ac_name=[ENTREPRENEUR'S COIN]
 ```
 
-This command tells komodod to look for a coin with the inserted name.
+This command tells komodod not to launch the main KMD chain, but rather to launch the chain that has the indicated name. 
 
 ```bash
 -ac_supply=[TOTAL COIN SUPPLY]
@@ -122,13 +122,13 @@ This tells komodod how many total coins there should be in this chain.
 
 This tells komodod that the user desires to mine this network.
 
-The underlying code of Iguana Core can now make several decisions. First, it will check its connection to the Komodo ecosystem to see if there is a coin with the given name and supply. If no similar coin is found, komodod will assume that the user is attempting to create a new coin, and the `-gen` command tells komodod that the user wants to mine it.
+The software can now make several decisions. First, it will check its connection to the Komodo ecosystem to see if there is a coin with the given name and supply. If no similar coin is found, komodod will assume that the user is attempting to create a new coin, and the `-gen` command tells komodod that the user wants to mine it.
 
 Komodod now begins the automated process of creating a new Smart Chain in the Komodo ecosystem. Komodod will first make a fresh and empty clone of the KMD main chain (though it will not yet generate the actual coins), with only a few differences to the underlying nature of the chain.
 
 #### The Features of the New Smart Chain
 
-There are several primary differences between a Smart Chain and the main Komodo chain. For example, the Smart Chain will not automatically generate 5.1% rewards for all wallet addresses holding coins, unlike the main chain. Furthermore, the Smart Chain’s dPoW consensus mechanism is built to notarize to the KMD main chain.
+There are several primary differences between a Smart Chain and the main Komodo chain. For example, the Smart Chain will not automatically generate 5.1% rewards for all wallet addresses holding coins, unlike the main chain. Furthermore, the Smart Chain’s dPoW consensus mechanism is built to notarize to the KMD main chain (as opposed to BTC).
 
 Some of the differences reveal strong advantages held by members of the Komodo ecosystem. By design, this Smart Chain is capable of automatically adopting any updates that the Komodo core development team add to the framework. The Smart Chain also has a built-in capacity within the framework to allow the entrepreneur to code new rules.
 
@@ -142,7 +142,7 @@ Consider the advantage of developing an entrepreneurial product as a fully indep
 
 #### Generating and Mining the New Coins
 
-Let us return now to the moment after the entrepreneur executes the first command in the command prompt, and Komodod creates a fresh and empty clone of the Komodo main chain. While the instance of the Komodod program (running on the entrepreneur’s local computer device) will create the necessary code for the new Smart Chain, Komodod will not yet generate the coin supply itself. Komodod instead will wait for the next few steps to occur.
+Let us return now to the moment after the entrepreneur executes the first command in the command prompt, and komodod creates a fresh and empty clone of the Komodo main chain. While the instance of the komodod program (running on the entrepreneur’s local computer device) will create the necessary code for the new Smart Chain, komodod will not yet generate the coin supply itself. Komodod instead will wait for the next few steps to occur.
 
 The reason for the wait is that a blockchain’s essence depends upon existing not in isolation, but in a network of multiple devices. This is the nature of decentralization. Komodod will wait until it receives a signal from another device, thus indicating that it has a peer with which to form the Smart Chain network.
 
@@ -156,7 +156,7 @@ Having established a secure connection with a second device, the entrepreneur wi
 ./komodod -ac_name=[ENTREPRENUER'S COIN] -ac_supply=[TOTAL COIN SUPPLY] -addnode=[INSERT IP ADDRESS OF FIRST DEVICE]
 ```
 
-Note that the first three elements of the command, `./komodod`, `-ac_name`, and `-ac_supply`, are the same. It is important that the parameters inserted into these commands match exactly. Otherwise, the instances of Komodod running on the separate devices will ignore each other, and the coin will not be mined.
+Note that the first three elements of the command, `./komodod`, `-ac_name`, and `-ac_supply`, are the same. It is important that the parameters inserted into these commands match exactly. Otherwise, the instances of komodod running on the separate devices will ignore each other, and the coin will not be mined.
 
 ::: tip Note
 
@@ -170,9 +170,9 @@ There is another key difference in the command.
 -addnode=[INSERT IP ADDRESS OF FIRST DEVICE]
 ```
 
-With the execution of the IP address command, the second device knows to look across the available connection (the Internet, VPS service, etc.) for the first device, which is already running an instance of Komodod and the new coin. The command here simply tells the computer the proper IP address of the first device.
+With the execution of the IP address command, the second device knows to look across the available connection (the Internet, VPS service, etc.) for the first device, which is already running an instance of komodod and the new coin. The command here simply tells the computer the proper IP address of the first device.
 
-As soon as these two devices connect, having all the proper Komodod software running and set in place, the mining begins. One of the devices will mine the first block and instantly receive the total coin supply of the entire blockchain into the user’s chosen wallet.
+As soon as these two devices connect, having all the proper komodod software running and set in place, the mining begins. One of the devices will mine the first block and instantly receive the total coin supply of the entire blockchain into the user’s chosen wallet.
 
 Both devices sync this information to each other, and the `ENTREPRENEUR’S COIN` now exists in the world. The entrepreneur can also add more and more devices to the network.
 
@@ -208,7 +208,7 @@ The centralized ICO process can be arduous and, at times, disastrous.
 
 ##### Powered by Komodo’s AtomicDEX & Privacy Technology
 
-The Komodo dICO model is an extension of Komodo’s AtomicDEX technology.  AtomicDEX is an atomic-swap powered, decentralized exchange. It enables users to directly exchange cryptocurrencies from one person to another without third-party involvement (i.e. no centralized exchanges, escrow services, vouchers, etc.). Furthermore, as the dICO model is entirely decentralized, anyone can use it at will. There are no centralized authority figures capable of creating artificial control points that can be manipulated at the expense of the users
+The Komodo dICO model is an extension of Komodo’s AtomicDEX technology.  AtomicDEX is an atomic-swap powered, decentralized exchange. It enables users to directly exchange cryptocurrencies from one person to another without third-party involvement (i.e. no centralized exchanges, escrow services, vouchers, etc.). Furthermore, as the dICO model is entirely decentralized, anyone can use it at will. There are no centralized authority figures capable of creating artificial control points that can be manipulated at the expense of the users.
 
 To begin the distribution process, the entrepreneur first chooses how many nodes they would like to use for the distribution. Nodes can be any type of machine capable of connecting to AtomicDEX. Typically, a small-business entrepreneur may choose to use server machines. Server capacity can be rented online, and the servers can be distributed geographically throughout the world, if desired.
 

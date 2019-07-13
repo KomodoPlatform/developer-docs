@@ -2,7 +2,7 @@
 sidebarDepth: 3
 ---
 
-# Crosschain API
+# Cross-Chain API
 
 ## Introduction
 

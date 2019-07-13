@@ -36,8 +36,8 @@ var sidebar = [
                         "Learning Path Outline"
                     ],
                     [
-                        "/basic-docs/start-here/learning-launchpad/terminology.md",
-                        "Terminology"
+                        "/basic-docs/start-here/learning-launchpad/common-terminology-and-concepts.md",
+                        "Common Terminology and Concepts"
                     ],
                 ]
             },
@@ -169,6 +169,10 @@ var sidebar = [
               [
                   "/basic-docs/smart-chains/smart-chain-api/control.md",
                   "Control"
+              ],
+              [
+                  "/basic-docs/smart-chains/smart-chain-api/crosschain.md",
+                  "Cross-Chain API"
               ],
               [
                   "/basic-docs/smart-chains/smart-chain-api/disclosure.md", 
@@ -393,6 +397,48 @@ var sidebar = [
                     "Additional Information About AtomicDEX"
                 ],
             ]
+        },
+        {
+            title: "AtomicDEX Beta",
+            collapsible: true,
+            children: [
+                [
+                    "/basic-docs/atomicdex/atomicdex-beta/create-a-new-wallet-using-atomicdex-mobile.md",
+                    "Create a New Wallet Using AtomicDEX Mobile"
+                ],
+                [
+                    "/basic-docs/atomicdex/atomicdex-beta/restore-wallet-using-atomicdex-mobile.md",
+                    "Restore Wallet Using AtomicDEX Mobile"
+                ],
+                [
+                    "/basic-docs/atomicdex/atomicdex-beta/add-and-activate-coins-on-atomicdex-mobile.md",
+                    "Add and Activate Coins on AtomicDEX Mobile"
+                ],
+                [
+                    "/basic-docs/atomicdex/atomicdex-beta/view-your-receiving-address-to-send-funds-for-trading.md",
+                    "View Your Receiving Address to Send Funds for Trading"
+                ],
+                [
+                    "/basic-docs/atomicdex/atomicdex-beta/withdraw-or-send-funds-using-atomicdex-mobile.md",
+                    "Withdraw or Send Funds Using AtomicDEX Mobile"
+                ],
+                [
+                    "/basic-docs/atomicdex/atomicdex-beta/perform-cross-chain-atomic-swaps-using-atomicdex-mobile.md",
+                    "Perform Cross-Chain Atomic Swaps Using AtomicDEX Mobile"
+                ],
+                [
+                    "/basic-docs/atomicdex/atomicdex-beta/view-ongoing-orders-and-swap-history-on-atomicdex-mobile.md",
+                    "View Ongoing Orders and Swap History on AtomicDEX Mobile"
+                ],
+                [
+                    "/basic-docs/atomicdex/atomicdex-beta/recover-seed-on-atomicdex-mobile.md",
+                    "Recover Seed on AtomicDEX Mobile"
+                ],
+                [
+                    "/basic-docs/atomicdex/atomicdex-beta/delete-seed-from-atomicdex-mobile.md",
+                    "Delete Seed (Wallet) on AtomicDEX Mobile"
+                ],
+            ],
         },
         [
             "/basic-docs/atomicdex/atomicdex-api.md", 
