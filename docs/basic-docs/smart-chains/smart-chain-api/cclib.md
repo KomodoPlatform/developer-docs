@@ -37,7 +37,7 @@ Script format:
 ```
 
 ::: tip
-The [cclibinfo](../komodo-api/cclib.html#cclibinfo) method returns a complete list of available methods and their parameters for each unique `evalcode`.
+The [cclibinfo](#cclibinfo) method returns a complete list of available methods and their parameters for each unique `evalcode`.
 :::
 
 ### Arguments
@@ -52,7 +52,7 @@ The [cclibinfo](../komodo-api/cclib.html#cclibinfo) method returns a complete li
 
 | Name                        | Type | Description |
 | --------------------------- | ---- | ----------- |
-| (each `EVALCODE` is unique) |      |             |
+| (response to each `EVALCODE` is different) |      |             |
 
 #### :pushpin: Examples
 
@@ -144,7 +144,7 @@ Command:
 
 The `cclibinfo` method displays all the methods of all the modules that are available in the current library.
 
-The library is loaded at runtime using the [-ac_cclib](../installations/asset-chain-parameters.html#ac-cclib) parameter.
+The library is loaded at runtime using the [-ac_cclib](../../antara/antara-setup/antara-customizations.html#ac-cclib) parameter.
 
 ### Arguments
 
