@@ -2652,15 +2652,15 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **opreturn_burn burn_amount hexstring ( txfee )**
 
-The `opreturn_burn` method is a simple way to create an OP_RETURN transaction. Returns transaction raw hex that must then be broadcast via the sendrawtransaction method.
+The `opreturn_burn` method is a simple way to create an OP_RETURN transaction. It returns the transaction's raw hex that must then be broadcast via the [sendrawtransaction](./rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments
 
 | Name | Type | Description | 
 | ------------- | ----------------------------------- | ---------------------------------------- |
-| "burn_amount" | (numeric, required)                 | Amount of coins to burn.                 |
-| "hexstring"   | (string, required)                  | Hex string to include in OP_RETURN data. |
-| "txfee"       | (numeric, optional, defalut=0.0001) | Transaction fee                          |
+| "burn_amount" | (numeric, required)                 | the amount of coins to burn.                 |
+| "hexstring"   | (string, required)                  | the hex string to include in OP_RETURN data. |
+| "txfee"       | (numeric, optional, defalut=0.0001) | the transaction fee                          |
 
 ### Response
 
