@@ -454,7 +454,7 @@ cd ~/komodo/src
 find ~/.komodo -type f -iname "*.conf" -exec chmod 600 {} \;
 ```
 
-To complete setting up your main server, go to the `Set `ulimit` parameters on Ubuntu permanently` section.
+To complete setting up your main server, go to the `Set 'ulimit' parameters on Ubuntu permanently` section.
 
 ---
 
