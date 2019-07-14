@@ -42,12 +42,3 @@ Because a Komodo-based blockchain is independently managed, the developer has co
 
 
 [Get Started →](./basic-docs/start-here/about-komodo-platform/about-komodo-platform.html)
-
-<!-- Sidd: Divs below cause issues when loading page. Very ugly, and blinks. 
-
-<div class="introductionLinkDiv">
-
-<a class="introductionLink" href="../basic-docs/start-here/outline-for-new-developers.html">Get Started →</a>
-
-</div>
--->
