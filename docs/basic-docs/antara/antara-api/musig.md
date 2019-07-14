@@ -45,7 +45,7 @@ For further information, see this [article.](https://blockstream.com/2019/02/18/
   - Use the returned output to verify that the `combinedsig` value will be able to successfully execute the `spend` method for the desired `msg`
 - On one node execute the [spend](../customconsensus/musig.html#spend) method and broadcast the returned raw transaction
 
-## Musig Tutorial Availability
+## Tutorial Availability
 
 The Antara Tutorials section features a full installation and walkthrough tutorial of the Musig module.
 

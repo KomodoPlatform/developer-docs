@@ -2652,30 +2652,35 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **opreturn_burn burn_amount hexstring ( txfee )**
 
-The `opreturn_burn` method is a simple way to create an OP_RETURN transaction. It returns the transaction's raw hex that must then be broadcast via the [sendrawtransaction](./rawtransactions.html#sendrawtransaction) method.
+The `opreturn_burn` method creates an OP_RETURN transaction. 
+
+The method returns a raw hex transaction that must then be broadcast via the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments
 
 | Name | Type | Description | 
 | ------------- | ----------------------------------- | ---------------------------------------- |
-| "burn_amount" | (numeric, required)                 | the amount of coins to burn.                 |
-| "hexstring"   | (string, required)                  | the hex string to include in OP_RETURN data. |
+| "burn_amount" | (numeric, required)                 | the amount of coins to burn                 |
+| "hexstring"   | (string, required)                  | the hex string to include in OP_RETURN data |
 | "txfee"       | (numeric, optional, defalut=0.0001) | the transaction fee                          |
 
 ### Response
 
 | Name | Type | Description | 
 | ----- | -------- | ---------------------- |
-| "hex" | (string) | raw hex of transaction |
+| "hex" | (string) | raw hex of transaction; broadcast this using the <b>sendrawtransaction</b> method |
 
 #### :pushpin: Examples
 
-Command:
+###### Command
 
 ```bash
 ./komodo-cli opreturn_burn 10 deadbeef 0.00005
 ```
 
+###### Response
+
+<div style="margin-top: 1rem; margin-bottom: 1rem;">
 
 <collapse-text hidden title="Response">
 
@@ -2688,15 +2693,19 @@ Command:
 
 </collapse-text>
 
+</div>
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
-Command:
+###### Command
 
 ```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "opreturn_burn", "params": [10,"deadbeef",0.0005] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
+###### Response
+
+<div style="margin-top: 1rem; margin-bottom: 1rem;">
 
 <collapse-text hidden title="Response">
 
@@ -2707,6 +2716,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
+</div>
 
 ## resendwallettransactions
 

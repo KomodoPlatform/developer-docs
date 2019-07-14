@@ -297,16 +297,20 @@ var sidebar = [
                             "Understanding Antara Addresses"
                         ],
                         [
+                            "/basic-docs/antara/antara-tutorials/dilithium-module-tutorial.md", 
+                            "Dilithium Module Tutorial" 
+                        ],
+                        [
+                            "/basic-docs/antara/antara-tutorials/gateways-module-tutorial.md", 
+                            "Gateways Module Tutorial" 
+                        ],
+                        [
                             "/basic-docs/antara/antara-tutorials/musig-module-tutorial.md", 
                             "Musig Module Tutorial" 
                         ],
                         [
                             "/basic-docs/antara/antara-tutorials/rogue-module-tutorial.md", 
                             "Rogue Module Tutorial" 
-                        ],
-                        [
-                            "/basic-docs/antara/antara-tutorials/gateways-module-tutorial.md", 
-                            "Gateways Module Tutorial" 
                         ],
                 ],
             },
@@ -321,6 +325,10 @@ var sidebar = [
               [
                   "/basic-docs/antara/antara-api/dice.md", 
                   "Dice"
+              ],
+              [
+                  "/basic-docs/antara/antara-api/dilithium.md", 
+                  "Dilithium"
               ],
               [
                   "/basic-docs/antara/antara-api/faucet.md", 

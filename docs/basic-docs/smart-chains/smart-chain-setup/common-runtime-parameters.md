@@ -497,7 +497,10 @@ komodod -stopat=1000000
 ```
 
 ## testnode
-`testnode` allows the daemon to mine without being connected to any other peers. If this parameter is not set, the daemon will not attempt to mine blocks unless it has at least one other peer.
+
+The `testnode` parameter allows the daemon to mine without being connected to any other peers.
+
+If this parameter is not set, the daemon will not attempt to mine blocks unless it has at least one other peer.
 
 #### :pushpin: Examples:
 

@@ -52,7 +52,7 @@ The [cclibinfo](#cclibinfo) method returns a complete list of available methods 
 
 | Name                        | Type | Description |
 | --------------------------- | ---- | ----------- |
-| (response to each `EVALCODE` is different) |      |             |
+| (the response for each `EVALCODE` is different) |      |             |
 
 #### :pushpin: Examples
 

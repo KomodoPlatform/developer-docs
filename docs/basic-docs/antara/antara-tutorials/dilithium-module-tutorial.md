@@ -1,22 +1,26 @@
+<!-- Sidd: Seeing as how we don't expect people to use this yet, I am not yet editing this. -->
+
 # Dilithium Module Tutorial
 
 ## Introduction
 
-The purpose of this tutorial is to give a front-end developer all the knowledge necessary to create a GUI for the Dilithium CC Module. We will touch only briefly on the use cases of this module. This documentation does not discuss the underlying math and principles of quantum-resistant blockchain computing. Please inquire with our team for more details.
+This tutorial provides a front-end developer all the knowledge necessary to create a graphical user interface (GUI) for the Dilithium Antara Module. The tutorial touches only briefly on the use cases of the Dilithium module. 
 
-<!-- For details on how to do this, please see <LINK TO CCLIB DOC> FIXME. -->
+This documentation does not discuss the underlying math and principles of quantum-resistant blockchain computing. Please inquire with our team for more details.
 
 ## Installation
 
 #### A Note Regarding the Installation of the Necessary Libraries in the Source Code
 
-Because quantum computing is not yet realized in the technology industry, Dilithium is listed in the documentation now only for display purposes.
+Because quantum computing is not yet realized in the technology industry, Dilithium is listed in the documentation only for display purposes.
 
 Dilithium is not active on a default Komodo Smart Chain. The user must download an associated C library (also called a cclib module) and include this library in the `src` directory when compiling Komodo from source.
 
-Currently, the Dilithium cclib module is including as a part of the Soduku cclib module. This is a matter of convenience for the developers and testers. 
+<!-- For details on how to do this, please see <LINK TO CCLIB DOC> FIXME. -->
 
-If a Komodo customer is interested to implement Dilithium, please inquiry with our team. We would be happy to separate Dilithium's cclib module from the Sudoku cclib module, and make Dilithium available in the default Antara Modules. 
+Currently, the Dilithium cclib module is included as a part of the Soduku cclib module. This is a matter of convenience for the developers and testers. 
+
+If a Komodo customer is interested in implementing Dilithium, please inquiry with our team. We would be happy to separate Dilithium's cclib module from the Sudoku cclib module, and make Dilithium available in the default Antara Modules. 
 
 #### Tutorial Uses the MUSIG Test Smart Chain
 

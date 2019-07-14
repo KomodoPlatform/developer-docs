@@ -10,7 +10,7 @@ This allows the `gateways`-enabled Smart Chain to feature secure, on-chain, high
 
 Using an established `gateways` contract is not considered difficult. However, setting up the gateway requires the user to closely follow several detailed steps.
 
-## Gateways Module Tutorial Availability
+## Tutorial Availability
 
 The Antara Tutorials section features a full walkthrough of the Gateways module.
 

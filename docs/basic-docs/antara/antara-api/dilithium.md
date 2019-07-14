@@ -34,6 +34,12 @@ Once again, this can be compared to the familiar "z addresses" and "z transactio
 - To transfer funds from a `t` address into a `q` address, use the [<b>send</b>](../../../basic-docs/antara/antara-api/dilithium.html#send) method
 - To transfer funds from a `q` address to another `q` address, use the [<b>qsend</b>](../../../basic-docs/antara/antara-api/dilithium.html#qsend) method
 
+## Tutorial Availability
+
+The Dilithium Antara Module has an associated tutorial. This tutorial provides instructions on installation and usage.
+
+[Link to Dilithium Module Tutorial](../../../basic-docs/antara/antara-tutorials/dilithium-module-tutorial.html#introduction)
+
 ## keypair
 
 **cclib keypair 19 '["hexseed"]'**
