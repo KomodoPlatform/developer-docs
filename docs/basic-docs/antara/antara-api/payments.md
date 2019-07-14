@@ -4,6 +4,14 @@
 
 The Payments Module allows a payment to be distributed between multiple recipients in a pre-defined proportion.
 
+<!-- Sidd: After working through this documentation, I'm still confused about a few things.
+
+What is the Rich List? Can we please explain this here?
+
+How does this module hook up with other modules? Is this intended to be used with other modules? When would you use this with a module, and when would you use it without a module?
+
+What is the deal with the airdrop-related RPCs? -->
+
 ### Payments Module Flow
 
 - Use [paymentstxidopret](#paymentstxidopret) to create as many transactions as there are recipients
@@ -266,16 +274,41 @@ The <b>paymentsairdrop</b> RPC requires the [<b>-ac_snapshot</b>]() to be active
 
 ## payments_airdroptokens
 
-**payments_airdroptokens '[“tokenid",lockedblocks,minamount,mintoaddress,top,bottom,fixedFlag,"excludePubKey",...,"excludePubKeyN"]'**
+**payments_airdroptokens '[“tokenid", lockedblocks, minamount, mintoaddress, top, bottom, fixedFlag, "excludePubKey", ... , "excludePubKeyN"]'**
 
-NOT IMPLEMENTED YET.
+::: danger
+
+The <b>payments_airdroptokens</b> method is still in development. Please inquire on [<b>Discord</b>](komodoplatform.com/discord) for more details.
+
+:::
+
+<!-- 
+
 Tokenid, is the token to base the airdrop on.
+
+-->
 
 ## paymentsinfo
 
 **paymentsinfo '[“createtxid"]'**
 
-Shows info about a payments plan.
+The `paymentsinfo` method returns relevant information about the provided `createtxid` Payments plan.
+
+#### Arguments
+
+| Name         | Type               | Description                                                                                 |
+| ------------ | ------------------ | ------------------------------------------------------------------------------------------- |
+| createtxid | (string) | the transaction id of the specific Payments plan the user desires to inspect |
+
+#### Response
+
+| Name   | Type     | Description                                                           |
+| ------ | -------- | --------------------------------------------------------------------- |
+| hex    | (string) | the transaction in raw format, provided in hexadecimal |
+| txid   | (string) | the transaction id of the `paymentscreate` transaction                            |
+| result | (string) | whether the call executed successfully                                |
+
+#### :pushpin: Examples
 
 ###### Command
 
@@ -321,13 +354,33 @@ c4de51ec55d21d0ad0645efe597f61d07166f1a2cb73fcaa8c7a37de2b3c3837
 
 **paymentslist**
 
-Lists all payments createtxids.
+The `paymentslist` method lists all Payment plan `createtxids` that are active on the Smart Chain.
 
-Command:
+<!-- Sidd: I made up the above, based on the title of the RPC. However, it doesn't make any sense, when compared with the example that Gcharang provided below. Need someone to fix everything here. -->
+
+#### Arguments
+
+| Name         | Type               | Description                                                                                 |
+| ------------ | ------------------ | ------------------------------------------------------------------------------------------- |
+| (none) | | | 
+
+#### Response
+
+| Name   | Type     | Description                                                           |
+| ------ | -------- | --------------------------------------------------------------------- |
+| hex    | (string) | the transaction in raw format, provided in hexadecimal |
+| txid   | (string) |  |
+| result | (string) | whether the call executed successfully                                |
+
+#### :pushpin: Examples
+
+###### Command
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD paymentscreate '[0,0,"9c731f6bbdaa6159b7c0955f3d1e1df72a64a38cd20198d59cd11f0fc506e00e","3398899808706726bf04c815ca994f616768a1d4ad2546f14246bef3a926117d"]'
 ```
+
+###### Response
 
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
@@ -345,11 +398,13 @@ Command:
 
 </div>
 
-Broadcast the transaction:
+###### Broadcast the transaction
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f8901002a73fb5f67f406f4686cd3124f38bf1ecbc9b997adc548914c2bc344453f700000000048473044022034b381a812ad57e5a726319f47db4e59666b65dc1eb7ab3e8eb32f7a3637624b02203ca606a74c18389f7ba20ab09086db66a4d21826673e9970ceb3d6f2c4bfea0501ffffffff031027000000000000302ea22c8020f7d6c2e6ca04be384f425a199bc2ad90dcc3e13effe6822b29598f47e2795da781031210008203000401cce092f50500000000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac0000000000000000566a4c53f04300000000000000000a00000000000000020ee006c50f1fd19cd59801d28ca3642af71d1e3d5f95c0b75961aabd6b1f739c7d1126a9f3be4642f14625add4a16867614f99ca15c804bf266770089889983300000000860a00000000000000000000000000
 ```
+
+###### Response
 
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
@@ -365,22 +420,99 @@ c4de51ec55d21d0ad0645efe597f61d07166f1a2cb73fcaa8c7a37de2b3c3837
 
 ## paymentsfund
 
-**paymentsfund '[“createtxid",amount(,useopret)]'**
+**paymentsfund '[“createtxid", amount(, useopret)]'**
 
-Createtxid is the txid from paymentscreate, paymentsairdrop or payments_airdroptokens
-Amount is the amount to send
-Useopret is a flag to tell it to make a ccvout tx to the global payments plan. You use this RPC to get the scriptPubKey you need to fund a payments plan from something else, either coinbase, or another contract.
+<!-- Sidd: Need explanation -->
+
+#### Arguments
+
+| Name         | Type               | Description                                                                                 |
+| ------------ | ------------------ | ------------------------------------------------------------------------------------------- |
+| createtxid | (string) | the transaction id of the specific Payments plan the user desires to fund |
+| amount | (number) | the amount of funds to send |
+| useopret | (number) | <br> a flag that instructions the Payments Module to create a transaction for the global Payments Module address (also called the global CC address) <br><br>use this RPC to obtain the <b>scriptPubKey</b> you need to fund a Payments plan from another source; for example, a coinbase transaction or another contract <br><br> <!-- Sidd: This last part doesn't make sense to me. Can someone please provide more information? --> |
+
+#### Response
+
+| Name   | Type     | Description                                                           |
+| ------ | -------- | --------------------------------------------------------------------- |
+| | | |
+
+<!-- Sidd: Need responses -->
+
+#### :pushpin: Examples
+
+###### Command
+
+###### Response
+
+<!-- Sidd: Need examples above. -->
 
 ## paymentsmerge
 
 **paymentsmerge '[“createtxid"]'**
 
-Merges all funds on a payments plan to a single utxo in the plans special address.
-Merged funds enforce lockedblocks, but cannot be merged again, for 100 blocks longer than this. This is to stop people merging the funds before they can be released, and preventing payments to happen. It exists because a very large tx cannot have lots of inputs.
+The `paymentsmerge` method merges all funds on a Payments plan into a single [utxo](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept) in the plan's special address. <!-- Sidd: What does "special address" mean? -->
+
+Merged funds enforce a state called "lockedblocks." In this state, funds cannot be spent until a certain number of blocks are confirmed on the network. The number of blocks is determined by the way the Payments plan was originally created. 
+
+Once locked, the funds cannot be merged again for at least `100` blocks beyond the number of `lockedblocks` set in the plan. This prevents a user from merging again the funds before the funds can be released the first time, which would thus allow users to accidentally overlap periods of locking. 
+
+<!-- Sidd: What does "it" mean in the below sentence? Need more information. -->
+
+It exists because a very large tx cannot have lots of inputs.
+
+#### Arguments
+
+| Name         | Type               | Description                                                                                 |
+| ------------ | ------------------ | ------------------------------------------------------------------------------------------- |
+| createtxid | (string) | the transaction id of the specific Payments plan the user desires to merge |
+
+#### Response
+
+| Name   | Type     | Description                                                           |
+| ------ | -------- | --------------------------------------------------------------------- |
+| | | |
+
+<!-- Sidd: Need responses -->
+
+#### :pushpin: Examples
+
+###### Command
+
+###### Response
+
+<!-- Sidd: Need examples above. -->
 
 ## paymentsrelease
 
 **paymentsrelease '[“createtxid",amount,(skipminimum)]'**
 
-Amount is amount to release, it must be above the minimum.
-Skipminimum is a flag, if there are address with such low balance minimumtoaddress cannot be paid, this will truncate the rich list off at the first address that is being paid the wrong amount.
+The `paymentsrelease` method releases payments of the given `createtxid` Payments plan. Payments are given in the `amount` size.
+
+<!-- Sidd: Do we need to say something about who has the right to execute this plan? Do you have to send this from the pubkey that created the plan? -->
+
+#### Arguments
+
+| Name         | Type               | Description                                                                                 |
+| ------------ | ------------------ | ------------------------------------------------------------------------------------------- |
+| createtxid | (string) | the transaction id of the specific Payments plan the user desires to fund |
+| amount | (number) | the amount of funds to release; this value must be higher than the minimum-amount requirement originally set in the plan |
+| skipminimum | (number) | a flag; if there is an address that has a balance too low to meet the minimum-amount requirement, setting this `skipminimum` flag to <!-- Sidd: I need a value? --> wil truncate the rich list <!-- Sidd: what is the Rich list? I've heard of the general concept before, but I need a specific definition for this module --> at the first address that is set to receive an amount below the threshold <!-- Sidd: I had to guess tat the meaning for the last part -->
+
+#### Response
+
+| Name   | Type     | Description                                                           |
+| ------ | -------- | --------------------------------------------------------------------- |
+| | | |
+
+<!-- Sidd: Need responses -->
+
+#### :pushpin: Examples
+
+###### Command
+
+###### Response
+
+<!-- Sidd: Need examples above. -->
+
