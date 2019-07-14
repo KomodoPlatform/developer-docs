@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Gateway Fluidity module allows the user to facilitate, manage, and trade tokenized representations of foreign blockchain assets.
+The Gateway Antara module allows the user to facilitate, manage, and trade tokenized representations of foreign blockchain assets.
 
 For example, a user is able to deposit their real-world BTC into a monitored address on the Bitcoin blockchain. Then, on the `gateways` Smart Chain, the ownership of this BTC is tokenized. Only the owner of the token has the right to withdraw the BTC to a chosen address. The user that made the deposit can use the token either for asset trading, or for other creative purposes.
 
@@ -12,7 +12,7 @@ Using an established `gateways` contract is not considered difficult. However, s
 
 ## Gateways Module Tutorial Availability
 
-The Fluidity Tutorials section features a full walkthrough of the Gateways module.
+The Antara Tutorials section features a full walkthrough of the Gateways module.
 
 [<b>Link to Gateways Module Tutorial</b>](../basic-docs/fluidity/fluidity-tutorials/gateways-module-tutorial.md)
 
@@ -37,7 +37,7 @@ The `gatewaysaddress` method returns information about the on-chain gateway.
 | "Gatewaysmarker"    | (string) | the unmodified public address generated from the contract's privkey                                                  |
 | "GatewaysPubkey"    | (string) | the pubkey for the gateways module                                                                                       |
 | "GatewaysCCassets"  | (string) | this property is used for development purposes only and can otherwise be ignored                                     |
-| "myCCaddress"       | (string) | taking the contract's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                    |
+| "myCCaddress"       | (string) | taking the contract's EVAL code as a modifier, this is the Antara address from the pubkey of the user                    |
 | "myaddress"         | (string) | the public address of the pubkey used to launch the chain                                                            |
 
 #### :pushpin: Examples

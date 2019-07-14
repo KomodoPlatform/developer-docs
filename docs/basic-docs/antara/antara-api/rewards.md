@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Rewards Fluidity module creates a master-node like rewards program, giving a user the ability to earn rewards by locking coins.
+The Rewards Antara module creates a master-node like rewards program, giving a user the ability to earn rewards by locking coins.
 
 It features configurable parameters, such as a customizable APR, minimum deposit, a required holding period,etc.
 
@@ -169,8 +169,8 @@ The `rewardsaddress` method returns info about the `rewards` plan associated wit
 | Rewardsmarker    | (string) | the unmodified public address generated from the plan's privkey                                                  |
 | GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                       |
 | RewardsCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                                     |
-| CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                    |
-| myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                    |
+| CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                    |
+| myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                    |
 | myaddress        | (string) | the public address of the pubkey used to launch the chain                                                            |
 
 #### :pushpin: Examples

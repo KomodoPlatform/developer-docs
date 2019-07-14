@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Channels Fluidity module facilitates instant payments in a trustless environment.
+The Channels Antara module facilitates instant payments in a trustless environment.
 
 When a payment is executed properly with `channels`, as soon as it enters the mempool the odds that the payment can be withdrawn or attacked decrease to almost zero. Many developers and users may find it advantageous to use `channels` to create a secure instant-payment network that can be used within their business environment.
 
@@ -25,7 +25,7 @@ The `channelsaddress` method displays the various addresses and their balances f
 
 Under normal circumstances, for the `pubkey` the user provides the destination address of the intended channel.
 
-The global addresses are not used in the Channels Fluidity module. For more information about unique Fluidity addresses, see [this linked explanation.](../customconsensus/custom-consensus-instructions.html#understanding-the-types-of-addresses)
+The global addresses are not used in the Channels Antara module. For more information about unique Antara addresses, see [this linked explanation.](../customconsensus/custom-consensus-instructions.html#understanding-the-types-of-addresses)
 
 ### Arguments
 
@@ -43,8 +43,8 @@ The global addresses are not used in the Channels Fluidity module. For more info
 | ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey; this is generally used for markers                                                                                                                                                                                                                                                  |
 | ChannelsCC1of2Address       | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using coins |
 | ChannelsCC1of2TokensAddress | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using tokens |
-| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the Fluidity address from the `pubkey` [used to launch the daemon](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)                                                                                                                                                 |
-| PubkeyCCaddress(Channels)   | (string)  | taking the contract's EVAL code as a modifier, this is the Fluidity address from the `pubkey` supplied as the argument                                                                                                                                                                                                                                                |
+| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the Antara address from the `pubkey` [used to launch the daemon](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)                                                                                                                                                 |
+| PubkeyCCaddress(Channels)   | (string)  | taking the contract's EVAL code as a modifier, this is the Antara address from the `pubkey` supplied as the argument                                                                                                                                                                                                                                                |
 | myCCbalance                 | (numeric) | the balance of `myccaddress` in coins                                                                                                                                                                                                                                                                                                                           |
 | myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)                                                                                                                                                                                      |
 | mybalance                   | (numeric) | the balance of `myaddress` in coins                                                                                                                                                                                                                                                                                                                             |
@@ -329,7 +329,7 @@ Check that the transaction is confirmed:
 
 **channelsrefund open_tx_id close_tx_id**
 
-The `channelsrefund` method withdraws funds directly to the Fluidity address of the channel creator.
+The `channelsrefund` method withdraws funds directly to the Antara address of the channel creator.
 
 The method can only be executed after the channel `close_tx_id` has either one notarization or 60 confirmations.
 

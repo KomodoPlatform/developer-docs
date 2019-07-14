@@ -2,9 +2,9 @@
 
 ## Introduction
 
-The Dice Fluidity module allows for a decentralized `dice` game on a blockchain. The `dice` module is essentially a simple, but fully functional example of decentralized software.
+The Dice Antara module allows for a decentralized `dice` game on a blockchain. The `dice` module is essentially a simple, but fully functional example of decentralized software.
 
-It is also useful as a demonstration to show how Fluidity based modules can leverage provably random entropy to enable blockchain-enforced real-time gameplay.
+It is also useful as a demonstration to show how Antara based modules can leverage provably random entropy to enable blockchain-enforced real-time gameplay.
 
 The Dice module is a simple gambling game, where one node creates a "house" contract, with seed funds and other parameters, and other users place bets within the indicated parameters. Winners and losers are determined through blockchain technology. This technology includes on-chain, consensus based, provably random entropy that derives from the activity of both the "house" and the users.
 
@@ -171,9 +171,9 @@ The `diceaddress` method takes either your pubkey or a pubkey that you provide a
 | result         | (string) | whether the diceaddress method was successful                                                                                  |
 | DiceCCaddress  | (string) | taking the dice contract's EVAL code as a modifier, this is the public address that corresponds to the dice contract's privkey |
 | Dicemarker     | (string) | the unmodified public address generated from the dice contract's privkey                                                       |
-| DiceCCassets   | (string) | the internal address; this value is not related to the usage of the Dice Fluidity module                                             |
-| GatewaysPubkey | (string) | the global pubkey for this Gateways Fluidity module                                                                                  |
-| myCCaddress    | (string) | taking the dice contract's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                         |
+| DiceCCassets   | (string) | the internal address; this value is not related to the usage of the Dice Antara module                                             |
+| GatewaysPubkey | (string) | the global pubkey for this Gateways Antara module                                                                                  |
+| myCCaddress    | (string) | taking the dice contract's EVAL code as a modifier, this is the Antara address from the pubkey of the user                         |
 | myaddress      | (string) | the public address of the pubkey used to launch the chain                                                                      |
 
 #### :pushpin: Examples

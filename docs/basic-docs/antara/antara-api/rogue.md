@@ -2,7 +2,7 @@
 
 ## Tutorial Availability
 
-An installation, Rogue API, and gameplay walkthrough is available in the [<b>Fluidity Tutorials section.</b>](../basic-docs/fluidity/fluidity-tutorials/rogue-module-tutorial.html#introduction)
+An installation, Rogue API, and gameplay walkthrough is available in the [<b>Antara Tutorials section.</b>](../../../basic-docs/antara/antara-tutorials/rogue-module-tutorial.html)
 
 ## bailout
 

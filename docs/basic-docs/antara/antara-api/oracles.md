@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Oracles Fluidity module allows a user to make off-chain data available on-chain. This enables developers to create and use software that responds to off-chain information and events.
+The Oracles Antara module allows a user to make off-chain data available on-chain. This enables developers to create and use software that responds to off-chain information and events.
 
 Those who publish data to an oracle are called publishers. There is a fee-based model to serve as an incentive for publishers.
 
@@ -98,8 +98,8 @@ The `oraclesaddress` method displays the oracle address for a specific pubkey.
 | Oraclesmarker    | (string) | the unmodified public address generated from the contract's privkey                                                  |
 | GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                       |
 | OraclesCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                                     |
-| CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                    |
-| myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                    |
+| CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                    |
+| myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                    |
 | myaddress        | (string) | the public address of the pubkey used to launch the chain                                                            |
 
 #### :pushpin: Examples
@@ -687,7 +687,7 @@ For a list of all `oracletxid`'s available on the Smart Chain, see the [oraclesl
 | marker      | (string) | the unmodified public address generated from the oracle contract's privkey                                                                   |
 | registered: | (array)  |
 | publisher   | (string) | the unique identifier for the publisher (see [oraclesregister](../customconsensus/oracles.html#oraclesregister))                                    |
-| baton       | (string) | the baton address of the publisher, which is a Fluidity address (based on the pubkey of the publisher and the EVAL code of the oracle contract) |
+| baton       | (string) | the baton address of the publisher, which is an Antara address (based on the pubkey of the publisher and the EVAL code of the oracle contract) |
 | batontxid   | (string) | the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher               |
 | lifetime    | (number) | the length of time since publisher's inception                                                                                                          |
 | funds       | (number) | the funds committed by subscribers to the publisher's account, and which are used for payouts                                                           |

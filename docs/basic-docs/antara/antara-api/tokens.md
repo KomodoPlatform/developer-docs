@@ -33,8 +33,8 @@ The `tokenaddress` method returns information about a token address according to
 | result          | (string) | whether the command executed successfully                                                                                        |
 | AssetsCCaddress | (string) | taking the token module's EVAL code as a modifier, this is the public address that corresponds to the token contract's privkey |
 | Assetsmarker    | (string) | the unmodified public address generated from the token contract's privkey                                                        |
-| CCaddress       | (string) | taking the token module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                          |
-| myCCaddress     | (string) | taking the token module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                          |
+| CCaddress       | (string) | taking the token module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                          |
+| myCCaddress     | (string) | taking the token module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                          |
 | myaddress       | (string) | the public address of the pubkey used to launch the chain                                                                        |
 
 #### :pushpin: Examples
@@ -137,7 +137,7 @@ The `tokenbalance` method checks the token balance according to a provided `pubk
 | Name      | Type     | Description                                                                                             |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------- |
 | result    | (string) | whether the command executed successfully                                                                |
-| CCaddress | (string) | taking the token module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user |
+| CCaddress | (string) | taking the token module's EVAL code as a modifier, this is the Antara address from the pubkey of the user |
 | tokenid   | (string) | the txid that identifies the token                                                                      |
 | balance   | (number) | the balance of the address that corresponds to the pubkey                                               |
 
