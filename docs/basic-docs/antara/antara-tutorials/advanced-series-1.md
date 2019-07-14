@@ -193,10 +193,7 @@ Often times, in conversation developers may call a full transaction a "utxo," fo
 
 #### A Utxo is Not Spent Until Confirmation
 
-A utxo is not considered spent under any circumstances until the transaction that spends it receives confirmation from the Smart Chain's consensus mechanism.
-
-Therefore,the transactions that are spent by transactions which are yet in the [<b>mempool</b>](https://en.bitcoin.it/wiki/Protocol_documentation#mempool) are technically still unspent transactions, even if the user is fairly certain the spending transactions will be confirmed in the next block.
-<!-- Transactions sent to mempool are unspent and they continue to be unspent some time after they are mined until spending transactions appear. -->
+A utxo is not considered spent under any circumstances until the transaction that spends it receives confirmation from the Smart Chain's consensus mechanism. Even when the spending transaction is waiting in the mempool, the utxo remains unspent until the spending transaction receives confirmation from the network.
 
 A useful comparison here can be found by observing people seeking to attend a ticketed event, such as a music concert. To gain acceptance into the music hall, a person must first have a ticket. We compare this to the creation of a txid. The person must wait in line. This is similar to the mempool. The person must have their ticket stamped, and this is akin to the consensus mechanism approving the transaction. Then the person may enter the music hall. This is the transaction becoming a part of the blockchain history.
 
@@ -246,7 +243,7 @@ The Internet contains many thorough explanations of P2PKH transactions. For more
 
 Once a cold address is associated with a pubkey, the Bitcoin protocol no longer attempts to use these quantum-secure P2PKH transactions, as they require an extra 25 bytes of data space. Instead, the protocol reverts to the original P2PK transactions.
 
-CryptoConditions typically requires the [<b>pubkey</b>](../../../basic-docs/installations/common-runtime-parameters.html#pubkey <!--dimxy corrected the link to -pubkey, not sure the path won't change in rebranding-->) Antara Customization parameter to be enabled. One of the effects of this parameter is that each time a user makes a transaction, the "change" is automatically sent back not to a new cold address, but rather to the pubkey included in the `pubkey` parameter. <!-- dimxy i think it is the '-pubkey' param, not 'ac_pubkey'? (ac_pubkey is for receiving payments) -->Therefore, as user transactions are already always returning to a default pubkey, the Antara Module developer can simply skip P2PKH transactions altogether and use only P2PK transactions instead. 
+CryptoConditions typically requires the [<b>pubkey</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) Antara Customization parameter to be enabled. One of the effects of this parameter is that each time a user makes a transaction, the "change" is automatically sent back not to a new cold address, but rather to the pubkey included in the `pubkey` parameter. Therefore, as user transactions are already always returning to a default pubkey, the Antara Module developer can simply skip P2PKH transactions altogether and use only P2PK transactions instead. 
 
 #### Pay to Script Hash Payments
 

@@ -22,15 +22,15 @@ Now, we divide readers further into two categories.
 
 The first is a developer who intends to utilize Komodo technology only as it is provided to them. This is the most common type of developer we expect in the Komodo ecosystem.
 
-This developer likely intends to utilize Komodo software  to release a blockchain product that either stands alone, or compliments another software product the developer is creating.
+This developer likely intends to utilize Komodo software to release a blockchain product that either stands alone, or compliments another software product the developer is creating.
 
 For example, this developer could be involved with the creation of a blockchain-based asset for a business they are building. This developer expects an audience to purchase and trade these assets, and the audience may utilize Komodo's white-label software for asset management.
 
-As another example, this type of developer could be building a web application that integrates with blockchain technology. The developer could be utilizing Antara Modules, such as [<b>Oracles,</b>](../../../basic-docs/antara/antara-api/oracles.html#introduction) to securely record data that is relevant to or even created by their audience. Once the data is recorded, the developer could display this information on their website, for simple gameplay enhancements or data-driven storytelling.
+As another example, this type of developer could be building software for a web application that integrates with blockchain technology. The developer could be utilizing Antara Modules, such as [<b>Oracles,</b>](../../../basic-docs/antara/antara-api/oracles.html#introduction) to securely record data that is relevant to or even created by their audience. Once the data is recorded, the developer could display this information on their website, for simple gameplay enhancements or data-driven storytelling.
 
 ##### The Advanced Komodo Developer
 
-The advanced Komodo developer intends both to use the Komodo software as it is provided to them, and also to add in their own customized functionality beyond the scope of the default software. This developer is highly skilled in a mainstream programming language, such as C/C++, and is prepared to thoroughly understand and manipulate blockchain software.
+The advanced Komodo developer intends both to use the Komodo software as it is provided to them, and also to add in their own customized functionality beyond the scope of the normal software. This developer is highly skilled in a mainstream programming language, such as C/C++, and is prepared to thoroughly understand and manipulate blockchain software.
 
 For example, this developer may intend to build customized Antara Modules to add to the consensus mechanism of their Smart Chain. These customized modules could create unique and fully playable blockchain-based games of a complexity level similar to [<b>this Komodo-based Roguelike game</b>](../../../basic-docs/antara/antara-tutorials/rogue-module-tutorial.html#introduction), or [<b>this Komodo-based version of Sudoku.</b>](../../../basic-docs/antara/antara-api/sudoku.html) 
 
@@ -248,7 +248,7 @@ Sometimes in the development process, the developer may find convenience in havi
 
 Debug Mode allows a developer to access the last lines of code executed by the daemon before the software crashes.
 
-A Normal Developer will likely only use this when communicating with a support agent, in the unlikely event of a malfunction in the default software. An Advanced Developer, on the other hand, may use Debug Mode frequently.
+A Normal Developer will likely only use this when communicating with a support agent, in the unlikely event of a malfunction in the software. An Advanced Developer, on the other hand, may use Debug Mode frequently.
 
 [<b>Link to Running Komodo Software in Debug Mode</b>](../../../basic-docs/smart-chains/smart-chain-tutorials/running-komodo-software-in-debug-mode.html)
 
@@ -455,7 +455,7 @@ This tutorial series expects that you are comfortable with downloading a Github 
 
 Once you complete this tutorial, you are among the most advanced of community developers. You may feel prepared to offer your services to businesses that would like to use your skills to commission customized Antara Modules for their unique business purposes and competitive-advantage desires.
 
-[<b>Link to Advanced Series - Part 0 - Introduction</b>](../../../basic-docs/antara/antara-tutorials/advanced-series-introduction.html#introduction)
+[<b>Link to Advanced Series - Part 0 - Introduction</b>](../../../basic-docs/antara/antara-tutorials/advanced-series-0.html)
 
 ## Step 16: Inspect Komodo Community Bounties
 

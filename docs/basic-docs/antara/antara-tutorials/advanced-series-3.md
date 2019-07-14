@@ -1,6 +1,6 @@
 # Advanced Series — Preparing for Heir Development
 
-This tutorial in the series assists the reader in preparing to later build a full simplified prototype of the default [<b>Heir Antara Module.</b>](../../../basic-docs/fluidity/fluidity-api/heir.html)
+This tutorial in the series assists the reader in preparing to later build a full simplified prototype of the default [<b>Heir Antara Module.</b>](../../../basic-docs/antara/antara-api/heir.html#introduction)
 
 The primary aim for buildling the Heir prototype is to give the developer direct engagement with Antara Module development, with a focus on the CryptoConditions (CC) aspects. This process will give the developer a better grasp of the broad potential of the Antara framework.
 
@@ -10,7 +10,7 @@ Furthermore, in the process of completing this tutorial the developer will learn
 
 To gain an idea of the intended result, read the introduction of the Heir Module API. (Read until the start of the section named <b>Heir Module Flow</b> and then pause.)
 
-[Link to Introduction to the Heir Antara Module](../basic-docs/fluidity/fluidity-api/heir.html#introduction)
+[Link to Introduction to the Heir Antara Module](../../../basic-docs/antara/antara-api/heir.html#introduction)
 
 The basic concept to understand is that the Heir module allows the owner of a Smart Chain digital asset to designate an inheritor of the asset, should the owner become inactive on the chain.
 
@@ -74,7 +74,7 @@ Wait a few moments, and then use the [<b>getinfo</b>](../basic-docs/komodo-api/c
 
 With funds in your wallet, you are prepared to experiment with the API commands available in the Heir Module Flow section. We recommend experimenting with each command until you have executed each at least once.
 
-[<b>Link to Heir Module Flow</b>](../basic-docs/fluidity/fluidity-api/heir.html#introduction)
+[<b>Link to Heir Module Flow</b>](../../../basic-docs/antara/antara-api/heir.html#introduction)
 
 ## Transactions as a Data Source
 

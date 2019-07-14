@@ -2,28 +2,28 @@
 
 ## Introduction
 
-The Heir Fluidity module allows cryptocurrency funds to be passed on as an inheritance.
+The Heir Antara module allows cryptocurrency funds to be passed on as an inheritance.
 
-The module functions by the means of a special `1of2` Fluidity address. In this type of address there are two private keys that are capable of spending funds from the address. However, only the first private key may spend funds by default.
+The module functions by the means of a special `1of2` Antara address. In this type of address there are two private keys that are capable of spending funds from the address. However, only the first private key may spend funds by default.
 
-This first private key belongs to the owner of the `1of2` Fluidity address. The owner may use this key to freely spend funds and also to add more funds to the address.
+This first private key belongs to the owner of the `1of2` Antara address. The owner may use this key to freely spend funds and also to add more funds to the address.
 
-Should the owner fail to interact with the `1of2` Fluidity address for a specified period of time (`inactivitytime`), the address automatically unlocks to the second key. This second key is owned by the heir. Once unlocked, both the creator and the heir may freely spend funds from the address.
+Should the owner fail to interact with the `1of2` Antara address for a specified period of time (`inactivitytime`), the address automatically unlocks to the second key. This second key is owned by the heir. Once unlocked, both the creator and the heir may freely spend funds from the address.
 
 The [heiradd](../customconsensus/heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
 
-The Heir Fluidity module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../customconsensus/tokens.html) Fluidity module that represent on-chain assets, or even tokens that are formed via the [Gateways](../customconsensus/gateways.html) module to represent off-chain assets or other cryptocurrencies.
+The Heir Antara module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../customconsensus/tokens.html) Antara module that represent on-chain assets, or even tokens that are formed via the [Gateways](../customconsensus/gateways.html) module to represent off-chain assets or other cryptocurrencies.
 
 #### Heir Module Flow
 
-- Anyone can create a new Heir Fluidity address using [heirfund](../customconsensus/heir.html#heirfund)
+- Anyone can create a new Heir Antara address using [heirfund](../customconsensus/heir.html#heirfund)
 - The owner of this address can add more funds using [heiradd](../customconsensus/heir.html#heiradd)
 - Any other user, including the heir, can add donations using [heiradd](../customconsensus/heir.html#heiradd)
 - The owner can claim funds at any time using [heirclaim](../customconsensus/heir.html#heirclaim)
 - Once `inactivitytime` period is reached, the heir can also claim funds using [heirclaim](../customconsensus/heir.html#heirclaim)
 - To retrieve the details of a particular funding plan, use [heirinfo](../customconsensus/heir.html#heirinfo)
 - To retrieve a list of all funding plans on the asset chain, use [heirlist](../customconsensus/heir.html#heirlist)
-- To output Heir Fluidity addresses, use [heiraddress](../customconsensus/heir.html#heiraddress)
+- To output Heir Antara addresses, use [heiraddress](../customconsensus/heir.html#heiraddress)
 
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
@@ -33,7 +33,7 @@ The Heir Fluidity module accepts both coins and tokens. These can be the base co
 
 ::: warning
 
-If an owner of an Heir Fluidity address seeking to add funds to their account avoids the normal methods (the RPC provided) and instead manually creates a utxo contribution, this utxo will not follow the normal patterns. Specifically, if the owner manually creates a contribution utxo that derives from both the owner pubkey and also from another pubkey, this utxo will not affect the `inactivitytime` calculation. Instead of resetting the `inactivitytime`, the utxo will count only as a donation.
+If an owner of an Heir Antara address seeking to add funds to their account avoids the normal methods (the RPC provided) and instead manually creates a utxo contribution, this utxo will not follow the normal patterns. Specifically, if the owner manually creates a contribution utxo that derives from both the owner pubkey and also from another pubkey, this utxo will not affect the `inactivitytime` calculation. Instead of resetting the `inactivitytime`, the utxo will count only as a donation.
 
 :::
 
@@ -47,7 +47,7 @@ When the owner uses the `heiradd` method the `inactivitytime` calculations are r
 
 When anyone other than the owner uses the `heiradd` method to add funds, these funds are considered to be donations and won't affect the calculation of the elapsed `inactivitytime`. The method also sends a warning to the contributor to ensure they agree to submit the given funds as a donation.
 
-For each transaction using `heiradd`, the funds may be sent either from the owner's pubkey, or from a non-owner's pubkey. Funds cannot be sent from both owner and non-owner pubkeys at the same time. This can cause confusion for the owner if the funds available in their wallet are held partially in the owner's declared pubkey for this Heir account, and partially in other pubkeys. Therefore, the owner should ensure that all funds they desire to add to the account are within their declared Heir Fluidity pubkey before attempting to use `heiradd`.
+For each transaction using `heiradd`, the funds may be sent either from the owner's pubkey, or from a non-owner's pubkey. Funds cannot be sent from both owner and non-owner pubkeys at the same time. This can cause confusion for the owner if the funds available in their wallet are held partially in the owner's declared pubkey for this Heir account, and partially in other pubkeys. Therefore, the owner should ensure that all funds they desire to add to the account are within their declared Heir Antara pubkey before attempting to use `heiradd`.
 
 ::: tip
 Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find a <b>fundingtxid</b>.
@@ -244,7 +244,7 @@ The `heiraddress` method shows the owner's addresses and balances for the Heir p
 | HeirNormalAddress         | (string) | the unmodified normal public address generated from the module's privkey, used for markers                                                                                                                                                                                                                                                                     |
 | HeirCC`1of2`Address       | (string) | the address for storing funds in **coins** spendable by either the owner or the heir (funds address)                                                                                                                                                                                                                                                             |
 | HeirCC`1of2`TokensAddress | (string) | the address for storing funds in **tokens** spendable by either the owner or the heir (token funds address)                                                                                                                                                                                                                                                      |
-| myCCaddress(Heir)         | (string) | taking the module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the **heir**                                                                                                                                                                                                                                                            |
+| myCCaddress(Heir)         | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the **heir**                                                                                                                                                                                                                                                            |
 | myaddress                 | (string) | the unmodified normal public address of the pubkey [used to launch the daemon.](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey) This is the normal address used to withdraw funds in coins from from HeirCC`1of2`Address. This property is applicable to any user who wants to use the Heir plan (owner or heir) |
 | mybalance                 | (number) | the balance of myaddress in coins                                                                                                                                                                                                                                                                                                                                |
 | MyTokenAddress            | (string) | the user's address to withdraw funds in tokens from HeirCC`1of2`TokensAddress (in development)                                                                                                                                                                                                                                                                   |

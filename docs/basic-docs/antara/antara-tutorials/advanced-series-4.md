@@ -14,8 +14,6 @@ CryptoConditions are stored in the scripts of transactions and are evaluated by 
 
 In a Komodo Smart Chain, the default CC library is included during the installation procedure.
 
-<!-- Sidd: Can we get a directory location here regarding the CC library on a default Smart Chain -->
-
 #### Antara Extensions to CryptoConditions
 
 In addition to the industry-standard CryptoCondition (CC) library, Komodo's implementation of CC integrates the ability to add arbitrary code into a Smart Chain's consensus mechanism. This allows developers to create essentially an unlimited number of application-specific transaction-validation rules.
@@ -33,14 +31,19 @@ A CryptoCondition consists of two parts:
 - <b>Part II: A fulfillment</b>
   - This is stored in the `scriptSig` field of the input of the transaction that spends the above output
 
+##### Part I: Logical Condition
 
-The <b>condition</b> (Part I) contains data that checks the CryptoCondition in "fingeprinted" form. 
+The <b>condition</b> contains data that checks the CryptoCondition in "fingerprinted" form. 
 
-The term, "fingerprinted," comes from the industry-wide standard CC library. <!-- dimxy actually, 'fingerprint' is a more common term than 'hash' (hash is a special case) -- https://en.wikipedia.org/wiki/Fingerprint_(computing) --> "Fingerprint" means the conversion of some arbitrary set of data to a fixed length byte array. A "fingerprint" uniquely identifies the source data. To fingerprint data, the CC library acquires the target data, combines it with other data that the developer does not need to manage, and then creates a hash, or "fingerprint."
+The term ["fingerprinted"](https://en.wikipedia.org/wiki/Fingerprint_(computing)) is a common term in the technology industry. To "fingerprint" data means to convert an arbitrary set of data to a fixed-length byte array. In this manner, a fingerprint uniquely identifies the source data. (A fingerprint is similar in nature to a hash.)
 
-For example, a condition can be a requirement that only a specific fingerprinted `pubkey` be allowed to spend this transaction output.
+To fingerprint data in the CryptoConditions environment, the CC library acquires the target data, combines it with other data that the developer does not need to manage, and then creates the fingerprint. 
 
-The <b>fulfillment</b> (Part II) contains instructions and data about how the consensus mechanism should evaluate the CryptoCondition. For example, the fulfillment could include an instruction to check a spending-transaction's electronic signature as well as the the `pubkey` associated with this signature.
+Fingerprints are useful in Antara Module development. For example, a logical condition can be a requirement that only a specific fingerprinted `pubkey` be allowed to spend a transaction output.
+
+##### Part II: Logical Fulfillment
+
+The <b>fulfillment</b> contains instructions and data about how the consensus mechanism should evaluate the CryptoCondition. For example, the fulfillment could include an instruction to check a spending-transaction's electronic signature as well as the the `pubkey` associated with this signature.
 
 To spend a CC output of a transaction, a node on the network sends a spending transaction that contains a CC input that fulfills the CC output's condition. The consensus mechanism of the Smart Chain checks that the fulfillment is correct. For this it uses the C CryptoCondition library to evaluate the fulfillment of the spending transaction. The result of this evaluation is checked against the condition stored in the previous transaction output.
 

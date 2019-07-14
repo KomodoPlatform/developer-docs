@@ -168,8 +168,6 @@ Check that the `if ( 0 )` statement is enabled in the  `Myprivkey()` function in
 
 #### Obtain the CCaddress
 
-<!-- I didn't think the <CC>address RPC call was enabled at this point, unless the RPCs are implemented? -->
-
 Execute the `<CC_name>address` RPC call and use the returned value to complete the `<CC_Name>CCaddr` line of code.
 
 ```
@@ -184,25 +182,18 @@ From the response returned by the `<CC_name>address` RPC, use the hex value of t
 uint8_t FaucetCCpriv[32] = { 0xd4, 0x4f, 0xf2, 0x31, 0x71, 0x7d, 0x28, 0x02, 0x4b, 0xc7, 0xdd, 0x71, 0xa0, 0x39, 0xc4, 0xbe, 0x1a, 0xfe, 0xeb, 0xc2, 0x46, 0xda, 0x76, 0xf8, 0x07, 0x53, 0x3d, 0x96, 0xb4, 0xca, 0xa0, 0xe9 };
 ```
 
-<!-- How do we have a new pubkey from this? -->
-
 Stop the daemon and restart it using the new pubkey.
 
 #### Add the First RPC
 
-<!-- This should be part of its own section? Also, still confused about how to execute <CC>address above, since we create the RPC below. -->
-
 Add a line to the `/src/server.h` file to create the `<CC_name>address` function for the module.
 
-Update the commands array in the `/src/server.cpp` file. <!-- dimxy the correct name src/server.cpp and src/server.h -->
-
+Update the commands array in the `/src/server.cpp` file. 
 #### Copy the Existing Default RPCs to the New Module
 
 From the `/src/wallet/rpcwallet.cpp` file, copy and paste the existing RPC functions to create new versions for the new module. Change the eval code and customize the functions as desired.
 
 Add an entry into the `/src/cc/eval.h` file.
-
-<!-- Anything here about testing to ensure that it works properly, or anything? -->
 
 ## Introduction to Validation
 

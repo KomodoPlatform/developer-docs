@@ -46,6 +46,8 @@ This is not required, but building from source is considered the best practice i
 
 - 64-bit Processor
 
+- Minimum 32GB HDD or SDD storage space
+
 - Minimum 4GB of free RAM (8GB+ recommended)
 
 #### Get Started
