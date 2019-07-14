@@ -1,8 +1,10 @@
-# Smart Chain Customizations 
+# Antara Customizations 
 
-Smart Chains offer various default customizations. The desired combination of parameters should be included with the `komodod` execution every time the Smart Chain daemon is launched.
+The Antara Framework offer various default Antara Customizations. 
 
-Changing these customizations at a later time is possible, but this typically requires a hard-fork of your Smart Chain. In general, it is best to have your Smart Chain's parameters finalized before decentralizing the ownership of your coin. Should you discover a need to change these parameters after the fact, please reach out to our development team for assistance.
+The desired combination of parameters should be included with the `komodod` execution every time the Smart Chain daemon is launched.
+
+Changing these customizations at a later time is possible, but this typically requires a hard-fork of your Smart Chain. In general, the best practice for a developer is have all Smart Chain's parameters finalized before decentralizing the ownership of your coin. Should you discover a need to change these parameters after the fact, please reach out to our development team for assistance.
 
 ## ac_algo
 
