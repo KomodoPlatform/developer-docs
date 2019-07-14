@@ -12,7 +12,7 @@ The `addnode` method attempts to add or remove a node from the addnode list, or 
 
 | Name | Type | Description | 
 | --------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| "node"    | (string, required) | the node (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes)                                          |
+| "node"    | (string, required) | the node (see [getpeerinfo](../../../basic-docs/smart-chains/smart-chain-api/network.html#getpeerinfo) for nodes)                                          |
 | "command" | (string, required) | 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once |
 
 ### Response
@@ -127,7 +127,7 @@ Use `getpeerinfo` to determine the result.
 
 | Name | Type | Description | 
 | --------- | ------------------ | ---------------------------------------------------------------------------------------- |
-| "node"    | (string, required) | the node's address (see [getpeerinfo](../komodo-api/network.html#getpeerinfo) for nodes) |
+| "node"    | (string, required) | the node's address (see [getpeerinfo](../../../basic-docs/smart-chains/smart-chain-api/network.html#getpeerinfo) for nodes) |
 
 ### Response
 

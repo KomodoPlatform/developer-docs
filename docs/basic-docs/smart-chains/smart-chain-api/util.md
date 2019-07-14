@@ -81,7 +81,7 @@ The `decodeccopret` method decodes the OP RETURN data from a CC transaction to o
 
 The OP RETURN data from a CC transaction can be found by following these steps:
 
-- Decode a transaction produced by a CC module using the method [getrawtransaction](./rawtransactions.html#getrawtransaction)'s verbose option.
+- Decode a transaction produced by a CC module using the method [getrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#getrawtransaction)'s verbose option.
 - Look for the `vout` key; it is an array of jsons
 - Find the json that contains the `scriptPubkey`, and which has the `type:nulldata` key pair
 - Copy the `hex` value from that `scriptPubkey` json

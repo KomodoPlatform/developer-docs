@@ -484,7 +484,7 @@ This method relies on the <b>txindex</b> runtime parameter, which is enabled by 
 | "hex"                   | (string)                                       | output note ciphertext                                                                                                          |
 | "blockhash"             | (string)                                       | the block hash                                                                                                                  |
 | "height"                | (numeric)                                      | height of the block                                                                                                             |
-| "confirmations"         | (numeric)                                      | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "confirmations"         | (numeric)                                      | a confirmation number that is aware of dPoW security |
 | "rawconfirmations"      | (numeric)                                      | the raw confirmations (number of blocks on top of this transaction's block)                                                     |
 | "time"                  | (numeric)                                      | the transaction time in seconds since epoch (Jan 1 1970 GMT)                                                                    |
 | "blocktime"             | (numeric)                                      | the block time in seconds since epoch (Jan 1 1970 GMT)                                                                          |
@@ -676,7 +676,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `sendrawtransction` method submits raw transaction (serialized, hex-encoded) to local nodes and the network.
 
-Also see [createrawtransaction](../komodo-api/rawtransactions.html#createrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction) calls.
+Also see [createrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#createrawtransaction) and [signrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#signrawtransaction) calls.
 
 ### Arguments
 
