@@ -28,7 +28,7 @@ Dilithium has "q addresses" (handles) and "q transactions."
 
 Once again, this can be compared to the familiar "z addresses" and "z transactions" of a Zcash-related transaction on a Komodo Smart Chain.
 
-## Dilithium Module Flow
+#### Dilithium Module Flow
 
 - Register a handle using the [<b>keypair</b>](../../../basic-docs/antara/antara-api/dilithium.html#keypair) and [<b>register</b>](../../../basic-docs/antara/antara-api/dilithium.html#register) methods
 - To transfer funds from a `t` address into a `q` address, use the [<b>send</b>](../../../basic-docs/antara/antara-api/dilithium.html#send) method

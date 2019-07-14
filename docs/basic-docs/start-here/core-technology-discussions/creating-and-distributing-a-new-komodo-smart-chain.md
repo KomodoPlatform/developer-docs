@@ -16,7 +16,7 @@ Our dPoW technology is a key feature. dPoW provides the necessary security to pr
 
 Having thus created the blockchain, the entrepreneur then uses our software to release the project to the world. Our decentralized exchange, AtomicDEX, is a useful software solution to conduct their decentralized initial coin offering. Because AtomicDEX relies on "atomic swaps," no third-party manipulators can prevent the entrepreneur from their crowdsourcing and innovative endeavors.
 
-Through [the privacy technology](../../../basic-docs/antara/antara-tutorials/jumblr.html#abstract) available on Komodo Smart Chains, dICO participants can purchase the product within their inherent right to barter in private.
+Through [the privacy technology](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem) available on Komodo Smart Chains, dICO participants can purchase the product within their inherent right to barter in private.
 
 ## The Challenges in Current ICO Platforms
 
@@ -232,7 +232,7 @@ Regarding human error, should one of the node’s databases be corrupted by acci
 
 Since the coins are immediately available on the AtomicDEX exchange for trading, the entrepreneur’s audience has an immediate trading market. This stands in contrast to today’s ICO model, where users often wait weeks or even months before liquidity for their ICO product arises in a centralized exchange.
 
-Finally, through Komodo's [inherent zero-knowledge technology](), participants have the option of privacy when purchasing the dICO product. This enables them to support the crowdsourcing efforts of the entrepreneur within their inherent right to barter in private.
+Finally, through Komodo's [inherent zero-knowledge technology](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem), participants have the option of privacy when purchasing the dICO product. This enables them to support the crowdsourcing efforts of the entrepreneur within their inherent right to barter in private.
 
 Upon conclusion of the distribution of the dICO coin supply the entrepreneur has successfully and immediately completed all the crowdsourcing-related steps that could have taken months in today’s typical ICO model.
 
