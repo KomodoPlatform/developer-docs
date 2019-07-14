@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Under most circumstances, a developer should [use two separate nodes to set up and create a Smart Chain.](../../../basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html)
+Under most circumstances, a developer should [use two separate nodes to set up and create a Smart Chain.](../../../basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html#introduction)
 
 However, occasionally a developer may need to create a Smart Chain on a single node.
 
