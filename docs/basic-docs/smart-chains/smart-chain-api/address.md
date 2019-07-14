@@ -545,7 +545,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **getsnapshot top**
 
-The `getsnapshot` method returns a snapshot of addresses and their amounts at the asset chain's current height. 
+The `getsnapshot` method returns a snapshot of addresses and their amounts at the Smart Chain's current height. 
 
 The method requires [addressindex](../smart-chain-setup/common-runtime-parameters.html#addressindex) to be enabled.
 

@@ -12,7 +12,7 @@ Should the owner fail to interact with the `1of2` Antara address for a specified
 
 The [heiradd](../customconsensus/heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
 
-The Heir Antara module accepts both coins and tokens. These can be the base coin of the asset chain, on-chain tokens created via the [Tokens](../customconsensus/tokens.html) Antara module that represent on-chain assets, or even tokens that are formed via the [Gateways](../customconsensus/gateways.html) module to represent off-chain assets or other cryptocurrencies.
+The Heir Antara module accepts both coins and tokens. These can be the base coin of the Smart Chain, on-chain tokens created via the [Tokens](../customconsensus/tokens.html) Antara module that represent on-chain assets, or even tokens that are formed via the [Gateways](../customconsensus/gateways.html) module to represent off-chain assets or other cryptocurrencies.
 
 #### Heir Module Flow
 
@@ -22,7 +22,7 @@ The Heir Antara module accepts both coins and tokens. These can be the base coin
 - The owner can claim funds at any time using [heirclaim](../customconsensus/heir.html#heirclaim)
 - Once `inactivitytime` period is reached, the heir can also claim funds using [heirclaim](../customconsensus/heir.html#heirclaim)
 - To retrieve the details of a particular funding plan, use [heirinfo](../customconsensus/heir.html#heirinfo)
-- To retrieve a list of all funding plans on the asset chain, use [heirlist](../customconsensus/heir.html#heirlist)
+- To retrieve a list of all funding plans on the Smart Chain, use [heirlist](../customconsensus/heir.html#heirlist)
 - To output Heir Antara addresses, use [heiraddress](../customconsensus/heir.html#heiraddress)
 
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
@@ -605,7 +605,7 @@ Use the [<b>heirlist</b>](../customconsensus/heir.html#heirlist) method to find 
 
 **heirlist**
 
-The `heirlist` method outputs a list of all available `fundingtxid`'s on the asset chain.
+The `heirlist` method outputs a list of all available `fundingtxid`'s on the Smart Chain.
 
 ### Arguments
 
@@ -617,7 +617,7 @@ The `heirlist` method outputs a list of all available `fundingtxid`'s on the ass
 
 | Name | Type | Description |
 | ----------- | ------------------ | ---------------------------------------------------------- |
-| fundingtxid | (array of strings) | an array containing all `fundingtxid`'s on the asset chain |
+| fundingtxid | (array of strings) | an array containing all `fundingtxid`'s on the Smart Chain |
 
 #### :pushpin: Example
 

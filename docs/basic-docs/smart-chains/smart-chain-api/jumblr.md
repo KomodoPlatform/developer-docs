@@ -71,7 +71,7 @@ Designate your secret destination address.
 The `jubmlr_deposit` method indicates the address from which Jumblr should withdraw funds. There should be at least 10.024 KMD in this address. Jumblr will withdraw funds in increments of 10, 100, or 7770 KMD.
 
 ::: tip
-While shielded z_address technology is available on all KMD-based asset chains, the Jumblr engine and methods are only available on the KMD mainnet.
+While shielded z_address technology is available on all KMD-based Smart Chains, the Jumblr engine and methods are only available on the KMD mainnet.
 :::
 
 ### Arguments

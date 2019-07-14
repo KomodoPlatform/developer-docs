@@ -196,7 +196,7 @@ This is the `pubkey` for our address.
 
 #### Step 4
 
-Set the pubkey for the SUDOKU asset chain.
+Set the pubkey for the SUDOKU Smart Chain.
 
 ```bash
 ./komodo-cli -ac_name=SUDOKU setpubkey 02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2
@@ -397,7 +397,7 @@ solve: 2501000840900503203040280100090000010206000071000030400000100000007000005
 
 **cclib pending 17**
 
-The `pending` method returns a complete list of all unsolved puzzles on the asset chain.
+The `pending` method returns a complete list of all unsolved puzzles on the Smart Chain.
 
 #### Arguments
 

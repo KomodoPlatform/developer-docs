@@ -92,7 +92,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | --------- | -------- | ------------------------------------------------------------------------------ |
 | numtokens | (number) | the number of tokens to request in the order                                   |
 | tokenid   | (string) | the txid that identifies the token                                             |
-| price     | (number) | the price to pay for each token (units are in coins of the parent asset chain) |
+| price     | (number) | the price to pay for each token (units are in coins of the parent Smart Chain) |
 
 ### Response
 
@@ -152,7 +152,7 @@ The `sendrawtransaction` method then returns a `txid`, which is the identificati
 | --------- | -------- | ------------------------------------------------------------------------------ |
 | numtokens | (number) | the number of tokens to request in the order                                   |
 | tokenid   | (string) | the txid that identifies the token                                             |
-| price     | (number) | the price to pay for each token (units are in coins of the parent asset chain) |
+| price     | (number) | the price to pay for each token (units are in coins of the parent Smart Chain) |
 
 ### Response
 
@@ -611,7 +611,7 @@ Information about the `funcid` property:
 | origaddress         | (string)                   | the address that made the original bid `b` or ask `s`                          |
 | tokenid             | (string)                   | the tokenid for the relevant bid/ask request/fill                              |
 | totalrequired       | (number, `b` and `s` only) | the total amount available in the original big/ask request/fill                |
-| price               | (number, `b` and `s` only) | the price per token, units are in the parent asset chain's coin                |
+| price               | (number, `b` and `s` only) | the price per token, units are in the parent Smart Chain's coin                |
 
 #### :pushpin: Examples:
 

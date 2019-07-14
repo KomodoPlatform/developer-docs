@@ -23,7 +23,7 @@ To use this method for large block heights, first execute the method for a small
 | Name | Type | Description | 
 | --------- | --------- | ------------------------------------------------------------- |
 | "result"  | (string)  | whether the request was successful                            |
-| "coin"    | (string)  | the ticker symbol of the coin for asset chains, otherwise KMD |
+| "coin"    | (string)  | the ticker symbol of the coin for Smart Chains, otherwise KMD |
 | "height"  | (integer) | the height of this coin supply data                           |
 | "supply"  | (float)   | the transparent coin supply                                   |
 | "zfunds"  | (float)   | the shielded coin supply (in `z`addrs)                        |
@@ -1317,7 +1317,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 The `getlastsegidstakes` method returns an object containing the number of blocks staked by each segid in the last `X` number of blocks, where the value of `X` is equal to the indicated `depth`.
 
 ::: tip Note
-Only applies to `-ac_staked` asset chains
+Only applies to `-ac_staked` Smart Chains
 :::
 
 ### Arguments
@@ -1888,7 +1888,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 The `kvsearch` method searches for a key stored via the [kvupdate](#kvupdate) command.
 
 ::: tip
-This feature is only available for asset chains.
+This feature is only available for Smart Chains.
 :::
 
 ### Arguments
@@ -1983,7 +1983,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 The `kvupdate` method stores a key/value pair via OP_RETURN.
 
 ::: tip
-This feature is available only for asset chains. The maximum value memory size is 8kB.
+This feature is available only for Smart Chains. The maximum value memory size is 8kB.
 :::
 
 ### Arguments

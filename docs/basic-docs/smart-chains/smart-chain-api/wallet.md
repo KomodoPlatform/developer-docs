@@ -640,7 +640,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 This method is part of the new <b>ac_staked</b> functionality.
 :::
 
-The `getbalance64` method is used only on asset chains that are utilizing the `ac_staked` functionality. On KMD-based Proof-of-Stake (PoS) asset chains, all staked coins are placed into one of 64 segments (`segid`'s'). The `getbalance64` method returns the balance of coins in each `segid`. For further information, please reach out to our support team.
+The `getbalance64` method is used only on Smart Chains that are utilizing the `ac_staked` functionality. On KMD-based Proof-of-Stake (PoS) Smart Chains, all staked coins are placed into one of 64 segments (`segid`'s'). The `getbalance64` method returns the balance of coins in each `segid`. For further information, please reach out to our support team.
 
 ## getnewaddress
 
@@ -4090,7 +4090,7 @@ CAUTION: If the wallet contains watch-only z addresses the returned private bala
 :::
 
 ::: tip
-While the <b>interest</b> property is returned for all KMD-based coin daemons, only the main KMD chain utilizes the interest feature. KMD-based asset chains will always return a <b>0.00</b> interest value.
+While the <b>interest</b> property is returned for all KMD-based coin daemons, only the main KMD chain utilizes the interest feature. KMD-based Smart Chains will always return a <b>0.00</b> interest value.
 :::
 
 ### Arguments

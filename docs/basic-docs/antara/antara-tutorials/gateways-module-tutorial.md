@@ -4,7 +4,7 @@
 
 In this tutorial, we will create a gateway that can serve to represent KMD. The following are the steps in the gateway-creation process:
 
-- Create a new asset chain and provide representative tokens
+- Create a new Smart Chain and provide representative tokens
 - Prepare a special oracle to monitor Komodo's chain state
 - Bind the tokens and the oracle to our gateway
 - Deposit KMD into the gateway
@@ -23,15 +23,15 @@ For this tutorial, please compile and install Komodo software from the source re
 
 #### Create a New Blockchain
 
-For this tutorial we will create a temporary asset chain called `HELLOWORLD` for educational purposes.
+For this tutorial we will create a temporary Smart Chain called `HELLOWORLD` for educational purposes.
 
-Make sure that the total `ac_supply` of this asset chain is fairly large. `777777` coins will do for our purposes.
+Make sure that the total `ac_supply` of this Smart Chain is fairly large. `777777` coins will do for our purposes.
 
 [Follow these linked instructions](../installations/creating-asset-chains.html#creating-a-new-asset-chain) before continuing.
 
-Recall also that a user must have a `pubkey` enabled when interacting with a Custom Consensus asset chain. [View this linked material for an explanation.](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)
+Recall also that a user must have a `pubkey` enabled when interacting with an Antara-related Smart Chain. [View this linked material for an explanation.](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)
 
-If desired, the reader may use an existing asset chain instead of a temporary educational chain. [Follow this link](https://github.com/jl777/komodo/blob/master/src/assetchains.old) for a list of asset-chain launch parameters.
+If desired, the reader may use an existing Smart Chain instead of a temporary educational chain. [Follow this link](https://github.com/jl777/komodo/blob/master/src/assetchains.old) for a list of asset-chain launch parameters.
 
 #### Create a Token to Represent an External Cryptocurrency
 
@@ -93,13 +93,13 @@ Watch the mempool using [getrawmempool](../komodo-api/blockchain.html#getrawmemp
 
 Once the `tokenid` disappears from the mempool the transaction is mined.
 
-If this asset chain were receiving full dPoW security services, at this point it would be appropriate to wait for notarization. We can use [getinfo](../komodo-api/control.html#getinfo) to watch for the `notarizations` property to increase:
+If this Smart Chain were receiving full dPoW security services, at this point it would be appropriate to wait for notarization. We can use [getinfo](../komodo-api/control.html#getinfo) to watch for the `notarizations` property to increase:
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD getinfo
 ```
 
-On this educational asset chain, however, we can continue without waiting for notarization.
+On this educational Smart Chain, however, we can continue without waiting for notarization.
 
 We can check to see that our token is successfully created on the chain using [tokeninfo:](../customconsensus/tokens.html#tokeninfo)
 
@@ -322,7 +322,7 @@ First, we need the `gatewaysDepositAddress`. This is the address where we will d
 
 The `deposit` property contains the `gatewaysDepositAddress`. When we send funds to this address, we receive in return HELLOWORLD KMD tokens to an on-chain address that we indicate as follows.
 
-Use the [z_sendmany](../komodo-api/wallet.html#z-sendmany) method to send funds to two addresses simultaneously. The first address is the `pubkey` that corresponds to our pubkey on the HELLOWORLD asset chain which will receive tokens. The second address is the `gatewaysDepositAddress` on the KMD chain. We send a nominal amount into the first address, and the amount we wish to have available for trading into the second address. This is done on the external chain -- in this case, KMD.
+Use the [z_sendmany](../komodo-api/wallet.html#z-sendmany) method to send funds to two addresses simultaneously. The first address is the `pubkey` that corresponds to our pubkey on the HELLOWORLD Smart Chain which will receive tokens. The second address is the `gatewaysDepositAddress` on the KMD chain. We send a nominal amount into the first address, and the amount we wish to have available for trading into the second address. This is done on the external chain -- in this case, KMD.
 
 ```bash
 ./komodo-cli z_sendmany "insert_address_where_KMD_funds_are_currently_held" '[{"address":"addressOfPubkeyForTokenizedKmd","amount":0.0001},{"address":"gatewaysDepositAddress","amount":0.1}]'
@@ -356,9 +356,9 @@ Next, execute the following command for more information:
 
 This returns a `proof` value. Transfer this to the text editor.
 
-We now have the necessary data to execute the [gatewaysdeposit](../customconsensus/gateways.html#gatewaysdeposit-2) method on the HELLOWORLD asset chain.
+We now have the necessary data to execute the [gatewaysdeposit](../customconsensus/gateways.html#gatewaysdeposit-2) method on the HELLOWORLD Smart Chain.
 
-The `gatewaysdeposit` method broadcasts the relevant data on the asset chain so that the gateway nodes may validate the information and prepare to distribute the KMD tokens.
+The `gatewaysdeposit` method broadcasts the relevant data on the Smart Chain so that the gateway nodes may validate the information and prepare to distribute the KMD tokens.
 
 Here is the information we need for this call:
 
@@ -369,7 +369,7 @@ Here is the information we need for this call:
 - `CLAIMVOUT`: the `vout` of the claim (this value should be 0, as it is our first use)
 - `DEPOSITHEX`: the `hex` value that is found by executing `gettransaction` on the cointxid
 - `PROOF`: the `proof` value returned after executing `gettxoutproof` on the cointxid
-- `DESTPUB`: the public key where the KMD tokens should be received on the asset chain (the same pubkey used earlier to retrieve the first address for the z_sendmany method)
+- `DESTPUB`: the public key where the KMD tokens should be received on the Smart Chain (the same pubkey used earlier to retrieve the first address for the z_sendmany method)
 - `AMOUNT`: the amount of the deposit (in this case 0.1)
 
 ```bash
@@ -390,7 +390,7 @@ The broadcast returns a transaction id. Copy this to the text editor. It is the 
 For the deposit to process successfully, the oraclefeed dApp must first process the block height of the z_sendmany transaction through the oracle
 :::
 
-#### Claim the Funds on the Asset Chain
+#### Claim the Funds on the Smart Chain
 
 To claim the funds we must spend the marker and the deposit asset, and perform the claim.
 
@@ -399,7 +399,7 @@ This method is only available to the owner of the `privkey` corresponding to the
 - `BINDTXID`: our bindtxid
 - `COIN`: KMD for this example
 - `DEPOSITTXID`: the transaction id returned from the `gatewaysdeposit` call
-- `DESTPUB`: the public key where these tokens should be received on the asset chain
+- `DESTPUB`: the public key where these tokens should be received on the Smart Chain
 - `AMOUNT`: the amount of the deposit (in this case 0.1)
 
 ```bash

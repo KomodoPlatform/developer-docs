@@ -761,7 +761,7 @@ The following methods are available to the notary nodes for retrieving the block
 The `calc_MoM` method calculates the value of the merkle root of the blocks' merkle roots (MoM), starting from the block of the indicated height for the chosen depth.
 
 :::tip Note
-This method should be run on an asset chain.
+This method should be run on a Smart Chain.
 :::
 
 #### Arguments

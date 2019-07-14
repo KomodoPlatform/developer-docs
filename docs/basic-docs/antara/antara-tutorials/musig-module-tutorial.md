@@ -56,7 +56,7 @@ cd ../..
 make -j$(nproc)
 ```
 
-### Launch the Asset Chain
+### Launch the Smart Chain
 
 Change into the `~/komodo/src` directory:
 
@@ -64,7 +64,7 @@ Change into the `~/komodo/src` directory:
 cd ~/komodo/src
 ```
 
-Launch the MuSig asset chain using the following launch parameters.
+Launch the MuSig Smart Chain using the following launch parameters.
 
 ```bash
 ./komodod -ac_name=MUSIG -ac_supply=100000 -ac_reward=10000000 -pubkey=<yourpub> -ac_cclib=sudoku -ac_cc=2 -addnode=5.9.102.210 &
@@ -72,21 +72,21 @@ Launch the MuSig asset chain using the following launch parameters.
 
 ### Obtain a Pubkey
 
-Without a pubkey, the MuSig asset chain will not function properly on the user's local machine. Follow these instruction for obtaining and setting a pubkey:
+Without a pubkey, the MuSig Smart Chain will not function properly on the user's local machine. Follow these instruction for obtaining and setting a pubkey:
 
 - [Instructions for obtaining and setting a pubkey](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)
 
-Once the asset chain is relaunched with the new pubkey included as a launch parameter, the MuSig asset chain is prepared for use.
+Once the Smart Chain is relaunched with the new pubkey included as a launch parameter, the MuSig Smart Chain is prepared for use.
 
 ### Acquire Funds for Testing
 
 ::: tip Note
 
-The reader should launch the asset chain with a pubkey whose private key is already imported to the wallet. If this is not the case, restart the asset chain with an appropriate pubkey, or use the [importprivkey](../komodo-api/wallet.html#importprivkey) method to import the private key of the desired pubkey.
+The reader should launch the Smart Chain with a pubkey whose private key is already imported to the wallet. If this is not the case, restart the Smart Chain with an appropriate pubkey, or use the [importprivkey](../komodo-api/wallet.html#importprivkey) method to import the private key of the desired pubkey.
 
 :::
 
-The MuSig asset chain has an available faucet. The faucet allows a user to obtain a nominal amount of funds for testing and orientation purposes.
+The MuSig Smart Chain has an available faucet. The faucet allows a user to obtain a nominal amount of funds for testing and orientation purposes.
 
 Ensure that the terminal's working directory is in the `~/komodo/src` directory:
 

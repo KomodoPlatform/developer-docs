@@ -6,7 +6,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 **getblocksubsidy height_number**
 
-The `getblocksubsidy` method returns the block-subsidy reward. The resulting calculation takes into account the mining slow start. This method can be used in conjunction with custom mining rewards designed by the developers of a KMD-based asset chain.
+The `getblocksubsidy` method returns the block-subsidy reward. The resulting calculation takes into account the mining slow start. This method can be used in conjunction with custom mining rewards designed by the developers of a KMD-based Smart Chain.
 
 ### Arguments
 
@@ -80,7 +80,7 @@ If the request parameters include a `mode` key, it is used to explicitly select 
 
 #### A Note on Unique Mining Circumstances
 
-There are many features in the Komodo Ecosystem that can make an asset chain's daemon produce non-standard coinbase transactions. Examples include an asset chain parameter that creates new coins for a specific pubkey in every block or a CC module that adds outputs to the coinbase transaction.
+There are many features in the Komodo Ecosystem that can make a Smart Chain's daemon produce non-standard coinbase transactions. Examples include a Smart Chain parameter that creates new coins for a specific pubkey in every block or a CC module that adds outputs to the coinbase transaction.
 
 This can be dealt using a mode called `disablecb`
 

@@ -643,7 +643,7 @@ The `diceinfo` method looks up information about the specific `dice` contract re
 
 A `fundingtxid` is the txid of the transaction that created and funded the relevant contract.
 
-Use the [dicelist](../customconsensus/dice.html#dicelist) method to discover a list of available `fundingtxid` hashes on the asset chain.
+Use the [dicelist](../customconsensus/dice.html#dicelist) method to discover a list of available `fundingtxid` hashes on the Smart Chain.
 
 ### Arguments
 
@@ -695,7 +695,7 @@ Command:
 
 **dicelist**
 
-The `dicelist` method displays the total list of `fundingtxid`'s of all `dice` contracts available on the asset chain.
+The `dicelist` method displays the total list of `fundingtxid`'s of all `dice` contracts available on the Smart Chain.
 
 A `fundingtxid` is the txid of the transaction that created and funded the relevant contract.
 
