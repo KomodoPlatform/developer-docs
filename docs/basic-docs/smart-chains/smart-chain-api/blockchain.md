@@ -551,7 +551,7 @@ The `getblockchaininfo` method returns a json object containing state informatio
 When the chain tip is at the last block before a network upgrade activation, the <b>consensus.chaintip</b> value is not equal to the <b>consensus.nextblock</b> value.
 :::
 
-[getblockchaininfo](../komodo-api/blockchain.html#getblockchaininfo) now returns a new size_on_disk key, which is the size of the blockchain, on disk, in bytes.
+[getblockchaininfo](#getblockchaininfo) now returns a new size_on_disk key, which is the size of the blockchain, on disk, in bytes.
 
 ### Arguments
 
@@ -844,7 +844,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getblockhashes` method returns an array of hashes of blocks within the timestamp range provided.
 
-The method requires [timestampindex](../installations/common-runtime-parameters.html#timestampindex) to be enabled.
+The method requires [timestampindex](../smart-chain-setup/common-runtime-parameters.html#timestampindex) to be enabled.
 
 ### Arguments
 
@@ -1585,7 +1585,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getspentinfo` method returns the transaction id and index where the given output is spent.
 
-The method requires [spentindex](../installations/common-runtime-parameters.html#spentindex) to be enabled.
+The method requires [spentindex](../smart-chain-setup/common-runtime-parameters.html#spentindex) to be enabled.
 
 ### Arguments
 
@@ -1885,7 +1885,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **kvsearch "key_string"**
 
-The `kvsearch` method searches for a key stored via the [kvupdate](../komodo-api/blockchain.html#kvupdate) command.
+The `kvsearch` method searches for a key stored via the [kvupdate](#kvupdate) command.
 
 ::: tip
 This feature is only available for asset chains.

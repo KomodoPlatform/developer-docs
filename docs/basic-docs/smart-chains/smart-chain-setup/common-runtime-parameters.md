@@ -496,6 +496,23 @@ Using stopat as a runtime parameter:
 komodod -stopat=1000000
 ```
 
+## testnode
+`testnode` allows the daemon to mine without being connected to any other peers. If this parameter is not set, the daemon will not attempt to mine blocks unless it has at least one other peer.
+
+#### :pushpin: Examples:
+
+Using testnode as a runtime parameter:
+
+```bash
+./komodod -testnode=1
+```
+
+Using testnode as a default value in the Smart Chain's `.conf` file:
+
+```bash
+testnode=1
+```
+
 ## timestampindex
 
 `timestampindex` instructs a Smart Chain to maintain a timestamp index for all block hashes.

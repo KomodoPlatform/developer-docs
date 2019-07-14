@@ -269,19 +269,21 @@ A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases b
 
 The `ac_eras` parameter allows the value of a chain's block reward to vary over time.
 
-Each different time interval is called an "era" and a chain can have at most three eras.
+Each different time interval is called an "era" and a chain can have at most seven eras.
 
-When active, `ac_eras` changes the behavior of coinbase coins (i.e. the coins that are created as a result of mining). `ac_eras` forces the `COINBASE_MATURITY` value of coinbase coins to be `100` instead of the normal value of `1`. Therefore, coinbase coins become spendable after `100` confirmations.
+When active, `ac_eras` changes the behavior of coinbase coins (i.e., the coins that are created as a result of mining). `ac_eras` forces the `COINBASE_MATURITY` value of coinbase coins to be `100` instead of the normal value of `1`. Therefore, coinbase coins become spendable after `100` confirmations. 
 
-The `ac_eras` parameter accepts only one value (`1`, `2`, or `3`). When activated, it allows certain other Smart Chain parameters to accept multiple values.
+This `COINBASE_MATURITY` value can be explicitly changed using the [ac_cbmaturity](#ac-cbmaturity) parameter. Changing this `COINBASE_MATURITY` value to `1` is recommended if a chain uses `ac_eras` in conjunction with [ac_staked](../installations/asset-chain-parameters.html#ac-staked).
 
-The principle parameter that is affected by `ac_eras` is [ac_reward](../installations/asset-chain-parameters.html#ac-reward), and it must receive at least one value.
+The `ac_eras` parameter accepts only one value (`2`-`7`, i.e., one among `2`, `3`, `4`, `5`, `6` and `7`). When activated, it allows certain other Smart Chain parameters to accept multiple values.
 
-Also, [ac_decay](../installations/asset-chain-parameters.html#ac-decay), [ac_halving](../installations/asset-chain-parameters.html#ac-halving), and [ac_end](../installations/asset-chain-parameters.html#ac-end) can each receive multiple values and thereby affect reward functionality.
+The principle parameter that is affected by `ac_eras` is [ac_reward](#ac-reward), and it must receive at least one value.
 
-For every era, there must be a corresponding value in `ac_end` that indicates the block height at which this era ends. To set the final era to last indefinitely, set the `ac_end` value of that era to `0`; the `0` setting should only be used for the last era.
+Also, [ac_decay](../installations/asset-chain-parameters.html#ac-decay), [ac_halving](../installations/asset-chain-parameters.html#ac-halving), [ac_end](../installations/asset-chain-parameters.html#ac-end), and [ac_notarypay](../installations/asset-chain-parameters.html#ac-notarypay) can each receive multiple values and thereby affect reward functionality.
 
-In all parameters receiving multiple values, the values for the second and third eras must be preceded by a comma.
+For every era, there must be a corresponding value in `ac_end` that indicates the block height at which this era ends. To set the final era to last indefinitely, set the `ac_end` value of that era to `0`; the `0` setting should only be used for the last era. If the last era's `ac_end` value is not `0`, the chain's block rewards will stop after the final `ac_end` value, and every block after the final `ac_end` value will have no block reward.
+
+In all parameters receiving multiple values, the values must be preceded by a comma.
 
 For example:
 
@@ -340,6 +342,24 @@ Use `ac_pubkey` to send the founder's reward to a normal address.
 Use `ac_script` to send the founder's reward to a multi-signature address.
 
 Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
+
+
+## ac_founders_reward
+
+This parameter functions similarly to `ac_perc` with `ac_founders`. However, the value specified for this parameter is in satoshis rather than a percentage the block reward, and the founder's reward does not accumulate over several blocks. This parameter can be used in place of `ac_perc`. It must include `ac_founders` and either `ac_script` or `ac_pubkey`. This value is entirely independent of the `ac_reward` value. For example, `-ac_reward=1000000000 -ac_perc=10000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f` would pay this pubkey's address 10 coins every 10 blocks, whereas `ac_reward=1000000000 -ac_founders_reward=100000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f` would pay this pubkey's address 1 coin every 10 blocks.
+ This parameter is not compatible with the [ac_eras](../installations/asset-chain-parameters.html#ac-eras) parameter. 
+
+#### :pushpin: Examples
+
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+
+A 777777-coin pre-mine, with a 5-coin block reward, and founder's reward of 10 coins sent to `034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f` every 10 blocks.
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_founders_reward=1000000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f &
+```
+
+</collapse-text>
 
 ## ac_halving
 
@@ -779,4 +799,28 @@ The `ac_veruspos` parameter is an alternative to [ac_staked](../installations/as
 When activated, the chain uses [Verus](http://veruscoin.io/)'s proof of stake implementation instead.
 
 The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` does not have the same segid mechanism as `-ac_staked`.)
+
+
+## ac_cbmaturity
+
+The `ac_cbmaturity` parameter allows the "COINBASE_MATURITY" value to be changed. By default, this value is set to `1` on Smart Chains without [ac_eras](../installations/asset-chain-parameters.html#ac-eras) and set to `100` on Smart Chains with [ac_eras](../installations/asset-chain-parameters.html#ac-eras). This "COINBASE_MATURITY" value is the amount of blocks before newly created coins can be spent. For example, if a chain has `ac_cbmaturity=10`, newly mined coins will not be able to be spent until they have 10 confirmations total.
+
+
+## ac_notarypay
+
+The `ac_notarypay` parameter can be used to reward the notary nodes each time they participate in a notarization. This value should be set in the amount of sats to be split between the participating notaries for each notarization they make. On the KMD dpow network, the amount of signers is 13 notary nodes, so for example, if this value is set to `ac_notarypay=1300000000`, each notary will be paid 1 coin for each notarization they participate in. Notarizations will on average happen every 10 blocks by default. This parameter is compatible with the [ac_eras](../installations/asset-chain-parameters.html#ac-eras) parameter. 
+
+#### :pushpin: Examples
+
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
+
+A Smart Chain with 777777 pre-mined coins, a 5 coin block reward in the first era, a 10 coin block reward in the second era, paying 1 coin per notarization in the first era and paying 2 coins per notarization in the second era. The first era ends at block 10000. The second era ends at block 20000. After block 20000, there will be no block reward and no `ac_notarypay` reward. 
+
+```bash
+./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000,1000000000 -ac_notarypay=1300000000,2600000000 -ac_eras=2 -ac_end=10000,20000 &
+```
+
+</collapse-text>
+
+
 

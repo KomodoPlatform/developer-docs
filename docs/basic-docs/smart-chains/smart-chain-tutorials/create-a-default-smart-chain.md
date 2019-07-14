@@ -31,6 +31,8 @@ For example, if the developers are operating on a local router, where the two ma
 
 A home or office-type setup can suffice, if you're just looking to test an Smart Chain quickly and don't want to spend money on a VPS. However, don't be surprised if you need to ask for help. Please reach out to us, and we'll help the best we can.
 
+If the developer needs to test the creation of a smart chain using a single node, the [instructions are here.](./creating-a-smart-chain-on-a-single-node.html) 
+
 To prepare for the next step, execute the following command in the terminal on both machines:
 
 ```bash
