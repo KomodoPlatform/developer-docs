@@ -115,7 +115,7 @@ We can check the balance of our `pubkey` using [tokenbalance:](../customconsensu
 
 #### Create an Oracle
 
-We use the [oracles](../customconsensus/oracles.html) Custom Consensus module to add external data to the blockchain.
+We use the [Oracles](../customconsensus/oracles.html) Module to add external data to the blockchain.
 
 The name of our oracle should be identical to the name of our tokens, `KMD`, and the data format must start with `Ihh` (height, blockhash, merkleroot):
 
@@ -148,7 +148,7 @@ This returns a transaction id, which is the `oracleid`:
 
 Record this in the text editor.
 
-To prepare for the oraclefeed dApp, use [oraclesregister](../customconsensus/oracles.html#oraclesregister) to register as a publisher for the oracle. This must be done on a node which can post KMD block headers and which can execute withdrawal transactions:
+To prepare for the oraclefeed instance, use [oraclesregister](../customconsensus/oracles.html#oraclesregister) to register as a publisher for the oracle. This must be done on a node which can post KMD block headers and which can execute withdrawal transactions:
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD oraclesregister insert_oracleid data_fee_in_satoshis`
@@ -250,9 +250,9 @@ Assuming all is properly created and executed, we may now review our new gateway
 
 Use the returned information to verify that the `tokenid` and `oracleid` match the information in our text editor.
 
-#### Assemble an Oracle dApp
+#### Assemble an Oracle Instance
 
-An oracle dApp automates the transfer of merkleroot data to our oracle. The Komodo software suite includes built-in tools for creating an oracle dApp.
+An oracle instance automates the transfer of merkleroot data to our oracle. The Komodo software suite includes built-in tools for creating an oracle instance.
 
 Change into the correct directory (this command assumes we installed Komodo in the default directory):
 
@@ -260,13 +260,13 @@ Change into the correct directory (this command assumes we installed Komodo in t
 cd  ~/komodo/src/
 ```
 
-Compile the dApp:
+Compile the instance:
 
 ```bash
 gcc cc/dapps/oraclefeed.c -lm -o oraclefeed
 ```
 
-Run the dApp:
+Run the instance:
 
 ```bash
 ./oraclefeed HELLOWORLD insert_oracleid insert_mypubkey Ihh insert_bindtxid &
@@ -291,7 +291,7 @@ broadcast HELLOWORLD txid.(f33d5ffaec7d13f14605556cee86262299db8fad0337d1baefadc
 
 #### Using the Gateway
 
-With our gateway created and our oracle dApp running as a background process, we are finally prepared to test our gateway.
+With our gateway created and our oracle instance running as a background process, we are finally prepared to test our gateway.
 
 First, we need the `gatewaysDepositAddress`. This is the address where we will deposit our KMD on the main KMD chain.
 
@@ -387,7 +387,7 @@ Broadcast the hex data:
 The broadcast returns a transaction id. Copy this to the text editor. It is the `deposittxid`.
 
 ::: warning Note
-For the deposit to process successfully, the oraclefeed dApp must first process the block height of the z_sendmany transaction through the oracle
+For the deposit to process successfully, the oraclefeed instance must first process the block height of the z_sendmany transaction through the oracle
 :::
 
 #### Claim the Funds on the Smart Chain
@@ -423,10 +423,10 @@ For the claim to process successfully, the deposit and bind transaction must be 
 When finished with our tokens, we may send them to the gateway and withdraw the corresponding KMD funds via the [gatewayswithdraw](../customconsensus/gateways.html#gatewayswithdraw) method. Only the current owner of the KMD funds may execute the `gatewayswithdraw` method for these funds.
 
 ::: tip
-Recall that for the gateway to function, the oracle dApp must be running.
+Recall that for the gateway to function, the oracle instance must be running.
 :::
 
-Before we execute `gatewayswithdraw`, we must first import the private key for the `gatewaysdeposit address` on node which has oraclefeed dApp running (this is needed only once).
+Before we execute `gatewayswithdraw`, we must first import the private key for the `gatewaysdeposit address` on node which has oraclefeed instance running (this is needed only once).
 
 Find the `gatewayDepositAddress` in the `deposit` property of the returned values of the following command:
 
@@ -440,7 +440,7 @@ Find the private key returned from this command:
 ./komodo-cli -ac_name=HELLOWORLD dumprivkey insert_gatewayDepositAddress
 ```
 
-Execute the following commands on the node running the oraclefeed dApp:
+Execute the following commands on the node running the oraclefeed instance:
 
 ```bash
 ./komodo-cli importprivkey "insert_private_key" "label" false
@@ -930,7 +930,7 @@ Command:
 </collapse-text>
 
 
-Wait until this height is oraclized by the `oraclefeed` dApp.
+Wait until this height is oraclized by the `oraclefeed` instance.
 
 Find the `height` and `hex` values here:
 

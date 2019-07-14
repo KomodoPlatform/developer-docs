@@ -200,12 +200,3 @@ You are free to discover your own audience.
 
 [Link to AtomicDEX]()
 
-<!-- 
-
-Chain lizards would go here.
-
-## Chainlizards
-
-Introduction to Chain Lizards
-
--->

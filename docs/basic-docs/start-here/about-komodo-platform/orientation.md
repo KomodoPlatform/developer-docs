@@ -79,12 +79,6 @@ We have a limited supply of early-adopter discounts. Please inquire while supply
 
 Currently, there are no additional costs for AtomicDEX beyond the fees listed for each trade. 
 
-<!--
-
-### The Cost of Using Chainlizards API
-
--->
-
 ### Differences between KMD and a Smart Chain
 
 The main KMD blockchain runs on the same underlying framework as all Smart Chains in the ecosystem, but not all features are active on the KMD blockchain.
