@@ -8,74 +8,12 @@ Those who publish data to an oracle are called publishers. There is a fee-based 
 
 ### Oracles Module Flow
 
-- Create an Oracle using [oraclescreate](../customconsensus/oracles.html#oraclescreate)
-- Register as a data publisher for the oracle using the [oraclesregister](../customconsensus/oracles.html#oraclesregister) method; at this stage, the publisher indicates the fee for their data updates
+- Create an Oracle using [oraclescreate](../../../basic-docs/antara/antara-api/oracles.html#oraclescreate)
+- Register as a data publisher for the oracle using the [oraclesregister](../../../basic-docs/antara/antara-api/oracles.html#oraclesregister) method; at this stage, the publisher indicates the fee for their data updates
   - Anyone can register as a publisher for any oracle; users subscribe only to the publishers they desire
-- The [oracleslist](../customconsensus/oracles.html#oraclelist), [oraclesinfo](../customconsensus/oracles.html#oraclesinfo), and [oraclessamples](../customconsensus/oracles.html#oraclessamples) methods allow the user to find oracles and publishers, find more information about a specific oracle and publisher, and discover samples of an existing publisher, respectively
-- Anyone can subscribe to any specific publisher of any oracle using the [oraclessubscribe](../customconsensus/oracles.html#oraclessubscribe) method
-- A publisher can publish data using [oraclesdata](../customconsensus/oracles.html#oraclesdata), and thereby collect their fee from their subscribers
-
-## oraclelist
-
-**oracleslist**
-
-The `oraclelist` method lists all available oracle contracts on the Smart Chain.
-
-### Arguments
-
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
-
-### Response
-
-| Name       | Type               | Description                          |
-| ---------- | ------------------ | ------------------------------------ |
-| oracletxid | (array of strings) | the unique identifying oracletxid(s) |
-
-#### :pushpin: Examples
-
-Command:
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD oracleslist
-```
-
-<collapse-text hidden title="Response">
-
-```bash
-[
-    "66fa795f43534e4d6b038c172172a7c46a3cf37b1628e075e38e94a20cfeae5a",
-    "79d02351968e6616f3044cb14523d8d2cbdbd1a8b7b75bd14b1aa80ad41a5845",
-    "665b893bdb801f77fd6620969371f8fc391df568150f0a671c1c23e67a0cf039",
-    "0fa3c6e12ee4be636f44ce4b2af3b0f213d0403dc46cd42add07816526dd46b2",
-    "b24a00e2a895baad4c0246ba5b3d36790b43cc0fb5a4c4ea98161299165a8c96",
-    "8790ee741042eedce012a46483143e277851754300da7b7171ce46d63d51b3d3",
-    "1ba8f3f9e98cbb41af8cb0bf3a6c1953ea5a89bd44455b8e9078f2216e9ed0fc",
-    "2353e77dd3ad18bed4ea053055234424ba7c05fb04f97a323859d0445b64ad33",
-    "a594a239f29d0df2f27eda05186ac7fdb26302f8268106a04edfde0c1a03b5e8",
-    "4dfd22a3a56b274054cc651c70dc0b35778a3eb12ba025598f4510669b8e88c8",
-    "0ae8cf1b008f7c652c1e85aa45832aac8dc62cfd8d73105800f4e3603d4cc15f",
-    "7eaa75392e3b634ebf9eb4a67455dedeb503cdd235c932ec49559906394d89c5",
-    "59e44ee58435f01dbbadd1ac54f7e6d5e1323c52561e3ab656555b099886217f",
-    "e953e88d3f1713aed28510d9bff85e3a09cc96107f1122f1f244273ab1196ca6",
-    "128e6c6fa4cde1be654da5f006caf341415e0d19300f7c33578d7f5242bdf033",
-    "104f701ccd6cd78b347d68a461bc45031e56cbdbdd895662e3fbc48c8335feb0",
-    "161bdf47cc246a4b725676c4c3d08a685ccca8edba11edfbd9c90205bc555212",
-    "4a32675232ff020c0ef868ff167ae17754823899bee7b5e96fac210c7030573f",
-    "57600b613c7355e768323c7197910ca45ed713b14ed4fdf01a5181bfa1d55753",
-    "9755eede3831f003bc1425bdfa9f7f889befd6b8ce7028b17f50c30b0d8088d1",
-    "8ed3b092677aec71169a7a11fdfbfe0a855e8120af0ae1ea2d97eb7cfd29835e",
-    "03d9e6b199173935c57ebffee93fa1ac91b809e268f50610f31fa14253f7f7bc",
-    "0803edf92f40541cf988c2ca1e0bfee6902a5ccf60bbf90bed51cff8a4f91489",
-    "482be3ce8bf8607bd501a5aed3018770420a9f6dc48ee21fe423b09d5fe19f16",
-    "65fe29870b7ea766365b7c55881f4246ab8d84cba865f3bffa9c1f1e92f97113",
-    "8a0810bba8fdf8e0fe20d07ea618bc4810657d1b5aafdc7362b67be1aebf1cf3",
-    "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203"
-]
-```
-
-</collapse-text>
+- The [oracleslist](../../../basic-docs/antara/antara-api/oracles.html#oraclelist), [oraclesinfo](../../../basic-docs/antara/antara-api/oracles.html#oraclesinfo), and [oraclessamples](../../../basic-docs/antara/antara-api/oracles.html#oraclessamples) methods allow the user to find oracles and publishers, find more information about a specific oracle and publisher, and discover samples of an existing publisher, respectively
+- Anyone can subscribe to any specific publisher of any oracle using the [oraclessubscribe](../../../basic-docs/antara/antara-api/oracles.html#oraclessubscribe) method
+- A publisher can publish data using [oraclesdata](../../../basic-docs/antara/antara-api/oracles.html#oraclesdata), and thereby collect their fee from their subscribers
 
 ## oraclesaddress
 
@@ -133,7 +71,7 @@ Command:
 
 The `oraclescreate` method creates a new oracle.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments
 
@@ -158,7 +96,7 @@ The various formats of data that can be registered for an oracle and their symbo
 ::: warning
 
 - Even though the formats `S` and `D` specify that the data size can be up to `65536` bytes, the combination of the transaction size and the data size cannot exceed the limit of `10000` bytes.
-- Although the formats `d` and `D` are for raw binary data, they are preferable to the `s` and `S` human-readable formats. This is because the `s` and `S` formats occupy twice the size of data on the blockchain, and yet their only advantage is their ability to show human-readable output in the [oraclessamples](../customconsensus/oracles.html#oraclessamples) method.
+- Although the formats `d` and `D` are for raw binary data, they are preferable to the `s` and `S` human-readable formats. This is because the `s` and `S` formats occupy twice the size of data on the blockchain, and yet their only advantage is their ability to show human-readable output in the [oraclessamples](../../../basic-docs/antara/antara-api/oracles.html#oraclessamples) method.
 
 :::
 
@@ -282,11 +220,11 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 The `oraclesdata` method publishes data to an oracle.
 
-A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [oraclessubscribe.](../customconsensus/oracles.html#oraclessubscribe)
+A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [oraclessubscribe.](../../../basic-docs/antara/antara-api/oracles.html#oraclessubscribe)
 
 Data is submitted using the `hexstr` property. The first bytes of the `hexstr` property must be the length of the data being submitted in hexadecimal format; this sets the string length for the rest of the data. The second portion of the `hexstr` property is the data itself.
 
-The `oraclesdata` method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The `oraclesdata` method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method outputs a unique `txid`, called `oraclesdatatxid`, which is the unique identifier for this data sample.
 
@@ -667,7 +605,7 @@ Response from Step 3:
 
 The `oraclesinfo` method displays information about a specific oracle using `oracletxid`.
 
-For a list of all `oracletxid`'s available on the Smart Chain, see the [oracleslist](../customconsensus/oracles.html#oraclelist) method.
+For a list of all `oracletxid`'s available on the Smart Chain, see the [oracleslist](../../../basic-docs/antara/antara-api/oracles.html#oraclelist) method.
 
 ### Arguments
 
@@ -683,10 +621,10 @@ For a list of all `oracletxid`'s available on the Smart Chain, see the [oraclesl
 | txid        | (string) | the unique txid, or oracletxid, that identifies the oracle                                                                                   |
 | name        | (string) | the name of the oracle contract                                                                                                              |
 | description | (string) | the description of the oracle contract                                                                                                       |
-| format      | (string) | a string that identifies the data type accepted for the oracle contract (see [oraclescreate](../customconsensus/oracles.html#oraclescreate)) |
+| format      | (string) | a string that identifies the data type accepted for the oracle contract (see [oraclescreate](../../../basic-docs/antara/antara-api/oracles.html#oraclescreate)) |
 | marker      | (string) | the unmodified public address generated from the oracle contract's privkey                                                                   |
 | registered: | (array)  |
-| publisher   | (string) | the unique identifier for the publisher (see [oraclesregister](../customconsensus/oracles.html#oraclesregister))                                    |
+| publisher   | (string) | the unique identifier for the publisher (see [oraclesregister](../../../basic-docs/antara/antara-api/oracles.html#oraclesregister))                                    |
 | baton       | (string) | the baton address of the publisher, which is an Antara address (based on the pubkey of the publisher and the EVAL code of the oracle contract) |
 | batontxid   | (string) | the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher               |
 | lifetime    | (number) | the length of time since publisher's inception                                                                                                          |
@@ -726,6 +664,68 @@ Command:
 
 </collapse-text>
 
+## oracleslist
+
+**oracleslist**
+
+The `oraclelist` method lists all available oracle contracts on the Smart Chain.
+
+### Arguments
+
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
+
+### Response
+
+| Name       | Type               | Description                          |
+| ---------- | ------------------ | ------------------------------------ |
+| oracletxid | (array of strings) | the unique identifying oracletxid(s) |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD oracleslist
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+[
+    "66fa795f43534e4d6b038c172172a7c46a3cf37b1628e075e38e94a20cfeae5a",
+    "79d02351968e6616f3044cb14523d8d2cbdbd1a8b7b75bd14b1aa80ad41a5845",
+    "665b893bdb801f77fd6620969371f8fc391df568150f0a671c1c23e67a0cf039",
+    "0fa3c6e12ee4be636f44ce4b2af3b0f213d0403dc46cd42add07816526dd46b2",
+    "b24a00e2a895baad4c0246ba5b3d36790b43cc0fb5a4c4ea98161299165a8c96",
+    "8790ee741042eedce012a46483143e277851754300da7b7171ce46d63d51b3d3",
+    "1ba8f3f9e98cbb41af8cb0bf3a6c1953ea5a89bd44455b8e9078f2216e9ed0fc",
+    "2353e77dd3ad18bed4ea053055234424ba7c05fb04f97a323859d0445b64ad33",
+    "a594a239f29d0df2f27eda05186ac7fdb26302f8268106a04edfde0c1a03b5e8",
+    "4dfd22a3a56b274054cc651c70dc0b35778a3eb12ba025598f4510669b8e88c8",
+    "0ae8cf1b008f7c652c1e85aa45832aac8dc62cfd8d73105800f4e3603d4cc15f",
+    "7eaa75392e3b634ebf9eb4a67455dedeb503cdd235c932ec49559906394d89c5",
+    "59e44ee58435f01dbbadd1ac54f7e6d5e1323c52561e3ab656555b099886217f",
+    "e953e88d3f1713aed28510d9bff85e3a09cc96107f1122f1f244273ab1196ca6",
+    "128e6c6fa4cde1be654da5f006caf341415e0d19300f7c33578d7f5242bdf033",
+    "104f701ccd6cd78b347d68a461bc45031e56cbdbdd895662e3fbc48c8335feb0",
+    "161bdf47cc246a4b725676c4c3d08a685ccca8edba11edfbd9c90205bc555212",
+    "4a32675232ff020c0ef868ff167ae17754823899bee7b5e96fac210c7030573f",
+    "57600b613c7355e768323c7197910ca45ed713b14ed4fdf01a5181bfa1d55753",
+    "9755eede3831f003bc1425bdfa9f7f889befd6b8ce7028b17f50c30b0d8088d1",
+    "8ed3b092677aec71169a7a11fdfbfe0a855e8120af0ae1ea2d97eb7cfd29835e",
+    "03d9e6b199173935c57ebffee93fa1ac91b809e268f50610f31fa14253f7f7bc",
+    "0803edf92f40541cf988c2ca1e0bfee6902a5ccf60bbf90bed51cff8a4f91489",
+    "482be3ce8bf8607bd501a5aed3018770420a9f6dc48ee21fe423b09d5fe19f16",
+    "65fe29870b7ea766365b7c55881f4246ab8d84cba865f3bffa9c1f1e92f97113",
+    "8a0810bba8fdf8e0fe20d07ea618bc4810657d1b5aafdc7362b67be1aebf1cf3",
+    "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203"
+]
+```
+
+</collapse-text>
+
 ## oraclesregister
 
 **oraclesregister oracletxid datafee**
@@ -734,7 +734,7 @@ A user executes the `oraclesregister` method to register as a data publisher for
 
 The `datafee` property is set in satoshis, and should be `>=` the chain's default transaction fee.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 ::: tip
 Use `./komodo-cli -ac_name=YOURNAME getrawmempool` to verify the transaction is confirmed.
@@ -876,7 +876,7 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 The `oraclessample` method fetches data samples from a publisher.
 
-The user indicates the desired publisher by inserting the `batonutxo` by the publisher. Use [oraclesinfo](../customconsensus/oracles.html#oraclesinfo) to find a list of publishers and their current batonutxo's.
+The user indicates the desired publisher by inserting the `batonutxo` by the publisher. Use [oraclesinfo](../../../basic-docs/antara/antara-api/oracles.html#oraclesinfo) to find a list of publishers and their current batonutxo's.
 
 ### Arguments
 
@@ -924,9 +924,9 @@ Command:
 
 The user executes `oraclessubscribe` to subscribe to a publisher of an oracle plan.
 
-Every publisher must have at least one subscriber before the [oraclesdata](../customconsensus/oracles.html#oraclesdata) can successfully execute.
+Every publisher must have at least one subscriber before the [oraclesdata](../../../basic-docs/antara/antara-api/oracles.html#oraclesdata) can successfully execute.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method then returns a unique txid, also called the `oraclesubscriptiontxid`, or the id of the oracle subscription transaction. This can be used for further development purposes.
 

@@ -30,7 +30,7 @@ ROGUE_satoshis = gold * gold * dungeon_level_on_exit * 20
 
 The conversion is facilitated using globally locked `ROGUE` coins. The funds in this global vault automatically accrue through asset-chain activity. In the event that there are not enough globally locked funds at the time the method is executed, the player must simply wait until the funds are generated via automated methods. You can encourage this fund to grow more quickly by encouraging other players and people to transact using ROGUE, as transactions feed the fund.
 
-The method returns a `hex` value. While most methods in the Komodo API require the user/developer to broadcast the `hex` value using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction), the Rogue module broadcasts automatically.
+The method returns a `hex` value. While most methods in the Komodo API require the user/developer to broadcast the `hex` value using [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction), the Rogue module broadcasts automatically.
 
 #### Arguments
 
@@ -413,7 +413,7 @@ Command:
 
 The `newgame` method creates a new game.
 
-The `buyin` argument is required for multi-player games. The coins contributed via `buyin` become a winner-takes-all pot. Either the first player to claim the `amulet` and return from the dungeon, or the last player standing; may claim this prize using the [highlander](../customconsensus/rogue.html#highlander) method.
+The `buyin` argument is required for multi-player games. The coins contributed via `buyin` become a winner-takes-all pot. Either the first player to claim the `amulet` and return from the dungeon, or the last player standing; may claim this prize using the [highlander](../../../basic-docs/antara/antara-api/rogue.html#highlander) method.
 
 #### Arguments
 
@@ -530,8 +530,8 @@ There are occasions where the developer may wish to start with the `tokentxid` o
 
 The following is one solution:
 
-- If necessary, obtain a list of all `tokens` on the Smart Chain via the [tokenlist](../customconsensus/tokens.html#tokenlist) method.
-- For each item in the response, execute an iterative function that executes the [playerinfo](../customconsensus/rogue.html#playerinfo) method on the individual `token`.
+- If necessary, obtain a list of all `tokens` on the Smart Chain via the [tokenlist](../../../basic-docs/antara/antara-api/tokens.html#tokenlist) method.
+- For each item in the response, execute an iterative function that executes the [playerinfo](../../../basic-docs/antara/antara-api/rogue.html#playerinfo) method on the individual `token`.
   - If the method responds with an error, this means that the supplied `token` does not represent a character. Rather, it represents another on-chain asset, and therefore the token can be ignored.
 - For each response from the `playerinfo` method check two elements: whether the data contains a `batontxid`; whether the character is alive.
   - If there is a `batontxid`, the `playertxid` has been used in a game and is no longer valid. Therefore, this `playertxid` can be ignored.
@@ -553,7 +553,7 @@ The following is one solution:
 | method       | (string)           | the name of the method                                                                                  |
 | player       | (json object)      | a json object containing relevant player data                                                           |
 | playertxid   | (string)           | the unique identifying transaction id of this player                                                    |
-| tokenid      | (string)           | the unique transaction id that represents this character as a non-fungible asset for on-chain trading using the [Tokens CC](../customconsensus/tokens.html#introduction) module                                                                                                        |
+| tokenid      | (string)           | the unique transaction id that represents this character as a non-fungible asset for on-chain trading using the [Tokens CC](../../../basic-docs/antara/antara-api/tokens.html#introduction) module                                                                                                        |
 | data         | (string)           | the character-state information in hex form                                                                 |
 | pack         | (array of strings) | an array containing the items in the character's pack                                                   |
 | packsize     | (number)           | the number of items in the character's pack                                                             |
@@ -667,7 +667,7 @@ The `register` method registers your character for a game.
 
 The optional `playertxid` allows the user to reuse a character that survived a previous game.
 
-For the `playertxid` argument to properly call an existing character, the user's daemon must be set to the `pubkey` that owns the `playertxid`. This can be accomplished either through the [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter or through the [setpubkey](..) method.
+For the `playertxid` argument to properly call an existing character, the user's daemon must be set to the `pubkey` that owns the `playertxid`. This can be accomplished either through the [pubkey](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter or through the [setpubkey](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#setpubkey) method.
 
 #### Arguments
 
