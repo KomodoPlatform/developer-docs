@@ -64,7 +64,7 @@ In light of these concerns, many reputable and established CEX's are turning to 
 
 ## A Decentralized Exchange Can Bring Greater Safety
 
-To understand why a CEX may wish to implement decentralized technologies, one must first understand how a typical decentralized exchange (DEX) works. There are many types of DEX's, each having a unique technical structure. Perhaps the most popular DEX format is a decentralized gateway.
+To understand why a CEX may wish to implement decentralized technologies, one must first understand how a typical decentralized exchange (DEX) works. There are many types of DEXs, each having a unique technical structure. Perhaps the most popular DEX format is a decentralized gateway.
 
 ### Types of Decentralized Exchanges
 
