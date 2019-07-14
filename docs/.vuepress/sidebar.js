@@ -343,6 +343,10 @@ var sidebar = [
                   "Oracles"
               ],
               [
+                  "/basic-docs/antara/antara-api/payments.md", 
+                  "Payments"
+              ],
+              [
                   "/basic-docs/antara/antara-api/rewards.md", 
                   "Rewards"
               ],
