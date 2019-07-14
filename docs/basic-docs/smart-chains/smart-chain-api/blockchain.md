@@ -168,7 +168,7 @@ The verbose input is optional. The default value is true, and it will return a j
 | Name | Type | Description | 
 | ------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
 | "hash"                          | (string)           | the block hash (same as provided hash)                                                                                            |
-| "confirmations"                 | (numeric)          | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "confirmations"                 | (numeric)          | a confirmation number that is aware of the dPoW security service |
 | "rawconfirmations"              | (numeric)          | the raw confirmations (number of blocks on top of this block); the returned value is `-1` if the block is not on the main chain   |
 | "size"                          | (numeric)          | the block size                                                                                                                    |
 | "height"                        | (numeric)          | the block height or index (same as provided height)                                                                               |
@@ -548,10 +548,12 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 The `getblockchaininfo` method returns a json object containing state information about blockchain processing.
 
 ::: tip
+
 When the chain tip is at the last block before a network upgrade activation, the <b>consensus.chaintip</b> value is not equal to the <b>consensus.nextblock</b> value.
+
 :::
 
-[getblockchaininfo](#getblockchaininfo) now returns a new size_on_disk key, which is the size of the blockchain, on disk, in bytes.
+The `getblockchaininfo` method now returns a new size_on_disk key, which is the size of the blockchain, on disk, in bytes.
 
 ### Arguments
 
@@ -844,7 +846,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getblockhashes` method returns an array of hashes of blocks within the timestamp range provided.
 
-The method requires [timestampindex](../smart-chain-setup/common-runtime-parameters.html#timestampindex) to be enabled.
+The method requires [timestampindex](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#timestampindex) to be enabled.
 
 ### Arguments
 
@@ -965,7 +967,7 @@ The verbose input is optional. If verbose is false, the method returns a string 
 | Name | Type | Description | 
 | ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | "hash"              | (string)  | the block hash (same as provided)                                                                                                 |
-| "confirmations"     | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "confirmations"     | (numeric) | a confirmation number that is aware of the dPoW security service |
 | "rawconfirmations"  | (numeric) | the raw confirmations (number of blocks on top of this block); if the block is not on the main chain, a value of `-1` is returned |
 | "height"            | (numeric) | the block height or index                                                                                                         |
 | "version"           | (numeric) | the block version                                                                                                                 |
@@ -1585,7 +1587,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `getspentinfo` method returns the transaction id and index where the given output is spent.
 
-The method requires [spentindex](../smart-chain-setup/common-runtime-parameters.html#spentindex) to be enabled.
+The method requires [spentindex](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#spentindex) to be enabled.
 
 ### Arguments
 
@@ -1670,7 +1672,7 @@ The `gettxout` method returns details about an unspent transaction output.
 | Name | Type | Description | 
 | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
 | "bestblock"        | (string)           | the block hash                                                                                                                    |
-| "confirmations"    | (numeric)          | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "confirmations"    | (numeric)          | a confirmation number that is aware of the dPoW security service aware |
 | "rawconfirmations" | (numeric)          | the raw confirmations (number of blocks on top of this block with this transaction)                                               |
 | "value"            | (numeric)          | the transaction value                                                                                                             |
 | "scriptPubKey":    | (json object)      |                                                                                                                                   |
@@ -1885,7 +1887,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **kvsearch "key_string"**
 
-The `kvsearch` method searches for a key stored via the [kvupdate](#kvupdate) command.
+The `kvsearch` method searches for a key stored via the [kvupdate](../.././basic-docs/smart-chains/smart-chain-api/blockchain.html#kvupdate) command.
 
 ::: tip
 This feature is only available for Smart Chains.

@@ -18,23 +18,23 @@ A conceptual overview of Smart Chain technology can be found in the <b>Start Her
 
 [<b>Link to Smart Chain Product Introduction</b>](../basic-docs/start-here/about-komodo-platform/product-introductions.html#smart-chains-fluidity)
 
-Also, the reader may turn to the Komodo Whitepaper for a thorough explanation.
+Also, the reader may turn to the Core Technology Discussion section for a thorough explanation.
 
-[<b>Link to Komodo Whitepaper</b>](https://komodoplatform.com/whitepaper)
+[<b>Link to Core Technology Discussion section</b>](../../../basic-docs/start-here/core-technology-discussions/introduction.html)
 
 #### About Smart Chain Setup
 
 The Smart Chain Setup section contains basic information about Smart Chains and their creation. Topics include the following:
 
-- [<b>Installing Smart Chain Software from Source Code</b>](../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#installing-smart-chain-software-from-source-code)
-- [<b>Interacting with Smart Chains</b>](../basic-docs/smart-chains/smart-chain-setup/interacting-with-smart-chains.html)
-- [<b>Smart Chain Launch Parameters Common to Most Blockchain Software</b>](../basic-docs/smart-chains/smart-chain-setup/basic-launch-parameters.html#accessing-the-coin-daemon-remotely)
+- [<b>Installing Smart Chain Software from Source Code</b>](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#installing-smart-chain-software-from-source-code)
+- [<b>Interacting with Smart Chains</b>](../../../basic-docs/smart-chains/smart-chain-setup/interacting-with-smart-chains.html)
+- [<b>Smart Chain Launch Parameters Common to Most Blockchain Software</b>](../../../basic-docs/smart-chains/smart-chain-setup/basic-launch-parameters.html#accessing-the-coin-daemon-remotely)
 
 #### About Smart Chain Tutorials
 
 The Smart Chain Tutorials section contains various tutorials that provide instruction in Smart Chain creation and usage.
 
-For a walkthrough covering multiple tutorials in a targeted fashion, please see the [Learning Launchpad](../basic-docs/start-here/learning-launchpad/learning-path-outlines.html) section.
+For a walkthrough covering multiple tutorials in a targeted fashion, please see the [Learning Launchpad](../../../basic-docs/start-here/learning-launchpad/learning-path-outline.html) section.
 
 #### About Smart Chain API
 

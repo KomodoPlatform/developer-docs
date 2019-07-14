@@ -2648,6 +2648,8 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 </collapse-text>
 
 
+<!-- Sidd: Commenting out until Alright has time to review.
+
 ## opreturn_burn
 
 **opreturn_burn burn_amount hexstring ( txfee )**
@@ -2684,7 +2686,6 @@ The method returns a raw hex transaction that must then be broadcast via the [se
 
 <collapse-text hidden title="Response">
 
-
 ```bash
 {
   "hex": "0100000001edbf323e5a3eac2699018550ca0594cf742184d4b8575a653520849f3c0ddae4000000004847304402207d83e3ac59c59a1027c7be57cfc6bf9b225385eea464922bbb8f53184c60216e02203ba941dfb9f54785f3935a23ceb55d7203d70034656a59d5eafa77bef67a919b01ffffffff0200ca9a3b00000000076a0504deadbeeff35ab511955b0000232103fff5c0697d69b9df458ef3ec4e9b08ba1df66deec876bfe56a4d35159e0caf33ac00000000"
@@ -2717,6 +2718,8 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 </collapse-text>
 
 </div>
+
+-->
 
 ## resendwallettransactions
 

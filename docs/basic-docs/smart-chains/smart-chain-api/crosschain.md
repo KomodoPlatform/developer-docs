@@ -26,7 +26,7 @@ The fundamental principle of migration is that a specific amount of assets are b
 
 #### Requirement
 
-The source and destination chains should have the same `CCid` parameter ([ac_cc](../installations/asset-chain-parameters.html#ac-cc)). The value of this parameter should be greater than 100; this indicates to the Komodo software that the coins on both chains are fungible with each other.
+The source and destination chains should have the same `CCid` parameter ([ac_cc](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc)). The value of this parameter should be greater than 100; this indicates to the Komodo software that the coins on both chains are fungible with each other.
 
 :::tip Note
 
@@ -44,9 +44,9 @@ The fingerprints of fingerprints are delivered back into the blockchain of the a
 
 ### Workflow of the MoMoM value migration
 
-- On the source chain, the user calls the method [migrate_createburntransaction](./crosschain.html#migrate-createburntransaction) and broadcasts the hex of the returned burn transaction (`BurnTxHex`) using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. The user also receives the `payouts object` from this method
-- On the source chain, the user runs [migrate_createimporttransaction](./crosschain.html#migrate-createimporttransaction) with the hex value of the burn transaction and the `payouts object` in hex format as arguments
-- On the main Komodo chain (KMD) the user calls [migrate_completeimporttransaction](./crosschain.html#migrate-completeimporttransaction) with the import transaction in hex format which was received from the previous call as an argument.
+- On the source chain, the user calls the method [migrate_createburntransaction](../../../basic-docs/smart-chains/smart-chain-api/crosschain.html#migrate-createburntransaction) and broadcasts the hex of the returned burn transaction (`BurnTxHex`) using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#createrawtransaction) method. The user also receives the `payouts object` from this method
+- On the source chain, the user runs [migrate_createimporttransaction](../../../basic-docs/smart-chains/smart-chain-api/crosschain.html#migrate-createimporttransaction) with the hex value of the burn transaction and the `payouts object` in hex format as arguments
+- On the main Komodo chain (KMD) the user calls [migrate_completeimporttransaction](../../../basic-docs/smart-chains/smart-chain-api/crosschain.html#migrate-completeimporttransaction) with the import transaction in hex format which was received from the previous call as an argument.
   - As a part of this process, the proof object for the burn transaction inside the import transaction is extended with MoMoM data. This allows verification of the burn transaction on the destination chain by using the standard Komodo notarization process without the need to create additional proof objects
 
 ### migrate_createburntransaction
@@ -55,7 +55,7 @@ The fingerprints of fingerprints are delivered back into the blockchain of the a
 
 The `migrate_createburntransaction` method creates a transaction burning a specific amount of coins or tokens. This method also creates a `payouts object` which is later used to create an import transaction for the value corresponding to the burned amount. This method should be called on the source chain.
 
-The method creates a burn transaction and returns it. This should be broadcast to the source chain using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. After the burn transaction is successfully mined, the user might have to wait for some amount of time for the back notarization to reach the source chain. The back notarization contains the `MoMoM` fingerprints of the mined block that contains the burn transaction.
+The method creates a burn transaction and returns it. This should be broadcast to the source chain using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method. After the burn transaction is successfully mined, the user might have to wait for some amount of time for the back notarization to reach the source chain. The back notarization contains the `MoMoM` fingerprints of the mined block that contains the burn transaction.
 
 The hex value of the burn transaction along with the other returned value `payouts` are used as arguments for the `migrate_createimporttransaction` method.
 
@@ -141,14 +141,14 @@ The method adds proof data to the transaction, extracts the transaction vouts, c
 
 The other returned value, `payouts`, is used in the `migrate_createimporttransaction` method.
 
-The caller of the method bears the responsibility to fund and sign the returned burn transaction using the methods [fundrawtransaction](../komodo-api/rawtransactions.html#fundrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction).
+The caller of the method bears the responsibility to fund and sign the returned burn transaction using the methods [fundrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#fundrawtransaction) and [signrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#signrawtransaction).
 
-The signed burn transaction must be broadcast to the <!-- FIXME destination chain ? --> source chain using the [sendrawtansaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The signed burn transaction must be broadcast to the <!-- FIXME destination chain ? --> source chain using the [sendrawtansaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 ::: warning Limitations
 
-- The <b>migrate_converttoexport</b> method supports only coins (tokens are not supported).
-- The burn transaction must be stored in the import transaction's opreturn vout. Because an opreturn's data size is limited to 10,001 bytes, we recommend that the user limit the burn transaction's size to 30% of the opreturn object.
+- The <b>migrate_converttoexport</b> method supports only coins (tokens are not supported)
+- The burn transaction must be stored in the import transaction's opreturn vout. Because an opreturn's data size is limited to 10,001 bytes, we recommend that the user limit the burn transaction's size to 30% of the opreturn object
 
 :::
 
@@ -239,7 +239,7 @@ Sign the export transaction:
 
 </collapse-text>
 
-Broadcast the export transaction (using the method [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction), with the option `allowhighfees` set to `true`)
+Broadcast the export transaction (using the method [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction), with the option `allowhighfees` set to `true`)
 
 ```bash
 ./komodo-cli -ac_name=CFEKHOUND sendrawtransaction 0400008085202f8901ffbf4547647abdba819d44699942cb63681be37061f4acd760c0d1e0240d93ad0600000049483045022100f609176d691bade4060799424d7d3813ea3337ad8aabc79bb6fd51797b6ec9c80220073d1ba3a74da7e33bcccf5851c2152d66fcd7aa0d2c1521ec8b2ab444d656f801ffffffff0130a57500000000003b6a39e283150a4346454b445241474f4efa2fe05c5d6cb0bf5a9be2aec4f1cd7a10c9472d6abc1e9bb9dc5903a4ec1a5b0a094346454b484f554e4400000000f36f00000000000000000000000000 true
@@ -371,7 +371,7 @@ The `migrate_completeimporttransaction` method performs the finalizing step in c
 
 This method returns the import transaction in hex format, updated with the `MoMoM` proof object. This object provides confirmation that the burn transaction exists in the source chain.
 
-The finalized import transaction should be broadcast on the destination chain through the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The finalized import transaction should be broadcast on the destination chain through the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 Komodo recommends that the user wait until the notarization objects are stored in the destination chain before broadcasting the import transaction. Otherwise an error message is returned.
 
@@ -452,12 +452,12 @@ In this method, the user sends burn transactions to a special publishing resourc
 
 ### Alternative Transfer Method Flow
 
-- A user creates a burn transaction using the [migrate_createburntransaction](./crosschain.html#migrate-createburntransaction) method and publishes the transaction in hex format to a publishing resource
+- A user creates a burn transaction using the [migrate_createburntransaction](../../../basic-docs/smart-chains/smart-chain-api/crosschain.html#migrate-createburntransaction) method and publishes the transaction in hex format to a publishing resource
   - The publishing resource is monitored by the notary operators (currently the discord channel: [#cc-momom](https://discord.gg/JE9tkmN))
 - The notary operators must collect the burn transaction, and check its validity and existence in the source chain
   - To check the transaction, the notary operators use the `migrate_checkburntransactionsource` method
-  - If the burn transaction is successfully validated, the notary operators must create approval transactions using the method [migrate_createnotaryapprovaltransaction](#migrate_createnotaryapprovaltransaction) in the destination chain and publish their transaction ids back into the publishing resource
-- The user collects the transaction ids and calls the [migrate_createimporttransaction](./crosschain.html#migrate-createimporttransaction) method, passing the collected notary approval transaction ids as arguments in the destination chain
+  - If the burn transaction is successfully validated, the notary operators must create approval transactions using the method [migrate_createnotaryapprovaltransaction](../../../basic-docs/smart-chains/smart-chain-api/crosschain.html#migrate-createnotaryapprovaltransaction) in the destination chain and publish their transaction ids back into the publishing resource
+- The user collects the transaction ids and calls the [migrate_createimporttransaction](../../../basic-docs/smart-chains/smart-chain-api/crosschain.html#migrate-createimporttransaction) method, passing the collected notary approval transaction ids as arguments in the destination chain
   - Currently, the user must have at least 5 successful notary-approval transactions for an import transaction to be considered as valid in the destination chain
 
 ### migrate_checkburntransactionsource
@@ -536,7 +536,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 A notary operator uses the `migrate_createnotaryapprovaltransaction` method to create an approval transaction in the destination chain with the proof of the burn transaction's existence in the source chain.
 
-The returned notary approval transaction should be broadcast to the destination chain using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The returned notary approval transaction should be broadcast to the destination chain using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 #### Arguments
 
@@ -610,8 +610,8 @@ The chain must have the custom parameters `-ac_import=PUBKEY` and `-ac_pubkey` s
 - For creating more coins in the chain with `-ac_import=PUBKEY` enabled, use the <b>selfimport</b> method
 - The method returns a source transaction that contains a parameter with the amount of coins to create
   - The returned value is a proof of the trusted pubkey owner's intention to create new coins in the chain
-- The returned source transaction should be broadcast to the chain using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. The source transaction spends a `txfee=10000 satoshis` from the `-ac_pubkey` owner's uxtos
-- After the source transaction is mined, the import transaction should also be broadcasted to the chain with the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method. After this transaction is mined, its vout contains the amount of created coins in the chosen destination address
+- The returned source transaction should be broadcast to the chain using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method. The source transaction spends a `txfee=10000 satoshis` from the `-ac_pubkey` owner's uxtos
+- After the source transaction is mined, the import transaction should also be broadcasted to the chain with the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method. After this transaction is mined, its vout contains the amount of created coins in the chosen destination address
 
 #### Arguments
 
@@ -695,9 +695,9 @@ Connect to the chain created in Node1.
 ./komodod -ac_name=IMPORTTEST -ac_import=PUBKEY -ac_pubkey=0257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634 -ac_supply=777777 -ac_reward=100000000 -addnode=<ip address of Node1>
 ```
 
-Notice that there is only `-ac_pubkey` in the above command but not `pubkey`. That's because, `-ac_pubkey` is part of the chain parameters and `-pubkey` is just [indicating the pubkey](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey) to the particular daemon for various features.
+Notice that there is only `-ac_pubkey` in the above command but not `pubkey`. That's because, `-ac_pubkey` is part of the chain parameters and `-pubkey` is just [indicating the pubkey](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey) to the particular daemon for various features.
 
-Verify that `connections:1` from the [getinfo](../komodo-api/control.html#getinfo) method.
+Verify that `connections:1` from the [getinfo](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo) method.
 
 ##### Node1
 
@@ -707,7 +707,7 @@ Start mining in Node1.
 ./komodo-cli -ac_name=IMPORTTEST setgenerate true 1
 ```
 
-Verify that the balance increased by at least the amount specified in `-ac_supply` through the [getbalance](../komodo-api/control.html#getbalances) method.
+Verify that the balance increased by at least the amount specified in `-ac_supply` through the [getbalance](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getbalance) method.
 
 Use the method `selfimport` to receive the `SourceTxHex` and the `ImportTxHex`.
 
@@ -1263,7 +1263,7 @@ Command:
 
 :::tip Note
 
-If the transaction id of an import is known, use the [gettransaction](../komodo-api/wallet.html#gettransaction) method to retrieve its block hash.
+If the transaction id of an import is known, use the [gettransaction](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#gettransaction) method to retrieve its block hash.
 
 :::
 

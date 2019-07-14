@@ -14,7 +14,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## Basic Instructions
 
-- Install Komodo following the [installation guides](../installations/basic-instructions.html#installing-basic-komodo-software) and change into the `komodod` subdirectory using:
+- Install Komodo following the [installation guides](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#linux) and change into the `komodod` subdirectory using:
 
 ```bash
 cd ~/komodo/src
@@ -47,8 +47,6 @@ komodo-cli jumblr_secret destination_KMD_address
 ::: warning
 Jumblr is created to be resistant against time-based analysis. Because of this, Jumblr is purposefully designed not to be fast. You will need to leave your node running for several hours for the process to finish.
 :::
-
-For a more detailed description of Jumblr, please read Section IV of our [whitepaper](https://komodoplatform.com/whitepaper).
 
 #### :pushpin: Examples
 

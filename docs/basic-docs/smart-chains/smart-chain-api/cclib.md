@@ -37,7 +37,7 @@ Script format:
 ```
 
 ::: tip
-The [cclibinfo](#cclibinfo) method returns a complete list of available methods and their parameters for each unique `evalcode`.
+The [cclibinfo](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclibinfo) method returns a complete list of available methods and their parameters for each unique `evalcode`.
 :::
 
 ### Arguments
@@ -144,7 +144,7 @@ Command:
 
 The `cclibinfo` method displays all the methods of all the modules that are available in the current library.
 
-The library is loaded at runtime using the [-ac_cclib](../../antara/antara-setup/antara-customizations.html#ac-cclib) parameter.
+The library is loaded at runtime using the [-ac_cclib](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cclib) parameter.
 
 ### Arguments
 
