@@ -443,14 +443,16 @@ The `send` method sends the specified amount of coins to a `handle` associated w
 
 **cclib spend 19 '["sendtxid", "scriptPubKey", "hexseed"]'**
 
-The `spend` method spends the coins recieved in the transaction of id `sendtxid` to a [scriptPubkey](./musig.html#scriptPubkey) using the supplied seed.
+The `spend` method spends the coins recieved in the transaction of id `sendtxid` to a [scriptPubkey](../../../basic-docs/antara/antara-api/musig.html#calcmsg) using the supplied seed.
+
+<!-- Sidd: There was a link above to a musig.html#scriptpubkey section that does exist. I removed it, as I don't know what that's about. -->
 
 #### Arguments
 
 | Name         | Type     | Description                                                                                 |
 | ------------ | -------- | ------------------------------------------------------------------------------------------- |
 | sendtxid     | (string) | the id of the transaction that sent coins to the handle associated with the seed supplied |
-| scriptPubKey | (string) | the [scriptPubkey](./musig.html#scriptPubkey) to which the coins are to be spent            |
+| scriptPubKey | (string) | the [scriptPubkey](../../../basic-docs/antara/antara-api/musig.html#calcmsg) to which the coins are to be spent            |
 | hexseed      | (string) | the seed used to register the handle which holds the funds                                |
 
 #### Response
