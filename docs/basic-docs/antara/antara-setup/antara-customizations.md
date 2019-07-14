@@ -58,7 +58,7 @@ This allows the developers of a Smart Chain to require that miners and stakers o
 
 For example, if a Smart Chain is set to `ac_cbmaturity=10`, newly mined coins must wait for 10 confirmations on the network before the coins can be spent.
 
-By default, this value is set to `1` on Smart Chains without [ac_eras](../installations/asset-chain-parameters.html#ac-eras) and set to `100` on Smart Chains with [ac_eras](../installations/asset-chain-parameters.html#ac-eras).
+By default, this value is set to `1` on Smart Chains without [ac_eras](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-eras) and set to `100` on Smart Chains with [ac_eras](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-eras).
 
 -->
 
@@ -179,7 +179,7 @@ In this example, Antara will be available at blockheight `140`. All nodes, inclu
 This parameter is at the end of the beta development phase and is prepared for public testing. If you are interested in adopting this feature for a production Smart Chain, please reach out to us so that we can assist you.
 :::
 
-The `ac_ccenable` parameter restricts the Smart Chain so that only indicated Antara modules can be enabled. `ac_ccenable` requires [ac_cc](../installations/asset-chain-parameters.html#ac-cc) to be active.
+The `ac_ccenable` parameter restricts the Smart Chain so that only indicated Antara modules can be enabled. `ac_ccenable` requires [ac_cc](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc) to be active.
 
 To indicate which Antara modules should be available, insert each module's eval code in decimal and separated by commas.
 
@@ -235,7 +235,7 @@ Each Antara module uses the `ac_cclib` parameter differently, and therefore the 
 
 This is the percentage which determines the block reward decrease on each block-reward "halving".
 
-This parameter will have no effect if [ac_reward](../installations/asset-chain-parameters.html#ac-reward) is not set.
+This parameter will have no effect if [ac_reward](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-reward) is not set.
 
 This is the formula that `ac_decay` follows:
 
@@ -343,7 +343,7 @@ This chain's block reward will grow linearly from 0 to 100 over 1000 blocks, the
 
 ::: tip Tip
 
-Use the [getblocksubsidy](../komodo-api/mining.html#getblocksubsidy) API method to verify your Smart Chain will work as expected at each relevant height: <br> `./komodo-cli -ac_name=HELLOWORLD getblocksubsidy <blockheight>`
+Use the [getblocksubsidy](../../../basic-docs/smart-chains/smart-chain-api/mining.html#getblocksubsidy) API method to verify your Smart Chain will work as expected at each relevant height: <br> `./komodo-cli -ac_name=HELLOWORLD getblocksubsidy <blockheight>`
 
 :::
 
@@ -351,7 +351,7 @@ Use the [getblocksubsidy](../komodo-api/mining.html#getblocksubsidy) API method 
 
 The `ac_founders` parameter creates a "founder's reward."
 
-This parameter requires [ac_perc](../installations/asset-chain-parameters.html#ac-perc). If the `ac_perc` value is not declared, the `ac_founders` value defaults to `35%`. Also, either [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) OR [ac_script](../installations/asset-chain-parameters.html#ac-script) must be set.
+This parameter requires [ac_perc](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-perc). If the `ac_perc` value is not declared, the `ac_founders` value defaults to `35%`. Also, either [ac_pubkey](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-pubkey) OR [ac_script](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-script) must be set.
 
 The `ac_perc` value determines the percentage of block rewards paid to the founder. These rewards are not paid out immediately, but rather according to the `ac_founders` setting.
 
@@ -365,7 +365,7 @@ For example:
 
 The above parameters result in mining rewards of 100000000 satoshis (1 coin) per block, with a difference on every 100th block. On the 100th block exception, 1000000000 additional satoshis (10 coins) are paid to the founder's address.
 
-The coins rewarded to the founder are created at the moment of payment, thus increasing the overall coin supply. See [ac_perc](../installations/asset-chain-parameters.html#ac-perc) for more details.
+The coins rewarded to the founder are created at the moment of payment, thus increasing the overall coin supply. See [ac_perc](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-perc) for more details.
 
 Use `ac_pubkey` to send the founder's reward to a normal address.
 
@@ -403,7 +403,7 @@ ac_reward=1000000000 -ac_founders_reward=100000000 -ac_founders=10 -ac_pubkey=03
 
 This combination pays the pubkey address 1 coin every 10 blocks.
 
-The `ac_founders_reward` parameter is not compatible with the [ac_eras](../installations/asset-chain-parameters.html#ac-eras) parameter.
+The `ac_founders_reward` parameter is not compatible with the [ac_eras](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-eras) parameter.
 
 #### :pushpin: Examples
 
@@ -421,7 +421,7 @@ A 777777-coin pre-mine, with a 5-coin block reward, and founder's reward of 10 c
 
 ## ac_halving
 
-This is the number of blocks between each block reward halving. This parameter will have no effect if [ac_reward](../installations/asset-chain-parameters.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [ac_decay](../installations/asset-chain-parameters.html#ac-decay) is not, the reward will decrease by 50% each halving.
+This is the number of blocks between each block reward halving. This parameter will have no effect if [ac_reward](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [ac_decay](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-decay) is not, the reward will decrease by 50% each halving.
 
 #### :pushpin: Examples
 
@@ -467,7 +467,7 @@ On the KMD dPoW network the amount of notaries in a notarization is 13. Therefor
 
 Notarizations happen on average every 10 blocks by default.
 
-This parameter is compatible with the [ac_eras](../installations/asset-chain-parameters.html#ac-eras) parameter.
+This parameter is compatible with the [ac_eras](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-eras) parameter.
 
 #### :pushpin: Examples
 
@@ -489,7 +489,7 @@ The `ac_perc` parameter has two different functionalities depending on the confi
 
 #### ac_perc without ac_founders
 
-When `ac_perc` is used without [-ac_founders](../installations/asset-chain-parameters.html#ac-founders) the chain will follow an inflation-tax model. In this model, the `-ac_perc` parameter is the percentage added to the block reward, and the transactions that allocate these rewards are sent to the `-ac_pubkey` address. Naturally, for this configuration to function the `-ac_pubkey` parameter must be included.
+When `ac_perc` is used without [-ac_founders](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-founders) the chain will follow an inflation-tax model. In this model, the `-ac_perc` parameter is the percentage added to the block reward, and the transactions that allocate these rewards are sent to the `-ac_pubkey` address. Naturally, for this configuration to function the `-ac_pubkey` parameter must be included.
 
 For example, if `-ac_reward=100000000` and `-ac_perc=10000000`, for each block mined the miner receives 100000000 satoshis (1 coin), and the owner of the `-ac_pubkey` address receives 10000000 satoshis (0.1 coin, which is 10% of the miner's reward). The amount sent to the pubkey is not taken from the user, rather it is created at this point. Therefore, each transaction inflates the overall coin supply.
 
@@ -501,13 +501,13 @@ Vout 1 of each coinbase transaction must be the correct amount sent to the corre
 
 #### ac_perc with ac_founders
 
-Please see the [-ac_founders](../installations/asset-chain-parameters.html#ac-founders) documentation for this functionality.
+Please see the [-ac_founders](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-founders) documentation for this functionality.
 
 #### :pushpin: Examples
 
 <collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
 
-This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
+This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-staked), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
 
 Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW.
 
@@ -553,13 +553,13 @@ The `ac_pubkey` parameter designates a pubkey for receiving payments from the ne
 
 This parameter is not intended for isolated use. It should only be activated on chains that also use at least one of the following parameters: `ac_perc`, `ac_founders`, or `ac_import=PUBKEY`.
 
-The `pubkey` must be a 66 character string (a compressed pubkey). You can find this pubkey for any address by using the [validateaddress](../komodo-api/util.html#validateaddress) command, and searching for the returned `pubkey` property. The first two digits of a compressed `pubkey` are only either `02` or `03`. (The corresponding `private key` must be present/imported to the wallet before using `validateaddress`.)
+The `pubkey` must be a 66 character string (a compressed pubkey). You can find this pubkey for any address by using the [validateaddress](../../../basic-docs/smart-chains/smart-chain-api/util.html#validateaddress) command, and searching for the returned `pubkey` property. The first two digits of a compressed `pubkey` are only either `02` or `03`. (The corresponding `private key` must be present/imported to the wallet before using `validateaddress`.)
 
 #### :pushpin: Examples
 
 <collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
 
-This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
+This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-staked), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
 
 Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW.
 
@@ -647,7 +647,7 @@ This parameter requires that `ac_founders` also be active. If `ac_script` is set
 
 #### Finding the scriptPubKey
 
-To find the `"scriptPubKey"` value, first create a multi-signature address with the [createmultisig](../komodo-api/util.html#createmultisig) command.
+To find the `"scriptPubKey"` value, first create a multi-signature address with the [createmultisig](../../../basic-docs/smart-chains/smart-chain-api/util.html#createmultisig) command.
 
 ##### Command
 
@@ -729,7 +729,7 @@ When creating a chain with the `ac_staked` parameter, the creation process is sl
 - All of the coins (including the pre-mine) are now located on the node that mined two blocks. Do not split them with a normal transaction. Rather, split them using this tool: [link](https://github.com/KMDLabs/pos64staker).
 - On the first node use 'setgenerate true 0' to enable staking.
 - On the second node use 'setgenerate true 1' (or use a desired processor number instead '1') to enable mining.
-- Use the [getbalance64](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10. The utxos may appear on any list, including both staking and nonstaking.
+- Use the [getbalance64](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10. The utxos may appear on any list, including both staking and nonstaking.
 
 Following the above instructions will ensure that the Smart Chain is stable.
 
@@ -741,7 +741,7 @@ On a chain using a high percentage for PoS, it's vital to have coins staking by 
 
 ::: warning
 
-The Smart Chain developer must give the [ac_reward](../installations/asset-chain-parameters.html#ac-reward) parameter a value for staking to function properly.
+The Smart Chain developer must give the [ac_reward](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-reward) parameter a value for staking to function properly.
 
 :::
 
@@ -765,11 +765,11 @@ Once staking is active, utxos available in the `wallet.dat` file will stake auto
 
 On an `ac_staked` Smart Chain there are 64 global segments (`segid`'s) to which all addresses and the corresponding utxos belong. These 64 `segid`'s become eligible to stake blocks in turns. The segment a utxo belongs to is determined automatically, according to the address in which the utxo resides.
 
-You can see which segment an address belongs to by using the [validateaddress](../komodo-api/util.html#validateaddress) API command. You can use the [getbalance64](../komodo-api/wallet.html#getbalance64) API command to observe how your staked coins are distributed across the separate segids.
+You can see which segment an address belongs to by using the [validateaddress](../../../basic-docs/smart-chains/smart-chain-api/util.html#validateaddress) API command. You can use the [getbalance64](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getbalance64) API command to observe how your staked coins are distributed across the separate segids.
 
 Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure.
 
-There are additional considerations when `ac_staked` is used in conjunction with [ac_perc](../installations/asset-chain-parameters.html#ac-perc) and [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey). The coins used to stake will be included in the `ac_perc` calculations until the Smart Chain reaches block height `1000000`. Therefore, the [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) address will receive more coins for each staked block compared to a mined block. After block `1000000`, `ac_perc` will no longer include the coins used for staking, and therefore the amount of coins sent to the `ac_pubkey` address will normalize.
+There are additional considerations when `ac_staked` is used in conjunction with [ac_perc](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-perc) and [ac_pubkey](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-pubkey). The coins used to stake will be included in the `ac_perc` calculations until the Smart Chain reaches block height `1000000`. Therefore, the [ac_pubkey](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-pubkey) address will receive more coins for each staked block compared to a mined block. After block `1000000`, `ac_perc` will no longer include the coins used for staking, and therefore the amount of coins sent to the `ac_pubkey` address will normalize.
 
 ### Rules for Staking a Block
 
@@ -823,9 +823,9 @@ A 777777-coin pre-mine, a 1000-coin block reward, the block reward decreases by 
 
 This is the amount of pre-mined coins you would like the chain to have.
 
-The node that sets [gen](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
+The node that sets [gen](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
 
-If `ac_supply` is not set, [ac_reward](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [ac_founders](../installations/asset-chain-parameters.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
+If `ac_supply` is not set, [ac_reward](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [ac_founders](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
 
 The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
 
@@ -873,7 +873,7 @@ Setting `-ac_txpow=1` enforces a transaction-rate limiter. This can help to prev
 
 `ac_txpow` forces all transactions (other than coinbase transactions) to have a txid starting and ending with `00`.
 
-This parameter is currently a proof of concept. Many of the traditional API commands, such as `sendtoaddress` or `sendmany`, are not currently supported. Instead, use [createrawtransaction](../komodo-api/rawtransactions.html#createrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction).
+This parameter is currently a proof of concept. Many of the traditional API commands, such as `sendtoaddress` or `sendmany`, are not currently supported. Instead, use [createrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#createrawtransaction) and [signrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#signrawtransaction).
 
 ## ac_veruspos
 
@@ -881,7 +881,7 @@ This parameter is currently a proof of concept. Many of the traditional API comm
 This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
 :::
 
-The `ac_veruspos` parameter is an alternative to [ac_staked](../installations/asset-chain-parameters.html#ac-staked).
+The `ac_veruspos` parameter is an alternative to [ac_staked](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-staked).
 
 When activated, the chain uses [Verus](http://veruscoin.io/)'s proof of stake implementation instead.
 
