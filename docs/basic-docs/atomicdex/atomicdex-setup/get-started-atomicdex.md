@@ -11,7 +11,7 @@
 * Normal user account with admin/root privileges
 
 ::: warning Note
-If you would prefer to avoid building MM2 from source, you can download our pre-built nightly binary [from this link](http://195.201.0.6/mm2/).
+If you would prefer to avoid building MM2 from source, you can download our pre-built binary [from Github releases page](https://github.com/KomodoPlatform/atomicDEX-API/releases).
 :::
 
 ### Note about Linux

@@ -26,7 +26,7 @@ You will find [a walkthrough on building from source here.](../../../basic-docs/
 
 The following links contain downloadable AtomicDEX software. Simply download the files appropriate for your operating system, extract them to your desired location, and double click the application to begin.
 
-[<b>Link to AtomicDEX Software - Simple Installations</b>](http://195.201.0.6/mm2/)
+[<b>Link to AtomicDEX Software - Simple Installations</b>](https://github.com/KomodoPlatform/atomicDEX-API/releases)
 
 #### Additional AtomicDEX Documentation
 

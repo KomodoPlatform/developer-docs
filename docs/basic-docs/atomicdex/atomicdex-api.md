@@ -2509,6 +2509,48 @@ The `stop` method stops the MM2 software if there are no swaps in process.
 | --------- | -------- | ----------- |
 | (none)    |   | |
 
+## version
+
+**version()**
+
+The `version` method returns MM2 version.
+
+#### Arguments
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| (none)    |   | |
+
+#### Response
+
+| Structure | Type     | Description |
+| --------- | -------- | ----------- |
+| result    | string   | MM2 version |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"method\":\"version\",\"userpass\":\"$userpass\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response
+
+```json
+{
+    "result":"2.0.996_mm2_3bb412578_Linux",
+}
+```
+
+</collapse-text>
+
+</div>
+
 ## withdraw
 
 **withdraw coin to (amount max)**
