@@ -25,15 +25,15 @@ What is the deal with the airdrop-related RPCs? -->
   - The arguments passed include the following
     - The number of blocks to lock the funds after funding
     - The minimum release amount
-    - The `paytxnid`s
+    - The `paytxnids`
       - These contains data about the recipients and their corresponding shares
   - The returned transaction id is called `createtxid` and it will be the reference for this payment plan used by other methods
-- Use [paymentsfund](#paymentsfund) to fund any existing payment plan
+- Use [paymentsfund](#paymentsfund) to fund any existing Payments plan
 - Use [paymentsrelease](#paymentsrelease) to release payments of a Payments plan
 
 ## paymentstxidopret
 
-**paymentstxidopret '[allocation,"scriptPubKey",("destopret")]'**
+**paymentstxidopret '[allocation, "scriptPubKey", ("destopret")]'**
 
 Use the `paymentstxidopret` method to create a transaction for each intended recipient of a Payments plan.
 
@@ -41,7 +41,7 @@ Use the `paymentstxidopret` method to create a transaction for each intended rec
 
 | Name         | Type               | Description                                                                                 |
 | ------------ | ------------------ | ------------------------------------------------------------------------------------------- |
-| allocation   | (number)           | defines the share of a payment to the given `scriptPubkey`.                                 |
+| allocation   | (number)           | defines the share of a payment to the given `scriptPubkey`                                 |
 | scriptPubKey | (string)           | [scriptPubkey](https://learnmeabitcoin.com/glossary/scriptPubKey) of the recipient          |
 | destopret    | (string, optional) | data to be stored in the OP_RETURN of the transaction that sends funds to the scriptPubkey. |
 
@@ -93,11 +93,9 @@ Therefore, using either `RN727JeeiZ6NXic7PUKTCiHT1HvuBN4RDa` or `2102d3431950c2f
 ./komdo-cli -ac_name=HELLOWORLD validateaddress RN727JeeiZ6NXic7PUKTCiHT1HvuBN4RDa
 ```
 
-###### Response
-
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-<collapse-text hidden title="Response">
+<collapse-text hidden title="Response"> 
 
 ```json
 {
@@ -134,11 +132,9 @@ For example, if a Payments plan sends a portion of funds to an instance of the R
 ./komodo-cli -ac_name=HELLOWORLD paymentstxidopret '[9,"222102d6f13a8f745921cdb811e32237bb98950af1a5952be7b3d429abd9152f8e388dac"]'
 ```
 
-###### Response
-
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-<collapse-text hidden title="Response">
+<collapse-text hidden title="Response"> 
 
 ```json
 {
@@ -158,11 +154,9 @@ For example, if a Payments plan sends a portion of funds to an instance of the R
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f89010012d25c46d1f831d74c7c3e71fd32343f53ead192cc70e9e8edf7586571759a0000000048473044022004f5a7e3eb7f5010953c2bca7af2113ee3559b5f7adc86ad09b872526e3b36f6022040b6409eb612c847185b274eb76a3ff60f0e970e5e78d3eee9269b5f0661611001ffffffff02f0b9f50500000000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac0000000000000000326a30f054090000000000000024222102d6f13a8f745921cdb811e32237bb98950af1a5952be7b3d429abd9152f8e388dac00000000000b0400000000000000000000000000
 ```
 
-###### Response
-
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-<collapse-text hidden title="Response">
+<collapse-text hidden title="Response"> 
 
 ```bash
 9c731f6bbdaa6159b7c0955f3d1e1df72a64a38cd20198d59cd11f0fc506e00e
@@ -204,7 +198,7 @@ Use the `paymentscreate` method after receiving the `paytxids` from all the reci
 
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-<collapse-text hidden title="Response">
+<collapse-text hidden title="Response"> 
 
 ```json
 {
@@ -226,7 +220,7 @@ Use the `paymentscreate` method after receiving the `paytxids` from all the reci
 
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-<collapse-text hidden title="Response">
+<collapse-text hidden title="Response"> 
 
 ```bash
 c4de51ec55d21d0ad0645efe597f61d07166f1a2cb73fcaa8c7a37de2b3c3837
@@ -240,7 +234,7 @@ c4de51ec55d21d0ad0645efe597f61d07166f1a2cb73fcaa8c7a37de2b3c3837
 
 **paymentsinfo '["createtxid"]'**
 
-The `paymentsinfo` method returns relevant information about Payments plan referred by the provided `createtxid` .
+The `paymentsinfo` method returns relevant information about the Payments plan referred by the provided `createtxid` .
 
 #### Arguments
 
@@ -254,10 +248,10 @@ The `paymentsinfo` method returns relevant information about Payments plan refer
 | ---------------------------------- | ---------------- | ----------------------------------------------------------------------------------- |
 | plan_type                          | (string)         | the type of the plan                                                                |
 | lockedblocks                       | (number)         | the number of blocks the funding to this Payment plan is locked                     |
-| totalallocations                   | (number)         | sum of the allocation numbers of all the `paytxnid`s                                |
+| totalallocations                   | (number)         | sum of the allocation numbers of all the `paytxnids`                                |
 | minrelease                         | (number)         | the miminum amount of funds locked that can be released                             |
 | numoprets                          | (number)         | number of `OP_RETURN`s (can be `0`/`1`)                                             |
-| txidoprets                         | (array of jsons) | an array containing `paytxnid`s and their `scriptPubkey`s                           |
+| txidoprets                         | (array of jsons) | an array containing `paytxnids` and their `scriptPubkeys`                           |
 | txid                               | (string)         | the `paytxnid` of one of the recipients                                             |
 | scriptPubKey                       | (string)         | the `scriptPubkey` corresponding to the above `paytxnid`                            |
 | RDjEATVvJm8ff2rEYq6yRmzQEuL4mZtF2r | (number)         | the amount of funds stored in the `1of2` address corresponding to this Payment plan |
@@ -279,7 +273,7 @@ The `paymentsinfo` method returns relevant information about Payments plan refer
 
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-<collapse-text hidden title="Response">
+<collapse-text hidden title="Response"> 
 
 ```json
 {
@@ -340,11 +334,9 @@ The `paymentslist` method lists all Payment plan `createtxids` that are active o
 ./komodo-cli -ac_name=HELLOWORLD paymentslist
 ```
 
-###### Response
-
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-<collapse-text hidden title="Response">
+<collapse-text hidden title="Response"> 
 
 ```json
 {
@@ -363,7 +355,7 @@ The `paymentslist` method lists all Payment plan `createtxids` that are active o
 
 **paymentsfund '[“createtxid", amount(, useopret)]'**
 
-The `paymentsfund` method is used add funds to a Payments plan that has been created.
+The `paymentsfund` method is used to add funds to a Payments plan that has been created.
 
 <!---can revisit this later as part of another tutorial:
   this RPC can be used to obtain the <b>scriptPubKey</b> necessary to fund a Payments plan from another source; for example, a coinbase transaction or another module  --->
@@ -394,7 +386,7 @@ The `paymentsfund` method is used add funds to a Payments plan that has been cre
 
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-<collapse-text hidden title="Response">
+<collapse-text hidden title="Response"> 
 
 ```json
 {
@@ -416,7 +408,7 @@ The `paymentsfund` method is used add funds to a Payments plan that has been cre
 
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-<collapse-text hidden title="Response">
+<collapse-text hidden title="Response"> 
 
 ```bash
 4c04f2d75ece337c7b4f86eb3962b37b97f8af8b261fe68abb49815524e8be50
@@ -430,7 +422,7 @@ The `paymentsfund` method is used add funds to a Payments plan that has been cre
 
 **paymentsrelease '[“createtxid",amount,(skipminimum)]'**
 
-The `paymentsrelease` method can be executed by anyone to release the **eligible** payments of the given `createtxid` Payments plan. The funds specified by `amount` are distributed among all the recipients of the Payments plan in the predefined proportions.
+The `paymentsrelease` method can be executed by anyone to release the **eligible** payments of the given `createtxid` Payments plan. The funds specified by `amount` are distributed among all the recipients of the Payments plan in predefined proportions.
 
 #### Arguments
 
@@ -461,7 +453,7 @@ The `paymentsrelease` method can be executed by anyone to release the **eligible
 
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-<collapse-text hidden title="Response">
+<collapse-text hidden title="Response"> 
 
 ```json
 {
@@ -486,7 +478,7 @@ The `paymentsrelease` method can be executed by anyone to release the **eligible
 
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-<collapse-text hidden title="Response">
+<collapse-text hidden title="Response"> 
 
 ```bash
 665f76ac885b6fab95881068010d270cd00ef632292fa30a89da7289c4e0481c
@@ -500,13 +492,13 @@ The `paymentsrelease` method can be executed by anyone to release the **eligible
 
 **paymentsmerge '[“createtxid"]'**
 
-The `paymentsmerge` method merges all the funds in either the `1of2` address or the Payments module's Global address of a Payments plan into a single [utxo](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept).
+The `paymentsmerge` method merges funds into a single [utxo.](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept)
+ 
+The funds merged can be either the funds currently in the `1of2` address, or the funds can be the funds in the Payments Module's Global Address. 
 
-Merged funds cannot be merged again for another `lockedblocks + 100` blocks.(lockedblocks - was set when the Payments plan was created).
+Merged funds cannot be merged again for a period of time after the merger. The time required depends on the value set in the `lockedblocks` argument when the `paymentscreate` method was executed. The period of time in which the funds cannot be merged is `lockedblocks + 100`. This prevents the user from merging the funds a second time before the funds can be released from the first merger.
 
-This prevents a user from merging the funds again before the funds can be released, and preventing payments from happening.
-
-If the number of inputs is too high, a valid Payments release transaction can not be created as it's size will exceed the limit set by the consensus rules. This method can be used in such a situation to maintain a manageable number of inputs.
+The size of a `paymentsrelease` transaction is bound by the normal rules of consensus, and therefore the number of inputs that can be provided as arguments is limited. If the number of inputs is too high, the consensus mechanism will reject the transaction when it is broadcast to the network. In this event, simply split the inputs between multiple `paymentsrelease` transactions as necessary.
 
 #### Arguments
 
@@ -532,7 +524,7 @@ If the number of inputs is too high, a valid Payments release transaction can no
 
 <div style="margin-top: 1rem; margin-bottom: 1rem;">
 
-<collapse-text hidden title="Response">
+<collapse-text hidden title="Response"> 
 
 ```json
 {
