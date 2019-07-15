@@ -2513,7 +2513,7 @@ The `stop` method stops the MM2 software if there are no swaps in process.
 
 **version()**
 
-The `version` method returns MM2 version.
+The `version` method returns the MM2 version.
 
 #### Arguments
 
@@ -2525,7 +2525,7 @@ The `version` method returns MM2 version.
 
 | Structure | Type     | Description |
 | --------- | -------- | ----------- |
-| result    | string   | MM2 version |
+| result    | string   | the MM2 version |
 
 #### :pushpin: Examples
 

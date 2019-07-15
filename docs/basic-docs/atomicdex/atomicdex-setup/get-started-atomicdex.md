@@ -11,12 +11,12 @@
 * Normal user account with admin/root privileges
 
 ::: warning Note
-If you would prefer to avoid building MM2 from source, you can download our pre-built binary [from Github releases page](https://github.com/KomodoPlatform/atomicDEX-API/releases).
+If you would prefer to avoid building MM2 from source, you can download our pre-built binary [from our Github releases page.](https://github.com/KomodoPlatform/atomicDEX-API/releases)
 :::
 
 ### Note about Linux
 
-For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us on the #dev-marketmaker channel on Discord](https://komodoplatform.com/discord).
+For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us on the #dev-marketmaker channel on Discord.](https://komodoplatform.com/discord)
 
 ### Note about Installing on Windows
 
