@@ -126,7 +126,7 @@ Clone the MM2 repository:
 
 ```bash
 cd ~
-git clone https://github.com/artemii235/SuperNET.git --branch mm2 --single-branch && cd SuperNET
+git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2 --single-branch && cd atomicDEX-API
 ```
 
 Compile the source code:
@@ -141,4 +141,4 @@ If everything installs successfully you will see something similar:
 “Finished dev [optimized + debuginfo] target(s) in 3m 33s”
 ```
 
-The MM2 executable is now built and available here: `~/SuperNET/target/debug/mm2`
+The MM2 executable is now built and available here: `~/atomicDEX-API/target/debug/mm2`
