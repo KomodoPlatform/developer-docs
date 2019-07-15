@@ -845,6 +845,12 @@ A simple Smart Chain with pre-mined coins and a block reward of 0.0005.
 
 </collapse-text>
 
+## ac_snapshot
+
+This parameter defines the frequency with which a snapshot of the `address - balance` data is taken for a Smart Chain. This parameter is required by the [paymentsairdrop](../antara-api/payments.html#paymentsairdrop) method of the Payments Antara Module. When the [paymentsrelease](../antara-api/payments.html#paymentsrelease) is called for a Payments plan created using the [paymentsairdrop](../antara-api/payments.html#paymentsairdrop) method, it releases Payments based on the last snapshot.
+
+Example: `-ac_snapshot=1440` means the snapshot is taken once every 1440 blocks i.e., every day.
+
 ## ac_timelock...
 
 **-ac_timeunlockgte=satoshis -ac_timelockfrom=height -ac_timelockto=height**
