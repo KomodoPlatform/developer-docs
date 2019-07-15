@@ -22,7 +22,7 @@ module.exports = {
       "link",
       {
         rel: "icon",
-        href: "komodo-logo-icon-black.png"
+        href: "KMD_Mark_Black.png"
       }
     ]
   ],
@@ -36,14 +36,15 @@ module.exports = {
     editLinks: true,
     editLinkText: "Suggest an improvement for this page",
     lastUpdated: "Last Updated",
-    logo: "/site-name-logo.png",
+    // sidebarDepth: 3,
+    logo: "/KMD_Horiz_White.svg",
     algolia: {
       apiKey: algoliaSecret.key,
       indexName: 'komodoplatform'
     },
     nav: [{
         text: "Start Here",
-        link: "/basic-docs/start-here/outline-for-new-developers.md"
+        link: "/basic-docs/start-here/about-komodo-platform/about-komodo-platform.md"
       },
       {
         text: "KomodoPlatform.com",

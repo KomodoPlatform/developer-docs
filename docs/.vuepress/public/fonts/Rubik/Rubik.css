@@ -1,0 +1,91 @@
+/** =================== RUBIK =================== **/
+
+/** Rubik Light **/
+@font-face {
+    font-family: "Rubik";
+    font-weight: 300;
+    font-style: normal;
+    src: url("Rubik-Light.ttf") format("ttf");
+         font-display: fallback;
+}
+
+/** Rubik Light-Italic **/
+@font-face {
+    font-family: "Rubik";
+    font-weight: 300;
+    font-style: italic;
+    src: url("Rubik-LightItalic.ttf") format("ttf");
+         font-display: fallback;
+}
+
+/** Rubik Regular **/
+@font-face {
+    font-family: "Rubik";
+    font-weight: 400;
+    font-style: normal;
+    src: url("Rubik-Regular.ttf") format("ttf");
+         font-display: fallback;
+}
+
+/** Rubik Italic **/
+@font-face {
+    font-family: "Rubik";
+    font-weight: 400;
+    font-style: italic;
+    src: url("Rubik-Italic.ttf") format("ttf");
+         font-display: fallback;
+}
+
+/** Rubik Medium **/
+@font-face {
+    font-family: "Rubik";
+    font-weight: 500;
+    font-style: normal;
+    src: url("Rubik-Medium.ttf") format("ttf");
+         font-display: fallback;
+}
+
+/** Rubik Medium-Italic **/
+@font-face {
+    font-family: "Rubik";
+    font-weight: 500;
+    font-style: italic;
+    src: url("Rubik-MediumItalic.ttf") format("ttf");
+         font-display: fallback;
+}
+
+/** Rubik Bold **/
+@font-face {
+    font-family: "Rubik";
+    font-weight: 700;
+    font-style: normal;
+    src: url("Rubik-Bold.ttf") format("ttf");
+         font-display: fallback;
+}
+
+/** Rubik Bold-Italic **/
+@font-face {
+    font-family: "Rubik";
+    font-weight: 700;
+    font-style: italic;
+    src: url("Rubik-BoldItalic.ttf") format("ttf");
+         font-display: fallback;
+}
+
+/** Rubik Black **/
+@font-face {
+    font-family: "Rubik";
+    font-weight: 900;
+    font-style: normal;
+    src: url("Rubik-Black.ttf") format("ttf");
+         font-display: fallback;
+}
+
+/** Rubik Black-Italic **/
+@font-face {
+    font-family: "Rubik";
+    font-weight: 900;
+    font-style: italic;
+    src: url("Rubik-BlackItalic.ttf") format("ttf");
+         font-display: fallback; 
+}
