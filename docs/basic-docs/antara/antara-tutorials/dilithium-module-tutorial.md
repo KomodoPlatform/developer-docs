@@ -1,5 +1,3 @@
-<!-- Sidd: Seeing as how we don't expect people to use this yet, I am not yet editing this. -->
-
 # Dilithium Module Tutorial
 
 ## Introduction
@@ -10,27 +8,53 @@ This documentation does not discuss the underlying math and principles of quantu
 
 ## Installation
 
-#### A Note Regarding the Installation of the Necessary Libraries in the Source Code
+Please follow the [instructions for installing Komodo software from source.](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html) 
 
-Because quantum computing is not yet realized in the technology industry, Dilithium is listed in the documentation only for display purposes.
+This installs the normal Komodo software. 
 
-Dilithium is not active on a default Komodo Smart Chain. The user must download an associated C library (also called a cclib module) and include this library in the `src` directory when compiling Komodo from source.
+#### The MUSIG Test Smart Chain
 
-<!-- For details on how to do this, please see <LINK TO CCLIB DOC> FIXME. -->
+In this tutorial we use the test chain `MUSIG` to display the Dilithium Module.
 
-Currently, the Dilithium cclib module is included as a part of the Soduku cclib module. This is a matter of convenience for the developers and testers. 
+You may replace the `MUSIG` ticker with the relevant ticker of any Smart Chain in the tutorial `komodo-cli` commands and achieve the same effect.
 
-If a Komodo customer is interested in implementing Dilithium, please inquiry with our team. We would be happy to separate Dilithium's cclib module from the Sudoku cclib module, and make Dilithium available in the default Antara Modules. 
+To launch the `MUSIG` Smart Chain, enter the command below in the terminal.
 
-#### Tutorial Uses the MUSIG Test Smart Chain
-
-Throughout this document, we will use the test chain, `MUSIG`. Replace `MUSIG` with the relevant ticker for your chain in any `komodo-cli` commands. This is also a test chain for the Musig CC module. The Musig CC is an entirely seperate set of functionality. Do not conflate the two. Dilithium testing is being done on this chain as a matter of convenience for the developers and testers.
+###### Command
 
 ```bash
 ./komodod -ac_name=MUSIG -ac_supply=100000 -ac_reward=10000000 -ac_cclib=sudoku -ac_cc=2 -addnode=5.9.102.210 -addnode=195.201.20.230 -addnode=195.201.137.5
 ```
 
-Please follow [Installing Komodo Manually](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html), if you have not done this already. Please note, that the process is different because we are using a custom cclib module that is not typically included in the Komodo Daemon(`komodod`) unless `komodod` is explictily built for this module. Follow the above guide, once you finish the `./zcutil/build.sh` step, do this:
+Ensure that the chain is syncing properly by watching the returned values from the [<b>getinfo</b>](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo) method. The count of blocks synced should increase.
+
+#### A Note Regarding the Installation of the Necessary Libraries in the Source Code
+
+Because quantum computing is not yet realized in the technology industry, Dilithium is listed in the documentation only for display purposes.
+
+Dilithium is not active on a default Komodo Smart Chain. For the Dilithium Antara Module to function on the `MUSIG` chain, we now add an additional feature to the default installation. 
+
+The user must download an associated C library (also called a cclib module) and include this library in the `src` directory when compiling Komodo from source. (We repeat the compilation process in a moment.)
+
+<!-- For details on how to do this, please see <LINK TO CCLIB DOC> FIXME. -->
+
+Currently, this Dilithium cclib module is included as a part of the Soduku cclib module. This is a matter of convenience for the developers and testers. 
+
+If a Komodo customer is interested in implementing Dilithium, please inquire with our team. We would be happy to separate Dilithium's cclib module from the Sudoku cclib module, and make Dilithium available in the default Antara Modules. 
+
+#### Stop the Daemon and Install the Appropriate cclib Module
+
+Stop the `MUSIG` daemon. (If the chain has not finished syncing to the network, that is okay for the moment. We can allow the syncing process to complete later.)
+
+```bash
+./komodo-cli -ac_name=MUSIG stop
+```
+
+Return to the instructions for compiling Komodo software from source and follow them again until you complete the `./zcutil/build.sh` step, and pause.
+
+[Instructions for installing Komodo software from source](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html) 
+
+Now execute the following commands. These add the necessary cclib module for Dilithium.
 
 ```bash
 cd ~/komodo/src/cc
@@ -40,29 +64,45 @@ cd ../..
 make
 ```
 
-We will begin by going through the manual process of creating a handle, sending coins to this handle then sending coins from this handle. After going through the manual process, we will show some code examples of how this might be implemented into a UI. A TUI with Dilithium functionality can be found [here.](https://github.com/KMDLabs/pos64staker/tree/restart/)
-
 ## Walkthrough
 
-### Step 1: Start the daemon with a `pubkey` and backup its `privkey`
+The Dilithium walkthrough agenda is as follows.
 
-Start the `komodod`, by setting `-pubkey=` in the launch parameters. See [Launching with pubkey](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html) to learn about obtaining a `pubkey`.
+- Manually create a handle (a handle is a Dilithium address that is human readable)
+- Send coins to this handle
+- Send coins from this handle
+- Show code examples for implementing Dilithium into a user interface (UI)
+  - A terminal user interface (TUI) with Dilithium functionality can me found [here](https://github.com/KMDLabs/pos64staker/tree/restart/)
+
+#### Start the daemon with a `pubkey` and backup its `privkey`
+
+Initiate komodod with an active [<b>-pubkey</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter. 
+
+For instructions on launching with a pubkey, [follow these linked instructions.](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey)
 
 ```bash
 ./komodod -ac_name=MUSIG -ac_supply=100000 -ac_reward=10000000 -ac_cclib=sudoku -ac_cc=2 -addnode=5.9.102.210 -addnode=195.201.20.230 -addnode=195.201.137.5 -pubkey=0377ffe2b64443ac5e746f29b021e22411c7731d675f169d32423f8f3d6fc9ea3b
 ```
 
-#### Note
+::: tip Note
 
-If the chain you're using has the [ac_pubkey](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-pubkey) parameter, you must not change the `-ac_pubkey=` value. Do not confuse `-pubkey=` with `-ac_pubkey=`. These are entirely seperate parameters.
+If you are using a chain other than MUSIG, and if this chain's launch commands include the [<b>-ac_pubkey</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-pubkey) parameter, do not change this <b>ac_pubkey</b> setting.
 
-To check that the `pubkey` is set properly, do:
+Simply add the <b>-pubkey</b> setting to the launch commands.
+
+The <b>-pubkey</b> and <b>-ac_pubkey</b> parameters are entirely separate parameters with different functionality.
+
+:::
+
+Once your Smart Chain's daemon finishes loading, check that the `pubkey` is set properly.
+
+###### Command
 
 ```bash
 ./komodo-cli -ac_name=MUSIG setpubkey
 ```
 
-<collapse-text hidden title="Response">
+###### Response
 
 ```bash
 {
@@ -72,30 +112,35 @@ To check that the `pubkey` is set properly, do:
 }
 ```
 
-</collapse-text>
+You should see the correct `pubkey` in the returned json object.
 
-If this does not output the `-pubkey=` value and corresponding address, you have not set it properly.
+#### Backup the Private Key to Your Pubkey
 
-It is important to [backup](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#dumpprivkey) the private key for this `-pubkey=` address. Without it, any handles registered with it will not be accessible.
+Use the [dumpprivkey](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#dumpprivkey) RPC to export the private key of your pubkey and save this in a safe location. 
 
-### Step 2: Create a Dilithium keypair using a random string
+Without this private key, any handles created for Dilithium will not be accessible.
 
-Run the following commands in your terminal.
+[Link to <b>dumpprivkey</b> RPC](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#dumpprivkey)
+
+#### Create a Dilithium Keypair
+
+A Dilithium keypair is a matching set of a `pubkey` and `privkey` (private key).
+
+Use a generated random string to create a keypair.
+
+###### Command
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclib keypair 19 "[%22rand%22]"
 ```
 
-Learn about the `%22`s in the command here: [CC Lib Formatting](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib-formatting)
+::: tip Tip
 
-This command generates a Dilithium keypair using a random seed.
+To understand the need for the `%22` strings in the command, [read this linked CC Lib Formatting documentation.](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib-formatting)
 
-<!--
-FIXME
-more details about "rand" and anything else that can be used in its place
--->
+:::
 
-<collapse-text hidden title="Response">
+###### Response
 
 ```bash
 {
@@ -109,22 +154,29 @@ more details about "rand" and anything else that can be used in its place
 }
 ```
 
-</collapse-text>
+| Response Key | Value Description |
+| -------------- | ----------- |
+| status | states that we are using an automated random seed generator |
+| seed | this randomly generated seed is the base value on which many private keys can be generated, including the private key below; this seed is sensitive information and should be stored in a safe and secret location | 
+| privkey | the private key (privkey) is also sensitive information; this privkey is the basis for the pubkey below  |
+| pubkey | the public key that receives funds; this public key will later be associated with a handle |
+| pkaddr | a hashed representation of the Dilithium pubkey and privkey; this value is not necessary for Dilithium functionality, but rather is included as an easy method to compare Dilithium pubkeys and privkeys | 
+| skaddr | a hashed representation of the Dilithium pubkey and privkey; this value is not necessary for Dilithium functionality, but rather is included as an easy method to compare Dilithium pubkeys and privkeys | 
+| result | whether the command executed successfully |
 
-- The `"seed"` and `"privkey"` values are sensitive information and need to be stored securely.
-- The `"pubkey"` and `"privkey"` values are simply the Dilithium keypair.
-- The `"pkaddr"` and `"skaddr"` values are a hashed representation of the Dilithium pubkey and Dilithium privkey. These `*kaddr` values aren't neccesary for functionality. They are included as an easy way to compare Dilithium pubkeys and privkeys.
-- At a minimum, the `"seed"` value should be saved. For simplicity, it's best to save the full output of this command. Wherever this is saved, treat it as a sensitive file, similar to a wallet.dat. Later in this document, we will touch upon what information must be saved and how you might structure this data.
+Save the `seed` value in a safe and secret location. Optimally, you may save the response as well.
 
-### Step 3: Check whether a handle is available
+#### Check For Handle Availability
 
-We can use the `handleinfo` rpc command to check whether a handle is available.
+Use the [<b>handleinfo</b>](../../../basic-docs/antara/antara-api/dilithium.html#handleinfo) RPC to check for handle availability.
+
+###### Command
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclib handleinfo 19 "[%22KomodoHaxor%22]"
 ```
 
-<collapse-text hidden title="Response">
+###### Response
 
 ```bash
 {
@@ -134,15 +186,19 @@ We can use the `handleinfo` rpc command to check whether a handle is available.
 }
 ```
 
-</collapse-text>
+#### Register an Available Handle
 
-### Step 3: Register a handle that is available
+Use the `seed` to register the handle.
 
-We can now use the `"seed"` value to register the handle.
+###### Command
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclib register 19 "[%22KomodoHaxor%22,%22e580f34e9bdfd23108409e76475c7df3f924d149d494d5cdbc24aeb280237d4a%22]"
 ```
+
+###### Response
+
+<div style="margin-top: 1rem; margin-bottom: 1rem;">
 
 <collapse-text hidden title="Response">
 
@@ -159,11 +215,19 @@ We can now use the `"seed"` value to register the handle.
 
 </collapse-text>
 
-The `"hex"` value here is a signed raw transaction. We now need to broadcast it.
+</div>
+
+The returned `hex` value is a signed raw transaction and must be broadcast using [<b>sendrawtransaction</b>](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction).
+
+###### Broadcast the Raw Transaction
 
 ```bash
 ./komodo-cli -ac_name=MUSIG sendrawtransaction 0400008085202f890273ccc419787826042c7c7d667325c5222d2d9d4fab1c142264aed0299063ad0a000000007b4c79a276a072a26ba067a565802102f1c7993a9bf3863c77853315af7e37c12008ea1c5c3d8722c91bc3b5a01965268140ea59eb26a237141c38dfdafc61d50acdbdd3a8d33aaae303908aa613422cf7712de50ba7e4070334044789081a71604e671900cc7f0260be3e9a2a09d1f4842aa100af03800113a10001ffffffff0442dedd2673eb3f4cc151b1d9945f3ccc0023ba7422e9f4b6eff1ecca2cf39b010000006a47304402206d9eb56d476364409e2c3a12dcaadcaab0f9b3080cdb5bdcc09601b8b7683019022025bc2db845cdc716f9459d0f32d60e5103c3bb78267ed763733adffaa4d3c46401210377ffe2b64443ac5e746f29b021e22411c7731d675f169d32423f8f3d6fc9ea3bffffffff06204e000000000000302ea22c8020979f9b424db4e028cdba433622c6cd17b9193763e68b4572cd7f3727dcd335978103120c008203000401cc1027000000000000302ea22c80200c0396b7e2db09ab239f0b337fbc7df888273e60323a63d0caa862116bcf51a48103120c008203000401cc00e1f50500000000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc1027000000000000302ea22c8020979f9b424db4e028cdba433622c6cd17b9193763e68b4572cd7f3727dcd335978103120c008203000401ccd08d154e0200000023210377ffe2b64443ac5e746f29b021e22411c7731d675f169d32423f8f3d6fc9ea3bac0000000000000000fd17076a4d130713520b4b6f6d6f646f4861786f72210377ffe2b64443ac5e746f29b021e22411c7731d675f169d32423f8f3d6fc9ea3bfde00681ac54913ffbe1ce5f7ed5ff3bde2284ea5d4813f422a93e7f9a9e812e19dd6916cb7c2d5446c4635ed6b21d41cfb637534226b51d1298b5880bf7cacce0cea8f7c8d2dc8204bffb7eb163540a231fc2b6db321bf93395e0911f02b30c61e1080c67d555902430166f4eaac0b0eaae63497e976fc86875f1df192a17a180c5ba778ea864a37fc549ef06182bc9d9de06b67428f055df76a9d334f71d3e20352642404aee262c66c1f50aa7e0e4436e8ba2aa2933258e7da6bc28dde2a1ca953c96b9c0dd691665e290abdaabc0b992004a3e6832d89a80523163d48aa020e163d59b5d2be24abe67dca16195b33fe85d3b965db88bc823e96590ab92aa4b320136de92aaa78329da87ec43677abde3c05693985049a22419a719de9c70684d8ed2b5f74719fbfb741c574a12bd983e2d036c26b9d0ad132ca81fa265cea9919fded009ab2447e1f10384998dd199a0803ed2953ca489477a7c96ab4b78aec1ae75aa009f77dd904e440c9696073fb15dbd7d0ae65f53c28c7e1a01e87013e66b53736988be42b07b44082af19d8e9954b24ea8c0e88f33ba5dfe991d1acc4d2ee9b018ef8adf966e351b5c59b7501f7847c61c819efd8fe77cde980a3c2d316476e117eafe93310459325eb3ae80b1044aa9a7b1f29b934159779900d723abd675950bdf8fc8d803aae01e49dc7f716d120911dee86e832b7391db82a5dc4e35d232d918b3cb8a43d8da2f6c6caea42c85e48f2cda5d590f272c1e9f654c6e37403b03095ffefa318a78d3b2094fccf200c3e1b8dc29b58705e0d5608c61c6fa244129287cb00f9da73b9c5a3079b3a06d403eda3b6a162e3040294f06b7ed31ce1365c247cf497a560bfe3aa7d1b7589f9778ec4e321ee445423b2654721d61e36ef89152b6c3a32423f2c755e571a2fe6af296a7567a9823f407f2adb2503a6b7be0d13357e285f675307db6e06eb76e5914e8844a85fae9a845c1a2b5b73a1ccde847780acac512a247e505714b1a2065d96557d444bac6c79ded6ea987123b0209a22186511b8303d1e8a70facacd4fec90b38ff4ef8ab768017914d7f1105a2957ff55bb84593ddf5fdc331f6ecd543b3acbb5a4db355103ed705710bd63646c3913f5d34b23ce29541c10c17d9c2af70d17906a4abd477261e0112503f8bf012efea33d57beec0239a4ec79f9e1ade9fcd5fe0a38ae5fa58de46b298af7260964989a45aa626313d416be8795e2eff1a04e8da09f44986faf31c556d0b116475678cd1da9cd1c8a0f767305db1d4e4ca1637487cf62276ca909c6d7d84fb393c64e3b6681f85e190dca4fc27fa94a4a1248bdb5544dde5ac34546dcd5e47c370ce2f46f32bc5c7b9a82a306f42e6dcc242dfb129ec17723fa6127527fc80ba052cc90fbf21e5028f3d580882ba62445ffc6f505d2e424920ed5afd17170681623660dd180c9a2d99366decc8a92116d45ad9a88442d370b4cd94a9eb4e3db7b6cfdd1cd3b52dce66d1d8f52c167ef10f6cf104ee2fdab965e5776eed2b9e1ef886b0a0fbb6bd6429c910b49672976dc1eea0d48c10de0ae5e3dab6ec51311f0a25428354135ae6accaa31a002746458b3975416abd87ae46ff131abdf3393134ba7c046a05c59fcf246af8919d7608092a5fc6c11e0a30da90786cacef4fe1f156df506b35916bb723c991e4f4feaef0ba8856a99a7c158731f9e09a0714797fbaee34b65ed970692821a1823321162e2cd933d2d00dd75851daa4c4f3efca43f1dcb03350b6ed319273e88a0e16bee534e1b7ed5f2b2a4ea9369312f9d72a15f91e4050c0e36c3022d7065e7078d1fe4699281465abcd9a95a7ebd046c1f8906f26796939335077ae8dcfa6ef38414da9eb00e6a06f2a87f582f530e459737dd2cc17fda6a4081255e7bbff6888c1ac606e2dc28b9865e98d55e2b2be620b24579dd18568b751f9d4eed16a69aac8b0a471ed0f029ab22c2d5e723cb0a916008de0e9854e3bab83fa63cd15df65e093e933a2e0646d42bb1b7d69377e5b9f7e9220d6f041bece11690cbb6b63499e84e3dee3858181e2ee1fd4b36f31d16a0f1f36053d6310ce86570cfc7b7585a0498445fa3688ecee962e8abd608f4b03555700576cdff0c1adba3a8b0019ee478c00f90c828033a046fbd3a73dd84b71c054e8d520bf8796f7e1848bbe6315b37975f804c6a81dcb864654c816be0a6138254408ad670ec52faae1a4d21d8714aa1a5c384b41ae85d24637f9ab5dd97526dccda66a78bba77ce0dde94bf26ebb451689715f852ebb4237c94e361a0e538fbf3a13178adfa26485e0b96e415c2436d20fe8ca9fa4469de427ecb6f8d9e97951a5bcdf89a91d61daee70b1d1e3059c42b64ed2a099af59124ad8c8dfc6f24b9470c2186a03bcbeb8c0416418f68396b25b4b481576f2ec3bfe695ba7d9c77825f8b7e81261730e5f2f5878dc20f2ff265a95f0d0090dd1e9e19c0518000000008d6c00000000000000000000000000
 ```
+
+###### Response
+
+<div style="margin-top: 1rem; margin-bottom: 1rem;">
 
 <collapse-text hidden title="Response">
 
@@ -173,13 +237,18 @@ d60d224d7855a40507064c5ca72ed7d84a54340174eb16e31d079e4b4f230940
 
 </collapse-text>
 
-If we now check `handleinfo` again, we see that we have successfully registered the handle:
+</div>
+
+Execute the <b>handleinfo</b> RPC again to check that we have successfully registered the handle.
+
+
+###### Command
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclib handleinfo 19 "[%22KomodoHaxor%22]"
 ```
 
-<collapse-text hidden title="Response">
+###### Response
 
 ```bash
 {
@@ -191,21 +260,33 @@ If we now check `handleinfo` again, we see that we have successfully registered 
 }
 ```
 
-</collapse-text>
+::: tip Note
 
-#### Note
+The <b>destpubtxid</b> value above can be thought of as the Dilithium address. 
 
-The `"destpubtxid"` value here can be thought of as the Dilithium address. The handle and `-pubkey=` address used to register it are tied to this Dilithium public key, `PMrTr4qgErBbDkwxuSdfRNXkrSMoxbhb2R`.
+The <b>handle</b> and <b>pubkey</b> used to create the <b>destpubtxid</b> are now tied to the Dilithium <b>pkaddr</b> public key, `PMrTr4qgErBbDkwxuSdfRNXkrSMoxbhb2R`.
 
-The Dilithium keypair can later be changed. Currently, the `-pubkey=` address associated with the handle cannot be changed.
+This <b>pkaddr</b> keypair can be changed later. 
 
-### Step 4: Send some coins to the registered `handle`
+However, the <b>pubkey</b> associated with the <b>handle</b> cannot be changed.
 
-Now we can send some coins `t->q` using the `send` rpc command. The paramters must be `<handle>,<destpubtxid>,<amount>`.
+:::
+
+#### Send Coins to the Handle
+
+Use the Dilithium [<b>send</b>](../../../basic-docs/antara/antara-api/dilithium.html#send) RPC to send coins from a `t` address to our new `q` address. 
+
+The paramters for this RPC are `handle`, `destpubtxid`, and `amount`.
+
+###### Response
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclib send 19 "[%22KomodoHaxor%22,%22d60d224d7855a40507064c5ca72ed7d84a54340174eb16e31d079e4b4f230940%22,7.77]"
 ```
+
+###### Response
+
+<div style="margin-top: 1rem; margin-bottom: 1rem;">
 
 <collapse-text hidden title="Response">
 
@@ -220,19 +301,19 @@ Now we can send some coins `t->q` using the `send` rpc command. The paramters mu
 
 </collapse-text>
 
-Now broadcast this transaction.
+</div>
+
+###### Broadcast the Returned Hex Value
 
 ```bash
 ./komodo-cli -ac_name=MUSIG sendrawtransaction 0400008085202f89014009234f4b9e071de316eb740134544ad8d72ea75c4c060705a455784d220dd604000000494830450221008e7c4905498d2cf1597e044dbc79a489ce48c81c5ca421b98e84f4158d876b1c022024901a2862245685fe16ab865a49c9ea939bfed7ea5a9a71d7ac12f84d42be9501ffffffff034014502e00000000302ea22c80200c0396b7e2db09ab239f0b337fbc7df888273e60323a63d0caa862116bcf51a48103120c008203000401cc8052c51f0200000023210377ffe2b64443ac5e746f29b021e22411c7731d675f169d32423f8f3d6fc9ea3bac0000000000000000246a2213784009234f4b9e071de316eb740134544ad8d72ea75c4c060705a455784d220dd600000000936c00000000000000000000000000
 ```
 
-<collapse-text hidden title="Response">
+###### Response
 
 ```bash
 c314304cecded6cd593daeddf676b2a8c424a604f973e68e6777b84e39ef8548
 ```
-
-</collapse-text>
 
 Later in this document we will discuss how to get the balance for a given handle, but for now we know our handle, `KomodoHaxor`, has 1 qUTXO with a value of 7.77 coins.
 
