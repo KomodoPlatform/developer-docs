@@ -2,7 +2,7 @@
 
 ## Heir Module Development
 
-Having finished an overview of the Antara development layout, we are now prepared to create a simplified prototype of the [Heir Module](../basic-docs/fluidity/fluidity-api/heir.html#introduction).
+Having finished an overview of the Antara development layout, we are now prepared to create a simplified prototype of the [Heir Module](../../../basic-docs/antara/antara-api/heir.html#introduction).
 
 #### Links to Heir Source Code and Building Instructions
 
@@ -219,7 +219,7 @@ UniValue heirfund(const UniValue& params, bool fHelp)
     CCerror.clear(); // clear global error object
 ```
 
-Recall that a Smart Chain must have the [<b>ac_cc</b>](../basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.html#ac-cc) and [<b>ac_ccenable</b>](../basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.html#ac-ccenable) customization parameters properly initiated for any Antara Module to function.
+Recall that a Smart Chain must have the [<b>ac_cc</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc) and [<b>ac_ccenable</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-ccenable) customization parameters properly initiated for any Antara Module to function.
 
 Therefore, we check that the wallet and Heir Module features are available in the Smart Chain. We also check the RPC parameter's required number:
 
@@ -230,7 +230,7 @@ Ensure that the wallet object is initialized:
         return NullUniValue;
 ```
 
-Ensure that the chain parameters needed for Antara Modules are correctly set. For example, [<b>addressindex</b>]() and [<b>spentindex</b>]() should both be enabled. Also, ensure that the Heir Module is enabled on this chain.
+Ensure that the chain parameters needed for Antara Modules are correctly set. For example, [<b>addressindex</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#addressindex) and [<b>spentindex</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#spentindex) should both be enabled. Also, ensure that the Heir Module is enabled on this chain.
 
 ```cpp
     if (ensure_CCrequirements(EVAL_HEIR) < 0)
@@ -388,7 +388,7 @@ Also note the `E_MARSHAL()` function. This serializes variables of various suppo
 
 There is also the mirror `E_UNMARSHAL()` function. This is used for unpacking opreturn data from a CScript object to C++ variables, and for further processing.
 
-The returned transaction is ready to be sent to the Smart Chain network using the [<b>sendrawtransaction</b>](../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) RPC.
+The returned transaction is ready to be sent to the Smart Chain network using the [<b>sendrawtransaction</b>](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) RPC.
 
 #### Implementing the heirclaim RPC
 

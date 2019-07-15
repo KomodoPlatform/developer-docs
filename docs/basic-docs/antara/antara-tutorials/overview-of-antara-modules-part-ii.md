@@ -14,8 +14,8 @@ Other readers, such as business or marketing developers, may also find the conte
 
 Consider reading the following resources, if necessary.
 
-- [Overview of Antara Modules - Part I](../../../basic-docs/antara/antara-tutorials/antara-overview.html#introduction)
-- [The Komodo Whitepaper](https://komodoplatform.com/whitepaper)
+- [Overview of Antara Modules - Part I](../../../basic-docs/antara/antara-tutorials/overview-of-antara-modules-part-i.html)
+- [Core Technology Discussions](../../../basic-docs/start-here/core-technology-discussions/introduction.html)
 - [Mastering Bitcoin](https://github.com/bitcoinbook/bitcoinbook)
 
 #### Before We Begin: A Brief Note for Non-Blockchain Developers
@@ -26,7 +26,7 @@ Each module built on the Antara framework can be designed to have Remote Procedu
 
 A good example can be seen in the MuSig module. This module uses the Antara framework to enable a complicated and useful technology called Schnorr Signatures. The RPC's for this module allow any developer of essentially any skill level to adopt MuSig functionality into their software without having to gain an in-depth understanding of Schnorr technology.
 
-[See the MuSig module documentation here](../customconsensus/musig.html#introduction)
+[See the MuSig module documentation here](../../../basic-docs/antara/antara-api/musig.html#introduction)
 
 As the library of available modules grows, so too do the advantages to the many types of developers in the Komodo ecosystem.
 
@@ -90,7 +90,7 @@ Antara Modules and CryptoConditions together allow a developer to add arbitrary 
 
 The entry point between Antara Modules and the CM is a new Bitcoin-script [operation code](https://bitcoin.org/en/glossary/op-code), "OP_CHECKCRYPTOCONDITIONS", or OP_CCC for short. When executed, OP_CCC is able to initiate additional arbitrary code that is written in any programming language, assuming the language can call and execute C/C++ code in return. The arbitrary code is separate from the CM, thus maintaining the CM's reliability. When the arbitrary code completes, OP_CCC returns a `true` or `false` statement to the daemon. If the returned OP_CCC value is `true`, the daemon performs a transaction.
 
-The transaction can contain meta data in the normal manner. Therefore, these transactions can also implement other data-storage features of Komodo software. Examples include the [key-value storage](../komodo-api/blockchain.html#kvupdate) feature, the [Oracles CC Module](../customconsensus/oracles.html#introduction), or the native `vout` and `batontxid` key-value pairs. 
+The transaction can contain meta data in the normal manner. Therefore, these transactions can also implement other data-storage features of Komodo software. Examples include the [key-value storage](../../../basic-docs/smart-chains/smart-chain-api/blockchain.html#kvupdate) feature, the [Oracles Antara Module](../../../basic-docs/antara/antara-api/oracles.html#introduction), or the native `vout` and `batontxid` key-value pairs. 
 
 With access to the meta data established, Antara Modules are able to act as an application-state manager. State-related data is held in utxos that are accessible to the CM. As application-state management is based on the utxo model, the management also follows the CM's rules for consensus. This powerful combination allows the developer to collect, organize, and act upon data in a securely decentralized manner.
 

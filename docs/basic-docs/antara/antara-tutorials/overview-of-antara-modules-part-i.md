@@ -237,7 +237,7 @@ However, once created, other users may rely on the module's RPC commands to util
 
 For example, consider how the MuSig Antara Module serves non-blockchain developers. This module relies on Antara to enable a complicated technology called Schnorr Signatures, which are a new method for creating multi-signature blockchain transactions. The RPC's for this module allow any developer of essentially any skill level to adopt the MuSig functionality into the developer's software without having to gain an in-depth understanding of Schnorr technology.
 
-[See the MuSig module documentation here](../customconsensus/musig.html#introduction)
+[See the MuSig module documentation here](../../../basic-docs/antara/antara-api/musig.html#introduction)
 
 As the library of available modules grows, so too do the advantages to the many types of developers in the Komodo ecosystem. For this reason, members of the Komodo community express gratitude to the more experienced blockchain developers who build and share Antara Modules via open-source ideology.
 
@@ -253,4 +253,4 @@ To our knowledge, no other blockchain project has successfully implemented utxo-
 
 Join us for Part II of this discussion. Part II delves a little deeper into the methods of Antara Module functionality, and continues preparing the developer for Antara Module utilization.
 
-[<b>Link to Part II of an Overview of Antara Modules</b>](../../../basic-docs/antara/antara-tutorials/antara-conceptual-overview.html#introduction)
+[<b>Link to Part II of an Overview of Antara Modules</b>](../../../basic-docs/antara/antara-tutorials/overview-of-antara-modules-part-ii.html)

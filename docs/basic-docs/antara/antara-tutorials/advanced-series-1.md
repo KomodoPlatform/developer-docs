@@ -175,7 +175,7 @@ By design, any leftover amount not claimed by a vout is given to the miner that 
 
 To summarize, the utxo takes `0.1` coins from an address, sends `0.04995` back to the same address, and then sends `0.05` coins to a new address. The leftover amount is automatically given to the miner of the block.
 
-This suggests that the user who created this transaction desired to send `0.05` coins to the new address. The user may have created this transaction using the [<b>sendtoaddress</b>]() API method.
+This suggests that the user who created this transaction desired to send `0.05` coins to the new address. The user may have created this transaction using the [<b>sendtoaddress</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#sendtoaddress) API method.
 
 From here, the software daemon took control. The software found that within the user's wallet was an existing value of `0.1` coins. This became the vin for the transaction. The first vout the software created was sent back to the address in the user's own wallet. This `0.04995000` value is the "change" from the transaction. The second vout contains the `0.05` the user intended to send to the new address.
  
@@ -227,11 +227,11 @@ This encouraged Satoshi to redesign the Bitcoin protocol so that, by default, ea
 
 An astute reader may note that in the above example transaction, the "change" did not go to a new address, but rather to the same address from which the `0.1` coins were taken. The reason for this pertains to CryptoConditions (CC), as the transaction was performed on a Smart Chain that utilizes CryptoConditions.
 
-When using CC technology, the user typically must provide a designated pubkey via the [<b>pubkey</b>]() launch parameter. The reason for this will be discussed later. 
+When using CC technology, the user typically must provide a designated pubkey via the [<b>pubkey</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter. The reason for this will be discussed later. 
 
 A side effect of using this <b>pubkey</b> parameter is that once this is set, the software will stop creating new "change" addresses with each transaction. Instead, the software will send the "change" back to the same cold address that is associated with the pubkey.
 
-If a user wants to keep funds safe from quantum computers, there are separate CC-related modules that provide protection. For example, [the upcoming Dilithium Antara Module.](https://komodoplatform.com/dilithium-quantum-secure-blockchain/)
+If a user wants to keep funds safe from quantum computers, there are separate CC-related modules that provide protection. For example, [the upcoming Dilithium Antara Module.](../../../basic-docs/antara/antara-api/dilithium.html#introduction)
 
 #### Pay to Pubkey Hash Transactions 
 

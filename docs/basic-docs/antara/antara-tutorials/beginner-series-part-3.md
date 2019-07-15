@@ -4,7 +4,7 @@
 
 This tutorial is part of a series. 
 
-[To return to the previous tutorial, click here.]()
+[To return to the previous tutorial, click here.](../../../basic-docs/antara/antara-tutorials/beginner-series-part-2.html)
 
 ## Introduction
 
@@ -100,7 +100,7 @@ curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e601
 | "{ | begin the string that contains the data object; everything within this string is sent directly to the Komodo daemon for processing |
 | \"jsonrpc\": \"1.0\" | informs the Komodo daemon that it is receiving a json rpc object, and that the object is formatted according to version 1.0 of the Komodo RPC's source code |
 | \"id\": \"curl test\" | informs the daemon that the json object sent is a curl command |
-| \"method\": \"getinfo\" | informs the daemon that the developer is using the [<b>getinfo</b>]() RPC |
+| \"method\": \"getinfo\" | informs the daemon that the developer is using the [<b>getinfo</b>](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo) RPC |
 | \"params\": [] | provides the required or optional parameters that accompany the Komodo RPC; in this case, the <b>getinfo</b> RPC does not have any parameters, and therefore the array is empty |
 | }" | end of the string that contains the data object |
 | -H | informs the shell that there is an extra http header to include |
@@ -154,7 +154,7 @@ The response to the <b>getinfo</b> RPC `curl` command is as follows. Note that t
 
 ## Mine on the Seed Node Using curl
 
-Use `curl` to tell the `SEED` node to begin mining the `TUT1` Smart Chain. Use the [<b>setgenerate</b>]() RPC for this function. 
+Use `curl` to tell the `SEED` node to begin mining the `TUT1` Smart Chain. Use the [<b>setgenerate</b>](../../../basic-docs/smart-chains/smart-chain-api/generate.html#setgenerate) RPC for this function. 
 
 Note that this RPC requires parameters in the `curl` command: `\"params\": [true,1]`
 
@@ -174,7 +174,7 @@ null
 
 ## Discover the State of Mining on the Seed Node
 
-Use the [<b>getmininginfo</b>]() RPC to ensure that the command executed successfully. 
+Use the [<b>getmininginfo</b>](../../../basic-docs/smart-chains/smart-chain-api/mining.html#getmininginfo) RPC to ensure that the command executed successfully. 
 
 #### Command
 
@@ -206,7 +206,7 @@ curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e601
 
 ## Stop Mining on the Seed Node
 
-To instruct the node to cease mining, we again use the [<b>setgenerate</b>]() RPC, but this time we provide the parameter as `false`.
+To instruct the node to cease mining, we again use the [<b>setgenerate</b>](../../../basic-docs/smart-chains/smart-chain-api/generate.html#setgenerate) RPC, but this time we provide the parameter as `false`.
 
 ```bash
 curl -s --user user3044755432:passd30f503069f140e8e0ffe4d3f1645a8eae8e923b20e6011630cc98880ec5c47320 --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curl test\", \"method\": \"setgenerate\", \"params\": [false]}" -H 'content-type: text/plain;' http://127.0.0.1:9253/ | jq -r '.result'       
@@ -220,5 +220,5 @@ null
 
 --------------------
 
-[Proceed to next tutorial article in the series.]()
+[Proceed to next tutorial article in the series.](../../../basic-docs/antara/antara-tutorials/beginner-series-part-4.html#introduction)
 
