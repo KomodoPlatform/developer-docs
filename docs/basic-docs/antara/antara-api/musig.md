@@ -20,30 +20,30 @@ For further information, see this [article.](https://blockstream.com/2019/02/18/
 
 #### MuSig Module Flow
 
-- Create a combined pubkey using the [combine](../customconsensus/musig.html#combine) method
+- Create a combined pubkey using the [combine](../../../basic-docs/antara/antara-api/musig.html#combine) method
   - From the response, take note of the `combined_pk` and `pkhash` values
-- Send coins to `combined_pk` using the [send](../customconsensus/musig.html#send) method
-  - Decode the returned raw transaction using [getrawtransaction](../komodo-api/rawtransactions.html#getrawtransaction)
+- Send coins to `combined_pk` using the [send](../../../basic-docs/antara/antara-api/musig.html#send) method
+  - Decode the returned raw transaction using [getrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#getrawtransaction)
   - From the decoded raw transaction, take note of the `sendtxid` value
-- Calculate the message that needs to be signed using the [calcmsg](../customconsensus/musig.html#calcmsg) method
+- Calculate the message that needs to be signed using the [calcmsg](../../../basic-docs/antara/antara-api/musig.html#calcmsg) method
   - From the response, take note of `msg`
   - This `msg` needs to be signed by all participating pubkeys
-- On each node create a session using the [session](../customconsensus/musig.html#session) method
+- On each node create a session using the [session](../../../basic-docs/antara/antara-api/musig.html#session) method
   - From the response on each node take note of the `commitment` value
   - Transfer each node's `commitment` value to each other node
   - Do not stop the `komodod` daemon on any node from this point forward
     - The `komodod` daemon stores the `commitment` value as a part of a `global data structure`
     - Should any `komodod` daemon be stopped, the MuSig workflow must be restarted from the beginning
   - Also, execute the `sessions` method only once on each node
-- On each node use the [commit](../customconsensus/musig.html#commit) method
+- On each node use the [commit](../../../basic-docs/antara/antara-api/musig.html#commit) method
   - Transfer each node's `nonce` value to each other node
-- On each node use the [nonce](../customconsensus/musig.html#nonce) method
+- On each node use the [nonce](../../../basic-docs/antara/antara-api/musig.html#nonce) method
   - Transfer each node's `partialsig` value to each other node
-- On each node execute the [partialsig](../customconsensus/musig.html#partialsig) method
+- On each node execute the [partialsig](../../../basic-docs/antara/antara-api/musig.html#partialsig) method
   - Verify that the `combinedsig` value of each node is the same as each other node by transferring one `combinedsig` value on one node to all other nodes
-- On at least one node execute the [verify](../customconsensus/musig.html#verify) method
+- On at least one node execute the [verify](../../../basic-docs/antara/antara-api/musig.html#verify) method
   - Use the returned output to verify that the `combinedsig` value will be able to successfully execute the `spend` method for the desired `msg`
-- On one node execute the [spend](../customconsensus/musig.html#spend) method and broadcast the returned raw transaction
+- On one node execute the [spend](../../../basic-docs/antara/antara-api/musig.html#spend) method and broadcast the returned raw transaction
 
 ## Tutorial Availability
 
@@ -59,7 +59,7 @@ The `calcmsg` method can be used by any one of the signers to initiate a `spend`
 
 To calculate the `msg` value, this method requires a `sendtxid` and a `scriptPubKey`.
 
-- The `sendtxid` is the id of a transaction that added funds to the `combined_pk` through the [send](../customconsensus/musig.html#send) method.
+- The `sendtxid` is the id of a transaction that added funds to the `combined_pk` through the [send](../../../basic-docs/antara/antara-api/musig.html#send) method.
 - The `scriptPubKey` expected here is of the type [p2pk](http://learnmeabitcoin.com/glossary/p2pk) in `hex` form.
 
 To create a `scriptPubkey` from a normal `pubkey`, add the characters `21` to the beginning of the `pubkey` string and the characters `ac` to the end of the string:
@@ -73,20 +73,20 @@ For example:
 - The `pubkey` is: `02f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193e`
 - The associated `scriptPubkey` is: `2102f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193eac`
 
-Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+Usage of this method depends on the [cclib](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
 #### Arguments
 
 | Name         | Type     | Description                                                                                                                                                                                                   |
 | ------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| sendtxid     | (string) | the transaction id of the transaction created by the [send](../customconsensus/musig.html#send) method that was executed to fund the MuSig address; only the funds in the `vout0` of the `sendtxid` are spent |
+| sendtxid     | (string) | the transaction id of the transaction created by the [send](../../../basic-docs/antara/antara-api/musig.html#send) method that was executed to fund the MuSig address; only the funds in the `vout0` of the `sendtxid` are spent |
 | scriptPubKey | (string) | a modified form of a pubkey; this is the pubkey that will receive the spent funds                                                                                                                             |
 
 #### Response
 
 | Name   | Type     | Description                                                                                                              |
 | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------ |
-| msg    | (string) | the message that must be signed by all the signers for the final [spend](../customconsensus/musig.html#spend) to succeed |
+| msg    | (string) | the message that must be signed by all the signers for the final [spend](../../../basic-docs/antara/antara-api/musig.html#spend) to succeed |
 | result | (string) | whether the call executed successfully                                                                                   |
 
 #### :pushpin: Examples
@@ -114,7 +114,7 @@ Command:
 
 The `combine` method produces the combined pubkey ( `combined_pk` ) from all pubkeys provided.
 
-Usage of this method depends upon the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+Usage of this method depends upon the [cclib](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
 #### Arguments
 
@@ -158,7 +158,7 @@ The `commit` method produces a `nonce` for each set of `index` and `commitment` 
 
 The returned `nonce` must be shared with all corresponding nodes.
 
-Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+Usage of this method depends on the [cclib](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
 #### Arguments
 
@@ -206,7 +206,7 @@ The `nonce` method produces a `partialsig` for each set of `index` and `nonce` v
 
 The returned `partialsig` must be shared with all corresponding nodes.
 
-Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+Usage of this method depends on the [cclib](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
 #### Arguments
 
@@ -254,7 +254,7 @@ The `partialsig` method produces a `combinedsig` for each set of `index` and `no
 
 The returned `combinedsig` must be shared with all corresponding nodes.
 
-Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+Usage of this method depends on the [cclib](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
 #### Arguments
 
@@ -299,9 +299,9 @@ Command:
 
 The `send` method allows any node on the network to fund the `combined_pk` with the specified `amount` .
 
-The returned transaction id is called the `sendtxid`. It is used as a parameter for the methods [calcmsg](../customconsensus/musig.html#calcmsg) and [spend.](../customconsensus/musig.html#spend)
+The returned transaction id is called the `sendtxid`. It is used as a parameter for the methods [calcmsg](../../../basic-docs/antara/antara-api/musig.html#calcmsg) and [spend.](../../../basic-docs/antara/antara-api/musig.html#spend)
 
-Usage of this method depends upon the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+Usage of this method depends upon the [cclib](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
 #### Arguments
 
@@ -344,7 +344,7 @@ Command:
 
 The `session` method creates a `global data structure` on each node on which the method is executed. The method also adds a `commitment` to sign the `msg` message provided.
 
-Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+Usage of this method depends on the [cclib](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
 #### Arguments
 
@@ -354,7 +354,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 | numsigners  | (decimal number) | the total number of signers participating                                                                                                      |
 | combined_pk | (string)         | the combined pubkey of all the signers                                                                                                         |
 | pkhash      | (string)         | the 32-byte hash of the original public keys                                                                                                   |
-| msg         | (string)         | the message that needs to be signed by all the signers for the final [spend](../customconsensus/musig.html#spend) to succeed                   |
+| msg         | (string)         | the message that needs to be signed by all the signers for the final [spend](../../../basic-docs/antara/antara-api/musig.html#spend) to succeed                   |
 
 #### Response
 
@@ -405,15 +405,15 @@ For example:
 - The `pubkey` is: `02f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193e`
 - The associated `scriptPubkey` is: `2102f7597468703c1c5c8465dd6d43acaae697df9df30bed21494d193412a1ea193eac`
 
-The method generates a raw transaction which must then be broadcast using [sendrawtransaction.](../komodo-api/rawtransactions.html#sendrawtransaction)
+The method generates a raw transaction which must then be broadcast using [sendrawtransaction.](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction)
 
-Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+Usage of this method depends on the [cclib](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
 #### Arguments
 
 | Name         | Type     | Description                                                                                                                                                                                      |
 | ------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| sendtxid     | (string) | the transaction id of the transaction created by the [send](../customconsensus/musig.html#send) method used to fund the MuSig address; only the funds in the `vout0` of the `sendtxid` are spent |
+| sendtxid     | (string) | the transaction id of the transaction created by the [send](../../../basic-docs/antara/antara-api/musig.html#send) method used to fund the MuSig address; only the funds in the `vout0` of the `sendtxid` are spent |
 | combinedsig  | (string) | the combined signature produced by all the signers                                                                                                                                               |
 | scriptPubKey | (string) | a modified form of a pubkey to which funds are to be spent                                                                                                                                       |
 
@@ -421,7 +421,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 
 | Name        | Type     | Description                                                                                                                  |
 | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../customconsensus/musig.html#spend) to succeed |
+| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../../basic-docs/antara/antara-api/musig.html#spend) to succeed |
 | combined_pk | (string) | the combined pubkey of all the signers                                                                                       |
 | combinedsig | (string) | the combined signature produced by all the signers                                                                           |
 | hex         | (string) | the `spend` transaction in raw-transaction format, provided in hexadecimal                                                   |
@@ -457,13 +457,13 @@ Command:
 
 The `verify` method verifies that the `combinedsig` is able to spend the funds owned by `combined_pk`. The funds in question are those which were referenced in the creation of the `msg` value.
 
-Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
+Usage of this method depends on the [cclib](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib) method. The `EVALCODE` is `18`.
 
 #### Arguments
 
 | Name        | Type     | Description                                                                                                                  |
 | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../customconsensus/musig.html#spend) to succeed |
+| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../../basic-docs/antara/antara-api/musig.html#spend) to succeed |
 | combined_pk | (string) | the combined pubkey of all the signers                                                                                       |
 | combinedsig | (string) | the `combinedsig` value produced by the node on which this method is executed                                                |
 
@@ -471,7 +471,7 @@ Usage of this method depends on the [cclib](../komodo-api/cclib.html#cclib) meth
 
 | Name        | Type     | Description                                                                                                                  |
 | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../customconsensus/musig.html#spend) to succeed |
+| msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../../basic-docs/antara/antara-api/musig.html#spend) to succeed |
 | combinedsig | (string) | the `combinedsig` value produced by the node on which this method is executed                                                |
 | combined_pk | (string) | the combined pubkey of all the signers                                                                                       |
 | result      | (string) | whether the call executed successfully                                                                                       |

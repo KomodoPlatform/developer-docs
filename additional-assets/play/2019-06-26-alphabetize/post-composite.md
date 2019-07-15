@@ -1,824 +1,1047 @@
-## ac_algo
+## oraclesaddress
 
-::: warning
-This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
-:::
+**oraclesaddress (pubkey)**
 
-The `ac_algo` parameter changes the chain's mining algorithm from the default equihash to the verushash.
+The `oraclesaddress` method displays the oracle address for a specific pubkey.
 
-To enable this feature, set `-ac_algo=verushash`.
+### Arguments
 
-This activates verushash1.0. More recent versions of verushash are not yet supported.
+| Name   | Type               | Description                                                                            |
+| ------ | ------------------ | -------------------------------------------------------------------------------------- |
+| pubkey | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
 
-The verushash feature serves as a proof of concept for adding support for additional mining algorithms.
+### Response
 
-The Komodo team is currently testing methods to support compatibility for `ac_staked`, but this feature is not yet recommended for external testing.
-
-## ac_blocktime
-
-This parameter sets the average time (in seconds) by which a new block should be mined.
-
-If this parameter is not included, the default value is `ac_blocktime=60`.
-
-When the value of `ac_blocktime` is less than `60`, the Smart Chain's block time will stabilize within less than twelve hours after launch. If the Smart Chain's `ac_blocktime` value is greater than `60`, the Smart Chain's block time can require several days to stabilize.
-
-When the value of `ac_blocktime` is less than `12` seconds (a high speed Smart Chain), the variances in network quality between consensus nodes (miners and stakers) can create difficulties in achieving a stable blockchain consensus. High-speed Smart Chains may function effectively on a LAN or other stable network, but Komodo recommends caution when attempting to manage a high-speed Smart Chain on the public Internet.
+| Name | Type | Description |
+| ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
+| result           | (string) | whether the method executed successfully                                                                             |
+| OraclesCCaddress | (string) | taking the module's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
+| Oraclesmarker    | (string) | the unmodified public address generated from the contract's privkey                                                  |
+| GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                       |
+| OraclesCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                                     |
+| CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                    |
+| myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                    |
+| myaddress        | (string) | the public address of the pubkey used to launch the chain                                                            |
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
-
-A 777777 coin pre-mine with a 1-coin block reward and a block speed of 20 seconds.
+Command:
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 -ac_blocktime=20 &
+./komodo-cli -ac_name=HELLOWORLD oraclesaddress 03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "OraclesCCaddress": "REt2C4ZMnX8YYX1DRpffNA4hECZTFm39e3",
+  "Oraclesmarker": "RHkFKzn1csxA3fWzAsxsLWohoCgBbirXb5",
+  "GatewaysPubkey": "03ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb40",
+  "OraclesCCassets": "RLh5sgvh3scCyM4aq1fhYhwgfbmb5SpCkT",
+  "CCaddress": "RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8",
+  "myCCaddress": "RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8",
+  "myaddress": "RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"
+}
 ```
 
 </collapse-text>
 
-## ac_cbmaturity
+## oraclescreate
 
-The `ac_cbmaturity` parameter allows the "COINBASE_MATURITY" value to be changed.
+**oraclescreate name description format**
 
-The "COINBASE_MATURITY" value is the amount of blocks before newly created coins can be spent. For example, if a chain has `ac_cbmaturity=10`, newly mined coins will not be able to be spent until they have 10 confirmations total.
+The `oraclescreate` method creates a new oracle.
 
-By default, this value is set to `1` on Smart Chains without [ac_eras](../installations/asset-chain-parameters.html#ac-eras) and set to `100` on Smart Chains with [ac_eras](../installations/asset-chain-parameters.html#ac-eras).
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
+### Arguments
 
-## ac_cc
+| Name        | Type     | Description                                                                                                                      |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| name        | (string) | the desired name of the oracle contract                                                                                          |
+| description | (string) | the description of the oracle                                                                                                    |
+| format      | (string) | an indication of what format of data is accepted into this contract; use the list of characters provided below for this property |
 
-::: warning Notice
-This parameter is still in testing.
+The various formats of data that can be registered for an oracle and their symbols are as follows:
+
+- `s` -> `char string; size < 256 bytes`
+- `S` -> `char string; size < 65536 bytes`
+- `d` -> `binary data; size < 256 bytes`
+- `D` -> `binary data; size < 65536 bytes`
+- `c` -> `1 byte signed little endian number, 'C' if unsigned`
+- `t` -> `2 byte signed little endian number, 'T' if unsigned`
+- `i` -> `4 byte signed little endian number, 'I' if unsigned`
+- `l` -> `8 byte signed little endian number, 'L' if unsigned`
+- `h` -> `32 byte hash`
+
+::: warning
+
+- Even though the formats `S` and `D` specify that the data size can be up to `65536` bytes, the combination of the transaction size and the data size cannot exceed the limit of `10000` bytes.
+- Although the formats `d` and `D` are for raw binary data, they are preferable to the `s` and `S` human-readable formats. This is because the `s` and `S` formats occupy twice the size of data on the blockchain, and yet their only advantage is their ability to show human-readable output in the [oraclessamples](../../../basic-docs/antara/antara-api/oracles.html#oraclessamples) method.
+
 :::
-
-The `ac_cc` parameter sets the network cluster on which the chain can interact with other chains via Antara modules and MoMoM technology.
-
-Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one Smart Chain can be directly transferred to any other Smart Chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
-
-Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, cross-chain transaction validation and its dependent features, including cross-chain fungibility, require notarization.
-
-### ac_cc=0
-
-Setting `ac_cc=0` disables Antara on the Smart Chain entirely.
 
 ::: tip
-It is better to <b>NOT</b> use `ac_cc=0` for a Smart Chain where Antara should not be enabled. Omitting the `ac_cc` parameter altogether will achieve the same result.
+If data to be submitted is larger than `8KB`, break it into chunks of size `8KB` or lower.
 :::
 
-### ac_cc=1
+### Response
 
-Setting `ac_cc=1` permits Antara on the Smart Chain, but will not allow the Smart Chain to interact in cross-chain Antara functionality with other Smart Chains.
-
-### ac_cc=2 to 99
-
-The values of `2` through `99` (inclusive) indicate Smart Chains that can validate transactions that occur on other Smart Chains on the same cluster (i.e. the same `ac_cc` value), but their coins are not fungible.
-
-However, coins are not fungible, and therefore cannot be transferred between blockchains.
-
-### ac_cc=100 to 9999
-
-Setting the value of `ac_cc` to any value greater than or equal to `100` will permit cross-chain interaction with any Smart Chain that has the same `ac_cc` value and is secured by notary nodes with the same `pubkey`.
-
-All Smart Chains that have the same `ac_cc (>= 100)` value form a cluster, where the base tokens of all the chains in the cluster are fungible via the burn protocol.
-
-For example, a Smart Chain set to `ac_cc=201` in its parameters can interact with other Smart Chains with `ac_cc=201` on the same notary-node network, but cannot interact with a Smart Chain set to `ac_cc=301`.
-
-### Summary of `ac_cc`
-
-::: tip Consider a chain with -ac_cc=N
-
-- If <b>N = 0</b>, Antara is disabled
-- If <b>N > 0</b>, Antara is enabled
-- If <b>N = 1</b>, on-chain Antara is active, cross-chain validation is disabled
-- If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in each Smart Chain are non-fungible across chains.
-- If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
-  :::
+| Name   | Type     | Description                                                                                          |
+| ------ | -------- | ---------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command succeeded                                                                        |
+| hex    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
-
-A 777777 pre-mined chain with no Antara modules enabled.
+Step 1: Create a customized oracle contract and get the hex value
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
+./komodo-cli -ac_name=HELLOWORLD oraclescreate "NYWTHR" "Weather in NYC" "L"
 ```
 
-A 777777 pre-mined chain with Antara modules on-chain only; no cross-chain Antara modules.
+<collapse-text hidden title="Response">
 
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=1 &
-```
-
-A 777777 pre-mined chain where Antara modules are allowed between all fellow Smart Chains that have -ac_cc=2 in their launch parameters. However, the cross-chain burn protocol is not active, and therefore coins cannot be transferred between chains.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=2 &
-```
-
-A 777777 pre-mined chain. Antara modules are allowed between all fellow Smart Chains that have -ac_cc=102 in their launch parameters. Also, all -ac_cc=102 chains can use the cross-chain burn protocol to transfer coins from one chain to another.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_cc=102 &
+```json
+{
+  "result": "success",
+  "hex": "010000000185b76ed0fbdb9ee2bdb5693f491b6ea23de6498f42c6e83f9f36c1eaf411dd990200000049483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01ffffffff0310270000000000002321038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac378740a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000001c6a1aec43064e5957544852014c0e5765617468657220696e204e594300000000"
+}
 ```
 
 </collapse-text>
 
-## ac_ccactivate
-
-**-ac_ccactivate=block_height**
-
-The `ac_ccactivate` launch parameter allows for the activation of Antara on an existing Komodo-based Smart Chain wherein Antara was not originally enabled.
-
-Add the `ac_ccactivate` parameter to the existing launch command for the Smart Chain and set the value equal to a future block height. When this block height is reached, Antara will be available on the Smart Chain.
-
-This change requires a hard fork of the Smart Chain. If the Smart Chain is receiving Komodo's dPoW security service, the notary nodes must relaunch their Smart Chain daemons with the new launch parameter. All nodes must also update their daemons in the same manner.
-
-By default, `ac_ccactivate` uses the default `ac_cc` value of `ac_cc=2`. It is not necessary to further specify `ac_cc` in the launch parameters, unless a value other than `2` is required.
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
-
-##### Before Using `ac_ccactivate`
+Step 2: Send raw transaction / broadcast the hex value
 
 ```bash
-./komodod -ac_name=EXAMPLE -ac_supply=72000000 -addnode=24.54.206.138 &
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000185b76ed0fbdb9ee2bdb5693f491b6ea23de6498f42c6e83f9f36c1eaf411dd990200000049483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01ffffffff0310270000000000002321038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac378740a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000001c6a1aec43064e5957544852014c0e5765617468657220696e204e594300000000
+# This will output an unique txid which will be refered as oracletxid or transaction ID of the oracle.
 ```
 
-##### After Using `ac_ccactivate`
+<collapse-text hidden title="Response">
 
 ```bash
-./komodod -ac_name=EXAMPLE -ac_supply=72000000 -ac_ccactivate=140 -addnode=24.54.206.138 &
-```
-
-In this example, Antara will be available at blockheight `140`. All nodes, include the notary nodes, must relaunch the daemon with the new parameters before blockheight `140`.
-
-</collapse-text>
-
-## ac_ccenable
-
-::: warning
-This parameter is at the end of the beta development phase and is prepared for public testing. If you are interested in adopting this feature for a production Smart Chain, please reach out to us so that we can assist you.
-:::
-
-The `ac_ccenable` parameter restricts the Smart Chain so that only indicated Antara modules can be enabled. `ac_ccenable` requires [ac_cc](../installations/asset-chain-parameters.html#ac-cc) to be active.
-
-To indicate which Antara modules should be available, insert each module's eval code in decimal and separated by commas.
-
-The following table presents an abbreviated list of EVAL codes. For more information, please see [this linked content](https://github.com/jl777/komodo/blob/master/src/cc/eval.h).
-
-| Name of the module | EvalCode |
-| ------------------ | -------- |
-| ASSETS             | 227      |
-| FAUCET             | 228      |
-| REWARDS            | 229      |
-| DICE               | 230      |
-| FSM                | 231      |
-| AUCTION            | 232      |
-| LOTTO              | 233      |
-| HEIR               | 234      |
-| CHANNELS           | 235      |
-| ORACLES            | 236      |
-| PRICES             | 237      |
-| PEGS               | 238      |
-| TRIGGERS           | 239      |
-| PAYMENTS           | 240      |
-| GATEWAYS           | 241      |
-
-For example, the following parameters create a Smart Chain where only the `faucet` and `rewards` modules are active:
-
-```bash
-./komodod -ac_name=EXAMPLE -ac_supply=0 -ac_reward=100000000 -ac_cc=2 -ac_ccenable=228,229
-```
-
-When `-ac_cc` is set, but `-ac_ccenable` is not, all Antara modules are enabled.
-
-::: warning
-`ac_ccenable` disables spending utxos that are created under a non-enabled Antara module. We have also implemented additional functionality that disables API functions. This prevents the user from creating a utxo that `ac_ccenable` would render unspendable. It is still possible to create raw transactions that bypass this security feature, and thus create utxos that are unspendable. A normal user or developer relying on our API functionality should not be concerned with this. However, those who experiment with raw transactions should be cautious.
-:::
-
-::: warning
-If the developer is also using a new feature that has yet to be documented here, `ac_cclib`, the eval codes in the `libcc.so` will not disable Antara API calls. Therefore, there remains a risk that a disabled API call can still be used to create a utxo, which will then be non-spendable.
-:::
-
-## ac_cclib
-
-The `ac_cclib` parameter is used in conjunction with various Antara modules.
-
-Typically, the Smart Chain that uses the `ac_cclib` parameter will have a unique build process. This is described as a part of each Antara module in question. Once the Smart Chain is properly built, the terminal command to launch the chain will include the `ac_cclib` parameter in a manner similar to the following:
-
-```bash
--ac_cclib=desired_CC_module
-```
-
-Each Antara module uses the `ac_cclib` parameter differently, and therefore the reader should refer to the desired Antara module for further instructions.
-
-## ac_decay
-
-This is the percentage which determines the block reward decrease on each block-reward "halving".
-
-This parameter will have no effect if [ac_reward](../installations/asset-chain-parameters.html#ac-reward) is not set.
-
-This is the formula that `ac_decay` follows:
-
-```bash
-block_reward_after = block_reward_before * ac_decay / 100000000;
-```
-
-For example, if this parameter is set to `75000000`, at each "halving" the block reward will drop to 75% of its previous value.
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
-
-A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
+0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203
 ```
 
 </collapse-text>
 
-## ac_end
+(Use `./komodo-cli -ac_name=HELLOWORLD getrawmempool` to ensure that the transaction receives confirmation.)
 
-This is the block height at which block rewards will end. Every block after this height will have 0 block reward (this means that, assuming all other settings are default, the only incentive to mine a new block will be transaction fees).
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
-
-A 777777-coin pre-mine, with a block reward of 0.0005 coin. The block reward ends at block 25000.
+Step 3: Decode raw transaction (optional to check if the values are sane)
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=50000 -ac_end=25000 &
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000185b76ed0fbdb9ee2bdb5693f491b6ea23de6498f42c6e83f9f36c1eaf411dd990200000049483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01ffffffff0310270000000000002321038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac378740a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000001c6a1aec43064e5957544852014c0e5765617468657220696e204e594300000000
 ```
 
-A 777777-coin pre-mine, with a 5-coin block reward, and the block reward ends at block 200.
+<collapse-text hidden title="Response">
 
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_end=200 &
-```
-
-A 777777-coin pre-mine, with a 5-coin block reward, the block reward decreases by 50% every 2000 blocks, and the block reward ends at block 10000.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_halving=2000 -ac_end=10000 &
-```
-
-</collapse-text>
-
-## ac_eras
-
-The `ac_eras` parameter allows the value of a chain's block reward to vary over time.
-
-Each different time interval is called an "era" and a chain can have at most seven eras.
-
-When active, `ac_eras` changes the behavior of coinbase coins (i.e., the coins that are created as a result of mining). `ac_eras` forces the `COINBASE_MATURITY` value of coinbase coins to be `100` instead of the normal value of `1`. Therefore, coinbase coins become spendable after `100` confirmations.
-
-This `COINBASE_MATURITY` value can be explicitly changed using the [ac_cbmaturity](#ac-cbmaturity) parameter. Changing this `COINBASE_MATURITY` value to `1` is recommended if a chain uses `ac_eras` in conjunction with [ac_staked](../installations/asset-chain-parameters.html#ac-staked).
-
-The `ac_eras` parameter accepts only one value (`2`-`7`, i.e., one among `2`, `3`, `4`, `5`, `6` and `7`). When activated, it allows certain other Smart Chain parameters to accept multiple values.
-
-The principle parameter that is affected by `ac_eras` is [ac_reward](#ac-reward), and it must receive at least one value.
-
-Also, [ac_decay](../installations/asset-chain-parameters.html#ac-decay), [ac_halving](../installations/asset-chain-parameters.html#ac-halving), [ac_end](../installations/asset-chain-parameters.html#ac-end), and [ac_notarypay](../installations/asset-chain-parameters.html#ac-notarypay) can each receive multiple values and thereby affect reward functionality.
-
-For every era, there must be a corresponding value in `ac_end` that indicates the block height at which this era ends. To set the final era to last indefinitely, set the `ac_end` value of that era to `0`; the `0` setting should only be used for the last era. If the last era's `ac_end` value is not `0`, the chain's block rewards will stop after the final `ac_end` value, and every block after the final `ac_end` value will have no block reward.
-
-In all parameters receiving multiple values, the values must be preceded by a comma.
-
-For example:
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_eras=3 -ac_reward=5000000000,7000000000,4000000000 -ac_end=1000,10000,0
-```
-
-In this Smart Chain, the first era will have a reward of 5000000000, the second will have 7000000000, and the third will have 4000000000. The reward for the first era ends at block 1000, for the second era at block 10000, and the third era lasts indefinitely.
-
-If any of the relevant parameters has fewer distinct values than eras, the parameter's final value will carry through the remaining eras.
-
-For example:
-
-```bash
--ac_eras=2 -ac_reward=100000000,200000000 -ac_halving=100 -ac_end=10000,0
-```
-
-In this Smart Chain, the `ac_halving` value for both eras is `100`.
-
-One more feature of `ac_eras` is the ability to transition from one era to the next with a linear progression, rather than a direct switch. To achieve this effect, in the initial era (the point at which the linear progression should begin) set the `ac_decay` value to `100000000` and the `ac_halving` value to `1`.
-
-For example, the following parameters create a Smart Chain with a "slow start" reward:
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_reward=0,10000000000 -ac_eras=2 -ac_end=1000,0 -ac_decay=100000000,100000000 -ac_halving=1
-```
-
-This chain's block reward will grow linearly from 0 to 100 over 1000 blocks, then stay at 100 indefinitely.
-
-::: tip
-Use the [getblocksubsidy](../komodo-api/mining.html#getblocksubsidy) API method to verify your Smart Chain will work as expected at each relevant height: `./komodo-cli -ac_name=HELLOWORLD getblocksubsidy <blockheight>`
-:::
-
-## ac_founders
-
-The `ac_founders` parameter creates a "founder's reward."
-
-This parameter requires [ac_perc](../installations/asset-chain-parameters.html#ac-perc). If the `ac_perc` value is not declared, the `ac_founders` value defaults to `35%`. Also, either [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) OR [ac_script](../installations/asset-chain-parameters.html#ac-script) must be set.
-
-The `ac_perc` value determines the percentage of block rewards paid to the founder. These rewards are not paid out immediately, but rather according to the `ac_founders` setting.
-
-`ac_founders` determines the frequency at which the founder's reward is paid.
-
-For example:
-
-```bash
--ac_reward=100000000 -ac_perc=10000000 -ac_founders=100
-```
-
-The above parameters result in mining rewards of 100000000 satoshis (1 coin) per block, with a difference on every 100th block. On the 100th block exception, 1000000000 additional satoshis (10 coins) are paid to the founder's address.
-
-The coins rewarded to the founder are created at the moment of payment, thus increasing the overall coin supply. See [ac_perc](../installations/asset-chain-parameters.html#ac-perc) for more details.
-
-Use `ac_pubkey` to send the founder's reward to a normal address.
-
-Use `ac_script` to send the founder's reward to a multi-signature address.
-
-Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
-
-
-## ac_founders_reward
-
-This parameter functions similarly to `ac_perc` with `ac_founders`. However, the value specified for this parameter is in satoshis rather than a percentage the block reward, and the founder's reward does not accumulate over several blocks. This parameter can be used in place of `ac_perc`. It must include `ac_founders` and either `ac_script` or `ac_pubkey`. This value is entirely independent of the `ac_reward` value. For example, `-ac_reward=1000000000 -ac_perc=10000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f` would pay this pubkey's address 10 coins every 10 blocks, whereas `ac_reward=1000000000 -ac_founders_reward=100000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f` would pay this pubkey's address 1 coin every 10 blocks.
- This parameter is not compatible with the [ac_eras](../installations/asset-chain-parameters.html#ac-eras) parameter.
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
-
-A 777777-coin pre-mine, with a 5-coin block reward, and founder's reward of 10 coins sent to `034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f` every 10 blocks.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_founders_reward=1000000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f &
+```json
+{
+  "txid": "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203",
+  "size": 249,
+  "version": 1,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "99dd11f4eac1369f3fe8c6428f49e63da26e1b493f69b5bde29edbfbd06eb785",
+      "vout": 2,
+      "scriptSig": {
+        "asm": "3045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01",
+        "hex": "483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01"
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.0001,
+      "valueSat": 10000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691a OP_CHECKSIG",
+        "hex": "21038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": ["RHkFKzn1csxA3fWzAsxsLWohoCgBbirXb5"]
+      }
+    },
+    {
+      "value": 200.02670391,
+      "valueSat": 20002670391,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+        "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+      }
+    },
+    {
+      "value": 0.0,
+      "valueSat": 0,
+      "n": 2,
+      "scriptPubKey": {
+        "asm": "OP_RETURN ec43064e5957544852014c0e5765617468657220696e204e5943",
+        "hex": "6a1aec43064e5957544852014c0e5765617468657220696e204e5943",
+        "type": "nulldata"
+      }
+    }
+  ],
+  "vjoinsplit": []
+}
 ```
 
 </collapse-text>
 
-## ac_halving
+## oraclesdata
 
-This is the number of blocks between each block reward halving. This parameter will have no effect if [ac_reward](../installations/asset-chain-parameters.html#ac-reward) is not set. The lowest possible value is `1440` (~1 day). If this parameter is set, but [ac_decay](../installations/asset-chain-parameters.html#ac-decay) is not, the reward will decrease by 50% each halving.
+**oraclesdata oracletxid hexstr**
 
-#### :pushpin: Examples
+The `oraclesdata` method publishes data to an oracle.
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
+A publisher cannot successfully execute this command until they have at least one subscriber. A publisher may create their own subscriber account for this purpose. See [oraclessubscribe.](../../../basic-docs/antara/antara-api/oracles.html#oraclessubscribe)
 
-A 777777-coin pre-mine, with a 5-coin block reward, and the block reward decreases by 50% every 2000 blocks.
+Data is submitted using the `hexstr` property. The first bytes of the `hexstr` property must be the length of the data being submitted in hexadecimal format; this sets the string length for the rest of the data. The second portion of the `hexstr` property is the data itself.
 
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000 -ac_halving=2000 &
+The `oraclesdata` method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
+
+The `sendrawtransaction` method outputs a unique `txid`, called `oraclesdatatxid`, which is the unique identifier for this data sample.
+
+The following script converts data entered in a normal-text form to a format accepted by an Oracle with the following characteristics. The oracle is of type: `S`, and the first two bytes of data are the length, given in **Little Endian** format.
+
+<collapse-text hidden title="Script">
+
+```python
+#!/usr/bin/env python3
+import sys
+import codecs
+import time
+import readline
+
+
+while True:
+    message = input("Type message: ")
+    #convert message to hex
+    rawhex = codecs.encode(message).hex()
+
+    #get length in bytes of hex in decimal
+    bytelen = int(len(rawhex) / int(2))
+    hexlen = format(bytelen, 'x')
+
+    #get length in big endian hex
+    if bytelen < 16:
+        bigend = "000" + str(hexlen)
+    elif bytelen < 256:
+        bigend = "00" + str(hexlen)
+    elif bytelen < 4096:
+        bigend = "0" + str(hexlen)
+    elif bytelen < 65536:
+        bigend = str(hexlen)
+    else:
+        print("message too large, must be less than 65536 characters")
+        continue
+
+    #convert big endian length to little endian, append rawhex to little endian length
+    lilend = bigend[2] + bigend[3] + bigend[0] + bigend[1]
+    fullhex = lilend + rawhex
+
+    print(fullhex)
 ```
 
 </collapse-text>
-
-## ac_name
-
-::: warning
-All Smart Chains are required to set ac_name.
-:::
-
-This is the ticker symbol for the coin you wish to create. We recommended it consist only of numbers and uppercase letters.
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
-
-A simple Smart Chain
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 &
-```
-
-</collapse-text>
-
-## ac_notarypay
-
-The `ac_notarypay` parameter can be used to reward the notary nodes each time they participate in a notarization. This value should be set in the amount of sats to be split between the participating notaries for each notarization they make. On the KMD dpow network, the amount of signers is 13 notary nodes, so for example, if this value is set to `ac_notarypay=1300000000`, each notary will be paid 1 coin for each notarization they participate in. Notarizations will on average happen every 10 blocks by default. This parameter is compatible with the [ac_eras](../installations/asset-chain-parameters.html#ac-eras) parameter.
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
-
-A Smart Chain with 777777 pre-mined coins, a 5 coin block reward in the first era, a 10 coin block reward in the second era, paying 1 coin per notarization in the first era and paying 2 coins per notarization in the second era. The first era ends at block 10000. The second era ends at block 20000. After block 20000, there will be no block reward and no `ac_notarypay` reward.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=500000000,1000000000 -ac_notarypay=1300000000,2600000000 -ac_eras=2 -ac_end=10000,20000 &
-```
-
-</collapse-text>
-
-
-
-## ac_perc
-
-The `ac_perc` parameter has two different functionalities depending on the configuration of the chain parameters.
-
-#### ac_perc without ac_founders
-
-When `ac_perc` is used without [-ac_founders](../installations/asset-chain-parameters.html#ac-founders) the chain will follow an inflation tax model. In this model, the `-ac_perc` parameter is the percentage added to the block reward, and the transactions that allocate these rewards are sent to the `-ac_pubkey` address. Naturally, for this configuration to function the `-ac_pubkey` parameter must be included.
-
-For example, if `-ac_reward=100000000` and `-ac_perc=10000000`, for each block mined the miner receives 100000000 satoshis (1 coin), and the owner of the `-ac_pubkey` address receives 10000000 satoshis (0.1 coin, which is 10% of the miner's reward). The amount sent to the pubkey is not taken from the user, rather it is created at this point. Therefore, each transaction inflates the overall coin supply.
-
-The maximum amount of coins created via this method across all transactions per block is capped at `(1000000 * <percentage>)`.
-
-::: tip
-Vout 1 of each coinbase transaction must be the correct amount sent to the corresponding pubkey. This only affects a miner trying to use a stratum. Team member, [Blackjok3r](https://github.com/blackjok3rtt/), developed a coinbase-override method for this purpose. Please see [this repo](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode) for details.
-:::
-
-#### ac_perc with ac_founders
-
-Please see the [-ac_founders](../installations/asset-chain-parameters.html#ac-founders) documentation for this functionality.
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
-
-This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
-
-Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW.
-
-For the first `100000` blocks, the `pubkey` address receives at least 1 coin for every mined block (an additional 10% above the block reward). The pubkey address also receives at least an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block. The extra amount sent to the `pubkey` address derives from blocks that are mined via `ac_staked`, the rewards of which are calculated into `ac_perc`.
-
-After the first `100000` blocks, the rewards from `ac_staked` are no longer included in the `ac_perc` rewards sent to the `pubkey`.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50 &
-```
-
-</collapse-text>
-
-<!--
-
-## ac_private
-
-If `ac_private` is set to `1`, all transactions other than coinbase transactions (block rewards) must use zk-SNARKs. Beyond sending mined coins from a transparent addresses to a z address, all other transparent activity is disabled.
-
-[Click here for more information about privacy features in the Komodo ecosystem.](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem)
 
 ::: tip Note
-The dPoW security mechanism requires that transactions are sent to a transparent address. Therefore, on a chain with `ac_private` enabled, any address can send funds to the transparent notary-node addresses.
+
+- for submitting data of the types `s` and `d`, where the size is less than 256 bytes, the first byte denotes the length
+- for submitting data of the types `S` and `D`, where the size is less than 65536 bytes, the first two bytes denotes the length in **Little Endian** format
+
 :::
 
-#### :pushpin: Examples
+#### :pushpin: Examples for data submission
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
+##### Example A
 
-A private-only Smart Chain.
+- The objective: to submit a `10` character string, `"teststring"`, to an oracle of the format `s`
+- The data to meet this objective is as follows: `0a74657374737472696e67`
+  - Notice the first byte, `0a`
+    - This is the hexadecimal representation of the decimal number `10`
+    - `10` is the byte size of this `10` character string, because each character requires `1 byte` of space
+  - Notice the remaining bytes, `74657374737472696e67`
+    - Each two characters is a byte representing a character
+    - `74` = `t`
+    - `65` = `e`
+    - `73` = `s`
+    - `74` = `t` etc.
 
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_private=1 &
-```
+##### Example B
 
-</collapse-text>
+- The objective: to submit the `10` character string, `"teststring"`, to an oracle of the format `S`
+- The data to meet this objective is as follows: `0a0074657374737472696e67`
+  - Notice the first two bytes, `0a` and `00`
+  - These are the hexadecimal representations of the decimal number `10`, written to fill `2 bytes` and in **Little Endian** format
+  - The remaining data, `74657374737472696e67`, is the same as Example A
 
--->
+### Arguments
 
-## ac_pubkey
+| Name       | Type     | Description                                                                                                                                                   |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| oracletxid | (string) | the unique identifying transaction id of the oracle                                                                                                           |
+| hexstring  | (string) | the first half of the string indicates the length of the string in bytes, the second half of the string is the data, typically provided in hex-encoded format |
 
-The `ac_pubkey` parameter designates a pubkey for receiving payments from the network. These payments can come in the genesis block, in all blocks mined thereafter, and from every transaction on the network.
+### Response
 
-This parameter is not intended for isolated use. It should only be activated on chains that also use at least one of the following parameters: `ac_perc`, `ac_founders`, or `ac_import=PUBKEY`.
-
-The `pubkey` must be a 66 character string (a compressed pubkey). You can find this pubkey for any address by using the [validateaddress](../komodo-api/util.html#validateaddress) command, and searching for the returned `pubkey` property. The first two digits of a compressed `pubkey` are only either `02` or `03`. (The corresponding `private key` must be present/imported to the wallet before using `validateaddress`.)
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
-
-This example coin combines both `ac_staked` and `ac_perc`. As described in the section, ["Notes on How ac_staked Functions"](../installations/asset-chain-parameters.html#notes-on-how-ac-staked-functions), the method of rewards for the coin will vary over time. The coins used to stake will be included in the `ac_perc` calculations until block height `100000`. Therefore, the `pubkey` that receives `ac_perc` block rewards will receive more for the first `100000` blocks.
-
-Other coin details include that it is a 777777-coin pre-mine, with a 10-coin block reward, and the chain adjusts difficulty so that 50% of the blocks are mined via PoS, and 50% via PoW.
-
-For the first `100000` blocks, the `pubkey` address receives at least 1 coin for every mined block (an additional 10% above the block reward). The pubkey address also receives at least an additional 10% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 10 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block. The extra amount sent to the `pubkey` address derives from blocks that are mined via `ac_staked`, the rewards of which are calculated into `ac_perc`.
-
-After the first `100000` blocks, the rewards from `ac_staked` are no longer included in the `ac_perc` rewards sent to the `pubkey`.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_perc=10000000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=50
-```
-
-</collapse-text>
-
-## ac_public
-
-If `ac_public` is set to `1`, zk-SNARKs are disabled, and all z address functionality is disabled. Therefore, all transactions on the blockchain are public.
+| Name   | Type     | Description                                                                                          |
+| ------ | -------- | ---------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command succeeded                                                                        |
+| hex    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
-
-A public-only Smart Chain.
+Step 1: Subscribe to a oracle plan and get the hex value
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_public=1 &
+./komodo-cli -ac_name=HELLOWORLD oraclesdata 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203 00000000ffffffff
 ```
 
-</collapse-text>
-
-## ac_reward
-
-::: warning
-Komodo recommends that this parameter be included on all Smart Chains. Please see below for additional notes.
-:::
-
-This is the block reward for each mined block, given in satoshis.
-
-If both `ac_reward` and `ac_staked` are not set, the default block reward will be `10000` satoshis and blocks will be on-demand after block `127` (a new block will not be mined unless there is a transaction in the mempool).
-
-Komodo recommends that `ac_reward` be included in all Smart Chains. This prevents the Smart Chain from becoming an on-demand blockchain, and therefore this increases the Smart Chain's security.
-
-To make a Smart Chain that has no block reward and is not on-demand, include the parameters: `-ac_reward=1 -ac_end=1`. The Smart Chain's first block will reward only the `-ac_supply` value, after which the `ac_reward` value will be `0`.
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Examples">
-
-A 777777 coin pre-mine, with a 1 coin block reward that does not end. (Note that ac_supply is given in coins, while ac_reward is given in satoshis.)
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 &
-```
-
-A 0 coin pre-mine with a 1-coin block reward that does not end. This is an example of a pure PoW Smart Chain that has no pre-mined coins.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=100000000 &
-```
-
-A 777777-coin pre-mine, with a 10-coin block reward, and the block reward decreases by 25% every 2000 blocks.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_halving=2000 -ac_decay=75000000 &
-```
-
-</collapse-text>
-
-## ac_sapling
-
-The `ac_sapling` parameter adjusts the block height of a Smart Chain's default sapling activation. (Sapling is an upstream privacy technology provided by [Zcash](https://z.cash/), of which Komodo is a fork.)
-
-By default, sapling will activate at block 61 on a newly created Smart Chain.
-
-This can also be used to activate sapling prior to block 61. (Activating sapling prior to block 61 should not be done on a chain intended for production use.)
-
-To delay sapling activation, set `ac_sapling` to a block height far in the future. For example, `-ac_sapling=5000000` will delay sapling activation to block `5000000`. At block `5000000` sapling will be activated.
-
-## ac_script
-
-The `ac_script` parameter enables the `ac_founders` reward to be sent to a multi-signature address or any p2sh address. If this parameter is used, block 1 (the "premine") will be mined to the `ac_script` address.
-
-This parameter requires that `ac_founders` also be active. If `ac_script` is set, `ac_pubkey` must not be.
-
-`ac_script` should be set to the `"hex"` value of `"scriptPubKey"`.
-
-#### Finding the scriptPubKey
-
-To find the `"scriptPubKey"` value, first create a multi-signature address with the [createmultisig](../komodo-api/util.html#createmultisig) command.
-
-##### Command
-
-```bash
-./komodo-cli -ac_name=EXAMPLE createmultisig 2 "[\"RMnZJpfLbFHUxMS3HM5gkvtFKeduhr96Ec\",\"RW2Yx4Tk9WGfUvhbJTXGFiRhr7PKcVtrm5\",\"RQ1uqBj9yk94BcxEZodbeNqb3jWv8pLeA4\"]"
-```
-
-##### Response
+<collapse-text hidden title="Response">
 
 ```json
 {
-	"address": "bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV",
-	"redeemScript": 	"522102040ce30d52ff1faae7a673c2994ed0a2c4115a40fa220ce055d9b85e8f9311ef2102a2ba4606206c032914dd48390c15f5bf996d91bf9dbd07614d972f39d93a511321026014ef4194f6c7406a475a605d6a393ae2d7a2b12a6964587299bae84172fff053ae"
+  "result": "success",
+  "hex": "010000000359db76b9b8e9cfaa4514dcc198c375f910b9fb7367d1c9d556cd5eb43b5f4d2d02000000484730440220645b49d6d85454b1015d82a53ec51685fc3b8bf1d092696c3c253b88cab3033a02207023511219897a374ad94951dd2af70b14d99eccbb404eaf783120f3170bd5e301ffffffff75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f010000007b4c79a276a072a26ba067a5658021035933ab0bd2e2ceb712e7cab393a8c9096ba4be2e3a76f5aaeab72bce4aa61857814047697a246e4442888a3b6ffc4a8c5ae940eec7d19f72053a07b6d8a2968a260626c8001c9138e9fd0e3cfabb811ae71bd8c1c555ca8c8410cb9121ce25860507a100af038001eca10001ffffffff59db76b9b8e9cfaa4514dcc198c375f910b9fb7367d1c9d556cd5eb43b5f4d2d000000007b4c79a276a072a26ba067a565802103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b581404fa0de32bbb96b2e2f61fe823cdba4c3b9fef786ea8c65196f97653a942656812e675e91643ff0ec33853fd2481d40fc48fa51e18c9cbffb49e714c15b47babda100af038001eca10001ffffffff05c09ee60500000000302ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc1027000000000000302ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc40420f0000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acd7bb49a204000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac0000000000000000706a4c6dec4403921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b50800000000ffffffff00000000"
 }
 ```
 
-On a test chain, send coins to the `bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV` address.
+</collapse-text>
 
-##### Command
-
-```bash
-./komodo-cli -ac_name=EXAMPLE sendtoaddress bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV 10
-```
-
-##### Response (txid)
+Step 2: Send raw transaction / broadcast the hex value
 
 ```bash
-ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000359db76b9b8e9cfaa4514dcc198c375f910b9fb7367d1c9d556cd5eb43b5f4d2d02000000484730440220645b49d6d85454b1015d82a53ec51685fc3b8bf1d092696c3c253b88cab3033a02207023511219897a374ad94951dd2af70b14d99eccbb404eaf783120f3170bd5e301ffffffff75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f010000007b4c79a276a072a26ba067a5658021035933ab0bd2e2ceb712e7cab393a8c9096ba4be2e3a76f5aaeab72bce4aa61857814047697a246e4442888a3b6ffc4a8c5ae940eec7d19f72053a07b6d8a2968a260626c8001c9138e9fd0e3cfabb811ae71bd8c1c555ca8c8410cb9121ce25860507a100af038001eca10001ffffffff59db76b9b8e9cfaa4514dcc198c375f910b9fb7367d1c9d556cd5eb43b5f4d2d000000007b4c79a276a072a26ba067a565802103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b581404fa0de32bbb96b2e2f61fe823cdba4c3b9fef786ea8c65196f97653a942656812e675e91643ff0ec33853fd2481d40fc48fa51e18c9cbffb49e714c15b47babda100af038001eca10001ffffffff05c09ee60500000000302ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc1027000000000000302ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc40420f0000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acd7bb49a204000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac0000000000000000706a4c6dec4403921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b50800000000ffffffff00000000
 ```
 
-Observe the resulting transaction with `getrawtransaction <txid> 1`.
-
-##### Command
+<collapse-text hidden title="Response">
 
 ```bash
-./komodo-cli -ac_name=EXAMPLE getrawtransaction ef0d05f14ea2a5bfa1c99142c2e3d78c851223d7476ed2e57b61b6e07f741f0f 1
+9530bdf82744ac57a5ffe0855595f5510c339341cdc3c8728ee547d3f3153433
 ```
 
-##### Response
+</collapse-text>
+
+Step 3: Decode raw transaction (optional to check if the values are sane)
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000359db76b9b8e9cfaa4514dcc198c375f910b9fb7367d1c9d556cd5eb43b5f4d2d02000000484730440220645b49d6d85454b1015d82a53ec51685fc3b8bf1d092696c3c253b88cab3033a02207023511219897a374ad94951dd2af70b14d99eccbb404eaf783120f3170bd5e301ffffffff75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f010000007b4c79a276a072a26ba067a5658021035933ab0bd2e2ceb712e7cab393a8c9096ba4be2e3a76f5aaeab72bce4aa61857814047697a246e4442888a3b6ffc4a8c5ae940eec7d19f72053a07b6d8a2968a260626c8001c9138e9fd0e3cfabb811ae71bd8c1c555ca8c8410cb9121ce25860507a100af038001eca10001ffffffff59db76b9b8e9cfaa4514dcc198c375f910b9fb7367d1c9d556cd5eb43b5f4d2d000000007b4c79a276a072a26ba067a565802103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b581404fa0de32bbb96b2e2f61fe823cdba4c3b9fef786ea8c65196f97653a942656812e675e91643ff0ec33853fd2481d40fc48fa51e18c9cbffb49e714c15b47babda100af038001eca10001ffffffff05c09ee60500000000302ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc1027000000000000302ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc40420f0000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acd7bb49a204000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac0000000000000000706a4c6dec4403921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b50800000000ffffffff00000000
+```
+
+<collapse-text hidden title="Response">
 
 ```json
 {
-	"value": 10.00000000,
-	"valueSat": 1000000000,
-	"n": 1,
-	"scriptPubKey": {
-		"asm": "OP_HASH160 2706324daaac92c93420e985f55d88ea20e22ae1 OP_EQUAL",
-		"hex": "a9142706324daaac92c93420e985f55d88ea20e22ae187",
-		"reqSigs": 1,
-		"type": "scripthash",
-		"addresses": [
-			"bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV"
-		]
-	}
+    "txid": "9530bdf82744ac57a5ffe0855595f5510c339341cdc3c8728ee547d3f3153433",
+    "size": 774,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+        {
+            "txid": "2d4d5f3bb45ecd56d5c9d16773fbb910f975c398c1dc1445aacfe9b8b976db59",
+            "vout": 2,
+            "scriptSig": {
+                "asm": "30440220645b49d6d85454b1015d82a53ec51685fc3b8bf1d092696c3c253b88cab3033a02207023511219897a374ad94951dd2af70b14d99eccbb404eaf783120f3170bd5e301",
+                "hex": "4730440220645b49d6d85454b1015d82a53ec51685fc3b8bf1d092696c3c253b88cab3033a02207023511219897a374ad94951dd2af70b14d99eccbb404eaf783120f3170bd5e301"
+            },
+            "sequence": 4294967295
+        },
+        {
+            "txid": "8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575",
+            "vout": 1,
+            "scriptSig": {
+                "asm": "a276a072a26ba067a5658021035933ab0bd2e2ceb712e7cab393a8c9096ba4be2e3a76f5aaeab72bce4aa61857814047697a246e4442888a3b6ffc4a8c5ae940eec7d19f72053a07b6d8a2968a2606
+26c8001c9138e9fd0e3cfabb811ae71bd8c1c555ca8c8410cb9121ce25860507a100af038001eca10001",
+    "hex": "4c79a276a072a26ba067a5658021035933ab0bd2e2ceb712e7cab393a8c9096ba4be2e3a76f5aaeab72bce4aa61857814047697a246e4442888a3b6ffc4a8c5ae940eec7d19f72053a07b6d8a2968a
+260626c8001c9138e9fd0e3cfabb811ae71bd8c1c555ca8c8410cb9121ce25860507a100af038001eca10001"
+            },
+            "sequence": 4294967295
+        },
+        {
+            "txid": "2d4d5f3bb45ecd56d5c9d16773fbb910f975c398c1dc1445aacfe9b8b976db59",
+            "vout": 0,
+            "scriptSig": {
+                "asm": "a276a072a26ba067a565802103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b581404fa0de32bbb96b2e2f61fe823cdba4c3b9fef786ea8c65196f97653a94265681
+2e675e91643ff0ec33853fd2481d40fc48fa51e18c9cbffb49e714c15b47babda100af038001eca10001",
+    "hex": "4c79a276a072a26ba067a565802103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b581404fa0de32bbb96b2e2f61fe823cdba4c3b9fef786ea8c65196f97653a9426
+56812e675e91643ff0ec33853fd2481d40fc48fa51e18c9cbffb49e714c15b47babda100af038001eca10001"
+            },
+            "sequence": 4294967295
+        }
+    ],
+    "vout": [
+        {
+            "value": 0.99000000,
+            "valueSat": 99000000,
+            "n": 0,
+            "scriptPubKey": {
+                "asm": "a22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401 OP_CHECKCRYPTOCONDITION",
+                "hex": "2ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc",
+                "reqSigs": 1,
+                "type": "cryptocondition",
+                "addresses": [
+                    "RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8"
+                ]
+            }
+        },
+        {
+            "value": 0.00010000,
+            "valueSat": 10000,
+            "n": 1,
+            "scriptPubKey": {
+                "asm": "a22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401 OP_CHECKCRYPTOCONDITION",
+                "hex": "2ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc",
+                "reqSigs": 1,
+                "type": "cryptocondition",
+                "addresses": [
+                    "RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9"
+                ]
+            }
+        },
+        {
+            "value": 0.01000000,
+            "valueSat": 1000000,
+            "n": 2,
+            "scriptPubKey": {
+                "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+                "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+                "reqSigs": 1,
+                "type": "pubkey",
+                "addresses": [
+                    "RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"
+                ]
+            }
+        },
+        {
+            "value": 199.02610391,
+            "valueSat": 19902610391,
+            "n": 3,
+            "scriptPubKey": {
+                "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+                "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+                "reqSigs": 1,
+                "type": "pubkey",
+                "addresses": [
+                    "RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"
+                ]
+            }
+        },
+        {
+            "value": 0.00000000,
+            "valueSat": 0,
+            "n": 4,
+            "scriptPubKey": {
+                "asm": "OP_RETURN ec4403921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b50800000000ffffffff",
+                "hex": "6a4c6dec4403921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b50800000000ffffffff",
+                "type": "nulldata"
+            }
+        }
+    ],
+    "vjoinsplit": []
 }
 ```
 
-Set `ac_script` to the `"hex"` value from the returned json object.
+</collapse-text>
 
-##### Command
+## oraclesfund
 
-```bash
--ac_script=a9142706324daaac92c93420e985f55d88ea20e22ae187
-```
+**oraclesfund oracletxid**
 
-## ac_staked
+The `oraclesfund` method allows a user to register as a publisher on an oracle.
 
-`ac_staked` indicates the percentage of blocks the chain will aim to mine via Proof of Stake (PoS), with the remainder via Proof of Work (PoW). For example, an `ac_staked=90` chain will have ~90% PoS blocks and ~10% PoW blocks.
+This method must be executed before the user attempts to use the <b>oraclesregister</b> method.
 
-Measurements of the `PoS:PoW` ratio are approximate; the PoW difficulty will automatically adjust based on the overall percentage of PoW-mined blocks to adhere to the approximate `PoS` value.
+### Arguments:
 
-When creating a chain with the `ac_staked` parameter, the creation process is slightly different.
-
-- Start both the first and second nodes **without** `-gen -genproclimit=0`.
-- Once both are connected, execute `setgenerate true 1` on the node that should receive the pre-mine.
-- Observe the debug.log by executing `tail -f ~/.komodo/<CHAIN>/debug.log`
-- Wait for the Smart Chain to mine two blocks
-- Execute `setgenerate false` to stop mining
-- All of the coins (including the pre-mine) are now located on the node that mined two blocks. Do not split them with a normal transaction. Rather, split them using this tool: [link](https://github.com/KMDLabs/pos64staker).
-- On the first node use 'setgenerate true 0' to enable staking.
-- On the second node use 'setgenerate true 1' (or use a desired processor number instead '1') to enable mining.
-- Use the [getbalance64](../komodo-api/wallet.html#getbalance64) method to ensure that there are coins staking in all 64 segids before block 10. The utxos may appear on any list, including both staking and nonstaking.
-
-Following the above instructions will ensure that the Smart Chain is stable.
-
-::: warning
-
-On a chain using a high percentage for PoS, it's vital to have coins staking by block 100. If too many PoW blocks are mined consecutively at the start of the chain, the PoW difficulty may increase enough to stop the chain entirely. This can prevent users from sending transactions to staking nodes.
-
-:::
-
-::: warning
-
-Set [ac_reward](../installations/asset-chain-parameters.html#ac-reward) parameter to any desired value for staking to function properly.
-:::
-
-::: warning
-
-It is vital to stake coins in all 64 segids. You can use the genaddresses.py script in [this repository](https://github.com/KMDLabs/pos64staker) to generate an address for each segid. This functionality will soon be integrated directly into the daemon.
-
-:::
-
-::: tip
-The first 100 blocks will allow PoW regardless of the ac_staked value.
-:::
-
-::: tip
-It is not possible to both PoW mine and stake on the same node. Therefore, when the chain's consensus mechanism allows both PoS and PoW, the chain creator needs a minimum of two nodes mining/staking to keep the blockchain moving.
-:::
-
-### Notes on How ac_staked Functions
-
-Once staking is active, utxos available in the `wallet.dat` file will stake automatically.
-
-On an `ac_staked` Smart Chain there are 64 global segments (`segid`'s) to which all addresses and the corresponding utxos belong. These 64 `segid`'s become eligible to stake blocks in turns. The segment a utxo belongs to is determined automatically, according to the address in which the utxo resides.
-
-You can see which segment an address belongs to by using the [validateaddress](../komodo-api/util.html#validateaddress) API command. You can use the [getbalance64](../komodo-api/wallet.html#getbalance64) API command to observe how your staked coins are distributed across the separate segids.
-
-Each staked block will have an additional transaction added to the end of the block in which the coins that staked the block are sent back to the same address. This is used to verify which coins staked the block, and this allows for compatibility with existing Komodo infrastructure.
-
-There are additional considerations when `ac_staked` is used in conjunction with [ac_perc](../installations/asset-chain-parameters.html#ac-perc) and [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey). The coins used to stake will be included in the `ac_perc` calculations until the Smart Chain reaches block height `1000000`. Therefore, the [ac_pubkey](../installations/asset-chain-parameters.html#ac-pubkey) address will receive more coins for each staked block compared to a mined block. After block `1000000`, `ac_perc` will no longer include the coins used for staking, and therefore the amount of coins sent to the `ac_pubkey` address will normalize.
-
-### Rules for Staking a Block
-
-The following are the (current) rules for staking a block:
-
-- Block timestamps are used as the monotonically increasing on-chain clock. It is important to have a synced system clock. Use the following sequence to sync your clock:`sudo apt-get install chrony`, `sudo systemctl restart chrony.service`, then check `timedatectl` for `NTP syncronized: Yes`
-
-- A utxo is not eligible for staking until a certain amount of time has passed after its creation. By default, between blocks `1` and `2000` the amount of time required for a utxo to be eligibile is `blockheight * 3 seconds`. After block `2000`, the required amount of time is 6000 seconds. More precisely, after block `2000` a utxo is not eligible for staking until `100 * the expected blocktime (i.e. 1 minute)`. For example, utxos on a one-minute block-time Smart Chain would be eligible for staking one-hundred minutes after their creation.
-
-- The `segid`s rotate through a queue to determine which `segid` has the most likely chance to stake a new block. The formula that determines this is based on the block height: `(height % 64) = the segid0 for this height`. For each block, the eligibility to stake a new block begins with `segid[0]`, and then the eligibility expands to the next segment in queue at every two-second interval until the block is staked. For example, if `segid[0]` has not mined a new block within two seconds, the consensus mechanism opens up the priority to include the second, `segid[1]`. This continues either until the block is staked, or all 64 `segid`'s are eligible to stake a new block. Once a block is staked, the `height` of the blockchain changes, pushing the `segid[0]` segment to the end of the queue, etc.
-
-- By internal design, a utxo is more likely to win a block within a `segid` based on age of the utxo and amount of coins. Regarding the age eligibiility, the maximum maturity level is one month (e.g. after reaching one month of age, a utxo's likelihood of staking a coin does not further increase). The age of the utxo is set by the `nlocktime` property of the utxo, or if `nlocktime` is not set, the age is determined by the utxo's `blocktime` property.
+| Structure  | Type     | Description                                         |
+| ---------- | -------- | --------------------------------------------------- |
+| oracletxid | (string) | the unique identifying transaction id of the oracle |
 
 #### :pushpin: Examples
 
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
-
-A 777777-coin pre-mine with a 1-coin block reward. The chain adjusts difficulty to keep 90% of blocks mined via PoS, and 10% mined via PoW.
+Step 1: Create a customized oracle contract and get the hex value
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 -ac_staked=90 &
+./komodo-cli -ac_name=HELLOWORLD oraclesfund 7b6e7745058ffded423546eecc61dcc05069279b90776384c52692765246b64c
 ```
 
-A 777777 coin pre-mine with a 10-coin block reward. The chain adjusts difficulty so 2% of blocks are mined via PoS, 98% via PoW.
+Response from Step 1:
 
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000 -ac_staked=2 &
-```
+<collapse-text hidden title="Response">
 
-A 777777-coin pre-mine, with a 1-coin block reward, block reward decreases by 50% every 2000 blocks, and the chain adjusts difficulty so 10% of blocks are mined via PoS, 90% via PoW.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000 -ac_havling=2000 -ac_staked=10 &
-```
-
-A 777777-coin pre-mine, a 10000-coin block reward, the block reward decreases by 40% every 2000 blocks, and the chain adjusts difficulty so 50% of blocks are mined via PoS, 50% via PoW.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=1000000000000 -ac_halving=2000 -ac_decay=60000000 -ac_staked=50 &
-```
-
-A 777777-coin pre-mine, a 1000-coin block reward, the block reward decreases by 25% every 100000 blocks, the block reward ends at block 1000000, and the chain adjusts difficulty so 1% of blocks are mined via PoS, 99% via PoW. The pubkey address receives an additional 0.5% above the block reward for each mined block. For example, before the first halving, the pubkey address will receive 5 coins (0.5% of 1000 coin block reward) for every mined block. After the first halving, the pubkey address will receive 3.75 coins for every mined block (0.5% of 750-block reward). The pubkey address receives an additional 0.5% for every transaction made on the chain. For example, if a transaction sends 100 coins, an additional 0.5 coins are created and sent to the pubkey address. This includes the additional verification transaction in PoS blocks, meaning the pubkey address receives more coins for every PoS block.
-
-```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000000 -ac_halving=100000 -ac_decay=75000000 -ac_end=1000000 -ac_perc=500000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=1 &
+```json
+{
+  "result": "success",
+  "hex": "0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000"
+}
 ```
 
 </collapse-text>
 
-## ac_supply
-
-This is the amount of pre-mined coins you would like the chain to have.
-
-The node that sets [gen](../installations/common-runtime-parameters.html#gen) during the creation process will mine these coins in the genesis block.
-
-If `ac_supply` is not set, [ac_reward](../installations/asset-chain-parameters.html#ac-reward) must be set, and a default value of 10 coins will be used in the genesis block. If [ac_founders](../installations/asset-chain-parameters.html#ac-founders) is set, the pre-mined coins will be mined to the founder's reward address.
-
-The `ac_supply` parameter should be set to a whole number without any decimals places. It should also be set to less than `2000000000` to avoid 64-bit overflows.
-
-::: tip
-An additional fraction of a coin will be added to the initial supply based on the Smart Chain's parameters. This is used by nodes to verify the genesis block. For example, the DEX chain's `ac_supply` parameter is set to `999999`, but in reality the genesis block was `999999.13521376`. When using `ac_staked`, the additional amount may be more than a full coin, and can add up to two digits left of the decimal point.
-:::
-
-#### :pushpin: Examples
-
-<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
-
-A simple Smart Chain with pre-mined coins and a block reward of 0.0005.
+Step 2: Send raw transaction / broadcast the hex value
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=50000 &
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000
+
+# This will output an unique txid which will be refered as oracletxid or transaction ID of the oracle.
+```
+
+Response from Step 2:
+
+<collapse-text hidden title="Response">
+
+```bash
+ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192
 ```
 
 </collapse-text>
 
-## ac_timelock...
+(Use `./komodo-cli -ac_name=HELLOWORLD getrawmempool` to ensure that the transaction receives confirmation.)
 
-**-ac_timeunlockgte=satoshis -ac_timelockfrom=height -ac_timelockto=height**
-
-The `ac_timelock...` parameters enforce "coinbase locking".
-
-In coinbase locking, the Smart Chain's block-reward feature behaves in a different manner compared to a default Smart Chain. Any block reward that is greater than or equal to the `ac_timeunlockgte` satoshi amount is temporarily locked. It will be unlocked (and therefore spendable) on a random block between the `ac_timelockfrom` and `ac_timelockto` heights.
-
-The random unlock time for each reward is independent of the unlock time of other rewards.
-
-For example:
+Step 3: Decode raw transaction (optional to check if the values are sane)
 
 ```bash
-./komodod -ac_name=HELLOWORLD -ac_supply=0 -ac_reward=10000000000 -ac_halving=10000 -ac_timelockgte=10000000000 -ac_timeunlockfrom=10000 -ac_timeunlockto=100000
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000
 ```
 
-For the first 10000 blocks, any rewards that are greater than or equal to 10000000000 are locked until a random block between 10000 and 100000.
+Response from Step 3:
 
-## ac_txpow
+<collapse-text hidden title="Response">
 
-::: warning
-This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
+```json
+{
+  "txid": "ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192",
+  "overwintered": true,
+  "version": 4,
+  "versiongroupid": "892f2085",
+  "locktime": 0,
+  "expiryheight": 1974,
+  "vin": [
+    {
+      "txid": "0e51062adc807c118451622957812428562a7487fa6325c484cacdf145948324",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "3045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be7[ALL]",
+        "hex": "483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701"
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.0001,
+      "valueZat": 10000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "a22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401 OP_CHECKCRYPTOCONDITION",
+        "hex": "2ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cc",
+        "reqSigs": 1,
+        "type": "cryptocondition",
+        "addresses": ["RUeZzWCuwGxJTtSDGfRFWL87oyrLWZav6Z"]
+      }
+    },
+    {
+      "value": 99.9998,
+      "valueZat": 9999980000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "02c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5 OP_CHECKSIG",
+        "hex": "2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": ["RFkogpvKojbChm9hMDdv2KUBasUmFNraqg"]
+      }
+    },
+    {
+      "value": 0.0,
+      "valueZat": 0,
+      "n": 2,
+      "scriptPubKey": {
+        "asm": "OP_RETURN ec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000",
+        "hex": "6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000",
+        "type": "nulldata"
+      }
+    }
+  ],
+  "vjoinsplit": [],
+  "valueBalance": 0.0,
+  "vShieldedSpend": [],
+  "vShieldedOutput": []
+}
+```
+
+</collapse-text>
+
+## oraclesinfo
+
+**oraclesinfo oracletxid**
+
+The `oraclesinfo` method displays information about a specific oracle using `oracletxid`.
+
+For a list of all `oracletxid`'s available on the Smart Chain, see the [oracleslist](../../../basic-docs/antara/antara-api/oracles.html#oraclelist) method.
+
+### Arguments
+
+| Name       | Type     | Description                                         |
+| ---------- | -------- | --------------------------------------------------- |
+| oracletxid | (string) | the unique identifying transaction id of the oracle |
+
+### Response
+
+| Name        | Type     | Description                                                                                                                                  |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| result      | (string) | whether the command executed successfully                                                                                                    |
+| txid        | (string) | the unique txid, or oracletxid, that identifies the oracle                                                                                   |
+| name        | (string) | the name of the oracle contract                                                                                                              |
+| description | (string) | the description of the oracle contract                                                                                                       |
+| format      | (string) | a string that identifies the data type accepted for the oracle contract (see [oraclescreate](../../../basic-docs/antara/antara-api/oracles.html#oraclescreate)) |
+| marker      | (string) | the unmodified public address generated from the oracle contract's privkey                                                                   |
+| registered: | (array)  |
+| publisher   | (string) | the unique identifier for the publisher (see [oraclesregister](../../../basic-docs/antara/antara-api/oracles.html#oraclesregister))                                    |
+| baton       | (string) | the baton address of the publisher, which is an Antara address (based on the pubkey of the publisher and the EVAL code of the oracle contract) |
+| batontxid   | (string) | the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher               |
+| lifetime    | (number) | the length of time since publisher's inception                                                                                                          |
+| funds       | (number) | the funds committed by subscribers to the publisher's account, and which are used for payouts                                                           |
+| datafee     | (number) | the amount a subscriber pays for each data upload                                                                                                       |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD oraclesinfo 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "txid": "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203",
+  "name": "NYWTHR",
+  "description": "Weather in NYC",
+  "format": "L",
+  "marker": "RGEug5JPPkERBpqsGSgw6GQPYTB9v9i4Fj",
+  "registered": [
+    {
+      "publisher": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5",
+      "baton": "RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9",
+      "batontxid": "8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575",
+      "lifetime": "0.00000000",
+      "funds": "0.00000000",
+      "datafee": "0.01000000"
+    }
+  ]
+}
+```
+
+</collapse-text>
+
+## oracleslist
+
+**oracleslist**
+
+The `oraclelist` method lists all available oracle contracts on the Smart Chain.
+
+### Arguments
+
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
+
+### Response
+
+| Name       | Type               | Description                          |
+| ---------- | ------------------ | ------------------------------------ |
+| oracletxid | (array of strings) | the unique identifying oracletxid(s) |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD oracleslist
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+[
+    "66fa795f43534e4d6b038c172172a7c46a3cf37b1628e075e38e94a20cfeae5a",
+    "79d02351968e6616f3044cb14523d8d2cbdbd1a8b7b75bd14b1aa80ad41a5845",
+    "665b893bdb801f77fd6620969371f8fc391df568150f0a671c1c23e67a0cf039",
+    "0fa3c6e12ee4be636f44ce4b2af3b0f213d0403dc46cd42add07816526dd46b2",
+    "b24a00e2a895baad4c0246ba5b3d36790b43cc0fb5a4c4ea98161299165a8c96",
+    "8790ee741042eedce012a46483143e277851754300da7b7171ce46d63d51b3d3",
+    "1ba8f3f9e98cbb41af8cb0bf3a6c1953ea5a89bd44455b8e9078f2216e9ed0fc",
+    "2353e77dd3ad18bed4ea053055234424ba7c05fb04f97a323859d0445b64ad33",
+    "a594a239f29d0df2f27eda05186ac7fdb26302f8268106a04edfde0c1a03b5e8",
+    "4dfd22a3a56b274054cc651c70dc0b35778a3eb12ba025598f4510669b8e88c8",
+    "0ae8cf1b008f7c652c1e85aa45832aac8dc62cfd8d73105800f4e3603d4cc15f",
+    "7eaa75392e3b634ebf9eb4a67455dedeb503cdd235c932ec49559906394d89c5",
+    "59e44ee58435f01dbbadd1ac54f7e6d5e1323c52561e3ab656555b099886217f",
+    "e953e88d3f1713aed28510d9bff85e3a09cc96107f1122f1f244273ab1196ca6",
+    "128e6c6fa4cde1be654da5f006caf341415e0d19300f7c33578d7f5242bdf033",
+    "104f701ccd6cd78b347d68a461bc45031e56cbdbdd895662e3fbc48c8335feb0",
+    "161bdf47cc246a4b725676c4c3d08a685ccca8edba11edfbd9c90205bc555212",
+    "4a32675232ff020c0ef868ff167ae17754823899bee7b5e96fac210c7030573f",
+    "57600b613c7355e768323c7197910ca45ed713b14ed4fdf01a5181bfa1d55753",
+    "9755eede3831f003bc1425bdfa9f7f889befd6b8ce7028b17f50c30b0d8088d1",
+    "8ed3b092677aec71169a7a11fdfbfe0a855e8120af0ae1ea2d97eb7cfd29835e",
+    "03d9e6b199173935c57ebffee93fa1ac91b809e268f50610f31fa14253f7f7bc",
+    "0803edf92f40541cf988c2ca1e0bfee6902a5ccf60bbf90bed51cff8a4f91489",
+    "482be3ce8bf8607bd501a5aed3018770420a9f6dc48ee21fe423b09d5fe19f16",
+    "65fe29870b7ea766365b7c55881f4246ab8d84cba865f3bffa9c1f1e92f97113",
+    "8a0810bba8fdf8e0fe20d07ea618bc4810657d1b5aafdc7362b67be1aebf1cf3",
+    "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203"
+]
+```
+
+</collapse-text>
+
+## oraclesregister
+
+**oraclesregister oracletxid datafee**
+
+A user executes the `oraclesregister` method to register as a data publisher for an existing oracle contract.
+
+The `datafee` property is set in satoshis, and should be `>=` the chain's default transaction fee.
+
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
+
+::: tip
+Use `./komodo-cli -ac_name=YOURNAME getrawmempool` to verify the transaction is confirmed.
 :::
 
-Setting `-ac_txpow=1` enforces a transaction-rate limiter. This can help to prevent spam transactions on a Smart Chain.
-
-`ac_txpow` forces all transactions (other than coinbase transactions) to have a txid starting and ending with `00`.
-
-This parameter is currently a proof of concept. Many of the traditional API commands, such as `sendtoaddress` or `sendmany`, are not currently supported. Instead, use [createrawtransaction](../komodo-api/rawtransactions.html#createrawtransaction) and [signrawtransaction](../komodo-api/rawtransactions.html#signrawtransaction).
-
-## ac_veruspos
-
-::: warning
-This parameter is in its final testing stages. Please reach out to us if you would like to use it on a production chain.
+::: tip
+After the transaction confirms, use `oraclesinfo` to output registration information about your oracles plan
 :::
 
-The `ac_veruspos` parameter is an alternative to [ac_staked](../installations/asset-chain-parameters.html#ac-staked).
+### Arguments
 
-When activated, the chain uses [Verus](http://veruscoin.io/)'s proof of stake implementation instead.
+| Name       | Type      | Description                                                                                 |
+| ---------- | --------- | ------------------------------------------------------------------------------------------- |
+| oracletxid | (string)  | the unique identifying transaction id of the oracle                                         |
+| datafee    | (numbers) | the fee required of a subscriber for each data point the publisher publishes in this oracle |
 
-The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` does not have the same segid mechanism as `-ac_staked`.)
+### Response
+
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+
+#### :pushpin: Examples
+
+Step 1: Set your parameters to create a raw transaction and get the hex value
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD oraclesregister 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203 1000000
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "hex": "010000000103921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d010000004847304402207241f313ef2fb65d9eb1f870068ceba436f14996ce79d16ff85f2937c75357ee022025f0b888e742546469ad0b7fae9b85cf7c89cddf307170bbcf794e5e90ae28b101ffffffff04102700000000000023210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac1027000000000000302ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc071240a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000004f6a4c4cec5203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b540420f000000000000000000"
+}
+```
+
+</collapse-text>
+
+Step 2: Send/broadcast the raw transaction hex
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000103921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d010000004847304402207241f313ef2fb65d9eb1f870068ceba436f14996ce79d16ff85f2937c75357ee022025f0b888e742546469ad0b7fae9b85cf7c89cddf307170bbcf794e5e90ae28b101ffffffff04102700000000000023210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac1027000000000000302ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc071240a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000004f6a4c4cec5203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b540420f000000000000000000
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575
+```
+
+</collapse-text>
+
+Step 3: Decode raw transaction (optional to check if the values are sane)
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000103921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d010000004847304402207241f313ef2fb65d9eb1f870068ceba436f14996ce79d16ff85f2937c75357ee022025f0b888e742546469ad0b7fae9b85cf7c89cddf307170bbcf794e5e90ae28b101ffffffff04102700000000000023210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac1027000000000000302ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc071240a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000004f6a4c4cec5203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b540420f000000000000000000
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "txid": "8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575",
+  "size": 356,
+  "version": 1,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "304402207241f313ef2fb65d9eb1f870068ceba436f14996ce79d16ff85f2937c75357ee022025f0b888e742546469ad0b7fae9b85cf7c89cddf307170bbcf794e5e90ae28b101",
+        "hex": "47304402207241f313ef2fb65d9eb1f870068ceba436f14996ce79d16ff85f2937c75357ee022025f0b888e742546469ad0b7fae9b85cf7c89cddf307170bbcf794e5e90ae28b101"
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.0001,
+      "valueSat": 10000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "0203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d OP_CHECKSIG",
+        "hex": "210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": ["RGEug5JPPkERBpqsGSgw6GQPYTB9v9i4Fj"]
+      }
+    },
+    {
+      "value": 0.0001,
+      "valueSat": 10000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "a22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401 OP_CHECKCRYPTOCONDITION",
+        "hex": "2ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc",
+        "reqSigs": 1,
+        "type": "cryptocondition",
+        "addresses": ["RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9"]
+      }
+    },
+    {
+      "value": 200.02640391,
+      "valueSat": 20002640391,
+      "n": 2,
+      "scriptPubKey": {
+        "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+        "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+      }
+    },
+    {
+      "value": 0.0,
+      "valueSat": 0,
+      "n": 3,
+      "scriptPubKey": {
+        "asm": "OP_RETURN ec5203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b540420f00000$0000",
+        "hex": "6a4c4cec5203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b540420f000000000$",
+        "type": "nulldata"
+      }
+    }
+  ],
+  "vjoinsplit": []
+}
+```
+
+</collapse-text>
+
+## oraclessamples
+
+**oraclessamples oracletxid baton num**
+
+The `oraclessample` method fetches data samples from a publisher.
+
+The user indicates the desired publisher by inserting the `batonutxo` by the publisher. Use [oraclesinfo](../../../basic-docs/antara/antara-api/oracles.html#oraclesinfo) to find a list of publishers and their current batonutxo's.
+
+### Arguments
+
+| Name         | Type     | Description                                                        |
+| ------------ | -------- | ------------------------------------------------------------------ |
+| oracletxid   | (string) | the unique identifying transaction id of the oracle contract       |
+| batonaddress | (string) | the baton address, which can be found using the oraclesinfo method |
+| num          | (number) | the number of sample data points required                          |
+
+### Response
+
+| Name          | Type               | Description                               |
+| ------------- | ------------------ | ----------------------------------------- |
+| result        | (string)           | whether the command executed successfully |
+| samples:      | (array of strings) |
+| "XXXXXXXXXXX" | (string)           | a sample data point                       |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD oraclessamples 7b6e7745058ffded423546eecc61dcc05069279b90776384c52692765246b64c RVerJvoYsXp3avQ3xxe54EhajZgn5xidKB 1
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "samples": [
+    {
+      "txid": "bbe51ad50a1a49e0275631c2b8e698ea3514b05bb60b944ee891bdbbd5ce0c17",
+      "data": ["This here is some data stored on an oracle"]
+    }
+  ]
+}
+```
+
+</collapse-text>
+
+## oraclessubscribe
+
+**oraclessubscribe oracletxid publisher amount**
+
+The user executes `oraclessubscribe` to subscribe to a publisher of an oracle plan.
+
+Every publisher must have at least one subscriber before the [oraclesdata](../../../basic-docs/antara/antara-api/oracles.html#oraclesdata) can successfully execute.
+
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
+
+The `sendrawtransaction` method then returns a unique txid, also called the `oraclesubscriptiontxid`, or the id of the oracle subscription transaction. This can be used for further development purposes.
+
+::: tip
+If the **datafee** is 10 COINS and the `amount` submitted is 1000 COINS, the publisher can publish data 100 times based on this amount.
+:::
+
+### Arguments
+
+| Name       | Type     | Description                                                                                                                                           |
+| ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| oracletxid | (string) | the unique identifying transaction id of the oracle                                                                                                   |
+| publisher  | (string) | the unique publisher id, which can be found using the oraclesinfo method                                                                              |
+| amount     | (number) | the total amount of funds the subscriber commits to pay for data upload by the publisher; this amount is immediately withdrawn from the user's wallet |
+
+### Response
+
+| Name   | Type     | Description                                                                                          |
+| ------ | -------- | ---------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command succeeded                                                                        |
+| hex    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+
+#### :pushpin: Examples
+
+Step 1: Subscribe to an oracle plan and get the hex value:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD oraclessubscribe 0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203 03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 1
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "hex": "010000000175a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f0200000048473044022006449e2f324ba8c262ca73eea4642f77ccf906fee5bab4fdc85bcc8c350ce81b022047d76840076f6e02aebe77ffb59b052974badb8747c7b435fd77351fcfbee95e01ffffffff0400e1f50500000000302ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc102700000000000023210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dace7e249a204000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000004f6a4c4cec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b500e1f5050000000000000000"
+}
+```
+
+</collapse-text>
+
+Step 2: Send raw transaction / broadcast the hex value
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000175a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f0200000048473044022006449e2f324ba8c262ca73eea4642f77ccf906fee5bab4fdc85bcc8c350ce81b022047d76840076f6e02aebe77ffb59b052974badb8747c7b435fd77351fcfbee95e01ffffffff0400e1f50500000000302ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc102700000000000023210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dace7e249a204000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000004f6a4c4cec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b500e1f5050000000000000000
+```
+
+<collapse-text hidden title="Response">
+
+```bash
+2d4d5f3bb45ecd56d5c9d16773fbb910f975c398c1dc1445aacfe9b8b976db59
+```
+
+</collapse-text>
+
+Step 3: Decode raw transaction (optional to check if the values are sane)
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000175a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f0200000048473044022006449e2f324ba8c262ca73eea4642f77ccf906fee5bab4fdc85bcc8c350ce81b022047d76840076f6e02aebe77ffb59b052974badb8747c7b435fd77351fcfbee95e01ffffffff0400e1f50500000000302ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc102700000000000023210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dace7e249a204000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000004f6a4c4cec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b500e1f5050000000000000000
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "txid": "2d4d5f3bb45ecd56d5c9d16773fbb910f975c398c1dc1445aacfe9b8b976db59",
+  "size": 356,
+  "version": 1,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575",
+      "vout": 2,
+      "scriptSig": {
+        "asm": "3044022006449e2f324ba8c262ca73eea4642f77ccf906fee5bab4fdc85bcc8c350ce81b022047d76840076f6e02aebe77ffb59b052974badb8747c7b435fd77351fcfbee95e01",
+        "hex": "473044022006449e2f324ba8c262ca73eea4642f77ccf906fee5bab4fdc85bcc8c350ce81b022047d76840076f6e02aebe77ffb59b052974badb8747c7b435fd77351fcfbee95e01"
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 1.0,
+      "valueSat": 100000000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "a22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401 OP_CHECKCRYPTOCONDITION",
+        "hex": "2ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc",
+        "reqSigs": 1,
+        "type": "cryptocondition",
+        "addresses": ["RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8"]
+      }
+    },
+    {
+      "value": 0.0001,
+      "valueSat": 10000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "0203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d OP_CHECKSIG",
+        "hex": "210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": ["RGEug5JPPkERBpqsGSgw6GQPYTB9v9i4Fj"]
+      }
+    },
+    {
+      "value": 199.02620391,
+      "valueSat": 19902620391,
+      "n": 2,
+      "scriptPubKey": {
+        "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+        "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+        "reqSigs": 1,
+        "type": "pubkey",
+        "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+      }
+    },
+    {
+      "value": 0.0,
+      "valueSat": 0,
+      "n": 3,
+      "scriptPubKey": {
+        "asm": "OP_RETURN ec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b500e1f50500000000",
+        "hex": "6a4c4cec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b500e1f50500000000",
+        "type": "nulldata"
+      }
+    }
+  ],
+  "vjoinsplit": []
+}
+```
+
+</collapse-text>
 
 

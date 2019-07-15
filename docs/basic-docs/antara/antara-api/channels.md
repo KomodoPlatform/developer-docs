@@ -8,14 +8,14 @@ When a payment is executed properly with `channels`, as soon as it enters the me
 
 #### Channels Module Flow
 
-- Anyone can create a channel using [channelsopen](../customconsensus/channels.html#channelsopen)
+- Anyone can create a channel using [channelsopen](../../../basic-docs/antara/antara-api/channels.html#channelsopen)
   - When creating the channel, the user indicates the number and size of their potential payment(s), and what their destination is
-- Once the channel is notarized, at any time in the future the user can execute [channelspayment](../customconsensus/channels.html#channelspayment) to release a specific amount of their available payments
+- Once the channel is notarized, at any time in the future the user can execute [channelspayment](../../../basic-docs/antara/antara-api/channels.html#channelspayment) to release a specific amount of their available payments
   - As soon as the `channelspayment` result enters the mempool, the odds of withdrawing the `txid` from processing decrease to almost zero
-- The creator of a channel may close the channel at any time using [channelsclose](../customconsensus/channels.html#channelsclose)
+- The creator of a channel may close the channel at any time using [channelsclose](../../../basic-docs/antara/antara-api/channels.html#channelsclose)
   - This shows the receiver that this payment stream is permanently ended
-- Once the channel's closure is notarized, the creator may withdraw remaining funds using [channelsrefund](../customconsensus/channels.html#channelsrefund)
-- The [channelsinfo](../customconsensus/channels.html#channelsinfo) method reveals public information for any or all available channels on an Smart Chain
+- Once the channel's closure is notarized, the creator may withdraw remaining funds using [channelsrefund](../../../basic-docs/antara/antara-api/channels.html#channelsrefund)
+- The [channelsinfo](../../../basic-docs/antara/antara-api/channels.html#channelsinfo) method reveals public information for any or all available channels on an Smart Chain
 
 ## channelsaddress
 
@@ -25,7 +25,7 @@ The `channelsaddress` method displays the various addresses and their balances f
 
 Under normal circumstances, for the `pubkey` the user provides the destination address of the intended channel.
 
-The global addresses are not used in the Channels Antara module. For more information about unique Antara addresses, see [this linked explanation.](../customconsensus/custom-consensus-instructions.html#understanding-the-types-of-addresses)
+The global addresses are not used in the Channels Antara module. For more information about unique Antara addresses, see [this linked explanation.](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html)
 
 ### Arguments
 
@@ -43,10 +43,10 @@ The global addresses are not used in the Channels Antara module. For more inform
 | ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey; this is generally used for markers                                                                                                                                                                                                                                                  |
 | ChannelsCC1of2Address       | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using coins |
 | ChannelsCC1of2TokensAddress | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using tokens |
-| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the Antara address from the `pubkey` [used to launch the daemon](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)                                                                                                                                                 |
+| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the Antara address from the `pubkey` [used to launch the daemon](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey)                                                                                                                                                 |
 | PubkeyCCaddress(Channels)   | (string)  | taking the contract's EVAL code as a modifier, this is the Antara address from the `pubkey` supplied as the argument                                                                                                                                                                                                                                                |
 | myCCbalance                 | (numeric) | the balance of `myccaddress` in coins                                                                                                                                                                                                                                                                                                                           |
-| myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)                                                                                                                                                                                      |
+| myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey)                                                                                                                                                                                      |
 | mybalance                   | (numeric) | the balance of `myaddress` in coins                                                                                                                                                                                                                                                                                                                             |
 
 #### :pushpin: Examples
@@ -85,11 +85,11 @@ Command:
 
 The `channelsclose` method marks a specific channel as closed, meaning that no additional payments will be added to the channel.
 
-The owner of the `channel` may still execute [channelspayment](../customconsensus/channels.html#channelspayment) for any remaining payments in the channel, until all payments are used or withdrawn.
+The owner of the `channel` may still execute [channelspayment](../../../basic-docs/antara/antara-api/channels.html#channelspayment) for any remaining payments in the channel, until all payments are used or withdrawn.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
-The `sendrawtransaction` method then returns a `txid` which is used in the [channelsrefund](../customconsensus/channels.html#channelsrefund) method to reclaim funds.
+The `sendrawtransaction` method then returns a `txid` which is used in the [channelsrefund](../../../basic-docs/antara/antara-api/channels.html#channelsrefund) method to reclaim funds.
 
 ### Arguments
 
@@ -203,7 +203,7 @@ Command:
 
 The `channelsopen` method opens a channel between two public keys (sender and receiver).
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method then returns a `txid` which is the unique identifying `channels_tx_id`.
 
@@ -267,7 +267,7 @@ The owner of a channel reveals the password of a unique payment `txid` as a part
 
 If the receiver is monitoring the chain at the time of payment and saves the password, and there is a chain reorganization that nullifies the payment, the receiver now has the password to resend the payment. This option is available so long as the channel remains open and the payment has not been refunded.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 The `sendrawtransaction` method then returns a `txid` which is the unique identifying `channels_tx_id`.
 
@@ -333,7 +333,7 @@ The `channelsrefund` method withdraws funds directly to the Antara address of th
 
 The method can only be executed after the channel `close_tx_id` has either one notarization or 60 confirmations.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments
 

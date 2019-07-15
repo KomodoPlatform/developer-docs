@@ -4,7 +4,7 @@
 
 Each Smart Chain in the Komodo ecosystem can act as a fully tokenizable platform. This provides many opportunities to the developer in creating on-chain assets that represent varying types of value for their users.
 
-For example, tokens can be used to represent real world assets, and users can then trade these tokens using Komodo's [Token DEX]() and [AtomicDEX]() features. The developer could also create tokens that provide incentives to their audience. Or, tokens can represent collectible assets. These are but a few examples of the usefulness of on-chain tokenization. 
+For example, tokens can be used to represent real world assets, and users can then trade these tokens using Komodo's [Token DEX](../../../basic-docs/antara/antara-api/tokens.html) and [AtomicDEX](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html) features. The developer could also create tokens that provide incentives to their audience. Or, tokens can represent collectible assets. These are but a few examples of the usefulness of on-chain tokenization. 
 
 ## Conceptualizing Tokens
 
@@ -16,7 +16,7 @@ On a Smart Chain, each individual token is derived from one individual satoshi. 
 
 At the time of the creation of these tokens, the creator can define their properties, grant meta data to them, and establish the nature of their scarcity. 
 
-All of this functionality is established and secured through the [Tokens Antara Module]().
+All of this functionality is established and secured through the [Tokens Antara Module](../../../basic-docs/antara/antara-api/tokens.html).
 
 #### Fungible Token Creation
 
@@ -53,7 +53,7 @@ In our guided tutorial, we now create `50,000` tokens that we give the name `GOL
 - Use `0.0005` tokens
 - For the short description `Some GOLD tokens`
 
-This creates 50,000 GOLD tokens by sending 0.0005 TUT1 coins to the [Tokens Antara Module.]()
+This creates 50,000 GOLD tokens by sending 0.0005 TUT1 coins to the [Tokens Antara Module.](../../../basic-docs/antara/antara-api/tokens.html#introduction)
 
 Wait a minute or so for the transaction to be mined and then use the `GETINFO` function to check the balance of our wallet. There are now `0.0993` coins remaining from the `0.1` coins we had previously.
 
@@ -65,7 +65,7 @@ We also had another fee of `0.0001` coins that were sent to a special address in
 
 ## Seed or Mining Node RPC: tokenlist & tokeninfo to find details of the tokens
 
-To see our tokens afterwards, we can use the [<b>tokenlist</b>]() and [<b>tokeninfo</b>]() RPC's.
+To see our tokens afterwards, we can use the [<b>tokenlist</b>](../../../basic-docs/antara/antara-api/tokens.html#tokenlist) and [<b>tokeninfo</b>](../../../basic-docs/antara/antara-api/tokens.html#tokeninfo) RPC's.
 
 In our guided tutorial, we have automated functions available to make this simpler.
 
@@ -160,16 +160,16 @@ We have covered many topics using our guided-tutorial software.
 
 To learn more about any particular aspect, visit the links below.
 
-If you are ready to proceed with the next tutorials in our educational series, return to the [<b>Learning Launchpad</b>]() section.
+If you are ready to proceed with the next tutorials in our educational series, return to the [<b>Learning Launchpad</b>](../../../basic-docs/start-here/learning-launchpad/learning-path-outline.html#introduction) section.
 
 - Create a new Smart Chain
   - [<b>Create a Default Smart Chain</b>](../../../basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html#creating-a-new-smart-chain)
-  - [<b>ac_name</b>]()
+  - [<b>ac_name</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-name)
 - Create a coin supply
-  - [<b>ac_supply</b>]()
+  - [<b>ac_supply</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-supply)
 - Create and use a faucet
-  - [<b>Faucet Antara Module</b>]()
+  - [<b>Faucet Antara Module</b>](../../../basic-docs/antara/antara-api/faucet.html#introduction)
 - Mine transactions
-  - [<b>setgenerate</b>]()
+  - [<b>setgenerate</b>](../../../basic-docs/smart-chains/smart-chain-api/generate.html#setgenerate)
 - Create fungible and non-fungible tokens
-  - [<b>Tokens Antara Module </b>]()
+  - [<b>Tokens Antara Module </b>](../../../basic-docs/antara/antara-api/tokens.html#introduction)

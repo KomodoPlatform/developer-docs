@@ -68,7 +68,7 @@ To obtain funds on the RICK Smart Chain we utilize the Faucet Antara Module.
 
 This returns a raw transaction that you must now broaadcast using [<b>sendrawtransaction</b>](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction)
 
-Wait a few moments, and then use the [<b>getinfo</b>](../basic-docs/komodo-api/control.html#getinfo) method to verify that your wallet now contains RICK funds.
+Wait a few moments, and then use the [<b>getinfo</b>](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo) method to verify that your wallet now contains RICK funds.
 
 #### Complete Each API Method of the Heir Module
 

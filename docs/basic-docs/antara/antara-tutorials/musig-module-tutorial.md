@@ -74,7 +74,7 @@ Launch the MuSig Smart Chain using the following launch parameters.
 
 Without a pubkey, the MuSig Smart Chain will not function properly on the user's local machine. Follow these instruction for obtaining and setting a pubkey:
 
-- [Instructions for obtaining and setting a pubkey](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)
+- [Instructions for obtaining and setting a pubkey](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey)
 
 Once the Smart Chain is relaunched with the new pubkey included as a launch parameter, the MuSig Smart Chain is prepared for use.
 
@@ -82,7 +82,7 @@ Once the Smart Chain is relaunched with the new pubkey included as a launch para
 
 ::: tip Note
 
-The reader should launch the Smart Chain with a pubkey whose private key is already imported to the wallet. If this is not the case, restart the Smart Chain with an appropriate pubkey, or use the [importprivkey](../komodo-api/wallet.html#importprivkey) method to import the private key of the desired pubkey.
+The reader should launch the Smart Chain with a pubkey whose private key is already imported to the wallet. If this is not the case, restart the Smart Chain with an appropriate pubkey, or use the [importprivkey](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#importprivkey) method to import the private key of the desired pubkey.
 
 :::
 
@@ -131,13 +131,13 @@ In this MuSig example we use the following pubkeys on our two nodes:
 
 The `EVALCODE` for the MuSig module is `18`.
 
-For this example, we use [the normal array formatting for `cclib` methods](../komodo-api/cclib.html#cclib-formatting), as we are not creating a bash script.
+For this example, we use [the normal array formatting for cclib methods](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib-formatting), as we are not creating a bash script.
 
 Steps 1 through 5 and 11 through 12 need to be executed only on the first node.
 
 #### Step 1: combine
 
-Use the [combine](../customconsensus/musig.html#combine) method to create a `combined_pk` address:
+Use the [combine](../../../basic-docs/antara/antara-api/musig.html#combine) method to create a `combined_pk` address:
 
 Command:
 
@@ -164,7 +164,7 @@ Copy the values of `pkhash` and `combined_pk` and save them in a secure location
 
 #### Step 2: send
 
-Use the [send](../customconsensus/musig.html#send) method to send `1` coin to the `combined_pk` address:
+Use the [send](../../../basic-docs/antara/antara-api/musig.html#send) method to send `1` coin to the `combined_pk` address:
 
 Command:
 
@@ -191,7 +191,7 @@ Copy the `hex` value to your clipboard.
 
 #### Step 3: Broadcast the hex Value and Retrieve the sendtxid
 
-Use the [sendrawtransaction](../komodo-api/wallet.html#sendrawtransaction) method to broadcast the raw hex value:
+Use the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method to broadcast the raw hex value:
 
 Command:
 
@@ -214,7 +214,7 @@ The returned value is our `sendtxid`. Copy this to a secure location for later u
 
 #### Step 4: Obtain the change_script Value
 
-Use the [getrawtransaction](../komodo-api/rawtransactions.html#getrawtransaction) method to decode the raw transaction. 
+Use the [getrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#getrawtransaction) method to decode the raw transaction. 
 
 Command:
 
@@ -651,7 +651,7 @@ Therefore, it is not necessary to execute the `spend` method again, nor is it ne
 
 ##### Node 1
 
-Broadcast the `hex` value using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction):
+Broadcast the `hex` value using [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction):
 
 ```bash
 ./komodo-cli -ac_name=MUSIG sendrawtransaction "0400008085202f890193c200495d92c09a3eb527a552c129bf3c991a29478356f92870e1b65ca4da09000000007b4c79a276a072a26ba067a5658021032d29d6545a2aafad795d9cf50912ecade549137163934dfb2895ebc0e211ce8a81401272d03e011f002a464aa75e8c3d093d45a2c4865b7b334998c8dc2fbaa814c17a2f34c9746d2921483b884d577b86465095ce64a4716b4b5d2f0b578860e149a100af03800112a10001ffffffff0200e1f5050000000023210225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270aac0000000000000000686a4c6512792103d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a404b3a9b2b162802bc6c2cca2d22e70ab1cf738a9d4f5692f4f881d0cce0319c137b27889bb562602c94e163729c4168120a4ab41a8e936909e832e6af09e758f200000000470800000000000000000000000000"

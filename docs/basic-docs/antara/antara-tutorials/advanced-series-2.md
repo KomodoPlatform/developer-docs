@@ -140,7 +140,7 @@ To create a global CC address for a new module, follow these steps.
 
 #### Create a value using getnewaddress
 
-With the `komodod` daemon running, use the [<b>getnewaddress</b>](../basic-docs/smart-chains/smart-chain-api/wallet.html#getnewaddress) RPC with `komodo-cli` to get a new address. (You may use any Komodo Smart Chain, such as the KMD main chain, for this procedure.)
+With the `komodod` daemon running, use the [<b>getnewaddress</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getnewaddress) RPC with `komodo-cli` to get a new address. (You may use any Komodo Smart Chain, such as the KMD main chain, for this procedure.)
 
 Copy this value into the first line of the code. For example, in the Faucet code above the result is as follows.
 
@@ -150,7 +150,7 @@ const char *FaucetNormaladdr = "RKQV4oYs4rvxAWx1J43VnT73rSTVtUeckk";
 
 #### Retrieve the pubkey using validateaddress
 
-Use the [<b>validateaddress</b>](../basic-docs/smart-chains/smart-chain-api/util.html#validateaddress) RPC with `komodo-cli` to obtain the pubkey of the new normal address from the previous step.
+Use the [<b>validateaddress</b>](../../../basic-docs/smart-chains/smart-chain-api/util.html#validateaddress) RPC with `komodo-cli` to obtain the pubkey of the new normal address from the previous step.
 
 Place the returned value into the `<CChexstr>[67]` line of code.
 
@@ -160,7 +160,7 @@ char FaucetCChexstr[67] = { "03682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518
 
 #### Restart the Daemon with the pubkey 
 
-Stop the daemon and restart with the [<b>pubkey</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter enabled. Use the pubkey from the <b>validateaddress</b> RPC as the pubkey value.
+Stop the daemon and restart with the [<b>pubkey</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter enabled. Use the pubkey from the <b>validateaddress</b> RPC as the pubkey value.
 
 #### Ensure the Myprivkey Function is Properly Enabled
 

@@ -121,7 +121,7 @@ Many other Antara modules contain examples for finding marked transactions in an
 
 ::: tip
 
-The <b>SetCCtxids()</b> function requires that the Smart Chain [<b>txindex</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#txindex) launch parameter NOT be adjusted beyond the default and automatic settings.
+The <b>SetCCtxids()</b> function requires that the Smart Chain [<b>txindex</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#txindex) launch parameter NOT be adjusted beyond the default and automatic settings.
 
 :::
 
@@ -143,7 +143,7 @@ A code example for finding transactions marked with an unspendable CC marker:
 
 ::: tip
 
-The <b>CCunspents()</b> function requires the Smart Chain [<b>addressindex</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#addressindex) and [<b>spentindex</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#spentindex) launch parameters to be set to `1`.
+The <b>CCunspents()</b> function requires the Smart Chain [<b>addressindex</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#addressindex) and [<b>spentindex</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#spentindex) launch parameters to be set to `1`.
 
 :::
 
@@ -154,7 +154,7 @@ You can use the txidaddress pattern to send value to an address from which the v
 
 The function `CCtxidaddr` is available for creating an address that is not associated with any known private key. This function creates a public key with no private key from a transaction id.
 
-For example, the [<b>Payments</b>]() Antara Module uses `CCtxidaddr` to create a non-spendable txidpk from the `createtxid`. Furthermore, the module also uses the `GetCCaddress1of2` function to create a `1of2` address from both the Payments module global pubkey and the txid-pubkey.
+For example, the [<b>Payments</b>](../../../basic-docs/antara/antara-api/payments.html) Antara Module uses `CCtxidaddr` to create a non-spendable txidpk from the `createtxid`. Furthermore, the module also uses the `GetCCaddress1of2` function to create a `1of2` address from both the Payments module global pubkey and the txid-pubkey.
 
 This allows the module to collect funds on a special CC address that is intended only for a particular type of creation transaction. Funds are sent to this address via the `MakeCC1of2vout` function. Only the Payments module global pubkey and txid-pubkey can successfully create transactions that can be sent to this special address.
 
@@ -205,7 +205,7 @@ This allows more flexibility in the creation of Antara Module transactions. As c
 
 The SDK also now opens up the possibility to place any application data in cc vouts, instead of the last vout alone (as was the case previously). This allows a single transaction to have outputs of two or more Antara modules. For example, this can be useful when making swaps of values between modules.
 
-An example of cc-opret usage can be found in the [Payments]() module. In this module, the `vData` optional parameter in the `MakeCC1of2vout` function is used to append the opreturn data directly to the `ccvout` itself. This contrasts with the old method of adding the data to an actual opreturn that is the last `vout` in a transaction. 
+An example of cc-opret usage can be found in the [Payments Module.](../../../basic-docs/antara/antara-api/payments.html) In this module, the `vData` optional parameter in the `MakeCC1of2vout` function is used to append the opreturn data directly to the `ccvout` itself. This contrasts with the old method of adding the data to an actual opreturn that is the last `vout` in a transaction. 
 
 ```cpp
 std::vector<unsigned char>> opret = EncodePaymentsMergeOpRet(createtxid);  // create Antara module opreturn data
@@ -296,11 +296,11 @@ Instead, we recommend that the developer place only one I think it is always bet
 
 #### Troubleshooting Node Syncing on Test CC Chain
 
-Sometimes, a developer may find after developing a new CC module that a node cannot sync with other nodes in their test network. Executing the [<b>getpeerinfo</b>](../basic-docs/smart-chains/smart-chain-api/network.html#getpeerinfo) shows fewer synced blocks than synced heads. The developer may also see errors in the console log on the malfunctioning node.
+Sometimes, a developer may find after developing a new CC module that a node cannot sync with other nodes in their test network. Executing the [<b>getpeerinfo</b>](../../../basic-docs/smart-chains/smart-chain-api/network.html#getpeerinfo) shows fewer synced blocks than synced heads. The developer may also see errors in the console log on the malfunctioning node.
 
 When this happens, the cause is most commonly rooted in the CC module's validation code. For example, the developer may have changed validation rules, and in so doing may have rendered old transactions invalid in the node's state.
 
-A quick remedy in this situation is to [manually delete the blockchain data on the malfunctioning node and resync the network.](../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) Old transactions should pass validation, assuming the new validation code takes their situation into account.
+A quick remedy in this situation is to [manually delete the blockchain data on the malfunctioning node and resync the network.](../../../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) Old transactions should pass validation, assuming the new validation code takes their situation into account.
 
 When resyncing the node is not a viable solution, another option is to use code logging and the gdb debug software to investigate the cause of failure.
 

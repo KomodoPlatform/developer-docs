@@ -30,7 +30,7 @@ Throughout this document, we will use the test chain, `MUSIG`. Replace `MUSIG` w
 ./komodod -ac_name=MUSIG -ac_supply=100000 -ac_reward=10000000 -ac_cclib=sudoku -ac_cc=2 -addnode=5.9.102.210 -addnode=195.201.20.230 -addnode=195.201.137.5
 ```
 
-Please follow [Installing Komodo Manually](../../komodo/installation.html), if you have not done this already. Please note, that the process is different because we are using a custom cclib module that is not typically included in the Komodo Daemon(`komodod`) unless `komodod` is explictily built for this module. Follow the above guide, once you finish the `./zcutil/build.sh` step, do this:
+Please follow [Installing Komodo Manually](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html), if you have not done this already. Please note, that the process is different because we are using a custom cclib module that is not typically included in the Komodo Daemon(`komodod`) unless `komodod` is explictily built for this module. Follow the above guide, once you finish the `./zcutil/build.sh` step, do this:
 
 ```bash
 cd ~/komodo/src/cc
@@ -46,7 +46,7 @@ We will begin by going through the manual process of creating a handle, sending 
 
 ### Step 1: Start the daemon with a `pubkey` and backup its `privkey`
 
-Start the `komodod`, by setting `-pubkey=` in the launch parameters. See [Launching with pubkey](./cryptoconditions-instructions.html#creating-and-launching-with-a-pubkey) to learn about obtaining a `pubkey`.
+Start the `komodod`, by setting `-pubkey=` in the launch parameters. See [Launching with pubkey](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html) to learn about obtaining a `pubkey`.
 
 ```bash
 ./komodod -ac_name=MUSIG -ac_supply=100000 -ac_reward=10000000 -ac_cclib=sudoku -ac_cc=2 -addnode=5.9.102.210 -addnode=195.201.20.230 -addnode=195.201.137.5 -pubkey=0377ffe2b64443ac5e746f29b021e22411c7731d675f169d32423f8f3d6fc9ea3b
@@ -54,7 +54,7 @@ Start the `komodod`, by setting `-pubkey=` in the launch parameters. See [Launch
 
 #### Note
 
-If the chain you're using has the [ac_pubkey](../installations/asset-chain-parameters.html) parameter, you must not change the `-ac_pubkey=` value. Do not confuse `-pubkey=` with `-ac_pubkey=`. These are entirely seperate parameters.
+If the chain you're using has the [ac_pubkey](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-pubkey) parameter, you must not change the `-ac_pubkey=` value. Do not confuse `-pubkey=` with `-ac_pubkey=`. These are entirely seperate parameters.
 
 To check that the `pubkey` is set properly, do:
 
@@ -76,7 +76,7 @@ To check that the `pubkey` is set properly, do:
 
 If this does not output the `-pubkey=` value and corresponding address, you have not set it properly.
 
-It is important to [backup](../komodo-api/wallet.html#dumpprivkey) the private key for this `-pubkey=` address. Without it, any handles registered with it will not be accessible.
+It is important to [backup](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#dumpprivkey) the private key for this `-pubkey=` address. Without it, any handles registered with it will not be accessible.
 
 ### Step 2: Create a Dilithium keypair using a random string
 
@@ -86,7 +86,7 @@ Run the following commands in your terminal.
 ./komodo-cli -ac_name=MUSIG cclib keypair 19 "[%22rand%22]"
 ```
 
-Learn about the `%22`s in the command here: [CC Lib Formatting](../komodo-api/cclib.html#cclib-formatting)
+Learn about the `%22`s in the command here: [CC Lib Formatting](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib-formatting)
 
 This command generates a Dilithium keypair using a random seed.
 
@@ -840,7 +840,7 @@ We can now use this `"pubkey"` value with the `cclibaddress` rpc command.
 
 </collapse-text>
 
-This `"PubkeyCCaddress(CClib)"` value, `RGBrSwrGR4ypFFufyvHEuMMbxs7ETD8Xv7`, is `LABSLover`'s CC address. We can now use the [getaddressutxos](../komodo-api/address.html#getaddressutxos) rpc command to find it's utxos.
+This `"PubkeyCCaddress(CClib)"` value, `RGBrSwrGR4ypFFufyvHEuMMbxs7ETD8Xv7`, is `LABSLover`'s CC address. We can now use the [getaddressutxos](../../../basic-docs/smart-chains/smart-chain-api/address.html#getaddressutxos) rpc command to find it's utxos.
 
 ```bash
 ./komodo-cli -ac_name=MUSIG getaddressutxos '{"addresses": ["RGBrSwrGR4ypFFufyvHEuMMbxs7ETD8Xv7"]}'
@@ -1355,7 +1355,11 @@ adebadd9483bb3d6edd10304dc162506a36adc4aabb14dd13a623042f339236dfc6c067ec1091ec0
 
 Please note, this we will be using `python3` for the rest of this guide. This will work with any language that can interact with the daemon via rpc. We will be using the [slickrpc](https://github.com/barjomet/slick-bitcoinrpc) library to interact with the daemon.
 
+<!-- Sidd: The below sentence seems to be a leftover from docs.komodoplatform.com ? 
+
 Learn how to use the slickrpc library [here.](../../komodo/python-rpc-komodod.html)
+
+-->
 
 ```python
 # function to get handle from register txid

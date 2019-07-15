@@ -19,7 +19,7 @@ Also, please open an empty text file and save all output transaction ids and hex
 
 For this tutorial, please compile and install Komodo software from the source repositories.
 
-[Information on manual installations can be found at this linked documentation.](https://docs.komodoplatform.com/komodo/installation.html)
+[Information on manual installations can be found at this linked documentation.](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#linux)
 
 #### Create a New Blockchain
 
@@ -27,15 +27,15 @@ For this tutorial we will create a temporary Smart Chain called `HELLOWORLD` for
 
 Make sure that the total `ac_supply` of this Smart Chain is fairly large. `777777` coins will do for our purposes.
 
-[Follow these linked instructions](../installations/creating-asset-chains.html#creating-a-new-asset-chain) before continuing.
+[Follow these linked instructions](../../../basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html) before continuing.
 
-Recall also that a user must have a `pubkey` enabled when interacting with an Antara-related Smart Chain. [View this linked material for an explanation.](../customconsensus/custom-consensus-instructions.html#creating-and-launching-with-a-pubkey)
+Recall also that a user must have a `pubkey` enabled when interacting with an Antara-related Smart Chain. [View this linked material for an explanation.](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html)
 
 If desired, the reader may use an existing Smart Chain instead of a temporary educational chain. [Follow this link](https://github.com/jl777/komodo/blob/master/src/assetchains.old) for a list of asset-chain launch parameters.
 
 #### Create a Token to Represent an External Cryptocurrency
 
-For the GatewaysCC module to function it must have access to tokens that can represent an external cryptocurrency. We use the [Tokens](../customconsensus/tokens.html) CC module to this effect.
+For the GatewaysCC module to function it must have access to tokens that can represent an external cryptocurrency. We use the [Tokens](../../../basic-docs/antara/antara-api/tokens.html) CC module to this effect.
 
 #### Decide the Number of Tokens to Create
 
@@ -59,7 +59,7 @@ To create the tokens, execute the following command:
 
 This creates a `100000000000` token supply of on-chain tokens with the name of `KMD`, which represent the external cryptocurrency, `KMD`.
 
-For more details on the above command, see [tokencreate.](../customconsensus/tokens.html#tokencreate)
+For more details on the above command, see [tokencreate.](../../../basic-docs/antara/antara-api/tokens.html#tokencreate)
 
 This command returns a hex value as a response:
 
@@ -71,7 +71,7 @@ This command returns a hex value as a response:
 
 Select the hex value (`01000000022c223c...`) and copy it (CTRL + SHFT + C).
 
-Broadcast this value using [sendrawtransaction:](../komodo-api/rawtransactions.html#sendrawtransaction)
+Broadcast this value using [sendrawtransaction:](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex
@@ -85,7 +85,7 @@ This returns a string, and this string is our `tokenid`.
 
 Copy the `tokenid` into the text editor we opened at the beginning of the tutorial and keep it available for future use.
 
-Watch the mempool using [getrawmempool](../komodo-api/blockchain.html#getrawmempool) to verify that the `tokenid` is successfully mined:
+Watch the mempool using [getrawmempool](../../../basic-docs/smart-chains/smart-chain-api/blockchain.html#getrawmempool) to verify that the `tokenid` is successfully mined:
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD getrawmempool
@@ -93,7 +93,7 @@ Watch the mempool using [getrawmempool](../komodo-api/blockchain.html#getrawmemp
 
 Once the `tokenid` disappears from the mempool the transaction is mined.
 
-If this Smart Chain were receiving full dPoW security services, at this point it would be appropriate to wait for notarization. We can use [getinfo](../komodo-api/control.html#getinfo) to watch for the `notarizations` property to increase:
+If this Smart Chain were receiving full dPoW security services, at this point it would be appropriate to wait for notarization. We can use [getinfo](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo) to watch for the `notarizations` property to increase:
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD getinfo
@@ -101,13 +101,13 @@ If this Smart Chain were receiving full dPoW security services, at this point it
 
 On this educational Smart Chain, however, we can continue without waiting for notarization.
 
-We can check to see that our token is successfully created on the chain using [tokeninfo:](../customconsensus/tokens.html#tokeninfo)
+We can check to see that our token is successfully created on the chain using [tokeninfo:](../../../basic-docs/antara/antara-api/tokens.html#tokeninfo)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD tokeninfo insert_token_id
 ```
 
-We can check the balance of our `pubkey` using [tokenbalance:](../customconsensus/tokens.html#tokenbalance)
+We can check the balance of our `pubkey` using [tokenbalance:](../../../basic-docs/antara/antara-api/tokens.html#tokenbalance)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD tokenbalance insert_tokenid insert_pubkey
@@ -115,11 +115,11 @@ We can check the balance of our `pubkey` using [tokenbalance:](../customconsensu
 
 #### Create an Oracle
 
-We use the [Oracles](../customconsensus/oracles.html) Module to add external data to the blockchain.
+We use the [Oracles](../../../basic-docs/antara/antara-api/oracles.html#introduction) Module to add external data to the blockchain.
 
 The name of our oracle should be identical to the name of our tokens, `KMD`, and the data format must start with `Ihh` (height, blockhash, merkleroot):
 
-Create the oracle using [oraclescreate:](../customconsensus/oracles.html#oraclescreate)
+Create the oracle using [oraclescreate:](../../../basic-docs/antara/antara-api/oracles.html#oraclescreate)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD oraclescreate KMD blockheaders Ihh
@@ -134,7 +134,7 @@ This returns a hex value:
 }
 ```
 
-Broadcast the returned hex data using [sendrawtransaction:](../komodo-api/rawtransactions.html#sendrawtransaction)
+Broadcast the returned hex data using [sendrawtransaction:](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_data
@@ -148,7 +148,7 @@ This returns a transaction id, which is the `oracleid`:
 
 Record this in the text editor.
 
-To prepare for the oraclefeed instance, use [oraclesregister](../customconsensus/oracles.html#oraclesregister) to register as a publisher for the oracle. This must be done on a node which can post KMD block headers and which can execute withdrawal transactions:
+To prepare for the oraclefeed instance, use [oraclesregister](../../../basic-docs/antara/antara-api/oracles.html#oraclesregister) to register as a publisher for the oracle. This must be done on a node which can post KMD block headers and which can execute withdrawal transactions:
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD oraclesregister insert_oracleid data_fee_in_satoshis`
@@ -160,7 +160,7 @@ This returns a hex value (not shown for brevity), which we now broadcast:
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction insert_hex_value
 ```
 
-Retrieve the data publisher's `pubkey` using [oraclesinfo:](../customconsensus/oracles.html#oraclesinfo)
+Retrieve the data publisher's `pubkey` using [oraclesinfo:](../../../basic-docs/antara/antara-api/oracles.html#oraclesinfo)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD oraclesinfo insert_oracleid
@@ -196,7 +196,7 @@ Retrieve the data publisher's `pubkey` using [oraclesinfo:](../customconsensus/o
 
 The property, `"publisher"`, in the entry, `"registered"`, of the returned json object is the data publisher's `pubkey`, also called the `publisherpubkey`.
 
-Subscribe to the oracle using [oraclessubscribe](../customconsensus/oracles.html#oraclessubscribe) to receive utxo information for data publishing.
+Subscribe to the oracle using [oraclessubscribe](../../../basic-docs/antara/antara-api/oracles.html#oraclessubscribe) to receive utxo information for data publishing.
 
 The frequency of data-publishing transactions we can perform in a block is equal to the number of active subscriptions committed to the oracle. Therefore, we must have at least one subscription for the oracle to allow publishing.
 
@@ -222,7 +222,7 @@ Verify the oracle information to ensure it is properly established:
 
 #### Activating Gateway Binding
 
-We now create a gateway and bind our information to it, using the [gatewaysbind](../customconsensus/gateways.html#gatewaysbind) method.
+We now create a gateway and bind our information to it, using the [gatewaysbind](../../../basic-docs/antara/antara-api/gateways.html#gatewaysbind) method.
 
 This method requires that we decide how many total gateway signatures we desire (`N`), and how many signatures are required to withdraw funds (`M`).
 
@@ -242,7 +242,7 @@ This method returns a hex value (not shown for brevity), which we now broadcast:
 
 The broadcast returns a transaction id, also called the `bindtxid`. Copy this information into the text editor.
 
-Assuming all is properly created and executed, we may now review our new gateway using [gatewaysinfo:](../customconsensus/gateways.html#gatewaysinfo)
+Assuming all is properly created and executed, we may now review our new gateway using [gatewaysinfo:](../../../basic-docs/antara/antara-api/gateways.html#gatewaysinfo)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD gatewaysinfo insert_bindtxid
@@ -322,13 +322,13 @@ First, we need the `gatewaysDepositAddress`. This is the address where we will d
 
 The `deposit` property contains the `gatewaysDepositAddress`. When we send funds to this address, we receive in return HELLOWORLD KMD tokens to an on-chain address that we indicate as follows.
 
-Use the [z_sendmany](../komodo-api/wallet.html#z-sendmany) method to send funds to two addresses simultaneously. The first address is the `pubkey` that corresponds to our pubkey on the HELLOWORLD Smart Chain which will receive tokens. The second address is the `gatewaysDepositAddress` on the KMD chain. We send a nominal amount into the first address, and the amount we wish to have available for trading into the second address. This is done on the external chain -- in this case, KMD.
+Use the [z_sendmany](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-sendmany) method to send funds to two addresses simultaneously. The first address is the `pubkey` that corresponds to our pubkey on the HELLOWORLD Smart Chain which will receive tokens. The second address is the `gatewaysDepositAddress` on the KMD chain. We send a nominal amount into the first address, and the amount we wish to have available for trading into the second address. This is done on the external chain -- in this case, KMD.
 
 ```bash
 ./komodo-cli z_sendmany "insert_address_where_KMD_funds_are_currently_held" '[{"address":"addressOfPubkeyForTokenizedKmd","amount":0.0001},{"address":"gatewaysDepositAddress","amount":0.1}]'
 ```
 
-The returned string is the `operation_id`. Use this with the [z_getoperationstatus](../komodo-api/wallet.html#z-getoperationstatus) method.
+The returned string is the `operation_id`. Use this with the [z_getoperationstatus](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-getoperationstatus) method.
 
 ```bash
 ./komodo-cli z_getoperationstatus '["insert_operation_id"]'
@@ -336,7 +336,7 @@ The returned string is the `operation_id`. Use this with the [z_getoperationstat
 
 Execute this every few seconds until the `status` property reads `success`. Once this occurs, find the `txid` value. This is our `cointxid`, and we copy this into our text editor.
 
-Wait for the transaction to be mined. Once confirmed, execute the [gettransaction](../komodo-api/wallet.html#gettransaction) method with the `cointxid` to obtain more information we will need later.
+Wait for the transaction to be mined. Once confirmed, execute the [gettransaction](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#gettransaction) method with the `cointxid` to obtain more information we will need later.
 
 ```bash
 ./komodo-cli gettransaction insert_cointxid
@@ -356,7 +356,7 @@ Next, execute the following command for more information:
 
 This returns a `proof` value. Transfer this to the text editor.
 
-We now have the necessary data to execute the [gatewaysdeposit](../customconsensus/gateways.html#gatewaysdeposit-2) method on the HELLOWORLD Smart Chain.
+We now have the necessary data to execute the [gatewaysdeposit](../../../basic-docs/antara/antara-api/gateways.html#gatewaysdeposit) method on the HELLOWORLD Smart Chain.
 
 The `gatewaysdeposit` method broadcasts the relevant data on the Smart Chain so that the gateway nodes may validate the information and prepare to distribute the KMD tokens.
 
@@ -420,7 +420,7 @@ For the claim to process successfully, the deposit and bind transaction must be 
 
 #### Withdrawing KMD Funds
 
-When finished with our tokens, we may send them to the gateway and withdraw the corresponding KMD funds via the [gatewayswithdraw](../customconsensus/gateways.html#gatewayswithdraw) method. Only the current owner of the KMD funds may execute the `gatewayswithdraw` method for these funds.
+When finished with our tokens, we may send them to the gateway and withdraw the corresponding KMD funds via the [gatewayswithdraw](../../../basic-docs/antara/antara-api/gateways.html#gatewayswithdraw) method. Only the current owner of the KMD funds may execute the `gatewayswithdraw` method for these funds.
 
 ::: tip
 Recall that for the gateway to function, the oracle instance must be running.
