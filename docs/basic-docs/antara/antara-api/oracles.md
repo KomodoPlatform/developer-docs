@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Oracles Antara module allows a user to make off-chain data available on-chain. This enables developers to create and use software that responds to off-chain information and events.
+The Oracles Antara Module allows a user to make off-chain data available on-chain. This enables developers to create and use software that responds to off-chain information and events.
 
 Those who publish data to an oracle are called publishers. There is a fee-based model to serve as an incentive for publishers.
 

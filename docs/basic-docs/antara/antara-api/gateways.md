@@ -2,13 +2,13 @@
 
 ## Introduction
 
-The Gateway Antara module allows the user to facilitate, manage, and trade tokenized representations of foreign blockchain assets.
+The Gateway Antara Module allows the user to facilitate, manage, and trade tokenized representations of foreign blockchain assets.
 
-For example, a user is able to deposit their real-world BTC into a monitored address on the Bitcoin blockchain. Then, on the `gateways` Smart Chain, the ownership of this BTC is tokenized. Only the owner of the token has the right to withdraw the BTC to a chosen address. The user that made the deposit can use the token either for asset trading, or for other creative purposes.
+For example, a user is able to deposit their real-world BTC into a monitored address on the Bitcoin blockchain. Then, on the Gateways-enabled Smart Chain, the ownership of this BTC is tokenized. Only the owner of the token has the right to withdraw the BTC to a chosen address. The user that made the deposit can use the token either for asset trading, or for other creative purposes.
 
-This allows the `gateways`-enabled Smart Chain to feature secure, on-chain, high-speed trading.
+This allows the Gateways-enabled Smart Chain to feature secure, on-chain, high-speed trading.
 
-Using an established `gateways` contract is not considered difficult. However, setting up the gateway requires the user to closely follow several detailed steps.
+Using an established Gateways contract is not considered difficult. However, setting up the gateway requires the user to closely follow several detailed steps.
 
 ## Tutorial Availability
 

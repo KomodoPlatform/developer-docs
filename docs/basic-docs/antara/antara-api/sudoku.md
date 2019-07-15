@@ -4,11 +4,11 @@
 
 The Sudoku Antara Module serves as a proof-of-concept to demonstrate Antara's capabilities as a blockchain-based gaming technology.
 
-The Sudoku module is based on the classic game, Sudoku. To learn more about how Sudoku is played, read the associated Wikipedia article:
+The Sudoku Module is based on the classic game, Sudoku. To learn more about how Sudoku is played, read the associated Wikipedia article:
 
 [Link to Sudoku Wikipedia article](https://en.wikipedia.org/wiki/Sudoku)
 
-The procedures to launch and finish a game require the execution of various Remote Procedure Calls (RPCs). By design, the Sudoku module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must pass trough the Sudoku RPC captcha protection, as this deters bots.
+The procedures to launch and finish a game require the execution of various Remote Procedure Calls (RPCs). By design, the Sudoku Module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must pass trough the Sudoku RPC captcha protection, as this deters bots.
 
 The following installation and walkthrough tutorials can assist the reader in setting up and playing the Sudoku game. For more information, please reach out to our community on [Discord](https://komodoplatform.com/discord). The #cc-sudoku channel is available for questions and assistance.
 

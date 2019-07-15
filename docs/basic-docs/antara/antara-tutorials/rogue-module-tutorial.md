@@ -1,14 +1,12 @@
 # Rogue Module Tutorial
 
-The Rogue Fluidity module is a Fluidity implementation of the classic Unix game, Rogue.
-
 This tutorial documentation is associated with the Rogue API documentation. 
 
 [<b>Link to Rogue API documentation</b>](../../../basic-docs/antara/antara-api/rogue.html)
 
 ## Introduction
 
-The Rogue Fluidity module serves as a proof-of-concept to demonstrate Fluidity's capabilities as a blockchain-based gaming technology.
+The Rogue Antara module serves as a proof-of-concept to demonstrate Antara's capabilities as a blockchain-based gaming technology.
 
 The Rogue module is based on the classic [Rogue](http://www.livingroguelike.com/rl-games/the-original-rogue-information-and-how-to-play-online/) game. As such, it can be categorized as a [Roguelike.](http://www.livingroguelike.com/roguelike-info-discussions/what-is-a-roguelike/)
 

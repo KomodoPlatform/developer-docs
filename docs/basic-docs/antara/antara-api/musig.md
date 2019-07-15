@@ -4,11 +4,11 @@
 
 ::: tip Notice
 
-The MuSig module is an experimental feature. It is provided as a demonstration of Antara capabilities and of the MuSig concept. If you would like to use MuSig on a production-level Smart Chain, please reach out to the Komodo team on [Discord.](https://komodoplatform.com/discord)
+The MuSig Module is an experimental feature. It is provided as a demonstration of Antara capabilities and of the MuSig concept. If you would like to use MuSig on a production-level Smart Chain, please reach out to the Komodo team on [Discord.](https://komodoplatform.com/discord)
 
 :::
 
-The MuSig Antara module implements a new type of multi-signature functionality. MuSig allows a blockchain to process multi-signature transactions in a more data-efficient manner. MuSig also keeps private the number of signers partaking in a multi-signature transaction.
+The MuSig Antara Module implements a new type of multi-signature functionality. MuSig allows a blockchain to process multi-signature transactions in a more data-efficient manner. MuSig also keeps private the number of signers partaking in a multi-signature transaction.
 
 This functionality is facilitated by MuSig's implementation of Schnorr Signature technology. Schnorr Signatures are unique in that each signature is 64 bytes in size, regardless of the number of signers in a transaction. Also, a multi-signature Schnorr Signature can be processed in one verification.
 

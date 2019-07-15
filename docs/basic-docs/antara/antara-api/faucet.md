@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Faucet Antara module enables anyone to fund an on-chain faucet on any chain where modules are [enabled.](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc) A Smart Chain may have only one on-chain `faucet`.
+The Faucet Antara Module enables anyone to fund an on-chain faucet on any chain where modules are [enabled.](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc) A Smart Chain may have only one on-chain `faucet`.
 
 To receive funds from a `faucet`, the [faucetget](../../../basic-docs/antara/antara-api/faucet.html#faucetget) method can be executed by anyone on the Smart Chain, as long as their public address satisfies a few constraints. Their daemon's pubkey (corresponding to the address) must have no history of funds or transactions, and an address can claim faucet funds only once on a chain. The call also requires the node to perform a small PoW calculation; this deters leeching.
 

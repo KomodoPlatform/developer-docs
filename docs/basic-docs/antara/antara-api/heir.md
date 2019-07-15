@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Heir Antara module allows cryptocurrency funds to be passed on as an inheritance.
+The Heir Antara Module allows cryptocurrency funds to be passed on as an inheritance.
 
 The module functions by the means of a special `1of2` Antara address. In this type of address there are two private keys that are capable of spending funds from the address. However, only the first private key may spend funds by default.
 
@@ -12,7 +12,7 @@ Should the owner fail to interact with the `1of2` Antara address for a specified
 
 The [heiradd](../../../basic-docs/antara/antara-api/heir.html#heiradd) method allows anyone, including users who are neither the owner nor the heir, to add funds to the address. These additions are considered donations and they do not affect the `inactivitytime` calculations that can unlock the funds for the heir. The `heiradd` method warns the user that they are making a donation if the method detects that the user is neither the owner nor the heir.
 
-The Heir Antara module accepts both coins and tokens. These can be the base coin of the Smart Chain, on-chain tokens created via the [Tokens](../../../basic-docs/antara/antara-api/tokens.html#introduction) Antara module that represent on-chain assets, or even tokens that are formed via the [Gateways](../../../basic-docs/antara/antara-api/gateways.html) module to represent off-chain assets or other cryptocurrencies.
+The Heir Antara Module accepts both coins and tokens. These can be the base coin of the Smart Chain, on-chain tokens created via the [Tokens](../../../basic-docs/antara/antara-api/tokens.html#introduction) Antara Module that represent on-chain assets, or even tokens that are formed via the [Gateways](../../../basic-docs/antara/antara-api/gateways.html) Module to represent off-chain assets or other cryptocurrencies.
 
 #### Heir Module Flow
 

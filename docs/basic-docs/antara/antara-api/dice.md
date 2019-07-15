@@ -2,11 +2,11 @@
 
 ## Introduction
 
-The Dice Antara module allows for a decentralized `dice` game on a blockchain. The `dice` module is essentially a simple, but fully functional example of decentralized software.
+The Dice Antara Module allows for a decentralized `dice` game on a blockchain. The `dice` module is essentially a simple, but fully functional example of decentralized software.
 
-It is also useful as a demonstration to show how Antara based modules can leverage provably random entropy to enable blockchain-enforced real-time gameplay.
+It is also useful as a demonstration to show how Antara-based modules can leverage provably random entropy to enable blockchain-enforced real-time gameplay.
 
-The Dice module is a simple gambling game, where one node creates a "house" contract, with seed funds and other parameters, and other users place bets within the indicated parameters. Winners and losers are determined through blockchain technology. This technology includes on-chain, consensus based, provably random entropy that derives from the activity of both the "house" and the users.
+The Dice Module is a simple gambling game, where one node creates a "house" contract, with seed funds and other parameters, and other users place bets within the indicated parameters. Winners and losers are determined through blockchain technology. This technology includes on-chain, consensus based, provably random entropy that derives from the activity of both the "house" and the users.
 
 The "house" node should be running the [dicestatus](../../../basic-docs/antara/antara-api/dice.html#introduction) method at a regular frequency. This method resolves unfinished bets and generates new entropy utxos for the "house" contract.
 

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Tokens Module enables support for the on-chain creation of colored coins, also called tokens. This module enables the basic functionality, such as creation, transfer and balance validation. The created tokens are typically used with another module that supports operations on tokens. For example, the Assets Module provides buy/sell operations for `tokens`.
+The Tokens Antara Module enables support for the on-chain creation of colored coins, also called tokens. This module enables the basic functionality, such as creation, transfer and balance validation. The created tokens are typically used with another module that supports operations on tokens. For example, the Assets Module provides buy/sell operations for `tokens`.
 
 Functionality for this module is facilitated by utxo technology. Tokens can be generated on any chain where the [ac_cc](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc) customization is enabled
 
