@@ -528,7 +528,7 @@ Use the `paymentstxidopret` method to create a transaction for each intended rec
 
 | Name         | Type               | Description                                                                                 |
 | ------------ | ------------------ | ------------------------------------------------------------------------------------------- |
-| allocation   | (number)           | defines the share of a payment to the given `scriptPubkey`                                 |
+| allocation   | (number)           | defines the share of a payment to the given `scriptPubkey`                                  |
 | scriptPubKey | (string)           | [scriptPubkey](https://learnmeabitcoin.com/glossary/scriptPubKey) of the recipient          |
 | destopret    | (string, optional) | data to be stored in the OP_RETURN of the transaction that sends funds to the scriptPubkey. |
 
@@ -603,3 +603,44 @@ Therefore, using either `RN727JeeiZ6NXic7PUKTCiHT1HvuBN4RDa` or `2102d3431950c2f
 
 </div>
 
+#### :pushpin: Examples
+
+###### Command
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD paymentstxidopret '[9,"2221039433dc3749aece1bd568f374a45da3b0bc6856990d7da3cd175399577940a775ac"]'
+```
+
+<div style="margin-top: 1rem; margin-bottom: 1rem;">
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "hex": "0400008085202f89010048372b016ca6d2836a2f66bc24217c6d9a82160031f9027de1b43ea278b1a00000000049483045022100b822b9905f0244a22880f3c957cbe76ea8d5e7e97cddc8a2925b6a415a6e1e87022051b539e766a067113f7931182779a90a0bfd640d5e96f93d2af7f8bb3c4ad8bb01ffffffff02f0b9f50500000000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac0000000000000000326a30f0540900000000000000242221039433dc3749aece1bd568f374a45da3b0bc6856990d7da3cd175399577940a775ac00000000000a1000000000000000000000000000",
+  "txid": "717153eef7e22a8c741455a8c888a14c9dbe2702658fc93434e5c43a8c8f4ce4",
+  "result": "success"
+}
+```
+
+</collapse-text>
+
+</div>
+
+###### Broadcast the transaction
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f89010048372b016ca6d2836a2f66bc24217c6d9a82160031f9027de1b43ea278b1a00000000049483045022100b822b9905f0244a22880f3c957cbe76ea8d5e7e97cddc8a2925b6a415a6e1e87022051b539e766a067113f7931182779a90a0bfd640d5e96f93d2af7f8bb3c4ad8bb01ffffffff02f0b9f50500000000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac0000000000000000326a30f0540900000000000000242221039433dc3749aece1bd568f374a45da3b0bc6856990d7da3cd175399577940a775ac00000000000a1000000000000000000000000000
+```
+
+<div style="margin-top: 1rem; margin-bottom: 1rem;">
+
+<collapse-text hidden title="Response">
+
+```bash
+717153eef7e22a8c741455a8c888a14c9dbe2702658fc93434e5c43a8c8f4ce4
+```
+
+</collapse-text>
+
+</div>
