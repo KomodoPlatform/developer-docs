@@ -579,23 +579,31 @@ An important rule to point out here is that there can be any number of inputs (t
 }
 ```
 
+###### The First Output (vout0)
+
 In the first output (technically called a "vout") we see the address associated with the `KomodoFan` handle: `RGBrSwrGR4ypFFufyvHEuMMbxs7ETD8Xv7` 
 
-We also see that `0.1` coins are sent to this address.
+`0.1` coins are sent to this address.
 
 The `type` key shows a value of `cryptoconditions`, indicating that this transaction is now associated with the Dilithium Antara Module.
 
-#### Note
+##### (Optional) Check the Address Belongs to the Handle
 
-Every address has a unique CC address for each CC. This CC address is unique to this node and this module. All handles created using the same `-pubkey=` address will store their UTXOs in their own CC address. This means that all handles registered from the same `-pubkey=` address will use this same CC address.
+Recall that in the Antara Framework every `pubkey` address has a unique Antara Address for each module. 
 
-We can use the `cclibaddress` command to check that this is indeed `KomodoFan`'s CC address. We will use the pubkey shown from the `cclib handleinfo 19 "[%22KomodoFan%22]"` command we executed previously.
+All handles created under the same `pubkey` will store their Qutxos in an Antara Address that is unique both to the `pubkey` and to the Dilithium Module. 
+
+Therefore, the Dilithium handle is tied to the associated Dilithium Antara Address and `pubkey` as well.
+
+Use the [<b>cclibaddress</b>](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclibaddress) RPC to verify that we have KomodoFan's Antara Address. 
+
+To achieve this, we use the `pubkey` returned from the `cclib handleinfo 19 "[%22KomodoFan%22]"` command we executed previously.
+
+###### Command
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclibaddress 19 03cebc558e6ba1c0f56f4ad490391c93336b5ccd8b08d123f4e7f1cdd4d5d21e61
 ```
-
-<collapse-text hidden title="Response">
 
 ```json
 {
@@ -614,17 +622,21 @@ We can use the `cclibaddress` command to check that this is indeed `KomodoFan`'s
 }
 ```
 
-</collapse-text>
+As shown above, the `"PubkeyCCaddress(CClib)"` provides a matching address for `KomodoFan`.
 
-- We can see here that the `"PubkeyCCaddress(CClib)"` address matches this output.
+###### The Second Output (vout1)
 
-- Vout1 is the change UTXO back to `KomodoHaxor`'s CC address. We can check this value with the `cclibaddress` rpc command.
+The second output (also called `vout1`) is the change qutxo that sends our leftover funds back to our `KomodoHaxor` Antara Address. 
+
+To verify that this is the correct Antara address, we can again utlize the <b>cclibaddress</b> RPC.
+
+###### Command
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclibaddress 19
 ```
 
-<collapse-text hidden title="Response">
+###### Response
 
 ```json
 {
@@ -641,11 +653,13 @@ We can use the `cclibaddress` command to check that this is indeed `KomodoFan`'s
 }
 ```
 
-</collapse-text>
+The value of `"myCCAddress(CClib)"` matches the output.
 
-- We see that `"myCCAddress(CClib)"` does indeed match the output.
+###### The Final Output (opreturn vout)
 
-- Now for the OP_RETURN vout. We can use this to obtain the `destpubtxid` of the inputs and the `destpubtxid`s for each of the outputs.
+The final ouptut (which we can also call `vout2` or `opreturn vout`) contains our OP_RETURN (opreturn) data. 
+
+This output contains needed information about the `destpubtxid` of the inputs and the `destpubtxids` of the outputs.
 
 ```json
 {
@@ -659,6 +673,8 @@ We can use the `cclibaddress` command to check that this is indeed `KomodoFan`'s
   }
 }
 ```
+
+The `hex` value in particular contains information that we need. Currently, the hex data is encoded. 
 
 The information stored in this `"hex"` value is `E_MARSHAL(ss << evalcode << 'Q' << destpubtxid << sig << voutpubtxids)`. For now we are only interested in `destpubtxid` and `voutpubtxids`. We can look at how you might decode this. This `"hex"` value is little endian. We will begin by converting it to big endian.
 
