@@ -257,7 +257,7 @@ Use the hex value from node one, but change the privkey to the privkey of node t
 }
 ```
 
-## Step 6 - Broadcast the transaction
+## Broadcast the transaction
 
 Broadcast the raw hex to finish send the transaction.
 
