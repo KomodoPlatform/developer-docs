@@ -16,7 +16,11 @@ In April 2014, Komodo’s lead developer experimented with his first atomic-swap
 
 To understand AtomicDEX, one must first understand what a decentralized exchange is, why it is important, and how atomic swaps come into play.
 
-This discussion requires a small amount of foundational knowledge. The reader should be generally familiar with blockchain technology and should understand the basic ideas of the Komodo project. If an overview of Komodo is needed, head to the documentation introduction, ["Why Komodo?"](../start-here/outline-for-new-developers.html#why-komodo) For a more thorough understanding of general blockchain technology, check out [Part I of the Komodo whitepaper.](https://komodoplatform.com/whitepaper) This section of the whitepaper gives an overview of how a blockchain works and why it matters. After reading those articles, the following discussion should be attainable.
+This discussion requires a small amount of foundational knowledge. The reader should be generally familiar with blockchain technology and should understand the basic ideas of the Komodo project. 
+
+For a broad overview of Komodo, head to the [About Komodo Platform section](../../../basic-docs/start-here/about-komodo-platform/about-komodo-platform.html) For a more thorough understanding of general blockchain technology, check out [the Delayed Proof of Work section of the Core Technology Discussions.](../../../basic-docs/start-here/core-technology-discussions/delayed-proof-of-work.html) This section gives an overview of how a blockchain works and why it matters.
+
+After reading the above articles, the following discussion should be attainable.
 
 ## Understanding the Most Common Method of Cryptocurrency Exchange
 
@@ -64,7 +68,7 @@ In light of these concerns, many reputable and established CEX's are turning to 
 
 ## A Decentralized Exchange Can Bring Greater Safety
 
-To understand why a CEX may wish to implement decentralized technologies, one must first understand how a typical decentralized exchange (DEX) works. There are many types of DEX's, each having a unique technical structure. Perhaps the most popular DEX format is a decentralized gateway.
+To understand why a CEX may wish to implement decentralized technologies, one must first understand how a typical decentralized exchange (DEX) works. There are many types of DEXs, each having a unique technical structure. Perhaps the most popular DEX format is a decentralized gateway.
 
 ### Types of Decentralized Exchanges
 
@@ -117,7 +121,7 @@ However, the nature of an atomic swap is unique in comparison with the opposing 
 | Users maintain control over the funds throughout the process | <b>Yes:</b> Users maintain control over their funds until the trade is completed, at which point ownership is swapped atomically | <b>No:</b> Users relinquish ownership to the gateway nodes, although users do hold private keys to IOUs | <b>No:</b> Once the user sends funds to the CEX, they only own their funds in theory until the funds are returned |
 | User funds remain distributed and decentralized throughout process | <b>Yes:</b> As users maintain ownership over their funds at all times, all funds in the exchange process are never in a central location | <b>No:</b> User funds are held in a collection of multi-signature addresses that are maintained by a small group of people | <b>No:</b> User funds are held in a centralized database, managed by company employees |
 
-This is probably enough to get the basic idea. If the reader desires a more thorough understanding of the atomic swap process, read Part III of [the Komodo whitepaper,](https://komodoplatform.com/whitepaper) or [this blog post for a condensed explanation.](https://komodoplatform.com/atomic-swaps/)
+This is probably enough to get the basic idea. If the reader desires a more thorough understanding of the atomic swap process, read the [AtomicDEX and Atomic Swaps section of the Core Technology Disucssions.](../../../basic-docs/start-here/core-technology-discussions/atomicdex.html)
 
 The underlying ideas of atomic swaps were invented by Tier Nolan in 2013. He posted his ideas on an online community forum where Komodo's lead developer and primary visionary, JL777, or "James" for short, was also exploring blockchain technology. Here’s where Komodo enters the picture.
 

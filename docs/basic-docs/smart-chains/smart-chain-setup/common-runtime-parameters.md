@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The following is an abbreviated list of runtime parameters and settings that can be initiated in a [Smart Chain's .conf file.](../installations/common-runtime-parameters.html#accessing-the-coin-daemon-remotely)
+The following is an abbreviated list of runtime parameters and settings that can be initiated in a [Smart Chain's .conf file.](../../../basic-docs/smart-chains/smart-chain-setup/interacting-with-smart-chains.html#location-of-conf-file)
 
 These commands largely derive from the upstream Bitcoin software, `bitcoind`. 
 
@@ -12,9 +12,9 @@ To see additional Bitcoin-based runtime parameters not included here, please vis
 
 ## addnode
 
-`addnode` tells the daemon which nodes are trusted to act as seed nodes. After connecting to a node via `addnode`, the trusted node will send your node the list of all nodes that it is connected to, and your node will then connect to these additional nodes until [the max limit](../installations/common-runtime-parameters.html#maxconnections) is reached.
+`addnode` tells the daemon which nodes are trusted to act as seed nodes. After connecting to a node via `addnode`, the trusted node will send your node the list of all nodes that it is connected to, and your node will then connect to these additional nodes until [the max limit](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#maxconnections) is reached.
 
-This contrasts from the [connect](../installations/common-runtime-parameters.html#connect) runtime parameter, as the latter does not attempt to connect your node to additional nodes.
+This contrasts from the [connect](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#connect) runtime parameter, as the latter does not attempt to connect your node to additional nodes.
 
 If you are behind a firewall or are having issues connecting to the network, `addnode` is a stronger option.
 
@@ -102,7 +102,7 @@ bind=127.0.0.1:9050
 
 `connect` connects the `komodod` server to a trusted peer node, but not to request or add any additional nodes.
 
-Please refer to the [addnode](../installations/common-runtime-parameters.html#addnode) parameter entry for more information.
+Please refer to the [addnode](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#addnode) parameter entry for more information.
 
 #### :pushpin: Examples:
 
@@ -138,7 +138,7 @@ exchange=1
 
 ## exportdir
 
-`exportdir` tells the Smart Chain daemon where to store the wallet backup files created through the [backupwallet](../komodo-api/wallet.html#backupwallet) and [dumpwallet](../komodo-api/wallet.html#dumpwallet) calls.
+`exportdir` tells the Smart Chain daemon where to store the wallet backup files created through the [backupwallet](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#backupwallet) and [dumpwallet](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#dumpwallet) calls.
 
 #### :pushpin: Examples:
 
@@ -152,10 +152,10 @@ exportdir=/home/myusername/mydirectory
 
 `gen` instructs the daemon to attempt to generate new blocks, and thereby mine new coins.
 
-See also [setgenerate](../komodo-api/generate.html#setgenerate).
+See also [setgenerate](../../../basic-docs/smart-chains/smart-chain-api/generate.html#setgenerate).
 
 ::: warning
-This parameter should be avoided. Instead, start the daemon without the `-gen` parameter. Once the Smart Chain is launched, wait until the blockchain is synced to the current block and then execute the [setgenerate](../komodo-api/generate.html#setgenerate) method. The sync status of the blockchain can be found by executing the [getinfo](../komodo-api/control.html#getinfo) method and comparing the `blocks` and `longestchain` properties.
+This parameter should be avoided. Instead, start the daemon without the `-gen` parameter. Once the Smart Chain is launched, wait until the blockchain is synced to the current block and then execute the [setgenerate](../../../basic-docs/smart-chains/smart-chain-api/generate.html#setgenerate) method. The sync status of the blockchain can be found by executing the [getinfo](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo) method and comparing the `blocks` and `longestchain` properties.
 :::
 
 ::: tip
@@ -165,7 +165,7 @@ This parameter should be avoided. Instead, start the daemon without the `-gen` p
   :::
 
 ::: tip
-`gen=0` in the .conf file on an Smart Chain where [<b>ac_staked</b>](../basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.html#ac-staked) is enabled sets the daemon to stake using all available coins
+`gen=0` in the .conf file on an Smart Chain where [<b>ac_staked</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-staked) is enabled sets the daemon to stake using all available coins
 :::
 
 #### :pushpin: Examples:
@@ -288,7 +288,7 @@ Using pubkey as a startup parameter:
 
 ## regtest
 
-`regtest` instructs the Smart Chain daemon to run a regression test network. Typically, the user will create a disposable Smart Chain for these purposes. The [ac_supply](../basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.html#ac-supply) parameter is not required in this instance.
+`regtest` instructs the Smart Chain daemon to run a regression test network. Typically, the user will create a disposable Smart Chain for these purposes. The [ac_supply](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-supply) parameter is not required in this instance.
 
 (A regression-test network is a useful tool for rapid trial and testing. [Please reach out to us](https://komodoplatform.com/discord) if you are curious to implement this tool in your workflow and are unfamiliar with the process.)
 
@@ -496,8 +496,13 @@ Using stopat as a runtime parameter:
 komodod -stopat=1000000
 ```
 
+<!-- Sidd: commenting out until Alright review
+
 ## testnode
-`testnode` allows the daemon to mine without being connected to any other peers. If this parameter is not set, the daemon will not attempt to mine blocks unless it has at least one other peer.
+
+The `testnode` parameter allows the daemon to mine without being connected to any other peers.
+
+If this parameter is not set, the daemon will not attempt to mine blocks unless it has at least one other peer.
 
 #### :pushpin: Examples:
 
@@ -512,6 +517,8 @@ Using testnode as a default value in the Smart Chain's `.conf` file:
 ```bash
 testnode=1
 ```
+
+-->
 
 ## timestampindex
 

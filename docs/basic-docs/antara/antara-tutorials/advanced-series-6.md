@@ -26,11 +26,64 @@ Congratulations on finishing the Advanced Series. Make sure to reach out to the 
 
 The following are useful patterns during Antara module development.
 
-#### Baton Pattern
+### Baton Pattern
 
-The baton pattern allows the developer to organize a single-linked list in a Smart Chain.
+The baton pattern allows the developer to organize a single-linked list in a Smart Chain. This list is formed by transactions that spend the baton from previous transactions.
 
 To traverse a linked list using the baton method, start with the first transaction in any plan instance and iterate through the other transactions to collect properties in their opreturns.
+
+Example:
+
+Add a baton to a transaction by sending a small fixed fee to a predefined output:
+
+```cpp
+mtx.vout.push_back(MakeCC1vout(cp->evalcode, 10000, Mypubkey()));  // BATON_VOUT
+```
+
+We use the baton on the pubkey provided by the user in the `-pubkey` daemon parameter.
+
+Iterate through the transactions marked with the baton:
+
+```cpp
+int64_t EnumerateBatons(uint256 initialtxid)
+{
+    int64_t total = 0LL;
+    int32_t vini;
+    int32_t height;
+    int32_t retcode;
+
+    uint256 batontxid;
+    uint256 sourcetxid = initialtxid;
+
+    // iterate through the tx spending the baton, adding up amount from the tx opreturn
+
+    while ((retcode = CCgetspenttxid(batontxid, vini, height, sourcetxid, BATON_VOUT)) == 0)  // find a tx which spent the baton vout
+    {
+        CTransaction txBaton;
+        uint256 hashBlock;
+        uint8_t funcId;
+        int64_t amount;
+
+        if (GetTransaction(batontxid, txBaton, hashBlock, true) &&  // load the transaction which spent the baton
+            !hashBlock.IsNull() &&                           // tx not in mempool
+            txBaton.vout.size() > BATON_VOUT &&             
+            txBaton.vout[BATON_VOUT].nValue == 10000 &&     // check baton fee 
+            (funcId = DecodeOpReturn(txBaton.vout.back().scriptPubKey, amount)) != 0) // decode opreturn
+        {    
+             total += amount;
+        }
+        else
+        {
+
+            // some error:
+
+            return -1;
+        }
+        sourcetxid = batontxid;
+    }
+    return total;
+}
+```
 
 ### Marker Pattern
 
@@ -68,7 +121,7 @@ Many other Antara modules contain examples for finding marked transactions in an
 
 ::: tip
 
-The <b>SetCCtxids()</b> function requires that the Smart Chain [<b>txindex</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#txindex) launch parameter NOT be adjusted beyond the default and automatic settings.
+The <b>SetCCtxids()</b> function requires that the Smart Chain [<b>txindex</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#txindex) launch parameter NOT be adjusted beyond the default and automatic settings.
 
 :::
 
@@ -90,63 +143,135 @@ A code example for finding transactions marked with an unspendable CC marker:
 
 ::: tip
 
-The <b>CCunspents()</b> function requires the Smart Chain [<b>addressindex</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#addressindex) and [<b>spentindex</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#spentindex) launch parameters to be set to `1`.
+The <b>CCunspents()</b> function requires the Smart Chain [<b>addressindex</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#addressindex) and [<b>spentindex</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#spentindex) launch parameters to be set to `1`.
 
 :::
 
-#### Txidaddress Pattern
+
+### Txidaddress Pattern 
 
 You can use the txidaddress pattern to send value to an address from which the value should never again be spent.
 
-A function CCtxidaddr is available for creating an address that is not associated with any known private key. It creates a public key with no private key from a transaction id.
+The function `CCtxidaddr` is available for creating an address that is not associated with any known private key. This function creates a public key with no private key from a transaction id.
 
-For example, the [<b>Payments</b>]() Antara Module uses `CCtxidaddr` to create a non-spendable txidpk from the `createtxid`. Furthermore, the module also uses the `GetCCaddress1of2` function to create a `1of2` address from both the Payments module global pubkey and txid-pubkey.
+For example, the [<b>Payments</b>](../../../basic-docs/antara/antara-api/payments.html) Antara Module uses `CCtxidaddr` to create a non-spendable txidpk from the `createtxid`. Furthermore, the module also uses the `GetCCaddress1of2` function to create a `1of2` address from both the Payments module global pubkey and the txid-pubkey.
 
-This allows the module to collect funds on a special CC address that is intended only for a particular type of creation transaction. Funds are sent to this address via the `MakeCC1of2vout` function. Only the Payments module global pubkey and txid-pubkey can successfully create transaction that can be sent to this special address.
+This allows the module to collect funds on a special CC address that is intended only for a particular type of creation transaction. Funds are sent to this address via the `MakeCC1of2vout` function. Only the Payments module global pubkey and txid-pubkey can successfully create transactions that can be sent to this special address.
 
-For this RPC, we also use the `vData` optional parameter to append the opreturn directly to the `ccvout` itself, rather than an actual opreturn as the last `vout` in a transaction. 
-
-<!-- 
-
-dimxy6 seems this looks very much like yet another pattern 
-
-sidd: would you like to rename it and/or add in a separate headline? Feel free to do so, if that would be best.
--->
+###### Create an unspendable public key for a transaction id
 
 ```cpp
-opret = EncodePaymentsMergeOpRet(createtxid);
+// use Antara SDK function to create a public key from some transaction id:
 CPubKey txidpk = CCtxidaddr(txidaddr, createtxid);
-std::vector<std::vector<unsigned char>> vData = std::vector<std::vector<unsigned char>>();
-if ( makeCCopret(opret, vData) )
-    mtx.vout.push_back(MakeCC1of2vout(EVAL_PAYMENTS, inputsum-PAYMENTS_TXFEE, Paymentspk, txidpk, &vData));
-GetCCaddress1of2(cp, destaddr, Paymentspk, txidpk);
-CCaddr1of2set(cp, Paymentspk, txidpk, cp->CCpriv, destaddr);
-rawtx = FinalizeCCTx(0, cp, mtx, mypk, PAYMENTS_TXFEE, CScript());
 ```
 
-Using a modification to the `IsPaymentsvout` function, we can now spend a `ccvout` in the Payments module back to its own address, without needing a `markervout` or an opreturn.
+###### Create a cc vout with 1 of 2 pubkeys, one of which is txid pubkey
 
 ```cpp
+// create a cc vout with 1 of 2 pubkeys, one of which is txid pubkey
+mtx.vout.push_back(MakeCC1of2vout(EVAL_PAYMENTS, inputsum-PAYMENTS_TXFEE, Paymentspk, txidpk));
+```
+
+###### Spend 1 of 2 pubkey outputs with a txid pubkey in a previous transaction
+
+```cpp
+
+// function AddPaymentsInputs adds inputs from the address of 1of2 pubkeys (global and txid pk) outputs to the mtx object (the function parameters are not important for now): 
+
+if ( (inputsum= AddPaymentsInputs(true,0,cp,mtx,txidpk,newamount+2*PAYMENTS_TXFEE,CC_MAXVINS/2,createtxid,lockedblocks,minrelease,blocksleft)) >= newamount+2*PAYMENTS_TXFEE )
+{
+
+    // Get the address for 1 of 2 pubkeys cc output (into `destaddress` variable):
+
+    GetCCaddress1of2(cp, destaddr, Paymentspk, txidpk);
+
+    // Set the pubkeys, address and global private key for spending the 1 of 2 pubkeys address (which also consists of the global and txid pk) in the previous transaction: 
+
+    CCaddr1of2set(cp, Paymentspk, txidpk, cp->CCpriv, destaddr);
+
+    // Sign the transaction in the mtx variable:
+
+    std::string rawtx = FinalizeCCTx(0, cp, mtx, mypk, PAYMENTS_TXFEE, CScript());
+
+    // return `rawtx` to the user...
+}
+```
+
+### Application Data in a CryptoCondition vout ("cc opret")
+
+With the latest changes to the Antara SDK a developer can now add application data to a CryptoCondition output, also called a "cc opret."
+
+This allows more flexibility in the creation of Antara Module transactions. As cc-output content is hashed and not directly readable, cc opret creates the possibility to add identification data to a cc output. This allows the developer to distinguish this vout from other vouts.
+
+The SDK also now opens up the possibility to place any application data in cc vouts, instead of the last vout alone (as was the case previously). This allows a single transaction to have outputs of two or more Antara modules. For example, this can be useful when making swaps of values between modules.
+
+An example of cc-opret usage can be found in the [Payments Module.](../../../basic-docs/antara/antara-api/payments.html) In this module, the `vData` optional parameter in the `MakeCC1of2vout` function is used to append the opreturn data directly to the `ccvout` itself. This contrasts with the old method of adding the data to an actual opreturn that is the last `vout` in a transaction. 
+
+```cpp
+std::vector<unsigned char>> opret = EncodePaymentsMergeOpRet(createtxid);  // create Antara module opreturn data
+
+// create a public key from a transaction id as it was made in 'Txidaddress pattern':
+
+CPubKey txidpk = CCtxidaddr(txidaddr, createtxid);
+
+// create vData object that will be added to cc vout:
+
+std::vector<std::vector<unsigned char>> vData = std::vector<std::vector<unsigned char>>();
+
+// Put the opreturn into vData object:
+
+if ( makeCCopret(opret, vData) )  {
+
+    // pass vData object as the last parameter in MakeCC1of2vout:
+
+    mtx.vout.push_back(MakeCC1of2vout(EVAL_PAYMENTS, inputsum-PAYMENTS_TXFEE, Paymentspk, txidpk, &vData));
+}
+    
+// some other stuff to prepare the parameters for signing the transaction:    
+GetCCaddress1of2(cp, destaddr, Paymentspk, txidpk);
+CCaddr1of2set(cp, Paymentspk, txidpk, cp->CCpriv, destaddr);
+
+// sign the transaction:
+
+rawtx = FinalizeCCTx(0, cp, mtx, mypk, PAYMENTS_TXFEE, CScript());  // use the empty last vout opreturn, we don't need it any more
+```
+
+The following content provides an example of using cc opret data for the identification of Antara module cc outputs. (Recall that a cc output's content is hashed, and therefore identifying a cc vout is challenging.) 
+
+Using a modification to the `IsPaymentsvout` function, we spend a `ccvout` in the <b>Payments</b> module back to its own address, without needing a `markervout` or an opreturn.
+
+```cpp
+// function used to check if this is a Payments module vout
+
 int64_t IsPaymentsvout(struct CCcontract_info *cp, const CTransaction& tx, int32_t v, char *cmpaddr, CScript &ccopret)
 {
     char destaddr[64];
+    
+    // use getCCopret instead of the former usage of IsPayToCryptoCondition() function
+// retrieve the application data from cc vout script pubkey and return it in the `ccopret` reference variable:
+
     if ( getCCopret(tx.vout[v].scriptPubKey, ccopret) )
     {
-        if ( Getscriptaddress(destaddr, tx.vout[v].scriptPubKey) > 0 && (cmpaddr[0] == 0 || strcmp(destaddr, cmpaddr) == 0) )
+        if ( Getscriptaddress(destaddr, tx.vout[v].scriptPubKey) && (cmpaddr[0] == 0 || strcmp(destaddr, cmpaddr) == 0) )
             return(tx.vout[v].nValue);
     }
     return(0);
 }
 ```
 
-In place of the `IsPayToCryptoCondition()` function we can use the `getCCopret()` function. This latter function is a lower level of the former call, and will return any `vData` appended to the `ccvout` along with a `true`/`false` value that would otherwise be returned by the `IsPayToCryptoCondition()` function.
+Note, that if you need to further differentiate the cc outputs in a transaction (for example, from another Antara module vouts) you may also analyze the ccopret content, specifically the eval code stored in it. 
+
+In place of the `IsPayToCryptoCondition()` function we can use the `getCCopret()` function. This latter function is a lower level of the former call, and will return any `vData` appended to the `ccvout` along with a `true`/`false` value that would otherwise be returned by the `IsPayToCryptoCondition()` function. 
 
 In validation, we now have a totally different transaction type than the types that are normally available. This new type allows us to have different validation paths for different `ccvouts`, and it allows for multiple `ccvouts` of different types per transaction.
 
 ```cpp
 if ( tx.vout.size() == 1 )
 {
-    if ( IsPaymentsvout(cp, tx, 0, coinaddr, ccopret) != 0 && ccopret.size() > 2 && DecodePaymentsMergeOpRet(ccopret, createtxid) )
+
+    // IsPaymentsvout returns application data in the `ccopret` variable, the returned data is checked immediately:
+
+    if ( IsPaymentsvout(cp, tx, 0, coinaddr, ccopret) != 0 && ccopret.size() > 2 && DecodePaymentsMergeOpRet(ccopret, createtxid) == 'M' )
     {
         fIsMerge = true;
     } else return(eval->Invalid("not enough vouts"));
@@ -171,11 +296,11 @@ Instead, we recommend that the developer place only one I think it is always bet
 
 #### Troubleshooting Node Syncing on Test CC Chain
 
-Sometimes, a developer may find after developing a new CC module that a node cannot sync with other nodes in their test network. Executing the [<b>getpeerinfo</b>](../basic-docs/smart-chains/smart-chain-api/network.html#getpeerinfo) shows fewer synced blocks than synced heads. The developer may also see errors in the console log on the malfunctioning node.
+Sometimes, a developer may find after developing a new CC module that a node cannot sync with other nodes in their test network. Executing the [<b>getpeerinfo</b>](../../../basic-docs/smart-chains/smart-chain-api/network.html#getpeerinfo) shows fewer synced blocks than synced heads. The developer may also see errors in the console log on the malfunctioning node.
 
 When this happens, the cause is most commonly rooted in the CC module's validation code. For example, the developer may have changed validation rules, and in so doing may have rendered old transactions invalid in the node's state.
 
-A quick remedy in this situation is to [manually delete the blockchain data on the malfunctioning node and resync the network.](../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) Old transactions should pass validation, assuming the new validation code takes their situation into account.
+A quick remedy in this situation is to [manually delete the blockchain data on the malfunctioning node and resync the network.](../../../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) Old transactions should pass validation, assuming the new validation code takes their situation into account.
 
 When resyncing the node is not a viable solution, another option is to use code logging and the gdb debug software to investigate the cause of failure.
 

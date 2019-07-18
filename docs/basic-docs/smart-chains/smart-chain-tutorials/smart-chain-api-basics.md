@@ -8,9 +8,15 @@ In this tutorial, we create two new blockchains, called RT1 & RT2.
 
 The first blockchain, RT1, demonstrates the fundamental API concepts, such as how to create and utilize a simple test blockchain, how to query a blockchain for data, etc.
 
-The RT2 blockchain demonstrates the creation of a custom application-specific blockchain that <!--Sidd: Mylo, your original sentence cut off here -->
+<!--
 
-For simplicity's sake, we use the blockchain [<b>regtest</b>](../installations/common-runtime-parameters.html#regtest) feature, which allows us to run a blockchain on a single node without having to connect to a network. 
+Sidd: Mylo, your original sentence cut off here!
+
+The RT2 blockchain demonstrates the creation of a custom application-specific blockchain that 
+
+-->
+
+For simplicity's sake, we use the blockchain [<b>regtest</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#regtest) feature, which allows us to run a blockchain on a single node without having to connect to a network. 
 
 After the tutorial, the developer should be able to repeat the same concepts on live and fully functional Komodo Smart Chains, assuming the Smart Chain in question has the proper CC features enabled.
 
@@ -29,7 +35,7 @@ Topics covered in this tutorial include:
 
 #### komodod and komodo-cli
 
-The following tutorials assume that you have already [compiled the Komodo daemon](https://docs.komodoplatform.com/komodo/installation.html), and that you have used the default `~/komodo/src` directory as the root Komodo software directory.
+The following tutorials assume that you have already [compiled the Komodo daemon](../.././basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#linux), and that you have used the default `~/komodo/src` directory as the root Komodo software directory.
 
 As with all software related to `komodod`, at the command line we use the terminal-based `komodo-cli` software, and the `curl` command, to access the daemon. 
 
@@ -37,7 +43,7 @@ As with all software related to `komodod`, at the command line we use the termin
 
 ### Create a Regtest Blockchain
 
-The quickest way to establish your own development environment is to use the [<b>regtest</b>](../installations/common-runtime-parameters.html#regtest) feature. 
+The quickest way to establish your own development environment is to use the [<b>regtest</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#regtest) feature. 
 
 In regtest mode, the daemon creates a blockchain that is almost fully functional, save for a few exceptions. Two of the exceptions are that the chain runs on a single host, and the user instructs the daemon on when and how to perform new blocks (as opposed to receiving new blocks from a decentralized network of miners).
 
@@ -51,13 +57,13 @@ The command to create our `RT1` regtest chain is as follows:
 
 Note the `-ac_supply=1000` argument. This is the total number of coins we desire when the blockchain spawns. 
 
-For more information, refer to the [<b>ac_supply</b>](../installations/asset-chain-parameters.html#ac-supply) launch parameter.
+For more information, refer to the [<b>ac_supply</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-supply) launch parameter.
 
 ##### ac_name
 
-Also note the `-ac_name=RT1` argument. This is the blockchain ticker name we desire. For more information, refer to the [<b>ac_name</b>](../installations/asset-chain-parameters.html#ac-name) launch parameter.
+Also note the `-ac_name=RT1` argument. This is the blockchain ticker name we desire. For more information, refer to the [<b>ac_name</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-name) launch parameter.
 
-There are many additional parameters that you can explore later in the [Smart Chain Parameters](../installations/asset-chain-parameters.html) documentation.
+There are many additional parameters that you can explore later in the [Antara Customizations](../../../basic-docs/antara/antara-setup/antara-customizations.html#antara-customizations) documentation.
 
 ##### Observe the Response
 
@@ -143,7 +149,7 @@ Therefore, each `komodo-cli` terminal input will begin with the following:
 
 #### Using the getinfo API Method
 
-The [<b>getinfo</b>](../komodo-api/control.html#getinfo) API method does not require any additional parameters when called and provides useful information about our chain.
+The [<b>getinfo</b>](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo) API method does not require any additional parameters when called and provides useful information about our chain.
 
 To execute the method in the terminal we can use the `komodo-cli` software.
 
@@ -195,7 +201,7 @@ Note the `blocks` count of zero `0` and the `balance` sum of `0`. While our regt
 
 ### Querying the Blockchain Using curl
 
-Alternatively, we can execute the [<b>getinfo</b>](../komodo-api/control.html#getinfo) method using the Unix `curl` command. 
+Alternatively, we can execute the [<b>getinfo</b>](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo) method using the Unix `curl` command. 
 
 ##### Sourcing the Configuration File
 
@@ -255,9 +261,9 @@ Common API commands include the following:
 
 | Command | Description |
 | ------- | ----------- |
-|[<b>getnewaddress</b>](../komodo-api/wallet.html#getnewaddress) | get a new address |
-| [<b>validateaddress</b>](../komodo-api/util.html#validateaddress) | get the public key of the new address; used often when developing a custom application-specific blockchain |
-| [<b>dumpprivkey</b>](../komodo-api/wallet.html#dumpprivkey) | get the private key of an address |
+|[<b>getnewaddress</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getnewaddress) | get a new address |
+| [<b>validateaddress</b>](../../../basic-docs/smart-chains/smart-chain-api/util.html#validateaddress) | get the public key of the new address; used often when developing a custom application-specific blockchain |
+| [<b>dumpprivkey</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#dumpprivkey) | get the private key of an address |
 
 We save details from each response, so that we may avoid continually obtaining new wallet keys.
 
@@ -404,15 +410,15 @@ However, in this tutorial we are running a regtest chain, and therefore we must 
 
 This also provides us with a useful opportunity to discuss the nature of simple mining in the Komodo ecosystem. The methods we discuss here reflect mining on a proof-of-work based Smart Chain. 
 
-The reader should be aware that Komodo also offers proof-of-stake mining, and hybrid models that blend proof-of-work with proof-of-stake. For more information, the reader may turn to the [<b>ac_staked</b>](../installations/asset-chain-parameters.html#ac-staked) feature.
+The reader should be aware that Komodo also offers proof-of-stake mining, and hybrid models that blend proof-of-work with proof-of-stake. For more information, the reader may turn to the [<b>ac_staked</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-staked) feature.
 
 Here are several common API methods for mining:
 
 | Command | Description |
 | ------- | ----------- |
-| [generate](../komodo-api/generate.html#generate) | the number of blocks to generate |
-| [getblock](../komodo-api/blockchain.html#getblock) | query information about a block |
-| [gettransaction](../komodo-api/wallet.html#gettransaction) | query a transaction |
+| [generate](../../../basic-docs/smart-chains/smart-chain-api/generate.html#generate) | the number of blocks to generate |
+| [getblock](../../../basic-docs/smart-chains/smart-chain-api/blockchain.html#getblock) | query information about a block |
+| [gettransaction](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#gettransaction) | query a transaction |
 
 In a moment, we will use these commands to generate new blocks on our regtest chain, and in the process of generating, the blockchain will create new coins.
 
@@ -430,9 +436,9 @@ While every other transaction on the blockchain can only take coins from the exi
 
 These new coins can be sent to any number of locations. The rules of the blockchain, as set by the blockchain's developer, determine how many coins are minted, and who receives the coins. 
 
-For more information about how to customize your `coinbase` transactions on a Komodo Smart Chain, observe the many different customization parameters in the [Custom Smart Chain Parameters](../installations/asset-chain-parameters.html#ac-name) documentation.
+For more information about how to customize your `coinbase` transactions on a Komodo Smart Chain, observe the many different customization parameters in the [Antara Customizations](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-algo) documentation.
 
-For example, read about [<b>ac_reward</b>](../installations/asset-chain-parameters.html#ac-reward), [<b>ac_eras</b>](../installations/asset-chain-parameters.html#ac-eras), [<b>ac_founders</b>](../installations/asset-chain-parameters.html#ac-founders), and many others.
+For example, read about [<b>ac_reward</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-reward), [<b>ac_eras</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-eras), [<b>ac_founders</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-founders), and many others.
 
 In our tutorial, when we mine our first block, all of the `1000` new coins we indicated will be mined in the first block's `coinbase` transaction. By default, these coins are distributed immediately into our own local wallet. 
 
@@ -542,7 +548,7 @@ This value is an array containing all transactions performed within this block. 
 
 #### gettransaction
 
-To observe this transaction, we use the [<b>gettransaction</b>](../komodo-api/wallet.html#gettransaction) API method.
+To observe this transaction, we use the [<b>gettransaction</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#addmultisigaddress) API method.
 
 ##### Command
 
@@ -723,17 +729,13 @@ curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "cu
 
 ## Inspecting the wallet
 
-We have generated blocks and received the value from the `coinbase` transactions. Now, we would like to inspect the contents of our wallet. We will execute the [<b>listunspent</b>]() method for this purpose. 
+We have generated blocks and received the value from the `coinbase` transactions. Now, we would like to inspect the contents of our wallet. We will execute the [<b>listunspent</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#listunspent) method for this purpose. 
 
 However, before we execute this command, the reader should familiarize themselves with the way a blockchain stores value in a wallet. The title of the technical concept to understand is, <b>"utxo."</b> This stands for "unspent transaction." 
 
 The way a utxo works is often difficult to understand for newcomers to blockchain technology. We have provided an article that explains this concept in more detail here, and we recommend the reader study it before proceeding.
 
-[Click Here to Read Our Explanation of the Utxo](https://komodoplatform.com/whats-utxo/)
-
-Also, the reader may turn to Chapter 6, Section 3 of the Komodo whitepaper. Search for the section titled, <u>"The Utxo: An elusive, yet fundamental concept."</u>
-
-[Click Here to Read the Komodo Whitepaper; Search for Chapter 6, Section 3](https://komodoplatform.com/whitepaper)
+The reader may turn to [the Core Technology Discussion regarding utxos for more information.](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept)
 
 In blockchain technology, all value is contained within utxos. Every transaction consumes a utxo and creates new utxos.
 
@@ -745,7 +747,7 @@ A developer should be able to easily validate ownership of a utxo, as only the o
 
 #### listunspent
 
-For this purpose, we turn to the [<b>listunspent</b>](../komodo-api/wallet.html#listunspent) API method:
+For this purpose, we turn to the [<b>listunspent</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#listunspent) API method:
 
 ```bash
 ./komodo-cli -regtest -ac_name=RT1 listunspent
@@ -986,7 +988,7 @@ Observe this first `txid` returned from the `listunspent` transaction:
 
 Notice that the address to which these `1000` coins were sent is not the address we generated earlier. Rather, it is an entirely new address. At the moment we may not mind, because the coins were sent to an address that the wallet automatically generated and which we own. 
 
-However, what if we want to control the address to which coins are sent when mining? When this is the case, we turn to the [<b>pubkey</b>](../installations/common-runtime-parameters.html#pubkey) launch parameter.
+However, what if we want to control the address to which coins are sent when mining? When this is the case, we turn to the [<b>pubkey</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter.
 
 The `pubkey` we input into this parameter can be the same `pubkey` we generated earlier in the tutorial. 
 
@@ -994,7 +996,7 @@ The `pubkey` we input into this parameter can be the same `pubkey` we generated 
 
 To place this pubkey at startup, we must first stop the Smart Chain.
 
-For this we use the [<b>stop</b>](../komodo-api/control.html#stop) API method.
+For this we use the [<b>stop</b>](../../../basic-docs/smart-chains/smart-chain-api/control.html#stop) API method.
 
 ##### Command
 

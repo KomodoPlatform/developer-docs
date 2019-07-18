@@ -1,10 +1,9 @@
 <template>
   <div class="theme-container">
-    <div class="content">
+    <div class="theme-default-content">
       <h1>404</h1>
-      <blockquote>{{ getMsg() }}</blockquote>
-     <!-- <h4>developers.komodoplatform.com{{ getUrl() }} doesn't exist or it has been moved</h4> -->      
-      <router-link to="/"><p>Take me home.</p></router-link>
+      <blockquote style="color: #3fa9f5">{{ getMsg() }}</blockquote>
+      <router-link to="/">Take me home.</router-link>
     </div>
   </div>
 </template>
@@ -33,6 +32,6 @@ export default {
 
 .theme-container
   min-height 100vh
-  background-color #2C313B 
+  background-color #003a4b
 
 </style>

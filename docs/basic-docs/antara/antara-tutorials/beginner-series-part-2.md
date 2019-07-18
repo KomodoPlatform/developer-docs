@@ -14,7 +14,7 @@ A blockchain faucet is based on this concept. The digital faucet drips small amo
 
 In this tutorial, we use a Komodo technology called an Antara Module to create a faucet on our `TUT1` Smart Chain. 
 
-There are many types of Antara Modules, and the [Faucet Antara Module]() is but one of them.
+There are many types of Antara Modules, and the [Faucet Antara Module](../../../basic-docs/antara/antara-api/faucet.html#introduction) is but one of them.
 
 Transferring funds via the faucet will allow us to perform other tasks further in the tutorials.
 
@@ -33,7 +33,7 @@ Transferring funds via the faucet will allow us to perform other tasks further i
 #### Next Steps in the Tutorial
 
 - On the mining node we send some of our funds to the chain's built-in faucet
-  - To accomplish this, in this guided tutorial we use an automated version of the [<b>faucetfund</b>]() Remote Procedure Call (RPC)
+  - To accomplish this, in this guided tutorial we use an automated version of the [<b>faucetfund</b>](../../../basic-docs/antara/antara-api/faucet.html#faucetfund) Remote Procedure Call (RPC)
 - On the seed node, which currently has 0 coins, we send a request to the faucet for funds
 
 ## Send All Funds to Self 
@@ -46,7 +46,7 @@ The reason we first consolidate the utxos into one is related to a subtle nuance
 
 All the utxos in our current mining wallet were generated either in the first block, or they were generated as a part of a mining reward. Therefore, they have not yet been spent.
 
-To consolidate them in the guided tutorial, we use an automated version of the [<b>sendtoaddress</b>]() RPC.
+To consolidate them in the guided tutorial, we use an automated version of the [<b>sendtoaddress</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#sendtoaddress) RPC.
 
 - Enter the `MINING-MENU`
 - Enter the `WALLET` submenu and select `SENDALLSELF`
@@ -72,7 +72,7 @@ The mathematics behind blockchain technology are complex, and transactions are r
 
 ##### Estimated Time: 1 minute
 
-In this guided tutorial, we use an automated version of the [<b>faucetfund</b>]() RPC. This takes any number of coins we choose from our wallet and sends them to the Faucet Antara Module.
+In this guided tutorial, we use an automated version of the [<b>faucetfund</b>](../../../basic-docs/antara/antara-api/faucet.html#faucetfund) RPC. This takes any number of coins we choose from our wallet and sends them to the Faucet Antara Module.
 
 Once the funds are in the module, other users on the chain can request to have some of the funds. The funds are disbursed in small amounts, and the module has a feature that discourages users from spamming the faucet to drain all of the funds at once.
 
@@ -104,7 +104,7 @@ Just as before, we want to make sure that we've imported our tutorial private ke
 - Select `FAUCET`
 - Select `GETFUNDS` 
 
-The `GETFUNDS` function in this guided tutorial is yet another automated version of an RPC. This time, the RPC is the [<b>faucetget</b>]() method. 
+The `GETFUNDS` function in this guided tutorial is yet another automated version of an RPC. This time, the RPC is the [<b>faucetget</b>](../../../basic-docs/antara/antara-api/faucet.html#faucetget) method. 
 
 The <b>faucetget</b> method requests funds from the `TUT1` faucet.
 
@@ -120,11 +120,11 @@ The Antara Module will also check to make sure that our `SEED` node's wallet his
 
 There are many RPCs available to check the balance of a wallet. 
 
-A common RPC is the [<b>getinfo</b>](). This checks many aspects of the Smart Chain's current state, including the wallet's balance. 
+A common RPC is the [<b>getinfo</b>](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo). This checks many aspects of the Smart Chain's current state, including the wallet's balance. 
 
-One of the most common RPC's is the [<b>getbalance</b>]() method. This returns only information about the wallet's balance.
+One of the most common RPC's is the [<b>getbalance</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getbalance) method. This returns only information about the wallet's balance.
 
-A final example is the [<b>]listunspent</b>]() RPC, which returns infromation about all utxos in the user's wallet. 
+A final example is the [<b>]listunspent</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#listunspent) RPC, which returns infromation about all utxos in the user's wallet. 
 
 - In the `SEED-MENU` section, select `SEED-GETINFO` to perform an automated <b>getinfo</b> RPC
   - In the response, look for the `balance` property
@@ -135,4 +135,4 @@ A final example is the [<b>]listunspent</b>]() RPC, which returns infromation ab
 
 ----------------------
 
-[<b>Link to next tutorial section</b>]()
+[<b>Link to next tutorial section</b>](../../../basic-docs/antara/antara-tutorials/beginner-series-part-3.html#introduction)

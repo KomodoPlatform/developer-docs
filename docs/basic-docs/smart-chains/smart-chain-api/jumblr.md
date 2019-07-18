@@ -2,7 +2,11 @@
 
 ::: tip Note 
 
-At this time, all z-transaction functionality on the main KMD chain is disabled. Other Smart Chains in the Komodo ecosystem offer zk-SNARK functionality. Please check with the developers of your desired Smart Chain to learn about z-transaction and Jumblr availability.
+At this time, all zero-knowledge transaction and Jumblr functionality on the main KMD chain is disabled. 
+
+Other Smart Chains in the Komodo ecosystem offer zero-knowledge transaction functionality. However, no Smart Chain currently offers Jumblr, and therefore this documentation is currently deprecated.
+
+Please check with the developers of your desired Smart Chain to learn more.
 
 :::
 
@@ -10,7 +14,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 ## Basic Instructions
 
-- Install Komodo following the [installation guides](../installations/basic-instructions.html#installing-basic-komodo-software) and change into the `komodod` subdirectory using:
+- Install Komodo following the [installation guides](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#linux) and change into the `komodod` subdirectory using:
 
 ```bash
 cd ~/komodo/src
@@ -44,8 +48,6 @@ komodo-cli jumblr_secret destination_KMD_address
 Jumblr is created to be resistant against time-based analysis. Because of this, Jumblr is purposefully designed not to be fast. You will need to leave your node running for several hours for the process to finish.
 :::
 
-For a more detailed description of Jumblr, please read Section IV of our [whitepaper](https://komodoplatform.com/whitepaper).
-
 #### :pushpin: Examples
 
 Designate your deposit address.
@@ -67,7 +69,7 @@ Designate your secret destination address.
 The `jubmlr_deposit` method indicates the address from which Jumblr should withdraw funds. There should be at least 10.024 KMD in this address. Jumblr will withdraw funds in increments of 10, 100, or 7770 KMD.
 
 ::: tip
-While shielded z_address technology is available on all KMD-based asset chains, the Jumblr engine and methods are only available on the KMD mainnet.
+While shielded z_address technology is available on all KMD-based Smart Chains, the Jumblr engine and methods are only available on the KMD mainnet.
 :::
 
 ### Arguments

@@ -1,4 +1,5 @@
 # Custom CC (WIP)
+
 This document is a work in progress (WIP)
 
 We are fortunate to have been gifted the ability to launch provable ecosystems to build upon.  This tutorial begins with a quick foundation of core concepts then moving into how to make dApps with layer-1, on-chain consensus. The smart-UTXO system of Komodo's Crypto-Conditions.  Consensus & Smart Contract customizations.
@@ -17,7 +18,8 @@ We are fortunate to have been gifted the ability to launch provable ecosystems t
 * Some nodes are heavily computational (miners), some are quiet and store a valuable private key within the wallet.
 * There's additional software to make this blockchain useful (for transfering value) & easier to use. Like the internet became useful for transfering information, blockchain technology enables dApps to create new ways of collaborating.  Blockchain: Mobile Wallets, DEX, Explorers vs WWW: webserver, database, email & streaming protocols)
 
-## Goal of our custom consensus module
+## Goal of our Antara Module
+
 This `customcc` loadable library example is simply something that requires to send 1 coin.  It can't get much simpler.
 
 ## Use jl777 branch

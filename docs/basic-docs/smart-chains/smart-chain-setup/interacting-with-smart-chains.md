@@ -54,6 +54,8 @@ To learn more via the terminal about a specific API command, execute:
 
 To access a coin daemon remotely -- for example, via a `curl` command in the shell -- the user will need to obtain the `rpcuser`, `rpcpassword`, and `rpcport` from the `.conf` file of the relevant coin daemon.
 
+#### Location of .conf File
+
 Assuming the default installation location, the `.conf` file can be found by exploring the following directories:
 
 | Operating System | Directory |

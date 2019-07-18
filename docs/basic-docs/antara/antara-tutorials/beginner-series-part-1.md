@@ -108,7 +108,7 @@ Enter the `WALLET` section.
 
 </div>
 
-- Select `VALIDATE` to call the [<b>validateaddress</b>](../../../basic-docs/komodo-api/util.html#validateaddress) Remote Procedure Call (RPC) method.
+- Select `VALIDATE` to call the [<b>validateaddress</b>](../../../basic-docs/smart-chains/smart-chain-api/util.html#validateaddress) Remote Procedure Call (RPC) method.
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
@@ -162,7 +162,7 @@ Mylo, we should simply show the address and the private key as a part of the doc
 
 To import the private key that was automatically generated for you, select `WALLET`, then `IMPORT-DEV-WALLET`.
 
-This automatically executes the [<b>importprivkey</b>](../../../basic-docs/komodo-api/wallet.html#importprivkey) RPC method, importing the private key and thus the address.
+This automatically executes the [<b>importprivkey</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#importprivkey) RPC method, importing the private key and thus the address.
 
 Now, when funds are sent to this address, your wallet has the keys necessary to spend them.
 
@@ -172,7 +172,7 @@ Now, when funds are sent to this address, your wallet has the keys necessary to 
 
 From within the `WALLET` menu, select `BALANCE`.
 
-This automatically executes the [<b>getbalance</b>](../../../basic-docs/komodo-api/wallet.html#getbalance) RPC method.  
+This automatically executes the [<b>getbalance</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getbalance) RPC method.  
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
@@ -204,11 +204,11 @@ A utxo is similar in nature to a dollar bill in your physical wallet. You can ha
 
 Likewise, you can have many utxos in your digital wallet, and the total value of all utxos determines the total amount in your digital wallet.
 
-If you would like a full explanation, [read this post on the Komodo blog](https://komodoplatform.com/whats-utxo/), or read section III of the [Komodo Whitepaper](https://komodoplatform.com/whitepaper).
+For a full discussion on utxos, [turn to the Core Technology Discussions section.](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept)
 
 In this guided tutorial, we will automatically execute a command that allows us to look at the utxos in our wallet. 
 
-Still within the `WALLET` submenu, choose the `LISTUNSPENT` option. This executes the [<b>listunspent</b>]() RPC method. The result should be similar to the following.
+Still within the `WALLET` submenu, choose the `LISTUNSPENT` option. This executes the [<b>listunspent</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#listunspent) RPC method. The result should be similar to the following.
 
 <div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
 
@@ -222,7 +222,7 @@ The number of utxos here will differ according to the number of blocks your mini
 
 ##### Estimated Time: < 1 Minute
 
-The [<b>setgenerate</b>]() RPC method tells a node to start and stop mining.
+The [<b>setgenerate</b>](../../../basic-docs/smart-chains/smart-chain-api/generate.html#setgenerate) RPC method tells a node to start and stop mining.
 
 Within the `MINING` menu, choose the `MINING-STOP` menu item.
 

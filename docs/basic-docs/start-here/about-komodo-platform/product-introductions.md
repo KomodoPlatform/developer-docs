@@ -38,7 +38,7 @@ For developers, the unique combination of Smart Chain technology and Antara simp
 - Trade your assets with essentially any blockchain token using Komodo's AtomicDEX
 - Stay up-to-date with the latest industry innovations through no-cost updates
 
-[Link to Antara content]()
+[Read an in-depth discussion on the advantages of the Antara Framework here.](../../../basic-docs/antara/antara-tutorials/overview-of-antara-modules-part-i.html)
 
 ### The Architecture of Antara-Powered Smart Chains
 
@@ -156,7 +156,7 @@ The Antara framework already hosts a library of plug-and-play modules. Each modu
 
 Experienced developers can write custom modules, creating the building blocks and RPC calls they need to build more advanced blockchain-based software.
 
-[Link to smart chain section]()
+[Learn more about Smart Chains here.](../../../basic-docs/start-here/core-technology-discussions/antara.html#antara-smart-chains-2)
 
 ## AtomicDEX
 
@@ -198,14 +198,5 @@ Integration requires only a few simple steps, and once up and running, you are f
 
 You are free to discover your own audience.
 
-[Link to AtomicDEX]()
+[Read an in-depth discussion about AtomicDEX here.](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special)
 
-<!-- 
-
-Chain lizards would go here.
-
-## Chainlizards
-
-Introduction to Chain Lizards
-
--->

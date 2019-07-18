@@ -2,11 +2,11 @@
 
 ## Heir Module Development
 
-Having finished an overview of the Antara development layout, we are now prepared to create a simplified prototype of the [Heir Module](../basic-docs/fluidity/fluidity-api/heir.html#introduction).
+Having finished an overview of the Antara development layout, we are now prepared to create a simplified prototype of the [Heir Module](../../../basic-docs/antara/antara-api/heir.html#introduction).
 
 #### Links to Heir Source Code and Building Instructions
 
-A complete working example of this simplified Heir CC module tutorial can be found at the following link. We invite the reader to download and review the final code while progressing through the tutorial.
+A complete working example of this simplified Heir Antara module tutorial can be found at the following link. We invite the reader to download and review the final code while progressing through the tutorial.
 
 [Link to Simplified Heir Module](https://github.com/dimxy/komodo/tree/heir-simple)
 
@@ -52,7 +52,7 @@ When you are finished with your attempt, compare your results with the downloada
 
 ## Global CC Address
 
-We also recently discussed the method of adding a Global CC Address as a part of initiating a new Antara Module.
+We also recently discussed the method of adding a Global CryptoCondition (CC) Address as a part of initiating a new Antara Module.
 
 [<b>Link to Global CC Address instructions here.</b>](../../../basic-docs/antara/antara-tutorials/advanced-series-2.html#creating-a-global-cc-address)
 
@@ -86,9 +86,9 @@ We require three types of module transactions
 | `vout.2` | <b>Normal change</b> <br> - Recall that `change` is the leftover amount from the original utxo that the user does not intend to send to the destination address, and which the user desires to keep <br> - Any amount of leftover funds not included in the `change` utxo is forfeited to the miner of the block; this is how miners receive their mining fee |
 | `vout.n-1` | <b>OP_RETURN EVAL_HEIR 'F' ownerpk heirpk inactivitytime heirname</b> <br> - This is the is the opreturn vout, and it contains any data relevant to the module <br> - The 'F' is a flag that indicates that this transaction is a "Funding" CC transaction <br> - `ownerpk` and `heirpk` respectively represent the pubkeys of the owner and heir <br> - Concerning `inactivitytime`, the owner should either make a donation to or spend from the `1of2` address within the `inactivitytime` amount of time to prevent opening the `1of2` address to the heir for spending. <br> - `heirname` is the name of this instance of the Heir Module |
 
-Through a funding transaction, the owner of the initial funds creates a "plan," which we can also call a "contract," and deposits funds for future spending.
+Through a funding transaction, the owner of the initial funds creates a "plan," which we can also call a "module data instance," and deposits funds for future spending.
 
-The initial funds are taken from the normal `vout` values of a utxo. The initial transaction of this plan can be the beginning of the relationship between the funds in the utxo and the Heir Module.
+The initial funds are taken from normal utxos. The initial transaction spends these normal utxos and uses them to create an CC-related utxo. Thus, the initial transaction is the beginning of the relationship between the funds and the Heir Antara Module.
 
 The main funds for the plan are allocated to `vout.0` of our CC transaction.
 
@@ -125,6 +125,8 @@ We include the transaction id (txid) of the initial transaction in the opreturn 
 
 Note the functional id, `A`. This flag indicates that this transaction is an `add` type of funding transaction.
 
+Note the `HasHeirSpendingBegun` flag as well. This is discussed later in the series, in the module source-code description.
+
 #### The Claim Coins Transaction
 
 | input/output | description |
@@ -134,7 +136,7 @@ Note the functional id, `A`. This flag indicates that this transaction is an `ad
 | vout.0 | normal output, sent to the owner or the heir address |
 | vout.1 | `change` to CC `1of2` address |
 | vout.2 | `change` to user's address from transaction fee input, if any |
-| vout.n-1 | OP_RETURN EVAL_HEIR `C` fundingtxid HasHeirSpendingBegun |
+| vout.n-1 | OP_RETURN EVAL_HEIR 'C' fundingtxid HasHeirSpendingBegun |
 
 This transaction allows either the owner or the heir to spend funds from this plan instance.
 
@@ -166,7 +168,7 @@ We model the syntax as follows:
 
 | Argument | Type | Description |
 | -------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| amount         | (number)           | The initial funding amount, in coins or tokens <br> - This parameter is considered to be the amount of tokens if the tokenid parameter is present)   |
+| amount         | (number)           | The initial funding amount, in coins    |
 | name           | (string)           | The name of the heir funding plan (arbitrary)                                                                                                    |
 | heirpubkey     | (string)           | The heir's public key (in hexademical)                                                                                                           |
 | inactivitytime | (number)           | The time (in seconds) that must pass without the owner executing an `heiradd` or `heirclaim` method, after which the address unlocks to the heir |
@@ -181,10 +183,10 @@ To add a new command to `komodo-cli` we open the `src/server.cpp` source file ad
 
 | Object | Description |
 | ------ | ----------- |
-| heir | a common name for all heir contract RPC calls |
+| heir | a common name for all heir module RPC calls |
 | heirfund | the name of the new command |
 | &heirfund | the address of the RPC interface function |
-| true | indicates that the command description will be shown in the help command output; placing `false` here would hide this RPC from the help menu |
+| true | indicates that the command description will be shown in the help command output; placing `false` here would hide this RPC from the help output |
 
 #### Add the RPC Function Declaration
 
@@ -217,7 +219,7 @@ UniValue heirfund(const UniValue& params, bool fHelp)
     CCerror.clear(); // clear global error object
 ```
 
-Recall that a Smart Chain must have the [<b>ac_cc</b>](../basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.html#ac-cc) and [<b>ac_ccenable</b>](../basic-docs/smart-chains/smart-chain-setup/smart-chain-customizations.html#ac-ccenable) customization parameters properly initiated for any Antara Module to function.
+Recall that a Smart Chain must have the [<b>ac_cc</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc) and [<b>ac_ccenable</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-ccenable) customization parameters properly initiated for any Antara Module to function.
 
 Therefore, we check that the wallet and Heir Module features are available in the Smart Chain. We also check the RPC parameter's required number:
 
@@ -228,11 +230,11 @@ Ensure that the wallet object is initialized:
         return NullUniValue;
 ```
 
-Ensure that the chain parameters needed for Antara Modules are correctly set. For example, [<b>addressindex</b>]() and [<b>spentindex</b>]() should both be enabled. Also, ensure that the Heir Module is enabled on this chain.
+Ensure that the chain parameters needed for Antara Modules are correctly set. For example, [<b>addressindex</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#addressindex) and [<b>spentindex</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#spentindex) should both be enabled. Also, ensure that the Heir Module is enabled on this chain.
 
 ```cpp
     if (ensure_CCrequirements(EVAL_HEIR) < 0)
-        throw runtime_error("to use CC contracts, you need to launch daemon with valid -pubkey= for an address in your wallet\n");
+        throw runtime_error("to use Antara modules, you need to launch daemon with valid -pubkey= for an address in your wallet\n");
     // output help message if asked or params count is incorrect:
     if (fHelp || params.size() != 4 )
         throw runtime_error("heirfund funds heirname heirpubkey inactivitytime\n");
@@ -334,19 +336,23 @@ According to our specification, we need two outputs: one for the funding deposit
 
 Here, we use two CC SDK functions that are designed to create CC vouts.
 
-The first is `MakeCC1of2vout`. This creates a CC vout with a threshold of `2` addresses that can spend from the plan funds. We supply as arguments the two potential addresses, represented here as `myPubkey` and `heirPubkey`.
+In our first statement we use the `MakeCC1of2vout` function to create a CC vout with a threshold of `2` addresses that can spend from the plan funds.
 
-`MakeCC1vout` creates a vout with a simple CryptoCondition which sends a transaction fee to the Heir Module global CC address. (This is returned by the `GetUnspendable()` function call below.) We need the global CC address so that we can both mark the transaction, and to find all Heir funding plans.
+We supply as arguments the two potential addresses, represented here as `myPubkey` and `heirPubkey`. Therefore, there are two pubkeys that are able to spend funds in the address.
 
-You will always need some kind of marker for any instance of an Antara Module plan for at least the initial transaction. Otherwise, you might lose the instance's data in the blockchain.
+The statement of code then adds this vout to the transaction.
 
-We call this a <b>marker pattern</b> in Antara development, and we will explore this later in the tutorial.
+Note the eval code, `EVAL_HEIR`. This triggers the Heir validation code whenever an Heir Module transaction occurs.
 
-This first statement creates a vout with a threshold CryptoCondition. This allows spending via one of two possible pubkeys. The statment then adds this vout to the transaction.
+The second statement creates a marker vout with a simple CryptoCondition. 
 
-Note the eval code, `EVAL_HEIR`. This triggers the Heir validation code whenever a Heir Module transaction occurs.
+We always need some kind of marker for any instance of an Antara Module plan for at least the initial transaction. Otherwise, we might lose the instance's data in the blockchain. We call this a <b>marker pattern</b> in Antara development, and we will explore this concept in more detail later in the tutorial.
 
-The second statement creates a marker vout with a simple CryptoCondition. There is a small fee sent to the Heir Module's global CC address. The statement then adds this vout to the transaction. This vout will be used for retrieving the list of all instances of the Heir Module via the <b>heirlist</b> RPC.
+For now, we need to obtain the global CC address so that we can both mark the transaction, and to find all Heir funding plans. To obtain the global address we use the `GetUnspendable()` function.
+
+We use the `MakeCC1vout` function to create a vout with a simple CryptoCondition that sends a transaction fee to the Heir Module global CC address.
+
+The statement then adds this vout to the transaction. This vout will be used for retrieving the list of all instances of the Heir Module via the <b>heirlist</b> RPC. 
 
 ```cpp
         mtx.vout.push_back( MakeCC1of2vout(EVAL_HEIR, amount, myPubkey, heirPubkey) );
@@ -382,7 +388,7 @@ Also note the `E_MARSHAL()` function. This serializes variables of various suppo
 
 There is also the mirror `E_UNMARSHAL()` function. This is used for unpacking opreturn data from a CScript object to C++ variables, and for further processing.
 
-The returned transaction is ready to be sent to the Smart Chain network using the [<b>sendrawtransaction</b>](../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) RPC.
+The returned transaction is ready to be sent to the Smart Chain network using the [<b>sendrawtransaction</b>](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) RPC.
 
 #### Implementing the heirclaim RPC
 
@@ -418,7 +424,7 @@ Check that the wallet is available.
 
 In case the user asks for help via the `--help` parameter, or in case the parameters are not correctly submitted, print a `help` message to the console.
 
-Also check that cc contract requirements are satisfied:
+Also check that Antara requirements are satisfied:
 
 ```cpp
     if (!EnsureWalletIsAvailable(fHelp))
@@ -426,7 +432,7 @@ Also check that cc contract requirements are satisfied:
     if (fHelp || params.size() != 2)
 	throw runtime_error("heirclaim txfee funds fundingtxid\n");
     if (ensure_CCrequirements(EVAL_HEIR) < 0)
-	throw runtime_error("to use CC contracts, you need to launch daemon with valid -pubkey= for an address in your wallet\n");
+	throw runtime_error("to use Antara modules, you need to launch daemon with valid -pubkey= for an address in your wallet\n");
 ```
 
 Lock the wallet:
@@ -450,7 +456,7 @@ Call the `HeirClaim` transaction creation function and return the created transa
     return result;
 }
 ```
-#### Transaction creation code for heirclaom RPC
+#### Transaction creation code for heirclaim RPC
 
 Implement the `HeirClaim` transaction creation code in the `src/cc/heir.cpp` source file.
 
@@ -554,7 +560,7 @@ Once `hasHeirSpendingBegun` is set to `true`, this flag should also be set to `t
 
 - `heiradd` allows a user to add more funding to a plan.
 - `heirlist` is a standard RPC for all CC modules. This RPC outputs a list of all initial transaction IDs, which serve as the identifiers for each plan.
-- `heirinfo` provides some data about a funding plan
+- `heirinfo` provides data about a funding plan.
 
 The implementation for these RPCs can be found in the github repository with the source code of this contract.
 
@@ -775,9 +781,9 @@ Validation provides the logic control of spent Antara-module value, and validati
 
 Recall that validation code is invoked for a transaction at the time the CC-related value is spent (as opposed to only being invoked at the time the value is added). We trigger the invocation of this validation function when at least one transaction input is a CC input bearing this module's `EVAL` code.
 
-Validation code typically is not called for the CC module's initial transaction. Instead, we invoke validatation at the time the initial transaction is spent in a second transaction.
+Validation code typically is not called for the Antara module's initial transaction. Instead, we invoke validatation at the time the initial transaction is spent in a second transaction.
 
-One way to invoke validation for the first transaction when performing the second transaction is to load the initial transaction and validate it first. If the initial transaction turns out to be invalid, it can remain in the chain and is otherwise ignored. In this case, if a CC marker is used, it can be cleared and the transaction is removed from the RPC list output.
+One way to invoke validation for the first transaction when performing the second transaction is to load the initial transaction and validate it first. If the initial transaction turns out to be invalid, it can remain in the chain and is otherwise ignored. In this case, if a CC marker is used, it can be cleared and the transaction is removed from the initial transaction list RPC output.
 
 #### Guidelines for Validation
 
@@ -791,7 +797,7 @@ Here are several common aspects of a module that require validation:
   - All OP_RETURNs should contain the `EVAL` code and functional id in the first two bytes
 - Avoid all foreseeable attack vectors
   - Ensure DOS attacks are eliminated, especially in the event of a malformed transaction
-  - Check the array size before use of any transaction
+  - Check the array size before use of any transaction data
 - Check the previous Heir Module transactions which this transaction spends and which have no cc inputs. This is accomplished by retrieving the transaction id from the opreturn and loading and validating the previous transaction
 
 #### Heir Module Validation Rules
@@ -880,7 +886,7 @@ Call the `FindLatestOwnerTx()` function. This function obtains the opreturn para
     }
 ```
 
-Log in the terminal that the daemon process is in the validation code:
+Print a log message to the console that the daemon process is in the validation code:
 
 ```cpp
     std::cerr << "HeirValidate funcid=" << (char)funcId << " evalcode=" << (int)cpHeir->evalcode << std::endl;

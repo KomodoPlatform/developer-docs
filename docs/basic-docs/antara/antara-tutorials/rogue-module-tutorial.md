@@ -1,14 +1,12 @@
 # Rogue Module Tutorial
 
-The Rogue Fluidity module is a Fluidity implementation of the classic Unix game, Rogue.
-
 This tutorial documentation is associated with the Rogue API documentation. 
 
-[<b>Link to Rogue API documentation</b>](../basic-docs/fluidity/fluidity-api/rogue.html#rogue)
+[<b>Link to Rogue API documentation</b>](../../../basic-docs/antara/antara-api/rogue.html)
 
 ## Introduction
 
-The Rogue Fluidity module serves as a proof-of-concept to demonstrate Fluidity's capabilities as a blockchain-based gaming technology.
+The Rogue Antara module serves as a proof-of-concept to demonstrate Antara's capabilities as a blockchain-based gaming technology.
 
 The Rogue module is based on the classic [Rogue](http://www.livingroguelike.com/rl-games/the-original-rogue-information-and-how-to-play-online/) game. As such, it can be categorized as a [Roguelike.](http://www.livingroguelike.com/roguelike-info-discussions/what-is-a-roguelike/)
 
@@ -220,7 +218,7 @@ Set the pubkey for the ROGUE Smart Chain.
 
 The pubkey is now set.
 
-To reuse this pubkey in the future, include the pubkey as a [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter.
+To reuse this pubkey in the future, include the pubkey as a [pubkey](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter.
 
 Include the `pubkey` in the `-pubkey` launch parameter as follows:
 
@@ -245,8 +243,8 @@ Under normal circumstances, a user does not need to manually execute methods in 
 
 For users/developers who need a reference for the manual process, the following walkthroughs provide detailed step-by-step instructions.
 
-- [Single-Player Mode Walkthrough](../customconsensus/rogue.html#single-player-mode-walkthrough)
-- [Multi-Player Mode Walkthrough](../customconsensus/rogue.html#multi-player-mode-walkthrough)
+- [Single-Player Mode Walkthrough](../../../basic-docs/antara/customconsensus/rogue.html#single-player-mode-walkthrough)
+- [Multi-Player Mode Walkthrough](../../../basic-docs/antara/customconsensus/rogue.html#multi-player-mode-walkthrough)
 
 ### Single-Player Mode Walkthrough
 
@@ -260,9 +258,9 @@ cd ~/komodo/src
 
 #### Step 2
 
-Create a new game via the [newgame](../customconsensus/rogue.html#newgame) method. For this example, we choose to have a single player with a `0` buy-in requirement.
+Create a new game via the [newgame](../../../basic-docs/antara/antara-api/rogue.html#newgame) method. For this example, we choose to have a single player with a `0` buy-in requirement.
 
-Methods for ROGUE require the use of the [cclib](../komodo-api/cclib.html#cclib) method. The Rogue module's required `EVALCODE` for the `cclib` method is `17`.
+Methods for ROGUE require the use of the [cclib](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclib) method. The Rogue module's required `EVALCODE` for the `cclib` method is `17`.
 
 Command:
 
@@ -296,7 +294,7 @@ The returned transaction id `txid` is the `gametxid`. Save this for future use.
 
 #### Step 3
 
-Check the game's state using the [gameinfo](../customconsensus/rogue.html#gameinfo) method:
+Check the game's state using the [gameinfo](../../../basic-docs/antara/antara-api/rogue.html#gameinfo) method:
 
 Command:
 
@@ -335,7 +333,7 @@ In the returned json object, observe the `run` value. This lists the specific co
 
 #### Step 4
 
-Register the `gametxid` using the [register](../customconsensus/rogue.html#register) method:
+Register the `gametxid` using the [register](../../../basic-docs/antara/antara-api/rogue.html#register) method:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib register 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
@@ -364,7 +362,7 @@ Register the `gametxid` using the [register](../customconsensus/rogue.html#regis
 
 #### Step 5
 
-Check the game's current state again using the [gameinfo](../customconsensus/rogue.html#gameinfo) method. Use the `gametxid` as an argument:
+Check the game's current state again using the [gameinfo](../../../basic-docs/antara/antara-api/rogue.html#gameinfo) method. Use the `gametxid` as an argument:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
@@ -412,7 +410,7 @@ In the returned json object, find the `run` value. This is the exact command nee
 
 #### Step 6 - Play
 
-Wait until the network mines the `register_txid`. Optionally, use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to monitor the status of the transaction.
+Wait until the network mines the `register_txid`. Optionally, use the [getrawmempool](../../../basic-docs/smart-chains/smart-chain-api/blockchain.html#getrawmempool) method to monitor the status of the transaction.
 
 Once the transaction is mined, execute the `run` command (found in the returned json object earlier) to start the game:
 
@@ -424,7 +422,7 @@ The game is now running and should be visible on-screen.
 
 #### Step 7 - Play the Game
 
-For instructions on in-game controls and objectives, [read this linked section.](../customconsensus/rogue.html#gameplay-documentation)
+For instructions on in-game controls and objectives, [read this linked section.](../../../basic-docs/antara/antara-tutorials/rogue-module-tutorial.html#introduction)
 
 #### Step 8 - Bailout
 
@@ -434,9 +432,9 @@ To quit the game, type the letter `Q` on the keyboard. This opens a context menu
 
 This begins the process of leaving the game, but you are not finished yet.
 
-Wait for the ROGUE network to mine all [`keystrokes`](../customconsensus/rogue.html#keystrokes) transactions. To see a list of all `keystrokes` created, check the `keystrokes.log` file in the `~/komodo/src` directory, and use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to verify when the last `keystrokes` are mined.
+Wait for the ROGUE network to mine all [`keystrokes`](../../../basic-docs/antara/antara-api/rogue.html#keystrokes) transactions. To see a list of all `keystrokes` created, check the `keystrokes.log` file in the `~/komodo/src` directory, and use the [getrawmempool](../../../basic-docs/smart-chains/smart-chain-api/blockchain.html#getrawmempool) method to verify when the last `keystrokes` are mined.
 
-When the last transactions are mined, execute the [bailout](../customconsensus/rogue.html#bailout) method to leave the game while keeping the character and items in your `pubkey`, and the method will also transfer your in-game gold to `ROGUE` coins.
+When the last transactions are mined, execute the [bailout](../../../basic-docs/antara/antara-api/rogue.html#bailout) method to leave the game while keeping the character and items in your `pubkey`, and the method will also transfer your in-game gold to `ROGUE` coins.
 
 For example:
 
@@ -444,11 +442,11 @@ For example:
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["09d702b9bf678ee9d4efc29354566b4453e2e4ebdf7bac3496e667e8d435fe70"]'
 ```
 
-After the `bailout` transaction is mined the player may view their surviving character(s) via the [players](../customconsensus/rogue.html#players) and [playerinfo](../customconsensus/rogue.html#playerinfo) methods.
+After the `bailout` transaction is mined the player may view their surviving character(s) via the [players](../../../basic-docs/antara/antara-api/rogue.html#players) and [playerinfo](../../../basic-docs/antara/antara-api/rogue.html#playerinfo) methods.
 
 #### Step 9: Highlander Victory 
 
-In this walkthrough we have used single-player mode. The following [highlander](../customconsensus/rogue.html#highlander) method is only available if the character manages to capture the `amulet` and safely exit the dungeon. In a normal multi-player game, the `highlander` method is available to either the first player to safely retrieve the `amulet`, or to the last player standing after all others have died.
+In this walkthrough we have used single-player mode. The following [highlander](../../../basic-docs/antara/antara-api/rogue.html#highlander) method is only available if the character manages to capture the `amulet` and safely exit the dungeon. In a normal multi-player game, the `highlander` method is available to either the first player to safely retrieve the `amulet`, or to the last player standing after all others have died.
 
 The player that successfully executes the `highlander` method receives a prize: the collective value of all `ROGUE` coins that were contributed during the buy-in stage.
 
@@ -458,7 +456,7 @@ The `highlander` method is executed as follows:
 ./komodo-cli -ac_name=ROGUE cclib highlander 17 '["4fd6f5cad0fac455e5989ca6eef111b00292845447075a802e9335879146ad5a"]'
 ```
 
-After the `highlander` transaction is mined the player may view their surviving character(s) via the [players](../customconsensus/rogue.html#players) and [playerinfo](../customconsensus/rogue.html#playerinfo) methods.
+After the `highlander` transaction is mined the player may view their surviving character(s) via the [players](../../../basic-docs/antara/antara-api/rogue.html#players) and [playerinfo](../../../basic-docs/antara/antara-api/rogue.html#playerinfo) methods.
 
 ### Multi-Player Mode Walkthrough
 
@@ -467,7 +465,7 @@ In this walktrough we use two nodes to play a multi-player game of Rogue.
 - Node 1 is `player1`
 - Node 2 is `player2`
 
-For educational purposes, we execute all methods manually, as opposed to using the [TUI](../customconsensus/rogue.html#installing-the-tui-optional).
+For educational purposes, we execute all methods manually, as opposed to using the [TUI](../../../basic-docs/antara/antara-tutorials/rogue-module-tutorial.html#installing-the-tui-optional).
 
 #### Step 1: Create a Multi-Player Game
 
@@ -482,7 +480,7 @@ For this game, we choose the following details:
 - the max number of players: `2`
 - the cost in `ROGUE` coins of the game `buyin`: `0.1`
 
-Execute the [newgame](../customconsensus/rogue.html#newgame) method on `player1` as follows:
+Execute the [newgame](../../../basic-docs/antara/antara-api/rogue.html#newgame) method on `player1` as follows:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib newgame 17 '["2","0.1"]'
@@ -510,7 +508,7 @@ Execute the [newgame](../customconsensus/rogue.html#newgame) method on `player1`
 
 Save the returned `txid` value for future use. This is our `gametxid`.
 
-Use the [gameinfo](../customconsensus/rogue.html#gameinfo) method to check information about the game:
+Use the [gameinfo](../../../basic-docs/antara/antara-api/rogue.html#gameinfo) method to check information about the game:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
@@ -553,7 +551,7 @@ Also note that the `start` value is `54270`. This is the block height at which t
 
 For our example, `player1` would like to use an existing character that survived a previous game. This allows `player1` to start with all the advantages this character achieved previously, including character statistics and items.
 
-To activate the existing character, `player1` includes the associated `playertxid` for the character when executing the [register](../customconsensus/rogue.html#register) method. (The `playertxid` values of any `pubkey` can be found using the [players](../customconsensus/rogue.html#players) method.)
+To activate the existing character, `player1` includes the associated `playertxid` for the character when executing the [register](../../../basic-docs/antara/antara-api/rogue.html#register) method. (The `playertxid` values of any `pubkey` can be found using the [players](../../../basic-docs/antara/antara-api/rogue.html#players) method.)
 
 The player also includes the `gametxid` as the first argument of the `register` method.
 
@@ -607,9 +605,9 @@ In our example, the `player2` node does not have a character from a previous gam
 </collapse-text>
 
 
-Wait until the `txid` values returned on both nodes are mined. (Use the [getrawmempool](../komodo-api/blockchain.html#getrawmempool) method to check the transaction's status.)
+Wait until the `txid` values returned on both nodes are mined. (Use the [getrawmempool](../../../basic-docs/smart-chains/smart-chain-api/blockchain.html#getrawmempool) method to check the transaction's status.)
 
-After the transactions are mined, use the [gameinfo](../customconsensus/rogue.html#gameinfo) method to check the game's status again:
+After the transactions are mined, use the [gameinfo](../../../basic-docs/antara/antara-api/rogue.html#gameinfo) method to check the game's status again:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib gameinfo 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
@@ -706,11 +704,11 @@ cc/rogue/rogue 3928429259918614461 4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c
 
 #### Step 3: Play and Finish the Game
 
-[View this linked section for instructions on gameplay.](../customconsensus/rogue.html#gameplay-documentation)
+[View this linked section for instructions on gameplay.](../../../basic-docs/antara/antara-tutorials/rogue-module-tutorial.html#introduction)
 
 In our example, `player1` decides to bail out of the game without waiting until `player2` dies, and without retrieving the `amulet` from the dungeon. 
 
-To exit, `player1` executes the [bailout](../customconsensus/rogue.html#bailout) method:
+To exit, `player1` executes the [bailout](../../../basic-docs/antara/antara-api/rogue.html#bailout) method:
 
 ```bash
 ./komodo-cli -ac_name=ROGUE cclib bailout 17 '["4ccf9ca8b1198b35b48dc7126c6b9648b243c44076e4c4e4fe474b129028abde"]'
@@ -786,7 +784,7 @@ Command:
 
 Note that the `alive` property has a value of `1`, indicating that the `player1` character has left and the `player2` character remains. Also note that in the `players` array, the first json object (which describes the `player1` node) has a `status` of `finished`.
 
-Since `player1` left early, `player2` is the last character standing. The [highlander](../customconsensus/rogue.html#highlander) method is now available to him.
+Since `player1` left early, `player2` is the last character standing. The [highlander](../../../basic-docs/antara/antara-api/rogue.html#highlander) method is now available to him.
 
 `player2` first begins the exit procedure by entering `Q`, then `y + Enter`.
 
@@ -817,7 +815,7 @@ With the exit process in motion, `player2` executes the `highlander` method:
 
 The multi-player game is now finished. The `player2` node received the `highlander` prize, including the total `buyin` amount and an increased conversion rate of in-game gold to `ROGUE` coins.
 
-After the `bailout` and `highlander` transactions are mined, the players may view their surviving character via the [players](../customconsensus/rogue.html#players) and [playerinfo](../customconsensus/rogue.html#playerinfo) methods.
+After the `bailout` and `highlander` transactions are mined, the players may view their surviving character via the [players](../../../basic-docs/antara/antara-api/rogue.html#players) and [playerinfo](../../../basic-docs/antara/antara-api/rogue.html#playerinfo) methods.
 
 
 ## Gameplay Documentation
@@ -840,7 +838,7 @@ There are no time limits.
 
 As soon as the `register_txid` is confirmed the player may begin to play.
 
-When concluding the game, the conversion of in-game gold to `ROGUE` coins is halved. See the [highlander](../customconsensus/rogue.html#highlander) and [bailout](../customconsensus/rogue.html#bailout) methods for further details.
+When concluding the game, the conversion of in-game gold to `ROGUE` coins is halved. See the [highlander](../../../basic-docs/antara/antara-api/rogue.html#highlander) and [bailout](../../../basic-docs/antara/antara-api/rogue.html#bailout) methods for further details.
 
 #### Multi-Player Mode
 
@@ -854,23 +852,23 @@ Due to the fact that the entropy (based on the `seed`) was the same for both pla
 
 There are two methods for winning the game. The most direct way to win the game is to obtain the `amulet` and return from the dungeon. Alternatively, the player also may win by having the last surviving character. The winner receives all of the `buyin` coins that were originally contributed, as well as an increased conversion ratio for their in-game gold to `ROGUE` reward.
 
-See the [highlander](../customconsensus/rogue.html#highlander) method for further details.
+See the [highlander](../../../basic-docs/antara/antara-api/rogue.html#highlander) method for further details.
 
 ### The Mechanics of Saving, Trading, and Reusing Characters
 
 ::: tip Note
 
-Due to the nature of saving and reusing characters, the Komodo implementation of Rogue changes the manner in which the user saves characters. Instead of typing `s` on the keyboard, type `Q + y + Enter`, then execute the [bailout](../customconsensus/rogue.html#bailout) method to conclude the game.
+Due to the nature of saving and reusing characters, the Komodo implementation of Rogue changes the manner in which the user saves characters. Instead of typing `s` on the keyboard, type `Q + y + Enter`, then execute the [bailout](../../../basic-docs/antara/antara-api/rogue.html#bailout) method to conclude the game.
 
 :::
 
-If a player successfully uses either the [highlander](../customconsensus/rogue.html#highlander) or [bailout](../customconsensus/rogue.html#bailout) method to conclude a game, the player may save their character, items, and achieved characteristics. They also convert the character's in-game gold to `ROGUE` coins. The ratio of conversion depends upon the game conditions; see the `highlander` and `bailout` methods for further details.
+If a player successfully uses either the [highlander](../../../basic-docs/antara/antara-api/rogue.html#highlander) or [bailout](../../../basic-docs/antara/antara-api/rogue.html#bailout) method to conclude a game, the player may save their character, items, and achieved characteristics. They also convert the character's in-game gold to `ROGUE` coins. The ratio of conversion depends upon the game conditions; see the `highlander` and `bailout` methods for further details.
 
 #### Recalling an Existing Character
 
-When either of these methods are executed, the returned response includes a `playertxid` transaction id. The `playertxid` represents the state of this character at the completion of the game. It is used as an argument for the [register](../customconsensus/rogue.html#register) method when recalling the character, items, and achieved characteristics into a future game. 
+When either of these methods are executed, the returned response includes a `playertxid` transaction id. The `playertxid` represents the state of this character at the completion of the game. It is used as an argument for the [register](../../../basic-docs/antara/antara-api/rogue.html#register) method when recalling the character, items, and achieved characteristics into a future game. 
 
-The `playertxid` value changes with each game, and therefore only the most recent `playertxid` for a character should be used. To see a complete list of current `playertxid` values belonging to the user's `pubkey`, use the [playerinfo](../customconsensus/rogue.html#playerinfo) method. 
+The `playertxid` value changes with each game, and therefore only the most recent `playertxid` for a character should be used. To see a complete list of current `playertxid` values belonging to the user's `pubkey`, use the [playerinfo](../../../basic-docs/antara/antara-api/rogue.html#playerinfo) method. 
 
 When the user registers an existing character, the game dungeon's difficulty begins at level `1`, and the character has no gold (as it was converted to `ROGUE` coins). Also, even if the character has armor and a wielded weapon in their item list, these items are not equipped by default. The player must equip them at the start of the game by typing the letters `w` for weapon and `W` for armor.
 
@@ -886,9 +884,9 @@ If the user bails out of a game while holding more items than they are allowed t
 
 #### Trading an Existing Character
 
-A character that survived a game is also a non-fungible asset and can be traded on the blockchain. When trading a character, the user does not use the `playertxid` value. Rather, the user employs the `tokentxid` value. This `tokentxid` is used in coordination with the [Tokens CC](../customconsensus/tokens.html#introduction) module for on-chain trading.
+A character that survived a game is also a non-fungible asset and can be traded on the blockchain. When trading a character, the user does not use the `playertxid` value. Rather, the user employs the `tokentxid` value. This `tokentxid` is used in coordination with the [Tokens Antara Module](../../../basic-docs/antara/antara-api/tokens.html#introduction) module for on-chain trading.
 
-The `tokentxid` can be found by using the [playerinfo](../customconsensus/rogue.html#playerinfo) method and submitting the known `playertxid` as an argument. For more information, see the `playerinfo` method.
+The `tokentxid` can be found by using the [playerinfo](../../../basic-docs/antara/antara-api/rogue.html#playerinfo) method and submitting the known `playertxid` as an argument. For more information, see the `playerinfo` method.
 
 The `tokentxid` is created at the character's initial creation and does not change throughout the character's life. When the character dies, the `tokentxid` is sent to a burn address, making the character permanently unplayable. 
 

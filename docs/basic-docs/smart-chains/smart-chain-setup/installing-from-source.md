@@ -24,7 +24,7 @@ You can download and unzip our pre-compiled binaries. This is the simplest metho
 
 For more information on this method, please see the link below.
 
-[<b>Link to simple installations section for pre-compiled executables</b>](../basic-docs/start-here/about-komodo-platform/simple-installations.html)
+[<b>Link to simple installations section for pre-compiled executables</b>](../../../basic-docs/start-here/about-komodo-platform/simple-installations.html)
 
 ##### Building Smart Chain Software From Source
 
@@ -45,6 +45,8 @@ This is not required, but building from source is considered the best practice i
   - For Ubuntu, we recommend using only the 16.04 or 18.04 releases
 
 - 64-bit Processor
+
+- Minimum 32GB HDD or SDD storage space
 
 - Minimum 4GB of free RAM (8GB+ recommended)
 

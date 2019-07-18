@@ -2,7 +2,9 @@
 
 The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
-<!-- These work for KMDLabs chains now, must revisit after they are modded to work for KMD
+<!--
+
+These work for KMDLabs chains now, must revisit after they are modded to work for KMD
 ## getnotarysendmany
 
 **getnotarysendmany**
@@ -17,6 +19,7 @@ Examples:
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnotarysendmany", "params": [10] }' -H 'content-type: text/plain;' http://127.0.0.1:7771/
 
 ## getiguanajson
+
 -->
 
 ## getinfo
@@ -261,7 +264,7 @@ The `stop` method instructs the coin daemon to shut down.
 The amount of time it takes to shut down the chain will vary depending on the chain's current state.
 
 ::: warning
-Forcefully stopping the chain should be avoided, as it may cause a corruption in the local database. In the event of a corrupted database, the user will need to <b>resync</b>.
+Forcefully stopping the chain should be avoided, as it may corrupt the local database. In the event of a corrupted database, the user will need to <b>resync</b>.
 :::
 
 ### Arguments

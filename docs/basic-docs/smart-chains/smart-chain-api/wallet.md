@@ -87,7 +87,7 @@ This method requires that the coin daemon have the <b>exportdir</b> runtime para
 
 | Name | Type | Description | 
 | ------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "destination" | (string, required) | the destination filename, saved in the directory set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter |
+| "destination" | (string, required) | the destination filename, saved in the directory set by the [exportdir](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#exportdir) runtime parameter |
 
 ### Response
 
@@ -199,14 +199,14 @@ The `dumpwallet` method dumps all transparent-address wallet keys into a file, u
 Overwriting an existing file is not permitted. The `destination` parameter accepts only alphanumeric characters.
 
 ::: tip
-This method requires that the coin daemon have the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter enabled.
+This method requires that the coin daemon have the [exportdir](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#exportdir) runtime parameter enabled.
 :::
 
 ### Arguments
 
 | Name | Type | Description | 
 | ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| "filename" | (string, required) | the filename, saved in the folder set by the [exportdir](../installations/common-runtime-parameters.html#exportdir) runtime parameter |
+| "filename" | (string, required) | the filename, saved in the folder set by the [exportdir](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#exportdir) runtime parameter |
 
 ### Response
 
@@ -272,7 +272,7 @@ The `encryptwallet` method encrypts the wallet with the indicated `passphrase`.
 
 For more information, please see these instructions: [Encrypt Komodo's wallet.dat File](https://docs.komodoplatform.com/komodo/encrypt-wallet.html)
 
-This method is for first-time encryption only. After the first encryption, any calls that interact with private keys will require the passphrase via [walletpassphrase](../komodo-api/wallet.html#walletpassphrase) prior to calling the corresponding method. This includes methods that create a transaction, dump a private key for an address, sign a transaction, etc.
+This method is for first-time encryption only. After the first encryption, any calls that interact with private keys will require the passphrase via [walletpassphrase](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#walletpassphrase) prior to calling the corresponding method. This includes methods that create a transaction, dump a private key for an address, sign a transaction, etc.
 
 ### Arguments
 
@@ -640,7 +640,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 This method is part of the new <b>ac_staked</b> functionality.
 :::
 
-The `getbalance64` method is used only on asset chains that are utilizing the `ac_staked` functionality. On KMD-based Proof-of-Stake (PoS) asset chains, all staked coins are placed into one of 64 segments (`segid`'s'). The `getbalance64` method returns the balance of coins in each `segid`. For further information, please reach out to our support team.
+The `getbalance64` method is used only on Smart Chains that are utilizing the `ac_staked` functionality. On KMD-based Proof-of-Stake (PoS) Smart Chains, all staked coins are placed into one of 64 segments (`segid`'s'). The `getbalance64` method returns the balance of coins in each `segid`. For further information, please reach out to our support team.
 
 ## getnewaddress
 
@@ -921,7 +921,7 @@ The `gettransaction` method queries detailed information about transaction `txid
 | Name | Type | Description | 
 | ----------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | "amount"                | (numeric)               | the transaction amount                                                                                                            |
-| "confirmations"         | (numeric)               | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "confirmations"         | (numeric)               | a confirmation number that is aware of the dPoW security service |
 | "rawconfirmations"      | (numeric)               | the raw confirmations (number of blocks on top of this transaction's block)                                                       |
 | "blockhash"             | (string)                | the block hash                                                                                                                    |
 | "blockindex"            | (numeric)               | the block index                                                                                                                   |
@@ -1327,7 +1327,7 @@ See also <b>dumpprivkey</b>.
 
 | Name | Type | Description | 
 | --------- | --------------------------------- | -------------------------------------------------------------------------- |
-| "privkey" | (string, required)                | the private key (see [dumpprivkey](../komodo-api/wallet.html#dumpprivkey)) |
+| "privkey" | (string, required)                | the private key (see [dumpprivkey](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#dumpprivkey)) |
 | "label"   | (string, optional, default="")    | an optional label                                                          |
 | rescan    | (boolean, optional, default=true) | rescan the wallet for transactions                                         |
 
@@ -1400,7 +1400,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **importwallet "filename"**
 
-The `importwallet` method imports transparent-address keys from a wallet-dump file (see [dumpwallet](../komodo-api/wallet.html#dumpwallet)).
+The `importwallet` method imports transparent-address keys from a wallet-dump file (see [dumpwallet](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#dumpwallet)).
 
 ### Arguments
 
@@ -1788,7 +1788,7 @@ The `listreceivedbyaccount` method lists balances by account.
 | "involvesWatchonly" | (bool)    | only returned if the imported addresses were involved in the transaction                                                                  |
 | "account"           | (string)  | the account name of the receiving account                                                                                         |
 | "amount"            | (numeric) | the total amount received by addresses with this account                                                                          |
-| "confirmations"     | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "confirmations"     | (numeric) | a confirmation number that is aware of the dPoW security service |
 | "rawconfirmations"  | (numeric) | the raw confirmations of the most recent transaction included (number of blocks on top of this transaction's block)               |
 
 #### :pushpin: Examples
@@ -1893,7 +1893,7 @@ The `listreceivedbyaddress` method lists balances by receiving address.
 | "address"           | (string)  | the receiving address                                                                                                             |
 | "account"           | (string)  | DEPRECATED the account of the receiving address; the default account is ""                                                        |
 | "amount"            | (numeric) | the total amount received by the address                                                                                          |
-| "confirmations"     | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "confirmations"     | (numeric) | a confirmation number that is aware of the dPoW security service |
 | "rawconfirmations"  | (numeric) | the raw confirmations of the most recent transaction included (number of blocks on top of this transaction's block)               |
 
 #### :pushpin: Examples
@@ -2045,7 +2045,7 @@ The `listsinceblock` method queries all transactions in blocks since block `bloc
 | "amount"           | (numeric) | the amount of the relevant currency -- negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category, and for the `move` category for inbound funds. |
 | "vout"             | (numeric) | the vout value                                                                                                                                                                                                     |
 | "fee"              | (numeric) | the amount of the fee; this value is negative and only available for the `send` category of transactions                                                                                                           |
-| "confirmations"    | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info                                                                                  |
+| "confirmations"    | (numeric) | a confirmation number that is aware of the dPoW security service                                                                                  |
 | "rawconfirmations" | (numeric) | the raw confirmations of the transaction; available for `send` and `receive` category of transactions (number of blocks on top of this transaction's block)                                                        |
 | "blockhash"        | (string)  | the block hash containing the transaction; available for the `send` and `receive` categories of transactions                                                                                                       |
 | "blockindex"       | (numeric) | the block index containing the transaction; available for the `send` and `receive` categories of transactions                                                                                                      |
@@ -2210,7 +2210,7 @@ The `listtransactions` method returns up to `count` most recent transactions ski
 | "amount"           | (numeric) | The amount. This value is negative for the `send` category, and for the `move` category for moves outbound. It is positive for the `receive` category and for the `move` category for inbound funds. |
 | "vout"             | (numeric) | the vout value                                                                                                                                                                                       |
 | "fee"              | (numeric) | the amount of the fee; this is negative and only available for the `send` category of transactions                                                                                                   |
-| "confirmations"    | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info                                                                    |
+| "confirmations"    | (numeric) | a confirmation number that is aware of the dPoW security service                                                                    |
 | "rawconfirmations" | (numeric) | the raw confirmations of the transaction; available for `send` and `receive` category of transactions (number of blocks on top of this transaction's block)                                          |
 | "blockhash"        | (string)  | the block hash containing the transaction; available for the `send` and `receive` categories of transactions                                                                                         |
 | "blockindex"       | (numeric) | the block index containing the transaction; available for the `send` and `receive` categories of transactions                                                                                        |
@@ -2375,7 +2375,7 @@ The `listunspent` method returns an array of unspent transaction outputs, with a
 | "account"          | (string)  | DEPRECATED the associated account, or "" for the default account                                                                  |
 | "scriptPubKey"     | (string)  | the script key                                                                                                                    |
 | "amount"           | (numeric) | the transaction amount                                                                                                            |
-| "confirmations"    | (numeric) | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "confirmations"    | (numeric) | a confirmation number that is aware of the dPoW security service |
 | "rawconfirmations" | (numeric) | the raw confirmations (number of blocks on top of this transaction's block)                                                       |
 
 #### :pushpin: Examples
@@ -2648,37 +2648,43 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 </collapse-text>
 
 
+<!-- Sidd: Commenting out until Alright has time to review.
+
 ## opreturn_burn
 
 **opreturn_burn burn_amount hexstring ( txfee )**
 
-The `opreturn_burn` method is a simple way to create an OP_RETURN transaction. Returns transaction raw hex that must then be broadcast via the sendrawtransaction method.
+The `opreturn_burn` method creates an OP_RETURN transaction. 
+
+The method returns a raw hex transaction that must then be broadcast via the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments
 
 | Name | Type | Description | 
 | ------------- | ----------------------------------- | ---------------------------------------- |
-| "burn_amount" | (numeric, required)                 | Amount of coins to burn.                 |
-| "hexstring"   | (string, required)                  | Hex string to include in OP_RETURN data. |
-| "txfee"       | (numeric, optional, defalut=0.0001) | Transaction fee                          |
+| "burn_amount" | (numeric, required)                 | the amount of coins to burn                 |
+| "hexstring"   | (string, required)                  | the hex string to include in OP_RETURN data |
+| "txfee"       | (numeric, optional, defalut=0.0001) | the transaction fee                          |
 
 ### Response
 
 | Name | Type | Description | 
 | ----- | -------- | ---------------------- |
-| "hex" | (string) | raw hex of transaction |
+| "hex" | (string) | raw hex of transaction; broadcast this using the <b>sendrawtransaction</b> method |
 
 #### :pushpin: Examples
 
-Command:
+###### Command
 
 ```bash
 ./komodo-cli opreturn_burn 10 deadbeef 0.00005
 ```
 
+###### Response
+
+<div style="margin-top: 1rem; margin-bottom: 1rem;">
 
 <collapse-text hidden title="Response">
-
 
 ```bash
 {
@@ -2688,15 +2694,19 @@ Command:
 
 </collapse-text>
 
+</div>
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
-Command:
+###### Command
 
 ```bash
 curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "opreturn_burn", "params": [10,"deadbeef",0.0005] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
 ```
 
+###### Response
+
+<div style="margin-top: 1rem; margin-bottom: 1rem;">
 
 <collapse-text hidden title="Response">
 
@@ -2707,6 +2717,9 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
+</div>
+
+-->
 
 ## resendwallettransactions
 
@@ -3110,9 +3123,9 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 **setpubkey pubkey**
 
-The `setpubkey` method sets the indicated `pubkey`. This method can be used in place of the [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter, when necessary.
+The `setpubkey` method sets the indicated `pubkey`. This method can be used in place of the [pubkey](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter, when necessary.
 
-Visit the section [pubkey](../installations/common-runtime-parameters.html#pubkey) to understand when it is essential to set a pubkey and the consequences of setting it.
+Visit the section [pubkey](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) to understand when it is essential to set a pubkey and the consequences of setting it.
 
 ::: warning
 This method works only once per daemon start. It can't be used to change the pubkey that has already been set.
@@ -3329,14 +3342,14 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 **walletlock**
 
 ::: tip
-The `walletlock` method is neither active nor visible in the `help` method until the [encryptwallet](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+The `walletlock` method is neither active nor visible in the `help` method until the [encryptwallet](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#encryptwallet) passphrase is set.
 :::
 
 :::tip
 This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
 :::
 
-The `walletlock` method re-locks a wallet that has a passphrase enabled via [encryptwallet](../komodo-api/wallet.html#encryptwallet).
+The `walletlock` method re-locks a wallet that has a passphrase enabled via [encryptwallet](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#encryptwallet).
 
 ### Arguments
 
@@ -3374,14 +3387,14 @@ Command:
 **walletpassphrase "passphrase" (timeout)**
 
 ::: tip
-The `walletpassphrase` method is neither active nor visible in the `help` method until the [encryptwallet](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+The `walletpassphrase` method is neither active nor visible in the `help` method until the [encryptwallet](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#encryptwallet) passphrase is set.
 :::
 
 :::tip
 This feature is available only on chains where `-ac_public` is enabled. Chains that feature private transactions cannot use this feature.
 :::
 
-The `walletpassphrase` method unlocks the wallet using the passphrase that was set by the [encryptwallet](../komodo-api/wallet.html#encryptwallet) method.
+The `walletpassphrase` method unlocks the wallet using the passphrase that was set by the [encryptwallet](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#encryptwallet) method.
 
 The `timeout` argument can be included to limit the length of time (in seconds) the wallet will remain unlocked.
 
@@ -3422,7 +3435,7 @@ Command:
 **walletpassphrasechange "oldpassphrase" "newpassphrase"**
 
 ::: tip
-The `walletpassphrasechange` method is neither active nor visible in the `help` method until the [encryptwallet](../komodo-api/wallet.html#encryptwallet) passphrase is set.
+The `walletpassphrasechange` method is neither active nor visible in the `help` method until the [encryptwallet](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#encryptwallet) passphrase is set.
 :::
 
 :::tip
@@ -3601,7 +3614,7 @@ The `z_exportwallet` method exports all wallet keys, including both t address an
 
 | Name | Type | Description | 
 | ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "filename" | (string, required) | the filename, saved to the directory indicated by the [exportdir](../installations/common-runtime-parameters.html#exportdir) parameter at daemon runtime (required) |
+| "filename" | (string, required) | the filename, saved to the directory indicated by the [exportdir](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#exportdir) parameter at daemon runtime (required) |
 
 ### Response
 
@@ -4080,7 +4093,7 @@ CAUTION: If the wallet contains watch-only z addresses the returned private bala
 :::
 
 ::: tip
-While the <b>interest</b> property is returned for all KMD-based coin daemons, only the main KMD chain utilizes the interest feature. KMD-based asset chains will always return a <b>0.00</b> interest value.
+While the <b>interest</b> property is returned for all KMD-based coin daemons, only the main KMD chain utilizes the interest feature. KMD-based Smart Chains will always return a <b>0.00</b> interest value.
 :::
 
 ### Arguments
@@ -4195,7 +4208,7 @@ See also <b>z_exportkey</b>.
 
 | Name | Type | Description | 
 | -------------- | -------------------------------------------- | --------------------------------------------------------------------------- |
-| "z_privatekey" | (string, required)                           | the z_privatekey (see [z_exportkey](../komodo-api/wallet.html#z-exportkey)) |
+| "z_privatekey" | (string, required)                           | the z_privatekey (see [z_exportkey](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-exportkey)) |
 | rescan         | (string, optional, default=`"whenkeyisnew"`) | rescan the wallet for transactions; can be `yes`                            | `no` | `whenkeyisnew` |
 | startHeight    | (numeric, optional, default=0)               | the block height at which to begin the rescan                               |
 
@@ -4643,7 +4656,7 @@ An array of json objects, each having the properties below.
 | txid               | (string)                                     | the transaction id                                                                                                                |
 | amount             | (numeric)                                    | the amount of value in the note                                                                                                   |
 | memo               | (string)                                     | hexadecimal string representation of memo field                                                                                   |
-| "confirmations"    | (numeric)                                    | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "confirmations"    | (numeric)                                    | a confirmation number that is aware of the dPoW security service |
 | "rawconfirmations" | (numeric)                                    | the raw confirmations (number of blocks on top of this transaction's block)                                                       |
 | jsindex            | (sprout)                                     | (numeric, received only by sprout addresses) the joinsplit index                                                                  |
 | jsoutindex         | (numeric, received only by sprout addresses) | the output index of the joinsplit                                                                                                 |
@@ -4717,7 +4730,7 @@ Results are an array of Objects, each of which has:
 | ---------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
 | minconf          | (numeric, optional, default=1)       | the minimum confirmations to filter                                                                                  |
 | maxconf          | (numeric, optional, default=9999999) | the maximum confirmations to filter                                                                                  |
-| includeWatchonly | (bool, optional, default=false)      | whether to also include watchonly addresses (see [z_importviewingkey](../komodo-api/wallet.html#z-importviewingkey)) |
+| includeWatchonly | (bool, optional, default=false)      | whether to also include watchonly addresses (see [z_importviewingkey](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-importviewingkey)) |
 | addresses        | (array)                              | a json array of z addresses (both Sprout and Sapling) to act as a filter; duplicate addresses are not allowed        |
 | address          | (string)                             | a z address                                                                                                          |
 
@@ -4731,7 +4744,7 @@ An array of json objects, each having the properties below.
 | jsindex            | (numeric)                                     | the joinsplit index                                                                                                               |
 | jsoutindex         | (numeric, only returned on sprout addresses)  | the output index of the joinsplit                                                                                                 |
 | outindex           | (numeric, only returned on sapling addresses) | the output index                                                                                                                  |
-| "confirmations"    | (numeric)                                     | a confirmation number that is dPoW aware; see this [article](https://docs.komodoplatform.com/komodo/dPOW-conf.html) for more info |
+| "confirmations"    | (numeric)                                     | a confirmation number that is aware of the dPoW security service |
 | "rawconfirmations" | (numeric)                                     | the raw confirmations (number of blocks on top of this transaction's block)                                                       |  |
 | spendable          | (boolean)                                     | true if note can be spent by wallet, false if note has zero confirmations, false if address is watchonly                          |
 | address            | (string)                                      | the shielded address                                                                                                              |
@@ -4853,7 +4866,7 @@ If a special string is given, any given addresses of that type will be ignored
 | "address"         | (string)                            | can be a t address or a z address                                                                                                                                                                        |
 | "toaddress"       | (string, required)                  | the t address or z address to receive the combined utxo                                                                                                                                                  |
 | fee               | (numeric, optional, default=0.0001) | the fee amount to attach to this transaction                                                                                                                                                             |
-| transparent_limit | (numeric, optional, default=50)     | limit on the maximum number of transparent utxos to merge; you may set this value to 0 to use the node option [mempooltxinputlimit](../installations/common-runtime-parameters.html#mempooltxinputlimit) |
+| transparent_limit | (numeric, optional, default=50)     | limit on the maximum number of transparent utxos to merge; you may set this value to 0 to use the node option [mempooltxinputlimit](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#mempooltxinputlimit) |
 | shielded_limit    | (numeric, optional, default=10)     | limit on the maximum number of hidden notes to merge; you may set this value to 0 to merge as many as will fit in the transaction                                                                        |
 | "memo"            | (string, optional)                  | encoded as hex; when `toaddress` is a z address, this value will be stored in the memo field of the new note                                                                                             |
 
@@ -5017,7 +5030,7 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 The `z_shieldcoinbase` method shields transparent coinbase funds by sending the funds to a shielded z address. This is an asynchronous operation and utxos selected for shielding will be locked. If there is an error, they are unlocked.
 
-The RPC call `listlockunspent` can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the [mempooltxinputlimit](../installations/common-runtime-parameters.html#mempooltxinputlimit) option will determine the number of uxtos. Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
+The RPC call `listlockunspent` can be used to return a list of locked utxos. The number of coinbase utxos selected for shielding can be limited by the caller. If the limit parameter is set to zero, the [mempooltxinputlimit](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#mempooltxinputlimit) option will determine the number of uxtos. Any limit is constrained by the consensus rule defining a maximum transaction size of 100000 bytes.
 
 ### Arguments
 

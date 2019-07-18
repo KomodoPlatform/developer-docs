@@ -18,7 +18,7 @@ Typically, each module will take the pubkey, combine it with a unique and module
 
 -->
 
-To get a pubkey, launch the chain with the normal launch parameters and execute the [getnewaddress](../komodo-api/wallet.html#getnewaddress) API command.
+To get a pubkey, launch the chain with the normal launch parameters and execute the [getnewaddress](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getnewaddress) API command.
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD getnewaddress
@@ -30,7 +30,7 @@ This will return a new address:
 DO_NOT_USE_ADDRESSgg2ionaes1J5L786
 ```
 
-Now, execute the [validateaddress](../komodo-api/util.html#validateaddress) command.
+Now, execute the [validateaddress](../../../basic-docs/smart-chains/smart-chain-api/util.html#validateaddress) command.
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD validateaddress DO_NOT_USE_ADDRESSgg2ionaes1J5L786
@@ -60,7 +60,7 @@ Then relaunch your daemon using the required parameters, and make sure to includ
 
 The daemon will now use the above pubkey as the basis for all addresses used for the different modules.
 
-To discover the addresses the pubkey provides, you will typically use an `address` related API command from the list of available commands of your chosen module. For example, the [<b>faucetaddress</b>](../basic-docs/fluidity/fluidity-api/faucet.html#faucetaddress) command would return a response like this:
+To discover the addresses the pubkey provides, you will typically use an `address` related API command from the list of available commands of your chosen module. For example, the [<b>faucetaddress</b>](../../../basic-docs/antara/antara-api/faucet.html#faucetaddress) command would return a response like this:
 
 ```json
 {
@@ -90,4 +90,4 @@ For readers who are curious, the letters "CC" are an abbreviation of an internal
 
 The use-cases of the different addresses depends on the functionality in question, and the desired outcome.
 
-Also, each module has its own API commands for moving coins or tokens. For example, the Tokens module offers the [<b>tokentransfer</b>](../customconsensus/tokens.html#tokentransfer) method.
+Also, each module has its own API commands for moving coins or tokens. For example, the Tokens module offers the [<b>tokentransfer</b>](../../../basic-docs/antara/antara-api/tokens.html#tokentransfer) method.

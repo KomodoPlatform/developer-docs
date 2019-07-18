@@ -2,10 +2,11 @@
 
 ## Details Regarding KMD Main Chain
 
-
-| Circulating Coin Supply:      | \~100000000 |
-|-------------------------------|-------------|
-| Total Coin Supply (yr. 2030): | \~200000000 |
+| Era of Block Rewards | Block Height | Block Reward | Coin Supply |
+| ----------- | ------------ | ------------ | ----------- |
+| Current Block Rewards | \~1150000 | 3 KMD | \~115000000 |
+| First Reward Reduction | 7777777 | 2 KMD | \~200000000 |
+| Final Reward Reduction | 15555553 | 1 KMD | \~215000000 |
 
 The foundational coin of the Komodo ecosystem is named after the ecosystem itself, Komodo (KMD).
 
@@ -13,7 +14,7 @@ The foundational coin of the Komodo ecosystem is named after the ecosystem itsel
 
 Those who hold KMD may earn rewards of up to 5.1% annually. Any wallet address that holds at least 10 KMD is eligible. KMD holders must simply move their KMD once a month—even if the funds are sent back to the same address from which they originated—in order to earn their reward. This reward is built into the core code of Komodo.
 
-The reward comes from an opportunity provided by our unique security system, dPoW. The nature of the reward is rooted in the financial incentive that is typically given to miners on a normal PoW chain. On a normal PoW, when a miner mines a new block, the blockchain mints new coins and delivers them to the miner’s indicated wallet. For instance, on the Bitcoin blockchain, the reward for mining a new block is currently ~12.5 BTC. In dPoW, we do not need to allocate such a high incentive to miners, as we already maintain access to the hash rate of our chosen PoW network, Bitcoin. Therefore, when we created the KMD main chain, we recoded this coin-minting reward to distribute 5.1% annual rewards to all holders of at least 10 KMD.
+The reward comes from an opportunity provided by our unique security system, dPoW. The nature of the reward is rooted in the financial incentive that is typically given to miners on a normal PoW chain. On a normal PoW chain, when a miner mines a new block, the blockchain mints new coins and delivers them to the miner’s indicated wallet. For instance, on the Bitcoin blockchain, the reward for mining a new block is currently ~12.5 BTC. In dPoW, we do not need to allocate such a high incentive to miners, as we already maintain access to the hash rate of our chosen PoW network, Bitcoin. Therefore, when we created the KMD main chain, we recoded this coin-minting reward to distribute 5.1% annual rewards to all holders of at least 10 KMD.
 
 To earn rewards in the full amount of 5.1%, users must move their funds on the blockchain at least once per month. The reward is calculated as a part of the utxo transfer process. The KMD code only calculates rewards for utxos up to one month, and then stops. By simply sending the full balance of a wallet to the same receiving address, a user can generate a new utxo. In this manner, the user can claim their current rewards, and continue receiving them for at least one month.
 
@@ -64,7 +65,7 @@ The user must use these addresses for most interactions on-chain, including most
 
 We call a privacy-enabled address a "Z address," as they utilize the Zcash parameters and zk-SNARK technology.
 
-Z addresses often have RPCs that are separate from the RPCs used for T address. For example, [<b>z_gettotalbalance</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-gettotalbalance) is separate from [<b>getbalance.</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getbalance)
+Z addresses often have RPCs that are separate from the RPCs used for T addresses. For example, [<b>z_gettotalbalance</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-gettotalbalance) is separate from [<b>getbalance.</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getbalance)
 
 The cost of interacting with Z addresses is often higher than the cost of interacting with a T address. This is due to the fact that Z transactions require more block space, due to their demands for increased levels of encryption.
 
@@ -72,6 +73,7 @@ The cost of interacting with Z addresses is often higher than the cost of intera
 
 There are three types of transactions that can take place in respect to privacy technology.
 
+All of the following transactions are accomplished using the [<b>z_sendmany</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-sendmany) RPC.
 
 #### Transparent to Private
 
@@ -85,7 +87,7 @@ There are three types of transactions that can take place in respect to privacy 
 
 ------
 
-A user uses the [<b>z_sendmany</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-sendmany) RPC to send funds from a T address to a Z address.
+A user sends funds from a T address to a Z address.
 
 This is <b>not</b> a private transaction. An observer of the blockchain can observe both the T address from which the funds are consumed and the Z address to which the funds are sent.
 
@@ -101,9 +103,9 @@ This is <b>not</b> a private transaction. An observer of the blockchain can obse
 
 ------
 
-This <b>is</b> a private transaction. Using zk-SNARK technology inherited from Zcash, this transaction moves funds from one address <b>without leaving any data available in the public domain for later observation.</b> 
+This <b>is</b> a private transaction. Using zk-SNARK technology inherited from Zcash, this transaction moves funds from one address to another <b>without leaving any data available in the public domain for later observation.</b> 
 
-So long as the user does not reveal any information regarding this transaction, no other party may ever know the amount, specific time, or destination of funds in this transaction. The user may also consider enhancing their privacy through services such as [Tor](https://www.torproject.org/).
+The user may also consider enhancing their privacy through services such as [Tor](https://www.torproject.org/).
 
 All privacy from zk-SNARK technology is derived solely as a part of this type of transaction.
 
@@ -129,7 +131,7 @@ Although the anonymization process provides a measure of privacy and may appear 
 
 #### The Timing Attack
 
-In this attack, the sleuth simply studies the time the funds disappear from a T address and looks for funds to appear in another T address soon thereafter. If the privacy-user persistently chooses predictable timing for initiating and completing their transfer of funds from a T address, through a series of Z addresses, and back to a public T address, a determined sleuth may deduce the user's trail of funds.
+In this attack, the sleuth simply studies the time the funds disappear from a T address and looks for funds to appear in another T address soon thereafter. If the privacy-user persistently chooses predictable timing for initiating and completing their transfer of funds, a determined sleuth may deduce the user's trail of funds.
 
 For effective privacy, the user should wait for other users on the Smart Chain to exercise privacy transactions, and thereby conceal their own privacy behavior. The more users using privacy features, the more private the transactions become.
 
@@ -205,13 +207,13 @@ Because the Bitcoin blockchain must keep track of the sizes of these packets of 
 
 To compare this limitation to fiat money, consider the effect created were Charlie to cut a $100-dollar bill into smaller pieces. The $100-dollar bill would no longer be respected as a valid form of currency.
 
-As the word, "utxo," is not a sonorous word, some users in the Komodo ecosystem simply refer to utxos as "bills." The concept is effectively the same. However, as the rest of the blockchain industry primarily uses the word "utxo," we frequently must use this word to maintain a common line of communication. The word utxo will be used throughout the rest of this documentation, to keep in line with industry practices.
+As the word "utxo" is not a sonorous word, some users in the Komodo ecosystem simply refer to utxos as "bills." The concept is effectively the same. However, as the rest of the blockchain industry primarily uses the word "utxo," we frequently must use this word to maintain a common line of communication. The word utxo will be used throughout the rest of this documentation, to keep in line with industry practices.
 
 The utxo packet can be any size, and the developer of the GUI software decides on this process. Most importantly, and to reiterate, a utxo can only be resized during the process of spending, as this is the moment when the user interacts with the public blockchain.
 
 To further clarify this, let us return to Charlie’s example with fiat money. Recall that when Charlie went to purchase a $1-dollar item, he only had $100-dollar bills in his wallet. He had to give out one $100-dollar bill, and then receive a broken-down collection of dollar bills in return.
 
-This is exactly how it works with utxos. Charlie has a collection of utxos in his digital wallet. When he goes to buy something, he will give out utxos until he surpasses how much he owes, and then the extra change from the last utxo used will be broken down and returned to him.
+This is exactly how it works with utxos. Charlie has a collection of utxos in his digital wallet. When he goes to buy something, he will give out utxos until he surpasses how much he owes, and then the extra change from the last utxo will be broken down and returned to him.
 
 For example, let us suppose that Charlie’s 9.99000999 BTC is comprised of three utxos worth the following values:
 | Utxos in Charlie’s Wallet | Value          |

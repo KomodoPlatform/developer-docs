@@ -140,7 +140,7 @@ To create a global CC address for a new module, follow these steps.
 
 #### Create a value using getnewaddress
 
-With the `komodod` daemon running, use the [<b>getnewaddress</b>](../basic-docs/smart-chains/smart-chain-api/wallet.html#getnewaddress) RPC with `komodo-cli` to get a new address. (You may use any Komodo Smart Chain, such as the KMD main chain, for this procedure.)
+With the `komodod` daemon running, use the [<b>getnewaddress</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getnewaddress) RPC with `komodo-cli` to get a new address. (You may use any Komodo Smart Chain, such as the KMD main chain, for this procedure.)
 
 Copy this value into the first line of the code. For example, in the Faucet code above the result is as follows.
 
@@ -150,7 +150,7 @@ const char *FaucetNormaladdr = "RKQV4oYs4rvxAWx1J43VnT73rSTVtUeckk";
 
 #### Retrieve the pubkey using validateaddress
 
-Use the [<b>validateaddress</b>](../basic-docs/smart-chains/smart-chain-api/util.html#validateaddress) RPC with `komodo-cli` to obtain the pubkey of the new normal address from the previous step.
+Use the [<b>validateaddress</b>](../../../basic-docs/smart-chains/smart-chain-api/util.html#validateaddress) RPC with `komodo-cli` to obtain the pubkey of the new normal address from the previous step.
 
 Place the returned value into the `<CChexstr>[67]` line of code.
 
@@ -160,15 +160,13 @@ char FaucetCChexstr[67] = { "03682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518
 
 #### Restart the Daemon with the pubkey 
 
-Stop the daemon and restart with the [<b>pubkey</b>](../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter enabled. Use the pubkey from the <b>validateaddress</b> RPC as the pubkey value.
+Stop the daemon and restart with the [<b>pubkey</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter enabled. Use the pubkey from the <b>validateaddress</b> RPC as the pubkey value.
 
 #### Ensure the Myprivkey Function is Properly Enabled
 
 Check that the `if ( 0 )` statement is enabled in the  `Myprivkey()` function in the `/src/cc/CCutils.cpp` file.
 
 #### Obtain the CCaddress
-
-<!-- I didn't think the <CC>address RPC call was enabled at this point, unless the RPCs are implemented? -->
 
 Execute the `<CC_name>address` RPC call and use the returned value to complete the `<CC_Name>CCaddr` line of code.
 
@@ -184,25 +182,18 @@ From the response returned by the `<CC_name>address` RPC, use the hex value of t
 uint8_t FaucetCCpriv[32] = { 0xd4, 0x4f, 0xf2, 0x31, 0x71, 0x7d, 0x28, 0x02, 0x4b, 0xc7, 0xdd, 0x71, 0xa0, 0x39, 0xc4, 0xbe, 0x1a, 0xfe, 0xeb, 0xc2, 0x46, 0xda, 0x76, 0xf8, 0x07, 0x53, 0x3d, 0x96, 0xb4, 0xca, 0xa0, 0xe9 };
 ```
 
-<!-- How do we have a new pubkey from this? -->
-
 Stop the daemon and restart it using the new pubkey.
 
 #### Add the First RPC
 
-<!-- This should be part of its own section? Also, still confused about how to execute <CC>address above, since we create the RPC below. -->
+Add a line to the `/src/server.h` file to create the `<CC_name>address` function for the module.
 
-Add a line to the `/src/rpcserver.h` file to create the `<CC_name>address` function for the module.
-
-Update the commands array in the `/src/rpcserver.cpp` file.
-
+Update the commands array in the `/src/server.cpp` file. 
 #### Copy the Existing Default RPCs to the New Module
 
 From the `/src/wallet/rpcwallet.cpp` file, copy and paste the existing RPC functions to create new versions for the new module. Change the eval code and customize the functions as desired.
 
 Add an entry into the `/src/cc/eval.h` file.
-
-<!-- Anything here about testing to ensure that it works properly, or anything? -->
 
 ## Introduction to Validation
 

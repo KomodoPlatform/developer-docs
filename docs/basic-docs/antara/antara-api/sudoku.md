@@ -4,21 +4,21 @@
 
 The Sudoku Antara Module serves as a proof-of-concept to demonstrate Antara's capabilities as a blockchain-based gaming technology.
 
-The Sudoku module is based on the classic game, Sudoku. To learn more about how Sudoku is played, read the associated Wikipedia article:
+The Sudoku Module is based on the classic game, Sudoku. To learn more about how Sudoku is played, read the associated Wikipedia article:
 
 [Link to Sudoku Wikipedia article](https://en.wikipedia.org/wiki/Sudoku)
 
-The procedures to launch and finish a game require the execution of various Remote Procedure Calls (RPCs). By design, the Sudoku module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must pass trough the Sudoku RPC captcha protection, as this deters bots.
+The procedures to launch and finish a game require the execution of various Remote Procedure Calls (RPCs). By design, the Sudoku Module assumes the user relies on the associated Sudoku GUI software. The GUI is required because the  UNIX timestamp for each gameplay event must pass trough the Sudoku RPC captcha protection, as this deters bots.
 
 The following installation and walkthrough tutorials can assist the reader in setting up and playing the Sudoku game. For more information, please reach out to our community on [Discord](https://komodoplatform.com/discord). The #cc-sudoku channel is available for questions and assistance.
 
 #### Sudoku Module Flow
 
-- Create a puzzle using the [gen](../customconsensus/sudoku.html#gen) method
+- Create a puzzle using the [gen](../../../basic-docs/antara/antara-api/sudoku.html#gen) method
   - commit the amount of `SUDOKU` coins that will serve as a bounty for the first node to complete this puzzle
-- Find a puzzle to solve using the [pending](../customconsensus/sudoku.html#pending) method
-- Gather additional information about any puzzle using the [txidinfo](../customconsensus/sudoku.html#txidinfo) method
-- Propose a solution for a puzzle using the [solution](../customconsensus/sudoku.html#solution) method
+- Find a puzzle to solve using the [pending](../../../basic-docs/antara/antara-api/sudoku.html#pending) method
+- Gather additional information about any puzzle using the [txidinfo](../../../basic-docs/antara/antara-api/sudoku.html#txidinfo) method
+- Propose a solution for a puzzle using the [solution](../../../basic-docs/antara/antara-api/sudoku.html#solution) method
 
 ## Installation
 
@@ -196,7 +196,7 @@ This is the `pubkey` for our address.
 
 #### Step 4
 
-Set the pubkey for the SUDOKU asset chain.
+Set the pubkey for the SUDOKU Smart Chain.
 
 ```bash
 ./komodo-cli -ac_name=SUDOKU setpubkey 02f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2
@@ -219,7 +219,7 @@ Set the pubkey for the SUDOKU asset chain.
 
 The pubkey is now set.
 
-To reuse this pubkey in the future, include the pubkey as a [pubkey](../installations/common-runtime-parameters.html#pubkey) launch parameter.
+To reuse this pubkey in the future, include the pubkey as a [pubkey](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter.
 
 For example:
 
@@ -273,7 +273,7 @@ OSX dependencies might be quite tricky part depends of exact OSX version - so I'
 
 The generate method creates a new Sudoku puzzle.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 #### Arguments
 
@@ -397,7 +397,7 @@ solve: 2501000840900503203040280100090000010206000071000030400000100000007000005
 
 **cclib pending 17**
 
-The `pending` method returns a complete list of all unsolved puzzles on the asset chain.
+The `pending` method returns a complete list of all unsolved puzzles on the Smart Chain.
 
 #### Arguments
 
@@ -467,7 +467,7 @@ The `solution` method submits the proposed `solution` to the blockchain for the 
 
 The `t0...` values represent the timestamp at which the solution was found for each number. Pre-filled cells have an automated timestamp of `tX=0`, where `X` is the index of the puzzle number.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 #### Arguments
 
@@ -549,7 +549,7 @@ The `txidinfo` method returns information about the indicated `puzzle_txid` puzz
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| puzzle_txid | (string) | the unique transaction id of the requested puzzle, as returned from the broadcast hex of the [gen](../customconsensus/sudoku.html#gen) method  |
+| puzzle_txid | (string) | the unique transaction id of the requested puzzle, as returned from the broadcast hex of the [gen](../../../basic-docs/antara/antara-api/sudoku.html#gen) method  |
 
 #### Response
 

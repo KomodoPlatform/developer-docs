@@ -11,12 +11,12 @@
 * Normal user account with admin/root privileges
 
 ::: warning Note
-If you would prefer to avoid building MM2 from source, you can download our pre-built nightly binary [from this link](http://195.201.0.6/mm2/).
+If you would prefer to avoid building MM2 from source, you can download our pre-built binary [from our Github releases page.](https://github.com/KomodoPlatform/atomicDEX-API/releases)
 :::
 
 ### Note about Linux
 
-For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us on the #dev-marketmaker channel on Discord](https://komodoplatform.com/discord).
+For Linux users, much of the following documentation assumes that you are building and running MM2 on a Debian 9/10 or Ubuntu 18.04 host. If you have questions about other releases or distributions, [please reach out to us on the #dev-marketmaker channel on Discord.](https://komodoplatform.com/discord)
 
 ### Note about Installing on Windows
 
@@ -126,7 +126,7 @@ Clone the MM2 repository:
 
 ```bash
 cd ~
-git clone https://github.com/artemii235/SuperNET.git --branch mm2 --single-branch && cd SuperNET
+git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2 --single-branch && cd atomicDEX-API
 ```
 
 Compile the source code:
@@ -141,4 +141,4 @@ If everything installs successfully you will see something similar:
 “Finished dev [optimized + debuginfo] target(s) in 3m 33s”
 ```
 
-The MM2 executable is now built and available here: `~/SuperNET/target/debug/mm2`
+The MM2 executable is now built and available here: `~/atomicDEX-API/target/debug/mm2`

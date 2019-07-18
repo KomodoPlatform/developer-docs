@@ -175,7 +175,7 @@ By design, any leftover amount not claimed by a vout is given to the miner that 
 
 To summarize, the utxo takes `0.1` coins from an address, sends `0.04995` back to the same address, and then sends `0.05` coins to a new address. The leftover amount is automatically given to the miner of the block.
 
-This suggests that the user who created this transaction desired to send `0.05` coins to the new address. The user may have created this transaction using the [<b>sendtoaddress</b>]() API method.
+This suggests that the user who created this transaction desired to send `0.05` coins to the new address. The user may have created this transaction using the [<b>sendtoaddress</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#sendtoaddress) API method.
 
 From here, the software daemon took control. The software found that within the user's wallet was an existing value of `0.1` coins. This became the vin for the transaction. The first vout the software created was sent back to the address in the user's own wallet. This `0.04995000` value is the "change" from the transaction. The second vout contains the `0.05` the user intended to send to the new address.
  
@@ -193,9 +193,7 @@ Often times, in conversation developers may call a full transaction a "utxo," fo
 
 #### A Utxo is Not Spent Until Confirmation
 
-A utxo is not considered spent under any circumstances until the transaction that spends it receives confirmation from the Smart Chain's consensus mechanism.
-
-Therefore, transactions sent to the [<b>mempool</b>](https://en.bitcoin.it/wiki/Protocol_documentation#mempool) are technically still unspent transactions, even if the user is fairly certain the transaction will be confirmed in the next block.
+A utxo is not considered spent under any circumstances until the transaction that spends it receives confirmation from the Smart Chain's consensus mechanism. Even when the spending transaction is waiting in the mempool, the utxo remains unspent until the spending transaction receives confirmation from the network.
 
 A useful comparison here can be found by observing people seeking to attend a ticketed event, such as a music concert. To gain acceptance into the music hall, a person must first have a ticket. We compare this to the creation of a txid. The person must wait in line. This is similar to the mempool. The person must have their ticket stamped, and this is akin to the consensus mechanism approving the transaction. Then the person may enter the music hall. This is the transaction becoming a part of the blockchain history.
 
@@ -229,11 +227,11 @@ This encouraged Satoshi to redesign the Bitcoin protocol so that, by default, ea
 
 An astute reader may note that in the above example transaction, the "change" did not go to a new address, but rather to the same address from which the `0.1` coins were taken. The reason for this pertains to CryptoConditions (CC), as the transaction was performed on a Smart Chain that utilizes CryptoConditions.
 
-When using CC technology, the user typically must provide a designated pubkey via the [<b>pubkey</b>]() launch parameter. The reason for this will be discussed later. 
+When using CC technology, the user typically must provide a designated pubkey via the [<b>pubkey</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) launch parameter. The reason for this will be discussed later. 
 
 A side effect of using this <b>pubkey</b> parameter is that once this is set, the software will stop creating new "change" addresses with each transaction. Instead, the software will send the "change" back to the same cold address that is associated with the pubkey.
 
-If a user wants to keep funds safe from quantum computers, there are separate CC-related modules that provide protection. For example, [the upcoming Dilithium Antara Module.](https://komodoplatform.com/dilithium-quantum-secure-blockchain/)
+If a user wants to keep funds safe from quantum computers, there are separate CC-related modules that provide protection. For example, [the upcoming Dilithium Antara Module.](../../../basic-docs/antara/antara-api/dilithium.html#introduction)
 
 #### Pay to Pubkey Hash Transactions 
 
@@ -245,7 +243,7 @@ The Internet contains many thorough explanations of P2PKH transactions. For more
 
 Once a cold address is associated with a pubkey, the Bitcoin protocol no longer attempts to use these quantum-secure P2PKH transactions, as they require an extra 25 bytes of data space. Instead, the protocol reverts to the original P2PK transactions.
 
-CryptoConditions typically requires the [<b>ac_pubkey</b>](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-pubkey) Antara Customization parameter to be enabled. One of the effects of this parameter is that each time a user makes a transaction, the "change" is automatically sent back not to a new cold address, but rather to the pubkey included in the `ac_pubkey` parameter. Therefore, as user transactions are already always returning to a default pubkey, the Antara Module developer can simply skip P2PKH transactions altogether and use only P2PK transactions instead. 
+CryptoConditions typically requires the [<b>pubkey</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) Antara Customization parameter to be enabled. One of the effects of this parameter is that each time a user makes a transaction, the "change" is automatically sent back not to a new cold address, but rather to the pubkey included in the `pubkey` parameter. Therefore, as user transactions are already always returning to a default pubkey, the Antara Module developer can simply skip P2PKH transactions altogether and use only P2PK transactions instead. 
 
 #### Pay to Script Hash Payments
 

@@ -1,8 +1,8 @@
 # Creating Komodo Smart Chains
 
-## Creating A New Smart Chain
+## Introduction
 
-### Requirements for Creating a New Chain
+#### Requirements for Creating a New Chain
 
 - 2 nodes with the ability to open ports (a node can be either a computer or a VPS)
 - At least 4GB RAM each
@@ -13,10 +13,6 @@
 
 ::: tip
 When you are building and testing a Komodo Smart Chain, please do not hesitate to reach out to us when you are stuck. We wish to make this as easy as possible. Our support agents are available in our <a href="https://komodoplatform.com/discord">#support channel in Discord</a> for many hours each day, and during off hours you can file a ticket on <a href="https://support.komodoplatform.com/support/home">our support page</a>.
-:::
-
-::: tip
-The word "node" is used throughout this documentation, and it can be confusing for beginners. A node can be a unique desktop computer connected to the Internet. It can also be a virtual-private server (VPS) that is rented or purchased, and which the developer can access at will. Or, it can be another type of unique instance of a computational machine.
 :::
 
 ### Basic Info for Connecting At Least Two Nodes
@@ -34,6 +30,8 @@ When using a home or office-type setup, the challenge lies in the way the networ
 For example, if the developers are operating on a local router, where the two machines are connected via wifi, the local ip addresses of the machines are harder to find. This is because the router assigns new local ip addresses to the machines each time they re-connect to the router. It is not possible to see the ip addresses from the Internet. In this situation, the developer must log into the router's software interface and search for the currently assigned local ip addresses.
 
 A home or office-type setup can suffice, if you're just looking to test an Smart Chain quickly and don't want to spend money on a VPS. However, don't be surprised if you need to ask for help. Please reach out to us, and we'll help the best we can.
+
+To test the creation of a Smart Chain using only a single node, [see these linked instructions.](../../../basic-docs/smart-chains/smart-chain-tutorials/creating-a-smart-chain-on-a-single-node.html#introduction) 
 
 To prepare for the next step, execute the following command in the terminal on both machines:
 
@@ -96,14 +94,14 @@ In the above string, take note of the p2p and RPC ports, as well as the magic nu
 
 In the example above, the p2p port is `8096`. Make sure that the p2p port is open to the internet or any other network from which the second node connects.
 
-This completes the first half of the Smart Chain creation process. Scroll down to [Part II](../installations/creating-asset-chains.html#part-ii-connecting-the-second-node).
+This completes the first half of the Smart Chain creation process. Scroll down to [Part II](../../../basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html#part-ii-connecting-the-second-node).
 
 ::: tip
-Please refer to [Smart Chain Parameters](../installations/asset-chain-parameters.html) for a full list of parameters to customize the characteristics of your blockchain.
+Please refer to [Antara Customization parameters](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-algo) for a full list of parameters to customize the characteristics of your blockchain.
 :::
 
 ::: tip
-Please note the requirements for [ac_supply](../installations/asset-chain-parameters.html#ac-supply), and instructions for using [addnode](../installations/common-runtime-parameters.html#addnode) under various network conditions, including firewalls and LANs.
+Please note the requirements for [ac_supply](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-supply), and instructions for using [addnode](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#addnode) under various network conditions, including firewalls and LANs.
 :::
 
 ## Part II: Connecting the Second Node
@@ -124,7 +122,7 @@ Mining can be started on a node using the following command:
 
 `$(nproc)` in the above command makes the daemon mine using all the available CPU threads, which might be necessary in a low end VPS.
 
-On a Komodo-based blockchain, all of the pre-mined coins are mined in the first block. Therefore, whichever machine executes the mining command will receive the entirety of the blockchain's pre-mined coin supply, as set in the [ac_supply](../installations/asset-chain-parameters.html#ac-supply) parameter. Upon mining the first block, these coins are available in the default `wallet.dat` file.
+On a Komodo-based blockchain, all of the pre-mined coins are mined in the first block. Therefore, whichever machine executes the mining command will receive the entirety of the blockchain's pre-mined coin supply, as set in the [ac_supply](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-supply) parameter. Upon mining the first block, these coins are available in the default `wallet.dat` file.
 
 To collect all the mining rewards from the node to a single address, execute the following commands before issuing the `setgenerate` command:
 
@@ -147,7 +145,7 @@ After issuing the mining command is issued, can check that the two nodes are con
 
 If the nodes are properly connected, both nodes will respond with: `"connections": 1`
 
-These are the coins you will later distribute to your community, using either our native DEX, [AtomicDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), or our decentralized-ICO software (coming soon), or on any other third-party exchange.
+These are the coins you will later distribute to your community, using either our native DEX, [AtomicDEX](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special), or our decentralized-ICO software (coming soon), or on any other third-party exchange.
 
 You can check the contents of the wallet by executing the following command in the terminal:
 
@@ -197,7 +195,7 @@ Since the Komodo software began as a fork of Zcash and BTC, essentially all comm
 
 Furthermore, a key purpose of the Komodo blockchain is to create features and functions that facilitate and enhance your development experience. Information regarding these enhancements is available throughout this documentation.
 
-In addition, since you are building on a Komodo-based blockchain, you have easy access to our multi-coin wallet and atomic-swap powered decentralized exchange, [AtomicDEX](../installations/basic-instructions.html#komodo-s-native-dex-barterdex), the Antara development framework and modules, our decentralized-ICO software, and our future upgrades.
+In addition, since you are building on a Komodo-based blockchain, you have easy access to our multi-coin wallet and atomic-swap powered decentralized exchange, [AtomicDEX](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html#why-is-atomicdex-special), the Antara development framework and modules, our decentralized-ICO software, and our future upgrades.
 
 ## Example commands
 
@@ -219,7 +217,7 @@ Notarizations are performed as transactions on your blockchain and on the main K
 
 Every ten to twenty minutes, our notary nodes will hash the history of your Smart Chain and insert it as a record into the KMD main chain. This provides an initial layer of security, but it is not the final layer.
 
-In another ten to twenty minutes, all of the information in the KMD chain (including your Smart Chain's hashed data) is hashed and inserted into the BTC blockchain. Once your information is pushed into BTC, your Smart Chain will consider all notarized information effectively settled and immutable; only the recent, un-notarized transactions are still relying on your Smart Chain's raw consensus mechanism. [Click here to learn more about the types of consensus mechanisms you can choose on a KMD Smart Chain](../installations/asset-chain-parameters.html#ac-staked).
+In another ten to twenty minutes, all of the information in the KMD chain (including your Smart Chain's hashed data) is hashed and inserted into the BTC blockchain. Once your information is pushed into BTC, your Smart Chain will consider all notarized information effectively settled and immutable; only the recent, un-notarized transactions are still relying on your Smart Chain's raw consensus mechanism. [Click here to learn more about the types of consensus mechanisms you can choose on a KMD Smart Chain](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-staked).
 
 Thus, your Smart Chain will have all the power of Bitcoin securing your blockchain's history, with the zero-knowledge privacy of the Zcash parameters pre-installed, and all of the interoperability, scalability, and more that Komodo adds to your development experience.
 

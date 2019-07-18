@@ -75,11 +75,14 @@ export default {
       .ds-suggestion
         border-bottom 1px solid $borderColor
       .ds-dataset-1
-        background-color #2C313B            
+        background-color #003a4b            
     .algolia-docsearch-suggestion--highlight
       color $accentColor
     .algolia-docsearch-suggestion--content
-      background-color #2C313B  
+      background-color #003a4b
+    .algolia-docsearch-suggestion--wrapper
+      background-color #003a4b
+      width 100%   
     .algolia-docsearch-suggestion
       border-color $borderColor      
       .algolia-docsearch-suggestion--category-header        
@@ -107,8 +110,8 @@ export default {
 @media (max-width: $MQMobile)
   .algolia-search-wrapper
     .algolia-docsearch-suggestion--wrapper
-      background #2C313B !important   
+      background #003a4b !important   
     .algolia-docsearch-suggestion--subcategory-column
-      background #2C313B !important
+      background #003a4b !important 
     
 </style>

@@ -6,7 +6,7 @@ The following RPC calls interact with the `komodod` software, and are made avail
 
 **getblocksubsidy height_number**
 
-The `getblocksubsidy` method returns the block-subsidy reward. The resulting calculation takes into account the mining slow start. This method can be used in conjunction with custom mining rewards designed by the developers of a KMD-based asset chain.
+The `getblocksubsidy` method returns the block-subsidy reward. The resulting calculation takes into account the mining slow start. This method can be used in conjunction with custom mining rewards designed by the developers of a KMD-based Smart Chain.
 
 ### Arguments
 
@@ -80,7 +80,7 @@ If the request parameters include a `mode` key, it is used to explicitly select 
 
 #### A Note on Unique Mining Circumstances
 
-There are many features in the Komodo Ecosystem that can make an asset chain's daemon produce non-standard coinbase transactions. Examples include an asset chain parameter that creates new coins for a specific pubkey in every block or a CC module that adds outputs to the coinbase transaction.
+There are many features in the Komodo Ecosystem that can make a Smart Chain's daemon produce non-standard coinbase transactions. Examples include a Smart Chain parameter that creates new coins for a specific pubkey in every block or a CC module that adds outputs to the coinbase transaction.
 
 This can be dealt using a mode called `disablecb`
 
@@ -125,7 +125,7 @@ Now the pool software can use the `"transactions":[ ... ]` array to create a blo
 | "depends" : [ ... ]    | (array)            | an array of numbers                                                                                                                                                                                                                                                                              |
 | "fee"                  | (numeric)          | the difference in value between transaction inputs and outputs in satoshis; for coinbase transactions, this is the negative number of the total collected block fees, not including the block subsidy; if a key is not present, the fee is unknown and clients MUST NOT assume it is not present |
 | "sigops"               | (numeric)          | the total number of sigops, as counted for the purposes of block limits; if a key is not present, the sigop count is unknown and clients MUST NOT assume they are not present.                                                                                                                   |
-| "foundersreward"       | (numeric)          | the founder's reward that should be paid out in this block; this key is present only in the blocks that payout the founder's reward; present only in chains with [ac_founders](../installations/asset-chain-parameters.html#ac_founders) enabled                                                 |
+| "foundersreward"       | (numeric)          | the founder's reward that should be paid out in this block; this key is present only in the blocks that payout the founder's reward; present only in chains with [ac_founders](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-founders) enabled                                                 |
 | "coinbasevalue"        | (numeric)          | the value of the coinbase transaction (in satoshis)                                                                                                                                                                                                                                              |
 | "required"             | (boolean)          | if provided and true, this transaction must be in the final block                                                                                                                                                                                                                                |
 | "target"               | (string)           | the hash target                                                                                                                                                                                                                                                                                  |
@@ -324,8 +324,8 @@ The `getmininginfo` method returns a json object containing mining-related infor
 | "currentblocktx"   | (numeric) | the last block transaction                                                                                                                                                             |
 | "difficulty"       | (numeric) | the current difficulty                                                                                                                                                                 |
 | "errors":          |           |
-| "generate"         | (boolean) | if the generation is on or off (see [getgenerate](../komodo-api/generate.html#getgenerate) or [setgenerate](../komodo-api/generate.html#setgenerate) calls)                            |
-| "genproclimit"     | (numeric) | the processor limit for generation; `-1` if no generation (see [getgenerate](../komodo-api/generate.html#getgenerate) or [setgenerate](../komodo-api/generate.html#setgenerate) calls) |
+| "generate"         | (boolean) | if the generation is on or off (see [getgenerate](../../../basic-docs/smart-chains/smart-chain-api/generate.html#getgenerate) or [setgenerate](../../../basic-docs/smart-chains/smart-chain-api/generate.html#setgenerate) calls)                            |
+| "genproclimit"     | (numeric) | the processor limit for generation; `-1` if no generation (see [getgenerate](../../../basic-docs/smart-chains/smart-chain-api/generate.html#getgenerate) or [setgenerate](../../../basic-docs/smart-chains/smart-chain-api/generate.html#setgenerate) calls) |
 | "localsolps"       | (numeric) | the average local solution rate (solutions per second) since this node was started                                                                                                     |
 | "networksolps"     | (numeric) | the estimated network solution rate (solutions per second)                                                                                                                             |
 | "pooledtx":        |           |

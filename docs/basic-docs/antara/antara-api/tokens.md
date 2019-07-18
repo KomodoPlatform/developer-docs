@@ -2,9 +2,9 @@
 
 ## Introduction
 
-The Tokens Module enables support for the on-chain creation of colored coins, also called tokens. This module enables the basic functionality, such as creation, transfer and balance validation. The created tokens are typically used with another module that supports operations on tokens. For example, the Assets Module provides buy/sell operations for `tokens`.
+The Tokens Antara Module enables support for the on-chain creation of colored coins, also called tokens. This module enables the basic functionality, such as creation, transfer and balance validation. The created tokens are typically used with another module that supports operations on tokens. For example, the Assets Module provides buy/sell operations for `tokens`.
 
-Functionality for this module is facilitated by utxo technology. Tokens can be generated on any chain where the [ac_cc](../installations/asset-chain-parameters.html#ac-cc) customization is enabled
+Functionality for this module is facilitated by utxo technology. Tokens can be generated on any chain where the [ac_cc](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc) customization is enabled
 
 Each token is identified by its unique token id.
 
@@ -33,8 +33,8 @@ The `tokenaddress` method returns information about a token address according to
 | result          | (string) | whether the command executed successfully                                                                                        |
 | AssetsCCaddress | (string) | taking the token module's EVAL code as a modifier, this is the public address that corresponds to the token contract's privkey |
 | Assetsmarker    | (string) | the unmodified public address generated from the token contract's privkey                                                        |
-| CCaddress       | (string) | taking the token module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                          |
-| myCCaddress     | (string) | taking the token module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user                          |
+| CCaddress       | (string) | taking the token module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                          |
+| myCCaddress     | (string) | taking the token module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                          |
 | myaddress       | (string) | the public address of the pubkey used to launch the chain                                                                        |
 
 #### :pushpin: Examples
@@ -64,7 +64,7 @@ Command:
 
 The `tokenask` method posts a public ask order.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments
 
@@ -137,7 +137,7 @@ The `tokenbalance` method checks the token balance according to a provided `pubk
 | Name      | Type     | Description                                                                                             |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------- |
 | result    | (string) | whether the command executed successfully                                                                |
-| CCaddress | (string) | taking the token module's EVAL code as a modifier, this is the Fluidity address from the pubkey of the user |
+| CCaddress | (string) | taking the token module's EVAL code as a modifier, this is the Antara address from the pubkey of the user |
 | tokenid   | (string) | the txid that identifies the token                                                                      |
 | balance   | (number) | the balance of the address that corresponds to the pubkey                                               |
 
@@ -189,7 +189,7 @@ The `tokenbid` method posts a public bid order.
 
 To fill the order, the parent chain's coin must be used.
 
-The method returns a raw hex, which must be broadcast using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) to complete the command.
+The method returns a raw hex, which must be broadcast using [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) to complete the command.
 
 The `sendrawtransaction` method then returns a `txid`, which is the identification method of the bid order, and should be saved for future use.
 
@@ -250,7 +250,7 @@ Use `sendrawtransaction` to publish order
 
 The `tokencancelask` method cancels a specific `ask`/`sell` order that you created.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments
 
@@ -392,7 +392,7 @@ Step 3 (optional): Decode the raw transaction (check if the values are sane)
 
 The `tokencancelbid` method cancels a specific `bid`/`buy` order that you created.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments
 
@@ -943,9 +943,9 @@ Show orders for specific token
 
 The `tokentransfer` method transfers tokens from one cc address to another.
 
-It is similar to the [sendmany](../komodo-api/wallet.html#sendmany) method used to send coins on the parent chain.
+It is similar to the [sendmany](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#sendmany) method used to send coins on the parent chain.
 
-The method returns a raw hex, which must be broadcast using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) to complete the command.
+The method returns a raw hex, which must be broadcast using [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) to complete the command.
 
 ::: tip
 The source `txid/vout` needs to be specified as it is critical to match outputs with inputs.

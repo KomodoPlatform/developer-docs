@@ -16,9 +16,9 @@ You may also build `komodod` and `komodo-cli` from source. This is not required,
 
 #### See the Smart Chains Documentation for Further Details
 
-Please see the full [Smart Chains]() technical documentation for full software explanations.
+Please see the full [Smart Chains](../../../basic-docs/smart-chains/introduction-to-smart-chain-documentation.html) technical documentation for full software explanations.
 
-You will find [a walkthrough on building from source here.](https://docs.komodoplatform.com/komodo/installation.html)
+You will find [a walkthrough on building from source here.](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html)
 
 ## AtomicDEX Installation
 
@@ -26,7 +26,7 @@ You will find [a walkthrough on building from source here.](https://docs.komodop
 
 The following links contain downloadable AtomicDEX software. Simply download the files appropriate for your operating system, extract them to your desired location, and double click the application to begin.
 
-[<b>Link to AtomicDEX Software - Simple Installations</b>](http://195.201.0.6/mm2/)
+[<b>Link to AtomicDEX Software - Simple Installations</b>](https://github.com/KomodoPlatform/atomicDEX-API/releases)
 
 #### Additional AtomicDEX Documentation
 
@@ -34,4 +34,4 @@ Please see the following links for further details regarding AtomicDEX software.
 
 [Link to Source Code Installation Methods](../../../basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.html)
 
-[Link to AtomicDEX API](../../../basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.html)
+[Link to AtomicDEX API](../../../basic-docs/atomicdex/atomicdex-api.html)

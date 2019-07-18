@@ -2,9 +2,9 @@
 
 ## Introduction
 
-The Assets Module provides basic distributed exchange (DEX) functionality for trading `tokens` created using the [Tokens]() module.
+The Assets Module provides basic distributed exchange (DEX) functionality for trading `tokens` created using the [Tokens](../../../basic-docs/antara/antara-api/tokens.html) module.
 
-The Asset Module allows anyone to buy or sell tokens using the Smart Chain's coins.
+The Asset Module allows anyone to buy or sell tokens using the parent Smart Chain's coins.
 
 #### Assets Module Flow
 
@@ -84,7 +84,7 @@ The Response from this method is similar to the response from the `tokenorders` 
 
 The `tokenask` method posts a public ask order.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#signrawtransaction) method.
 
 ### Arguments
 
@@ -92,7 +92,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | --------- | -------- | ------------------------------------------------------------------------------ |
 | numtokens | (number) | the number of tokens to request in the order                                   |
 | tokenid   | (string) | the txid that identifies the token                                             |
-| price     | (number) | the price to pay for each token (units are in coins of the parent asset chain) |
+| price     | (number) | the price to pay for each token (units are in coins of the parent Smart Chain) |
 
 ### Response
 
@@ -142,7 +142,7 @@ The `tokenbid` method posts a public bid order.
 
 To fill the order, the parent chain's coin must be used.
 
-The method returns a raw hex, which must be broadcast using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) to complete the command.
+The method returns a raw hex, which must be broadcast using [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#signrawtransaction) to complete the command.
 
 The `sendrawtransaction` method then returns a `txid`, which is the identification method of the bid order, and should be saved for future use.
 
@@ -152,7 +152,7 @@ The `sendrawtransaction` method then returns a `txid`, which is the identificati
 | --------- | -------- | ------------------------------------------------------------------------------ |
 | numtokens | (number) | the number of tokens to request in the order                                   |
 | tokenid   | (string) | the txid that identifies the token                                             |
-| price     | (number) | the price to pay for each token (units are in coins of the parent asset chain) |
+| price     | (number) | the price to pay for each token (units are in coins of the parent Smart Chain) |
 
 ### Response
 
@@ -199,7 +199,7 @@ The response is the transaction id.
 
 The `tokencancelask` method cancels a specific `ask`/`sell` order that you created.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#signrawtransaction) method.
 
 ### Arguments
 
@@ -331,7 +331,7 @@ Step 3 (optional): Decode the raw transaction (check if the values are sane)
 
 The `tokencancelbid` method cancels a specific `bid`/`buy` order that you created.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#signrawtransaction) method.
 
 ### Arguments
 
@@ -611,7 +611,7 @@ Information about the `funcid` property:
 | origaddress         | (string)                   | the address that made the original bid `b` or ask `s`                          |
 | tokenid             | (string)                   | the tokenid for the relevant bid/ask request/fill                              |
 | totalrequired       | (number, `b` and `s` only) | the total amount available in the original big/ask request/fill                |
-| price               | (number, `b` and `s` only) | the price per token, units are in the parent asset chain's coin                |
+| price               | (number, `b` and `s` only) | the price per token, units are in the parent Smart Chain's coin                |
 
 #### :pushpin: Examples:
 

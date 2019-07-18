@@ -16,7 +16,7 @@ The `z_getpaymentdisclosure` method generates a payment disclosure for a given j
 
 | Name | Type | Description | 
 | -------------- | ------------------ | ----------- |
-| "txid"         | (string, required) |<!--need to fill in this table-->|
+| "txid"         | (string, required) | (in development) <!--need to fill in this table-->|
 | "js_index"     | (string, required) ||
 | "output_index" | (string, required) ||
 | "message"      | (string, optional) ||
