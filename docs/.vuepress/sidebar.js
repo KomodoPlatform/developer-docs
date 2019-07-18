@@ -218,16 +218,16 @@ var sidebar = [
                 "/basic-docs/antara/introduction-to-antara.md",
                 "Introduction to Antara Documentation"
             ],
-            {
-                title: "Antara Setup",
-                collapsible: true,
-                children: [
-                    [
-                        "/basic-docs/antara/antara-setup/antara-customizations.md",
-                        "Antara Customizations"
-                    ],
-                ],
-            },
+            [
+                "/basic-docs/antara/antara-setup/antara-customizations.md",
+                "Antara Customizations"
+            ],
+            // {
+                // title: "Antara Setup",
+                // collapsible: true,
+                // children: [
+                // ],
+            // },
             {
                 title: "Antara Tutorials",
                 collapsible: true,

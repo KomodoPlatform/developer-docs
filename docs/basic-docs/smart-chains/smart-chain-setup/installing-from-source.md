@@ -452,15 +452,15 @@ mkdir “%HOMEPATH%\AppData\Roaming\ZcashParams”
 
 Download following files and move them into the new directory.
 
-- [sprout-proving.key](<[https://z.cash/downloads/sprout-proving.key](https://z.cash/downloads/sprout-proving.key)>)
+- [sprout-proving.key](https://z.cash/downloads/sprout-proving.key)
 
-- [sprout-verifying.key](<[https://z.cash/downloads/sprout-verifying.key](https://z.cash/downloads/sprout-verifying.key)>)
+- [sprout-verifying.key](https://z.cash/downloads/sprout-verifying.key)
 
-- [sapling-spend.params](<[https://z.cash/downloads/sapling-spend.params](https://z.cash/downloads/sapling-spend.params)>)
+- [sapling-spend.params](https://z.cash/downloads/sapling-spend.params)
 
-- [sapling-output.params](<[https://z.cash/downloads/sapling-output.params](https://z.cash/downloads/sapling-output.params)>)
+- [sapling-output.params](https://z.cash/downloads/sapling-output.params)
 
-- [sprout-groth16.params](<[https://z.cash/downloads/sprout-groth16.params](https://z.cash/downloads/sprout-groth16.params)>)
+- [sprout-groth16.params](https://z.cash/downloads/sprout-groth16.params)
 
 #### Run Smart Chain Software
 

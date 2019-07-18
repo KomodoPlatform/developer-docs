@@ -1,6 +1,6 @@
 # Antara Customizations 
 
-The Antara Framework offer various default Antara Customizations. 
+The Antara Framework offers various default Antara Customizations. 
 
 The desired combination of parameters should be included with the `komodod` execution every time the Smart Chain daemon is launched.
 

@@ -1,14 +1,16 @@
 # Simple Installations
 
-## Smart Chain Installation
-
-#### Installing Basic Komodo Software
+## Smart Chain Installation 
 
 To install the Komodo daemon, `komodod`, and its necessary counterpart, `komodo-cli`, the simplest method is to download pre-compiled binaries.
 
 Downloadable packages are available for Linux, MacOS, and Windows.
 
-[Download and unzip the pre-compiled executables found here.](https://github.com/KomodoPlatform/komodo/releases)
+#### Link to Download Sofwtare
+
+[Download and unzip the software files for your operating system..](https://github.com/KomodoPlatform/komodo/releases)
+
+#### Installing the Simple Downloadable Files
 
 Once unzipped, the executables do not require installation. Simply find `komodod` and `komodo-cli` in the directory where you unzipped the files.
 
