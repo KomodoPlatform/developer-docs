@@ -665,7 +665,7 @@ The value of `"myCCAddress(CClib)"` matches the output.
 
 ###### The Final Output (opreturn vout)
 
-The final ouptut (which we can also call `vout2` or `opreturn vout`) contains our OP_RETURN data. 
+The final output (which we can also call `vout2` or `opreturn vout`) contains our OP_RETURN data. 
 
 This `hex` value of this output contains needed information about the `destpubtxid` of the inputs and the `destpubtxids` of the outputs.
 

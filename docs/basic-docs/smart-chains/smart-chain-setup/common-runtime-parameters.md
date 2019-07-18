@@ -496,11 +496,10 @@ Using stopat as a runtime parameter:
 komodod -stopat=1000000
 ```
 
-<!-- Sidd: commenting out until Alright review
 
 ## testnode
 
-The `testnode` parameter allows the daemon to mine without being connected to any other peers.
+The `testnode` parameter allows the daemon to mine without being connected to any other peers. This is useful for debugging and testing. 
 
 If this parameter is not set, the daemon will not attempt to mine blocks unless it has at least one other peer.
 
@@ -518,7 +517,6 @@ Using testnode as a default value in the Smart Chain's `.conf` file:
 testnode=1
 ```
 
--->
 
 ## timestampindex
 
