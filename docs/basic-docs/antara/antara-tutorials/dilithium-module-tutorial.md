@@ -1296,7 +1296,7 @@ Use the <b>getrawtransaction</b> RPC with the `txid` value.
 
 </collapse-text>
 
-For each vout in the transaction, check whether there is an opreturn. If there is no opreturn, move on to the next vout.
+Check whether this transaction has an opreturn vout. If there is no opreturn, move onto the next utxo from <b>getaddresstxids</b>.
 
 This transaction does in fact have an opreturn output. 
 
