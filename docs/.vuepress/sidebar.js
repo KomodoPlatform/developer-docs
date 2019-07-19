@@ -388,7 +388,7 @@ var sidebar = [
             children: [
                 [
                     "/basic-docs/atomicdex/atomicdex-setup/get-started-atomicdex.md",
-                    "Getting Started with AtomicDEX"
+                    "Installing AtomicDEX Software (MM2)"
                 ],
             ],
         },
