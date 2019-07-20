@@ -48,7 +48,7 @@ module.exports = {
       "meta",
       {
         name: "twitter:image",
-        content: "http://kmdmarketing.space/logos/KMD/Horizontal/Dark/KMD_Horiz_Dark@2x-100.jpg"
+        content: "https://kmdmarketing.space/logos/KMD/Vertical/Light/KMD_Vert_Light.png"
       }
     ]
   ],
