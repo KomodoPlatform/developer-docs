@@ -48,7 +48,7 @@ module.exports = {
       "meta",
       {
         name: "twitter:image",
-        content: "https://kmdmarketing.space/logos/KMD/Mark/Color/KMD_Mark_Color.png"
+        content: "https://raw.githubusercontent.com/KomodoPlatform/developer-docs/master/docs/.vuepress/public/KMD_Mark_Black.png"
       }
     ]
   ],
