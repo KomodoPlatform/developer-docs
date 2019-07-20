@@ -48,7 +48,7 @@ module.exports = {
       "meta",
       {
         name: "twitter:image",
-        content: "https://komodoplatform.com/wp-content/uploads/2019/07/KMD_Horiz_Light@3x.png"
+        content: "http://kmdmarketing.space/logos/KMD/Horizontal/Dark/KMD_Horiz_Dark@2x-100.jpg"
       }
     ]
   ],
