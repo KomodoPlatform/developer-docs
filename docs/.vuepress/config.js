@@ -48,7 +48,7 @@ module.exports = {
       "meta",
       {
         name: "twitter:image",
-        content: "https://cdn.discordapp.com/attachments/585490205751115777/600473915722301501/composer_twitter.png"
+        content: "https://komodoplatform.com/wp-content/uploads/2019/07/KMD_Horiz_Light@3x.png"
       }
     ]
   ],
