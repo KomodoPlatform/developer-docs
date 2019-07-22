@@ -475,6 +475,34 @@ var sidebar = {
       ]
     }
   ],
+  "/mmV2/": [{
+      title: "Installation",
+      collapsable: true,
+      children: [
+        ["/mmV2/LP/introduction.md", "Introduction"],
+      ]
+    },
+    {
+      title: "Installation",
+      collapsable: true,
+      children: [
+        ["/mmV1/introduction.md", "Introduction"],
+        [
+          "/mmV1/installation/install-marketmakerV1.md",
+          "Installing marketmakerV1 in Linux and MacOS"
+        ],
+        [
+          "/mmV1/installation/install-marketmakerV1-windows.md",
+          "Installing marketmakerV1 in Windows"
+        ],
+        [
+          "/mmV1/installation/install-ETOMIC-marketmakerV1.md",
+          "Installing marketmakerV1 with ETOMIC enabled"
+        ]
+      ]
+    },
+
+  ],
   "/": [""]
 };
 
