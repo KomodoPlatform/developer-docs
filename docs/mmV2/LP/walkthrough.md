@@ -527,7 +527,7 @@ Now that we are aware of the current prices for the trade pairs we are intereste
 
 ### Step1: Fund the address
 
-In this example we will be selling KMD for LTC.
+In this example, we are selling KMD for LTC.
 
 To achieve this, we first fund the KMD address created by the Marketmaker.
 
@@ -573,7 +573,7 @@ Response:
 
 ### Step3: Check the status of an Order
 
-Cancel an order by refering to its `uuid`
+Check the status of an order by refering to its `uuid`
 
 Command:
 
@@ -652,6 +652,8 @@ Response:
 }
 ```
 
+The above `tx_hash` can be searched for in an explorer to check the status of the withdraw.
+
 ## Miscellaneous
 
 ### Stop
@@ -707,6 +709,8 @@ Response:
 
 ### Cancel an order
 
+Cancel an order by refering to its `uuid`
+
 Command:
 
 ```bash
@@ -722,5 +726,6 @@ Response:
 ```
 
 <!--
+### Cancel all orders
 ### coins_needed_for_kick_start
 -->
