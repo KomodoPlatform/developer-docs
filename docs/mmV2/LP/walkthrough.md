@@ -529,9 +529,9 @@ Now that we are aware of the current prices for the trade pairs we are intereste
 
 In this example we will be selling KMD for LTC.
 
-To achieve this, we fist fund the KMD address created by the Marketmaker.
+To achieve this, we first fund the KMD address created by the Marketmaker.
 
-Check the balance using the following command.
+To find the address and Check the balance, use the following command.
 
 ```bash
 ./mybalance.sh KMD
