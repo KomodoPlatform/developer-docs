@@ -10,7 +10,7 @@
 
 - Enter the amount and the destination address
 
-Yyou can also use a QR scanner by pressing on the camera icon on left.
+You can also use a QR scanner by pressing on the camera icon on left.
 
 - Then press on the "WITHDRAW" button
 
