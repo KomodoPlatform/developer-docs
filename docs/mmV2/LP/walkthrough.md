@@ -377,7 +377,7 @@ Response:
 {"address":"RG1yR8UGqyHmRBcrwAakUEi8u1AC5jNABY","balance":"0","coin":"KMD","result":"success"}
 ```
 
-Take note of the address and make sure that it matches with the address generated for KMD by the AtomicDEX wallet or the Verus Agama wallet.
+Take note of the address and make sure that it matches the address generated for KMD by the AtomicDEX wallet or the Verus Agama wallet.
 
 <collapse-text hidden title="Sample Output in the terminal start.sh has been executed">
 
@@ -401,7 +401,7 @@ Response:
 {"address":"LRxjbptpKojFbywpe8avejShLx4sYvKSBZ","balance":"0","coin":"LTC","result":"success"}
 ```
 
-Take note of the address and make sure that it matches with the address generated for KMD by the AtomicDEX wallet or the Verus Agama wallet.
+Take note of the address and make sure that it matches the address generated for KMD by the AtomicDEX wallet or the Verus Agama wallet.
 
 <collapse-text hidden title="Sample Output in the terminal start.sh has been executed">
 
