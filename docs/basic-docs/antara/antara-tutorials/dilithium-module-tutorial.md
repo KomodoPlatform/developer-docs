@@ -1344,7 +1344,7 @@ The `function` key in the structure of the response returned above is this ident
 
 In our response above we see `"function": "Q",`. We need to interpret this `Q` value into a more common term. 
 
-To obtain a list of all types of transactions for all Antara Module on a Smart Chain, use the [<b>cclibinfo</b>](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclibinfo) RPC.
+To obtain a list of all types of transactions for all Antara Modules on a Smart Chain, use the [<b>cclibinfo</b>](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclibinfo) RPC.
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclibinfo
