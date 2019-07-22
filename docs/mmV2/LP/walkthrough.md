@@ -2,7 +2,7 @@
 sidebar: auto
 ---
 
-# Be a Liquidity Provider for AtomicDEX
+# How To Become a Liquidity Provider for AtomicDEX
 
 ## Requirements
 
@@ -10,7 +10,7 @@ A VPS with _atleast_ the following specifications:
 
 - 2 vCPU
 - 4GB RAM
-- OS: Ubuntu 18.04 (Preferebly a clean installation)
+- OS: Ubuntu 18.04 (Preferably a clean installation)
 
 **(OR)**
 
@@ -104,7 +104,7 @@ To configure your current shell run source $HOME/.cargo/env
 
 </collapse-text>
 
-Once the installation is complete, you need to either `Logout` then `Login` or execute the following command in each shell you use till the next `Login`
+Once the installation is complete, you need to either `Logout` then `Login` again or execute the following command in each shell you use till the next `Login`
 
 ```bash
 source $HOME/.cargo/env
@@ -278,7 +278,7 @@ cp mm2scripts/* .
 nano start.sh
 ```
 
-Replace the value `REPLACE_TRADING_WALLET_PASSPHRASE` in the file with a seed phrase (24 words) created using the AtomicDEX wallet or the Verus Agama wallet. Failure to do so will result in lost coins.
+Replace the value `REPLACE_TRADING_WALLET_PASSPHRASE` in the file with a seed phrase (24 words) created using the AtomicDEX wallet or the Verus Agama wallet. **Failure to do so will result in lost coins**.
 
 Backup these 24 words carefully. They provide access to the coins that are stored in the addresses created by the Marketmaker.
 
@@ -291,7 +291,7 @@ Replace the text `"RPC_CONTROL_USERPASSWORD"` with a sufficiently strong passwor
 stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove\", \"rpc_password\":\"GlHjhvYlev8fh8xZgSBI\"}" &
 ```
 
-DO NOT use the seed phrase: `"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove"`. Using it will result in lost coins.
+**DO NOT** use the seed phrase: `"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove"`. **Using it will result in lost coins**.
 
 </collapse-text>
 
@@ -573,7 +573,7 @@ Response:
 
 ### Step3: Check the status of an Order
 
-Check the status of an order by refering to its `uuid`
+Check the status of an order by referring to its `uuid`
 
 Command:
 
@@ -602,7 +602,7 @@ Response:
 }
 ```
 
-### Step4: Withdraw coins
+### Step4: Withdrawal of Coins
 
 Once someone accepts the order and the trade is finished, the coins Received (LTC) and the coins Leftover (KMD) can be withdrawn.
 
@@ -709,7 +709,7 @@ Response:
 
 ### Cancel an order
 
-Cancel an order by refering to its `uuid`
+Cancel an order by referring to its `uuid`
 
 Command:
 
