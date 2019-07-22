@@ -411,14 +411,18 @@ Take note of the address and make sure that it matches with the address generate
 
 </collapse-text>
 
-### Step 4: Market operations
+## Trading
+
+### Step 0: Query the current Orderbooks
+
+See the [linked document](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html#orderbook) for explanation of the output.
 
 Display the KMD/LTC Orderbook:
 
 Command:
 
 ```bash
-./KMDLTCorderbook.sh  | jq '.'
+./orderbook.sh KMD LTC | jq '.'
 ```
 
 <collapse-text hidden title="Sample Output">
@@ -471,7 +475,7 @@ Display the LTC/KMD Orderbook:
 Command:
 
 ```bash
-./LTCKMDorderbook.sh  | jq '.'
+./orderbook.sh LTC KMD | jq '.'
 ```
 
 <collapse-text hidden title="Sample Output">
@@ -518,3 +522,207 @@ Command:
 ```
 
 </collapse-text>
+
+Now that we are aware of the current prices for the trade pairs we are interested in, we can start funding the addresses.
+
+### Step1: Fund the address
+
+In this example we will be selling KMD for LTC.
+
+To achieve this, we fist fund the KMD address created by the Marketmaker.
+
+Check the balance using the following command.
+
+```bash
+./mybalance.sh KMD
+```
+
+Output:
+
+```js
+{"address":"RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb","balance":"2.98","coin":"KMD"}
+```
+
+### Step2: Place the order
+
+To sell 2 KMD for LTC at the price `1 KMD = 0.013 LTC`.
+
+Command:
+
+```bash
+./sell.sh KMD LTC 0.013 2 | jq '.'
+```
+
+Output:
+
+```js
+{
+   "result":{
+      "base":"KMD",
+      "created_at":1563797287088,
+      "matches":{
+
+      },
+      "max_base_vol":"2",
+      "min_base_vol":"0",
+      "price":"0.013",
+      "rel":"LTC",
+      "started_swaps":[
+
+      ],
+      "uuid":"d82357c5-22c9-483d-bf3d-1d09d0d921bf"
+   }
+}
+```
+
+### Step3: To view all the orders placed by us
+
+Command:
+
+```bash
+./myorders.sh  | jq .
+```
+
+Output:
+
+```js
+{
+  "result": {
+    "maker_orders": {
+      "d82357c5-22c9-483d-bf3d-1d09d0d921bf": {
+        "available_amount": "2",
+        "base": "KMD",
+        "cancellable": true,
+        "created_at": 1563797287088,
+        "matches": {},
+        "max_base_vol": "2",
+        "min_base_vol": "0",
+        "price": "0.013",
+        "rel": "LTC",
+        "started_swaps": [],
+        "uuid": "d82357c5-22c9-483d-bf3d-1d09d0d921bf"
+      }
+    },
+    "taker_orders": {}
+  }
+}
+```
+
+### Step4: Withdraw coins
+
+Once someone accepts the order and the trade is finished, the coins Received (LTC) and the coins Leftover can be withdrawn.
+
+To withdraw 0.97 KMD to the address RUFf4de7gZE7sp5vPcxaAsvv6j79ZbQgAu:
+
+Command:
+
+```bash
+./withdraw.sh KMD RUFf4de7gZE7sp5vPcxaAsvv6j79ZbQgAu 0.97 | jq '.'
+```
+
+Response:
+
+```json
+{
+  "tx_hex": "0400008085202f8901c25ecb12f5fc17120bf92ed18ff71754b5f58e6eece2fba44fc114f14176df04010000006a4730440220732047807944afcb062f5dc7af87fe5b9979e447cd235ef1b130e50008c3d51a02201b232814bcee9c0b5a29aa24d453e493cd121a0e21d94c0e84476de0a15e74a101210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06ffffffff02401ac805000000001976a914d020156e7d0fead249cfb5a458952ae941ac9f9e88ac5800fb0b000000001976a9144726f2838fc4d6ac66615e10604e18926e9b556e88ac06a5355d000000000000000000000000000000",
+  "tx_hash": "e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",
+  "from": ["RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb"],
+  "to": ["RUFf4de7gZE7sp5vPcxaAsvv6j79ZbQgAu"],
+  "total_amount": 2.98,
+  "spent_by_me": 2.98,
+  "received_by_me": 2.00999,
+  "my_balance_change": -0.97001,
+  "block_height": 0,
+  "timestamp": 1563798788,
+  "fee_details": {
+    "amount": 1e-5
+  },
+  "coin": "KMD",
+  "internal_id": ""
+}
+```
+
+Copy the `"tx_hex"` from the above response and send it to the network using the `sendrawtransaction.sh` script.
+
+Command:
+
+```bash
+./sendrawtransaction.sh KMD 0400008085202f8901c25ecb12f5fc17120bf92ed18ff71754b5f58e6eece2fba44fc114f14176df04010000006a4730440220732047807944afcb062f5dc7af87fe5b9979e447cd235ef1b130e50008c3d51a02201b232814bcee9c0b5a29aa24d453e493cd121a0e21d94c0e84476de0a15e74a101210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06ffffffff02401ac805000000001976a914d020156e7d0fead249cfb5a458952ae941ac9f9e88ac5800fb0b000000001976a9144726f2838fc4d6ac66615e10604e18926e9b556e88ac06a5355d000000000000000000000000000000
+```
+
+Response:
+
+```json
+{
+  "tx_hash": "e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855"
+}
+```
+
+## Miscellaneous
+
+### Stop
+
+To stop the Marketmaker, use the `stop.sh` script.
+
+Command:
+
+```bash
+./stop.sh
+```
+
+Response:
+
+```js
+{
+  "result": "success"
+}
+```
+
+### Check the status of an Order
+
+Command:
+
+```bash
+./order_status.sh 6621efd5-72dd-422c-89a8-7b655b744ead | jq '.'
+```
+
+Response:
+
+```js
+{
+  "order": {
+    "available_amount": "0.5",
+    "base": "KMD",
+    "cancellable": true,
+    "created_at": 1563798060078,
+    "matches": {},
+    "max_base_vol": "0.5",
+    "min_base_vol": "0",
+    "price": "0.011",
+    "rel": "LTC",
+    "started_swaps": [],
+    "uuid": "6621efd5-72dd-422c-89a8-7b655b744ead"
+  },
+  "type": "Maker"
+}
+```
+
+### Cancel an order
+
+Command:
+
+```bash
+./cancel_order.sh 6621efd5-72dd-422c-89a8-7b655b744ead
+```
+
+Response:
+
+```js
+{
+  "result": "success"
+}
+```
+
+<!--
+### coins_needed_for_kick_start
+-->
