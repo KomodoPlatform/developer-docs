@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Each Smart Chain in the Komodo ecosystem can act as a fully tokenizable platform. This provides many opportunities to the developer in creating on-chain assets that represent varying types of value for their users.
+Each Smart Chain in the Komodo ecosystem can act as a fully tokenizable platform. This provides many opportunities to the developer for creating on-chain assets that represent varying types of value for their users.
 
 For example, tokens can be used to represent real world assets, and users can then trade these tokens using Komodo's [Token DEX](../../../basic-docs/antara/antara-api/tokens.html) and [AtomicDEX](../../../basic-docs/atomicdex/atomicdex-tutorials/introduction-to-atomicdex.html) features. The developer could also create tokens that provide incentives to their audience. Or, tokens can represent collectible assets. These are but a few examples of the usefulness of on-chain tokenization. 
 
