@@ -573,6 +573,8 @@ Response:
 
 ### Step3: Check the status of an Order
 
+Cancel an order by refering to its `uuid`
+
 Command:
 
 ```bash
