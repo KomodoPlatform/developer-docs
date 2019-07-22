@@ -371,7 +371,7 @@ Command:
 ./KMDconnect.sh
 ```
 
-Output:
+Response:
 
 ```js
 {"address":"RG1yR8UGqyHmRBcrwAakUEi8u1AC5jNABY","balance":"0","coin":"KMD","result":"success"}
@@ -395,7 +395,7 @@ Command:
 ./LTCconnect.sh
 ```
 
-Output:
+Response:
 
 ```js
 {"address":"LRxjbptpKojFbywpe8avejShLx4sYvKSBZ","balance":"0","coin":"LTC","result":"success"}
@@ -537,7 +537,7 @@ To find the address and Check the balance, use the following command.
 ./mybalance.sh KMD
 ```
 
-Output:
+Response:
 
 ```js
 {"address":"RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb","balance":"2.98","coin":"KMD"}
@@ -553,7 +553,7 @@ Command:
 ./place_order.sh KMD LTC 0.013 2 | jq '.'
 ```
 
-Output:
+Response:
 
 ```js
 {
@@ -678,7 +678,7 @@ Command:
 ./myorders.sh  | jq .
 ```
 
-Output:
+Response:
 
 ```js
 {
