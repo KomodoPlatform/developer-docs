@@ -550,7 +550,7 @@ To sell 2 KMD for LTC at the price `1 KMD = 0.013 LTC`.
 Command:
 
 ```bash
-./sell.sh KMD LTC 0.013 2 | jq '.'
+./place_order.sh KMD LTC 0.013 2 | jq '.'
 ```
 
 Output:

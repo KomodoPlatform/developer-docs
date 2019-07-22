@@ -34,7 +34,7 @@ var navbar = [{
             },
             {
                 text: "Be a Liquidity Provider for AtomicDEX",
-                link: "/mmV2/LP/introduction.md"
+                link: "/mmV2/LP/walkthrough.md"
             },
             {
                 text: "Agama",
