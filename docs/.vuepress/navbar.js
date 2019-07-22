@@ -33,6 +33,10 @@ var navbar = [{
                 link: "https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html"
             },
             {
+                text: "Be a Liquidity Provider for AtomicDEX",
+                link: "/mmV2/LP/introduction.md"
+            },
+            {
                 text: "Agama",
                 link: "/gui/agama/introduction.md"
             }
