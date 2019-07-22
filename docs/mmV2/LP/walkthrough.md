@@ -543,7 +543,7 @@ Output:
 {"address":"RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb","balance":"2.98","coin":"KMD"}
 ```
 
-### Step2: Place the order
+### Step2: Place an order
 
 To sell 2 KMD for LTC at the price `1 KMD = 0.013 LTC`.
 
@@ -557,60 +557,52 @@ Output:
 
 ```js
 {
-   "result":{
-      "base":"KMD",
-      "created_at":1563797287088,
-      "matches":{
-
-      },
-      "max_base_vol":"2",
-      "min_base_vol":"0",
-      "price":"0.013",
-      "rel":"LTC",
-      "started_swaps":[
-
-      ],
-      "uuid":"d82357c5-22c9-483d-bf3d-1d09d0d921bf"
-   }
+  "result": {
+    "base": "KMD",
+    "created_at": 1563800688606,
+    "matches": {},
+    "max_base_vol": "2",
+    "min_base_vol": "0",
+    "price": "0.013",
+    "rel": "LTC",
+    "started_swaps": [],
+    "uuid": "d375fce0-5d7c-4d1d-9cfa-6177c78df44a"
+  }
 }
 ```
 
-### Step3: To view all the orders placed by us
+### Step3: Check the status of an Order
 
 Command:
 
 ```bash
-./myorders.sh  | jq .
+./order_status.sh 6621efd5-72dd-422c-89a8-7b655b744ead | jq '.'
 ```
 
-Output:
+Response:
 
 ```js
 {
-  "result": {
-    "maker_orders": {
-      "d82357c5-22c9-483d-bf3d-1d09d0d921bf": {
-        "available_amount": "2",
-        "base": "KMD",
-        "cancellable": true,
-        "created_at": 1563797287088,
-        "matches": {},
-        "max_base_vol": "2",
-        "min_base_vol": "0",
-        "price": "0.013",
-        "rel": "LTC",
-        "started_swaps": [],
-        "uuid": "d82357c5-22c9-483d-bf3d-1d09d0d921bf"
-      }
-    },
-    "taker_orders": {}
-  }
+  "order": {
+    "available_amount": "2",
+    "base": "KMD",
+    "cancellable": true,
+    "created_at": 1563800688606,
+    "matches": {},
+    "max_base_vol": "2",
+    "min_base_vol": "0",
+    "price": "0.013",
+    "rel": "LTC",
+    "started_swaps": [],
+    "uuid": "d375fce0-5d7c-4d1d-9cfa-6177c78df44a"
+  },
+  "type": "Maker"
 }
 ```
 
 ### Step4: Withdraw coins
 
-Once someone accepts the order and the trade is finished, the coins Received (LTC) and the coins Leftover can be withdrawn.
+Once someone accepts the order and the trade is finished, the coins Received (LTC) and the coins Leftover (KMD) can be withdrawn.
 
 To withdraw 0.97 KMD to the address RUFf4de7gZE7sp5vPcxaAsvv6j79ZbQgAu:
 
@@ -678,32 +670,36 @@ Response:
 }
 ```
 
-### Check the status of an Order
+### To view all the orders placed by us
 
 Command:
 
 ```bash
-./order_status.sh 6621efd5-72dd-422c-89a8-7b655b744ead | jq '.'
+./myorders.sh  | jq .
 ```
 
-Response:
+Output:
 
 ```js
 {
-  "order": {
-    "available_amount": "0.5",
-    "base": "KMD",
-    "cancellable": true,
-    "created_at": 1563798060078,
-    "matches": {},
-    "max_base_vol": "0.5",
-    "min_base_vol": "0",
-    "price": "0.011",
-    "rel": "LTC",
-    "started_swaps": [],
-    "uuid": "6621efd5-72dd-422c-89a8-7b655b744ead"
-  },
-  "type": "Maker"
+  "result": {
+    "maker_orders": {
+      "d82357c5-22c9-483d-bf3d-1d09d0d921bf": {
+        "available_amount": "2",
+        "base": "KMD",
+        "cancellable": true,
+        "created_at": 1563797287088,
+        "matches": {},
+        "max_base_vol": "2",
+        "min_base_vol": "0",
+        "price": "0.013",
+        "rel": "LTC",
+        "started_swaps": [],
+        "uuid": "d82357c5-22c9-483d-bf3d-1d09d0d921bf"
+      }
+    },
+    "taker_orders": {}
+  }
 }
 ```
 
