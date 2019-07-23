@@ -405,6 +405,10 @@ var sidebar = [
                     "AtomicDEX Walkthrough"
                 ],
                 [
+                    "/basic-docs/atomicdex/atomicdex-tutorials/how-to-become-a-liquidity-provider.md",
+                    "How to Become a Liquidity Provider"
+                ],
+                [
                     "/basic-docs/atomicdex/atomicdex-tutorials/additional-information-about-atomicdex.md",
                     "Additional Information About AtomicDEX"
                 ],
