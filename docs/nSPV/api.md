@@ -1,49 +1,387 @@
 # API
 
-## nspv_broadcast
+## broadcast
 
-**nspv_broadcast hex**
+**broadcast hex**
 
-## nspv_getinfo
+Use this method to broadcast a hex returned by the method [spend](./#spend).
 
-**nspv_getinfo [hdrheight]**
+#### Arguments
 
-## nspv_hdrsproof
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
 
-**nspv_hdrsproof prevheight nextheight**
+#### Response
 
-## nspv_listtransactions
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
 
-**nspv_listtransactions [address [isCC [skipcount]]]**
+#### :pushpin: Examples
 
-## nspv_listunspent
+Command:
 
-**nspv_listunspent [address [isCC [skipcount]]]**
+```bash
 
-## nspv_login
+```
 
-**nspv_login wif**
+<collapse-text hidden title="Response">
 
-## nspv_logout
+```json
 
-**nspv_logout**
+```
 
-## nspv_mempool
+</collapse-text>
 
-**nspv_mempool func(0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool) address isCC [txid vout]]]**
+## getinfo
 
-## nspv_notarizations
+**getinfo [hdrheight]**
 
-**nspv_notarizations height**
+#### Arguments
 
-## nspv_spend
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
 
-**nspv_spend address amount**
+#### Response
 
-## nspv_spentinfo
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
 
-**nspv_spentinfo txid vout**
+#### :pushpin: Examples
 
-## nspv_txproof
+Command:
 
-**nspv_txproof txid height**
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## hdrsproof
+
+**hdrsproof prevheight nextheight**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## listtransactions
+
+**listtransactions [address [isCC [skipcount]]]**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## listunspent
+
+**listunspent [address [isCC [skipcount]]]**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## login
+
+**login wif**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## logout
+
+**logout**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## mempool
+
+**mempool func(0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool) address isCC [txid vout]]]**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## notarizations
+
+**notarizations height**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## spend
+
+**spend address amount**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## spentinfo
+
+**spentinfo txid vout**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+
+## txproof
+
+**txproof txid height**
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### Response
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+|      |      |             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+
+```
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
