@@ -37,6 +37,10 @@ var navbar = [{
                 link: "/mmV2/LP/walkthrough.md"
             },
             {
+                text: "nSPV",
+                link: "/nSPV/introduction.md"
+            },
+            {
                 text: "Agama",
                 link: "/gui/agama/introduction.md"
             }
