@@ -1,6 +1,6 @@
 # Antara Customizations 
 
-The Antara Framework offer various default Antara Customizations. 
+The Antara Framework offers various default Antara Customizations. 
 
 The desired combination of parameters should be included with the `komodod` execution every time the Smart Chain daemon is launched.
 
@@ -46,7 +46,6 @@ A 777777 coin pre-mine with a 1-coin block reward and a block speed of 20 second
 
 </collapse-text>
 
-<!-- Sidd: Commenting out until Alright has time to review.
 
 ## ac_cbmaturity
 
@@ -56,11 +55,12 @@ The `COINBASE_MATURITY` value is the number of blocks that must be confirmed bet
 
 This allows the developers of a Smart Chain to require that miners and stakers on a blockchain network wait for an arbitrary amount of time after mining new coins.
 
+
+
 For example, if a Smart Chain is set to `ac_cbmaturity=10`, newly mined coins must wait for 10 confirmations on the network before the coins can be spent.
 
 By default, this value is set to `1` on Smart Chains without [ac_eras](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-eras) and set to `100` on Smart Chains with [ac_eras](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-eras).
 
--->
 
 ## ac_cc
 
@@ -291,7 +291,6 @@ The `ac_eras` parameter allows the value of a chain's block reward to vary over 
 
 Each different time interval is called an "era" and a chain can have at most seven eras.
 
-<!-- Sidd: commenting out until Alright has time to review
 
 #### ac_eras Combined With ac_cbmaturity
 
@@ -299,7 +298,6 @@ When active, `ac_eras` changes the behavior of coinbase coins (i.e., the coins t
 
 This `COINBASE_MATURITY` value can be explicitly changed using the [ac_cbmaturity](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cbmaturity) parameter. Changing this `COINBASE_MATURITY` value to `1` is recommended if a chain uses `ac_eras` in conjunction with [ac_staked](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-staked).
 
--->
 
 #### ac_eras Instructions
 
@@ -373,7 +371,6 @@ Use `ac_script` to send the founder's reward to a multi-signature address.
 
 Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
 
-<!-- Sidd: commenting out until Alright has time to review
 
 ## ac_founders_reward
 
@@ -417,7 +414,6 @@ A 777777-coin pre-mine, with a 5-coin block reward, and founder's reward of 10 c
 
 </collapse-text>
 
--->
 
 ## ac_halving
 
@@ -455,7 +451,6 @@ A simple Smart Chain
 
 </collapse-text>
 
-<!-- Sidd: Commenting out until Alright has time to review.
 
 ## ac_notarypay
 
@@ -481,7 +476,6 @@ A Smart Chain with 777777 pre-mined coins, a 5 coin block reward in the first er
 
 </collapse-text>
 
--->
 
 ## ac_perc
 

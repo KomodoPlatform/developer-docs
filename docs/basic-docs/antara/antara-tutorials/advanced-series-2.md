@@ -174,6 +174,12 @@ Execute the `<CC_name>address` RPC call and use the returned value to complete t
 const char *FaucetCCaddr = "R9zHrofhRbub7ER77B7NrVch3A63R39GuC";
 ```
 
+#### Add the First RPC
+
+Add a line to the `/src/server.h` file to create the `<CC_name>address` function for the module.
+
+Update the commands array in the `/src/server.cpp` file. 
+
 #### Obtain the privkey in Hex Format
 
 From the response returned by the `<CC_name>address` RPC, use the hex value of the private key to complete the appropriate line of code.
@@ -184,11 +190,6 @@ uint8_t FaucetCCpriv[32] = { 0xd4, 0x4f, 0xf2, 0x31, 0x71, 0x7d, 0x28, 0x02, 0x4
 
 Stop the daemon and restart it using the new pubkey.
 
-#### Add the First RPC
-
-Add a line to the `/src/server.h` file to create the `<CC_name>address` function for the module.
-
-Update the commands array in the `/src/server.cpp` file. 
 #### Copy the Existing Default RPCs to the New Module
 
 From the `/src/wallet/rpcwallet.cpp` file, copy and paste the existing RPC functions to create new versions for the new module. Change the eval code and customize the functions as desired.

@@ -10,7 +10,7 @@ Let's open up the terminal and get started.
 
 In the Komodo ecosystem we use two blockchain coins, RICK and MORTY, for testing purposes. These coins are freely distributed and have no blockchain scarcity, so you don't want to treat these coins as real currency. Also, if you lose them or destroy them, there's no need to stress. You can always grab more from our faucet. 
 
-Let's set up a file in the `~/KomodoPlatform/target/debug` directory to import the settings for these test coins. Make a file called `coins` and place the following text into it:
+Let's set up a file in the `~/atomicDEX-API/target/debug` directory to import the settings for these test coins. Make a file called `coins` and place the following text into it:
 
 ```
 [{"coin":"RICK","asset":"RICK","fname":"RICK (TESTCOIN)","rpcport":28223,"mm2":1},{"coin":"MORTY","asset":"MORTY","fname":"MORTY (TESTCOIN)","rpcport":63812,"mm2":1}]
@@ -89,7 +89,7 @@ If you see something similar, MarketMaker 2.0 is up and running!
 Userpass will be renamed to <b>rpc_password</b> for clarity in the near future
 :::
 
-Make a new file in the `~/KomodoPlatform/target/debug` directory called `userpass` and enter the following text, including the `rpc_password` you specified earlier:
+Make a new file in the `~/atomicDEX-API/target/debug` directory called `userpass` and enter the following text, including the `rpc_password` you specified earlier:
 
 ```
 export userpass="RPC_PASSWORD"

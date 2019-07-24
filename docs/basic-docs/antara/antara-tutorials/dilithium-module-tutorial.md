@@ -66,7 +66,7 @@ cd ../..
 make
 ```
 
-## Walkthrough
+## Begin Walkthrough
 
 The Dilithium walkthrough agenda is as follows.
 
@@ -75,6 +75,14 @@ The Dilithium walkthrough agenda is as follows.
 - Send coins from this handle
 - Show code examples for implementing Dilithium into a user interface (UI)
   - A terminal user interface (TUI) with Dilithium functionality can me found [here](https://github.com/KMDLabs/pos64staker/tree/restart/)
+
+#### Understand the Comparison Between Q Transactions and Z Transactions
+
+The Dilithium Module's API documentation contains an explanation of the nature of Dilithium transactions. These are called "Q Transactions," and can be compared to the "Z transactions" that are prominently featured in privacy transactions.
+
+Q Transactions are referenced frequently throughout the tutorial. If necessary, please read the Dilithium Module's API documentation's introduction before continuing.
+
+[Link to Dilithium Module API Introduction](../../../basic-docs/antara/antara-api/dilithium.html#introduction)
 
 #### Start the daemon with a `pubkey` and backup its `privkey`
 
@@ -124,7 +132,7 @@ Without this private key, any handles created for Dilithium will not be accessib
 
 [Link to <b>dumpprivkey</b> RPC](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#dumpprivkey)
 
-#### Create a Dilithium Keypair
+## Create a Dilithium Keypair
 
 A Dilithium keypair is a matching set of a `pubkey` and `privkey` (private key).
 
@@ -319,7 +327,7 @@ c314304cecded6cd593daeddf676b2a8c424a604f973e68e6777b84e39ef8548
 
 Our handle, `KomodoHaxor`, has 7.77 coins. 
 
-#### Send Coins From One Handle to Another
+## Send Coins From One Handle to Another
 
 You can specify outputs of a Qsend transaction in two ways.
 
@@ -657,7 +665,7 @@ The value of `"myCCAddress(CClib)"` matches the output.
 
 ###### The Final Output (opreturn vout)
 
-The final ouptut (which we can also call `vout2` or `opreturn vout`) contains our OP_RETURN data. 
+The final output (which we can also call `vout2` or `opreturn vout`) contains our OP_RETURN data. 
 
 This `hex` value of this output contains needed information about the `destpubtxid` of the inputs and the `destpubtxids` of the outputs.
 
@@ -702,25 +710,35 @@ We again see `KomodoHaxor`'s `destpubtxid`, `d60d224d7855a40507064c5ca72ed7d84a5
 
 This indicates the `destpubtxid` of the inputs. The `destpubtxid` of the sender will always be the same position in a Qsend transaction's OP_RETURN, `[-76:-12]`.
 
-#### A Complex Qsend
+## Create A Complex Qsend Transaction
 
-The above Q transaction was relatively simple. Let's move to a more complex Q transaction. 
+The above Q transaction was relatively simple. Let's create a complex Q transaction that includes outputs to multiple R addresses and multiple Dilithium handles. 
 
-We now send a Qsend transaction with outputs to multiple R addresses and multiple Dilithium handles.
-
-- We'll send `KomodoHaxor`'s `7.6699` coin `qUTXO` from the previous transaction.
-- We will send 1 coin to `KomodoFan`, 1.1 coins to the handle `LABSLover` and 1.2 coins to `RRyyejME7LRTuvdziWsXkAbSW1fdiohGwK`. We will also send 1.3 coins to `bKnMWGuXC5HEyxk3GttsT1a9TtYWKbBpEP`, a multisig address, to demonstrate that this will work with any script hash.
+- This transactions sends `7.6699` coins from the `qUTXO` of the previous transaction to the `KomodoHaxor` handle
+- This transaction sends `1` coin to to the `KomodoFan` handle, `1.1` coins to the handle `LABSLover`, and `1.2` coins to the R address `RRyyejME7LRTuvdziWsXkAbSW1fdiohGwK`
+- The transaction also sends `1.3` coins to `bKnMWGuXC5HEyxk3GttsT1a9TtYWKbBpEP`, a multisig address, to demonstrate that Dilithium Qsend transctions work with essentially any script hash
 
 ::: warning
 
-- There is one limitation to the above rule: Any 32 byte hex string is interpretted as a Dilithium `destpubtxid`.
-- This means a 32 byte `"scriptPubKey"` value doesn't work.
+Qsend transactions do have one limitation. The Dilithium Module's functionality requires that any 32-byte hex string in a transaction be the <b>destpubtxid</b>.
+
+Therefore, the Dilithium module cannot send a transaction to a 32-byte `scriptPubkey`.
+
+This is an uncommon `scriptPubkey` under normal circumstances, and therefore this should not be an issue for most users.
 
 :::
 
-This transaction will automatically send the change back to our handle, `KomodoHaxor`. We first need to obtain the `destpubtxid`s for any handles we will be sending to or the `ScriptPubKey` for any R addresses we will be sending to.
+#### The Change Transaction to KomodoHaxor
 
-We will use the `handleinfo` rpc command to obtain the `destpubtxid` for the `LABSLover` handle. We know the `destpubtxid` for `KomodoFan` from the previous step.
+This transaction automatically sends the change back to our handle, `KomodoHaxor`.
+
+#### Obtaining the destpubtxids for Other Handles
+
+Our transaction requires that we first obtain the `destpubtxid` for all other handles, and the `ScriptPubKey` for the intended R addresses.
+
+We obtained the `destpubtxid` to `KomodoFan` in the previous step.
+
+Use the `handleinfo` RPC to obtain the `destpubtxid` for the `LABSLover` handle. 
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclib handleinfo 19 "[%22LABSLover%22]"
@@ -739,6 +757,8 @@ We will use the `handleinfo` rpc command to obtain the `destpubtxid` for the `LA
 ```
 
 </collapse-text>
+
+#### Obtaining the scriptPubkey for R Addresses
 
 We can use the `validateaddress` rpc command to obtain the `"scriptPubKey` value for both `RRyyejME7LRTuvdziWsXkAbSW1fdiohGwK` and `bKnMWGuXC5HEyxk3GttsT1a9TtYWKbBpEP`.
 
@@ -782,6 +802,10 @@ We can use the `validateaddress` rpc command to obtain the `"scriptPubKey` value
 
 </collapse-text>
 
+#### Send the Qsend Transaction
+
+We now have everything we need to assemble and send the complex Qsend transaction.
+
 ```bash
 ./komodo-cli -ac_name=MUSIG cclib Qsend 19 "[%22d60d224d7855a40507064c5ca72ed7d84a54340174eb16e31d079e4b4f230940%22,%22e580f34e9bdfd23108409e76475c7df3f924d149d494d5cdbc24aeb280237d4a%22,%22af710c0fd6aeb54556ee401803bc4cc39ea9002ad5228f308b27eb3af0e4c4b6%22,1,%22b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a2%22,1.1,%2276a914b738b1730cfb58960b1dd1765c6d3276993959e188ac%22,1.2,%22a9144d5e24fcd799f3a3fa15f98a6c69a5829596f56087%22,1.3]"
 ```
@@ -798,7 +822,7 @@ We can use the `validateaddress` rpc command to obtain the `"scriptPubKey` value
 
 </collapse-text>
 
-We again, need to broadcast it.
+#### Broadcast the Transaction Using sendrawtransaction
 
 ```bash
 ./komodo-cli -ac_name=MUSIG sendrawtransaction 0400008085202f89016c21f44da4afe05aad8b271659c6cf8cfccb6b6e33fdb9f5f0935a0d6e8ef616010000007b4c79a276a072a26ba067a56580210377ffe2b64443ac5e746f29b021e22411c7731d675f169d32423f8f3d6fc9ea3b8140ccb5db05dc45a4ec747705d76f2e71f3ab43830693f093536d23e6ab31c18b0c04c2906a8e600629b9264043d4534da3c22c1fe1dbe2192ebce23b8a99cf35eaa100af03800113a10001ffffffff0600e1f50500000000302ea22c802008b4a3a211fa1ecb9d245b3267827a56924653fe9bb4697510cf5d65e4bbfea98103120c008203000401cc80778e0600000000302ea22c802008b4a3a211fa1ecb9d245b3267827a56924653fe9bb4697510cf5d65e4bbfea98103120c008203000401cc000e2707000000001976a914b738b1730cfb58960b1dd1765c6d3276993959e188ac80a4bf070000000017a9144d5e24fcd799f3a3fa15f98a6c69a5829596f56087a0244c1200000000302ea22c80200c0396b7e2db09ab239f0b337fbc7df888273e60323a63d0caa862116bcf51a48103120c008203000401cc0000000000000000fd100e6a4d0c0e13514009234f4b9e071de316eb740134544ad8d72ea75c4c060705a455784d220dd6fd460de9fbac397128243cdfe192f73c9eb327fcc75338e694a94f4df8bcf7d668868731be4f2b886f5d1292e3542f31f01a390fcd7491d730b57ce1fcd6abd792efbeb4047f2cc24b98d07577f3121a74a141d1a7ce94b1e03fa69031e91baa38ef209866fb9db448445fc4794331f5efaaadd1ee58c58deac4b26012ed65f876fb056711d3902500d2d45c0e4e082d8a058a7a671a2fd2a855bd882ee5a06962ab72d93783c7f1fcfead9f712dd3af0424572ce58a36b4e558bc9c95650351794134f1d74f8f275500f19bc967a64ee0baef222bf34c50f0bb771759afee0b202a542d4a349e2224820a2fc29259192e1dc1c2648b161a31454d9a6489fb26b280ad6dd3f1916cae118150d49c52401665c8b299608760c83659f88783120974f85f22d9af9b5ea1dd4a145b29aca2929ffa0449dc821cbe0dd8f86017a37573ad8ca33901e10664822a0ff0825f957bda6148a41d8bd48ae42a7fd10e73e4f28198e767abd1b2c1297055729ddbb613d3d4476b8cf228be84248bef116546ec8d773d271b2a850711f2a8cafd3502575c94a5c258c322f1a0123f439d796239dc7a40e996ff282eb605b7bea9336fa2d6443924a3487f3275095a8fbe136918cb6a69afa2881d793d0d70433c0e16ac5218da88ce76194d86ae8c283184249cd4fc3824614f95af655556e3c3c90765358a63c411cf5df4075546c9555feb2fa1057f540a79a30ddf997248e47076418b31514607236ee23f56b8bd7ee03e09dd063199c45b0b120af1e44920b535aae890d51d0134ee24872a995b991efa31bd4bf9e551727a877d29ef269b83efc0368d042086535b6bd956c2f7bbc3b686dbd765d092a98e825911a13ea92ad2cd7604288c0e7595ee3763849a4d61c90ed7686a3902417eb90d59e40350b12353fd5fcffc53c52759ee393e68227018c924ac9c0390d3029fd26dcd93609d57f19868abfce563dbb93921837f85b092b8539447e2696a9d60345fe390200ce741eae671561b54ee0f58c32e944a954143dd274e41179907a99394c9c1c978a964555d91d0acdda655064a824c7673dc84d1d5a94f06ca6b19078dcd657acb9d84518b94c2f56e4aed02c50a1861d536fe19c29cfede262d8cdf1fba7848f017ce53bb99eb9b40d0b2e5951b47099d8d975bf3054baa8019a9299794e9c4e1f7117974d15dcd4bf1f75b732ac65cbbcd9d2c232e8445d93f422a9315d7c7627d5e4d424094d04c6e419e9805b7bb7849214d35e02139463e73989d019cd1ea3a9084f353f3145df38f88ad0baafee1f0e95477cacc7b0246db8b4ed485db10c999c508506d0bbff6185c53903f8565edd90fc16e3f6be972463e3246a73cb1e2cb294209c71838ae86732cab6f648d10459123d30a59c1bf63a2232d32c8cfe0d06c4797c883d0ad452643496dbec37f87a1a90b525a938cf3367c9917e57c506d0fa422e530753589bd9317a775af64de696857705c5efed3037ad7ad7e1a4789ef238c6473cb433eda187484592e48e5d237d73f558cfe24f68bad4ee85b77c01b9924e262534c9a2486432a5be199aea85a935f6b2424a4fbf3a5dc7afc1866692404de45f41393aecc7ca5761c25fa5922ccebeb8b0580633c75a944d473d18318fe0fb999dd61259813bd0f5c62ff50df1148c6d12757b2de3be3098e7c283eaa3acea5049f4a7e1393235dfeda7b0fdcca6cdeee5410f023bc4c1a157cda0044edacb30b4f00d3c647e83aec5b966ed4e1829eb1f9ab7da7715f34e07e17ed59e45922500f493d74ab8f8f645f3e9002d202f9c2ed14ec698548b7d0ea182c8ea9de1b9146b3a77df43e80a2d085636eb5a80f9d643682d211ae13bb6569ce3411aaca39727850155274aa842baef36ade2173aec3d6c3f4039038d55ff69a7a35ef2d08b5478106b9f0364a8c0e95cd4751bd905c4c38dca63bbcdce24538bd08fb0cc7d9cd1f5dfc1853d502e1f38adaad6c468d9e50ff81d2a6b8dd3db7602bc272675d2efb70382dc19b9039a0b32d876787f2d0e0671b11adde48aafef6d684c517e77217be631366bf99f1109e55a389436e915d847f212b07a5c6fb94db999662ba20e92e642e88bce288cdce3dbffc0d52607af784f802eb18e810d49766ca752a6534d7459a97a2bf07787c63cd836862eb05347cebd3882df760b37b873b79d935cc4fa6f444a6f4d2bae51dab832432a258c1d741d7c133e55302920527e02f1ec8b0ab2703df6fb4c3d357efa75a53c91666b59ed6135907edee5b7ce73c3730c90e235cde4e384dd51f7d7e1b82e3c7cedff649fd6a5f247e829ea9e00d58c37ffd545cd311ad369928ac396cb5dbdfad2c6de10d0a0b1047df15f26c51b225ee148d95dd9c5aea4a4da592cd59b3fcdd8478ee264ed68e61aee55585c32b6dee251f593e8a9f492b9003208af4e04d0e5ee00afee4d0d074ae9aeaa8fda26e89fdf4825da2f0211b5c9a8eae9f1070f401cd6583d0296057c9707a481983aa45b76b290aa249cc5a545fe8956000fc2d48c4803dbc642e1ef9ac3904652ddfa3b6a29e405984a2188b31eb358ea04462ac751937ef5a153d865e6b5951392dd6b4c6ee16224705486de08d380827554419ab24b37b58bd351d157194640d9eba45c13dee0bb73429b497e3885568161f286a6b6f67d8054674a717c6d26defc68c734622dacb8a2fef4dfbd425ea78575402d15eeb9d8cc6f99b0ebf33738b34e14f34b4b990deba45abe2d3c81038d4fa3352a4e904d9d6b244585ba1b0f450c9da0fe84e711255846bf56fc483755dc006f74f816bd27c408c1d4102e2882702b7afb187096a1046cd47f1be2a10400040d310b862232ec7b8419764d05ffe3833bc8462c90ea3f4b65af3fb07b885c9403434b6e0326b05188f8c05d157e0e721a9514fc189dd7c6455d261482fc46c4c206d94ba737a1e456cd22a11e3daf0f2c5716af6ba28419cc17ffa7303ee25d52675a1612ec1cc3bb708c1f0a720d9f4e4c5b47d4bca46f393eced4e6de925262ef229adb4405c44c7ba73646ded1bad4879f8024e84eec05c8bd635bcc6372e1f420be1b7e7f764d966b8715b21b73efb19c4c2d612210cd13fe06bf45d79b0886bb67c9d8f7308cdabde24127d7d3181b3283582b27ad46e0076e03c3269c11b613a6e0375992cac30acbdfb42eb99d6b3cdd845a978845dc7acf67882eaa532641b56ab5626581fca7481e4d1f54f1fb6e1accaff130a66cbb61fde59bc2052c48325a45219818648791ac33046832b02cc9e6aa587aaedb6e7f5d2e18f9b2e6727763f9511b715a43d7a4f608cb3cd037f4e26a455f8b4f9706ec408d4d435be1e6482c2db2aa2f08f23a31900128d57f210e34cb61f73dea2614cb51c220789a40cbfa35c9d565e1f9b809c81f9e3bcdfd5fd814b619b9c7a579daac86c60abcb7293de50b0a3702e3b877f828777235a49920c9dbf5ed9ce3a3f885c2bf985c620b7d0dafd7366a22554b6601af7866b5ccef7e8d67a29345598d98f946a204c128487fb672acbc68097d722d9e12f625b62e8b9affbf05539e44b62e72f6e2d917f1660033dd2a171d37387002cc04cf857d6100409a47d2ce9926c781758d0b7405d9d40086f5835685cde5648495864ac138bf81dac0f6d972096e993b49973c7dfa9a942edc9fe8fffccceb312a0e25b3a335e3b4f06c34cfbe4828597aeccf738a8164fefd1e88b62b12d76d13a5cef333bf8f16135dcbb84fa257b24eaa1e2b7d9c9e9fef6bf5d908e57a05c75d950dbd9ed6ab6f72a45f29e8fa80987406cad82c8d57c744928e3c5b5dbb054df82952b6d995d8b981b532170b311d701b1c0613787b3dbba56c254ffd8ff11270888029d9b342f08c891d185f2ec769afbc8d2b5e232c2ff3365c038102e09094d7dba19552a773f5d2fd153b24ebf7950f7d8c9b857413461cd68c464eaacdfa050b05e4b67a842727ae83a560e692fd7c473552e0b4d6c33544bb3498e4f77061bd8b06a279e68e813ba1571744328f27ad2f9d92cd0e33897c649c6cf33f235604e092d002c1f7e5fbe5cbff16b92540e33e4b3afd99e7df80bc23eca979125c0f271eb1f3e309c9a4dc48e82873b918c1b75ef029f3fa80a65d0ba9a3d7739a0763bbeee1920cc953d46921dcecb65a57f608b9092221209f5dcdddd66998f295f043114fb4c263634381cd381fd75e6c9d21620d13a4544a1ff4a9b789ca115d8108f8ee063c4ee9fd4e21886d74c3a54fefae364fc924d9a7d0994796f6753f92b7fb77be7ceae095e8de8b064aa3ac04138fc9c92a5b63714644ca35c9a12559a0b406df0dade4bc2018c029e0f5e87326ba85360788188cfb03873255c2adaa347fe8265f1fc32d0a8b90ea49dfb8aacf01c69744cf0096298559670d515540cc929480b7fe97608111f17b6a39e3e4b9c127e027d4ce00a761c3e3336b91e4bedacaf3a84b44e3f69180d8da4c7ddaed25841351096d7e822ed97c87250f901365c656671b5b80b0c182126333945516f8f9294bdc6c7cef8fd1a1e5c686e8081949a9da4aab4bde0eb0a28292f373e4c51545cf9ff11425c6b6f7a7e7f848ca1a8c2cbdcedf0fbff03192527353e3f55878fb2ccd7fc0000000000000000000000000000000000000000000000000000000000000000081b2b374a588124700005070e14a0805080a84a430004891a4412051202000440190140c06261da92a73502f904c0eab1b16b2d2b60ec32c1863d95069848bfe717ae65f8d8b718f7dc2f5b9c0605b6c4e4f03aeb278b308f22d52a00a99ec34cbc031840ee5645b5aed60f0c71afa26465694d923ee4d490ddd090c0aa7002b6e6a7dcf0550a940ccb6480e325b6000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004009234f4b9e071de316eb740134544ad8d72ea75c4c060705a455784d220dd600000000fa6c00000000000000000000000000
@@ -812,9 +836,9 @@ We again, need to broadcast it.
 
 </collapse-text>
 
-### Step 8: Understanding the inputs and outputs of the above transaction
+#### Understanding the inputs and outputs of the above transaction
 
-Let's now look at this with the `getrawtransaction` rpc command.
+Use the [<b>getrawtransaction</b>](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#getrawtransaction) RPC to observe the inputs and outputs of the response.
 
 ```bash
 ./komodo-cli -ac_name=MUSIG getrawtransaction 5aaf4007d6d9af7883da1ad464b63fff9d97453efe0b181d19558cc15f6ff668 2
@@ -933,24 +957,40 @@ Let's now look at this with the `getrawtransaction` rpc command.
 
 </collapse-text>
 
-We can see that we spent the qUTXO created in the previous step. Let's convert the `"hex"` value of the OP_RETURN output to big endian.
+As seen above, this transaction spent the qutxo created in the previous step. 
+
+#### Convert the Opreturn Hex Value to Big Endian
+
+Convert the `hex` value of the opreturn to big endian.
 
 ```bash
 d60d224d7855a40507064c5ca72ed7d84a54340174eb16e31d079e4b4f23094000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a2af710c0fd6aeb54556ee401803bc4cc39ea9002ad5228f308b27eb3af0e4c4b605069c5b2fdcf718b7d8f865ae17e7bf489806953d86c132ec602b2d6bb1b1eac004f90235a792da6162c040011940040002120512441a890400434aa8805080a0140e070500702481584a372b1b080000000000000000000000000000000000000000000000000000000000000000fcd7ccb28f87553f3e3527251903fffbf0eddccbc2a8a18c847f7e7a6f6b5c4211fff95c54514c3e372f29280aebe0bdb4aaa49d9a9481806e685c1e1afdf8cec7c6bd94928f6f514539332621180c0bb8b57166655c3601f95072c897ed22e8d79610354158d2aeddc7a48d0d18693f4eb4843aafaced4b1eb936333e1c760ae04c7d027e129c4b3e9ea3b6171f110876e97f0b4829c90c5415d5709655986209f04c74691cf0ac8afb9da40eb9a8d032fcf16582fe47a3da2a5c257338b0cf8881786053a86b32875e0f9e028c01c24bdedaf06d400b9a55129a5ca34c641437b6a5929cfc3841c03aaa64b0e88d5e09aecee77bb77f2bf953676f7994097d9a4d92fc64e3fafe543a4cd78618e2d49feec463e08e8f10d815a19c789b4affa144453ad12016d2c9e675fd81d31c383436264cfb1431045f298f9966dddddcf509122292908b607fa565cbce1d92463d95cc2019eebe3b76a039773d9abad0650aa83f9f02ef751b8c913b87828ec44d9a9c303e1feb71f2c0259197ca3ec20bf87d9ed9afb3e4330e54926bf1bf5cbe5f7e1f2c002d094e6035f233cfc649c69738e3d02cd9f9d27af22843747115ba13e8689e276ab0d81b06774f8e49b34b54336c4d0b2e5573c4d72f690e563ae87a7242a8674b5eb050a0dfacea64c468cd61344157b8c9d8f75079bf4eb253d12f5d3f772a5519ba7d4d09092e1038c06533ffc232e2b5d2c8fb9a76ecf285d191c8082f349b9d0288082711ffd8ff54c256badbb3873761c0b101d711b37021531b988b5d996d2b9582df54b0dbb5c5e32849747cd5c882ad6c408709a88f9ef2452af7b66aedd9db50d9755ca0578e905dbff6fee9c9d9b7e2a1ea247b25fa84bbdc3561f1f83b33ef5c3ad1762db1628be8d1ef4f16a838f7ccae978582e4fb4cc3064f3b5e333a5be2a012b3ceccff8ffec9ed42a9a9dfc77399b493e99620976d0fac1df88b13ac6458494856de5c6835586f08409d5d40b7d05817786c92e92c7da4090410d657f84cc02c008773d371a1d23d0360167f912d6e2fe7624be43955f0fbafb9e8625b622fe1d922d79780c6cb2a67fb8784124c206a948fd9985534297ad6e8f7ce5c6b86f71a60b65425a26673fddad0b720c685f92b5c883f3aced95ebf9d0c92495a237787827f873b2e70a3b050de9372cbab606cc8aa9d577a9c9b614b81fdd5dfbce3f9819c809b1f5e569d5ca3bf0ca48907221cb54c61a2de731fb64ce310f2578d120019a3238ff0a22adbc282641ebe35d4d408c46e70f9b4f855a4264e7f03cdb38c604f7a3da415b711953f7627672e9b8fe1d2f5e7b6edaa87a56a9ecc022b834630c31a794886811952a42583c45220bc59de1fb6cb660a13ffcaace1b61f4ff5d1e48174ca1f582656ab561b6432a5ea8278f6acc75d8478a945d8cdb3d699eb42fbbdac30ac2c9975036e3a611bc169323ce076006ed47ab2823528b381317d7d1224deabcd08738f9d7cb66b88b0795df46be03fd10c2112d6c2c419fb3eb7215b71b866d964f7e7b7e10b421f2e37c6bc35d68b5cc0ee844e02f87948ad1bed6d6473bac7445c40b4ad29f22e2625e96d4eedec93f346ca4b7db4c5e4f4d920a7f0c108b73bccc12e61a17526d525ee0373fa7fc19c4128baf66a71c5f2f0dae3112ad26c451e7a73ba946d204c6cc42f4861d255647cdd89c14f51a921e7e057d1058c8f18056b32e0b6343440c985b807fbf35ab6f4a30ec96284bc3338fe5fd0649741b8c72e2362b810d3400040102abef147cd46106a0987b1afb7022788e202411d8c407cd26b814ff706c05d7583c46ff56b845512714ee80fdac950f4b0a15b5844b2d6d904e9a45233fad43810c8d3e2ab45bade90b9b4344fe1348b7333bf0e9bf9c68c9deb5ed102545778ea25d4fb4def2f8acbda2246738cc6ef6dd2c617a7744605d8676f6b6a281f16685588e397b42934b70bee3dc145ba9e0d649471151d35bd587bb324ab1944552708388de06d4805472216eec6b4d62d3951596b5e863d155aef371975ac6244a08e35eb318b18a28459409ea2b6a3df2d650439acf91e2e64bc3d80c4482dfc006095e85f545acc49a20a296bb745aa8319487a70c9576029d08365cd01f470109fae8e9a5c1b21f0a25d82f4fd896ea2fda8ea9aae74d0d0e4fe0ae05e0e4de0f48a2003902b499f8a3e591f25ee6d2bc38555e5ae618ed64e26ee7884ddfcb359cd92a54d4aea5a9cdd958d14ee25b2516cf215df47100b0a0de16d2caddfdbb56c39ac289936ad11d35c54fd7fc3580de0a99e827e245f6afd49f6dfcec7e3821b7e7d1fd54d384ede5c230ec930373ce77c5beeed075913d69eb56616c9535aa7ef57d3c3b46fdf0327abb0c81e2fe02705920253e533c1d741d7c158a2322483ab1de5bad2f4a644f4a64fcc35d9793b877bb360f72d88d3eb7c3405eb626883cd637c7807bfa2979a45d734652a75ca6697d410e818eb02f884f77a60520dfcbf3dcecd88e2bc882e642ee920ba629699db94fbc6a5072b217f845d916e4389a3559e10f199bf661363be1772e717c584d6f6feaa48dead111b67e0d0f28767872db3a039909bc12d3870fb2e5d6772c22b60b73dddb8a6d281ff509e8d466cadda8af3e102d55318fc5d1fcdd9c70cfb08bd3845e2dcbc3ba6dc384c5c90bd5147cd950e8c4a36f0b9068147b5082def357a9af65fd5389003f4c3d6c3ae7321de6af3ae2b84aa74521550787239caaa1134ce6965bb13ae11d28236649d0fa8b56e6385d0a2803ef47da7b346911bdea98e2c18ead0b7488569ec14edc2f902d202903e5f648f8fab743d490f502259e459ed177ee0345f71a77dabf9b19e82e1d46e965bec3ae847c6d3004f0bb3aced4400da7c151a4cbc23f01054eede6ccadc0f7bdafe5d2393137e4a9f04a5ce3aaa3e287c8e09e33bdeb25727d1c64811df50ff625c0fbd13982561dd99b90ffe1883d173d444a9753c6380058bebebcc2259fa251c76a57cccae9313f445de0424696618fc7adca5f3fba424246b5f935aa8ae99e15b2a4386249a4c5362e224991bc0775be84ead8bf624fe8c553fd737d2e5482e59847418da3e43cb73648c23ef89471a7eadd77a03d3fe5e5c70576869de64af75a71793bd89357530e522a40f6d507ce517997c36f38c935a520ba9a1877fc3be6d49432645add083c897476cd0e0cfc8322d23a263bfc1590ad3239145108d646fab2c7386ae3818c7094229cbe2b13ca746323e4672e96b3f6ec10fd9ed65853f90535c18f6bf0b6d5008c599c910db85d44e8bdb46027bccca7754e9f0e1feaa0bad888ff35d14f353f384903aead19c019d98733e463921e0354d214978bbb705989e416e4cd09440424d5e7d62c7d715932a423fd945842e232c9dcdbb5cc62a735bf7f14bcd5dd1747911f7e1c4e9949729a91980aa4b05f35b978d9d09471b95e5b2d0409beb99bb53ce17f04878ba1fdf8c2d26defe9cc219fe36d561180ac502ed4a6ef5c2948b51849dcb7a65cd8d07196bca064fa9d5d184dc73764c824a0655a6ddacd0915d5564a978c9c1c99493a9079917414e27dd4341954a942ec3580fee541b5671e6ea41e70c2090e35f34609d6a69e2479453b892b0857f832139b9db63e5fcab6898f1579d6093cd6dd29f02d390039cac24c9187022683e39ee5927c553fccf5ffd5323b15003e4590db97e4102396a68d70ec9614d9a846337ee95750e8c280476cdd22aa93ea11159828ea992d065d7db86b6c3bbf7c256d96b5b538620048d36c0ef839b26ef297d877a7251e5f94bbd31fa1e995b992a8724ee34011dd590e8aa35b52049e4f10a120b5bc4993106dd093ee07ebdb8563fe26e23074651318b417670e4487299df0da3790a547f05a12feb5f55c9465507f45dcf11c4638a356507c9c3e3565565af954f612438fcd49c248431288cae864d1976ce88da1852ac160e3c43700d3d791d88a2af696acb186913be8f5a0975327f48a3243944d6a26f33a9beb705b62e28ff96e9407adc3962799d433f12a0f122c358c2a5945c570235fdcaa8f21107852a1b273d778dec466511ef8b2484be28f28c6b47d4d313b6db9d72557029c1b2d1ab67e79881f2e4730ed17f2ae48ad48b1da44861da7b955f82f00f2a826406e10139a38cad7375a31760f8d80dbe1c82dc4904fa9f92a2ac295b144adda15e9bafd9225ff87409128387f85936c860876099b2c8651640529cd4508111ae6c91f1d36dad80b226fb89649a4d45311a168b64c2c11d2e195992c22f0a8224229e344a2d542a200beeaf591777bbf0504cf32b22efbae04ea667c99bf10055278f4fd7f1344179510365959cbc58e5b4368ae52c572404afd32d719fadfefcf1c78337d972ab6269a0e52e88bd55a8d22f1a677a8a058a2d084e0e5cd4d2002590d3116705fb76f865ed1260b2c4ea8dc558eed1adaaeff5314379c45f4448b49dfb669820ef38aa1be93190a63fe0b194cea7d141a1741a12f37775d0984bc22c7f04b4beef92d7abd6fce17cb530d79174cd0f391af0312f54e392125d6f882b4fbe31878668d6f7bcf84d4fa994e63853c7fc27b39e3cf792e1df3c24287139acfbe90d46fdd60d224d7855a40507064c5ca72ed7d84a54340174eb16e31d079e4b4f23094051130e0c4d6a
 ```
 
-- If we look at position `[:64]`, we will see `destpubtxid` for vout 4, `d60d224d7855a40507064c5ca72ed7d84a54340174eb16e31d079e4b4f230940`.
-- We see that `[64:128]` is null bytes. This is because vout 3 is to a normal address, not a Dilithium handle.
-- We see that `[128:192]` is also null bytes. `[128:192]` is vout 2.
-- `[192:256]`, `b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a2`, is the `destpubtxid` for the `LABSLover` handle.
-- `[256:320]`, `af710c0fd6aeb54556ee401803bc4cc39ea9002ad5228f308b27eb3af0e4c4b6`, is the `destpubtxid` for the `KomodoFan` handle.
-- Finally we see that once again, the sender's `destpubtxid`, `d60d224d7855a40507064c5ca72ed7d84a54340174eb16e31d079e4b4f230940` is at `[-76:-12]`.
+- At position `[:64]` we see the `destpubtxid` for vout 4: `d60d224d7855a40507064c5ca72ed7d84a54340174eb16e31d079e4b4f230940`
+- At position `[64:128]` is null bytes
+  - Vout 3 is addressed to a normal address, as opposed to a Dilithium handle
+- At position `[128:192]` is null bytes
+  - `[128:192]` is vout 2
+- At position `[192:256]` we see the `destpubtxid` for the `LABSLover` handle: `b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a2`
+- At position `[256:320]` we see the `destpubtxid` for the `KomodoFan` handle: `af710c0fd6aeb54556ee401803bc4cc39ea9002ad5228f308b27eb3af0e4c4b6`
+- At position `[-76:-12]` we see the sender's `destpubtxid`: `d60d224d7855a40507064c5ca72ed7d84a54340174eb16e31d079e4b4f230940`
 
-### Step 9: Finding the balance for a given `handle`
+## Find the Balance of an Arbitrary Handle
 
-We can now look at how we can find the balance for a given handle. We will go over how to do `q_listunspent` for an arbitary handle. We will use the `LABSLover` handle in this example.
+<!-- Sidd: There was something in the paragraph below about q_listunspent, but I didn't understand it. -->
 
-We need to first get the CC address associated with this handle. We will do this by using the `handleinfo` and `cclibaddress` rpc commands.
+To find the balance in a normal address we might use the [<b>listunspent</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#listunspent) RPC. 
+
+A handle, however, is based on a Dilithium-related Antara Address, and these are more complicated. In this section of the tutorial, we use a series of RPCs and our own customized code to find all the utxos in a public Dilithium handle of our choosing. 
+
+We can call this customized action a "Q listunspent" function, by way of conversation.
+
+#### Obtain the Antara Address for the Handle
+
+Our target for this example is the `LABSLover` handle.  
+
+Use the [<b>handleinfo</b>](../../../basic-docs/antara/antara-api/dilithium.html#handleinfo) and [<b>cclibaddress</b>](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclibaddress) RPC to obtain the Antara Address of this handle.
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclib handleinfo 19 "[%22LABSLover%22]"
@@ -970,7 +1010,7 @@ We need to first get the CC address associated with this handle. We will do this
 
 </collapse-text>
 
-We can now use this `"pubkey"` value with the `cclibaddress` rpc command.
+Use the returned `pubkey` value with the `cclibaddress` RPC.
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclibaddress 19 03cebc558e6ba1c0f56f4ad490391c93336b5ccd8b08d123f4e7f1cdd4d5d21e61
@@ -997,7 +1037,9 @@ We can now use this `"pubkey"` value with the `cclibaddress` rpc command.
 
 </collapse-text>
 
-This `"PubkeyCCaddress(CClib)"` value, `RGBrSwrGR4ypFFufyvHEuMMbxs7ETD8Xv7`, is `LABSLover`'s CC address. We can now use the [getaddressutxos](../../../basic-docs/smart-chains/smart-chain-api/address.html#getaddressutxos) rpc command to find it's utxos.
+The `"PubkeyCCaddress(CClib)"` value is the Antara Address for `LABSLover`: `RGBrSwrGR4ypFFufyvHEuMMbxs7ETD8Xv7`
+
+Use the [getaddressutxos](../../../basic-docs/smart-chains/smart-chain-api/address.html#getaddressutxos) RPC to find the utxos in this `PubkeyCCaddress(CClib)` address.
 
 ```bash
 ./komodo-cli -ac_name=MUSIG getaddressutxos '{"addresses": ["RGBrSwrGR4ypFFufyvHEuMMbxs7ETD8Xv7"]}'
@@ -1124,9 +1166,15 @@ This `"PubkeyCCaddress(CClib)"` value, `RGBrSwrGR4ypFFufyvHEuMMbxs7ETD8Xv7`, is 
 
 </collapse-text>
 
-This CC address may have multiple Dilithium handles associated with it. We cannot assume all of these UTXOs belong to the `LABSLover` handle. This is where some coding will come into play. We will need to iterate over each of these UTXOs, check if it's either a Dilithium send transaction or Dilithium Qsend transaction, if it is, check if it belongs to the `LABSLover` handle. Generally any UTXO with a value of 0.0001 coins can be ignored. These are created by the Dilithium `register` rpc command. They are used to index handles for a given pubkey.
+In the returned response we observe many utxos.
 
-Let's look at this UTXO and find out if it's a Dilithium UTXO. If it is, we will go through how to find out the associated handle.
+We cannot assume that all of the returned utxos belong to the `LABSLover` handle, however. Recall that a handle must be associated with a single Antara Address, but an Antara Address can have multiple handles. Therefore, some of the above utxos belong to `LABSLover`, and some may belong to another handle.
+
+To ascertain which utxos belong to which handle, we must write a script that performs several tasks. First, the script iterates over each utxo and checks whether the utxo is a "Dilithium send transaction" or a "Dilithium Qsend transaction". For those that are Qsend transactions, the script then checks whether each utxo belongs to the `LABSLover` handle.
+
+Generally, any utxo with a value of `0.0001` coins can be ignored in this circumstance. These utxos are created by the Dilithium <b>register</b> RPC and are used to index handles for a given pubkey.
+
+For this example, we select one of the above utxos for closer inspection. Our first task is to ascertain whether this utxo is related to Dilithium.
 
 ```json
 {
@@ -1139,7 +1187,7 @@ Let's look at this UTXO and find out if it's a Dilithium UTXO. If it is, we will
 }
 ```
 
-Use the `getrawtransaction` rpc command on this "txid" value.
+Use the <b>getrawtransaction</b> RPC with the `txid` value.
 
 ```bash
 ./komodo-cli -ac_name=MUSIG getrawtransaction 5b5dab18abbfc0b85c6632ec6b4f71e30d7e28cbfa5e29a6a6e4d48f2fb730cf 2
@@ -1248,8 +1296,13 @@ Use the `getrawtransaction` rpc command on this "txid" value.
 
 </collapse-text>
 
-- The very first thing to do is check whether it has an `OP_RETURN` output. If it does not, ignore this UTXO and move on to the next.
-- We see this transaction does in fact have an OP_RETURN output. Let's decode this with the `decodeccopret` rpc command. The only argument for this command should be the `"hex"` value of the OP_RETURN output.
+Check whether this transaction has an opreturn vout. If there is no opreturn, move onto the next utxo from <b>getaddresstxids</b>.
+
+This transaction does in fact have an opreturn output. 
+
+Use the [<b>decodeccopret</b>](../../../basic-docs/smart-chains/smart-chain-api/util.html#decodeccopret) RPC to decode the hex value of the opreturn. 
+
+(The only argument for the <b>decodeccopret</b> RPC here should be the `hex` value of the opreturn output.)
 
 ```bash
 ./komodo-cli -ac_name=MUSIG decodeccopret 6a4dac0d13516d2339f34230623ad14db1ab4adc6aa3062516dc0403d1edd6b33b48d9adebadfd460d09f633110175d9f8e08a310ad7fe88d97b4a41903dd0c0db05154d01eafd2ffb4ec74a5cb468cba9b963d6005091f53bd044cae57ae44b6879e66c19791d5f52239f1d980de5f8958a6aa5869bd9efa343d3cabd170d23904efab800cb2a8497b78d702fb8bf3a312a18635dc9c905919bc3e119f919dca5421e51ba10bf3aa31e816b884187c841683ef87aebf89bf72f0b9492d20c1156e27dbfdb991b40671dbb372004f0d40398dbecc26f745a164ce14116f004d68672d4200d04106a67708293d890d88e99f381d78230245fb6a420162e9ade3e7c61e2d72e812ab4b7d439996fd1c2a659fae4658ef7fc196ec1c8017672c1bd7838e59916795fe4171e126a09322f213c306eb4b4563f72ebf1bb91b61850f451cc79dc644e51625db5a82cf1985df5e94b6ead6e92aa91f6da67e0431c843def9125c2c33db4631720ed1e3ea53a0d86f5174c842bc54f710556c9de8aae18cd545094333fe539cc6ccac859ec6dd02271437bc0ec93f511030ad79b57f168e5bbc93e6907a144cbc3fcce8dec42e26a5b9ea445a4f53a33ca7939d7db03c8637d655db9629c108198f1be4d133e5a99801ac5baebf9a8065e6fb5f34d64e0fe1bd7a4383e62134ae0a7df3bfb6f03881308925685b52d80d4f99351e71c80763605fd47c44129028ac475860070209527d626a720d79218776de338bed124fed901944db74735e9ae021474bfa98b1bfff4347e65df70d6d9dc68bab40fa071e2a73cb55f98163d32fe094de1c608836591df0158faa061211783fded36759fd27f9e950e729a4210b18390ff7d7cda94ec6d844c2aa980295bde433ddbdc870c56e7226e105327b2615734e08e688d757eb7ae5a98d9a08b4e2f10b9d77c04e1de4a489068110b7d463facb2c232561c53a97d00230ccb8c056ffd3a52d76c17baed79b8123d8d6bd6ab0641d44b4a623ef0c54bd306bc8fbc4196e9e54c615a6eb43a2243f88756b00f567ed27bdddf929894ced73bdda70813e04160cb6de9e7da2568b9c56ab884dde1ad2a219878a727301e9597de33f00cb191caf3dc358c159abdacfd0239cf96f206eba195217ae5e3b19ce0687b0991b8483da09a74b9b9c7aff6e6178bc4a23bea2069a7dc7b0003273935e2ae25e67d3c6fd4b788a0be7e4c45e378af4f7d6af047c7e938560a25610f4dfcc4a8a0998a1f32c193b026cf6344d152e4764364b57278197ae0754794bbdbf329e966563d57e5bf039cd20482f04866f6d4e8912e3a6590f639b9d487a83792cb30b394d5783df4bae3b6201b3d0d215e0a0eea21baeb41a3c88dc09abfa4cffdb2ff02867344e1e01edf7d545d5e8118471f94da80fd8aeccb507abece80c6e9ee0bb92651f2129a216e4a417b5be6ce9fdb1a608ffea107b8ab2b7f158d3eda057e8fff79b0178c61c6491e136d1946ffc3598f6d87318be6d9dd941489cc4c0e363d7771d0514e83f41e875ae0eddd4c44fa60ed34091dfbab8810a3a0b0fdef1ba21f412254e92f63343e22bedfaf4c329202f24b7158021f82a18eb8aab64a1d6ef7861ed22c515cd892f9b38b0b4e26c12efff5fce1d5605fddd00bf3b72fe04da6b27ca9e54d24a1dbe77dc3793ca1055b73e64344535abf199124c6c46661386521608a65df19598dbc57b88e6a19f6a950eff6290e11029291c579a34e0dea645f08afe76cd1b654e1a3e89efd436c5fe24a6a46cb62a3e2c1c051f6b7e13c37781d38259d82b921852fc3dc70c49d5e7c2b81bf95a442f0f0bbaa0da47406464533ec8b26a1df27143ecda9ac680fb351bf46c35c2c8be959174e78c390d9c5aacbe12635952c144e454f27f141579eff7be53b1425dbc544337acd5497ff9e95c54ba9e83330c332bcbc424c3125af4f56e367a8a76ea9277956abc474a7a641ac52142330d9cf43bebdca704b44264bc3055e4a5267a8bc726ab12d7672a3794944375019a3abf4ad25f4aa9400798a745c5d27c404a103fbe9424fa6c216e21d58b23bc584c70704e155678835773da1337eca84172d2cba605f59c9c7c09d6aa7131024299ec43704bd199b66c2362c54a50f59709ead7c7e85b88bf21ff2d46d7362c2dede76867b9b28d76e47cb6fcf0f6a248b905b0021811472bb8c0006e86115d8997c4b4e8ca7c6f76cf0105ca5da3404674d8ac7b66738eaeab719378c2a5527c0abf93265cc4d3654cd19840285a5da86827016f07e3d432cdc43c26dc050daf0fdd785c8739220f57e61c8fd549be91a4219ecd3800c1b2049b3025a2c67aadfbc0a0a852af98d507c8ff0c74edc01de88795cc4d770f4653dbbe3c2ee5dda524b5d239888e2c663512601e1c95ef466fabd717089d1e1cd07a9690ba562f1dbda071759b9fad9a2f877022052b4a177c7092385527867390523eb5b3b1e2ad302ec98391d5540f4b3a583828bfcf8d8a44324da51d81219990cd8deea7a32cc156279650fec21e1ea323a6c05239a4716016b1b4da636e042b8be781802fe2cf21adbf9aba87e99d29bc9be1b495d7b4d3db08a8eb54648aa3055e890918d092ec4dc93e9a50b7a44eeceefba2b81c7ec416c62080d390460bec13da6fe6c1cf393dfdc9ae0aa40fe8640bad6b8244740ab9fed0e6702b117590961212372c31ad90b8acabf8da9f5a3d0b9896e941619681d54636905fc8e20c034d313ad1d59ece5c74fef6cf5c21e35b212ee37536a6423643466b79667eab34fb797aebbb5c263b72014a18f172d383af03343466b5d014f35943699d8a97a30f90cebae2dc772e7d45163d60dd7025f2ee03cacd039a4caa7cffb58ce015023a8f90ae03dd2a89ea26988701a1f9b27abf4feea25de6af90649a6eab86f47869f3b0363d782b7ea939629948cbcd2d3d7db471810fd46ea9bcdcbe75df0692a8f644f0e22e56bd327cfe26e578e929b67c29d326e6e8cfa317fa4383c9a775344837009c68f29398d0b7db44ef2b5a21b6b28c9acc5b5f954b2ca52f54e9cd2b2b3d6e8ea76b3bebd3e8d5a5fade34429054a9b535c9ad7414d116ecae7abf48e67dbed24f4f122d0949c28f38a0de8dec1eb52a180dbbd36fdd0208b71fe7b0ce8fe454b958057d4d28f90ad013c321846ab9b79fbbe2c764c94b1bea1a4131502f8c6a3f198e1deb2ec1a8f478f6c8f0076c524f1c4da99416dc4f065eea6d607d0e2dbdf20e9871c998ef41fb2cd1d89e66ed36d9ea54e3b7f1d05db9451377df0eb053242a9eb7a931f786de2b35ccae9ddb0fa126bb7c2aeaa8af2d0ef7d7f105ebe71abb7b999341a5113b1f846cd1a8037c83759f46674f6491e2c0149d725a6482730ed60398d8b31d661fde40e89acd66ed547f247e42037cdd6ab1649d7fe6b2a1a28a52c5298d7c192057dcbc26ed5ab0bd2945cd67e99b2ae8a9269c904b1c22f23873fa2505b3eee45ad9666782215bb21cba019b6461e382d0e454fdf17fa871b136a5989cdc06025655ffa0af728f8679bc82d2427b8d7df82d93dcdb41f6a5d80f1932214a7ba7d7c821c9d0de3ec2d954510372c69dd4edc33f4422678f1b1962c64961dcdc850c94377d846cd5cd2f123f454fa7ad01d672a03ee5db3c4a66fc1633c3440481447435951ff6acb1c7dec1d1d31dd80a855f96a278cf8e65fc923bfddf0c407251ef8253ec426842de97022bf0cde525b7bc0011ab116ca3d7e6884fefeb3bb58c1b800f5783282f69ffc18b4b440312ec35515ab11fab9e3f6efe4b9fe0dc4d4151efcbdbce309689301dedbe25d2d22adcf13206bbcdf33775a14e3ed2edf59cdd8f5d367414b42b8439fdcff90a397fe3578f765eda874b43ca34fe26ff1e940321209c27014296682244861b7519c914e72499e6dbfd012c6b8613436bc52b3285ef869878f404d52de6516a63cd669a9f2f703b68d681973b3080428515efab1183e87f14030c1dcb52e1f984a71c7b75fc5b1e93243261f1159a18d474b14ba13997a89fbed67a8eb9b1a82dab818e79cd0151937cd68e66d2444ac1db467322a942566d0c52c45bea2a49cf1e474f16edd169c37de235b8e53ac8a4c43890017a11e08a8260433d6a0222ea4024b3fbad06a0071d0669a56bd387ed33a49e8bbde613e4ea90dc337648705c07dd44ddd4eab96fc5b4b14f1c8c5cc57dfaa742e22e6ab2ac143e0f6901c972e94bf13129daefa9b7dd3bd10e18d8a17c6e5ac1e396a6f4c651b047de66d8c13ecf7dc651558ee474fa64365720196babf3b1229442a762501d881e7395b76ae981fee7ed0ecd01fb492451d701efc7e1d6a47be75d1bf5d7ba8ba1d461e4ab7e2a53e32c2efaafc7e2ad1a94a1fa2dd01a723351ce05e4764da17b46bd447edc8e7f5919f2bdb57a67558de74683416c8974036c5999172d00d56f1463d960110e7d125acb002c64a842100feeb8f3796168677d94fa621b863d5a639298b7ae686016d44fa9d51bb95f17264a2b4b975347d56e648715f3a3dba5960c187d3962a4d0b6ef71600da022d5c696b7e9ea2a9f32c3133353c595b7689939596c8e3e6f1090c3a404a5b5c5d6f7692b1bcbec4d4f7020a27677f879ba9bec2c4f805092d35394672a2a8a9b7fe081f212c3c43464d8692999fa5ef0000000000000000000000000000000000000000000000000000000000000000000000000000000a1a2b37435112a00464600c413880a4c02210040002a1020118400a23a19668480c300210081b5b40b9554af400711620f22e412b414fd2d6df6799ab0d264e83dc6e955aa192065f24d7d1325202a9e277e8c0b88dfc54b9f0f1c6100b65a885af1268b87ad5c01e09c17e066cfc6d2339f34230623ad14db1ab4adc6aa3062516dc0403d1edd6b33b48d9adebad
@@ -1271,8 +1324,27 @@ Use the `getrawtransaction` rpc command on this "txid" value.
 
 </collapse-text>
 
-- The `"eval_code"` value here is the eval code for the Dilithium CC module. All transactions created using the Dilithium CC module will use this same eval code. This eval code is defined in the CC's code.
-- The `"function"` is the function id for Dilithium Qsend transactions. Each CC module will have a function id for each unique transaction type it has. These values can be found for a given CC module using the `cclibinfo` rpc command.
+#### Note the Eval Code
+
+Note that there is a returned key by the name of `eval_code`. 
+
+By design each Antara Module has its own unique eval code. This allows a developer to recognize which specific Antara Module a transaction regards. 
+
+The `eval_code` value here matches the eval code for the Dilithium Antara Module, and therefore we know that we are dealing with a Dilithium utxo. 
+
+(To learn more about eval codes, [read this linked section of the Advanced Tutorial Series.)](../../../basic-docs/antara/antara-tutorials/advanced-series-2.html#the-eval-code)
+
+#### Note the Function Value
+
+By design, an Antara Module has unique types of transactions. The ability to create unique transactions is a key power of the Antara Framework.
+
+Within an Antara Module can be numerous types of transactions, and therefore each transaction type needs its own identifier.
+
+The `function` key in the structure of the response returned above is this identifier. 
+
+In our response above we see `"function": "Q",`. We need to interpret this `Q` value into a more common term. 
+
+To obtain a list of all types of transactions for all Antara Modules on a Smart Chain, use the [<b>cclibinfo</b>](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#cclibinfo) RPC.
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclibinfo
@@ -1285,141 +1357,9 @@ Use the `getrawtransaction` rpc command on this "txid" value.
   "result": "success",
   "CClib": "sudoku",
   "methods": [
-    {
-      "evalcode": 16,
-      "funcid": "F",
-      "name": "faucet2",
-      "method": "fund",
-      "help": "amount",
-      "params_required": 1,
-      "params_max": 1
-    },
-    {
-      "evalcode": 16,
-      "funcid": "G",
-      "name": "faucet2",
-      "method": "get",
-      "help": "<no args>",
-      "params_required": 0,
-      "params_max": 0
-    },
-    {
-      "evalcode": 17,
-      "funcid": "G",
-      "name": "sudoku",
-      "method": "gen",
-      "help": "<no args>",
-      "params_required": 0,
-      "params_max": 0
-    },
-    {
-      "evalcode": 17,
-      "funcid": "T",
-      "name": "sudoku",
-      "method": "txidinfo",
-      "help": "txid",
-      "params_required": 1,
-      "params_max": 1
-    },
-    {
-      "evalcode": 17,
-      "funcid": "U",
-      "name": "sudoku",
-      "method": "pending",
-      "help": "<no args>",
-      "params_required": 0,
-      "params_max": 0
-    },
-    {
-      "evalcode": 17,
-      "funcid": "S",
-      "name": "sudoku",
-      "method": "solution",
-      "help": "txid solution timestamps[81]",
-      "params_required": 83,
-      "params_max": 83
-    },
-    {
-      "evalcode": 18,
-      "funcid": "C",
-      "name": "musig",
-      "method": "calcmsg",
-      "help": "sendtxid scriptPubKey",
-      "params_required": 2,
-      "params_max": 2
-    },
-    {
-      "evalcode": 18,
-      "funcid": "P",
-      "name": "musig",
-      "method": "combine",
-      "help": "pubkeys ...",
-      "params_required": 2,
-      "params_max": 999999999
-    },
-    {
-      "evalcode": 18,
-      "funcid": "R",
-      "name": "musig",
-      "method": "session",
-      "help": "myindex,numsigners,combined_pk,pkhash,msg32",
-      "params_required": 5,
-      "params_max": 5
-    },
-    {
-      "evalcode": 18,
-      "funcid": "H",
-      "name": "musig",
-      "method": "commit",
-      "help": "pkhash,ind,commitment",
-      "params_required": 3,
-      "params_max": 3
-    },
-    {
-      "evalcode": 18,
-      "funcid": "N",
-      "name": "musig",
-      "method": "nonce",
-      "help": "pkhash,ind,nonce",
-      "params_required": 3,
-      "params_max": 3
-    },
-    {
-      "evalcode": 18,
-      "funcid": "S",
-      "name": "musig",
-      "method": "partialsig",
-      "help": "pkhash,ind,partialsig",
-      "params_required": 3,
-      "params_max": 3
-    },
-    {
-      "evalcode": 18,
-      "funcid": "V",
-      "name": "musig",
-      "method": "verify",
-      "help": "msg sig pubkey",
-      "params_required": 3,
-      "params_max": 3
-    },
-    {
-      "evalcode": 18,
-      "funcid": "x",
-      "name": "musig",
-      "method": "send",
-      "help": "combined_pk amount",
-      "params_required": 2,
-      "params_max": 2
-    },
-    {
-      "evalcode": 18,
-      "funcid": "y",
-      "name": "musig",
-      "method": "spend",
-      "help": "sendtxid sig scriptPubKey",
-      "params_required": 3,
-      "params_max": 3
-    },
+
+    // ... (in this tutorial we ommit all non-Dilithium objects for brevity) ...
+
     {
       "evalcode": 19,
       "funcid": "K",
@@ -1498,25 +1438,40 @@ Use the `getrawtransaction` rpc command on this "txid" value.
 
 </collapse-text>
 
-- Here we see that the eval code for Dilithium is `19` or `0x13` in hex. We also see that the function id for the `Qsend` method is `"Q"`. Again, ignore anything related to Musig, Soduku or faucet2. These are part of this cclib module as a matter of convenience for the developers and testers. We will discuss each of the Dilithium methods later in this document.
+Towards the bottom we see a json object with `"funcid": "Q",` and `"method": "Qsend",`.
 
-Now that we know this is in fact a Dilithium Qsend transaction, let's use the same process as before to get the `destpubtxid` of the inputs and the `destpubtxids` of the outputs. We'll start by converting the OP_RETURN's `"hex"` value to big endian.
+This tells us that this transaction was executed using Dilithium's <b>Qsend</b> RPC.
+
+The response also confirms that the eval code for Dilithium is `19` (or `0x13` in hex). 
+(We discuss each of the Dilithium-related function types in the above response later in this document.)
+
+#### Obtain the destpubtxids of the Inputs and the Outputs
+
+Now that we know this is in fact a Dilithium Qsend transaction, let's use the same process as before to get the `destpubtxids` of the inputs and outputs. 
+
+First, convert the opreturn's `hex` value to big endian.
 
 ```bash
 adebadd9483bb3d6edd10304dc162506a36adc4aabb14dd13a623042f339236dfc6c067ec1091ec0d57ab86812af85a8650b10c6f1f0b954fc8db8c0e877e2a9025232d1d7245f0692a15a956edc834e260dab9967dfd6d24f412b412ef220167100f44a55b9405b1b081002300c486896a1230a40180102a10200041022c0a48038410c606404a0125143372b1a0a000000000000000000000000000000000000000000000000000000000000000000000000000000efa59f9992864d46433c2c211f08feb7a9a8a2724639352d0905f8c4c2bea99b877f67270a02f7d4c4bebcb192766f5d5c5b4a403a0c09f1e6e3c896959389765b593c3533312cf3a9a29e7e6b695c2d02da0016f76e0b4d2a96d387c16059ba3d3a5f7148e6567d3475b9b4a26472f195bb519dfa446d0186e67a8b2939a6d563b821a64fd977861696378febfe0021844ac602b0ac25d1e71001963d46f1560dd0729199c5364097c816346874de5875a657db2b9f91f5e7c8ed47d46bb417da64475ee01c3523a701dda21f4aa9d12a7efcaaefc2323ea5e2b74a1e461dbaa87b5dbfd175be476a1d7efc1e701d4592b41fd0ecd07eee1f98ae765b39e781d80125762a4429123bbfba9601726543a64f47ee581565dcf7ec138c6de67d041b654c6f6a391eace5c6178a8de110bdd37d9bfaae9d1213bf942e971c90f6e043c12aabe6222e74aadf57ccc5c8f1144b5bfc96ab4edd4dd47dc005876437c30da94e3e61debbe8493ad37e38bd569a66d071006ad0ba3f4b02a42e22a0d6330426a8081ea1170089434c8aac538e5b23de379c16dd6ef174e4f19ca4a2be452cc5d06625942a3267b41dac44246de668cd371915d09ce718b8da821a9beba867edfb897a9913ba144b478da159111f264332e9b1c55fb7c7714a981f2eb5dcc13040f1873e18b1fa5e51280408b37319688db603f7f2a969d63ca61665de524d408f8769f85e28b352bc363461b8c612d0bf6d9e49724e919c51b76148248266291470c209123240e9f16fe24fa33cb474a8ed65f77835fe97a390ffdc9f43b8424b4167d3f5d8cd59df2eede3145a7733dfbc6b2013cfad222d5de2dbde01936809e3bcbdfc1e15d4c40dfeb9e4eff6e3b9fa11ab1555c32e3140b4b418fc9ff6823278f500b8c158bbb3fefe84687e3dca16b11a01c07b5b52de0cbf2270e92d8426c43e25f81e2507c4f0ddbf23c95fe6f88c276af955a880dd311d1dec7d1ccb6aff51594347144840343c63c16fa6c4b35dee032a671dd07afa54f423f1d25ccd46d87743c950c8cd1d96642c96b1f1782642f433dc4edd692c371045952dece30d9d1c827c7dbaa7142293f1805d6a1fb4cd3dd982dfd7b827242dc89b67f828f70afa5f652560c0cd89596a131b87fa17df4f450e2d381e46b619a0cb21bb1522786696ad45ee3e5b50a23f87232fc2b104c969928aaeb2997ed65c94d20babd56ec2cb7d0592c1d798522ca5281a2a6bfed74916abd6cd3720e447f247d56ed6ac890ee4fd61d6318b8d3960ed302748a625d749012c1e49f67466f45937c837801acd46f8b113511a3499b9b7ab71be5e107f7defd0f28aaaaec2b76b12fab0dde9ca5cb3e26d781f937aeba9423205ebf07d375194db051d7f3b4ea59e6dd36ee6891dcdb21ff48e991c87e920dfdbe2d007d6a6ee65f0c46d4199dac4f124c576008f6c8f478f1aecb2dee198f1a3c6f8021513a4a1beb1944c762cbefb799bab4618323c01ad908fd2d45780954b45fee80c7bfe718b20d0fd36bddb80a152ebc1dee80d8af3289c94d022f1f424eddb678ef4abe7ca6e114d41d79a5c539b4a052944e3ad5f5a8d3ebdbeb376eae8d6b3b2d29c4ef552cab254f9b5c5acc9286b1ba2b5f24eb47d0b8d39298fc60970834453779a3c38a47f31fa8c6e6e329dc2679b928e576ee2cf27d36be5220e4f648f2a69f05de7cbcd9bea46fd101847dbd7d3d2bc8c94299693eab782d763033b9f86476fb8eaa64906f96ade25eafef4ab279b1f1a708869a29ea8d23de00af9a8235001ce58fbcfa7caa439d0ac3ce02e5f02d70dd66351d4e772c72daeeb0cf9307aa9d8993694354f015d6b464333f03a382d178fa11420b763c2b5bbae97b74fb3ea6796b766346423646a5337ee12b2351ec2f56cef4fc7e5ec591dad13d334c0208efc056963541d681916946e89b9d0a3f5a98dbfca8a0bd91ac372232161095917b102670eed9fab404724b8d6ba4086fe40aae09adcdf93f31c6cfea63dc1be6004390d08626c41ecc7812bbaefceee447a0ba5e993dcc42e098d9190e85530aa4846b58e8ab03d4d7b5d491bbec99bd2997ea8abf9db1af22cfe021878beb842e036a64d1b6b0116479a23056c3a32eae121ec0f65796215cc327aeaded80c991912d851da2443a4d8f8fc8b8283a5b3f440551d3998ec02d32a1e3b5beb230539677852852309c777a1b452200277f8a2d9fab9591707dadbf162a50b69a907cde1d1897071bdfa66f45ec9e101265163c6e28898235d4b52da5deec2e3bb3d65f470d7c45c7988de01dc4ec7f08f7c508df92a850a0abcdfaa672c5a02b349201b0c80d3ec19421ae99b54fdc8617ef5209273c885d7fdf0da50c06dc243dc2c433d7ef016708286daa585028419cd54364dcc6532f9abc027552a8c3719b7eaea3867b6c78a4d670434daa55c10f06cf7c6a78c4e4b7c99d81561e806008cbb72148121005b908b246a0fcf6fcb476ed7289b7b8676dedec262736dd4f21ff28bb8857e7cad9e70590fa5542c36c2669b19bd0437c49e29241013a76a9dc0c7c9595f60ba2c2d1784ca7e33a13d7735886755e10407c784c53bb2581de216c2a64f42e9fb03a104c4275d5c748a790094aaf425adf4aba3195037444979a372762db16a72bca867524a5e05c34b26444b70cabdbe43cfd930231452ac41a6a774c4ab567927a96ea7a867e3564faf25314c42bcbc32c33033e8a94bc5959eff9754cd7a3344c5db25143be57bff9e5741f1274f454e142c953526e1cbaac5d990c3784e1759e98b2c5cc346bf51b30f68aca9cd3e1427dfa1268bec3345460674a40daabbf0f042a495bf812b7c5e9dc470dcc32f8521b9829d25381d78373ce1b7f651c0c1e2a362cb466a4ae25f6c43fd9ee8a3e154b6d16ce7af085f64ea0d4ea379c5919202110e29f6ef50a9f6196a8eb857bc8d5919df658a602165386166c4c6249119bf5a534443e6735b05a13c79c37de7dba1244de5a97cb2a64de02fb7f30bd0dd5f60d5e1fcf5ff2ec1264e0b8bb3f992d85c512cd21e86f76e1d4ab6aab88ea1821f0258714bf20292324cafdfbe223e34632fe95422411fa21beffdb0a0a31088abfb1d0934ed60fa444cddede05a871ef4834e51d071773d360e4ccc891494ddd9e68b31876d8f59c3ff46196d131e49c6618c17b079ff8f7e05da3e8d157f2babb807a1fe8f601adb9fcee65b7b414a6e219a12f25126b90beee9c680cebe7a50cbec8afd80da941f4718815e5d547ddf1ee0e144738602ffb2fdcfa4bf9ac08dc8a341ebba21ea0e0a5e210d3d1b20b6e3baf43d78d594b330cb9237a887d4b939f690653a2e91e8d4f66648f08204d29c03bfe5573d5666e929f3dbbb944775e07a197872b5644376e452d14463cf26b093c1321f8a99a0a8c4fc4d0f61250a5638e9c747f06a7d4faf78e3454c7ebea088b7d46f3c7de625aee235392703007bdca76920ea3ba2c48b17e6f6afc7b9b9749aa03d48b891097b68e09cb1e3e57a2195a1eb06f296cf3902fdacbd9a158c35dcf3ca91b10cf033de97951e3027a77898212aade1dd84b86ac5b96825dae7e96dcb6041e01308a7dd3bd7ce949892dfdd7bd27e560fb05687f843223ab46e5a614ce5e99641bc8fbc06d34bc5f03e624a4bd44106abd66b8d3d12b879edba176cd7523afd6f058ccb0c23007da9531c5632c2b2ac3f467d0b116890484adee1047cd7b9102f4e8ba0d9985aaeb77e758d688ee0345761b22753106e22e7560c87dcdb3d43de5b2980a92a4c846dec94da7c7dff9083b110429a720e959e7fd29f7536edfd83172161a0fa5801df91658308c6e14d09fe323d16985fb53ca7e271a00fb4ba68dcd9d670df657e34f4ff1b8ba9bf741402aee93547b74d9401d9fe24d1be38e36d771892d720a726d627952070008675c48a022941c447fd053676801ce75193f9d4802db5855692081388036ffb3bdfa7e04a13623e38a4d71bfee0644df3b56f5e06a8f9ebbac51a80995a3e134dbef19881109c62b95d657d63c803dbd73979ca333af5a445a49e5b6ae242ec8dcefcc3cb44a107693ec9bbe568f1579bd70a0311f593ecc07b437122d06dec59c8ca6ccc39e53f33945054cd18ae8adec95605714fc52b844c17f5860d3aa53e1eed201763b43dc3c22591ef3d841c43e067daf691aa926ead6e4be9f55d98f12ca8b55d62514e64dc79cc51f45018b691bbf1eb723f56b4b46e303c212f32096a121e17e45f791699e53878bdc1727601c8c16e19fcf78e65e4fa59a6c2d16f9939d4b7b42a812ed7e2617c3ede9a2e1620a4b65f243082d781f3998ed890d8938270676a10040d20d47286d604f01641e14c165a746fc2ecdb9803d4f0042037bb1d67401b99dbbf7de256110cd292940b2ff79bf8eb7af83e6841c88741886b811ea33abf10ba511e42a5dc19f919e1c39b9105c9c95d63182a313abfb82f708db797842acb00b8fa4e90230d17bdcad343a3efd99b86a56a8a95f8e50d981d9f23525f1d79196ce679684be47ae5ca44d03bf5915000d663b9a9cb68b45c4ac74efb2ffdea014d1505dbc0d03d90414a7bd988fed70a318ae0f8d975011133f6090d46fdadebadd9483bb3d6edd10304dc162506a36adc4aabb14dd13a623042f339236d51130dac4d6a`
 ```
 
-- We know this transaction has two outputs other than the OP_RETURN transaction. This means that the Dilithium handle's `destpubtxid` for vout1 will be `[:64]` and that the `destpubtixd` for vout0 will be `[64:128]`.
-- If we look at each of these positions, we will see that we have `adebadd9483bb3d6edd10304dc162506a36adc4aabb14dd13a623042f339236d` for `vout 1`. We have `fc6c067ec1091ec0d57ab86812af85a8650b10c6f1f0b954fc8db8c0e877e2a9` for `vout 0`.
-- Neither of these match `LABSLover`'s `destpubtxid`, so this UTXO does not belong to the `LABSLover` handle. - To find out which handles these do belong to, we can use this python function to determine the handle.
+From our <b>getrawtransaction</b> response earlier we already know this transaction has two outputs (besides the opreturn output). Therfore, the Dilithium handle's `destpubtxid` for vout1 is located at position `[:64]` and the `destpubtixd` for vout0 is located at `[64:128]`.
 
-Please note, this we will be using `python3` for the rest of this guide. This will work with any language that can interact with the daemon via rpc. We will be using the [slickrpc](https://github.com/barjomet/slick-bitcoinrpc) library to interact with the daemon.
+In vout1's position we find `adebadd9483bb3d6edd10304dc162506a36adc4aabb14dd13a623042f339236d`.
 
-<!-- Sidd: The below sentence seems to be a leftover from docs.komodoplatform.com ? 
+In vout0's position we find `fc6c067ec1091ec0d57ab86812af85a8650b10c6f1f0b954fc8db8c0e877e2a9`.
 
-Learn how to use the slickrpc library [here.](../../komodo/python-rpc-komodod.html)
+Neither of these vouts match the `destpubtxid` for the `LABSLover` handle, and therefore this utxo does not belong to the `LABSLover` handle.
 
--->
+#### Create a Customized Function to Determine the Full Handle
+
+To find out which handles these do belong to, we need to write a more elaborate customized function in a programming language of our choice.
+
+Any programming language that is capable of sending RPCs to the daemon is capable of creating this type of customized function. 
+
+For this tutorial, we use the Python language and the `python3` toolset. We also use the [slickrpc](https://github.com/barjomet/slick-bitcoinrpc) library to interact with the daemon.
+
+(To learn how to use the slickrpc library, [visit this linked documentation.](https://github.com/KomodoPlatform/Documentation/blob/master/docs/komodo/python-rpc-komodod.md)
 
 ```python
 # function to get handle from register txid
@@ -1529,7 +1484,7 @@ def handle_get(register_txid, rpc_connection):
         return(bytes.fromhex(OP_ret[14:x]).decode('utf-8'))
 ```
 
-We first need to get the OP_RETURN for this `destpubtxid` , `adebadd9483bb3d6edd10304dc162506a36adc4aabb14dd13a623042f339236d`.
+Use the <b>getrawtransaction</b> to obtain the opreturn for the `destpubtxid`: `adebadd9483bb3d6edd10304dc162506a36adc4aabb14dd13a623042f339236d`.
 
 ```bash
 ./komodo-cli -ac_name=MUSIG getrawtransaction adebadd9483bb3d6edd10304dc162506a36adc4aabb14dd13a623042f339236d 2
@@ -1554,12 +1509,20 @@ We first need to get the OP_RETURN for this `destpubtxid` , `adebadd9483bb3d6edd
 
 </collapse-text>
 
-- If we look at the position, `[12:14]`, of this `"hex"` value, this will tell us the length of the handle.
-- This position will be the same for all `destpubtxid`s.
-- In this case, this byte is `05` . This means that the 5 bytes following this value is the handle in ascii.
-- If we look at following 5 bytes at `[14:24]`, we see `6e65773230`. Converting this to text, we get `new20`.
 
-To see that this is in fact the handle for `adebadd9483bb3d6edd10304dc162506a36adc4aabb14dd13a623042f339236d`, we can use the `handleinfo` rpc command.
+In all `destpubtxids` in the Dilithium Module, the value at the position `[12:14]` provides the length of the handle.
+
+In this case, the value is `05`. Therefore, the 5 bytes following this value is the handle, provided in ascii format.
+
+Observe the following 5 bytes at `[14:24]` and we see `6e65773230`. 
+
+Once converted from ascii to text this provides the value: `new20`.
+
+This should be the handle that we seek. 
+
+<!-- Sidd: is the value below a utxo or txid? -->
+
+Use the <b>handleinfo</b> RPC to verify that this is the handle for the `destpubtxid` of the value `adebadd9483bb3d6edd10304dc162506a36adc4aabb14dd13a623042f339236d`. 
 
 ```bash
 ./komodo-cli -ac_name=MUSIG cclib handleinfo 19 "[%22new20%22]"
@@ -1579,10 +1542,19 @@ To see that this is in fact the handle for `adebadd9483bb3d6edd10304dc162506a36a
 
 </collapse-text>
 
-- If we repeat the same process for the remining `destpubtxid`, `fc6c067ec1091ec0d57ab86812af85a8650b10c6f1f0b954fc8db8c0e877e2a9`. We find that the output is to the `new21` handle.
-- We will need to repeat this process on each UTXO in the `getaddressesutxos` output. Please see the `dil_listunspent` function [here](https://github.com/KMDLabs/pos64staker/blob/513d8bb0f18ee1a5011ea50e6e2aa766f01c5ad3/stakerlib.py#L876) for how you might do this in python3.
+#### Repeat the Same Process for vout0
 
-The output for this `dil_listunspent` python3 function for this given pubkey is
+Repeat the same process for vout0, where the `destpubtxid` is `fc6c067ec1091ec0d57ab86812af85a8650b10c6f1f0b954fc8db8c0e877e2a9` and returned response is the `new21` handle.
+
+#### Repeat This Process on Each Utxo
+
+Repeat this full process on each utxo provided in the <b>getaddressutxos</b> output above. 
+
+The customized approach we take for this tutorial is to use the `dil_listunspent` function [provided in this linked repository.](https://github.com/KMDLabs/pos64staker/blob/513d8bb0f18ee1a5011ea50e6e2aa766f01c5ad3/stakerlib.py#L876) The source code and function here is also based on python3.
+
+Having executed the <b>dil_listunspent</b> python3 function we receive the following response for our pubkey.
+
+<!-- Sidd: Which pubkey? Is that the PubkeyCCaddress(cclib) pubkey used previously? -->
 
 <collapse-text hidden title="Response">
 
@@ -1689,7 +1661,7 @@ The output for this `dil_listunspent` python3 function for this given pubkey is
 
 </collapse-text>
 
-We can see that this function also decoded this tranasaction:
+The <b>dil_listunspent</b> python3 function also decodes this tranasaction:
 
 ```json
 {
@@ -1702,7 +1674,7 @@ We can see that this function also decoded this tranasaction:
 }
 ```
 
-This is a Dilithium send `qUTXO(t->q)`. We can look at how you might decode a send(t->q) transaction.
+This is a `t` to `q` Dilithium `send` qutxo. Here is one possible method to decode this type of transaction.
 
 ```bash
 ./komodo-cli -ac_name=MUSIG getrawtransaction 5d15a272a3cbd07611ccd64045fd55d49fdcbb41c0fb21df3b7e8d6011e8b5a9 2
@@ -1785,7 +1757,7 @@ This is a Dilithium send `qUTXO(t->q)`. We can look at how you might decode a se
 
 </collapse-text>
 
-If we use the `decodeccopret` rpc command on this transaction's OP_RETURN `"hex"` value, we can see that this is a Dilithium send(t->q) transaction. We know this because the `"function"` value is `"x"`.
+Use the `decodeccopret` RPC on this transaction's opreturn `hex` value and observe that the returned `function` value is `x`. This tell us that this transaction is a Dilithium send `t` -> `q` transaction.
 
 ```bash
 ./komodo-cli -ac_name=MUSIG decodeccopret 6a221378a26465694d923ee4d490ddd090c0aa7002b6e6a7dcf0550a940ccb6480e325b6
@@ -1807,14 +1779,20 @@ If we use the `decodeccopret` rpc command on this transaction's OP_RETURN `"hex"
 
 </collapse-text>
 
-Now, if we convert this `"hex"` value to big endian, we get:
+Convert this `hex` value to big endian: 
 
 ```bash
 b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a27813226a
 ```
 
-- If we take the first 32 bytes of this, or [:64], we get `b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a2`.
-- This is the `destpubtxid` that vout 0 was sent to in this transaction. If we use the `handle_get` function from the previous step, we find that this `destpubtxid` is for the handle `LABSLover`.
-- Looking at the vouts of the `qutxo` that belong to the handle and adding their balances will give the total balance
+Take the first 32 bytes of this (position [:64]):
 
+```
+b625e38064cb0c940a55f0dca7e6b60270aac090d0dd90d4e43e924d696564a2
+```
 
+This is the matching `destpubtxid` to which vout0 was sent in our transaction. 
+
+Use the same <b>handle_get</b> function from the previous step and we find that this `destpubtxid` is associated with the handle `LABSLover`.
+
+Collecting all the vouts of the `qutxos` that belong to this handle and creating a sum of their balances provides the total balance.
