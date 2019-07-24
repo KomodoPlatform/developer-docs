@@ -372,6 +372,10 @@ Each time the user initiates an instance of Smart Chain software, the user inclu
 
 Because each Smart Chain is based on the same software (generally speaking) and they differentiate at the moment of initiation, they are called "runtime forks." This represents the fact that each Smart Chain forks from the main KMD chain at runtime.
 
+## Satoshi
+
+The smallest divisible unit of a coin. All coins in the Komodo ecosystem follow the Bitcoin-protocol standard where `1` coin has `8` decimal places. Therefore, a satoshi is `0.00000001` of a coin.
+
 ## SPV Electrum Server
 
 An SPV Electrum Server is a server that provides "lite mode" type functionality. These servers have a full copy of the blockchain history and the servers are able to help complete the requests of users on the blockchain network who do not want to download and sync the full blockchain history.
