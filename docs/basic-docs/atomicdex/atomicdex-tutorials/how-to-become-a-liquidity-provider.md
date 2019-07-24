@@ -284,7 +284,7 @@ To learn more about creating secure phrases, [read this linked content on the Bi
 
 #### Edit the start.sh File
 
-::: warning Danger!
+::: danger Danger!
 
 We are about to place the seed phrase in the user's start.sh file. This step is crucial for cryptocurrency security. Failure to properly execute this step can (and likely will) lead to a loss of all your funds.
 
