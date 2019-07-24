@@ -16,6 +16,10 @@ A VPS with _atleast_ the following specifications:
 
 A Home computer with a GOOD internet connection and decent specifications running Ubuntu 18.04.
 
+- Internet speed - atleast 1 MBPS
+- RAM - atleast 4 GB
+- Processor - atleast i5 or equivalent
+
 ## Installing Dependencies
 
 ### Step 1: OS Packages
