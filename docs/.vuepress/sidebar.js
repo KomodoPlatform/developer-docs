@@ -319,6 +319,10 @@ var sidebar = [
             collapsible: true,
             children: [
               [
+                  "/basic-docs/antara/antara-api/assets.md", 
+                  "Assets"
+              ],
+              [
                   "/basic-docs/antara/antara-api/channels.md", 
                   "Channels"
               ],

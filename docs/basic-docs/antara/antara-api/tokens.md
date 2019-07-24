@@ -2,17 +2,11 @@
 
 ## Introduction
 
-The Tokens Antara Module enables support for the on-chain creation of colored coins, also called tokens. This module enables the basic functionality, such as creation, transfer and balance validation. The created tokens are typically used with another module that supports operations on tokens. For example, the Assets Module provides buy/sell operations for `tokens`.
+The Tokens Module enables support for the on-chain creation of colored coins, also called tokens. The created tokens are typically used with another module that supports operations on tokens. For example, the [Assets Module](../../../basic-docs/antara/antara-api/assets.html#introduction) provides buy/sell operations for `tokens`.
 
-Functionality for this module is facilitated by utxo technology. Tokens can be generated on any chain where the [ac_cc](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc) customization is enabled
+Tokens can be generated on any chain where the [ac_cc](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc) parameter is enabled.
 
-Each token is identified by its unique token id.
-
-The `tokens` module requires locking a proportional amount of satoshis of the native coins. These satoshis create the supply for the token.
-
-For example, if you desire to create a non-fungible token, use 1 satoshi in its creation.
-
-Each non-fungible token has the amount of 1 and contains an additional array of data describing its corresponding asset. The data has an eval code which binds this non-fungible token to an Antara Module responsible for validation. The `tokeninfo` method outputs data for non-fungible tokens.
+The `tokens` module requires locking a proportional amount of the native coins. Each [satoshi](../../../basic-docs/start-here/learning-launchpad/common-terminology-and-concepts.html#satoshi) of the native coin is equal to one token within the total supply.
 
 ## tokenaddress
 
@@ -28,14 +22,12 @@ The `tokenaddress` method returns information about a token address according to
 
 ### Response
 
-| Name | Type | Description | 
-| --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| result          | (string) | whether the command executed successfully                                                                                        |
-| AssetsCCaddress | (string) | taking the token module's EVAL code as a modifier, this is the public address that corresponds to the token contract's privkey |
-| Assetsmarker    | (string) | the unmodified public address generated from the token contract's privkey                                                        |
-| CCaddress       | (string) | taking the token module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                          |
-| myCCaddress     | (string) | taking the token module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                          |
-| myaddress       | (string) | the public address of the pubkey used to launch the chain                                                                        |
+| Name            | Type     | Description                                                                                                                                                                |
+| --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result          | (string) | whether the command executed successfully                                                                                                                                  |
+| TokensCCaddress | (string) | taking the token contract's EVAL code as a modifier, this is the public address that corresponds to the token contract's privkey, also known as Tokens CC's global address |
+| myCCaddress     | (string) | taking the token contract's EVAL code as a modifier, this is the token CC address from the pubkey of the user                                                              |
+| myaddress       | (string) | the normal public address of the pubkey used to launch the chain                                                                                                           |
 
 #### :pushpin: Examples
 
@@ -58,72 +50,11 @@ Command:
 
 </collapse-text>
 
-## tokenask
-
-**tokenask numtokens tokenid price**
-
-The `tokenask` method posts a public ask order.
-
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
-
-### Arguments
-
-| Name | Type | Description | 
-| --------- | -------- | ------------------------------------------------------------------------------ |
-| numtokens | (number) | the number of tokens to request in the order                                   |
-| tokenid   | (string) | the txid that identifies the token                                             |
-| price     | (number) | the price to pay for each token (units are in coins of the parent Smart Chain) |
-
-### Response
-
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
-
-#### :pushpin: Examples
-
-Step 1:
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD tokenask 1000 c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59 1
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```json
-{
-  "result": "success",
-  "hex": "010000000248403cd63777a2086206592c096ddfa1d4ba2647673b330610968eace2cf7b540200000049483045022100bde9eaf43a43fe252530bcf346be3e336e86f0171b817977d38d6ebd4bb0756e0220735f3292ef012fd56f7476700f5649b23aacf2387f4fa5a537e1b6c6daa6c1d101ffffffff4f2016d356282fca9d8278aa04fbdbed98ac6af0bf7a479959c5bb91f95e8ef5020000007b4c79a276a072a26ba067a5658021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e278140fe6a2cd6fdb5a359d5d6eea9bcf34e5b7d8e2def612afe9c01af1129b006e68344d8f9905ea5f226cdb1556659df0c8741e8e3def1238761721b66718dabe92ca100af038001e3a10001ffffffff03e803000000000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc5087b00e000000002321028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27ac00000000000000004f6a4c4ce373c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b5900e876481700000021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e2700000000"
-}
-```
-
-</collapse-text>
-
-
-Step 2: Use sendrawtransaction to broadcast the order
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000248403cd63777a2086206592c096ddfa1d4ba2647673b330610968eace2cf7b540200000049483045022100bde9eaf43a43fe252530bcf346be3e336e86f0171b817977d38d6ebd4bb0756e0220735f3292ef012fd56f7476700f5649b23aacf2387f4fa5a537e1b6c6daa6c1d101ffffffff4f2016d356282fca9d8278aa04fbdbed98ac6af0bf7a479959c5bb91f95e8ef5020000007b4c79a276a072a26ba067a5658021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e278140fe6a2cd6fdb5a359d5d6eea9bcf34e5b7d8e2def612afe9c01af1129b006e68344d8f9905ea5f226cdb1556659df0c8741e8e3def1238761721b66718dabe92ca100af038001e3a10001ffffffff03e803000000000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc5087b00e000000002321028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27ac00000000000000004f6a4c4ce373c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b5900e876481700000021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e2700000000
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```bash
-8d5bb0ae5cc8406b8b12fff04437c748495f4f8852ae124e6a137bc130d3be64
-```
-
-</collapse-text>
-
 ## tokenbalance
 
 **tokenbalance tokenid (pubkey)**
 
-The `tokenbalance` method checks the token balance according to a provided `pubkey`. If no `pubkey` is provided, the `pubkey` used the launch the daemon is the default.
+The `tokenbalance` method checks the token balance according to a provided `pubkey`. If no `pubkey` is provided, the `pubkey` used to launch the daemon is the default.
 
 ### Arguments
 
@@ -136,8 +67,8 @@ The `tokenbalance` method checks the token balance according to a provided `pubk
 
 | Name      | Type     | Description                                                                                             |
 | --------- | -------- | ------------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command executed successfully                                                                |
-| CCaddress | (string) | taking the token module's EVAL code as a modifier, this is the Antara address from the pubkey of the user |
+| result    | (string) | whether the command executed succesfully                                                                |
+| CCaddress | (string) | taking the token contract's EVAL code as a modifier, this is the CC address from the pubkey of the user |
 | tokenid   | (string) | the txid that identifies the token                                                                      |
 | balance   | (number) | the balance of the address that corresponds to the pubkey                                               |
 
@@ -181,352 +112,6 @@ Check the token balance of a specific pubkey
 
 </collapse-text>
 
-## tokenbid
-
-**tokenbid numtokens tokenid price**
-
-The `tokenbid` method posts a public bid order.
-
-To fill the order, the parent chain's coin must be used.
-
-The method returns a raw hex, which must be broadcast using [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) to complete the command.
-
-The `sendrawtransaction` method then returns a `txid`, which is the identification method of the bid order, and should be saved for future use.
-
-### Arguments
-
-| Name | Type | Description | 
-| --------- | -------- | ------------------------------------------------------------------------------ |
-| numtokens | (number) | the number of tokens to request in the order                                   |
-| tokenid   | (string) | the txid that identifies the token                                             |
-| price     | (number) | the price to pay for each token (units are in coins of the parent Smart Chain) |
-
-### Response
-
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
-
-#### :pushpin: Examples
-
-Command:
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD tokenbid 1000 c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59 1
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```bash
-0100000001484256677a6417030dd99716a47b8c9cb06fba6e57ff4617e9932a6cde2972830100000049483045022100fc1926401b27ba044bbf17c36f36030adae52a188594efc75fe42861ab0b997802205e729d6f5587e5a5296b5649a154ce1fe3c581078fac7ae4e2b4577978c05c8901ffffffff0300e8764817000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc10d262684a0300002321028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27ac00000000000000004f6a4c4ce362c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59e80300000000000021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e2700000000`
-```
-
-</collapse-text>
-
-
-Use `sendrawtransaction` to publish order
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0100000001484256677a6417030dd99716a47b8c9cb06fba6e57ff4617e9932a6cde2972830100000049483045022100fc1926401b27ba044bbf17c36f36030adae52a188594efc75fe42861ab0b997802205e729d6f5587e5a5296b5649a154ce1fe3c581078fac7ae4e2b4577978c05c8901ffffffff0300e8764817000000302ea22c80201ab400e039122028345520ba041ac3e6ec81ad28d8415e78d760d55f41097dd58103120c008203000401cc10d262684a0300002321028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27ac00000000000000004f6a4c4ce362c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59e80300000000000021028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e2700000000
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```bash
-5fc8c472bc0e5f994b5a9a3fda23af1a3e1cfd746b902d7216352732e6adba05
-```
-
-</collapse-text>
-
-
-## tokencancelask
-
-**tokencancelask tokenid asktxid**
-
-The `tokencancelask` method cancels a specific `ask`/`sell` order that you created.
-
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
-
-### Arguments
-
-| Name | Type | Description | 
-| --------- | -------- | ------------------------------------------------- |
-| tokenid   | (string) | the txid that identifies the token                |
-| asktxid   | (string) | the txid that identifies the original ask request |
-
-### Response
-
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
-
-#### :pushpin: Examples
-
-Step 1: Issue the call and get your raw transaction HEX value
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD tokencancelask 9217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e 7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```json
-{
-  "result": "success",
-  "hex": "010000000234c335a46dadea8e42420b0e284f5577cfbcb7764a8d5c3b61312b71c5b14d0800000000494830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601ffffffff5ca636731b8c28889248a0b434e3124f19518b2c4b4bbefd80af303329ae9471000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001ffffffff030a00000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401ccf078724e18090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000"
-}
-```
-
-</collapse-text>
-
-
-Step 2: Broadcast using `sendrawtransaction`
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000234c335a46dadea8e42420b0e284f5577cfbcb7764a8d5c3b61312b71c5b14d0800000000494830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601ffffffff5ca636731b8c28889248a0b434e3124f19518b2c4b4bbefd80af303329ae9471000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001ffffffff030a00000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401ccf078724e18090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```bash
-AssetValidate (x)
-vin1 10, vout0 10, AssetValidateSellvin
-Got 0.00000010 to origaddr.(RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ)
-21d152480275568e3f82a5049d8b30308e3739ebd98171e075a75fea504364cd
-```
-
-</collapse-text>
-
-
-Step 3 (optional): Decode the raw transaction (check if the values are sane)
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000234c335a46dadea8e42420b0e284f5577cfbcb7764a8d5c3b61312b71c5b14d0800000000494830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601ffffffff5ca636731b8c28889248a0b434e3124f19518b2c4b4bbefd80af303329ae9471000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001ffffffff030a00000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401ccf078724e18090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```json
-{
-  "txid": "21d152480275568e3f82a5049d8b30308e3739ebd98171e075a75fea504364cd",
-  "size": 434,
-  "version": 1,
-  "locktime": 0,
-  "vin": [
-    {
-      "txid": "084db1c5712b31613b5c8d4a76b7bccf77554f280e0b42428eeaad6da435c334",
-      "vout": 0,
-      "scriptSig": {
-        "asm": "30450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601",
-        "hex": "4830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601"
-      },
-      "sequence": 4294967295
-    },
-    {
-      "txid": "7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c",
-      "vout": 0,
-      "scriptSig": {
-        "asm": "a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001",
-        "hex": "4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001"
-      },
-      "sequence": 4294967295
-    }
-  ],
-  "vout": [
-    {
-      "value": 0.0000001,
-      "valueSat": 10,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "a22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401 OP_CHECKCRYPTOCONDITION",
-        "hex": "2ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc",
-        "reqSigs": 1,
-        "type": "cryptocondition",
-        "addresses": ["RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti"]
-      }
-    },
-    {
-      "value": 99999.9999,
-      "valueSat": 9999999990000,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
-        "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
-        "reqSigs": 1,
-        "type": "pubkey",
-        "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
-      }
-    },
-    {
-      "value": 0.0,
-      "valueSat": 0,
-      "n": 2,
-      "scriptPubKey": {
-        "asm": "OP_RETURN e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
-        "hex": "6a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
-        "type": "nulldata"
-      }
-    }
-  ]
-}
-```
-
-</collapse-text>
-
-
-## tokencancelbid
-
-**tokencancelbid tokenid bidtxid**
-
-The `tokencancelbid` method cancels a specific `bid`/`buy` order that you created.
-
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
-
-### Arguments
-
-| Name | Type | Description | 
-| --------- | -------- | ------------------------------------------------- |
-| tokenid   | (string) | the txid that identifies the token                |
-| bidtxid   | (string) | the txid that identifies the original bid request |
-
-### Response
-
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
-
-#### :pushpin: Examples
-
-Step 1: Issue the call and get your raw transaction HEX value
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD tokencancelbid 9217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e 7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```json
-{
-  "result": "success",
-  "hex": "010000000234c335a46dadea8e42420b0e284f5577cfbcb7764a8d5c3b61312b71c5b14d0800000000494830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601ffffffff5ca636731b8c28889248a0b434e3124f19518b2c4b4bbefd80af303329ae9471000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001ffffffff030a00000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401ccf078724e18090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000"
-}
-```
-
-</collapse-text>
-
-
-Step 2: Send raw transaction / broadcast the HEX value from above
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000234c335a46dadea8e42420b0e284f5577cfbcb7764a8d5c3b61312b71c5b14d0800000000494830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601ffffffff5ca636731b8c28889248a0b434e3124f19518b2c4b4bbefd80af303329ae9471000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001ffffffff030a00000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401ccf078724e18090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```bash
-AssetValidate (x)
-vin1 10, vout0 10, AssetValidateBuyvin
-Got 0.00000010 to origaddr.(RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ)
-21d152480275568e3f82a5049d8b30308e3739ebd98171e075a75fea504364cd
-```
-
-</collapse-text>
-
-
-Step 3: Decode the raw transaction (optional to check if the values are sane)
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 010000000234c335a46dadea8e42420b0e284f5577cfbcb7764a8d5c3b61312b71c5b14d0800000000494830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601ffffffff5ca636731b8c28889248a0b434e3124f19518b2c4b4bbefd80af303329ae9471000000007b4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001ffffffff030a00000000000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401ccf078724e18090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e00000000
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```json
-{
-  "txid": "21d152480275568e3f82a5049d8b30308e3739ebd98171e075a75fea504364cd",
-  "size": 434,
-  "version": 1,
-  "locktime": 0,
-  "vin": [
-    {
-      "txid": "084db1c5712b31613b5c8d4a76b7bccf77554f280e0b42428eeaad6da435c334",
-      "vout": 0,
-      "scriptSig": {
-        "asm": "30450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601",
-        "hex": "4830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601"
-      },
-      "sequence": 4294967295
-    },
-    {
-      "txid": "7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c",
-      "vout": 0,
-      "scriptSig": {
-        "asm": "a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001",
-        "hex": "4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001"
-      },
-      "sequence": 4294967295
-    }
-  ],
-  "vout": [
-    {
-      "value": 0.0000001,
-      "valueSat": 10,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "a22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401 OP_CHECKCRYPTOCONDITION",
-        "hex": "2ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc",
-        "reqSigs": 1,
-        "type": "cryptocondition",
-        "addresses": ["RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti"]
-      }
-    },
-    {
-      "value": 99999.9999,
-      "valueSat": 9999999990000,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
-        "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
-        "reqSigs": 1,
-        "type": "pubkey",
-        "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
-      }
-    },
-    {
-      "value": 0.0,
-      "valueSat": 0,
-      "n": 2,
-      "scriptPubKey": {
-        "asm": "OP_RETURN e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
-        "hex": "6a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
-        "type": "nulldata"
-      }
-    }
-  ]
-}
-```
-
-</collapse-text>
-
 ## tokencreate
 
 **tokencreate name supply description**
@@ -539,9 +124,17 @@ The method returns a hex-encoded transaction which should then be broadcast usin
 
 `sendrawtransaction` then returns a `txid`, which is your `tokenid`.
 
-::: tip
-Tokens that can be divided and transferred in fractional amounts can be created too. If you consider 10 tokens as a single unit, then this unit can be named anything and it will be divisible to a single decimal place. This can be handled on the application side as it is just a change in the way of interpreting the numbers.
-:::
+#### Non-Fungible Tokens
+
+A non-fungible token contains an additional array of data describing its corresponding asset. The data has an eval code which binds this non-fungible token to an Antara Module responsible for validation.
+
+To create a non-fungible token, use only 1 satoshi.
+
+#### Fractional Tokens
+
+To create a token that can be divided and transferred in fractional amounts, this must be handled on the application side of development. 
+
+To create a token that is divisible to one decimal place, for example, consider 10 tokens as a single unit. Sending one satoshi's worth of the token is the equivalent of sending one decimal point of the actual token.
 
 ### Arguments
 
@@ -723,7 +316,7 @@ Command:
 
 **tokenlist**
 
-The `tokenlist` method lists all available tokens on the Smart Chain.
+The `tokenlist` method lists all available tokens on the asset chain.
 
 ### Arguments
 
@@ -764,188 +357,15 @@ Command:
 
 </collapse-text>
 
-## tokenorders
-
-**tokenorders (tokenid)**
-
-The `tokenorders` method displays the public on-chain orderbook for a specific token. If no `tokenid` is provided, it displays the on-chain orderbook for all available tokens.
-
-Information about the `funcid` property:
-
-- A lowercase `b` describes an bid offer.
-
-- An uppercase `B` describes a bid fill.
-
-- A lowercase `s` describes an ask offer.
-
-- An uppercase `S` describes the ask fill.
-
-### Arguments
-
-| Name | Type | Description | 
-| --------- | ------------------ | ------------------------------------- |
-| tokenid   | (string, optional) | the identifying txid for the token id |
-
-### Response
-
-| Name | Type | Description | 
-| ------------------- | -------------------------- | ------------------------------------------------------------------------------ |
-| funcid              | (string)                   | describes either a bid ask `b`, a bid fill `B`, an ask `s`, or an ask fill `S` |
-| txid                | (string)                   | the txid of the identifying order or fill                                      |
-| vout                | (number)                   | the vout value                                                                 |
-| amount              | (number)                   | the amount remaining in the bid/ask request                                    |
-| bidamount/askamount | (number)                   | the total amount of the relevant bid or ask request                            |
-| origaddress         | (string)                   | the address that made the original bid `b` or ask `s`                          |
-| tokenid             | (string)                   | the tokenid for the relevant bid/ask request/fill                              |
-| totalrequired       | (number, `b` and `s` only) | the total amount available in the original big/ask request/fill                |
-| price               | (number, `b` and `s` only) | the price per token, units are in the parent Smart Chain's coin                |
-
-#### :pushpin: Examples
-
-Show all available orders
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD tokenorders
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```json
-[
-  {
-    "funcid": "B",
-    "txid": "b9d305e9b6a82e715efce9b6244cc15fef131baf1893a7eb45b199c23b3fb806",
-    "vout": 0,
-    "amount": 0,
-    "bidamount": 0,
-    "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
-    "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59"
-  },
-  {
-    "funcid": "b",
-    "txid": "45b3f7874fc4a2699729a9792bc7679f6b5f11035a29ad9f661425b19534dd1d",
-    "vout": 0,
-    "amount": 1000,
-    "bidamount": 1000,
-    "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
-    "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
-    "totalrequired": 1000,
-    "price": 1
-  },
-  {
-    "funcid": "B",
-    "txid": "d4643ce47e9799681a4549468d47c85337367f0ef2733afe1d79c50175e6ae32",
-    "vout": 0,
-    "amount": 0,
-    "bidamount": 0,
-    "origaddress": "R9sDyKt2kW5uJaoZT6GF9e3WRbGioBuhoZ",
-    "tokenid": "e7d034fb7dbad561c9a86dcbcc64aa89e1d311891b4e7c744280b7de13b1186f"
-  },
-  {
-    "funcid": "B",
-    "txid": "0909df82ade3193c9a630dd80947141f34489732e9a2f8346790304ebbdcc251",
-    "vout": 0,
-    "amount": 0,
-    "bidamount": 0,
-    "origaddress": "R9sDyKt2kW5uJaoZT6GF9e3WRbGioBuhoZ",
-    "tokenid": "e7d034fb7dbad561c9a86dcbcc64aa89e1d311891b4e7c744280b7de13b1186f"
-  },
-  {
-    "funcid": "b",
-    "txid": "a8d60a3ce429ccb885ad445e7a4534130a35d2424d1883c6513d0f4da2fe9a92",
-    "vout": 0,
-    "amount": 150,
-    "bidamount": 150,
-    "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
-    "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
-    "totalrequired": 100,
-    "price": 1.5
-  },
-  {
-    "funcid": "B",
-    "txid": "03e118fc442a223df4dd87add64f142e1bfd99baee94c8be26bc77ed809d50a4",
-    "vout": 0,
-    "amount": 0,
-    "bidamount": 0,
-    "origaddress": "R9sDyKt2kW5uJaoZT6GF9e3WRbGioBuhoZ",
-    "tokenid": "e7d034fb7dbad561c9a86dcbcc64aa89e1d311891b4e7c744280b7de13b1186f"
-  }
-]
-```
-
-</collapse-text>
-
-
-Show orders for specific token
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD tokenorders c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59
-```
-
-
-<collapse-text hidden title="Response">
-
-
-```json
-[
-  {
-    "funcid": "B",
-    "txid": "b9d305e9b6a82e715efce9b6244cc15fef131baf1893a7eb45b199c23b3fb806",
-    "vout": 0,
-    "amount": 0,
-    "bidamount": 0,
-    "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
-    "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59"
-  },
-  {
-    "funcid": "b",
-    "txid": "9dabd8c01bb7d59455b64fe100617149c20cb4520d266183686aa4986fd3021d",
-    "vout": 0,
-    "amount": 100,
-    "bidamount": 100,
-    "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
-    "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
-    "totalrequired": 100,
-    "price": 1
-  },
-  {
-    "funcid": "b",
-    "txid": "45b3f7874fc4a2699729a9792bc7679f6b5f11035a29ad9f661425b19534dd1d",
-    "vout": 0,
-    "amount": 1000,
-    "bidamount": 1000,
-    "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
-    "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
-    "totalrequired": 1000,
-    "price": 1
-  },
-  {
-    "funcid": "b",
-    "txid": "a8d60a3ce429ccb885ad445e7a4534130a35d2424d1883c6513d0f4da2fe9a92",
-    "vout": 0,
-    "amount": 150,
-    "bidamount": 150,
-    "origaddress": "RQymbXA8FfWw2AaHv7oC8JRKo9W5HkFVMm",
-    "tokenid": "c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59",
-    "totalrequired": 100,
-    "price": 1.5
-  }
-]
-```
-
-</collapse-text>
-
 ## tokentransfer
 
 **tokentransfer tokenid destpubkey amount**
 
-The `tokentransfer` method transfers tokens from one cc address to another.
+The `tokentransfer` method transfers tokens from one Antara Address to another.
 
-It is similar to the [sendmany](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#sendmany) method used to send coins on the parent chain.
+It is similar to the [sendmany](../komodo-api/wallet.html#sendmany) method used to send coins on the parent chain.
 
-The method returns a raw hex, which must be broadcast using [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) to complete the command.
+The method returns a raw hex, which must be broadcast using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) to complete the command.
 
 ::: tip
 The source `txid/vout` needs to be specified as it is critical to match outputs with inputs.
