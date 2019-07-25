@@ -225,15 +225,15 @@ Use this method to get the information of all the peers.
 
 #### Arguments
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| none |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### Response
 
 | Name              | Type     | Description                                                      |
 | ----------------- | -------- | ---------------------------------------------------------------- |
-| nodeid            | (number) | the number of the node                                           |
+| nodeid            | (number) | the number given to a node by our instance of the nSPV client    |
 | ipaddress         | (string) | the ipaddress of the node                                        |
 | port              | (number) | the p2p port used to connect to this node                        |
 | lastping          | (number) | the unix time at which this node was last pinged                 |
@@ -374,7 +374,11 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getpeerinfo",
 
 **hdrsproof prevheight nextheight**
 
-This method scans backwards from the `prevheight` till it finds the find the first notarization transaction, then forward from `nextheight` till it finds the find the first notarization transaction. Then it finds the notarized blocks corresponding to these two notarization transactions. Then it returns all the headers in between. Now that both the ends of the segment are notarized blocks, the headers can be validated to see if they link back to each other.
+This method scans backwards from the `prevheight` till it finds the find the first notarization transaction, then forward from `nextheight` till it finds the find the first notarization transaction.
+
+Then it finds the notarized blocks corresponding to these two notarization transactions.
+
+Then it returns all the headers in between. Now that both the ends of the segment are notarized blocks, the headers can be validated to see if they link back to each other.
 
 #### Arguments
 
@@ -385,16 +389,33 @@ This method scans backwards from the `prevheight` till it finds the find the fir
 
 #### Response
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name           | Type     | Description                                                                                                                                 |
+| -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| result         | (string) | whether the command was successful                                                                                                          |
+| prevht         | (string) | the height of the first notarized block below the height `prevheight`                                                                       |
+| nextht         | (string) | the height of the first notarized block above the height `nextheight`                                                                       |
+| prevtxid       | (string) | the id of the transaction that contains the notarization data of the block of height `prevht`                                               |
+| prevtxidht     | (string) | the height of the block in which the transaction with id `prevtxid` is present                                                              |
+| prevtxlen      | (string) | the length of the transaction with id `prevtxid`                                                                                            |
+| nexttxid       | (string) | the id of the transaction that contains the notarization data of the block of height `nextht`                                               |
+| nexttxidht     | (string) | the height of the block in which the transaction with id `nexttxid` is present                                                              |
+| nexttxlen      | (string) | the length of the transaction with id `nexttxid`                                                                                            |
+| numhdrs        | (string) | the number of headers being returned                                                                                                        |
+| headers        | (string) | a json containing the details of the header (of the current block by default / block of height specified by `hdrheight` if it is specified) |
+| height         | (number) | the height of the block that has been queried                                                                                               |
+| blockhash      | (string) | the blockhash of the block that has been queried                                                                                            |
+| hashPrevBlock  | (string) | the blockhash of the block before the block that has been queried                                                                           |
+| hashMerkleRoot | (string) | the merkleroot of the block that has been queried                                                                                           |
+| nTime          | (number) | a timestamp recording when this block was created                                                                                           |
+| nBits          | (number) | the calculated difficulty target being used for this block                                                                                  |
+| lastpeer       | (string) | the last known peer                                                                                                                         |
 
 #### :pushpin: Examples
 
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"hdrsproof\",\"prevheight\":1456692,\"nextheight\":1456694}"
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "hdrsproof", "params": [1456692, 1456694 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
