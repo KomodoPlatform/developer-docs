@@ -713,7 +713,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "help", "param
 
 ### listtransactions
 
-**listtransactions [address [isCC [skipcount]]]**
+**listtransactions [address [isCC [skipcount [filter]]]]**
 
 This method returns a list of transactions for an address.
 
@@ -724,29 +724,32 @@ This method returns a list of transactions for an address.
 | address   | (string, optional) | the address for which transactions are to be listed; if not specified, the currently logged in address is used |
 | isCC      | (number, optional) | only return transactions that are related to Antara modules                                                    |
 | skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction     |
+| filter    | (number, optional) | Not implemented yet                                                                                            |
 
 #### Response
 
-| Name     | Type             | Description                                                     |
-| -------- | ---------------- | --------------------------------------------------------------- |
-| result   | (string)         | whether the command was successful                              |
-| txids    | (array of jsons) | an array containing jsons that describe the transactions        |
-| height   | (number)         | the height of the block in which the transaction was included   |
-| txid     | (string)         | the id of the transaction                                       |
-| interest | (number)         | the amount of coins in the vin/vout                             |
-| vin/vout | (number)         | the index of vin/vout in the transaction                        |
-| address  | (string)         | the address for which the transactions are being returned       |
-| isCC     | (number)         | whether the address is an address belonging to an Antara module |
-| height   | (number)         | the height of the blockchain when this response was returned    |
-| numtxids | (number)         | number of vouts/vins being returned                             |
-| lastpeer | (string)         | the last known peer                                             |
+| Name      | Type             | Description                                                        |
+| --------- | ---------------- | ------------------------------------------------------------------ |
+| result    | (string)         | whether the command was successful                                 |
+| txids     | (array of jsons) | an array containing jsons that describe the transactions           |
+| height    | (number)         | the height of the block in which the transaction was included      |
+| txid      | (string)         | the id of the transaction                                          |
+| value     | (number)         | the amount of coins in the vin/vout (inputs and outputs)           |
+| vin/vout  | (number)         | the index of vin/vout in the transaction                           |
+| address   | (string)         | the address for which the transactions are being returned          |
+| isCC      | (number)         | whether the address belongs to an Antara module                    |
+| height    | (number)         | the height of the blockchain when this response was returned       |
+| numtxids  | (number)         | number of vouts/vins being returned                                |
+| skipcount | (number)         | the number of transactions that have been skipped; from the oldest |
+| filter    | (number)         | Not implemented yet                                                |
+| lastpeer  | (string)         | the last known peer                                                |
 
 #### :pushpin: Examples
 
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"listtransactions\",\"address\":\"RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb\"}"
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listtransactions", "params": ["RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb"] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
@@ -758,26 +761,46 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
     {
       "height": 1453830,
       "txid": "04df7641f114c14fa4fbe2ec6e8ef5b55417f78fd12ef90b1217fcf512cb5ec2",
-      "interest": 2.98,
+      "value": 2.98,
       "vout": 1
     },
     {
       "height": 1453881,
       "txid": "e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",
-      "interest": -2.98,
+      "value": -2.98,
       "vin": 0
     },
     {
       "height": 1453881,
       "txid": "e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",
-      "interest": 2.00999,
+      "value": 2.00999,
+      "vout": 1
+    },
+    {
+      "height": 1458037,
+      "txid": "c76fede03fd821cf718b8ca7de898b95d04d7b9f7fcaeda89ccc00519476ec4a",
+      "value": 1,
+      "vout": 0
+    },
+    {
+      "height": 1458037,
+      "txid": "c76fede03fd821cf718b8ca7de898b95d04d7b9f7fcaeda89ccc00519476ec4a",
+      "value": -2.00999,
+      "vin": 0
+    },
+    {
+      "height": 1458037,
+      "txid": "c76fede03fd821cf718b8ca7de898b95d04d7b9f7fcaeda89ccc00519476ec4a",
+      "value": 1.00989,
       "vout": 1
     }
   ],
   "address": "RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb",
   "isCC": 0,
-  "height": 1457918,
-  "numtxids": 3,
+  "height": 1458248,
+  "numtxids": 6,
+  "skipcount": 0,
+  "filter": 0,
   "lastpeer": "nodeid.1"
 }
 ```
@@ -786,26 +809,46 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 ### listunspent
 
-**listunspent [address [isCC [skipcount]]]**
+**listunspent [address [isCC [skipcount [filter]]]]**
+
+Use this method to retrieve all the unspent outputs belonging to an address.
 
 #### Arguments
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name      | Type               | Description                                                                                                    |
+| --------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
+| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the currently logged in address is used |
+| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                    |
+| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction     |
+| filter    | (number, optional) | Not implemented yet                                                                                            |
 
 #### Response
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name      | Type             | Description                                                  |
+| --------- | ---------------- | ------------------------------------------------------------ |
+| result    | (string)         | whether the command was successful                           |
+| utxos     | (array of jsons) | an array containing jsons that describe the outputs          |
+| height    | (number)         | the height of the block in which the output was created      |
+| txid      | (string)         | the id of the transaction in which the output is present     |
+| vout      | (number)         | the index of the vout(output) in the transaction             |
+| value     | (number)         | the amount of coins in the vout(output)                      |
+| rewards   | (number)         | the amount of active user rewards claimable by the output    |
+| address   | (string)         | the address for which the transactions are being returned    |
+| isCC      | (number)         | whether the address belongs to an Antara module              |
+| height    | (number)         | the height of the blockchain when this response was returned |
+| numutxos  | (number)         | number of vouts(outputs) being returned                      |
+| balance   | (number)         | the total balance available for the address                  |
+| rewards   | (number)         | the total rewards claimable by the address                   |
+| skipcount | (number)         | the number of utoxs that have been skipped; from the oldest  |
+| filter    | (number)         | Not implemented yet                                          |
+| lastpeer  | (string)         | the last known peer                                          |
 
 #### :pushpin: Examples
 
 Command:
 
-```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"listunspent\",\"address\":\"RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb\"}"
+````bash
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listunspent", "params": ["RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb"] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
@@ -815,22 +858,31 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
   "result": "success",
   "utxos": [
     {
-      "height": 1453881,
-      "txid": "e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",
+      "height": 1458037,
+      "txid": "c76fede03fd821cf718b8ca7de898b95d04d7b9f7fcaeda89ccc00519476ec4a",
+      "vout": 0,
+      "value": 1,
+      "rewards": 0
+    },
+    {
+      "height": 1458037,
+      "txid": "c76fede03fd821cf718b8ca7de898b95d04d7b9f7fcaeda89ccc00519476ec4a",
       "vout": 1,
-      "value": 2.00999,
-      "interest": 0
+      "value": 1.00989,
+      "rewards": 0
     }
   ],
   "address": "RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb",
   "isCC": 0,
-  "height": 1457911,
-  "numutxos": 1,
-  "balance": 2.00999,
-  "interest": 0,
-  "lastpeer": "nodeid.1"
+  "height": 1458307,
+  "numutxos": 2,
+  "balance": 2.00989,
+  "rewards": 0,
+  "skipcount": 0,
+  "filter": 0,
+  "lastpeer": "nodeid.17"
 }
-```
+````
 
 </collapse-text>
 
