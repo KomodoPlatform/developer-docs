@@ -914,7 +914,7 @@ Use this method to login to an address.
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"login\",\"wif\":\"Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}"
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "login", "params": ["Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
