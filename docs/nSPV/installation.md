@@ -7,7 +7,7 @@ sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoco
 git clone https://github.com/jl777/libnspv
 ./autogen.sh
 ./configure
-make check
+make
 ```
 
 <!--
