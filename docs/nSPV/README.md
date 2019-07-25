@@ -348,11 +348,14 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getpeerinfo",
 
 **hdrsproof prevheight nextheight**
 
+This method scans backwards from the `prevheight` till it finds the find the first notarization transaction, then forward from `nextheight` till it finds the find the first notarization transaction. Then it finds the notarized blocks corresponding to these two notarization transactions. Then it returns all the headers in between. Now that both the ends of the segment are notarized blocks, the headers can be validated to see if they link back to each other.
+
 #### Arguments
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name       | Type     | Description                                      |
+| ---------- | -------- | ------------------------------------------------ |
+| prevheight | (number) | the block number from which headers are required |
+| nextheight | (number) | the block number to which headers are required   |
 
 #### Response
 
@@ -562,7 +565,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 **help**
 
-Stops the instance of nSPV binary that is accessible by the port specifies in the curl command.
+This method returns the help output containing all the available methods.
 
 #### Arguments
 
