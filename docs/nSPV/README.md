@@ -102,6 +102,8 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "broadcast", "
 
 **getinfo [hdrheight]**
 
+Use this method to get the general information on the state of the blockchain at the moment.
+
 #### Arguments
 
 | Name      | Type               | Description                                                            |
@@ -711,9 +713,9 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "help", "param
 
 ### listtransactions
 
-This method returns a list of transactions for an address.
-
 **listtransactions [address [isCC [skipcount]]]**
+
+This method returns a list of transactions for an address.
 
 #### Arguments
 
@@ -725,9 +727,19 @@ This method returns a list of transactions for an address.
 
 #### Response
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name     | Type             | Description                                                     |
+| -------- | ---------------- | --------------------------------------------------------------- |
+| result   | (string)         | whether the command was successful                              |
+| txids    | (array of jsons) | an array containing jsons that describe the transactions        |
+| height   | (number)         | the height of the block in which the transaction was included   |
+| txid     | (string)         | the id of the transaction                                       |
+| interest | (number)         | the amount of coins in the vin/vout                             |
+| vin/vout | (number)         | the index of vin/vout in the transaction                        |
+| address  | (string)         | the address for which the transactions are being returned       |
+| isCC     | (number)         | whether the address is an address belonging to an Antara module |
+| height   | (number)         | the height of the blockchain when this response was returned    |
+| numtxids | (number)         | number of vouts/vins being returned                             |
+| lastpeer | (string)         | the last known peer                                             |
 
 #### :pushpin: Examples
 
