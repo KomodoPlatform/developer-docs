@@ -436,12 +436,6 @@ var sidebar = {
       ]
     }
   ],
-  "/nSPV/": [
-    ["/nSPV/introduction.md", "Introduction"],
-    ["/nSPV/installation.md", "Installation"],
-    ["/nSPV/api.md", "API"],
-    ["/nSPV/walkthrough.md", "Walkthrough"]
-  ],
   "/notary/": [{
       title: "Basics",
       collapsable: true,

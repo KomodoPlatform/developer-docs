@@ -1,6 +1,32 @@
-# API
+---
+sidebar: auto
+---
 
-## broadcast
+# nSPV
+
+## Introduction
+
+The nSPV is a technology that leverages the dPoW security mechanism of the Komodo Platform to enable secure and scalable super-lite SPV clients for the Komodo(KMD) blockchain as well as all the SmartChains and External chains that are secured by dPoW.
+
+For a Chain that has nSPV enabled, its full nodes will be able to serve the necessary data to the nSPV clients and enable them to have a full wallet functionality while requiring very little in terms of computational and storage resources.
+
+More details are available in the blog posts by jl777 [here](https://medium.com/@jameslee777/nspv-a-simple-approach-to-superlight-clients-leveraging-notarizations-75d7ef5a37a9) and [here](https://medium.com/@jameslee777/nspv-reference-cli-client-cf1ffdc03631)
+
+## Installation
+
+```bash
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool libncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libqrencode-dev libdb++-dev ntp ntpdate nano software-properties-common curl libevent-dev libcurl4-gnutls-dev cmake clang libsodium-dev -y
+git clone https://github.com/jl777/libnspv
+./autogen.sh
+./configure
+make
+```
+
+## API
+
+### broadcast
 
 **broadcast hex**
 
@@ -41,7 +67,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 </collapse-text>
 
-## getinfo
+### getinfo
 
 **getinfo [hdrheight]**
 
@@ -116,7 +142,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 </collapse-text>
 
-## getnewaddress
+### getnewaddress
 
 **getnewaddress**
 
@@ -156,7 +182,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 </collapse-text>
 
-## hdrsproof
+### hdrsproof
 
 **hdrsproof prevheight nextheight**
 
@@ -370,7 +396,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 </collapse-text>
 
-## listtransactions
+### listtransactions
 
 **listtransactions [address [isCC [skipcount]]]**
 
@@ -429,7 +455,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 </collapse-text>
 
-## listunspent
+### listunspent
 
 **listunspent [address [isCC [skipcount]]]**
 
@@ -479,7 +505,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 </collapse-text>
 
-## login
+### login
 
 **login wif**
 
@@ -523,7 +549,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 </collapse-text>
 
-## logout
+### logout
 
 **logout**
 
@@ -555,7 +581,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 </collapse-text>
 
-## mempool
+### mempool
 
 **mempool memfunc address isCC [txid vout]]]**
 
@@ -615,7 +641,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 </collapse-text>
 
-## notarizations
+### notarizations
 
 **notarizations height**
 
@@ -664,7 +690,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 </collapse-text>
 
-## spend
+### spend
 
 **spend address amount**
 
@@ -729,7 +755,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 </collapse-text>
 
-## spentinfo
+### spentinfo
 
 **spentinfo txid vout**
 
@@ -761,7 +787,7 @@ Command:
 
 </collapse-text>
 
-## txproof
+### txproof
 
 **txproof txid height**
 

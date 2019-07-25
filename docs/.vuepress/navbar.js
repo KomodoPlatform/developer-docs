@@ -38,7 +38,7 @@ var navbar = [{
             },
             {
                 text: "nSPV",
-                link: "/nSPV/introduction.md"
+                link: "/nSPV/"
             },
             {
                 text: "Agama",
