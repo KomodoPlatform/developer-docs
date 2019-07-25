@@ -2,7 +2,7 @@
 sidebar: auto
 ---
 
-# nSPV
+# nSPV (WIP)
 
 ## Introduction
 
@@ -40,16 +40,21 @@ Use this method to broadcast a hex returned by the [spend](#spend) method.
 
 #### Response
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name      | Type     | Description                                                                                                    |
+| --------- | -------- | -------------------------------------------------------------------------------------------------------------- |
+| result    | (string) | whether the command was successful                                                                             |
+| expected  | (string) | the expected transaction id                                                                                    |
+| broadcast | (string) | the broadcasted transaction id                                                                                 |
+| retcode   | (number) | the return code (if 0: no error, -1,-2,-3: failure, -200x: mostly OK, some of the inputs may not be notarized) |
+| type      | (string) | the type of the broadcast                                                                                      |
+| lastpeer  | (string) | the last known peer                                                                                            |
 
 #### :pushpin: Examples
 
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"broadcast\",\"hex\":\"0400008085202f890155c894ada147bf184bb7dff790ca429e6860775d3bb471dc0f69a28f080977e0010000006a47304402206774ff903a8a4b73bcd5a79fe5c744f34d2263160cd8877c198c2228c66a8a42022063e1d2d6403c395e3472a6a509f01cbff0b90e3413bc6f7bc492649302a4a64001210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06ffffffff0200e1f505000000001976a9144726f2838fc4d6ac66615e10604e18926e9b556e88ac48f804060000000023210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06ace77e395d000000000000000000000000000000\"}"
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "broadcast", "params": ["0400008085202f890155c894ada147bf184bb7dff790ca429e6860775d3bb471dc0f69a28f080977e0010000006a47304402206774ff903a8a4b73bcd5a79fe5c744f34d2263160cd8877c198c2228c66a8a42022063e1d2d6403c395e3472a6a509f01cbff0b90e3413bc6f7bc492649302a4a64001210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06ffffffff0200e1f505000000001976a9144726f2838fc4d6ac66615e10604e18926e9b556e88ac48f804060000000023210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06ace77e395d000000000000000000000000000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
@@ -108,7 +113,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"getinfo\"}"
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
@@ -156,16 +161,20 @@ Use this method to create a new address.
 
 #### Response
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name       | Type     | Description                                            |
+| ---------- | -------- | ------------------------------------------------------ |
+| wif        | (string) | wifkey of the generated address                        |
+| address    | (string) | the generated address                                  |
+| pubkey     | (string) | pubkey of the generated address                        |
+| wifprefix  | (number) | prefix of the generated wifkey, depends on the network |
+| compressed | (number) | whether the wifkey generated is compressed             |
 
 #### :pushpin: Examples
 
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"getnewaddress\"}"
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getnewaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
@@ -178,6 +187,159 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
   "wifprefix": 188,
   "compressed": 1
 }
+```
+
+</collapse-text>
+
+### getpeerinfo
+
+**getpeerinfo**
+
+Use this method to get the information of all the peers.
+
+#### Arguments
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| none |      |             |
+
+#### Response
+
+| Name              | Type     | Description                                                      |
+| ----------------- | -------- | ---------------------------------------------------------------- |
+| nodeid            | (number) | the number of the node                                           |
+| ipaddress         | (string) | the ipaddress of the node                                        |
+| port              | (number) | the p2p port used to connect to this node                        |
+| lastping          | (number) | the unix time at which this node was last pinged                 |
+| time_started_con  | (number) | the unix time at which a connection to this node was established |
+| time_last_request | (number) | <!--FIXME -->                                                    |
+| services          | (number) | <!--FIXME -->                                                    |
+| missbehavescore   | (number) | the score given to this node if it was misbehaving               |
+| bestknownheight   | (number) | the height of the blockchain as best known by this node          |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getpeerinfo", "params": [0 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+[
+  {
+    "nodeid": 1,
+    "ipaddress": "5.9.253.195",
+    "port": 7770,
+    "lastping": 1564055618,
+    "time_started_con": 1564054503,
+    "time_last_request": 0,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1458111
+  },
+  {
+    "nodeid": 11,
+    "ipaddress": "209.58.144.205",
+    "port": 7770,
+    "lastping": 1564055628,
+    "time_started_con": 1564054513,
+    "time_last_request": 0,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1458111
+  },
+  {
+    "nodeid": 12,
+    "ipaddress": "94.130.224.11",
+    "port": 7770,
+    "lastping": 1564055628,
+    "time_started_con": 1564054513,
+    "time_last_request": 0,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1458111
+  },
+  {
+    "nodeid": 13,
+    "ipaddress": "136.243.58.134",
+    "port": 7770,
+    "lastping": 1564055628,
+    "time_started_con": 1564054513,
+    "time_last_request": 0,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1458111
+  },
+  {
+    "nodeid": 14,
+    "ipaddress": "64.120.113.130",
+    "port": 7770,
+    "lastping": 1564055628,
+    "time_started_con": 1564054513,
+    "time_last_request": 0,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1458111
+  },
+  {
+    "nodeid": 15,
+    "ipaddress": "159.65.93.178",
+    "port": 7770,
+    "lastping": 1564055628,
+    "time_started_con": 1564054513,
+    "time_last_request": 0,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1458111
+  },
+  {
+    "nodeid": 18,
+    "ipaddress": "159.69.72.206",
+    "port": 7770,
+    "lastping": 1564055628,
+    "time_started_con": 1564054513,
+    "time_last_request": 0,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1458111
+  },
+  {
+    "nodeid": 23,
+    "ipaddress": "138.201.9.167",
+    "port": 7770,
+    "lastping": 1564055628,
+    "time_started_con": 1564054513,
+    "time_last_request": 0,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1458111
+  },
+  {
+    "nodeid": 24,
+    "ipaddress": "109.225.40.194",
+    "port": 7770,
+    "lastping": 1564055628,
+    "time_started_con": 1564054513,
+    "time_last_request": 0,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1458111
+  },
+  {
+    "nodeid": 25,
+    "ipaddress": "116.203.17.140",
+    "port": 7770,
+    "lastping": 1564055628,
+    "time_started_con": 1564054513,
+    "time_last_request": 0,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1458111
+  }
+]
 ```
 
 </collapse-text>
@@ -396,15 +558,120 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 </collapse-text>
 
+### help
+
+**help**
+
+Stops the instance of nSPV binary that is accessible by the port specifies in the curl command.
+
+#### Arguments
+
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
+
+#### Response
+
+| Name    | Type             | Description                                                 |
+| ------- | ---------------- | ----------------------------------------------------------- |
+| result  | (string)         | whether the command was successful                          |
+| methods | (array of jsons) | an array containing a json for each method                  |
+| method  | (string)         | name of a method                                            |
+| fields  | (array)          | an array conataining the description of parameters expected |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "help", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "methods": [
+    { "method": "stop", "fields": [] },
+    { "method": "help", "fields": [] },
+    { "method": "logout", "fields": [] },
+    { "method": "getnewaddress", "fields": [] },
+    { "method": "getpeerinfo", "fields": [] },
+    { "method": "login", "fields": [{ "wif": "string" }] },
+    { "method": "broadcast", "fields": [{ "hex": "string" }] },
+    {
+      "method": "listunspent",
+      "fields": [
+        { "address": "string" },
+        { "isCC": "uint32_t" },
+        { "skipcount": "uint32_t" },
+        { "filter": "uint32_t" }
+      ]
+    },
+    {
+      "method": "listtransactions",
+      "fields": [
+        { "address": "string" },
+        { "isCC": "uint32_t" },
+        { "skipcount": "uint32_t" },
+        { "filter": "uint32_t" }
+      ]
+    },
+    { "method": "notarizations", "fields": [{ "height": "uint32_t" }] },
+    {
+      "method": "hdrsproof",
+      "fields": [{ "prevheight": "uint32_t" }, { "nextheight": "uint32_t" }]
+    },
+    { "method": "getinfo", "fields": [{ "hdrheight": "uint32_t" }] },
+    {
+      "method": "txproof",
+      "fields": [
+        { "txid": "hash" },
+        { "vout": "uint32_t" },
+        { "height": "uint32_t" }
+      ]
+    },
+    {
+      "method": "spentinfo",
+      "fields": [{ "txid": "hash" }, { "vout": "uint32_t" }]
+    },
+    {
+      "method": "spend",
+      "fields": [{ "address": "string" }, { "amount": "float" }]
+    },
+    {
+      "method": "mempool",
+      "fields": [
+        { "address": "string" },
+        { "isCC": "uint32_t" },
+        { "memfunc": "uint32_t" },
+        { "txid": "hash" },
+        { "vout": "uint32_t" },
+        { "evalcode": "uint32_t" },
+        { "CCfunc": "uint32_t" }
+      ]
+    }
+  ],
+  "num": 16
+}
+```
+
+</collapse-text>
+
 ### listtransactions
+
+This method returns a list of transactions for an address.
 
 **listtransactions [address [isCC [skipcount]]]**
 
 #### Arguments
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name      | Type               | Description                                                                                                    |
+| --------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
+| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the currently logged in address is used |
+| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                    |
+| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction     |
 
 #### Response
 
@@ -776,13 +1043,57 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 Command:
 
 ```bash
-
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "params": ["e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",1 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
 
 ```json
+{
+  "result": "success",
+  "txid": "e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",
+  "vout": 1,
+  "spentheight": 1458037,
+  "spenttxid": "c76fede03fd821cf718b8ca7de898b95d04d7b9f7fcaeda89ccc00519476ec4a",
+  "spentvini": 0,
+  "spenttxlen": 254,
+  "spenttxprooflen": 1655,
+  "lastpeer": "nodeid.1"
+}
+```
 
+</collapse-text>
+
+### stop
+
+**stop**
+
+Stops the instance of nSPV binary that is accessible by the port specifies in the curl command.
+
+#### Arguments
+
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
+
+#### Response
+
+| Name   | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+| result | (string) | whether the command was successful |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "stop", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{ "result": "success" }
 ```
 
 </collapse-text>
