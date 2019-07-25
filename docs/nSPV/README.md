@@ -134,6 +134,7 @@ Use this method to get the general information on the state of the blockchain at
 | hashMerkleRoot          | (string) | the merkleroot of the block that has been queried                                                                                           |
 | nTime                   | (number) | a timestamp recording when this block was created                                                                                           |
 | nBits                   | (number) | the calculated difficulty target being used for this block                                                                                  |
+| protocolversion         | (string) | the version of the client; helps the nspv client disconnect from nodes that are out of date                                                 |
 | lastpeer                | (string) | the last known peer                                                                                                                         |
 
 #### :pushpin: Examples
@@ -150,25 +151,24 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getinfo", "pa
 {
   "result": "success",
   "nSPV": "superlite",
-  "address": "RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb",
-  "pubkey": "0217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06",
-  "height": 1456694,
-  "chaintip": "000000008b4a3386489d1438ddc1220652942c95053f2c95c72c6868af215c8a",
+  "height": 1458356,
+  "chaintip": "09b322ed45c2346316fb7f5bc9fbd7a4e27ea1b4803f68ad4c9649c13f19b479",
   "notarization": {
-    "notarized_height": 1456680,
-    "notarized_blockhash": "00000000a651e00fa2a71c47511be85ef87e83d5715be3a17ed943b141cdd4d9",
-    "notarization_txid": "e82367899ee7a5cb65dabe058cd7369392564f83834c8f1f81a21958da5d241c",
-    "notarization_txidheight": 1456693,
-    "notarization_desttxid": "1d152621a96c9b249ad8a783651ac827672d10c56fe24cee03ce188d06b3c6f5"
+    "notarized_height": 1458340,
+    "notarized_blockhash": "02ec52149e0ebc3d8c0e33612f6a6da76ceb01d3604cd3a63269c9c14f8b50ce",
+    "notarization_txid": "3f6e11d0f210fd2fa2d39359fae3e70ce63cfc78e2cf555b1a84d88eb7eab7da",
+    "notarization_txidheight": 1458354,
+    "notarization_desttxid": "500a12dd8aab6b82db602f3f8f7f80573f6d4af6be4d9eb96dee0accf4ecf1b6"
   },
   "header": {
-    "height": 1456694,
-    "blockhash": "000000008b4a3386489d1438ddc1220652942c95053f2c95c72c6868af215c8a",
-    "hashPrevBlock": "01a724e7686a4dce74884ebd8bd869c855d1a71afc80c906830acfa1d14811cd",
-    "hashMerkleRoot": "8ea989e47aa590fbabf19b5a7dbace61f32be3c51c558b991f7718b27eaa6b98",
-    "nTime": 1563969053,
-    "nBits": 486610300
+    "height": 1458356,
+    "blockhash": "09b322ed45c2346316fb7f5bc9fbd7a4e27ea1b4803f68ad4c9649c13f19b479",
+    "hashPrevBlock": "08d31454a0f5a05c1cb194d608c803b94ec0012d0257d08102da8e26439d48af",
+    "hashMerkleRoot": "26123db79cfa63d79e92a375271349e4ba4e0a6d9eddf3fc2044572d29045a16",
+    "nTime": 1564069327,
+    "nBits": 486605795
   },
+  "protocolversion": 0,
   "lastpeer": "nodeid.1"
 }
 ```
@@ -890,7 +890,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listunspent",
 
 **login wif**
 
-Use this method to login to an address.
+Use this method to login to an address using its wifkey.
 
 #### Arguments
 
@@ -936,24 +936,26 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "login", "para
 
 **logout**
 
+Use this method to logout of the currently logged in address.
+
 #### Arguments
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### Response
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name   | Type     | Description                   |
+| ------ | -------- | ----------------------------- |
+| result | (string) | whether the command succeeded |
 
 #### :pushpin: Examples
 
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"logout\"}"
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "logout", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
