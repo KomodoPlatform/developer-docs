@@ -6,7 +6,7 @@ sidebar: auto
 
 ## Introduction
 
-The nSPV is a technology that leverages the dPoW security mechanism of the Komodo Platform to enable secure and scalable super-lite SPV clients for the Komodo(KMD) blockchain as well as all the SmartChains and External chains that are secured by dPoW.
+The nSPV is a technology that leverages the dPoW security mechanism of the Komodo Platform to enable secure and scalable super-lite SPV clients for the Komodo(KMD) blockchain as well as all the SmartChains that are secured by dPoW.
 
 For a Chain that has nSPV enabled, its full nodes will be able to serve the necessary data to the nSPV clients and enable them to have a full wallet functionality while requiring very little in terms of computational and storage resources.
 
