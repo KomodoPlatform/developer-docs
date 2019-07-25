@@ -847,7 +847,7 @@ Use this method to retrieve all the unspent outputs belonging to an address.
 
 Command:
 
-````bash
+```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listunspent", "params": ["RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb"] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
@@ -882,13 +882,15 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listunspent",
   "filter": 0,
   "lastpeer": "nodeid.17"
 }
-````
+```
 
 </collapse-text>
 
 ### login
 
 **login wif**
+
+Use this method to login to an address.
 
 #### Arguments
 
@@ -912,7 +914,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listunspent",
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"login\",\"wif\":\"Uxxxxxxxxxxxxxxxxxxx\"}"
+curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"login\",\"wif\":\"Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}"
 ```
 
 <collapse-text hidden title="Response">
@@ -1243,3 +1245,4 @@ Command:
 ```
 
 </collapse-text>
+````
