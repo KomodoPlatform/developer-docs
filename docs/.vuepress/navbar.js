@@ -33,12 +33,8 @@ var navbar = [{
                 link: "https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html"
             },
             {
-                text: "How to be a Liquidity Provider for AtomicDEX",
+                text: "Be a Liquidity Provider for AtomicDEX",
                 link: "/mmV2/LP/walkthrough.md"
-            },
-            {
-                text: "How To Become a Liquidity Provider for AtomicDEX with Telegram Notifications using Docker",
-                link: "/mmV2/LP/atomicdex-api-docker-telegram.md"
             },
             {
                 text: "nSPV",

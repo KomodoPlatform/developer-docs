@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # How To Become a Liquidity Provider for AtomicDEX
 
 ## Requirements
