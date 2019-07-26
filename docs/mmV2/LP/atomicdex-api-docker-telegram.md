@@ -99,8 +99,8 @@ Successfully tagged komodohowto/dev-marketmaker2:latest
 
 ```json
 "chat": {
-"id": 757608348,
-"first_name": "Gurucharan",
+"id": 7xxxxxxxxxx,
+"first_name": "gxxxxxxx",
 "type": "private"
 },
 ```
