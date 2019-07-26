@@ -94,7 +94,8 @@ Successfully tagged komodohowto/dev-marketmaker2:latest
 - Send the message `/newbot` to create a new bot
 - Send a message containing the required name of the bot. It must end in `bot`. Like this, for example: TetrisBot or tetris_bot.
 - Once the bot is created, take note of the username (hereby referred as `BOT_USERNAME`) and bot token (hereby referred as `BOT_TOKEN`) from the message sent to you.
-- Go to the url: `https://api.telegram.org/bot<YourBOTToken>/getUpdates`. Replace the `<YourBOTToken>` with the `BOT_TOKEN`, noted from the previous step.
+- Start a chat with the new bot created
+- Go to the url: `https://api.telegram.org/bot<YourBOTToken>/getUpdates`. Replace the `<YourBOTToken>` with the `BOT_TOKEN`
 - In the response, look for the key: `chat`
 
 ```json

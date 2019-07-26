@@ -1111,24 +1111,45 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "notarizations
 
 <!--FIXME doc retcodes? -->
 
+This method can be used to spend some coins from the currently loggedin address to any other address.
+
 #### Arguments
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name    | Type     | Description                  |
+| ------- | -------- | ---------------------------- |
+| address | (string) | the address of the recipient |
+| amount  | (number) | the amount to be sent        |
 
 #### Response
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name          | Type     | Description |
+| ------------- | -------- | ----------- |
+| rewards       | (string) |             |
+| validated     | (string) |             |
+| tx            | (string) |             |
+| nVersion      | (number) |             |
+| vin           | (string) |             |
+| txid          | (string) |             |
+| vout          | (number) |             |
+| scriptSig     | (string) |             |
+| sequenceid    | (number) |             |
+| vout          | (number) |             |
+| value         | (string) |             |
+| scriptPubKey  | (string) |             |
+| nLockTime     | (number) |             |
+| nExpiryHeight | (number) |             |
+| valueBalance  | (number) |             |
+| result        | (string) |             |
+| hex           | (string) |             |
+| retcodes      | (number) |             |
+| lastpeer      | (string) |             |
 
 #### :pushpin: Examples
 
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"spend\",\"address\":\"RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb\",\"amount\":1}"
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spend", "params": ["RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb",1 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
