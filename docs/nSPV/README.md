@@ -1122,27 +1122,27 @@ This method can be used to spend some coins from the currently loggedin address 
 
 #### Response
 
-| Name          | Type     | Description |
-| ------------- | -------- | ----------- |
-| rewards       | (string) |             |
-| validated     | (string) |             |
-| tx            | (string) |             |
-| nVersion      | (number) |             |
-| vin           | (string) |             |
-| txid          | (string) |             |
-| vout          | (number) |             |
-| scriptSig     | (string) |             |
-| sequenceid    | (number) |             |
-| vout          | (number) |             |
-| value         | (string) |             |
-| scriptPubKey  | (string) |             |
-| nLockTime     | (number) |             |
-| nExpiryHeight | (number) |             |
-| valueBalance  | (number) |             |
-| result        | (string) |             |
-| hex           | (string) |             |
-| retcodes      | (number) |             |
-| lastpeer      | (string) |             |
+| Name          | Type             | Description                                                                                                   |
+| ------------- | ---------------- | ------------------------------------------------------------------------------------------------------------- |
+| rewards       | (string)         | the rewards being claimed by this spend transaction                                                           |
+| validated     | (string)         |                                                                                                               |
+| tx            | (json)           | a json containing details of the transaction                                                                  |
+| nVersion      | (number)         | version of the komodo daemon                                                                                  |
+| vin           | (array of jsons) | the inputs being consumed by the transaction                                                                  |
+| txid          | (string)         | the id of the transaction whose input is being spent                                                          |
+| vout          | (number)         | the output number in the above transaction                                                                    |
+| scriptSig     | (string)         | the redeem script that satisfies the scriptPubkey of the above output                                         |
+| sequenceid    | (number)         | the sequence number that has been set                                                                         |
+| vout          | (array of jsons) | the outputs being created by the transaction                                                                  |
+| value         | (string)         | the value in the output                                                                                       |
+| scriptPubKey  | (string)         | the locking script placed on the above value                                                                  |
+| nLockTime     | (number)         | the locktime that has been set                                                                                |
+| nExpiryHeight | (number)         | the block height after which the transaction will be removed from the mempool if it has not been mined        |
+| valueBalance  | (number)         |                                                                                                               |
+| result        | (string)         | whether the command succeeded                                                                                 |
+| hex           | (string)         | the transaction in hex format; it should be broadcast to the network using the [broadcast](#broadcast) method |
+| retcodes      | (number)         | the return codes; given an indication on the success or failure in the creation of the transaction            |
+| lastpeer      | (string)         | the last known peer                                                                                           |
 
 #### :pushpin: Examples
 
@@ -1309,4 +1309,3 @@ Command:
 ```
 
 </collapse-text>
-````
