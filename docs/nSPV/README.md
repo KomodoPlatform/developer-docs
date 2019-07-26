@@ -1164,17 +1164,28 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 **spentinfo txid vout**
 
+This method returns the spent info of the output specified by the arguments.
+
 #### Arguments
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name | Type     | Description                                                           |
+| ---- | -------- | --------------------------------------------------------------------- |
+| txid | (string) | the id of the transaction whose spent info is required                |
+| vout | (number) | the vout number in the above transaction whose spent info is required |
 
 #### Response
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name            | Type     | Description                                                           |
+| --------------- | -------- | --------------------------------------------------------------------- |
+| result          | (string) | whether the command succeeded                                         |
+| txid            | (string) | the id of the transaction whose spent info is returned                |
+| vout            | (string) | the vout number in the above transaction whose spent info is required |
+| spentheight     | (string) | the block height at which the output has been spent                   |
+| spenttxid       | (string) | the id of the transaction that spent this output                      |
+| spentvini       | (string) | the input number of this output in the transaction that spent it      |
+| spenttxlen      | (string) | the length of the transaction that spent this output                  |
+| spenttxprooflen | (string) | the length of proof of the transaction that spent this output         |
+| lastpeer        | (string) | the last known peer                                                   |
 
 #### :pushpin: Examples
 
