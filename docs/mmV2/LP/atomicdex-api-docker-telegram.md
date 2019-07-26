@@ -86,6 +86,29 @@ Successfully tagged komodohowto/dev-marketmaker2:latest
 
 </collapse-text>
 
+## Setup Telegram Bot
+
+- Open your Telegram App.
+- Search for the bot named `@BotFather` and start a chat with it
+- Send the message `/help` to receive a list of commands available
+- Send the message `/newbot` to create a new bot
+- Send a message containing the required name of the bot. It must end in `bot`. Like this, for example: TetrisBot or tetris_bot.
+- Once the bot is created, take note of the username (hereby referred as `BOT_USERNAME`) and bot token (hereby referred as `BOT_TOKEN`) from the message sent to you.
+- Go to the url: `https://api.telegram.org/bot<YourBOTToken>/getUpdates`. Replace the `<YourBOTToken>` with the `BOT_TOKEN`, noted from the previous step.
+- In the response, look for the key: `chat`
+
+```json
+"chat": {
+"id": 757608348,
+"first_name": "Gurucharan",
+"type": "private"
+},
+```
+
+- the id in the above json is hereby referred as `BOT_CHATID`
+
+Now we have all the details needed to start our Marketmaker with Telegram bot notifications enabled!
+
 ## Usage
 
 ### Start Container With Telegram Bot Notification
@@ -95,6 +118,8 @@ Command:
 ```bash
 docker run -it -e BOT_TOKEN='989XXXXXX:AAXXXXXXXXXXXXeso' -e BOT_CHATID='93XXXXX6' -e BOT_USERNAME='mymarketmakerbot' komodohowto/dev-marketmaker2
 ```
+
+Replace the values `BOT_TOKEN='989XXXXXX:AAXXXXXXXXXXXXeso' -e BOT_CHATID='93XXXXX6' -e BOT_USERNAME='mymarketmakerbot'` with the ones belonging to your bot
 
 A message will be received on your bot like this:
 
