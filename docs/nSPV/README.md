@@ -630,6 +630,7 @@ This method returns the help output containing all the available methods.
 | methods | (array of jsons) | an array containing a json for each method                  |
 | method  | (string)         | name of a method                                            |
 | fields  | (array)          | an array conataining the description of parameters expected |
+| num     | (number)         | the number of methods available                             |
 
 #### :pushpin: Examples
 
@@ -968,18 +969,27 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "logout", "par
 
 ### mempool
 
-**mempool memfunc address isCC [txid vout]]]**
+**mempool address isCC memfunc [txid vout evalcode ccfunc]]]**
+
+<!--FIXME
+which args are optional and eachone's use
+
+and values and meanings of memfunc
 
 memfunc (0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool 4)
+-->
 
 #### Arguments
 
-| Name | Type     | Description |
-| ---- | -------- | ----------- |
-|      | (number) |             |
-|      | (number) |             |
-|      | (number) |             |
-|      | (number) |             |
+| Name     | Type              | Description |
+| -------- | ----------------- | ----------- |
+| address  | (string,optional) |             |
+| isCC     | (number,optional) |             |
+| memfunc  | (number,optional) |             |
+| txid     | (string,optional) |             |
+| vout     | (number,optional) |             |
+| evalcode | (number,optional) |             |
+| ccfunc   | (number,optional) |             |
 
 #### Response
 
@@ -992,7 +1002,7 @@ memfunc (0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool 4)
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"mempool\",\"memfunc\":0}"
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "mempool", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
@@ -1001,26 +1011,24 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 {
   "result": "success",
   "txids": [
-    "b064b3a208d881e42b9affb6630e1f3ef9cd355e2bca473500dd6b5ca54e8d00",
-    "a7b6e0ae32d2eca11622453f67865076fd656f3ae360bd6d52d51d3718ae6622",
-    "4fa3a626be940ef90ebd4281fc0060b41bfa88d2fd6687711688a9e20bcd4338",
-    "2f49480cc115ed074dc928efda53bbf857c9eb31e8496f499adb5276acd86057",
-    "d0157b65217d30d141652e5c6b0d844f9b37e6882f922113fd78b1c4be5e3b67",
-    "96a8cdfc8c1a8e358423c9efa53c0f178c813340d78fc585d00f0621926dd484",
-    "fa772bf5b999b98327a3d7d9dbf63ea8ca6b801d414ab35b8b159b5e2797a6ab",
-    "bb3570f96472e0634970c8e0d2a06708413de6bc52d8ff63d24070ca16cd60bd",
-    "b79ce7955f4c4c37ce757be2c89a9ccab17d8c8a9fee35c75dc171e41350bac0",
-    "c25781a684fad1930fe12a0a0e049268aa9d98880c1dfb813ddbc7459bf042e5"
+    "9f4a28bf746fc4a8f627302ff09159345a2ca4e3be404b7f4b02e90865c1b301",
+    "f676945f97e791c54e9c2e507e715cd160ec39452aa9019610861039c199d532",
+    "d6712c027c2396265b87a1645cda8fcb8ff40d6c0dd86ff932f25b51387b613b",
+    "eb36d507991accc337c45bd9f0113050223fa0b7b43c76b400cf63fb21cfd26e",
+    "76bafb69f1c58a0726df1719aa5eb16cdc026f06969dfeef20e5752889381b6f",
+    "2d02915d392ca9323fbd2344e9f951dddf59a4a77794d121e88055d90df1bed1",
+    "94f61cf68e30764ef31ea0376d74a1c9d774f6ccb4f2e612f9b650ab38405adf",
+    "050020b9867306c2ab2b131391a9edf0ab72e4d4a018bb1837734850f78ba8f1"
   ],
   "address": "",
   "isCC": 0,
-  "height": 1457919,
-  "numtxids": 10,
+  "height": 1458372,
+  "numtxids": 8,
   "txid": "0000000000000000000000000000000000000000000000000000000000000000",
   "vout": 0,
   "memfunc": 0,
   "type": "all mempool",
-  "lastpeer": "nodeid.1"
+  "lastpeer": "nodeid.20"
 }
 ```
 
