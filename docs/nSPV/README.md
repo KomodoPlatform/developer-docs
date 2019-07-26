@@ -50,6 +50,73 @@ Sync up, show debug info, don't store headers in file (only in memory), wait for
 > nspv -d -f 0 -c scan
 --->
 
+## Enabling the nSPV client to work with Smart Chains
+
+To enable a Smartchain, the following contents are needed in the file named `coins` present in the root level of the source directory.
+
+### Example
+
+```json
+{
+  "coin": "ILN",
+  "asset": "ILN",
+  "fname": "Ilien",
+  "rpcport": 12986,
+  "mm2": 1,
+  "p2p": 12985,
+  "magic": "feb4cb23",
+  "nSPV": "5.9.102.210, 5.9.253.195, 5.9.253.196, 5.9.253.197, 5.9.253.198, 5.9.253.199, 5.9.253.200, 5.9.253.201, 5.9.253.202, 5.9.253.203"
+}
+```
+
+### Explanation
+
+| Name    | Type     | Description                                                                                                                                                                             |
+| ------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin    | (string) | the ticker of the coin                                                                                                                                                                  |
+| asset   | (string) | the `-ac_name` parameter used to satrt the Smart Chain                                                                                                                                  |
+| fname   | (string) | the full name of the Smart Chain                                                                                                                                                        |
+| rpcport | (number) | the rpc port the Smart Chain's daemon uses to receive RPC commands                                                                                                                      |
+| mm2     | (number) | set to 1 if the coin has been tested to work with Marketmaker version 2                                                                                                                 |
+| p2p     | (number) | the p2p port the Smart Chain's daemon uses to communicate with other nodes                                                                                                              |
+| magic   | (string) | the netmagic of the Smart Chain; the decimal value of this can be obtained from the getinfo call of the Smart Chain's full node; Convert it to hex and serialize it into the 4 hexbytes |
+| nSPV    | (string) | the ipaddresses of those nodes of the Smart Chain that have been started with the parameter `-nSPV=1`                                                                                   |
+
+::: tip
+
+- If you got the direction of `magic` wrong, just flip it around
+- To start the nspv client for a specific Smart Chain after its data has been added to the coins file, use `./nspv ILN`
+
+:::
+
+## Command line parameters to the nspv binary
+
+### -p
+
+Use this parameter to set the port the nspv client will listen to for the RPC commands.
+
+Example:
+
+```bash
+./nspv KMD -p 3000
+```
+
+The above command starts the nspv client for the KMD chain and listens on the port 3000 for RPC commands.
+
+## Different ways to interact with the nspv client once it is launched
+
+```bash
+curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"spentinfo\",\"vout\":1,\"txid\":\"e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855\"}"
+```
+
+```bash
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "params": ["e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",1 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
+```
+
+```
+http://127.0.0.1:<port>/api/method/spentinfo/vout/1/txid/e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855
+```
+
 ## API
 
 ### broadcast
@@ -1281,6 +1348,8 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "stop", "param
 ### txproof
 
 **txproof txid vout [height]**
+
+This method is an internal function and its intended function will be implemented by the [gettransaction](#gettransaction) method
 
 #### Arguments
 
