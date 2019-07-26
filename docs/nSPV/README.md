@@ -1280,32 +1280,44 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "stop", "param
 
 ### txproof
 
-**txproof txid height**
+**txproof txid vout [height]**
 
 #### Arguments
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name   | Type              | Description                                        |
+| ------ | ----------------- | -------------------------------------------------- |
+| txid   | (string)          | the id of the transaction whose proof is requested |
+| vout   | (number)          | the number of the output in the above transaction  |
+| height | (number,optional) |                                                    |
 
 #### Response
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name       | Type     | Description                                                  |
+| ---------- | -------- | ------------------------------------------------------------ |
+| txid       | (string) | the id of the transaction whose proof is returned            |
+| height     | (string) | the height at which the proof of the transaction is returned |
+| txlen      | (string) | the length of the transaction                                |
+| txprooflen | (string) | the length of the proof for the transaction                  |
+| lastpeer   | (string) | the last known peer                                          |
 
 #### :pushpin: Examples
 
 Command:
 
 ```bash
-
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "txproof", "params": ["e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",0,1453881 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
 
 ```json
-
+{
+  "txid": "e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",
+  "height": 1453881,
+  "txlen": 244,
+  "txprooflen": 1655,
+  "lastpeer": "nodeid.1"
+}
 ```
 
 </collapse-text>
