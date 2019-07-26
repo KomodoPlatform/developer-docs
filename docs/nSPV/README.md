@@ -971,6 +971,8 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "logout", "par
 
 **mempool address isCC memfunc [txid vout evalcode ccfunc]]]**
 
+This method returns the current transactions in the mempool. The various parameters can be used to filter the transactions.
+
 <!--FIXME
 which args are optional and eachone's use
 
@@ -981,21 +983,31 @@ memfunc (0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool 4)
 
 #### Arguments
 
-| Name     | Type              | Description |
-| -------- | ----------------- | ----------- |
-| address  | (string,optional) |             |
-| isCC     | (number,optional) |             |
-| memfunc  | (number,optional) |             |
-| txid     | (string,optional) |             |
-| vout     | (number,optional) |             |
-| evalcode | (number,optional) |             |
-| ccfunc   | (number,optional) |             |
+| Name     | Type              | Description                                            |
+| -------- | ----------------- | ------------------------------------------------------ |
+| address  | (string,optional) |                                                        |
+| isCC     | (number,optional) | if the transactions should belong to any Antara module |
+| memfunc  | (number,optional) |                                                        |
+| txid     | (string,optional) |                                                        |
+| vout     | (number,optional) |                                                        |
+| evalcode | (number,optional) |                                                        |
+| ccfunc   | (number,optional) |                                                        |
 
 #### Response
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name     | Type               | Description                                             |
+| -------- | ------------------ | ------------------------------------------------------- |
+| result   | (string)           | whether the command was successful                      |
+| txids    | (array of strings) | the ids of the transactions in the mempool              |
+| address  | (string)           | the address that was used to filter the mempool         |
+| isCC     | (number)           | if the transactions returned belong to an Antara Module |
+| height   | (number)           |                                                         |
+| numtxids | (number)           |                                                         |
+| txid     | (string)           |                                                         |
+| vout     | (number)           |                                                         |
+| memfunc  | (number)           |                                                         |
+| type     | (string)           |                                                         |
+| lastpeer | (string)           |                                                         |
 
 #### :pushpin: Examples
 
