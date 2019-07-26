@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # How To Become a Liquidity Provider for AtomicDEX with Telegram Notifications using Docker
 
 ## Installation
