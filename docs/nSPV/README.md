@@ -985,29 +985,29 @@ memfunc (0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool 4)
 
 | Name     | Type              | Description                                            |
 | -------- | ----------------- | ------------------------------------------------------ |
-| address  | (string,optional) |                                                        |
+| address  | (string,optional) | if the transactions should belong to the address       |
 | isCC     | (number,optional) | if the transactions should belong to any Antara module |
-| memfunc  | (number,optional) |                                                        |
-| txid     | (string,optional) |                                                        |
-| vout     | (number,optional) |                                                        |
-| evalcode | (number,optional) |                                                        |
-| ccfunc   | (number,optional) |                                                        |
+| memfunc  | (number,optional) | TBD                                                    |
+| txid     | (string,optional) | TBD                                                    |
+| vout     | (number,optional) | TBD                                                    |
+| evalcode | (number,optional) | TBD                                                    |
+| ccfunc   | (number,optional) | TBD                                                    |
 
 #### Response
 
-| Name     | Type               | Description                                             |
-| -------- | ------------------ | ------------------------------------------------------- |
-| result   | (string)           | whether the command was successful                      |
-| txids    | (array of strings) | the ids of the transactions in the mempool              |
-| address  | (string)           | the address that was used to filter the mempool         |
-| isCC     | (number)           | if the transactions returned belong to an Antara Module |
-| height   | (number)           |                                                         |
-| numtxids | (number)           |                                                         |
-| txid     | (string)           |                                                         |
-| vout     | (number)           |                                                         |
-| memfunc  | (number)           |                                                         |
-| type     | (string)           |                                                         |
-| lastpeer | (string)           |                                                         |
+| Name     | Type               | Description                                                  |
+| -------- | ------------------ | ------------------------------------------------------------ |
+| result   | (string)           | whether the command was successful                           |
+| txids    | (array of strings) | the ids of the transactions in the mempool                   |
+| address  | (string)           | the address that was used to filter the mempool              |
+| isCC     | (number)           | if the transactions returned belong to an Antara Module      |
+| height   | (number)           | the height of the blockchain when this response was returned |
+| numtxids | (number)           | the number of transaction ids that are being returned        |
+| txid     | (string)           | TBD                                                          |
+| vout     | (number)           | TBD                                                          |
+| memfunc  | (number)           | TBD                                                          |
+| type     | (string)           | the type of the filter apploed to the mempool                |
+| lastpeer | (string)           | the last known peer                                          |
 
 #### :pushpin: Examples
 
