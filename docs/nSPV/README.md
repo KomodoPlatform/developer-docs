@@ -1050,24 +1050,34 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "mempool", "pa
 
 **notarizations height**
 
+This method returns the notarization data for a given height.
+
 #### Arguments
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name   | Type     | Description                                       |
+| ------ | -------- | ------------------------------------------------- |
+| height | (number) | the height at which notarization data is required |
 
 #### Response
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-|      |      |             |
+| Name                    | Type     | Description                                                                                                |
+| ----------------------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| result                  | (string) | whether the command was successful                                                                         |
+| prev                    | (json)   | the details of the previous notarization                                                                   |
+| notarized_height        | (number) | the height of the latest block that has been notarized                                                     |
+| notarized_blockhash     | (string) | the blockhash of the latest block that has been notarized                                                  |
+| notarization_txid       | (string) | the id of the transaction in which the notarization data is included in the chain being dPoW'ed            |
+| notarization_txidheight | (number) | the height of the block in which the notarization transaction is included                                  |
+| notarization_desttxid   | (string) | the id of the transaction in which the notarization data is included in the chain acting as the data store |
+| next                    | (json)   | the details of the next notarization                                                                       |
+| lastpeer                | (string) | the last known peer                                                                                        |
 
 #### :pushpin: Examples
 
 Command:
 
 ```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"notarizations\",\"height\":1457800}"
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "notarizations", "params": [145677] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
