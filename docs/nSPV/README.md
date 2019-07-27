@@ -74,7 +74,7 @@ To enable a Smartchain, the following contents are needed in the file named `coi
 | Name    | Type     | Description                                                                                                                                                                             |
 | ------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | coin    | (string) | the ticker of the coin                                                                                                                                                                  |
-| asset   | (string) | the `-ac_name` parameter used to satrt the Smart Chain                                                                                                                                  |
+| asset   | (string) | the `-ac_name` parameter used to start the Smart Chain                                                                                                                                  |
 | fname   | (string) | the full name of the Smart Chain                                                                                                                                                        |
 | rpcport | (number) | the rpc port the Smart Chain's daemon uses to receive RPC commands                                                                                                                      |
 | mm2     | (number) | set to 1 if the coin has been tested to work with Marketmaker version 2                                                                                                                 |
