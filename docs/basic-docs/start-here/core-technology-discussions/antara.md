@@ -114,12 +114,3 @@ Each Antara Module activated on a Smart Chain provides a number of remote proced
 
 The Antara open API is language agnostic so developers can use it to code blockchain-based applications in the programming language of their choosing. This makes Komodo’s Antara Framework the fastest, easiest, and most cost effective way to adopt blockchain technology.
 
-Further still, the Antara Integration Layer comes with a series of white label products, available to every Smart Chain project. 
-
-- A multi-coin wallet that offers storage of more than 250 different digital assets
-- A peer-to-peer crowdfunding app that allows every project to choose which digital assets they would like to accept in the fund raise. New coins are distributed immediately.
-- A decentralized exchange powered by Komodo’s industry-leading atomic swap technology. This product allows peer-to-peer trading with unrestricted trading pairs.
-- A custom block explorer to make your Smart Chain’s ledger publicly visible.
-Integration to SPV servers, which allows users to access their assets on mobile devices.
-
-These products can be adjusted to fit any project’s branding, accelerating a go-to-market strategy.
