@@ -117,7 +117,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 ### `curl` command with json2.0 interface
 
-When using this format, the parameters listed in the `"params"` key should be in the order specified by the docs. Strings should always be between quotation marks `""`
+When using this format, the parameters listed in the `"params"` key should be in the order specified in this doc. Strings should always be between quotation marks `""`
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "params": ["e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",1 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -125,7 +125,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "
 
 ### Accessing localhost through a browser
 
-To access the client through a browser, access the url `http://127.0.0.1:<port>/api/` with the parameters and their names as shown in the example below.
+To access the client through a browser, access the url `http://127.0.0.1:<port>/api/` with the parameters and their names added at the end as shown in the example below.
 
 ```
 http://127.0.0.1:<port>/api/method/spentinfo/vout/1/txid/e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855
