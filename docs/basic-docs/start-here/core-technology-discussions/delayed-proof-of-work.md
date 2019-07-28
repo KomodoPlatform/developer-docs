@@ -234,7 +234,7 @@ Once this meaningless blockchain’s length sufficiently exceed the so-called "t
 
 Throughout the world, (assuming the vanilla protocol) the Bitcoin network would automatically recognize the "false" blockchain as the correct blockchain! This would all be according to the code. The so-called "false" blocks would be properly mined, and the length would be longer than the chain that users currently trust. The vanilla protocol would, in theory, replace the so-called "true" history with the empty variant.
 
-It might seem to users like a virus being uploaded to the Internet. It could destroy all human trust in the current version of the Bitcoin protocol, wreaking financial havoc throughout the cryptocurrency realm. While users of the Bitcoin protocol would naturally protest, the entire operation would be entirely in agreement with the underlying code.
+Such an event might seem to users like a virus being uploaded to the Internet. The event could destroy all human trust in the current version of the Bitcoin protocol, wreaking financial havoc throughout the cryptocurrency realm. While users of the Bitcoin protocol would naturally protest, the entire operation would be entirely in agreement with the underlying code.
 
 When observing Bitcoin’s current hash power, the creation of such an anti-Bitcoin supercomputer is clearly not feasible in the immediate future. Assuming Bitcoin miners remain interested in the Bitcoin network, the risk of a Genesis Attack on Bitcoin is essentially non-existent.
 

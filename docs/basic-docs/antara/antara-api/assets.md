@@ -2,23 +2,23 @@
 
 ## Introduction
 
-The Assets Module provides basic distributed exchange (DEX) functionality for trading `tokens` created using the [Tokens](../../../basic-docs/antara/antara-api/tokens.html) module.
+The Assets Module provides basic distributed exchange (DEX) functionality for trading `tokens` created using the [Tokens](../../../basic-docs/antara/antara-api/tokens.html#introduction) module.
 
-The Asset Module allows anyone to buy or sell tokens using the parent Smart Chain's coins.
+The Asset Module allows anyone to buy or sell tokens using the Smart Chain's coins.
 
 #### Assets Module Flow
 
 ##### Seller's Perspective
 
-- A token owner places a new "ask" request with the <b>tokenask</b> method specifying the amount of tokens they want to sell and the price. The assets module then creates a new token ask order and the specified amount of tokens is locked in the CC Assets global address
-- To fulfill the ask, a buyer executes the <b>tokenfillask</b> method. The purchased token amount moves from the global CC address to the buyer's token CC address. At the same time, the required amount of coins move from the buyer to seller's address. This process can be repeated so long as tokens remaining in the ask order
-- At any time, the creator of an order can cancel it via the <b>tokencancelask</b> method. The remaining tokens will return to their token CC address
+- A token owner places a new "ask" request with the <b>tokenask</b> method specifying the amount of tokens they want to sell and the price. The assets module then creates a new token ask order and the specified amount of tokens is locked in the module's global address
+- To fulfill the ask, a buyer executes the <b>tokenfillask</b> method. The purchased token amount moves from the global address to the buyer's token Antara Address. At the same time, the required amount of coins move from the buyer's address to the seller's address. This process can be repeated so long as tokens remain in the ask order
+- At any time, the creator of an order can cancel it via the <b>tokencancelask</b> method. The remaining tokens will return to their token Antara Address
 
 ##### Buyer's Perspective
 
-- A buyer places a new bid using the <b>tokenbid</b> method. The bid specifies the amount of tokens and the price. The Assets Module creates a new token bid order and the specified amount of coins is locked in the modules' global CC address.
-- A willing seller executes the <b>tokenfillbid</b> method. The token amount sold moves from the seller's token CC address to the buyer's token CC address. At the same time, the locked coins move from the global CC address to the seller's address. This process can be repeated so long as tokens remain in the bid order
-- At any time, the creator of an order can cancel it via the <b>tokencancelbid</b> method. The remaining coins will return to their token CC address
+- A buyer places a new bid using the <b>tokenbid</b> method. The bid specifies the amount of tokens and the price. The Assets Module creates a new token bid order and the specified amount of coins is locked in the module's global address.
+- A willing seller executes the <b>tokenfillbid</b> method. The token amount sold moves from the seller's token Antara Address to the buyer's token Antara Address. At the same time, the locked coins move from the global address to the seller's address. This process can be repeated so long as tokens remain in the bid order
+- At any time, the creator of an order can cancel it via the <b>tokencancelbid</b> method. The remaining coins will return to their token Antara Address
 
 To retrieve a current list of all active orders, use the <b>tokenorders</b> or <b>mytokenorders</b> methods.
 
@@ -68,23 +68,13 @@ Response:
 
 </collapse-text>
 
-## mytokenorders
-
-**mytokenorders [evalcode]**
-
-The `mytokenorders` method displays the public on-chain orders created by the user's pubkey, which is set in `-pubkey` parameter of komodod.
-
-The additional `evalcode` parameter allows the display of orders for non-fungible tokens bound to this evalcode.
-
-The Response from this method is similar to the response from the `tokenorders` method.
-
 ## tokenask
 
 **tokenask numtokens tokenid price**
 
 The `tokenask` method posts a public ask order.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#signrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments
 
@@ -92,7 +82,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 | --------- | -------- | ------------------------------------------------------------------------------ |
 | numtokens | (number) | the number of tokens to request in the order                                   |
 | tokenid   | (string) | the txid that identifies the token                                             |
-| price     | (number) | the price to pay for each token (units are in coins of the parent Smart Chain) |
+| price     | (number) | the price to pay for each token (units are in coins of the parent asset chain) |
 
 ### Response
 
@@ -142,7 +132,7 @@ The `tokenbid` method posts a public bid order.
 
 To fill the order, the parent chain's coin must be used.
 
-The method returns a raw hex, which must be broadcast using [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#signrawtransaction) to complete the command.
+The method returns a raw hex, which must be broadcast using [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) to complete the command.
 
 The `sendrawtransaction` method then returns a `txid`, which is the identification method of the bid order, and should be saved for future use.
 
@@ -152,7 +142,7 @@ The `sendrawtransaction` method then returns a `txid`, which is the identificati
 | --------- | -------- | ------------------------------------------------------------------------------ |
 | numtokens | (number) | the number of tokens to request in the order                                   |
 | tokenid   | (string) | the txid that identifies the token                                             |
-| price     | (number) | the price to pay for each token (units are in coins of the parent Smart Chain) |
+| price     | (number) | the price to pay for each token (units are in coins of the parent asset chain) |
 
 ### Response
 
@@ -199,7 +189,7 @@ The response is the transaction id.
 
 The `tokencancelask` method cancels a specific `ask`/`sell` order that you created.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#signrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments
 
@@ -331,7 +321,7 @@ Step 3 (optional): Decode the raw transaction (check if the values are sane)
 
 The `tokencancelbid` method cancels a specific `bid`/`buy` order that you created.
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#signrawtransaction) method.
+The method returns a hex value which must then be broadcast using the [sendrawtransaction](../komodo-api/rawtransactions.html#sendrawtransaction) method.
 
 ### Arguments
 
@@ -611,7 +601,7 @@ Information about the `funcid` property:
 | origaddress         | (string)                   | the address that made the original bid `b` or ask `s`                          |
 | tokenid             | (string)                   | the tokenid for the relevant bid/ask request/fill                              |
 | totalrequired       | (number, `b` and `s` only) | the total amount available in the original big/ask request/fill                |
-| price               | (number, `b` and `s` only) | the price per token, units are in the parent Smart Chain's coin                |
+| price               | (number, `b` and `s` only) | the price per token, units are in the parent asset chain's coin                |
 
 #### :pushpin: Examples:
 
@@ -745,4 +735,12 @@ Show orders for specific token
 
 </collapse-text>
 
+## mytokenorders
 
+**mytokenorders [evalcode]**
+
+The `mytokenorders` method displays the public on-chain orders created by the user's pubkey, which is set in `-pubkey` parameter of komodod.
+
+The additional `evalcode` parameter allows the display of orders for non-fungible tokens bound to this evalcode.
+
+The response from this method is similar to the response from the `tokenorders` method.
