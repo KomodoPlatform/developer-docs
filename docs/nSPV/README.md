@@ -85,6 +85,14 @@ To enable a Smartchain, the following contents are needed in the file named `coi
 ::: tip
 
 - If you got the direction of `magic` wrong, just flip it around
+- the magic number can also be seen in the stdout, when the daemon for the Smart Chain is started
+
+Example:
+
+```
+>>>>>>>>>> LABS: p2p.40264 rpc.40265 magic.fe1c3450 4263261264 350689 coins
+```
+
 - To start the nspv client for a specific Smart Chain after its data has been added to the coins file, use `./nspv ILN`
 
 :::
