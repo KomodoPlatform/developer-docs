@@ -13,7 +13,7 @@ module.exports = {
       "link",
       {
         rel: "icon",
-        href: "komodo-logo-icon-black.png"
+        href: "KMD_Mark_Black.png"
       }
     ],
     [
@@ -48,7 +48,7 @@ module.exports = {
       "meta",
       {
         name: "twitter:image",
-        content: "https://raw.githubusercontent.com/KomodoPlatform/developer-docs/master/docs/.vuepress/public/KMD_Mark_Black.png"
+        content: "https://docs.komodoplatform.com/Dev_Docs_Introduction_small.png"
       }
     ]
   ],
@@ -62,7 +62,7 @@ module.exports = {
     editLinks: true,
     editLinkText: "Suggest an improvement for this page",
     lastUpdated: "Last Updated",
-    logo: "/site-name-logo.png",
+    logo: "/KMD_Mark_White.png",
     nav: navbarImport,
     sidebar: sidebarImport
   }

@@ -1,0 +1,62 @@
+.introductoryImage {
+    padding: 1rem;
+    float: right;
+    width: 50%;
+}
+
+.mobileIntroductoryImage {
+    visibility: hidden;
+    width: 0%;
+}
+
+.introductionLinkDiv {
+    text-align: center;
+    width: 100%;
+}
+
+.introductionLink {
+    appearance: button;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #3FA9F5;
+    color: #FFFFFF;
+    border-radius: 0.2rem;
+    padding: 2rem;
+    font-size: 1.7rem;
+    border: 0;
+    display: inline-block;
+    margin: 1rem 0 0 0;
+}
+
+.video-wrapper {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  margin: 1rem 0 0 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+}
+
+.video-wrapper > iframe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 849px) {
+
+    .introductoryImage {
+        visibility: hidden;
+        width: 0%;
+    }
+
+    .mobileIntroductoryImage {
+        visibility: visible;
+        width: 100%;
+    }
+}

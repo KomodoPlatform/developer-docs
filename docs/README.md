@@ -3,22 +3,22 @@ home: true
 heroImage: /Dev_Docs_Introduction_small.png
 tagline: Welcome to Komodo's Documentation Sandbox
 actionText: Get Started →
-actionLink: /basic-docs/start-here/outline-for-new-developers.html
+actionLink: /basic-docs/start-here/about-komodo-platform/about-komodo-platform.html
 shortcuts:
-  - title: Create Assetchains
+  - title: Create Smart Chains
     description: |-
-      Use Komodo's Technology to create your own indepndent blockchains. Customizations available include: Coin emission, PoW/PoS, Privacy, CC modules and many more...
-    link: /basic-docs/installations/basic-instructions.html
+      Use Komodo's Technology to create your own indepndent blockchains. Customizations available include: Coin emission, PoW/PoS, Privacy, Antara modules and many more...
+    link: /basic-docs/smart-chains/introduction-to-smart-chain-documentation.html
     linkText: Create →
   - title: Explore Custom Consensus Modules
     description: |-
       The various modules created by Komodo are like plugins that can be enabled at the time of creating an assetchain. The features they add include: Tokens, Oracles, Provable RNG for use in other applications,
       Micro Payments, Crypto Inheritance, MuSig, Gateways, Quantum Resistant Dilithium signing ......
-    link: /basic-docs/customconsensus/custom-consensus-instructions.html
+    link: /basic-docs/antara/introduction-to-antara.html
     linkText: Explore →
   - title: Browse Komodo API
     description: Komodo's API consists of almost all the commands available in Bitcoin version 0.14 and many other useful RPC that are specific to the Komodo ecosystem.
-    link: /basic-docs/komodo-api/address.html
+    link: /basic-docs/smart-chains/smart-chain-api/address.html
     linkText: Browse →
 footer: MIT Licensed | Copyright © 2018-present Komodo
 mainHeader: Introduction
