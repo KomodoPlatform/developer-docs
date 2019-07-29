@@ -189,4 +189,6 @@ The Komodo team adds these additional points at our own discretion. Steve can be
 
 These group profile pages are held in a separate portion of the Hivebright community, and are classified separately -- similar to the manner in which Facebook seperates users from Facebook Pages (which can be company-oriented).
 
+We can create a set list of preferred certifications in our community.
 
+For example, Red Hat's Engineering Certification is highly desirable. Same for some of the AWS courses, some things that represent a few languages, etc. 
