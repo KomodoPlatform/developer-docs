@@ -199,3 +199,5 @@ These group profile pages are held in a separate portion of the Hivebright commu
 We can create a set list of preferred certifications in our community.
 
 For example, Red Hat's Engineering Certification is highly desirable. Same for some of the AWS courses, some things that represent a few languages, etc. 
+
+We can also consider integrating with a review site here. This will allow the catalogue of all third-party service providers to get customers to recommend their work.
