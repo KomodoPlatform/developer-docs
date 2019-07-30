@@ -82,7 +82,7 @@ Once you are logged in to the Komodo Discord server, you will see a list of chan
 
 Say hello in channels such as `#arrivals`, `#start-here`, or `#introductions`.
 
-The `#community-support` channel is a good place to ask for basic support with Komodo software.
+The `#support` channel is a good place to ask for basic support with Komodo software.
 
 To find fellow developers, head to the `#dev-general` channel. All channels that begin with `dev` are created for developers.
 
