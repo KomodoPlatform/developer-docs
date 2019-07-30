@@ -16,6 +16,7 @@ var redirectAliases = {
   "/basic-docs/cryptoconditions/cc-assets.html": "/basic-docs/antara/antara-api/assets.html",
   "/basic-docs/cryptoconditions/cc-oracles.html": "/basic-docs/antara/antara-api/oracles.html",
   "/basic-docs/cryptoconditions/cc-rogue.html": "/basic-docs/antara/antara-api/rogue.html",
+  "/basic-docs/cryptoconditions/cc-dilithium.html": "/basic-docs/antara/antara-api/dilithium.html",
   "/basic-docs/start-here/cc-overview.html": "/basic-docs/antara/introduction-to-antara.html",
   "/basic-docs/customconsensus/tokens.html": "/basic-docs/antara/antara-api/tokens.html",
   "/basic-docs/customconsensus/channels.html": "/basic-docs/antara/antara-api/channels.html",
