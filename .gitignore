@@ -25,4 +25,4 @@ yarn-error.log*
 /docs/.vuepress/dist/
 
 # Dev files
-/docs/.vuepress/dist/algolia-secret.js
+/docs/.vuepress/algolia-secret.js
