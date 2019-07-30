@@ -3,16 +3,17 @@ sudo: required
 services:
 - docker
 script:
-- docker build -t komodo_docs_image .
-- docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) komodo_docs_image
-- cd docs/.vuepress/dist/
-- echo 'developers.komodoplatform.com' > CNAME
+  - docker build -t komodo_docs_image .
+  - docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) -e ALGOLIAKEY=$ALGOLIAKEY komodo_docs_image
+  - cd docs/.vuepress/dist/
+  - echo 'docs.komodoplatform.com' > CNAME 
+
 deploy:
 - provider: pages
   skip-cleanup: true
   github-token: "$GH_TOKEN"
   local-dir: docs/.vuepress/dist/
-  repo: komodoplatform/developer-docs
+  repo: komodoplatform/Documentation
   on:
     branch: master
 branches:
