@@ -12,7 +12,7 @@
   - (when the goal is only to build a new Smart Chain, there is no need to sync the KMD main chain)
 
 ::: tip
-When you are building and testing a Komodo Smart Chain, please do not hesitate to reach out to us when you are stuck. We wish to make this as easy as possible. Our support agents are available in our <a href="https://komodoplatform.com/discord">#support channel in Discord</a> for many hours each day, and during off hours you can file a ticket on <a href="https://support.komodoplatform.com/support/home">our support page</a>.
+When you are building and testing a Komodo Smart Chain, please do not hesitate to reach out to us when you are stuck. We wish to make this as easy as possible. Our support agents are available in our <a href="https://komodoplatform.com/discord">#support channel in Discord</a> for many hours each day.
 :::
 
 ### Basic Info for Connecting At Least Two Nodes

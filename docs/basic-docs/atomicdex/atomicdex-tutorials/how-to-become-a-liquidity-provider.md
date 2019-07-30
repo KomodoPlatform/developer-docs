@@ -16,6 +16,10 @@ We recommend that the user [have a Virtual Private Server (VPS)](../../../basic-
 
 If the user prefers to use computer hardware at home, instead of a VPS, we recommend that the user have a very strong Internet connection. We also recommend that the user have a competitive hardware setup running on Ubuntu 18.04.
 
+- Internet speed - _at least_ 1 MBPS
+- RAM - _at least_ 4 GB
+- Processor - _at least_ i5 or equivalent
+
 ## Installing Dependencies
 
 #### Step 1: OS Packages

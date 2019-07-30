@@ -3,16 +3,23 @@
 ## Basic Information
 
 #### We have multiple audiences
-- We have multiple audiences
-  - Business Person
+
+- Business Person
     - Wants conversational material, no specific technical details
-  - Junior Developer
+- Community Contributor (Online/Social)
+  - Contributes to the Komodo community in one way or another, but may not wish to actively develop on Komodo
+  - This can include enthusiastic and engaged investors
+- Junior Developer
     - Can do basic functions, but needs hand holding at every step
-  - Normal Developer
+- Normal Developer
     - Has strong experience with a mainstream language, but has no interest in manipulating Komodo's source code itself
     - Using Komodo on an AS IS basis
-  - Advanced Developer
+- Advanced Developer
     - Has strong experience with C/C++ and wants to build new Antara Modules
+- Notary Node
+  - Should have a working knowledge of basic Komodo printicples
+- Third-party Service Provider
+  - Wishes to contribute new customers to the Komodo community
 
 #### General Outlines of Content that Must be Covered
 
@@ -163,7 +170,7 @@ No person should be allowed to run for a notary node position until they have pa
 
 This is for groups of individuals (who are also on Hivebright community)
 
-##### Level 6: Authorized Third-party Service Provider
+##### Group Page: Authorized Third-party Service Provider
 
 A third-party service provider must have at least two members.
 
