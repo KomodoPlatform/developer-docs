@@ -201,3 +201,116 @@ We can create a set list of preferred certifications in our community.
 For example, Red Hat's Engineering Certification is highly desirable. Same for some of the AWS courses, some things that represent a few languages, etc. 
 
 We can also consider integrating with a review site here. This will allow the catalogue of all third-party service providers to get customers to recommend their work.
+
+## Research
+
+#### b9lab.com
+
+Recommended by Torsten.
+
+A full course with blockchain training, primarily geared around Ethereum.
+
+https://b9lab.com/for-learners.html
+
+#### Blockgeeks
+
+A popular blockchain-training course. It's not geared specifically for Ethereum, but it is closely associated. 
+
+https://blockgeeks.com/
+
+Also, Woz U is using this course to train their students. (Steve Wozniack)
+
+woz-u.com
+
+#### Craftain
+
+We met with them earlier. They are putting together courses and helping to create training content for blockchain platforms.
+
+https://craftain.com/
+
+#### Consensys 
+
+https://consensys.net/academy/
+
+#### Udemy Courses
+
+https://www.udemy.com/developers/
+
+##### Blockchain and Bitcoin Fundamentals
+
+Covers basic blockchain concepts and how to use Bitcoin.
+
+Length: 3 hours
+
+Cost: $11.99
+
+https://www.udemy.com/blockchain-and-bitcoin-fundamentals/
+
+##### Blockchain A-Z
+
+Build a blockchain from scratch
+
+Length: 14.5 hours
+
+Cost: $11.99
+
+https://www.udemy.com/build-your-blockchain-az/
+
+#### MIT Blockchain Technologies
+
+A six week course to understand blockchain.
+
+Length: 40 hours
+
+Cost: $3500
+
+[Link](https://cdn.www.getsmarter.com/uploads/course/info_pack/128/mit_blockchain_technologies_online_short_program_brochure.pdf)
+
+#### Oxford Blockchain Strategy Course
+
+Same as MIT course, but from Oxford
+
+Length: 60 hours
+
+Cost: $3000
+
+[Link](https://cdn.www.getsmarter.com/uploads/course/info_pack/115/oxford_blockchain_strategy_programme_prospectus.pdfZ)
+
+#### Blockchain for Business Course (The Linux Foundation)
+
+Primarily focuses on business applications of the Hyperledger framework.
+
+[Link](https://www.awin1.com/cread.php?awinmid=6798&awinaffid=427859&clickref=ddblockchainlinux&p=https%3A%2F%2Fwww.edx.org%2Fprofessional-certificate%2Flinuxfoundationx-blockchain-for-business)
+
+#### Hyperledger Technologies (edX & The Linux Foundation)
+
+[Link](https://www.edx.org/course/blockchain-for-business-an-introduction-to-hyperledger-technologies?source=post_page---------------------------)
+
+#### Experfy (Harvard Innovation Lab)
+
+Blockchain Technology Fundamentals
+
+Length: 4 hours
+
+Cost: $129
+
+[Link](https://www.experfy.com/training/courses/blockchain-technology-fundamentals)
+
+Blockchain for Finance Professionals
+
+Length: 1.5 hours
+
+Cost: $129
+
+[Link](https://www.experfy.com/training/courses/blockchain-for-finance-professionals)
+
+
+#### UC Berkley edX Blockchain Foundations
+
+A blockchain foundations course.
+
+Length: 25 hours
+
+Cost: $200 
+
+[Link](https://www.edx.org/professional-certificate/uc-berkeleyx-blockchain-fundamentals?source=aw&awc=6798_1556102750_2f36ec1472b8e380742f06dd94fcf83f&utm_source=aw&utm_medium=affiliate_partner&utm_content=text-link&utm_term=427859_Digital+Defynd#why-this-program)
