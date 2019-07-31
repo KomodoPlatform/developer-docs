@@ -217,6 +217,9 @@ Keep in mind, we want the following things:
 - A way to pull information about course work completion to our Hivebright users, and to display their progress on their profile pages and posts, thus serving as an incentive to learn Komodo
 - A way to also reward and incentivize community participation
 - We also need an external community and technology framework that already provides the necessary tech infrastructure for conducting and managing courses and quizzes, and recording progress. We do not want to build that ourselves.
+- A possible certification management system
+  - or third-party service providers, we'll want to be able to display and verify that third-party service providers are who they say they are
+  - We'll want to be able to feature third-party service providers separately from the rest of users on Hivebright, much in the same way that a Facebook Page is separate from a Facebook User 
 
 #### Canvas
 
