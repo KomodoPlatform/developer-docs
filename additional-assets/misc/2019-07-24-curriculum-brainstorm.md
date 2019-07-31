@@ -359,3 +359,29 @@ Length: 25 hours
 Cost: $200 
 
 [Link](https://www.edx.org/professional-certificate/uc-berkeleyx-blockchain-fundamentals?source=aw&awc=6798_1556102750_2f36ec1472b8e380742f06dd94fcf83f&utm_source=aw&utm_medium=affiliate_partner&utm_content=text-link&utm_term=427859_Digital+Defynd#why-this-program)
+
+## Additional Considerations
+
+We want to limit the amount of exposure we have to infrastructure changes on external platforms. If possible, we would like to host all educational content, and to manage all user data.
+
+At the same time, some of these external platforms, such as blockgeeks, have an established audience and many users. We are likely to gain users faster by connecting and building some material on these communities, and planning for regular outreach therein.
+
+We need a balanced approach: buildling our own infrastructure, and connecting to popular hubs of blockchain developers. 
+
+We have chosen Hivebright as our "internal" platform for developer profiles and social posting. Hivebright will allow developers to post and share work in our own community, while giving us more access to data that we currently do not have in Discord. 
+
+I am assuming (?) that we intend to replace Discord with Hivebright eventually.
+
+Hivebright has an API, so we can gather information about our users, as needed. 
+
+We will need to integrate this community in some fashion into other popular social-media networks, including Stack Exchange/Stack Overflow, LinkedIn, GitHub, and maybe Twitter and Facebook. This can be as simple as giving the user the ability to make a post on Hivebright and have that post show up on their external social-media feeds. I'm not sure what options are available, but we will see. 
+
+Then, we need to move/rewrite all our existing educational content and curriculum to a community that has a large network of developers. This could be blockgeeks or b9labs, or something else. Craftain is another potential resource, though I personally am not interested in their platform. 
+
+In moving the content to this other community, we need to ensure that there is an infrastructure in place that allows us to manage educational progress and quizzes. We need to be able to access the results of user activity, and pull this data to user profiles on Hivebright. This will allow us to display user progress as a part of their community badges.
+
+Hivebright also needs to allow users to gather together into sub communities for the purposes of creating Third-party Service Provider groups, Notary Node group candidates, and other possible sub-organizations within the Komodo ecosystem.
+
+We'll want to make sure that all communities we emphasize (Hivebright and any blockchain developer hub/network) have an API, so that we can pull data and have the opportunity to utilize that data in blockchain-driven storytelling, later on. 
+
+So, for example, we may wish to be able to make hashes of user data, insert that into a Komodo-driven ecosystem chain, and use this data to lock and verify user progress in the ecosystem. (If this sounds a bit ambiguous, it's because this idea is ambiguous. I'm not sure yet what our specific use of blockchain-driven community activity would be, but I want the option available whenever we have the chance to take it.)
