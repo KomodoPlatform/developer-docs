@@ -204,23 +204,49 @@ We can also consider integrating with a review site here. This will allow the ca
 
 ## Research
 
+The following links provide conversation material. 
+
+I am only seriously looking at b9labs, blockgeeks, canvas, and udemy as locations where we could house our video and interactive course content. 
+
+Everything else is included as conversation material, to help us envision what we might possibly build. 
+
+Keep in mind, we want the following things:
+
+- A video course that takes a Normal Developer through the process of learning Komodo
+ - This course can have prerequisite material, if needed, so that could allow us to require that the developer first do a course on blockchain basics etc., and that would save us from having to do everything from scratch
+- A way to pull information about course work completion to our Hivebright users, and to display their progress on their profile pages and posts, thus serving as an incentive to learn Komodo
+- A way to also reward and incentivize community participation
+- We also need an external community and technology framework that already provides the necessary tech infrastructure for conducting and managing courses and quizzes, and recording progress. We do not want to build that ourselves.
+
+#### Canvas
+
+Canvas is an open-source educational platform that provides most of the structure necessary to build and manage educational curriculum. 
+
+It is primarily geared towards universities, but as of now, I'm not aware of any reason why we could not also integrate it as a part of our educational portal for our Hivebright community.
+
+It may be easy, and it may not, though. We'd have to get involved to find out. I've looked at installing it on a server, and it can be done.
+
+This would be extra resources from our team, but it would allow us to keep the data and user base within our community. If we decide to go with something like Udemy instead, those platforms would manage users and web infrastructure for us, but we would have less control long term.
+
+https://www.instructure.com/canvas/en-gb
+
 #### b9lab.com
 
 Recommended by Torsten.
 
 A full course with blockchain training, primarily geared around Ethereum.
 
+We have a meeting set up with them for Thursday April 1st at 4:30PM UTC.
+
 https://b9lab.com/for-learners.html
 
 #### Blockgeeks
 
-A popular blockchain-training course. It's not geared specifically for Ethereum, but it is closely associated. 
+A popular blockchain-training course platform and network. It's blockchain agnostic and has many of our competitors already using it. 
 
 https://blockgeeks.com/
 
-Also, Woz U is using this course to train their students. (Steve Wozniack)
-
-woz-u.com
+[Link to their marketing deck](https://drive.google.com/file/d/1KsKqJh6U9Lp_3-KDms3qHWaAor1OxZg7/view?_hsenc=p2ANqtz-_Qder8DOg0q-dLWthkJeyXzdwTPghI6OphrsFc8gocEjj7QYF56XADYUlLg_eBtcPpk2FC85cTLV-zYXA82XxFB8ymtQ&_hsmi=75221419)
 
 #### Craftain
 
@@ -264,6 +290,8 @@ https://www.udemy.com/build-your-blockchain-az/
 
 A six week course to understand blockchain.
 
+Provided here only to see what a full course/workshop looks like.
+
 Length: 40 hours
 
 Cost: $3500
@@ -273,6 +301,8 @@ Cost: $3500
 #### Oxford Blockchain Strategy Course
 
 Same as MIT course, but from Oxford
+
+Provided here only to see what a full course/workshop looks like.
 
 Length: 60 hours
 
@@ -284,15 +314,21 @@ Cost: $3000
 
 Primarily focuses on business applications of the Hyperledger framework.
 
+Listed here to show our competition.
+
 [Link](https://www.awin1.com/cread.php?awinmid=6798&awinaffid=427859&clickref=ddblockchainlinux&p=https%3A%2F%2Fwww.edx.org%2Fprofessional-certificate%2Flinuxfoundationx-blockchain-for-business)
 
 #### Hyperledger Technologies (edX & The Linux Foundation)
+
+Listed here to show our competition.
 
 [Link](https://www.edx.org/course/blockchain-for-business-an-introduction-to-hyperledger-technologies?source=post_page---------------------------)
 
 #### Experfy (Harvard Innovation Lab)
 
 Blockchain Technology Fundamentals
+
+Provided here simply to show case another option.
 
 Length: 4 hours
 
@@ -312,6 +348,8 @@ Cost: $129
 #### UC Berkley edX Blockchain Foundations
 
 A blockchain foundations course.
+
+edX is an interesting platform, though I don't know if they would work with someone as small as us. I've reached out, and hopefully we'll hear back. 
 
 Length: 25 hours
 
