@@ -142,7 +142,7 @@ Online quizzes and interactivity only, using automation. No in-person interactiv
 
 Encourages that the developer also list an additional skill set on their profile. This can be a certification in a programming language, or a full university-level degree.
 
-Also encourages user to link to a Github profile that demonstrates their work capabilities.
+Also encourages user to link to a Github or LinkedIn profile that demonstrates their work capabilities.
 
 ##### Level 4: Advanced Komodo Developer Track - Completion Certificate
 
@@ -230,9 +230,13 @@ https://craftain.com/
 
 #### Consensys 
 
+They are Ethereum-oriented. I provide them here only for comparison.
+
 https://consensys.net/academy/
 
 #### Udemy Courses
+
+One nice thing about working with Udemy is that we can query their API and get information about our users and their progress. This can be useful for profile badges.
 
 https://www.udemy.com/developers/
 
