@@ -18,7 +18,7 @@ When a blockchian's hashrate is very much less than another blockchain that has 
 
 The `ac_adaptivepow` parameter changes the Difficulty adjustment algorithm (DAA) inherited from Zcash to alleviate the "difficulty stranding" attacks faced by pure PoW chains that have a minority hashrate for the mining algorithm being used.
 
-When AdaptivePoW is used, the difficulty target is adjusted within a sigle block. This makes the process of briinging down the difficulty an easier process as it doesn't require a block with the stranded fifficulty be found. More details on the implementationa and rationale can be found in this [blog post](https://medium.com/@jameslee777/adaptivepow-the-solution-to-diff-stranding-of-smaller-blockchains-425609df5563).
+When AdaptivePoW is used, the difficulty target is adjusted within a sigle block. This makes the process of bringing down the difficulty an easier process as it doesn't require a block with the stranded fifficulty be found. More details on the implementation and rationale can be found in this [blog post](https://medium.com/@jameslee777/adaptivepow-the-solution-to-diff-stranding-of-smaller-blockchains-425609df5563).
 
 Before the 31st of October:
 
