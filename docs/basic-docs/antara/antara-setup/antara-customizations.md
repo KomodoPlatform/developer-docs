@@ -14,11 +14,11 @@ This parameter is in its final testing stages.
 
 :::
 
-When a blockchian's hashrate is very much less than another blockchain that has the same mining algorithm, miners from the second chain can come in and mine a large number of blocks in a short amount of time thereby increasing the difficulty faced by the native miners in the process. When miners from the second chain leave, the native miners will have to wait a large amount of time to produce a new block as they don't have enough hashrate. This type of attack is called "difficulty stranding" and the reason might be profit or malice.
+When a blockchian's hashrate is very much less than another blockchain that has the same mining algorithm, miners from the second chain can come in and mine a large number of blocks in a short amount of time, thereby increasing the difficulty faced by the native miners in the process. When miners from the second chain leave, the native miners will have to wait for a large amount of time to produce a new block as they don't have enough hashrate. This type of attack is called "difficulty stranding" and the reason might be profit or malice.
 
 The `ac_adaptivepow` parameter changes the Difficulty adjustment algorithm (DAA) inherited from Zcash to alleviate the "difficulty stranding" attacks faced by pure PoW chains that have a minority hashrate for the mining algorithm being used.
 
-When AdaptivePoW is used, the difficulty target is adjusted within a sigle block. This makes the process of bringing down the difficulty easier as it doesn't require a block with the stranded fifficulty be found. More details on the implementation and rationale can be found in this [blog post](https://medium.com/@jameslee777/adaptivepow-the-solution-to-diff-stranding-of-smaller-blockchains-425609df5563).
+When AdaptivePoW is used, the difficulty target is adjusted within a single block. This makes the process of bringing down the difficulty easier as it doesn't require a block with the stranded difficulty be found. More details on the implementation and rationale can be found in this [blog post](https://medium.com/@jameslee777/adaptivepow-the-solution-to-diff-stranding-of-smaller-blockchains-425609df5563).
 
 Before the 31st of October:
 
