@@ -22,15 +22,15 @@ When AdaptivePoW is used, the difficulty target is adjusted within a single bloc
 
 Before the 31st of October:
 
-- adding the parameter `-ac_adaptivepow=1` enables AdaptivePoW for a newly created Smartchain
-- not adding the parameter doesn't have any effect for a newly created Smartchain
-- existing Smartchains are not affected
+- adding the parameter `-ac_adaptivepow=1` enables AdaptivePoW for a newly created Smart Chain
+- not adding the parameter doesn't have any effect for a newly created Smart Chain
+- existing Smart Chains are not affected
 
 After the 31st of October:
 
-- all the newly created Smartchains that are 100% PoW would by default have AdaptivePoW enabled.
-- if a newly created Smartchain never wants it, the parameter `-ac_adaptivepow=-1` should be used
-- existing Smartchains are not affected
+- all the newly created Smart Chains that are 100% PoW would by default have AdaptivePoW enabled.
+- if a newly created Smart Chain never wants it, the parameter `-ac_adaptivepow=-1` should be used
+- existing Smart Chains are not affected
 
 ## ac_algo
 
