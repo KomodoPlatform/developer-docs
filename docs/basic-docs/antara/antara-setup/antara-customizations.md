@@ -30,7 +30,7 @@ After the 31st of October:
 
 - all the newly created Smartchains that are 100% PoW would by default have AdaptivePoW enabled.
 - if a newly created Smartchain never wants it, the parameter `-ac_adaptivepow=-1` should be used
-- existing Smatrtchains won't be affected after the October 1st.
+- existing Smartchains are not affected
 
 ## ac_algo
 
