@@ -1,10 +1,36 @@
-# Antara Customizations 
+# Antara Customizations
 
-The Antara Framework offers various default Antara Customizations. 
+The Antara Framework offers various default Antara Customizations.
 
 The desired combination of parameters should be included with the `komodod` execution every time the Smart Chain daemon is launched.
 
 Changing these customizations at a later time is possible, but this typically requires a hard-fork of your Smart Chain. In general, the best practice for a developer is have all Smart Chain's parameters finalized before decentralizing the ownership of your coin. Should you discover a need to change these parameters after the fact, please reach out to our development team for assistance.
+
+## ac_adaptivepow
+
+::: warning
+
+This parameter is in its final testing stages.
+
+:::
+
+When a blockchian's hashrate is very much less than another blockchain that has the same mining algorithm, miners from the second chain can come in and mine a large number of blocks in a short amount of time thereby increasing the difficulty faced by the native miners in the process. When miners from the second chain leave, the native miners will have to wait a large amount of time to produce a new block as they don't have enough hashrate. This type of attack is called "difficulty stranding" and the reason might be profit or malice.
+
+The `ac_adaptivepow` parameter changes the Difficulty adjustment algorithm (DAA) inherited from Zcash to alleviate the "difficulty stranding" attacks faced by pure PoW chains that have a minority hashrate for the mining algorithm being used.
+
+When AdaptivePoW is used, the difficulty target is adjusted within a sigle block. This makes the process of briinging down the difficulty an easier process as it doesn't require a block with the stranded fifficulty be found. More details on the implementationa and rationale can be found in this [blog post](https://medium.com/@jameslee777/adaptivepow-the-solution-to-diff-stranding-of-smaller-blockchains-425609df5563).
+
+Before the 31st of October:
+
+- adding the parameter `-ac_adaptivepow=1` enables AdaptivePoW for a newly created Smartchain
+- not adding the parameter doesn't have any effect for a newly created Smartchain
+- existing Smartchains are not affected
+
+After the 31st of October:
+
+- all the newly created Smartchains that are 100% PoW would by default have AdaptivePoW enabled.
+- if a newly created Smartchain never wants it, the parameter `-ac_adaptivepow=-1` should be used
+- existing Smatrtchains won't be affected after the October 1st.
 
 ## ac_algo
 
@@ -46,7 +72,6 @@ A 777777 coin pre-mine with a 1-coin block reward and a block speed of 20 second
 
 </collapse-text>
 
-
 ## ac_cbmaturity
 
 The `ac_cbmaturity` parameter allows the `COINBASE_MATURITY` value to be changed.
@@ -55,12 +80,9 @@ The `COINBASE_MATURITY` value is the number of blocks that must be confirmed bet
 
 This allows the developers of a Smart Chain to require that miners and stakers on a blockchain network wait for an arbitrary amount of time after mining new coins.
 
-
-
 For example, if a Smart Chain is set to `ac_cbmaturity=10`, newly mined coins must wait for 10 confirmations on the network before the coins can be spent.
 
 By default, this value is set to `1` on Smart Chains without [ac_eras](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-eras) and set to `100` on Smart Chains with [ac_eras](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-eras).
-
 
 ## ac_cc
 
@@ -291,13 +313,11 @@ The `ac_eras` parameter allows the value of a chain's block reward to vary over 
 
 Each different time interval is called an "era" and a chain can have at most seven eras.
 
-
 #### ac_eras Combined With ac_cbmaturity
 
 When active, `ac_eras` changes the behavior of coinbase coins (i.e., the coins that are created as a result of mining). `ac_eras` forces the `COINBASE_MATURITY` value of coinbase coins to be `100` instead of the normal value of `1`. Therefore, coinbase coins become spendable after `100` confirmations.
 
 This `COINBASE_MATURITY` value can be explicitly changed using the [ac_cbmaturity](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cbmaturity) parameter. Changing this `COINBASE_MATURITY` value to `1` is recommended if a chain uses `ac_eras` in conjunction with [ac_staked](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-staked).
-
 
 #### ac_eras Instructions
 
@@ -371,24 +391,23 @@ Use `ac_script` to send the founder's reward to a multi-signature address.
 
 Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
 
-
 ## ac_founders_reward
 
-The `ac_founders_reward` parameter functions in a manner that is similar to a combination of the `ac_perc` and `ac_founders` parameters. 
+The `ac_founders_reward` parameter functions in a manner that is similar to a combination of the `ac_perc` and `ac_founders` parameters.
 
-However, the value specified in the `ac_founders_reward` parameter is given in satoshis, as opposed to a percentage of the block reward. Also, the founder's reward does not accumulate over several blocks. 
+However, the value specified in the `ac_founders_reward` parameter is given in satoshis, as opposed to a percentage of the block reward. Also, the founder's reward does not accumulate over several blocks.
 
 The `ac_founders_reward` parameter can be used in place of `ac_perc`.
 
-The `ac_founders_reward` parameter must be used in combation with `ac_founders` and either `ac_script` or `ac_pubkey`. 
+The `ac_founders_reward` parameter must be used in combation with `ac_founders` and either `ac_script` or `ac_pubkey`.
 
-The `ac_founders_rewards` value is entirely independent of the `ac_reward` value. 
+The `ac_founders_rewards` value is entirely independent of the `ac_reward` value.
 
 Consider the following combination of parameters, for example.
 
 ```
 -ac_reward=1000000000 -ac_perc=10000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f
-``` 
+```
 
 This combination pays the pubkey address 10 coins every 10 blocks.
 
@@ -396,7 +415,7 @@ Compare the above to the following combination.
 
 ```
 ac_reward=1000000000 -ac_founders_reward=100000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f
-``` 
+```
 
 This combination pays the pubkey address 1 coin every 10 blocks.
 
@@ -413,7 +432,6 @@ A 777777-coin pre-mine, with a 5-coin block reward, and founder's reward of 10 c
 ```
 
 </collapse-text>
-
 
 ## ac_halving
 
@@ -451,10 +469,9 @@ A simple Smart Chain
 
 </collapse-text>
 
-
 ## ac_notarypay
 
-The `ac_notarypay` parameter rewards the notary nodes each time they participate in a notarization. 
+The `ac_notarypay` parameter rewards the notary nodes each time they participate in a notarization.
 
 This value should be set to the total amount of satoshis rewarded to all participating notaries in a notarization. The reward is then divided evenly between all participating notaries.
 
@@ -475,7 +492,6 @@ A Smart Chain with 777777 pre-mined coins, a 5 coin block reward in the first er
 ```
 
 </collapse-text>
-
 
 ## ac_perc
 
@@ -653,8 +669,8 @@ To find the `"scriptPubKey"` value, first create a multi-signature address with 
 
 ```json
 {
-	"address": "bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV",
-	"redeemScript": 	"522102040ce30d52ff1faae7a673c2994ed0a2c4115a40fa220ce055d9b85e8f9311ef2102a2ba4606206c032914dd48390c15f5bf996d91bf9dbd07614d972f39d93a511321026014ef4194f6c7406a475a605d6a393ae2d7a2b12a6964587299bae84172fff053ae"
+  "address": "bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV",
+  "redeemScript": "522102040ce30d52ff1faae7a673c2994ed0a2c4115a40fa220ce055d9b85e8f9311ef2102a2ba4606206c032914dd48390c15f5bf996d91bf9dbd07614d972f39d93a511321026014ef4194f6c7406a475a605d6a393ae2d7a2b12a6964587299bae84172fff053ae"
 }
 ```
 
@@ -684,18 +700,16 @@ Observe the resulting transaction with `getrawtransaction <txid> 1`.
 
 ```json
 {
-	"value": 10.00000000,
-	"valueSat": 1000000000,
-	"n": 1,
-	"scriptPubKey": {
-		"asm": "OP_HASH160 2706324daaac92c93420e985f55d88ea20e22ae1 OP_EQUAL",
-		"hex": "a9142706324daaac92c93420e985f55d88ea20e22ae187",
-		"reqSigs": 1,
-		"type": "scripthash",
-		"addresses": [
-			"bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV"
-		]
-	}
+  "value": 10.0,
+  "valueSat": 1000000000,
+  "n": 1,
+  "scriptPubKey": {
+    "asm": "OP_HASH160 2706324daaac92c93420e985f55d88ea20e22ae1 OP_EQUAL",
+    "hex": "a9142706324daaac92c93420e985f55d88ea20e22ae187",
+    "reqSigs": 1,
+    "type": "scripthash",
+    "addresses": ["bGHcUFb7KsVbSFiwcBxRufkFiSuhqTnAaV"]
+  }
 }
 ```
 
@@ -849,13 +863,13 @@ The following example instructs the Smart Chain to execute a snapshot once every
 
 ```
 -ac_snapshot=1440
-``` 
+```
 
 ##### Payments Module Functionality
 
-The `ac_snapshot` parameter is required by the [paymentsairdrop](../../../basic-docs/antara/antara-api/payments.html#paymentsairdrop) method of the Payments Antara Module. 
+The `ac_snapshot` parameter is required by the [paymentsairdrop](../../../basic-docs/antara/antara-api/payments.html#paymentsairdrop) method of the Payments Antara Module.
 
-The user first executes the [paymentsairdrop](../antara-api/payments.html#paymentsairdrop) method to create a Payments plan that is designed to distribute airdrops to addresses on the chain. 
+The user first executes the [paymentsairdrop](../antara-api/payments.html#paymentsairdrop) method to create a Payments plan that is designed to distribute airdrops to addresses on the chain.
 
 The user then executes the [paymentsrelease](../../../basic-docs/antara/antara-api/payments.html#paymentsrelease) method to release payments based on the amounts in the addresses in the most recent snapshot, as recorded by the `ac_snapshot` customization.
 
@@ -902,5 +916,3 @@ The `ac_veruspos` parameter is an alternative to [ac_staked](../../../basic-docs
 When activated, the chain uses [Verus](http://veruscoin.io/)'s proof of stake implementation instead.
 
 The only valid value for this parameter is `-ac_veruspos=50`. (`ac_veruspos` does not have the same segid mechanism as `-ac_staked`.)
-
-
