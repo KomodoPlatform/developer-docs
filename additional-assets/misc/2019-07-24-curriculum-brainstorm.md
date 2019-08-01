@@ -360,6 +360,14 @@ Cost: $200
 
 [Link](https://www.edx.org/professional-certificate/uc-berkeleyx-blockchain-fundamentals?source=aw&awc=6798_1556102750_2f36ec1472b8e380742f06dd94fcf83f&utm_source=aw&utm_medium=affiliate_partner&utm_content=text-link&utm_term=427859_Digital+Defynd#why-this-program)
 
+#### Moodle
+
+https://docs.moodle.org/37/en/About_Moodle
+
+#### Blockchain Training Alliance
+
+https://blockchaintrainingalliance.com/
+
 ## Additional Considerations
 
 We want to limit the amount of exposure we have to infrastructure changes on external platforms. If possible, we would like to host all educational content, and to manage all user data.
