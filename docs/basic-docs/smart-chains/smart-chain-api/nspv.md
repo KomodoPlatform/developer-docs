@@ -1,10 +1,4 @@
----
-sidebar: auto
----
-
-# nSPV (WIP)
-
-## Introduction
+# nSPV
 
 The nSPV is a technology that leverages the dPoW security mechanism of the Komodo Platform to enable secure and scalable super-lite SPV clients for the Komodo(KMD) blockchain as well as all the SmartChains that are secured by dPoW.
 
@@ -12,134 +6,9 @@ For a Chain that has nSPV enabled, its full nodes will be able to serve the nece
 
 More details are available in the blog posts by jl777 [here](https://medium.com/@jameslee777/nspv-a-simple-approach-to-superlight-clients-leveraging-notarizations-75d7ef5a37a9) and [here](https://medium.com/@jameslee777/nspv-reference-cli-client-cf1ffdc03631)
 
-## Installation
+To use the following methods, the daemon must be started with the command line parameter: `-nSPV=1`
 
-```bash
-sudo apt-get update
-sudo apt-get upgrade -y
-sudo apt-get install libsodium-dev curl libevent-dev git cmake nano wget ntp ntpdate automake unzip autoconf libtool -y
-git clone https://github.com/jl777/libnspv
-cd libnspv
-./autogen.sh
-./configure
-make
-```
-
-<!---FIXME
-
----
-mainly -p
----
-
-adding smartchain to coins file
-
-variations on issuing the api commands too
-
-Usage: nspv [COIN defaults to NSPV] (-c|continuous) (-i|-ips <ip,ip,...]>) (-m[--maxpeers] <int>) (-t[--testnet]) (-f <headersfile|0 for in mem only>) (-p <rpcport>) (-r[--regtest]) (-d[--debug]) (-s[--timeout] <secs>) <command>
-Supported commands:
-        scan      (scan blocks up to the tip, creates header.db file)
-
-Examples:
-Sync up to the chain tip and stores all headers in headers.db (quit once synced):
-> nspv scan
-
-Sync up to the chain tip and give some debug output during that process:
-> nspv -d scan
-
-Sync up, show debug info, don't store headers in file (only in memory), wait for new blocks:
-> nspv -d -f 0 -c scan
---->
-
-## Enabling the nSPV client to work with Smart Chains
-
-To enable a Smartchain, the following contents are needed in the file named `coins` present in the root level of the source directory.
-
-### Example
-
-```json
-{
-  "coin": "ILN",
-  "asset": "ILN",
-  "fname": "Ilien",
-  "rpcport": 12986,
-  "mm2": 1,
-  "p2p": 12985,
-  "magic": "feb4cb23",
-  "nSPV": "5.9.102.210, 5.9.253.195, 5.9.253.196, 5.9.253.197, 5.9.253.198, 5.9.253.199, 5.9.253.200, 5.9.253.201, 5.9.253.202, 5.9.253.203"
-}
-```
-
-### Explanation
-
-| Name    | Type     | Description                                                                                                                                                                             |
-| ------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin    | (string) | the ticker of the coin                                                                                                                                                                  |
-| asset   | (string) | the `-ac_name` parameter used to start the Smart Chain                                                                                                                                  |
-| fname   | (string) | the full name of the Smart Chain                                                                                                                                                        |
-| rpcport | (number) | the rpc port the Smart Chain's daemon uses to receive RPC commands                                                                                                                      |
-| mm2     | (number) | set to 1 if the coin has been tested to work with Marketmaker version 2                                                                                                                 |
-| p2p     | (number) | the p2p port the Smart Chain's daemon uses to communicate with other nodes                                                                                                              |
-| magic   | (string) | the netmagic of the Smart Chain; the decimal value of this can be obtained from the getinfo call of the Smart Chain's full node; Convert it to hex and serialize it into the 4 hexbytes |
-| nSPV    | (string) | the ipaddresses of those nodes of the Smart Chain that have been started with the parameter `-nSPV=1`                                                                                   |
-
-::: tip
-
-- If you got the direction of `magic` wrong, just flip it around
-- the magic number can also be seen in the stdout, when the daemon for the Smart Chain is started
-
-Example:
-
-```
->>>>>>>>>> LABS: p2p.40264 rpc.40265 magic.fe1c3450 4263261264 350689 coins
-```
-
-- To start the nspv client for a specific Smart Chain after its data has been added to the coins file, use `./nspv ILN`
-
-:::
-
-## Command line parameters to the nspv binary
-
-### -p
-
-Use this parameter to set the port the nspv client will listen to for the RPC commands.
-
-Example:
-
-```bash
-./nspv KMD -p 3000
-```
-
-The above command starts the nspv client for the KMD chain and listens on the port 3000 for RPC commands.
-
-## Different ways to interact with the nspv client once it is launched
-
-The port in each of these examples is the port through which the nspv client accepts the RPC commands. For KMD, it is `7771`. For a Smart Chain in the coins file, it is the `rpcport` specified. This behaviour can be bypassed by setting the [-p](#p) command line parameter
-
-### Regular `curl` command with named parameters
-
-When using this format, each parameter is supplied by matching it with its name as shown in the example below.
-
-```bash
-curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"spentinfo\",\"vout\":1,\"txid\":\"e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855\"}"
-```
-
-### `curl` command with json2.0 interface
-
-When using this format, the parameters listed in the `"params"` key should be in the order specified in this doc. Strings should always be between quotation marks `""`
-
-```bash
-curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "params": ["e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",1 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
-```
-
-### Accessing localhost through a browser
-
-To access the client through a browser, access the url `http://127.0.0.1:<port>/api/` with the parameters and their names added at the end as shown in the example below.
-
-```
-http://127.0.0.1:<port>/api/method/spentinfo/vout/1/txid/e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855
-```
-
-## API
+The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
 ### broadcast
 
@@ -187,9 +56,9 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "broadcast", "
 
 </collapse-text>
 
-### getinfo
+### nspv_getinfo
 
-**getinfo [hdrheight]**
+**nspv_getinfo [hdrheight]**
 
 Use this method to get the general information on the state of the blockchain at the moment.
 
@@ -231,7 +100,7 @@ Use this method to get the general information on the state of the blockchain at
 Command:
 
 ```bash
-curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "nspv_getinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 <collapse-text hidden title="Response">
@@ -264,206 +133,9 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getinfo", "pa
 
 </collapse-text>
 
-### getnewaddress
+### nspv_hdrsproof
 
-**getnewaddress**
-
-Use this method to create a new address.
-
-#### Arguments
-
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |             |
-
-#### Response
-
-| Name       | Type     | Description                                            |
-| ---------- | -------- | ------------------------------------------------------ |
-| wif        | (string) | wifkey of the generated address                        |
-| address    | (string) | the generated address                                  |
-| pubkey     | (string) | pubkey of the generated address                        |
-| wifprefix  | (number) | prefix of the generated wifkey, depends on the network |
-| compressed | (number) | whether the wifkey generated is compressed             |
-
-#### :pushpin: Examples
-
-Command:
-
-```bash
-curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getnewaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "wif": "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "address": "Rxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "pubkey": "03xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "wifprefix": 188,
-  "compressed": 1
-}
-```
-
-</collapse-text>
-
-### getpeerinfo
-
-**getpeerinfo**
-
-Use this method to get the information of all the peers.
-
-#### Arguments
-
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |             |
-
-#### Response
-
-| Name              | Type     | Description                                                      |
-| ----------------- | -------- | ---------------------------------------------------------------- |
-| nodeid            | (number) | the number given to a node by our instance of the nSPV client    |
-| ipaddress         | (string) | the ipaddress of the node                                        |
-| port              | (number) | the p2p port used to connect to this node                        |
-| lastping          | (number) | the unix time at which this node was last pinged                 |
-| time_started_con  | (number) | the unix time at which a connection to this node was established |
-| time_last_request | (number) | <!--FIXME -->                                                    |
-| services          | (number) | <!--FIXME -->                                                    |
-| missbehavescore   | (number) | the score given to this node if it was misbehaving               |
-| bestknownheight   | (number) | the height of the blockchain as best known by this node          |
-
-#### :pushpin: Examples
-
-Command:
-
-```bash
-curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getpeerinfo", "params": [0 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
-```
-
-<collapse-text hidden title="Response">
-
-```json
-[
-  {
-    "nodeid": 1,
-    "ipaddress": "5.9.253.195",
-    "port": 7770,
-    "lastping": 1564055618,
-    "time_started_con": 1564054503,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 11,
-    "ipaddress": "209.58.144.205",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 12,
-    "ipaddress": "94.130.224.11",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 13,
-    "ipaddress": "136.243.58.134",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 14,
-    "ipaddress": "64.120.113.130",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 15,
-    "ipaddress": "159.65.93.178",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 18,
-    "ipaddress": "159.69.72.206",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 23,
-    "ipaddress": "138.201.9.167",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 24,
-    "ipaddress": "109.225.40.194",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 25,
-    "ipaddress": "116.203.17.140",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  }
-]
-```
-
-</collapse-text>
-
-### hdrsproof
-
-**hdrsproof prevheight nextheight**
+**nspv_hdrsproof prevheight nextheight**
 
 This method scans backwards from the `prevheight` till it finds the find the first notarization transaction, then forward from `nextheight` till it finds the find the first notarization transaction.
 
@@ -699,111 +371,9 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "hdrsproof", "
 
 </collapse-text>
 
-### help
+### nspv_listtransactions
 
-**help**
-
-This method returns the help output containing all the available methods.
-
-#### Arguments
-
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |             |
-
-#### Response
-
-| Name    | Type             | Description                                                 |
-| ------- | ---------------- | ----------------------------------------------------------- |
-| result  | (string)         | whether the command was successful                          |
-| methods | (array of jsons) | an array containing a json for each method                  |
-| method  | (string)         | name of a method                                            |
-| fields  | (array)          | an array conataining the description of parameters expected |
-| num     | (number)         | the number of methods available                             |
-
-#### :pushpin: Examples
-
-Command:
-
-```bash
-curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "help", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "result": "success",
-  "methods": [
-    { "method": "stop", "fields": [] },
-    { "method": "help", "fields": [] },
-    { "method": "logout", "fields": [] },
-    { "method": "getnewaddress", "fields": [] },
-    { "method": "getpeerinfo", "fields": [] },
-    { "method": "login", "fields": [{ "wif": "string" }] },
-    { "method": "broadcast", "fields": [{ "hex": "string" }] },
-    {
-      "method": "listunspent",
-      "fields": [
-        { "address": "string" },
-        { "isCC": "uint32_t" },
-        { "skipcount": "uint32_t" },
-        { "filter": "uint32_t" }
-      ]
-    },
-    {
-      "method": "listtransactions",
-      "fields": [
-        { "address": "string" },
-        { "isCC": "uint32_t" },
-        { "skipcount": "uint32_t" },
-        { "filter": "uint32_t" }
-      ]
-    },
-    { "method": "notarizations", "fields": [{ "height": "uint32_t" }] },
-    {
-      "method": "hdrsproof",
-      "fields": [{ "prevheight": "uint32_t" }, { "nextheight": "uint32_t" }]
-    },
-    { "method": "getinfo", "fields": [{ "hdrheight": "uint32_t" }] },
-    {
-      "method": "txproof",
-      "fields": [
-        { "txid": "hash" },
-        { "vout": "uint32_t" },
-        { "height": "uint32_t" }
-      ]
-    },
-    {
-      "method": "spentinfo",
-      "fields": [{ "txid": "hash" }, { "vout": "uint32_t" }]
-    },
-    {
-      "method": "spend",
-      "fields": [{ "address": "string" }, { "amount": "float" }]
-    },
-    {
-      "method": "mempool",
-      "fields": [
-        { "address": "string" },
-        { "isCC": "uint32_t" },
-        { "memfunc": "uint32_t" },
-        { "txid": "hash" },
-        { "vout": "uint32_t" },
-        { "evalcode": "uint32_t" },
-        { "CCfunc": "uint32_t" }
-      ]
-    }
-  ],
-  "num": 16
-}
-```
-
-</collapse-text>
-
-### listtransactions
-
-**listtransactions [address [isCC [skipcount [filter]]]]**
+**nspv_listtransactions [address [isCC [skipcount [filter]]]]**
 
 This method returns a list of transactions for an address.
 
@@ -897,9 +467,9 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listtransacti
 
 </collapse-text>
 
-### listunspent
+### nspv_listunspent
 
-**listunspent [address [isCC [skipcount [filter]]]]**
+**nspv_listunspent [address [isCC [skipcount [filter]]]]**
 
 Use this method to retrieve all the unspent outputs belonging to an address.
 
@@ -976,9 +546,9 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listunspent",
 
 </collapse-text>
 
-### login
+### nspv_login
 
-**login wif**
+**nspv_login wif**
 
 Use this method to login to an address using its wifkey.
 
@@ -1022,9 +592,9 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "login", "para
 
 </collapse-text>
 
-### logout
+### nspv_logout
 
-**logout**
+**nspv_logout**
 
 Use this method to logout of the currently logged in address.
 
@@ -1056,9 +626,9 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "logout", "par
 
 </collapse-text>
 
-### mempool
+### nspv_mempool
 
-**mempool address isCC memfunc [txid vout evalcode ccfunc]]]**
+**nspv_mempool address isCC memfunc [txid vout evalcode ccfunc]]]**
 
 This method returns the current transactions in the mempool. The various parameters can be used to filter the transactions.
 
@@ -1135,9 +705,9 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "mempool", "pa
 
 </collapse-text>
 
-### notarizations
+### nspv_notarizations
 
-**notarizations height**
+**nspv_notarizations height**
 
 This method returns the notarization data for a given height.
 
@@ -1194,9 +764,9 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "notarizations
 
 </collapse-text>
 
-### spend
+### nspv_spend
 
-**spend address amount**
+**nspv_spend address amount**
 
 <!--FIXME doc retcodes? -->
 
@@ -1280,9 +850,9 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spend", "para
 
 </collapse-text>
 
-### spentinfo
+### nspv_spentinfo
 
-**spentinfo txid vout**
+**nspv_spentinfo txid vout**
 
 This method returns the spent info of the output specified by the arguments.
 
@@ -1333,43 +903,9 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "
 
 </collapse-text>
 
-### stop
+### nspv_txproof
 
-**stop**
-
-Stops the instance of nSPV binary that is accessible by the port specifies in the curl command.
-
-#### Arguments
-
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |             |
-
-#### Response
-
-| Name   | Type     | Description                        |
-| ------ | -------- | ---------------------------------- |
-| result | (string) | whether the command was successful |
-
-#### :pushpin: Examples
-
-Command:
-
-```bash
-curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "stop", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{ "result": "success" }
-```
-
-</collapse-text>
-
-### txproof
-
-**txproof txid vout [height]**
+**nspv_txproof txid vout [height]**
 
 This method is an internal function to be used by the [gettransaction](#gettransaction) method
 
@@ -1396,19 +932,36 @@ This method is an internal function to be used by the [gettransaction](#gettrans
 Command:
 
 ```bash
-curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "txproof", "params": ["e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",0,1453881 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "nspv_txproof", "params": ["ae234c7f47bcb5adbe7c5c5661051865be0ce61422328de90fe5a3f8fa8b7c60", "4322"] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 <collapse-text hidden title="Response">
 
 ```json
 {
-  "txid": "e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",
-  "height": 1453881,
-  "txlen": 244,
-  "txprooflen": 1655,
-  "lastpeer": "nodeid.1"
+  "result": {
+    "txid": "ae234c7f47bcb5adbe7c5c5661051865be0ce61422328de90fe5a3f8fa8b7c60",
+    "height": 4322,
+    "txlen": 119,
+    "txprooflen": 0,
+    "lastpeer": "159.65.93.178:12985"
+  },
+  "error": null,
+  "id": "curltest"
 }
 ```
 
 </collapse-text>
+
+nspv_broadcast hex
+nspv_getinfo [hdrheight]
+nspv_hdrsproof prevheight nextheight
+nspv_listtransactions [address [isCC [skipcount]]]
+nspv_listunspent [address [isCC [skipcount]]]
+nspv_login wif
+nspv_logout
+nspv_mempool func(0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool) address isCC [txid vout]]]
+nspv_notarizations height
+nspv_spend address amount
+nspv_spentinfo txid vout
+nspv_txproof txid height
