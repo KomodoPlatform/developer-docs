@@ -13,7 +13,7 @@ deploy:
   skip-cleanup: true
   github-token: "$GH_TOKEN"
   local-dir: docs/.vuepress/dist/
-  repo: komodoplatform/Documentation
+  repo: komodoplatform/developer-docs
   on:
     branch: master
 branches:
