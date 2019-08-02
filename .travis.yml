@@ -3,10 +3,11 @@ sudo: required
 services:
 - docker
 script:
-- docker build -t komodo_docs_image .
-- docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) komodo_docs_image
-- cd docs/.vuepress/dist/
-- echo 'developers.komodoplatform.com' > CNAME
+  - docker build -t komodo_docs_image .
+  - docker run --rm -v $(pwd):/app/ -w /app/ -u $(id -u):$(id -g) -e ALGOLIAKEY=$ALGOLIAKEY komodo_docs_image
+  - cd docs/.vuepress/dist/
+  - echo 'developers.komodoplatform.com' > CNAME 
+
 deploy:
 - provider: pages
   skip-cleanup: true

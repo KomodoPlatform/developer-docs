@@ -23,3 +23,6 @@ yarn-error.log*
 
 # Local build files
 /docs/.vuepress/dist/
+
+# Dev files
+/docs/.vuepress/algolia-secret.js
