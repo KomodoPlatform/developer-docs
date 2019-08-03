@@ -326,10 +326,10 @@ var sidebar = [
                   "/basic-docs/antara/antara-api/channels.md", 
                   "Channels"
               ],
-              [
+   /*           [
                   "/basic-docs/antara/antara-api/dice.md", 
                   "Dice"
-              ],
+              ], */
               [
                   "/basic-docs/antara/antara-api/dilithium.md", 
                   "Dilithium"
