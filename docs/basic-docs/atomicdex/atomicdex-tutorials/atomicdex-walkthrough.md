@@ -2,13 +2,13 @@
 
 Now that you have MarketMaker 2.0 (MM2) installed you are ready for your first atomic swap!
 
-Since we're testing MM2 as a back end, we're going to be doing a few things that a normal user will not be expected to do once we have a GUI or TUI/CLI available. We are working with Ideas By Nature, a user-experience and user-interface design firm, to facilitate this. 
+Since we're testing MM2 as a back end, we're going to be doing a few things that a normal user will not be expected to do once we have a GUI or TUI/CLI available. We are working with Ideas By Nature, a user-experience and user-interface design firm, to facilitate this.
 
 Let's open up the terminal and get started.
 
-## Setting Up the Coin List 
+## Setting Up the Coin List
 
-In the Komodo ecosystem we use two blockchain coins, RICK and MORTY, for testing purposes. These coins are freely distributed and have no blockchain scarcity, so you don't want to treat these coins as real currency. Also, if you lose them or destroy them, there's no need to stress. You can always grab more from our faucet. 
+In the Komodo ecosystem we use two blockchain coins, RICK and MORTY, for testing purposes. These coins are freely distributed and have no blockchain scarcity, so you don't want to treat these coins as real currency. Also, if you lose them or destroy them, there's no need to stress. You can always grab more from our faucet.
 
 Let's set up a file in the `~/atomicDEX-API/target/debug` directory to import the settings for these test coins. Make a file called `coins` and place the following text into it:
 
@@ -22,13 +22,13 @@ Save this file. MM2 will search for it automatically on launch.
 The `coins` file in [this linked repository](https://github.com/jl777/coins) contains the standard coin configuration file used in GUI software.
 :::
 
-#### RPC password 
+#### RPC password
 
-We also need to choose a password. 
+We also need to choose a password.
 
-Make it a secure one by including at least 8 characters, both uppercase and lowercase letters, and a few numbers and symbols.  
+Make it a secure one by including at least 8 characters, both uppercase and lowercase letters, and a few numbers and symbols.
 
-Write this down in a safe location where you won't lose it.  
+Write this down in a safe location where you won't lose it.
 
 We have our initial materials, let's launch the software.
 
@@ -44,13 +44,13 @@ Replace `YOUR_PASSPHRASE_HERE` and `YOUR_PASSWORD_HERE` with your actual passphr
 
 Here is an approximate interpretation of the arguments in the command, to help you see what's happening:
 
-| Argument | (Value) | Description |
-| -------- | ------- | ----------- |
-| gui | MM2GUI | this is a flag that can be ignored for now |
-| netid | 9999 | this tells MM2 which network to join. 9999 is a private test network we use here. 0 is the default network. |
-| passphrase | YOUR_PASSPHRASE_HERE | your passphrase; this is the source of each of your coins' private keys |
-| rpc_password | YOUR_PASSWORD_HERE | your password for protected RPC methods (userpass) |
-| userhome | /${HOME#"/"} | the path to your home, called from your environment variables and entered as a regular expression |
+| Argument     | (Value)              | Description                                                                                                 |
+| ------------ | -------------------- | ----------------------------------------------------------------------------------------------------------- |
+| gui          | MM2GUI               | this is a flag that can be ignored for now                                                                  |
+| netid        | 9999                 | this tells MM2 which network to join. 9999 is a private test network we use here. 0 is the default network. |
+| passphrase   | YOUR_PASSPHRASE_HERE | your passphrase; this is the source of each of your coins' private keys                                     |
+| rpc_password | YOUR_PASSWORD_HERE   | your password for protected RPC methods (userpass)                                                          |
+| userhome     | /\${HOME#"/"}        | the path to your home, called from your environment variables and entered as a regular expression           |
 
 Having executed the command, you should see output similar to the following:
 
@@ -82,6 +82,13 @@ The terminal will then repeat similar output to the following every so often:
 ```
 
 If you see something similar, MarketMaker 2.0 is up and running!
+
+::: tip
+
+When using the MarketMaker 2.0 on a VPS without using tools like tmux or screen, it is recommended to add the command `nohup` to the start command. It will make sure that the MarketMaker instance isn't shutdown when the user logs out.
+
+Example: `stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &`
+:::
 
 ## Setting userpass Environment Variable
 
@@ -115,7 +122,7 @@ The `userpass` environment variable will remain in our terminal's memory until w
 
 ## Connect to the Relevant Coin Networks
 
-While we did set up the coins' configuration properties in the internal files, MM2 isn't going to connect to their blockchain networks immediately. 
+While we did set up the coins' configuration properties in the internal files, MM2 isn't going to connect to their blockchain networks immediately.
 
 One reason for this is that if you trade between many coins, the startup process would require connecting to every coin all at once.
 
@@ -163,11 +170,11 @@ On the other hand, RICK and MORTY have no real value, so you can place as much i
 
 Let's retrieve some MORTY.
 
-[Click on this link](https://www.atomicexplorer.com/#/faucet/morty) and you should see an address input box. 
+[Click on this link](https://www.atomicexplorer.com/#/faucet/morty) and you should see an address input box.
 
 Place your address in there, fill out the reCaptcha to prove you're a human, and hit `OK`.
 
-In a minute or so a few MORTY coins will arrive in your address. 
+In a minute or so a few MORTY coins will arrive in your address.
 
 You can check by executing this command:
 
@@ -185,7 +192,7 @@ You now have MORTY.
 
 ## Observing the Orderbook
 
-MarketMaker 2.0 uses a decentralized orderbook to allow users to buy and sell from each other without having to rely on a centralized service. This gives it an increased level of security, as there is no central agency that can manipulate prices. This also prevents "wash" trading, where trading activity is faked. 
+MarketMaker 2.0 uses a decentralized orderbook to allow users to buy and sell from each other without having to rely on a centralized service. This gives it an increased level of security, as there is no central agency that can manipulate prices. This also prevents "wash" trading, where trading activity is faked.
 
 To see the orderbook's current state, execute the following command:
 
@@ -207,7 +214,7 @@ Now, you'll notice that the output isn't easily readable. Here's where we should
 
 You may remember that we installed software called `jq` during the setup process. `jq` is optional, but it is recommended as it makes reading the output in the terminal easier.
 
-To activate `jq`, simply add the following to the end of any command: ` | jq`.
+To activate `jq`, simply add the following to the end of any command: `| jq`.
 
 For example:
 
@@ -263,13 +270,13 @@ They are willing to give up RICK for MORTY.
 "rel": "MORTY",
 ```
 
-They are asking for `1` MORTY for every 1 RICK. 
+They are asking for `1` MORTY for every 1 RICK.
 
 ```
 "price": 1,
 ```
 
-They have a total of `10855.85028615` available to trade. 
+They have a total of `10855.85028615` available to trade.
 
 ```
 "maxvolume": 10855.85028615,

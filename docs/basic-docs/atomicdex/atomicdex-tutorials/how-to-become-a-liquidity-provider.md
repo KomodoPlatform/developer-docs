@@ -121,31 +121,28 @@ source $HOME/.cargo/env
 ##### Command
 
 ```bash
-rustup install nightly-2019-06-26
+rustup install nightly-2019-08-05
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup install nightly-2019-06-26
-info: syncing channel updates for 'nightly-2019-06-26-x86_64-unknown-linux-gnu'
-info: latest update on 2019-06-26, rust version 1.37.0-nightly (5f9c0448d 2019-06-25)
+$ rustup install nightly-2019-08-05
+info: syncing channel updates for 'nightly-2019-08-05-x86_64-unknown-linux-gnu'
+info: latest update on 2019-08-05, rust version 1.38.0-nightly (d3f8a0b5d 2019-08-04)
 info: downloading component 'rustc'
 info: downloading component 'rust-std'
 info: downloading component 'cargo'
-  4.6 MiB /   4.6 MiB (100 %)   1.8 MiB/s in  1s ETA:  0s
 info: downloading component 'rust-docs'
 info: installing component 'rustc'
- 85.5 MiB /  85.5 MiB (100 %)  18.4 MiB/s in  4s ETA:  0s
 info: installing component 'rust-std'
- 61.7 MiB /  61.7 MiB (100 %)  19.9 MiB/s in  2s ETA:  0s
 info: installing component 'cargo'
 info: installing component 'rust-docs'
- 11.2 MiB /  11.2 MiB (100 %)   7.8 MiB/s in  1s ETA:  0s
 
-  nightly-2019-06-26-x86_64-unknown-linux-gnu installed - rustc 1.37.0-nightly (5f9c0448d 2019-06-25)
+  nightly-2019-08-05-x86_64-unknown-linux-gnu installed - rustc 1.38.0-nightly (d3f8a0b5d 2019-08-04)
 
 info: checking for self-updates
+
 ```
 
 </collapse-text>
@@ -153,17 +150,17 @@ info: checking for self-updates
 ##### Command
 
 ```bash
-rustup default nightly-2019-06-26
+rustup default nightly-2019-08-05
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup default nightly-2019-06-26
-info: using existing install for 'nightly-2019-06-26-x86_64-unknown-linux-gnu'
-info: default toolchain set to 'nightly-2019-06-26-x86_64-unknown-linux-gnu'
+$ rustup default nightly-2019-08-05
+info: using existing install for 'nightly-2019-08-05-x86_64-unknown-linux-gnu'
+info: default toolchain set to 'nightly-2019-08-05-x86_64-unknown-linux-gnu'
 
-  nightly-2019-06-26-x86_64-unknown-linux-gnu unchanged - rustc 1.37.0-nightly (5f9c0448d 2019-06-25)
+  nightly-2019-08-05-x86_64-unknown-linux-gnu unchanged - rustc 1.38.0-nightly (d3f8a0b5d 2019-08-04)
 
 ```
 
@@ -330,7 +327,7 @@ Failure to properly manage your passphrase can (and likely will) result in lost 
 
 ```bash
 #!/bin/bash
-stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove\", \"rpc_password\":\"GlHjhvYlev8fh8xZgSBI\"}" &
+stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove\", \"rpc_password\":\"GlHjhvYlev8fh8xZgSBI\"}" &
 ```
 
 </collapse-text>
@@ -354,7 +351,6 @@ userpass=GlHjhvYlev8fh8xZgSBI
 </collapse-text>
 
 We now have basic scripts to use the MarketMaker as a liquidity provider.
-
 
 #### Step 2: Start the MarketMaker
 
@@ -410,7 +406,7 @@ cd ~/atomicDEX-API/target/debug
 {"address":"RG1yR8UGqyHmRBcrwAakUEi8u1AC5jNABY","balance":"0","coin":"KMD","result":"success"}
 ```
 
-Take note of the address. 
+Take note of the address.
 
 ::: tip
 
@@ -450,7 +446,6 @@ Again, a best practice here is to ensure that the public address above matches w
 
 :::
 
-
 ```js
 2019-07-20 08:08:11, lp_coins:669] ticker = "LTC", block_count = 1670767
 ```
@@ -466,7 +461,6 @@ Display the KMD/LTC Orderbook.
 ::: tip
 
 See this [linked document](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html#orderbook) for an explanation of the output.
-
 
 :::
 
