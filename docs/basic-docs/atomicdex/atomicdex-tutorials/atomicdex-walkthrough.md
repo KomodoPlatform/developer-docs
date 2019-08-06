@@ -83,6 +83,13 @@ The terminal will then repeat similar output to the following every so often:
 
 If you see something similar, MarketMaker 2.0 is up and running!
 
+::: tip
+
+When using the MarketMaker 2.0 on a VPS without using tools like tmux or screen, it is recommended to add the command `nohup` to the start command. It will make sure that the MarketMaker instance isn't shutdown when the user logs out.
+
+Example: `stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"YOUR_PASSPHRASE_HERE\", \"rpc_password\":\"YOUR_PASSWORD_HERE\"}" &`
+:::
+
 ## Setting userpass Environment Variable
 
 ::: tip
