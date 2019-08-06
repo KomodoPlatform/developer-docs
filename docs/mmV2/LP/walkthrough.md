@@ -1,45 +1,45 @@
----
-sidebarDepth: 3
----
+# How To Become a Liquidity Provider on AtomicDEX
 
-# How To Become a Liquidity Provider for AtomicDEX
+The following tutorial introduces the reader to a simple method to become a liquidity provider on the main network of the AtomicDEX software.
 
 ## Requirements
 
-A VPS with _atleast_ the following specifications:
+#### Virtual Private Server (Recommended)
+
+We recommend that the user [have a Virtual Private Server (VPS)](../../../basic-docs/smart-chains/smart-chain-tutorials/basic-environment-setup-for-linux-vps.html) with _at least_ the following specifications.
 
 - 2 vCPU
 - 4GB RAM
 - OS: Ubuntu 18.04 (Preferably a clean installation)
 
-**(OR)**
+#### Home-Based Connection
 
-A Home computer with a GOOD internet connection and decent specifications running Ubuntu 18.04.
+If the user prefers to use computer hardware at home, instead of a VPS, we recommend that the user have a very strong Internet connection. We also recommend that the user have a competitive hardware setup running on Ubuntu 18.04.
 
-- Internet speed - atleast 1 MBPS
-- RAM - atleast 4 GB
-- Processor - atleast i5 or equivalent
+- Internet speed - _at least_ 1 MBPS
+- RAM - _at least_ 4 GB
+- Processor - _at least_ i5 or equivalent
 
 ## Installing Dependencies
 
-### Step 1: OS Packages
+#### Step 1: OS Packages
 
-Command:
+##### Command
 
 ```bash
 sudo apt update
 sudo apt-get install build-essential git jq llvm-3.9-dev libclang-3.9-dev clang-3.9 cmake libssl-dev pkg-config
 ```
 
-### Step 2: Install rust
+#### Step 2: Install Rust
 
-Command:
+##### Command
 
 ```bash
 curl https://sh.rustup.rs -sSf | sh
 ```
 
-When asked to select an installation type, select:
+When asked to select an installation type, select the following.
 
 ```
 1) Proceed with installation (default)
@@ -108,66 +108,65 @@ To configure your current shell run source $HOME/.cargo/env
 
 </collapse-text>
 
-Once the installation is complete, you need to either `Logout` then `Login` again or execute the following command in each shell you use till the next `Login`
+Once the installation is complete, enter `Logout` and then `Login` again.
+
+Alternatively, you may execute the following command in each active shell until you reach the `Login` again.
 
 ```bash
 source $HOME/.cargo/env
 ```
 
-### Step 3: Install rust components
+#### Step 3: Install Rust components
 
-Command:
+##### Command
 
 ```bash
-rustup install nightly-2019-06-26
+rustup install nightly-2019-08-05
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup install nightly-2019-06-26
-info: syncing channel updates for 'nightly-2019-06-26-x86_64-unknown-linux-gnu'
-info: latest update on 2019-06-26, rust version 1.37.0-nightly (5f9c0448d 2019-06-25)
+$ rustup install nightly-2019-08-05
+info: syncing channel updates for 'nightly-2019-08-05-x86_64-unknown-linux-gnu'
+info: latest update on 2019-08-05, rust version 1.38.0-nightly (d3f8a0b5d 2019-08-04)
 info: downloading component 'rustc'
 info: downloading component 'rust-std'
 info: downloading component 'cargo'
-  4.6 MiB /   4.6 MiB (100 %)   1.8 MiB/s in  1s ETA:  0s
 info: downloading component 'rust-docs'
 info: installing component 'rustc'
- 85.5 MiB /  85.5 MiB (100 %)  18.4 MiB/s in  4s ETA:  0s
 info: installing component 'rust-std'
- 61.7 MiB /  61.7 MiB (100 %)  19.9 MiB/s in  2s ETA:  0s
 info: installing component 'cargo'
 info: installing component 'rust-docs'
- 11.2 MiB /  11.2 MiB (100 %)   7.8 MiB/s in  1s ETA:  0s
 
-  nightly-2019-06-26-x86_64-unknown-linux-gnu installed - rustc 1.37.0-nightly (5f9c0448d 2019-06-25)
+  nightly-2019-08-05-x86_64-unknown-linux-gnu installed - rustc 1.38.0-nightly (d3f8a0b5d 2019-08-04)
 
 info: checking for self-updates
+
 ```
 
 </collapse-text>
 
-Command:
+##### Command
 
 ```bash
-rustup default nightly-2019-06-26
+rustup default nightly-2019-08-05
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup default nightly-2019-06-26
-info: using existing install for 'nightly-2019-06-26-x86_64-unknown-linux-gnu'
-info: default toolchain set to 'nightly-2019-06-26-x86_64-unknown-linux-gnu'
+$ rustup default nightly-2019-08-05
+info: using existing install for 'nightly-2019-08-05-x86_64-unknown-linux-gnu'
+info: default toolchain set to 'nightly-2019-08-05-x86_64-unknown-linux-gnu'
 
-  nightly-2019-06-26-x86_64-unknown-linux-gnu unchanged - rustc 1.37.0-nightly (5f9c0448d 2019-06-25)
+  nightly-2019-08-05-x86_64-unknown-linux-gnu unchanged - rustc 1.38.0-nightly (d3f8a0b5d 2019-08-04)
 
 ```
 
 </collapse-text>
 
-Command:
+##### Command
 
 ```bash
 rustup component add rustfmt-preview
@@ -184,9 +183,9 @@ info: installing component 'rustfmt'
 
 </collapse-text>
 
-## Installing the Marketmaker Software
+## Install MarketMaker Software
 
-### Step 1: Download source code
+#### Step 1: Download source code
 
 ```bash
 cd ~ ; git clone https://github.com/KomodoPlatform/atomicDEX-API --branch mm2 --single-branch && cd atomicDEX-API
@@ -207,9 +206,9 @@ Resolving deltas: 100% (84045/84045), done.
 
 </collapse-text>
 
-### Step 2: Compile source code
+#### Step 2: Compile Source Code
 
-Command:
+##### Command
 
 ```bash
 cargo build --features native -vv
@@ -225,9 +224,9 @@ cargo build --features native -vv
 
 </collapse-text>
 
-### Step 3: Download the coins configuration file
+#### Step 3: Download the Coins Configuration File
 
-Command:
+##### Command
 
 ```bash
 cd ~/atomicDEX-API/target/debug ; wget https://raw.githubusercontent.com/jl777/coins/master/coins
@@ -252,11 +251,9 @@ coins                                                        100%[==============
 
 </collapse-text>
 
-## Running the Marketmaker
+## Running the MarketMaker
 
-### Step 1: Download and edit some scripts to provide liquidity for the KMD/LTC pair
-
-We will now download some scripts to the directory: `~/atomicDEX-API/target/debug` for easy interaction with the Marketmaker.
+#### Step 1: Download and Edit Scripts to Provide Liquidity for the KMD/LTC Pair
 
 Navigate to the directory: `~/atomicDEX-API/target/debug`
 
@@ -264,44 +261,84 @@ Navigate to the directory: `~/atomicDEX-API/target/debug`
 cd ~/atomicDEX-API/target/debug
 ```
 
-Download the scripts used to start and interact with the Marketmaker
+Download the scripts used to start and interact with MarketMaker.
 
 ```bash
 git clone https://github.com/gcharang/mm2scripts
 ```
 
-Copy those scripts to the current directory
+Copy those scripts to the current directory.
 
 ```bash
 cp mm2scripts/* .
 ```
 
-#### Edit the file named `start.sh`
+#### Create a Secure Seed Phrase
+
+The user must create a seed phrase that will serve as a type of password for accessing all coins in the user's digital wallet.
+
+Various tools are available in the cryptocurrency community to create a secure seed phrase. One available method is to use the automated procedure that is included in the [Verus Agama Wallet](https://veruscoin.io/wallet.html).
+
+Backup these 24 words carefully. They provide access to the coins that are stored in the addresses created by the MarketMaker.
+
+To learn more about creating secure phrases, [read this linked content on the Bitcoin wiki.](https://en.bitcoin.it/wiki/Seed_phrase)
+
+#### Edit the start.sh File
+
+::: danger Danger!
+
+We are about to place the seed phrase in the user's start.sh file. This step is crucial for cryptocurrency security. Failure to properly execute this step can (and likely will) lead to a loss of all your funds.
+
+:::
+
+Open the `start.sh` file in the current directory using the nano software.
 
 ```bash
 nano start.sh
 ```
 
-Replace the value `REPLACE_TRADING_WALLET_PASSPHRASE` in the file with a seed phrase (24 words) created using the AtomicDEX wallet or the Verus Agama wallet. **Failure to do so will result in lost coins**.
+Replace the value `REPLACE_TRADING_WALLET_PASSPHRASE` in the file with the seed phrase.
 
-Backup these 24 words carefully. They provide access to the coins that are stored in the addresses created by the Marketmaker.
+#### Create an RPC Control User Password
 
-Replace the text `"RPC_CONTROL_USERPASSWORD"` with a sufficiently strong password.
+Keep the nano software and `start.sh` file open.
+
+Separately, create an additional password for Remote Procedure Call (RPC) access.
+
+This should be a simple password that is sufficiently random, has at least eight digits, and is based on numbers and letters.
+
+#### Place the User Password into the start.sh File
+
+Replace the text `"RPC_CONTROL_USERPASSWORD"` with your RPC user password.
+
+##### Example
+
+<div style="margin-top: 1rem; margin-bottom: 1rem;">
 
 <collapse-text hidden title="Example">
 
+::: warning Danger!
+
+The below example contains an example for launching the MarketMaker software with a 24-word passphrase. This is provided for demonstration purposes only. You should NOT copy/paste this example. Type this command in manually to your terminal, and MAKE SURE TO CHANGE THE PASSPHRASE TO YOUR OWN.
+
+Failure to properly manage your passphrase can (and likely will) result in lost funds.
+
+:::
+
 ```bash
 #!/bin/bash
-stdbuf -oL ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove\", \"rpc_password\":\"GlHjhvYlev8fh8xZgSBI\"}" &
+stdbuf -oL nohup ./mm2 "{\"gui\":\"MM2GUI\",\"netid\":9999, \"userhome\":\"/${HOME#"/"}\", \"passphrase\":\"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove\", \"rpc_password\":\"GlHjhvYlev8fh8xZgSBI\"}" &
 ```
-
-**DO NOT** use the seed phrase: `"alpha sleep calm pumpkin brief game summer item monitor mother hobby filter clever desert boat prosper office entry major sauce praise neglect brand dove"`. **Using it will result in lost coins**.
 
 </collapse-text>
 
-Hit `Ctrl + X` to save and exit. Observe the bottom part for any prompts. Hit `y` when asked to save. When the file name is shown, just hit `Enter` if the name matches `start.sh` .
+</div>
 
-#### Edit the file named `userpass`
+Hit `Ctrl + X` to save and exit.
+
+Observe the bottom of the terminal for any prompts. Hit `y` when asked to save. When the file name is shown, hit `Enter` if the name matches `start.sh`.
+
+#### Edit the userpass File
 
 Replace the text `RPC_CONTROL_USERPASSWORD` with the same password used in the `start.sh` file.
 
@@ -313,23 +350,11 @@ userpass=GlHjhvYlev8fh8xZgSBI
 
 </collapse-text>
 
-We now have the basic scripts to use the Marketmaker.
+We now have basic scripts to use the MarketMaker as a liquidity provider.
 
-#### More methods
+#### Step 2: Start the MarketMaker
 
-More methods can be found in the [linked document.](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html)
-
-The examples there can be used to create more scripts for convenience.
-
-If the name of the script you create is `SCRIPT_NAME.sh` , make it executable using the following command.
-
-```bash
-chmod +x SCRIPT_NAME.sh
-```
-
-### Step 2: Start the Marketmaker
-
-Command:
+##### Command
 
 ```bash
 ./start.sh
@@ -359,9 +384,9 @@ mylo@vultr:~/atomicDEX-API/target/debug$ 20 08:05:19, mm2:143] AtomicDEX MarketM
 
 </collapse-text>
 
-### Step 3: Connect to the Coin Networks (KMD & LTC)
+#### Step 3: Connect to the Coin Networks (KMD & LTC)
 
-Open a new terminal and Navigate to the directory: `~/atomicDEX-API/target/debug`
+Open a new terminal and navigate to the directory: `~/atomicDEX-API/target/debug`
 
 ```bash
 cd ~/atomicDEX-API/target/debug
@@ -369,21 +394,29 @@ cd ~/atomicDEX-API/target/debug
 
 #### Connect to the KMD network
 
-Command:
+##### Command
 
 ```bash
 ./KMDconnect.sh
 ```
 
-Response:
+##### Response
 
 ```js
 {"address":"RG1yR8UGqyHmRBcrwAakUEi8u1AC5jNABY","balance":"0","coin":"KMD","result":"success"}
 ```
 
-Take note of the address and make sure that it matches the address generated for KMD by the AtomicDEX wallet or the Verus Agama wallet.
+Take note of the address.
 
-<collapse-text hidden title="Sample Output in the terminal start.sh has been executed">
+::: tip
+
+We recommend here that you make sure that the public address above matches the address generated by the same passphrase, when entered into the AtomicDEX wallet or the Verus Agama wallet.
+
+:::
+
+<collapse-text hidden title="Response">
+
+A sample response of the terminal ouput after the `start.sh` file is executed.
 
 ```js
 2019-07-20 08:07:13, lp_coins:669] ticker = "KMD", block_count = 1450741
@@ -393,21 +426,25 @@ Take note of the address and make sure that it matches the address generated for
 
 #### Connect to the LTC network
 
-Command:
+##### Command
 
 ```bash
 ./LTCconnect.sh
 ```
 
-Response:
+##### Response
 
 ```js
 {"address":"LRxjbptpKojFbywpe8avejShLx4sYvKSBZ","balance":"0","coin":"LTC","result":"success"}
 ```
 
-Take note of the address and make sure that it matches the address generated for KMD by the AtomicDEX wallet or the Verus Agama wallet.
+<collapse-text hidden title="Sample Output">
 
-<collapse-text hidden title="Sample Output in the terminal start.sh has been executed">
+::: tip
+
+Again, a best practice here is to ensure that the public address above matches with the address in the AtomicDEX or Verus Agama wallets.
+
+:::
 
 ```js
 2019-07-20 08:08:11, lp_coins:669] ticker = "LTC", block_count = 1670767
@@ -417,13 +454,17 @@ Take note of the address and make sure that it matches the address generated for
 
 ## Trading
 
-### Step 0: Query the current Orderbooks
+#### Step 0: Query the Current Orderbooks
 
-See the [linked document](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html#orderbook) for explanation of the output.
+Display the KMD/LTC Orderbook.
 
-Display the KMD/LTC Orderbook:
+::: tip
 
-Command:
+See this [linked document](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html#orderbook) for an explanation of the output.
+
+:::
+
+##### Command
 
 ```bash
 ./orderbook.sh KMD LTC | jq '.'
@@ -474,9 +515,9 @@ Command:
 
 </collapse-text>
 
-Display the LTC/KMD Orderbook:
+Display the LTC/KMD Orderbook.
 
-Command:
+##### Command
 
 ```bash
 ./orderbook.sh LTC KMD | jq '.'
@@ -527,37 +568,35 @@ Command:
 
 </collapse-text>
 
-Now that we are aware of the current prices for the trade pairs we are interested in, we can start funding the addresses.
+#### Step 1: Fund the Address
 
-### Step1: Fund the address
+In this example, we sell KMD for LTC.
 
-In this example, we are selling KMD for LTC.
+To achieve this, we first fund the KMD address created by the MarketMaker.
 
-To achieve this, we first fund the KMD address created by the Marketmaker.
-
-To find the address and Check the balance, use the following command.
+Use the following command to find the address and check the balance.
 
 ```bash
 ./mybalance.sh KMD
 ```
 
-Response:
+##### Response
 
 ```js
 {"address":"RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb","balance":"2.98","coin":"KMD"}
 ```
 
-### Step2: Place an order
+#### Step 2: Place an Order
 
-To sell 2 KMD for LTC at the price `1 KMD = 0.013 LTC`.
+Execute the following command to sell 2 KMD at the price of `1 KMD = 0.013 LTC`.
 
-Command:
+##### Command
 
 ```bash
 ./place_order.sh KMD LTC 0.013 2 | jq '.'
 ```
 
-Response:
+##### Response
 
 ```js
 {
@@ -575,17 +614,17 @@ Response:
 }
 ```
 
-### Step3: Check the status of an Order
+#### Step 3: Check the Status of an Order
 
-Check the status of an order by referring to its `uuid`
+Check the status of an order by referring to its `uuid`.
 
-Command:
+##### Command
 
 ```bash
 ./order_status.sh 6621efd5-72dd-422c-89a8-7b655b744ead | jq '.'
 ```
 
-Response:
+##### Response
 
 ```js
 {
@@ -606,19 +645,19 @@ Response:
 }
 ```
 
-### Step4: Withdrawal of Coins
+#### Step 4: Withdrawal of Coins
 
-Once someone accepts the order and the trade is finished, the coins Received (LTC) and the coins Leftover (KMD) can be withdrawn.
+After someone accepts the order and your trade is finished, the coins received (LTC) and the coins leftover (KMD) can be withdrawn.
 
-To withdraw 0.97 KMD to the address RUFf4de7gZE7sp5vPcxaAsvv6j79ZbQgAu:
+Execute the following command to withdraw `0.97` KMD to the address `RUFf4de7gZE7sp5vPcxaAsvv6j79ZbQgAu`.
 
-Command:
+##### Command
 
 ```bash
 ./withdraw.sh KMD RUFf4de7gZE7sp5vPcxaAsvv6j79ZbQgAu 0.97 | jq '.'
 ```
 
-Response:
+##### Response
 
 ```json
 {
@@ -640,15 +679,15 @@ Response:
 }
 ```
 
-Copy the `"tx_hex"` from the above response and send it to the network using the `sendrawtransaction.sh` script.
+Copy the `"tx_hex"` value from the above response and send it to the network using the `sendrawtransaction.sh` script.
 
-Command:
+##### Command
 
 ```bash
 ./sendrawtransaction.sh KMD 0400008085202f8901c25ecb12f5fc17120bf92ed18ff71754b5f58e6eece2fba44fc114f14176df04010000006a4730440220732047807944afcb062f5dc7af87fe5b9979e447cd235ef1b130e50008c3d51a02201b232814bcee9c0b5a29aa24d453e493cd121a0e21d94c0e84476de0a15e74a101210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06ffffffff02401ac805000000001976a914d020156e7d0fead249cfb5a458952ae941ac9f9e88ac5800fb0b000000001976a9144726f2838fc4d6ac66615e10604e18926e9b556e88ac06a5355d000000000000000000000000000000
 ```
 
-Response:
+##### Response
 
 ```json
 {
@@ -660,17 +699,17 @@ The above `tx_hash` can be searched for in an explorer to check the status of th
 
 ## Miscellaneous
 
-### Stop
+#### Stop
 
-To stop the Marketmaker, use the `stop.sh` script.
+To stop the MarketMaker, use the `stop.sh` script.
 
-Command:
+##### Command
 
 ```bash
 ./stop.sh
 ```
 
-Response:
+##### Response
 
 ```js
 {
@@ -678,15 +717,15 @@ Response:
 }
 ```
 
-### To view all the orders placed by us
+#### View All the Orders Placed by Our Node
 
-Command:
+##### Command
 
 ```bash
 ./myorders.sh  | jq .
 ```
 
-Response:
+##### Response
 
 ```js
 {
@@ -711,25 +750,20 @@ Response:
 }
 ```
 
-### Cancel an order
+#### Cancel an Order
 
-Cancel an order by referring to its `uuid`
+Cancel an order by referring to its `uuid`.
 
-Command:
+##### Command
 
 ```bash
 ./cancel_order.sh 6621efd5-72dd-422c-89a8-7b655b744ead
 ```
 
-Response:
+##### Response
 
 ```js
 {
   "result": "success"
 }
 ```
-
-<!--
-### Cancel all orders
-### coins_needed_for_kick_start
--->

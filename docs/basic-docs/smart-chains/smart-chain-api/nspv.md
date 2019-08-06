@@ -10,9 +10,9 @@ To use the following methods, the daemon must be started with the command line p
 
 The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
-### broadcast
+### nspv_broadcast
 
-**broadcast hex**
+**nspv_broadcast hex**
 
 Use this method to broadcast a hex returned by the [spend](#spend) method.
 

@@ -17,10 +17,6 @@ var navbar = [{
                 link: "/komodo/installation.md"
             },
             {
-                text: "Asset Chains",
-                link: "/assetchains/beginner-vps-linux.md"
-            },
-            {
                 text: "Notary Nodes",
                 link: "/notary/setup-Komodo-Notary-Node.md"
             },

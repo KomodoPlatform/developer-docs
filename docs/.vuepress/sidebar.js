@@ -110,6 +110,14 @@ var sidebar = {
               "/basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.md",
               "Common Runtime Parameters"
             ],
+            [
+              "/basic-docs/smart-chains/smart-chain-tutorials/example-smart-chains.md",
+              "Examples and descriptions of various Smart Chain configurations"
+            ],
+            [
+              "/basic-docs/smart-chains/smart-chain-tutorials/checklist-new-coin.md",
+              "Complete Checklist for New Coins"
+            ]
           ],
         },
         {
@@ -667,7 +675,7 @@ var sidebar = {
       ]
     }
   ],
-  "/assetchains/": [
+  /* "/assetchains/": [
     [
       "/assetchains/beginner-vps-linux.md",
       "A Beginner's Guide to starting with the world of Remote UNIX environments and creating Komodo Blockchains"
@@ -681,7 +689,7 @@ var sidebar = {
       "Examples and descriptions of various Blockchains that can be created using Komodo Platform"
     ],
     ["/assetchains/checklist-new-coin.md", "Checklist for New Coins"]
-  ],
+  ], */
   "/mmV1/": [{
       title: "Installation",
       collapsable: true,
