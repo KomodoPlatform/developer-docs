@@ -14,7 +14,7 @@ This parameter is in its final testing stages.
 
 :::
 
-When a blockchain's hashrate is much lower than that of another blockchain with the same mining algorithm, miners from the second chain can move to the first chain and mine a large number of blocks in a short amount of time. Consequently, the rapid influx of new miners would drastically increase the difficulty of finding a block.
+The `ac_adaptivepow` parameter solves a problem that affects low-hashrate blockchains. When a blockchain's hashrate is much lower than that of another blockchain with the same mining algorithm, miners from the higher-powered chain can move to the lower-powered chain and mine a large number of blocks in a short amount of time. Consequently, the rapid influx of new miners would drastically increase the difficulty of finding a block.
 
 The miners who were on the first chain’s network before the new rush of miners would have a much harder time finding blocks, and may not be able to find any blocks at all, as the difficulty level increased so sharply in such a short period of time. When miners from the second chain leave, the native miners will have to wait an extremely long time to produce a new block, as they don't have enough hashrate to find blocks at the inflated difficulty level.
 
