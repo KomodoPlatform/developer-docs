@@ -25,14 +25,6 @@ make
 
 <!---FIXME
 
----
-mainly -p
----
-
-adding smartchain to coins file
-
-variations on issuing the api commands too
-
 Usage: nspv [COIN defaults to NSPV] (-c|continuous) (-i|-ips <ip,ip,...]>) (-m[--maxpeers] <int>) (-t[--testnet]) (-f <headersfile|0 for in mem only>) (-p <rpcport>) (-r[--regtest]) (-d[--debug]) (-s[--timeout] <secs>) <command>
 Supported commands:
         scan      (scan blocks up to the tip, creates header.db file)
@@ -70,16 +62,16 @@ Copy the following code to the file named `coins` (located at the root of the so
 
 #### Property Descriptions
 
-| Name    | Type     | Description                                                                                                                                                                             |
-| ------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin    | (string) | the ticker of the coin                                                                                                                                                                  |
-| asset   | (string) | the `-ac_name` parameter used to start the Smart Chain                                                                                                                                  |
-| fname   | (string) | the full name of the Smart Chain                                                                                                                                                        |
-| rpcport | (number) | the RPC port the Smart Chain's daemon uses to receive RPC commands                                                                                                                      |
-| mm2     | (number) | set this value to `1` if this coin has been tested and proves capable of functioning on MarketMaker 2.0 software                                                                                                                 |
-| p2p     | (number) | the p2p port the Smart Chain's daemon uses to communicate with other nodes                                                                                                              |
+| Name    | Type     | Description                                                                                                                                                                                                                        |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin    | (string) | the ticker of the coin                                                                                                                                                                                                             |
+| asset   | (string) | the `-ac_name` parameter used to start the Smart Chain                                                                                                                                                                             |
+| fname   | (string) | the full name of the Smart Chain                                                                                                                                                                                                   |
+| rpcport | (number) | the RPC port the Smart Chain's daemon uses to receive RPC commands                                                                                                                                                                 |
+| mm2     | (number) | set this value to `1` if this coin has been tested and proves capable of functioning on MarketMaker 2.0 software                                                                                                                   |
+| p2p     | (number) | the p2p port the Smart Chain's daemon uses to communicate with other nodes                                                                                                                                                         |
 | magic   | (string) | the netmagic number for this Smart Chain. The decimal value of `magic` can be obtained by executing the `getinfo` RPC on a full node on the Smart Chain network. Convert the decimal value to hex and serialize it into 4 hexbytes |
-| nSPV    | (string) | the ip addresses of the nodes on the Smart Chain network that are launched using the parameter `-nSPV=1`                                                                                   |
+| nSPV    | (string) | the ip addresses of the nodes on the Smart Chain network that are launched using the parameter `-nSPV=1`                                                                                                                           |
 
 ::: tip
 
@@ -96,11 +88,12 @@ The `magic` number can also be seen in the terminal as a `stdout` printout when 
 ```
 >>>>>>>>>> COIN: p2p.40264 rpc.40265 magic.fe1c3450 4263261264 350689 coins
 ```
+
 :::
 
 ::: tip
 
-To start the nSPV client for a specific Smart Chain after its data has been added to the coins file, execute the following. 
+To start the nSPV client for a specific Smart Chain after its data has been added to the coins file, execute the following.
 
 ```
 ./nspv COIN
@@ -136,7 +129,7 @@ Sidd: There was a mention below of a "doc", but I am assuming that the doc in qu
 
 -->
 
-When using this format for any RPC that requires parameters (also called "arguments"), provide the parameters in the order they are given in this documentation. 
+When using this format for any RPC that requires parameters (also called "arguments"), provide the parameters in the order they are given in this documentation.
 
 For example, the [spentinfo](../../../basic-docs/smart-chains/smart-chain-setup/nspv.html#spentinfo) RPC lists `txid` as the first parameter and `vout` as the second. Observe in the following example how the values in the `"params"` key match this order.
 
@@ -148,7 +141,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "
 
 #### Accessing localhost in the Browser
 
-To access an nSPV client using a browser, create a  url that uses `http://126.0.0.1:<insert_port>/api/` as the base url, and add the `rpc_name/` and any relevant additional `parameters/` as additional url directions. See the example below.
+To access an nSPV client using a browser, create a url that uses `http://126.0.0.1:<insert_port>/api/` as the base url, and add the `rpc_name/` and any relevant additional `parameters/` as additional url directions. See the example below.
 
 ##### Example
 
@@ -182,14 +175,14 @@ Use this method to broadcast the hex value returned by the [spend](#spend) metho
 
 #### Response
 
-| Name      | Type     | Description                                                                                                    |
-| --------- | -------- | -------------------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command was successful                                                                             |
-| expected  | (string) | the expected transaction id                                                                                    |
-| broadcast | (string) | the broadcasted transaction id                                                                                 |
+| Name      | Type     | Description                                                                                                                  |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| result    | (string) | whether the command was successful                                                                                           |
+| expected  | (string) | the expected transaction id                                                                                                  |
+| broadcast | (string) | the broadcasted transaction id                                                                                               |
 | retcode   | (number) | the return code<br><br>0: no error<br><br>-1,-2,-3: failure<br><br>-200x: mostly OK, some of the inputs may not be notarized |
-| type      | (string) | the type of the broadcast                                                                                      |
-| lastpeer  | (string) | the last known peer                                                                                            |
+| type      | (string) | the type of the broadcast                                                                                                    |
+| lastpeer  | (string) | the last known peer                                                                                                          |
 
 #### :pushpin: Examples
 
@@ -228,30 +221,30 @@ Use this method to get the general information on the state of the blockchain at
 
 #### Response
 
-| Name                    | Type     | Description                                                                                                                                 |
-| ----------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                  | (string) | whether the command was successful                                                                                                          |
-| nSPV                    | (string) | the mode of nSPV                                                                                                                            |
-| address                 | (string) | the address corresponding to the wifkey                                                                                                     |
-| pubkey                  | (string) | the pubkey corresponding to the wifkey                                                                                                      |
-| wifexpires              | (string) | the time in seconds till the login expires                                                                                                  |
-| height                  | (number) | the current height of the blockchain                                                                                                        |
-| chaintip                | (string) | the blockhash of the last block                                                                                                             |
+| Name                    | Type     | Description                                                                                                                                        |
+| ----------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                  | (string) | whether the command was successful                                                                                                                 |
+| nSPV                    | (string) | the mode of nSPV                                                                                                                                   |
+| address                 | (string) | the address corresponding to the wifkey                                                                                                            |
+| pubkey                  | (string) | the pubkey corresponding to the wifkey                                                                                                             |
+| wifexpires              | (string) | the time in seconds till the login expires                                                                                                         |
+| height                  | (number) | the current height of the blockchain                                                                                                               |
+| chaintip                | (string) | the blockhash of the last block                                                                                                                    |
 | notarization            | (json)   | a json object containing the notarization details                                                                                                  |
-| notarized_height        | (number) | the height of the latest block that has been notarized                                                                                      |
-| notarized_blockhash     | (string) | the blockhash of the latest block that has been notarized                                                                                   |
-| notarization_txid       | (string) | the id of the transaction in which the notarization data is included in the chain being dPoW'ed                                             |
-| notarization_txidheight | (number) | the height of the block in which the notarization transaction is included                                                                   |
-| notarization_desttxid   | (string) | the id of the transaction in which the notarization data is included in the chain acting as the data store                                  |
+| notarized_height        | (number) | the height of the latest block that has been notarized                                                                                             |
+| notarized_blockhash     | (string) | the blockhash of the latest block that has been notarized                                                                                          |
+| notarization_txid       | (string) | the id of the transaction in which the notarization data is included in the chain being dPoW'ed                                                    |
+| notarization_txidheight | (number) | the height of the block in which the notarization transaction is included                                                                          |
+| notarization_desttxid   | (string) | the id of the transaction in which the notarization data is included in the chain acting as the data store                                         |
 | header                  | (string) | a json object containing the details of the header (of the current block by default / block of height specified by `hdrheight` if it is specified) |
-| height                  | (number) | the height of the block that has been queried                                                                                               |
-| blockhash               | (string) | the blockhash of the block that has been queried                                                                                            |
-| hashPrevBlock           | (string) | the blockhash of the block before the block that has been queried                                                                           |
-| hashMerkleRoot          | (string) | the merkleroot of the block that has been queried                                                                                           |
-| nTime                   | (number) | a timestamp recording when this block was created                                                                                           |
-| nBits                   | (number) | the calculated difficulty target being used for this block                                                                                  |
-| protocolversion         | (string) | the version of the client; helps the nspv client disconnect from nodes that are out of date                                                 |
-| lastpeer                | (string) | the last known peer                                                                                                                         |
+| height                  | (number) | the height of the block that has been queried                                                                                                      |
+| blockhash               | (string) | the blockhash of the block that has been queried                                                                                                   |
+| hashPrevBlock           | (string) | the blockhash of the block before the block that has been queried                                                                                  |
+| hashMerkleRoot          | (string) | the merkleroot of the block that has been queried                                                                                                  |
+| nTime                   | (number) | a timestamp recording when this block was created                                                                                                  |
+| nBits                   | (number) | the calculated difficulty target being used for this block                                                                                         |
+| protocolversion         | (string) | the version of the client; helps the nspv client disconnect from nodes that are out of date                                                        |
+| lastpeer                | (string) | the last known peer                                                                                                                                |
 
 #### :pushpin: Examples
 
@@ -358,7 +351,7 @@ Use this method to get the information of all peers on the network.
 | time_started_con  | (number) | the unix time at which a connection to this node was established |
 | time_last_request | (number) | <!--FIXME -->                                                    |
 | services          | (number) | <!--FIXME -->                                                    |
-| missbehavescore   | (number) | the score given to this node if the node was misbehaving               |
+| missbehavescore   | (number) | the score given to this node if the node was misbehaving         |
 | bestknownheight   | (number) | the height of the blockchain as best known by this node          |
 
 #### :pushpin: Examples
@@ -496,7 +489,7 @@ This method scans backwards from the `prevheight` until the process encounters a
 
 Then the process finds the notarized blocks corresponding to these two notarization transactions.
 
-Then the process returns all the block headers between these two notarized blocks. 
+Then the process returns all the block headers between these two notarized blocks.
 
 Now that both ends of this segment of blocks are notarized blocks, all block headers in this segment can be validated to see if they link back to each other.
 
@@ -509,26 +502,26 @@ Now that both ends of this segment of blocks are notarized blocks, all block hea
 
 #### Response
 
-| Name           | Type     | Description                                                                                                                                 |
-| -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| result         | (string) | whether the command was successful                                                                                                          |
-| prevht         | (string) | the height of the first notarized block below the height `prevheight`                                                                       |
-| nextht         | (string) | the height of the first notarized block above the height `nextheight`                                                                       |
-| prevtxid       | (string) | the id of the transaction that contains the notarization data of the block of height `prevht`                                               |
-| prevtxidht     | (string) | the height of the block in which the transaction with id `prevtxid` is present                                                              |
-| prevtxlen      | (string) | the length of the transaction with id `prevtxid`                                                                                            |
-| nexttxid       | (string) | the id of the transaction that contains the notarization data of the block of height `nextht`                                               |
-| nexttxidht     | (string) | the height of the block in which the transaction with id `nexttxid` is present                                                              |
-| nexttxlen      | (string) | the length of the transaction with id `nexttxid`                                                                                            |
-| numhdrs        | (string) | the number of headers being returned                                                                                                        |
+| Name           | Type     | Description                                                                                                                                        |
+| -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result         | (string) | whether the command was successful                                                                                                                 |
+| prevht         | (string) | the height of the first notarized block below the height `prevheight`                                                                              |
+| nextht         | (string) | the height of the first notarized block above the height `nextheight`                                                                              |
+| prevtxid       | (string) | the id of the transaction that contains the notarization data of the block of height `prevht`                                                      |
+| prevtxidht     | (string) | the height of the block in which the transaction with id `prevtxid` is present                                                                     |
+| prevtxlen      | (string) | the length of the transaction with id `prevtxid`                                                                                                   |
+| nexttxid       | (string) | the id of the transaction that contains the notarization data of the block of height `nextht`                                                      |
+| nexttxidht     | (string) | the height of the block in which the transaction with id `nexttxid` is present                                                                     |
+| nexttxlen      | (string) | the length of the transaction with id `nexttxid`                                                                                                   |
+| numhdrs        | (string) | the number of headers being returned                                                                                                               |
 | headers        | (string) | a json object containing the details of the header (of the current block by default / block of height specified by `hdrheight` if it is specified) |
-| height         | (number) | the height of the block that has been queried                                                                                               |
-| blockhash      | (string) | the blockhash of the block that has been queried                                                                                            |
-| hashPrevBlock  | (string) | the blockhash of the block before the block that has been queried                                                                           |
-| hashMerkleRoot | (string) | the merkleroot of the block that has been queried                                                                                           |
-| nTime          | (number) | a timestamp recording when this block was created                                                                                           |
-| nBits          | (number) | the calculated difficulty target being used for this block                                                                                  |
-| lastpeer       | (string) | the last known peer                                                                                                                         |
+| height         | (number) | the height of the block that has been queried                                                                                                      |
+| blockhash      | (string) | the blockhash of the block that has been queried                                                                                                   |
+| hashPrevBlock  | (string) | the blockhash of the block before the block that has been queried                                                                                  |
+| hashMerkleRoot | (string) | the merkleroot of the block that has been queried                                                                                                  |
+| nTime          | (number) | a timestamp recording when this block was created                                                                                                  |
+| nBits          | (number) | the calculated difficulty target being used for this block                                                                                         |
+| lastpeer       | (string) | the last known peer                                                                                                                                |
 
 #### :pushpin: Examples
 
@@ -745,7 +738,7 @@ This method returns the help output of all available methods.
 | Name    | Type             | Description                                                 |
 | ------- | ---------------- | ----------------------------------------------------------- |
 | result  | (string)         | whether the command was successful                          |
-| methods | (array of jsons) | an array containing a json object for each method                  |
+| methods | (array of jsons) | an array containing a json object for each method           |
 | method  | (string)         | name of a method                                            |
 | fields  | (array)          | an array conataining the description of parameters expected |
 | num     | (number)         | the number of methods available                             |
@@ -838,30 +831,30 @@ This method returns a list of transactions for an address.
 
 #### Arguments
 
-| Name      | Type               | Description                                                                                                    |
-| --------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
-| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the current active address is used |
-| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                    |
-| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction     |
-| filter    | (number, optional) | (in development)                                                                                            |
+| Name      | Type               | Description                                                                                                |
+| --------- | ------------------ | ---------------------------------------------------------------------------------------------------------- |
+| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the current active address is used  |
+| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                |
+| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction |
+| filter    | (number, optional) | (in development)                                                                                           |
 
 #### Response
 
-| Name      | Type             | Description                                                        |
-| --------- | ---------------- | ------------------------------------------------------------------ |
-| result    | (string)         | whether the command was successful                                 |
-| txids     | (array of jsons) | an array containing jsons that describe the transactions           |
-| height    | (number)         | the height of the block in which the transaction was included      |
-| txid      | (string)         | the id of the transaction                                          |
-| value     | (number)         | the amount of coins in the vin/vout (inputs and outputs)           |
-| vin/vout  | (number)         | the index of vin/vout in the transaction                           |
-| address   | (string)         | the address for which the transactions are being returned          |
-| isCC      | (number)         | whether the address belongs to an Antara module                    |
-| height    | (number)         | the height of the blockchain when this response was returned       |
-| numtxids  | (number)         | number of vouts/vins being returned                                |
+| Name      | Type             | Description                                                                             |
+| --------- | ---------------- | --------------------------------------------------------------------------------------- |
+| result    | (string)         | whether the command was successful                                                      |
+| txids     | (array of jsons) | an array containing jsons that describe the transactions                                |
+| height    | (number)         | the height of the block in which the transaction was included                           |
+| txid      | (string)         | the id of the transaction                                                               |
+| value     | (number)         | the amount of coins in the vin/vout (inputs and outputs)                                |
+| vin/vout  | (number)         | the index of vin/vout in the transaction                                                |
+| address   | (string)         | the address for which the transactions are being returned                               |
+| isCC      | (number)         | whether the address belongs to an Antara module                                         |
+| height    | (number)         | the height of the blockchain when this response was returned                            |
+| numtxids  | (number)         | number of vouts/vins being returned                                                     |
 | skipcount | (number)         | the number of transactions that have been skipped, starting from the oldest transaction |
-| filter    | (number)         | (in development)                                                |
-| lastpeer  | (string)         | the last known peer                                                |
+| filter    | (number)         | (in development)                                                                        |
+| lastpeer  | (string)         | the last known peer                                                                     |
 
 #### :pushpin: Examples
 
@@ -934,12 +927,12 @@ Use this method to retrieve all unspent outputs belonging to an address.
 
 #### Arguments
 
-| Name      | Type               | Description                                                                                                    |
-| --------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
-| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the current active address is used |
-| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                    |
-| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction     |
-| filter    | (number, optional) | (in development)                                                                                            |
+| Name      | Type               | Description                                                                                                |
+| --------- | ------------------ | ---------------------------------------------------------------------------------------------------------- |
+| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the current active address is used  |
+| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                |
+| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction |
+| filter    | (number, optional) | (in development)                                                                                           |
 
 #### Response
 
@@ -949,8 +942,8 @@ Use this method to retrieve all unspent outputs belonging to an address.
 | utxos     | (array of jsons) | an array containing jsons that describe the outputs          |
 | height    | (number)         | the height of the block in which the output was created      |
 | txid      | (string)         | the id of the transaction in which the output is present     |
-| vout      | (number)         | the index of the vout (output) in the transaction             |
-| value     | (number)         | the amount of coins in the vout (output)                      |
+| vout      | (number)         | the index of the vout (output) in the transaction            |
+| value     | (number)         | the amount of coins in the vout (output)                     |
 | rewards   | (number)         | the amount of active user rewards claimable by the output    |
 | address   | (string)         | the address for which the transactions are being returned    |
 | isCC      | (number)         | whether the address belongs to an Antara module              |
@@ -959,7 +952,7 @@ Use this method to retrieve all unspent outputs belonging to an address.
 | balance   | (number)         | the total balance available for the address                  |
 | rewards   | (number)         | the total rewards claimable by the address                   |
 | skipcount | (number)         | the number of utoxs that have been skipped; from the oldest  |
-| filter    | (number)         | (in development)                                          |
+| filter    | (number)         | (in development)                                             |
 | lastpeer  | (string)         | the last known peer                                          |
 
 #### :pushpin: Examples
@@ -1019,14 +1012,14 @@ Use this method to log in to an address using its wifkey.
 
 #### Response
 
-| Name       | Type      | Description                                                                 |
-| ---------- | --------- | --------------------------------------------------------------------------- |
-| result     | (string)  | whether the command was successful                                          |
-| status     | (string)  | the time till the expiry of the login                                       |
-| address    | (string)  | the address corresponding to the wifkey                                     |
-| pubkey     | (string)  | the pubkey corresponding to the wifkey                                      |
+| Name       | Type      | Description                                                              |
+| ---------- | --------- | ------------------------------------------------------------------------ |
+| result     | (string)  | whether the command was successful                                       |
+| status     | (string)  | the time till the expiry of the login                                    |
+| address    | (string)  | the address corresponding to the wifkey                                  |
+| pubkey     | (string)  | the pubkey corresponding to the wifkey                                   |
 | wifprefix  | (number)  | the prefix of the wifkey (indicates the intended network for the wifkey) |
-| compressed | (boolean) | indicates whether the wifkey is compressed                                  |
+| compressed | (boolean) | indicates whether the wifkey is compressed                               |
 
 #### :pushpin: Examples
 
@@ -1101,15 +1094,15 @@ memfunc (0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool 4)
 
 #### Arguments
 
-| Name     | Type              | Description                                            |
-| -------- | ----------------- | ------------------------------------------------------ |
+| Name     | Type               | Description                                            |
+| -------- | ------------------ | ------------------------------------------------------ |
 | address  | (string, optional) | if the transactions should belong to the address       |
 | isCC     | (number, optional) | if the transactions should belong to any Antara module |
-| memfunc  | (number, optional) | (in development)                                                    |
-| txid     | (string, optional) | (in development)                                                    |
-| vout     | (number, optional) | (in development)                                                    |
-| evalcode | (number, optional) | (in development)                                                    |
-| ccfunc   | (number, optional) | (in development)                                                    |
+| memfunc  | (number, optional) | (in development)                                       |
+| txid     | (string, optional) | (in development)                                       |
+| vout     | (number, optional) | (in development)                                       |
+| evalcode | (number, optional) | (in development)                                       |
+| ccfunc   | (number, optional) | (in development)                                       |
 
 #### Response
 
@@ -1121,9 +1114,9 @@ memfunc (0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool 4)
 | isCC     | (number)           | if the transactions returned belong to an Antara Module      |
 | height   | (number)           | the height of the blockchain when this response was returned |
 | numtxids | (number)           | the number of transaction ids that are being returned        |
-| txid     | (string)           | (in development)                                                          |
-| vout     | (number)           | (in development)                                                          |
-| memfunc  | (number)           | (in development)                                                          |
+| txid     | (string)           | (in development)                                             |
+| vout     | (number)           | (in development)                                             |
+| memfunc  | (number)           | (in development)                                             |
 | type     | (string)           | the type of the filter apploed to the mempool                |
 | lastpeer | (string)           | the last known peer                                          |
 
@@ -1240,27 +1233,27 @@ This method can be used to spend coins from the current active address to any ot
 
 #### Response
 
-| Name          | Type             | Description                                                                                                   |
-| ------------- | ---------------- | ------------------------------------------------------------------------------------------------------------- |
-| rewards       | (string)         | the rewards being claimed by this spend transaction                                                           |
-| validated     | (string)         |                                                                                                               |
-| tx            | (json)           | a json object containing details of the transaction                                                                  |
-| nVersion      | (number)         | version of the komodo daemon                                                                                  |
-| vin           | (array of jsons) | the inputs being consumed by the transaction                                                                  |
-| txid          | (string)         | the id of the transaction whose input is being spent                                                          |
-| vout          | (number)         | the output number in the above transaction                                                                    |
-| scriptSig     | (string)         | the redeem script that satisfies the scriptPubkey of the above output                                         |
-| sequenceid    | (number)         | the sequence number that has been set                                                                         |
-| vout          | (array of jsons) | the outputs being created by the transaction                                                                  |
-| value         | (string)         | the value in the output                                                                                       |
-| scriptPubKey  | (string)         | the locking script placed on the above value                                                                  |
-| nLockTime     | (number)         | the locktime that has been set                                                                                |
-| nExpiryHeight | (number)         | the block height after which the transaction will be removed from the mempool if it has not been mined        |
-| valueBalance  | (number)         |                                                                                                               |
-| result        | (string)         | whether the command succeeded                                                                                 |
+| Name          | Type             | Description                                                                                                     |
+| ------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- |
+| rewards       | (string)         | the rewards being claimed by this spend transaction                                                             |
+| validated     | (string)         |                                                                                                                 |
+| tx            | (json)           | a json object containing details of the transaction                                                             |
+| nVersion      | (number)         | version of the komodo daemon                                                                                    |
+| vin           | (array of jsons) | the inputs being consumed by the transaction                                                                    |
+| txid          | (string)         | the id of the transaction whose input is being spent                                                            |
+| vout          | (number)         | the output number in the above transaction                                                                      |
+| scriptSig     | (string)         | the redeem script that satisfies the scriptPubkey of the above output                                           |
+| sequenceid    | (number)         | the sequence number that has been set                                                                           |
+| vout          | (array of jsons) | the outputs being created by the transaction                                                                    |
+| value         | (string)         | the value in the output                                                                                         |
+| scriptPubKey  | (string)         | the locking script placed on the above value                                                                    |
+| nLockTime     | (number)         | the locktime that has been set                                                                                  |
+| nExpiryHeight | (number)         | the block height after which the transaction will be removed from the mempool if it has not been mined          |
+| valueBalance  | (number)         |                                                                                                                 |
+| result        | (string)         | whether the command succeeded                                                                                   |
 | hex           | (string)         | the transaction in hex format; this should be broadcast to the network using the [broadcast](#broadcast) method |
-| retcodes      | (number)         | the return codes; an indication of the success or failure of the creation of the transaction            |
-| lastpeer      | (string)         | the last known peer                                                                                           |
+| retcodes      | (number)         | the return codes; an indication of the success or failure of the creation of the transaction                    |
+| lastpeer      | (string)         | the last known peer                                                                                             |
 
 #### :pushpin: Examples
 
@@ -1366,7 +1359,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "
 
 **stop**
 
-Stops the  nSPV instance associated with the port specified in the curl command.
+Stops the nSPV instance associated with the port specified in the curl command.
 
 #### Arguments
 
@@ -1404,10 +1397,10 @@ This method is an internal function used by the [gettransaction](#gettransaction
 
 #### Arguments
 
-| Name   | Type              | Description                                        |
-| ------ | ----------------- | -------------------------------------------------- |
-| txid   | (string)          | the id of the transaction whose proof is requested |
-| vout   | (number)          | the number of the output in the above transaction  |
+| Name   | Type               | Description                                        |
+| ------ | ------------------ | -------------------------------------------------- |
+| txid   | (string)           | the id of the transaction whose proof is requested |
+| vout   | (number)           | the number of the output in the above transaction  |
 | height | (number, optional) |                                                    |
 
 #### Response
@@ -1441,4 +1434,3 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "txproof", "pa
 ```
 
 </collapse-text>
-
