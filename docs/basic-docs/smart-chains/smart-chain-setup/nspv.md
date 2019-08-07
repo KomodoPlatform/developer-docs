@@ -350,17 +350,18 @@ Use this method to get the information of all peers on the network.
 | port              | (number) | the p2p port used to connect to this node                        |
 | lastping          | (number) | the unix time at which this node was last pinged                 |
 | time_started_con  | (number) | the unix time at which a connection to this node was established |
-| time_last_request | (number) | <!--FIXME -->                                                    |
-| services          | (number) | <!--FIXME -->                                                    |
+| time_last_request | (number) | the unix time at which a connection was last requested           |
+| services          | (number) | (in development)                                                 |
 | missbehavescore   | (number) | the score given to this node if the node was misbehaving         |
 | bestknownheight   | (number) | the height of the blockchain as best known by this node          |
+| in_sync           | (string) | the sync status of the node                                      |
 
 #### :pushpin: Examples
 
 ##### Command
 
 ```bash
-curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getpeerinfo", "params": [0 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getpeerinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
@@ -369,113 +370,113 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getpeerinfo",
 [
   {
     "nodeid": 1,
+    "protocolversion": 2,
     "ipaddress": "5.9.253.195",
     "port": 7770,
-    "lastping": 1564055618,
-    "time_started_con": 1564054503,
-    "time_last_request": 0,
+    "lastping": 1565175111,
+    "time_started_con": 1565174366,
+    "time_last_request": 1565175123,
     "services": 0,
     "missbehavescore": 0,
-    "bestknownheight": 1458111
+    "bestknownheight": 1476663,
+    "in_sync": "not_synced"
   },
   {
-    "nodeid": 11,
-    "ipaddress": "209.58.144.205",
+    "nodeid": 10,
+    "protocolversion": 2,
+    "ipaddress": "116.203.17.138",
     "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
+    "lastping": 1565175121,
+    "time_started_con": 1565174376,
+    "time_last_request": 1565175126,
     "services": 0,
     "missbehavescore": 0,
-    "bestknownheight": 1458111
+    "bestknownheight": 1476663
   },
   {
     "nodeid": 12,
-    "ipaddress": "94.130.224.11",
+    "protocolversion": 2,
+    "ipaddress": "51.68.207.116",
     "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
+    "lastping": 1565175121,
+    "time_started_con": 1565174376,
+    "time_last_request": 1565175123,
     "services": 0,
     "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 13,
-    "ipaddress": "136.243.58.134",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 14,
-    "ipaddress": "64.120.113.130",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
+    "bestknownheight": 1476663
   },
   {
     "nodeid": 15,
-    "ipaddress": "159.65.93.178",
+    "protocolversion": 2,
+    "ipaddress": "178.148.188.34",
     "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
+    "lastping": 1565175121,
+    "time_started_con": 1565174376,
+    "time_last_request": 1565175126,
     "services": 0,
     "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 18,
-    "ipaddress": "159.69.72.206",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 23,
-    "ipaddress": "138.201.9.167",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 24,
-    "ipaddress": "109.225.40.194",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
+    "bestknownheight": 1476663
   },
   {
     "nodeid": 25,
-    "ipaddress": "116.203.17.140",
+    "protocolversion": 2,
+    "ipaddress": "159.65.93.178",
     "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
+    "lastping": 1565175121,
+    "time_started_con": 1565174376,
+    "time_last_request": 1565175125,
     "services": 0,
     "missbehavescore": 0,
-    "bestknownheight": 1458111
+    "bestknownheight": 1476663
+  },
+  {
+    "nodeid": 34,
+    "protocolversion": 2,
+    "ipaddress": "159.69.11.56",
+    "port": 7770,
+    "lastping": 1565174946,
+    "time_started_con": 1565174386,
+    "time_last_request": 1565175124,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1476663
+  },
+  {
+    "nodeid": 35,
+    "protocolversion": 2,
+    "ipaddress": "5.189.232.34",
+    "port": 7770,
+    "lastping": 1565174946,
+    "time_started_con": 1565174386,
+    "time_last_request": 1565175127,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1476663
+  },
+  {
+    "nodeid": 43,
+    "protocolversion": 2,
+    "ipaddress": "178.159.11.114",
+    "port": 7770,
+    "lastping": 1565174946,
+    "time_started_con": 1565174386,
+    "time_last_request": 1565175126,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1476663
+  },
+  {
+    "nodeid": 50,
+    "protocolversion": 0,
+    "ipaddress": "159.69.45.70",
+    "port": 7770,
+    "lastping": 1565174946,
+    "time_started_con": 1565174386,
+    "time_last_request": 1565175122,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1476663,
+    "in_sync": "not_synced"
   }
 ]
 ```
@@ -1091,6 +1092,8 @@ which args are optional and eachone's use
 and values and meanings of memfunc
 
 memfunc (0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool 4)
+
+gcharang: all the arguments are optional; and they are in development
 -->
 
 #### Arguments
@@ -1237,7 +1240,7 @@ This method can be used to spend coins from the current active address to any ot
 | Name          | Type             | Description                                                                                                     |
 | ------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- |
 | rewards       | (string)         | the rewards being claimed by this spend transaction                                                             |
-| validated     | (string)         | <!--FIXME -->                                                                                                   |
+| validated     | (string)         | (in development)                                                                                                |
 | tx            | (json)           | a json object containing details of the transaction                                                             |
 | nVersion      | (number)         | version of the komodo daemon                                                                                    |
 | vin           | (array of jsons) | the inputs being consumed by the transaction                                                                    |
@@ -1250,7 +1253,7 @@ This method can be used to spend coins from the current active address to any ot
 | scriptPubKey  | (string)         | the locking script placed on the above value                                                                    |
 | nLockTime     | (number)         | the locktime that has been set                                                                                  |
 | nExpiryHeight | (number)         | the block height after which the transaction will be removed from the mempool if it has not been mined          |
-| valueBalance  | (number)         | <!--FIXME -->                                                                                                   |
+| valueBalance  | (number)         | (in development)                                                                                                |
 | result        | (string)         | whether the command succeeded                                                                                   |
 | hex           | (string)         | the transaction in hex format; this should be broadcast to the network using the [broadcast](#broadcast) method |
 | retcodes      | (number)         | the return codes; an indication of the success or failure of the creation of the transaction                    |
