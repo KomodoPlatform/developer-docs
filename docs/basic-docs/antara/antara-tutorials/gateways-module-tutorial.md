@@ -341,7 +341,9 @@ Via the returned information from the `gettransaction` method, we can verify the
 
 In the returned results there is also a `blockhash` value, which we can use to find out the height of the block which contains the `cointtxid` by using the method below.
 
-/komodo-cli getblock insert_cointxid | jq '.height'
+```bash
+./komodo-cli getblock insert_blockhash | jq '.height'
+```
 
 Next, execute the following command for more information:
 
