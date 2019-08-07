@@ -127,6 +127,7 @@ curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method
 
 Sidd: There was a mention below of a "doc", but I am assuming that the doc in question is this document, and that the following example is a good template to use?
 
+gcharang: yes, the doc mentioned is the current document and the parameters' order should be as listed for each method; the example is good
 -->
 
 When using this format for any RPC that requires parameters (also called "arguments"), provide the parameters in the order they are given in this documentation.
@@ -146,7 +147,7 @@ To access an nSPV client using a browser, create a url that uses `http://126.0.0
 ##### Example
 
 ```
-http://127.0.0.1:<port>/api/method/spentinfo/vout/1/txid/e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855
+http://127.0.0.1:<port>/api/method/spentinfo/txid/e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855/vout/1
 ```
 
 ## -p
@@ -1236,7 +1237,7 @@ This method can be used to spend coins from the current active address to any ot
 | Name          | Type             | Description                                                                                                     |
 | ------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- |
 | rewards       | (string)         | the rewards being claimed by this spend transaction                                                             |
-| validated     | (string)         |                                                                                                                 |
+| validated     | (string)         | <!--FIXME -->                                                                                                   |
 | tx            | (json)           | a json object containing details of the transaction                                                             |
 | nVersion      | (number)         | version of the komodo daemon                                                                                    |
 | vin           | (array of jsons) | the inputs being consumed by the transaction                                                                    |
@@ -1249,7 +1250,7 @@ This method can be used to spend coins from the current active address to any ot
 | scriptPubKey  | (string)         | the locking script placed on the above value                                                                    |
 | nLockTime     | (number)         | the locktime that has been set                                                                                  |
 | nExpiryHeight | (number)         | the block height after which the transaction will be removed from the mempool if it has not been mined          |
-| valueBalance  | (number)         |                                                                                                                 |
+| valueBalance  | (number)         | <!--FIXME -->                                                                                                   |
 | result        | (string)         | whether the command succeeded                                                                                   |
 | hex           | (string)         | the transaction in hex format; this should be broadcast to the network using the [broadcast](#broadcast) method |
 | retcodes      | (number)         | the return codes; an indication of the success or failure of the creation of the transaction                    |
