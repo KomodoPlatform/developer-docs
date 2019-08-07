@@ -1,12 +1,18 @@
 # nSPV
 
-The nSPV is a technology that leverages the dPoW security mechanism of the Komodo Platform to enable secure and scalable super-lite SPV clients for the Komodo(KMD) blockchain as well as all the SmartChains that are secured by dPoW.
+nSPV enhances the normal "Simple Payment Verification" (SPV) technology available for a Smart Chain. To learn more about regular SPV technology, [read this entry on the Bitcoin wiki.](https://en.bitcoinwiki.org/wiki/Simplified_Payment_Verification)
 
-For a Chain that has nSPV enabled, its full nodes will be able to serve the necessary data to the nSPV clients and enable them to have a full wallet functionality while requiring very little in terms of computational and storage resources.
+nSPV leverages the dPoW security mechanism of the Komodo Platform to enable secure and scalable super-lite "SPV" clients. An nSPV client network utilizes a smaller amount of computation and storage resources compared to a normal SPV network. For all Smart Chains that enable nSPV, full nodes on the network can serve the necessary data to nSPV nodes for the latter to have full wallet functionality.
 
-More details are available in the blog posts by jl777 [here](https://medium.com/@jameslee777/nspv-a-simple-approach-to-superlight-clients-leveraging-notarizations-75d7ef5a37a9) and [here](https://medium.com/@jameslee777/nspv-reference-cli-client-cf1ffdc03631)
+All Komodo-compatible Smart Chains, including the KMD main chain, can utilize this technology.
 
-To use the following methods, the daemon must be started with the command line parameter: `-nSPV=1`
+More details are available in the blog posts [here](https://medium.com/@jameslee777/nspv-a-simple-approach-to-superlight-clients-leveraging-notarizations-75d7ef5a37a9) and [here.](https://medium.com/@jameslee777/nspv-reference-cli-client-cf1ffdc03631)
+
+This document is intended for using the nSPV features through the `komodod` and `komodo-cli`
+
+There is an alternate implementation called [libnspv](https://github.com/jl777/libnspv) that is standalone and works as a full wallet for Komodo and any Smart Chain that has dPoW enabled.
+
+To use the following methods, the daemon must be started with the command line parameter: `-nSPV=1`. The parameter instructs the daemon to act as a nSPV client.
 
 The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
