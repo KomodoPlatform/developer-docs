@@ -116,7 +116,7 @@ The port in each of these examples is the port on which the nSPV client listens 
 
 For KMD, the port is `7771`. For any other Smart Chain, the port is the `rpcport` specified in the `coins` file.
 
-This behaviour can be bypassed by setting the [-p](../../../basic-docs/smart-chains/smart-chain-setup/nspv.html#p-launch-parameter) parameter.
+This behaviour can be bypassed by setting the [-p](../../../basic-docs/smart-chains/smart-chain-setup/nspv.html#p) parameter.
 
 :::
 
@@ -156,7 +156,7 @@ To access an nSPV client using a browser, create a  url that uses `http://126.0.
 http://127.0.0.1:<port>/api/method/spentinfo/vout/1/txid/e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855
 ```
 
-## -p Launch Parameter
+## -p
 
 Use this parameter at nSPV runtime to set the port on which the nSPV client should listen for RPC commands.
 
