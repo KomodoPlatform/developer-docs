@@ -2,15 +2,17 @@
 sidebar: auto
 ---
 
-# nSPV (WIP)
+# nSPV
 
 ## Introduction
 
-The nSPV is a technology that leverages the dPoW security mechanism of the Komodo Platform to enable secure and scalable super-lite SPV clients for the Komodo(KMD) blockchain as well as all the SmartChains that are secured by dPoW.
+nSPV enhances the normal "Simple Payment Verification" (SPV) technology available for a Smart Chain. To learn more about regular SPV technology, [read this entry on the Bitcoin wiki.](https://en.bitcoinwiki.org/wiki/Simplified_Payment_Verification)
 
-For a Chain that has nSPV enabled, its full nodes will be able to serve the necessary data to the nSPV clients and enable them to have a full wallet functionality while requiring very little in terms of computational and storage resources.
+nSPV leverages the dPoW security mechanism of the Komodo Platform to enable secure and scalable super-lite "SPV" clients. An nSPV client network utilizes a smaller amount of computation and storage resources compared to a noraml SPV network. For all Smart Chains that enable nSPV, full nodes on the network can serve the necessary data to nSPV nodes for the latter to have full wallet functionality.
 
-More details are available in the blog posts by jl777 [here](https://medium.com/@jameslee777/nspv-a-simple-approach-to-superlight-clients-leveraging-notarizations-75d7ef5a37a9) and [here](https://medium.com/@jameslee777/nspv-reference-cli-client-cf1ffdc03631)
+All Komodo-compatible Smart Chains, including the KMD main chain, can utilize this technology.
+
+More details are available in the blog posts [here](https://medium.com/@jameslee777/nspv-a-simple-approach-to-superlight-clients-leveraging-notarizations-75d7ef5a37a9) and [here.](https://medium.com/@jameslee777/nspv-reference-cli-client-cf1ffdc03631)
 
 ## Installation
 
@@ -27,14 +29,6 @@ make
 
 <!---FIXME
 
----
-mainly -p
----
-
-adding smartchain to coins file
-
-variations on issuing the api commands too
-
 Usage: nspv [COIN defaults to NSPV] (-c|continuous) (-i|-ips <ip,ip,...]>) (-m[--maxpeers] <int>) (-t[--testnet]) (-f <headersfile|0 for in mem only>) (-p <rpcport>) (-r[--regtest]) (-d[--debug]) (-s[--timeout] <secs>) <command>
 Supported commands:
         scan      (scan blocks up to the tip, creates header.db file)
@@ -48,104 +42,135 @@ Sync up to the chain tip and give some debug output during that process:
 
 Sync up, show debug info, don't store headers in file (only in memory), wait for new blocks:
 > nspv -d -f 0 -c scan
+
 --->
 
-## Enabling the nSPV client to work with Smart Chains
+## Enabling the nSPV Client
 
-To enable a Smartchain, the following contents are needed in the file named `coins` present in the root level of the source directory.
+Copy the following code to the file named `coins` (located at the root of the source directory).
 
-### Example
+(Change each value as appropriate for the desired Smart Chain.)
 
 ```json
 {
-  "coin": "ILN",
-  "asset": "ILN",
-  "fname": "Ilien",
-  "rpcport": 12986,
+  "coin": "COIN",
+  "asset": "COIN",
+  "fname": "Coin",
+  "rpcport": 12345,
   "mm2": 1,
-  "p2p": 12985,
+  "p2p": 12346,
   "magic": "feb4cb23",
   "nSPV": "5.9.102.210, 5.9.253.195, 5.9.253.196, 5.9.253.197, 5.9.253.198, 5.9.253.199, 5.9.253.200, 5.9.253.201, 5.9.253.202, 5.9.253.203"
 }
 ```
 
-### Explanation
+#### Property Descriptions
 
-| Name    | Type     | Description                                                                                                                                                                             |
-| ------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coin    | (string) | the ticker of the coin                                                                                                                                                                  |
-| asset   | (string) | the `-ac_name` parameter used to start the Smart Chain                                                                                                                                  |
-| fname   | (string) | the full name of the Smart Chain                                                                                                                                                        |
-| rpcport | (number) | the rpc port the Smart Chain's daemon uses to receive RPC commands                                                                                                                      |
-| mm2     | (number) | set to 1 if the coin has been tested to work with Marketmaker version 2                                                                                                                 |
-| p2p     | (number) | the p2p port the Smart Chain's daemon uses to communicate with other nodes                                                                                                              |
-| magic   | (string) | the netmagic of the Smart Chain; the decimal value of this can be obtained from the getinfo call of the Smart Chain's full node; Convert it to hex and serialize it into the 4 hexbytes |
-| nSPV    | (string) | the ipaddresses of those nodes of the Smart Chain that have been started with the parameter `-nSPV=1`                                                                                   |
+| Name    | Type     | Description                                                                                                                                                                                                                        |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coin    | (string) | the ticker of the coin                                                                                                                                                                                                             |
+| asset   | (string) | the `-ac_name` parameter used to start the Smart Chain                                                                                                                                                                             |
+| fname   | (string) | the full name of the Smart Chain                                                                                                                                                                                                   |
+| rpcport | (number) | the RPC port the Smart Chain's daemon uses to receive RPC commands                                                                                                                                                                 |
+| mm2     | (number) | set this value to `1` if this coin has been tested and proves capable of functioning on MarketMaker 2.0 software                                                                                                                   |
+| p2p     | (number) | the p2p port the Smart Chain's daemon uses to communicate with other nodes                                                                                                                                                         |
+| magic   | (string) | the netmagic number for this Smart Chain. The decimal value of `magic` can be obtained by executing the `getinfo` RPC on a full node on the Smart Chain network. Convert the decimal value to hex and serialize it into 4 hexbytes |
+| nSPV    | (string) | the ip addresses of the nodes on the Smart Chain network that are launched using the parameter `-nSPV=1`                                                                                                                           |
 
 ::: tip
 
-- If you got the direction of `magic` wrong, just flip it around
-- the magic number can also be seen in the stdout, when the daemon for the Smart Chain is started
-
-Example:
-
-```
->>>>>>>>>> LABS: p2p.40264 rpc.40265 magic.fe1c3450 4263261264 350689 coins
-```
-
-- To start the nspv client for a specific Smart Chain after its data has been added to the coins file, use `./nspv ILN`
+If you find that the direction of `magic` is wrong, try reversing the order of the numbers.
 
 :::
 
-## Command line parameters to the nspv binary
+::: tip
 
-### -p
+The `magic` number can also be seen in the terminal as a `stdout` printout when the daemon is launched.
 
-Use this parameter to set the port the nspv client will listen to for the RPC commands.
+###### Example
 
-Example:
-
-```bash
-./nspv KMD -p 3000
+```
+>>>>>>>>>> COIN: p2p.40264 rpc.40265 magic.fe1c3450 4263261264 350689 coins
 ```
 
-The above command starts the nspv client for the KMD chain and listens on the port 3000 for RPC commands.
+:::
 
-## Different ways to interact with the nspv client once it is launched
+::: tip
 
-The port in each of these examples is the port through which the nspv client accepts the RPC commands. For KMD, it is `7771`. For a Smart Chain in the coins file, it is the `rpcport` specified. This behaviour can be bypassed by setting the [-p](#p) command line parameter
+To start the nSPV client for a specific Smart Chain after its data has been added to the coins file, execute the following.
 
-### Regular `curl` command with named parameters
+```
+./nspv COIN
+```
 
-When using this format, each parameter is supplied by matching it with its name as shown in the example below.
+:::
+
+## Interacting with the nSPV Client
+
+::: tip
+
+The port in each of these examples is the port on which the nSPV client listens for RPC commands.
+
+For KMD, the port is `7771`. For any other Smart Chain, the port is the `rpcport` specified in the `coins` file.
+
+This behaviour can be bypassed by setting the [-p](../../../basic-docs/smart-chains/smart-chain-setup/nspv.html#p) parameter.
+
+:::
+
+#### curl Commands Using Named Parameters
+
+Use the example below as a template for creating new `curl` commands for any RPCs available in the nSPV API.
 
 ```bash
 curl --url "http://127.0.0.1:$port" --data "{\"userpass\":\"$userpass\",\"method\":\"spentinfo\",\"vout\":1,\"txid\":\"e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855\"}"
 ```
 
-### `curl` command with json2.0 interface
+#### curl Command Using the json2.0 Interface
 
-When using this format, the parameters listed in the `"params"` key should be in the order specified in this doc. Strings should always be between quotation marks `""`
+<!--
+
+Sidd: There was a mention below of a "doc", but I am assuming that the doc in question is this document, and that the following example is a good template to use?
+
+gcharang: yes, the doc mentioned is the current document and the parameters' order should be as listed for each method; the example is good
+-->
+
+When using this format for any RPC that requires parameters (also called "arguments"), provide the parameters in the order they are given in this documentation.
+
+For example, the [spentinfo](../../../basic-docs/smart-chains/smart-chain-setup/nspv.html#spentinfo) RPC lists `txid` as the first parameter and `vout` as the second. Observe in the following example how the values in the `"params"` key match this order.
+
+Use quotation marks `""` for all strings.
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "params": ["e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",1 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
-### Accessing localhost through a browser
+#### Accessing localhost in the Browser
 
-To access the client through a browser, access the url `http://127.0.0.1:<port>/api/` with the parameters and their names added at the end as shown in the example below.
+To access an nSPV client using a browser, create a url that uses `http://126.0.0.1:<insert_port>/api/` as the base url, and add the `rpc_name/` and any relevant additional `parameters/` as additional url directions. See the example below.
+
+##### Example
 
 ```
-http://127.0.0.1:<port>/api/method/spentinfo/vout/1/txid/e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855
+http://127.0.0.1:<port>/api/method/spentinfo/txid/e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855/vout/1
 ```
 
-## API
+## -p
 
-### broadcast
+Use this parameter at nSPV runtime to set the port on which the nSPV client should listen for RPC commands.
+
+##### Example
+
+The following command starts the nSPV client for the KMD main chain and listens on port `3000` for RPC commands.
+
+```bash
+./nspv KMD -p 3000
+```
+
+## broadcast
 
 **broadcast hex**
 
-Use this method to broadcast a hex returned by the [spend](#spend) method.
+Use this method to broadcast the hex value returned by the [spend](#spend) method.
 
 #### Arguments
 
@@ -155,18 +180,18 @@ Use this method to broadcast a hex returned by the [spend](#spend) method.
 
 #### Response
 
-| Name      | Type     | Description                                                                                                    |
-| --------- | -------- | -------------------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command was successful                                                                             |
-| expected  | (string) | the expected transaction id                                                                                    |
-| broadcast | (string) | the broadcasted transaction id                                                                                 |
-| retcode   | (number) | the return code (if 0: no error, -1,-2,-3: failure, -200x: mostly OK, some of the inputs may not be notarized) |
-| type      | (string) | the type of the broadcast                                                                                      |
-| lastpeer  | (string) | the last known peer                                                                                            |
+| Name      | Type     | Description                                                                                                                  |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| result    | (string) | whether the command was successful                                                                                           |
+| expected  | (string) | the expected transaction id                                                                                                  |
+| broadcast | (string) | the broadcasted transaction id                                                                                               |
+| retcode   | (number) | the return code<br><br>0: no error<br><br>-1,-2,-3: failure<br><br>-200x: mostly OK, some of the inputs may not be notarized |
+| type      | (string) | the type of the broadcast                                                                                                    |
+| lastpeer  | (string) | the last known peer                                                                                                          |
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "broadcast", "params": ["0400008085202f890155c894ada147bf184bb7dff790ca429e6860775d3bb471dc0f69a28f080977e0010000006a47304402206774ff903a8a4b73bcd5a79fe5c744f34d2263160cd8877c198c2228c66a8a42022063e1d2d6403c395e3472a6a509f01cbff0b90e3413bc6f7bc492649302a4a64001210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06ffffffff0200e1f505000000001976a9144726f2838fc4d6ac66615e10604e18926e9b556e88ac48f804060000000023210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06ace77e395d000000000000000000000000000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -187,7 +212,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "broadcast", "
 
 </collapse-text>
 
-### getinfo
+## getinfo
 
 **getinfo [hdrheight]**
 
@@ -201,34 +226,34 @@ Use this method to get the general information on the state of the blockchain at
 
 #### Response
 
-| Name                    | Type     | Description                                                                                                                                 |
-| ----------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                  | (string) | whether the command was successful                                                                                                          |
-| nSPV                    | (string) | the mode of nSPV                                                                                                                            |
-| address                 | (string) | the address corresponding to the wifkey                                                                                                     |
-| pubkey                  | (string) | the pubkey corresponding to the wifkey                                                                                                      |
-| wifexpires              | (string) | the time in seconds till the login expires                                                                                                  |
-| height                  | (number) | the current height of the blockchain                                                                                                        |
-| chaintip                | (string) | the blockhash of the last block                                                                                                             |
-| notarization            | (json)   | a json containing the notarization details                                                                                                  |
-| notarized_height        | (number) | the height of the latest block that has been notarized                                                                                      |
-| notarized_blockhash     | (string) | the blockhash of the latest block that has been notarized                                                                                   |
-| notarization_txid       | (string) | the id of the transaction in which the notarization data is included in the chain being dPoW'ed                                             |
-| notarization_txidheight | (number) | the height of the block in which the notarization transaction is included                                                                   |
-| notarization_desttxid   | (string) | the id of the transaction in which the notarization data is included in the chain acting as the data store                                  |
-| header                  | (string) | a json containing the details of the header (of the current block by default / block of height specified by `hdrheight` if it is specified) |
-| height                  | (number) | the height of the block that has been queried                                                                                               |
-| blockhash               | (string) | the blockhash of the block that has been queried                                                                                            |
-| hashPrevBlock           | (string) | the blockhash of the block before the block that has been queried                                                                           |
-| hashMerkleRoot          | (string) | the merkleroot of the block that has been queried                                                                                           |
-| nTime                   | (number) | a timestamp recording when this block was created                                                                                           |
-| nBits                   | (number) | the calculated difficulty target being used for this block                                                                                  |
-| protocolversion         | (string) | the version of the client; helps the nspv client disconnect from nodes that are out of date                                                 |
-| lastpeer                | (string) | the last known peer                                                                                                                         |
+| Name                    | Type     | Description                                                                                                                                        |
+| ----------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                  | (string) | whether the command was successful                                                                                                                 |
+| nSPV                    | (string) | the mode of nSPV                                                                                                                                   |
+| address                 | (string) | the address corresponding to the wifkey                                                                                                            |
+| pubkey                  | (string) | the pubkey corresponding to the wifkey                                                                                                             |
+| wifexpires              | (string) | the time in seconds till the login expires                                                                                                         |
+| height                  | (number) | the current height of the blockchain                                                                                                               |
+| chaintip                | (string) | the blockhash of the last block                                                                                                                    |
+| notarization            | (json)   | a json object containing the notarization details                                                                                                  |
+| notarized_height        | (number) | the height of the latest block that has been notarized                                                                                             |
+| notarized_blockhash     | (string) | the blockhash of the latest block that has been notarized                                                                                          |
+| notarization_txid       | (string) | the id of the transaction in which the notarization data is included in the chain being dPoW'ed                                                    |
+| notarization_txidheight | (number) | the height of the block in which the notarization transaction is included                                                                          |
+| notarization_desttxid   | (string) | the id of the transaction in which the notarization data is included in the chain acting as the data store                                         |
+| header                  | (string) | a json object containing the details of the header (of the current block by default / block of height specified by `hdrheight` if it is specified) |
+| height                  | (number) | the height of the block that has been queried                                                                                                      |
+| blockhash               | (string) | the blockhash of the block that has been queried                                                                                                   |
+| hashPrevBlock           | (string) | the blockhash of the block before the block that has been queried                                                                                  |
+| hashMerkleRoot          | (string) | the merkleroot of the block that has been queried                                                                                                  |
+| nTime                   | (number) | a timestamp recording when this block was created                                                                                                  |
+| nBits                   | (number) | the calculated difficulty target being used for this block                                                                                         |
+| protocolversion         | (string) | the version of the client; helps the nspv client disconnect from nodes that are out of date                                                        |
+| lastpeer                | (string) | the last known peer                                                                                                                                |
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -283,12 +308,12 @@ Use this method to create a new address.
 | wif        | (string) | wifkey of the generated address                        |
 | address    | (string) | the generated address                                  |
 | pubkey     | (string) | pubkey of the generated address                        |
-| wifprefix  | (number) | prefix of the generated wifkey, depends on the network |
+| wifprefix  | (number) | prefix of the generated wifkey; depends on the network |
 | compressed | (number) | whether the wifkey generated is compressed             |
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getnewaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -308,11 +333,11 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getnewaddress
 
 </collapse-text>
 
-### getpeerinfo
+## getpeerinfo
 
 **getpeerinfo**
 
-Use this method to get the information of all the peers.
+Use this method to get the information of all peers on the network.
 
 #### Arguments
 
@@ -329,17 +354,18 @@ Use this method to get the information of all the peers.
 | port              | (number) | the p2p port used to connect to this node                        |
 | lastping          | (number) | the unix time at which this node was last pinged                 |
 | time_started_con  | (number) | the unix time at which a connection to this node was established |
-| time_last_request | (number) | <!--FIXME -->                                                    |
-| services          | (number) | <!--FIXME -->                                                    |
-| missbehavescore   | (number) | the score given to this node if it was misbehaving               |
+| time_last_request | (number) | the unix time at which a connection was last requested           |
+| services          | (number) | (in development)                                                 |
+| missbehavescore   | (number) | the score given to this node if the node was misbehaving         |
 | bestknownheight   | (number) | the height of the blockchain as best known by this node          |
+| in_sync           | (string) | the sync status of the node                                      |
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
-curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getpeerinfo", "params": [0 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
+curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getpeerinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
 ```
 
 <collapse-text hidden title="Response">
@@ -348,128 +374,130 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getpeerinfo",
 [
   {
     "nodeid": 1,
+    "protocolversion": 2,
     "ipaddress": "5.9.253.195",
     "port": 7770,
-    "lastping": 1564055618,
-    "time_started_con": 1564054503,
-    "time_last_request": 0,
+    "lastping": 1565175111,
+    "time_started_con": 1565174366,
+    "time_last_request": 1565175123,
     "services": 0,
     "missbehavescore": 0,
-    "bestknownheight": 1458111
+    "bestknownheight": 1476663,
+    "in_sync": "not_synced"
   },
   {
-    "nodeid": 11,
-    "ipaddress": "209.58.144.205",
+    "nodeid": 10,
+    "protocolversion": 2,
+    "ipaddress": "116.203.17.138",
     "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
+    "lastping": 1565175121,
+    "time_started_con": 1565174376,
+    "time_last_request": 1565175126,
     "services": 0,
     "missbehavescore": 0,
-    "bestknownheight": 1458111
+    "bestknownheight": 1476663
   },
   {
     "nodeid": 12,
-    "ipaddress": "94.130.224.11",
+    "protocolversion": 2,
+    "ipaddress": "51.68.207.116",
     "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
+    "lastping": 1565175121,
+    "time_started_con": 1565174376,
+    "time_last_request": 1565175123,
     "services": 0,
     "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 13,
-    "ipaddress": "136.243.58.134",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 14,
-    "ipaddress": "64.120.113.130",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
+    "bestknownheight": 1476663
   },
   {
     "nodeid": 15,
-    "ipaddress": "159.65.93.178",
+    "protocolversion": 2,
+    "ipaddress": "178.148.188.34",
     "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
+    "lastping": 1565175121,
+    "time_started_con": 1565174376,
+    "time_last_request": 1565175126,
     "services": 0,
     "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 18,
-    "ipaddress": "159.69.72.206",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 23,
-    "ipaddress": "138.201.9.167",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
-  },
-  {
-    "nodeid": 24,
-    "ipaddress": "109.225.40.194",
-    "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
-    "services": 0,
-    "missbehavescore": 0,
-    "bestknownheight": 1458111
+    "bestknownheight": 1476663
   },
   {
     "nodeid": 25,
-    "ipaddress": "116.203.17.140",
+    "protocolversion": 2,
+    "ipaddress": "159.65.93.178",
     "port": 7770,
-    "lastping": 1564055628,
-    "time_started_con": 1564054513,
-    "time_last_request": 0,
+    "lastping": 1565175121,
+    "time_started_con": 1565174376,
+    "time_last_request": 1565175125,
     "services": 0,
     "missbehavescore": 0,
-    "bestknownheight": 1458111
+    "bestknownheight": 1476663
+  },
+  {
+    "nodeid": 34,
+    "protocolversion": 2,
+    "ipaddress": "159.69.11.56",
+    "port": 7770,
+    "lastping": 1565174946,
+    "time_started_con": 1565174386,
+    "time_last_request": 1565175124,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1476663
+  },
+  {
+    "nodeid": 35,
+    "protocolversion": 2,
+    "ipaddress": "5.189.232.34",
+    "port": 7770,
+    "lastping": 1565174946,
+    "time_started_con": 1565174386,
+    "time_last_request": 1565175127,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1476663
+  },
+  {
+    "nodeid": 43,
+    "protocolversion": 2,
+    "ipaddress": "178.159.11.114",
+    "port": 7770,
+    "lastping": 1565174946,
+    "time_started_con": 1565174386,
+    "time_last_request": 1565175126,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1476663
+  },
+  {
+    "nodeid": 50,
+    "protocolversion": 0,
+    "ipaddress": "159.69.45.70",
+    "port": 7770,
+    "lastping": 1565174946,
+    "time_started_con": 1565174386,
+    "time_last_request": 1565175122,
+    "services": 0,
+    "missbehavescore": 0,
+    "bestknownheight": 1476663,
+    "in_sync": "not_synced"
   }
 ]
 ```
 
 </collapse-text>
 
-### hdrsproof
+## hdrsproof
 
 **hdrsproof prevheight nextheight**
 
-This method scans backwards from the `prevheight` till it finds the find the first notarization transaction, then forward from `nextheight` till it finds the find the first notarization transaction.
+This method scans backwards from the `prevheight` until the process encounters a notarization transaction, then forward from `nextheight` until the process encounters another notarization transaction.
 
-Then it finds the notarized blocks corresponding to these two notarization transactions.
+Then the process finds the notarized blocks corresponding to these two notarization transactions.
 
-Then it returns all the headers in between. Now that both the ends of the segment are notarized blocks, the headers can be validated to see if they link back to each other.
+Then the process returns all the block headers between these two notarized blocks.
+
+Now that both ends of this segment of blocks are notarized blocks, all block headers in this segment can be validated to see if they link back to each other.
 
 #### Arguments
 
@@ -480,30 +508,30 @@ Then it returns all the headers in between. Now that both the ends of the segmen
 
 #### Response
 
-| Name           | Type     | Description                                                                                                                                 |
-| -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| result         | (string) | whether the command was successful                                                                                                          |
-| prevht         | (string) | the height of the first notarized block below the height `prevheight`                                                                       |
-| nextht         | (string) | the height of the first notarized block above the height `nextheight`                                                                       |
-| prevtxid       | (string) | the id of the transaction that contains the notarization data of the block of height `prevht`                                               |
-| prevtxidht     | (string) | the height of the block in which the transaction with id `prevtxid` is present                                                              |
-| prevtxlen      | (string) | the length of the transaction with id `prevtxid`                                                                                            |
-| nexttxid       | (string) | the id of the transaction that contains the notarization data of the block of height `nextht`                                               |
-| nexttxidht     | (string) | the height of the block in which the transaction with id `nexttxid` is present                                                              |
-| nexttxlen      | (string) | the length of the transaction with id `nexttxid`                                                                                            |
-| numhdrs        | (string) | the number of headers being returned                                                                                                        |
-| headers        | (string) | a json containing the details of the header (of the current block by default / block of height specified by `hdrheight` if it is specified) |
-| height         | (number) | the height of the block that has been queried                                                                                               |
-| blockhash      | (string) | the blockhash of the block that has been queried                                                                                            |
-| hashPrevBlock  | (string) | the blockhash of the block before the block that has been queried                                                                           |
-| hashMerkleRoot | (string) | the merkleroot of the block that has been queried                                                                                           |
-| nTime          | (number) | a timestamp recording when this block was created                                                                                           |
-| nBits          | (number) | the calculated difficulty target being used for this block                                                                                  |
-| lastpeer       | (string) | the last known peer                                                                                                                         |
+| Name           | Type     | Description                                                                                                                                        |
+| -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result         | (string) | whether the command was successful                                                                                                                 |
+| prevht         | (string) | the height of the first notarized block below the height `prevheight`                                                                              |
+| nextht         | (string) | the height of the first notarized block above the height `nextheight`                                                                              |
+| prevtxid       | (string) | the id of the transaction that contains the notarization data of the block of height `prevht`                                                      |
+| prevtxidht     | (string) | the height of the block in which the transaction with id `prevtxid` is present                                                                     |
+| prevtxlen      | (string) | the length of the transaction with id `prevtxid`                                                                                                   |
+| nexttxid       | (string) | the id of the transaction that contains the notarization data of the block of height `nextht`                                                      |
+| nexttxidht     | (string) | the height of the block in which the transaction with id `nexttxid` is present                                                                     |
+| nexttxlen      | (string) | the length of the transaction with id `nexttxid`                                                                                                   |
+| numhdrs        | (string) | the number of headers being returned                                                                                                               |
+| headers        | (string) | a json object containing the details of the header (of the current block by default / block of height specified by `hdrheight` if it is specified) |
+| height         | (number) | the height of the block that has been queried                                                                                                      |
+| blockhash      | (string) | the blockhash of the block that has been queried                                                                                                   |
+| hashPrevBlock  | (string) | the blockhash of the block before the block that has been queried                                                                                  |
+| hashMerkleRoot | (string) | the merkleroot of the block that has been queried                                                                                                  |
+| nTime          | (number) | a timestamp recording when this block was created                                                                                                  |
+| nBits          | (number) | the calculated difficulty target being used for this block                                                                                         |
+| lastpeer       | (string) | the last known peer                                                                                                                                |
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "hdrsproof", "params": [1456692, 1456694 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -699,11 +727,11 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "hdrsproof", "
 
 </collapse-text>
 
-### help
+## help
 
 **help**
 
-This method returns the help output containing all the available methods.
+This method returns the help output of all available methods.
 
 #### Arguments
 
@@ -716,14 +744,14 @@ This method returns the help output containing all the available methods.
 | Name    | Type             | Description                                                 |
 | ------- | ---------------- | ----------------------------------------------------------- |
 | result  | (string)         | whether the command was successful                          |
-| methods | (array of jsons) | an array containing a json for each method                  |
+| methods | (array of jsons) | an array containing a json object for each method           |
 | method  | (string)         | name of a method                                            |
 | fields  | (array)          | an array conataining the description of parameters expected |
 | num     | (number)         | the number of methods available                             |
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "help", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -801,7 +829,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "help", "param
 
 </collapse-text>
 
-### listtransactions
+## listtransactions
 
 **listtransactions [address [isCC [skipcount [filter]]]]**
 
@@ -809,34 +837,34 @@ This method returns a list of transactions for an address.
 
 #### Arguments
 
-| Name      | Type               | Description                                                                                                    |
-| --------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
-| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the currently logged in address is used |
-| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                    |
-| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction     |
-| filter    | (number, optional) | Not implemented yet                                                                                            |
+| Name      | Type               | Description                                                                                                |
+| --------- | ------------------ | ---------------------------------------------------------------------------------------------------------- |
+| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the current active address is used  |
+| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                |
+| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction |
+| filter    | (number, optional) | (in development)                                                                                           |
 
 #### Response
 
-| Name      | Type             | Description                                                        |
-| --------- | ---------------- | ------------------------------------------------------------------ |
-| result    | (string)         | whether the command was successful                                 |
-| txids     | (array of jsons) | an array containing jsons that describe the transactions           |
-| height    | (number)         | the height of the block in which the transaction was included      |
-| txid      | (string)         | the id of the transaction                                          |
-| value     | (number)         | the amount of coins in the vin/vout (inputs and outputs)           |
-| vin/vout  | (number)         | the index of vin/vout in the transaction                           |
-| address   | (string)         | the address for which the transactions are being returned          |
-| isCC      | (number)         | whether the address belongs to an Antara module                    |
-| height    | (number)         | the height of the blockchain when this response was returned       |
-| numtxids  | (number)         | number of vouts/vins being returned                                |
-| skipcount | (number)         | the number of transactions that have been skipped; from the oldest |
-| filter    | (number)         | Not implemented yet                                                |
-| lastpeer  | (string)         | the last known peer                                                |
+| Name      | Type             | Description                                                                             |
+| --------- | ---------------- | --------------------------------------------------------------------------------------- |
+| result    | (string)         | whether the command was successful                                                      |
+| txids     | (array of jsons) | an array containing jsons that describe the transactions                                |
+| height    | (number)         | the height of the block in which the transaction was included                           |
+| txid      | (string)         | the id of the transaction                                                               |
+| value     | (number)         | the amount of coins in the vin/vout (inputs and outputs)                                |
+| vin/vout  | (number)         | the index of vin/vout in the transaction                                                |
+| address   | (string)         | the address for which the transactions are being returned                               |
+| isCC      | (number)         | whether the address belongs to an Antara module                                         |
+| height    | (number)         | the height of the blockchain when this response was returned                            |
+| numtxids  | (number)         | number of vouts/vins being returned                                                     |
+| skipcount | (number)         | the number of transactions that have been skipped, starting from the oldest transaction |
+| filter    | (number)         | (in development)                                                                        |
+| lastpeer  | (string)         | the last known peer                                                                     |
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listtransactions", "params": ["RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb"] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -897,20 +925,20 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listtransacti
 
 </collapse-text>
 
-### listunspent
+## listunspent
 
 **listunspent [address [isCC [skipcount [filter]]]]**
 
-Use this method to retrieve all the unspent outputs belonging to an address.
+Use this method to retrieve all unspent outputs belonging to an address.
 
 #### Arguments
 
-| Name      | Type               | Description                                                                                                    |
-| --------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
-| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the currently logged in address is used |
-| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                    |
-| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction     |
-| filter    | (number, optional) | Not implemented yet                                                                                            |
+| Name      | Type               | Description                                                                                                |
+| --------- | ------------------ | ---------------------------------------------------------------------------------------------------------- |
+| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the current active address is used  |
+| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                |
+| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction |
+| filter    | (number, optional) | (in development)                                                                                           |
 
 #### Response
 
@@ -920,8 +948,8 @@ Use this method to retrieve all the unspent outputs belonging to an address.
 | utxos     | (array of jsons) | an array containing jsons that describe the outputs          |
 | height    | (number)         | the height of the block in which the output was created      |
 | txid      | (string)         | the id of the transaction in which the output is present     |
-| vout      | (number)         | the index of the vout(output) in the transaction             |
-| value     | (number)         | the amount of coins in the vout(output)                      |
+| vout      | (number)         | the index of the vout (output) in the transaction            |
+| value     | (number)         | the amount of coins in the vout (output)                     |
 | rewards   | (number)         | the amount of active user rewards claimable by the output    |
 | address   | (string)         | the address for which the transactions are being returned    |
 | isCC      | (number)         | whether the address belongs to an Antara module              |
@@ -930,12 +958,12 @@ Use this method to retrieve all the unspent outputs belonging to an address.
 | balance   | (number)         | the total balance available for the address                  |
 | rewards   | (number)         | the total rewards claimable by the address                   |
 | skipcount | (number)         | the number of utoxs that have been skipped; from the oldest  |
-| filter    | (number)         | Not implemented yet                                          |
+| filter    | (number)         | (in development)                                             |
 | lastpeer  | (string)         | the last known peer                                          |
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listunspent", "params": ["RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb"] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -976,11 +1004,11 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listunspent",
 
 </collapse-text>
 
-### login
+## login
 
 **login wif**
 
-Use this method to login to an address using its wifkey.
+Use this method to log in to an address using its wifkey.
 
 #### Arguments
 
@@ -990,18 +1018,18 @@ Use this method to login to an address using its wifkey.
 
 #### Response
 
-| Name       | Type      | Description                                                                 |
-| ---------- | --------- | --------------------------------------------------------------------------- |
-| result     | (string)  | whether the command was successful                                          |
-| status     | (string)  | the time till the expiry of the login                                       |
-| address    | (string)  | the address corresponding to the wifkey                                     |
-| pubkey     | (string)  | the pubkey corresponding to the wifkey                                      |
-| wifprefix  | (number)  | the prefix of the wifkey (indicates the netwok the wifkey is to be used on) |
-| compressed | (boolean) | indicates whether the wifkey is compressed                                  |
+| Name       | Type      | Description                                                              |
+| ---------- | --------- | ------------------------------------------------------------------------ |
+| result     | (string)  | whether the command was successful                                       |
+| status     | (string)  | the time till the expiry of the login                                    |
+| address    | (string)  | the address corresponding to the wifkey                                  |
+| pubkey     | (string)  | the pubkey corresponding to the wifkey                                   |
+| wifprefix  | (number)  | the prefix of the wifkey (indicates the intended network for the wifkey) |
+| compressed | (boolean) | indicates whether the wifkey is compressed                               |
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "login", "params": ["Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -1022,11 +1050,11 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "login", "para
 
 </collapse-text>
 
-### logout
+## logout
 
 **logout**
 
-Use this method to logout of the currently logged in address.
+Use this method to log out of the current active address.
 
 #### Arguments
 
@@ -1042,7 +1070,7 @@ Use this method to logout of the currently logged in address.
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "logout", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -1056,7 +1084,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "logout", "par
 
 </collapse-text>
 
-### mempool
+## mempool
 
 **mempool address isCC memfunc [txid vout evalcode ccfunc]]]**
 
@@ -1068,19 +1096,21 @@ which args are optional and eachone's use
 and values and meanings of memfunc
 
 memfunc (0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool 4)
+
+gcharang: all the arguments are optional; and they are in development
 -->
 
 #### Arguments
 
-| Name     | Type              | Description                                            |
-| -------- | ----------------- | ------------------------------------------------------ |
-| address  | (string,optional) | if the transactions should belong to the address       |
-| isCC     | (number,optional) | if the transactions should belong to any Antara module |
-| memfunc  | (number,optional) | TBD                                                    |
-| txid     | (string,optional) | TBD                                                    |
-| vout     | (number,optional) | TBD                                                    |
-| evalcode | (number,optional) | TBD                                                    |
-| ccfunc   | (number,optional) | TBD                                                    |
+| Name     | Type               | Description                                            |
+| -------- | ------------------ | ------------------------------------------------------ |
+| address  | (string, optional) | if the transactions should belong to the address       |
+| isCC     | (number, optional) | if the transactions should belong to any Antara module |
+| memfunc  | (number, optional) | (in development)                                       |
+| txid     | (string, optional) | (in development)                                       |
+| vout     | (number, optional) | (in development)                                       |
+| evalcode | (number, optional) | (in development)                                       |
+| ccfunc   | (number, optional) | (in development)                                       |
 
 #### Response
 
@@ -1092,15 +1122,15 @@ memfunc (0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool 4)
 | isCC     | (number)           | if the transactions returned belong to an Antara Module      |
 | height   | (number)           | the height of the blockchain when this response was returned |
 | numtxids | (number)           | the number of transaction ids that are being returned        |
-| txid     | (string)           | TBD                                                          |
-| vout     | (number)           | TBD                                                          |
-| memfunc  | (number)           | TBD                                                          |
+| txid     | (string)           | (in development)                                             |
+| vout     | (number)           | (in development)                                             |
+| memfunc  | (number)           | (in development)                                             |
 | type     | (string)           | the type of the filter apploed to the mempool                |
 | lastpeer | (string)           | the last known peer                                          |
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "mempool", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -1135,7 +1165,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "mempool", "pa
 
 </collapse-text>
 
-### notarizations
+## notarizations
 
 **notarizations height**
 
@@ -1163,7 +1193,7 @@ This method returns the notarization data for a given height.
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "notarizations", "params": [145677] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -1194,13 +1224,13 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "notarizations
 
 </collapse-text>
 
-### spend
+## spend
 
 **spend address amount**
 
 <!--FIXME doc retcodes? -->
 
-This method can be used to spend some coins from the currently loggedin address to any other address.
+This method can be used to spend coins from the current active address to any other address.
 
 #### Arguments
 
@@ -1211,31 +1241,31 @@ This method can be used to spend some coins from the currently loggedin address 
 
 #### Response
 
-| Name          | Type             | Description                                                                                                   |
-| ------------- | ---------------- | ------------------------------------------------------------------------------------------------------------- |
-| rewards       | (string)         | the rewards being claimed by this spend transaction                                                           |
-| validated     | (string)         |                                                                                                               |
-| tx            | (json)           | a json containing details of the transaction                                                                  |
-| nVersion      | (number)         | version of the komodo daemon                                                                                  |
-| vin           | (array of jsons) | the inputs being consumed by the transaction                                                                  |
-| txid          | (string)         | the id of the transaction whose input is being spent                                                          |
-| vout          | (number)         | the output number in the above transaction                                                                    |
-| scriptSig     | (string)         | the redeem script that satisfies the scriptPubkey of the above output                                         |
-| sequenceid    | (number)         | the sequence number that has been set                                                                         |
-| vout          | (array of jsons) | the outputs being created by the transaction                                                                  |
-| value         | (string)         | the value in the output                                                                                       |
-| scriptPubKey  | (string)         | the locking script placed on the above value                                                                  |
-| nLockTime     | (number)         | the locktime that has been set                                                                                |
-| nExpiryHeight | (number)         | the block height after which the transaction will be removed from the mempool if it has not been mined        |
-| valueBalance  | (number)         |                                                                                                               |
-| result        | (string)         | whether the command succeeded                                                                                 |
-| hex           | (string)         | the transaction in hex format; it should be broadcast to the network using the [broadcast](#broadcast) method |
-| retcodes      | (number)         | the return codes; given an indication on the success or failure in the creation of the transaction            |
-| lastpeer      | (string)         | the last known peer                                                                                           |
+| Name          | Type             | Description                                                                                                     |
+| ------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- |
+| rewards       | (string)         | the rewards being claimed by this spend transaction                                                             |
+| validated     | (string)         | (in development)                                                                                                |
+| tx            | (json)           | a json object containing details of the transaction                                                             |
+| nVersion      | (number)         | version of the komodo daemon                                                                                    |
+| vin           | (array of jsons) | the inputs being consumed by the transaction                                                                    |
+| txid          | (string)         | the id of the transaction whose input is being spent                                                            |
+| vout          | (number)         | the output number in the above transaction                                                                      |
+| scriptSig     | (string)         | the redeem script that satisfies the scriptPubkey of the above output                                           |
+| sequenceid    | (number)         | the sequence number that has been set                                                                           |
+| vout          | (array of jsons) | the outputs being created by the transaction                                                                    |
+| value         | (string)         | the value in the output                                                                                         |
+| scriptPubKey  | (string)         | the locking script placed on the above value                                                                    |
+| nLockTime     | (number)         | the locktime that has been set                                                                                  |
+| nExpiryHeight | (number)         | the block height after which the transaction will be removed from the mempool if it has not been mined          |
+| valueBalance  | (number)         | (in development)                                                                                                |
+| result        | (string)         | whether the command succeeded                                                                                   |
+| hex           | (string)         | the transaction in hex format; this should be broadcast to the network using the [broadcast](#broadcast) method |
+| retcodes      | (number)         | the return codes; an indication of the success or failure of the creation of the transaction                    |
+| lastpeer      | (string)         | the last known peer                                                                                             |
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spend", "params": ["RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb",1 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -1280,7 +1310,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spend", "para
 
 </collapse-text>
 
-### spentinfo
+## spentinfo
 
 **spentinfo txid vout**
 
@@ -1309,7 +1339,7 @@ This method returns the spent info of the output specified by the arguments.
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "params": ["e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",1 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -1333,11 +1363,11 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "
 
 </collapse-text>
 
-### stop
+## stop
 
 **stop**
 
-Stops the instance of nSPV binary that is accessible by the port specifies in the curl command.
+Stops the nSPV instance associated with the port specified in the curl command.
 
 #### Arguments
 
@@ -1353,7 +1383,7 @@ Stops the instance of nSPV binary that is accessible by the port specifies in th
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "stop", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
@@ -1367,19 +1397,19 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "stop", "param
 
 </collapse-text>
 
-### txproof
+## txproof
 
 **txproof txid vout [height]**
 
-This method is an internal function to be used by the [gettransaction](#gettransaction) method
+This method is an internal function used by the [gettransaction](#gettransaction) method.
 
 #### Arguments
 
-| Name   | Type              | Description                                        |
-| ------ | ----------------- | -------------------------------------------------- |
-| txid   | (string)          | the id of the transaction whose proof is requested |
-| vout   | (number)          | the number of the output in the above transaction  |
-| height | (number,optional) |                                                    |
+| Name   | Type               | Description                                        |
+| ------ | ------------------ | -------------------------------------------------- |
+| txid   | (string)           | the id of the transaction whose proof is requested |
+| vout   | (number)           | the number of the output in the above transaction  |
+| height | (number, optional) |                                                    |
 
 #### Response
 
@@ -1393,7 +1423,7 @@ This method is an internal function to be used by the [gettransaction](#gettrans
 
 #### :pushpin: Examples
 
-Command:
+##### Command
 
 ```bash
 curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "txproof", "params": ["e07709088fa2690fdc71b43b5d7760689e42ca90f7dfb74b18bf47a1ad94c855",0,1453881 ] }' -H 'content-type: text/plain;' http://127.0.0.1:$port/
