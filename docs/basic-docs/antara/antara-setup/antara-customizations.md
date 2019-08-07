@@ -14,26 +14,38 @@ This parameter is in its final testing stages.
 
 :::
 
-The `ac_adaptivepow` parameter solves a problem that affects low-hashrate blockchains. When a blockchain's hashrate is much lower than that of another blockchain with the same mining algorithm, miners from the higher-powered chain can move to the lower-powered chain and mine a large number of blocks in a short amount of time. Consequently, the rapid influx of new miners would drastically increase the difficulty of finding a block.
+#### Understanding Difficulty Stranding
 
-The miners who were on the first chain’s network before the new rush of miners would have a much harder time finding blocks, and may not be able to find any blocks at all, as the difficulty level increased so sharply in such a short period of time. When miners from the second chain leave, the native miners will have to wait an extremely long time to produce a new block, as they don't have enough hashrate to find blocks at the inflated difficulty level.
+The `ac_adaptivepow` parameter solves a vulnerability known as "Difficulty Stranding." Low-hashrate blockchains are particularly susceptible to this vulnerability.
 
-This type of attack is called "difficulty stranding.” The motivation for this attack might be profit or malice. This is a threat that is faced by all pure PoW chains that have a minority hashrate for their mining algorithm being used.
+When a blockchain's hashrate is much lower than that of another blockchain with the same mining algorithm, miners from the higher-powered chain can move to the lower-powered chain and mine a large number of blocks in a short amount of time.
 
-The `ac_adaptivepow` parameter changes the Difficulty adjustment algorithm (DAA) inherited from Zcash to alleviate the potential effects of a "difficulty stranding" attack.
+In so doing, the rapid influx of new miners causes a part of the lower-powered chain's consensus mechanism called the Difficulty Adjustment Algorithm (DAA) to drastically increase the difficulty of finding a block. When the higher-powered group of miners leave, the difficulty level remains.
 
-When AdaptivePoW is used, the difficulty target is adjusted _within_ a single block. This makes the process of bringing down the difficulty easier and faster, as it doesn't require a block to be found with the extremely inflated difficulty level caused by the Diff Strand attack. More details on the implementation and rationale can be found in this [blog post](https://medium.com/@jameslee777/adaptivepow-the-solution-to-diff-stranding-of-smaller-blockchains-425609df5563).
+The smaller group of miners now may not be able to provide enough hash power to overcome the new difficulty level, and therefore this chain can be frozen.
 
-Before the 31st of October:
+This type of behavior is called "difficulty stranding,” and can be used as a method of malicious attack. This is a threat that is faced by all pure PoW chains that have a minor hashrate.
+
+#### ac_adaptivepow Adjusts the Difficulty Level
+
+The `ac_adaptivepow` parameter changes the Difficulty Adjustment Algorithm (DAA) of a Smart Chain to alleviate the potential effects of a "difficulty stranding" attack.
+
+One method by which `ac_adaptivepow` alleviates the vulnerability is the changing of the time at which the difficulty level is set. Normally, the difficulty level is adjusted at the conclusion of finding a new block. With `ac_adaptivepow`, the difficulty target is adjusted as a part of the process of finding a new block.
+
+This makes the process of lowering the difficulty easier and faster, as the DAA can take into account the amount of time the miners on the network are consuming to find a new block. If the amount of time is too high, the DAA can lower the difficulty as needed. More details on the implementation and rationale can be found in this [blog post.](https://medium.com/@jameslee777/adaptivepow-the-solution-to-diff-stranding-of-smaller-blockchains-425609df5563)
+
+#### Schedule of ac_adapativepow Addition
+
+###### Before the 31st of October, 2019
 
 - adding the parameter `-ac_adaptivepow=1` enables AdaptivePoW for a newly created Smart Chain
 - not adding the parameter doesn't have any effect for a newly created Smart Chain
 - existing Smart Chains are not affected
 
-After the 31st of October:
+###### After the 31st of October, 2019
 
-- all the newly created Smart Chains that are 100% PoW would by default have AdaptivePoW enabled.
-- if a newly created Smart Chain never wants it, the parameter `-ac_adaptivepow=-1` should be used
+- all the newly created Smart Chains that are 100% PoW have AdaptivePoW enabled by default 
+- a newly created Smart Chain that does not want this feature should set the parameter as follows: `-ac_adaptivepow=-1`
 - existing Smart Chains are not affected
 
 ## ac_algo

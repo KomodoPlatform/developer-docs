@@ -109,6 +109,10 @@ var sidebar = [{
                         "/basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.md",
                         "Common Runtime Parameters"
                     ],
+                    [
+                        "/basic-docs/smart-chains/smart-chain-setup/nspv.md",
+                        "nSPV (Enhanced Lite Mode)"
+                    ],
                 ],
             },
             {
