@@ -168,9 +168,7 @@ The following command starts the nSPV client for the KMD main chain and listens 
 ./nspv KMD -p 3000
 ```
 
-## API
-
-### broadcast
+## broadcast
 
 **broadcast hex**
 
@@ -216,7 +214,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "broadcast", "
 
 </collapse-text>
 
-### getinfo
+## getinfo
 
 **getinfo [hdrheight]**
 
@@ -337,7 +335,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getnewaddress
 
 </collapse-text>
 
-### getpeerinfo
+## getpeerinfo
 
 **getpeerinfo**
 
@@ -490,7 +488,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getpeerinfo",
 
 </collapse-text>
 
-### hdrsproof
+## hdrsproof
 
 **hdrsproof prevheight nextheight**
 
@@ -730,7 +728,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "hdrsproof", "
 
 </collapse-text>
 
-### help
+## help
 
 **help**
 
@@ -832,7 +830,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "help", "param
 
 </collapse-text>
 
-### listtransactions
+## listtransactions
 
 **listtransactions [address [isCC [skipcount [filter]]]]**
 
@@ -928,7 +926,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listtransacti
 
 </collapse-text>
 
-### listunspent
+## listunspent
 
 **listunspent [address [isCC [skipcount [filter]]]]**
 
@@ -1007,7 +1005,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listunspent",
 
 </collapse-text>
 
-### login
+## login
 
 **login wif**
 
@@ -1053,7 +1051,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "login", "para
 
 </collapse-text>
 
-### logout
+## logout
 
 **logout**
 
@@ -1087,7 +1085,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "logout", "par
 
 </collapse-text>
 
-### mempool
+## mempool
 
 **mempool address isCC memfunc [txid vout evalcode ccfunc]]]**
 
@@ -1166,7 +1164,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "mempool", "pa
 
 </collapse-text>
 
-### notarizations
+## notarizations
 
 **notarizations height**
 
@@ -1225,7 +1223,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "notarizations
 
 </collapse-text>
 
-### spend
+## spend
 
 **spend address amount**
 
@@ -1364,7 +1362,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "
 
 </collapse-text>
 
-### stop
+## stop
 
 **stop**
 
@@ -1398,7 +1396,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "stop", "param
 
 </collapse-text>
 
-### txproof
+## txproof
 
 **txproof txid vout [height]**
 
