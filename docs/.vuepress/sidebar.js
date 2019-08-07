@@ -199,6 +199,10 @@ var sidebar = {
               "Network"
             ],
             [
+              "/basic-docs/smart-chains/smart-chain-api/nspv.md",
+              "nSPV"
+            ],
+            [
               "/basic-docs/smart-chains/smart-chain-api/rawtransactions.md",
               "Raw Transactions"
             ],
