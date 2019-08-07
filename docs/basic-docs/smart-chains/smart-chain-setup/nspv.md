@@ -285,7 +285,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "getinfo", "pa
 
 </collapse-text>
 
-### getnewaddress
+## getnewaddress
 
 **getnewaddress**
 
