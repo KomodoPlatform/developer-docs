@@ -87,6 +87,6 @@ var redirectAliases = {
   "/assetchains/checklist-new-coin.html": "/basic-docs/smart-chains/smart-chain-tutorials/checklist-new-coin.html",
   "/komodo/assetchain-params.html": "/basic-docs/antara/antara-setup/antara-customizations.html",
   "/basic-docs/installations/asset-chain-parameters.html": "/basic-docs/antara/antara-setup/antara-customizations.html",
-
+  "/komodo/installation.html": "/basic-docs/smart-chains/smart-chain-setup/installing-from-source.html",
 };
 module.exports = redirectAliases;
