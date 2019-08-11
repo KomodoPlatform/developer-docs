@@ -16,11 +16,11 @@ To use the following methods, the daemon must be started with the command line p
 
 The following RPC calls interact with the `komodod` software, and are made available through the `komodo-cli` software.
 
-### nspv_broadcast
+## nspv_broadcast
 
 **nspv_broadcast hex**
 
-Use this method to broadcast a hex returned by the [spend](#spend) method.
+Use this method to broadcast the hex value returned by the [spend](#spend) method.
 
 #### Arguments
 
@@ -30,16 +30,16 @@ Use this method to broadcast a hex returned by the [spend](#spend) method.
 
 #### Response
 
-| Name      | Type     | Description                                                                                                    |
-| --------- | -------- | -------------------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command was successful                                                                             |
-| expected  | (string) | the expected transaction id                                                                                    |
-| broadcast | (string) | the broadcasted transaction id                                                                                 |
-| retcode   | (number) | the return code (if 0: no error, -1,-2,-3: failure, -200x: mostly OK, some of the inputs may not be notarized) |
-| type      | (string) | the type of the broadcast                                                                                      |
-| lastpeer  | (string) | the last known peer                                                                                            |
+| Name      | Type     | Description                                                                                                                  |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| result    | (string) | whether the command was successful                                                                                           |
+| expected  | (string) | the expected transaction id                                                                                                  |
+| broadcast | (string) | the broadcasted transaction id                                                                                               |
+| retcode   | (number) | the return code<br><br>0: no error<br><br>-1,-2,-3: failure<br><br>-200x: mostly OK, some of the inputs may not be notarized |
+| type      | (string) | the type of the broadcast                                                                                                    |
+| lastpeer  | (string) | the last known peer                                                                                                          |
 
-#### :pushpin: Examples
+### :pushpin: Examples
 
 Command:
 
@@ -62,19 +62,19 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "broadcast", "
 
 </collapse-text>
 
-### nspv_getinfo
+## nspv_getinfo
 
 **nspv_getinfo [hdrheight]**
 
 Use this method to get the general information on the state of the blockchain at the moment.
 
-#### Arguments
+### Arguments
 
 | Name      | Type               | Description                                                            |
 | --------- | ------------------ | ---------------------------------------------------------------------- |
 | hdrheight | (number, optional) | supplies the height of the block for which the header data is required |
 
-#### Response
+### Response
 
 | Name                    | Type     | Description                                                                                                                                 |
 | ----------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -101,7 +101,7 @@ Use this method to get the general information on the state of the blockchain at
 | protocolversion         | (string) | the version of the client; helps the nspv client disconnect from nodes that are out of date                                                 |
 | lastpeer                | (string) | the last known peer                                                                                                                         |
 
-#### :pushpin: Examples
+### :pushpin: Examples
 
 Command:
 
@@ -139,24 +139,26 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "2.0", "id":"curlte
 
 </collapse-text>
 
-### nspv_hdrsproof
+## nspv_hdrsproof
 
 **nspv_hdrsproof prevheight nextheight**
 
-This method scans backwards from the `prevheight` till it finds the find the first notarization transaction, then forward from `nextheight` till it finds the find the first notarization transaction.
+This method scans backwards from the `prevheight` until the process encounters a notarization transaction, then forward from `nextheight` until the process encounters another notarization transaction.
 
-Then it finds the notarized blocks corresponding to these two notarization transactions.
+Then the process finds the notarized blocks corresponding to these two notarization transactions.
 
-Then it returns all the headers in between. Now that both the ends of the segment are notarized blocks, the headers can be validated to see if they link back to each other.
+Then the process returns all the block headers between these two notarized blocks.
 
-#### Arguments
+Now that both ends of this segment of blocks are notarized blocks, all block headers in this segment can be validated to see if they link back to each other.
+
+### Arguments
 
 | Name       | Type     | Description                                      |
 | ---------- | -------- | ------------------------------------------------ |
 | prevheight | (number) | the block number from which headers are required |
 | nextheight | (number) | the block number to which headers are required   |
 
-#### Response
+### Response
 
 | Name           | Type     | Description                                                                                                                                 |
 | -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -179,7 +181,7 @@ Then it returns all the headers in between. Now that both the ends of the segmen
 | nBits          | (number) | the calculated difficulty target being used for this block                                                                                  |
 | lastpeer       | (string) | the last known peer                                                                                                                         |
 
-#### :pushpin: Examples
+### :pushpin: Examples
 
 Command:
 
@@ -377,7 +379,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "hdrsproof", "
 
 </collapse-text>
 
-### nspv_listtransactions
+## nspv_listtransactions
 
 **nspv_listtransactions [address [isCC [skipcount [filter]]]]**
 
@@ -385,32 +387,32 @@ This method returns a list of transactions for an address.
 
 #### Arguments
 
-| Name      | Type               | Description                                                                                                    |
-| --------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
-| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the currently logged in address is used |
-| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                    |
-| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction     |
-| filter    | (number, optional) | Not implemented yet                                                                                            |
+| Name      | Type               | Description                                                                                                |
+| --------- | ------------------ | ---------------------------------------------------------------------------------------------------------- |
+| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the current active address is used  |
+| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                |
+| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction |
+| filter    | (number, optional) | (in development)                                                                                           |
 
 #### Response
 
-| Name      | Type             | Description                                                        |
-| --------- | ---------------- | ------------------------------------------------------------------ |
-| result    | (string)         | whether the command was successful                                 |
-| txids     | (array of jsons) | an array containing jsons that describe the transactions           |
-| height    | (number)         | the height of the block in which the transaction was included      |
-| txid      | (string)         | the id of the transaction                                          |
-| value     | (number)         | the amount of coins in the vin/vout (inputs and outputs)           |
-| vin/vout  | (number)         | the index of vin/vout in the transaction                           |
-| address   | (string)         | the address for which the transactions are being returned          |
-| isCC      | (number)         | whether the address belongs to an Antara module                    |
-| height    | (number)         | the height of the blockchain when this response was returned       |
-| numtxids  | (number)         | number of vouts/vins being returned                                |
-| skipcount | (number)         | the number of transactions that have been skipped; from the oldest |
-| filter    | (number)         | Not implemented yet                                                |
-| lastpeer  | (string)         | the last known peer                                                |
+| Name      | Type             | Description                                                                             |
+| --------- | ---------------- | --------------------------------------------------------------------------------------- |
+| result    | (string)         | whether the command was successful                                                      |
+| txids     | (array of jsons) | an array containing jsons that describe the transactions                                |
+| height    | (number)         | the height of the block in which the transaction was included                           |
+| txid      | (string)         | the id of the transaction                                                               |
+| value     | (number)         | the amount of coins in the vin/vout (inputs and outputs)                                |
+| vin/vout  | (number)         | the index of vin/vout in the transaction                                                |
+| address   | (string)         | the address for which the transactions are being returned                               |
+| isCC      | (number)         | whether the address belongs to an Antara module                                         |
+| height    | (number)         | the height of the blockchain when this response was returned                            |
+| numtxids  | (number)         | number of vouts/vins being returned                                                     |
+| skipcount | (number)         | the number of transactions that have been skipped, starting from the oldest transaction |
+| filter    | (number)         | (in development)                                                                        |
+| lastpeer  | (string)         | the last known peer                                                                     |
 
-#### :pushpin: Examples
+### :pushpin: Examples
 
 Command:
 
@@ -473,7 +475,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listtransacti
 
 </collapse-text>
 
-### nspv_listunspent
+## nspv_listunspent
 
 **nspv_listunspent [address [isCC [skipcount [filter]]]]**
 
@@ -481,12 +483,12 @@ Use this method to retrieve all the unspent outputs belonging to an address.
 
 #### Arguments
 
-| Name      | Type               | Description                                                                                                    |
-| --------- | ------------------ | -------------------------------------------------------------------------------------------------------------- |
-| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the currently logged in address is used |
-| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                    |
-| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction     |
-| filter    | (number, optional) | Not implemented yet                                                                                            |
+| Name      | Type               | Description                                                                                                |
+| --------- | ------------------ | ---------------------------------------------------------------------------------------------------------- |
+| address   | (string, optional) | the address for which transactions are to be listed; if not specified, the current active address is used  |
+| isCC      | (number, optional) | only return transactions that are related to Antara modules                                                |
+| skipcount | (number, optional) | skips the specified number of transactions starting from the oldest; always returns the latest transaction |
+| filter    | (number, optional) | (in development)                                                                                           |
 
 #### Response
 
@@ -496,8 +498,8 @@ Use this method to retrieve all the unspent outputs belonging to an address.
 | utxos     | (array of jsons) | an array containing jsons that describe the outputs          |
 | height    | (number)         | the height of the block in which the output was created      |
 | txid      | (string)         | the id of the transaction in which the output is present     |
-| vout      | (number)         | the index of the vout(output) in the transaction             |
-| value     | (number)         | the amount of coins in the vout(output)                      |
+| vout      | (number)         | the index of the vout (output) in the transaction            |
+| value     | (number)         | the amount of coins in the vout (output)                     |
 | rewards   | (number)         | the amount of active user rewards claimable by the output    |
 | address   | (string)         | the address for which the transactions are being returned    |
 | isCC      | (number)         | whether the address belongs to an Antara module              |
@@ -506,10 +508,10 @@ Use this method to retrieve all the unspent outputs belonging to an address.
 | balance   | (number)         | the total balance available for the address                  |
 | rewards   | (number)         | the total rewards claimable by the address                   |
 | skipcount | (number)         | the number of utoxs that have been skipped; from the oldest  |
-| filter    | (number)         | Not implemented yet                                          |
+| filter    | (number)         | (in development)                                             |
 | lastpeer  | (string)         | the last known peer                                          |
 
-#### :pushpin: Examples
+### :pushpin: Examples
 
 Command:
 
@@ -552,19 +554,19 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "listunspent",
 
 </collapse-text>
 
-### nspv_login
+## nspv_login
 
 **nspv_login wif**
 
 Use this method to login to an address using its wifkey.
 
-#### Arguments
+### Arguments
 
 | Name | Type     | Description                                         |
 | ---- | -------- | --------------------------------------------------- |
 | wif  | (string) | the wifkey (wallet import format of the privatekey) |
 
-#### Response
+### Response
 
 | Name       | Type      | Description                                                                 |
 | ---------- | --------- | --------------------------------------------------------------------------- |
@@ -575,7 +577,7 @@ Use this method to login to an address using its wifkey.
 | wifprefix  | (number)  | the prefix of the wifkey (indicates the netwok the wifkey is to be used on) |
 | compressed | (boolean) | indicates whether the wifkey is compressed                                  |
 
-#### :pushpin: Examples
+### :pushpin: Examples
 
 Command:
 
@@ -598,25 +600,25 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "login", "para
 
 </collapse-text>
 
-### nspv_logout
+## nspv_logout
 
 **nspv_logout**
 
 Use this method to logout of the currently logged in address.
 
-#### Arguments
+### Arguments
 
 | Name   | Type | Description |
 | ------ | ---- | ----------- |
 | (none) |      |             |
 
-#### Response
+### Response
 
 | Name   | Type     | Description                   |
 | ------ | -------- | ----------------------------- |
 | result | (string) | whether the command succeeded |
 
-#### :pushpin: Examples
+### :pushpin: Examples
 
 Command:
 
@@ -632,7 +634,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "logout", "par
 
 </collapse-text>
 
-### nspv_mempool
+## nspv_mempool
 
 **nspv_mempool address isCC memfunc [txid vout evalcode ccfunc]]]**
 
@@ -646,7 +648,7 @@ and values and meanings of memfunc
 memfunc (0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool 4)
 -->
 
-#### Arguments
+### Arguments
 
 | Name     | Type              | Description                                            |
 | -------- | ----------------- | ------------------------------------------------------ |
@@ -658,7 +660,7 @@ memfunc (0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool 4)
 | evalcode | (number,optional) | TBD                                                    |
 | ccfunc   | (number,optional) | TBD                                                    |
 
-#### Response
+### Response
 
 | Name     | Type               | Description                                                  |
 | -------- | ------------------ | ------------------------------------------------------------ |
@@ -674,7 +676,7 @@ memfunc (0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool 4)
 | type     | (string)           | the type of the filter apploed to the mempool                |
 | lastpeer | (string)           | the last known peer                                          |
 
-#### :pushpin: Examples
+### :pushpin: Examples
 
 Command:
 
@@ -711,19 +713,19 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "mempool", "pa
 
 </collapse-text>
 
-### nspv_notarizations
+## nspv_notarizations
 
 **nspv_notarizations height**
 
 This method returns the notarization data for a given height.
 
-#### Arguments
+### Arguments
 
 | Name   | Type     | Description                                       |
 | ------ | -------- | ------------------------------------------------- |
 | height | (number) | the height at which notarization data is required |
 
-#### Response
+### Response
 
 | Name                    | Type     | Description                                                                                                |
 | ----------------------- | -------- | ---------------------------------------------------------------------------------------------------------- |
@@ -737,7 +739,7 @@ This method returns the notarization data for a given height.
 | next                    | (json)   | the details of the next notarization                                                                       |
 | lastpeer                | (string) | the last known peer                                                                                        |
 
-#### :pushpin: Examples
+### :pushpin: Examples
 
 Command:
 
@@ -770,7 +772,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "notarizations
 
 </collapse-text>
 
-### nspv_spend
+## nspv_spend
 
 **nspv_spend address amount**
 
@@ -778,14 +780,14 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "notarizations
 
 This method can be used to spend some coins from the currently loggedin address to any other address.
 
-#### Arguments
+### Arguments
 
 | Name    | Type     | Description                  |
 | ------- | -------- | ---------------------------- |
 | address | (string) | the address of the recipient |
 | amount  | (number) | the amount to be sent        |
 
-#### Response
+### Response
 
 | Name          | Type             | Description                                                                                                   |
 | ------------- | ---------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -809,7 +811,7 @@ This method can be used to spend some coins from the currently loggedin address 
 | retcodes      | (number)         | the return codes; given an indication on the success or failure in the creation of the transaction            |
 | lastpeer      | (string)         | the last known peer                                                                                           |
 
-#### :pushpin: Examples
+### :pushpin: Examples
 
 Command:
 
@@ -856,20 +858,20 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spend", "para
 
 </collapse-text>
 
-### nspv_spentinfo
+## nspv_spentinfo
 
 **nspv_spentinfo txid vout**
 
 This method returns the spent info of the output specified by the arguments.
 
-#### Arguments
+### Arguments
 
 | Name | Type     | Description                                                           |
 | ---- | -------- | --------------------------------------------------------------------- |
 | txid | (string) | the id of the transaction whose spent info is required                |
 | vout | (number) | the vout number in the above transaction whose spent info is required |
 
-#### Response
+### Response
 
 | Name            | Type     | Description                                                           |
 | --------------- | -------- | --------------------------------------------------------------------- |
@@ -883,7 +885,7 @@ This method returns the spent info of the output specified by the arguments.
 | spenttxprooflen | (string) | the length of proof of the transaction that spent this output         |
 | lastpeer        | (string) | the last known peer                                                   |
 
-#### :pushpin: Examples
+### :pushpin: Examples
 
 Command:
 
@@ -909,13 +911,13 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "
 
 </collapse-text>
 
-### nspv_txproof
+## nspv_txproof
 
 **nspv_txproof txid vout [height]**
 
 This method is an internal function to be used by the [gettransaction](#gettransaction) method
 
-#### Arguments
+### Arguments
 
 | Name   | Type              | Description                                        |
 | ------ | ----------------- | -------------------------------------------------- |
@@ -923,7 +925,7 @@ This method is an internal function to be used by the [gettransaction](#gettrans
 | vout   | (number)          | the number of the output in the above transaction  |
 | height | (number,optional) |                                                    |
 
-#### Response
+### Response
 
 | Name       | Type     | Description                                                  |
 | ---------- | -------- | ------------------------------------------------------------ |
@@ -933,7 +935,7 @@ This method is an internal function to be used by the [gettransaction](#gettrans
 | txprooflen | (string) | the length of the proof for the transaction                  |
 | lastpeer   | (string) | the last known peer                                          |
 
-#### :pushpin: Examples
+### :pushpin: Examples
 
 Command:
 
@@ -958,16 +960,3 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "2.0", "id":"curlte
 ```
 
 </collapse-text>
-
-nspv_broadcast hex
-nspv_getinfo [hdrheight]
-nspv_hdrsproof prevheight nextheight
-nspv_listtransactions [address [isCC [skipcount]]]
-nspv_listunspent [address [isCC [skipcount]]]
-nspv_login wif
-nspv_logout
-nspv_mempool func(0 all, 1 address recv, 2 txid/vout spent, 3 txid inmempool) address isCC [txid vout]]]
-nspv_notarizations height
-nspv_spend address amount
-nspv_spentinfo txid vout
-nspv_txproof txid height

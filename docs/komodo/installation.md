@@ -365,15 +365,11 @@ mkdir “%HOMEPATH%\AppData\Roaming\ZcashParams”
 
 And download following files in `ZcashParams` folder:
 
-- [sprout-proving.key](<[https://z.cash/downloads/sprout-proving.key](https://z.cash/downloads/sprout-proving.key)>)
-
-- [sprout-verifying.key](<[https://z.cash/downloads/sprout-verifying.key](https://z.cash/downloads/sprout-verifying.key)>)
-
-- [sapling-spend.params](<[https://z.cash/downloads/sapling-spend.params](https://z.cash/downloads/sapling-spend.params)>)
-
-- [sapling-output.params](<[https://z.cash/downloads/sapling-output.params](https://z.cash/downloads/sapling-output.params)>)
-
-- [sprout-groth16.params](<[https://z.cash/downloads/sprout-groth16.params](https://z.cash/downloads/sprout-groth16.params)>)
+- [sprout-proving.key](https://z.cash/downloads/sprout-proving.key)
+- [sprout-verifying.key](https://z.cash/downloads/sprout-verifying.key)
+- [sapling-spend.params](https://z.cash/downloads/sapling-spend.params)
+- [sapling-output.params](https://z.cash/downloads/sapling-output.params)
+- [sprout-groth16.params](https://z.cash/downloads/sprout-groth16.params)
 
 1. Now we can run `komodod.exe`
 
@@ -396,13 +392,8 @@ And download following files in `ZcashParams` folder:
 Downloads:
 
 - Windows Binaries: [https://github.com/KomodoPlatform/komodo/releases](https://github.com/KomodoPlatform/komodo/releases)
-
-- [sprout-proving.key](<[https://z.cash/downloads/sprout-proving.key](https://z.cash/downloads/sprout-proving.key)>)
-
-- [sprout-verifying.key](<[https://z.cash/downloads/sprout-verifying.key](https://z.cash/downloads/sprout-verifying.key)>)
-
-- [sapling-spend.params](<[https://z.cash/downloads/sapling-spend.params](https://z.cash/downloads/sapling-spend.params)>)
-
-- [sapling-output.params](<[https://z.cash/downloads/sapling-output.params](https://z.cash/downloads/sapling-output.params)>)
-
-- [sprout-groth16.params](<[https://z.cash/downloads/sprout-groth16.params](https://z.cash/downloads/sprout-groth16.params)>)
+- [sprout-proving.key](https://z.cash/downloads/sprout-proving.key)
+- [sprout-verifying.key](https://z.cash/downloads/sprout-verifying.key)
+- [sapling-spend.params](https://z.cash/downloads/sapling-spend.params)
+- [sapling-output.params](https://z.cash/downloads/sapling-output.params)
+- [sprout-groth16.params](https://z.cash/downloads/sprout-groth16.params)
