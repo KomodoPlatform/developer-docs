@@ -17,20 +17,6 @@ sidebar: auto
 
 - [https://komodoplatform.com/komodo-wallets](https://komodoplatform.com/komodo-wallets)
 
-## Agama Mobile
-
-- Android: [https://play.google.com/store/apps/details?id=com.supernet.agama](https://play.google.com/store/apps/details?id=com.supernet.agama)
-- iOS: [https://testflight.apple.com/join/AQkscRcq](https://testflight.apple.com/join/AQkscRcq)
-- Source code: [https://github.com/pbca26/agama-mobile](https://github.com/pbca26/agama-mobile)
-- Release: [https://github.com/pbca26/agama-mobile/releases](https://github.com/pbca26/agama-mobile/releases)
-
-## Agama Web Wallet
-
-- Source: [https://github.com/pbca26/agama-web](https://github.com/pbca26/agama-web)
-- Dependencies 1: [https://github.com/pbca26/agama-wallet-lib](https://github.com/pbca26/agama-wallet-lib)
-- Dependencies 2: [https://github.com/pbca26/electrum-proxy](https://github.com/pbca26/electrum-proxy)
-- Hosted: [https://www.atomicexplorer.com/wallet/](https://www.atomicexplorer.com/wallet/)
-
 ## Atomic Explorer
 
 - Website: [https://www.atomicexplorer.com/](https://www.atomicexplorer.com/)
