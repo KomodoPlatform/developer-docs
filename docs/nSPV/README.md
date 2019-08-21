@@ -75,7 +75,7 @@ Copy the following code to the file named `coins` (located at the root of the so
 | mm2     | (number) | set this value to `1` if this coin has been tested and proves capable of functioning on MarketMaker 2.0 software                                                                                                                   |
 | p2p     | (number) | the p2p port the Smart Chain's daemon uses to communicate with other nodes                                                                                                                                                         |
 | magic   | (string) | the netmagic number for this Smart Chain. The decimal value of `magic` can be obtained by executing the `getinfo` RPC on a full node on the Smart Chain network. Convert the decimal value to hex and serialize it into 4 hexbytes |
-| nSPV    | (string) | the ip addresses of the nodes on the Smart Chain network that are launched using the parameter `-nSPV=1`                                                                                                                           |
+| nSPV    | (string) | the ip addresses of the full nodes on the Smart Chain network                                                                                                                            |
 
 ::: tip
 
