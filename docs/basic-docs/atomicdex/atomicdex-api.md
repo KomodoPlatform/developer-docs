@@ -2595,12 +2595,16 @@ This method generates a raw transaction which should then be broadcast using [se
 
 #### Arguments
 
-| Structure | Type             | Description                                                      |
-| --------- | ---------------- | ---------------------------------------------------------------- |
-| coin      | string           | the name of the coin the user desires to withdraw                |
-| to        | string           | coins will be withdrawn to this address                          |
-| amount    | string (numeric) | the amount the user desires to withdraw, ignored when `max=true` |
-| max       | bool             | withdraw the maximum available amount                            |
+| Structure     | Type             | Description                                                      |
+| ---------     | ---------------- | ---------------------------------------------------------------- |
+| coin          | string           | the name of the coin the user desires to withdraw                |
+| to            | string           | coins will be withdrawn to this address                          |
+| amount        | string (numeric) | the amount the user desires to withdraw, ignored when `max=true` |
+| max           | bool             | withdraw the maximum available amount                            |
+| fee.type      | string           | type of transaction fee, possible values: UtxoFixed, UtxoPerKbyte, EthGas |
+| fee.amount    | string (numeric) | fee amount in coin units, used only when type is UtxoFixed (fixed amount not depending on tx size) or UtxoPerKbyte (amount per Kbyte). |
+| fee.gas_price | string (numeric) | used only when fee type is EthGas. Sets the gas price in `gwei` units |
+| fee.gas       | number (integer) | used only when fee type is EthGas. Sets the gas limit for transaction |
 
 #### Response
 
@@ -2652,6 +2656,90 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"K
 
 </div>
 
+#### Command (BTC, KMD, and other BTC-based forks, fixed fee)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"RICK\",\"to\":\"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW\",\"amount\":\"1.0\",\"fee\":{\"type\":\"UtxoFixed\",\"amount\":\"0.1\"}}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "tx_hex":"0400008085202f8901ef25b1b7417fe7693097918ff90e90bba1351fff1f3a24cb51a9b45c5636e57e010000006b483045022100b05c870fcd149513d07b156e150a22e3e47fab4bb4776b5c2c1b9fc034a80b8f022038b1bf5b6dad923e4fb1c96e2c7345765ff09984de12bbb40b999b88b628c0f9012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac8cbaae5f010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ace87a5e5d000000000000000000000000000000",
+  "tx_hash":"1ab3bc9308695960bc728fa427ac00d1812c4ae89aaa714c7618cb96d111be58",
+  "from":["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+  "to":["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+  "total_amount":"60.10253836",
+  "spent_by_me":"60.10253836",
+  "received_by_me":"60.00253836",
+  "my_balance_change":"-0.1",
+  "block_height":0,
+  "timestamp":1566472936,
+  "fee_details":{
+    "amount":"0.1"
+  },
+  "coin":"RICK",
+  "internal_id":""
+}
+```
+
+#### Response (error - attempt to use EthGas for UTXO coin)
+
+```json
+{"error":"utxo:1295] Unsupported input fee type"}
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (BTC, KMD, and other BTC-based forks, 1 RICK per Kbyte)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"RICK\",\"to\":\"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW\",\"amount\":\"1.0\",\"fee\":{\"type\":\"UtxoPerKbyte\",\"amount\":\"1\"}}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "tx_hex":"0400008085202f890258be11d196cb18764c71aa9ae84a2c81d100ac27a48f72bc6059690893bcb31a000000006b483045022100ef11280e981be280ca5d24c947842ca6a8689d992b73e3a7eb9ff21070b0442b02203e458a2bbb1f2bf8448fc47c51485015904a5271bb17e14be5afa6625d67b1e8012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff58be11d196cb18764c71aa9ae84a2c81d100ac27a48f72bc6059690893bcb31a010000006b483045022100daaa10b09e7abf9d4f596fc5ac1f2542b8ecfab9bb9f2b02201644944ddc0280022067aa1b91ec821aa48f1d06d34cd26fb69a9f27d59d5eecdd451006940d9e83db012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788acf31c655d010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788accd7c5e5d000000000000000000000000000000",
+  "tx_hash":"fd115190feec8c0c14df2696969295c59c674886344e5072d64000379101b78c",
+  "from":["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+  "to":["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+  "total_amount":"60.00253836",
+  "spent_by_me":"60.00253836",
+  "received_by_me":"59.61874931",
+  "my_balance_change":"-0.38378905",
+  "block_height":0,
+  "timestamp":1566473421,
+  "fee_details":{
+    "amount":"0.38378905"
+  },
+  "coin":"RICK",
+  "internal_id":""
+}
+```
+
+#### Response (error - attempt to use EthGas for UTXO coin)
+
+```json
+{"error":"utxo:1295] Unsupported input fee type"}
+```
+
+</collapse-text>
+
+</div>
+
 #### Command (ETH, ERC20, and other ETH-based forks)
 
 ```bash
@@ -2683,6 +2771,51 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"E
   "tx_hash": "8fbc5538679e4c4b78f8b9db0faf9bf78d02410006e8823faadba8e8ae721d60",
   "tx_hex": "f86d820a59843b9aca0082520894bab36286672fbdc7b250804bf6d14be0df69fa28888ac7230489e80000801ba0fee87414a3b40d58043a1ae143f7a75d7f47a24e872b638281c448891fd69452a05b0efcaed9dee1b6d182e3215d91af317d53a627404b0efc5102cfe714c93a28"
 }
+```
+
+</collapse-text>
+
+</div>
+
+#### Command (ETH, ERC20, and other ETH-based forks, with gas fee)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"withdraw\",\"coin\":\"$1\",\"to\":\"$2\",\"amount\":\"$3\",\"fee\":{\"type\":\"EthGas\",\"gas_price\":\"3.5\",\"gas\":55000}}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "tx_hex":"f86d820b2884d09dc30082d6d894bab36286672fbdc7b250804bf6d14be0df69fa29888ac7230489e80000801ca0ef0167b0e53ed50d87b6fd630925f2bce6ee72e9b5fdb51c6499a7caaecaed96a062e5cb954e503ff83f2d6ce082649fdcdf8a77c8d37c7d26d46d3f736b228d10",
+  "tx_hash":"a26c4dcacf63c04e385dd973ca7e7ca1465a3b904a0893bcadb7e37681d38c95",
+  "from":["0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29"],
+  "to":["0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29"],
+  "total_amount":"10",
+  "spent_by_me":"10.0001925",
+  "received_by_me":"10",
+  "my_balance_change":"-0.0001925",
+  "block_height":0,
+  "timestamp":1566474670,
+  "fee_details":{
+    "coin":"ETH",
+    "gas":55000,
+    "gas_price":"0.0000000035",
+    "total_fee":"0.0001925"
+  },
+  "coin":"ETH",
+  "internal_id":""
+}
+```
+
+#### Response (error - attempt to use UtxoFixed or UtxoPerKbyte for ETH coin)
+
+```json
+{"error":"eth:369] Unsupported input fee type"}
 ```
 
 </collapse-text>
