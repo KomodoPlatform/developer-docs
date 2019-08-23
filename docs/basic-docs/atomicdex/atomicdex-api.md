@@ -305,11 +305,12 @@ For terminal interface examples, see the examples section below.
 
 #### Response
 
-| Structure | Type             | Description                                                                                              |
-| --------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
-| address   | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
-| balance   | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
-| result    | string           | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
+| Structure       | Type             | Description                                                                                              |
+| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
+| address         | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
+| balance         | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
+| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps - there's a time gap between swap start and actual swap transaction sending. MM2 locks the coins virtually to prevent using same funds by several ongoing swaps. |
+| result          | string           | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
 #### :pushpin: Examples
 
@@ -330,6 +331,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
+  "locked_by_swaps": "0",
   "result": "success"
 }
 ```
@@ -355,6 +357,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
+  "locked_by_swaps": "0",
   "result": "success"
 }
 ```
@@ -423,11 +426,12 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 
 #### Response
 
-| Structure | Type             | Description                                                                                              |
-| --------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
-| address   | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
-| balance   | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
-| result    | string           | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
+| Structure       | Type             | Description                                                                                              |
+| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
+| address         | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
+| balance         | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
+| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps - there's a time gap between swap start and actual swap transaction sending. MM2 locks the coins virtually to prevent using same funds by several ongoing swaps. |
+| result          | string           | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
 
 #### :pushpin: Examples
 
@@ -448,6 +452,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
+  "locked_by_swaps": "0",
   "result": "success"
 }
 ```
@@ -473,6 +478,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "ETH",
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": "50",
+  "locked_by_swaps": "0",
   "result": "success"
 }
 ```
@@ -498,6 +504,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "ETH",
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": "50",
+  "locked_by_swaps": "0",
   "result": "success"
 }
 ```
@@ -523,6 +530,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "coin": "HELLOWORLD",
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
+  "locked_by_swaps": "0",
   "result": "success"
 }
 ```
@@ -743,11 +751,12 @@ The `my_balance` method returns the current balance of the specified `coin`.
 
 #### Response
 
-| Structure | Type             | Description                        |
-| --------- | ---------------- | ---------------------------------- |
-| address   | string           | the address that holds the coins   |
-| balance   | string (numeric) | the number of coins in the address |
-| coin      | string           | the name of the coin               |
+| Structure       | Type             | Description                        |
+| --------------- | ---------------- | ---------------------------------- |
+| address         | string           | the address that holds the coins   |
+| balance         | string (numeric) | the number of coins in the address |
+| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps - there's a time gap between swap start and actual swap transaction sending. MM2 locks the coins virtually to prevent using same funds by several ongoing swaps. |
+| coin            | string           | the name of the coin               |
 
 #### :pushpin: Examples
 
@@ -765,9 +774,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
-  "balance": "10",
-  "coin": "HELLOWORLD"
+  "address":"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
+  "balance":"60.00253836",
+  "coin":"HELLOWORLD",
+  "locked_by_swaps":"0"
 }
 ```
 
