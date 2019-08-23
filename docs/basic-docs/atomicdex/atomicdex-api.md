@@ -309,8 +309,8 @@ For terminal interface examples, see the examples section below.
 | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
 | address         | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
 | balance         | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
-| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps - there's a time gap between swap start and actual swap transaction sending. MM2 locks the coins virtually to prevent using same funds by several ongoing swaps. |
-| result          | string           | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
+| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
+| result          | string           | the result of the request; this value either indicates `success`, or an error or other type of failure |
 
 #### :pushpin: Examples
 
@@ -430,8 +430,8 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 | --------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
 | address         | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
 | balance         | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
-| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps - there's a time gap between swap start and actual swap transaction sending. MM2 locks the coins virtually to prevent using same funds by several ongoing swaps. |
-| result          | string           | the result of the request; this will be either `success`, or will indicate an error or failure otherwise |
+| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
+| result          | string           | the result of the request; this value either indicates `success`, or an error or other type of failure |
 
 #### :pushpin: Examples
 
@@ -755,7 +755,7 @@ The `my_balance` method returns the current balance of the specified `coin`.
 | --------------- | ---------------- | ---------------------------------- |
 | address         | string           | the address that holds the coins   |
 | balance         | string (numeric) | the number of coins in the address |
-| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps - there's a time gap between swap start and actual swap transaction sending. MM2 locks the coins virtually to prevent using same funds by several ongoing swaps. |
+| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
 | coin            | string           | the name of the coin               |
 
 #### :pushpin: Examples
@@ -2625,10 +2625,10 @@ This method generates a raw transaction which should then be broadcast using [se
 | to            | string           | coins will be withdrawn to this address                          |
 | amount        | string (numeric) | the amount the user desires to withdraw, ignored when `max=true` |
 | max           | bool             | withdraw the maximum available amount                            |
-| fee.type      | string           | type of transaction fee, possible values: UtxoFixed, UtxoPerKbyte, EthGas |
-| fee.amount    | string (numeric) | fee amount in coin units, used only when type is UtxoFixed (fixed amount not depending on tx size) or UtxoPerKbyte (amount per Kbyte). |
-| fee.gas_price | string (numeric) | used only when fee type is EthGas. Sets the gas price in `gwei` units |
-| fee.gas       | number (integer) | used only when fee type is EthGas. Sets the gas limit for transaction |
+| fee.type      | string           | type of transaction fee; possible values: `UtxoFixed`, `UtxoPerKbyte`, `EthGas` |
+| fee.amount    | string (numeric) | fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte) |
+| fee.gas_price | string (numeric) | used only when fee type is EthGas; sets the gas price in `gwei` units |
+| fee.gas       | number (integer) | used only when fee type is EthGas; sets the gas limit for transaction |
 
 #### Response
 
@@ -2636,7 +2636,7 @@ This method generates a raw transaction which should then be broadcast using [se
 | ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | from              | array of strings | coins will be withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                              |
 | to                | array of strings | coins will be withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                      |
-| my_balance_change | string (numeric) | the expected balance change of `my_address` after the transaction broadcasts                                                                                                              |
+| my_balance_change | string (numeric) | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                              |
 | received_by_me    | string (numeric) | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that MM2 send change to `my_address` |
 | spent_by_me       | string (numeric) | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                    |
 | total_amount      | string (numeric) | the total amount of coins transferred                                                                                                                                         |
