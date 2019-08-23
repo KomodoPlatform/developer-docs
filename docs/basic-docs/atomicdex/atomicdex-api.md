@@ -2273,9 +2273,11 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 **recover_funds_of_swap uuid**
 
-In certain cases swap can finish with error and user's funds will be stuck on swap payment address (P2SH address for UTXO or etomic-swap smart contract for ETH/ERC20).
-It may happen when 1 side doesn't follow the protocol for some reason and attempt to refund the payment fails due to network connection issues between MM2 node and coin's RPC server.
-When the `recover_funds_of_swap` method is called MM2 attempts to unstuck the user funds if possible.
+In certain cases, a swap can finish with an error wherein the user's funds are stuck on the swap-payment address. (This address is the P2SH address when executing on a utxo-based blockchain, or an etomic-swap smart contract when executing on an ETH/ERC20 blockchain.)
+
+This error can occur when one side of the trade does not follow the protocol (for any reason). The error persists as attempts to refund the payment fail due to network connection issues between the MM2 node and the coin's RPC server.
+
+In this scenario, the `recover_funds_of_swap` method instructs the MM2 software to attempt to reclaim the user funds from the swap-payment address, if possible.
 
 #### Arguments
 
@@ -2288,9 +2290,9 @@ When the `recover_funds_of_swap` method is called MM2 attempts to unstuck the us
 | Structure | Type             | Description |
 | --------- | ---------------- | ----------- |
 | result.action | string       | the action executed to unlock the funds. Can be either `SpentOtherPayment` or `RefundedMyPayment` |
-| result.coin   | string       | the balance of this coin will be unstuck by recovering transaction |
-| result.tx_hash| string       | the hash of recovering transaction |
-| result.tx_hex | string       | raw bytes of recovering transaction in hexadecimal representation |
+| result.coin   | string       | the balance of this coin will be unstuck by the recovering transaction |
+| result.tx_hash| string       | the hash of the recovering transaction |
+| result.tx_hex | string       | raw bytes of the recovering transaction in hexadecimal representation |
 
 #### :pushpin: Examples
 
