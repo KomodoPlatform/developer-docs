@@ -172,7 +172,7 @@ Add a line to the `/src/server.h` file to create the `<CC_name>address` function
 
 Update the commands array in the `/src/server.cpp` file. 
 
-Add the code for `<CC_name>address` into `/src/wallet/rpcwallet.cpp` source file:
+Add the code for `<CC_name>address` into the `/src/wallet/rpcwallet.cpp` source file:
 
 ```C
 UniValue <CC_name>address(const UniValue& params, bool fHelp)
@@ -188,8 +188,10 @@ UniValue <CC_name>address(const UniValue& params, bool fHelp)
     return(CCaddress(cp,(char *)"<CC_name>",pubkey));
 }
 ```
-Please replace `<YOUR-EVAL-NAME>` with you eval code name (like 'EVAL_FAUCET' or 'EVAL_ASSETS').
-Also replace <CC_name> with your module name (like 'faucetaddress').
+
+Replace `<YOUR-EVAL-NAME>` with your eval code name. For example, `EVAL_FAUCET` or `EVAL_ASSETS`.
+
+Replace `<CC_name>` with your module name. For example, `faucetaddress`.
 
 #### Obtain the CCaddress
 
