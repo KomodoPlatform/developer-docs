@@ -82,7 +82,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## cancel_all_orders
+## cancel\_all\_orders
 
 **cancel_order cancel_by**
 
@@ -150,7 +150,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## cancel_order
+## cancel\_order
 
 **cancel_order uuid**
 
@@ -196,7 +196,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## coins_needed_for_kick_start
+## coins\_needed\_for\_kick\_start
 
 **coins_needed_for_kick_start()**
 
@@ -481,7 +481,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-#### Command (for Ethereum and ERC20-based blockchains with gas_station_url)
+#### Command (for Ethereum and ERC20-based blockchains with gas\_station\_url)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\",\"gas_station_url\":\"https://ethgasstation.info/json/ethgasAPI.json\"}"
@@ -539,7 +539,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## get_enabled_coins
+## get\_enabled\_coins
 
 **get_enabled_coins**
 
@@ -612,7 +612,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## get_trade_fee
+## get\_trade\_fee
 
 **get_trade_fee coin**
 
@@ -729,7 +729,7 @@ The `help` method returns the full API documentation in the terminal.
 | ----------------------------------- | ---- | ----------- |
 | (returns the full docs in terminal) |      |             |
 
-## my_balance
+## my\_balance
 
 **my_balance coin**
 
@@ -775,7 +775,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my_orders
+## my\_orders
 
 **my_orders()**
 
@@ -921,7 +921,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my_recent_swaps
+## my\_recent\_swaps
 
 **(from_uuid limit=10)**
 
@@ -1386,7 +1386,7 @@ Response (error)
 
 </div>
 
-## my_swap_status
+## my\_swap\_status
 
 **uuid**
 
@@ -1850,7 +1850,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 </div>
 
-## my_tx_history
+## my\_tx\_history
 
 **(from_id limit=10)**
 
@@ -2003,7 +2003,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## order_status
+## order\_status
 
 **order_status uuid**
 
@@ -2325,7 +2325,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## send_raw_transaction
+## send\_raw\_transaction
 
 **send_raw_transaction coin tx_hex**
 
