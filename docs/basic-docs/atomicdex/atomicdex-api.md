@@ -2178,28 +2178,28 @@ The `orderbook` method requests from the network the currently available orders 
 
 #### Response
 
-| Structure | Type             | Description |
-| --------- | ---------------- | ----------- |
-| bids      | array            | an array of objects containing outstanding bids (from Alice nodes) |
-| numbids   | number           | the number of outstanding bids |
-| biddepth  | number           | `deprecated` |
-| asks      | array            | an array of objects containing outstanding asks (from Bob nodes) |
-| coin      | string           | the name of the `base` coin; the user desires this |
-| address   | string           | the address offering the trade |
+| Structure | Type             | Description                                                                   |
+| --------- | ---------------- | ----------------------------------------------------------------------------- |
+| bids      | array            | an array of objects containing outstanding bids (from Alice nodes)            |
+| numbids   | number           | the number of outstanding bids                                                |
+| biddepth  | number           | `deprecated`                                                                  |
+| asks      | array            | an array of objects containing outstanding asks (from Bob nodes)              |
+| coin      | string           | the name of the `base` coin; the user desires this                            |
+| address   | string           | the address offering the trade                                                |
 | price     | string (decimal) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| numutxos  | number           | `deprecated` the number of utxos the offer provider has in their wallet |
-| avevolume | number           | `deprecated` the average volume of `coin` per utxo |
-| maxvolume | number           | the total amount of `base` coins the offer provider has in their wallet |
-| depth     | number           | `deprecated` |
-| pubkey    | string           | the pubkey of the offer provider |
-| age       | number           | the age of the offer |
-| zcredits  | number           | the zeroconf deposit amount |
-| numasks   | number           | the total number of asks |
-| askdepth  | number           | the depth of the ask requests |
-| base      | string           | the name of the coin the user desires to receive |
-| rel       | string           | the name of the coin the user will trade |
-| timestamp | number           | the timestamp of the orderbook request |
-| netid     | number           | the id of the network on which the request is made (default is `0`) |
+| numutxos  | number           | `deprecated` the number of utxos the offer provider has in their wallet       |
+| avevolume | number           | `deprecated` the average volume of `coin` per utxo                            |
+| maxvolume | number           | the total amount of `base` coins the offer provider has in their wallet       |
+| depth     | number           | `deprecated`                                                                  |
+| pubkey    | string           | the pubkey of the offer provider                                              |
+| age       | number           | the age of the offer                                                          |
+| zcredits  | number           | the zeroconf deposit amount                                                   |
+| numasks   | number           | the total number of asks                                                      |
+| askdepth  | number           | the depth of the ask requests                                                 |
+| base      | string           | the name of the coin the user desires to receive                              |
+| rel       | string           | the name of the coin the user will trade                                      |
+| timestamp | number           | the timestamp of the orderbook request                                        |
+| netid     | number           | the id of the network on which the request is made (default is `0`)           |
 
 #### :pushpin: Examples
 
