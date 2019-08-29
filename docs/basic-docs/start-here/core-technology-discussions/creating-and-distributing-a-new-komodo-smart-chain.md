@@ -160,7 +160,7 @@ Note that the first three elements of the command, `./komodod`, `-ac_name`, and 
 
 ::: tip Note
 
-In the second VPS, the <b>-gen</b> command is not present. In this circumstance, we are assuming that the entrepreneur wants to capture the entire coin supply on the first device. Technically speaking, assuming the entrepreneur has ownership over both devices, it does not matter if both devices initiate the <b>-gen</b> command. Both devices will attempt to mine the first block and the superior device will receive the coin supply.
+In the second device, the <b>-gen</b> command is not present. In this circumstance, we are assuming that the entrepreneur wants to capture the entire coin supply on the first device. Technically speaking, assuming the entrepreneur has ownership over both devices, it does not matter if both devices initiate the <b>-gen</b> command. Both devices will attempt to mine the first block and the superior device will receive the coin supply.
 
 :::
 
