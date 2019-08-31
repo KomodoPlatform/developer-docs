@@ -107,8 +107,6 @@ sidebar: auto
 - [C# by @adi2624](https://github.com/adi2624/RPC-API-CSharp)
 - [NodeJS by @hafsa-fatima](https://github.com/Hafsa-Fatima/Komodo-RPC-Node-Library)
 
-### 
-
 ## Komodo-Qt (KomodoOcean)
 
 ### Source code
