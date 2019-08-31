@@ -98,6 +98,17 @@ sidebar: auto
 
 - https://github.com/imylomylo/docker-komodod
 
+### Komodo API Implementation in Different Languages
+
+- [Golang by @satindergrewal](https://github.com/satindergrewal/kmdgo)
+- [Golang by @sjashwin](https://github.com/sjashwin/komodo-go)
+- [Java by @chrisgiffy](https://github.com/chrisgiffy/komodo-api-java.git)
+- [Python by @v413h4v](https://github.com/V413H4V/Komodo-RPC-Library-Python/)
+- [C# by @adi2624](https://github.com/adi2624/RPC-API-CSharp)
+- [NodeJS by @hafsa-fatima](https://github.com/Hafsa-Fatima/Komodo-RPC-Node-Library)
+
+### 
+
 ## Komodo-Qt (KomodoOcean)
 
 ### Source code
