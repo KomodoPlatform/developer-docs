@@ -33,7 +33,7 @@ As the eval code must range between `0` and `255`, a Smart Chain can have up to 
 
 The developer adds validation code that will be executed any time the daemon encounters a transaction bearing the relevant module's eval code.
 
-This is where the true power of CC begins. When validating a normal transaction, the daemon has access only to information included in the transaction itself. With a CC transaction, however, the daemon is running arbitrary code, and therefore anything is possible. The validation code can look trough the blockchain history, observe transactions in the mempool, and even utilize Antara's cross-chain technology.
+This is where the true power of CC begins. When validating a normal transaction, the daemon has access only to information included in the transaction itself. With a CC transaction, however, the daemon is running arbitrary code, and therefore anything is possible. The validation code can look through the blockchain history, observe transactions in the mempool, and even utilize Antara's cross-chain technology.
 
 Technically, OP_CCC scripts do not have a required structure. The scripts only need to follow the general structure of the initial layout. The developer may follow the general guideline, as provided in our templates and tutorials. This allows the developer to code and debug their OP_CCC related modules in an efficient manner.
 
