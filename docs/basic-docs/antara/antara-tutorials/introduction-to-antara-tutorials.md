@@ -10,5 +10,5 @@ For tutorials regarding other Komodo software, such as <b>AtomicDEX</b>, which o
 
 For a targeted learning approach to Komodo's Smart Chain software, please see the Learning Launchpad.
 
-[<b>Link to Learning Launchpad</b>](../../../basic-docs/start-here/learning-launchpad/learning-path-outlines.html)
+[<b>Link to Learning Launchpad</b>](../../../basic-docs/start-here/learning-launchpad/learning-path-outline.html)
 

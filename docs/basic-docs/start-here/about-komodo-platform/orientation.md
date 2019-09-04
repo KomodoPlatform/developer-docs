@@ -69,7 +69,6 @@ Our third-party providers are available on our [<b>Discord</b>](https://komodopl
 - @siu
 - @ptyx
 - @bitcoinbenny
-- @TwilightPunkster.
 
 ::: tip
 We have a limited supply of early-adopter discounts. Please inquire while supply last.

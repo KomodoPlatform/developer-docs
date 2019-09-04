@@ -2,7 +2,7 @@
 
 ## A Foundational Discussion of Blockchain Security
 
-Komodo’s form of providing security is called Delayed Proof of Work (dPoW). It builds on the most advanced form of blockchain security in existence, Proof of Work (PoW). The latter form of security is the method utilized by the Bitcoin network.
+Komodo’s form of providing security is called Delayed Proof of Work (dPoW). This security method builds on the most advanced form of blockchain security in existence, Proof of Work (PoW). The latter form of security is the method utilized by the Bitcoin network.
 
 To understand the value of Komodo’s dPoW security, we must first explain how PoW works and why it is the most secure method of maintaining a decentralized blockchain. We must also examine PoW’s shortcomings, so that we may understand the need for Komodo’s dPoW method and the advantages it provides to the blockchain community.
 
@@ -24,7 +24,7 @@ The [Bitcoin protocol](https://en.wikipedia.org/wiki/Bitcoin_network), invented 
 
 #### The Consensus Mechanism Provides Security Against a "Double Spend"
 
-The consensus mechanism created by Nakamoto is perhaps one of the most powerful innovations of the twenty-first century. His invention allows individual devices to work together, using high levels of encryption, to securely and accurately track ownership of digital value (be it financial resources, digital real estate, etc.). It performs this in a manner that does not allow anyone on the same network (i.e. the Internet) to spend the same value twice.
+The consensus mechanism created by Nakamoto is perhaps one of the most powerful innovations of the twenty-first century. His invention allows individual devices to work together, using high levels of encryption, to securely and accurately track ownership of digital value (be it financial resources, digital real estate, etc.). The mechanism performs this in a manner that does not allow anyone on the same network (i.e. the Internet) to spend the same value twice.
 
 Let us suppose a user, Alice, indicates in her digital wallet that she wants to send cryptocurrency money to a friend. Alice’s computer now gathers several pieces of information, including any necessary permissions and passwords, the amount that Alice wants to spend, and the receiving address of her friend’s wallet. All this information is gathered into a packet of data, called a "transaction," and Alice’s device sends the transaction to the Internet.
 
@@ -70,7 +70,7 @@ Were Bob to attempt to create an incorrect transaction hash, other miners would 
 
 Now, using more mathematical formulas, Bob takes the transaction hashes he is attempting to process and compresses them into a new manageable piece of data.
 
-This is called, "the merkle root." It represents all the transactions that Bob hopes to process, and from which he hopes to gain a reward. Bob’s merkle root could look like this:
+This is called, "the merkle root." This represents all the transactions that Bob hopes to process, and from which he hopes to gain a reward. Bob’s merkle root could look like this:
 
 ```bash
 7dac2c5666815c17a3b36427de37bb9d2e2c5ccec3f8633eb91a4205cb4c10ff
@@ -194,7 +194,7 @@ Let us suppose that the Chinese mining equipment is superior in this instance, a
 
 There is no sympathy for any wasted efforts, nor for any misunderstandings between the wife and her car dealer. The Bitcoin protocol’s consensus mechanism simply presses forward. The Washington state miner’s rewards disappear, as though they never occurred. The wife’s purchase of a car likewise evaporates.
 
-_(Typically, a normal and prepared car dealer utilizing cryptocurrency would not consider a customer’s transactions acceptable until several new blocks were added to the blockchain. In this manner,cryptocurrency users can ensure that a transaction is beyond contestation before the customer can, for example, drive a new car off the lot.)_
+_(Typically, a normal and prepared car dealer utilizing cryptocurrency would not consider a customer’s transactions acceptable until several new blocks were added to the blockchain. In this manner, cryptocurrency users can ensure that a transaction is beyond contestation before the customer can, for example, drive a new car off the lot.)_
 
 The Washington state miner gets a raw deal in this scenario, but the network benefits as a whole. The Longest Chain Rule provides the necessary security to prevent a Double Spend. The network accurately recorded one family member’s purchase of a car, prevented the mistaken double spend, and ensured that the most competitive miner received a just reward.
 
@@ -214,7 +214,7 @@ This is known as the 51% Attack. The number 51% derives from the fact that to su
 
 Today, Bitcoin’s overall hash rate is enormous. The collective of computers around the world mining Bitcoin is effectively the largest supercomputer ever created by man.  As of the writing of this paper, some estimate that [the Bitcoin network consumes more electricity than the entire country of Denmark](https://arstechnica.com/tech-policy/2017/12/bitcoins-insane-energy-consumption-explained/), and the number of miners continues to grow.
 
-Therefore, to attempt a 51% Attack against the Bitcoin network could cost millions, if not billions of dollars in computer hardware. It would also require a sustained consumption of electricity that is likely unfeasible for a single geographical location, and would be expensive even for a decentralized-hardware network. So long as the miners of Bitcoin remain interested in the Bitcoin network, therefore, Bitcoin has a level of security that is nigh impenetrable.
+Therefore, to attempt a 51% Attack against the Bitcoin network could cost millions, if not billions of dollars in computer hardware. This attack would also require a sustained consumption of electricity that is likely unfeasible for a single geographical location, and would be expensive even for a decentralized-hardware network. So long as the miners of Bitcoin remain interested in the Bitcoin network, therefore, Bitcoin has a level of security that is nigh impenetrable.
 
 _We will return to the proposition of the miners’ ability to choose a different network to mine later in our discussion._
 
@@ -260,7 +260,7 @@ The problems with young PoW networks do not stop there, and furthermore, even Bi
 
 #### PoW Networks Are Expensive
 
-Some estimate that by 2020, the Bitcoin network alone will consume more electricity than the entire world currently consumes (as of [2017](https://arstechnica.com/tech-policy/2017/12/bitcoins-insane-energy-consumption-explained/)). Having just one PoW network in existence, therefore, is already strain enough on our environment. It is also a burden on our infrastructure and our worldwide economy. 
+Some estimate that by 2020, the Bitcoin network alone will consume more electricity than the entire world currently consumes (as of [2017](https://arstechnica.com/tech-policy/2017/12/bitcoins-insane-energy-consumption-explained/)). Having just one PoW network in existence, therefore, is already strain enough on our environment. The network is also a burden on our infrastructure and our worldwide economy. 
 
 On the one hand, adding additional PoW blockchains to the world can serve the purpose of forcing free-market competition on the Bitcoin developers, encouraging ethical and innovative behavior. Therefore, some competition among PoW networks is likely useful.
 
@@ -272,7 +272,7 @@ Another inherent weakness of the PoW consensus mechanism to discuss is the abili
 
 In November of 2017, for a few hours the majority of Bitcoin network miners switched their hash power to a competitor’s PoW network, the ["Bitcoin Cash"](https://www.coinwarz.com/network-hashrate-charts/bitcoincash-network-hashrate-chart) network. This switch was the result of clever software engineering on the part of the Bitcoin Cash team.
 
-The team recognized that most miners on the Bitcoin network are set to automatically mine whichever network is most profitable. Therefore, the team conducted a calculated change in their underlying protocol that caused the profitability of the Bitcoin Cash network to dramatically increase. The majority of the world’s Bitcoin miners recognized the higher profitability and switched to the Bitcoin Cash network instantly.
+The team recognized that most miners are mining Bitcoin only because this network is the most profitable. Therefore, the team conducted a calculated change in the underlying protocol of Bitcoin Cash that caused its mining profitability to dramatically increase. The majority of the world’s Bitcoin miners recognized the higher profitability and switched to the Bitcoin Cash network instantly.
 
 While Bitcoin Cash’s play for a majority hash rate proved effective only for a matter of hours, their accomplishment raised awareness to a tacit principle in the network: Bitcoin’s hash rate is not bound to Bitcoin. The hardware is free to serve any compatible network the miners choose.
 
@@ -308,7 +308,7 @@ After the following section summary, we finally turn our attention to dPoW.
 
 ## A Summary of the PoW Consensus Mechanism
 
-In short, the PoW consensus mechanism, as designed by Satoshi Nakamoto, is currently the soundest method of blockchain security. It solves the Double Spend problem and creates a secure network, capable of transferring financial value. Furthermore, competition among miners and the Longest Chain Rule create fairness on the blockchain. The combination of features provides a high level of defense against two of the most dangerous methods of blockchain destruction—the 51% Attack and the Genesis Attack—assuming a strong overall hash rate on the network.
+In short, the PoW consensus mechanism, as designed by Satoshi Nakamoto, is currently the soundest method of blockchain security. The mechanism solves the Double Spend problem and creates a secure network, capable of transferring financial value. Furthermore, competition among miners and the Longest Chain Rule create fairness on the blockchain. The combination of features provides a high level of defense against two of the most dangerous methods of blockchain destruction—the 51% Attack and the Genesis Attack—assuming a strong overall hash rate on the network.
 
 New PoW blockchains can opt to compete directly with Bitcoin’s hash rate, and some level of competition is good for the ethical values and innovative power of the cryptocurrency industry. However, it is not necessary, cost-effective, nor eco-friendly that every new blockchain innovation requiring security should attempt to compete directly with Bitcoin. Not only is this unsustainable, but it is also unreliable, as it depends on the arbitrary choices of the decentralized network of miners around the world.
 
@@ -427,7 +427,7 @@ The notary nodes will take these three pieces of information and compress them i
 
 The above number can be said to be a cryptographic representation of all that has happened on the Komodo blockchain up to this point in time. According to the Cascade Effect, were an attacker to attempt to go back in the history of the Komodo blockchain and change even a single character of data, and then perform the same hashing formulas in the Komodo code, the number above would dramatically change.
 
-This makes the notary nodes’ notarization a useful backup, assuming this number is in a safe location where anyone on the Internet can view and verify it. It enables a single surviving copy of the "true" Komodo main chain to identify itself to the rest of the Komodo network, as only the "true" data can produce the same result.
+This makes the notary nodes’ notarization a useful backup, assuming this number is in a safe location where anyone on the Internet can view and verify it. The notarization enables a single surviving copy of the "true" Komodo main chain to identify itself to the rest of the Komodo network, as only the "true" data can produce the same result.
 
 On the other hand, an incorrect history of the Komodo network will not be able to produce the same notarization. Through the automation in the Iguana Core software that underlies the Komodo ecosystem, all users will align with the "true" blockchain history and ignore any malicious actors’ "false" attempts.
 
@@ -471,7 +471,7 @@ The notary nodes will combine it with all the information that has come before. 
 6a28071c4524afe8cf8e412b6fdb06e65795839f189205119294d26939c61c37880a0844090056853bfb91f0016d93ffe4e3159de3b0ff3d8df4df0607a212be2deda13130314b4d4400
 ```
 
-This number is a compressed cryptographic representation of everything that has happened in the Komodo ecosystem up to this point in time. The notarization is placed as a transaction message directly into the KMD main chain itself. It enables the Komodo ecosystem to know how to find a reference of its own history.
+This number is a compressed cryptographic representation of everything that has happened in the Komodo ecosystem up to this point in time. The notarization is placed as a transaction message directly into the KMD main chain itself, and thus the notarization enables the Komodo ecosystem to know how to find a reference of its own history.
 
 ## Extending Notarization to Komodo Smart Chains
 
@@ -540,7 +540,7 @@ When the Bitcoin protocol was in its infancy, the difficulty setting was easy. I
 
 He (they) designed the difficulty setting to encourage the network to find new block hashes once every ten minutes, on average.
 
-For a computer, to guess within ten minutes a nonce that will produce a block hash beginning with ten zeros is relatively easy. It is so simple, in fact, no special computer is required. Early Bitcoin miners could use nothing more than the average desktop machine, having the CPU—the small heart of the computer—performing the calculations.
+For a computer, to guess within ten minutes a nonce that will produce a block hash beginning with ten zeros is relatively easy. This is so simple, in fact, no special computer is required. Early Bitcoin miners could use nothing more than the average desktop machine, having the CPU—the small heart of the computer—performing the calculations.
 
 As more miners joined the network, however, the Bitcoin protocol automatically increased the difficulty. This maintained the speed at which the pool of all miners discovered new blocks, despite the increased size of the pool. Stabilizing the speed created several benefits, including an amount of economic predictability upon which users can rely.
 
