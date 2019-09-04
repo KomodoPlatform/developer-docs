@@ -90,13 +90,14 @@ The `cancel_all_orders` cancels the active orders created by the MM2 node by spe
 
 #### Arguments
 
-| Structure           | Type   | Description                                                                       |
-| ------------------- | ------ | --------------------------------------------------------------------------------- |
-| cancel_by           | object | orders matching this condition will be cancelled                                  |
-| cancel_by.type      | string | `All` to cancel all orders or `Pair` to cancel all orders for specific coins pair |
-| cancel_by.data      | object | additional data of cancel condition, present only for `Pair` type                 |
-| cancel_by.data.base | string | base coin of the pair                                                             |
-| cancel_by.data.rel  | string | rel coin of the pair                                                              |
+| Structure            | Type   | Description                                                                       |
+| -------------------- | ------ | --------------------------------------------------------------------------------- |
+| cancel_by            | object | orders matching this condition will be cancelled                                  |
+| cancel_by.type       | string | `All` to cancel all orders; `Pair` to cancel all orders for specific coins pair; `Coin` to cancel all orders for specific coin |
+| cancel_by.data       | object | additional data of cancel condition, present for `Pair` or `Coin` types           |
+| cancel_by.data.base  | string | base coin of the pair; `Pair` type only                                           |
+| cancel_by.data.rel   | string | rel coin of the pair; `Pair` type only                                            |
+| cancel_by.data.ticker| string | order will be cancelled if it uses `ticker` as base or rel; `Coin` type only      |
 
 #### Response
 
@@ -118,6 +119,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"cancel_all_orders\",\"cancel_by\":{\"type\":\"Pair\",\"data\":{\"base\":\"RICK\",\"rel\":\"MORTY\"}}}"
+```
+
+#### Command (Cancel by coin)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"cancel_all_orders\",\"cancel_by\":{\"type\":\"Coin\",\"data\":{\"ticker\":\"RICK\"}}}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -236,6 +243,87 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 { "result": [] }
+```
+
+</collapse-text>
+
+</div>
+
+## disable_coin
+
+**disable_coin coin**
+
+The `disable_coin` method deactivates the previously enabled coin. MM2 also cancels all active orders that use the selected coin. The method will return error in following cases:
+1. Coin is not enabled.
+1. The coin is used by active swaps.
+1. The coin is used by currently matching order. Other orders might be still cancelled in this case.
+
+#### Arguments
+
+| Structure | Type   | Description                   |
+| --------- | ------ | ----------------------------- |
+| coin      | string | the ticker of coin to disable |
+
+#### Response
+
+| Structure                  | Type             | Description                                                                        |
+| -------------------------- | ---------------- | ---------------------------------------------------------------------------------- |
+| result.coin                | string           | the ticker of deactivated coin                                                     |
+| result.cancelled_orders    | array of strings | uuids of cancelled orders                                                          |
+| swaps                      | array of strings | uuids of active swaps that use the selected coin; present only in case of error    |
+| orders.matching            | array of strings | uuids of matching orders that use the selected coin; present only in case of error |
+| orders.cancelled           | array of strings | uuids of orders that were successfully cancelled despite the error                 |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"disable_coin\",\"coin\":\"RICK\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "result": {
+    "cancelled_orders":["e5fc7c81-7574-4d3f-b64a-47227455d62a"],
+    "coin":"RICK"
+  }
+}
+```
+
+#### Response (error - coin is not enabled)
+
+```json
+{
+  "error": "No such coin: RICK"
+}
+```
+
+#### Response (error - active swap is using the coin)
+
+```json
+{
+  "error": "There're active swaps using RICK",
+  "swaps": ["d88d0a0e-f8bd-40ab-8edd-fe20801ef349"]
+}
+```
+
+#### Response (error - the order is matched at the moment, but another order is cancelled)
+
+```json
+{
+  "error":"There're currently matching orders using RICK",
+  "orders": {
+    "matching": ["d88d0a0e-f8bd-40ab-8edd-fe20801ef349"],
+    "cancelled": ["c88d0a0e-f8bd-40ab-8edd-fe20801ef349"]
+  }
+}
 ```
 
 </collapse-text>
