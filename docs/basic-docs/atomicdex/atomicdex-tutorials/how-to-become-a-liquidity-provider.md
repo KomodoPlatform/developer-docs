@@ -364,25 +364,32 @@ We now have basic scripts to use the MarketMaker as a liquidity provider.
 
 ```
 $ ./start.sh
-mylo@vultr:~/atomicDEX-API/target/debug$ 20 08:05:19, mm2:143] AtomicDEX MarketMaker UNKNOWN
-20 08:05:19, lp_native_dex:1311] version: UNKNOWN
-20 08:05:19, lp_native_dex:1366] lp_init] Trying to fetch the real IP from 'http://checkip.amazonaws.com/' ...
-20 08:05:19, lp_native_dex:1283] test_ip] Trying to listen on 207.148.124.43:15175
-20 08:05:19, lp_native_dex:1300] test_ip] Checking http://207.148.124.43:15175/test_ip
-🙂 2019-07-20 08:05:19 +0000 [myipaddr] We've detected an external IP 207.148.124.43 and we can bind on it (port 47772), so probably a dedicated IP.
-… 2019-07-20 08:05:19 +0000 [seed_connection 195.201.116.176:47772] Connecting…
-⚡  2019-07-20 08:05:19 +0000 [seed_connection 195.201.116.176:47772] Connected
-… 2019-07-20 08:05:19 +0000 [seed_connection 46.4.87.18:47772] Connecting…
-⚡  2019-07-20 08:05:19 +0000 [seed_connection 46.4.87.18:47772] Connected
-… 2019-07-20 08:05:19 +0000 [seed_connection 46.4.78.11:47772] Connecting…
-20 08:05:20, peers:1376] initialize] netid 9999 public key a91383e8aa2ccf4d2ed5fa3ac232b221fab6ccd5e6640114c9851742aa37ebc2 preferred port 47773 drill false
-20 08:05:20, rpc:290] >>>>>>>>>> DEX stats 127.0.0.1:7783 DEX stats API enabled at unixtime.1563609920 <<<<<<<<<
-⚡  2019-07-20 08:05:20 +0000 [seed_connection 46.4.78.11:47772] Connected
-20 08:05:20, peers:1153] external_ip_alert: 207.148.124.43
-· 2019-07-20 08:05:36 +0000 [dht-boot] DHT bootstrap ... Done.
+nohup: appending output to 'nohup.out'
 ```
 
 </collapse-text>
+
+:::tip Note
+Starting the MarketMaker 2.0 software in the above manner causes the passphrase to be visible to other programs such as `htop`.
+
+To avoid this issue, there is an alternate method that uses a json file to replace the command line parameters
+
+To use it:
+
+```
+cp MM2_sample.json MM2.json
+nano MM2.json
+```
+
+Edit the values of the keys `"rpc_password"` and `"passphrase"` with the same values used in the `start.sh` file. Save and close the file.
+
+To start the MarketMaker:
+
+```
+stdbuf -oL nohup ./mm2
+```
+
+:::
 
 #### Step 3: Connect to the Coin Networks (KMD & LTC)
 

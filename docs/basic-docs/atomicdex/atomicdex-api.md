@@ -82,7 +82,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## cancel_all_orders
+## cancel\_all\_orders
 
 **cancel_order cancel_by**
 
@@ -150,7 +150,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## cancel_order
+## cancel\_order
 
 **cancel_order uuid**
 
@@ -196,7 +196,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## coins_needed_for_kick_start
+## coins\_needed\_for\_kick\_start
 
 **coins_needed_for_kick_start()**
 
@@ -487,7 +487,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-#### Command (for Ethereum and ERC20-based blockchains with gas_station_url)
+#### Command (for Ethereum and ERC20-based blockchains with gas\_station\_url)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\",\"gas_station_url\":\"https://ethgasstation.info/json/ethgasAPI.json\"}"
@@ -547,7 +547,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## get_enabled_coins
+## get\_enabled\_coins
 
 **get_enabled_coins**
 
@@ -620,7 +620,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## get_trade_fee
+## get\_trade\_fee
 
 **get_trade_fee coin**
 
@@ -737,7 +737,7 @@ The `help` method returns the full API documentation in the terminal.
 | ----------------------------------- | ---- | ----------- |
 | (returns the full docs in terminal) |      |             |
 
-## my_balance
+## my\_balance
 
 **my_balance coin**
 
@@ -785,7 +785,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my_orders
+## my\_orders
 
 **my_orders()**
 
@@ -931,7 +931,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my_recent_swaps
+## my\_recent\_swaps
 
 **(from_uuid limit=10)**
 
@@ -1396,7 +1396,7 @@ Response (error)
 
 </div>
 
-## my_swap_status
+## my\_swap\_status
 
 **uuid**
 
@@ -1860,7 +1860,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 </div>
 
-## my_tx_history
+## my\_tx\_history
 
 **(from_id limit=10)**
 
@@ -2025,7 +2025,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## order_status
+## order\_status
 
 **order_status uuid**
 
@@ -2200,28 +2200,28 @@ The `orderbook` method requests from the network the currently available orders 
 
 #### Response
 
-| Structure | Type             | Description |
-| --------- | ---------------- | ----------- |
-| bids      | array            | an array of objects containing outstanding bids (from Alice nodes) |
-| numbids   | number           | the number of outstanding bids |
-| biddepth  | number           | `deprecated` |
-| asks      | array            | an array of objects containing outstanding asks (from Bob nodes) |
-| coin      | string           | the name of the `base` coin; the user desires this |
-| address   | string           | the address offering the trade |
+| Structure | Type             | Description                                                                   |
+| --------- | ---------------- | ----------------------------------------------------------------------------- |
+| bids      | array            | an array of objects containing outstanding bids (from Alice nodes)            |
+| numbids   | number           | the number of outstanding bids                                                |
+| biddepth  | number           | `deprecated`                                                                  |
+| asks      | array            | an array of objects containing outstanding asks (from Bob nodes)              |
+| coin      | string           | the name of the `base` coin; the user desires this                            |
+| address   | string           | the address offering the trade                                                |
 | price     | string (decimal) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| numutxos  | number           | `deprecated` the number of utxos the offer provider has in their wallet |
-| avevolume | number           | `deprecated` the average volume of `coin` per utxo |
-| maxvolume | number           | the total amount of `base` coins the offer provider has in their wallet |
-| depth     | number           | `deprecated` |
-| pubkey    | string           | the pubkey of the offer provider |
-| age       | number           | the age of the offer |
-| zcredits  | number           | the zeroconf deposit amount |
-| numasks   | number           | the total number of asks |
-| askdepth  | number           | the depth of the ask requests |
-| base      | string           | the name of the coin the user desires to receive |
-| rel       | string           | the name of the coin the user will trade |
-| timestamp | number           | the timestamp of the orderbook request |
-| netid     | number           | the id of the network on which the request is made (default is `0`) |
+| numutxos  | number           | `deprecated` the number of utxos the offer provider has in their wallet       |
+| avevolume | number           | `deprecated` the average volume of `coin` per utxo                            |
+| maxvolume | number           | the total amount of `base` coins the offer provider has in their wallet       |
+| depth     | number           | `deprecated`                                                                  |
+| pubkey    | string           | the pubkey of the offer provider                                              |
+| age       | number           | the age of the offer                                                          |
+| zcredits  | number           | the zeroconf deposit amount                                                   |
+| numasks   | number           | the total number of asks                                                      |
+| askdepth  | number           | the depth of the ask requests                                                 |
+| base      | string           | the name of the coin the user desires to receive                              |
+| rel       | string           | the name of the coin the user will trade                                      |
+| timestamp | number           | the timestamp of the orderbook request                                        |
+| netid     | number           | the id of the network on which the request is made (default is `0`)           |
 
 #### :pushpin: Examples
 
@@ -2426,7 +2426,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## send_raw_transaction
+## send\_raw\_transaction
 
 **send_raw_transaction coin tx_hex**
 

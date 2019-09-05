@@ -71,7 +71,7 @@ Copy the following code to the file named `coins` (located at the root of the so
 | mm2     | (number) | set this value to `1` if this coin has been tested and proves capable of functioning on MarketMaker 2.0 software                                                                                                                   |
 | p2p     | (number) | the p2p port the Smart Chain's daemon uses to communicate with other nodes                                                                                                                                                         |
 | magic   | (string) | the netmagic number for this Smart Chain. The decimal value of `magic` can be obtained by executing the `getinfo` RPC on a full node on the Smart Chain network. Convert the decimal value to hex and serialize it into 4 hexbytes |
-| nSPV    | (string) | the ip addresses of the nodes on the Smart Chain network that are launched using the parameter `-nSPV=1`                                                                                                                           |
+| nSPV    | (string) | the ip addresses of the nodes on the Smart Chain network                                                                                                                           |
 
 ::: tip
 
@@ -343,18 +343,18 @@ Use this method to get the information of all peers on the network.
 
 #### Response
 
-| Name              | Type     | Description                                                      |
-| ----------------- | -------- | ---------------------------------------------------------------- |
-| nodeid            | (number) | the number given to a node by our instance of the nSPV client    |
-| ipaddress         | (string) | the ipaddress of the node                                        |
-| port              | (number) | the p2p port used to connect to this node                        |
-| lastping          | (number) | the unix time at which this node was last pinged                 |
-| time_started_con  | (number) | the unix time at which a connection to this node was established |
-| time_last_request | (number) | the unix time at which a connection was last requested           |
-| services          | (number) | (in development)                                                 |
-| missbehavescore   | (number) | the score given to this node if the node was misbehaving         |
-| bestknownheight   | (number) | the height of the blockchain as best known by this node          |
-| in_sync           | (string) | the sync status of the node                                      |
+| Name              | Type     | Description                                                                                                                                                                                                                                                  |
+| ----------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| nodeid            | (number) | the number given to a node by our instance of the nSPV client                                                                                                                                                                                                |
+| ipaddress         | (string) | the ipaddress of the node                                                                                                                                                                                                                                    |
+| port              | (number) | the p2p port used to connect to this node                                                                                                                                                                                                                    |
+| lastping          | (number) | the unix time at which this node was last pinged                                                                                                                                                                                                             |
+| time_started_con  | (number) | the unix time at which a connection to this node was established                                                                                                                                                                                             |
+| time_last_request | (number) | the unix time at which a connection was last requested                                                                                                                                                                                                       |
+| services          | (number) | (in development)                                                                                                                                                                                                                                             |
+| missbehavescore   | (number) | the score given to this node if the node was misbehaving                                                                                                                                                                                                     |
+| bestknownheight   | (number) | the height of the blockchain as best known by this node                                                                                                                                                                                                      |
+| in_sync           | (string) | the sync status of the node; `synced` indicates that the client has verified that the chain tip's block header from the node links back to the last notarization; after the client been running a while, all honest nodes should be synced to the same block |
 
 #### :pushpin: Examples
 
