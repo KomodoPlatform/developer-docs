@@ -61,7 +61,7 @@ Now execute the following commands. These add the necessary cclib module for Dil
 ```bash
 cd ~/komodo/src/cc
 ./makecclib
-cp sudoku.so ../libcc.so
+cp sudokucc.so ../libcc.so
 cd ../..
 make
 ```

@@ -85,6 +85,7 @@ var redirectAliases = {
   "/assetchains/example-asset-chains.html": "/basic-docs/smart-chains/smart-chain-tutorials/example-smart-chains.html",
   "/komodo/checklist-new-coins.html": "/basic-docs/smart-chains/smart-chain-tutorials/checklist-new-coin.html",
   "/assetchains/checklist-new-coin.html": "/basic-docs/smart-chains/smart-chain-tutorials/checklist-new-coin.html",
+  "/assetchains/create-asset-chain-single-node.html": "/basic-docs/smart-chains/smart-chain-tutorials/creating-a-smart-chain-on-a-single-node.html",
   "/komodo/assetchain-params.html": "/basic-docs/antara/antara-setup/antara-customizations.html",
   "/basic-docs/installations/asset-chain-parameters.html": "/basic-docs/antara/antara-setup/antara-customizations.html",
   "/komodo/installation.html": "/basic-docs/smart-chains/smart-chain-setup/installing-from-source.html",

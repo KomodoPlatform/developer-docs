@@ -2,13 +2,13 @@
 
 ### Minimum Requirements for Installation
 
-* MacOS, Windows (see note below), and Linux (see note below)
+- MacOS, Windows (see note below), and Linux (see note below)
 
-* 64-bit (see note below for 32-bit)
+- 64-bit (see note below for 32-bit)
 
-* Minimum 2GB of free RAM 
+- Minimum 2GB of free RAM
 
-* Normal user account with admin/root privileges
+- Normal user account with admin/root privileges
 
 ::: warning Note
 If you would prefer to avoid building MM2 from source, you can download our pre-built binary [from our Github releases page.](https://github.com/KomodoPlatform/atomicDEX-API/releases)
@@ -24,7 +24,7 @@ Developing software on Windows typically requires an installation of Git Bash.
 
 Git Bash is a terminal shell based on Unix. It is similar to the Windows Shell or Windows Command Prompt, but uses Unix-based syntax.
 
-All instructions in the MarketMaker 2.0 documentation are given with Unix-based syntax, and therefore we recommend installing Git Bash before proceeding. 
+All instructions in the MarketMaker 2.0 documentation are given with Unix-based syntax, and therefore we recommend installing Git Bash before proceeding.
 
 You may download and install Git Bash for Windows here:
 
@@ -38,7 +38,7 @@ Once Git Bash is open and running on your machine, you may continue.
 
 ### Note About 32-bit Operating Systems
 
-We are currently testing 32-bit operating system functionality. As 32-bit machines can often be comparatively older hardware, we cannot guarantee that MarketMaker 2.0 will run successfully by default. 
+We are currently testing 32-bit operating system functionality. As 32-bit machines can often be comparatively older hardware, we cannot guarantee that MarketMaker 2.0 will run successfully by default.
 
 We invite users of 32-bit operating systems to test the software and [report any errors to our team on the #dev-marketmaker channel on Discord](https://komodoplatform.com/discord).
 
@@ -60,7 +60,7 @@ Unpack and follow the instructions here: [instructions link](https://cmake.org/i
 
 #### Build Tools for Your OS
 
-##### Linux: 
+##### Linux:
 
 ```bash
 sudo apt-get install build-essential
@@ -83,11 +83,11 @@ sudo apt-get install -y build-essential git llvm-3.9-dev libclang-3.9-dev clang-
 Install additional Rust components:
 
 ```bash
-rustup install nightly-2019-06-26
+rustup install nightly-2019-08-05
 ```
 
 ```bash
-rustup default nightly-2019-06-26
+rustup default nightly-2019-08-05
 ```
 
 ```bash

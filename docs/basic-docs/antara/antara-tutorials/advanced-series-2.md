@@ -166,6 +166,33 @@ Stop the daemon and restart with the [<b>pubkey</b>](../../../basic-docs/smart-c
 
 Check that the `if ( 0 )` statement is enabled in the  `Myprivkey()` function in the `/src/cc/CCutils.cpp` file.
 
+#### Add the First RPC
+
+Add a line to the `/src/server.h` file to create the `<CC_name>address` function for the module.
+
+Update the commands array in the `/src/server.cpp` file. 
+
+Add the code for `<CC_name>address` into the `/src/wallet/rpcwallet.cpp` source file:
+
+```C
+UniValue <CC_name>address(const UniValue& params, bool fHelp)
+{
+    struct CCcontract_info *cp,C; std::vector<unsigned char> pubkey;
+    cp = CCinit(&C,EVAL_<YOUR-EVAL-NAME>);
+    if ( fHelp || params.size() > 1 )
+        throw runtime_error("<CC_name>address [pubkey]\n");
+    if ( ensure_CCrequirements(0) < 0 )
+        throw runtime_error(CC_REQUIREMENTS_MSG);
+    if ( params.size() == 1 )
+        pubkey = ParseHex(params[0].get_str().c_str());
+    return(CCaddress(cp,(char *)"<CC_name>",pubkey));
+}
+```
+
+Replace `<YOUR-EVAL-NAME>` with your eval code name. For example, `EVAL_FAUCET` or `EVAL_ASSETS`.
+
+Replace `<CC_name>` with your module name. For example, `faucetaddress`.
+
 #### Obtain the CCaddress
 
 Execute the `<CC_name>address` RPC call and use the returned value to complete the `<CC_Name>CCaddr` line of code.
@@ -173,12 +200,6 @@ Execute the `<CC_name>address` RPC call and use the returned value to complete t
 ```
 const char *FaucetCCaddr = "R9zHrofhRbub7ER77B7NrVch3A63R39GuC";
 ```
-
-#### Add the First RPC
-
-Add a line to the `/src/server.h` file to create the `<CC_name>address` function for the module.
-
-Update the commands array in the `/src/server.cpp` file. 
 
 #### Obtain the privkey in Hex Format
 

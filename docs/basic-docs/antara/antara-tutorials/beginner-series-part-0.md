@@ -182,7 +182,7 @@ Start the container.
 This drops into a bash prompt that is ready to start the guided tutorials.
 
 ```bash
-docker run -it -p 127.0.0.1:9253:9253 komodocakeshop/dev-allininone-learn-kmd
+docker run -it -p 127.0.0.1:9253:9253 komodocakeshop/dev-allinone-learn-kmd
 ```
 
 #### (Optional, for Smaller Docker Image Only) Mount the Local Zcash Parameters
