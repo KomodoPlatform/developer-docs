@@ -66,7 +66,7 @@ module.exports = {
     logo: "/KMD_Horiz_White.svg",
     algolia: {
       apiKey: algoliaSecret.key,
-      indexName: 'komodoplatform'
+      indexName: 'komodoplatform_doc'
     },
     logo: "/KMD_Mark_White.png",
     nav: navbarImport,

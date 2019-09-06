@@ -1,7 +1,9 @@
 #!/bin/sh
 
-echo 'var algoliaSecret = { key : "'$ALGOLIAKEY'" }' > ./docs/.vuepress/algolia-secret.js
-echo "module.exports = algoliaSecret;" >> ./docs/.vuepress/algolia-secret.js
+file="./docs/.vuepress/algolia-secret.js"
+rm -f $file
+echo 'var algoliaSecret = { key : "'$ALGOLIAKEY'" }' > $file
+echo "module.exports = algoliaSecret;" >> $file
 
 
 
