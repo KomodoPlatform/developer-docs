@@ -1,7 +1,7 @@
 var sidebarImport = require("./sidebar.js");
 
 var sidebar = {
-    "/basic-docs/": sidebarImport["/basic-docs/"],
+    "/basic-docs/": sidebarImport,
     "/whitepaper/": [{
             title: "Komodo’s Method Of Security: Delayed Proof Of Work (dPoW)",
             collapsable: true,
@@ -405,7 +405,7 @@ var sidebar = {
         ],
         // ["/mmV2/LP/walkthrough.md", "How to be a Liquidity Provider for AtomicDEX"]
     ],
-    "/": [""]
+    "/": sidebarImport
 };
 
 
