@@ -393,12 +393,14 @@ For terminal interface examples, see the examples section below.
 
 #### Response
 
-| Structure       | Type             | Description                                                                                              |
-| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
-| address         | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
-| balance         | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
-| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
-| result          | string           | the result of the request; this value either indicates `success`, or an error or other type of failure |
+| Structure              | Type             | Description                                                                                              |
+| ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
+| address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
+| balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
+| locked_by_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
+| coin                   | string           | the ticker of enabled coin                                                                             |
+| required_confirmations | number           | MM2 will wait for the this number of coin's transaction confirmations during the swap                  |
+| result                 | string           | the result of the request; this value either indicates `success`, or an error or other type of failure |
 
 #### :pushpin: Examples
 
@@ -420,6 +422,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
   "locked_by_swaps": "0",
+  "required_confirmations":1,
   "result": "success"
 }
 ```
@@ -446,6 +449,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
   "locked_by_swaps": "0",
+  "required_confirmations":1,
   "result": "success"
 }
 ```
@@ -514,12 +518,14 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 
 #### Response
 
-| Structure       | Type             | Description                                                                                              |
-| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
-| address         | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
-| balance         | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
-| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
-| result          | string           | the result of the request; this value either indicates `success`, or an error or other type of failure |
+| Structure              | Type             | Description                                                                                              |
+| ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
+| address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
+| balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
+| locked_by_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
+| coin                   | string           | the ticker of enabled coin                                                                             |
+| required_confirmations | number           | MM2 will wait for the this number of coin's transaction confirmations during the swap                  |
+| result                 | string           | the result of the request; this value either indicates `success`, or an error or other type of failure |
 
 #### :pushpin: Examples
 
@@ -541,6 +547,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
   "locked_by_swaps": "0",
+  "required_confirmations":1,
   "result": "success"
 }
 ```
@@ -567,6 +574,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": "50",
   "locked_by_swaps": "0",
+  "required_confirmations":1,
   "result": "success"
 }
 ```
@@ -593,6 +601,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": "50",
   "locked_by_swaps": "0",
+  "required_confirmations":1,
   "result": "success"
 }
 ```
@@ -2637,11 +2646,59 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
+## set_required_confirmations
+
+**set_required_confirmations coin confirmations**
+
+The `set_required_confirmations` method sets the number of confirmations that MM2 will wait during the swap that use selected coin.
+Please note that this setting is `not` persistent and will be reset to value from coins file on restart.
+
+#### Arguments
+
+| Structure       | Type             | Description                                                                                                              |
+| --------------- | ---------------- | ------------------------------------------------------------- |
+| coin            | string           | the ticker of coin to set confirmations                       |
+| confirmations   | number           | the number of required confirmations                          |
+
+#### Response
+
+| Structure            | Type             | Description                                                                                                                                          |
+| -------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result.coin          | string           | the coin selected in request                                              |
+| result.confirmations | number           | the confirmations number used in request                                  |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"set_required_confirmations\",\"coin\":\"RICK\",\"confirmations\":3}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "result": {
+    "coin": "ETOMIC",
+    "confirmations": 3
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
 ## stop
 
 **stop()**
 
-The `stop` method stops the MM2 software if there are no swaps in process.
+The `stop` method stops the MM2 software.
 
 #### Arguments
 
