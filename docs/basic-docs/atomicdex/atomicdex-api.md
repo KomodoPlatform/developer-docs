@@ -1339,7 +1339,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
                 "block_height": 154190,
                 "coin": "BEER",
                 "fee_details": {
-                  "amount": 1e-5
+                  "amount": "0.00001"
                 },
                 "from": ["RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh"],
                 "internal_id": "ba36c890785e3e9d4b853310ad4d79ce8175e7c4184a398128b37339321672f4",
