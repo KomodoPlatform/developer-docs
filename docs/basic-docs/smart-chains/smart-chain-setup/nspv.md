@@ -20,6 +20,7 @@ git clone https://github.com/jl777/libnspv
 cd libnspv
 ./autogen.sh
 ./configure
++./onetime # compiles cc support
 make
 ```
 
@@ -142,7 +143,7 @@ curl --data-binary '{"jsonrpc": "2.0", "id":"curltest", "method": "spentinfo", "
 
 #### Accessing localhost in the Browser
 
-To access an nSPV client using a browser, create a url that uses `http://126.0.0.1:<insert_port>/api/` as the base url, and add the `rpc_name/` and any relevant additional `parameters/` as additional url directions. See the example below.
+To access an nSPV client using a browser, create a url that uses `http://127.0.0.1:<insert_port>/api/` as the base url, and add the `rpc_name/` and any relevant additional `parameters/` as additional url directions. See the example below.
 
 ##### Example
 

@@ -44,7 +44,7 @@ This makes the process of lowering the difficulty easier and faster, as the DAA 
 
 ###### After the 31st of October, 2019
 
-- all the newly created Smart Chains that are 100% PoW have AdaptivePoW enabled by default 
+- all the newly created Smart Chains that are 100% PoW have AdaptivePoW enabled by default
 - a newly created Smart Chain that does not want this feature should set the parameter as follows: `-ac_adaptivepow=-1`
 - existing Smart Chains are not affected
 
@@ -134,7 +134,7 @@ However, coins are not fungible, and therefore cannot be transferred between blo
 
 Setting the value of `ac_cc` to any value greater than or equal to `100` will permit cross-chain interaction with any Smart Chain that has the same `ac_cc` value and is secured by notary nodes with the same `pubkey`.
 
-All Smart Chains that have the same `ac_cc (>= 100)` value form a cluster, where the base tokens of all the chains in the cluster are fungible via the burn protocol.
+All Smart Chains that have the same `ac_cc (>= 100)` value form a cluster, where the base tokens of all the chains in the cluster are fungible via the [burn protocol](../../smart-chains/smart-chain-api/crosschain.html).
 
 For example, a Smart Chain set to `ac_cc=201` in its parameters can interact with other Smart Chains with `ac_cc=201` on the same notary-node network, but cannot interact with a Smart Chain set to `ac_cc=301`.
 
@@ -146,7 +146,7 @@ For example, a Smart Chain set to `ac_cc=201` in its parameters can interact wit
 - If <b>N > 0</b>, Antara is enabled
 - If <b>N = 1</b>, on-chain Antara is active, cross-chain validation is disabled
 - If <b>N >= 2 and <= 99</b>, the chain allows for cross-chain contracts between all other chains bearing the same N value. The base coins in each Smart Chain are non-fungible across chains.
-- If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the burn protocol.
+- If <b>N >= 100</b>, the chain can form a cluster with all other chains with the same N value and on the same dPoW notarization network. The base coins of all chains in the cluster are fungible via the [burn protocol](../../smart-chains/smart-chain-api/crosschain.html).
   :::
 
 #### :pushpin: Examples
@@ -407,7 +407,7 @@ Use `ac_script` to send the founder's reward to a multi-signature address.
 
 Set `ac_founders=1` to stay compatible with most stratum implementations. Any other value requires team member @blackjok3r's fork of knomp using the [disable-cb feature](https://github.com/blackjok3rtt/knomp#disable-coinbase-mode). Please reach out to our team on [discord](https://komodoplatform.com/discord) if you have further questions about how to set up a stratum.
 
-## ac_founders_reward
+## ac\_founders\_reward
 
 The `ac_founders_reward` parameter functions in a manner that is similar to a combination of the `ac_perc` and `ac_founders` parameters.
 
