@@ -24,6 +24,41 @@ module.exports = {
         rel: "icon",
         href: "KMD_Mark_Black.png"
       }
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:card",
+        content: "summary_large_image"
+      }
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:site",
+        content: "@komodoplatform"
+      }
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:title",
+        content: "Komodo Developer Documentation"
+      }
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:description",
+        content: "Documentation for developers building on the Komodo Platform"
+      }
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:image",
+        content: "https://developers.komodoplatform.com/start-here-pics/Dev_Docs_Introduction_small.png"
+      }
     ]
   ],
   title: "Komodo Documentation",
