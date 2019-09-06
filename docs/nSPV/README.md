@@ -24,6 +24,7 @@ git clone https://github.com/jl777/libnspv
 cd libnspv
 ./autogen.sh
 ./configure
+./onetime # compiles the cryptocondition support
 make
 ```
 
