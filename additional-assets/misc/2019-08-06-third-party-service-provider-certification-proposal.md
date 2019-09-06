@@ -55,3 +55,10 @@
 - After test completion, we email results to them later, allowing time to review. Amount of time should be set and consistent.
 
 Once complete, certification continues for so long as they are able to bring in at least one new dPoW customer every 12 months, or maintain at least 5 customers on their account in total
+
+Third-party service providers receive a special ability on the Hivebright platform that allows them to coalesce several users into a team.
+
+The teams receive special status on the site, and are also included in recommendations and marketing materials
+(This is not an endorsement blah blah blah)
+
+

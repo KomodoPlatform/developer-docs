@@ -148,6 +148,42 @@ This returns a transaction id, which is the `oracleid`:
 
 Record this in the text editor.
 
+Before registering as an oracle publisher, we need to run the `oraclesfund` method:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD oraclesfund 7b6e7745058ffded423546eecc61dcc05069279b90776384c52692765246b64c
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "hex": "0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000"
+}
+```
+
+</collapse-text>
+
+Send the raw transaction by broadcasting the hex value:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f890124839445f1cdca84c42563fa87742a562824815729625184117c80dc2a06510e0000000049483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701ffffffff031027000000000000302ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cce0950b5402000000232102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5102700000000000000000000b60700000000000000000000000000
+
+```
+
+Response:
+
+<collapse-text hidden title="Response">
+
+```bash
+ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192
+```
+
+</collapse-text>
+
+(Use `./komodo-cli -ac_name=HELLOWORLD getrawmempool` to ensure that the transaction receives confirmation.)
+
 To prepare for the oraclefeed instance, use [oraclesregister](../../../basic-docs/antara/antara-api/oracles.html#oraclesregister) to register as a publisher for the oracle. This must be done on a node which can post KMD block headers and which can execute withdrawal transactions:
 
 ```bash
