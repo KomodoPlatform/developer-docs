@@ -4,7 +4,7 @@
 
 Under most circumstances, a developer should [use two separate nodes to set up and create a Smart Chain.](../../../basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html#introduction)
 
-However, occasionally a developer may need to create a Smart Chain on a single node. This can be achieved using the [testnode](../../../basic-docs/smart-chains/smart-chain-api/wallet.md#testnode) runtime parameter. The following tutorial is only neccesary if the developer desires to run two instances of the daemon on the same server.
+However, occasionally a developer may need to create a Smart Chain on a single node. This can be achieved using the [testnode](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#testnode) runtime parameter. The following tutorial is only neccesary if the developer desires to run two instances of the daemon on the same server.
 
 In this situation, the developer may create a Smart Chain by running two daemons with slightly different configurations on the same node.
 
