@@ -159,4 +159,4 @@ Excerpts from the article `https://www.xda-developers.com/install-adb-windows-ma
 ```
 
 - There won't be any visible output on the terminal except for a blinking cursor.
-- Now use the app on the android device till the problem case occurs. Then hit `CTRL + C` on your keyboard to exit from the command. You will find a text file named `atomicDEX-log.txt` on your desktop. Share it with the developer to report the issue.
+- Now use the app on the android device till the problem case occurs. Then hit `CTRL + C` on your keyboard to exit from the command. You will find a text file named `atomicDEX-log.txt` in the folder named `logs` in the extracted folder. Share it with the developer to report the issue.
