@@ -39,7 +39,11 @@ var navbar = [{
             {
                 text: "Agama",
                 link: "/gui/agama/introduction.md"
-            }
+            },
+            {
+                text: "QA and Testing",
+                link: "/qa/debug-Komodo.md"
+            },
         ]
     },
     {

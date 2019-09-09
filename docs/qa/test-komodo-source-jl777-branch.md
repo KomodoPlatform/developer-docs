@@ -6,7 +6,7 @@ sidebarDepth: 3
 
 ## Purpose
 
-The perpose of this test is to check if the komodo source from jl777 branch has no issues compiling, all assetchains starts and syncs fully from scratch, no stuck chains. You can use this guide for any branch you want to test, just change the branch name in clone and compile section.
+The purpose of this test is to check if the komodo source from jl777 branch has no issues compiling, all assetchains starts and syncs fully from scratch, no stuck chains. You can use this guide for any branch you want to test, just change the branch name in clone and compile section.
 
 ::: tip Note
 This doc is similar to compiling komodo with an additional `verify` script. Please make sure you are not testing this in a node with funds. This doc is intended for test nodes/computer. If you have funds in your assetchains please backup your wallet and private key. The information in this doc may change in the future to update.

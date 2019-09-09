@@ -193,17 +193,6 @@ var sidebar = {
                 ["/komodo/use-bitcore-lib-komodo.md", "Using `bitcore-lib-komodo`"],
                 ["/komodo/using-Key-Value.md", "Using the Key-Value feature"]
             ]
-        },
-        {
-            title: "Testing & QA",
-            collapsable: true,
-            children: [
-                ["/komodo/debug-Komodo.md", "Debug Komodo with 'gdb'"],
-                [
-                    "/komodo/test-komodo-source-jl777-branch.md",
-                    "Test komodo source from jl777 branch to make sure all the assetchains sync from scratch properly"
-                ]
-            ]
         }
     ],
     /* "/assetchains/": [
@@ -404,6 +393,25 @@ var sidebar = {
             "/mmV2/LP/atomicdex-api-docker-telegram.md", "How To Become a Liquidity Provider for AtomicDEX with Telegram Notifications using Docker"
         ],
         // ["/mmV2/LP/walkthrough.md", "How to be a Liquidity Provider for AtomicDEX"]
+    ],
+    "/qa/": [{
+            title: "Komodo",
+            collapsable: true,
+            children: [
+                ["/qa/debug-Komodo.md", "Debug Komodo with 'gdb'"],
+                [
+                    "/qa/test-komodo-source-jl777-branch.md",
+                    "Test komodo source from jl777 branch to make sure all the assetchains sync from scratch properly"
+                ]
+            ]
+        },
+        {
+            title: "AtomicDEX-mobile",
+            collapsable: true,
+            children: [
+                ["/qa/adb-logcat.md", "Use adb to collect GUI logs of the AtomicDEX android app"]
+            ]
+        }
     ],
     "/": sidebarImport
 };
