@@ -5,7 +5,7 @@
 The following walkthrough describes the process to collect logs using adb.
 
 :::tip Note
-Parts of this article are from the stackexchange answer: https://android.stackexchange.com/a/144967
+Some parts of this article are taken from the following stackexchange answer: https://android.stackexchange.com/a/144967
 :::
 
 ## Preparing the android device
@@ -103,4 +103,60 @@ Now use the app on the android device till the problem case occurs. Then hit `CT
 
 ## Windows
 
-WIP
+Excerpts from the article `https://www.xda-developers.com/install-adb-windows-macos-linux/` are used in the following section
+
+- Download the [ADB ZIP file for Windows](https://dl.google.com/android/repository/platform-tools-latest-windows.zip)
+- Extract the contents of this ZIP file into an easily accessible folder
+- Open Windows explorer and browse to where you extracted the contents of this ZIP file
+- Then open up a Command Prompt from the same directory as this ADB binary. This can be done by holding Shift and Right-clicking within the folder then click the “open command prompt here” option. (Some Windows 10 users may see “PowerShell” instead of “command prompt”.)
+
+<div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
+
+<img src="/power-shell.png">
+
+</div>
+
+- Connect your smartphone or tablet to your computer with a USB cable. Change the USB mode to “file transfer (MTP)” mode. Some OEMs may or may not require this, but it’s best to just leave it in this mode for general compatibility.
+- In the Command Prompt window, enter the following command to launch the ADB daemon: `.\adb.exe devices`
+- On your phone’s screen, you should see a prompt to allow or deny USB Debugging access. Naturally, you will want to grant USB Debugging access when prompted (and tap the always allow check box if you never want to see that prompt again).
+
+<div style="clear: both; margin-top: 1rem; margin-bottom: 1rem; display: block;">
+
+<img src="/allow-usb-debugging.png">
+
+</div>
+
+- Finally, re-enter the command `.\adb.exe devices`. If everything was successful, you should now see your device’s serial number in the command prompt.
+- Now, open the AtomicDEX app on your mobile and run the following command in your Command Prompt:
+
+```powershell
+.\adb.exe logcat --pid=$(.\adb.exe shell pidof -s com.komodoplatform.atomicdex)
+```
+
+- Sample output:
+
+```bash
+09-09 21:44:10.834 10446 10446 W 1.gpu   : type=1400 audit(0.0:9728111): avc: denied { read } for name="u:object_r:vendor_default_prop:s0" dev="tmpfs" ino=22632 scontext=u:r:untrusted_app:s0:c52,c257,c512,c768 tcontext=u:object_r:vendor_default_prop:s0 tclass=file permissive=0
+09-09 21:44:10.845 10446 10465 E libc    : Access denied finding property "vendor.debug.egl.swapinterval"
+09-09 21:44:11.370 10446 10465 I chatty  : uid=10308(com.komodoplatform.atomicdex) 1.gpu identical 31 lines
+09-09 21:44:11.385 10446 10465 E libc    : Access denied finding property "vendor.debug.egl.swapinterval"
+09-09 21:44:11.387 10446 10464 I flutter : ALL COINS ACTIVATES
+09-09 21:44:11.389 10446 10464 I flutter : ConnectionState.active
+09-09 21:44:11.420 10446 10465 E libc    : Access denied finding property "vendor.debug.egl.swapinterval"
+09-09 21:44:11.431 10446 10465 I chatty  : uid=10308(com.komodoplatform.atomicdex) 1.gpu identical 1 line
+09-09 21:44:11.441 10446 10465 E libc    : Access denied finding property "vendor.debug.egl.swapinterval"
+09-09 21:44:11.833 10446 10464 I flutter : getBalance{"address":"1NHF2GX8Fb9skXQdMGgRoGk9mH6tzSfqpV","balance":"0","coin":"BTC","locked_by_swaps":"0"}
+09-09 21:44:11.836 10446 10464 I flutter : getBalance{"address":"RWZS6nQQrQxSpXmppSfYto5MXYZVdM4wZr","balance":"0","coin":"KMD","locked_by_swaps":"0"}
+09-09 21:44:12.339 10446 10464 I flutter : LOADCOIN FINISHED
+```
+
+- If the output in your command prompt is similar, it means the setup is working correctly. Hit `CTRL + C` to interrupt the log.
+- Create a folder named `logs` in the extracted folder. Run: `mkdir logs`
+- To collect logs of the app to a text file when the bug/problem case is executed, run the following command
+
+```powershell
+.\adb.exe logcat --pid=$(.\adb.exe shell pidof -s com.komodoplatform.atomicdex) >  .\logs\atomicDEX-log.txt
+```
+
+- There won't be any visible output on the terminal except for a blinking cursor.
+- Now use the app on the android device till the problem case occurs. Then hit `CTRL + C` on your keyboard to exit from the command. You will find a text file named `atomicDEX-log.txt` on your desktop. Share it with the developer to report the issue.
