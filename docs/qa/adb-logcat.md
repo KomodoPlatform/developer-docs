@@ -28,7 +28,7 @@ sudo adb start-server
 
 ### Connecting the android device
 
-Enable USB debugging on the android device and connect it to your Personal Computer using a USB device.
+Enable USB debugging on the android device and connect it to your Personal Computer using a USB cable.
 
 To verify that the devise is being detected, run:
 
@@ -127,6 +127,7 @@ Excerpts from the article `https://www.xda-developers.com/install-adb-windows-ma
 </div>
 
 - Finally, re-enter the command `.\adb.exe devices`. If everything was successful, you should now see your device’s serial number in the command prompt.
+- If your device isn't being detected, follow the instructions in [this article](https://developer.android.com/studio/run/oem-usb#Win10) to install the USB driver corresponding to your device. The drivers for your device can be found in [this table](https://developer.android.com/studio/run/oem-usb#Drivers)
 - Now, open the AtomicDEX app on your mobile and run the following command in your Command Prompt:
 
 ```powershell
