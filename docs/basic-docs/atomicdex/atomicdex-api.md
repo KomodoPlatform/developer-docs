@@ -90,13 +90,14 @@ The `cancel_all_orders` cancels the active orders created by the MM2 node by spe
 
 #### Arguments
 
-| Structure           | Type   | Description                                                                       |
-| ------------------- | ------ | --------------------------------------------------------------------------------- |
-| cancel_by           | object | orders matching this condition will be cancelled                                  |
-| cancel_by.type      | string | `All` to cancel all orders or `Pair` to cancel all orders for specific coins pair |
-| cancel_by.data      | object | additional data of cancel condition, present only for `Pair` type                 |
-| cancel_by.data.base | string | base coin of the pair                                                             |
-| cancel_by.data.rel  | string | rel coin of the pair                                                              |
+| Structure            | Type   | Description                                                                       |
+| -------------------- | ------ | --------------------------------------------------------------------------------- |
+| cancel_by            | object | orders matching this condition will be cancelled                                  |
+| cancel_by.type       | string | `All` to cancel all orders; `Pair` to cancel all orders for specific coins pair; `Coin` to cancel all orders for specific coin |
+| cancel_by.data       | object | additional data of cancel condition, present for `Pair` or `Coin` types           |
+| cancel_by.data.base  | string | base coin of the pair; `Pair` type only                                           |
+| cancel_by.data.rel   | string | rel coin of the pair; `Pair` type only                                            |
+| cancel_by.data.ticker| string | order will be cancelled if it uses `ticker` as base or rel; `Coin` type only      |
 
 #### Response
 
@@ -118,6 +119,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"cancel_all_orders\",\"cancel_by\":{\"type\":\"Pair\",\"data\":{\"base\":\"RICK\",\"rel\":\"MORTY\"}}}"
+```
+
+#### Command (Cancel by coin)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"cancel_all_orders\",\"cancel_by\":{\"type\":\"Coin\",\"data\":{\"ticker\":\"RICK\"}}}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -242,6 +249,87 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
+## disable_coin
+
+**disable_coin coin**
+
+The `disable_coin` method deactivates the previously enabled coin. MM2 also cancels all active orders that use the selected coin. The method will return error in following cases:
+1. Coin is not enabled.
+1. The coin is used by active swaps.
+1. The coin is used by currently matching order. Other orders might be still cancelled in this case.
+
+#### Arguments
+
+| Structure | Type   | Description                   |
+| --------- | ------ | ----------------------------- |
+| coin      | string | the ticker of coin to disable |
+
+#### Response
+
+| Structure                  | Type             | Description                                                                        |
+| -------------------------- | ---------------- | ---------------------------------------------------------------------------------- |
+| result.coin                | string           | the ticker of deactivated coin                                                     |
+| result.cancelled_orders    | array of strings | uuids of cancelled orders                                                          |
+| swaps                      | array of strings | uuids of active swaps that use the selected coin; present only in case of error    |
+| orders.matching            | array of strings | uuids of matching orders that use the selected coin; present only in case of error |
+| orders.cancelled           | array of strings | uuids of orders that were successfully cancelled despite the error                 |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"disable_coin\",\"coin\":\"RICK\"}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "result": {
+    "cancelled_orders":["e5fc7c81-7574-4d3f-b64a-47227455d62a"],
+    "coin":"RICK"
+  }
+}
+```
+
+#### Response (error - coin is not enabled)
+
+```json
+{
+  "error": "No such coin: RICK"
+}
+```
+
+#### Response (error - active swap is using the coin)
+
+```json
+{
+  "error": "There're active swaps using RICK",
+  "swaps": ["d88d0a0e-f8bd-40ab-8edd-fe20801ef349"]
+}
+```
+
+#### Response (error - the order is matched at the moment, but another order is cancelled)
+
+```json
+{
+  "error":"There're currently matching orders using RICK",
+  "orders": {
+    "matching": ["d88d0a0e-f8bd-40ab-8edd-fe20801ef349"],
+    "cancelled": ["c88d0a0e-f8bd-40ab-8edd-fe20801ef349"]
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
 ## electrum
 
 **electrum coin servers (mm2 tx_history=false)**
@@ -305,12 +393,14 @@ For terminal interface examples, see the examples section below.
 
 #### Response
 
-| Structure       | Type             | Description                                                                                              |
-| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
-| address         | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
-| balance         | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
-| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
-| result          | string           | the result of the request; this value either indicates `success`, or an error or other type of failure |
+| Structure              | Type             | Description                                                                                              |
+| ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
+| address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
+| balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
+| locked_by_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
+| coin                   | string           | the ticker of enabled coin                                                                             |
+| required_confirmations | number           | MM2 will wait for the this number of coin's transaction confirmations during the swap                  |
+| result                 | string           | the result of the request; this value either indicates `success`, or an error or other type of failure |
 
 #### :pushpin: Examples
 
@@ -332,6 +422,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
   "locked_by_swaps": "0",
+  "required_confirmations":1,
   "result": "success"
 }
 ```
@@ -358,6 +449,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
   "locked_by_swaps": "0",
+  "required_confirmations":1,
   "result": "success"
 }
 ```
@@ -426,12 +518,14 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 
 #### Response
 
-| Structure       | Type             | Description                                                                                              |
-| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
-| address         | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
-| balance         | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
-| locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
-| result          | string           | the result of the request; this value either indicates `success`, or an error or other type of failure |
+| Structure              | Type             | Description                                                                                              |
+| ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
+| address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
+| balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
+| locked_by_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
+| coin                   | string           | the ticker of enabled coin                                                                             |
+| required_confirmations | number           | MM2 will wait for the this number of coin's transaction confirmations during the swap                  |
+| result                 | string           | the result of the request; this value either indicates `success`, or an error or other type of failure |
 
 #### :pushpin: Examples
 
@@ -453,6 +547,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
   "locked_by_swaps": "0",
+  "required_confirmations":1,
   "result": "success"
 }
 ```
@@ -479,6 +574,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": "50",
   "locked_by_swaps": "0",
+  "required_confirmations":1,
   "result": "success"
 }
 ```
@@ -505,6 +601,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": "50",
   "locked_by_swaps": "0",
+  "required_confirmations":1,
   "result": "success"
 }
 ```
@@ -1242,7 +1339,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
                 "block_height": 154190,
                 "coin": "BEER",
                 "fee_details": {
-                  "amount": 1e-5
+                  "amount": "0.00001"
                 },
                 "from": ["RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh"],
                 "internal_id": "ba36c890785e3e9d4b853310ad4d79ce8175e7c4184a398128b37339321672f4",
@@ -2549,11 +2646,59 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
+## set_required_confirmations
+
+**set_required_confirmations coin confirmations**
+
+The `set_required_confirmations` method sets the number of confirmations that MM2 will wait during the swap that use selected coin.
+Please note that this setting is `not` persistent and will be reset to value from coins file on restart.
+
+#### Arguments
+
+| Structure       | Type             | Description                                                                                                              |
+| --------------- | ---------------- | ------------------------------------------------------------- |
+| coin            | string           | the ticker of coin to set confirmations                       |
+| confirmations   | number           | the number of required confirmations                          |
+
+#### Response
+
+| Structure            | Type             | Description                                                                                                                                          |
+| -------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result.coin          | string           | the coin selected in request                                              |
+| result.confirmations | number           | the confirmations number used in request                                  |
+
+#### :pushpin: Examples
+
+#### Command
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"set_required_confirmations\",\"coin\":\"RICK\",\"confirmations\":3}"
+```
+
+<div style="margin-top: 0.5rem;">
+
+<collapse-text hidden title="Response">
+
+#### Response (success)
+
+```json
+{
+  "result": {
+    "coin": "ETOMIC",
+    "confirmations": 3
+  }
+}
+```
+
+</collapse-text>
+
+</div>
+
 ## stop
 
 **stop()**
 
-The `stop` method stops the MM2 software if there are no swaps in process.
+The `stop` method stops the MM2 software.
 
 #### Arguments
 
