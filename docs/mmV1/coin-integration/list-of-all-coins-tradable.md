@@ -283,7 +283,7 @@ The following coins have been added to be traded on MarketmakerV1:
 | EOS     | EOS                      |
 | ZIL     | Zilliqa                  |
 
-## Komodo Compatibles and Asset Chains
+## Komodo Compatibles and Smart Chains
 
 | TICKER   | NAME             |
 | -------- | ---------------- |

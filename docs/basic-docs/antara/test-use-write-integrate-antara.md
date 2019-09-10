@@ -17,7 +17,7 @@ A brief overview of the `-ac-cc` parameter:
 
 - Compile Komodo
 
-- Navigate to `src` directory, start the test chain with your `pubkey` and issue the SmartContract RPC commands. All the instructions to get you started are below. For a more elaborate explanation on creating a new blockchain using Komodo see: [Creating Komodo Asset Chains](../installations/creating-asset-chains.html)
+- Navigate to `src` directory, start the test chain with your `pubkey` and issue the SmartContract RPC commands. All the instructions to get you started are below. For a more elaborate explanation on creating a new blockchain using Komodo see: [Creating Komodo Smart Chains](../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html)
 
 ```bash
 #Install dependencies
