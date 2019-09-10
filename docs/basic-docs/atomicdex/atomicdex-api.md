@@ -92,9 +92,9 @@ The `cancel_all_orders` cancels the active orders created by the MM2 node by spe
 
 | Structure            | Type   | Description                                                                       |
 | -------------------- | ------ | --------------------------------------------------------------------------------- |
-| cancel_by            | object | orders matching this condition will be cancelled                                  |
-| cancel_by.type       | string | `All` to cancel all orders; `Pair` to cancel all orders for specific coins pair; `Coin` to cancel all orders for specific coin |
-| cancel_by.data       | object | additional data of cancel condition, present for `Pair` or `Coin` types           |
+| cancel_by            | object | orders matching this condition are cancelled                                  |
+| cancel_by.type       | string | `All` to cancel all orders; `Pair` to cancel all orders for specific coin pairs; `Coin` to cancel all orders for a specific coin |
+| cancel_by.data       | object | additional data the cancel condition; present with `Pair` and `Coin` types           |
 | cancel_by.data.base  | string | base coin of the pair; `Pair` type only                                           |
 | cancel_by.data.rel   | string | rel coin of the pair; `Pair` type only                                            |
 | cancel_by.data.ticker| string | order will be cancelled if it uses `ticker` as base or rel; `Coin` type only      |
@@ -249,14 +249,14 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## disable_coin
+## disable\_coin
 
 **disable_coin coin**
 
-The `disable_coin` method deactivates the previously enabled coin. MM2 also cancels all active orders that use the selected coin. The method will return error in following cases:
-1. Coin is not enabled.
-1. The coin is used by active swaps.
-1. The coin is used by currently matching order. Other orders might be still cancelled in this case.
+The `disable_coin` method deactivates the previously enabled coin. MM2 also cancels all active orders that use the selected coin. The method will return an error in the following cases:
+- The coin is not enabled
+- The coin is used by active swaps
+- The coin is used by a currently matching order. In this case, other orders might still be cancelled
 
 #### Arguments
 
@@ -270,8 +270,8 @@ The `disable_coin` method deactivates the previously enabled coin. MM2 also canc
 | -------------------------- | ---------------- | ---------------------------------------------------------------------------------- |
 | result.coin                | string           | the ticker of deactivated coin                                                     |
 | result.cancelled_orders    | array of strings | uuids of cancelled orders                                                          |
-| swaps                      | array of strings | uuids of active swaps that use the selected coin; present only in case of error    |
-| orders.matching            | array of strings | uuids of matching orders that use the selected coin; present only in case of error |
+| swaps                      | array of strings | uuids of active swaps that use the selected coin; present only in error cases    |
+| orders.matching            | array of strings | uuids of matching orders that use the selected coin; present only in error cases |
 | orders.cancelled           | array of strings | uuids of orders that were successfully cancelled despite the error                 |
 
 #### :pushpin: Examples
@@ -398,9 +398,9 @@ For terminal interface examples, see the examples section below.
 | address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
 | balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
 | locked_by_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
-| coin                   | string           | the ticker of enabled coin                                                                             |
-| required_confirmations | number           | MM2 will wait for the this number of coin's transaction confirmations during the swap                  |
-| result                 | string           | the result of the request; this value either indicates `success`, or an error or other type of failure |
+| coin                   | string           | the ticker of the enabled coin                                                                             |
+| required_confirmations | number           | MM2 will wait for the this number of transaction confirmations during the swap                  |
+| result                 | string           | the result of the request; this value either indicates `success`, or an error, or another type of failure |
 
 #### :pushpin: Examples
 
@@ -2646,26 +2646,31 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## set_required_confirmations
+## set\_required\_confirmations
 
 **set_required_confirmations coin confirmations**
 
-The `set_required_confirmations` method sets the number of confirmations that MM2 will wait during the swap that use selected coin.
-Please note that this setting is `not` persistent and will be reset to value from coins file on restart.
+The `set_required_confirmations` method sets the number of confirmations for which MM2 will wait for the selected coin.
+
+::: tip Note
+
+Please note that this setting is _**not**_ persistent. The value must be reset in the coins file on restart.
+
+:::
 
 #### Arguments
 
 | Structure       | Type             | Description                                                                                                              |
 | --------------- | ---------------- | ------------------------------------------------------------- |
-| coin            | string           | the ticker of coin to set confirmations                       |
-| confirmations   | number           | the number of required confirmations                          |
+| coin            | string           | the ticker of the selected coin                       |
+| confirmations   | number           | the number of confirmations to require                          |
 
 #### Response
 
 | Structure            | Type             | Description                                                                                                                                          |
 | -------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result.coin          | string           | the coin selected in request                                              |
-| result.confirmations | number           | the confirmations number used in request                                  |
+| result.coin          | string           | the coin selected in the request                                              |
+| result.confirmations | number           | the number of confirmations in the request                                  |
 
 #### :pushpin: Examples
 
