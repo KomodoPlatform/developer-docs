@@ -571,7 +571,7 @@ Step 3: Wait for the transaction to be confirmed
 
 **tokenorders (tokenid)**
 
-The `tokenorders` method displays the public on-chain orderbook for a specific token. If no `tokenid` is provided, it displays the on-chain orderbook for all available tokens.
+The `tokenorders` method displays the public on-chain orderbook for a specific token. 
 
 Information about the `funcid` property:
 
