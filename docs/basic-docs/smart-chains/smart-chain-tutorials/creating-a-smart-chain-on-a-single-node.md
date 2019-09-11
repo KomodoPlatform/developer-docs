@@ -35,7 +35,7 @@ Search for the part of the response that begins with this string: `>>>>>>>>>`
 >>>>>>>>>> HELLOWORLD: p2p.14165 rpc.14166 magic.01362c2a 20327466 777777 coins
 ```
 
-The default `p2p` and `rpc` ports of our chain are `14165` and `14166` respectively.
+The default [p2p](../smart-chain-setup/common-runtime-parameters.html#port) and [rpc](../smart-chain-setup/common-runtime-parameters.html#rpcport) ports of our chain are `14165` and `14166` respectively.
 
 #### Test komodo-cli
 
@@ -78,16 +78,17 @@ rpcpassword=changethis
 rpcport=12345
 ```
 
-(Change all values shown above on the right side of the `=` side.)
+(Change all values shown above on the right side of the `=` side. In all values above, the chosen values must be different from the values in the first daemon's .conf file.)
 
-Add a new line `port=<choose a port number betwen 1 and 65000>` to the file.
+
+Add a new line `port=<choose a port number betwen 1 and 65000>` to the file. This value indicates the [p2pport](../smart-chain-setup/common-runtime-parameters.html#port) used by the second daemon.  
 
 ```
 ... (file continued) ...
 port=22020
 ```
 
-In all values above, the chosen values must be different from the values in the first daemon's .conf file. 
+The value of port should be different from the value of the p2p port for the first daemon.
 
 ## Launch the Second daemon
 

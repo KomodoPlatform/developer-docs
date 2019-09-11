@@ -248,6 +248,19 @@ DEPRECATED
 
 `mempooltxinputlimit` is a runtime parameter inherited from Zcash. The functionality it facilitates is now enabled by default, and therefore the parameter is deprecated. Please see [the Zcash documentation for more information](https://blog.z.cash/new-release-1-1-0/).
 
+## port
+
+`port` tells the daemon to listen for p2p connections on the indicated TCP port overwriting the default. The default p2pport for the Komodo(KMD) blockchain is 7770. The default p2p port of a Smart Chain is solely dependant on the `-ac_` [Antara customization parameters](../../antara/antara-setup/antara-customizations.html) and values used to launch it.
+
+
+#### :pushpin: Examples:
+
+Using port as a default value in the Smart Chain's `.conf` file:
+
+```bash
+port=8231
+```
+
 ## proxy
 
 `proxy` allows the user to connect via a `SOCKS5` proxy.
@@ -418,7 +431,7 @@ rpcconnect=127.0.0.1
 
 ## rpcport
 
-`rpcport` tells the daemon to listen for RPC connections on the indicated TCP port.
+`rpcport` tells the daemon to listen for RPC connections on the indicated TCP port overwriting the default. The default rpcport for the Komodo(KMD) blockchain is 7771. The default rpcport of a Smart Chain is solely dependant on the `-ac_` [Antara customization parameters](../../antara/antara-setup/antara-customizations.html) and values used to launch it.
 
 #### :pushpin: Examples:
 
