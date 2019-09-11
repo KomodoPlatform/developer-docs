@@ -16,7 +16,7 @@ Users who are not interested in these activities, but are searching for assistan
 
 A conceptual overview of Smart Chain technology can be found in the <b>Start Here</b> > <b>Product Introductions</b> section.
 
-[<b>Link to Smart Chain Product Introduction</b>](../basic-docs/start-here/about-komodo-platform/product-introductions.html#smart-chains-fluidity)
+[<b>Link to Smart Chain Product Introduction</b>](../basic-docs/start-here/about-komodo-platform/product-introductions.html#smart-chains-antara)
 
 Also, the reader may turn to the Core Technology Discussion section for a thorough explanation.
 

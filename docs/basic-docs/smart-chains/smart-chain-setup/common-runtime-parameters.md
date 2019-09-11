@@ -40,7 +40,7 @@ addnode=69.164.218.197
 
 We recommend that the user [manually delete the blockchain data](../../../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) before initiating this parameter.
 
-`addressindex` is enabled by default on any Smart Chain that utilizes Fluidity.
+`addressindex` is enabled by default on any Smart Chain that utilizes Antara.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the Smart Chain in this circumstance.
@@ -283,7 +283,7 @@ proxy=127.0.0.1:9050
 
 `pubkey` sets an address to use as a change address for all transactions. This value must be set to a 33 byte pubkey. All mined/staked coins will also be sent to this address. We recommend that the user ensure they own the corresponding `privkey` of their chosen `pubkey`, lest their funds be sent to a `pubkey` they do not own or control.
 
-The `pubkey` parameter is required for all Fluidity-enabled chains. All Fluidity transactions will utilize the `pubkey` as an integral property.
+The `pubkey` parameter is required for all Antara-enabled chains. All Antara transactions will utilize the `pubkey` as an integral property.
 
 #### :pushpin: Examples:
 
@@ -477,7 +477,7 @@ server=1
 
 We recommend that the user [manually delete the blockchain data](../../../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) before initiating this parameter.
 
-`spentindex` is enabled by default on any Smart Chain that utilizes the Fluidity.
+`spentindex` is enabled by default on any Smart Chain that utilizes Antara.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
@@ -559,7 +559,7 @@ timestampindex=1
 
 `txindex` instructs a Smart Chain to track every transaction made on the relevant blockchain.
 
-`txindex` is enabled by default on all Smart Chains, and is utilized in delayed Proof of Work (dPoW), privacy modules, and Fluidity.
+`txindex` is enabled by default on all Smart Chains, and is utilized in delayed Proof of Work (dPoW), privacy modules, and Antara.
 
 ::: danger Warning!
 Disabling `txindex` will cause the default Smart Chain daemon to malfunction.
