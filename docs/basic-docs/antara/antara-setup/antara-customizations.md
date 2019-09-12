@@ -34,19 +34,7 @@ One method by which `ac_adaptivepow` alleviates the vulnerability is the changin
 
 This makes the process of lowering the difficulty easier and faster, as the DAA can take into account the amount of time the miners on the network are consuming to find a new block. If the amount of time is too high, the DAA can lower the difficulty as needed. More details on the implementation and rationale can be found in this [blog post.](https://medium.com/@jameslee777/adaptivepow-the-solution-to-diff-stranding-of-smaller-blockchains-425609df5563)
 
-#### Schedule of ac_adapativepow Addition
-
-###### Before the 31st of October, 2019
-
-- adding the parameter `-ac_adaptivepow=1` enables AdaptivePoW for a newly created Smart Chain
-- not adding the parameter doesn't have any effect for a newly created Smart Chain
-- existing Smart Chains are not affected
-
-###### After the 31st of October, 2019
-
-- all the newly created Smart Chains that are 100% PoW have AdaptivePoW enabled by default
-- a newly created Smart Chain that does not want this feature should set the parameter as follows: `-ac_adaptivepow=-1`
-- existing Smart Chains are not affected
+Adding the parameter `-ac_adaptivepow=1` enables AdaptivePoW for a newly created Smart Chain.
 
 ## ac_algo
 
