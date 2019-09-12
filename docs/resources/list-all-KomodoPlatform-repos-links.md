@@ -4,18 +4,7 @@ sidebar: auto
 
 # Repositories and Releases of KomodoPlatform
 
-**This page will link all related Komodo and SuperNET project source repositories and builds. Please let us know in** [Discord](https://komodoplatform.com/discord) **if any information needs to be updated.**
-
-## Agama (Desktop)
-
-### Source code
-
-- Backend: [https://github.com/KomodoPlatform/Agama/](https://github.com/KomodoPlatform/Agama/)
-- UI: [https://github.com/KomodoPlatform/EasyDEX-GUI/](https://github.com/KomodoPlatform/EasyDEX-GUI/)
-
-### Latest Releases
-
-- [https://komodoplatform.com/komodo-wallets](https://komodoplatform.com/komodo-wallets)
+**This lists all Komodo and SuperNET project related source repositories and builds. Please let us know in** [Discord](https://komodoplatform.com/discord) **if any information needs to be updated.**
 
 ## Atomic Explorer
 
@@ -82,7 +71,7 @@ sidebar: auto
 
 ## Insight Explorer
 
-- All-in-one Insight explorer setup for Komodo and all assetchains: [https://github.com/DeckerSU/komodo-explorers-install](https://github.com/DeckerSU/komodo-explorers-install)
+- All-in-one Insight explorer setup for Komodo and all Smart Chains: [https://github.com/DeckerSU/komodo-explorers-install](https://github.com/DeckerSU/komodo-explorers-install)
 
 ## Komodo
 
@@ -142,3 +131,14 @@ sidebar: auto
 Please refer to individual installation process
 
 - [https://github.com/jl777/SuperNET](https://github.com/jl777/SuperNET)
+
+## Verus Agama (Desktop)
+
+### Source code
+
+- Backend: [https://github.com/VerusCoin/Agama/](https://github.com/VerusCoin/Agama/)
+- UI: [https://github.com/VerusCoin/EasyDEX-GUI](https://github.com/VerusCoin/EasyDEX-GUI)
+
+### Latest Releases
+
+- [https://github.com/VerusCoin/Agama/releases](https://github.com/VerusCoin/Agama/releases)

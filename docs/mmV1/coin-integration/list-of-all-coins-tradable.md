@@ -6,7 +6,7 @@ The cryptocurrencies available to trade on BarterDEX can be broadly classified i
 
 1. Bitcoin Compatibles
 1. ERC20 Tokens
-1. Komodo Asset Chains
+1. Komodo Smart Chains
 
 The following coins have been added to be traded on MarketmakerV1:
 
