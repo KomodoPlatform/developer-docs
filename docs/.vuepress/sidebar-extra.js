@@ -388,11 +388,11 @@ var sidebar = {
             ]
         }
     ],
-    "/mmV2/": [
+   /* "/mmV2/": [
         [
             "/mmV2/LP/atomicdex-api-docker-telegram.md", "How To Become a Liquidity Provider for AtomicDEX with Telegram Notifications using Docker"
         ],
-        // ["/mmV2/LP/walkthrough.md", "How to be a Liquidity Provider for AtomicDEX"]
+        ["/mmV2/LP/walkthrough.md", "How to be a Liquidity Provider for AtomicDEX"] */
     ],
     "/qa/": [{
             title: "Komodo",
