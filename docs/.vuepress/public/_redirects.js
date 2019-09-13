@@ -67,7 +67,7 @@ var redirectAliases = {
   "/agama/mobile/add-Komodo-Assetchains-Agama-Mobile.html": "/gui/agama/mobile/add-Komodo-Assetchains-Agama-Mobile.html",
   "/general/third-party-repos-resources.html": "/resources/third-party-repos-resources.html",
   "/general/list-all-KomodoPlatform-Project-links.html": "/resources/list-all-KomodoPlatform-repos-links.html",
-  "/cc/activate-cc-independent-chain.html": "/basic-docs/antara/activate-antara-smartchain-assetchain.html",
+  "/cc/activate-cc-independent-chain.html": "/basic-docs/antara/activate-antara-smartchain.html",
   "/basic-docs/customconsensus/activate-custom-consensus-assetchain.html": "/basic-docs/antara/activate-antara-smartchain.html",
   "/coins/info.html": "/komodo/info.html",
   "/cc/faq.html": "/cc-jl/faq.html",
