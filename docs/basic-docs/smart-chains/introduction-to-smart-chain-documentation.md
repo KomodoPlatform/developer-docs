@@ -28,13 +28,8 @@ The Smart Chain Setup section contains basic information about Smart Chains and 
 
 - [<b>Installing Smart Chain Software from Source Code</b>](../../../basic-docs/smart-chains/smart-chain-setup/installing-from-source.html#installing-smart-chain-software-from-source-code)
 - [<b>Interacting with Smart Chains</b>](../../../basic-docs/smart-chains/smart-chain-setup/interacting-with-smart-chains.html)
-<!---
-FIXME
-gcharang: the link is broken and I am not sure what the intended link is. 
 
-- [<b>Smart Chain Launch Parameters Common to Most Blockchain Software</b>](../../../basic-docs/smart-chains/smart-chain-setup/basic-launch-parameters.html#accessing-the-coin-daemon-remotely)
-
---->
+- [<b>Smart Chain Launch Parameters Common to Most Blockchain Software</b>](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html)
 
 #### About Smart Chain Tutorials
 
