@@ -1,8 +1,15 @@
 # DEX API
 
-## Note About Current Limitations
+## Note About Rational Number Type
 
-This API documentation currently only features RPC methods that are available in MarketMaker 2.0 (MM2). There are many commands from the legacy Market Maker 1.0 that Komodo intends to import to MM2 as soon as possible. For now, these commands are available at [this external website.](https://docs.komodoplatform.com/mmV1/api/introduction.html)
+Starting from 2.0.1319_mm2_059381c81 version MM2 added [num-rational crate](https://crates.io/crates/num-rational) to represent orders volumes and prices.
+It is highly recommended to use rational type for orders price and volume calculation to avoid rounding/precision errors for numbers like `1/3` which can not be represented as finite decimal.
+The decimal representation is also returned by MM2 API, but it should be considered as convenience feature for readability.
+    
+The number is represented in JSON as follows: `[[1,[0,1]],[1,[1]]]` where first item `[1,[0,1]]` is `numerator` and second `[1,[1]]` is `denominator`.
+
+The `numerator` and `denominator` are BigInteger numbers represented as sign and uint32 array where numbers are 32 bit parts of big integer in little endian order. 
+`[1,[0,1]]` represents `+0000000000000000000000000000000010000000000000000000000000000000` = `4294967296`,  `[-1,[1,1]]` represents `-1000000000000000000000000000000010000000000000000000000000000000` = `-4294967297` and so on.
 
 ## buy
 
@@ -18,34 +25,42 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 
 #### Arguments
 
-| Structure | Type             | Description                                                                   |
-| --------- | ---------------- | ----------------------------------------------------------------------------- |
-| base      | string           | the name of the coin the user desires to receive                              |
-| rel       | string           | the name of the coin the user desires to sell                                 |
-| price     | string (numeric) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| volume    | string (numeric) | the amount of coins the user is willing to receive of the `base` coin         |
+| Structure | Type                                    | Description                                                                   |
+| --------- | --------------------------------------- | ----------------------------------------------------------------------------- |
+| base      | string                                  | the name of the coin the user desires to receive                              |
+| rel       | string                                  | the name of the coin the user desires to sell                                 |
+| price     | numeric string (deprecated) or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| volume    | numeric string (deprecated) or rational | the amount of coins the user is willing to receive of the `base` coin         |
 
 #### Response
 
-| Structure            | Type   | Description                                                                                                                                                                                                     |
-| -------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result               | object | the resulting order object                                                                                                                                                                                      |
-| result.action        | string | the action of the request (`Buy`)                                                                                                                                                                               |
-| result.base          | string | the base currency of request                                                                                                                                                                                    |
-| result.base_amount   | string | the resulting amount of base currency that will be received if the order matches                                                                                                                                |
-| result.rel           | string | the rel currency of the request                                                                                                                                                                                 |
-| result.rel_amount    | string | the maximum amount of `rel` coin that will be spent to buy the `base_amount` (according to `price`)                                                                                                             |
-| result.method        | string | this field is used for internal P2P interactions; the value is always equal to "request"                                                                                                                        |
-| result.dest_pub_key  | string | reserved for future use. `dest_pub_key` will allow the user to choose the P2P node that will be eligible to match with the request. This value defaults to a "zero pubkey", which means `anyone` can be a match |
-| result.sender_pubkey | string | the public key of this node                                                                                                                                                                                     |
-| result.uuid          | string | the request uuid                                                                                                                                                                                                |
+| Structure              | Type     | Description                                                                                                                                                                                                     |
+| ---------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                 | object   | the resulting order object                                                                                                                                                                                      |
+| result.action          | string   | the action of the request (`Buy`)                                                                                                                                                                               |
+| result.base            | string   | the base currency of request                                                                                                                                                                                    |
+| result.base_amount     | string   | the resulting amount of base currency that will be received if the order matches (in decimal representation)                                                                                                    |
+| result.base_amount_rat | rational | the resulting amount of base currency that will be received if the order matches (in rational representation)                                                                                                   |
+| result.rel             | string   | the rel currency of the request                                                                                                                                                                                 |
+| result.rel_amount      | string   | the maximum amount of `rel` coin that will be spent to buy the `base_amount` (according to `price`, in decimal representation)                                                                                  |
+| result.rel_amount_rat  | rational | the maximum amount of `rel` coin that will be spent to buy the `base_amount` (according to `price`, in rational representation)                                                                                 |
+| result.method          | string   | this field is used for internal P2P interactions; the value is always equal to "request"                                                                                                                        |
+| result.dest_pub_key    | string   | reserved for future use. `dest_pub_key` will allow the user to choose the P2P node that will be eligible to match with the request. This value defaults to a "zero pubkey", which means `anyone` can be a match |
+| result.sender_pubkey   | string   | the public key of this node                                                                                                                                                                                     |
+| result.uuid            | string   | the request uuid                                                                                                                                                                                                |
 
 #### :pushpin: Examples
 
-#### Command
+#### Command (decimal representation)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":\"1\",\"price\":\"1\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":"\"1\"",\"price\":"\"1\""}"
+```
+
+#### Command (rational representation)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"HELLO\",\"rel\":\"WORLD\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]]}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -60,10 +75,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "action": "Buy",
     "base": "HELLO",
     "base_amount": "1",
+    "base_amount_rat": [[1,[1]],[1,[1]]],
     "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
     "method": "request",
     "rel": "WORLD",
     "rel_amount": "1",
+    "rel_amount_rat": [[1,[1]],[1,[1]]],
     "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
     "uuid": "288743e2-92a5-471e-92d5-bb828a2303c3"
   }
@@ -75,6 +92,14 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 ```json
 {
   "error": "rpc:278] utxo:884] REL balance 12.88892991 is too low, required 21.15"
+}
+```
+
+#### Response (error)
+
+```json
+{
+  "error":"rpc:275] lp_ordermatch:665] The WORLD amount 40000/3 is larger than available 47.60450107, balance: 47.60450107, locked by swaps: 0.00000000"
 }
 ```
 
@@ -917,106 +942,113 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result": {
-    "maker_orders": {
-      "fedd5261-a57e-4cbf-80ac-b3507045e140": {
-        "base": "BEER",
-        "created_at": 1560529042434,
-        "available_amount": "1",
-        "cancellable": true,
-        "matches": {
-          "60aaacca-ed31-4633-9326-c9757ea4cf78": {
-            "connect": {
-              "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-              "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
-              "method": "connect",
-              "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
+  "result":{
+    "maker_orders":{
+      "ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c":{
+        "available_amount":"1",
+        "base":"BEER",
+        "cancellable":true,
+        "created_at":1568808684710,
+        "matches":{
+          "60aaacca-ed31-4633-9326-c9757ea4cf78":{
+            "connect":{
+              "dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+              "maker_order_uuid":"fedd5261-a57e-4cbf-80ac-b3507045e140",
+              "method":"connect",
+              "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "taker_order_uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
             },
-            "connected": {
-              "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
-              "method": "connected",
-              "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-              "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
+            "connected":{
+              "dest_pub_key":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "maker_order_uuid":"fedd5261-a57e-4cbf-80ac-b3507045e140",
+              "method":"connected",
+              "sender_pubkey":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+              "taker_order_uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
             },
-            "last_updated": 1560529572571,
-            "request": {
-              "action": "Buy",
-              "base": "BEER",
-              "base_amount": "1",
-              "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
-              "method": "request",
-              "rel": "PIZZA",
-              "rel_amount": "1",
-              "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
+            "last_updated":1560529572571,
+            "request":{
+              "action":"Buy",
+              "base":"BEER",
+              "base_amount":"1",
+              "dest_pub_key":"0000000000000000000000000000000000000000000000000000000000000000",
+              "method":"request",
+              "rel":"PIZZA",
+              "rel_amount":"1",
+              "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
             },
-            "reserved": {
-              "base": "BEER",
-              "base_amount": "1",
-              "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
-              "method": "reserved",
-              "rel": "PIZZA",
-              "rel_amount": "1",
-              "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-              "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
+            "reserved":{
+              "base":"BEER",
+              "base_amount":"1",
+              "dest_pub_key":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "maker_order_uuid":"fedd5261-a57e-4cbf-80ac-b3507045e140",
+              "method":"reserved",
+              "rel":"PIZZA",
+              "rel_amount":"1",
+              "sender_pubkey":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+              "taker_order_uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
             }
           }
         },
-        "max_base_vol": "1",
-        "min_base_vol": "0",
-        "price": "1",
-        "rel": "PIZZA",
-        "started_swaps": ["60aaacca-ed31-4633-9326-c9757ea4cf78"],
-        "uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140"
+        "max_base_vol":"1",
+        "max_base_vol_rat":[[1,[1]],[1,[1]]],
+        "min_base_vol":"0",
+        "min_base_vol_rat":[[0,[]],[1,[1]]],
+        "price":"1",
+        "price_rat":[[1,[1]],[1,[1]]],
+        "rel":"ETOMIC",
+        "started_swaps":[
+          "60aaacca-ed31-4633-9326-c9757ea4cf78"
+        ],
+        "uuid":"ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c"
       }
     },
-    "taker_orders": {
-      "45252de5-ea9f-44ae-8b48-85092a0c99ed": {
-        "created_at": 1560529048998,
-        "cancellable": true,
-        "matches": {
-          "15922925-cc46-4219-8cbd-613802e17797": {
-            "connect": {
-              "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
-              "method": "connect",
-              "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-              "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
+    "taker_orders":{
+      "ea199ac4-b216-4a04-9f08-ac73aa06ae37":{
+        "cancellable":true,
+        "created_at":1568811351456,
+        "matches":{
+          "15922925-cc46-4219-8cbd-613802e17797":{
+            "connect":{
+              "dest_pub_key":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "maker_order_uuid":"15922925-cc46-4219-8cbd-613802e17797",
+              "method":"connect",
+              "sender_pubkey":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+              "taker_order_uuid":"45252de5-ea9f-44ae-8b48-85092a0c99ed"
             },
-            "connected": {
-              "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-              "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
-              "method": "connected",
-              "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
+            "connected":{
+              "dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+              "maker_order_uuid":"15922925-cc46-4219-8cbd-613802e17797",
+              "method":"connected",
+              "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "taker_order_uuid":"45252de5-ea9f-44ae-8b48-85092a0c99ed"
             },
-            "last_updated": 1560529049477,
-            "reserved": {
-              "base": "BEER",
-              "base_amount": "1",
-              "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-              "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
-              "method": "reserved",
-              "rel": "ETOMIC",
-              "rel_amount": "1",
-              "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
+            "last_updated":1560529049477,
+            "reserved":{
+              "base":"BEER",
+              "base_amount":"1",
+              "dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+              "maker_order_uuid":"15922925-cc46-4219-8cbd-613802e17797",
+              "method":"reserved",
+              "rel":"ETOMIC",
+              "rel_amount":"1",
+              "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "taker_order_uuid":"45252de5-ea9f-44ae-8b48-85092a0c99ed"
             }
           }
         },
-        "request": {
-          "action": "Buy",
-          "base": "BEER",
-          "base_amount": "1",
-          "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
-          "method": "request",
-          "rel": "ETOMIC",
-          "rel_amount": "1",
-          "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
+        "request":{
+          "action":"Buy",
+          "base":"BEER",
+          "base_amount":"1",
+          "base_amount_rat":[[1,[1]],[1,[1]]],
+          "dest_pub_key":"0000000000000000000000000000000000000000000000000000000000000000",
+          "method":"request",
+          "rel":"ETOMIC",
+          "rel_amount":"1",
+          "rel_amount_rat":[[1,[1]],[1,[1]]],
+          "sender_pubkey":"031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
+          "uuid":"ea199ac4-b216-4a04-9f08-ac73aa06ae37"
         }
       }
     }
@@ -2157,62 +2189,65 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result": {
-    "type": "Maker",
-    "order": {
-      "base": "BEER",
-      "created_at": 1560529042434,
-      "available_amount": "1",
-      "cancellable": true,
-      "matches": {
-        "60aaacca-ed31-4633-9326-c9757ea4cf78": {
-          "connect": {
-            "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-            "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
-            "method": "connect",
-            "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-            "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
-          },
-          "connected": {
-            "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-            "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
-            "method": "connected",
-            "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-            "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
-          },
-          "last_updated": 1560529572571,
-          "request": {
-            "action": "Buy",
-            "base": "BEER",
-            "base_amount": "1",
-            "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
-            "method": "request",
-            "rel": "PIZZA",
-            "rel_amount": "1",
-            "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-            "uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
-          },
-          "reserved": {
-            "base": "BEER",
-            "base_amount": "1",
-            "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-            "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
-            "method": "reserved",
-            "rel": "PIZZA",
-            "rel_amount": "1",
-            "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-            "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
-          }
+  "order":{
+    "available_amount":"1",
+    "base":"BEER",
+    "cancellable":true,
+    "created_at":1568808684710,
+    "matches":{
+      "60aaacca-ed31-4633-9326-c9757ea4cf78":{
+        "connect":{
+          "dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "maker_order_uuid":"fedd5261-a57e-4cbf-80ac-b3507045e140",
+          "method":"connect",
+          "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "taker_order_uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
+        },
+        "connected":{
+          "dest_pub_key":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "maker_order_uuid":"fedd5261-a57e-4cbf-80ac-b3507045e140",
+          "method":"connected",
+          "sender_pubkey":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "taker_order_uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
+        },
+        "last_updated":1560529572571,
+        "request":{
+          "action":"Buy",
+          "base":"BEER",
+          "base_amount":"1",
+          "dest_pub_key":"0000000000000000000000000000000000000000000000000000000000000000",
+          "method":"request",
+          "rel":"PIZZA",
+          "rel_amount":"1",
+          "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
+        },
+        "reserved":{
+          "base":"BEER",
+          "base_amount":"1",
+          "dest_pub_key":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "maker_order_uuid":"fedd5261-a57e-4cbf-80ac-b3507045e140",
+          "method":"reserved",
+          "rel":"PIZZA",
+          "rel_amount":"1",
+          "sender_pubkey":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "taker_order_uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
         }
-      },
-      "max_base_vol": "1",
-      "min_base_vol": "0",
-      "price": "1",
-      "rel": "PIZZA",
-      "started_swaps": ["60aaacca-ed31-4633-9326-c9757ea4cf78"],
-      "uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140"
-    }
-  }
+      }
+    },
+    "max_base_vol":"1",
+    "max_base_vol_rat":[[1,[1]],[1,[1]]],
+    "min_base_vol":"0",
+    "min_base_vol_rat":[[0,[]],[1,[1]]],
+    "price":"1",
+    "price_rat":[[1,[1]],[1,[1]]],
+    "rel":"ETOMIC",
+    "started_swaps":[
+      "60aaacca-ed31-4633-9326-c9757ea4cf78"
+    ],
+    "uuid":"ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c"
+  },
+  "type":"Maker"
 }
 ```
 
@@ -2220,54 +2255,54 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result": {
-    "type": "Taker",
-    "order": {
-      "created_at": 1560529048998,
-      "cancellable": true,
-      "matches": {
-        "15922925-cc46-4219-8cbd-613802e17797": {
-          "connect": {
-            "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-            "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
-            "method": "connect",
-            "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-            "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
-          },
-          "connected": {
-            "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-            "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
-            "method": "connected",
-            "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-            "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
-          },
-          "last_updated": 1560529049477,
-          "reserved": {
-            "base": "BEER",
-            "base_amount": "1",
-            "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-            "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
-            "method": "reserved",
-            "rel": "ETOMIC",
-            "rel_amount": "1",
-            "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-            "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
-          }
+  "order":{
+    "cancellable":true,
+    "created_at":1568811351456,
+    "matches":{
+      "15922925-cc46-4219-8cbd-613802e17797":{
+        "connect":{
+          "dest_pub_key":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "maker_order_uuid":"15922925-cc46-4219-8cbd-613802e17797",
+          "method":"connect",
+          "sender_pubkey":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "taker_order_uuid":"45252de5-ea9f-44ae-8b48-85092a0c99ed"
+        },
+        "connected":{
+          "dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "maker_order_uuid":"15922925-cc46-4219-8cbd-613802e17797",
+          "method":"connected",
+          "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "taker_order_uuid":"45252de5-ea9f-44ae-8b48-85092a0c99ed"
+        },
+        "last_updated":1560529049477,
+        "reserved":{
+          "base":"BEER",
+          "base_amount":"1",
+          "dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "maker_order_uuid":"15922925-cc46-4219-8cbd-613802e17797",
+          "method":"reserved",
+          "rel":"ETOMIC",
+          "rel_amount":"1",
+          "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "taker_order_uuid":"45252de5-ea9f-44ae-8b48-85092a0c99ed"
         }
-      },
-      "request": {
-        "action": "Buy",
-        "base": "BEER",
-        "base_amount": "1",
-        "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
-        "method": "request",
-        "rel": "ETOMIC",
-        "rel_amount": "1",
-        "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-        "uuid": "c3b3105c-e914-4ed7-9f1c-604783b054a1"
       }
+    },
+    "request":{
+      "action":"Buy",
+      "base":"BEER",
+      "base_amount":"1",
+      "base_amount_rat":[[1,[1]],[1,[1]]],
+      "dest_pub_key":"0000000000000000000000000000000000000000000000000000000000000000",
+      "method":"request",
+      "rel":"ETOMIC",
+      "rel_amount":"1",
+      "rel_amount_rat":[[1,[1]],[1,[1]]],
+      "sender_pubkey":"031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
+      "uuid":"ea199ac4-b216-4a04-9f08-ac73aa06ae37"
     }
-  }
+  },
+  "type":"Taker"
 }
 ```
 
@@ -2297,28 +2332,27 @@ The `orderbook` method requests from the network the currently available orders 
 
 #### Response
 
-| Structure | Type             | Description                                                                   |
-| --------- | ---------------- | ----------------------------------------------------------------------------- |
-| bids      | array            | an array of objects containing outstanding bids (from Alice nodes)            |
-| numbids   | number           | the number of outstanding bids                                                |
-| biddepth  | number           | `deprecated`                                                                  |
-| asks      | array            | an array of objects containing outstanding asks (from Bob nodes)              |
-| coin      | string           | the name of the `base` coin; the user desires this                            |
-| address   | string           | the address offering the trade                                                |
-| price     | string (decimal) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| numutxos  | number           | `deprecated` the number of utxos the offer provider has in their wallet       |
-| avevolume | number           | `deprecated` the average volume of `coin` per utxo                            |
-| maxvolume | number           | the total amount of `base` coins the offer provider has in their wallet       |
-| depth     | number           | `deprecated`                                                                  |
-| pubkey    | string           | the pubkey of the offer provider                                              |
-| age       | number           | the age of the offer                                                          |
-| zcredits  | number           | the zeroconf deposit amount                                                   |
-| numasks   | number           | the total number of asks                                                      |
-| askdepth  | number           | the depth of the ask requests                                                 |
-| base      | string           | the name of the coin the user desires to receive                              |
-| rel       | string           | the name of the coin the user will trade                                      |
-| timestamp | number           | the timestamp of the orderbook request                                        |
-| netid     | number           | the id of the network on which the request is made (default is `0`)           |
+| Structure      | Type             | Description                                                                   |
+| -------------- | ---------------- | ----------------------------------------------------------------------------- |
+| bids           | array            | an array of objects containing outstanding bids                               |
+| numbids        | number           | the number of outstanding bids                                                |
+| biddepth       | number           | `deprecated`                                                                  |
+| asks           | array            | an array of objects containing outstanding asks                               |
+| coin           | string           | the name of the `base` coin; the user desires this                            |
+| address        | string           | the address offering the trade                                                |
+| price          | string (decimal) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| price_rat      | rational         | the price in rational representation                                          |
+| maxvolume      | number           | the total amount of `base` coins the offer provider has in their wallet       |
+| max_volume_rat | rational         | the max volume in rational representation                                     |
+| pubkey         | string           | the pubkey of the offer provider                                              |
+| age            | number           | the age of the offer                                                          |
+| zcredits       | number           | the zeroconf deposit amount                                                   |
+| numasks        | number           | the total number of asks                                                      |
+| askdepth       | number           | the depth of the ask requests                                                 |
+| base           | string           | the name of the coin the user desires to receive                              |
+| rel            | string           | the name of the coin the user will trade                                      |
+| timestamp      | number           | the timestamp of the orderbook request                                        |
+| netid          | number           | the id of the network on which the request is made (default is `0`)           |
 
 #### :pushpin: Examples
 
@@ -2336,29 +2370,28 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "bids": [],
-  "numbids": 0,
-  "biddepth": 0,
-  "asks": [
+  "askdepth":0,
+  "asks":[
     {
       "coin": "HELLO",
       "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
-      "price": "0.89999998",
-      "numutxos": 0,
-      "avevolume": 0,
-      "maxvolume": 10855.85028615,
-      "depth": 0,
-      "pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-      "age": 11,
-      "zcredits": 0
+      "price": "1.33333333",
+      "price_rat":[[1,[4]],[1,[3]]],
+      "maxvolume":997.0,
+      "max_volume_rat":[[1,[997]],[1,[1]]],
+      "pubkey":"631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
+      "age":1,
+      "zcredits":0
     }
   ],
-  "numasks": 1,
-  "askdepth": 0,
-  "base": "HELLO",
-  "rel": "WORLD",
-  "timestamp": 1549327944,
-  "netid": 9999
+  "base":"HELLO",
+  "biddepth":0,
+  "bids":[],
+  "netid":9999,
+  "numasks":1,
+  "numbids":0,
+  "rel":"WORLD",
+  "timestamp":1568807329
 }
 ```
 
@@ -2459,34 +2492,42 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 
 #### Arguments
 
-| Structure | Type             | Description                                                                       |
-| --------- | ---------------- | --------------------------------------------------------------------------------- |
-| base      | string           | the name of the coin the user desires to sell                                     |
-| rel       | string           | the name of the coin the user desires to receive                                  |
-| price     | string (numeric) | the price in `rel` the user is willing to receive per one unit of the `base` coin |
-| volume    | string (numeric) | the amount of coins the user is willing to sell of the `base` coin                |
+| Structure | Type                                    | Description                                                                       |
+| --------- | --------------------------------------- | --------------------------------------------------------------------------------- |
+| base      | string                                  | the name of the coin the user desires to sell                                     |
+| rel       | string                                  | the name of the coin the user desires to receive                                  |
+| price     | numeric string (deprecated) or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
+| volume    | numeric string (deprecated) or rational | the amount of coins the user is willing to sell of the `base` coin                |
 
 #### Response
 
-| Structure            | Type   | Description                                                                                                                                                                                                     |
-| -------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result               | object | the resulting order object                                                                                                                                                                                      |
-| result.action        | string | the action of the request (`Sell`)                                                                                                                                                                              |
-| result.base          | string | the base currency of the request                                                                                                                                                                                |
-| result.base_amount   | string | the resulting amount of base currency that will be sold if the order matches                                                                                                                                    |
-| result.rel           | string | the rel currency of the request                                                                                                                                                                                 |
-| result.rel_amount    | string | the minimum amount of `rel` coin that will be received to sell the `base_amount` of `base` (according to `price`)                                                                                               |
-| result.method        | string | this field is used for internal P2P interactions; the value is always equal to "request"                                                                                                                        |
-| result.dest_pub_key  | string | reserved for future use. The `dest_pub_key` will allow the user to choose the P2P node that is be eligible to match with the request. This value defaults to "zero pubkey", which means that `anyone` can match |
-| result.sender_pubkey | string | the public key of our node                                                                                                                                                                                      |
-| result.uuid          | string | the request uuid                                                                                                                                                                                                |
+| Structure              | Type     | Description                                                                                                                                                                                                     |
+| ---------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                 | object   | the resulting order object                                                                                                                                                                                      |
+| result.action          | string   | the action of the request (`Sell`)                                                                                                                                                                              |
+| result.base            | string   | the base currency of the request                                                                                                                                                                                |
+| result.base_amount     | string   | the resulting amount of base currency that will be sold if the order matches (in decimal representation)                                                                                                        |
+| result.base_amount_rat | rational | the resulting amount of base currency that will be sold if the order matches (in rational representation)                                                                                                       |
+| result.rel             | string   | the rel currency of the request                                                                                                                                                                                 |
+| result.rel_amount      | string   | the minimum amount of `rel` coin that will be received to sell the `base_amount` of `base` (according to `price`, in decimal representation)                                                                    |
+| result.rel_amount_rat  | rational | the minimum amount of `rel` coin that will be received to sell the `base_amount` of `base` (according to `price`, in rational representation)                                                                   |
+| result.method          | string   | this field is used for internal P2P interactions; the value is always equal to "request"                                                                                                                        |
+| result.dest_pub_key    | string   | reserved for future use. The `dest_pub_key` will allow the user to choose the P2P node that is be eligible to match with the request. This value defaults to "zero pubkey", which means that `anyone` can match |
+| result.sender_pubkey   | string   | the public key of our node                                                                                                                                                                                      |
+| result.uuid            | string   | the request uuid                                                                                                                                                                                                |
 
 #### :pushpin: Examples
 
-#### Command
+#### Command (decimal representation)
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":\"1\",\"price\":\"1\"}"
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":"\"1\"",\"price\":"\"1\""}"
+```
+
+#### Command (rational representation)
+
+```bash
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"sell\",\"base\":\"BASE\",\"rel\":\"REL\",\"volume\":[[1,[1]],[1,[1]]],\"price\":[[1,[1]],[1,[1]]]}"
 ```
 
 <div style="margin-top: 0.5rem;">
@@ -2501,10 +2542,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "action": "Sell",
     "base": "BASE",
     "base_amount": "1",
+    "base_amount_rat": [[1,[1]],[1,[1]]],
     "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
     "method": "request",
     "rel": "REL",
     "rel_amount": "1",
+    "rel_amount_rat": [[1,[1]],[1,[1]]],
     "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
     "uuid": "d14452bb-e82d-44a0-86b0-10d4cdcb8b24"
   }
@@ -2576,29 +2619,32 @@ The `setprice` order is always considered a `sell`, for internal implementation 
 
 #### Arguments
 
-| Structure       | Type             | Description                                                                                                              |
-| --------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| base            | string           | the name of the coin the user desires to sell                                                                            |
-| rel             | string           | the name of the coin the user desires to receive                                                                         |
-| price           | string (numeric) | the price in `rel` the user is willing to receive per one unit of the `base` coin                                        |
-| volume          | string (numeric) | the maximum amount of `base` coin available for the order, ignored if max is `true`                                      |
-| max             | bool             | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                |
-| cancel_previous | bool             | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior |
+| Structure       | Type                                    | Description                                                                                                              |
+| --------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| base            | string                                  | the name of the coin the user desires to sell                                                                            |
+| rel             | string                                  | the name of the coin the user desires to receive                                                                         |
+| price           | numeric string (deprecated) or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                        |
+| volume          | numeric string (deprecated) or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`                                      |
+| max             | bool                                    | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                |
+| cancel_previous | bool                                    | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior |
 
 #### Response
 
-| Structure            | Type             | Description                                                                                                                                          |
-| -------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result               | object           | the resulting order object                                                                                                                           |
-| result.base          | string           | the base coin of the order                                                                                                                           |
-| result.rel           | string           | the rel coin of the order                                                                                                                            |
-| result.price         | string (numeric) | the expected amount of `rel` coin to be received per 1 unit of `base` coin, returned as a string to avoid floating point representation errors       |
-| result.max_base_vol  | string (numeric) | the maximum volume of base coin available to trade, returned as a string to avoid floating point representation errors                               |
-| result.min_base_vol  | string (numeric) | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; returned as a string to avoid floating point representation errors |
-| result.created_at    | number           | unix timestamp in milliseconds, indicating the order creation time                                                                                   |
-| result.matches       | object           | contains the map of ongoing matches with other orders, empty as the order was recently created                                                       |
-| result.started_swaps | array of strings | uuids of swaps that were initiated by the order                                                                                                      |
-| result.uuid          | string           | uuid of the created order                                                                                                                            |
+| Structure               | Type             | Description                                                                                                                                          |
+| ----------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                  | object           | the resulting order object                                                                                                                           |
+| result.base             | string           | the base coin of the order                                                                                                                           |
+| result.rel              | string           | the rel coin of the order                                                                                                                            |
+| result.price            | string (numeric) | the expected amount of `rel` coin to be received per 1 unit of `base` coin; decimal representation                                                   |
+| result.price_rat        | rational         | the expected amount of `rel` coin to be received per 1 unit of `base` coin; rational representation                                                  |
+| result.max_base_vol     | string (numeric) | the maximum volume of base coin available to trade; decimal representation                                                                           |
+| result.max_base_vol_rat | rational         | the maximum volume of base coin available to trade; rational representation                                                                          |
+| result.min_base_vol     | string (numeric) | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; decimal representation                                             |
+| result.min_base_vol_rat | rational         | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; rational representation                                            |
+| result.created_at       | number           | unix timestamp in milliseconds, indicating the order creation time                                                                                   |
+| result.matches          | object           | contains the map of ongoing matches with other orders, empty as the order was recently created                                                       |
+| result.started_swaps    | array of strings | uuids of swaps that were initiated by the order                                                                                                      |
+| result.uuid             | string           | uuid of the created order                                                                                                                            |
 
 #### :pushpin: Examples
 
@@ -2626,10 +2672,13 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "base": "BASE",
     "rel": "REL",
     "max_base_vol": "1",
+    "max_base_vol_rat": [[1,[1]],[1,[1]]],
     "min_base_vol": "0",
+    "min_base_vol": [[0,[]],[1,[1]]],
     "created_at": 1559052299258,
     "matches": {},
     "price": "1",
+    "price_rat": [[1,[1]],[1,[1]]],
     "started_swaps": [],
     "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41"
   }
@@ -2662,15 +2711,15 @@ Please note that this setting is _**not**_ persistent. The value must be reset i
 
 | Structure       | Type             | Description                                                                                                              |
 | --------------- | ---------------- | ------------------------------------------------------------- |
-| coin            | string           | the ticker of the selected coin                       |
-| confirmations   | number           | the number of confirmations to require                          |
+| coin            | string           | the ticker of the selected coin                               |
+| confirmations   | number           | the number of confirmations to require                        |
 
 #### Response
 
 | Structure            | Type             | Description                                                                                                                                          |
-| -------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result.coin          | string           | the coin selected in the request                                              |
-| result.confirmations | number           | the number of confirmations in the request                                  |
+| -------------------- | ---------------- | -------------------------------------------------------- |
+| result.coin          | string           | the coin selected in the request                         |
+| result.confirmations | number           | the number of confirmations in the request               |
 
 #### :pushpin: Examples
 
