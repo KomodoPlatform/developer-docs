@@ -1547,6 +1547,7 @@ The `my_swap_status` method returns the data of an atomic swap executed on a MM2
 | type           | string           | whether the node acted as a market `Maker` or `Taker`                                                                                      |
 | uuid           | string           | swap uuid                                                                                                                                  |
 | my_info        | object           | this object maps event data to make displaying swap data in a GUI simpler (`my_coin`, `my_amount`, etc.)                                   |
+| recoverable    | bool             | whether the swap can be recovered by using `recover_funds_of_swap` API; important note on this field is MM2 does not keep the state whether the swap was then recovered or not; it allows to call `recover_funds_of_swap` as many times as required in case of errors |
 
 #### :pushpin: Examples
 
@@ -1765,6 +1766,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
       "other_coin": "BEER",
       "started_at": 1561481967
     },
+    "recoverable": false,
     "success_events": [
       "Started",
       "Negotiated",
@@ -1960,6 +1962,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
       "other_coin": "PIZZA",
       "started_at": 1561529842
     },
+    "recoverable": false,
     "success_events": [
       "Started",
       "Negotiated",
