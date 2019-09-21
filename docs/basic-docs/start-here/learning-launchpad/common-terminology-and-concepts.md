@@ -86,7 +86,7 @@ A block reward is a financial reward given to the miner or staker who finds the 
 
 Because the Komodo ecosystem and the KMD main chain are designed to avoid competing directly with the Bitcoin hash rate, KMD also features a different kind of block reward. 
 
-Users automatically receive a 5.1% APR reward (given in KMD) for holding +10KMD in any address on the KMD main chain.
+Users automatically receive a monthly 5.1% Reward (given in KMD) for holding +10KMD in any address on the KMD main chain.
 
 This reward derives from the funds that would otherwise be granted to a miner on a competitive Proof-of-Work based blockchain.
 
