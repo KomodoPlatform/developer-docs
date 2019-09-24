@@ -25,12 +25,12 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 
 #### Arguments
 
-| Structure | Type                                    | Description                                                                   |
-| --------- | --------------------------------------- | ----------------------------------------------------------------------------- |
-| base      | string                                  | the name of the coin the user desires to receive                              |
-| rel       | string                                  | the name of the coin the user desires to sell                                 |
-| price     | numeric string (deprecated) or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
-| volume    | numeric string (deprecated) or rational | the amount of coins the user is willing to receive of the `base` coin         |
+| Structure | Type                       | Description                                                                   |
+| --------- | -------------------------- | ----------------------------------------------------------------------------- |
+| base      | string                     | the name of the coin the user desires to receive                              |
+| rel       | string                     | the name of the coin the user desires to sell                                 |
+| price     | numeric string or rational | the price in `rel` the user is willing to pay per one unit of the `base` coin |
+| volume    | numeric string or rational | the amount of coins the user is willing to receive of the `base` coin         |
 
 #### Response
 
@@ -2546,12 +2546,12 @@ Buy and sell methods always create the `taker` order first. Therefore, you must 
 
 #### Arguments
 
-| Structure | Type                                    | Description                                                                       |
-| --------- | --------------------------------------- | --------------------------------------------------------------------------------- |
-| base      | string                                  | the name of the coin the user desires to sell                                     |
-| rel       | string                                  | the name of the coin the user desires to receive                                  |
-| price     | numeric string (deprecated) or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
-| volume    | numeric string (deprecated) or rational | the amount of coins the user is willing to sell of the `base` coin                |
+| Structure | Type                       | Description                                                                       |
+| --------- | -------------------------- | --------------------------------------------------------------------------------- |
+| base      | string                     | the name of the coin the user desires to sell                                     |
+| rel       | string                     | the name of the coin the user desires to receive                                  |
+| price     | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin |
+| volume    | numeric string or rational | the amount of coins the user is willing to sell of the `base` coin                |
 
 #### Response
 
@@ -2673,14 +2673,14 @@ The `setprice` order is always considered a `sell`, for internal implementation 
 
 #### Arguments
 
-| Structure       | Type                                    | Description                                                                                                              |
-| --------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| base            | string                                  | the name of the coin the user desires to sell                                                                            |
-| rel             | string                                  | the name of the coin the user desires to receive                                                                         |
-| price           | numeric string (deprecated) or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                        |
-| volume          | numeric string (deprecated) or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`                                      |
-| max             | bool                                    | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                |
-| cancel_previous | bool                                    | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior |
+| Structure       | Type                       | Description                                                                                                              |
+| --------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| base            | string                     | the name of the coin the user desires to sell                                                                            |
+| rel             | string                     | the name of the coin the user desires to receive                                                                         |
+| price           | numeric string or rational | the price in `rel` the user is willing to receive per one unit of the `base` coin                                        |
+| volume          | numeric string or rational | the maximum amount of `base` coin available for the order, ignored if max is `true`                                      |
+| max             | bool                       | MM2 will use the entire coin balance for the order, taking `0.001` coins into reserve to account for fees                |
+| cancel_previous | bool                       | MM2 will cancel all existing orders for the selected pair by default; set this value to `false` to prevent this behavior |
 
 #### Response
 
