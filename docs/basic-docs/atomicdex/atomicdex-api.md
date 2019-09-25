@@ -2,14 +2,36 @@
 
 ## Note About Rational Number Type
 
-Starting from 2.0.1319_mm2_059381c81 version MM2 added [num-rational crate](https://crates.io/crates/num-rational) to represent orders volumes and prices.
-It is highly recommended to use rational type for orders price and volume calculation to avoid rounding/precision errors for numbers like `1/3` which can not be represented as finite decimal.
-The decimal representation is also returned by MM2 API, but it should be considered as convenience feature for readability.
-    
-The number is represented in JSON as follows: `[[1,[0,1]],[1,[1]]]` where first item `[1,[0,1]]` is `numerator` and second `[1,[1]]` is `denominator`.
+MM2 now offers the [num-rational crate](https://crates.io/crates/num-rational) feature. This is used to represent order volumes and prices.
 
-The `numerator` and `denominator` are BigInteger numbers represented as sign and uint32 array where numbers are 32 bit parts of big integer in little endian order. 
-`[1,[0,1]]` represents `+0000000000000000000000000000000010000000000000000000000000000000` = `4294967296`,  `[-1,[1,1]]` represents `-1000000000000000000000000000000010000000000000000000000000000000` = `-4294967297` and so on.
+Komodo highly recommends that the developer use the rational number type when calculating an order's price and volume. This avoids rounding and precision errors when calculating numbers such as `1/3`, as these cannot be represented as a finite decimal.
+
+The MM2 API typically will return both the rational number type as well as the decimal representation, but the decimal representation should be considered only a convenience feature for readability.
+    
+The number is represented in JSON as follows: 
+
+```json
+[[1,[0,1]],[1,[1]]]
+```
+
+The first item, `[1,[0,1]]`, is the `numerator`. 
+
+The second item, `[1,[1]]`, is the `denominator`.
+
+The `numerator` and `denominator` are BigInteger numbers represented as a sign and uint32 array (where numbers are 32 bit parts of big integer in little endian order). 
+
+`[1,[0,1]]` represents `+0000000000000000000000000000000010000000000000000000000000000000` = `4294967296`
+
+`[-1,[1,1]]` represents `-1000000000000000000000000000000010000000000000000000000000000000` = `-4294967297`
+
+<!--
+
+Sidd: The following was removed from the first sentence above. The readability here is difficult, and if all versions of MM2 going forward offer num-rational crate, there is no need to include the version number, I believe? Let me know if we should still keep it.
+
+
+Starting from 2.0.1319_mm2_059381c81 version MM2
+
+-->
 
 ## buy
 
@@ -863,8 +885,9 @@ The `help` method returns the full API documentation in the terminal.
 
 **import_swaps swaps**
 
-The `import_swaps` method imports swaps data exported from another MM2 instance to local DB.
-Use this in combination with `my_swap_status` or `my_recent_swaps` to copy the swap history between different devices.
+The `import_swaps` method imports to the local database the `swaps` data that was exported from another MM2 instance.
+
+Use this method in combination with `my_swap_status` or `my_recent_swaps` to copy the swap history between different devices.
 
 #### Arguments
 
