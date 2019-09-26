@@ -2476,7 +2476,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## recover_funds_of_swap
+## recover\_funds\_of\_swap
 
 **recover_funds_of_swap uuid**
 
