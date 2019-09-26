@@ -213,6 +213,8 @@ The following table presents an abbreviated list of EVAL codes. For more informa
 
 | Name of the module | EvalCode |
 | ------------------ | -------- |
+| IMPORTPAYOUT       | 225      |
+| IMPORTCOIN         | 226      |
 | ASSETS             | 227      |
 | FAUCET             | 228      |
 | REWARDS            | 229      |
@@ -228,6 +230,8 @@ The following table presents an abbreviated list of EVAL codes. For more informa
 | TRIGGERS           | 239      |
 | PAYMENTS           | 240      |
 | GATEWAYS           | 241      |
+| TOKENS             | 242      |
+| IMPORTGATEWAYS     | 243      |
 
 For example, the following parameters create a Smart Chain where only the `faucet` and `rewards` modules are active:
 
