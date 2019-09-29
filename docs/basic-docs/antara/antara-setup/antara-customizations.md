@@ -34,19 +34,7 @@ One method by which `ac_adaptivepow` alleviates the vulnerability is the changin
 
 This makes the process of lowering the difficulty easier and faster, as the DAA can take into account the amount of time the miners on the network are consuming to find a new block. If the amount of time is too high, the DAA can lower the difficulty as needed. More details on the implementation and rationale can be found in this [blog post.](https://medium.com/@jameslee777/adaptivepow-the-solution-to-diff-stranding-of-smaller-blockchains-425609df5563)
 
-#### Schedule of ac_adapativepow Addition
-
-###### Before the 31st of October, 2019
-
-- adding the parameter `-ac_adaptivepow=1` enables AdaptivePoW for a newly created Smart Chain
-- not adding the parameter doesn't have any effect for a newly created Smart Chain
-- existing Smart Chains are not affected
-
-###### After the 31st of October, 2019
-
-- all the newly created Smart Chains that are 100% PoW have AdaptivePoW enabled by default
-- a newly created Smart Chain that does not want this feature should set the parameter as follows: `-ac_adaptivepow=-1`
-- existing Smart Chains are not affected
+Adding the parameter `-ac_adaptivepow=1` enables AdaptivePoW for a newly created Smart Chain.
 
 ## ac_algo
 
@@ -111,6 +99,8 @@ The `ac_cc` parameter sets the network cluster on which the chain can interact w
 Once activated, the `ac_cc` parameter can allow features such as cross-chain fungibility -- coins on one Smart Chain can be directly transferred to any other Smart Chain that has the same `ac_cc` setting and the same set of notary nodes (same set of `notary pubkeys`) .
 
 Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, cross-chain transaction validation and its dependent features, including cross-chain fungibility, require notarization.
+
+If `ac_cc` is selected to be greater than 0, i.e., Antara is permitted on the Smart Chain, it is recommended to start the daemon with the [-pubkey](../../smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) parameter.
 
 ### ac_cc=0
 
@@ -225,6 +215,8 @@ The following table presents an abbreviated list of EVAL codes. For more informa
 
 | Name of the module | EvalCode |
 | ------------------ | -------- |
+| IMPORTPAYOUT       | 225      |
+| IMPORTCOIN         | 226      |
 | ASSETS             | 227      |
 | FAUCET             | 228      |
 | REWARDS            | 229      |
@@ -240,6 +232,8 @@ The following table presents an abbreviated list of EVAL codes. For more informa
 | TRIGGERS           | 239      |
 | PAYMENTS           | 240      |
 | GATEWAYS           | 241      |
+| TOKENS             | 242      |
+| IMPORTGATEWAYS     | 243      |
 
 For example, the following parameters create a Smart Chain where only the `faucet` and `rewards` modules are active:
 

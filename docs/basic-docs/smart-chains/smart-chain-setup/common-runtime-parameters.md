@@ -40,7 +40,7 @@ addnode=69.164.218.197
 
 We recommend that the user [manually delete the blockchain data](../../../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) before initiating this parameter.
 
-`addressindex` is enabled by default on any Smart Chain that utilizes Fluidity.
+`addressindex` is enabled by default on any Smart Chain that utilizes Antara.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the Smart Chain in this circumstance.
@@ -248,6 +248,19 @@ DEPRECATED
 
 `mempooltxinputlimit` is a runtime parameter inherited from Zcash. The functionality it facilitates is now enabled by default, and therefore the parameter is deprecated. Please see [the Zcash documentation for more information](https://blog.z.cash/new-release-1-1-0/).
 
+## port
+
+`port` tells the daemon to listen for p2p connections on the indicated TCP port, overwriting the default. The default p2pport for the Komodo(KMD) blockchain is 7770. The default p2p port of a Smart Chain is solely dependant on the `-ac_` [Antara customization parameters](../../antara/antara-setup/antara-customizations.html) and values used to launch it.
+
+
+#### :pushpin: Examples:
+
+Using port as a default value in the Smart Chain's `.conf` file:
+
+```bash
+port=8231
+```
+
 ## proxy
 
 `proxy` allows the user to connect via a `SOCKS5` proxy.
@@ -270,7 +283,7 @@ proxy=127.0.0.1:9050
 
 `pubkey` sets an address to use as a change address for all transactions. This value must be set to a 33 byte pubkey. All mined/staked coins will also be sent to this address. We recommend that the user ensure they own the corresponding `privkey` of their chosen `pubkey`, lest their funds be sent to a `pubkey` they do not own or control.
 
-The `pubkey` parameter is required for all Fluidity-enabled chains. All Fluidity transactions will utilize the `pubkey` as an integral property.
+The `pubkey` parameter is required for all Antara-enabled chains. All Antara transactions will utilize the `pubkey` as an integral property.
 
 #### :pushpin: Examples:
 
@@ -418,7 +431,7 @@ rpcconnect=127.0.0.1
 
 ## rpcport
 
-`rpcport` tells the daemon to listen for RPC connections on the indicated TCP port.
+`rpcport` tells the daemon to listen for RPC connections on the indicated TCP port overwriting the default. The default rpcport for the Komodo(KMD) blockchain is 7771. The default rpcport of a Smart Chain is solely dependant on the `-ac_` [Antara customization parameters](../../antara/antara-setup/antara-customizations.html) and values used to launch it.
 
 #### :pushpin: Examples:
 
@@ -464,7 +477,7 @@ server=1
 
 We recommend that the user [manually delete the blockchain data](../../../basic-docs/smart-chains/smart-chain-setup/smart-chain-maintenance.html#manually-deleting-blockchain-data) before initiating this parameter.
 
-`spentindex` is enabled by default on any Smart Chain that utilizes the Fluidity.
+`spentindex` is enabled by default on any Smart Chain that utilizes Antara.
 
 ::: tip
 The <b>reindex</b> parameter is not a viable alternative method for re-syncing the blockchain in this circumstance.
@@ -546,7 +559,7 @@ timestampindex=1
 
 `txindex` instructs a Smart Chain to track every transaction made on the relevant blockchain.
 
-`txindex` is enabled by default on all Smart Chains, and is utilized in delayed Proof of Work (dPoW), privacy modules, and Fluidity.
+`txindex` is enabled by default on all Smart Chains, and is utilized in delayed Proof of Work (dPoW), privacy modules, and Antara.
 
 ::: danger Warning!
 Disabling `txindex` will cause the default Smart Chain daemon to malfunction.

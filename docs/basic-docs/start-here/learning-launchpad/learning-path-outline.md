@@ -126,7 +126,7 @@ Priority: Recommended
 
 Difficulty: Normal
 
-Time: 1 - 5 Hours
+Time: 1 - 8 Hours
 
 -----------
 
