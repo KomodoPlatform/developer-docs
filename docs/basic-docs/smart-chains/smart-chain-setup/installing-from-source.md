@@ -65,7 +65,7 @@ sudo apt-get upgrade -y
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool libncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libqrencode-dev libdb++-dev ntp ntpdate nano software-properties-common curl libevent-dev libcurl4-gnutls-dev cmake clang libsodium-dev -y
 ```
 
-This action takes some time, depending on your Internet connection. Let the process run in the background. 
+This action takes some time, depending on your Internet connection. Let the process run in the background.
 
 Once completed, follow the steps below to install Komodo.
 
@@ -90,7 +90,7 @@ git checkout dev
 
 #### Build the Komodo Daemon
 
-In the command below, the `-j$(nproc)` parameter instructs the script to utilize all available processors in your hardware. 
+In the command below, the `-j$(nproc)` parameter instructs the script to utilize all available processors in your hardware.
 
 Alternatively, you may instruct the script to use only a set number of processors. For example, `-j8` instructs the script to use `8` processors, `-j4` instructs the script to use `4` processors, etc.
 
@@ -109,7 +109,7 @@ cd .komodo
 nano komodo.conf
 ```
 
-With the `komodo.conf` file open in the Nano text editor, add the following lines. 
+With the `komodo.conf` file open in the Nano text editor, add the following lines.
 
 (Create your own `rpcuser` username and `rpcpassword` password.)
 
@@ -139,7 +139,7 @@ cd komodo/src
 ./komodod &
 ```
 
-The `&` parameter in the last instruction above instructs the terminal to continue allowing you to enter commands within this terminal shell. 
+The `&` parameter in the last instruction above instructs the terminal to continue allowing you to enter commands within this terminal shell.
 
 #### (Optional) Tail the komodod Daemon
 
@@ -148,6 +148,7 @@ Enter the following command to "tail" the `komodod` daemon. The `tail` command a
 ```bash
 tail -f ~/.komodo/debug.log
 ```
+
 #### Test Your Daemon with komodo-cli
 
 Ensure that your current working directory is in the default `src` directory.
@@ -156,7 +157,7 @@ Ensure that your current working directory is in the default `src` directory.
 cd ~/komodo/src/
 ```
 
-You may now use the `komodo-cli` software to send API (RPC) calls to the `komodod` daemon. 
+You may now use the `komodo-cli` software to send API (RPC) calls to the `komodod` daemon.
 
 For example:
 
@@ -201,7 +202,7 @@ When the `blocks` and `longestchain` values are equal to each other, your machin
 
 We can not stress enough the importance of backing up your `wallet.dat` file.
 
-On Linux, the file is located here:  `~/.komodo/wallet.dat`
+On Linux, the file is located here: `~/.komodo/wallet.dat`
 
 One method to backup this file is to archive a copy of the file.
 
@@ -225,7 +226,7 @@ tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
 - OSX (version > 10.11)
 - Minimum 4GB of free RAM (8GB+ recommended)
 
-##### Ensure Command Line Tools are Installed. 
+##### Ensure Command Line Tools are Installed.
 
 Issue the following command in a terminal.
 
@@ -233,7 +234,7 @@ Issue the following command in a terminal.
 xcode-select --install
 ```
 
-##### Ensure brew is Installed 
+##### Ensure brew is Installed
 
 We use the software `brew` to install dependencies. If you have the latest version of `brew` installed already, you may skip this step.
 
@@ -341,7 +342,7 @@ When the returned properties of `blocks` and `longestchain` are equal to each ot
 
 We can not stress enough the importance of backing up your `wallet.dat` file.
 
-On MacOS, the file is located here:  `~/Library/Application\ Support/Komodo/wallet.dat`
+On MacOS, the file is located here: `~/Library/Application\ Support/Komodo/wallet.dat`
 
 One method to backup this file is to archive a copy of the file.
 
@@ -382,6 +383,46 @@ source $HOME/.cargo/env
 rustup target add x86_64-pc-windows-gnu
 ```
 
+#### Configure the compiler to use POSIX thread model
+
+Execute:
+
+```bash
+sudo update-alternatives --config x86_64-w64-mingw32-gcc
+```
+
+After executing the above command, select the POSIX option.
+
+```
+  Selection    Path                                   Priority   Status
+------------------------------------------------------------
+  0            /usr/bin/x86_64-w64-mingw32-gcc-win32   60        auto mode
+  1            /usr/bin/x86_64-w64-mingw32-gcc-posix   30        manual mode
+* 2            /usr/bin/x86_64-w64-mingw32-gcc-win32   60        manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 1
+```
+
+Execute:
+
+```bash
+sudo update-alternatives --config x86_64-w64-mingw32-g++
+```
+
+After executing the above command, select the POSIX option.
+
+```
+There are 2 choices for the alternative x86_64-w64-mingw32-g++ (providing /usr/bin/x86_64-w64-mingw32-g++).
+
+  Selection    Path                                   Priority   Status
+------------------------------------------------------------
+  0            /usr/bin/x86_64-w64-mingw32-g++-win32   60        auto mode
+  1            /usr/bin/x86_64-w64-mingw32-g++-posix   30        manual mode
+* 2            /usr/bin/x86_64-w64-mingw32-g++-win32   60        manual mode
+
+Press <enter> to keep the current choice[*], or type selection number: 1
+```
+
 #### Clone the Komodo Repository
 
 ```bash
@@ -419,7 +460,7 @@ mkdir "%HOMEPATH%\AppData\Roaming\komodo"
 #### Create the Configuration File
 
 ```bash
-notepad “%HOMEPATH%\AppData\Roaming\Komodo\komodo.conf”
+notepad "%HOMEPATH%\AppData\Roaming\Komodo\komodo.conf"
 ```
 
 When the software dialogue box opens, click `Yes` to create the `komodo.conf` file.
@@ -478,6 +519,6 @@ Download following files and move them into the new directory.
 
 We can not stress enough the importance of backing up your `wallet.dat` file.
 
-On Windows, the file is located here:  `%HOMEPATH%\AppData\Roaming\Komodo\wallet.dat`
+On Windows, the file is located here: `%HOMEPATH%\AppData\Roaming\Komodo\wallet.dat`
 
 One method to backup this file is to create a copy and archive it.

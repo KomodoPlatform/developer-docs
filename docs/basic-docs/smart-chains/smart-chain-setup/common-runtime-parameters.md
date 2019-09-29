@@ -250,7 +250,7 @@ DEPRECATED
 
 ## port
 
-`port` tells the daemon to listen for p2p connections on the indicated TCP port overwriting the default. The default p2pport for the Komodo(KMD) blockchain is 7770. The default p2p port of a Smart Chain is solely dependant on the `-ac_` [Antara customization parameters](../../antara/antara-setup/antara-customizations.html) and values used to launch it.
+`port` tells the daemon to listen for p2p connections on the indicated TCP port, overwriting the default. The default p2pport for the Komodo(KMD) blockchain is 7770. The default p2p port of a Smart Chain is solely dependant on the `-ac_` [Antara customization parameters](../../antara/antara-setup/antara-customizations.html) and values used to launch it.
 
 
 #### :pushpin: Examples:

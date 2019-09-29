@@ -100,6 +100,8 @@ Once activated, the `ac_cc` parameter can allow features such as cross-chain fun
 
 Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, cross-chain transaction validation and its dependent features, including cross-chain fungibility, require notarization.
 
+If `ac_cc` is selected to be greater than 0, i.e., Antara is permitted on the Smart Chain, it is recommended to start the daemon with the [-pubkey](../../smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) parameter.
+
 ### ac_cc=0
 
 Setting `ac_cc=0` disables Antara on the Smart Chain entirely.
@@ -213,6 +215,8 @@ The following table presents an abbreviated list of EVAL codes. For more informa
 
 | Name of the module | EvalCode |
 | ------------------ | -------- |
+| IMPORTPAYOUT       | 225      |
+| IMPORTCOIN         | 226      |
 | ASSETS             | 227      |
 | FAUCET             | 228      |
 | REWARDS            | 229      |
@@ -228,6 +232,8 @@ The following table presents an abbreviated list of EVAL codes. For more informa
 | TRIGGERS           | 239      |
 | PAYMENTS           | 240      |
 | GATEWAYS           | 241      |
+| TOKENS             | 242      |
+| IMPORTGATEWAYS     | 243      |
 
 For example, the following parameters create a Smart Chain where only the `faucet` and `rewards` modules are active:
 
