@@ -14,13 +14,14 @@ sidebar: auto
 ## Proof of Concept
 
 - [http://oracle.earth/](http://oracle.earth/) - Live demo of Oracles CC module
-- [https://github.com/gcharang/create-samrtchain](https://github.com/gcharang/create-smartchain) - Simple scripts to create a Komodo Smart Chain using a single node for testing (Has automated explorer installation too)
-- [https://github.com/tonymorony/komodo_cryptoconditions_tui](https://github.com/tonymorony/komodo_cryptoconditions_tui) - TUI for various CC modules written in python
+- [https://github.com/gcharang/create-smartchain](https://github.com/gcharang/create-smartchain) - Simple scripts to create a Komodo Smart Chain using a single node for testing (Has automated explorer installation too)
+- [https://github.com/tonymorony/komodo-cctools-python](https://github.com/tonymorony/komodo-cctools-python) - TUI for various CC modules written in python
 - [https://github.com/imylomylo/komodo-cakeshop](https://github.com/imylomylo/komodo-cakeshop) - Work in progress; An integrated development environment and SDK
 - [https://github.com/tonymorony/Komodoku](https://github.com/tonymorony/Komodoku) - Sudoku CC
 - [https://github.com/KMDLabs/trollbox](https://github.com/KMDLabs/trollbox) - On chain real time chat for KMD Smart Chains
 - [https://www.dragonhound.tech/](https://www.dragonhound.tech/)
   - Source code: [https://github.com/smk762/Dragonhound](https://github.com/smk762/Dragonhound) - GPS tracking a wandering hound with Particle.io via Komodo cryptoconditions oracles, displayed on Leaflet
+- [https://github.com/smk762/pytomicDEX](https://github.com/smk762/pytomicDEX) - Python CLI wrapper, tradebot and TUI for Marketmaker2
 
 ## Turnkey Solutions to run Komodo
 
@@ -39,7 +40,8 @@ sidebar: auto
 
 - [https://github.com/KMDLabs/StakedNotary](https://github.com/KMDLabs/StakedNotary) - scripts to easily run a Staked Notary
 - [https://github.com/KMDLabs/pos64staker](https://github.com/KMDLabs/pos64staker) - An automated staker for PoS Smart Chains, has an auto bootstrapper, and a dilithium menu
-- [https://github.com/smk762/kmd_pulp](https://github.com/smk762/kmd_pulp) - random assortment of small scripts for use in the Komodo ecosystem
+- [https://github.com/smk762/DragonhoundTools](https://github.com/smk762/DragonhoundTools) - random assortment of python scripts for use in the Komodo ecosystem (Antara Modules, MarketMaker 2, Notary Node ops)
+
 
 ## Notary stats
 
