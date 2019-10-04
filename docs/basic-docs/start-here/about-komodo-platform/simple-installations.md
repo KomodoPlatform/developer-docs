@@ -6,7 +6,7 @@ To install the Komodo daemon, `komodod`, and its necessary counterpart, `komodo-
 
 Downloadable packages are available for Linux, MacOS, and Windows.
 
-#### Link to Download Sofwtare
+#### Link to Download Software
 
 [Download and unzip the software files for your operating system..](https://github.com/KomodoPlatform/komodo/releases)
 
