@@ -100,7 +100,7 @@ Once activated, the `ac_cc` parameter can allow features such as cross-chain fun
 
 Most functionalities enabled by `ac_cc` can function with or without Komodo's notarization service. However, cross-chain transaction validation and its dependent features, including cross-chain fungibility, require notarization.
 
-If `ac_cc` is selected to be greater than 0, i.e., Antara is permitted on the Smart Chain, it is recommended to start the daemon with the [-pubkey](../../smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) parameter.
+If the `ac_cc` parameter is set to a value greater than `0` (i.e. Antara is permitted on the Smart Chain) users should include the [-pubkey](../../smart-chains/smart-chain-setup/common-runtime-parameters.html#pubkey) parameter when launching the daemon of this Smart Chain.
 
 ### ac_cc=0
 
