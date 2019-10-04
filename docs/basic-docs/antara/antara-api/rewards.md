@@ -37,8 +37,8 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 | Name | Type | Description | 
 | --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| result   | (string) | whether the command succeeded                                                                        |
+| hex      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -379,6 +379,7 @@ Use [rewardslist](../../../basic-docs/antara/antara-api/rewards.html#rewardslist
 | maxseconds | (number) | the maximum number of seconds the funds will be locked                      |
 | mindeposit | (number) | the minimum deposit amount                                                  |
 | funding    | (number) | the total available funds in the rewards plan                               |
+| locked     | (number) | the total funds locked in the rewards plan|
 
 #### :pushpin: Examples
 

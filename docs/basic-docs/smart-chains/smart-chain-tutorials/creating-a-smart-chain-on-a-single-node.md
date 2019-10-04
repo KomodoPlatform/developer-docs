@@ -104,7 +104,7 @@ To accomplish this, we use the <b>datadir</b> and <b>addnode</b> common launch p
 
 ::: tip
 
-Replace `<USERNAME>` with the USERNAME for your local node. You can find this value use the `echo $USER` command in the terminal.
+Replace `<USERNAME>` with the USERNAME for your local node. You can find this value by using the `echo $USER` command in the terminal.
 
 :::
 
