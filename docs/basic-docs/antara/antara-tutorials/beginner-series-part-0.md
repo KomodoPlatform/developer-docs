@@ -227,4 +227,4 @@ The "quick start" menu opens with the following screen.
 
 -------------------------------
 
-[<b>Click here to proceed to the next tutorial in this series</b>](../../../basic-docs/antara/antara-tutorials/overview-of-development-on-komodo-part-1.md)
+[<b>Click here to proceed to the next tutorial in this series</b>](../../../basic-docs/antara/antara-tutorials/beginner-series-part-1.html#create-a-blockchain)
