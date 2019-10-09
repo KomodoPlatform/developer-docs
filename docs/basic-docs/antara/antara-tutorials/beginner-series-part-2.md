@@ -124,7 +124,7 @@ A common RPC is the [<b>getinfo</b>](../../../basic-docs/smart-chains/smart-chai
 
 One of the most common RPC's is the [<b>getbalance</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getbalance) method. This returns only information about the wallet's balance.
 
-A final example is the [<b>]listunspent</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#listunspent) RPC, which returns infromation about all utxos in the user's wallet. 
+A final example is the [<b>listunspent</b>](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#listunspent) RPC, which returns infromation about all utxos in the user's wallet. 
 
 - In the `SEED-MENU` section, select `SEED-GETINFO` to perform an automated <b>getinfo</b> RPC
   - In the response, look for the `balance` property
