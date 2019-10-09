@@ -50,7 +50,7 @@ You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` f
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createmultisig", "params": [2, ["RJnVEQgucK1iwiRjfTZmreXkF49KgTErDn","RCVyjn9MQ8Tw6YRJnDcsx67kfsmfUgLdfw"]] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createmultisig", "params": [2, ["RJnVEQgucK1iwiRjfTZmreXkF49KgTErDn","RCVyjn9MQ8Tw6YRJnDcsx67kfsmfUgLdfw"]] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 
@@ -135,7 +135,7 @@ You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` f
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decodeccopret", "params": ["6a2412782103d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decodeccopret", "params": ["6a2412782103d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a"] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 
@@ -281,7 +281,7 @@ You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` f
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "invalidateblock", "params": ["02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "invalidateblock", "params": ["02f51fb2793b0728050c5e983ffed669594e0a2dda01dcb7a68d129fd87436e0"] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 

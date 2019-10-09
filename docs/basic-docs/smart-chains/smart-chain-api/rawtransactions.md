@@ -52,7 +52,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": [[{"txid":"9f44dc664882198b14e9a8c466d466efcdd070ccb6f57be8e2884aa11e7b2a30","vout":0}], {"RHCXHfXCZQpbUbihNHh5gTwfr7NXmJXmHi":0.01} ]}' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": [[{"txid":"9f44dc664882198b14e9a8c466d466efcdd070ccb6f57be8e2884aa11e7b2a30","vout":0}], {"RHCXHfXCZQpbUbihNHh5gTwfr7NXmJXmHi":0.01} ]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 
@@ -180,7 +180,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decoderawtransaction", "params": ["0100000001302a7b1ea14a88e2e87bf5b6cc70d0cdef66d466c4a8e9148b19824866dc449f0000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decoderawtransaction", "params": ["0100000001302a7b1ea14a88e2e87bf5b6cc70d0cdef66d466c4a8e9148b19824866dc449f0000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 
@@ -281,7 +281,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decodescript", "params": ["0100000001302a7b1ea14a88e2e87bf5b6cc70d0cdef66d466c4a8e9148b19824866dc449f0000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decodescript", "params": ["0100000001302a7b1ea14a88e2e87bf5b6cc70d0cdef66d466c4a8e9148b19824866dc449f0000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 
@@ -591,7 +591,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawtransaction", "params": ["3ac97fdd33c713857c1aac8de58cee5d51c768619602b969db9c752e65b28d69", 1] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawtransaction", "params": ["3ac97fdd33c713857c1aac8de58cee5d51c768619602b969db9c752e65b28d69", 1] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 
@@ -758,7 +758,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendrawtransaction", "params": ["0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa4000000006a4730440220242c38740261799f9b6ccbde8f941e2567e86c84108c508d108d062ab9677b6e02206fea089b28c6d66d1c8f2343e1de7960dadafa3cf268c00f7dbe391cd8b9365f01210384c0db4f1eaa142a2745742b942f989375dbec32c55310a793225bb5c43cdc98ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendrawtransaction", "params": ["0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa4000000006a4730440220242c38740261799f9b6ccbde8f941e2567e86c84108c508d108d062ab9677b6e02206fea089b28c6d66d1c8f2343e1de7960dadafa3cf268c00f7dbe391cd8b9365f01210384c0db4f1eaa142a2745742b942f989375dbec32c55310a793225bb5c43cdc98ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 
@@ -841,7 +841,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransaction", "params": ["0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa40000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransaction", "params": ["0100000001958cb041d8369bbf6c2493accc4d949909a2c669cad883e232038d782eeb4fa40000000000ffffffff0140420f00000000001976a91456def632e67aa11c25ac16a0ee52893c2e5a2b6a88ac00000000"] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 
