@@ -1,6 +1,6 @@
 # Komodo Developer Path | Using a Faucet
 
-#### Total Estimated Time: 5 minutes
+#### Total Estimated Time: 15 minutes
 
 This tutorial is part of a series. 
 
