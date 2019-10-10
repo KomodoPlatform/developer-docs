@@ -546,7 +546,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` 
 Command:
 
 ```bash
-curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "prioritisetransaction", "params": ["txid", 0.0, 10000] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "prioritisetransaction", "params": ["7dc902b280da27cf2dabe41ed6f4d04c828714f289435db193a49341005607eb", 0.0, 10000] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 <collapse-text hidden title="Response">
