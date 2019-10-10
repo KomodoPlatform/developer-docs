@@ -30,13 +30,13 @@ The `getinfo` method returns an object containing various state info.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
+| Name              | Type               | Description                                                                                                                            |
 | ----------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
 | "version"         | (numeric)          | the server version                                                                                                                     |
 | "protocolversion" | (numeric)          | the protocol version                                                                                                                   |
@@ -63,9 +63,7 @@ Command:
 ./komodo-cli getinfo
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -104,7 +102,6 @@ Command:
 
 </collapse-text>
 
-
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
@@ -113,9 +110,7 @@ Command:
 curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -158,7 +153,6 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 </collapse-text>
 
-
 ## help
 
 **help ( "command" )**
@@ -167,15 +161,13 @@ The `help` method lists all commands, or all information for a specified command
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name      | Type               | Description                      |
 | --------- | ------------------ | -------------------------------- |
 | "command" | (string, optional) | the command requiring assistance |
 
-
 ### Response
 
-
-| Name | Type | Description | 
+| Name      | Type               | Description                      |
 | --------- | ------------------ | -------------------------------- |
 | "command" | (string, optional) | the command requiring assistance |
 
@@ -188,7 +180,6 @@ Command:
 ```
 
 <collapse-text hidden title="Response">
-
 
 ```bash
 == Addressindex ==
@@ -226,9 +217,7 @@ Command:
 ./komodo-cli help getaddressbalance
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 Returns the balance for an address(es) (requires addressindex to be enabled).
@@ -269,13 +258,13 @@ Forcefully stopping the chain should be avoided, as it may corrupt the local dat
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
+| Name                          | Type | Description |
 | ----------------------------- | ---- | ----------- |
 | Komodo server stopping        |      |
 | [COIN] Komodo server stopping |      |
@@ -288,13 +277,10 @@ Command:
 ./komodo-cli stop
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 "Komodo server stopping"
 ```
 
 </collapse-text>
-

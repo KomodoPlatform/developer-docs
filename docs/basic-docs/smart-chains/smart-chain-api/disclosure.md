@@ -14,17 +14,17 @@ The `z_getpaymentdisclosure` method generates a payment disclosure for a given j
 
 ### Arguments
 
-| Name | Type | Description | 
-| -------------- | ------------------ | ----------- |
-| "txid"         | (string, required) | (in development) <!--need to fill in this table-->|
-| "js_index"     | (string, required) ||
-| "output_index" | (string, required) ||
-| "message"      | (string, optional) ||
+| Name           | Type               | Description                                        |
+| -------------- | ------------------ | -------------------------------------------------- |
+| "txid"         | (string, required) | (in development) <!--need to fill in this table--> |
+| "js_index"     | (string, required) |                                                    |
+| "output_index" | (string, required) |                                                    |
+| "message"      | (string, optional) |                                                    |
 
 ### Response
 
-| Name | Type | Description | 
-| ------------------- | -------- | ----------------------------------- |
+| Name                | Type     | Description                             |
+| ------------------- | -------- | --------------------------------------- |
 | "paymentdisclosure" | (string) | a hex data string, with a "zpd:" prefix |
 
 #### :pushpin: Examples
@@ -35,9 +35,7 @@ Command:
 ./komodo-cli z_getpaymentdisclosure 96f12882450429324d5f3b48630e3168220e49ab7b0f066e5c2935a6b88bb0f2 0 0 "refund"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (currently disabled)
@@ -54,7 +52,6 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 ```
 
 <collapse-text hidden title="Response">
-
 
 ```bash
 (currently disabled)
@@ -74,13 +71,13 @@ EXPERIMENTAL FEATURE: Payment disclosure is currently DISABLED. This call always
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name                | Type               | Description                         |
 | ------------------- | ------------------ | ----------------------------------- |
 | "paymentdisclosure" | (string, required) | hex data string, with "zpd:" prefix |
 
 ### Response
 
-| Name | Type | Description | 
+| Name                 | Type | Description |
 | -------------------- | ---- | ----------- |
 | (currently disabled) |      |
 
@@ -92,9 +89,7 @@ Command:
 ./komodo-cli z_validatepaymentdisclosure "zpd:706462ff004c561a0447ba2ec51184e6c204..."
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (currently disabled)
@@ -110,13 +105,10 @@ Command:
 curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "z_validatepaymentdisclosure", "params": ["zpd:706462ff004c561a0447ba2ec51184e6c204..."] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (currently disabled)
 ```
 
 </collapse-text>
-

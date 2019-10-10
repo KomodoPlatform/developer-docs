@@ -50,8 +50,8 @@ The [cclibinfo](../../../basic-docs/smart-chains/smart-chain-api/cclib.html#ccli
 
 ### Response
 
-| Name                        | Type | Description |
-| --------------------------- | ---- | ----------- |
+| Name                                            | Type | Description |
+| ----------------------------------------------- | ---- | ----------- |
 | (the response for each `EVALCODE` is different) |      |             |
 
 #### :pushpin: Examples
@@ -62,9 +62,7 @@ Command:
 ./komodo-cli -ac_name=MUSIG cclib combine 18 \"[%220225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a%22,%2202d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567%22]\"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -75,7 +73,6 @@ Command:
 ```
 
 </collapse-text>
-
 
 ## cclibaddress
 
@@ -92,19 +89,19 @@ The `cclibaddress` method returns information about the addresses related to the
 
 ### Response
 
-| Name                   | Type     | Description                                                                                                                         |
-| ---------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| result                 | (string) | whether the command executed successfully                                                                                           |
+| Name                   | Type     | Description                                                                                                               |
+| ---------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| result                 | (string) | whether the command executed successfully                                                                                 |
 | CClibCCAddress         | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the Antara Module's privkey |
-| CCbalance              | (number) | the amount of coins in the `CClibCCAddress`                                                                                         |
+| CCbalance              | (number) | the amount of coins in the `CClibCCAddress`                                                                               |
 | CClibNormalAddress     | (string) | the unmodified public address generated from the Antara Module's privkey                                                  |
-| CClibCCTokensAddress   | (string) | this property is used for development purposes only and can otherwise be ignored                                                    |
-| myAddress              | (string) | the normal address generated from the `pubkey`                                                                                      |
-| myCCAddress(CClib)     | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the `pubkey`                          |
-| PubkeyCCaddress(CClib) | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the `pubkey`                          |
-| myCCaddress            | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the `pubkey`                          |
-| myCCbalance            | (number) | the amount of coins in `myCCaddress`                                                                                                |
-| mybalance              | (number) | the amount of coins in `myAddress`                                                                                                  |
+| CClibCCTokensAddress   | (string) | this property is used for development purposes only and can otherwise be ignored                                          |
+| myAddress              | (string) | the normal address generated from the `pubkey`                                                                            |
+| myCCAddress(CClib)     | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the `pubkey`                |
+| PubkeyCCaddress(CClib) | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the `pubkey`                |
+| myCCaddress            | (string) | taking the parameter `evalcode` as a modifier, this is the public address that corresponds to the `pubkey`                |
+| myCCbalance            | (number) | the amount of coins in `myCCaddress`                                                                                      |
+| mybalance              | (number) | the amount of coins in `myAddress`                                                                                        |
 
 #### :pushpin: Examples
 
@@ -114,9 +111,7 @@ Command:
 ./komodo-cli -ac_name=MUSIG cclibaddress 18 0225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -136,7 +131,6 @@ Command:
 ```
 
 </collapse-text>
-
 
 ## cclibinfo
 
@@ -159,9 +153,9 @@ The library is loaded at runtime using the [-ac_cclib](../../../basic-docs/antar
 | result          | (string)                | whether the command executed successfully                                                                                                                                                         |
 | CClib           | (string)                | the name of the given CClibrary                                                                                                                                                                   |
 | methods         | (array of json objects) | an array containing json objects, each of which describe a method of a module                                                                                                                     |
-| evalcode        | (decimal number)        | the `EVALCODE` of the given Antara Module                                                                                                                                               |
+| evalcode        | (decimal number)        | the `EVALCODE` of the given Antara Module                                                                                                                                                         |
 | funcid          | (character)             | this value is a mnemonic in the `OP_RETURN` for all generated transactions; if the provided method does not generate a transaction, this value is a single character that has no relevant meaning |
-| name            | (string)                | the name of the Antara module                                                                                                                                                           |
+| name            | (string)                | the name of the Antara module                                                                                                                                                                     |
 | method          | (string)                | the name of the method                                                                                                                                                                            |
 | help            | (string)                | help for the method, including a description of the method's arguments                                                                                                                            |
 | params_required | (decimal number)        | the number of parameters that are required for the method to succeed                                                                                                                              |
@@ -175,9 +169,7 @@ Command:
 ./komodo-cli -ac_name=MUSIG cclibinfo
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -216,4 +208,3 @@ Command:
 ```
 
 </collapse-text>
-

@@ -14,13 +14,13 @@ The `generate` method instructs the coin daemon to immediately mine the indicate
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name      | Type      | Description                              |
 | --------- | --------- | ---------------------------------------- |
 | numblocks | (numeric) | the desired number of blocks to generate |
 
 ### Response
 
-| Name | Type | Description | 
+| Name        | Type    | Description                |
 | ----------- | ------- | -------------------------- |
 | blockhashes | (array) | hashes of blocks generated |
 
@@ -32,9 +32,7 @@ Command:
 ./komodo-cli generate 2
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 [
@@ -44,7 +42,6 @@ Command:
 ```
 
 </collapse-text>
-
 
 ## getgenerate
 
@@ -60,13 +57,13 @@ See also <b>gen</b>.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------ | ----------- |
-| (none)    | (none) |
+| Name   | Type   | Description |
+| ------ | ------ | ----------- |
+| (none) | (none) |
 
 ### Response
 
-| Name | Type | Description | 
+| Name       | Type      | Description                                           |
 | ---------- | --------- | ----------------------------------------------------- |
 | true/false | (boolean) | indicates whether the server is set to generate coins |
 
@@ -78,16 +75,13 @@ Command:
 ./komodo-cli getgenerate
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 false
 ```
 
 </collapse-text>
-
 
 You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
@@ -97,9 +91,7 @@ Command:
 curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getgenerate", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -110,7 +102,6 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 ```
 
 </collapse-text>
-
 
 ## setgenerate
 
@@ -126,16 +117,16 @@ See also the [getgenerate](../../../basic-docs/smart-chains/smart-chain-api/gene
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name         | Type                | Description                                                                     |
 | ------------ | ------------------- | ------------------------------------------------------------------------------- |
 | generate     | (boolean, required) | set to true to turn on generation; set to off to turn off generation            |
 | genproclimit | (numeric, optional) | set the processor limit for when generation is on; use value "-1" for unlimited |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ------ | ----------- |
-| (none)    | (none) |
+| Name   | Type   | Description |
+| ------ | ------ | ----------- |
+| (none) | (none) |
 
 #### :pushpin: Examples
 
@@ -147,16 +138,13 @@ Command:
 ./komodo-cli setgenerate true -1
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ##### Activate staking
 
@@ -166,16 +154,13 @@ Command:
 ./komodo-cli setgenerate true 0
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ##### Activate mining with 4 threads
 
@@ -185,16 +170,13 @@ Command:
 ./komodo-cli setgenerate true 4
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ##### Check the setting
 
@@ -204,16 +186,13 @@ Command:
 ./komodo-cli getgenerate
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 true
 ```
 
 </collapse-text>
-
 
 ##### Turn off generation
 
@@ -223,16 +202,13 @@ Command:
 ./komodo-cli setgenerate false
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ##### Turning the setting on via json RPC
 
@@ -242,9 +218,7 @@ Command:
 curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setgenerate", "params": [true, 1] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -255,4 +229,3 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 ```
 
 </collapse-text>
-

@@ -1,8 +1,8 @@
 # Jumblr
 
-::: tip Note 
+::: tip Note
 
-At this time, all zero-knowledge transaction and Jumblr functionality on the main KMD chain is disabled. 
+At this time, all zero-knowledge transaction and Jumblr functionality on the main KMD chain is disabled.
 
 Other Smart Chains in the Komodo ecosystem offer zero-knowledge transaction functionality. However, no Smart Chain currently offers Jumblr, and therefore this documentation is currently deprecated.
 
@@ -74,15 +74,15 @@ While shielded z_address technology is available on all KMD-based Smart Chains, 
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name             | Type               | Description                                       |
 | ---------------- | ------------------ | ------------------------------------------------- |
 | "depositaddress" | (string, required) | the address from which Jumblr will withdraw funds |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### :pushpin: Examples
 
@@ -92,16 +92,13 @@ Command:
 ./komodo-cli jumblr_deposit RT4mSUjG35QeuGcedsfpHtP5MhDeEGTAqb
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ## jumblr_pause
 
@@ -115,15 +112,15 @@ See also <b>jumblr_resume</b>.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### :pushpin: Examples
 
@@ -133,16 +130,13 @@ Command:
 ./komodo-cli jumblr_pause
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ## jumblr_resume
 
@@ -156,15 +150,15 @@ See also <b>jumblr_pause</b>.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### :pushpin: Examples
 
@@ -174,16 +168,13 @@ Command:
 ./komodo-cli jumblr_resume
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
 
 ## jumblr_secret
 
@@ -193,15 +184,15 @@ The `jumblr_secret` method indicates to Jumblr the final t destination address. 
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name            | Type               | Description                         |
 | --------------- | ------------------ | ----------------------------------- |
 | "secretaddress" | (string, required) | the destination transparent address |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |             |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 #### :pushpin: Examples
 
@@ -211,13 +202,10 @@ Command:
 ./komodo-cli jumbr_secret "RCpMUZwxc3pWsgip5aj3Sy1cKkh86P3Tns"
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 (none)
 ```
 
 </collapse-text>
-
