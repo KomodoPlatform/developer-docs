@@ -31,6 +31,7 @@ sidebar: auto
 ## RPC clients and wrappers
 
 - [https://github.com/gcharang/node-komodo-rpc](https://github.com/gcharang/node-komodo-rpc) - nodejs json-rpc client for Komodo and Smart Chains, with Promises and support for multiple instances
+- [https://github.com/HebePlatform/Komodo-Lib-JS](https://github.com/HebePlatform/Komodo-Lib-JS) - A nodejs library to create and sign KMD transactions
 - [https://github.com/n41r0j/komodorpc-rust-client](https://github.com/n41r0j/komodorpc-rust-client) - a Rust RPC client
 - [https://github.com/imylomylo/komodo-rpc-web](https://github.com/imylomylo/komodo-rpc-web) - RPC Wrapper for Komodo Platform written for browsers (alpha)
 - [https://github.com/ca333/komodoAPI-cpp](https://github.com/ca333/komodoAPI-cpp) - Komodo Core API for cpp
