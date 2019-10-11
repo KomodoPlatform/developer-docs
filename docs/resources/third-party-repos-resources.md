@@ -29,11 +29,21 @@ sidebar: auto
 
 ## RPC clients and wrappers
 
+- [https://github.com/gcharang/node-komodo-rpc][https://github.com/gcharang/node-komodo-rpc] - 
 - [https://github.com/n41r0j/komodorpc-rust-client](https://github.com/n41r0j/komodorpc-rust-client) - a Rust RPC client
 - [https://github.com/imylomylo/komodo-rpc-web](https://github.com/imylomylo/komodo-rpc-web) - RPC Wrapper for Komodo Platform written for browsers (alpha)
 - [https://github.com/ca333/komodoAPI-cpp](https://github.com/ca333/komodoAPI-cpp) - Komodo Core API for cpp
 - [https://packagist.org/packages/webworker01/komodophp](https://packagist.org/packages/webworker01/komodophp) - A library for manipulating Komodo addresses and keys and interacting with Electrum servers using php
 - [https://github.com/atomiclabs/get-komodo-rewards](https://github.com/atomiclabs/get-komodo-rewards) - npm module to calculate KMD rewards of a UTXO
+
+### Komodo API Implementation in Different Languages
+
+- [Golang by @satindergrewal](https://github.com/satindergrewal/kmdgo)
+- [Golang by @sjashwin](https://github.com/sjashwin/komodo-go)
+- [Java by @chrisgiffy](https://github.com/chrisgiffy/komodo-api-java.git)
+- [Python by @v413h4v](https://github.com/V413H4V/Komodo-RPC-Library-Python/)
+- [C# by @adi2624](https://github.com/adi2624/RPC-API-CSharp)
+- [NodeJS by @hafsa-fatima](https://github.com/Hafsa-Fatima/Komodo-RPC-Node-Library)
 
 ## KMDLabs
 
