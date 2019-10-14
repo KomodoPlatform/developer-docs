@@ -1087,7 +1087,7 @@ You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf fi
 Command:
 
 ```bash
-curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getNotarisationsForBlock", "params": ["1350074"] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getNotarisationsForBlock", "params": [1350074] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
 <collapse-text hidden title="Response">
