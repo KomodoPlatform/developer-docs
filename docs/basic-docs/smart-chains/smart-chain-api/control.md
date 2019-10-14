@@ -284,3 +284,19 @@ Command:
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "stop", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{ "result": "Komodo server stopping", "error": null, "id": "curltest" }
+```
+
+</collapse-text>
