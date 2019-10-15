@@ -59,10 +59,17 @@ Response:
 ```json
 {
   "result": "success",
-  "AssetsCCaddress": "RGKRjeTBw4LYFotSDLT6RWzMHbhXri6BG6",
+  "AssetsCCAddress": "RGKRjeTBw4LYFotSDLT6RWzMHbhXri6BG6",
+  "AssetsCCBalance": 0.0,
   "AssetsNormalAddress": "RFYE2yL3KknWdHK6uNhvWacYsCUtwzjY3u",
-  "myCCaddress": "RG6mr23tQ9nUhmi5GEnYqjfkqZt9x2MRXz",
-  "myaddress": "RDjG4sM1y4udiJSszF6BLotqUnZX79Rom9"
+  "AssetsNormalBalance": 0.0,
+  "AssetsCCTokensAddress": "RTWtxY7GTBZ3zL8jfzyWWz1fveF3KXKBF8",
+  "PubkeyCCaddress(Assets)": "RG6mr23tQ9nUhmi5GEnYqjfkqZt9x2MRXz",
+  "PubkeyCCbalance(Assets)": 0.0,
+  "myCCAddress(Assets)": "RRG3LuYLg5fYcLggBW3hpFPq3U8u98XYqf",
+  "myCCbalance(Assets)": 0.0,
+  "myaddress": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
+  "mybalance": 0.0
 }
 ```
 
@@ -79,11 +86,27 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"success","AssetsCCAddress":"RGKRjeTBw4LYFotSDLT6RWzMHbhXri6BG6","AssetsCCBalance":0.00000000,"AssetsNormalAddress":"RFYE2yL3KknWdHK6uNhvWacYsCUtwzjY3u","AssetsNormalBalance":0.00000000,"AssetsCCTokensAddress":"RTWtxY7GTBZ3zL8jfzyWWz1fveF3KXKBF8","PubkeyCCaddress(Assets)":"RG6mr23tQ9nUhmi5GEnYqjfkqZt9x2MRXz","PubkeyCCbalance(Assets)":0.00000000,"myCCAddress(Assets)":"RRG3LuYLg5fYcLggBW3hpFPq3U8u98XYqf","myCCbalance(Assets)":0.00000000,"myaddress":"RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92","mybalance":0.00000000},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "success",
+    "AssetsCCAddress": "RGKRjeTBw4LYFotSDLT6RWzMHbhXri6BG6",
+    "AssetsCCBalance": 0.0,
+    "AssetsNormalAddress": "RFYE2yL3KknWdHK6uNhvWacYsCUtwzjY3u",
+    "AssetsNormalBalance": 0.0,
+    "AssetsCCTokensAddress": "RTWtxY7GTBZ3zL8jfzyWWz1fveF3KXKBF8",
+    "PubkeyCCaddress(Assets)": "RG6mr23tQ9nUhmi5GEnYqjfkqZt9x2MRXz",
+    "PubkeyCCbalance(Assets)": 0.0,
+    "myCCAddress(Assets)": "RRG3LuYLg5fYcLggBW3hpFPq3U8u98XYqf",
+    "myCCbalance(Assets)": 0.0,
+    "myaddress": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
+    "mybalance": 0.0
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 ## tokenask
 
@@ -138,11 +161,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"couldnt create ask"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "couldnt create ask" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 Step 2: Use sendrawtransaction to broadcast the order
 
@@ -169,11 +195,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 ## tokenbid
 
@@ -229,11 +258,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"couldnt create bid"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "couldnt create bid" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 Use `sendrawtransaction` to publish order
 
@@ -260,11 +292,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 The response is the transaction id.
 
@@ -320,11 +355,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"couldnt cancel ask"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "couldnt cancel ask" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 Step 2: Broadcast using `sendrawtransaction`
 
@@ -351,11 +389,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 The response is the transaction id.
 
@@ -445,11 +486,76 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"txid":"21d152480275568e3f82a5049d8b30308e3739ebd98171e075a75fea504364cd","overwintered":false,"version":1,"locktime":0,"vin":[{"txid":"084db1c5712b31613b5c8d4a76b7bccf77554f280e0b42428eeaad6da435c334","vout":0,"scriptSig":{"asm":"30450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e4996[ALL]","hex":"4830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601"},"sequence":4294967295},{"txid":"7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c","vout":0,"scriptSig":{"asm":"a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001","hex":"4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001"},"sequence":4294967295}],"vout":[{"value":0.00000010,"valueZat":10,"n":0,"scriptPubKey":{"asm":"a22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti"]}},{"value":99999.99990000,"valueZat":9999999990000,"n":1,"scriptPubKey":{"asm":"03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG","hex":"2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac","reqSigs":1,"type":"pubkey","addresses":["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]}},{"value":0.00000000,"valueZat":0,"n":2,"scriptPubKey":{"asm":"OP_RETURN e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e","hex":"6a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e","type":"nulldata"}}],"vjoinsplit":[]},"error":null,"id":"curltest"}
+{
+  "result": {
+    "txid": "21d152480275568e3f82a5049d8b30308e3739ebd98171e075a75fea504364cd",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "084db1c5712b31613b5c8d4a76b7bccf77554f280e0b42428eeaad6da435c334",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "30450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e4996[ALL]",
+          "hex": "4830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001",
+          "hex": "4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.0000001,
+        "valueZat": 10,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "a22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti"]
+        }
+      },
+      {
+        "value": 99999.9999,
+        "valueZat": 9999999990000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
+          "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "OP_RETURN e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
+          "hex": "6a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 ## tokencancelbid
 
@@ -503,11 +609,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"couldnt cancel bid"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "couldnt cancel bid" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 Step 2: Send raw transaction / broadcast the HEX value from above
 
@@ -534,11 +643,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 The response is the transaction id.
 
@@ -628,11 +740,76 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"txid":"21d152480275568e3f82a5049d8b30308e3739ebd98171e075a75fea504364cd","overwintered":false,"version":1,"locktime":0,"vin":[{"txid":"084db1c5712b31613b5c8d4a76b7bccf77554f280e0b42428eeaad6da435c334","vout":0,"scriptSig":{"asm":"30450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e4996[ALL]","hex":"4830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601"},"sequence":4294967295},{"txid":"7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c","vout":0,"scriptSig":{"asm":"a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001","hex":"4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001"},"sequence":4294967295}],"vout":[{"value":0.00000010,"valueZat":10,"n":0,"scriptPubKey":{"asm":"a22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti"]}},{"value":99999.99990000,"valueZat":9999999990000,"n":1,"scriptPubKey":{"asm":"03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG","hex":"2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac","reqSigs":1,"type":"pubkey","addresses":["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]}},{"value":0.00000000,"valueZat":0,"n":2,"scriptPubKey":{"asm":"OP_RETURN e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e","hex":"6a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e","type":"nulldata"}}],"vjoinsplit":[]},"error":null,"id":"curltest"}
+{
+  "result": {
+    "txid": "21d152480275568e3f82a5049d8b30308e3739ebd98171e075a75fea504364cd",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "084db1c5712b31613b5c8d4a76b7bccf77554f280e0b42428eeaad6da435c334",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "30450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e4996[ALL]",
+          "hex": "4830450221009f365d429d03df66b34cad764368092498ebd7340587c558ea19c4248202317b0220531524ef076f9e5b26ec5aa38b3078c041f8d0603b85552177ef14d00b0e499601"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001",
+          "hex": "4c79a276a072a26ba067a565802102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702814066f6a9d580da0ac901ada8c61922d93da005e92c9e419a44c1bcbf9ec8ad43790dfc8ca71b5c21b79a58aa173fb71e1ab0b82c590dc883359de60f743fabda16a100af038001e3a10001"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.0000001,
+        "valueZat": 10,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "a22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti"]
+        }
+      },
+      {
+        "value": 99999.9999,
+        "valueZat": 9999999990000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
+          "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "OP_RETURN e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
+          "hex": "6a22e3789217014eae0a83a0b64632f379c1b474859794f9eaf1cf1eecf5804ed6124a5e",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 ## tokenfillask
 
@@ -687,11 +864,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"couldnt fill ask"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "couldnt fill ask" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 Step 2: Broadcast the hex using sendrawtransaction
 
@@ -718,11 +898,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 The response is the transaction id.
 
@@ -781,11 +964,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"success","hex":"no normal coins left"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "success", "hex": "no normal coins left" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 Step 2: Broadcast the hex or sendrawtransaction
 
@@ -812,11 +998,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 The response is the transaction id.
 
@@ -826,7 +1015,7 @@ Step 3: Wait for the transaction to be confirmed
 
 **tokenorders (tokenid)**
 
-The `tokenorders` method displays the public on-chain orderbook for a specific token. 
+The `tokenorders` method displays the public on-chain orderbook for a specific token.
 
 Information about the `funcid` property:
 
@@ -944,11 +1133,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-1,"message":"no tokenid\n"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -1, "message": "no tokenid\n" },
+  "id": "curltest"
+}
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 Show orders for specific token
 
@@ -1018,11 +1210,10 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":[],"error":null,"id":"curltest"}
+{ "result": [], "error": null, "id": "curltest" }
 ```
 
-<collapse-text>
-
+</collapse-text>
 
 ## mytokenorders
 
