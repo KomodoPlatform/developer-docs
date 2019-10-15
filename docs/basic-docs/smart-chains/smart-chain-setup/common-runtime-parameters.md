@@ -112,6 +112,14 @@ Using connect as a default value in the Smart Chain's `.conf` file:
 connect=69.164.218.197
 ```
 
+## conf
+
+`conf` indicates the config file to be used to the Smart Chain daemon. Absolute path must be provided. The default config file is ignored.
+
+## datadir
+
+`datadir` indicates the data directory to be used to the Smart Chain daemon. Absolute path must be provided. The default data directory is ignored. The name of the directory for a Smart Chain should match its [ac_name](../../../basic-docs/antara/antara-setup/antara-customizations.html)
+
 ## donation
 
 `donation` donates all user rewards to a specific address. This value must be set to a 33 byte pubkey.
