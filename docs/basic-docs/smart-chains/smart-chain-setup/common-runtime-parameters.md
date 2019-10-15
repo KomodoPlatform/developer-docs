@@ -116,9 +116,25 @@ connect=69.164.218.197
 
 `conf` indicates the config file to be used to the Smart Chain daemon. Absolute path must be provided. The default config file is ignored.
 
+#### :pushpin: Examples:
+
+Using `conf` as a runtime parameter:
+
+```bash
+komodod -conf=/home/username/coinConfs/DEX.conf
+```
+
 ## datadir
 
 `datadir` indicates the data directory to be used to the Smart Chain daemon. Absolute path must be provided. The default data directory is ignored. The name of the directory for a Smart Chain should match its [ac_name](../../../basic-docs/antara/antara-setup/antara-customizations.html)
+
+#### :pushpin: Examples:
+
+Using `datadir` as a runtime parameter:
+
+```bash
+komodod -datadir=/home/username/coinData/DEX
+```
 
 ## donation
 
