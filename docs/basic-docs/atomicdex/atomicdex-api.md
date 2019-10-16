@@ -2449,7 +2449,7 @@ The `orderbook` method requests from the network the currently available orders 
 | address        | string           | the address offering the trade                                                |
 | price          | string (decimal) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
 | price_rat      | rational         | the price in rational representation                                          |
-| maxvolume      | number           | the total amount of `base` coins the offer provider has in their wallet       |
+| maxvolume      | string (decimal) | the maximum amount of `base` coin the offer provider is willing to sell      |
 | max_volume_rat | rational         | the max volume in rational representation                                     |
 | pubkey         | string           | the pubkey of the offer provider                                              |
 | age            | number           | the age of the offer                                                          |
