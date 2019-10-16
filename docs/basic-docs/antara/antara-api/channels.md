@@ -29,25 +29,25 @@ The global addresses are not used in the Channels Antara module. For more inform
 
 ### Arguments
 
-| Name | Type | Description |
-| --------- | ------------------ | ---------------------- |
-| pubkey    | (string, required) | the destination pubkey |
+| Name   | Type               | Description            |
+| ------ | ------------------ | ---------------------- |
+| pubkey | (string, required) | the destination pubkey |
 
 ### Response
 
-| Name | Type | Description |
-| --------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                      | (string)  | whether the method executed successfully                                                                                                                                                                                                                                                                                                                        |
-| ChannelsCCAddress           | (string)  | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                                                                                                                                                                                                            |
-| CCbalance                   | (numeric) | the unspent amount in `ChannelsCCaddress`                                                                                                                                                                                                                                                                                                                       |
-| ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey; this is generally used for markers                                                                                                                                                                                                                                                  |
-| ChannelsCC1of2Address       | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using coins |
-| ChannelsCC1of2TokensAddress | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using tokens |
-| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the Antara address from the `pubkey` [used to launch the daemon](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey)                                                                                                                                                 |
-| PubkeyCCaddress(Channels)   | (string)  | taking the contract's EVAL code as a modifier, this is the Antara address from the `pubkey` supplied as the argument                                                                                                                                                                                                                                                |
-| myCCbalance                 | (numeric) | the balance of `myccaddress` in coins                                                                                                                                                                                                                                                                                                                           |
-| myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey)                                                                                                                                                                                      |
-| mybalance                   | (numeric) | the balance of `myaddress` in coins                                                                                                                                                                                                                                                                                                                             |
+| Name                        | Type      | Description                                                                                                                                                                                                                                   |
+| --------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result                      | (string)  | whether the method executed successfully                                                                                                                                                                                                      |
+| ChannelsCCAddress           | (string)  | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                                                                                                          |
+| CCbalance                   | (numeric) | the unspent amount in `ChannelsCCaddress`                                                                                                                                                                                                     |
+| ChannelsNormalAddress       | (string)  | the unmodified normal public address generated from the contract's privkey; this is generally used for markers                                                                                                                                |
+| ChannelsCC1of2Address       | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using coins                                                                                                        |
+| ChannelsCC1of2TokensAddress | (string)  | the channel address that will store the funds once the channel is opened; this property is only active when the channel is using tokens                                                                                                       |
+| myCCAddress(Channels)       | (string)  | taking the contract's EVAL code as a modifier, this is the Antara address from the `pubkey` [used to launch the daemon](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey) |
+| PubkeyCCaddress(Channels)   | (string)  | taking the contract's EVAL code as a modifier, this is the Antara address from the `pubkey` supplied as the argument                                                                                                                          |
+| myCCbalance                 | (numeric) | the balance of `myccaddress` in coins                                                                                                                                                                                                         |
+| myaddress                   | (string)  | the unmodified normal public address of the pubkey [used to launch the daemon](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey)                                          |
+| mybalance                   | (numeric) | the balance of `myaddress` in coins                                                                                                                                                                                                           |
 
 #### :pushpin: Examples
 
@@ -90,11 +90,28 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"success","ChannelsCCAddress":"RQy3rwX8sP9oDm3c39vGKA6H315cgtPLfr","ChannelsCCBalance":0.00000000,"ChannelsNormalAddress":"RQUuT8zmkvDfXqECH4m3VD3SsHZAfnoh1v","ChannelsNormalBalance":0.00000000,"ChannelsCC1of2Address":"RVyEE16mkhEnuUJBhermty1jLk8ayXgmy8","ChannelsCC1of2TokensAddress":"RVFCEsCvt8y5pYYy2w1NNXtcRk9i6wK7gg","PubkeyCCaddress(Channels)":"RFiRURHbjQNDunGC3SmiNcpt89BRbqvBQb","PubkeyCCbalance(Channels)":0.00000000,"myCCAddress(Channels)":"RBDudd13Yw7aga4dPUKKr2PdcCSyevVoso","myCCbalance(Channels)":0.00000000,"myaddress":"RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92","mybalance":0.00000000},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "success",
+    "ChannelsCCAddress": "RQy3rwX8sP9oDm3c39vGKA6H315cgtPLfr",
+    "ChannelsCCBalance": 0.0,
+    "ChannelsNormalAddress": "RQUuT8zmkvDfXqECH4m3VD3SsHZAfnoh1v",
+    "ChannelsNormalBalance": 0.0,
+    "ChannelsCC1of2Address": "RVyEE16mkhEnuUJBhermty1jLk8ayXgmy8",
+    "ChannelsCC1of2TokensAddress": "RVFCEsCvt8y5pYYy2w1NNXtcRk9i6wK7gg",
+    "PubkeyCCaddress(Channels)": "RFiRURHbjQNDunGC3SmiNcpt89BRbqvBQb",
+    "PubkeyCCbalance(Channels)": 0.0,
+    "myCCAddress(Channels)": "RBDudd13Yw7aga4dPUKKr2PdcCSyevVoso",
+    "myCCbalance(Channels)": 0.0,
+    "myaddress": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
+    "mybalance": 0.0
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## channelsclose
 
@@ -110,16 +127,16 @@ The `sendrawtransaction` method then returns a `txid` which is used in the [chan
 
 ### Arguments
 
-| Name | Type | Description |
+| Name      | Type     | Description                                                                |
 | --------- | -------- | -------------------------------------------------------------------------- |
 | open_txid | (string) | the unique identifying txid that is created when a channel is first opened |
 
 ### Response
 
-| Name | Type | Description |
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -163,11 +180,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## channelsinfo
 
@@ -179,17 +199,17 @@ If no `open_tx_id` argument is included, the method returns a list of all channe
 
 ### Arguments
 
-| Name | Type | Description |
+| Name      | Type               | Description                                                                |
 | --------- | ------------------ | -------------------------------------------------------------------------- |
 | open_txid | (string, optional) | the unique identifying txid that is created when a channel is first opened |
 
 ### Response
 
-| Name | Type | Description |
-| --------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command executed successfully                                                                                                           |
-| name      | (string) | the name of the channel                                                                                                                             |
-| Open:     | (string) | a channel and its relevant information: address of the destination pubkey, number of payments, denomination per payment, and the channel open_tx_id |
+| Name   | Type     | Description                                                                                                                                         |
+| ------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command executed successfully                                                                                                           |
+| name   | (string) | the name of the channel                                                                                                                             |
+| Open:  | (string) | a channel and its relevant information: address of the destination pubkey, number of payments, denomination per payment, and the channel open_tx_id |
 
 #### :pushpin: Examples
 
@@ -222,11 +242,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","Error":"Channel not found!"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "Error": "Channel not found!" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Command:
 
@@ -259,11 +282,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","Error":"Channel not found!"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "Error": "Channel not found!" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## channelsopen
 
@@ -277,7 +303,7 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 
 ### Arguments
 
-| Name | Type | Description |
+| Name                     | Type     | Description                                             |
 | ------------------------ | -------- | ------------------------------------------------------- |
 | destination_pubkey       | (string) | the public key of the intended recipient of the channel |
 | total_number_of_payments | (number) | the total number of payments to allocate in the channel |
@@ -285,10 +311,10 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 
 ### Response
 
-| Name | Type | Description |
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -320,11 +346,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"success","hex":"0400008085202f890b0005c599652725a611ae25aa5e2cec2520960328e82cd0151a1f9f319af983a500000000484730440220065c69331d41c117c7e89f82d213d061fbe923f343ba54e47a5af13ffef70bfb0220322dccaf4cfbce9d814a8e625df27d82f78bdd5204796bdd04ae0cafdd8679e501ffffffff0c3d1a6dea9c1b1c1b9ccf6b8d967a46f5be53b2b718fae6f224259efffcfa7900000000494830450221009516e33cbed4b659a775c93eddd1a0c3972e2adab5e36bc95ee03d19d680ebab02207196550a8e3acbafa84bcefcf0cc0f12afbc567047ce65862f1ae3842308262e01ffffffff0a01dbff4a7d72c166d1a6cfad8e7e5d2cf3f3ea34af83be98260b5a4665bae70000000049483045022100ab1574b3c780e28603c49af6a8489306da894dd17b403d067f67494927b7df9602207f0a9fe89af31c508c75c19917db474da200e44715f29da0d9f690208376f10601ffffffff096362f570a4a1b1306a23aff5c4914ef4fc6a5edc2c00c978f6d115f50e223b00000000484730440220755c7c35ab96cd4decc4e8fd767e910b308b4ae6f8482c263680022f0ddcbe2e0220080fd308c464146fd62950be630f5cb28459f4437648067b412535ecf782114801ffffffff084cc1e97de66dcda9409714790451772ff99edbf4699077979b03e939da8c9a000000004948304502210095b50c43062e83a4003ff369948431eab081dbc9c40a0dd64b1cb2006b9ffbee02201425e73f67a5244a0794428758318600008c40d5e178697d565160612db0c25e01ffffffff08003eb8b18397c7ac71a553d2ca19b17a73d550dde47a4b710acd2c0a1a28c00000000049483045022100f0c5ca885e886627a26b73aa2b00f2c0b1b3fc778e2f3244acee5c4e4bf9f07a02202b69511f7966038573744c28711f14f1e27621268eb5d8d93ffdf98ef656577b01ffffffff0549e69c96134b7a477762916521b0e267e12722932c043592fe0faae8dd625300000000484730440220755253b5d8e16076fb2e47c10d9e85a4f9a2dd8bb945c148c4b7411cf2ea3e2c02200e962b32fc577ab2f71058618a59026ced61a975b537a1cf2ee10b5f04b76fc401ffffffff04b95ba9641753ac08c3e144ec4608f9e557671404e1cdcdf4a10ebf9c7c3fd80000000048473044022018de4dddc98a6fcdb3a560cd578c59166398d0ae57774887325ca7a9857ad9b302200561ab5a457a038b44d6a5edfeb48243d30626030e1ac945a1a72abe175f306f01ffffffff02e95961ba26dcfa2263c5cec4487bd0545fb35d41c3896c7d760f33b87aec580000000049483045022100833b54c1f938e026f53b5f831f5b60154c8eff9228e2d9e3a97790ffb054279802205ed582fb6cfe6052675040a6b67483a5dae273cd47b790cc60e6a3abb2b73d3101ffffffff02c5bada724bb25318dbb12f31f2a11ec968a119070ba8e411ef769f8d6361c40000000049483045022100b3d59e6a3df3218d069f38070ed0d057b538d6e62b84cbf6c03701776b78d205022014abed5a9f3313b0e5b36dcafc610fdc6634a5b3ca4f03a7fa17fc69c9839e5c01ffffffff002881570051859c7623185c50c32c7c38407dd0068cd24dfe0b02968975627e0000000048473044022076d2eb615896093ecfe9dd941b2b293ac387edb1673ea10cb931bff80619b12d02205cacba6cfcb12473c943f501306c9ce930a5b23c836226912ba673e5026da36701ffffffff0500e1f50500000000302ea22c8020115186f266727b380adc01cb655f23cd21b8ccb16536510f31c41bc7cf73445c81031210008203000401cc1027000000000000302ea22c8020fd8a58bb977c00819e1553e487b40af615575724ddd1353286c874f123288f7e8103120c008203000401cc1027000000000000302ea22c802019be575785c322e9c7d2ae4b5f3df78c9a38ff7357e9e689f26de8e224cb186c8103120c008203000401cc5021980000000000232102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2ac0000000000000000956a4c92eb4f00000000000000000000000000000000000000000000000000000000000000002102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a221027166e21e9579307a1ae4f8c223516e70aae3cbfab4bd6ac7cebfa625dcc0a2a40a0000008096980000000000bdf126d8f3c73e649739ad6df2bc2acb683596229dddcc152ca6b18e8e2895bb00000000410100000000000000000000000000"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "success",
+    "hex": "0400008085202f890b0005c599652725a611ae25aa5e2cec2520960328e82cd0151a1f9f319af983a500000000484730440220065c69331d41c117c7e89f82d213d061fbe923f343ba54e47a5af13ffef70bfb0220322dccaf4cfbce9d814a8e625df27d82f78bdd5204796bdd04ae0cafdd8679e501ffffffff0c3d1a6dea9c1b1c1b9ccf6b8d967a46f5be53b2b718fae6f224259efffcfa7900000000494830450221009516e33cbed4b659a775c93eddd1a0c3972e2adab5e36bc95ee03d19d680ebab02207196550a8e3acbafa84bcefcf0cc0f12afbc567047ce65862f1ae3842308262e01ffffffff0a01dbff4a7d72c166d1a6cfad8e7e5d2cf3f3ea34af83be98260b5a4665bae70000000049483045022100ab1574b3c780e28603c49af6a8489306da894dd17b403d067f67494927b7df9602207f0a9fe89af31c508c75c19917db474da200e44715f29da0d9f690208376f10601ffffffff096362f570a4a1b1306a23aff5c4914ef4fc6a5edc2c00c978f6d115f50e223b00000000484730440220755c7c35ab96cd4decc4e8fd767e910b308b4ae6f8482c263680022f0ddcbe2e0220080fd308c464146fd62950be630f5cb28459f4437648067b412535ecf782114801ffffffff084cc1e97de66dcda9409714790451772ff99edbf4699077979b03e939da8c9a000000004948304502210095b50c43062e83a4003ff369948431eab081dbc9c40a0dd64b1cb2006b9ffbee02201425e73f67a5244a0794428758318600008c40d5e178697d565160612db0c25e01ffffffff08003eb8b18397c7ac71a553d2ca19b17a73d550dde47a4b710acd2c0a1a28c00000000049483045022100f0c5ca885e886627a26b73aa2b00f2c0b1b3fc778e2f3244acee5c4e4bf9f07a02202b69511f7966038573744c28711f14f1e27621268eb5d8d93ffdf98ef656577b01ffffffff0549e69c96134b7a477762916521b0e267e12722932c043592fe0faae8dd625300000000484730440220755253b5d8e16076fb2e47c10d9e85a4f9a2dd8bb945c148c4b7411cf2ea3e2c02200e962b32fc577ab2f71058618a59026ced61a975b537a1cf2ee10b5f04b76fc401ffffffff04b95ba9641753ac08c3e144ec4608f9e557671404e1cdcdf4a10ebf9c7c3fd80000000048473044022018de4dddc98a6fcdb3a560cd578c59166398d0ae57774887325ca7a9857ad9b302200561ab5a457a038b44d6a5edfeb48243d30626030e1ac945a1a72abe175f306f01ffffffff02e95961ba26dcfa2263c5cec4487bd0545fb35d41c3896c7d760f33b87aec580000000049483045022100833b54c1f938e026f53b5f831f5b60154c8eff9228e2d9e3a97790ffb054279802205ed582fb6cfe6052675040a6b67483a5dae273cd47b790cc60e6a3abb2b73d3101ffffffff02c5bada724bb25318dbb12f31f2a11ec968a119070ba8e411ef769f8d6361c40000000049483045022100b3d59e6a3df3218d069f38070ed0d057b538d6e62b84cbf6c03701776b78d205022014abed5a9f3313b0e5b36dcafc610fdc6634a5b3ca4f03a7fa17fc69c9839e5c01ffffffff002881570051859c7623185c50c32c7c38407dd0068cd24dfe0b02968975627e0000000048473044022076d2eb615896093ecfe9dd941b2b293ac387edb1673ea10cb931bff80619b12d02205cacba6cfcb12473c943f501306c9ce930a5b23c836226912ba673e5026da36701ffffffff0500e1f50500000000302ea22c8020115186f266727b380adc01cb655f23cd21b8ccb16536510f31c41bc7cf73445c81031210008203000401cc1027000000000000302ea22c8020fd8a58bb977c00819e1553e487b40af615575724ddd1353286c874f123288f7e8103120c008203000401cc1027000000000000302ea22c802019be575785c322e9c7d2ae4b5f3df78c9a38ff7357e9e689f26de8e224cb186c8103120c008203000401cc5021980000000000232102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2ac0000000000000000956a4c92eb4f00000000000000000000000000000000000000000000000000000000000000002102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a221027166e21e9579307a1ae4f8c223516e70aae3cbfab4bd6ac7cebfa625dcc0a2a40a0000008096980000000000bdf126d8f3c73e649739ad6df2bc2acb683596229dddcc152ca6b18e8e2895bb00000000410100000000000000000000000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 2: Broadcast the hex using `sendrawtransaction`
 
@@ -351,11 +383,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## channelspayment
 
@@ -375,7 +410,7 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 
 ### Arguments
 
-| Name | Type | Description |
+| Name                     | Type     | Description                                             |
 | ------------------------ | -------- | ------------------------------------------------------- |
 | destination_pubkey       | (string) | the public key of the intended recipient of the channel |
 | total_number_of_payments | (number) | the total number of payments to allocate in the channel |
@@ -383,10 +418,10 @@ The `sendrawtransaction` method then returns a `txid` which is the unique identi
 
 ### Response
 
-| Name | Type | Description |
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -418,11 +453,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"invalid channel open txid"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "invalid channel open txid" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 2: Broadcast using `sendrawtransaction`
 
@@ -449,11 +487,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Check that the transaction is confirmed:
 
@@ -473,7 +514,7 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Name | Type | Description |
+| Name                     | Type     | Description                                             |
 | ------------------------ | -------- | ------------------------------------------------------- |
 | destination_pubkey       | (string) | the public key of the intended recipient of the channel |
 | total_number_of_payments | (number) | the total number of payments to allocate in the channel |
@@ -481,10 +522,10 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Response
 
-| Name | Type | Description |
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -516,16 +557,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"invalid channel close txid"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "invalid channel close txid" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 2: Broadcast the hex using `sendrawtransaction`
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0100000003e51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc479200300000049483045022100bbed947e3c33b21b8519a7d78dc08cb70d3fe3e6c788119db95a459448caa64c02200a1c73431d118a7fad4f58b760b025f399747e127a46da5c421add2e599b897f01ffffffffe51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc4792000000000a74ca5a281a1a0819ca28194a067a56580210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127281403fe5789a3f0e25f46a000f381fc2e7f7b759855184532a6e1e0c5e84d1dc284b4d37422735aa93175ea74d6829ac3b68a7c8c928c22b870ab4b9507bc872dbd6a129a5278020e73e4b0745bdf31657ac09e3cf99fd65cb262d8498f86c977ece01b551925f028103020000af038001eba10001ffffffffe51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc47920010000007b4c79a276a072a26ba067a56580210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127281400b4d6aaeb127417839b76dc78d78379147cfff760f03824e5565aae1c371bbd34559d951cdd2e8622bd5f5aa5528d2a20ee95174c3fea09ef48824ecd647c0b2a100af038001eba10001ffffffff051027000000000000302ea22c8020c9ada2adfc6c6dec0bd9dd29f4e48c86f84c016abc3552b8815ca3c4a44c561b8103120c008203000401cc1027000000000000302ea22c802019be575785c322e9c7d2ae4b5f3df78c9a38ff7357e9e689f26de8e224cb186c8103120c008203000401cc008793030000000023210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba01272ac805f96a60100000023210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba01272ac0000000000000000956a4c92eb523146ff925aab06943c3178536fe7443fffc9009847f9c0ebf5e7dbe3f4b0952f210324f94e76159d69a5163b91588c3a04dac2c80e0011f713e3bfc5a8b67ba0127221027166e21e9579307a1ae4f8c223516e70aae3cbfab4bd6ac7cebfa625dcc0a2a4060000008096980000000000e51bea1ddfc0c441c5d277f81b03f5aa306fbf22803dd79f0f97f3d96cc4792000000000
 ```
-
-
