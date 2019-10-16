@@ -28,18 +28,18 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Name | Type | Description | 
-| ----------- | -------- | ----------------------------------------------------------------- |
-| name        | (string) | the name of the user's dice contract                              |
-| fundingtxid | (string) | the txid of the transaction that created and funded this contract |
+| Name        | Type     | Description                                                           |
+| ----------- | -------- | --------------------------------------------------------------------- |
+| name        | (string) | the name of the user's dice contract                                  |
+| fundingtxid | (string) | the txid of the transaction that created and funded this contract     |
 | amount      | (number) | the amount of funds you want to add to your contract from your wallet |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -71,11 +71,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"Plan name can be at most 8 ASCII characters"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "error",
+    "error": "Plan name can be at most 8 ASCII characters"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 2: Send the raw transaction / broadcast the hex value
 
@@ -102,11 +108,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 3: Decode the raw transaction (optional to check if the values are sane)
 
@@ -197,11 +206,79 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"txid":"83370785623efc679de990b0d90bd45b375a0a53ce9e011259c31a8c747fd1ff","overwintered":false,"version":1,"locktime":0,"vin":[{"txid":"85c61b2e46c2fd686ca6b83da46e44df86cd42bcdb41b2b20ced053d15596b64","vout":0,"scriptSig":{"asm":"3045022100bdbf75970d7f708c4a5637d703b0a055e65a2eab0e71f6435604281d5981143d022008942029da09aa09bd0c9358b8169528e596968150e85d15c143c6961bf2b395[ALL]","hex":"483045022100bdbf75970d7f708c4a5637d703b0a055e65a2eab0e71f6435604281d5981143d022008942029da09aa09bd0c9358b8169528e596968150e85d15c143c6961bf2b39501"},"sequence":4294967295}],"vout":[{"value":10.00000000,"valueZat":1000000000,"n":0,"scriptPubKey":{"asm":"a22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["REabWB7KjFN5C3LFMZ5odExHPenYzHLtVw"]}},{"value":0.00010000,"valueZat":10000,"n":1,"scriptPubKey":{"asm":"03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG","hex":"2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac","reqSigs":1,"type":"pubkey","addresses":["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]}},{"value":99989.99990000,"valueZat":9998999990000,"n":2,"scriptPubKey":{"asm":"03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG","hex":"2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac","reqSigs":1,"type":"pubkey","addresses":["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]}},{"value":0.00000000,"valueZat":0,"n":3,"scriptPubKey":{"asm":"OP_RETURN e6454b4d444469636500f74cae60f1901161cbe475ff00f1024bb3d64be778b714bfbeb75afa20fffcebd22d4e75f4939198938b49036f71c3a0e00d20ca05237147aaed0d85cd50ff290000000000000000000000000000000000000000000000000000000000000000","hex":"6a4c6ae6454b4d444469636500f74cae60f1901161cbe475ff00f1024bb3d64be778b714bfbeb75afa20fffcebd22d4e75f4939198938b49036f71c3a0e00d20ca05237147aaed0d85cd50ff290000000000000000000000000000000000000000000000000000000000000000","type":"nulldata"}}],"vjoinsplit":[]},"error":null,"id":"curltest"}
+{
+  "result": {
+    "txid": "83370785623efc679de990b0d90bd45b375a0a53ce9e011259c31a8c747fd1ff",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "85c61b2e46c2fd686ca6b83da46e44df86cd42bcdb41b2b20ced053d15596b64",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "3045022100bdbf75970d7f708c4a5637d703b0a055e65a2eab0e71f6435604281d5981143d022008942029da09aa09bd0c9358b8169528e596968150e85d15c143c6961bf2b395[ALL]",
+          "hex": "483045022100bdbf75970d7f708c4a5637d703b0a055e65a2eab0e71f6435604281d5981143d022008942029da09aa09bd0c9358b8169528e596968150e85d15c143c6961bf2b39501"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 10.0,
+        "valueZat": 1000000000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "a22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["REabWB7KjFN5C3LFMZ5odExHPenYzHLtVw"]
+        }
+      },
+      {
+        "value": 0.0001,
+        "valueZat": 10000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
+          "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
+        }
+      },
+      {
+        "value": 99989.9999,
+        "valueZat": 9998999990000,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
+          "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 3,
+        "scriptPubKey": {
+          "asm": "OP_RETURN e6454b4d444469636500f74cae60f1901161cbe475ff00f1024bb3d64be778b714bfbeb75afa20fffcebd22d4e75f4939198938b49036f71c3a0e00d20ca05237147aaed0d85cd50ff290000000000000000000000000000000000000000000000000000000000000000",
+          "hex": "6a4c6ae6454b4d444469636500f74cae60f1901161cbe475ff00f1024bb3d64be778b714bfbeb75afa20fffcebd22d4e75f4939198938b49036f71c3a0e00d20ca05237147aaed0d85cd50ff290000000000000000000000000000000000000000000000000000000000000000",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## diceaddress
 
@@ -211,20 +288,20 @@ The `diceaddress` method takes either your pubkey or a pubkey that you provide a
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | -------------------------------------------------------------------------------------- |
-| pubkey    | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
+| Name   | Type               | Description                                                                            |
+| ------ | ------------------ | -------------------------------------------------------------------------------------- |
+| pubkey | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
 
 ### Response
 
-| Name | Type | Description | 
+| Name           | Type     | Description                                                                                                                    |
 | -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | result         | (string) | whether the diceaddress method was successful                                                                                  |
 | DiceCCaddress  | (string) | taking the dice contract's EVAL code as a modifier, this is the public address that corresponds to the dice contract's privkey |
 | Dicemarker     | (string) | the unmodified public address generated from the dice contract's privkey                                                       |
-| DiceCCassets   | (string) | the internal address; this value is not related to the usage of the Dice Antara module                                             |
-| GatewaysPubkey | (string) | the global pubkey for this Gateways Antara module                                                                                  |
-| myCCaddress    | (string) | taking the dice contract's EVAL code as a modifier, this is the Antara address from the pubkey of the user                         |
+| DiceCCassets   | (string) | the internal address; this value is not related to the usage of the Dice Antara module                                         |
+| GatewaysPubkey | (string) | the global pubkey for this Gateways Antara module                                                                              |
+| myCCaddress    | (string) | taking the dice contract's EVAL code as a modifier, this is the Antara address from the pubkey of the user                     |
 | myaddress      | (string) | the public address of the pubkey used to launch the chain                                                                      |
 
 #### :pushpin: Examples
@@ -262,11 +339,27 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"success","DiceCCAddress":"REabWB7KjFN5C3LFMZ5odExHPenYzHLtVw","DiceCCBalance":0.00000000,"DiceNormalAddress":"RLEe8f7Eg3TDuXii9BmNiiiaVGraHUt25c","DiceNormalBalance":0.00000000,"DiceCCTokensAddress":"RUjcZD5jMXjz5VVACKQ57Pcs4ATeHEmBgv","PubkeyCCaddress(Dice)":"RNZBxcH9ntcB8cJMTtbWZJrjzJNQ4ADLkz","PubkeyCCbalance(Dice)":0.00000000,"myCCAddress(Dice)":"RMpKdiS2giMq57DMqHJRqtMEG8m7apqy7e","myCCbalance(Dice)":0.00000000,"myaddress":"RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92","mybalance":0.00000000},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "success",
+    "DiceCCAddress": "REabWB7KjFN5C3LFMZ5odExHPenYzHLtVw",
+    "DiceCCBalance": 0.0,
+    "DiceNormalAddress": "RLEe8f7Eg3TDuXii9BmNiiiaVGraHUt25c",
+    "DiceNormalBalance": 0.0,
+    "DiceCCTokensAddress": "RUjcZD5jMXjz5VVACKQ57Pcs4ATeHEmBgv",
+    "PubkeyCCaddress(Dice)": "RNZBxcH9ntcB8cJMTtbWZJrjzJNQ4ADLkz",
+    "PubkeyCCbalance(Dice)": 0.0,
+    "myCCAddress(Dice)": "RMpKdiS2giMq57DMqHJRqtMEG8m7apqy7e",
+    "myCCbalance(Dice)": 0.0,
+    "myaddress": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
+    "mybalance": 0.0
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## dicebet
 
@@ -278,19 +371,19 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                             |
 | ----------- | -------- | ----------------------------------------------------------------------- |
 | name        | (string) | the name of the dice contract for which the user desires to place a bet |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract       |
-| amount      | (number) | the amount the user desires to place as a bet                             |
+| amount      | (number) | the amount the user desires to place as a bet                           |
 | odds        | (number) | specify the user's odds                                                 |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------------- |
-| "result"  | (string) | whether the dicebet command executed successfully                                                          |
-| "hex"     | (string) | the data of the user's transaction, in a raw hex-encoded format; broadcast this using `sendrawtransaction` |
+| Name     | Type     | Description                                                                                                |
+| -------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| "result" | (string) | whether the dicebet command executed successfully                                                          |
+| "hex"    | (string) | the data of the user's transaction, in a raw hex-encoded format; broadcast this using `sendrawtransaction` |
 
 #### :pushpin: Examples
 
@@ -322,11 +415,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"Diceinit error in bet, is your transaction confirmed?"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "error",
+    "error": "Diceinit error in bet, is your transaction confirmed?"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 2: Send/broadcast the raw transaction hex
 
@@ -353,11 +452,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -478,11 +580,109 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"txid":"694c309c86a928fde1919a86381f61670479c3ede85ea0574d08636cc406e798","overwintered":false,"version":1,"locktime":0,"vin":[{"txid":"03fd3f2af7ba397488ad59af3de2ef780df1ebc1ebd82b23daffc40a72b0c978","vout":0,"scriptSig":{"asm":"a276a072a26ba067a5658021039d966927cfdadab3ee6c56da63c21f17ea753dde4b3dfd41487103e24b27e94e8140fe35ae062eb8239b1eec5407c71e27531f281dc369b55c3d3c235a87f6c10b3d4e7a029a6420e4fa076bd1d3da013287a17973fb6684bc487335ce176e7488d3a100af038001e6a10001","hex":"4c79a276a072a26ba067a5658021039d966927cfdadab3ee6c56da63c21f17ea753dde4b3dfd41487103e24b27e94e8140fe35ae062eb8239b1eec5407c71e27531f281dc369b55c3d3c235a87f6c10b3d4e7a029a6420e4fa076bd1d3da013287a17973fb6684bc487335ce176e7488d3a100af038001e6a10001"},"sequence":4294967295},{"txid":"ef63c57deb9308deb13ed0d1d7f771402d58956edfbc33b8423f140dbe61220b","vout":2,"scriptSig":{"asm":"3045022100f934f292e5ef9b3c605b83381abec1d99c7119d35a3833e40e65d788191ea51402207e925062602bb603f7109e3f36009563952741e666210195686de27b61515cc8[ALL]","hex":"483045022100f934f292e5ef9b3c605b83381abec1d99c7119d35a3833e40e65d788191ea51402207e925062602bb603f7109e3f36009563952741e666210195686de27b61515cc801"},"sequence":4294967295},{"txid":"ef63c57deb9308deb13ed0d1d7f771402d58956edfbc33b8423f140dbe61220b","vout":3,"scriptSig":{"asm":"3044022020aa8c2d6dc9727ce32f34ae704eb374b7cf87f43250a2d10072fad266f6602e02201fce01ae5c550438f2a512ab13f4c40d411d7726f32046e989b9747af33fd4e1[ALL]","hex":"473044022020aa8c2d6dc9727ce32f34ae704eb374b7cf87f43250a2d10072fad266f6602e02201fce01ae5c550438f2a512ab13f4c40d411d7726f32046e989b9747af33fd4e101"},"sequence":4294967295}],"vout":[{"value":10.00000000,"valueZat":1000000000,"n":0,"scriptPubKey":{"asm":"a22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["REabWB7KjFN5C3LFMZ5odExHPenYzHLtVw"]}},{"value":7.00000000,"valueZat":700000000,"n":1,"scriptPubKey":{"asm":"a22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["REabWB7KjFN5C3LFMZ5odExHPenYzHLtVw"]}},{"value":0.00010007,"valueZat":10007,"n":2,"scriptPubKey":{"asm":"03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG","hex":"2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac","reqSigs":1,"type":"pubkey","addresses":["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]}},{"value":99975.99969993,"valueZat":9997599969993,"n":3,"scriptPubKey":{"asm":"03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG","hex":"2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac","reqSigs":1,"type":"pubkey","addresses":["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]}},{"value":0.00000000,"valueZat":0,"n":4,"scriptPubKey":{"asm":"OP_RETURN e6424b4d444469636500f74cae60f1901161cbe475ff00f1024bb3d64be778b714bfbeb75afa20fffceb6b2540dd22241ca6e72fe32c1cd1d2a9528140cad290f1599041e065890400670000000000000000000000000000000000000000000000000000000000000000","hex":"6a4c6ae6424b4d444469636500f74cae60f1901161cbe475ff00f1024bb3d64be778b714bfbeb75afa20fffceb6b2540dd22241ca6e72fe32c1cd1d2a9528140cad290f1599041e065890400670000000000000000000000000000000000000000000000000000000000000000","type":"nulldata"}}],"vjoinsplit":[]},"error":null,"id":"curltest"}
+{
+  "result": {
+    "txid": "694c309c86a928fde1919a86381f61670479c3ede85ea0574d08636cc406e798",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "03fd3f2af7ba397488ad59af3de2ef780df1ebc1ebd82b23daffc40a72b0c978",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "a276a072a26ba067a5658021039d966927cfdadab3ee6c56da63c21f17ea753dde4b3dfd41487103e24b27e94e8140fe35ae062eb8239b1eec5407c71e27531f281dc369b55c3d3c235a87f6c10b3d4e7a029a6420e4fa076bd1d3da013287a17973fb6684bc487335ce176e7488d3a100af038001e6a10001",
+          "hex": "4c79a276a072a26ba067a5658021039d966927cfdadab3ee6c56da63c21f17ea753dde4b3dfd41487103e24b27e94e8140fe35ae062eb8239b1eec5407c71e27531f281dc369b55c3d3c235a87f6c10b3d4e7a029a6420e4fa076bd1d3da013287a17973fb6684bc487335ce176e7488d3a100af038001e6a10001"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "ef63c57deb9308deb13ed0d1d7f771402d58956edfbc33b8423f140dbe61220b",
+        "vout": 2,
+        "scriptSig": {
+          "asm": "3045022100f934f292e5ef9b3c605b83381abec1d99c7119d35a3833e40e65d788191ea51402207e925062602bb603f7109e3f36009563952741e666210195686de27b61515cc8[ALL]",
+          "hex": "483045022100f934f292e5ef9b3c605b83381abec1d99c7119d35a3833e40e65d788191ea51402207e925062602bb603f7109e3f36009563952741e666210195686de27b61515cc801"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "ef63c57deb9308deb13ed0d1d7f771402d58956edfbc33b8423f140dbe61220b",
+        "vout": 3,
+        "scriptSig": {
+          "asm": "3044022020aa8c2d6dc9727ce32f34ae704eb374b7cf87f43250a2d10072fad266f6602e02201fce01ae5c550438f2a512ab13f4c40d411d7726f32046e989b9747af33fd4e1[ALL]",
+          "hex": "473044022020aa8c2d6dc9727ce32f34ae704eb374b7cf87f43250a2d10072fad266f6602e02201fce01ae5c550438f2a512ab13f4c40d411d7726f32046e989b9747af33fd4e101"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 10.0,
+        "valueZat": 1000000000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "a22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["REabWB7KjFN5C3LFMZ5odExHPenYzHLtVw"]
+        }
+      },
+      {
+        "value": 7.0,
+        "valueZat": 700000000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "a22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["REabWB7KjFN5C3LFMZ5odExHPenYzHLtVw"]
+        }
+      },
+      {
+        "value": 0.00010007,
+        "valueZat": 10007,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
+          "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
+        }
+      },
+      {
+        "value": 99975.99969993,
+        "valueZat": 9997599969993,
+        "n": 3,
+        "scriptPubKey": {
+          "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
+          "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 4,
+        "scriptPubKey": {
+          "asm": "OP_RETURN e6424b4d444469636500f74cae60f1901161cbe475ff00f1024bb3d64be778b714bfbeb75afa20fffceb6b2540dd22241ca6e72fe32c1cd1d2a9528140cad290f1599041e065890400670000000000000000000000000000000000000000000000000000000000000000",
+          "hex": "6a4c6ae6424b4d444469636500f74cae60f1901161cbe475ff00f1024bb3d64be778b714bfbeb75afa20fffceb6b2540dd22241ca6e72fe32c1cd1d2a9528140cad290f1599041e065890400670000000000000000000000000000000000000000000000000000000000000000",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## dicefinish
 
@@ -496,7 +696,7 @@ If the returned `hex` value is not `0`, the `hex` value should be broadcast with
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                       |
 | ----------- | -------- | ----------------------------------------------------------------- |
 | name        | (string) | the name of the dice contract                                     |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
@@ -504,10 +704,10 @@ If the returned `hex` value is not `0`, the `hex` value should be broadcast with
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| result    | (string) | whether the command executed successfully                                                                                                                                                                                                  |
-| hex       | (string) | if the contract is already finished, the resulting hex is 0; if the contract is not finished, the value of hex will be a rawtransaction that the user can broadcast to let the blockchain automatically declare a winner and close the bet |
+| Name   | Type     | Description                                                                                                                                                                                                                                |
+| ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| result | (string) | whether the command executed successfully                                                                                                                                                                                                  |
+| hex    | (string) | if the contract is already finished, the resulting hex is 0; if the contract is not finished, the value of hex will be a rawtransaction that the user can broadcast to let the blockchain automatically declare a winner and close the bet |
 
 #### :pushpin: Examples
 
@@ -539,11 +739,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"Diceinit error in finish, is your transaction confirmed?"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "error",
+    "error": "Diceinit error in finish, is your transaction confirmed?"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## dicefund
 
@@ -563,7 +769,7 @@ The `maxodds` property must be between 1 and 9999.
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name          | Type     | Description                                                                                   |
 | ------------- | -------- | --------------------------------------------------------------------------------------------- |
 | name          | (string) | the name of the user's dice contract                                                          |
 | funds         | (number) | the amount of funds with which the user desires to start                                      |
@@ -574,10 +780,10 @@ The `maxodds` property must be between 1 and 9999.
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | --------------------------------------------------------------------------------------------------------- |
-| result    | (string) | whether the command executed successfully                                                                 |
-| hex       | (string) | the data of the transaction in raw hex-encoded format; broadcast this using the sendrawtransaction method |
+| Name   | Type     | Description                                                                                               |
+| ------ | -------- | --------------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command executed successfully                                                                 |
+| hex    | (string) | the data of the transaction in raw hex-encoded format; broadcast this using the sendrawtransaction method |
 
 #### :pushpin: Examples
 
@@ -609,11 +815,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"cant find enough inputs"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "cant find enough inputs" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 2: Send raw transaction / Broadcast the hex value
 
@@ -640,11 +849,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -816,11 +1028,160 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"txid":"ebfcff20fa5ab7bebf14b778e74bd6b34b02f100ff75e4cb611190f160ae4cf7","overwintered":false,"version":1,"locktime":0,"vin":[{"txid":"8849777c5eb4dd7c7d74d22714b522818f740a3fec1c666b9d03a2429fb79058","vout":1,"scriptSig":{"asm":"304402206544c1d0bb42da89d93e58526a28b3c80ef45dca516ecd11ee3fe7fc35a5261c02207f0b134ff5cdb840692a65eccd86fb2fc2a63afc6f1309a2ed9d054d1a076b12[ALL]","hex":"47304402206544c1d0bb42da89d93e58526a28b3c80ef45dca516ecd11ee3fe7fc35a5261c02207f0b134ff5cdb840692a65eccd86fb2fc2a63afc6f1309a2ed9d054d1a076b1201"},"sequence":4294967295},{"txid":"8124ae3a2d8d087158fb8901867b732b7834229012c688091abd4e1288bd905b","vout":2,"scriptSig":{"asm":"304502210091972c641291022da6d49ab8d3790ccdbb0f563b385b89ac723fa688a6c84ee202207198c3d48ce1d9591fce6fb41192145c38f8312c7a78251f4231986070a3283a[ALL]","hex":"48304502210091972c641291022da6d49ab8d3790ccdbb0f563b385b89ac723fa688a6c84ee202207198c3d48ce1d9591fce6fb41192145c38f8312c7a78251f4231986070a3283a01"},"sequence":4294967295},{"txid":"5c7fdce89144f960e94a3c300fa5fcb39e3fac08f9a11494a60717c5fa06fb5b","vout":1,"scriptSig":{"asm":"3045022100ea0b49d902f844ef280b8621cdc5a5365a779a04a159ba30e00bd0b3eaf284da02205aece19ee807ce11b0ed7b74175df29dd2be4560361174664571a6a596a894fd[ALL]","hex":"483045022100ea0b49d902f844ef280b8621cdc5a5365a779a04a159ba30e00bd0b3eaf284da02205aece19ee807ce11b0ed7b74175df29dd2be4560361174664571a6a596a894fd01"},"sequence":4294967295},{"txid":"7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c","vout":2,"scriptSig":{"asm":"304402203eb318ae650753ab7cc2e9ea9b2cc2477add2fbd9e49e0ac1d7560f7e08ecbb002202d77d75ed2c1d3b53feda45c699374f74d1bf1065b46e3a24514dd072f2a9dcb[ALL]","hex":"47304402203eb318ae650753ab7cc2e9ea9b2cc2477add2fbd9e49e0ac1d7560f7e08ecbb002202d77d75ed2c1d3b53feda45c699374f74d1bf1065b46e3a24514dd072f2a9dcb01"},"sequence":4294967295},{"txid":"a10e1e5e86968a07c81c227fea8888f5bdfcddbe84fbbcb409ba336fee32515d","vout":0,"scriptSig":{"asm":"3045022100e3cc5062becc979fc347a9ccde6af8ebba39c0d88105c9a35c89876207fafb0202204f631d063911e4526958f6629a847cca832d845a86adcae248625fd45b03e7d0[ALL]","hex":"483045022100e3cc5062becc979fc347a9ccde6af8ebba39c0d88105c9a35c89876207fafb0202204f631d063911e4526958f6629a847cca832d845a86adcae248625fd45b03e7d001"},"sequence":4294967295},{"txid":"9207bdecdab610eefd641bd34946dd6d798931a32af50bee83d70cb2c06e625e","vout":0,"scriptSig":{"asm":"30450221009f3c17ccc73f28d9ba1d80c149890f56c6aafa576e152eb776082d12d54548eb022053f3b87eee04d9f5ef9f961d79433ec76b0f0e4a2288104212db01f6d2d7d1f8[ALL]","hex":"4830450221009f3c17ccc73f28d9ba1d80c149890f56c6aafa576e152eb776082d12d54548eb022053f3b87eee04d9f5ef9f961d79433ec76b0f0e4a2288104212db01f6d2d7d1f801"},"sequence":4294967295},{"txid":"05d26eb9bb68ff594154a2a0da40812b430983de36cfeb6db00207dfd46cb55e","vout":0,"scriptSig":{"asm":"3044022029bbf3fa5dea810d70ea9ef9b81b5ee72c3b3ec7d59faae4ca9658ed723ef683022060226d854ff44aebeba36bfda9e664185be0999ce7ee8b7b053f67642bd8c641[ALL]","hex":"473044022029bbf3fa5dea810d70ea9ef9b81b5ee72c3b3ec7d59faae4ca9658ed723ef683022060226d854ff44aebeba36bfda9e664185be0999ce7ee8b7b053f67642bd8c64101"},"sequence":4294967295},{"txid":"44e226e19e7726f9511832d47c70e788b893bbbd2ab130cf320437b8f4573760","vout":2,"scriptSig":{"asm":"30440220717994adac8b009a0f110438cef1e226d6674494e774813fad044b340c38052002202852c11fcc5bb1f3aa39e3dbbf00aa0d2b808c1c0769fbd692201cf10e96644b[ALL]","hex":"4730440220717994adac8b009a0f110438cef1e226d6674494e774813fad044b340c38052002202852c11fcc5bb1f3aa39e3dbbf00aa0d2b808c1c0769fbd692201cf10e96644b01"},"sequence":4294967295},{"txid":"ae7b7330f13625f70c893f2dc1c33495fdd7163ba5147545286a6097dc7d3462","vout":2,"scriptSig":{"asm":"304402202dcf8a066fc56dae83f2259f902707aff7484251666c5b01a2e71e909fe859630220306a4149afce43dc343e103cdf4926ae9bf9f9a7a6eed9bf235efe04e619daea[ALL]","hex":"47304402202dcf8a066fc56dae83f2259f902707aff7484251666c5b01a2e71e909fe859630220306a4149afce43dc343e103cdf4926ae9bf9f9a7a6eed9bf235efe04e619daea01"},"sequence":4294967295},{"txid":"c65edbed453308567c9843a1aad953703fb79a6d9f80430b1e9334d194696863","vout":1,"scriptSig":{"asm":"3044022066b3aadd3f2545c953f7389a062831736eda6c01f9df20e56b107d87fa6bfe8d02204357d85e1ab484c779fac5eab5d01fd39f5caf1ecde499873de34ac5e204b7ab[ALL]","hex":"473044022066b3aadd3f2545c953f7389a062831736eda6c01f9df20e56b107d87fa6bfe8d02204357d85e1ab484c779fac5eab5d01fd39f5caf1ecde499873de34ac5e204b7ab01"},"sequence":4294967295}],"vout":[{"value":777777.00000000,"valueZat":77777700000000,"n":0,"scriptPubKey":{"asm":"a22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["REabWB7KjFN5C3LFMZ5odExHPenYzHLtVw"]}},{"value":0.00010000,"valueZat":10000,"n":1,"scriptPubKey":{"asm":"039d966927cfdadab3ee6c56da63c21f17ea753dde4b3dfd41487103e24b27e94e OP_CHECKSIG","hex":"21039d966927cfdadab3ee6c56da63c21f17ea753dde4b3dfd41487103e24b27e94eac","reqSigs":1,"type":"pubkey","addresses":["RLEe8f7Eg3TDuXii9BmNiiiaVGraHUt25c"]}},{"value":23212.49930000,"valueZat":2321249930000,"n":2,"scriptPubKey":{"asm":"03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG","hex":"2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac","reqSigs":1,"type":"pubkey","addresses":["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]}},{"value":0.00000000,"valueZat":0,"n":3,"scriptPubKey":{"asm":"OP_RETURN e6464b4d444469636500a09ba104000000004014502e0000000009030000000000000700000000000000","hex":"6a2ae6464b4d444469636500a09ba104000000004014502e0000000009030000000000000700000000000000","type":"nulldata"}}],"vjoinsplit":[]},"error":null,"id":"curltest"}
+{
+  "result": {
+    "txid": "ebfcff20fa5ab7bebf14b778e74bd6b34b02f100ff75e4cb611190f160ae4cf7",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "8849777c5eb4dd7c7d74d22714b522818f740a3fec1c666b9d03a2429fb79058",
+        "vout": 1,
+        "scriptSig": {
+          "asm": "304402206544c1d0bb42da89d93e58526a28b3c80ef45dca516ecd11ee3fe7fc35a5261c02207f0b134ff5cdb840692a65eccd86fb2fc2a63afc6f1309a2ed9d054d1a076b12[ALL]",
+          "hex": "47304402206544c1d0bb42da89d93e58526a28b3c80ef45dca516ecd11ee3fe7fc35a5261c02207f0b134ff5cdb840692a65eccd86fb2fc2a63afc6f1309a2ed9d054d1a076b1201"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "8124ae3a2d8d087158fb8901867b732b7834229012c688091abd4e1288bd905b",
+        "vout": 2,
+        "scriptSig": {
+          "asm": "304502210091972c641291022da6d49ab8d3790ccdbb0f563b385b89ac723fa688a6c84ee202207198c3d48ce1d9591fce6fb41192145c38f8312c7a78251f4231986070a3283a[ALL]",
+          "hex": "48304502210091972c641291022da6d49ab8d3790ccdbb0f563b385b89ac723fa688a6c84ee202207198c3d48ce1d9591fce6fb41192145c38f8312c7a78251f4231986070a3283a01"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "5c7fdce89144f960e94a3c300fa5fcb39e3fac08f9a11494a60717c5fa06fb5b",
+        "vout": 1,
+        "scriptSig": {
+          "asm": "3045022100ea0b49d902f844ef280b8621cdc5a5365a779a04a159ba30e00bd0b3eaf284da02205aece19ee807ce11b0ed7b74175df29dd2be4560361174664571a6a596a894fd[ALL]",
+          "hex": "483045022100ea0b49d902f844ef280b8621cdc5a5365a779a04a159ba30e00bd0b3eaf284da02205aece19ee807ce11b0ed7b74175df29dd2be4560361174664571a6a596a894fd01"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "7194ae293330af80fdbe4b4b2c8b51194f12e334b4a0489288288c1b7336a65c",
+        "vout": 2,
+        "scriptSig": {
+          "asm": "304402203eb318ae650753ab7cc2e9ea9b2cc2477add2fbd9e49e0ac1d7560f7e08ecbb002202d77d75ed2c1d3b53feda45c699374f74d1bf1065b46e3a24514dd072f2a9dcb[ALL]",
+          "hex": "47304402203eb318ae650753ab7cc2e9ea9b2cc2477add2fbd9e49e0ac1d7560f7e08ecbb002202d77d75ed2c1d3b53feda45c699374f74d1bf1065b46e3a24514dd072f2a9dcb01"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "a10e1e5e86968a07c81c227fea8888f5bdfcddbe84fbbcb409ba336fee32515d",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "3045022100e3cc5062becc979fc347a9ccde6af8ebba39c0d88105c9a35c89876207fafb0202204f631d063911e4526958f6629a847cca832d845a86adcae248625fd45b03e7d0[ALL]",
+          "hex": "483045022100e3cc5062becc979fc347a9ccde6af8ebba39c0d88105c9a35c89876207fafb0202204f631d063911e4526958f6629a847cca832d845a86adcae248625fd45b03e7d001"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "9207bdecdab610eefd641bd34946dd6d798931a32af50bee83d70cb2c06e625e",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "30450221009f3c17ccc73f28d9ba1d80c149890f56c6aafa576e152eb776082d12d54548eb022053f3b87eee04d9f5ef9f961d79433ec76b0f0e4a2288104212db01f6d2d7d1f8[ALL]",
+          "hex": "4830450221009f3c17ccc73f28d9ba1d80c149890f56c6aafa576e152eb776082d12d54548eb022053f3b87eee04d9f5ef9f961d79433ec76b0f0e4a2288104212db01f6d2d7d1f801"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "05d26eb9bb68ff594154a2a0da40812b430983de36cfeb6db00207dfd46cb55e",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "3044022029bbf3fa5dea810d70ea9ef9b81b5ee72c3b3ec7d59faae4ca9658ed723ef683022060226d854ff44aebeba36bfda9e664185be0999ce7ee8b7b053f67642bd8c641[ALL]",
+          "hex": "473044022029bbf3fa5dea810d70ea9ef9b81b5ee72c3b3ec7d59faae4ca9658ed723ef683022060226d854ff44aebeba36bfda9e664185be0999ce7ee8b7b053f67642bd8c64101"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "44e226e19e7726f9511832d47c70e788b893bbbd2ab130cf320437b8f4573760",
+        "vout": 2,
+        "scriptSig": {
+          "asm": "30440220717994adac8b009a0f110438cef1e226d6674494e774813fad044b340c38052002202852c11fcc5bb1f3aa39e3dbbf00aa0d2b808c1c0769fbd692201cf10e96644b[ALL]",
+          "hex": "4730440220717994adac8b009a0f110438cef1e226d6674494e774813fad044b340c38052002202852c11fcc5bb1f3aa39e3dbbf00aa0d2b808c1c0769fbd692201cf10e96644b01"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "ae7b7330f13625f70c893f2dc1c33495fdd7163ba5147545286a6097dc7d3462",
+        "vout": 2,
+        "scriptSig": {
+          "asm": "304402202dcf8a066fc56dae83f2259f902707aff7484251666c5b01a2e71e909fe859630220306a4149afce43dc343e103cdf4926ae9bf9f9a7a6eed9bf235efe04e619daea[ALL]",
+          "hex": "47304402202dcf8a066fc56dae83f2259f902707aff7484251666c5b01a2e71e909fe859630220306a4149afce43dc343e103cdf4926ae9bf9f9a7a6eed9bf235efe04e619daea01"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "c65edbed453308567c9843a1aad953703fb79a6d9f80430b1e9334d194696863",
+        "vout": 1,
+        "scriptSig": {
+          "asm": "3044022066b3aadd3f2545c953f7389a062831736eda6c01f9df20e56b107d87fa6bfe8d02204357d85e1ab484c779fac5eab5d01fd39f5caf1ecde499873de34ac5e204b7ab[ALL]",
+          "hex": "473044022066b3aadd3f2545c953f7389a062831736eda6c01f9df20e56b107d87fa6bfe8d02204357d85e1ab484c779fac5eab5d01fd39f5caf1ecde499873de34ac5e204b7ab01"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 777777.0,
+        "valueZat": 77777700000000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "a22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c80200095ece5eee67e1f313e7ba2d156c7617106cd52b75c93ed3fb110ff3fba6e998103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["REabWB7KjFN5C3LFMZ5odExHPenYzHLtVw"]
+        }
+      },
+      {
+        "value": 0.0001,
+        "valueZat": 10000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "039d966927cfdadab3ee6c56da63c21f17ea753dde4b3dfd41487103e24b27e94e OP_CHECKSIG",
+          "hex": "21039d966927cfdadab3ee6c56da63c21f17ea753dde4b3dfd41487103e24b27e94eac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RLEe8f7Eg3TDuXii9BmNiiiaVGraHUt25c"]
+        }
+      },
+      {
+        "value": 23212.4993,
+        "valueZat": 2321249930000,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
+          "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 3,
+        "scriptPubKey": {
+          "asm": "OP_RETURN e6464b4d444469636500a09ba104000000004014502e0000000009030000000000000700000000000000",
+          "hex": "6a2ae6464b4d444469636500a09ba104000000004014502e0000000009030000000000000700000000000000",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## diceinfo
 
@@ -834,13 +1195,13 @@ Use the [dicelist](../../../basic-docs/antara/antara-api/dice.html#dicelist) met
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                       |
 | ----------- | -------- | ----------------------------------------------------------------- |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
 
 ### Response
 
-| Name | Type | Description | 
+| Name            | Type     | Description                                                                                         |
 | --------------- | -------- | --------------------------------------------------------------------------------------------------- |
 | "result"        | (string) | whether the command executed successfully                                                           |
 | "fundingtxid"   | (string) | the txid of the transaction that created and funded this contract                                   |
@@ -889,11 +1250,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"cant find fundingtxid"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "cant find fundingtxid" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## dicelist
 
@@ -905,13 +1269,13 @@ A `fundingtxid` is the txid of the transaction that created and funded the relev
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                               |
 | ----------- | -------- | ------------------------------------------------------------------------- |
 | fundingtxid | (string) | the txid of the transaction that created and funded the relevant contract |
 
@@ -944,11 +1308,10 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":[],"error":null,"id":"curltest"}
+{ "result": [], "error": null, "id": "curltest" }
 ```
 
 </collapse-text>
-
 
 ## dicestatus
 
@@ -958,7 +1321,7 @@ The `dicestatus` method prints the status of a `dicebet` and returns whether the
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                       |
 | ----------- | -------- | ----------------------------------------------------------------- |
 | name        | (string) | the name of the dice contract                                     |
 | fundingtxid | (string) | the txid of the transaction that created and funded this contract |
@@ -966,10 +1329,10 @@ The `dicestatus` method prints the status of a `dicebet` and returns whether the
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------- |
-| result    | (string) | whether the command executed successfully      |
-| status    | (string) | the result of the bet for the relevant bettxid |
+| Name   | Type     | Description                                    |
+| ------ | -------- | ---------------------------------------------- |
+| result | (string) | whether the command executed successfully      |
+| status | (string) | the result of the bet for the relevant bettxid |
 
 #### :pushpin: Examples
 
@@ -1001,8 +1364,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"Diceinit error in status, is your transaction confirmed?"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "error",
+    "error": "Diceinit error in status, is your transaction confirmed?"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
