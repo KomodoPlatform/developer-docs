@@ -10,13 +10,13 @@ The `getaddressbalance` method returns the confirmed balance for an address, or 
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name      | Type     | Description |
 | --------- | -------- | ----------- |
 | "address" | (string) | the address |
 
 ### Response
 
-| Name | Type | Description | 
+| Name       | Type     | Description                                                        |
 | ---------- | -------- | ------------------------------------------------------------------ |
 | "balance"  | (number) | the current confirmed balance in satoshis                          |
 | "received" | (number) | the total confirmed number of satoshis received (including change) |
@@ -29,9 +29,7 @@ Command:
 ./komodo-cli getaddressbalance '{"addresses":["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -42,24 +40,21 @@ Command:
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
   "result": {
-    "balance": 450010000,
-    "received": 1711916229
+    "balance": 40000,
+    "received": 1011916229
   },
   "error": null,
   "id": "curltest"
@@ -67,7 +62,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## getaddressdeltas
 
@@ -79,7 +73,7 @@ The `getaddressdeltas` method returns all confirmed balance changes of an addres
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type      | Description                                                             |
 | ----------- | --------- | ----------------------------------------------------------------------- |
 | "address"   | (string)  | the address                                                             |
 | "start"     | (number)  | the start block height                                                  |
@@ -88,7 +82,7 @@ The `getaddressdeltas` method returns all confirmed balance changes of an addres
 
 ### Response
 
-| Name | Type | Description | 
+| Name       | Type     | Description                       |
 | ---------- | -------- | --------------------------------- |
 | "satoshis" | (number) | the difference in satoshis        |
 | "txid"     | (string) | the related transaction id        |
@@ -104,9 +98,7 @@ Command:
 ./komodo-cli getaddressdeltas '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -123,16 +115,13 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli getaddressdeltas '{"addresses":["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"],"start":1,"end":200,"chainInfo":true}'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -159,18 +148,15 @@ Command:
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -191,18 +177,15 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"],"start":1,"end":200,"chainInfo":true}]}' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"],"start":1,"end":200,"chainInfo":true}]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -233,7 +216,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
-
 ## getaddressmempool
 
 **getaddressmempool '{ "addresses" : [ "address" , ... ] }'**
@@ -242,13 +224,13 @@ The `getaddressmempool` method returns all mempool deltas for an address, or add
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name      | Type     | Description |
 | --------- | -------- | ----------- |
 | "address" | (string) | the address |
 
 ### Response
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                            |
 | ----------- | -------- | ------------------------------------------------------ |
 | "address"   | (string) | the address                                            |
 | "txid"      | (string) | the related txid                                       |
@@ -266,9 +248,7 @@ Command:
 ./komodo-cli getaddressmempool '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -284,30 +264,25 @@ Command:
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressmempool", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressmempool", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
   "result": [
     {
       "address": "RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb",
-      "txid": "708d8b67ea1f1b0a534515088911e90e77d623cddf901633e24cbb5b4c6f793c",
-      "index": 0,
-      "satoshis": -50000000,
-      "timestamp": 1536603876,
-      "prevtxid": "17474b73ec5a985c78a46435a021a1ad3ebd5609724ffd23d9c787c30f661342",
-      "prevout": 1
+      "txid": "55c9830c0b2efcbbbac4fb813ff0d85722c6d720a748459287b60ef96cdb6732",
+      "index": 1,
+      "satoshis": 200000000,
+      "timestamp": 1536356143
     }
   ],
   "error": null,
@@ -317,7 +292,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
-
 ## getaddresstxids
 
 **getaddresstxids '{ "addresses" : [ "address" , ... ] }'**
@@ -326,7 +300,7 @@ The `getaddresstxids` method returns the txids for an address, or addresses. It 
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name      | Type     | Description            |
 | --------- | -------- | ---------------------- |
 | "address" | (string) | the address            |
 | "start"   | (number) | the start block height |
@@ -334,7 +308,7 @@ The `getaddresstxids` method returns the txids for an address, or addresses. It 
 
 ### Response
 
-| Name | Type | Description | 
+| Name             | Type     | Description        |
 | ---------------- | -------- | ------------------ |
 | "transaction_id" | (string) | the transaction id |
 
@@ -343,44 +317,39 @@ The `getaddresstxids` method returns the txids for an address, or addresses. It 
 Command:
 
 ```bash
-	komodo-cli getaddresstxids '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb","RQUAkqRiRMqxcNrB29B4duTK4qkqfV9HVJ"]}'
+komodo-cli getaddresstxids '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb","RQUAkqRiRMqxcNrB29B4duTK4qkqfV9HVJ"]}'
 ```
-
 
 <collapse-text hidden title="Response">
 
-
 ```bash
-  [
+[
     "39c61e8ea769ba1fc971cb7dadc531f25a2528d01a4244f379043248b6c51cc1",
     "800e4331018d02458ff4f2a7722f0508b810f7fcf53bc1c5ac85aec4e5fa706b",
     "2a3c3664851370ff762b47d735cc661e3dbce4cf36b6c1b74799f3b1c847bd52",
     "275f8383d85c0873c91ebfea3917d4136c89f43526da053177922d6c036634af"
-  ]
-
+]
 ```
 
 </collapse-text>
-
 
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddresstxids", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddresstxids", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
   "result": [
     "39c61e8ea769ba1fc971cb7dadc531f25a2528d01a4244f379043248b6c51cc1",
     "800e4331018d02458ff4f2a7722f0508b810f7fcf53bc1c5ac85aec4e5fa706b",
-    "2a3c3664851370ff762b47d735cc661e3dbce4cf36b6c1b74799f3b1c847bd52"
+    "2a3c3664851370ff762b47d735cc661e3dbce4cf36b6c1b74799f3b1c847bd52",
+    "275f8383d85c0873c91ebfea3917d4136c89f43526da053177922d6c036634af"
   ],
   "error": null,
   "id": "curltest"
@@ -388,7 +357,6 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-
 
 ## getaddressutxos
 
@@ -398,14 +366,14 @@ The `getaddressutxos` method returns all unspent outputs for an address. It requ
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type      | Description                     |
 | ----------- | --------- | ------------------------------- |
 | "address"   | (string)  | the address                     |
 | "chainInfo" | (boolean) | include chain info with results |
 
 ### Response
 
-| Name | Type | Description | 
+| Name          | Type     | Description                          |
 | ------------- | -------- | ------------------------------------ |
 | "address"     | (string) | the address                          |
 | "txid"        | (string) | the output txid                      |
@@ -422,9 +390,7 @@ Command:
 ./komodo-cli getaddressutxos '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}'
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 [
@@ -441,17 +407,13 @@ Command:
 
 </collapse-text>
 
-
 Command:
 
 ```bash
 ./komodo-cli getaddressutxos '{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"], "chainInfo": true}'
-
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -472,18 +434,15 @@ Command:
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -504,18 +463,15 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"], "chainInfo": true}] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressutxos", "params": [{"addresses": ["RTTg3izdeVnqkTTxjzsPFrdUQexgqCy1qb"], "chainInfo": true}] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -540,24 +496,23 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 
 </collapse-text>
 
-
 ## getsnapshot
 
 **getsnapshot top**
 
-The `getsnapshot` method returns a snapshot of addresses and their amounts at the Smart Chain's current height. 
+The `getsnapshot` method returns a snapshot of addresses and their amounts at the Smart Chain's current height.
 
 The method requires [addressindex](../../../basic-docs/smart-chains/smart-chain-setup/common-runtime-parameters.html#addressindex) to be enabled.
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | ---------------------------------------------------- |
-| "top"     | (number, optional) | Only return this many addresses, i.e. top N rich list |
+| Name  | Type               | Description                                           |
+| ----- | ------------------ | ----------------------------------------------------- |
+| "top" | (number, optional) | Only return this many addresses, i.e. top N rich list |
 
 ### Response
 
-| Name | Type | Description | 
+| Name              | Type             | Description                                         |
 | ----------------- | ---------------- | --------------------------------------------------- |
 | "addresses"       | (array of jsons) | the array containing the address and amount details |
 | "addr"            | (string)         | an address                                          |
@@ -579,9 +534,7 @@ Command:
 ./komodo-cli getsnapshot 5
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -626,18 +579,15 @@ Command:
 
 </collapse-text>
 
-
 You can find the `rpcuser`, `rpcpassword`, and `rpcport` in the coin's `.conf` file.
 
 Command:
 
 ```bash
-curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getsnapshot", "params": ["5"] }' -H 'content-type: text/plain;' http://127.0.0.1:myrpcport/
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getsnapshot", "params": ["5"] }' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -685,4 +635,3 @@ curl --user myrpcuser:myrpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curl
 ```
 
 </collapse-text>
-

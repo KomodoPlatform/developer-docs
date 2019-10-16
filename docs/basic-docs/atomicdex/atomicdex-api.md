@@ -421,7 +421,7 @@ Volunteers are welcome to test coins with AtomicDEX software at any time. After 
 Set the value of the `mm2` parameter in the [coins](../../../basic-docs/atomicdex/atomicdex-tutorials/atomicdex-walkthrough.html#setting-up-the-coin-list) file as follows:
 
 ```bash
-mm2=1
+"mm2" : 1
 ```
 
 For terminal interface examples, see the examples section below.

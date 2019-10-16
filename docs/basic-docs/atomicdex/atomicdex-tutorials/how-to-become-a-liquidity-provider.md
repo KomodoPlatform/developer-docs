@@ -376,7 +376,7 @@ To avoid this issue, there is an alternate method that uses a json file to repla
 
 To use it:
 
-```
+```bash
 cp MM2_sample.json MM2.json
 nano MM2.json
 ```
@@ -385,7 +385,7 @@ Edit the values of the keys `"rpc_password"` and `"passphrase"` with the same va
 
 To start the MarketMaker:
 
-```
+```bash
 stdbuf -oL nohup ./mm2
 ```
 
@@ -423,7 +423,7 @@ We recommend here that you make sure that the public address above matches the a
 
 <collapse-text hidden title="Response">
 
-A sample response of the terminal ouput after the `start.sh` file is executed.
+A sample response of the terminal output after the `start.sh` file is executed.
 
 ```js
 2019-07-20 08:07:13, lp_coins:669] ticker = "KMD", block_count = 1450741
@@ -458,6 +458,27 @@ Again, a best practice here is to ensure that the public address above matches w
 ```
 
 </collapse-text>
+
+::: tip
+
+To connect to a coin network other than KMD or LTC, first make sure that the coin's details are present in the `coins` file you have downloaded and it has a property that says `"mm2": 1`. Then, create a new file named "COINNAMEconnect.sh" and add the following contents to it while replacing the text between `<` ad `>` with values from the `coins` file.
+
+```bash
+#!/bin/bash
+source userpass
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"<COIN TICKER>\",\"servers\":[{\"url\":\"<url of electrum server 1>\"},{\"url\":\"<url of electrum server 2>\"}]}"
+```
+
+Make the file executable
+
+```bash
+cd ~/atomicDEX-API/target/debug
+chmod +x COINNAMEconnect.sh
+```
+
+Executing the command `./COINNAMEconnect.sh` makes your Marketmaker instance connect to the `COIN`'s electrum server.
+
+:::
 
 ## Trading
 
