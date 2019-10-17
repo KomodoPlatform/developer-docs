@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Dilithium Antara Module facilitates quantum-resistant transactions on a Komodo Smart Chain. The module also allows users to create unique, human-readable handles. These handles can be thought of as an address. 
+The Dilithium Antara Module facilitates quantum-resistant transactions on a Komodo Smart Chain. The module also allows users to create unique, human-readable handles. These handles can be thought of as an address.
 
 For example, a normal blockchain address may appear as follows.
 
@@ -24,7 +24,7 @@ These parameters allow for more than one protocol to influence the outcome of a 
 
 Similarly, a Dilithium-related transaction on a Smart Chain is influenced by both the Bitcoin-based utxo protocol, and the Dilithium protocol. Dilithium's added functionality is quantum resistance, whereas Zcash's added functionality is privacy.
 
-Dilithium has "q addresses" (handles) and "q transactions." 
+Dilithium has "q addresses" (handles) and "q transactions."
 
 Once again, this can be compared to the familiar "z addresses" and "z transactions" of a Zcash-related transaction on a Komodo Smart Chain.
 
@@ -50,29 +50,29 @@ Use this method to determine if any given `handle` is available for the user to 
 
 #### Arguments
 
-| Name   | Type     | Description                                   |
-| ------ | -------- | --------------------------------------------- |
+| Name   | Type     | Description                            |
+| ------ | -------- | -------------------------------------- |
 | handle | (string) | the handle the user desires to inspect |
 
 #### Response
 
 ##### When a handle is available
 
-| Name   | Type     | Description                               |
-| ------ | -------- | ----------------------------------------- |
-| result | (string) | whether the call executed successfully    |
+| Name   | Type     | Description                            |
+| ------ | -------- | -------------------------------------- |
+| result | (string) | whether the call executed successfully |
 | handle | (string) | the handle the user desires to inspect |
-| status | (string) | whether the handle is available         |
+| status | (string) | whether the handle is available        |
 
 ##### When a handle is already registered by the node executing the command
 
-| Name        | Type     | Description                                                          |
-| ----------- | -------- | -------------------------------------------------------------------- |
-| result      | (string) | whether the call executed successfully                               |
-| handle      | (string) | the handle                                                           |
+| Name        | Type     | Description                                                 |
+| ----------- | -------- | ----------------------------------------------------------- |
+| result      | (string) | whether the call executed successfully                      |
+| handle      | (string) | the handle                                                  |
 | destpubtxid | (string) | the transaction id generated when the handle was registered |
-| pkaddr      | (string) | the hashed representation of the Dilithium pubkey                    |
-| pubkey      | (string) | the pubkey of the node that registered the handle                  |
+| pkaddr      | (string) | the hashed representation of the Dilithium pubkey           |
+| pubkey      | (string) | the pubkey of the node that registered the handle           |
 
 #### :pushpin: Examples
 
@@ -111,11 +111,10 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error"},"error":null,"id":"curltest"}
+{ "result": { "result": "error" }, "error": null, "id": "curltest" }
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -156,11 +155,10 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error"},"error":null,"id":"curltest"}
+{ "result": { "result": "error" }, "error": null, "id": "curltest" }
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -182,15 +180,15 @@ If no `hexseed` is provided, the module uses the user's pubkey seed for entropy 
 
 #### Response
 
-| Name    | Type     | Description                                                                                              |
-| ------- | -------- | -------------------------------------------------------------------------------------------------------- |
-| status  | (string) | the quality of the seed used                                                                             |
+| Name    | Type     | Description                                                                                                                                                      |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| status  | (string) | the quality of the seed used                                                                                                                                     |
 | seed    | (string) | either the seed provided by the user or (if no seed was provided of the provided seed does not satisfy the requirements) this value is a randomly generated seed |
-| pubkey  | (string) | the Dilithium pubkey generated                                                                           |
-| privkey | (string) | the Dilithium private key generated                                                                          |
-| pkaddr  | (string) | the hashed representation of the Dilithium pubkey                                                        |
-| skaddr  | (string) | the hashed representation of the Dilithium privkey                                                       |
-| result  | (string) | whether the call executed successfully                                                                   |
+| pubkey  | (string) | the Dilithium pubkey generated                                                                                                                                   |
+| privkey | (string) | the Dilithium private key generated                                                                                                                              |
+| pkaddr  | (string) | the hashed representation of the Dilithium pubkey                                                                                                                |
+| skaddr  | (string) | the hashed representation of the Dilithium privkey                                                                                                               |
+| result  | (string) | whether the call executed successfully                                                                                                                           |
 
 #### :pushpin: Examples
 
@@ -231,11 +229,21 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"pubkey":"de445bc7d662e7aff92066cd8425f3f1f089a46f236d6815dbdbff1ebbd38d2da6c1a4d30df6817e405cdfa6a1e9d79d1e7316841bb3df68c1a05e2a215e230302dad050ce08d155ec8073be4d334d51df8976ea6158d32cd61956e79e00f65491642f6ccec6ff8ab7d0ab43417b1c449ec10b2b37241982a1a0771a3213af569253e8e31ee0454a9f4aba657360ce1ee9d7005ca3fbce22f7270c82a90483c96a3a85bb4e91dc8cb7d309b13dd8779f03e2ab4bf6584123614ed62bb90219a0f4afcec29cad3d4d97aaed65418465009ea939ca9c99c22c1fbc9b6932f205511306f6f0d36a202021e813fd5b824b88b795d1ab49389cc78f49ddf8ebbce9036a4d134a8bc191e47a3b3880ea89df05672179b1ad3db37817b1827964cb575c92236df4a9490fa659bc5f5ece6e153e796d974067b3465d1ed3d35ae0c314ffbd68a0f541c2d2f4e85ecb40146b5b47bdfe6d541a016f73d1d525e3c1014d039ab48bdf6bd7d688df31686726b231f3a3c26a9806fc19db89a090b3bad7443cb2d06b268bf98b6abd6dfc3c0484884d83ba0336a4959d457dbf0936b910f1edf3c570ab0456521ebcfaf05e7ff8735e79c2a9860b10ce9f8d4b2e8ebd6d9e31cbd84f27a24ed5d15ba4f062a7c25eccd0bdc66755890a6af75086b587439f567d8beb0a6ad37b2beb52ca9b7ecc12f52d0227a709050f46692505d978dd95f17b6859f22fb3a8994f03b6990f6979f59116f0844d9398693b73eff565c9908a6fdfb3b20af2c4ef5603ec00790186abdb2cc8c6abc2261a287bf616708037d9898d45fc432fb117ebe114a5adc5ff146c406243f15ee5f4a36606c7dc0bd95360d22c7a5c951587759e35d23cd8fe288a2ddc60c9eaf837269fa2b7a90774659763238c7736a496a2df56a8d64cf7a858fb645483be75026905a9667bc6bd140f51787a00cc14b439899f35df219c4c78f758ff59c47bcddb3009fe54725fbb0715a1f361dc574955b8d8661b6c7719dd2091bf447741736d38d6f9b84c3f522a4f3b390067cc3825cb0e439bdf92d7d4343aa44b41e116bfcae0929c2c8295aa95e87a70f6d83e28fcb00b774c34d9f20b20c367345b353f1efee70a144a30b796498c922eaea7c4d4961a73d167e2411d10fe39d64290a681ff12db55a5486db891fb479255edc0c6d6f2d2a1592ae6c3bdb4c3d983500d6cd0a50f2413dd2bf12b978a764bab3f3517b5f7317c79a564bbb603aa23474651749313c2d750f9eb7b43c568481af673f7bcbd0f4a0750e5e47d9f4191551b07d0aa496a27f4e4164cdfd95e275d5484bb200d7be608471e35b91c287fd76b48f3fcc2a87b8afa35af271abc68aef04ad9333bb6bba3f074abd8db0b9913bfd411b322f0db70470e07b0f80d4c266da2bc311a3bf67d926ba620228b8bd3e50d390960c0e22c8833ed06128227b5a834b50494581cc218ece64662098ee64eefd73712307d82e3f38e1f8e2fe1c882ac90958d994dded483ab82fd392435fa95d9f98008116bfb9561f1b1c26ead4d3f9ac139b101c327d98e419c252410f259deb77d3fb75af5e9f195c21d4b804b354c0223347a1edcdfb6dce285aedb36137e6f9da4cad395329bbdd2146282a2abaa7a06bb17b04d1bdca319c37c44a582d1ce0b6767cbfacb2c5cb4b72c31dae2e22b97b0c3e78496baca66c1c2bf1d2a412d7da0a9554b9c89e75db596a2b68b8fb98c3ebfb5df81f52431c50203a20ff4b0f3a6141921a18e0a3c5b996630b078a0d10b926ac453221cb6b8e2f4e77cc3bed378dba2f5c0158488e8fe956beea0ec03553bf5bde6628bcad03623ef30bd1f619d2d0101265f26610a38ae3ea508549670bced8c59c8ec1d8441b4bb4247412a13b71b445c5ebda423d39e5f0363424ca31a0e7b0c6b9c968df654bb82dc2209518ed9a87f833ad51f565ae8e405229dff5c5c6081a37d75d350bd6773123f5c51177332b7b0224e9209865e8ac8f6d75025c5d5fcb582bdecfca83c1b3fa9cf0998c46e34bf0a8ef31632be2db89d53ea7441e64563c1690739a57a418bf58a90b416cdc4635f7b2ea251517292aa503a2d91a91e22a4dc20bc5c0a8efeb469793eb91577ca78a4e8d10b131faa9431838d1b16300e773d3bdfb324198c78879e8b60fe916fc2420a3fc22c13c14b2e72f442c2fba2b23449c402b81aa79956e6e8fab07e426af9d0985535629a94499d4e470b59f108ec20f769766057d9c39fd4fe12b57a4cb932754d48699570b12ed6f7fe112f724e6d5e71f25e59ea1086cbd97df1aaa3189c8ed93309a57f150b55348aa402bccf11565511eb93449c0e5f6ce0aa8f756811aa5ff524801a37aa10955de74368f69f2000586b9c86595defafa956ae81a377cb6edc8b969de242b066345490c8863522f20111a32134a60673d014cbc70e88b9cde58e035301f37d899dc484bcb1d1996303ef2fc795532e38","privkey":"de445bc7d662e7aff92066cd8425f3f1f089a46f236d6815dbdbff1ebbd38d2dd71895d6a5cf9d06f20b3efa07e15c2f2d208d79b26b8335f5ca830bfb31ee38b3f2dbb8f97d005c6217fdb42a9ee4431fa263de3604855f553792e5a51df59331ae5c636b62f0707eaba327a4b73499c344b210a299de621a5066cd8699ca96dc98dbe419265a7beb327b0a1237425a18500186a227988b9ac8426786d348834568717386b58dd551243c4dd83c889b532dd2e8854c82c230408b34b30a4d0d56086db41ea44c49a10204e5346087a90be22d51872291c3164583908b10429b124c718d9010086f15b16124c09a72b128a5128b5b89453331116665d20508d486222dade01640256f10bcc548017a44b491259538b2e3a52423ab99c3184bb1ba02dc78ade6902b2246b0362e8d53ceb0a651093665c6ec22c090c96c671be1a2a4c462ad682cb81bd0d4ae147789592aec6a744abaca84e0504dbb6d650449aab384ac536e4e00ae6868535d3814c0920216665391051a54ead9acbb42e602569b43b6dbbcac75c86a48cb32b32c2285b3821b4bb4036839a5e299b1ec54d9acaa358426250cc511a7458119271d429768285b64043143b3a9033803b65a1bd90a7105bb7a9e92a51c53c9100ba226b6c64e85164e2807a641709ccd3098d52dcde805e2683484ac093112450425c0c1b86c1683b9480a151595462010ae6c1a5babc70a6d8a4036e06089a2440a5a52acca065de22668d892665a8a9c50996e3bc213b9c5d62c00da0a746a3c4c0ab854956d486258a59d14761d0a794ce6181ded81b3bcb02b48188ee8a5699740ad844c7546804335b171a235a5e70a0eada96c47c10d9c1204e2cd31a52641d105eb9c06d348542a6a672346502c41200bb3c06eec64dc96862eb68a623494311cc05b611041452c0290ac8460ac630c099d9470cd0cb622411355002e86698ef5d431cd8c9104610a5a1ba0d6ec0e04100f42d175f506898ad1d4d46a600e05c25cd96a2d56b2c4225606d54ec6d6825edcd80ce7568d0a95650a3a35bd84d9bc6c0a5a7968d7151b222a0e08d1255cd4a4c4d9b0e3c42390125468991e2a55aeb3154ba1859b6c15659b89e2cc9000ad548c1d962a6bd01a58063108274c873602882edb0a4c8ddd48254d039158cb9c327855928d90d2ba41d4341ed0355d94b20e3dc61b52620d0188a6b79914444ee0e4620093361e4cb3d53cc06c002881bb4c4a81b66064ac6837a7ad1b66764a4c155dd5e30a9b6a3896e5ec7573b43232a240a0846853b9b908b6c2f08821c356318409530503476cd900169c045d8a789843941668d6c8166de546d1dcd26c9c5003d6401a750821b030565c30409cacc4b32d525025026c1a189426430306a3928580286bae5983cd4402817165108102d09ac8818d616b522a4e0b9b8542c84e0130342516241029108dc66a5512d253642c316320259c22562bc22c294c9e56637398c5b454b3b34dd261098991ebc2345cd1862db1a56ca9ca42b913c38a2e27d386845a62d8d5ec6a6300c639b2339554179b9ee6525347201496294390556aa6d28a028adc6acd10e0245b87cd04625622ec52d14aaaca246f6a2b316a6d853353849a64b42bbdb606ac8a952a07d0c80137be6804a3e797de0d80180bb185bc4037c6e13211c57020f9fe7d24773cfd9db8e7471bb93ac8ebe840bcd3986feaea3867cc52873794194f8a27961ee966b44b643c84be8740be2ac2e5b6f275627829b6d8f7807375202299293c28f2cabe156027322243f73588ac560f207c4ae86026c9128ad62f1835053a840e0ed0c4dbba373c1e49db9e73d883ab9ba181232a93b3a86ccfcdebfbd3b2b3b5d85452e9fc4b3d00cd8b538c977b588694e34e26422b704f6c187090ac6d27847946e03ae4d45ae7e1de50af7ac627b4c9b662ef63ac581864418ae5dcebdbae4c3f313e158fc2dd870805d64631d0be31d5787e10df68b3237cd50c597547139544ce44f4f443c470e9bf7bb7ecd1b747417c563aa24907c51546a2fe9ab699573ae4f9e50497c179c1dafeeaca359ca6fb53e850c2ce726e4436621564ba75bb12d7ef8852aeecdf319317d15dce16b4b06c38205cc03b3c6e5a14ef91724e250fb080ef3dda6ac47bda3496261fb452bada22ccaa163f01c8612382b3148d09e95071be6bc2508d5bd6ddd01c6ec18226788de49c74c11206bb3fd7324dc05e6eac93ced559f38d6cd35560ef3cae1a99b4b29fa2637e45758395138ec8231e3df8035ab3a60c81e0a8ca77f037d9bf244dd97a3a0a6e3bcaced13dbc75f36a902302170eae5ec9adc2ef0925b3090c7b04b86b86b8d1e0872de5ea19bebe0632a03a8c56c9c5b48eb5e8c60038eddd19a5aef7c93d716a5e52a27976c9f8a113d7d94a53b4ae904845df5a00e94e3697fafa7b58276424e927b6a3c524cade7af4a1b5fc06d312245b524b15cdb4eddcb45f8eb90344204e21e09877bc522037807f94eb1ea9d388eba52e988108e3f6ebe48638b5b59c3dd2c1db121f38603b17276f8678d7daaf4b6e8fd48a9286281905cae5ae3fc556d6176ff3cbcd38d2d84535661022eb7149ed21bf3793ad4205e4b0de0bb6c23b80aaeea0c0e512bd8b9a69c62f9f9299ec5d80cdaa5035bf1c0b50a0ade2b80ed018f856a4efb298c9c2d87ed9869ee750e7f9c132df8d97fc8f7dcc2185154fbd22ff745d880a2ee84671a7075a907e4afb56b883c162e6c81bdc6645488b44540ddee8f1b6a681fb3b0f7a5f8160aadb26c76b396544d4ec592bd02acb10ff05f622a054cecb5de29617070acf8cf37325aa6df025da0cb6ee080ef40f6f0a56ec2fa8667907ee3e406f212b0172acd8ffa95b4b8af3b90c7155fd4627a61bedd8d1a01149393f6cc71c514084d22d4a2b267b0c86857525a1e4dd78ac05a0f9ac00b81bcff6f9d3f53475d52b845f06f194b8c63ed2eb9860698fedf217017849ccb578eda0fc184b91e623c7a050d46b0f5861dc41e17b8d1612f20188cdf17f0ec7b99fc706f31dcc1e150dca23aedcfd980777e2d6e769ff8b32779f54dcbe6717a92d1938b88789e816d4254fc6b3452f71dcbcc61bb1b93fee2ccfcce0b2ab7569f9c63a76c3d7f1edaaae038f7ea959715aa7b2c99d4b51f8ade8241640434a9a2199afacd8f53c14df52898d57e93dc39e076fc84a5c2b8b3d3db0f9d637e5d68af372561b93ae13f845ef06709ae292895e39de5312e077c37691e8a598fb6a664661bbba2a8a32efccd9853f7c6c53edabcc97a1cb1d4420622a1cca29f411a45bf67aaeb500af5084eb5be51a7e4623728956efaa1ddcfa75fee4f5d1291d0a9cf43cdfcf540d628b552ec3b5713e361ffaf1fc0e8d7b8b04e79cd6d0acf2c0827b248559e5e6ccca0ee46f7a5092ae45643a1682ba501f9bccbce3f51a9c4cdc3b69d7dc5643e7df9443dadc111e91badd94a0d765208689ef736faf8b2b4e7e5d15782364fb0e9e424b796449591e514f92b331d22928d4caa30b22360df279872db896a38279dce4dd2932f7ea6fcdab51f9c1ddef0f20c9281000b6f94bdc8a926662dbcc115de3beabd027c6f89beec4438f7803544bab4a52fe00115b7e77ace12085ba3e8dd0b9ecdd879753d1ce2212b54835016126699d8859d084b9bd83ebf1edfe515f982922dfde195d4bc0311f4dd22b9cde8f16c017a66f1120e1086721ec11523f0efdc859da970c2d6954b2d55a040a101dde8dcc42f9e7398f903de9d35a9804247819e70c487e4563394b3942f6e8d6b5414edc52dc30a85d30b017f632e0bbdf572db957fcbb273c79b6b8b0d9081578e265d19e801e3a1841df5bb8b3fe90a832cb2a2bba3ea6e66fa8acbeba6dd86b447c83032bb7b31676a987d0ba39b1106bd7f7ea6984f9c7d38ef0345a5bd1bd37eda5d668c551691098a0ba9646584a4e53db836568dc3de60c18a2bcde63da4164d74406d7f7533b11f5c767ecc2ce73b91aa1a0c68f659d0a3b641210c43eae9f4c213e52ae61bc24ec359b98efe9c6edc1fc8f4022b48c1cee343f4a9a1d8b18a69d63b04ca2397152d47d313cfee254b52add19619852778284f881e1b4be9be1f0f2a4d178b888d720fe37cae1ec012a7bfed4a625a1e28e99b255965ba2f62ded5848111766266e766d6c28eda6050d62eabc612f4737f40b7181dffeb786e6980dc9f0678c58445616a22d10dbdacb4998102c30bf186cadb12e57a5764fb3c17e1158089c6496721075fdfce60d8347facdf0d5f9d67cb867d9ca60ff008c6636e46cd377af24920f302daa0f1edd2878c78e5089886c4caad11fc1378a2deee15a6171df0a43ac305278d98354159c7863f220520177c32ecd4f5b54ddead5cdbd32199ebd0db5de095fac8cf3c5b015e748c12f4787a1e4d46abe40a96c4d62dc318ef6ce453e75d9a240f2705a0222de9395f87313a985eadeda10bee9a07a2ae111cbe701b3c0726919f87a9ac328ff5e109f04ff0eb2c5c9f7e8af580e20c487d7a1c5dbd8c3f5cd937bc711e28f29248e7e07210e895c916f3c68004d18eb59f0341e97774b878974cc64b27fd3973c11f3ef6ed65536572f6501526ef25115efe7511efd5f508e44d900af66d482777337df1c26345f2d276f5d9dcedd3eae26597e71a27625c3e960ab126c479424eacec0cb266c9820a53d0966fe09c1f0b01c827daa211a1d66489da45cb4b64a925d7d98c90fe2f3c6d00098bbdc36948769104683fbc3372fc97f2dcb0735cba2bf3f54d243ea33843764f5e27bee6c953ca0a34783adc84555a4bf868782f85f90aa7b6a659a104b28c5682cfc3bb79030b0e2952c10f6db27c316952525a37250c3a86f0db9c0210df9348c1e657e180000c0d13d3166117e594984dbe160f1f54e4a9a038b8a259e1d2d0ba215c7b0f9db4fbd5a4d57874eceaf5251c730d68433c47f20517a566d96f3da653b23809e8cc926b07c97f13f91880b8cb28b21e8d6c9d26f7bfdd996db5951cede34c90aa88aee1a93a05655d47019541070f48ffd260470bb934bc067b44462feaaede42e57ea7075f8e5fcd2df4c9fe00b0e0cd07524c987f3861f7be2d07bca7e17f5e7219360d48f56948ea8d49b3b8e9a639ab1c0aa4d18be9c09ab5ce09446a606a2ed947018cb4399af75dd685da274508154eef831ec82fdda7c7da19dc75b7148e85834683eb0d4dd430dff4b68823a55bfc72ddd8d95573984949328a9401fafc3e2669bcb6a254929338016f0a7b22ab375ecc618a515be0747e39527a62890938e427c5e19f4be7585e955d14593d18611f338bdf60e8de981fd118799a86336b499e88df1783b8d1e3ac37fecdd9d0fa09f368732ed111c72c5a78c539d354df45eaef411e2de86934f1612a3b4cecfa9087678bc058096","pkaddr":"PHTEzUXDaxt8TvmeTgDV1VqwQ5qGVm6KpQ","skaddr":"SdBEWWGogwE5JD7X1trVfuTKuEsnBdd5Gh","warning":"test mode using privkey for -pubkey, only for testing. there is no point using quantum secure signing if you are using a privkey with a known secp256k1 pubkey!!","result":"success"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "pubkey": "de445bc7d662e7aff92066cd8425f3f1f089a46f236d6815dbdbff1ebbd38d2da6c1a4d30df6817e405cdfa6a1e9d79d1e7316841bb3df68c1a05e2a215e230302dad050ce08d155ec8073be4d334d51df8976ea6158d32cd61956e79e00f65491642f6ccec6ff8ab7d0ab43417b1c449ec10b2b37241982a1a0771a3213af569253e8e31ee0454a9f4aba657360ce1ee9d7005ca3fbce22f7270c82a90483c96a3a85bb4e91dc8cb7d309b13dd8779f03e2ab4bf6584123614ed62bb90219a0f4afcec29cad3d4d97aaed65418465009ea939ca9c99c22c1fbc9b6932f205511306f6f0d36a202021e813fd5b824b88b795d1ab49389cc78f49ddf8ebbce9036a4d134a8bc191e47a3b3880ea89df05672179b1ad3db37817b1827964cb575c92236df4a9490fa659bc5f5ece6e153e796d974067b3465d1ed3d35ae0c314ffbd68a0f541c2d2f4e85ecb40146b5b47bdfe6d541a016f73d1d525e3c1014d039ab48bdf6bd7d688df31686726b231f3a3c26a9806fc19db89a090b3bad7443cb2d06b268bf98b6abd6dfc3c0484884d83ba0336a4959d457dbf0936b910f1edf3c570ab0456521ebcfaf05e7ff8735e79c2a9860b10ce9f8d4b2e8ebd6d9e31cbd84f27a24ed5d15ba4f062a7c25eccd0bdc66755890a6af75086b587439f567d8beb0a6ad37b2beb52ca9b7ecc12f52d0227a709050f46692505d978dd95f17b6859f22fb3a8994f03b6990f6979f59116f0844d9398693b73eff565c9908a6fdfb3b20af2c4ef5603ec00790186abdb2cc8c6abc2261a287bf616708037d9898d45fc432fb117ebe114a5adc5ff146c406243f15ee5f4a36606c7dc0bd95360d22c7a5c951587759e35d23cd8fe288a2ddc60c9eaf837269fa2b7a90774659763238c7736a496a2df56a8d64cf7a858fb645483be75026905a9667bc6bd140f51787a00cc14b439899f35df219c4c78f758ff59c47bcddb3009fe54725fbb0715a1f361dc574955b8d8661b6c7719dd2091bf447741736d38d6f9b84c3f522a4f3b390067cc3825cb0e439bdf92d7d4343aa44b41e116bfcae0929c2c8295aa95e87a70f6d83e28fcb00b774c34d9f20b20c367345b353f1efee70a144a30b796498c922eaea7c4d4961a73d167e2411d10fe39d64290a681ff12db55a5486db891fb479255edc0c6d6f2d2a1592ae6c3bdb4c3d983500d6cd0a50f2413dd2bf12b978a764bab3f3517b5f7317c79a564bbb603aa23474651749313c2d750f9eb7b43c568481af673f7bcbd0f4a0750e5e47d9f4191551b07d0aa496a27f4e4164cdfd95e275d5484bb200d7be608471e35b91c287fd76b48f3fcc2a87b8afa35af271abc68aef04ad9333bb6bba3f074abd8db0b9913bfd411b322f0db70470e07b0f80d4c266da2bc311a3bf67d926ba620228b8bd3e50d390960c0e22c8833ed06128227b5a834b50494581cc218ece64662098ee64eefd73712307d82e3f38e1f8e2fe1c882ac90958d994dded483ab82fd392435fa95d9f98008116bfb9561f1b1c26ead4d3f9ac139b101c327d98e419c252410f259deb77d3fb75af5e9f195c21d4b804b354c0223347a1edcdfb6dce285aedb36137e6f9da4cad395329bbdd2146282a2abaa7a06bb17b04d1bdca319c37c44a582d1ce0b6767cbfacb2c5cb4b72c31dae2e22b97b0c3e78496baca66c1c2bf1d2a412d7da0a9554b9c89e75db596a2b68b8fb98c3ebfb5df81f52431c50203a20ff4b0f3a6141921a18e0a3c5b996630b078a0d10b926ac453221cb6b8e2f4e77cc3bed378dba2f5c0158488e8fe956beea0ec03553bf5bde6628bcad03623ef30bd1f619d2d0101265f26610a38ae3ea508549670bced8c59c8ec1d8441b4bb4247412a13b71b445c5ebda423d39e5f0363424ca31a0e7b0c6b9c968df654bb82dc2209518ed9a87f833ad51f565ae8e405229dff5c5c6081a37d75d350bd6773123f5c51177332b7b0224e9209865e8ac8f6d75025c5d5fcb582bdecfca83c1b3fa9cf0998c46e34bf0a8ef31632be2db89d53ea7441e64563c1690739a57a418bf58a90b416cdc4635f7b2ea251517292aa503a2d91a91e22a4dc20bc5c0a8efeb469793eb91577ca78a4e8d10b131faa9431838d1b16300e773d3bdfb324198c78879e8b60fe916fc2420a3fc22c13c14b2e72f442c2fba2b23449c402b81aa79956e6e8fab07e426af9d0985535629a94499d4e470b59f108ec20f769766057d9c39fd4fe12b57a4cb932754d48699570b12ed6f7fe112f724e6d5e71f25e59ea1086cbd97df1aaa3189c8ed93309a57f150b55348aa402bccf11565511eb93449c0e5f6ce0aa8f756811aa5ff524801a37aa10955de74368f69f2000586b9c86595defafa956ae81a377cb6edc8b969de242b066345490c8863522f20111a32134a60673d014cbc70e88b9cde58e035301f37d899dc484bcb1d1996303ef2fc795532e38",
+    "privkey": "de445bc7d662e7aff92066cd8425f3f1f089a46f236d6815dbdbff1ebbd38d2dd71895d6a5cf9d06f20b3efa07e15c2f2d208d79b26b8335f5ca830bfb31ee38b3f2dbb8f97d005c6217fdb42a9ee4431fa263de3604855f553792e5a51df59331ae5c636b62f0707eaba327a4b73499c344b210a299de621a5066cd8699ca96dc98dbe419265a7beb327b0a1237425a18500186a227988b9ac8426786d348834568717386b58dd551243c4dd83c889b532dd2e8854c82c230408b34b30a4d0d56086db41ea44c49a10204e5346087a90be22d51872291c3164583908b10429b124c718d9010086f15b16124c09a72b128a5128b5b89453331116665d20508d486222dade01640256f10bcc548017a44b491259538b2e3a52423ab99c3184bb1ba02dc78ade6902b2246b0362e8d53ceb0a651093665c6ec22c090c96c671be1a2a4c462ad682cb81bd0d4ae147789592aec6a744abaca84e0504dbb6d650449aab384ac536e4e00ae6868535d3814c0920216665391051a54ead9acbb42e602569b43b6dbbcac75c86a48cb32b32c2285b3821b4bb4036839a5e299b1ec54d9acaa358426250cc511a7458119271d429768285b64043143b3a9033803b65a1bd90a7105bb7a9e92a51c53c9100ba226b6c64e85164e2807a641709ccd3098d52dcde805e2683484ac093112450425c0c1b86c1683b9480a151595462010ae6c1a5babc70a6d8a4036e06089a2440a5a52acca065de22668d892665a8a9c50996e3bc213b9c5d62c00da0a746a3c4c0ab854956d486258a59d14761d0a794ce6181ded81b3bcb02b48188ee8a5699740ad844c7546804335b171a235a5e70a0eada96c47c10d9c1204e2cd31a52641d105eb9c06d348542a6a672346502c41200bb3c06eec64dc96862eb68a623494311cc05b611041452c0290ac8460ac630c099d9470cd0cb622411355002e86698ef5d431cd8c9104610a5a1ba0d6ec0e04100f42d175f506898ad1d4d46a600e05c25cd96a2d56b2c4225606d54ec6d6825edcd80ce7568d0a95650a3a35bd84d9bc6c0a5a7968d7151b222a0e08d1255cd4a4c4d9b0e3c42390125468991e2a55aeb3154ba1859b6c15659b89e2cc9000ad548c1d962a6bd01a58063108274c873602882edb0a4c8ddd48254d039158cb9c327855928d90d2ba41d4341ed0355d94b20e3dc61b52620d0188a6b79914444ee0e4620093361e4cb3d53cc06c002881bb4c4a81b66064ac6837a7ad1b66764a4c155dd5e30a9b6a3896e5ec7573b43232a240a0846853b9b908b6c2f08821c356318409530503476cd900169c045d8a789843941668d6c8166de546d1dcd26c9c5003d6401a750821b030565c30409cacc4b32d525025026c1a189426430306a3928580286bae5983cd4402817165108102d09ac8818d616b522a4e0b9b8542c84e0130342516241029108dc66a5512d253642c316320259c22562bc22c294c9e56637398c5b454b3b34dd261098991ebc2345cd1862db1a56ca9ca42b913c38a2e27d386845a62d8d5ec6a6300c639b2339554179b9ee6525347201496294390556aa6d28a028adc6acd10e0245b87cd04625622ec52d14aaaca246f6a2b316a6d853353849a64b42bbdb606ac8a952a07d0c80137be6804a3e797de0d80180bb185bc4037c6e13211c57020f9fe7d24773cfd9db8e7471bb93ac8ebe840bcd3986feaea3867cc52873794194f8a27961ee966b44b643c84be8740be2ac2e5b6f275627829b6d8f7807375202299293c28f2cabe156027322243f73588ac560f207c4ae86026c9128ad62f1835053a840e0ed0c4dbba373c1e49db9e73d883ab9ba181232a93b3a86ccfcdebfbd3b2b3b5d85452e9fc4b3d00cd8b538c977b588694e34e26422b704f6c187090ac6d27847946e03ae4d45ae7e1de50af7ac627b4c9b662ef63ac581864418ae5dcebdbae4c3f313e158fc2dd870805d64631d0be31d5787e10df68b3237cd50c597547139544ce44f4f443c470e9bf7bb7ecd1b747417c563aa24907c51546a2fe9ab699573ae4f9e50497c179c1dafeeaca359ca6fb53e850c2ce726e4436621564ba75bb12d7ef8852aeecdf319317d15dce16b4b06c38205cc03b3c6e5a14ef91724e250fb080ef3dda6ac47bda3496261fb452bada22ccaa163f01c8612382b3148d09e95071be6bc2508d5bd6ddd01c6ec18226788de49c74c11206bb3fd7324dc05e6eac93ced559f38d6cd35560ef3cae1a99b4b29fa2637e45758395138ec8231e3df8035ab3a60c81e0a8ca77f037d9bf244dd97a3a0a6e3bcaced13dbc75f36a902302170eae5ec9adc2ef0925b3090c7b04b86b86b8d1e0872de5ea19bebe0632a03a8c56c9c5b48eb5e8c60038eddd19a5aef7c93d716a5e52a27976c9f8a113d7d94a53b4ae904845df5a00e94e3697fafa7b58276424e927b6a3c524cade7af4a1b5fc06d312245b524b15cdb4eddcb45f8eb90344204e21e09877bc522037807f94eb1ea9d388eba52e988108e3f6ebe48638b5b59c3dd2c1db121f38603b17276f8678d7daaf4b6e8fd48a9286281905cae5ae3fc556d6176ff3cbcd38d2d84535661022eb7149ed21bf3793ad4205e4b0de0bb6c23b80aaeea0c0e512bd8b9a69c62f9f9299ec5d80cdaa5035bf1c0b50a0ade2b80ed018f856a4efb298c9c2d87ed9869ee750e7f9c132df8d97fc8f7dcc2185154fbd22ff745d880a2ee84671a7075a907e4afb56b883c162e6c81bdc6645488b44540ddee8f1b6a681fb3b0f7a5f8160aadb26c76b396544d4ec592bd02acb10ff05f622a054cecb5de29617070acf8cf37325aa6df025da0cb6ee080ef40f6f0a56ec2fa8667907ee3e406f212b0172acd8ffa95b4b8af3b90c7155fd4627a61bedd8d1a01149393f6cc71c514084d22d4a2b267b0c86857525a1e4dd78ac05a0f9ac00b81bcff6f9d3f53475d52b845f06f194b8c63ed2eb9860698fedf217017849ccb578eda0fc184b91e623c7a050d46b0f5861dc41e17b8d1612f20188cdf17f0ec7b99fc706f31dcc1e150dca23aedcfd980777e2d6e769ff8b32779f54dcbe6717a92d1938b88789e816d4254fc6b3452f71dcbcc61bb1b93fee2ccfcce0b2ab7569f9c63a76c3d7f1edaaae038f7ea959715aa7b2c99d4b51f8ade8241640434a9a2199afacd8f53c14df52898d57e93dc39e076fc84a5c2b8b3d3db0f9d637e5d68af372561b93ae13f845ef06709ae292895e39de5312e077c37691e8a598fb6a664661bbba2a8a32efccd9853f7c6c53edabcc97a1cb1d4420622a1cca29f411a45bf67aaeb500af5084eb5be51a7e4623728956efaa1ddcfa75fee4f5d1291d0a9cf43cdfcf540d628b552ec3b5713e361ffaf1fc0e8d7b8b04e79cd6d0acf2c0827b248559e5e6ccca0ee46f7a5092ae45643a1682ba501f9bccbce3f51a9c4cdc3b69d7dc5643e7df9443dadc111e91badd94a0d765208689ef736faf8b2b4e7e5d15782364fb0e9e424b796449591e514f92b331d22928d4caa30b22360df279872db896a38279dce4dd2932f7ea6fcdab51f9c1ddef0f20c9281000b6f94bdc8a926662dbcc115de3beabd027c6f89beec4438f7803544bab4a52fe00115b7e77ace12085ba3e8dd0b9ecdd879753d1ce2212b54835016126699d8859d084b9bd83ebf1edfe515f982922dfde195d4bc0311f4dd22b9cde8f16c017a66f1120e1086721ec11523f0efdc859da970c2d6954b2d55a040a101dde8dcc42f9e7398f903de9d35a9804247819e70c487e4563394b3942f6e8d6b5414edc52dc30a85d30b017f632e0bbdf572db957fcbb273c79b6b8b0d9081578e265d19e801e3a1841df5bb8b3fe90a832cb2a2bba3ea6e66fa8acbeba6dd86b447c83032bb7b31676a987d0ba39b1106bd7f7ea6984f9c7d38ef0345a5bd1bd37eda5d668c551691098a0ba9646584a4e53db836568dc3de60c18a2bcde63da4164d74406d7f7533b11f5c767ecc2ce73b91aa1a0c68f659d0a3b641210c43eae9f4c213e52ae61bc24ec359b98efe9c6edc1fc8f4022b48c1cee343f4a9a1d8b18a69d63b04ca2397152d47d313cfee254b52add19619852778284f881e1b4be9be1f0f2a4d178b888d720fe37cae1ec012a7bfed4a625a1e28e99b255965ba2f62ded5848111766266e766d6c28eda6050d62eabc612f4737f40b7181dffeb786e6980dc9f0678c58445616a22d10dbdacb4998102c30bf186cadb12e57a5764fb3c17e1158089c6496721075fdfce60d8347facdf0d5f9d67cb867d9ca60ff008c6636e46cd377af24920f302daa0f1edd2878c78e5089886c4caad11fc1378a2deee15a6171df0a43ac305278d98354159c7863f220520177c32ecd4f5b54ddead5cdbd32199ebd0db5de095fac8cf3c5b015e748c12f4787a1e4d46abe40a96c4d62dc318ef6ce453e75d9a240f2705a0222de9395f87313a985eadeda10bee9a07a2ae111cbe701b3c0726919f87a9ac328ff5e109f04ff0eb2c5c9f7e8af580e20c487d7a1c5dbd8c3f5cd937bc711e28f29248e7e07210e895c916f3c68004d18eb59f0341e97774b878974cc64b27fd3973c11f3ef6ed65536572f6501526ef25115efe7511efd5f508e44d900af66d482777337df1c26345f2d276f5d9dcedd3eae26597e71a27625c3e960ab126c479424eacec0cb266c9820a53d0966fe09c1f0b01c827daa211a1d66489da45cb4b64a925d7d98c90fe2f3c6d00098bbdc36948769104683fbc3372fc97f2dcb0735cba2bf3f54d243ea33843764f5e27bee6c953ca0a34783adc84555a4bf868782f85f90aa7b6a659a104b28c5682cfc3bb79030b0e2952c10f6db27c316952525a37250c3a86f0db9c0210df9348c1e657e180000c0d13d3166117e594984dbe160f1f54e4a9a038b8a259e1d2d0ba215c7b0f9db4fbd5a4d57874eceaf5251c730d68433c47f20517a566d96f3da653b23809e8cc926b07c97f13f91880b8cb28b21e8d6c9d26f7bfdd996db5951cede34c90aa88aee1a93a05655d47019541070f48ffd260470bb934bc067b44462feaaede42e57ea7075f8e5fcd2df4c9fe00b0e0cd07524c987f3861f7be2d07bca7e17f5e7219360d48f56948ea8d49b3b8e9a639ab1c0aa4d18be9c09ab5ce09446a606a2ed947018cb4399af75dd685da274508154eef831ec82fdda7c7da19dc75b7148e85834683eb0d4dd430dff4b68823a55bfc72ddd8d95573984949328a9401fafc3e2669bcb6a254929338016f0a7b22ab375ecc618a515be0747e39527a62890938e427c5e19f4be7585e955d14593d18611f338bdf60e8de981fd118799a86336b499e88df1783b8d1e3ac37fecdd9d0fa09f368732ed111c72c5a78c539d354df45eaef411e2de86934f1612a3b4cecfa9087678bc058096",
+    "pkaddr": "PHTEzUXDaxt8TvmeTgDV1VqwQ5qGVm6KpQ",
+    "skaddr": "SdBEWWGogwE5JD7X1trVfuTKuEsnBdd5Gh",
+    "warning": "test mode using privkey for -pubkey, only for testing. there is no point using quantum secure signing if you are using a privkey with a known secp256k1 pubkey!!",
+    "result": "success"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -248,20 +256,20 @@ Multiple pairs of `"destpubtxid",amount` can be appended to the array to specify
 
 #### Arguments
 
-| Name             | Type     | Description                                                          |
-| ---------------- | -------- | -------------------------------------------------------------------- |
+| Name             | Type     | Description                                                        |
+| ---------------- | -------- | ------------------------------------------------------------------ |
 | mypubtxid        | (string) | the id of the handle-registration transaction of the sender        |
 | hexseed/'mypriv' | (string) | the seed used to register the handle                               |
 | destpubtxid      | (string) | the the id of the handle-registration transaction of the recepient |
-| amount           | (number) | the amount of coins to send to the referred handle         |
+| amount           | (number) | the amount of coins to send to the referred handle                 |
 
 #### Response
 
-| Name   | Type     | Description                                                           |
-| ------ | -------- | --------------------------------------------------------------------- |
-| hex    | (string) | the hex to broadcast; use the <b>sendrawtransaction</b> method                                    |
-| txid   | (string) | the transaction id generated when the hex is broadcast |
-| result | (string) | whether the call executed successfully                                |
+| Name   | Type     | Description                                                    |
+| ------ | -------- | -------------------------------------------------------------- |
+| hex    | (string) | the hex to broadcast; use the <b>sendrawtransaction</b> method |
+| txid   | (string) | the transaction id generated when the hex is broadcast         |
+| result | (string) | whether the call executed successfully                         |
 
 #### :pushpin: Examples
 
@@ -298,11 +306,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-32700,"message":"Parse error"},"id":null}
+{
+  "result": null,
+  "error": { "code": -32700, "message": "Parse error" },
+  "id": null
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -335,11 +346,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: bad-txns-inputs-missing" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -360,14 +374,14 @@ This method requires a valid `seed`, as provided from the [<b>keypair</b>](../..
 
 #### Response
 
-| Name   | Type     | Description                                                           |
-| ------ | -------- | --------------------------------------------------------------------- |
-| handle | (string) | the handle registered                                                 |
-| pkaddr | (string) | the hashed representation of the Dilithium pubkey                     |
-| skaddr | (string) | the hashed representation of the Dilithium privkey                    |
-| hex    | (string) | the hex that should be broadcast to register the handle               |
+| Name   | Type     | Description                                              |
+| ------ | -------- | -------------------------------------------------------- |
+| handle | (string) | the handle registered                                    |
+| pkaddr | (string) | the hashed representation of the Dilithium pubkey        |
+| skaddr | (string) | the hashed representation of the Dilithium privkey       |
+| hex    | (string) | the hex that should be broadcast to register the handle  |
 | txid   | (string) | the transaction id generated when the hex is broadcasted |
-| result | (string) | whether the call executed successfully                                |
+| result | (string) | whether the call executed successfully                   |
 
 #### :pushpin: Examples
 
@@ -407,11 +421,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"status":"error","error":"not dilithiumpk funds"},"error":null,"id":"curltest"}
+{
+  "result": { "status": "error", "error": "not dilithiumpk funds" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -444,11 +461,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: bad-txns-inputs-missing" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -460,20 +480,20 @@ The `send` method sends the specified amount of coins to a `handle` associated w
 
 #### Arguments
 
-| Name    | Type     | Description                                     |
-| ------- | -------- | ----------------------------------------------- |
+| Name    | Type     | Description                                   |
+| ------- | -------- | --------------------------------------------- |
 | handle  | (string) | the recipient's handle                        |
 | pubtxid | (string) | the id of the handle-registration transaction |
-| amount  | (number) | the amount of coins to send                  |
+| amount  | (number) | the amount of coins to send                   |
 
 #### Response
 
-| Name   | Type     | Description                                                           |
-| ------ | -------- | --------------------------------------------------------------------- |
-| handle | (string) | the recipient's handle                                              |
-| hex    | (string) | the transaction hex; broadcast this using the <b>sendrawtransaction</b> method                        |
-| txid   | (string) | the transaction id generated when the hex is broadcast |
-| result | (string) | whether the call executed successfully                                |
+| Name   | Type     | Description                                                                    |
+| ------ | -------- | ------------------------------------------------------------------------------ |
+| handle | (string) | the recipient's handle                                                         |
+| hex    | (string) | the transaction hex; broadcast this using the <b>sendrawtransaction</b> method |
+| txid   | (string) | the transaction id generated when the hex is broadcast                         |
+| result | (string) | whether the call executed successfully                                         |
 
 #### :pushpin: Examples
 
@@ -511,11 +531,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"status":"error","error":"not enough parameters"},"error":null,"id":"curltest"}
+{
+  "result": { "status": "error", "error": "not enough parameters" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -548,11 +571,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: bad-txns-inputs-missing" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -564,8 +590,8 @@ The `sign` method signs a given 32 byte `msg` (message) in hex format using the 
 
 #### Arguments
 
-| Name    | Type     | Description                         |
-| ------- | -------- | ----------------------------------- |
+| Name    | Type     | Description                    |
+| ------- | -------- | ------------------------------ |
 | msg     | (string) | the 32 byte hexmessage to sign |
 | hexseed | (string) | the seed to sign the message   |
 
@@ -573,7 +599,7 @@ The `sign` method signs a given 32 byte `msg` (message) in hex format using the 
 
 | Name      | Type     | Description                                        |
 | --------- | -------- | -------------------------------------------------- |
-| msg32     | (string) | the signed message                   |
+| msg32     | (string) | the signed message                                 |
 | pkaddr    | (string) | the hashed representation of the Dilithium pubkey  |
 | skaddr    | (string) | the hashed representation of the Dilithium privkey |
 | signature | (string) | the signature generated                            |
@@ -622,7 +648,6 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 </collapse-text>
 
-
 </div>
 
 ## spend
@@ -635,19 +660,19 @@ The `spend` method spends the coins recieved in the transaction of id `sendtxid`
 
 #### Arguments
 
-| Name         | Type     | Description                                                                                 |
-| ------------ | -------- | ------------------------------------------------------------------------------------------- |
-| sendtxid     | (string) | the id of the transaction that sent coins to the handle associated with the seed supplied |
-| scriptPubKey | (string) | the [scriptPubkey](../../../basic-docs/antara/antara-api/musig.html#calcmsg) to which the coins are to be spent            |
-| hexseed      | (string) | the seed used to register the handle which holds the funds                                |
+| Name         | Type     | Description                                                                                                     |
+| ------------ | -------- | --------------------------------------------------------------------------------------------------------------- |
+| sendtxid     | (string) | the id of the transaction that sent coins to the handle associated with the seed supplied                       |
+| scriptPubKey | (string) | the [scriptPubkey](../../../basic-docs/antara/antara-api/musig.html#calcmsg) to which the coins are to be spent |
+| hexseed      | (string) | the seed used to register the handle which holds the funds                                                      |
 
 #### Response
 
-| Name   | Type     | Description                                                           |
-| ------ | -------- | --------------------------------------------------------------------- |
-| hex    | (string) | the hex to broadcast; use the <b>sendrawtransaction</b> method                                    |
-| txid   | (string) | the transaction id generated when the hex is broadcast |
-| result | (string) | whether the call executed successfully                                |
+| Name   | Type     | Description                                                    |
+| ------ | -------- | -------------------------------------------------------------- |
+| hex    | (string) | the hex to broadcast; use the <b>sendrawtransaction</b> method |
+| txid   | (string) | the transaction id generated when the hex is broadcast         |
+| result | (string) | whether the call executed successfully                         |
 
 #### :pushpin: Examples
 
@@ -684,11 +709,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"status":"error","error":"need to have exactly 2 params sendtxid, scriptPubKey"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "status": "error",
+    "error": "need to have exactly 2 params sendtxid, scriptPubKey"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -721,11 +752,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: bad-txns-inputs-missing" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -739,18 +773,18 @@ The returned `handle` is directly associated with the same `pubtxid`.
 
 #### Arguments
 
-| Name    | Type     | Description                                     |
-| ------- | -------- | ----------------------------------------------- |
+| Name    | Type     | Description                                   |
+| ------- | -------- | --------------------------------------------- |
 | pubtxid | (string) | the id of the handle-registration transaction |
-| msg     | (string) | the signed message                |
-| sig     | (string) | the signature generated                         |
+| msg     | (string) | the signed message                            |
+| sig     | (string) | the signature generated                       |
 
 #### Response
 
 | Name    | Type     | Description                                                                 |
 | ------- | -------- | --------------------------------------------------------------------------- |
 | sighash | (string) | the hash of the signature                                                   |
-| msg32   | (string) | the signed message                                            |
+| msg32   | (string) | the signed message                                                          |
 | handle  | (string) | the handle that was registered with the seed used to sign the message       |
 | pkaddr  | (string) | the hashed representation of the Dilithium pubkey corresponding to the seed |
 | result  | (string) | whether the call executed successfully                                      |
@@ -792,12 +826,13 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"status":"error","error":"not enough parameters"},"error":null,"id":"curltest"}
+{
+  "result": { "status": "error", "error": "not enough parameters" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
 
-
 </div>
-
-
