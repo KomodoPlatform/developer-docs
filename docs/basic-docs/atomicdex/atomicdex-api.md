@@ -1639,7 +1639,7 @@ The `my_swap_status` method returns the data of an atomic swap executed on a MM2
 | maker_amount   | string (numeric, optional)| the amount of coins to be swapped by maker                                                                                                 |
 | taker_amount   | string (numeric, optional)| the amount of coins to be swapped by taker                                                                                                 |
 | my_info        | object (optional)         | this object maps event data to make displaying swap data in a GUI simpler (`my_coin`, `my_amount`, etc.)                                   |
-| recoverable    | bool                      | whether the swap can be recovered by using `recover_funds_of_swap` API; important note on this field is MM2 does not keep the state whether the swap was then recovered or not; it allows to call `recover_funds_of_swap` as many times as required in case of errors |
+| recoverable    | bool                      | whether the swap can be recovered using the `recover_funds_of_swap` API command. Important note: MM2 does not record the state regarding whether the swap was recovered or not. MM2 allows as many calls to the `recover_funds_of_swap` method as necessary, in case of errors |
 
 #### :pushpin: Examples
 
