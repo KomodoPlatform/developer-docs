@@ -353,7 +353,7 @@ First, we need the `gatewaysDepositAddress`. This is the address where we will d
 
 The `deposit` property contains the `gatewaysDepositAddress`. When we send funds to this address, we receive in return HELLOWORLD KMD tokens to an on-chain address that we indicate as follows.
 
-Use the [z_sendmany](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-sendmany) method to send funds to two addresses simultaneously. The first address is the `pubkey` that corresponds to our pubkey on the HELLOWORLD Smart Chain which will receive tokens. The second address is the `gatewaysDepositAddress` on the KMD chain. We send a nominal amount into the first address, and the amount we wish to have available for trading into the second address. This is done on the external chain -- in this case, KMD.
+Use the [z_sendmany](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-sendmany) method to send funds to two addresses simultaneously. The first address is the normal address for the `pubkey` that corresponds to our pubkey on the HELLOWORLD Smart Chain which will receive tokens. The second address is the `gatewaysDepositAddress` on the KMD chain. We send a nominal amount into the first address, and the amount we wish to have available for trading into the second address. This is done on the external chain -- in this case, KMD.
 
 ```bash
 ./komodo-cli z_sendmany "insert_address_where_KMD_funds_are_currently_held" '[{"address":"addressOfPubkeyForTokenizedKmd","amount":0.0001},{"address":"gatewaysDepositAddress","amount":0.1}]'
