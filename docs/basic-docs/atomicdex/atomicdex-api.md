@@ -1351,6 +1351,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
           "other_coin": "PIZZA",
           "started_at": 1561529842
         },
+        "maker_coin": "BEER",
+        "maker_amount": "1",
+        "taker_coin": "PIZZA",
+        "taker_amount": "1",
+        "gui": null,
+        "mm_version": "unknown", 
         "success_events": [
           "Started",
           "Negotiated",
@@ -1566,6 +1572,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
           "other_coin": "BEER",
           "started_at": 1561481967
         },
+        "maker_coin": "BEER",
+        "maker_amount": "0.01",
+        "taker_coin": "BCH",
+        "taker_amount": "0.01",
+        "gui": null,
+        "mm_version": "unknown", 
         "success_events": [
           "Started",
           "Negotiated",
@@ -1613,15 +1625,21 @@ The `my_swap_status` method returns the data of an atomic swap executed on a MM2
 
 #### Response
 
-| Structure      | Type             | Description                                                                                                                                |
-| -------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| events         | array of objects | the events that occurred during the swap                                                                                                   |
-| success_events | array of strings | a list of events that gained a `success` swap state; the contents are listed in the order in which they should occur in the `events` array |
-| error_events   | array of strings | a list of events that fell into an `error` swap state; if at least 1 of the events happens, the swap is considered a failure               |
-| type           | string           | whether the node acted as a market `Maker` or `Taker`                                                                                      |
-| uuid           | string           | swap uuid                                                                                                                                  |
-| my_info        | object           | this object maps event data to make displaying swap data in a GUI simpler (`my_coin`, `my_amount`, etc.)                                   |
-| recoverable    | bool             | whether the swap can be recovered by using `recover_funds_of_swap` API; important note on this field is MM2 does not keep the state whether the swap was then recovered or not; it allows to call `recover_funds_of_swap` as many times as required in case of errors |
+| Structure      | Type                      | Description                                                                                                                                |
+| -------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| events         | array of objects          | the events that occurred during the swap                                                                                                   |
+| success_events | array of strings          | a list of events that gained a `success` swap state; the contents are listed in the order in which they should occur in the `events` array |
+| error_events   | array of strings          | a list of events that fell into an `error` swap state; if at least 1 of the events happens, the swap is considered a failure               |
+| type           | string                    | whether the node acted as a market `Maker` or `Taker`                                                                                      |
+| uuid           | string                    | swap uuid                                                                                                                                  |
+| gui            | string (optional)         | information about gui; copied from MM2 configuration                                                                                       |
+| mm_version     | string (optional)         | MM2 version                                                                                                                                |
+| maker_coin     | string (optional)         | ticker of maker coin                                                                                                                       |
+| taker_coin     | string (optional)         | ticker of taker coin                                                                                                                       |
+| maker_amount   | string (numeric, optional)| the amount of coins to be swapped by maker                                                                                                 |
+| taker_amount   | string (numeric, optional)| the amount of coins to be swapped by taker                                                                                                 |
+| my_info        | object (optional)         | this object maps event data to make displaying swap data in a GUI simpler (`my_coin`, `my_amount`, etc.)                                   |
+| recoverable    | bool                      | whether the swap can be recovered by using `recover_funds_of_swap` API; important note on this field is MM2 does not keep the state whether the swap was then recovered or not; it allows to call `recover_funds_of_swap` as many times as required in case of errors |
 
 #### :pushpin: Examples
 
@@ -1840,6 +1858,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
       "other_coin": "BEER",
       "started_at": 1561481967
     },
+    "maker_coin": "BEER",
+    "maker_amount": "0.01",
+    "taker_coin": "BCH",
+    "taker_amount": "0.01",
+    "gui": null,
+    "mm_version": "unknown", 
     "recoverable": false,
     "success_events": [
       "Started",
@@ -2036,6 +2060,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
       "other_coin": "PIZZA",
       "started_at": 1561529842
     },
+    "maker_coin": "BEER",
+    "maker_amount": "1",
+    "taker_coin": "PIZZA",
+    "taker_amount": "1",
+    "gui": "AtomicDEX 1.0",
+    "mm_version": "unknown", 
     "recoverable": false,
     "success_events": [
       "Started",
@@ -2419,7 +2449,7 @@ The `orderbook` method requests from the network the currently available orders 
 | address        | string           | the address offering the trade                                                |
 | price          | string (decimal) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
 | price_rat      | rational         | the price in rational representation                                          |
-| maxvolume      | number           | the total amount of `base` coins the offer provider has in their wallet       |
+| maxvolume      | string (decimal) | the maximum amount of `base` coin the offer provider is willing to sell      |
 | max_volume_rat | rational         | the max volume in rational representation                                     |
 | pubkey         | string           | the pubkey of the offer provider                                              |
 | age            | number           | the age of the offer                                                          |
