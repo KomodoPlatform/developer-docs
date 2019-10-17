@@ -45,13 +45,17 @@ Command:
 ```json
 {
   "result": "success",
-  "FaucetCCaddress": "R9zHrofhRbub7ER77B7NrVch3A63R39GuC",
-  "Faucetmarker": "RKQV4oYs4rvxAWx1J43VnT73rSTVtUeckk",
-  "GatewaysPubkey": "03ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb40",
-  "FaucetCCassets": "RF2p5LgEBpUzUgUyFSUDa8ZBnr2wxE87do",
-  "CCaddress": "RReGLfH2MTrkeLSepkVy5vnQPE29g7KofS",
-  "myCCaddress": "RReGLfH2MTrkeLSepkVy5vnQPE29g7KofS",
-  "myaddress": "RJYiWn3FRCSSLf9Pe5RJcbrKQYosaMburP"
+  "FaucetCCAddress": "R9zHrofhRbub7ER77B7NrVch3A63R39GuC",
+  "FaucetCCBalance": 0.0,
+  "FaucetNormalAddress": "RKQV4oYs4rvxAWx1J43VnT73rSTVtUeckk",
+  "FaucetNormalBalance": 0.0,
+  "FaucetCCTokensAddress": "RKaT8VfRSsu4qWL2kfW3PCzejrzJxi1TcJ",
+  "PubkeyCCaddress(Faucet)": "RReGLfH2MTrkeLSepkVy5vnQPE29g7KofS",
+  "PubkeyCCbalance(Faucet)": 0.0,
+  "myCCAddress(Faucet)": "RTedsYkavdn39m2jrQcKjCnq4MvikGCiZS",
+  "myCCbalance(Faucet)": 0.0,
+  "myaddress": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
+  "mybalance": 0.0
 }
 ```
 
@@ -144,7 +148,7 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 {
   "result": {
     "result": "success",
-    "hex": "0400008085202f89016e0bb6725ffc34e57d3768b6d422d7f734ab23c5b770e20c869578c28d59dcb40000000049483045022100e1759596107882181a3efe3a6c6b973ef5b65040028375c90cd0c07dc3f05bf2022049d559e78cd8e51232b22d89c65f283d979fdc2f9531e96ce249830cf553afd401ffffffff0200e40b5402000000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc9ac936fb15090000232102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2ac00000000410100000000000000000000000000"
+    "hex": "01000000013c34d14c6a32219f4b633a1fe01f5826b3bd7b4cbe01c20cfc0c29138d9c99720100000049483045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf4885259501ffffffff0200e40b5402000000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cce06d66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000"
   },
   "error": null,
   "id": "curltest"
@@ -179,8 +183,8 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ```json
 {
-  "result": null,
-  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "result": "f2baf8d9a1eaf42bb1a85462b5699ffc0f04e8c54aafc4661767df96be9022b7",
+  "error": null,
   "id": "curltest"
 }
 ```
@@ -361,8 +365,8 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 ```json
 {
   "result": {
-    "result": "error",
-    "error": "couldnt create faucet get transaction"
+    "result": "success",
+    "hex": "01000000010941cea65a560aeae02f0d49770965490bd99eeac4185f25075685da58e99d40000000007b4c79a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001ffffffff02b077a43018090000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc00e1f50500000000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000"
   },
   "error": null,
   "id": "curltest"
@@ -398,15 +402,15 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ```json
 {
-  "result": null,
-  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "result": "64760e66c49df97eea14896ecdd505d2d78ea214eb583c8a6a0ac863b2b989b3",
+  "error": null,
   "id": "curltest"
 }
 ```
 
 </collapse-text>
 
-Step 3: Decode the raw transaction (optional to check if the value are sane)
+Step 3: Decode the raw transaction (optional to check if the values are sane)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 01000000010941cea65a560aeae02f0d49770965490bd99eeac4185f25075685da58e99d40000000007b4c79a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001ffffffff02b077a43018090000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc00e1f50500000000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000
@@ -577,7 +581,11 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ```json
 {
-  "result": { "result": "success", "name": "Faucet", "funding": "0.00000000" },
+  "result": {
+    "result": "success",
+    "name": "Faucet",
+    "funding": "200207.99860023"
+  },
   "error": null,
   "id": "curltest"
 }
