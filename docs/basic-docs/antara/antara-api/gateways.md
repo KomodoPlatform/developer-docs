@@ -24,20 +24,20 @@ The `gatewaysaddress` method returns information about the on-chain gateway.
 
 ### Arguments
 
-| Name | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |            |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
 
 ### Response
 
-| Name | Type | Description |
+| Name                | Type     | Description                                                                                                          |
 | ------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
 | "result"            | (string) | whether the command executed successfully                                                                            |
 | "GatewaysCCaddress" | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
 | "Gatewaysmarker"    | (string) | the unmodified public address generated from the contract's privkey                                                  |
-| "GatewaysPubkey"    | (string) | the pubkey for the gateways module                                                                                       |
+| "GatewaysPubkey"    | (string) | the pubkey for the gateways module                                                                                   |
 | "GatewaysCCassets"  | (string) | this property is used for development purposes only and can otherwise be ignored                                     |
-| "myCCaddress"       | (string) | taking the contract's EVAL code as a modifier, this is the Antara address from the pubkey of the user                    |
+| "myCCaddress"       | (string) | taking the contract's EVAL code as a modifier, this is the Antara address from the pubkey of the user                |
 | "myaddress"         | (string) | the public address of the pubkey used to launch the chain                                                            |
 
 #### :pushpin: Examples
@@ -48,9 +48,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD gatewaysaddress
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -77,12 +75,26 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"success","GatewaysCCAddress":"RKWpoK6vTRtq5b9qrRBodLkCzeURHeEk33","GatewaysCCBalance":0.00000000,"GatewaysNormalAddress":"RGJKV97ZN1wBfunuMt1tebiiHENNEq73Yh","GatewaysNormalBalance":0.00000000,"GatewaysPubkey":"03ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb40","GatewaysCCTokensAddress":"RSDw91hbCKkkNct6XtPRbq389eu2xKgHUC","myCCAddress(Gateways)":"RDrfw1gN8k2BXv6dPa9fqPH4TorbG7wiGf","myCCbalance(Gateways)":0.00000000,"myaddress":"RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92","mybalance":0.00000000},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "success",
+    "GatewaysCCAddress": "RKWpoK6vTRtq5b9qrRBodLkCzeURHeEk33",
+    "GatewaysCCBalance": 0.0,
+    "GatewaysNormalAddress": "RGJKV97ZN1wBfunuMt1tebiiHENNEq73Yh",
+    "GatewaysNormalBalance": 0.0,
+    "GatewaysPubkey": "03ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb40",
+    "GatewaysCCTokensAddress": "RSDw91hbCKkkNct6XtPRbq389eu2xKgHUC",
+    "myCCAddress(Gateways)": "RDrfw1gN8k2BXv6dPa9fqPH4TorbG7wiGf",
+    "myCCbalance(Gateways)": 0.0,
+    "myaddress": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
+    "mybalance": 0.0
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
-
 
 ## gatewaysbind
 
@@ -92,7 +104,7 @@ The `gatewaysbind` method binds the provided sources into a new gateway.
 
 ### Arguments
 
-| Name | Type | Description |
+| Name        | Type     | Description                                                                                                   |
 | ----------- | -------- | ------------------------------------------------------------------------------------------------------------- |
 | tokenid     | (string) | the `tokenid` that the gateway will control as a proxy of foreign (off-chain) assets                          |
 | oracletxid  | (string) | the `oracletxid` under which the gateway should be created                                                    |
@@ -108,10 +120,10 @@ The `gatewaysbind` method binds the provided sources into a new gateway.
 
 ### Response
 
-| Name | Type | Description |
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -123,9 +135,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD gatewaysbind 202277c3a48ef168b164f7995eaced940e6416afefd6acd5aac0cb0a439df210 51a3fa99ef2abb3c1ce8248896d934bd348b7a1e0c5dbc06688c976247263a25 KMD 100000000 1 1 024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0 60 85 188
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -147,12 +157,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"M.1 N.1 but pubkeys[0] has no balance"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "error",
+    "error": "M.1 N.1 but pubkeys[0] has no balance"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
-
 
 Step Two:
 
@@ -162,9 +177,7 @@ Broadcast using [sendrawtransction:](../../../basic-docs/smart-chains/smart-chai
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 010000000152d7d470197f5dc650c9ec09e1c8f4975d315219e3b6edad3c927c2fc23197ca0200000048473044022006bf373f1dd51c638a38d1e592741db73387e6acc186fca2011cd7283520ff770220673be91d346ba72adcbc9ab1df712f750047c2609399256c07ad3170d9ea850401ffffffff031027000000000000302ea22c802091abda62a548f9c7f5beb19d16f01714ae3d4e526f3266fc8d347d6123f3d77b8103120c008203000401cce05c9836180900002321024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0ac0000000000000000796a4c76f142034b4d443c550010f29d430acbc0aad5acd6efaf16640e94edac5e99f764b168f18ea4c377222000e1f5050000000001010121024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0253a264762978c6806bc5d0c1e7a8b34bd34d9968824e81c3cbb2aef99faa35100000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 aa1b82d78398184c93405ccd15e3cf00b63634aac98a7b75053aa90eaf9cb47d
@@ -183,12 +196,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
-
 
 This is the `bindtxid` for the gateway.
 
@@ -310,24 +325,24 @@ The `sendrawtransaction` method then returns a `txid` which serves as the **depo
 
 ### Arguments
 
-| Name | Type | Description |
-| ---------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
-| bindtxid   | (string) | the bindtxid of the gateway                                                                                          |
-| height     | (number) | the block height of the `txid` wherein the funds were sent to the foreign-asset gateway pubkey                       |
-| name       | (string) | the name of the foreign asset                                                                                        |
-| cointxid   | (string) | the `txid` returned when the foreign assets were sent to the gateway pubkey                                          |
-| claimvout  | (string) | the `vout` of the claim (on the first use, this value should be 0)                                                   |
-| deposithex | (string) | returned from the `txid` wherein the funds were sent to the foreign-asset gateway pubkey                             |
+| Name       | Type     | Description                                                                                                                                             |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| bindtxid   | (string) | the bindtxid of the gateway                                                                                                                             |
+| height     | (number) | the block height of the `txid` wherein the funds were sent to the foreign-asset gateway pubkey                                                          |
+| name       | (string) | the name of the foreign asset                                                                                                                           |
+| cointxid   | (string) | the `txid` returned when the foreign assets were sent to the gateway pubkey                                                                             |
+| claimvout  | (string) | the `vout` of the claim (on the first use, this value should be 0)                                                                                      |
+| deposithex | (string) | returned from the `txid` wherein the funds were sent to the foreign-asset gateway pubkey                                                                |
 | proof      | (string) | the proof for the `txid`; can be found using the [gettxoutproof](../../../basic-docs/smart-chains/smart-chain-api/blockchain.html#gettxoutproof) method |
-| destpub    | (string) | the public key where the tokens should be received on the Smart Chain                                                |
-| amount     | (number) | the amount of the deposit                                                                                            |
+| destpub    | (string) | the public key where the tokens should be received on the Smart Chain                                                                                   |
+| amount     | (number) | the amount of the deposit                                                                                                                               |
 
 ### Response
 
-| Name | Type | Description |
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -337,9 +352,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD gatewaysdeposit 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d 1116196 KMD 907812ee8d2762b589f6ca88ee8ba18a65ebf5c7486c472df7395628d22d0d98 0 010000000197d6ea16c68dc5db95b72e029a0e23cb403ae0a33b561b863963cfd9cbfec747000000006b483045022100aca47515602989979b514b6211c375e4d0d9471dd8297c5238c12245ad01dd830220191105caf1b63313c6988194f5f03fd6f70d4a30edc7820add1185d35edff1bb012102924664b536f3710a8e8abea38bb4bf71b470a653a4dceabd50df08d7b2a38436ffffffff0310270000000000001976a9141b355cb6b76cab1b16cb873db8828fe5d2521ae488ac80969800000000001976a914f0d1fc29f8962ac2805a1659192d9ad26794d22988ac38c7fa00000000001976a91482804b943dd6a2008af73f8ba40449c062f0935188ac50e6fd5b 04000000380b8fd2b9bdf570358980a4c9fc94e418ac656913999b5f9a016ec5afc46b0b188320f231637a0ded0b0bdada1f34c81ad5873b8c3f096b2014018af13f43980000000000000000000000000000000000000000000000000000000000000000b2e6fd5ba786061d57fff87a00000000000046430000000000000200000000000000000000000000fd40050035435dd2c1df5c20cb48e0617b6cee81f5349f0735b36fe93f17f82d678ad3eb374d0e398b049fddcb21a4d7ddf7345867c6a363eddcfe61f31d49dbc35652794c60da61bd5f164fd554f17b5bd669f636744412822af2ebd0f318dacb71514720164c59c392ef2b1ccc3a5dc5c9c83cd37a11f98b97c8f5170a357a972ec3cacbeb0dab34b757354883b46a598f2b93fcd735b4163db6b2b037f7d7d71a773e909ac4ce3f1228012d5bebfd9edad9842ae8c6cddf6942c543594b85013591a604c4223a3d2e007ed25f5994e9d8f6b6a704daf57cad41aea9609923612eee2fc55ad075c91c23a8cc46af9a45a7390c537d2e2302994239ae44230537ceaa2188e7f4eb6a0ab55471d152b9177e9fd90843504f29d3e92fd3d7142caae018b51318ec6b86083b7e2d155ce868f6b673b13cf1ed59107d15c6c84201441dde14074930f4755ec64975f354a99bd957021c073768f575dde3ab020dd73b488e2d03d57bc414a16d45b3e2052b24fb2360ec5f73524525fc59d2151b89310b19764541b801ad72171085bc6275832222484b8d7ee6ed91ab6a544c45af5c4d8445b0624f04a234aec6997eecf007f0e971eea33b21e45ba8f72825fa84605cdfa929aeb6dc425f2612000e7ce2ba04ff8c53061154eb38cba7f6d0bfe5dab031dadea2095e01e93f9e063d0b42e412f865572625f77aa8b10b58f7b0428ea0ff530ea10d37150496bb181e37fc5814ad524ce4618955e9158b6aebb956b02b961f920ee48eb5a08efc39d27fc2fd4ec175e38798bcca7331a7b5da2ca6c56fcb98e740c2f471eac6b67ced78125c5fcecd4f76eac1d76233aa58ed808e398b9e2b1eaa74e773d18276b732239403ce0c452cb26f0f34156a0a63e007ccfbd76f168fb941fbd2fbe23b57e519835c804ace6e22e281b3d0adda7c4b93a87d94500103315c780fe91ee67320a422eecb4a6daedc2d774567bfebc1d5b72fa693178f3443aa1eb47f18d6931f7b0fc6ec151caad4eae5f787c2a963c3963ffc924ba66a7ea1754763faf2884de0c86a0f75fe7f8dfb1265b449184668cb7348520810cf731663f5180ac31642d6b135d5ce7de88ba63d6db3d6c5dfa19492281dfed3b3765451717f3497ac2b4c040e2e4e77219b2586c227cd138b8d94ccc273fbfbb51a35523870c503e2d8527b840ced11917075e8a41ae9616f1df8d41df5bae39c6d6de5bb8d43d401bb9089723db59f0f06aa4fdf4145a905812ef799eb574abb9985de878a289e5f4b1256ca2121d553465f44065580cb5bde170459d1c22e8d388cbec9e37dc3cca07e489a9859942a9ccef4a5e45eed7228b94c86d10a233b5a1ddfcb1735cb9b16de6e8f49f3c841796acba31a8e9c90b531952ed03bd72e0b00fa3373ea4bc845d7469afae305639c772285a5223bf2d86a12c92312dc19db86400c6760b9e75af40ce4c16278bba8a804d5a69b88290dd4c2b43423bee9eb97c54261f956a32d80fdd3f421d1199ee45d42ad657e928be2e9fa54d844cff60b06bc525ce54daca9689e0616bfdbdbc36e09bea11a276d25d3ca9a80ed7109183784dfd1d23b7c791a7913a633e2d28948c655e68ade706654e38f717fe29119af4282430c8d1f702a52ea189f1e9e6faafb213205a195dab1c2d01dc6a3711f671ea118e8a3c995632903c58ebbd4eae5dbc4555b24c1649e89e03efb92134b9e24fb9fc649462f928d992fa33d45edcb4ef13f0d5c2cb6663e7dbf2414b5ed617e56b8715ace6910807e4a901ba603dab4092f9eeb46566ec3f38f3a1789c60822530c390d19b1d939217b7a691abb91454fce76cccf3557ddb3fc55bd4f44761aa9363db0f38360adf60e743ba3b902788bb254637f6074df62460400000003a973b7134b7fcbcb1fe70fdfaaf056c209a9f5dd77800eb37b065ca8317cbb3a980d2dd2285639f72d476c48c7f5eb658aa18bee88caf689b562278dee127890445df562c183ed7279f2f8e37ba249447439884d5b7030eac6485112eb07ea2d010b 02d389e879ca68809794c0ef29869b23b4dd8e22122fcc4e8b69adb1d33752dd9d 0.1
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -361,12 +374,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"cant find bindtxid 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "error",
+    "error": "cant find bindtxid 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
-
 
 Step Two: Broadcast using `sendrawtransction`
 
@@ -374,9 +392,7 @@ Step Two: Broadcast using `sendrawtransction`
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000010db4b1686d1f27de5e2a11c793dfd30f09b296754f95ae8649858cca97d5b07a0000000049483045022100ad6bc26f0c66b89f5d63aff251c78965a50201f909a997b8ed6469da0334aa0c0220136d71f5ad1f4496785df81864f9be3ae7b8dd012dae08d59fd544869eacb3ba01ffffffff041027000000000000302ea22c80205fd998129698de9cf1455f4f4795794c9e57bf1fd5f28598b5e6c0322de5d0358103120c008203000401cc1027000000000000232102980d2dd2285639f72d476c48c7f5eb658aa18bee88caf689b562278dee127890acd02a724e18090000232102d389e879ca68809794c0ef29869b23b4dd8e22122fcc4e8b69adb1d33752dd9dac0000000000000000fd04096a4d0009f144034b4d440d8d1f63bf680d6191b100d90992b0f6bf6ce1cc851f259da8b49e74524e7a890121024026d4ad4ecfc1f705a9b42ca64af6d2ad947509c085534a30b8861d756c6ff0012fea85ecfda42975a2aaed72e946792df41a486033af8dc45ab1e4ddcb34b1b424081100980d2dd2285639f72d476c48c7f5eb658aa18bee88caf689b562278dee12789000000000fd080230313030303030303031393764366561313663363864633564623935623732653032396130653233636234303361653061333362353631623836333936336366643963626665633734373030303030303030366234383330343530323231303061636134373531353630323938393937396235313462363231316333373565346430643934373164643832393763353233386331323234356164303164643833303232303139313130356361663162363333313363363938383139346635663033666436663730643461333065646337383230616464313138356433356564666631626230313231303239323436363462353336663337313061386538616265613338626234626637316234373061363533613464636561626435306466303864376232613338343336666666666666666630333130323730303030303030303030303031393736613931343162333535636236623736636162316231366362383733646238383238666535643235323161653438386163383039363938303030303030303030303139373661393134663064316663323966383936326163323830356131363539313932643961643236373934643232393838616333386337666130303030303030303030313937366139313438323830346239343364643661323030386166373366386261343034343963303632663039333531383861633530653666643562fd360604000000380b8fd2b9bdf570358980a4c9fc94e418ac656913999b5f9a016ec5afc46b0b188320f231637a0ded0b0bdada1f34c81ad5873b8c3f096b2014018af13f43980000000000000000000000000000000000000000000000000000000000000000b2e6fd5ba786061d57fff87a00000000000046430000000000000200000000000000000000000000fd40050035435dd2c1df5c20cb48e0617b6cee81f5349f0735b36fe93f17f82d678ad3eb374d0e398b049fddcb21a4d7ddf7345867c6a363eddcfe61f31d49dbc35652794c60da61bd5f164fd554f17b5bd669f636744412822af2ebd0f318dacb71514720164c59c392ef2b1ccc3a5dc5c9c83cd37a11f98b97c8f5170a357a972ec3cacbeb0dab34b757354883b46a598f2b93fcd735b4163db6b2b037f7d7d71a773e909ac4ce3f1228012d5bebfd9edad9842ae8c6cddf6942c543594b85013591a604c4223a3d2e007ed25f5994e9d8f6b6a704daf57cad41aea9609923612eee2fc55ad075c91c23a8cc46af9a45a7390c537d2e2302994239ae44230537ceaa2188e7f4eb6a0ab55471d152b9177e9fd90843504f29d3e92fd3d7142caae018b51318ec6b86083b7e2d155ce868f6b673b13cf1ed59107d15c6c84201441dde14074930f4755ec64975f354a99bd957021c073768f575dde3ab020dd73b488e2d03d57bc414a16d45b3e2052b24fb2360ec5f73524525fc59d2151b89310b19764541b801ad72171085bc6275832222484b8d7ee6ed91ab6a544c45af5c4d8445b0624f04a234aec6997eecf007f0e971eea33b21e45ba8f72825fa84605cdfa929aeb6dc425f2612000e7ce2ba04ff8c53061154eb38cba7f6d0bfe5dab031dadea2095e01e93f9e063d0b42e412f865572625f77aa8b10b58f7b0428ea0ff530ea10d37150496bb181e37fc5814ad524ce4618955e9158b6aebb956b02b961f920ee48eb5a08efc39d27fc2fd4ec175e38798bcca7331a7b5da2ca6c56fcb98e740c2f471eac6b67ced78125c5fcecd4f76eac1d76233aa58ed808e398b9e2b1eaa74e773d18276b732239403ce0c452cb26f0f34156a0a63e007ccfbd76f168fb941fbd2fbe23b57e519835c804ace6e22e281b3d0adda7c4b93a87d94500103315c780fe91ee67320a422eecb4a6daedc2d774567bfebc1d5b72fa693178f3443aa1eb47f18d6931f7b0fc6ec151caad4eae5f787c2a963c3963ffc924ba66a7ea1754763faf2884de0c86a0f75fe7f8dfb1265b449184668cb7348520810cf731663f5180ac31642d6b135d5ce7de88ba63d6db3d6c5dfa19492281dfed3b3765451717f3497ac2b4c040e2e4e77219b2586c227cd138b8d94ccc273fbfbb51a35523870c503e2d8527b840ced11917075e8a41ae9616f1df8d41df5bae39c6d6de5bb8d43d401bb9089723db59f0f06aa4fdf4145a905812ef799eb574abb9985de878a289e5f4b1256ca2121d553465f44065580cb5bde170459d1c22e8d388cbec9e37dc3cca07e489a9859942a9ccef4a5e45eed7228b94c86d10a233b5a1ddfcb1735cb9b16de6e8f49f3c841796acba31a8e9c90b531952ed03bd72e0b00fa3373ea4bc845d7469afae305639c772285a5223bf2d86a12c92312dc19db86400c6760b9e75af40ce4c16278bba8a804d5a69b88290dd4c2b43423bee9eb97c54261f956a32d80fdd3f421d1199ee45d42ad657e928be2e9fa54d844cff60b06bc525ce54daca9689e0616bfdbdbc36e09bea11a276d25d3ca9a80ed7109183784dfd1d23b7c791a7913a633e2d28948c655e68ade706654e38f717fe29119af4282430c8d1f702a52ea189f1e9e6faafb213205a195dab1c2d01dc6a3711f671ea118e8a3c995632903c58ebbd4eae5dbc4555b24c1649e89e03efb92134b9e24fb9fc649462f928d992fa33d45edcb4ef13f0d5c2cb6663e7dbf2414b5ed617e56b8715ace6910807e4a901ba603dab4092f9eeb46566ec3f38f3a1789c60822530c390d19b1d939217b7a691abb91454fce76cccf3557ddb3fc55bd4f44761aa9363db0f38360adf60e743ba3b902788bb254637f6074df62460400000003a973b7134b7fcbcb1fe70fdfaaf056c209a9f5dd77800eb37b065ca8317cbb3a980d2dd2285639f72d476c48c7f5eb658aa18bee88caf689b562278dee127890445df562c183ed7279f2f8e37ba249447439884d5b7030eac6485112eb07ea2d010b2102d389e879ca68809794c0ef29869b23b4dd8e22122fcc4e8b69adb1d33752dd9d809698000000000000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 (This is the `deposittxid`)
 
@@ -397,12 +413,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
-
 
 ## gatewaysdumpprivkey
 
@@ -414,17 +432,17 @@ The private key is returned in the wif format of the associated external chain.
 
 ### Arguments
 
-| Name | Type | Description |
-| --------- | -------- | ---------------------------------------------------- |
-| bindtxid  | (string) | the `bindtxid` for the associated gateway            |
-| address   | (string) | the `address` for which the private key is requested |
+| Name     | Type     | Description                                          |
+| -------- | -------- | ---------------------------------------------------- |
+| bindtxid | (string) | the `bindtxid` for the associated gateway            |
+| address  | (string) | the `address` for which the private key is requested |
 
 ### Response
 
-| Name | Type | Description |
-| --------- | -------- | ----------------------------------------- |
-| result    | (string) | whether the command executed successfully |
-| privkey   | (string) | the private key                           |
+| Name    | Type     | Description                               |
+| ------- | -------- | ----------------------------------------- |
+| result  | (string) | whether the command executed successfully |
+| privkey | (string) | the private key                           |
 
 #### :pushpin: Examples
 
@@ -434,9 +452,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD gatewaysdumpprivkey 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d RVHLGTE3aFGwqpUVsoHJiJGs9pmsnd3fNB
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -458,12 +474,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-4,"message":"Private key for address RVHLGTE3aFGwqpUVsoHJiJGs9pmsnd3fNB is not known"},"id":"curltest"}
+{
+  "result": null,
+  "error": {
+    "code": -4,
+    "message": "Private key for address RVHLGTE3aFGwqpUVsoHJiJGs9pmsnd3fNB is not known"
+  },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
-
 
 ## gatewaysexternaladdress
 
@@ -473,17 +494,17 @@ The `gatewaysexternaladdress` method returns the address on the external chain f
 
 ### Arguments
 
-| Name | Type | Description |
-| --------- | -------- | ----------------------------------------------------------------- |
-| bindtxid  | (string) | the `bindtxid` for the associated gateway                         |
-| pubkey    | (string) | the `pubkey` needed to generate the address on the external chain |
+| Name     | Type     | Description                                                       |
+| -------- | -------- | ----------------------------------------------------------------- |
+| bindtxid | (string) | the `bindtxid` for the associated gateway                         |
+| pubkey   | (string) | the `pubkey` needed to generate the address on the external chain |
 
 ### Response
 
-| Name | Type | Description |
-| --------- | -------- | ----------------------------------------- |
-| result    | (string) | whether the command executed successfully |
-| address   | (string) | the address for the given pubkey          |
+| Name    | Type     | Description                               |
+| ------- | -------- | ----------------------------------------- |
+| result  | (string) | whether the command executed successfully |
+| address | (string) | the address for the given pubkey          |
 
 #### :pushpin: Examples
 
@@ -493,9 +514,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD gatewaysexternaladdress 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d 02ebb42018347eb3a4da76e85347bb0f042355ff3d16e323b21f8e6cb10098654e
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -517,12 +536,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"cant find bindtxid 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "error",
+    "error": "cant find bindtxid 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
-
 
 ## gatewaysinfo
 
@@ -532,27 +556,27 @@ The `gatewaysinfo` method returns information about the `bindtxid` gateway.
 
 ### Arguments
 
-| Name | Type | Description |
-| --------- | -------- | ----------------------------------------- |
-| bindtxid  | (string) | the `bindtxid` for the associated gateway |
+| Name     | Type     | Description                               |
+| -------- | -------- | ----------------------------------------- |
+| bindtxid | (string) | the `bindtxid` for the associated gateway |
 
 ### Response
 
-| Name | Type | Description |
-| ----------- | -------- | ----------------------------------------------------------------------------------------------------------- |
-| result      | (string) | whether the command executed successfully                                                                   |
-| name        | (string) | the name of the command                                                                                     |
-| pubkey      | (string) | the pubkey that holds the converted proxy tokens                                                            |
-| coin        | (string) | the name of the asset that the proxy token represents                                                       |
-| oracletxid  | (string) | the `oracletxid` of the associated oracle                                                                   |
-| taddr       | (number) | the coin-specific address that customizes the address for the relevant foreign coin         |
-| prefix      | (number) | the coin-specific address prefix that customizes the address for the relevant foreign coin  |
-| prefix2     | (number) | the coin-specific address prefix that customizes the address for the relevant foreign coin  |
-| deposit     | (string) | the t address associated with the gateway pubkey                                                            |
-| tokenid     | (string) | the `tokenid` of the proxy token                                                                            |
-| totalsupply | (number) | the total available supply of proxy tokens                                                                  |
-| remaining   | (number) | the amount of proxy tokens not currently issued                                                             |
-| issued      | (number) | the amount of proxy tokens currently issued                                                                 |
+| Name        | Type     | Description                                                                                |
+| ----------- | -------- | ------------------------------------------------------------------------------------------ |
+| result      | (string) | whether the command executed successfully                                                  |
+| name        | (string) | the name of the command                                                                    |
+| pubkey      | (string) | the pubkey that holds the converted proxy tokens                                           |
+| coin        | (string) | the name of the asset that the proxy token represents                                      |
+| oracletxid  | (string) | the `oracletxid` of the associated oracle                                                  |
+| taddr       | (number) | the coin-specific address that customizes the address for the relevant foreign coin        |
+| prefix      | (number) | the coin-specific address prefix that customizes the address for the relevant foreign coin |
+| prefix2     | (number) | the coin-specific address prefix that customizes the address for the relevant foreign coin |
+| deposit     | (string) | the t address associated with the gateway pubkey                                           |
+| tokenid     | (string) | the `tokenid` of the proxy token                                                           |
+| totalsupply | (number) | the total available supply of proxy tokens                                                 |
+| remaining   | (number) | the amount of proxy tokens not currently issued                                            |
+| issued      | (number) | the amount of proxy tokens currently issued                                                |
 
 #### :pushpin: Examples
 
@@ -562,9 +586,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD gatewaysinfo 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -597,12 +619,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"cant find bindtxid 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "error",
+    "error": "cant find bindtxid 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
-
 
 ## gatewayslist
 
@@ -612,15 +639,15 @@ The `gatewayslist` method displays a list of `bindtxids` for the available gatew
 
 ### Arguments
 
-| Name | Type | Description |
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description |
-| --------- | -------- | ------------------------------------ |
-| bindtxid  | (string) | the bindtxid of an available gateway |
+| Name     | Type     | Description                          |
+| -------- | -------- | ------------------------------------ |
+| bindtxid | (string) | the bindtxid of an available gateway |
 
 #### :pushpin: Examples
 
@@ -630,9 +657,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD gatewayslist
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 [
@@ -654,12 +679,10 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":[],"error":null,"id":"curltest"}
+{ "result": [], "error": null, "id": "curltest" }
 ```
 
 </collapse-text>
-
-
 
 <!--FIXME new RPC added
 gatewaysmarkdone completesigningtx coin
@@ -677,7 +700,7 @@ The `gatewayswithdraw` method sends proxy tokens in the gateways `pubkey`. The g
 
 ### Arguments
 
-| Name | Type | Description |
+| Name        | Type     | Description                                                                                                                  |
 | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | bindtxid    | (string) | the `bindtxid` of the gateway                                                                                                |
 | coin        | (string) | the name of the asset                                                                                                        |
@@ -686,10 +709,10 @@ The `gatewayswithdraw` method sends proxy tokens in the gateways `pubkey`. The g
 
 ### Response
 
-| Name | Type | Description |
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -699,9 +722,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD gatewayswithdraw 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d KMD 0271bc6b553f5f763ca7f64457710f8a0b3f5273b2941edc5091ca41cec39b7328 0.1
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -723,12 +744,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"cant find bindtxid 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "error",
+    "error": "cant find bindtxid 897a4e52749eb4a89d251f85cce16cbff6b09209d900b191610d68bf631f8d0d"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
-
 
 Step Two: Broadcast using `sendrawtransction`:
 
@@ -736,9 +762,7 @@ Step Two: Broadcast using `sendrawtransction`:
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000020e2778e5c0917b00a995ffd0e027ac896492b70b2004ca0096d5309bc1d695ce0000000048473044022072bd3e74c1fb6a56111fc34caab1d605cedfbcb0a9dcd1a4c8d0dae9db61d43902205ccea739077b3374559353af3392e637b7c462ca699f9b9dba786b5398491b4201ffffffff8425c1bf730444ceac45a47376164d66a156e6c2a48116ec14cd17a88f8ab8e5010000007b4c79a276a072a26ba067a565802102d389e879ca68809794c0ef29869b23b4dd8e22122fcc4e8b69adb1d33752dd9d814051e39b89bace8226f3ca1779b754f2b57ee480e9636b16322bb36a89ec22de967ea66cdc906debb5f6b7c26a51ac2d089966aeb92d07aacc43507b1555c02313a100af038001f1a10001ffffffff058096980000000000302ea22c802091abda62a548f9c7f5beb19d16f01714ae3d4e526f3266fc8d347d6123f3d77b8103120c008203000401cc102700000000000023210271bc6b553f5f763ca7f64457710f8a0b3f5273b2941edc5091ca41cec39b7328ac1027000000000000302ea22c802091abda62a548f9c7f5beb19d16f01714ae3d4e526f3266fc8d347d6123f3d77b8103120c008203000401ccd02a724e18090000232102d389e879ca68809794c0ef29869b23b4dd8e22122fcc4e8b69adb1d33752dd9dac0000000000000000536a4c50f157bff603b64f309e344e34b10fd2053db59788909914f8488a7f73ddddc2165d31034b4d44210271bc6b553f5f763ca7f64457710f8a0b3f5273b2941edc5091ca41cec39b7328809698000000000000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 79d41ffefa359a7ae2f62adf728a3ec3f3d2653889780ed9776bf9b74fe9a6fe
@@ -757,11 +781,11 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
-
-
-
