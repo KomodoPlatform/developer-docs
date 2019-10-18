@@ -71,7 +71,10 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ```json
 {
-  "result": { "result": "error", "error": "Rewards plan FREE doesnt exist\n" },
+  "result": {
+    "result": "success",
+    "hex": "0100000001bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e00200000048473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401ffffffff0300e40b5402000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401ccd05eefb1fe080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000"
+  },
   "error": null,
   "id": "curltest"
 }
@@ -105,8 +108,8 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ```json
 {
-  "result": null,
-  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "result": "008ca94eebce8dbfa91491028c8861016ad4c25240f9ddc5616f2fb0853da580",
+  "error": null,
   "id": "curltest"
 }
 ```
@@ -291,13 +294,17 @@ Command:
 ```json
 {
   "result": "success",
-  "RewardsCCaddress": "RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK",
-  "Rewardsmarker": "RMgye9jeczNjQx9Uzq8no8pTLiCSwuHwkz",
-  "GatewaysPubkey": "03ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb40",
-  "RewardsCCassets": "RLh5sgvh3scCyM4aq1fhYhwgfbmb5SpCkT",
-  "CCaddress": "RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3",
-  "myCCaddress": "RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3",
-  "myaddress": "RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"
+  "RewardsCCAddress": "RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK",
+  "RewardsCCBalance": 0.0,
+  "RewardsNormalAddress": "RMgye9jeczNjQx9Uzq8no8pTLiCSwuHwkz",
+  "RewardsNormalBalance": 0.0,
+  "RewardsCCTokensAddress": "RUL6YTCQKuoB5AAFfNTxG1655qMuzwM4G9",
+  "PubkeyCCaddress(Rewards)": "RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3",
+  "PubkeyCCbalance(Rewards)": 0.0,
+  "myCCAddress(Rewards)": "RWzkiCssRy3qwevUF1YsMS1QifRncrsWiK",
+  "myCCbalance(Rewards)": 0.0,
+  "myaddress": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
+  "mybalance": 0.0
 }
 ```
 
@@ -401,7 +408,7 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 {
   "result": {
     "result": "success",
-    "hex": "0400008085202f89016e0bb6725ffc34e57d3768b6d422d7f734ab23c5b770e20c869578c28d59dcb400000000494830450221008e7c554aef9b3192d67a22a15a1e98017705e6b5dd0a172932651d105060715d022075ca75e1f65b54a6d21b76938a9be79b03812c9d3e6c7122171305bad130d30c01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ac8a9ecb0601090000232102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000410100000000000000000000000000"
+    "hex": "010000000104f2435046f3ad452e76e53ec01429ae4f49d3322e8cc96da96b9e35d6ada70e0000000049483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ace069fb0501090000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000"
   },
   "error": null,
   "id": "curltest"
@@ -436,8 +443,8 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ```json
 {
-  "result": null,
-  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "result": "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd",
+  "error": null,
   "id": "curltest"
 }
 ```
@@ -674,7 +681,18 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ```json
 {
-  "result": { "result": "error", "error": "cant find fundingtxid" },
+  "result": {
+    "result": "success",
+    "fundingtxid": "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd",
+    "name": "FREE",
+    "sbits": 1162170950,
+    "APR": "5.00000000",
+    "minseconds": 86400,
+    "maxseconds": 864000,
+    "mindeposit": "10.00000000",
+    "funding": "1100.00000000",
+    "locked": "200.00000000"
+  },
   "error": null,
   "id": "curltest"
 }
@@ -730,7 +748,13 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{ "result": [], "error": null, "id": "curltest" }
+{
+  "result": [
+    "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd"
+  ],
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
@@ -793,7 +817,10 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ```json
 {
-  "result": { "result": "error", "error": "Rewards plan FREE doesnt exist\n" },
+  "result": {
+    "result": "success",
+    "hex": "010000000180a53d85b02f6f61c5ddf94052c2d46a0161888c029114a9bf8dceeb4ea98c000100000049483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701ffffffff0400c817a804000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acb048d709fa080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000"
+  },
   "error": null,
   "id": "curltest"
 }
@@ -827,8 +854,8 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ```json
 {
-  "result": null,
-  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "result": "494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263",
+  "error": null,
   "id": "curltest"
 }
 ```
@@ -1078,7 +1105,10 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ```json
 {
-  "result": { "result": "error", "error": "Rewards plan does not exist" },
+  "result": {
+    "result": "success",
+    "hex": "01000000026302ec1859929dea83001708971d62f30fe5624745e0fdb93db79ab18a4e4c49000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001ffffffff45fc2d61dd7bf709409c3e5b9021ebd6191901a2a43fa7ed2704c03aa0d3a682000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001ffffffff0349f04c4817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cca79841a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000"
+  },
   "error": null,
   "id": "curltest"
 }
@@ -1112,8 +1142,8 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ```json
 {
-  "result": null,
-  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "result": "7a69605f5ecfeb0613c8573cbc4ae2471698a65b60c983ec21fb41f09975c000",
+  "error": null,
   "id": "curltest"
 }
 ```
