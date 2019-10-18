@@ -29,16 +29,16 @@ The `oraclesaddress` method displays the oracle address for a specific pubkey.
 
 ### Response
 
-| Name | Type | Description |
-| ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
-| result           | (string) | whether the method executed successfully                                                                             |
+| Name             | Type     | Description                                                                                                        |
+| ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
+| result           | (string) | whether the method executed successfully                                                                           |
 | OraclesCCaddress | (string) | taking the module's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
-| Oraclesmarker    | (string) | the unmodified public address generated from the contract's privkey                                                  |
-| GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                       |
-| OraclesCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                                     |
-| CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                    |
-| myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                    |
-| myaddress        | (string) | the public address of the pubkey used to launch the chain                                                            |
+| Oraclesmarker    | (string) | the unmodified public address generated from the contract's privkey                                                |
+| GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                     |
+| OraclesCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                                   |
+| CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                |
+| myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                |
+| myaddress        | (string) | the public address of the pubkey used to launch the chain                                                          |
 
 #### :pushpin: Examples
 
@@ -76,11 +76,27 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"success","OraclesCCAddress":"REt2C4ZMnX8YYX1DRpffNA4hECZTFm39e3","OraclesCCBalance":0.00000000,"OraclesNormalAddress":"RHkFKzn1csxA3fWzAsxsLWohoCgBbirXb5","OraclesNormalBalance":0.00000000,"OraclesCCTokensAddress":"RWGhAG1qPRRxCxtewLixKX6GseGZQWVQ9E","PubkeyCCaddress(Oracles)":"RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8","PubkeyCCbalance(Oracles)":0.00000000,"myCCAddress(Oracles)":"RM5w8tsRzrHdsSZ9L29x4uDwZNRzZHQd9D","myCCbalance(Oracles)":0.00000000,"myaddress":"RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92","mybalance":0.00000000},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "success",
+    "OraclesCCAddress": "REt2C4ZMnX8YYX1DRpffNA4hECZTFm39e3",
+    "OraclesCCBalance": 0.0,
+    "OraclesNormalAddress": "RHkFKzn1csxA3fWzAsxsLWohoCgBbirXb5",
+    "OraclesNormalBalance": 0.0,
+    "OraclesCCTokensAddress": "RWGhAG1qPRRxCxtewLixKX6GseGZQWVQ9E",
+    "PubkeyCCaddress(Oracles)": "RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8",
+    "PubkeyCCbalance(Oracles)": 0.0,
+    "myCCAddress(Oracles)": "RM5w8tsRzrHdsSZ9L29x4uDwZNRzZHQd9D",
+    "myCCbalance(Oracles)": 0.0,
+    "myaddress": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
+    "mybalance": 0.0
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## oraclescreate
 
@@ -158,11 +174,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-32700,"message":"Parse error"},"id":null}
+{
+  "result": null,
+  "error": { "code": -32700, "message": "Parse error" },
+  "id": null
+}
 ```
 
 </collapse-text>
-
 
 Step 2: Send raw transaction / broadcast the hex value
 
@@ -190,11 +209,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 (Use `./komodo-cli -ac_name=HELLOWORLD getrawmempool` to ensure that the transaction receives confirmation.)
 
@@ -276,11 +298,67 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"txid":"0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203","overwintered":false,"version":1,"locktime":0,"vin":[{"txid":"99dd11f4eac1369f3fe8c6428f49e63da26e1b493f69b5bde29edbfbd06eb785","vout":2,"scriptSig":{"asm":"3045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c[ALL]","hex":"483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01"},"sequence":4294967295}],"vout":[{"value":0.00010000,"valueZat":10000,"n":0,"scriptPubKey":{"asm":"038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691a OP_CHECKSIG","hex":"21038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac","reqSigs":1,"type":"pubkey","addresses":["RHkFKzn1csxA3fWzAsxsLWohoCgBbirXb5"]}},{"value":200.02670391,"valueZat":20002670391,"n":1,"scriptPubKey":{"asm":"03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG","hex":"2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac","reqSigs":1,"type":"pubkey","addresses":["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]}},{"value":0.00000000,"valueZat":0,"n":2,"scriptPubKey":{"asm":"OP_RETURN ec43064e5957544852014c0e5765617468657220696e204e5943","hex":"6a1aec43064e5957544852014c0e5765617468657220696e204e5943","type":"nulldata"}}],"vjoinsplit":[]},"error":null,"id":"curltest"}
+{
+  "result": {
+    "txid": "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "99dd11f4eac1369f3fe8c6428f49e63da26e1b493f69b5bde29edbfbd06eb785",
+        "vout": 2,
+        "scriptSig": {
+          "asm": "3045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c[ALL]",
+          "hex": "483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.0001,
+        "valueZat": 10000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691a OP_CHECKSIG",
+          "hex": "21038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RHkFKzn1csxA3fWzAsxsLWohoCgBbirXb5"]
+        }
+      },
+      {
+        "value": 200.02670391,
+        "valueZat": 20002670391,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+          "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "OP_RETURN ec43064e5957544852014c0e5765617468657220696e204e5943",
+          "hex": "6a1aec43064e5957544852014c0e5765617468657220696e204e5943",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## oraclesdata
 
@@ -350,11 +428,67 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"txid":"0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203","overwintered":false,"version":1,"locktime":0,"vin":[{"txid":"99dd11f4eac1369f3fe8c6428f49e63da26e1b493f69b5bde29edbfbd06eb785","vout":2,"scriptSig":{"asm":"3045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c[ALL]","hex":"483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01"},"sequence":4294967295}],"vout":[{"value":0.00010000,"valueZat":10000,"n":0,"scriptPubKey":{"asm":"038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691a OP_CHECKSIG","hex":"21038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac","reqSigs":1,"type":"pubkey","addresses":["RHkFKzn1csxA3fWzAsxsLWohoCgBbirXb5"]}},{"value":200.02670391,"valueZat":20002670391,"n":1,"scriptPubKey":{"asm":"03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG","hex":"2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac","reqSigs":1,"type":"pubkey","addresses":["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]}},{"value":0.00000000,"valueZat":0,"n":2,"scriptPubKey":{"asm":"OP_RETURN ec43064e5957544852014c0e5765617468657220696e204e5943","hex":"6a1aec43064e5957544852014c0e5765617468657220696e204e5943","type":"nulldata"}}],"vjoinsplit":[]},"error":null,"id":"curltest"}
+{
+  "result": {
+    "txid": "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "99dd11f4eac1369f3fe8c6428f49e63da26e1b493f69b5bde29edbfbd06eb785",
+        "vout": 2,
+        "scriptSig": {
+          "asm": "3045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c[ALL]",
+          "hex": "483045022100aa198a2ae959ee191e1359df48867480bf5a1a5bd4fa76b4398481c89ff3095102205034824dcd56b312183acd65c27a002a13dae84f5d22c767f1efaae09ef63a5c01"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.0001,
+        "valueZat": 10000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691a OP_CHECKSIG",
+          "hex": "21038c1d42db6a45a57eccb8981b078fb7857b9b496293fe299d2b8d120ac5b5691aac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RHkFKzn1csxA3fWzAsxsLWohoCgBbirXb5"]
+        }
+      },
+      {
+        "value": 200.02670391,
+        "valueZat": 20002670391,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+          "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "OP_RETURN ec43064e5957544852014c0e5765617468657220696e204e5943",
+          "hex": "6a1aec43064e5957544852014c0e5765617468657220696e204e5943",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ::: tip Note
 
@@ -431,11 +565,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"datafee 0.00000000 is illegal"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "datafee 0.00000000 is illegal" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 2: Send raw transaction / broadcast the hex value
 
@@ -462,11 +599,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -600,11 +740,109 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"txid":"9530bdf82744ac57a5ffe0855595f5510c339341cdc3c8728ee547d3f3153433","overwintered":false,"version":1,"locktime":0,"vin":[{"txid":"2d4d5f3bb45ecd56d5c9d16773fbb910f975c398c1dc1445aacfe9b8b976db59","vout":2,"scriptSig":{"asm":"30440220645b49d6d85454b1015d82a53ec51685fc3b8bf1d092696c3c253b88cab3033a02207023511219897a374ad94951dd2af70b14d99eccbb404eaf783120f3170bd5e3[ALL]","hex":"4730440220645b49d6d85454b1015d82a53ec51685fc3b8bf1d092696c3c253b88cab3033a02207023511219897a374ad94951dd2af70b14d99eccbb404eaf783120f3170bd5e301"},"sequence":4294967295},{"txid":"8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575","vout":1,"scriptSig":{"asm":"a276a072a26ba067a5658021035933ab0bd2e2ceb712e7cab393a8c9096ba4be2e3a76f5aaeab72bce4aa61857814047697a246e4442888a3b6ffc4a8c5ae940eec7d19f72053a07b6d8a2968a260626c8001c9138e9fd0e3cfabb811ae71bd8c1c555ca8c8410cb9121ce25860507a100af038001eca10001","hex":"4c79a276a072a26ba067a5658021035933ab0bd2e2ceb712e7cab393a8c9096ba4be2e3a76f5aaeab72bce4aa61857814047697a246e4442888a3b6ffc4a8c5ae940eec7d19f72053a07b6d8a2968a260626c8001c9138e9fd0e3cfabb811ae71bd8c1c555ca8c8410cb9121ce25860507a100af038001eca10001"},"sequence":4294967295},{"txid":"2d4d5f3bb45ecd56d5c9d16773fbb910f975c398c1dc1445aacfe9b8b976db59","vout":0,"scriptSig":{"asm":"a276a072a26ba067a565802103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b581404fa0de32bbb96b2e2f61fe823cdba4c3b9fef786ea8c65196f97653a942656812e675e91643ff0ec33853fd2481d40fc48fa51e18c9cbffb49e714c15b47babda100af038001eca10001","hex":"4c79a276a072a26ba067a565802103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b581404fa0de32bbb96b2e2f61fe823cdba4c3b9fef786ea8c65196f97653a942656812e675e91643ff0ec33853fd2481d40fc48fa51e18c9cbffb49e714c15b47babda100af038001eca10001"},"sequence":4294967295}],"vout":[{"value":0.99000000,"valueZat":99000000,"n":0,"scriptPubKey":{"asm":"a22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8"]}},{"value":0.00010000,"valueZat":10000,"n":1,"scriptPubKey":{"asm":"a22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9"]}},{"value":0.01000000,"valueZat":1000000,"n":2,"scriptPubKey":{"asm":"03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG","hex":"2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac","reqSigs":1,"type":"pubkey","addresses":["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]}},{"value":199.02610391,"valueZat":19902610391,"n":3,"scriptPubKey":{"asm":"03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG","hex":"2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac","reqSigs":1,"type":"pubkey","addresses":["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]}},{"value":0.00000000,"valueZat":0,"n":4,"scriptPubKey":{"asm":"OP_RETURN ec4403921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b50800000000ffffffff","hex":"6a4c6dec4403921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b50800000000ffffffff","type":"nulldata"}}],"vjoinsplit":[]},"error":null,"id":"curltest"}
+{
+  "result": {
+    "txid": "9530bdf82744ac57a5ffe0855595f5510c339341cdc3c8728ee547d3f3153433",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "2d4d5f3bb45ecd56d5c9d16773fbb910f975c398c1dc1445aacfe9b8b976db59",
+        "vout": 2,
+        "scriptSig": {
+          "asm": "30440220645b49d6d85454b1015d82a53ec51685fc3b8bf1d092696c3c253b88cab3033a02207023511219897a374ad94951dd2af70b14d99eccbb404eaf783120f3170bd5e3[ALL]",
+          "hex": "4730440220645b49d6d85454b1015d82a53ec51685fc3b8bf1d092696c3c253b88cab3033a02207023511219897a374ad94951dd2af70b14d99eccbb404eaf783120f3170bd5e301"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575",
+        "vout": 1,
+        "scriptSig": {
+          "asm": "a276a072a26ba067a5658021035933ab0bd2e2ceb712e7cab393a8c9096ba4be2e3a76f5aaeab72bce4aa61857814047697a246e4442888a3b6ffc4a8c5ae940eec7d19f72053a07b6d8a2968a260626c8001c9138e9fd0e3cfabb811ae71bd8c1c555ca8c8410cb9121ce25860507a100af038001eca10001",
+          "hex": "4c79a276a072a26ba067a5658021035933ab0bd2e2ceb712e7cab393a8c9096ba4be2e3a76f5aaeab72bce4aa61857814047697a246e4442888a3b6ffc4a8c5ae940eec7d19f72053a07b6d8a2968a260626c8001c9138e9fd0e3cfabb811ae71bd8c1c555ca8c8410cb9121ce25860507a100af038001eca10001"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "2d4d5f3bb45ecd56d5c9d16773fbb910f975c398c1dc1445aacfe9b8b976db59",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "a276a072a26ba067a565802103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b581404fa0de32bbb96b2e2f61fe823cdba4c3b9fef786ea8c65196f97653a942656812e675e91643ff0ec33853fd2481d40fc48fa51e18c9cbffb49e714c15b47babda100af038001eca10001",
+          "hex": "4c79a276a072a26ba067a565802103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b581404fa0de32bbb96b2e2f61fe823cdba4c3b9fef786ea8c65196f97653a942656812e675e91643ff0ec33853fd2481d40fc48fa51e18c9cbffb49e714c15b47babda100af038001eca10001"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.99,
+        "valueZat": 99000000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "a22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8"]
+        }
+      },
+      {
+        "value": 0.0001,
+        "valueZat": 10000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "a22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9"]
+        }
+      },
+      {
+        "value": 0.01,
+        "valueZat": 1000000,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+          "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+        }
+      },
+      {
+        "value": 199.02610391,
+        "valueZat": 19902610391,
+        "n": 3,
+        "scriptPubKey": {
+          "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+          "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 4,
+        "scriptPubKey": {
+          "asm": "OP_RETURN ec4403921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b50800000000ffffffff",
+          "hex": "6a4c6dec4403921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d75a5881417ab6700c089a6083d71abadc8cd74018bded0cfba423e027d513c8f2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b50800000000ffffffff",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## oraclesfund
 
@@ -652,11 +890,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"success","hex":"0400008085202f89010005c599652725a611ae25aa5e2cec2520960328e82cd0151a1f9f319af983a50000000049483045022100baa22fd720aa16097772234e1d4e853aa50feb1c46b6b0edefe9cac0231a727102202e88263e88b8620ed843e5d7d7279248d47589e3308c096bc75c96fb35c26c7d01ffffffff031027000000000000302ea22c80209dbd0891f0e0581ed22bcf238373fec1ce0570e5d42c68c6f0f08de66f370cbb8103120c008203000401cc6048980000000000232102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2102700000000000000000000410100000000000000000000000000"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "success",
+    "hex": "0400008085202f89010005c599652725a611ae25aa5e2cec2520960328e82cd0151a1f9f319af983a50000000049483045022100baa22fd720aa16097772234e1d4e853aa50feb1c46b6b0edefe9cac0231a727102202e88263e88b8620ed843e5d7d7279248d47589e3308c096bc75c96fb35c26c7d01ffffffff031027000000000000302ea22c80209dbd0891f0e0581ed22bcf238373fec1ce0570e5d42c68c6f0f08de66f370cbb8103120c008203000401cc6048980000000000232102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2ac00000000000000004f6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2102700000000000000000000410100000000000000000000000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 2: Send raw transaction / broadcast the hex value
 
@@ -687,11 +931,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: bad-txns-inputs-missing" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 (Use `./komodo-cli -ac_name=HELLOWORLD getrawmempool` to ensure that the transaction receives confirmation.)
 
@@ -780,11 +1027,72 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"txid":"ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192","overwintered":true,"version":4,"versiongroupid":"892f2085","locktime":0,"expiryheight":1974,"vin":[{"txid":"0e51062adc807c118451622957812428562a7487fa6325c484cacdf145948324","vout":0,"scriptSig":{"asm":"3045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be7[ALL]","hex":"483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701"},"sequence":4294967295}],"vout":[{"value":0.00010000,"valueZat":10000,"n":0,"scriptPubKey":{"asm":"a22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["RUeZzWCuwGxJTtSDGfRFWL87oyrLWZav6Z"]}},{"value":99.99980000,"valueZat":9999980000,"n":1,"scriptPubKey":{"asm":"02c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5 OP_CHECKSIG","hex":"2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac","reqSigs":1,"type":"pubkey","addresses":["RFkogpvKojbChm9hMDdv2KUBasUmFNraqg"]}},{"value":0.00000000,"valueZat":0,"n":2,"scriptPubKey":{"asm":"OP_RETURN ec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000","hex":"6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000","type":"nulldata"}}],"vjoinsplit":[],"valueBalance":0.00000000,"vShieldedSpend":[],"vShieldedOutput":[]},"error":null,"id":"curltest"}
+{
+  "result": {
+    "txid": "ab038ff4369974d0596f13be1e69105ed97b5374f694afe7b96b664a9fe07192",
+    "overwintered": true,
+    "version": 4,
+    "versiongroupid": "892f2085",
+    "locktime": 0,
+    "expiryheight": 1974,
+    "vin": [
+      {
+        "txid": "0e51062adc807c118451622957812428562a7487fa6325c484cacdf145948324",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "3045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be7[ALL]",
+          "hex": "483045022100c4442ff211289ebc5967da35843f1d210c4a8985d5797a11c42e245aafdf6985022031e7dfb40e3778033f1fb92c0f1175cb4a658bb32749469d69379968fcf92be701"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.0001,
+        "valueZat": 10000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "a22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c802083071e46d28313148751bdd5e4ffd0509c4234f4770c4c0550cc48b6d45215188103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["RUeZzWCuwGxJTtSDGfRFWL87oyrLWZav6Z"]
+        }
+      },
+      {
+        "value": 99.9998,
+        "valueZat": 9999980000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "02c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5 OP_CHECKSIG",
+          "hex": "2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a5ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RFkogpvKojbChm9hMDdv2KUBasUmFNraqg"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "OP_RETURN ec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000",
+          "hex": "6a4c4cec464cb64652769226c5846377909b276950c0dc61ccee463542edfd8f0545776e7b2102c59cc849a87ef401942abb5b5fe81c1a468454fd68c94c849c20b13f5ebd91a51027000000000000",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": [],
+    "valueBalance": 0.0,
+    "vShieldedSpend": [],
+    "vShieldedOutput": []
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## oraclesinfo
 
@@ -802,21 +1110,21 @@ For a list of all `oracletxid`'s available on the Smart Chain, see the [oraclesl
 
 ### Response
 
-| Name        | Type     | Description                                                                                                                                  |
-| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| result      | (string) | whether the command executed successfully                                                                                                    |
-| txid        | (string) | the unique txid, or oracletxid, that identifies the oracle                                                                                   |
-| name        | (string) | the name of the oracle contract                                                                                                              |
-| description | (string) | the description of the oracle contract                                                                                                       |
+| Name        | Type     | Description                                                                                                                                                     |
+| ----------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| result      | (string) | whether the command executed successfully                                                                                                                       |
+| txid        | (string) | the unique txid, or oracletxid, that identifies the oracle                                                                                                      |
+| name        | (string) | the name of the oracle contract                                                                                                                                 |
+| description | (string) | the description of the oracle contract                                                                                                                          |
 | format      | (string) | a string that identifies the data type accepted for the oracle contract (see [oraclescreate](../../../basic-docs/antara/antara-api/oracles.html#oraclescreate)) |
-| marker      | (string) | the unmodified public address generated from the oracle contract's privkey                                                                   |
+| marker      | (string) | the unmodified public address generated from the oracle contract's privkey                                                                                      |
 | registered: | (array)  |
-| publisher   | (string) | the unique identifier for the publisher (see [oraclesregister](../../../basic-docs/antara/antara-api/oracles.html#oraclesregister))                                    |
-| baton       | (string) | the baton address of the publisher, which is an Antara address (based on the pubkey of the publisher and the EVAL code of the oracle contract) |
-| batontxid   | (string) | the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher               |
-| lifetime    | (number) | the length of time since publisher's inception                                                                                                          |
-| funds       | (number) | the funds committed by subscribers to the publisher's account, and which are used for payouts                                                           |
-| datafee     | (number) | the amount a subscriber pays for each data upload                                                                                                       |
+| publisher   | (string) | the unique identifier for the publisher (see [oraclesregister](../../../basic-docs/antara/antara-api/oracles.html#oraclesregister))                             |
+| baton       | (string) | the baton address of the publisher, which is an Antara address (based on the pubkey of the publisher and the EVAL code of the oracle contract)                  |
+| batontxid   | (string) | the most recent baton utxo sent to the baton address; this is the tip of the linked list that connects all data samples for the publisher                       |
+| lifetime    | (number) | the length of time since publisher's inception                                                                                                                  |
+| funds       | (number) | the funds committed by subscribers to the publisher's account, and which are used for payouts                                                                   |
+| datafee     | (number) | the amount a subscriber pays for each data upload                                                                                                               |
 
 #### :pushpin: Examples
 
@@ -862,11 +1170,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"cant find oracleid"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "cant find oracleid" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## oracleslist
 
@@ -941,11 +1252,10 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":[],"error":null,"id":"curltest"}
+{ "result": [], "error": null, "id": "curltest" }
 ```
 
 </collapse-text>
-
 
 ## oraclesregister
 
@@ -1009,11 +1319,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"error adding inputs from your Oracles CC address, please fund it first with oraclesfund rpc!"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "error",
+    "error": "error adding inputs from your Oracles CC address, please fund it first with oraclesfund rpc!"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 2: Send/broadcast the raw transaction hex
 
@@ -1040,11 +1356,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -1136,11 +1455,79 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"txid":"8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575","overwintered":false,"version":1,"locktime":0,"vin":[{"txid":"0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203","vout":1,"scriptSig":{"asm":"304402207241f313ef2fb65d9eb1f870068ceba436f14996ce79d16ff85f2937c75357ee022025f0b888e742546469ad0b7fae9b85cf7c89cddf307170bbcf794e5e90ae28b1[ALL]","hex":"47304402207241f313ef2fb65d9eb1f870068ceba436f14996ce79d16ff85f2937c75357ee022025f0b888e742546469ad0b7fae9b85cf7c89cddf307170bbcf794e5e90ae28b101"},"sequence":4294967295}],"vout":[{"value":0.00010000,"valueZat":10000,"n":0,"scriptPubKey":{"asm":"0203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d OP_CHECKSIG","hex":"210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac","reqSigs":1,"type":"pubkey","addresses":["RGEug5JPPkERBpqsGSgw6GQPYTB9v9i4Fj"]}},{"value":0.00010000,"valueZat":10000,"n":1,"scriptPubKey":{"asm":"a22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9"]}},{"value":200.02640391,"valueZat":20002640391,"n":2,"scriptPubKey":{"asm":"03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG","hex":"2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac","reqSigs":1,"type":"pubkey","addresses":["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]}},{"value":0.00000000,"valueZat":0,"n":3,"scriptPubKey":{"asm":"OP_RETURN ec5203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b540420f0000000000","hex":"6a4c4cec5203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b540420f0000000000","type":"nulldata"}}],"vjoinsplit":[]},"error":null,"id":"curltest"}
+{
+  "result": {
+    "txid": "8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "0df7c4d844f08dba08abd4bb174558739f17cfe268feb005fb6333b3761d9203",
+        "vout": 1,
+        "scriptSig": {
+          "asm": "304402207241f313ef2fb65d9eb1f870068ceba436f14996ce79d16ff85f2937c75357ee022025f0b888e742546469ad0b7fae9b85cf7c89cddf307170bbcf794e5e90ae28b1[ALL]",
+          "hex": "47304402207241f313ef2fb65d9eb1f870068ceba436f14996ce79d16ff85f2937c75357ee022025f0b888e742546469ad0b7fae9b85cf7c89cddf307170bbcf794e5e90ae28b101"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.0001,
+        "valueZat": 10000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "0203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d OP_CHECKSIG",
+          "hex": "210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RGEug5JPPkERBpqsGSgw6GQPYTB9v9i4Fj"]
+        }
+      },
+      {
+        "value": 0.0001,
+        "valueZat": 10000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "a22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c80200648c12e7e058c98f0a5cc288ac271ad08bd493e1fb7de83edeea69789338fc58103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["RWg43P8s8RtJatAGNa2kV8N2abhQqH93w9"]
+        }
+      },
+      {
+        "value": 200.02640391,
+        "valueZat": 20002640391,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+          "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 3,
+        "scriptPubKey": {
+          "asm": "OP_RETURN ec5203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b540420f0000000000",
+          "hex": "6a4c4cec5203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b540420f0000000000",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## oraclessamples
 
@@ -1201,11 +1588,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"success","samples":[]},"error":null,"id":"curltest"}
+{
+  "result": { "result": "success", "samples": [] },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 ## oraclessubscribe
 
@@ -1268,11 +1658,17 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"success","hex":"0400008085202f890b0005c599652725a611ae25aa5e2cec2520960328e82cd0151a1f9f319af983a50000000048473044022026ba38c454c31b9d8f80d0a98807e6e6a2bbedc8d61cdce7fc1134240a24d8ce02200cfad6cec669e9691d32be6226d3d7a549c6082ac7ffdcb59d07008b24a6c0e201ffffffff0c3d1a6dea9c1b1c1b9ccf6b8d967a46f5be53b2b718fae6f224259efffcfa790000000049483045022100f0924f46b51476123ece3c99e1850eedfc835189deee2cfbb2465d8ec540fad302206ee1bf18785d190ab5ec2aca5173290e560a669c7860577faa0623467193e06201ffffffff0a01dbff4a7d72c166d1a6cfad8e7e5d2cf3f3ea34af83be98260b5a4665bae70000000049483045022100a866f5acab1fff6f76bf742e144c35cea4d4e68db10517b455e416c2da66d99c02203ab9066e53c7eef8b1bc00732ed038b8ae19ba1f240bb43293e84181f30033d901ffffffff096362f570a4a1b1306a23aff5c4914ef4fc6a5edc2c00c978f6d115f50e223b0000000049483045022100bd6d33834e2e9a9f2ce04b0a2a461391241ff4778920577cd53ddaded6137ebb02203866ee6810de45113255383cb8f171360f24afa0eb1a73cbff4a670df5d0d14e01ffffffff084cc1e97de66dcda9409714790451772ff99edbf4699077979b03e939da8c9a0000000049483045022100eb76da445013805fc866a665b2b01a66d4d5dfaa9c36a7df9f19df915146f560022061c049572ba84c925ba7c39acbdb357aa6e504b84ac676ceb71cfcc767c72f1001ffffffff08003eb8b18397c7ac71a553d2ca19b17a73d550dde47a4b710acd2c0a1a28c0000000004847304402203c15fe3132f10fd234cbb656e6f1528d3e03492b6c1487b6d697d779bddcea6b02203200c36b63193c831428d227ce4b9674979607408d9b85679e4d3710433dc00101ffffffff0549e69c96134b7a477762916521b0e267e12722932c043592fe0faae8dd62530000000049483045022100903b828ea1dadf3632e99b8df02224c2ee39f11474401973319d15bcf8359bde0220639582db7891404b52defbfb2b22351111da68d78d2a88e1a530eefb13dd9a5601ffffffff04b95ba9641753ac08c3e144ec4608f9e557671404e1cdcdf4a10ebf9c7c3fd80000000049483045022100b0bc11aa17b7152faac04555695f30165e5150a948618465cd869a1f50d217e3022075b79a31125b3b464b0bc9a95bc81ad503b7b3f4a4c893e09ec0045901bb36dd01ffffffff02e95961ba26dcfa2263c5cec4487bd0545fb35d41c3896c7d760f33b87aec58000000004847304402204326aeec8883c15e873bbb5021b37488dd78f1eaf082e19f242ab7a765103e26022021453497d6217a00b4f3bef1b004fb76804499893c08ccdd82248520fe3e9baa01ffffffff02c5bada724bb25318dbb12f31f2a11ec968a119070ba8e411ef769f8d6361c4000000004948304502210095be59c19c70e3a13c9cd3248fc9259d22186130279c8379afbec16b1cde7a9e0220713ed4dc93450dbe9272e64813d0a5036ccd170fd993b2f31bd550e5e333984001ffffffff002881570051859c7623185c50c32c7c38407dd0068cd24dfe0b02968975627e000000004847304402207776ce0e2f966948aaf3b084dc467fe223330e1dcd67c804b6ef4c4f1ff37726022019e3ce101df982520dd2ce5c384fbeb57ea33ed207b7595978596921c1556a9701ffffffff0400e1f50500000000302ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc102700000000000023210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac6048980000000000232102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2ac00000000000000004f6a4c4cec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a200e1f5050000000000000000410100000000000000000000000000"},"error":null,"id":"curltest"}
+{
+  "result": {
+    "result": "success",
+    "hex": "0400008085202f890b0005c599652725a611ae25aa5e2cec2520960328e82cd0151a1f9f319af983a50000000048473044022026ba38c454c31b9d8f80d0a98807e6e6a2bbedc8d61cdce7fc1134240a24d8ce02200cfad6cec669e9691d32be6226d3d7a549c6082ac7ffdcb59d07008b24a6c0e201ffffffff0c3d1a6dea9c1b1c1b9ccf6b8d967a46f5be53b2b718fae6f224259efffcfa790000000049483045022100f0924f46b51476123ece3c99e1850eedfc835189deee2cfbb2465d8ec540fad302206ee1bf18785d190ab5ec2aca5173290e560a669c7860577faa0623467193e06201ffffffff0a01dbff4a7d72c166d1a6cfad8e7e5d2cf3f3ea34af83be98260b5a4665bae70000000049483045022100a866f5acab1fff6f76bf742e144c35cea4d4e68db10517b455e416c2da66d99c02203ab9066e53c7eef8b1bc00732ed038b8ae19ba1f240bb43293e84181f30033d901ffffffff096362f570a4a1b1306a23aff5c4914ef4fc6a5edc2c00c978f6d115f50e223b0000000049483045022100bd6d33834e2e9a9f2ce04b0a2a461391241ff4778920577cd53ddaded6137ebb02203866ee6810de45113255383cb8f171360f24afa0eb1a73cbff4a670df5d0d14e01ffffffff084cc1e97de66dcda9409714790451772ff99edbf4699077979b03e939da8c9a0000000049483045022100eb76da445013805fc866a665b2b01a66d4d5dfaa9c36a7df9f19df915146f560022061c049572ba84c925ba7c39acbdb357aa6e504b84ac676ceb71cfcc767c72f1001ffffffff08003eb8b18397c7ac71a553d2ca19b17a73d550dde47a4b710acd2c0a1a28c0000000004847304402203c15fe3132f10fd234cbb656e6f1528d3e03492b6c1487b6d697d779bddcea6b02203200c36b63193c831428d227ce4b9674979607408d9b85679e4d3710433dc00101ffffffff0549e69c96134b7a477762916521b0e267e12722932c043592fe0faae8dd62530000000049483045022100903b828ea1dadf3632e99b8df02224c2ee39f11474401973319d15bcf8359bde0220639582db7891404b52defbfb2b22351111da68d78d2a88e1a530eefb13dd9a5601ffffffff04b95ba9641753ac08c3e144ec4608f9e557671404e1cdcdf4a10ebf9c7c3fd80000000049483045022100b0bc11aa17b7152faac04555695f30165e5150a948618465cd869a1f50d217e3022075b79a31125b3b464b0bc9a95bc81ad503b7b3f4a4c893e09ec0045901bb36dd01ffffffff02e95961ba26dcfa2263c5cec4487bd0545fb35d41c3896c7d760f33b87aec58000000004847304402204326aeec8883c15e873bbb5021b37488dd78f1eaf082e19f242ab7a765103e26022021453497d6217a00b4f3bef1b004fb76804499893c08ccdd82248520fe3e9baa01ffffffff02c5bada724bb25318dbb12f31f2a11ec968a119070ba8e411ef769f8d6361c4000000004948304502210095be59c19c70e3a13c9cd3248fc9259d22186130279c8379afbec16b1cde7a9e0220713ed4dc93450dbe9272e64813d0a5036ccd170fd993b2f31bd550e5e333984001ffffffff002881570051859c7623185c50c32c7c38407dd0068cd24dfe0b02968975627e000000004847304402207776ce0e2f966948aaf3b084dc467fe223330e1dcd67c804b6ef4c4f1ff37726022019e3ce101df982520dd2ce5c384fbeb57ea33ed207b7595978596921c1556a9701ffffffff0400e1f50500000000302ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc102700000000000023210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac6048980000000000232102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a2ac00000000000000004f6a4c4cec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2102f183a71e93dfa7672ce7212187e45eabcf4077fed575348504b20295751ab1a200e1f5050000000000000000410100000000000000000000000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 2: Send raw transaction / broadcast the hex value
 
@@ -1299,11 +1695,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: tx-overwinter-active" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -1395,10 +1794,76 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"txid":"2d4d5f3bb45ecd56d5c9d16773fbb910f975c398c1dc1445aacfe9b8b976db59","overwintered":false,"version":1,"locktime":0,"vin":[{"txid":"8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575","vout":2,"scriptSig":{"asm":"3044022006449e2f324ba8c262ca73eea4642f77ccf906fee5bab4fdc85bcc8c350ce81b022047d76840076f6e02aebe77ffb59b052974badb8747c7b435fd77351fcfbee95e[ALL]","hex":"473044022006449e2f324ba8c262ca73eea4642f77ccf906fee5bab4fdc85bcc8c350ce81b022047d76840076f6e02aebe77ffb59b052974badb8747c7b435fd77351fcfbee95e01"},"sequence":4294967295}],"vout":[{"value":1.00000000,"valueZat":100000000,"n":0,"scriptPubKey":{"asm":"a22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8"]}},{"value":0.00010000,"valueZat":10000,"n":1,"scriptPubKey":{"asm":"0203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d OP_CHECKSIG","hex":"210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac","reqSigs":1,"type":"pubkey","addresses":["RGEug5JPPkERBpqsGSgw6GQPYTB9v9i4Fj"]}},{"value":199.02620391,"valueZat":19902620391,"n":2,"scriptPubKey":{"asm":"03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG","hex":"2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac","reqSigs":1,"type":"pubkey","addresses":["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]}},{"value":0.00000000,"valueZat":0,"n":3,"scriptPubKey":{"asm":"OP_RETURN ec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b500e1f50500000000","hex":"6a4c4cec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b500e1f50500000000","type":"nulldata"}}],"vjoinsplit":[]},"error":null,"id":"curltest"}
+{
+  "result": {
+    "txid": "2d4d5f3bb45ecd56d5c9d16773fbb910f975c398c1dc1445aacfe9b8b976db59",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "8f3c517d023e42bacfd0de8b0174cdc8adab713d08a689c00067ab171488a575",
+        "vout": 2,
+        "scriptSig": {
+          "asm": "3044022006449e2f324ba8c262ca73eea4642f77ccf906fee5bab4fdc85bcc8c350ce81b022047d76840076f6e02aebe77ffb59b052974badb8747c7b435fd77351fcfbee95e[ALL]",
+          "hex": "473044022006449e2f324ba8c262ca73eea4642f77ccf906fee5bab4fdc85bcc8c350ce81b022047d76840076f6e02aebe77ffb59b052974badb8747c7b435fd77351fcfbee95e01"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 1.0,
+        "valueZat": 100000000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "a22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c802092392e766d63f73dd7c68ff9eaf9f009f13b17c4167472e8aebb00d96be66aa68103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["RTk2Tgp1iAcxxSeuXYDREmtfydMvNkCmq8"]
+        }
+      },
+      {
+        "value": 0.0001,
+        "valueZat": 10000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "0203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d OP_CHECKSIG",
+          "hex": "210203921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70dac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RGEug5JPPkERBpqsGSgw6GQPYTB9v9i4Fj"]
+        }
+      },
+      {
+        "value": 199.02620391,
+        "valueZat": 19902620391,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+          "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 3,
+        "scriptPubKey": {
+          "asm": "OP_RETURN ec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b500e1f50500000000",
+          "hex": "6a4c4cec5303921d76b33363fb05b0fe68e2cf179f73584517bbd4ab08ba8df044d8c4f70d2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b500e1f50500000000",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
-
-
