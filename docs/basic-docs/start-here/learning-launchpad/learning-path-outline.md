@@ -206,7 +206,7 @@ Having completed the Beginner Series, the reader is now prepared to use the term
 
 The Smart Chain API Basics tutorial walks the reader through many of the common commands and Remote Procedure Calls (RPCs) and assists the reader in becoming comfortable in the Komodo environment.
 
-[<b>Link to Smart Chain API Basics Tutorial</b>](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html)
+[<b>Link to Smart Chain API Basics Tutorial</b>](../../../basic-docs/smart-chains/smart-chain-tutorials/smart-chain-api-basics.html#api-tutorials-introduction)
 
 ## Step 6: Enhance Your Development Environment and Experience
 
