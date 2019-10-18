@@ -50,6 +50,23 @@ Command:
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"tokenaddress", "params":["028702e30d8465d6aa85f35d2f58c06a6ee17f23f376b56044dadf7b793f2c12b9"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"success","TokensCCAddress":"RAMvUfoyURBRxAdVeTMHxn3giJZCFWeha2","TokensCCBalance":0.00000000,"TokensNormalAddress":"RCNgAngYAdrfzujYyPgfbjCGNVQZzCgTad","TokensNormalBalance":0.00000000,"PubkeyCCaddress(Tokens)":"RDu9bgyqWmzbvrgUsqpArkuzRSjAtibxrk","PubkeyCCbalance(Tokens)":0.00000000,"myCCAddress(Tokens)":"RASCvtFq6DZ3yFknHNq8R8uQ7rnFaCqPZe","myCCbalance(Tokens)":0.00000000,"myaddress":"RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92","mybalance":0.00000000},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 ## tokenbalance
 
 **tokenbalance tokenid (pubkey)**
@@ -93,6 +110,23 @@ Command:
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"tokenbalance", "params":["c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"error","error":"cant find tokenid"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 Check the token balance of a specific pubkey
 
 ```bash
@@ -111,6 +145,23 @@ Check the token balance of a specific pubkey
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"tokenbalance", "params":["c5bbc34e6517c483afc910a3b0585c40da5c09b7c5d2d9757c5c5075e2d41b59" ,"028bb4ae66aa4f1960a4aa822907e800eb688d9ab2605c8067a34b421748c67e27"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"error","error":"cant find tokenid"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
 
 ## tokencreate
 
@@ -170,6 +221,23 @@ Command:
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"tokencreate", "params":["TAK" ,"10" ,""Testing" ,"phase.""]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":null,"error":{"code":-32700,"message":"Parse error"},"id":null}
+```
+
+</collapse-text>
+
+
 Step 2: Broadcast the raw transaction hex
 
 ```bash
@@ -183,6 +251,23 @@ e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["01000000012c223cfc9c3349aed24ca89e44af6fcdb030150443bd6ac55e2080ce4b097c300200000049483045022100dc83b88f5ed1f01aab7dee8bd8f2b3c0bf83537c9b3cbb0c6ea78ebafdf4c6f60220518440e7f43d24c5733531a8d5a825dbb90e716f7ba20c0d469e7004c1fcc5aa01ffffffff0400ca9a3b00000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc1027000000000000232102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702acc055cbbe15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000396a37e3632103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc0354414b0e54657374696e672070686173652e00000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+```
+
+</collapse-text>
+
 
 Step 3 (Optional): Use decoderawtransaction to verify the output is sane
 
@@ -262,6 +347,23 @@ Step 3 (Optional): Use decoderawtransaction to verify the output is sane
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"decoderawtransaction", "params":["01000000012c223cfc9c3349aed24ca89e44af6fcdb030150443bd6ac55e2080ce4b097c300200000049483045022100dc83b88f5ed1f01aab7dee8bd8f2b3c0bf83537c9b3cbb0c6ea78ebafdf4c6f60220518440e7f43d24c5733531a8d5a825dbb90e716f7ba20c0d469e7004c1fcc5aa01ffffffff0400ca9a3b00000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc1027000000000000232102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702acc055cbbe15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000396a37e3632103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc0354414b0e54657374696e672070686173652e00000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"txid":"e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66","overwintered":false,"version":1,"locktime":0,"vin":[{"txid":"307c094bce80205ec56abd43041530b0cd6faf449ea84cd2ae49339cfc3c222c","vout":2,"scriptSig":{"asm":"3045022100dc83b88f5ed1f01aab7dee8bd8f2b3c0bf83537c9b3cbb0c6ea78ebafdf4c6f60220518440e7f43d24c5733531a8d5a825dbb90e716f7ba20c0d469e7004c1fcc5aa[ALL]","hex":"483045022100dc83b88f5ed1f01aab7dee8bd8f2b3c0bf83537c9b3cbb0c6ea78ebafdf4c6f60220518440e7f43d24c5733531a8d5a825dbb90e716f7ba20c0d469e7004c1fcc5aa01"},"sequence":4294967295}],"vout":[{"value":10.00000000,"valueZat":1000000000,"n":0,"scriptPubKey":{"asm":"a22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti"]}},{"value":0.00010000,"valueZat":10000,"n":1,"scriptPubKey":{"asm":"02adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702 OP_CHECKSIG","hex":"2102adf84e0e075cf90868bd4e3d34a03420e034719649c41f371fc70d8e33aa2702ac","reqSigs":1,"type":"pubkey","addresses":["RFYE2yL3KknWdHK6uNhvWacYsCUtwzjY3u"]}},{"value":99889.99960000,"valueZat":9988999960000,"n":2,"scriptPubKey":{"asm":"03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG","hex":"2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac","reqSigs":1,"type":"pubkey","addresses":["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]}},{"value":0.00000000,"valueZat":0,"n":3,"scriptPubKey":{"asm":"OP_RETURN e3632103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc0354414b0e54657374696e672070686173652e","hex":"6a37e3632103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc0354414b0e54657374696e672070686173652e","type":"nulldata"}}],"vjoinsplit":[]},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 ## tokeninfo
 
 **tokeninfo tokenid**
@@ -312,6 +414,23 @@ Command:
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"tokeninfo", "params":["43850dfce744581ef44775086625745adecd628993c5ff4c1c786cfd21009add"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"error","error":"cant find tokenid"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 ## tokenlist
 
 **tokenlist**
@@ -356,6 +475,23 @@ Command:
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"tokenlist", "params":[]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":[],"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
 
 ## tokentransfer
 
@@ -409,6 +545,23 @@ Step 1: Create the rawtransaction
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"tokentransfer", "params":["e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66" ,"02ebc786cb83de8dc3922ab83c21f3f8a2f3216940c3bf9da43ce39e2a3a882c92" ,"500000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"error","error":"no token inputs"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 Step 2: Broadcast using `sendrawtransaction`
 
 ```bash
@@ -426,6 +579,23 @@ AssetValidate.(t) passed
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["01000000023b61e44ce3cedf536b52d8da11faacd041494a078e971551ed4e2bd496bc8da1000000006a4730440220111c67172740c0c2556979fdf84639ba299ff22586ebd220f25aa301f029003f02203da97a2575c0ed1b309774309f5dc952ee305a46cd83e95eae99e3564a1772f6012103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcffffffff66cc65f38d7e878d312386777c4f049f738b8894353c30108f7fe4ca515489e4000000007b4c79a276a072a26ba067a565802103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc8140c875a14edcbece61a6c18721398c927dc1e4509863e075b3922a8e3a2da6848e037142436e9102b529ee93a9ec618a4c67b63c52790d71812bb94179056913bba100af038001e3a10001ffffffff0420a1070000000000302ea22c8020541be9f843b476373fc18d8c8fab59c98c2c009f49c07fa66b7b431e4142feae8103120c008203000401cce028933b00000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc28b9486cb2430000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e374e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc6600000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":null,"error":{"code":-26,"message":"16: tx-overwinter-active"},"id":"curltest"}
+```
+
+</collapse-text>
+
 
 Step 3: Decode the raw transaction and check against the following if the data is sane
 
@@ -513,3 +683,20 @@ Step 3: Decode the raw transaction and check against the following if the data i
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"decoderawtransaction", "params":["01000000023b61e44ce3cedf536b52d8da11faacd041494a078e971551ed4e2bd496bc8da1000000006a4730440220111c67172740c0c2556979fdf84639ba299ff22586ebd220f25aa301f029003f02203da97a2575c0ed1b309774309f5dc952ee305a46cd83e95eae99e3564a1772f6012103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcffffffff66cc65f38d7e878d312386777c4f049f738b8894353c30108f7fe4ca515489e4000000007b4c79a276a072a26ba067a565802103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc8140c875a14edcbece61a6c18721398c927dc1e4509863e075b3922a8e3a2da6848e037142436e9102b529ee93a9ec618a4c67b63c52790d71812bb94179056913bba100af038001e3a10001ffffffff0420a1070000000000302ea22c8020541be9f843b476373fc18d8c8fab59c98c2c009f49c07fa66b7b431e4142feae8103120c008203000401cce028933b00000000302ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc28b9486cb2430000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac0000000000000000246a22e374e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc6600000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"txid":"88ac2d4d27654e9d8ac195d5ab482ee9895303902eaacfbb687b1e736bb06fb4","overwintered":false,"version":1,"locktime":0,"vin":[{"txid":"a18dbc96d42b4eed5115978e074a4941d0acfa11dad8526b53dfcee34ce4613b","vout":0,"scriptSig":{"asm":"30440220111c67172740c0c2556979fdf84639ba299ff22586ebd220f25aa301f029003f02203da97a2575c0ed1b309774309f5dc952ee305a46cd83e95eae99e3564a1772f6[ALL] 03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc","hex":"4730440220111c67172740c0c2556979fdf84639ba299ff22586ebd220f25aa301f029003f02203da97a2575c0ed1b309774309f5dc952ee305a46cd83e95eae99e3564a1772f6012103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc"},"sequence":4294967295},{"txid":"e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66","vout":0,"scriptSig":{"asm":"a276a072a26ba067a565802103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc8140c875a14edcbece61a6c18721398c927dc1e4509863e075b3922a8e3a2da6848e037142436e9102b529ee93a9ec618a4c67b63c52790d71812bb94179056913bba100af038001e3a10001","hex":"4c79a276a072a26ba067a565802103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc8140c875a14edcbece61a6c18721398c927dc1e4509863e075b3922a8e3a2da6848e037142436e9102b529ee93a9ec618a4c67b63c52790d71812bb94179056913bba100af038001e3a10001"},"sequence":4294967295}],"vout":[{"value":0.00500000,"valueZat":500000,"n":0,"scriptPubKey":{"asm":"a22c8020541be9f843b476373fc18d8c8fab59c98c2c009f49c07fa66b7b431e4142feae8103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c8020541be9f843b476373fc18d8c8fab59c98c2c009f49c07fa66b7b431e4142feae8103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["RLB1YWh4N115NFh8tbArCBGaTQ3F43Yg1F"]}},{"value":9.99500000,"valueZat":999500000,"n":1,"scriptPubKey":{"asm":"a22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401 OP_CHECKCRYPTOCONDITION","hex":"2ea22c8020bc485b86ffd067abe520c078b74961f6b25e4efca6388c6bfd599ca3f53d8dae8103120c008203000401cc","reqSigs":1,"type":"cryptocondition","addresses":["RRPpWbVdxcxmhx4xnWnVZFDfGc9p1177ti"]}},{"value":744335.99945000,"valueZat":74433599945000,"n":2,"scriptPubKey":{"asm":"03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG","hex":"2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac","reqSigs":1,"type":"pubkey","addresses":["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]}},{"value":0.00000000,"valueZat":0,"n":3,"scriptPubKey":{"asm":"OP_RETURN e374e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66","hex":"6a22e374e4895451cae47f8f10303c3594888b739f044f7c778623318d877e8df365cc66","type":"nulldata"}}],"vjoinsplit":[]},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
