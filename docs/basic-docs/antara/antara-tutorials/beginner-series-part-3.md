@@ -1,6 +1,6 @@
 # Komodo Developer Path | Connecting to Another Programming Environment
 
-#### Total Estimate Time: ~10-20 Minutes
+#### Total Estimated Time: ~10-20 Minutes
 
 This tutorial is part of a series. 
 

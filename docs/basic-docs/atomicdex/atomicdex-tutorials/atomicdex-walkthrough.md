@@ -46,7 +46,7 @@ Here is an approximate interpretation of the arguments in the command, to help y
 
 | Argument     | (Value)              | Description                                                                                                 |
 | ------------ | -------------------- | ----------------------------------------------------------------------------------------------------------- |
-| gui          | MM2GUI               | this is a flag that can be ignored for now                                                                  |
+| gui          | MM2GUI               | information about your GUI; place essential info about your application (name, version, etc.) here. For example: AtomicDEX iOS 1.0.1 |
 | netid        | 9999                 | this tells MM2 which network to join. 9999 is a private test network we use here. 0 is the default network. |
 | passphrase   | YOUR_PASSPHRASE_HERE | your passphrase; this is the source of each of your coins' private keys                                     |
 | rpc_password | YOUR_PASSWORD_HERE   | your password for protected RPC methods (userpass)                                                          |

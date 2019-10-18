@@ -459,9 +459,11 @@ Again, a best practice here is to ensure that the public address above matches w
 
 </collapse-text>
 
-::: tip
+#### Connecting to a Network Other Than KMD or LTC
 
-To connect to a coin network other than KMD or LTC, first make sure that the coin's details are present in the `coins` file you have downloaded and it has a property that says `"mm2": 1`. Then, create a new file named "COINNAMEconnect.sh" and add the following contents to it while replacing the text between `<` ad `>` with values from the `coins` file.
+To connect to a coin network other than KMD or LTC, first make sure that the coin's details are present in the `coins` file you downloaded. Also make sure that the file has the property `"mm2": 1`. 
+
+Next, create a new file named "COINNAMEconnect.sh" and add the following contents; replace the characters `<` and `>` and all text between them with values from your `coins` file. (For example: `<text where 7771 should be inserted>` becomes `7771`.)
 
 ```bash
 #!/bin/bash
@@ -476,9 +478,7 @@ cd ~/atomicDEX-API/target/debug
 chmod +x COINNAMEconnect.sh
 ```
 
-Executing the command `./COINNAMEconnect.sh` makes your Marketmaker instance connect to the `COIN`'s electrum server.
-
-:::
+Execute the command `./COINNAMEconnect.sh` to instruct your Market Maker 2 instance to connect to the coin's electrum server.
 
 ## Trading
 

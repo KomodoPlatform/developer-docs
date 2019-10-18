@@ -8,7 +8,7 @@ Part I of this discussion covers the basic aspects of Antara modules, without de
 
 The conversation should be attainable for a normal developer in the Komodo ecosystem, as well as for non-developers who otherwise possess experience in the blockchain industry.
 
-A later discussion, [<b>Overview of Antara Modules - Part II</b>](../../../basic-docs/antara/antara-tutorials/overview-of-antara-modules-part-ii.html), covers additional conceptual aspects of this technology. Part II is not required, but recommended for anyone who intends to utilize Antara technology in a development environment.
+A later discussion, [<b>Overview of Antara Modules - Part II</b>](../../../basic-docs/antara/antara-tutorials/overview-of-antara-modules-part-ii.html), covers additional conceptual aspects of this technology. Part II is recommended for anyone who intends to utilize Antara technology in a development environment.
 
 ## Smart Contracts on the Komodo Platform
 
