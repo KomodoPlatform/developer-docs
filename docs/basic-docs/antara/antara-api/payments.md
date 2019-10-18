@@ -75,6 +75,23 @@ Use the `paymentscreate` method after receiving the `paytxids` from all the reci
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"paymentscreate", "params":["'[0,0,"9c731f6bbdaa6159b7c0955f3d1e1df72a64a38cd20198d59cd11f0fc506e00e","3398899808706726bf04c815ca994f616768a1d4ad2546f14246bef3a926117d"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"error","error":"parameters error"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 </div>
 
 ###### Broadcast the transaction
@@ -92,6 +109,23 @@ c4de51ec55d21d0ad0645efe597f61d07166f1a2cb73fcaa8c7a37de2b3c3837
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["0400008085202f8901002a73fb5f67f406f4686cd3124f38bf1ecbc9b997adc548914c2bc344453f700000000048473044022034b381a812ad57e5a726319f47db4e59666b65dc1eb7ab3e8eb32f7a3637624b02203ca606a74c18389f7ba20ab09086db66a4d21826673e9970ceb3d6f2c4bfea0501ffffffff031027000000000000302ea22c8020f7d6c2e6ca04be384f425a199bc2ad90dcc3e13effe6822b29598f47e2795da781031210008203000401cce092f50500000000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac0000000000000000566a4c53f04300000000000000000a00000000000000020ee006c50f1fd19cd59801d28ca3642af71d1e3d5f95c0b75961aabd6b1f739c7d1126a9f3be4642f14625add4a16867614f99ca15c804bf266770089889983300000000860a00000000000000000000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+```
+
+</collapse-text>
+
 
 </div>
 
@@ -142,6 +176,23 @@ The `paymentsfund` method is used to add funds to a Payments plan that has been 
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"paymentsfund", "params":["'["c4de51ec55d21d0ad0645efe597f61d07166f1a2cb73fcaa8c7a37de2b3c3837",7,1]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"error","error":"parameters error"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 </div>
 
 ###### Broadcast the transaction
@@ -159,6 +210,23 @@ The `paymentsfund` method is used to add funds to a Payments plan that has been 
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["0400008085202f8908001efc1fdeee5ff6f02669c3b0dc44328a0ab3d164099be60bb752cd00a9474c000000004847304402200995f3ffcbf22ff71e4cd34f004f57faf0a63b02580ee703c3c7af8dbfad4db502203ff43305875d26a01c551dde40db13098c229eb35d0a17842bf49463d310676b01ffffffff0076f017cf49a7b952163e0f6e92898795197741e54c7975f2d3af1e49fe7e760000000048473044022063e5e1a7b3fdec6e19143817e208411656bae613f259bf51ecb27e4d2586134602204ede23fe353dc87bfd4b9e154b576812fd7e4e9232e8906ec3535fa8519956c001ffffffff00621604313b81ed8556ceaf29fe93b55d419de53e3947c48cb6f77cd852eefb00000000484730440220154b9727e0f377ce141f63845b729fc392096a5d04c966368fad4d077e1255a30220708f7bd907e180cf819e4fc3bec12f168fcdbbb8570cb919cade2cd84c159b1401ffffffff0060083ce708e81c46b2e12e87051a87817d072be85ba5dd55c728348c0dd6560000000048473044022010ee0f67a08c1d7d4939629e7a8786cb1b8b1ad4c8d0e0acb72fb33bfadcabe702204cd5a11c838917677c10d81105f19620649ba1ddb82677c384434ec38995397001ffffffff0055e6ca9fd40a82d4db0c626eb8e0aa6376d45ae9bd55ae5995e145a0095161000000004847304402200c4c94a85ba91417ad66ced737efbabdaa80fa78727b510a4b052b53307ac46702200c5895f74526cb6fc930568f2ae23638d7af37735e15b1c46f2bfb83ae0bb4cc01ffffffff003ffe904cdc927be067b21d19f0c57b2bfbc7f669c1f176134c24eee038d1760000000049483045022100b440206ef0613c5abc15803b047d1b73d024f2e3c33dce5db7633629c169847502206786c8cd7f29e2bc42559d42b441a812bf4a6604e0244c474e94a1e080b3657001ffffffff003c5c30c4107b975ca2bd4165940b432b1dae92110f0adb4540d84c42a7adf6000000004847304402205c994a23360b7d7147debc2c91300575b466c5b3862ca4d6c42bb2d0421539a7022031ed30cb9e667d30ee399d38899ad24aecd44e5545d2ce9357fc4192b41098e701ffffffff00339f6cb6e5b158a156b88e2b99d5bd08612000aa35e2e57fd54fc13145a69a0000000049483045022100db64b42398ff454c4370f90c903a2d9b1485f75dff8ee7f7b5285b531aee75fc02207d2162f469122af6d0c7edb622dd7dd4aef551b22ae1ea3c77320c12095a5cf401ffffffff020027b929000000005c2ea22c8020987fad30df055db6fd922c3a57e55d76601229ed3da3b31340112e773df3d0d28103120c008203000401cc2a0401f00101246a22f04637383c2bde377a8caafc73cba2f16671d0617f59fe5e64d00a1dd255ec51dec475f0b9f50500000000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac00000000420f00000000000000000000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+```
+
+</collapse-text>
+
 
 </div>
 
@@ -192,6 +260,23 @@ For example, if a Payments plan sends a portion of funds to an instance of the R
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"paymentstxidopret", "params":["'[9,"222102d6f13a8f745921cdb811e32237bb98950af1a5952be7b3d429abd9152f8e388dac"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"error","error":"parameters error","n":0},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 </div>
 
 ###### Broadcast the transaction
@@ -209,6 +294,23 @@ For example, if a Payments plan sends a portion of funds to an instance of the R
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["0400008085202f89010012d25c46d1f831d74c7c3e71fd32343f53ead192cc70e9e8edf7586571759a0000000048473044022004f5a7e3eb7f5010953c2bca7af2113ee3559b5f7adc86ad09b872526e3b36f6022040b6409eb612c847185b274eb76a3ff60f0e970e5e78d3eee9269b5f0661611001ffffffff02f0b9f50500000000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac0000000000000000326a30f054090000000000000024222102d6f13a8f745921cdb811e32237bb98950af1a5952be7b3d429abd9152f8e388dac00000000000b0400000000000000000000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+```
+
+</collapse-text>
+
 
 </div>
 
@@ -287,6 +389,23 @@ The `paymentsinfo` method returns relevant information about the Payments plan r
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"paymentsinfo", "params":["'["c4de51ec55d21d0ad0645efe597f61d07166f1a2cb73fcaa8c7a37de2b3c3837"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"error","error":"parameters error"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 </div>
 
 ## paymentslist
@@ -330,6 +449,23 @@ The `paymentslist` method lists all Payment plan `createtxids` that are active o
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"paymentslist", "params":[]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"success","createtxids":[]},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
 
 </div>
 
@@ -381,6 +517,23 @@ The size of a `paymentsrelease` transaction is bound by the normal rules of cons
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"paymentsmerge", "params":["'["c4de51ec55d21d0ad0645efe597f61d07166f1a2cb73fcaa8c7a37de2b3c3837"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"error","error":"parameters error"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 </div>
 
 ###### Broadcast the transaction
@@ -398,6 +551,23 @@ The size of a `paymentsrelease` transaction is bound by the normal rules of cons
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["0400008085202f890a0724d77b165969158bd68d6502bf40ceff93f1c9fc5be0421eda9859488d21b900000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b468568140b0d0df465b818c4b29871433f7913e80d8d27114283ba6ef1b7b91280c189aa829e29946a75d925410dc3087dcd482bed3f98149275e902c0e6bd4e338066e41a129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffff18a003bf4399b2cbcecbf6fd494eec9c80996603dad5e4ce300c9bc4b1a4cd5400000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b468568140f725750c29f92e401033a6334016bb224aa4cf26064c28e0c39a0bc126cf2d5767af46207abc6662f084e3c257e30b6939acdc194f36624d9f8b4288626faaf6a129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffff199096b27c33b86f7bab650a2188e82a865e737913546108615ac7d77a1c540300000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b46856814008a1b9d33980f42027cb680923e8e9ef03ed6df7ba32676acd134ca551260b1f5ccd82b52b47945f19523b3dcab456937ef4efa954df1adc5d77d1c974db4f41a129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffff1c48e0c48972da890aa32f2932f60ed00c270d0168108895ab6f5b88ac765f6600000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b46856814049c690811754dc2242bf56c7fa538154274fc56ed4fcedc09f5cc2febb09bdcd3964644b8724f4118b269b80c9cb5147eb6ea627a6b72bae8be7c92205837d6fa129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffff5241478ba2dad22756b37c0e5d9fd0101ab1fa791f78b26b8ee8b7a4b6b7849b00000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b46856814014217e878c17c15d169d8d16cfdb87338993c711157a6f2d0e3dea2a57c80742740c2763267d9056f3004e10c451dd39651f4895f829e8b6a6f81432f2aef534a129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffff76a5e60ef27316f9c1876f2c5a83114ac26aa977bad655e24c735158025e770800000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b4685681400d1d01976f725fe7274e70261de970a34acfd1819a454b6e0c5e89395306dbd437d34152a1d06d3809395bf9de0928e03049a596b7e168d0d0c085bc8d5b45e7a129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffff80e0f4be24118fbe0e486535aa5d3076b1d8991e84907fc5bd08524694e1396300000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b468568140582979c51f5c151f438fbafdbdd2a65cb2e79fa13bdeb92b197723d16508f35741c1cbc60f8e5b48f7e934a10bedc80e190d7fc95c26327ee0b4f5887fce2726a129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffffb3442651af7f068feee52924827ea32cec67cfd3b4302e227289cce5d16cf3b600000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b468568140aa44e1f346bd3a6bfa851769671f0d7b9d6d904946e922d9394135cb8eb633d041448d488bfd3ed09bc31a09da1e4057a4f74280224516296181422263b925bba129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffffbff13f72b030df0284a912169d194bf1f8af1f327e9f34cefc4a410e694d356d00000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b468568140c9dfd6d9a487df51fc7d1c063c2b4df331d6b5145e451d9bf925870664aefb513906d90b2e178cadf0d1fae689df7f14cdaaebe51c1899ce6f792063aa1fb504a129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffffe1dc8bd536f3687ecd56b2238aa31c874331f217e304b97377c1e9d1484e723900000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b468568140fcda699e4cc5fec0a9239e4f0d98f25cb4cf012cc8b0f5505ca97945ecde11c5687cd8baa43e780078f2e061a9e2595c1c0ef78733cbb78d0d0948c9ac627cfaa129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffff01e0b589fe0e0000005c2ea22c8020c657913e6b261b70e17c7724f33dea97bd7ba3fb91e0af9dde23eb63146f9a6681031210008203000401cc2a0401f00102246a22f04d37383c2bde377a8caafc73cba2f16671d0617f59fe5e64d00a1dd255ec51dec47500000000b70f00000000000000000000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+```
+
+</collapse-text>
+
 
 </div>
 
@@ -451,6 +621,23 @@ The `paymentsrelease` method can be executed by anyone to release the **eligible
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"paymentsrelease", "params":["'["c4de51ec55d21d0ad0645efe597f61d07166f1a2cb73fcaa8c7a37de2b3c3837",1000]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"error","error":"parameters error"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 </div>
 
 ###### Broadcast the transaction
@@ -468,6 +655,23 @@ The `paymentsrelease` method can be executed by anyone to release the **eligible
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["0400008085202f890450bee824558149bb8ae61f268baff8977bb36239eb864f7b7c33ce5ed7f2044c000000007b4c79a276a072a26ba067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b46856814094c2b993048178521b2e139a8df680182b955bf41f0d2e129fcfa2222f350eff165cadf54eeb517453a91c4a286b372d5cbb2d4d3ecd4a2a2d718b354164bd88a100af038001f0a10001ffffffffc7a5b6eb4f534ff1c429487de3e43a23dfe8fdbfb5df10477a2c5788afce954d000000007b4c79a276a072a26ba067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b468568140655cd777ef96ce0001fcbe9a96b457ed9354a019996173975716b0801738cc070e9b51654caedaba2d1826a7f876ff7ee37b6b54860f5f35d0019d65f51620d9a100af038001f0a10001ffffffff25496b4c2566cd3efc581797dd0dacf60f6e904418891059c343e84ba707a75600000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b46856814065f5e4c8397b0cd58fd6f93b6a45e34d21e5a89124912f338bc0fabc79d89d4108b6541852935aecd95226c106765c89475d01d3d10f966cd6aa9bb85fa683e6a129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffffc167bdc7aafdb9d648327bb3a1bd8334b9d3204295a540e96a6ee737b463a1b100000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b468568140cedf8fbe886a8ac8c0b59a6c28d44604f53803b1072fcd5364cdb67f5d3ef148062920230101dcf2977f384e5d90d98665fecefee0bdda0fc5e81a8dc492a0eaa129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffff03f066acbc0d000000642ea22c8020c657913e6b261b70e17c7724f33dea97bd7ba3fb91e0af9dde23eb63146f9a6681031210008203000401cc320401f001022c6a2af05237383c2bde377a8caafc73cba2f16671d0617f59fe5e64d00a1dd255ec51dec400e87648170000007500046bf41400000024222102d6f13a8f745921cdb811e32237bb98950af1a5952be7b3d429abd9152f8e388dac00e40b5402000000242221039433dc3749aece1bd568f374a45da3b0bc6856990d7da3cd175399577940a775ac000000005a0f00000000000000000000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+```
+
+</collapse-text>
+
 
 </div>
 
@@ -601,6 +805,23 @@ Therefore, using either `RN727JeeiZ6NXic7PUKTCiHT1HvuBN4RDa` or `2102d3431950c2f
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["0400008085202f890450bee824558149bb8ae61f268baff8977bb36239eb864f7b7c33ce5ed7f2044c000000007b4c79a276a072a26ba067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b46856814094c2b993048178521b2e139a8df680182b955bf41f0d2e129fcfa2222f350eff165cadf54eeb517453a91c4a286b372d5cbb2d4d3ecd4a2a2d718b354164bd88a100af038001f0a10001ffffffffc7a5b6eb4f534ff1c429487de3e43a23dfe8fdbfb5df10477a2c5788afce954d000000007b4c79a276a072a26ba067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b468568140655cd777ef96ce0001fcbe9a96b457ed9354a019996173975716b0801738cc070e9b51654caedaba2d1826a7f876ff7ee37b6b54860f5f35d0019d65f51620d9a100af038001f0a10001ffffffff25496b4c2566cd3efc581797dd0dacf60f6e904418891059c343e84ba707a75600000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b46856814065f5e4c8397b0cd58fd6f93b6a45e34d21e5a89124912f338bc0fabc79d89d4108b6541852935aecd95226c106765c89475d01d3d10f966cd6aa9bb85fa683e6a129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffffc167bdc7aafdb9d648327bb3a1bd8334b9d3204295a540e96a6ee737b463a1b100000000a74ca5a281a1a0819ca28194a067a56580210358f1764f82c63abc7c7455555fd1d3184905e30e819e97667e247e5792b468568140cedf8fbe886a8ac8c0b59a6c28d44604f53803b1072fcd5364cdb67f5d3ef148062920230101dcf2977f384e5d90d98665fecefee0bdda0fc5e81a8dc492a0eaa129a5278020f0347bcbbb602b48197a8d6e291ec47bf5f549dc9ca6a778a2d050c7a6dccf638103020000af038001f0a10001ffffffff03f066acbc0d000000642ea22c8020c657913e6b261b70e17c7724f33dea97bd7ba3fb91e0af9dde23eb63146f9a6681031210008203000401cc320401f001022c6a2af05237383c2bde377a8caafc73cba2f16671d0617f59fe5e64d00a1dd255ec51dec400e87648170000007500046bf41400000024222102d6f13a8f745921cdb811e32237bb98950af1a5952be7b3d429abd9152f8e388dac00e40b5402000000242221039433dc3749aece1bd568f374a45da3b0bc6856990d7da3cd175399577940a775ac000000005a0f00000000000000000000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+```
+
+</collapse-text>
+
+
 </div>
 
 #### :pushpin: Examples
@@ -625,6 +846,23 @@ Therefore, using either `RN727JeeiZ6NXic7PUKTCiHT1HvuBN4RDa` or `2102d3431950c2f
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"paymentstxidopret", "params":["'[9,"2221039433dc3749aece1bd568f374a45da3b0bc6856990d7da3cd175399577940a775ac"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"result":"error","error":"parameters error","n":0},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 </div>
 
 ###### Broadcast the transaction
@@ -642,5 +880,22 @@ Therefore, using either `RN727JeeiZ6NXic7PUKTCiHT1HvuBN4RDa` or `2102d3431950c2f
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["0400008085202f89010048372b016ca6d2836a2f66bc24217c6d9a82160031f9027de1b43ea278b1a00000000049483045022100b822b9905f0244a22880f3c957cbe76ea8d5e7e97cddc8a2925b6a415a6e1e87022051b539e766a067113f7931182779a90a0bfd640d5e96f93d2af7f8bb3c4ad8bb01ffffffff02f0b9f50500000000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac0000000000000000326a30f0540900000000000000242221039433dc3749aece1bd568f374a45da3b0bc6856990d7da3cd175399577940a775ac00000000000a1000000000000000000000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+```
+
+</collapse-text>
+
 
 </div>
