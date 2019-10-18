@@ -86,11 +86,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"parameters error"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "parameters error" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -121,11 +124,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: bad-txns-inputs-missing" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -187,11 +193,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"parameters error"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "parameters error" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -222,11 +231,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: bad-txns-inputs-missing" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -271,11 +283,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"parameters error","n":0},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "parameters error", "n": 0 },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -306,11 +321,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: bad-txns-inputs-missing" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -400,11 +418,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"parameters error"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "parameters error" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -461,11 +482,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"success","createtxids":[]},"error":null,"id":"curltest"}
+{
+  "result": { "result": "success", "createtxids": [] },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -528,11 +552,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"parameters error"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "parameters error" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -563,11 +590,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: bad-txns-inputs-missing" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -632,11 +662,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"parameters error"},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "parameters error" },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -667,11 +700,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: bad-txns-inputs-missing" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -816,11 +852,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: bad-txns-inputs-missing" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -857,11 +896,14 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":{"result":"error","error":"parameters error","n":0},"error":null,"id":"curltest"}
+{
+  "result": { "result": "error", "error": "parameters error", "n": 0 },
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
 
@@ -892,10 +934,13 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 <collapse-text hidden title="Response">
 
 ```json
-{"result":null,"error":{"code":-26,"message":"16: bad-txns-inputs-missing"},"id":"curltest"}
+{
+  "result": null,
+  "error": { "code": -26, "message": "16: bad-txns-inputs-missing" },
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
-
 
 </div>
