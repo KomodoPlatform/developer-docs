@@ -108,6 +108,23 @@ Command:
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"", "params":["cclib" ,"calcmsg" ,"18" ,"'["09daa45cb6e17028f9568347291a993cbf29c152a527b53e9ac0925d4900c293","210225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270aac"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":null,"error":{"code":-32601,"message":"Method not found"},"id":"curltest"}
+```
+
+</collapse-text>
+
+
 ## combine
 
 **cclib combine 18 '[ "pubkey1", "pubkey2", .....]'**
@@ -149,6 +166,23 @@ Command:
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"cclib", "params":["combine" ,"18" ,"'["0225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270a","02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"status":"error","error":"need pubkeys params"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
 
 ## commit
 
@@ -198,6 +232,23 @@ Command:
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"cclib", "params":["commit" ,"18" ,"'["8897e150bfb07d3f967ffadb4b0f3c84ea73a94c0d715c4b7e6d9c816c5113a9",1,"2854473733147ebdbf2fb70b956c8086c9d7659ca0093627fe0371098f8bc003"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"status":"error","error":"wrong number of params, need 3: pkhash, ind, commitment"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 ## nonce
 
 **cclib nonce 18 '["pkhash", ind, "nonce"]'**
@@ -246,6 +297,23 @@ Command:
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"cclib", "params":["nonce" ,"18" ,"'["8897e150bfb07d3f967ffadb4b0f3c84ea73a94c0d715c4b7e6d9c816c5113a9",1,"02402fe26abd7ed2cf22d872a6b22ced4309aac8ec273b9c89e0f8f5b77f1574db"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"status":"error","error":"wrong number of params, need 3: pkhash, ind, nonce"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 ## partialsig
 
 **cclib partialsig 18 '["pkhash", ind, "partialsig"]'**
@@ -293,6 +361,23 @@ Command:
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"cclib", "params":["partialsig" ,"18" ,"'["8897e150bfb07d3f967ffadb4b0f3c84ea73a94c0d715c4b7e6d9c816c5113a9",1,"9e964dfd402f973ea1e9407e19918b1c3897ff6544d60dcdb19cfb0e5bc4c0c1"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"status":"error","error":"wrong number of params, need 3: pkhash, ind, partialsig"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 ## send
 
 **cclib send 18 '["combined_pk", amount]'**
@@ -337,6 +422,23 @@ Command:
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"", "params":["cclib" ,"send" ,"18" ,"'["03d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a",1]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":null,"error":{"code":-32601,"message":"Method not found"},"id":"curltest"}
+```
+
+</collapse-text>
+
 
 ## session
 
@@ -385,6 +487,23 @@ Command:
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"cclib", "params":["session" ,"18" ,"'[0,2,"03d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a","8897e150bfb07d3f967ffadb4b0f3c84ea73a94c0d715c4b7e6d9c816c5113a9","3ef43614242afd3c57e02a75a3bc99342fea7c731f6190b791c0f99826789603"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"status":"error","error":"wrong number of params, need 5: myindex, numsigners, combined_pk, pkhash, msg32"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
 
 ## spend
 
@@ -451,6 +570,23 @@ Command:
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"cclib", "params":["spend" ,"18" ,"'["09daa45cb6e17028f9568347291a993cbf29c152a527b53e9ac0925d4900c293","210225f1cbbda1a0c406bb8f6dc7a589d88b2f9e28cd4fdb3f59139f8aff1f5d270aac","4b3a9b2b162802bc6c2cca2d22e70ab1cf738a9d4f5692f4f881d0cce0319c137b27889bb562602c94e163729c4168120a4ab41a8e936909e832e6af09e758f2"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"status":"error","error":"params parse error"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
+
 ## verify
 
 **cclib verify 18 '["msg", "combined_pk", "combinedsig"]'**
@@ -496,5 +632,22 @@ Command:
 ```
 
 </collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"cclib", "params":["verify" ,"18" ,"'["3ef43614242afd3c57e02a75a3bc99342fea7c731f6190b791c0f99826789603","03d31479e789014a96ba6dd60d50210045aa8292fe693f293d44615929f04cf57a","4b3a9b2b162802bc6c2cca2d22e70ab1cf738a9d4f5692f4f881d0cce0319c137b27889bb562602c94e163729c4168120a4ab41a8e936909e832e6af09e758f2"]'"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{"result":{"status":"error","error":"wrong number of params, need 3: msg, combined_pk, combinedsig"},"error":null,"id":"curltest"}
+```
+
+</collapse-text>
+
 
 
