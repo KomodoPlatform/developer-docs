@@ -226,8 +226,6 @@ The following tutorials are optional, but we still recommend that the developer 
 
 Many, if not most, developers in the Komodo ecosystem use a Linux-based Virtual Private Server (VPS) to build software. Working on a VPS simplifies many aspects of the development process, as the VPS grants the developer a disposable and rapidly customizable environment for troubleshooting.
 
-There are free VPS services available and links are provided.
-
 [<b>Link to Basic Environment Setup for Linux</b>](../../../basic-docs/smart-chains/smart-chain-tutorials/basic-environment-setup-for-linux-vps.html#introduction)
 
 ##### Creating Komodo Smart Chains
