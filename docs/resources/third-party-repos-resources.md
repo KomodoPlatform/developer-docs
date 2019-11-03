@@ -34,9 +34,10 @@ sidebar: auto
 ## CC Proof of Concepts
 
 - General CC
-  - TUI for various CC modules written in python - [https://github.com/tonymorony/komodo-cctools-python](https://github.com/tonymorony/komodo-cctools-python)
+  - TUI for various CC modules written in Python - [https://github.com/tonymorony/komodo-cctools-python](https://github.com/tonymorony/komodo-cctools-python)
 - Assets
   - Pokemon NFTs - [https://github.com/NOCTLJRNE/Komodo-Pokemon.git](https://github.com/NOCTLJRNE/Komodo-Pokemon.git)
+  - Assets CC TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/assets_cc_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/assets_cc_tui.py)
 - Channels
 - Coda
   - Constant Blockchain Size - [https://github.com/Mixa84/To-Do/issues/2](https://github.com/Mixa84/To-Do/issues/2)
@@ -47,7 +48,11 @@ sidebar: auto
   - Live Faucet Using PoW to prevent spamming - [https://www.atomicexplorer.com/#/faucet/rick](https://www.atomicexplorer.com/#/faucet/rick)
 - Games
 - Gateways
+  - Gateways CC Creation TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/gateways_creation_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/gateways_creation_tui.py)
+  - Gateways CC Usage TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/gateways_usage_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/gateways_usage_tui.py)
 - Heir
+- Marmara
+  - Marmara TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/marmara_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/marmara_tui.py)
 - MoMoM
 - Musig
 - Oracles
@@ -56,21 +61,31 @@ sidebar: auto
    - [https://www.dragonhound.tech/](https://www.dragonhound.tech/)
   - Oracle Creator via Browser - [https://oracle.earth/create_oracle/](https://oracle.earth/create_oracle/)
   - List of Active Oracles - [https://oracle.earth/oracles_list/](https://oracle.earth/oracles_list/)
+  - Oracles CC TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/oracles_cc_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/oracles_cc_tui.py)
 - Payments
+  - Payments CC TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/payments_cc_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/payments_cc_tui.py)
 - Pegs
   - Pegs Explainer - [https://github.com/Mixa84/komodo/wiki/Pegs-CC](https://github.com/Mixa84/komodo/wiki/Pegs-CC)
+  - Pegs CC Creation TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/pegs_creation_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/pegs_creation_tui.py)
+  - Pegs CC Usage TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/pegs_usage_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/pegs_usage_tui.py)
 - Prices
   - Synthetic Prices Betting Game - [https://docs.google.com/document/d/1O5hJ_ZeBWK-xP3f3RM48ruG3mOlsPbbLcXjyqtn0Oew/edit](https://docs.google.com/document/d/1O5hJ_ZeBWK-xP3f3RM48ruG3mOlsPbbLcXjyqtn0Oew/edit)
+  - Prices CC App2 in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/prices_app_v2.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/prices_app_v2.py)
+  - Prices CC Visualization in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/prices_visualization_server.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/prices_visualization_server.py)
+  - Prices CC Rekt Inspector in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/rekt_inspector.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/rekt_inspector.py)
   - Live Synthetic Price Feed - [http://159.69.45.70:8050/](http://159.69.45.70:8050/)
   - Live Synthetic Price Feed 2 - [http://kmd.money:8050/](http://kmd.money:8050/)
 - Rewards
 - Rogue
-  - Rogue Game TUI - [https://github.com/KomodoPlatform/komodo/wiki/Get-Started-with-Rogue-Game](https://github.com/KomodoPlatform/komodo/wiki/Get-Started-with-Rogue-Game)
+  - Rogue Game TUI in Python - [https://github.com/KomodoPlatform/komodo/wiki/Get-Started-with-Rogue-Game](https://github.com/KomodoPlatform/komodo/wiki/Get-Started-with-Rogue-Game)
+  - Rogue Game TUI Python in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/rogue_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/rogue_tui.py)
 - Sudoku
-  - Sudoku [https://github.com/tonymorony/Komodoku](https://github.com/tonymorony/Komodoku)
+  - Sudoku Game GUI - [https://github.com/tonymorony/Komodoku](https://github.com/tonymorony/Komodoku)
 - Tetris
+  - Tetris CC TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/tetris_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/tetris_tui.py)
 - Chat
   - On chain real time chat for KMD Smart Chains - [https://github.com/KMDLabs/trollbox](https://github.com/KMDLabs/trollbox)
+  - On chain TrollBox in Browser - [https://www.atomicexplorer.com/#/trollbox](https://www.atomicexplorer.com/#/trollbox)
 
 ## Proof of Concept
 
