@@ -38,15 +38,22 @@ sidebar: auto
 - Assets
   - Pokemon NFTs - [https://github.com/NOCTLJRNE/Komodo-Pokemon.git](https://github.com/NOCTLJRNE/Komodo-Pokemon.git)
   - Assets CC TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/assets_cc_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/assets_cc_tui.py)
+   - Buy/Sell NFT Rogue Characters line 1527-1915 - [https://github.com/tonymorony/komodo-cctools-python/blob/master/lib/tuilib.py#L1527](https://github.com/tonymorony/komodo-cctools-python/blob/master/lib/tuilib.py#L1527)
 - Channels
+  - Channels Instant Payment Mechanism - [https://github.com/tonymorony/ChannelsCC-GUI](https://github.com/tonymorony/ChannelsCC-GUI)
 - Coda
   - Constant Blockchain Size - [https://github.com/Mixa84/To-Do/issues/2](https://github.com/Mixa84/To-Do/issues/2)
 - Dice
+  - DiceBets, Web based KMDDICE wallet and game - [https://www.dicebets.net/](https://www.dicebets.net/)
+  - KMDice, desktop wallets to place decentralized dice game - [http://kmdice.bet/](http://kmdice.bet/)
+  - DiceCC GUI in Python - [https://github.com/tonymorony/DiceCC-GUI](https://github.com/tonymorony/DiceCC-GUI)
+  - KMDice Remote GUI Windows - [https://www.virustotal.com/#/file/1a982d48b6a57d0af5cb5fce71e4c36b6b319847e72a5fc4a4f8f1a0e5d18aca/detection](https://www.virustotal.com/#/file/1a982d48b6a57d0af5cb5fce71e4c36b6b319847e72a5fc4a4f8f1a0e5d18aca/detection)
 - Dilithium
   - Dilitium Quantum Security Article - [https://komodoplatform.com/dilithium-quantum-secure-blockchain/](https://komodoplatform.com/dilithium-quantum-secure-blockchain/)
 - Faucet
   - Live Faucet Using PoW to prevent spamming - [https://www.atomicexplorer.com/#/faucet/rick](https://www.atomicexplorer.com/#/faucet/rick)
 - Games
+  - Antara gaming SDK - [https://github.com/KomodoPlatform/antara-gaming-sdk/tree/0.0.1](https://github.com/KomodoPlatform/antara-gaming-sdk/tree/0.0.1)
 - Gateways
   - Gateways CC Creation TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/gateways_creation_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/gateways_creation_tui.py)
   - Gateways CC Usage TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/gateways_usage_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/gateways_usage_tui.py)
@@ -62,6 +69,7 @@ sidebar: auto
   - Oracle Creator via Browser - [https://oracle.earth/create_oracle/](https://oracle.earth/create_oracle/)
   - List of Active Oracles - [https://oracle.earth/oracles_list/](https://oracle.earth/oracles_list/)
   - Oracles CC TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/oracles_cc_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/oracles_cc_tui.py)
+  - Oracles CC TrollBox in Python (Chat) - [https://github.com/tonymorony/OraclesCC_Chat-GUI](https://github.com/tonymorony/OraclesCC_Chat-GUI)
 - Payments
   - Payments CC TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/payments_cc_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/payments_cc_tui.py)
 - Pegs
