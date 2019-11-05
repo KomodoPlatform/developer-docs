@@ -4,40 +4,6 @@ sidebar: auto
 
 # List of third party Repositories and Resources
 
-## Various Tools
-
-- [https://github.com/KomodoPlatform/komodotools](https://github.com/KomodoPlatform/komodotools) - Scripts toolbox repository for Komodo and Iguana
-- [https://github.com/KMDLabs/PoS_scripts](https://github.com/KMDLabs/PoS_scripts) - Scripts that help with staking on a Komodo Smart Chain.
-- [https://github.com/DeckerSU/komodo_scripts](https://github.com/DeckerSU/komodo_scripts) - a set of komodo helper scripts
-- [https://github.com/gcharang/komodo-install-explorer](https://github.com/gcharang/komodo-install-explorer) - script to install an explorer for any Komodo Smart Chain
-
-## Proof of Concept
-
-- [http://oracle.earth/](http://oracle.earth/) - Live demo of Oracles CC module
-- [https://github.com/gcharang/create-smartchain](https://github.com/gcharang/create-smartchain) - Simple scripts to create a Komodo Smart Chain using a single node for testing (Has automated explorer installation too)
-- [https://github.com/tonymorony/komodo-cctools-python](https://github.com/tonymorony/komodo-cctools-python) - TUI for various CC modules written in python
-- [https://github.com/imylomylo/komodo-cakeshop](https://github.com/imylomylo/komodo-cakeshop) - Work in progress; An integrated development environment and SDK
-- [https://github.com/tonymorony/Komodoku](https://github.com/tonymorony/Komodoku) - Sudoku CC
-- [https://github.com/KMDLabs/trollbox](https://github.com/KMDLabs/trollbox) - On chain real time chat for KMD Smart Chains
-- [https://www.dragonhound.tech/](https://www.dragonhound.tech/)
-  - Source code: [https://github.com/smk762/Dragonhound](https://github.com/smk762/Dragonhound) - GPS tracking a wandering hound with Particle.io via Komodo cryptoconditions oracles, displayed on Leaflet
-- [https://github.com/smk762/pytomicDEX](https://github.com/smk762/pytomicDEX) - Python CLI wrapper, tradebot and TUI for Marketmaker2
-
-## Turnkey Solutions to run Komodo
-
-- [https://github.com/Komodo-Cakeshop/cakeshopinabox](https://github.com/Komodo-Cakeshop/cakeshopinabox) - a one-click, easy-to-deploy blockchain+services server: a cakeshop in a box
-- [https://github.com/imylomylo/docker-komodod](https://github.com/imylomylo/docker-komodod) - dockerized Komodo installation
-
-## RPC clients and wrappers
-
-- [https://github.com/gcharang/node-komodo-rpc](https://github.com/gcharang/node-komodo-rpc) - nodejs json-rpc client for Komodo and Smart Chains, with Promises and support for multiple instances
-- [https://github.com/HebePlatform/Komodo-Lib-JS](https://github.com/HebePlatform/Komodo-Lib-JS) - A nodejs library to create and sign KMD transactions
-- [https://github.com/n41r0j/komodorpc-rust-client](https://github.com/n41r0j/komodorpc-rust-client) - a Rust RPC client
-- [https://github.com/imylomylo/komodo-rpc-web](https://github.com/imylomylo/komodo-rpc-web) - RPC Wrapper for Komodo Platform written for browsers (alpha)
-- [https://github.com/ca333/komodoAPI-cpp](https://github.com/ca333/komodoAPI-cpp) - Komodo Core API for cpp
-- [https://packagist.org/packages/webworker01/komodophp](https://packagist.org/packages/webworker01/komodophp) - A library for manipulating Komodo addresses and keys and interacting with Electrum servers using php
-- [https://github.com/atomiclabs/get-komodo-rewards](https://github.com/atomiclabs/get-komodo-rewards) - npm module to calculate KMD rewards of a UTXO
-
 ### Komodo API Implementation in Different Languages
 
 - [Golang by @satindergrewal](https://github.com/satindergrewal/kmdgo)
@@ -47,46 +13,142 @@ sidebar: auto
 - [C# by @adi2624](https://github.com/adi2624/RPC-API-CSharp)
 - [NodeJS by @hafsa-fatima](https://github.com/Hafsa-Fatima/Komodo-RPC-Node-Library)
 
+## RPC clients and wrappers
+
+- nodejs json-rpc client for Komodo and Smart Chains, with Promises and support for multiple instances - [https://github.com/gcharang/node-komodo-rpc](https://github.com/gcharang/node-komodo-rpc)
+- nodejs library to create and sign KMD transactions - [https://github.com/HebePlatform/Komodo-Lib-JS](https://github.com/HebePlatform/Komodo-Lib-JS)
+- Rust RPC client - [https://github.com/n41r0j/komodorpc-rust-client](https://github.com/n41r0j/komodorpc-rust-client)
+- Browser based RPC Wrapper for Komodo Platform written (alpha) - [https://github.com/imylomylo/komodo-rpc-web](https://github.com/imylomylo/komodo-rpc-web)
+- Komodo Core API for cpp - [https://github.com/ca333/komodoAPI-cpp](https://github.com/ca333/komodoAPI-cpp)
+- PHP library for manipulating Komodo addresses and keys and interacting with Electrum servers - [https://packagist.org/packages/webworker01/komodophp](https://packagist.org/packages/webworker01/komodophp)
+- npm module to calculate KMD rewards of a UTXO - [https://github.com/atomiclabs/get-komodo-rewards](https://github.com/atomiclabs/get-komodo-rewards)
+
+## Turnkey Solutions to run Komodo
+
+- One-click, easy-to-deploy blockchain+services server: a cakeshop in a box - [https://github.com/Komodo-Cakeshop/cakeshopinabox](https://github.com/Komodo-Cakeshop/cakeshopinabox)
+- Dockerized Komodo installation - [https://github.com/imylomylo/docker-komodod](https://github.com/imylomylo/docker-komodod)
+
+## Atomic Swaps
+- Live MM2 Orderbook for AtomicDEX - [https://oracle.earth/mm2_orderbook/](https://oracle.earth/mm2_orderbook/)
+
+## CC Proof of Concepts
+
+- General CC
+  - TUI for various CC modules written in Python - [https://github.com/tonymorony/komodo-cctools-python](https://github.com/tonymorony/komodo-cctools-python)
+- Assets
+  - Pokemon NFTs - [https://github.com/NOCTLJRNE/Komodo-Pokemon.git](https://github.com/NOCTLJRNE/Komodo-Pokemon.git)
+  - Assets CC TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/assets_cc_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/assets_cc_tui.py)
+   - Buy/Sell NFT Rogue Characters line 1527-1915 - [https://github.com/tonymorony/komodo-cctools-python/blob/master/lib/tuilib.py#L1527](https://github.com/tonymorony/komodo-cctools-python/blob/master/lib/tuilib.py#L1527)
+- Channels
+  - Channels Instant Payment Mechanism - [https://github.com/tonymorony/ChannelsCC-GUI](https://github.com/tonymorony/ChannelsCC-GUI)
+- Coda
+  - Constant Blockchain Size - [https://github.com/Mixa84/To-Do/issues/2](https://github.com/Mixa84/To-Do/issues/2)
+- Dice
+  - DiceBets, Web based KMDDICE wallet and game - [https://www.dicebets.net/](https://www.dicebets.net/)
+  - KMDice, desktop wallets to place decentralized dice game - [http://kmdice.bet/](http://kmdice.bet/)
+  - DiceCC GUI in Python - [https://github.com/tonymorony/DiceCC-GUI](https://github.com/tonymorony/DiceCC-GUI)
+  - KMDice Remote GUI Windows - [https://www.virustotal.com/#/file/1a982d48b6a57d0af5cb5fce71e4c36b6b319847e72a5fc4a4f8f1a0e5d18aca/detection](https://www.virustotal.com/#/file/1a982d48b6a57d0af5cb5fce71e4c36b6b319847e72a5fc4a4f8f1a0e5d18aca/detection)
+- Dilithium
+  - Dilitium Quantum Security Article - [https://komodoplatform.com/dilithium-quantum-secure-blockchain/](https://komodoplatform.com/dilithium-quantum-secure-blockchain/)
+- Faucet
+  - Live Faucet Using PoW to prevent spamming - [https://www.atomicexplorer.com/#/faucet/rick](https://www.atomicexplorer.com/#/faucet/rick)
+- Games
+  - Antara gaming SDK - [https://github.com/KomodoPlatform/antara-gaming-sdk/tree/0.0.1](https://github.com/KomodoPlatform/antara-gaming-sdk/tree/0.0.1)
+- Gateways
+  - Gateways CC Creation TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/gateways_creation_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/gateways_creation_tui.py)
+  - Gateways CC Usage TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/gateways_usage_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/gateways_usage_tui.py)
+- Heir
+- Marmara
+  - Marmara TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/marmara_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/marmara_tui.py)
+- MoMoM
+- Musig
+- Oracles
+  - Live demo of Oracles CC module - [http://oracle.earth/](http://oracle.earth/)
+  - GPS tracking a wandering hound with Particle.io via Komodo cryptoconditions oracles, displayed on Leaflet. Source code: [https://github.com/smk762/Dragonhound](https://github.com/smk762/Dragonhound)
+   - [https://www.dragonhound.tech/](https://www.dragonhound.tech/)
+  - Oracle Creator via Browser - [https://oracle.earth/create_oracle/](https://oracle.earth/create_oracle/)
+  - List of Active Oracles - [https://oracle.earth/oracles_list/](https://oracle.earth/oracles_list/)
+  - Oracles CC TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/oracles_cc_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/oracles_cc_tui.py)
+  - Oracles CC TrollBox in Python (Chat) - [https://github.com/tonymorony/OraclesCC_Chat-GUI](https://github.com/tonymorony/OraclesCC_Chat-GUI)
+- Payments
+  - Payments CC TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/payments_cc_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/payments_cc_tui.py)
+- Pegs
+  - Pegs Explainer - [https://github.com/Mixa84/komodo/wiki/Pegs-CC](https://github.com/Mixa84/komodo/wiki/Pegs-CC)
+  - Pegs CC Creation TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/pegs_creation_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/pegs_creation_tui.py)
+  - Pegs CC Usage TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/pegs_usage_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/pegs_usage_tui.py)
+- Prices
+  - Synthetic Prices Betting Game - [https://docs.google.com/document/d/1O5hJ_ZeBWK-xP3f3RM48ruG3mOlsPbbLcXjyqtn0Oew/edit](https://docs.google.com/document/d/1O5hJ_ZeBWK-xP3f3RM48ruG3mOlsPbbLcXjyqtn0Oew/edit)
+  - Prices CC App2 in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/prices_app_v2.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/prices_app_v2.py)
+  - Prices CC Visualization in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/prices_visualization_server.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/prices_visualization_server.py)
+  - Prices CC Rekt Inspector in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/rekt_inspector.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/rekt_inspector.py)
+  - Live Synthetic Price Feed - [http://159.69.45.70:8050/](http://159.69.45.70:8050/)
+  - Live Synthetic Price Feed 2 - [http://kmd.money:8050/](http://kmd.money:8050/)
+- Rewards
+- Rogue
+  - Rogue Game TUI in Python - [https://github.com/KomodoPlatform/komodo/wiki/Get-Started-with-Rogue-Game](https://github.com/KomodoPlatform/komodo/wiki/Get-Started-with-Rogue-Game)
+  - Rogue Game TUI Python in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/rogue_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/rogue_tui.py)
+- Sudoku
+  - Sudoku Game GUI - [https://github.com/tonymorony/Komodoku](https://github.com/tonymorony/Komodoku)
+- Tetris
+  - Tetris CC TUI in Python - [https://github.com/tonymorony/komodo-cctools-python/blob/master/tetris_tui.py](https://github.com/tonymorony/komodo-cctools-python/blob/master/tetris_tui.py)
+- Chat
+  - On chain real time chat for KMD Smart Chains - [https://github.com/KMDLabs/trollbox](https://github.com/KMDLabs/trollbox)
+  - On chain TrollBox in Browser - [https://www.atomicexplorer.com/#/trollbox](https://www.atomicexplorer.com/#/trollbox)
+
+## Proof of Concept
+
+- Scripts to create a Komodo Smart Chain using a single node for testing (Has automated explorer installation too) - [https://github.com/gcharang/create-smartchain](https://github.com/gcharang/create-smartchain)
+- Integrated development environment and SDK - [https://github.com/imylomylo/komodo-cakeshop](https://github.com/imylomylo/komodo-cakeshop)
+- Python CLI wrapper, tradebot and TUI for Marketmaker2 - [https://github.com/smk762/pytomicDEX](https://github.com/smk762/pytomicDEX)
+
 ## KMDLabs
 
-- [https://github.com/KMDLabs/StakedNotary](https://github.com/KMDLabs/StakedNotary) - scripts to easily run a Staked Notary
-- [https://github.com/KMDLabs/pos64staker](https://github.com/KMDLabs/pos64staker) - An automated staker for PoS Smart Chains, has an auto bootstrapper, and a dilithium menu
-- [https://github.com/smk762/DragonhoundTools](https://github.com/smk762/DragonhoundTools) - random assortment of python scripts for use in the Komodo ecosystem (Antara Modules, MarketMaker 2, Notary Node ops)
+- Scripts to easily run a Staked Notary - [https://github.com/KMDLabs/StakedNotary](https://github.com/KMDLabs/StakedNotary)
+- Automated staker for PoS Smart Chains, has an auto bootstrapper, and a dilithium menu - [https://github.com/KMDLabs/pos64staker](https://github.com/KMDLabs/pos64staker)
+- Assortment of Python scripts for use in the Komodo ecosystem (Antara Modules, MarketMaker 2, Notary Node ops) - [https://github.com/smk762/DragonhoundTools](https://github.com/smk762/DragonhoundTools)
+- KMDLabs Notarization Test Results - [https://oracle.earth/labs_ntx_graph/?chain=labs](https://oracle.earth/labs_ntx_graph/?chain=labs)
 
+## Ledger reward claim
+
+- Atomic Labs - [https://atomiclabs.github.io/ledger-kmd-reward-claim/](https://atomiclabs.github.io/ledger-kmd-reward-claim/)
+  - Source Code: [https://github.com/atomiclabs/ledger-kmd-reward-claim](https://github.com/atomiclabs/ledger-kmd-reward-claim)
+- Magnum Wallet - [https://magnumwallet.co/](https://magnumwallet.co/)
+  - Source Code: Closed Source, use at your own risk.
+
+## Guides for Notary Nodes
+
+- [https://github.com/chainstrike/nntools/tree/master/guides](https://github.com/chainstrike/nntools/tree/master/guides)
+- Candidate Proposals - [https://github.com/KomodoPlatform/NotaryNodes](https://github.com/KomodoPlatform/NotaryNodes)
+- [https://github.com/goldenman-kmd/komodo-utils](https://github.com/goldenman-kmd/komodo-utils)
+- Notary Node requirements and guidelines - [https://komodoelection.com/](https://komodoelection.com/)
 
 ## Notary stats
 
 - [https://notarystats.info](https://notarystats.info)
 - [https://komodostats.com/](https://komodostats.com/)
+- [https://komodoelection.com/3-election-results/live-results-2019/](https://komodoelection.com/3-election-results/live-results-2019/)
 
-## Guides for Notary Nodes
+## Mining Software
 
-- [https://github.com/chainstrike/nntools/tree/master/guides](https://github.com/chainstrike/nntools/tree/master/guides)
-- [https://github.com/KomodoPlatform/NotaryNodes](https://github.com/KomodoPlatform/NotaryNodes) - Candidate Proposals
-- [https://github.com/goldenman-kmd/komodo-utils](https://github.com/goldenman-kmd/komodo-utils)
+- NOMP based stratum for the Komodo platform; it works with any possible Smart Chain as long as the daemon itself is able to mine blocks - [https://github.com/blackjok3rtt/knomp](https://github.com/blackjok3rtt/knomp)
+- EWBF's CUDA Zcash miner - [https://bitcointalk.org/index.php?topic=1707546.0](https://bitcointalk.org/index.php?topic=1707546.0)
+- Local stratum pool for solo mining Komodo - [https://github.com/TheComputerGenie/KMD-solo-mining](https://github.com/TheComputerGenie/KMD-solo-mining)
+- [https://github.com/himu007/OptiminerEquihash](https://github.com/himu007/OptiminerEquihash)
 
 ## Explorers and Other tools
 
 - [https://kmdexplorer.io](https://kmdexplorer.io)
 - [https://dexstats.info](https://dexstats.info)
 - [https://www.komodod.com/](https://www.komodod.com/)
-
-## Mining Software
-
-- [https://github.com/blackjok3rtt/knomp](https://github.com/blackjok3rtt/knomp) - A NOMP based stratum for the Komodo platform; it works with any possible Smart Chain as long as the daemon itself is able to mine blocks
-- [https://bitcointalk.org/index.php?topic=1707546.0](https://bitcointalk.org/index.php?topic=1707546.0) - EWBF's CUDA Zcash miner
-- [https://github.com/TheComputerGenie/KMD-solo-mining](https://github.com/TheComputerGenie/KMD-solo-mining) - A local stratum pool for solo mining Komodo
-- [https://github.com/himu007/OptiminerEquihash](https://github.com/himu007/OptiminerEquihash)
+- [https://www.atomicexplorer.com/](https://www.atomicexplorer.com/)
 
 ## Miscellaneous
 
-- [https://github.com/n41r0j/airdrop](https://github.com/n41r0j/airdrop) - an Airdrop + Snapshot tool, written in Rust
-- [https://github.com/libscott/libcryptoconditions](https://github.com/libscott/libcryptoconditions) - Interledger crypto-conditions implemented in C, including simple JSON api
-- [https://github.com/libscott/hoek](https://github.com/libscott/hoek) - Komodo clientside tools
+- Airdrop + Snapshot tool, written in Rust - [https://github.com/n41r0j/airdrop](https://github.com/n41r0j/airdrop)
+- Interledger crypto-conditions implemented in C, including simple JSON API - [https://github.com/libscott/libcryptoconditions](https://github.com/libscott/libcryptoconditions)
+- Komodo clientside tools - [https://github.com/libscott/hoek](https://github.com/libscott/hoek)
 - [Setup Bob/Marketmaker nodes using easy scripts by @blackjok3r](https://github.com/blackjok3rtt/BOB_scripts)
-
-## Ledger reward claim
-
-- [https://atomiclabs.github.io/ledger-kmd-reward-claim/](https://atomiclabs.github.io/ledger-kmd-reward-claim/) - by Atomic Labs
-  - Source Code: [https://github.com/atomiclabs/ledger-kmd-reward-claim](https://github.com/atomiclabs/ledger-kmd-reward-claim)
-- [https://magnumwallet.co/](https://magnumwallet.co/) - Closed Source, use at your own risk.
+- Scripts toolbox repository for Komodo and Iguana - [https://github.com/KomodoPlatform/komodotools](https://github.com/KomodoPlatform/komodotools)
+- Scripts that help with staking on a Komodo Smart Chain. - [https://github.com/KMDLabs/PoS_scripts](https://github.com/KMDLabs/PoS_scripts)
+- A set of komodo helper scripts - [https://github.com/DeckerSU/komodo_scripts](https://github.com/DeckerSU/komodo_scripts)
+- Script to install an explorer for any Komodo Smart Chain [https://github.com/gcharang/komodo-install-explorer](https://github.com/gcharang/komodo-install-explorer)
