@@ -83,11 +83,11 @@ sudo apt-get install -y build-essential git llvm-3.9-dev libclang-3.9-dev clang-
 Install additional Rust components:
 
 ```bash
-rustup install nightly-2019-08-05
+rustup install nightly-2019-10-06
 ```
 
 ```bash
-rustup default nightly-2019-08-05
+rustup default nightly-2019-10-06
 ```
 
 ```bash

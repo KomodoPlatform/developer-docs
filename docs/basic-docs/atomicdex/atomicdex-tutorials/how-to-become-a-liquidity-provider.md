@@ -121,27 +121,30 @@ source $HOME/.cargo/env
 ##### Command
 
 ```bash
-rustup install nightly-2019-08-05
+rustup install nightly-2019-10-06
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup install nightly-2019-08-05
-info: syncing channel updates for 'nightly-2019-08-05-x86_64-unknown-linux-gnu'
-info: latest update on 2019-08-05, rust version 1.38.0-nightly (d3f8a0b5d 2019-08-04)
+$ rustup install nightly-2019-10-06
+info: syncing channel updates for 'nightly-2019-10-06-x86_64-unknown-linux-gnu'
+info: latest update on 2019-10-06, rust version 1.40.0-nightly (787005079 2019-10-04)
 info: downloading component 'rustc'
+ 65.7 MiB /  65.7 MiB (100 %)  10.6 MiB/s ETA:   0 s                
 info: downloading component 'rust-std'
+173.8 MiB / 173.8 MiB (100 %)  10.9 MiB/s ETA:   0 s                
 info: downloading component 'cargo'
+  4.7 MiB /   4.7 MiB (100 %)   1.7 MiB/s ETA:   0 s                
 info: downloading component 'rust-docs'
+ 11.7 MiB /  11.7 MiB (100 %)   1.8 MiB/s ETA:   0 s                
 info: installing component 'rustc'
 info: installing component 'rust-std'
 info: installing component 'cargo'
 info: installing component 'rust-docs'
 
-  nightly-2019-08-05-x86_64-unknown-linux-gnu installed - rustc 1.38.0-nightly (d3f8a0b5d 2019-08-04)
+  nightly-2019-10-06-x86_64-unknown-linux-gnu installed - rustc 1.40.0-nightly (787005079 2019-10-04)
 
-info: checking for self-updates
 
 ```
 
@@ -150,17 +153,17 @@ info: checking for self-updates
 ##### Command
 
 ```bash
-rustup default nightly-2019-08-05
+rustup default nightly-2019-10-06
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup default nightly-2019-08-05
-info: using existing install for 'nightly-2019-08-05-x86_64-unknown-linux-gnu'
-info: default toolchain set to 'nightly-2019-08-05-x86_64-unknown-linux-gnu'
+$ rustup default nightly-2019-10-06
+info: using existing install for 'nightly-2019-10-06-x86_64-unknown-linux-gnu'
+info: default toolchain set to 'nightly-2019-10-06-x86_64-unknown-linux-gnu'
 
-  nightly-2019-08-05-x86_64-unknown-linux-gnu unchanged - rustc 1.38.0-nightly (d3f8a0b5d 2019-08-04)
+  nightly-2019-10-06-x86_64-unknown-linux-gnu unchanged - rustc 1.40.0-nightly (787005079 2019-10-04)
 
 ```
 
