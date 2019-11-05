@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Dilithium Antara Module facilitates quantum-resistant transactions on a Komodo Smart Chain. The module also allows users to create unique, human-readable handles. These handles can be thought of as an address. 
+The Dilithium Antara Module facilitates quantum-resistant transactions on a Komodo Smart Chain. The module also allows users to create unique, human-readable handles. These handles can be thought of as an address.
 
 For example, a normal blockchain address may appear as follows.
 
@@ -24,7 +24,7 @@ These parameters allow for more than one protocol to influence the outcome of a 
 
 Similarly, a Dilithium-related transaction on a Smart Chain is influenced by both the Bitcoin-based utxo protocol, and the Dilithium protocol. Dilithium's added functionality is quantum resistance, whereas Zcash's added functionality is privacy.
 
-Dilithium has "q addresses" (handles) and "q transactions." 
+Dilithium has "q addresses" (handles) and "q transactions."
 
 Once again, this can be compared to the familiar "z addresses" and "z transactions" of a Zcash-related transaction on a Komodo Smart Chain.
 
@@ -50,29 +50,29 @@ Use this method to determine if any given `handle` is available for the user to 
 
 #### Arguments
 
-| Name   | Type     | Description                                   |
-| ------ | -------- | --------------------------------------------- |
+| Name   | Type     | Description                            |
+| ------ | -------- | -------------------------------------- |
 | handle | (string) | the handle the user desires to inspect |
 
 #### Response
 
 ##### When a handle is available
 
-| Name   | Type     | Description                               |
-| ------ | -------- | ----------------------------------------- |
-| result | (string) | whether the call executed successfully    |
+| Name   | Type     | Description                            |
+| ------ | -------- | -------------------------------------- |
+| result | (string) | whether the call executed successfully |
 | handle | (string) | the handle the user desires to inspect |
-| status | (string) | whether the handle is available         |
+| status | (string) | whether the handle is available        |
 
 ##### When a handle is already registered by the node executing the command
 
-| Name        | Type     | Description                                                          |
-| ----------- | -------- | -------------------------------------------------------------------- |
-| result      | (string) | whether the call executed successfully                               |
-| handle      | (string) | the handle                                                           |
+| Name        | Type     | Description                                                 |
+| ----------- | -------- | ----------------------------------------------------------- |
+| result      | (string) | whether the call executed successfully                      |
+| handle      | (string) | the handle                                                  |
 | destpubtxid | (string) | the transaction id generated when the handle was registered |
-| pkaddr      | (string) | the hashed representation of the Dilithium pubkey                    |
-| pubkey      | (string) | the pubkey of the node that registered the handle                  |
+| pkaddr      | (string) | the hashed representation of the Dilithium pubkey           |
+| pubkey      | (string) | the pubkey of the node that registered the handle           |
 
 #### :pushpin: Examples
 
@@ -148,15 +148,15 @@ If no `hexseed` is provided, the module uses the user's pubkey seed for entropy 
 
 #### Response
 
-| Name    | Type     | Description                                                                                              |
-| ------- | -------- | -------------------------------------------------------------------------------------------------------- |
-| status  | (string) | the quality of the seed used                                                                             |
+| Name    | Type     | Description                                                                                                                                                      |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| status  | (string) | the quality of the seed used                                                                                                                                     |
 | seed    | (string) | either the seed provided by the user or (if no seed was provided of the provided seed does not satisfy the requirements) this value is a randomly generated seed |
-| pubkey  | (string) | the Dilithium pubkey generated                                                                           |
-| privkey | (string) | the Dilithium private key generated                                                                          |
-| pkaddr  | (string) | the hashed representation of the Dilithium pubkey                                                        |
-| skaddr  | (string) | the hashed representation of the Dilithium privkey                                                       |
-| result  | (string) | whether the call executed successfully                                                                   |
+| pubkey  | (string) | the Dilithium pubkey generated                                                                                                                                   |
+| privkey | (string) | the Dilithium private key generated                                                                                                                              |
+| pkaddr  | (string) | the hashed representation of the Dilithium pubkey                                                                                                                |
+| skaddr  | (string) | the hashed representation of the Dilithium privkey                                                                                                               |
+| result  | (string) | whether the call executed successfully                                                                                                                           |
 
 #### :pushpin: Examples
 
@@ -197,20 +197,20 @@ Multiple pairs of `"destpubtxid",amount` can be appended to the array to specify
 
 #### Arguments
 
-| Name             | Type     | Description                                                          |
-| ---------------- | -------- | -------------------------------------------------------------------- |
+| Name             | Type     | Description                                                        |
+| ---------------- | -------- | ------------------------------------------------------------------ |
 | mypubtxid        | (string) | the id of the handle-registration transaction of the sender        |
 | hexseed/'mypriv' | (string) | the seed used to register the handle                               |
 | destpubtxid      | (string) | the the id of the handle-registration transaction of the recepient |
-| amount           | (number) | the amount of coins to send to the referred handle         |
+| amount           | (number) | the amount of coins to send to the referred handle                 |
 
 #### Response
 
-| Name   | Type     | Description                                                           |
-| ------ | -------- | --------------------------------------------------------------------- |
-| hex    | (string) | the hex to broadcast; use the <b>sendrawtransaction</b> method                                    |
-| txid   | (string) | the transaction id generated when the hex is broadcast |
-| result | (string) | whether the call executed successfully                                |
+| Name   | Type     | Description                                                    |
+| ------ | -------- | -------------------------------------------------------------- |
+| hex    | (string) | the hex to broadcast; use the <b>sendrawtransaction</b> method |
+| txid   | (string) | the transaction id generated when the hex is broadcast         |
+| result | (string) | whether the call executed successfully                         |
 
 #### :pushpin: Examples
 
@@ -275,14 +275,14 @@ This method requires a valid `seed`, as provided from the [<b>keypair</b>](../..
 
 #### Response
 
-| Name   | Type     | Description                                                           |
-| ------ | -------- | --------------------------------------------------------------------- |
-| handle | (string) | the handle registered                                                 |
-| pkaddr | (string) | the hashed representation of the Dilithium pubkey                     |
-| skaddr | (string) | the hashed representation of the Dilithium privkey                    |
-| hex    | (string) | the hex that should be broadcast to register the handle               |
+| Name   | Type     | Description                                              |
+| ------ | -------- | -------------------------------------------------------- |
+| handle | (string) | the handle registered                                    |
+| pkaddr | (string) | the hashed representation of the Dilithium pubkey        |
+| skaddr | (string) | the hashed representation of the Dilithium privkey       |
+| hex    | (string) | the hex that should be broadcast to register the handle  |
 | txid   | (string) | the transaction id generated when the hex is broadcasted |
-| result | (string) | whether the call executed successfully                                |
+| result | (string) | whether the call executed successfully                   |
 
 #### :pushpin: Examples
 
@@ -341,20 +341,20 @@ The `send` method sends the specified amount of coins to a `handle` associated w
 
 #### Arguments
 
-| Name    | Type     | Description                                     |
-| ------- | -------- | ----------------------------------------------- |
+| Name    | Type     | Description                                   |
+| ------- | -------- | --------------------------------------------- |
 | handle  | (string) | the recipient's handle                        |
 | pubtxid | (string) | the id of the handle-registration transaction |
-| amount  | (number) | the amount of coins to send                  |
+| amount  | (number) | the amount of coins to send                   |
 
 #### Response
 
-| Name   | Type     | Description                                                           |
-| ------ | -------- | --------------------------------------------------------------------- |
-| handle | (string) | the recipient's handle                                              |
-| hex    | (string) | the transaction hex; broadcast this using the <b>sendrawtransaction</b> method                        |
-| txid   | (string) | the transaction id generated when the hex is broadcast |
-| result | (string) | whether the call executed successfully                                |
+| Name   | Type     | Description                                                                    |
+| ------ | -------- | ------------------------------------------------------------------------------ |
+| handle | (string) | the recipient's handle                                                         |
+| hex    | (string) | the transaction hex; broadcast this using the <b>sendrawtransaction</b> method |
+| txid   | (string) | the transaction id generated when the hex is broadcast                         |
+| result | (string) | whether the call executed successfully                                         |
 
 #### :pushpin: Examples
 
@@ -411,8 +411,8 @@ The `sign` method signs a given 32 byte `msg` (message) in hex format using the 
 
 #### Arguments
 
-| Name    | Type     | Description                         |
-| ------- | -------- | ----------------------------------- |
+| Name    | Type     | Description                    |
+| ------- | -------- | ------------------------------ |
 | msg     | (string) | the 32 byte hexmessage to sign |
 | hexseed | (string) | the seed to sign the message   |
 
@@ -420,7 +420,7 @@ The `sign` method signs a given 32 byte `msg` (message) in hex format using the 
 
 | Name      | Type     | Description                                        |
 | --------- | -------- | -------------------------------------------------- |
-| msg32     | (string) | the signed message                   |
+| msg32     | (string) | the signed message                                 |
 | pkaddr    | (string) | the hashed representation of the Dilithium pubkey  |
 | skaddr    | (string) | the hashed representation of the Dilithium privkey |
 | signature | (string) | the signature generated                            |
@@ -465,19 +465,19 @@ The `spend` method spends the coins recieved in the transaction of id `sendtxid`
 
 #### Arguments
 
-| Name         | Type     | Description                                                                                 |
-| ------------ | -------- | ------------------------------------------------------------------------------------------- |
-| sendtxid     | (string) | the id of the transaction that sent coins to the handle associated with the seed supplied |
-| scriptPubKey | (string) | the [scriptPubkey](../../../basic-docs/antara/antara-api/musig.html#calcmsg) to which the coins are to be spent            |
-| hexseed      | (string) | the seed used to register the handle which holds the funds                                |
+| Name         | Type     | Description                                                                                                     |
+| ------------ | -------- | --------------------------------------------------------------------------------------------------------------- |
+| sendtxid     | (string) | the id of the transaction that sent coins to the handle associated with the seed supplied                       |
+| scriptPubKey | (string) | the [scriptPubkey](../../../basic-docs/antara/antara-api/musig.html#calcmsg) to which the coins are to be spent |
+| hexseed      | (string) | the seed used to register the handle which holds the funds                                                      |
 
 #### Response
 
-| Name   | Type     | Description                                                           |
-| ------ | -------- | --------------------------------------------------------------------- |
-| hex    | (string) | the hex to broadcast; use the <b>sendrawtransaction</b> method                                    |
-| txid   | (string) | the transaction id generated when the hex is broadcast |
-| result | (string) | whether the call executed successfully                                |
+| Name   | Type     | Description                                                    |
+| ------ | -------- | -------------------------------------------------------------- |
+| hex    | (string) | the hex to broadcast; use the <b>sendrawtransaction</b> method |
+| txid   | (string) | the transaction id generated when the hex is broadcast         |
+| result | (string) | whether the call executed successfully                         |
 
 #### :pushpin: Examples
 
@@ -535,18 +535,18 @@ The returned `handle` is directly associated with the same `pubtxid`.
 
 #### Arguments
 
-| Name    | Type     | Description                                     |
-| ------- | -------- | ----------------------------------------------- |
+| Name    | Type     | Description                                   |
+| ------- | -------- | --------------------------------------------- |
 | pubtxid | (string) | the id of the handle-registration transaction |
-| msg     | (string) | the signed message                |
-| sig     | (string) | the signature generated                         |
+| msg     | (string) | the signed message                            |
+| sig     | (string) | the signature generated                       |
 
 #### Response
 
 | Name    | Type     | Description                                                                 |
 | ------- | -------- | --------------------------------------------------------------------------- |
 | sighash | (string) | the hash of the signature                                                   |
-| msg32   | (string) | the signed message                                            |
+| msg32   | (string) | the signed message                                                          |
 | handle  | (string) | the handle that was registered with the seed used to sign the message       |
 | pkaddr  | (string) | the hashed representation of the Dilithium pubkey corresponding to the seed |
 | result  | (string) | whether the call executed successfully                                      |
@@ -578,5 +578,3 @@ The returned `handle` is directly associated with the same `pubtxid`.
 </collapse-text>
 
 </div>
-
-

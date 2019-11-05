@@ -206,7 +206,7 @@ Having completed the Beginner Series, the reader is now prepared to use the term
 
 The Smart Chain API Basics tutorial walks the reader through many of the common commands and Remote Procedure Calls (RPCs) and assists the reader in becoming comfortable in the Komodo environment.
 
-[<b>Link to Smart Chain API Basics Tutorial</b>](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html)
+[<b>Link to Smart Chain API Basics Tutorial</b>](../../../basic-docs/smart-chains/smart-chain-tutorials/smart-chain-api-basics.html#api-tutorials-introduction)
 
 ## Step 6: Enhance Your Development Environment and Experience
 
@@ -225,8 +225,6 @@ The following tutorials are optional, but we still recommend that the developer 
 ##### Basic Environment Setup for Linux VPS
 
 Many, if not most, developers in the Komodo ecosystem use a Linux-based Virtual Private Server (VPS) to build software. Working on a VPS simplifies many aspects of the development process, as the VPS grants the developer a disposable and rapidly customizable environment for troubleshooting.
-
-There are free VPS services available and links are provided.
 
 [<b>Link to Basic Environment Setup for Linux</b>](../../../basic-docs/smart-chains/smart-chain-tutorials/basic-environment-setup-for-linux-vps.html#introduction)
 

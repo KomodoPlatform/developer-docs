@@ -27,18 +27,18 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 ### Arguments
 
-| Name | Type | Description | 
-| ----------- | -------- | ----------------------------------------------------------------- |
-| name        | (string) | the desired name of your rewards plan                             |
+| Name        | Type     | Description                                                   |
+| ----------- | -------- | ------------------------------------------------------------- |
+| name        | (string) | the desired name of your rewards plan                         |
 | fundingtxid | (string) | the txid of the transaction that created and funded this plan |
 | amount      | (number) | the amount of funds to add to the plan                        |
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name   | Type     | Description                                                                                          |
+| ------ | -------- | ---------------------------------------------------------------------------------------------------- |
+| result | (string) | whether the command succeeded                                                                        |
+| hex    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -48,9 +48,7 @@ Step 1: Create a raw transaction and get the HEX value
 ./komodo-cli -ac_name=HELLOWORLD rewardsaddfunding FREE e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd 100
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -61,6 +59,28 @@ Step 1: Create a raw transaction and get the HEX value
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"rewardsaddfunding", "params":["FREE" ,"e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd" ,"100"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": {
+    "result": "success",
+    "hex": "0100000001bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e00200000048473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401ffffffff0300e40b5402000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401ccd05eefb1fe080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 Step 2: Broadcast raw transaction
 
@@ -68,12 +88,30 @@ Step 2: Broadcast raw transaction
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0100000001bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e00200000048473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401ffffffff0300e40b5402000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401ccd05eefb1fe080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 008ca94eebce8dbfa91491028c8861016ad4c25240f9ddc5616f2fb0853da580
+```
+
+</collapse-text>
+
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["0100000001bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e00200000048473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401ffffffff0300e40b5402000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401ccd05eefb1fe080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "008ca94eebce8dbfa91491028c8861016ad4c25240f9ddc5616f2fb0853da580",
+  "error": null,
+  "id": "curltest"
+}
 ```
 
 </collapse-text>
@@ -84,9 +122,7 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 ./komodo-cli -ac_name=ATEST decoderawtransaction 0100000001bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e00200000048473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401ffffffff0300e40b5402000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401ccd05eefb1fe080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -147,6 +183,78 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"decoderawtransaction", "params":["0100000001bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e00200000048473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401ffffffff0300e40b5402000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401ccd05eefb1fe080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": {
+    "txid": "008ca94eebce8dbfa91491028c8861016ad4c25240f9ddc5616f2fb0853da580",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd",
+        "vout": 2,
+        "scriptSig": {
+          "asm": "3044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a4[ALL]",
+          "hex": "473044022050ab254c7498e411ab5360551148405c4afff28d68729e2bd00ba2508ab105d402204067ab95020d606c35d3604d4385dcb97c899a06aa8bf8ce30471fb7868ac7a401"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 100.0,
+        "valueZat": 10000000000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "a22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK"]
+        }
+      },
+      {
+        "value": 98899.9997,
+        "valueZat": 9889999970000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+          "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "OP_RETURN e5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e0",
+          "hex": "6a2ae5414652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e0",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 ## rewardsaddress
 
@@ -156,22 +264,22 @@ The `rewardsaddress` method returns info about the `rewards` plan associated wit
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ------------------ | -------------------------------------------------------------------------------------- |
-| pubkey    | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
+| Name   | Type               | Description                                                                            |
+| ------ | ------------------ | -------------------------------------------------------------------------------------- |
+| pubkey | (string, optional) | the pubkey of the requested info; by default it is the pubkey used to launch the chain |
 
 ### Response
 
-| Name | Type | Description | 
-| ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
-| result           | (string) | whether the method executed successfully                                                                             |
+| Name             | Type     | Description                                                                                                    |
+| ---------------- | -------- | -------------------------------------------------------------------------------------------------------------- |
+| result           | (string) | whether the method executed successfully                                                                       |
 | RewardsCCaddress | (string) | taking the module's EVAL code as a modifier, this is the public address that corresponds to the plan's privkey |
-| Rewardsmarker    | (string) | the unmodified public address generated from the plan's privkey                                                  |
-| GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                       |
-| RewardsCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                                     |
-| CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                    |
-| myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                    |
-| myaddress        | (string) | the public address of the pubkey used to launch the chain                                                            |
+| Rewardsmarker    | (string) | the unmodified public address generated from the plan's privkey                                                |
+| GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                 |
+| RewardsCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                               |
+| CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user            |
+| myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user            |
+| myaddress        | (string) | the public address of the pubkey used to launch the chain                                                      |
 
 #### :pushpin: Examples
 
@@ -181,25 +289,59 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD rewardsaddress 03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
   "result": "success",
-  "RewardsCCaddress": "RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK",
-  "Rewardsmarker": "RMgye9jeczNjQx9Uzq8no8pTLiCSwuHwkz",
-  "GatewaysPubkey": "03ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb40",
-  "RewardsCCassets": "RLh5sgvh3scCyM4aq1fhYhwgfbmb5SpCkT",
-  "CCaddress": "RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3",
-  "myCCaddress": "RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3",
-  "myaddress": "RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"
+  "RewardsCCAddress": "RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK",
+  "RewardsCCBalance": 0.0,
+  "RewardsNormalAddress": "RMgye9jeczNjQx9Uzq8no8pTLiCSwuHwkz",
+  "RewardsNormalBalance": 0.0,
+  "RewardsCCTokensAddress": "RUL6YTCQKuoB5AAFfNTxG1655qMuzwM4G9",
+  "PubkeyCCaddress(Rewards)": "RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3",
+  "PubkeyCCbalance(Rewards)": 0.0,
+  "myCCAddress(Rewards)": "RWzkiCssRy3qwevUF1YsMS1QifRncrsWiK",
+  "myCCbalance(Rewards)": 0.0,
+  "myaddress": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
+  "mybalance": 0.0
 }
 ```
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"rewardsaddress", "params":["03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": {
+    "result": "success",
+    "RewardsCCAddress": "RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK",
+    "RewardsCCBalance": 0.0,
+    "RewardsNormalAddress": "RMgye9jeczNjQx9Uzq8no8pTLiCSwuHwkz",
+    "RewardsNormalBalance": 0.0,
+    "RewardsCCTokensAddress": "RUL6YTCQKuoB5AAFfNTxG1655qMuzwM4G9",
+    "PubkeyCCaddress(Rewards)": "RJdwcBsoWwmt9dtSqyFCULNW2F3zj2mcD3",
+    "PubkeyCCbalance(Rewards)": 0.0,
+    "myCCAddress(Rewards)": "RWzkiCssRy3qwevUF1YsMS1QifRncrsWiK",
+    "myCCbalance(Rewards)": 0.0,
+    "myaddress": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
+    "mybalance": 0.0
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 ## rewardscreatefunding
 
@@ -217,7 +359,7 @@ If you create a plan with <b>mindeposit: 10000</b>, make sure to also add 10000 
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name       | Type     | Description                                                 |
 | ---------- | -------- | ----------------------------------------------------------- |
 | name       | (string) | the desired name of your rewards plan                       |
 | amount     | (number) | the amount of seed funds to withdraw from your wallet       |
@@ -228,10 +370,10 @@ If you create a plan with <b>mindeposit: 10000</b>, make sure to also add 10000 
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                        |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                        |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the command |
 
 #### :pushpin: Examples
 
@@ -241,9 +383,7 @@ Step 1: Create raw transaction HEX using your own parameter
 ./komodo-cli -ac_name=HELLOWORLD rewardscreatefunding FREE 1000 5 1 10 10
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -254,6 +394,28 @@ Step 1: Create raw transaction HEX using your own parameter
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"rewardscreatefunding", "params":["FREE" ,"1000" ,"5" ,"1" ,"10" ,"10"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": {
+    "result": "success",
+    "hex": "010000000104f2435046f3ad452e76e53ec01429ae4f49d3322e8cc96da96b9e35d6ada70e0000000049483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ace069fb0501090000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 Step 2: Broadcast/send the raw hex/transaction. This will output the txid which is the fundingtxid, also called the rewards plan id.
 
@@ -261,9 +423,7 @@ Step 2: Broadcast/send the raw hex/transaction. This will output the txid which 
 ./komodo-cli -ac_name=ATEST sendrawtransaction 010000000104f2435046f3ad452e76e53ec01429ae4f49d3322e8cc96da96b9e35d6ada70e0000000049483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ace069fb0501090000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd
@@ -271,6 +431,25 @@ e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["010000000104f2435046f3ad452e76e53ec01429ae4f49d3322e8cc96da96b9e35d6ada70e0000000049483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ace069fb0501090000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd",
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 Step 3: Decode the raw transaction (optional to check if the values are sane)
 
@@ -278,9 +457,7 @@ Step 3: Decode the raw transaction (optional to check if the values are sane)
 ./komodo-cli -ac_name=ATEST decoderawtransaction 010000000104f2435046f3ad452e76e53ec01429ae4f49d3322e8cc96da96b9e35d6ada70e0000000049483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ace069fb0501090000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -353,6 +530,90 @@ Step 3: Decode the raw transaction (optional to check if the values are sane)
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"decoderawtransaction", "params":["010000000104f2435046f3ad452e76e53ec01429ae4f49d3322e8cc96da96b9e35d6ada70e0000000049483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01ffffffff0400e8764817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ace069fb0501090000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b0000000000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": {
+    "txid": "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "0ea7add6359e6ba96dc98c2e32d3494fae2914c03ee5762e45adf3465043f204",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "3045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe[ALL]",
+          "hex": "483045022100ebd06f60dea0e1fbfc82fdb1f17ca265c63bae51cd2db558946871513f64453902207d4d39b2418a5206bd7ef4efb9130f93f304577e0c84cc79be4e8abe0c8b22fe01"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 1000.0,
+        "valueZat": 100000000000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "a22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK"]
+        }
+      },
+      {
+        "value": 0.0001,
+        "valueZat": 10000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "03da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9 OP_CHECKSIG",
+          "hex": "2103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RMgye9jeczNjQx9Uzq8no8pTLiCSwuHwkz"]
+        }
+      },
+      {
+        "value": 98999.9998,
+        "valueZat": 9899999980000,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+          "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 3,
+        "scriptPubKey": {
+          "asm": "OP_RETURN e54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b00000000",
+          "hex": "6a2ae54646524545000000000065cd1d000000008051010000000000002f0d000000000000ca9a3b00000000",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 ## rewardsinfo
 
@@ -364,13 +625,13 @@ Use [rewardslist](../../../basic-docs/antara/antara-api/rewards.html#rewardslist
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                        |
 | ----------- | -------- | -------------------------------------------------- |
 | fundingtxid | (string) | the txid given on the creation of the rewards plan |
 
 ### Response
 
-| Name | Type | Description | 
+| Name       | Type     | Description                                                                 |
 | ---------- | -------- | --------------------------------------------------------------------------- |
 | name       | (string) | the name of the rewards plan                                                |
 | sbits      | (number) | a 64-bit int binary encoding of the first 8 characters of the name property |
@@ -379,6 +640,7 @@ Use [rewardslist](../../../basic-docs/antara/antara-api/rewards.html#rewardslist
 | maxseconds | (number) | the maximum number of seconds the funds will be locked                      |
 | mindeposit | (number) | the minimum deposit amount                                                  |
 | funding    | (number) | the total available funds in the rewards plan                               |
+| locked     | (number) | the total funds locked in the rewards plan                                  |
 
 #### :pushpin: Examples
 
@@ -388,9 +650,7 @@ Command:
 ./komodo-cli -ac_name=HELLOWORLD rewardsinfo e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -409,6 +669,36 @@ Command:
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"rewardsinfo", "params":["e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": {
+    "result": "success",
+    "fundingtxid": "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd",
+    "name": "FREE",
+    "sbits": 1162170950,
+    "APR": "5.00000000",
+    "minseconds": 86400,
+    "maxseconds": 864000,
+    "mindeposit": "10.00000000",
+    "funding": "1100.00000000",
+    "locked": "200.00000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 ## rewardslist
 
@@ -418,14 +708,14 @@ The `rewardslist` method lists the `fundingtxid`'s of all the rewards plans avai
 
 ### Arguments
 
-| Name | Type | Description | 
-| --------- | ---- | ----------- |
-| (none)    |      |
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |
 
 ### Response
 
-| Name | Type | Description | 
-| ----------- | -------- | ------------------------------------------------------------------------- |
+| Name        | Type     | Description                                                           |
+| ----------- | -------- | --------------------------------------------------------------------- |
 | fundingtxid | (string) | the txid of the transaction that created and funded the relevant plan |
 
 #### :pushpin: Examples
@@ -437,9 +727,7 @@ Command:
 
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 [
@@ -449,6 +737,27 @@ Command:
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"rewardslist", "params":[]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": [
+    "e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd"
+  ],
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 ## rewardslock
 
@@ -464,7 +773,7 @@ If the final `txid` is lost, it is possible to find it again. See [rewardsunlock
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type     | Description                                                                 |
 | ----------- | -------- | --------------------------------------------------------------------------- |
 | name        | (string) | the name of the rewards plan                                                |
 | fundingtxid | (string) | the txid that identifies the desired rewards plan                           |
@@ -472,10 +781,10 @@ If the final `txid` is lost, it is possible to find it again. See [rewardsunlock
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                                       |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the `diceaddfunds` command |
+| Name    | Type     | Description                                                                                                         |
+| ------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                                       |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the `diceaddfunds` command |
 
 #### :pushpin: Examples
 
@@ -485,9 +794,7 @@ Step 1: Create raw transaction
 ./komodo-cli -ac_name=HELLOWORLD rewardslock FREE e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd 200
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -498,6 +805,28 @@ Step 1: Create raw transaction
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"rewardslock", "params":["FREE" ,"e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd" ,"200"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": {
+    "result": "success",
+    "hex": "010000000180a53d85b02f6f61c5ddf94052c2d46a0161888c029114a9bf8dceeb4ea98c000100000049483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701ffffffff0400c817a804000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acb048d709fa080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 Step 2: Broadcast raw transaction
 
@@ -505,9 +834,7 @@ Step 2: Broadcast raw transaction
 ./komodo-cli -ac_name=ATEST sendrawtransaction 010000000180a53d85b02f6f61c5ddf94052c2d46a0161888c029114a9bf8dceeb4ea98c000100000049483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701ffffffff0400c817a804000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acb048d709fa080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263
@@ -515,6 +842,25 @@ Step 2: Broadcast raw transaction
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["010000000180a53d85b02f6f61c5ddf94052c2d46a0161888c029114a9bf8dceeb4ea98c000100000049483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701ffffffff0400c817a804000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acb048d709fa080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263",
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -522,9 +868,7 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 ./komodo-cli -ac_name=ATEST decoderawtransaction 010000000180a53d85b02f6f61c5ddf94052c2d46a0161888c029114a9bf8dceeb4ea98c000100000049483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701ffffffff0400c817a804000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acb048d709fa080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -597,6 +941,90 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"decoderawtransaction", "params":["010000000180a53d85b02f6f61c5ddf94052c2d46a0161888c029114a9bf8dceeb4ea98c000100000049483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701ffffffff0400c817a804000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc1027000000000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5acb048d709fa080000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": {
+    "txid": "494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "008ca94eebce8dbfa91491028c8861016ad4c25240f9ddc5616f2fb0853da580",
+        "vout": 1,
+        "scriptSig": {
+          "asm": "3045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef16097[ALL]",
+          "hex": "483045022100cf5581a6729eb0f37d03f0975dd6cfaca79ea08d380dae7df25b2335931bff5d02204feaf188f7f28d90c056a7b2bfa1f8d38fdf242c333470cf1e0cd3534ef1609701"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 200.0,
+        "valueZat": 20000000000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "a22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK"]
+        }
+      },
+      {
+        "value": 0.0001,
+        "valueZat": 10000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+          "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+        }
+      },
+      {
+        "value": 98699.9995,
+        "valueZat": 9869999950000,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+          "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 3,
+        "scriptPubKey": {
+          "asm": "OP_RETURN e54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e0",
+          "hex": "6a2ae54c4652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e0",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 ## rewardsunlock
 
@@ -633,7 +1061,7 @@ amount 200.00000000 -> reward 0.00000000
 
 ### Arguments
 
-| Name | Type | Description | 
+| Name        | Type               | Description                                                                                                                                                        |
 | ----------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | name        | (string)           | the name of the rewards plan                                                                                                                                       |
 | fundingtxid | (string)           | the txid that identifies the desired rewards plan                                                                                                                  |
@@ -641,10 +1069,10 @@ amount 200.00000000 -> reward 0.00000000
 
 ### Response
 
-| Name | Type | Description | 
-| --------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
-| result:   | (string) | whether the command succeeded                                                                                       |
-| hex:      | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the `diceaddfunds` command |
+| Name    | Type     | Description                                                                                                         |
+| ------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
+| result: | (string) | whether the command succeeded                                                                                       |
+| hex:    | (string) | a raw transaction in hex-encoded format; you must broadcast this transaction to complete the `diceaddfunds` command |
 
 #### :pushpin: Examples
 
@@ -654,9 +1082,7 @@ Step 1: Create raw transaction
 ./komodo-cli -ac_name=HELLOWORLD rewardsunlock FREE e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd 494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -667,6 +1093,28 @@ Step 1: Create raw transaction
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"rewardsunlock", "params":["FREE" ,"e020151cd81647b20aa45a0e6850216ae52d3e895443bbe1ae97dea3ae6767bd" ,"494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": {
+    "result": "success",
+    "hex": "01000000026302ec1859929dea83001708971d62f30fe5624745e0fdb93db79ab18a4e4c49000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001ffffffff45fc2d61dd7bf709409c3e5b9021ebd6191901a2a43fa7ed2704c03aa0d3a682000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001ffffffff0349f04c4817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cca79841a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000"
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 Step 2: Broadcast raw transaction
 
@@ -674,9 +1122,7 @@ Step 2: Broadcast raw transaction
 ./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000026302ec1859929dea83001708971d62f30fe5624745e0fdb93db79ab18a4e4c49000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001ffffffff45fc2d61dd7bf709409c3e5b9021ebd6191901a2a43fa7ed2704c03aa0d3a682000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001ffffffff0349f04c4817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cca79841a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```bash
 7a69605f5ecfeb0613c8573cbc4ae2471698a65b60c983ec21fb41f09975c000
@@ -684,6 +1130,25 @@ Step 2: Broadcast raw transaction
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["01000000026302ec1859929dea83001708971d62f30fe5624745e0fdb93db79ab18a4e4c49000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001ffffffff45fc2d61dd7bf709409c3e5b9021ebd6191901a2a43fa7ed2704c03aa0d3a682000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001ffffffff0349f04c4817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cca79841a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "7a69605f5ecfeb0613c8573cbc4ae2471698a65b60c983ec21fb41f09975c000",
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>
 
 Step 3: Decode raw transaction (optional to check if the values are sane)
 
@@ -691,9 +1156,7 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 ./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 01000000026302ec1859929dea83001708971d62f30fe5624745e0fdb93db79ab18a4e4c49000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001ffffffff45fc2d61dd7bf709409c3e5b9021ebd6191901a2a43fa7ed2704c03aa0d3a682000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001ffffffff0349f04c4817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cca79841a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000
 ```
 
-
 <collapse-text hidden title="Response">
-
 
 ```json
 {
@@ -763,3 +1226,84 @@ Step 3: Decode raw transaction (optional to check if the values are sane)
 
 </collapse-text>
 
+You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+
+Command:
+
+```bash
+curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"decoderawtransaction", "params":["01000000026302ec1859929dea83001708971d62f30fe5624745e0fdb93db79ab18a4e4c49000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001ffffffff45fc2d61dd7bf709409c3e5b9021ebd6191901a2a43fa7ed2704c03aa0d3a682000000007b4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001ffffffff0349f04c4817000000302ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cca79841a804000000232103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac00000000000000002c6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e000000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": {
+    "txid": "7a69605f5ecfeb0613c8573cbc4ae2471698a65b60c983ec21fb41f09975c000",
+    "overwintered": false,
+    "version": 1,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "494c4e8ab19ab73db9fde0454762e50ff3621d9708170083ea9d925918ec0263",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001",
+          "hex": "4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb98140dd5c7a6e8436748501608056b934a6b6cd54122f9451a1ca76f3d41568cb0e7a08e4d4f9045083425f42a4171e42b2d32f5e331f87d5b45298e006b909c706d2a100af038001e5a10001"
+        },
+        "sequence": 4294967295
+      },
+      {
+        "txid": "82a6d3a03ac00427eda73fa4a2011919d6eb21905b3e9c4009f77bdd612dfc45",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001",
+          "hex": "4c79a276a072a26ba067a565802103da60379d924c2c30ac290d2a86c2ead128cb7bd571f69211cb95356e2dcc5eb9814011825693143f97dc51d34b47638f314146c20c92b5020673fb7411ab37018c2003870255e17d87d46b7af7d042335579de566ce492fd8c3c4e883253870ba329a100af038001e5a10001"
+        },
+        "sequence": 4294967295
+      }
+    ],
+    "vout": [
+      {
+        "value": 999.97249609,
+        "valueZat": 99997249609,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "a22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401 OP_CHECKCRYPTOCONDITION",
+          "hex": "2ea22c802065686d47a4049c2c845a71895a915eb84c04445896eec5dc0be40df0b31372da8103120c008203000401cc",
+          "reqSigs": 1,
+          "type": "cryptocondition",
+          "addresses": ["RTsRBYL1HSvMoE3qtBJkyiswdVaWkm8YTK"]
+        }
+      },
+      {
+        "value": 200.02740391,
+        "valueZat": 20002740391,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "03810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5 OP_CHECKSIG",
+          "hex": "2103810d28146f60a42090991b044fe630d1664f3f8f46286c61e7420523318047b5ac",
+          "reqSigs": 1,
+          "type": "pubkey",
+          "addresses": ["RVXhz5UCJfSRoTfa4zvBFBrpDBbqMM21He"]
+        }
+      },
+      {
+        "value": 0.0,
+        "valueZat": 0,
+        "n": 2,
+        "scriptPubKey": {
+          "asm": "OP_RETURN e5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e0",
+          "hex": "6a2ae5554652454500000000bd6767aea3de97aee1bb4354893e2de56a2150680e5aa40ab24716d81c1520e0",
+          "type": "nulldata"
+        }
+      }
+    ],
+    "vjoinsplit": []
+  },
+  "error": null,
+  "id": "curltest"
+}
+```
+
+</collapse-text>

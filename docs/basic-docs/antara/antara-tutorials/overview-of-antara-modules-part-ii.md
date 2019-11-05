@@ -18,7 +18,7 @@ Consider reading the following resources, if necessary.
 - [Core Technology Discussions](../../../basic-docs/start-here/core-technology-discussions/introduction.html)
 - [Mastering Bitcoin](https://github.com/bitcoinbook/bitcoinbook)
 
-#### Before We Begin: A Brief Note for Non-Blockchain Developers
+#### Before We Begin: A Brief Note for Normal Developers
 
 Creating a new Antara Module is challenging. Fortunately, not every developer in the Komodo ecosystem is expected to program new modules from scratch. Rather, Komodo anticipates that many developers will consume existing modules without attempting to create new modules. 
 

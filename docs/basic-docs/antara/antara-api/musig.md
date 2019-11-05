@@ -77,17 +77,17 @@ Usage of this method depends on the [cclib](../../../basic-docs/smart-chains/sma
 
 #### Arguments
 
-| Name         | Type     | Description                                                                                                                                                                                                   |
-| ------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name         | Type     | Description                                                                                                                                                                                                                      |
+| ------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | sendtxid     | (string) | the transaction id of the transaction created by the [send](../../../basic-docs/antara/antara-api/musig.html#send) method that was executed to fund the MuSig address; only the funds in the `vout0` of the `sendtxid` are spent |
-| scriptPubKey | (string) | a modified form of a pubkey; this is the pubkey that will receive the spent funds                                                                                                                             |
+| scriptPubKey | (string) | a modified form of a pubkey; this is the pubkey that will receive the spent funds                                                                                                                                                |
 
 #### Response
 
-| Name   | Type     | Description                                                                                                              |
-| ------ | -------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Name   | Type     | Description                                                                                                                                 |
+| ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | msg    | (string) | the message that must be signed by all the signers for the final [spend](../../../basic-docs/antara/antara-api/musig.html#spend) to succeed |
-| result | (string) | whether the call executed successfully                                                                                   |
+| result | (string) | whether the call executed successfully                                                                                                      |
 
 #### :pushpin: Examples
 
@@ -348,13 +348,13 @@ Usage of this method depends on the [cclib](../../../basic-docs/smart-chains/sma
 
 #### Arguments
 
-| Name        | Type             | Description                                                                                                                                    |
-| ----------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| myindex     | (decimal number) | the index of the node that is running this method; each node must be assigned a unique index from the set: {0,1,2,3, ... , (`numsigners` - 1)} |
-| numsigners  | (decimal number) | the total number of signers participating                                                                                                      |
-| combined_pk | (string)         | the combined pubkey of all the signers                                                                                                         |
-| pkhash      | (string)         | the 32-byte hash of the original public keys                                                                                                   |
-| msg         | (string)         | the message that needs to be signed by all the signers for the final [spend](../../../basic-docs/antara/antara-api/musig.html#spend) to succeed                   |
+| Name        | Type             | Description                                                                                                                                     |
+| ----------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| myindex     | (decimal number) | the index of the node that is running this method; each node must be assigned a unique index from the set: {0,1,2,3, ... , (`numsigners` - 1)}  |
+| numsigners  | (decimal number) | the total number of signers participating                                                                                                       |
+| combined_pk | (string)         | the combined pubkey of all the signers                                                                                                          |
+| pkhash      | (string)         | the 32-byte hash of the original public keys                                                                                                    |
+| msg         | (string)         | the message that needs to be signed by all the signers for the final [spend](../../../basic-docs/antara/antara-api/musig.html#spend) to succeed |
 
 #### Response
 
@@ -411,22 +411,22 @@ Usage of this method depends on the [cclib](../../../basic-docs/smart-chains/sma
 
 #### Arguments
 
-| Name         | Type     | Description                                                                                                                                                                                      |
-| ------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Name         | Type     | Description                                                                                                                                                                                                         |
+| ------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | sendtxid     | (string) | the transaction id of the transaction created by the [send](../../../basic-docs/antara/antara-api/musig.html#send) method used to fund the MuSig address; only the funds in the `vout0` of the `sendtxid` are spent |
-| combinedsig  | (string) | the combined signature produced by all the signers                                                                                                                                               |
-| scriptPubKey | (string) | a modified form of a pubkey to which funds are to be spent                                                                                                                                       |
+| combinedsig  | (string) | the combined signature produced by all the signers                                                                                                                                                                  |
+| scriptPubKey | (string) | a modified form of a pubkey to which funds are to be spent                                                                                                                                                          |
 
 #### Response
 
-| Name        | Type     | Description                                                                                                                  |
-| ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Name        | Type     | Description                                                                                                                                     |
+| ----------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../../basic-docs/antara/antara-api/musig.html#spend) to succeed |
-| combined_pk | (string) | the combined pubkey of all the signers                                                                                       |
-| combinedsig | (string) | the combined signature produced by all the signers                                                                           |
-| hex         | (string) | the `spend` transaction in raw-transaction format, provided in hexadecimal                                                   |
-| txid        | (string) | the transaction id of the spend transaction                                                                                  |
-| result      | (string) | whether the call executed successfully                                                                                       |
+| combined_pk | (string) | the combined pubkey of all the signers                                                                                                          |
+| combinedsig | (string) | the combined signature produced by all the signers                                                                                              |
+| hex         | (string) | the `spend` transaction in raw-transaction format, provided in hexadecimal                                                                      |
+| txid        | (string) | the transaction id of the spend transaction                                                                                                     |
+| result      | (string) | whether the call executed successfully                                                                                                          |
 
 #### :pushpin: Examples
 
@@ -461,20 +461,20 @@ Usage of this method depends on the [cclib](../../../basic-docs/smart-chains/sma
 
 #### Arguments
 
-| Name        | Type     | Description                                                                                                                  |
-| ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Name        | Type     | Description                                                                                                                                     |
+| ----------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../../basic-docs/antara/antara-api/musig.html#spend) to succeed |
-| combined_pk | (string) | the combined pubkey of all the signers                                                                                       |
-| combinedsig | (string) | the `combinedsig` value produced by the node on which this method is executed                                                |
+| combined_pk | (string) | the combined pubkey of all the signers                                                                                                          |
+| combinedsig | (string) | the `combinedsig` value produced by the node on which this method is executed                                                                   |
 
 #### Response
 
-| Name        | Type     | Description                                                                                                                  |
-| ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Name        | Type     | Description                                                                                                                                     |
+| ----------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | msg         | (string) | the message that needs to be signed by all the signers for the final [spend](../../../basic-docs/antara/antara-api/musig.html#spend) to succeed |
-| combinedsig | (string) | the `combinedsig` value produced by the node on which this method is executed                                                |
-| combined_pk | (string) | the combined pubkey of all the signers                                                                                       |
-| result      | (string) | whether the call executed successfully                                                                                       |
+| combinedsig | (string) | the `combinedsig` value produced by the node on which this method is executed                                                                   |
+| combined_pk | (string) | the combined pubkey of all the signers                                                                                                          |
+| result      | (string) | whether the call executed successfully                                                                                                          |
 
 #### :pushpin: Examples
 
@@ -496,5 +496,3 @@ Command:
 ```
 
 </collapse-text>
-
-

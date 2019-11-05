@@ -121,27 +121,30 @@ source $HOME/.cargo/env
 ##### Command
 
 ```bash
-rustup install nightly-2019-08-05
+rustup install nightly-2019-10-06
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup install nightly-2019-08-05
-info: syncing channel updates for 'nightly-2019-08-05-x86_64-unknown-linux-gnu'
-info: latest update on 2019-08-05, rust version 1.38.0-nightly (d3f8a0b5d 2019-08-04)
+$ rustup install nightly-2019-10-06
+info: syncing channel updates for 'nightly-2019-10-06-x86_64-unknown-linux-gnu'
+info: latest update on 2019-10-06, rust version 1.40.0-nightly (787005079 2019-10-04)
 info: downloading component 'rustc'
+ 65.7 MiB /  65.7 MiB (100 %)  10.6 MiB/s ETA:   0 s                
 info: downloading component 'rust-std'
+173.8 MiB / 173.8 MiB (100 %)  10.9 MiB/s ETA:   0 s                
 info: downloading component 'cargo'
+  4.7 MiB /   4.7 MiB (100 %)   1.7 MiB/s ETA:   0 s                
 info: downloading component 'rust-docs'
+ 11.7 MiB /  11.7 MiB (100 %)   1.8 MiB/s ETA:   0 s                
 info: installing component 'rustc'
 info: installing component 'rust-std'
 info: installing component 'cargo'
 info: installing component 'rust-docs'
 
-  nightly-2019-08-05-x86_64-unknown-linux-gnu installed - rustc 1.38.0-nightly (d3f8a0b5d 2019-08-04)
+  nightly-2019-10-06-x86_64-unknown-linux-gnu installed - rustc 1.40.0-nightly (787005079 2019-10-04)
 
-info: checking for self-updates
 
 ```
 
@@ -150,17 +153,17 @@ info: checking for self-updates
 ##### Command
 
 ```bash
-rustup default nightly-2019-08-05
+rustup default nightly-2019-10-06
 ```
 
 <collapse-text hidden title="Sample Output">
 
 ```
-$ rustup default nightly-2019-08-05
-info: using existing install for 'nightly-2019-08-05-x86_64-unknown-linux-gnu'
-info: default toolchain set to 'nightly-2019-08-05-x86_64-unknown-linux-gnu'
+$ rustup default nightly-2019-10-06
+info: using existing install for 'nightly-2019-10-06-x86_64-unknown-linux-gnu'
+info: default toolchain set to 'nightly-2019-10-06-x86_64-unknown-linux-gnu'
 
-  nightly-2019-08-05-x86_64-unknown-linux-gnu unchanged - rustc 1.38.0-nightly (d3f8a0b5d 2019-08-04)
+  nightly-2019-10-06-x86_64-unknown-linux-gnu unchanged - rustc 1.40.0-nightly (787005079 2019-10-04)
 
 ```
 
@@ -376,7 +379,7 @@ To avoid this issue, there is an alternate method that uses a json file to repla
 
 To use it:
 
-```
+```bash
 cp MM2_sample.json MM2.json
 nano MM2.json
 ```
@@ -385,7 +388,7 @@ Edit the values of the keys `"rpc_password"` and `"passphrase"` with the same va
 
 To start the MarketMaker:
 
-```
+```bash
 stdbuf -oL nohup ./mm2
 ```
 
@@ -423,7 +426,7 @@ We recommend here that you make sure that the public address above matches the a
 
 <collapse-text hidden title="Response">
 
-A sample response of the terminal ouput after the `start.sh` file is executed.
+A sample response of the terminal output after the `start.sh` file is executed.
 
 ```js
 2019-07-20 08:07:13, lp_coins:669] ticker = "KMD", block_count = 1450741
@@ -458,6 +461,27 @@ Again, a best practice here is to ensure that the public address above matches w
 ```
 
 </collapse-text>
+
+#### Connecting to a Network Other Than KMD or LTC
+
+To connect to a coin network other than KMD or LTC, first make sure that the coin's details are present in the `coins` file you downloaded. Also make sure that the file has the property `"mm2": 1`. 
+
+Next, create a new file named "COINNAMEconnect.sh" and add the following contents; replace the characters `<` and `>` and all text between them with values from your `coins` file. (For example: `<text where 7771 should be inserted>` becomes `7771`.)
+
+```bash
+#!/bin/bash
+source userpass
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"electrum\",\"coin\":\"<COIN TICKER>\",\"servers\":[{\"url\":\"<url of electrum server 1>\"},{\"url\":\"<url of electrum server 2>\"}]}"
+```
+
+Make the file executable
+
+```bash
+cd ~/atomicDEX-API/target/debug
+chmod +x COINNAMEconnect.sh
+```
+
+Execute the command `./COINNAMEconnect.sh` to instruct your Market Maker 2 instance to connect to the coin's electrum server.
 
 ## Trading
 

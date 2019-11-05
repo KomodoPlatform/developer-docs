@@ -14,7 +14,13 @@ Popular VPS choices include [Amazon Web Services (AWS)](https://aws.amazon.com) 
 
 One reason a VPS is popular is that a developer can quickly create new instances of a virtual machine. This facilitates the developer in having a clean environment that is targeted for a specific purpose.
 
-VPS's are also relatively cheap. Both AWS and DigitalOcean provide the basic necessities for $0 to $20/month, depending on your desired specifications.
+VPS's are also relatively cheap. Both AWS and DigitalOcean provide the basic necessities for ~$20/month, depending on your desired specifications.
+
+::: warning
+
+When using an AWS instance, do not use the free tier's micro t2 instance. This tier does not include enough RAM for blockchain software to function properly. Instead, select a size of at least medium or greater. This will ensure at least 4GB RAM.
+
+:::
 
 ::: tip
 

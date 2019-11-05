@@ -8,7 +8,7 @@ Part I of this discussion covers the basic aspects of Antara modules, without de
 
 The conversation should be attainable for a normal developer in the Komodo ecosystem, as well as for non-developers who otherwise possess experience in the blockchain industry.
 
-A later discussion, [<b>Overview of Antara Modules - Part II</b>](../../../basic-docs/antara/antara-tutorials/overview-of-antara-modules-part-ii.html), covers additional conceptual aspects of this technology. Part II is not required, but recommended for anyone who intends to utilize Antara technology in a development environment.
+A later discussion, [<b>Overview of Antara Modules - Part II</b>](../../../basic-docs/antara/antara-tutorials/overview-of-antara-modules-part-ii.html), covers additional conceptual aspects of this technology. Part II is recommended for anyone who intends to utilize Antara technology in a development environment.
 
 ## Smart Contracts on the Komodo Platform
 
@@ -106,7 +106,7 @@ All this is assuming that the dApp only processes one transaction per ride, per 
 
 Furthermore, all dApps on the Ethereum platform have to share the same gas, and the same blockchain, and this compounds the problem. If an existing business running a dApp on the platform becomes suddenly popular, the surge of people wanting to use the dApp must purchase gas, and this causes the price of gas to rapidly rise. The burst of activity can also cause the blockchain to grind to a halt.
 
-While the spike in the price of gas can be advantageous for financial speculation, it is arguably terrible for everything else. For example, a startup business that wants to serve a new customer base using the same gas-based platform must now convince their potential customers to purchase the platform's gas at an unpredictably high price.
+While the spike in the price of gas can be advantageous for financial speculation, the spike is arguably terrible for many necessary blockchain use cases. For example, a startup business that wants to serve a new customer base using the same gas-based platform must now convince their potential customers to purchase the platform's gas at an unpredictably high price.
 
 Until blockchain technology is capable of processing potentially billions, if not trillions, of transactions per second on a single blockchain, the gas-based blockchain platform is fundamentally flawed for today's market. The more popular a gas-based platform becomes, the more difficult, expensive, and prohibitive it is for businesses to develop on it, and for users to buy into it.
 
@@ -116,7 +116,7 @@ Having observed crucial flaws in the currently popular gas-based smart-contract 
 
 Recall that Satoshi Nakamoto's Bitcoin Script is not Turing complete. This choice was deliberate. Leaving Bitcoin Script in a simple form was a quicker, safer alternative to a Turing complete language. This is true because it removes the possibility of infinite loops clogging the Bitcoin network.
 
-However, at the same time, the lack of Turing completeness also prevented smart-contract-like functionality on Bitcoin-protocol based blockchains — until now.
+However, at the same time, the lack of Turing completeness also prevented smart-contract like functionality on Bitcoin-protocol based blockchains — until now.
 
 Komodo now offers Antara Modules. These modules allow for the same functionalities found in smart contracts, and even more advanced features. This new technology is compatible with Bitcoin-protocol based blockchains, and this includes all Komodo Smart Chains.
 
@@ -168,7 +168,7 @@ Every Antara Module has its own unique code, called an "EVAL" code, and this kee
 
 When a user spends funds in a manner that links a utxo with an Antara Module, the utxo is locked to this EVAL code in the utxo-data structure.
 
-This keeps the utxo associated with the Antara Module, and thus the utxo is not free to enter into another Antara Module unles the current module allows this behavior.
+This keeps the utxo associated with the Antara Module, and thus the utxo is not free to enter into another Antara Module unless the current module allows this behavior.
 
 #### A User Has a Unique Address for Each Antara Module
 For each Antara Module, the user has a unique address that can only be used with funds created as a part of this module. This keeps funds that are created within an Antara Module separate from funds that are created in other Antara Modules. In this manner, there is never any confusion about where funds are sent.
