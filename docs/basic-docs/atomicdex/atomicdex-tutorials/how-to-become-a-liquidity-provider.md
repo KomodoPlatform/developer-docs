@@ -6,7 +6,7 @@ The following tutorial introduces the reader to a simple method to become a liqu
 
 #### Virtual Private Server (Recommended)
 
-We recommend that the user [have a Virtual Private Server (VPS)](../../../basic-docs/smart-chains/smart-chain-tutorials/basic-environment-setup-for-linux-vps.html) with _at least_ the following specifications.
+We recommend that the user [have a Virtual Private Server (VPS)](https://developers.komodoplatform.com/basic-docs/smart-chains/smart-chain-tutorials/basic-environment-setup-for-linux-vps.html) with _at least_ the following specifications.
 
 - 2 vCPU
 - 4GB RAM
@@ -131,13 +131,13 @@ $ rustup install nightly-2019-10-06
 info: syncing channel updates for 'nightly-2019-10-06-x86_64-unknown-linux-gnu'
 info: latest update on 2019-10-06, rust version 1.40.0-nightly (787005079 2019-10-04)
 info: downloading component 'rustc'
- 65.7 MiB /  65.7 MiB (100 %)  10.6 MiB/s ETA:   0 s                
+ 65.7 MiB /  65.7 MiB (100 %)  10.6 MiB/s ETA:   0 s
 info: downloading component 'rust-std'
-173.8 MiB / 173.8 MiB (100 %)  10.9 MiB/s ETA:   0 s                
+173.8 MiB / 173.8 MiB (100 %)  10.9 MiB/s ETA:   0 s
 info: downloading component 'cargo'
-  4.7 MiB /   4.7 MiB (100 %)   1.7 MiB/s ETA:   0 s                
+  4.7 MiB /   4.7 MiB (100 %)   1.7 MiB/s ETA:   0 s
 info: downloading component 'rust-docs'
- 11.7 MiB /  11.7 MiB (100 %)   1.8 MiB/s ETA:   0 s                
+ 11.7 MiB /  11.7 MiB (100 %)   1.8 MiB/s ETA:   0 s
 info: installing component 'rustc'
 info: installing component 'rust-std'
 info: installing component 'cargo'
@@ -464,7 +464,7 @@ Again, a best practice here is to ensure that the public address above matches w
 
 #### Connecting to a Network Other Than KMD or LTC
 
-To connect to a coin network other than KMD or LTC, first make sure that the coin's details are present in the `coins` file you downloaded. Also make sure that the file has the property `"mm2": 1`. 
+To connect to a coin network other than KMD or LTC, first make sure that the coin's details are present in the `coins` file you downloaded. Also make sure that the file has the property `"mm2": 1`.
 
 Next, create a new file named "COINNAMEconnect.sh" and add the following contents; replace the characters `<` and `>` and all text between them with values from your `coins` file. (For example: `<text where 7771 should be inserted>` becomes `7771`.)
 
@@ -491,7 +491,7 @@ Display the KMD/LTC Orderbook.
 
 ::: tip
 
-See this [linked document](https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html#orderbook) for an explanation of the output.
+See this [linked document](../../../basic-docs/atomicdex/atomicdex-api.html#orderbook) for an explanation of the output.
 
 :::
 
