@@ -3,12 +3,16 @@ var navbar = [{
         link: "/basic-docs/start-here/outline-for-new-developers.md"
     },
     {
-        text: "Whitepaper",
-        link: "/whitepaper/introduction.md"
+        text: "Smart Chain Essentials",
+        link: "/basic-docs/smart-chains/introduction-to-smart-chain-documentation.md"
     },
     {
-        text: "AtomicDEX Docs",
-        link: "https://developers.atomicdex.io"
+        text: "Antara Framework",
+        link: "/basic-docs/antara/introduction-to-antara.md"
+    },
+    {
+        text: "AtomicDEX",
+        link: "/basic-docs/atomicdex/introduction-to-atomicdex.md"
     },
     {
         text: "Guides",
@@ -29,10 +33,6 @@ var navbar = [{
                 link: "https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html"
             },
             {
-                text: "How To Become a Liquidity Provider for AtomicDEX with Telegram Notifications using Docker",
-                link: "/mmV2/LP/atomicdex-api-docker-telegram.md"
-            },
-            {
                 text: "nSPV",
                 link: "/nSPV/"
             },
@@ -44,6 +44,10 @@ var navbar = [{
                 text: "QA and Testing",
                 link: "/qa/debug-Komodo.md"
             },
+            {
+                text: "Whitepaper",
+                link: "/whitepaper/introduction.md"
+            }
         ]
     },
     {

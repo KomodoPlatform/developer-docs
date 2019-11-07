@@ -1,7 +1,10 @@
 var sidebarImport = require("./sidebar.js");
 
 var sidebar = {
-    "/basic-docs/": sidebarImport,
+    "/basic-docs/start-here/": sidebarImport[0].children,
+    "/basic-docs/smart-chains/": sidebarImport[1].children,
+    "/basic-docs/antara/": sidebarImport[2].children,
+    "/basic-docs/atomicdex/": sidebarImport[3].children,
     "/whitepaper/": [{
             title: "Komodo’s Method Of Security: Delayed Proof Of Work (dPoW)",
             collapsable: true,
@@ -388,12 +391,12 @@ var sidebar = {
             ]
         }
     ],
-   /* "/mmV2/": [
-        [
-            "/mmV2/LP/atomicdex-api-docker-telegram.md", "How To Become a Liquidity Provider for AtomicDEX with Telegram Notifications using Docker"
-        ],
-        ["/mmV2/LP/walkthrough.md", "How to be a Liquidity Provider for AtomicDEX"] 
-    ], */
+    /* "/mmV2/": [
+         [
+             "/mmV2/LP/atomicdex-api-docker-telegram.md", "How To Become a Liquidity Provider for AtomicDEX with Telegram Notifications using Docker"
+         ],
+         ["/mmV2/LP/walkthrough.md", "How to be a Liquidity Provider for AtomicDEX"] 
+     ], */
     "/qa/": [{
             title: "Komodo",
             collapsable: true,
