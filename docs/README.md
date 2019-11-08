@@ -10,9 +10,9 @@ shortcuts:
       Use Komodo's Technology to create your own indepndent blockchains. Customizations available include: Coin emission, PoW/PoS, Privacy, Antara modules and many more...
     link: /basic-docs/smart-chains/introduction-to-smart-chain-documentation.html
     linkText: Create →
-  - title: Explore Custom Consensus Modules
+  - title: Explore Antara Modules
     description: |-
-      The various modules created by Komodo are like plugins that can be enabled at the time of creating an assetchain. The features they add include: Tokens, Oracles, Provable RNG for use in other applications,
+      The various modules created by Komodo are like plugins that can be enabled at the time of creating an assetchain. The features they add include: Tokens, Oracles, Provable RNG for use in dApps,
       Micro Payments, Crypto Inheritance, MuSig, Gateways, Quantum Resistant Dilithium signing ......
     link: /basic-docs/antara/introduction-to-antara.html
     linkText: Explore →
@@ -31,10 +31,10 @@ bullets:
   - bullet: Bitcoin-hash rate supported security
   - bullet: Zero-knowledge privacy
   - bullet: Enterprise-level scalability
-  - bullet: Consensus customization
+  - bullet: Modular blockchain logic
   - bullet: Blockchain clustering
   - bullet: ...and more!
 closing: |-
-  Because a Komodo-based blockchain is independently managed, the developer has complete freedom,
+  Because a Komodo-based blockchain (Smart Chain) is independently managed, the developer has complete freedom,
    so long as the essential connections to the Komodo ecosystem remain.
 ---
