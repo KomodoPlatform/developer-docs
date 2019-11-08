@@ -15,10 +15,14 @@ var navbar = [{
         link: "/basic-docs/atomicdex/introduction-to-atomicdex.md"
     },
     {
+        text: "Komodo",
+        link: "/komodo/installation.md"
+    },
+    {
         text: "Guides",
         items: [{
-                text: "Komodo",
-                link: "/komodo/installation.md"
+                text: "CC Book",
+                link: "/cc-jl/introduction.md"
             },
             {
                 text: "Notary Nodes",
@@ -27,10 +31,6 @@ var navbar = [{
             {
                 text: "Marketmaker V1",
                 link: "/mmV1/introduction.md"
-            },
-            {
-                text: "Marketmaker V2",
-                link: "https://developers.atomicdex.io/basic-docs/atomicdex/atomicdex-api.html"
             },
             {
                 text: "nSPV",
@@ -50,11 +50,6 @@ var navbar = [{
             }
         ]
     },
-    {
-        text: "CC Book",
-        link: "/cc-jl/introduction.md"
-    },
-
     {
         text: "Resources",
         items: [{
