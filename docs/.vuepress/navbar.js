@@ -34,7 +34,7 @@ var navbar = [{
             },
             {
                 text: "nSPV",
-                link: "/nSPV/"
+                link: "/basic-docs/smart-chains/smart-chain-setup/nspv.md"
             },
             {
                 text: "Agama",

@@ -91,6 +91,7 @@ var redirectAliases = {
   "/komodo/installation.html": "/basic-docs/smart-chains/smart-chain-setup/installing-from-source.html",
   "/mmV2/LP/walkthrough.html": "/basic-docs/atomicdex/atomicdex-tutorials/how-to-become-a-liquidity-provider.html",
   "/komodo/debug-Komodo.html": "/qa/debug-Komodo.html",
-  "/komodo/test-komodo-source-jl777-branch.html": "/qa/test-komodo-source-jl777-branch.html"
+  "/komodo/test-komodo-source-jl777-branch.html": "/qa/test-komodo-source-jl777-branch.html",
+  "/nspv/": "/basic-docs/smart-chains/smart-chain-setup/nspv.html"
 };
 module.exports = redirectAliases;
