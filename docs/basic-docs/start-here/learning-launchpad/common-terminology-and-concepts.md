@@ -8,7 +8,7 @@ A Komodo Smart Chain that uses the Komodo Notary Node dPoW service receives prot
 
 #### Process of Conducting a 51% Attack
 
-In a 51% Attack, an attacker first performs a transaction that spends funds to their intended victim. 
+In a 51% Attack, an attacker first performs a transaction that spends funds to their intended victim.
 
 Once the victim distributes to the attacker the purchased item of value, the attacker then provides 51% of the total hash rate of the blockchain network to support a version of the blockchain history wherein the transaction never took place.
 
@@ -20,7 +20,7 @@ The Komodo blockchain's consensus mechanism protects Komodo Smart Chains from 51
 
 ## Antara Address
 
-An Antara Address is a user address that is uniquely associated with a single Antara Module. 
+An Antara Address is a user address that is uniquely associated with a single Antara Module.
 
 The Antara Address is based in part on the private key associated with the pubkey that the user provides during the initiation of an Antara-enabled Smart Chain instance.
 
@@ -52,15 +52,15 @@ Advanced developers can develop new modules by adding new arbitrary code into a 
 
 ## Asset
 
-An asset in the Komodo ecosystem typically refers to a blockchain coin or token that represents value to the holder. 
+An asset in the Komodo ecosystem typically refers to a blockchain coin or token that represents value to the holder.
 
 Assets can represent both digital and real-world valuables. However, enforcing blockchain asset behavior on real-world valuables requires an arbitrating party, such as a legal system or physical security service.
 
 ## Atomic Swap
 
-An atomic swap is an exchange of assets that takes place between two separate and unconnected blockchains. 
+An atomic swap is an exchange of assets that takes place between two separate and unconnected blockchains.
 
-Atomic swap technology is unique in that it requires no middleman to hold the assets in escrow during the process of exchange. Instead, users retain the private keys to their funds until the precise moment the exchange occurs. 
+Atomic swap technology is unique in that it requires no middleman to hold the assets in escrow during the process of exchange. Instead, users retain the private keys to their funds until the precise moment the exchange occurs.
 
 Should either party fail to complete the trade, Komodo's atomic-swap software ensures that all parties receive their funds in return, and neither side receives a reward for the failure.
 
@@ -76,15 +76,15 @@ Various block customizations are available in the [Antara Customizations section
 
 ## Block Explorer
 
-A block explorer is a website that allows users to query information about a particular blockchain. 
+A block explorer is a website that allows users to query information about a particular blockchain.
 
-Users can request information about a specific transaction, block, address, and more. 
+Users can request information about a specific transaction, block, address, and more.
 
 ## Block Reward
 
 A block reward is a financial reward given to the miner or staker who finds the nonce necessary to create a new valid block hash.
 
-Because the Komodo ecosystem and the KMD main chain are designed to avoid competing directly with the Bitcoin hash rate, KMD also features a different kind of block reward. 
+Because the Komodo ecosystem and the KMD main chain are designed to avoid competing directly with the Bitcoin hash rate, KMD also features a different kind of block reward.
 
 Users automatically receive a monthly 5.1% Reward (given in KMD) for holding +10KMD in any address on the KMD main chain.
 
@@ -100,15 +100,15 @@ Burn addresses can only receive funds. These addresses do not have associated pr
 
 ## CC Address
 
-"CC Address" is another name for an [Antara Address.](../../../basic-docs/start-here/learning-launchpad/terminology.html#antara-address)
+"CC Address" is another name for an [Antara Address.](#antara-address)
 
 The term "CC Address", however, is used only among developers of Antara Modules, as this activity involves directly managing CryptoConditions (CC).
 
 ## CC Transaction
 
-A CC transaction is a transaction that is directly associated in any way with an Antara Module. 
+A CC transaction is a transaction that is directly associated in any way with an Antara Module.
 
-A normal user would not call these types of transactions "CC transactions," but would instead  call them "transactions" as normal.
+A normal user would not call these types of transactions "CC transactions," but would instead call them "transactions" as normal.
 
 ## Centralized Exchange (CEX)
 
@@ -134,7 +134,7 @@ This transaction is called the `coinbase` transaction.
 
 ## Confirmation
 
-Confirmation typically refers to the confirmation of a block. 
+Confirmation typically refers to the confirmation of a block.
 
 A block is confirmed when a miner or staker submits a correctly formed block hash to the network for processing and the blockchain network accepts this block hash into the blockchain history.
 
@@ -158,19 +158,19 @@ For more information, [read the Advanced Development Tutorial Series.](../../../
 
 ## Daemon
 
-A daemon is an instance of software running on the user's machine. Typically, the word "daemon" refers to a software process that runs in the background on the user's node, as opposed to running in a manner that would require constant direct engagement. 
+A daemon is an instance of software running on the user's machine. Typically, the word "daemon" refers to a software process that runs in the background on the user's node, as opposed to running in a manner that would require constant direct engagement.
 
-The name of the Komodo Smart Chain software, "komodod," is an abbreviation of "Komodo Daemon." 
+The name of the Komodo Smart Chain software, "komodod," is an abbreviation of "Komodo Daemon."
 
 ## Decentralization
 
-Decentralization is the movement of transferring any subject from centralized parties and individuals to decentralized parties. 
+Decentralization is the movement of transferring any subject from centralized parties and individuals to decentralized parties.
 
 In blockchain, decentralization often refers to the ability to accurately record and verify a historical record. Whereas in the old record-keeping system, a centralized authority recorded and verified the accuracy of a ledger, the blockchain system allows all users on the network to record and verify all activity.
 
 ## Decentralized Exchange (DEX)
 
-A decentralized exchange (DEX) is an entity that enables users to trade assets within at least a partially decentralized environment. 
+A decentralized exchange (DEX) is an entity that enables users to trade assets within at least a partially decentralized environment.
 
 For example, a common DEX uses a decentralized network of gateway nodes to hold user funds in escrow within the trading environment. No single individual has access to the escrow treasury.
 
@@ -178,13 +178,13 @@ Komodo features a new form of DEX: AtomicDEX. This uses atomic swaps, and provid
 
 ## Decentralized Initial Coin Offering (dICO)
 
-A decentralized initial coin offering (dICO) is a method of releasing cryptocurrency assets to the public without passing through the technology of a centralized authority. 
+A decentralized initial coin offering (dICO) is a method of releasing cryptocurrency assets to the public without passing through the technology of a centralized authority.
 
 For more information, [read the Creating and Distributing a New Komodo Smart Chain section.](../../../basic-docs/start-here/core-technology-discussions/creating-and-distributing-a-new-komodo-smart-chain.html)
 
 ## Delayed Proof of Work (dPoW)
 
-Delayed Proof of Work is Komodo's signature method for achieving consensus on a network of multiple blockchains. 
+Delayed Proof of Work is Komodo's signature method for achieving consensus on a network of multiple blockchains.
 
 Delayed proof of work relies on a small network of sixty-four nodes that create a trustless notarization of all the history of the Komodo ecosystem and write this notarization into the history of a stronger Proof of Work blockchain network (Bitcoin).
 
@@ -196,7 +196,7 @@ For more information, [read the Core Technology Discussion regarding dPoW.](../.
 
 ## Dependency
 
-In a programming environment, a dependency can be described as a foreign collection of code that the developer adds to their source code in order to enhance functionality. 
+In a programming environment, a dependency can be described as a foreign collection of code that the developer adds to their source code in order to enhance functionality.
 
 The developer typically does not hold a strong understanding of the dependency and must trust that the developer of this dependency is acting with professional due diligence.
 
@@ -216,9 +216,9 @@ An equihash algorithm is a blockchain mining algorithm that discourages certain 
 
 ## Gas
 
-Gas is a concept that pertains to foreign blockchain platforms, such as Ethereum. 
+Gas is a concept that pertains to foreign blockchain platforms, such as Ethereum.
 
-Gas is a cryptocurrency that is spent as payment for the blockchain's decentralized network of nodes to process arbitrary "smart contract" code. 
+Gas is a cryptocurrency that is spent as payment for the blockchain's decentralized network of nodes to process arbitrary "smart contract" code.
 
 Komodo does not require gas. Rather, when users execute arbitrary code (using Antara Modules), the only fee required is the fee paid to the miners when performing a transaction. This fee is paid in the native coin on which the arbitrary code is run. Compared to the gas-based smart-contract model, the Komodo fee structure is exponentially less expensive.
 
@@ -234,7 +234,7 @@ At this point, the protocol will automatically erase the "true" chain from all n
 
 ## Genesis Block
 
-The first block in a blockchain. 
+The first block in a blockchain.
 
 Historically, a large portion of the total coin supply of the associated blockchain is distributed to the miner who mines the Genesis Block.
 
@@ -242,15 +242,15 @@ Historically, a large portion of the total coin supply of the associated blockch
 
 The rate at which hashes are created by a node on the network.
 
-Often, the term "hash rate" is used in reference to the total power of all miners mining a blockchain network. Miners produce hashes in their search for a properly formed hash that satisfies the requirements for adding the next block to the blockchain history. 
+Often, the term "hash rate" is used in reference to the total power of all miners mining a blockchain network. Miners produce hashes in their search for a properly formed hash that satisfies the requirements for adding the next block to the blockchain history.
 
 ## Iguana Core
 
-Iguana Core is a core component in essentially all Komodo software. Iguana is a collection of blockchain tools and enhancements, designed by Komodo's lead developer, JL777. 
+Iguana Core is a core component in essentially all Komodo software. Iguana is a collection of blockchain tools and enhancements, designed by Komodo's lead developer, JL777.
 
 ## Jumblr
 
-Jumblr was a decentralized zk-SNARK based mixing service on the Komodo main chain, KMD. Jumblr enabled users to coordinate their transparent-to-private and private-to-transparent currency conversions. This allowed users to mask their privacy-related transactions by performing them in equal amounts synchronously. 
+Jumblr was a decentralized zk-SNARK based mixing service on the Komodo main chain, KMD. Jumblr enabled users to coordinate their transparent-to-private and private-to-transparent currency conversions. This allowed users to mask their privacy-related transactions by performing them in equal amounts synchronously.
 
 In the spring of 2019, Jumblr technology was removed from the KMD chain. This occurred in response to community feedback and industry developments.
 
@@ -260,7 +260,7 @@ A liquidity maker on the AtomicDEX network is a user who offers assets for trade
 
 ## Liquidity Pool
 
-A liquidity pool is a collection of live offers on an AtomicDEX trading network. 
+A liquidity pool is a collection of live offers on an AtomicDEX trading network.
 
 ## Liquidity Taker
 
@@ -268,7 +268,7 @@ A liquidity taker on the AtomicDEX network is a user who accepts a standing and 
 
 ## Magic
 
-To help differentiate one runtime instance of Komodo software from another, komodod creates a unique number for each chain. 
+To help differentiate one runtime instance of Komodo software from another, komodod creates a unique number for each chain.
 
 The development name this number is "magic."
 
@@ -292,7 +292,7 @@ This allows Komodo Smart Chains to work together to serve an audience that may n
 
 ## Multi-Chain Architecture
 
-A multi-chain architecture is a term to describe a blockchain platform that allows for multiple blockchains to operate and collaborate together within the same network, and optionally using the same coin supply. 
+A multi-chain architecture is a term to describe a blockchain platform that allows for multiple blockchains to operate and collaborate together within the same network, and optionally using the same coin supply.
 
 ## Node
 
@@ -340,7 +340,7 @@ A passphrase is typically a twelve to twenty-four sequence of words that is used
 
 ## Proof of Stake (PoS)
 
-A proof-of-stake (PoS) consensus mechansim requires users to place personal funds on the network as collatoral in exchange for the right to "stake" new blocks on the blockchain. 
+A proof-of-stake (PoS) consensus mechansim requires users to place personal funds on the network as collatoral in exchange for the right to "stake" new blocks on the blockchain.
 
 ## Proof of Work
 
@@ -350,7 +350,7 @@ Solving the puzzle requires work from the computer, and therefore the correct an
 
 ## Public Key (pubkey)
 
-A public key or pubkey is a blockchain address that can receive funds on the network. 
+A public key or pubkey is a blockchain address that can receive funds on the network.
 
 Sending funds out of this pubkey requires a matching private key that unlocks this public key (also called a public address).
 
@@ -384,7 +384,7 @@ SPV Servers cannot assist a user to perform a zero-knowledge type transaction. I
 
 ## Seed Node
 
-A seed node is a node that is called at runtime and helps the caller to find other nodes on the network. 
+A seed node is a node that is called at runtime and helps the caller to find other nodes on the network.
 
 Seed nodes help new nodes on the network to obtain enough of a connection to the peer-to-peer network to download and sync the blockchain's history.
 
@@ -432,7 +432,7 @@ The Komodo Platform uses the Tokens Antara Module (or any similar module) to tra
 
 The term "trade clearing" refers to the process of completing a promised trade between users.
 
-In AtomicDEX, trades are first matched on the peer-to-peer network, and then AtomicDEX uses our own signature atomic-swap process to clear the trade. Once both users either complete their sides of the trade, or abandon the procedure (and receive their appropriate refunds), the trade is considered cleared. 
+In AtomicDEX, trades are first matched on the peer-to-peer network, and then AtomicDEX uses our own signature atomic-swap process to clear the trade. Once both users either complete their sides of the trade, or abandon the procedure (and receive their appropriate refunds), the trade is considered cleared.
 
 ## Trade Matching
 
@@ -452,7 +452,7 @@ By removing the need for trust, power over the history of transactions and the c
 
 ## Turing Complete
 
-A programming language is considered "Turing Complete" if, when granted a few basic assumptions, the language is theoretically able to “compute any computable sequence.” 
+A programming language is considered "Turing Complete" if, when granted a few basic assumptions, the language is theoretically able to “compute any computable sequence.”
 
 In other words, the language should be able to solve any mathematical problem that uses only computable numbers.
 
@@ -504,7 +504,7 @@ The Zcash parameters are an implementation of zk-SNARK technology that allow for
 
 Assuming the Zcash parameters were implemented properly, zero-knowledge transactions leave no trace in the public domain for later data analysis.
 
-Please see the [privacy discussion section](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem) for further details and warnings.  
+Please see the [privacy discussion section](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem) for further details and warnings.
 
 ## zk-SNARK
 
@@ -512,4 +512,4 @@ Please see the [privacy discussion section](../../../basic-docs/start-here/core-
 
 As Komodo is downstream from the Zcash protocol (which is itself downstream from Bitcoin), Komodo inherits all zk-SNARK technology by default.
 
-Please see the [privacy discussion section](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem) for further details and warnings.  
+Please see the [privacy discussion section](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-nature-of-privacy-features-in-the-komodo-ecosystem) for further details and warnings.
