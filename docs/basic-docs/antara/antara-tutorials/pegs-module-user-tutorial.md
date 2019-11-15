@@ -78,11 +78,11 @@ You also need the KMD chain synced.
 
 ::: tip Important info regarding this Chain, Gateways setup, Pegs module and the Token being used
 
-KMD token (tokenid): 1a459712f1e79a544efdf55cfb3e111c5df3300a4da4d16cb3b963bbb50aebf1
-Oracle (oracletxid): a6a59fbdc0ba8b138a4d14ff334a533f0358144091aa999ef45fd7498ab4189a
-Gateways (bindtxid): 50384e7668bd6908d8e0b67f1450c56f017186d802b1065c3258302a30b5adb2
-Faucet: 7bc2dafc4d71c7e178b3a2a89e7ddc894cb14dbeff5937fa869915adf1af5108
-Pegs (pegstxid): a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7
+- KMD token (tokenid): 1a459712f1e79a544efdf55cfb3e111c5df3300a4da4d16cb3b963bbb50aebf1
+- Oracle (oracletxid): a6a59fbdc0ba8b138a4d14ff334a533f0358144091aa999ef45fd7498ab4189a
+- Gateways (bindtxid): 50384e7668bd6908d8e0b67f1450c56f017186d802b1065c3258302a30b5adb2
+- Faucet: 7bc2dafc4d71c7e178b3a2a89e7ddc894cb14dbeff5937fa869915adf1af5108
+- Pegs (pegstxid): a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7
 
 :::
 
