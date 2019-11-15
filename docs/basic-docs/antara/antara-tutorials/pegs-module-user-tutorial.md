@@ -192,15 +192,15 @@ Usage: `gatewaysdeposit bindtxid height coin cointxid claimvout deposithex proof
 
 ::: tip Details
 
-bindtxid = This is the Gateway's bindtxid;
-height = In which block your deposit txid was confirmed from the earlier step (use explorer if searching manually)
-coin = Ticker of the coin you deposited; KMD in this example
-cointxid = txid of your deposit
-claimvout = The marker UTXO's vout number in the external deposit tx; it is always 0 when z_sendmany as shown in the guide is used
-deposithex = The HEX value from gettransaction call for the deposited txid (available at the end of output)
-proof = Use "gettxoutproof" with the deposit txid
-destpub = The pubkey you are running the desination daemon with
-amount = the amount you sent/deposited
+- bindtxid = This is the Gateway's bindtxid;
+- height = In which block your deposit txid was confirmed from the earlier step (use explorer if searching manually)
+- coin = Ticker of the coin you deposited; KMD in this example
+- cointxid = txid of your deposit
+- claimvout = The marker UTXO's vout number in the external deposit tx; it is always 0 when z_sendmany as shown in the guide is used
+- deposithex = The HEX value from gettransaction call for the deposited txid (available at the end of output)
+- proof = Use "gettxoutproof" with the deposit txid
+- destpub = The pubkey you are running the desination daemon with
+- amount = the amount you sent/deposited
 
 :::
 
@@ -269,11 +269,11 @@ Usage `gatewaysclaim bindtxid coin deposittxid destpub amount`
 
 ::: tip Details
 
-bindtxid = This is your importgateway identifier which is also known as "earlytxid"
-coin = Ticker of the coin you deposited
-deposittxid = the txid of the "gatewaysdeposit" transaction
-destpubkey = The pubkey you are running the USDKTEST daemon with
-amount = the amount you sent/deposited
+- bindtxid = This is your importgateway identifier which is also known as "earlytxid"
+- coin = Ticker of the coin you deposited
+- deposittxid = the txid of the "gatewaysdeposit" transaction
+- destpubkey = The pubkey you are running the USDKTEST daemon with
+- amount = the amount you sent/deposited
 
 :::
 
@@ -501,10 +501,10 @@ Usage: `gatewayswithdraw bindtxid coin withdrawpub amount`
 
 ::: tip Details
 
-bindtxid = This is the Gateway's bindtxid
-coin = Ticker of the coin you deposited; KMD in this example
-withdrawpub = The pubkey to which the KMD coins should be sent on the KMD chain
-amount = the amount to be sent
+- bindtxid = This is the Gateway's bindtxid
+- coin = Ticker of the coin you deposited; KMD in this example
+- withdrawpub = The pubkey to which the KMD coins should be sent on the KMD chain
+- amount = the amount to be sent
 
 :::
 
