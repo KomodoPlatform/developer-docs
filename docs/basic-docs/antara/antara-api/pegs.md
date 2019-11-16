@@ -105,6 +105,57 @@ Command:
 
 </collapse-text>
 
+## pegsaccountinfo
+
+**pegsaccountinfo pegstxid**
+
+The `pegsaccountinfo` method returns all the past actions related to the Pegs account that belongs to the owner of the pubkey used to launch the daemon.
+
+### Arguments
+
+| Name     | Type     | Description                                                                                    |
+| -------- | -------- | ---------------------------------------------------------------------------------------------- |
+| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transction used to create the on-chain Peg |
+
+### Response
+
+| Name           | Type            | Description                                                                                                                                       |
+| -------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "result"       | (string)        | whether the command executed successfully                                                                                                         |
+| "name"         | (string)        | name of the method                                                                                                                                |
+| "account info" | (array of json) | an array containing a json that describes the current state of the Pegs account that belongs to the owner of the pubkey used to launch the daemon |
+| "token"        | (string)        | name of the token involved                                                                                                                        |
+| "deposit"      | (number)        | the amount of initial satoshis deposited                                                                                                          |
+| "debt"         | (string)        | total amount of current debt                                                                                                                      |
+| "ratio"        | (string)        | the debt ratio based on the current price                                                                                                         |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD pegsaccountinfo a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "name": "pegsaccountinfo",
+  "account info": [
+    {
+      "token": "KMD",
+      "deposit": 1000000,
+      "debt": 0,
+      "ratio": 0
+    }
+  ]
+}
+```
+
+</collapse-text>
+
 ## pegsaddress
 
 **pegsaddress**
