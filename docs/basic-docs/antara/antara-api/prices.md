@@ -1,0 +1,11 @@
+# Prices (In development)
+
+## Introduction
+
+The Prices Antara module implements a decentralized, incentivized margin trading system on a Smart Chain; allows users to open long and short leveraged positions against the House (the module itself). It required the existence of a completely trustless and decentralized price feed module (DTO - A decentralized trustless oracle). So the DTO was implemented by piggybacking on [timestamp consensus rules](https://medium.com/@jameslee777/decentralized-trustless-oracles-dto-by-piggybacking-on-timestamp-consensus-rules-2adce34d67b6). It works by requiring the miners of the Smart Chain to include the required off-chain data as a part of OP_RETURN of the coinbase transaction (The transaction that pays the block reward to the miner). The validation of the off-chain data is part of the consensus rules and if the data is false, the block will be rejected by the network, which incentivizes the miner to be truthful. To achieve consensus, all nodes allow an error of about 1% in the reported data. The DTO provides the required Price feed. For markets like AMZN/KMD that don’t exist in real life, synthetic prices can be used. Example: (AMZN/USD)\*(USD/BTC)\_(BTC/KMD) gives the AMZN/KMD price.
+
+A simple language with a forth like syntax was implemented to calculate synthetic prices. It supports 3 prices and the operations of multiplication and division. It also supports weights to calculate arbitrary baskets/indexes. Example: A synthetic price with ¼ BCH/USD and ¾ BTC/USD in it can be calculated and margin traded against.
+
+A player opens a position with the desired amount and leverage. They can close the position anytime and receive the current equity that is in a non negative state. When the loss of a player exceeds their position, it is liquidated by incentivized users(miners) who receive a small percentage.
+
+To counter the possibility of manipulation of Price data by a miner by taking advantage of the 1% possible error, when a position is opened, the price is fixed 24 hours later based on the average of the prices in the past 24 hours. For longs, the lock price (cost basis) is the maximum among averages; For shorts it is the minimum among averages . So margin trading in such a system needs some patience.
