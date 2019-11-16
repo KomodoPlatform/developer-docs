@@ -158,30 +158,32 @@ Command:
 
 ## pegsaddress
 
-**pegsaddress**
+**pegsaddress [pubkey]**
 
-The `pegsaddress` method returns information about the Pegs module and associated addresses.
+The `pegsaddress` method returns information about the Pegs module and associated addresses. Optionally, if a pubkey is supplied, this method also gives the Pegs CC address and its balance corresponding to the pubkey.
 
 ### Arguments
 
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |             |
+| Name   | Type              | Description                           |
+| ------ | ----------------- | ------------------------------------- |
+| pubkey | (string,optional) | pubkey of another user on the network |
 
 ### Response
 
-| Name                  | Type     | Description                                                                                                          |
-| --------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
-| "result"              | (string) | whether the command executed successfully                                                                            |
-| "PegsCCAddress"       | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
-| "PegsCCBalance"       | (number) | the amount of funds in the `PegsCCAddress`                                                                           |
-| "PegsNormalAddress"   | (string) | the unmodified public address generated from the contract's privkey                                                  |
-| "PegsNormalBalance"   | (number) | the amount of funds in the `PegsNormalBalance`                                                                       |
-| "PegsCCTokensAddress" | (string) | the public address where Tokens are locked in the Pegs module                                                        |
-| "myCCAddress(Pegs)"   | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                  |
-| "myCCbalance(Pegs)"   | (number) | the amount of funds in the `myCCAddress(Pegs)`                                                                       |
-| "myaddress"           | (string) | the public address of the pubkey used to launch the chain                                                            |
-| "mybalance"           | (number) | the amount of funds in the `myaddress`                                                                               |
+| Name                    | Type     | Description                                                                                                          |
+| ----------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
+| "result"                | (string) | whether the command executed successfully                                                                            |
+| "PegsCCAddress"         | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
+| "PegsCCBalance"         | (number) | the amount of funds in the `PegsCCAddress`                                                                           |
+| "PegsNormalAddress"     | (string) | the unmodified public address generated from the contract's privkey                                                  |
+| "PegsNormalBalance"     | (number) | the amount of funds in the `PegsNormalBalance`                                                                       |
+| "PegsCCTokensAddress"   | (string) | the public address where Tokens are locked in the Pegs module                                                        |
+| "PubkeyCCaddress(Pegs)" | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey supplied as an argument      |
+| "PubkeyCCbalance(Pegs)" | (number) | the amount of funds in the `PubkeyCCaddress(Pegs)`                                                                   |
+| "myCCAddress(Pegs)"     | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                  |
+| "myCCbalance(Pegs)"     | (number) | the amount of funds in the `myCCAddress(Pegs)`                                                                       |
+| "myaddress"             | (string) | the public address of the pubkey used to launch the chain                                                            |
+| "mybalance"             | (number) | the amount of funds in the `myaddress`                                                                               |
 
 #### :pushpin: Examples
 
@@ -205,6 +207,33 @@ Command:
   "myCCbalance(Pegs)": 0.0,
   "myaddress": "RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb",
   "mybalance": 0.1025
+}
+```
+
+</collapse-text>
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD pegsaddress 0257e1074b542c47cd6f603e3d78400045df0781875f698138e92cb03055286634
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "PegsCCAddress": "RHnkVb7vHuHnjEjhkCF1bS6xxLLNZPv5fd",
+  "PegsCCBalance": 999.9992,
+  "PegsNormalAddress": "RMcCZtX6dHf1fz3gpLQhUEMQ8cVZ6Rzaro",
+  "PegsNormalBalance": 0.0,
+  "PegsCCTokensAddress": "RHG4K84bPP9h9KKqvpYbUzocaZ3LSUHxLa",
+  "PubkeyCCaddress(Pegs)": "RRvD19SwUo12Wmozrf8UyuewK1v5kNRJfc",
+  "PubkeyCCbalance(Pegs)": 0.0,
+  "myCCAddress(Pegs)": "RBZ4AsnyhD3pZPasDmHXnbwNvQWy1CWK5H",
+  "myCCbalance(Pegs)": 0.0,
+  "myaddress": "RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb",
+  "mybalance": 0.226
 }
 ```
 
