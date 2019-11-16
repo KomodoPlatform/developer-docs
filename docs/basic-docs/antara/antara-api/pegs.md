@@ -10,13 +10,100 @@ The Pegs module utilizes many of the existing Antara modules like Tokens, Gatewa
 
 - The Gateways module is used to lock coins of an external chain and create an equivalent amount as Tokens on the Smart Chain where Pegs is to be used.
 - Oracles communicate the information about tokens deposited via the Gateway using an "oraclefeed" app, run by the Gateway/Chain creator (and potentially notary nodes).
-- The DTO from the Prices module adds the required prices data to the Smart Chain in a trustless manner from a range of external sources, with a 24 hr delay.
+- The DTO from the Prices module adds the required prices data to the Smart Chain in a trustless manner from a range of external sources, and it is used with a 24 hr delay.
 
 ## Tutorial Availability
 
 The Antara Tutorials section features a full walkthrough for the user side of the Pegs module.
 
 [<b>Link to the user side of the Pegs Module Tutorial</b>](../../../basic-docs/antara/antara-tutorials/pegs-module-user-tutorial.html)
+
+## pegsaccounthistory
+
+**pegsaccounthistory pegstxid**
+
+The `pegsaccounthistory` method returns all the past actions related to the Pegs account that belongs to the owner of the pubkey used to launch the daemon.
+
+### Arguments
+
+| Name     | Type     | Description                                                                                    |
+| -------- | -------- | ---------------------------------------------------------------------------------------------- |
+| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transction used to create the on-chain Peg |
+
+### Response
+
+| Name              | Type            | Description                                                                                                                                           |
+| ----------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "result"          | (string)        | whether the command executed successfully                                                                                                             |
+| "name"            | (string)        | name of the method                                                                                                                                    |
+| "account history" | (array of json) | an array containing json that describe the past actions related to the Pegs account that belongs to the owner of the pubkey used to launch the daemon |
+| "action"          | (string)        | name of the past action                                                                                                                               |
+| "amount"          | (number)        | the amount of satoshis involved                                                                                                                       |
+| "accounttxid"     | (string)        | transaction id of the action                                                                                                                          |
+| "token"           | (string)        | name of the token involved                                                                                                                            |
+| "deposit"         | (number)        | the amount of initial satoshis deposited                                                                                                              |
+| "debt"            | (string)        | total amount of debt after this action                                                                                                                |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD pegsaccounthistory a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "name": "pegsaccounthistory",
+  "account history": [
+    {
+      "action": "fund",
+      "amount": 1000000,
+      "accounttxid": "298cfa125e1a38a7aa2a8da8282b017a45cd0c1dc70935712692c00abf48ba3f",
+      "token": "KMD",
+      "deposit": 1000000,
+      "debt": 0
+    },
+    {
+      "action": "get",
+      "amount": 100000,
+      "accounttxid": "8f18ab623cb91c94ea27b16c455d98df1e057dd120341e54b453090a2c9c9adf",
+      "token": "KMD",
+      "deposit": 1000000,
+      "debt": 100000
+    },
+    {
+      "action": "get",
+      "amount": 600000,
+      "accounttxid": "8e79ed0a76f359ba048563a0fa2a29ab88ab86b1895e8eff9718f348a04dd1f3",
+      "token": "KMD",
+      "deposit": 1000000,
+      "debt": 700000
+    },
+    {
+      "action": "get",
+      "amount": 30000,
+      "accounttxid": "9a10581ae047fabe91495cfe558961e3b7362a19b700b2fcea216d06c44d9720",
+      "token": "KMD",
+      "deposit": 1000000,
+      "debt": 730000
+    },
+    {
+      "action": "redeem",
+      "amount": 1000000,
+      "accounttxid": "ff95e70f0d551748f460e61b7e75b279b8de355cb37df6c5895dfb8a49ee348a",
+      "token": "KMD",
+      "deposit": 0,
+      "debt": 0
+    }
+  ]
+}
+```
+
+</collapse-text>
 
 ## pegsaddress
 
@@ -41,7 +128,7 @@ The `pegsaddress` method returns information about the Pegs module and associate
 | "PegsNormalBalance"   | (number) | the amount of funds in the `PegsNormalBalance`                                                                       |
 | "PegsCCTokensAddress" | (string) | the public address where Tokens are locked in the Pegs module                                                        |
 | "myCCAddress(Pegs)"   | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                  |
-| "myCCbalance(Pegs)"   | (number) |                                                                                                                      |
+| "myCCbalance(Pegs)"   | (number) | the amount of funds in the `myCCAddress(Pegs)`                                                                       |
 | "myaddress"           | (string) | the public address of the pubkey used to launch the chain                                                            |
 | "mybalance"           | (number) | the amount of funds in the `myaddress`                                                                               |
 
