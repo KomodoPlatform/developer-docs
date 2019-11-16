@@ -17,3 +17,57 @@ The Pegs module utilizes many of the existing Antara modules like Tokens, Gatewa
 The Antara Tutorials section features a full walkthrough for the user side of the Pegs module.
 
 [<b>Link to the user side of the Pegs Module Tutorial</b>](../../../basic-docs/antara/antara-tutorials/pegs-module-user-tutorial.html)
+
+## pegsaddress
+
+**pegsaddress**
+
+The `pegsaddress` method returns information about the Pegs module and associated addresses.
+
+### Arguments
+
+| Name   | Type | Description |
+| ------ | ---- | ----------- |
+| (none) |      |             |
+
+### Response
+
+| Name                  | Type     | Description                                                                                                          |
+| --------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
+| "result"              | (string) | whether the command executed successfully                                                                            |
+| "PegsCCAddress"       | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
+| "PegsCCBalance"       | (number) | the amount of funds in the `PegsCCAddress`                                                                           |
+| "PegsNormalAddress"   | (string) | the unmodified public address generated from the contract's privkey                                                  |
+| "PegsNormalBalance"   | (number) | the amount of funds in the `PegsNormalBalance`                                                                       |
+| "PegsCCTokensAddress" | (string) | the public address where Tokens are locked in the Pegs module                                                        |
+| "myCCAddress(Pegs)"   | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                  |
+| "myCCbalance(Pegs)"   | (number) |                                                                                                                      |
+| "myaddress"           | (string) | the public address of the pubkey used to launch the chain                                                            |
+| "mybalance"           | (number) | the amount of funds in the `myaddress`                                                                               |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD pegsaddress
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "PegsCCAddress": "RHnkVb7vHuHnjEjhkCF1bS6xxLLNZPv5fd",
+  "PegsCCBalance": 999.9993,
+  "PegsNormalAddress": "RMcCZtX6dHf1fz3gpLQhUEMQ8cVZ6Rzaro",
+  "PegsNormalBalance": 0.0,
+  "PegsCCTokensAddress": "RHG4K84bPP9h9KKqvpYbUzocaZ3LSUHxLa",
+  "myCCAddress(Pegs)": "RBZ4AsnyhD3pZPasDmHXnbwNvQWy1CWK5H",
+  "myCCbalance(Pegs)": 0.0,
+  "myaddress": "RFmQiF4Zbzxchv9AG6dw6ZaX8PbrA8FXAb",
+  "mybalance": 0.1025
+}
+```
+
+</collapse-text>
