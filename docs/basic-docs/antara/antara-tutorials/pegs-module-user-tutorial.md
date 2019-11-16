@@ -1,6 +1,19 @@
-# Test the Pegs module on the USDKTEST chain
+# Pegs Module User Tutorial
 
 **The guide here is tested to work on Ubuntu/(debian). The system is being constantly updated based on specifications, bugfixes or other improvements. Please let us know in the #cc-pegs channel of [Komodo Discord](https://komodoplatform.com/discord) if you find any issues or incorrect information. Also use the same channel for test reports and feedback.**
+
+## Tutorial
+
+In this tutorial, we will connect to the USDKTEST chain and follow a walkthrough of the flow a user of the Pegs module will experience.
+
+To that effect, we will go through the following steps:
+
+- Connect to the test Chain - USDKTEST
+- Deposit KMD coins in the multisig address that belongs to the Gateway on the USDKTEST chain
+- Claim the tokenized KMD on the USDKTEST chain
+- Lock the tokenized KMD in the Pegs module and get the USDK coins
+- Redeem the tokenized KMD using the pegsredeem command
+- Send the tokenized KMD back to the Gateway to receive the KMD coins in the KMD chain
 
 ## Installation
 
@@ -192,15 +205,15 @@ Usage: `gatewaysdeposit bindtxid height coin cointxid claimvout deposithex proof
 
 ::: tip Details
 
-- bindtxid = This is the Gateway's bindtxid;
-- height = In which block your deposit txid was confirmed from the earlier step (use explorer if searching manually)
+- bindtxid = This is the Gateway's bindtxid
+- height = The height of the block in which your deposit txid was confirmed from the earlier step (use [explorer](https://kmdexplorer.io/) if searching manually)
 - coin = Ticker of the coin you deposited; KMD in this example
-- cointxid = txid of your deposit
-- claimvout = The marker UTXO's vout number in the external deposit tx; it is always 0 when z_sendmany as shown in the guide is used
+- cointxid = `txid` of your deposit
+- claimvout = The marker UTXO's vout number in the external deposit transaction; it is always 0 when `z_sendmany` as shown in the guide is used
 - deposithex = The HEX value from gettransaction call for the deposited txid (available at the end of output)
 - proof = Use "gettxoutproof" with the deposit txid
 - destpub = The pubkey you are running the desination daemon with
-- amount = the amount you sent/deposited
+- amount = The amount you sent/deposited
 
 :::
 
@@ -493,7 +506,7 @@ Output:
 }
 ```
 
-### Send the tokenized KMD to the Gateway to receive the KMD coins in the actual chain
+### Send the tokenized KMD back to the Gateway to receive the KMD coins in the KMD chain
 
 #### Send the KMD tokens to the Gateways module using the `gatewayswithdraw` command
 
