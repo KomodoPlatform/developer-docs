@@ -368,3 +368,43 @@ Command:
 ```
 
 </collapse-text>
+
+## pegsget
+
+**pegsget pegstxid tokenid amount**
+
+The `pegsget` method allows a user to take a debt of upto 80% value(based on the current price) of the locked(collateral) tokenized Cryptocurrency in the form of the Smart chain's coins.
+
+### Arguments
+
+| Name     | Type     | Description                                                                          |
+| -------- | -------- | ------------------------------------------------------------------------------------ |
+| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transaction that created the Peg |
+| tokenid  | (string) | the tokenid of the tokenized Cryptocurrency backing the peg                          |
+| amount   | (amount) | the amount of the SmartChain coins to receive from the Pegs module                   |
+
+### Response
+
+| Name     | Type     | Description                               |
+| -------- | -------- | ----------------------------------------- |
+| "hex"    | (string) | the hex to be broadcasted                 |
+| "result" | (string) | whether the command executed successfully |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD pegsget a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7 1a459712f1e79a544efdf55cfb3e111c5df3300a4da4d16cb3b963bbb50aebf1 0.001
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "hex": "0400008085202f8903b68353f713e1d70cf2fe4fa538de32a8723e603d507c8ee2d42277f3fd7334ad00ca9a3b0201e2ffffffff3fba48bf0ac09226713509c71d0ccd457a012b28a88d2aaaa7381a5e12fa8c2900000000a74ca5a281a1a0819ca28194a067a565802103c75c1de29a35e41606363b430c08be1c2dd93cf7a468229a082cc79c7b77eece81402e06d560cac761ee7d7720f6ed0f307520fda7c66b2ac0d16cd3c34a33f004393f735429a7ad445a1c970723a7a9d173e1fcc62b54ed164dfb40f23542c9627da129a52780209de43b2cf09dcb2107822237e0afba0b0917b1592457b6fbfddb34fff3d302ae8103020000af038001eea10001ffffffff3fba48bf0ac09226713509c71d0ccd457a012b28a88d2aaaa7381a5e12fa8c2901000000a74ca5a281a1a0819ca28194a067a56580210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e068140152ff019e1e4346d450ab149f1ef9115ea84c9ff7c3bb60444a7e48eda0784a46ecefbf1a35f0062513033d9c3fce45a083f70b7ccc41103763c267598bcadcca129a52780209de43b2cf09dcb2107822237e0afba0b0917b1592457b6fbfddb34fff3d302ae8103020000af038001eea10001ffffffff041027000000000000302ea22c8020e39343ebe1b40dcc747d145f140983b38f230dcf7963f2b58051265c765f2efa81031210008203000401cc1027000000000000302ea22c8020d77058bfd93eebe366e1c82fc1475690fd290214ed43b8c9dd25374077b35cbe81031210008203000401cca08601000000000023210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06ac0000000000000000fd22016a4d1e01e211b68353f713e1d70cf2fe4fa538de32a8723e603d507c8ee2d42277f3fd7334ad00000400008085202f89013fba48bf0ac09226713509c71d0ccd457a012b28a88d2aaaa7381a5e12fa8c290000000000ffffffff01a086010000000000ab6a4ca8e28efefefe7f065045475343433e140a06d1f028a3abce516bd5d08ebfd860da116dfb0c3a22003b57f0809b5400f7711371604618bcb04458f01c829527a012f459da3c21ff44ee34dbc89e53a9f1eb0ab5bb63b9b36cd1a44d0a30f35d1c113efb5cf5fd4e549ae7f11297451a210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06a08601000000000040420f0000000000a08601000000000000000000b0990000000000000000000000000000000000000000000000000000000000000000",
+  "result": "success"
+}
+```
+
+</collapse-text>
