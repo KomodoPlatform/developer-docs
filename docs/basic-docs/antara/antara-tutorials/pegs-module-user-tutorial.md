@@ -546,4 +546,6 @@ Check the Address corresponding to the withdrawpub on the KMD chain after someti
 
 ### Liquidation
 
-A user who doesn't have a Pegs account yet, i.e., didn't use the [pegsfund](../../../basic-docs/antara/antara-api/pegs.html#pegsfund) method, can use the [pegsexchange](../../../basic-docs/antara/antara-api/pegs.html#pegsexchange) method to
+A user who doesn't have a Pegs account yet, i.e., didn't use the [pegsfund](../../../basic-docs/antara/antara-api/pegs.html#pegsfund) method, can use the [pegsexchange](../../../basic-docs/antara/antara-api/pegs.html#pegsexchange) method to exchange the Smart Chain's coins for the deposited tokens of another user's account whose debt ratio is in the "yellow zone" (`80%` to `90%`)
+
+The [pegsworstaccounts](../../../basic-docs/antara/antara-api/pegs.html#pegsworstaccounts) method can be used to get a list of all the accounts that are in the "red zone" (debt ratio exceeds `90%` at the current price) and the [pegsliquidate](../../../basic-docs/antara/antara-api/pegs.html#pegsliquidate) method can be used to liquidate them by repaying the Smart Chain's coins for a `5%` profit
