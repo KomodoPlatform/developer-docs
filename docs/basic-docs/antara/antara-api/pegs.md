@@ -16,7 +16,16 @@ The Pegs module utilizes many of the existing Antara modules like [Tokens](./tok
 
 ## Pegs Antara Module Flow
 
-- The Smart Chain creator creates an instance of the Pegs module called the Peg using the [pegscreate](#pegscreate) and adds it to the launch parameters using the `-earlytxid` parameter.
+- The Smart Chain creator(s) creates an instance of the Pegs module called the Peg using [pegscreate](#pegscreate) and adds it to the launch parameters using the `-earlytxid` parameter
+- A user locks tokenized external Cryptocurrency in the Pegs module using [pegsfund](#pegsfund)
+- The same user can withdraw upto `80%` value of the locked tokens in the Smart Chain's coins using [pegsget](#pegsget)
+- The same user can redeem the locked tokenized external Cryptocurrency by repaying the Smart Cahin's coins using [pegsredeem](#pegsredeem)
+- A user can get the current information about their Pegs account using [pegsaccountinfo](#pegsaccountinfo)
+- A user can get all the past actions related to their Pegs account using [pegsaccounthistory](#pegsaccounthistory)
+- A user can get the current information about the Peg using [pegsinfo](#pegsinfo)
+- A user without an account can exchange the Smart Chain's coins for the deposited tokens of another account whose debt ratio is in the "yellow zone" (`80%` to `90%`) using [pegsexchange](#pegsexchange)
+- A user can get the information on the accounts that can be liquidated (Accounts whose debt ratio is in the "red zone" i.e., exceeds `90%`) based on the current prices [pegsworstaccounts](#pegsworstaccounts)
+- A user can liquidate the account of another user whose debt ratio is in the "red zone" (greater than "90%") with a profit of `5%` using [pegsliquidate](#pegsliquidate)
 
 ## Tutorial Availability
 
@@ -115,7 +124,7 @@ Command:
 
 **pegsaccountinfo pegstxid**
 
-The `pegsaccountinfo` method returns all the past actions related to the Pegs account that belongs to the owner of the pubkey used to launch the daemon.
+The `pegsaccountinfo` method returns the current information the Pegs account that belongs to the owner of the pubkey used to launch the daemon.
 
 ### Arguments
 
@@ -316,7 +325,7 @@ The above string is the `pegstxid` that represents the Peg.
 
 **pegsexchange pegstxid tokenid amount**
 
-The `pegsexchange` method allows the exchange of a given amount of the Smart Chain's coins for the deposited tokens. This method is used when the user does not have an account, but wants to exchange the Smart Chain's coins for the tokenized Cryptocurrencies. This method repays the debt of another user whose account is in the "yellow zone" (debt ratio is around 80% based on current prices) and improves their debt ratio and prevent their account from being liquidated.
+The `pegsexchange` method allows the exchange of a given amount of the Smart Chain's coins for the deposited tokens. This method is used when the user does not have an account, but wants to exchange the Smart Chain's coins for the tokenized Cryptocurrencies. This method repays the debt of another user whose account is in the "yellow zone" (debt ratio is about `80%` to `90%` based on current prices) and improves their debt ratio and prevent their account from being liquidated.
 
 ### Arguments
 
@@ -510,7 +519,7 @@ Command:
 
 **pegsliquidate pegstxid tokenid accounttxid**
 
-The `pegsliquidate` method allows a user to liquidate the account of another user if its debt ratio is above a predefined value (`90%`) for a given token specified by the `tokenid`
+The `pegsliquidate` method allows a user to liquidate the account of another user if their debt ratio is in "red zone" (greater than "90%") for a given token specified by the `tokenid` by repaying the Smart Chain's coins for a profit of `5%`
 
 ### Arguments
 
@@ -590,7 +599,7 @@ Command:
 
 **pegsworstaccounts pegstxid**
 
-The `pegsworstaccounts` method returns the information on the accounts that can be liquidated based on the current prices (Accounts whose debt ratio is in the red zone i.e., exceeds 90%).
+The `pegsworstaccounts` method returns the information on the accounts that can be liquidated based on the current prices (Accounts whose debt ratio is in the red zone i.e., exceeds `90%`).
 
 ### Arguments
 
