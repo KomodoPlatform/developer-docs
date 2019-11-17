@@ -408,3 +408,56 @@ Command:
 ```
 
 </collapse-text>
+
+## pegsinfo
+
+**pegsinfo pegstxid**
+
+The `pegsinfo` method returns the current information about the given Peg.
+
+### Arguments
+
+| Name     | Type     | Description                                                                          |
+| -------- | -------- | ------------------------------------------------------------------------------------ |
+| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transaction that created the Peg |
+
+### Response
+
+| Name            | Type         | Description                                              |
+| --------------- | ------------ | -------------------------------------------------------- |
+| "result"        | (string)     | whether the command executed successfully                |
+| "name"          | (string)     | name of the method                                       |
+| "info"          | (json array) | the current information about the given Peg              |
+| "token"         | (string)     | name of the token                                        |
+| "total deposit" | (amount)     | total number of tokens deposited                         |
+| "total debt"    | (amount)     | total number of satoshis of Smart Chain's coin withdrawn |
+| "total ratio"   | (string)     | total debt ratio based on the current price              |
+| "global ratio"  | (string)     | global debt ratio based on the current price             |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD pegsinfo a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "result": "success",
+  "name": "pegsinfo",
+  "info": [
+    {
+      "token": "KMD",
+      "total deposit": 2000000,
+      "total debt": 300000,
+      "total ratio": "16.67%"
+    }
+  ],
+  "global ratio": "16.67%"
+}
+```
+
+</collapse-text>
