@@ -328,3 +328,43 @@ add response
 
 </collapse-text>
 -->
+
+## pegsfund
+
+**pegsfund pegstxid tokenid amount**
+
+The `pegsfund` method allows a user to lock the given `amount` of a tokenized Cryptocurrency in the Pegs module.
+
+### Arguments
+
+| Name     | Type     | Description                                                                          |
+| -------- | -------- | ------------------------------------------------------------------------------------ |
+| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transaction that created the Peg |
+| tokenid  | (string) | the tokenid of the tokenized Cryptocurrency backing the peg                          |
+| amount   | (amount) | the amount of the tokenized Cryptocurrency to be locked in the Pegs account          |
+
+### Response
+
+| Name     | Type     | Description                               |
+| -------- | -------- | ----------------------------------------- |
+| "hex"    | (string) | the hex to be broadcasted                 |
+| "result" | (string) | whether the command executed successfully |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD pegsfund a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7 1a459712f1e79a544efdf55cfb3e111c5df3300a4da4d16cb3b963bbb50aebf1 0.01
+```
+
+<collapse-text hidden title="Response">
+
+```json
+{
+  "hex": "0400008085202f89024c386ef60103e74f339867bd7c38b7f187ceee842b8e57ab9a42a16b0721be23040000007b4c79a276a072a26ba067a565802103c75c1de29a35e41606363b430c08be1c2dd93cf7a468229a082cc79c7b77eece8140213fbd380d7905f770709725fe462e5f0a731eca4e56435c4b2f7c96d5b6201433e7c780d313795ddf9ae1d0b689b4f950af6e0e07dd9bcbc293b46f2a349ef4a100af038001eea10001ffffffff9c29a09fb0f1f178ed83e7064297a3d0ba892d9b0eb6b9f0b04c3622203f8be3000000007b4c79a276a072a26ba067a56580210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e0681409a7fa29976f948038b77573fb1103836340ebbcdfbbba8dc852186be1666811c034adf2ec9d9515eb58f14df81925f46fb152b2964e8f392b70bafdfe3a8af83a100af038001f2a10001ffffffff051027000000000000302ea22c8020e39343ebe1b40dcc747d145f140983b38f230dcf7963f2b58051265c765f2efa81031210008203000401cc1027000000000000302ea22c8020d77058bfd93eebe366e1c82fc1475690fd290214ed43b8c9dd25374077b35cbe81031210008203000401cc40420f0000000000302ea22c802002bc3497bdabeac3d0c40ac845fa105685724d1b70c84bd6c5cef2ff4c353e7881032214008203000401cc3cdf993b00000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc0000000000000000c86a4cc5f2741a459712f1e79a544efdf55cfb3e111c5df3300a4da4d16cb3b963bbb50aebf102210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e062103c75c1de29a35e41606363b430c08be1c2dd93cf7a468229a082cc79c7b77eece175cee46f7711371604618bcb04458f01c829527a012f459da3c21ff44ee34dbc89e53a9210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e0640420f000000000040420f0000000000000000000000000000000000a79900000000000000000000000000",
+  "result": "success"
+}
+```
+
+</collapse-text>
