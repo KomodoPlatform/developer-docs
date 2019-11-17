@@ -8,7 +8,7 @@ It features configurable parameters, such as a customizable monthly reward, mini
 
 There can be many `rewards` plans active at any given time.
 
-### Rewards CC Module Flow
+### Rewards Antara Module Flow
 
 - Anyone can create a new plan using [rewardscreatefunding](../../../basic-docs/antara/antara-api/rewards.html#rewardscreatefunding)
 - Anyone can add funding to the plan using [rewardsaddfunding](../../../basic-docs/antara/antara-api/rewards.html#rewardsaddfunding)
@@ -275,7 +275,7 @@ The `rewardsaddress` method returns info about the `rewards` plan associated wit
 | result           | (string) | whether the method executed successfully                                                                       |
 | RewardsCCaddress | (string) | taking the module's EVAL code as a modifier, this is the public address that corresponds to the plan's privkey |
 | Rewardsmarker    | (string) | the unmodified public address generated from the plan's privkey                                                |
-| GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                 |
+| GatewaysPubkey   | (string) | the pubkey for the Gateways Antara Module                                                                                 |
 | RewardsCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                               |
 | CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user            |
 | myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user            |

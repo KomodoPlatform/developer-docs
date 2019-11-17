@@ -34,7 +34,7 @@ The `oraclesaddress` method displays the oracle address for a specific pubkey.
 | result           | (string) | whether the method executed successfully                                                                           |
 | OraclesCCaddress | (string) | taking the module's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
 | Oraclesmarker    | (string) | the unmodified public address generated from the contract's privkey                                                |
-| GatewaysPubkey   | (string) | the pubkey for the gateways cc                                                                                     |
+| GatewaysPubkey   | (string) | the pubkey for the Gateways Antara Module                                                                                      |
 | OraclesCCassets  | (string) | this property is used for development purposes only and can otherwise be ignored                                   |
 | CCaddress        | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                |
 | myCCaddress      | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                |
