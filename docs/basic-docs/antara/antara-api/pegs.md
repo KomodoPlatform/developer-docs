@@ -12,6 +12,10 @@ The Pegs module utilizes many of the existing Antara modules like Tokens, Gatewa
 - Oracles communicate the information about tokens deposited via the Gateway using an "oraclefeed" app, run by the Gateway/Chain creator (and potentially notary nodes).
 - The DTO from the Prices module adds the required prices data to the Smart Chain in a trustless manner from a range of external sources, and it is used with a 24 hr delay.
 
+## Pegs Antara Module Flow
+
+- The Smart Chain creator creates an instance of the Pegs module called the Peg using the [pegscreate](#pegscreate) and adds it to the launch parameters using the `-earlytxid` parameter.
+
 ## Tutorial Availability
 
 The Antara Tutorials section features a full walkthrough for the user side of the Pegs module.
@@ -302,6 +306,8 @@ Command:
 a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7
 ```
 
+</collapse-text>
+
 The above string is the `pegstxid` that represents the Peg.
 
 ## pegsexchange
@@ -400,6 +406,8 @@ Command:
 ```
 298cfa125e1a38a7aa2a8da8282b017a45cd0c1dc70935712692c00abf48ba3f
 ```
+
+</collapse-text>
 
 The above string is the `accounttxid` of the user.
 
