@@ -547,3 +547,7 @@ Output:
 ```
 
 Check the Address corresponding to the withdrawpub on the KMD chain after sometime and it should have received the coins.
+
+### Liquidation
+
+A user who doesn't have a Pegs account yet, i.e., didn't use the [pegsfund]() method yet, can use the [pegsexchange]() method
