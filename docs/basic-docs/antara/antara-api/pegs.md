@@ -573,3 +573,44 @@ Command:
 ```
 
 </collapse-text>
+
+## pegsworstaccounts
+
+**pegsworstaccounts pegstxid**
+
+The `pegsworstaccounts` method returns the information on the accounts that can be liquidated based on the current prices (Accounts whose debt ratio is in the red zone i.e., exceeds 90%).
+
+### Arguments
+
+| Name     | Type     | Description                                                                          |
+| -------- | -------- | ------------------------------------------------------------------------------------ |
+| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transaction that created the Peg |
+
+<!-- FIXME
+
+### Response
+
+| Name     | Type     | Description                               |
+| -------- | -------- | ----------------------------------------- |
+| "result" | (string) | whether the command executed successfully |
+| "name"   | (string) | name of the method                        |
+|          |          |                                           |
+
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD pegsworstaccounts a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7
+```
+
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+-->
