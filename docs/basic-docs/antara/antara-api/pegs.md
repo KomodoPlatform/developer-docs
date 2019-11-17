@@ -32,6 +32,7 @@ The Pegs module utilizes many of the existing Antara modules like [Tokens](./tok
 The Antara Tutorials section features a full walkthrough for the user side of the Pegs module.
 
 [<b>Link to the user side of the Pegs Module Tutorial</b>](../../../basic-docs/antara/antara-tutorials/pegs-module-user-tutorial.html)
+[<b>Link to the creator side of the Pegs Module Tutorial</b>](../../../basic-docs/antara/antara-tutorials/pegs-module-creator-tutorial.html)
 
 ## pegsaccounthistory
 
