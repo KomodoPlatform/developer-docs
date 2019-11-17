@@ -285,3 +285,46 @@ Command:
 ```
 
 </collapse-text>
+
+## pegsexchange
+
+**pegsexchange pegstxid tokenid amount**
+
+The `pegsexchange` method allows the exchange of a given amount of the Smart Chain's coins for the deposited tokens. This method is used when the user does not have an account, but wants to exchange the Smart Chain's coins for the tokenized Cryptocurrencies..
+
+### Arguments
+
+| Name     | Type     | Description                                                                          |
+| -------- | -------- | ------------------------------------------------------------------------------------ |
+| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transaction that created the Peg |
+| tokenid  | (string) | the tokenid of the tokenized Cryptocurrency backing the peg                          |
+| amount   | (amount) | the amount of coins to exchange                                                      |
+
+### Response
+
+| Name     | Type     | Description                               |
+| -------- | -------- | ----------------------------------------- |
+| "hex"    | (string) | the hex to be broadcasted                 |
+| "result" | (string) | whether the command executed successfully |
+
+#### :pushpin: Examples
+
+Command:
+
+```bash
+./komodo-cli -ac_name=HELLOWORLD pegsexchange a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7 1a459712f1e79a544efdf55cfb3e111c5df3300a4da4d16cb3b963bbb50aebf1 0.01
+```
+
+<!--
+FIXME
+
+add response
+
+<collapse-text hidden title="Response">
+
+```json
+
+```
+
+</collapse-text>
+-->
