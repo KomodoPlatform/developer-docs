@@ -251,6 +251,8 @@ The `N` parameter is the number of gateways we are associating with the Pegs mod
 
 The `bindtxidN` parameter is the `bindtxid` of a gateway we are using to tokenize external cryptocurrencies.
 
+The transction id of the `pegscreate` transaction is called the `pegstxid`. Once it is confirmed, the Smart Chain daemon should be stopped and started again with the parameter `-earlytxid=pegstxid` added to the launch command. This ensures that it is the only Peg active on the Smart Chain. The `-earlytxid` parameter can be added to the launch parameters only before the 100th block.
+
 ### Arguments
 
 | Name            | Type                | Description                                                                                  |
