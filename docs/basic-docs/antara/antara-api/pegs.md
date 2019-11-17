@@ -308,7 +308,7 @@ The above string is the `pegstxid` that represents the Peg.
 
 **pegsexchange pegstxid tokenid amount**
 
-The `pegsexchange` method allows the exchange of a given amount of the Smart Chain's coins for the deposited tokens. This method is used when the user does not have an account, but wants to exchange the Smart Chain's coins for the tokenized Cryptocurrencies..
+The `pegsexchange` method allows the exchange of a given amount of the Smart Chain's coins for the deposited tokens. This method is used when the user does not have an account, but wants to exchange the Smart Chain's coins for the tokenized Cryptocurrencies. This method repays the debt of another user whose account is in the "yellow zone" (debt ratio is around 80% based on current prices) and improves their debt ratio and prevent their account from being liquidated.
 
 ### Arguments
 
