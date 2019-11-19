@@ -23,7 +23,7 @@ The Pegs module utilizes many of the existing Antara modules like [Tokens](./tok
 - A user can get the current information about their Pegs account using [pegsaccountinfo](#pegsaccountinfo)
 - A user can get all the past actions related to their Pegs account using [pegsaccounthistory](#pegsaccounthistory)
 - A user can get the current information about the Peg using [pegsinfo](#pegsinfo)
-- A user without an account can exchange the Smart Chain's coins for the deposited tokens of another account whose debt ratio is in the "yellow zone" (`80%` to `90%`) using [pegsexchange](#pegsexchange)
+- A user without an account can exchange the Smart Chain's coins for the deposited tokens of another user's account whose debt ratio is in the "yellow zone" (`80%` to `90%`) using [pegsexchange](#pegsexchange)
 - A user can get the information on the accounts that can be liquidated (Accounts whose debt ratio is in the "red zone" i.e., exceeds `90%`) based on the current prices [pegsworstaccounts](#pegsworstaccounts)
 - A user can liquidate the account of another user whose debt ratio is in the "red zone" (greater than "90%") with a profit of `5%` using [pegsliquidate](#pegsliquidate)
 
@@ -32,6 +32,7 @@ The Pegs module utilizes many of the existing Antara modules like [Tokens](./tok
 The Antara Tutorials section features a full walkthrough for the user side of the Pegs module.
 
 [<b>Link to the user side of the Pegs Module Tutorial</b>](../../../basic-docs/antara/antara-tutorials/pegs-module-user-tutorial.html)
+[<b>Link to the creator side of the Pegs Module Tutorial</b>](../../../basic-docs/antara/antara-tutorials/pegs-module-creator-tutorial.html)
 
 ## pegsaccounthistory
 

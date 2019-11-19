@@ -1,6 +1,6 @@
 # Pegs Module User Tutorial
 
-**The guide here is tested to work on Ubuntu/(debian). The system is being constantly updated based on specifications, bugfixes or other improvements. Please let us know in the #cc-pegs channel of [Komodo Discord](https://komodoplatform.com/discord) if you find any issues or incorrect information. Also use the same channel for test reports and feedback.**
+**The guide here has been tested to work on Ubuntu/(debian). The system is being constantly updated based on specifications, bugfixes or other improvements. Please let us know in the #cc-pegs channel of [Komodo Discord](https://komodoplatform.com/discord) if you find any issues or incorrect information. Also use the same channel for test reports and feedback.**
 
 ## Tutorial
 
@@ -15,7 +15,7 @@ To that effect, we will go through the following steps:
 - Redeem the tokenized KMD using the pegsredeem command
 - Send the tokenized KMD back to the Gateway to receive the KMD coins in the KMD chain
 
-## Installation
+## Installation (Only for Testing, do not use in Production)
 
 ### Dependencies
 
@@ -81,7 +81,7 @@ Import the privatekey corresponding to the pubkey used to start the USDKTEST cha
 ./komodo-cli -ac_name=USDKTEST importprivkey <your privkey>
 ```
 
-Let the chain sync. You can check the sync status using the `getinfo` command. When the keys `blocks` and `longestchain` have the same value, the chain is synced. Once the chain is synced, start mining. You will need atleast 30k satoshis (or 3 blocks).
+Let the chain sync. You can check the sync status using the [getinfo](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo) command. When the keys `blocks` and `longestchain` have the same value, the chain is synced. Once the chain is synced, start mining. You will need atleast `30k` satoshis (or `3` blocks).
 
 ```bash
 ./komodo-cli -ac_name=USDKTEST setgenerate true 1
@@ -105,7 +105,7 @@ You also need the KMD chain synced.
 
 ### How to do a deposit?
 
-Find the multisig address in which the KMD are to be deposited.
+Find the address in which the KMD are to be deposited.
 
 ```bash
 ./komodo-cli -ac_name=USDKTEST gatewaysinfo 50384e7668bd6908d8e0b67f1450c56f017186d802b1065c3258302a30b5adb2
@@ -141,11 +141,7 @@ The deposit address is `bPFkXSYYYDWBLbp8AxfY5KKGgxt5RPfN9p`
 
 Go to the KMD chain and send the required amount of KMD to the above multisig address and a small amount as marker to the address corresponding to the publickey used to launch the USDKTEST chain in a single transaction.
 
-```bash
-./komodo-cli -ac_name=USDKTEST
-```
-
-Use `z_sendmany` like so
+Use [z_sendmany](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-sendmany) like so
 
 ```bash
 ./komodo-cli z_sendmany "FROM_ADDRESS" '[{"address":"ADDRESS_CORRESPONDING_TO_YOUR_PUBLIC_KEY","amount":MARKER_AMOUNT},{"address":"GATEWAYS_MULTISIG_ADDRESS","amount":AMOUNT_YOU_WANT_TO_DEPOSIT}]'
@@ -159,7 +155,7 @@ Check the following example.
 
 #### Get the `txid` of your deposit
 
-You should get an `opid` from the `z_sendmany` call which you need to use to get the txid. Alternatively you can check the [explorer](https://kmdexplorer.io/) for the txid by searching for the involved address(es).
+You should get an `opid` from the [z_sendmany](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-sendmany) call which you need to use to get the `txid`. Alternatively you can check the [explorer](https://kmdexplorer.io/) for the `txid` by searching for the involved address(es).
 
 ```bash
 ./komodo-cli z_getoperationstatus '["opid-4b661588-9924-47ba-bbba-4884eff36395"]'
@@ -199,7 +195,7 @@ Output:
 
 ### Make the Gateways module on the USDKTEST chain aware of the deposit and claim the tokenized KMD
 
-Use `gatewaysdeposit` to let the Gateways module know about the deposit
+Use [gatewaysdeposit](../../../basic-docs/antara/antara-api/gateways.html#gatewaysdeposit) to let the Gateways module know about the deposit
 
 Usage: `gatewaysdeposit bindtxid height coin cointxid claimvout deposithex proof destpub amount`
 
@@ -217,7 +213,7 @@ Usage: `gatewaysdeposit bindtxid height coin cointxid claimvout deposithex proof
 
 :::
 
-In order to finish the deposit, we need to collect all the above information about your deposit and use it on the destination chain with the `gatewaysdeposit` RPC call.
+In order to finish the deposit, we need to collect all the above information about your deposit and use it on the destination chain with the [gatewaysdeposit](../../../basic-docs/antara/antara-api/gateways.html#gatewaysdeposit) RPC call.
 
 #### Get the `deposithex`
 
@@ -233,7 +229,7 @@ Output:
 
 #### Get `proof` value
 
-Use `gettxoutproof` with the deposit txid and you will be given a hex value.
+Use [gettxoutproof](../../../basic-docs/smart-chains/smart-chain-api/blockchain.html#gettxoutproof) with the deposit txid and you will be given a hex value.
 
 ```bash
 ./komodo-cli gettxoutproof '["5569e66859a8269b3b7a512ac66a42b1a4d375bb404fc73abaf2faf3080ec4af"]'
@@ -245,9 +241,9 @@ Output:
 0400000012a703d96b522f36fe13711c96de92b3f17bdbd41eda1a6753e2cd22924c1b0e47dd0fb69db925741977975a5803d8c885c72651b5c0427685e20e16cba73a43a2d8a734eb73a4dc734072dbfd12406f1e7121bfe0e3d6c10922495c44e5cc1cba52cd5dddaf001dffef8831000000000000b22a0000000000000200000000000000000000000000fd40050029a91e2967f03d92e838d3bf73067ed2431bde7f23432431f5d41ef6bd4245f0216b3b9a389d3f8c0813f27547948aec070a0302892468513f07653a83ac3a8c9a373cf12a4ddcb473f92d350417081a7c3696027f82781522fd39ac95449a24bfebf30ae39c328913e777ddca29a3d5b6b15374e1b84e09c9d2af243404e800ed03c3ec32dee990fa10d2b61d43db9987760fb169841e6cc985c6d651a4be3cd9f60cded6232e03f610267e1ed8873a5580c40c07353b0440398032251401ad3063d117d1ba83e674782f65e6d7b525691637434d0c0a0cd758c26b8be9fce02afdc81b6d4a2733432193242135d58d9762874d2d26ac85fbe43d0d324b512ac8012756e68100ce76b9b8bb761053501ea99224b88b66f8c86f236c23d8e0b9ca1ad9000c0e5fbf34a583c245fd9942e94c547345a62731a61a17bf895d2c17dcbb647ce2b7f3e29e5264c01e6d7300d7b9c9881c08e7d5ec71e3adb47de2061513094f13d654d22c502f596225b22ff05d457e479e9895ad05eecb63f71697639b5510e79a9973b5d8561144e41773a8d3e40eb10d5fc352db2e31ed555a8beb8a830aea6e654414a9853dfab20d37300fb0a776d5ccef137cd379ce98204728d7f2117111a59ead081894330faa17677889216b4c3d54c8a97f189296465ebcb739f61b8f53cf8ad6ced60d924b78d0677c3d1d16ab0fa1e0b94c6176d5f12617f6de5e665a99dbd8e84814f53d3fa0ccc383afa5d1cd6ac664bd27c44f0f4620344aacd78b8f0e96b8c853a0ceeafe35d6b338b5338e959b26a710bb3cdc9347fae575da0fae720eb312416cee371cf827cf7875edeb71da95bf07d864a812ffa8c4ddec2b87cf60f3bd2f636306b040976d0f1591a401fecdc304bce3754bd8d8fea5649e93da601995138c8c0bc69d44bc96ad786dc30e5ea13698c900c553d2c01972ad1ffce071a2980271c3525e932508f1f955bca7dee3e94997f8f6c92e4ef1447a3c47053563940ea4b88987fdb0ce0a7ddd8ea2bf375922297947ea8bb18985f6bbe3eab2d03f12f6687f911b12c7ce2b9050995523f0f23a03984f15cfc6785bd92af3ad60daac650ff3a718183967665f92b17eaf5d1459d2eb8255b94b0bd1f279aa18a04a87339941ee4cf11f31c357f31b9ff54858fb43085ebfc7b9868001bbbcd126dfcfeff478063fccde8736c15d1bb16108f1d710aad0694dffb181cc4e57f2b5d00276c18c19ccbacd7096be13a8fdf2c280cd237cbc46466c2e33cd745b465c60c1fdae6399b326ccf9e6164ff24021fce569dc8b6df8dfd26406906f1b25656f37a10626f153ff3239a8cfd35664155cb92ac54205ae517731afa77a86627177435cf5cb4371ab3a35fc99d0fc4731db98fb2ac959dc3757053ff6c41e5db1dc6da501456734a6155287cdc50038f2c43b74acfb683436510e0c6b3e1a0acfbf00663978d88ede7802b5703b05107dfb90a05ae78c9bb62375c4c6e591d9b7a35d2430066e8f528af96c32c2645566305387023dcd4a091ec0ec1bd4a454cc87f17426a65c1543759a7b503129aab79ed9e4b6efcb951da7f00c42d31cda7e4511f164e037762a63ebd2c617195f455687197bdc9f51cc26126ae291d3b0a4578bb8d6d386ac65b5859403bfde32cb619bb7f63f9c100f6b29a771837e3e1f06c83eccd5c2b3ca4d5af1ee5fc42fa4de6aa778402cf72a55e64cd2c5768862f2a65ec24a63da1946092e5bc5789a91cfccd4a553a3eeff0620f3ba53622e1513b6d59babb509a21516a6e9bb5657a6c4ff9a9423a65d555b9236caa510879d3ce809572db65cefa31783a5b5fcf0e6b9e44662536877f96e5e7bfce6593f912611095e905dcb5ef443b626e585a9a056e1d70900000005752526306830c6259c1659fa8ca3bfd85fa782c17efd04ec51cf7b13cc93de02afc40e08f3faf2ba3ac74f40bb75d3a4b1426ac62a517a3b9b26a85968e66955227fdec6d08be9fa88128f0d3c0681a5ba271ae5e27cfa60daa95e938c02f80da2499fa7619612a9acc3398f993475d4b981579f881f39adc29d1beb976be1c02e4e1bb76d33a81fa5f9065c8945a6a7aa2ceed88276ea9723c80bbb314ef89f023700
 ```
 
-Now that we have gathered all the necessary info, let's build the `gatewaysdeposit` call and execute it.
+Now that we have gathered all the necessary info, let's build the [gatewaysdeposit](../../../basic-docs/antara/antara-api/gateways.html#gatewaysdeposit) call and execute it.
 
-#### Finish the deposit by calling the `gatewaysdeposit` method
+#### Finish the deposit by calling the [gatewaysdeposit](../../../basic-docs/antara/antara-api/gateways.html#gatewaysdeposit) method
 
 ```bash
 ./komodo-cli -ac_name=USDKTEST gatewaysdeposit 50384e7668bd6908d8e0b67f1450c56f017186d802b1065c3258302a30b5adb2 1618112 KMD 5569e66859a8269b3b7a512ac66a42b1a4d375bb404fc73abaf2faf3080ec4af 0 0400008085202f89010cacb0895bbd5cbbe12a13875c06dac59ad6154780df59d86b28d1da0d64c3c5000000006b483045022100cabf2fc63cebf2eecb186e92053da1d4cebf984980ca645ac050b1fb49e0fc43022070f59307d8f442c295dea500d93a4545a650f1b80d06dab9154562af7c3a28c1012102decc2e49c24ca9f06b96665e8e39836ea1d8c73671166fa6ee917b4bcb307b44ffffffff0310270000000000001976a9144726f2838fc4d6ac66615e10604e18926e9b556e88ac40420f000000000017a9147374f811b053e81a4b4e6e282a2421aaf170afaa8798db2d36000000001976a91408ba4152fe80ffc33f805b166ec9c03c288109b488ac6f52cd5d87b118000000000000000000000000 0400000012a703d96b522f36fe13711c96de92b3f17bdbd41eda1a6753e2cd22924c1b0e47dd0fb69db925741977975a5803d8c885c72651b5c0427685e20e16cba73a43a2d8a734eb73a4dc734072dbfd12406f1e7121bfe0e3d6c10922495c44e5cc1cba52cd5dddaf001dffef8831000000000000b22a0000000000000200000000000000000000000000fd40050029a91e2967f03d92e838d3bf73067ed2431bde7f23432431f5d41ef6bd4245f0216b3b9a389d3f8c0813f27547948aec070a0302892468513f07653a83ac3a8c9a373cf12a4ddcb473f92d350417081a7c3696027f82781522fd39ac95449a24bfebf30ae39c328913e777ddca29a3d5b6b15374e1b84e09c9d2af243404e800ed03c3ec32dee990fa10d2b61d43db9987760fb169841e6cc985c6d651a4be3cd9f60cded6232e03f610267e1ed8873a5580c40c07353b0440398032251401ad3063d117d1ba83e674782f65e6d7b525691637434d0c0a0cd758c26b8be9fce02afdc81b6d4a2733432193242135d58d9762874d2d26ac85fbe43d0d324b512ac8012756e68100ce76b9b8bb761053501ea99224b88b66f8c86f236c23d8e0b9ca1ad9000c0e5fbf34a583c245fd9942e94c547345a62731a61a17bf895d2c17dcbb647ce2b7f3e29e5264c01e6d7300d7b9c9881c08e7d5ec71e3adb47de2061513094f13d654d22c502f596225b22ff05d457e479e9895ad05eecb63f71697639b5510e79a9973b5d8561144e41773a8d3e40eb10d5fc352db2e31ed555a8beb8a830aea6e654414a9853dfab20d37300fb0a776d5ccef137cd379ce98204728d7f2117111a59ead081894330faa17677889216b4c3d54c8a97f189296465ebcb739f61b8f53cf8ad6ced60d924b78d0677c3d1d16ab0fa1e0b94c6176d5f12617f6de5e665a99dbd8e84814f53d3fa0ccc383afa5d1cd6ac664bd27c44f0f4620344aacd78b8f0e96b8c853a0ceeafe35d6b338b5338e959b26a710bb3cdc9347fae575da0fae720eb312416cee371cf827cf7875edeb71da95bf07d864a812ffa8c4ddec2b87cf60f3bd2f636306b040976d0f1591a401fecdc304bce3754bd8d8fea5649e93da601995138c8c0bc69d44bc96ad786dc30e5ea13698c900c553d2c01972ad1ffce071a2980271c3525e932508f1f955bca7dee3e94997f8f6c92e4ef1447a3c47053563940ea4b88987fdb0ce0a7ddd8ea2bf375922297947ea8bb18985f6bbe3eab2d03f12f6687f911b12c7ce2b9050995523f0f23a03984f15cfc6785bd92af3ad60daac650ff3a718183967665f92b17eaf5d1459d2eb8255b94b0bd1f279aa18a04a87339941ee4cf11f31c357f31b9ff54858fb43085ebfc7b9868001bbbcd126dfcfeff478063fccde8736c15d1bb16108f1d710aad0694dffb181cc4e57f2b5d00276c18c19ccbacd7096be13a8fdf2c280cd237cbc46466c2e33cd745b465c60c1fdae6399b326ccf9e6164ff24021fce569dc8b6df8dfd26406906f1b25656f37a10626f153ff3239a8cfd35664155cb92ac54205ae517731afa77a86627177435cf5cb4371ab3a35fc99d0fc4731db98fb2ac959dc3757053ff6c41e5db1dc6da501456734a6155287cdc50038f2c43b74acfb683436510e0c6b3e1a0acfbf00663978d88ede7802b5703b05107dfb90a05ae78c9bb62375c4c6e591d9b7a35d2430066e8f528af96c32c2645566305387023dcd4a091ec0ec1bd4a454cc87f17426a65c1543759a7b503129aab79ed9e4b6efcb951da7f00c42d31cda7e4511f164e037762a63ebd2c617195f455687197bdc9f51cc26126ae291d3b0a4578bb8d6d386ac65b5859403bfde32cb619bb7f63f9c100f6b29a771837e3e1f06c83eccd5c2b3ca4d5af1ee5fc42fa4de6aa778402cf72a55e64cd2c5768862f2a65ec24a63da1946092e5bc5789a91cfccd4a553a3eeff0620f3ba53622e1513b6d59babb509a21516a6e9bb5657a6c4ff9a9423a65d555b9236caa510879d3ce809572db65cefa31783a5b5fcf0e6b9e44662536877f96e5e7bfce6593f912611095e905dcb5ef443b626e585a9a056e1d70900000005752526306830c6259c1659fa8ca3bfd85fa782c17efd04ec51cf7b13cc93de02afc40e08f3faf2ba3ac74f40bb75d3a4b1426ac62a517a3b9b26a85968e66955227fdec6d08be9fa88128f0d3c0681a5ba271ae5e27cfa60daa95e938c02f80da2499fa7619612a9acc3398f993475d4b981579f881f39adc29d1beb976be1c02e4e1bb76d33a81fa5f9065c8945a6a7aa2ceed88276ea9723c80bbb314ef89f023700 0217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06 0.01
@@ -262,7 +258,7 @@ Output:
 }
 ```
 
-Use `sendrawtransaction` to broadcast this txn
+Use [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) to broadcast this txn
 
 ```bash
 ./komodo-cli -ac_name=USDKTEST sendrawtransaction 0400008085202f890201cbaa60fc93f3e7005f6622999c4abb7258931c3869a6004282014e229358250000000049483045022100f75b4b3dd2a3cac01d389e2957f7337889129f31453a3bf67aa3a6b807417cf0022076ccbb1fd65a6606a2b1e8a816e90edd66d17e6e336755043ab109a1d6cc07f901ffffffff001f6f50578b79a46d6285d9b3c6668104bc1101b7763a33a5e0784b2933fbd7000000004847304402203a76e7c860454b47d653fe9c306a5c53c3b5bda3c68d3c58af89f3754c1d91f3022033c144d67703cd0a1313b31d241bba3eb925200806783cd2557ec18d4669401501ffffffff031027000000000000302ea22c80207f6d7586423d9d8f716988f94728224df39bb0c98bb75655d22a778aea922a208103120c008203000401cc1027000000000000232102afc40e08f3faf2ba3ac74f40bb75d3a4b1426ac62a517a3b9b26a85968e66955ac0000000000000000fd67096a4d6309f144034b4d44b2adb5302a3058325c06b102d88671016fc550147fb6e0d80869bd68764e38500121023a447741707e95bc889fbbb08295d402332217075752bd1bb3999b092e4753ab01524571b97a2bf1b546379e59479430ca188f274215b411e90d2cd51295b12b98c0b01800afc40e08f3faf2ba3ac74f40bb75d3a4b1426ac62a517a3b9b26a85968e6695500000000fd2a023034303030303830383532303266383930313063616362303839356262643563626265313261313338373563303664616335396164363135343738306466353964383662323864316461306436346333633530303030303030303662343833303435303232313030636162663266633633636562663265656362313836653932303533646131643463656266393834393830636136343561633035306231666234396530666334333032323037306635393330376438663434326332393564656135303064393361343534356136353066316238306430366461623931353435363261663763336132386331303132313032646563633265343963323463613966303662393636363565386533393833366561316438633733363731313636666136656539313762346263623330376234346666666666666666303331303237303030303030303030303030313937366139313434373236663238333866633464366163363636313565313036303465313839323665396235353665383861633430343230663030303030303030303031376139313437333734663831316230353365383161346234653665323832613234323161616631373061666161383739386462326433363030303030303030313937366139313430386261343135326665383066666333336638303562313636656339633033633238383130396234383861633666353263643564383762313138303030303030303030303030303030303030303030303030fd77060400000012a703d96b522f36fe13711c96de92b3f17bdbd41eda1a6753e2cd22924c1b0e47dd0fb69db925741977975a5803d8c885c72651b5c0427685e20e16cba73a43a2d8a734eb73a4dc734072dbfd12406f1e7121bfe0e3d6c10922495c44e5cc1cba52cd5dddaf001dffef8831000000000000b22a0000000000000200000000000000000000000000fd40050029a91e2967f03d92e838d3bf73067ed2431bde7f23432431f5d41ef6bd4245f0216b3b9a389d3f8c0813f27547948aec070a0302892468513f07653a83ac3a8c9a373cf12a4ddcb473f92d350417081a7c3696027f82781522fd39ac95449a24bfebf30ae39c328913e777ddca29a3d5b6b15374e1b84e09c9d2af243404e800ed03c3ec32dee990fa10d2b61d43db9987760fb169841e6cc985c6d651a4be3cd9f60cded6232e03f610267e1ed8873a5580c40c07353b0440398032251401ad3063d117d1ba83e674782f65e6d7b525691637434d0c0a0cd758c26b8be9fce02afdc81b6d4a2733432193242135d58d9762874d2d26ac85fbe43d0d324b512ac8012756e68100ce76b9b8bb761053501ea99224b88b66f8c86f236c23d8e0b9ca1ad9000c0e5fbf34a583c245fd9942e94c547345a62731a61a17bf895d2c17dcbb647ce2b7f3e29e5264c01e6d7300d7b9c9881c08e7d5ec71e3adb47de2061513094f13d654d22c502f596225b22ff05d457e479e9895ad05eecb63f71697639b5510e79a9973b5d8561144e41773a8d3e40eb10d5fc352db2e31ed555a8beb8a830aea6e654414a9853dfab20d37300fb0a776d5ccef137cd379ce98204728d7f2117111a59ead081894330faa17677889216b4c3d54c8a97f189296465ebcb739f61b8f53cf8ad6ced60d924b78d0677c3d1d16ab0fa1e0b94c6176d5f12617f6de5e665a99dbd8e84814f53d3fa0ccc383afa5d1cd6ac664bd27c44f0f4620344aacd78b8f0e96b8c853a0ceeafe35d6b338b5338e959b26a710bb3cdc9347fae575da0fae720eb312416cee371cf827cf7875edeb71da95bf07d864a812ffa8c4ddec2b87cf60f3bd2f636306b040976d0f1591a401fecdc304bce3754bd8d8fea5649e93da601995138c8c0bc69d44bc96ad786dc30e5ea13698c900c553d2c01972ad1ffce071a2980271c3525e932508f1f955bca7dee3e94997f8f6c92e4ef1447a3c47053563940ea4b88987fdb0ce0a7ddd8ea2bf375922297947ea8bb18985f6bbe3eab2d03f12f6687f911b12c7ce2b9050995523f0f23a03984f15cfc6785bd92af3ad60daac650ff3a718183967665f92b17eaf5d1459d2eb8255b94b0bd1f279aa18a04a87339941ee4cf11f31c357f31b9ff54858fb43085ebfc7b9868001bbbcd126dfcfeff478063fccde8736c15d1bb16108f1d710aad0694dffb181cc4e57f2b5d00276c18c19ccbacd7096be13a8fdf2c280cd237cbc46466c2e33cd745b465c60c1fdae6399b326ccf9e6164ff24021fce569dc8b6df8dfd26406906f1b25656f37a10626f153ff3239a8cfd35664155cb92ac54205ae517731afa77a86627177435cf5cb4371ab3a35fc99d0fc4731db98fb2ac959dc3757053ff6c41e5db1dc6da501456734a6155287cdc50038f2c43b74acfb683436510e0c6b3e1a0acfbf00663978d88ede7802b5703b05107dfb90a05ae78c9bb62375c4c6e591d9b7a35d2430066e8f528af96c32c2645566305387023dcd4a091ec0ec1bd4a454cc87f17426a65c1543759a7b503129aab79ed9e4b6efcb951da7f00c42d31cda7e4511f164e037762a63ebd2c617195f455687197bdc9f51cc26126ae291d3b0a4578bb8d6d386ac65b5859403bfde32cb619bb7f63f9c100f6b29a771837e3e1f06c83eccd5c2b3ca4d5af1ee5fc42fa4de6aa778402cf72a55e64cd2c5768862f2a65ec24a63da1946092e5bc5789a91cfccd4a553a3eeff0620f3ba53622e1513b6d59babb509a21516a6e9bb5657a6c4ff9a9423a65d555b9236caa510879d3ce809572db65cefa31783a5b5fcf0e6b9e44662536877f96e5e7bfce6593f912611095e905dcb5ef443b626e585a9a056e1d70900000005752526306830c6259c1659fa8ca3bfd85fa782c17efd04ec51cf7b13cc93de02afc40e08f3faf2ba3ac74f40bb75d3a4b1426ac62a517a3b9b26a85968e66955227fdec6d08be9fa88128f0d3c0681a5ba271ae5e27cfa60daa95e938c02f80da2499fa7619612a9acc3398f993475d4b981579f881f39adc29d1beb976be1c02e4e1bb76d33a81fa5f9065c8945a6a7aa2ceed88276ea9723c80bbb314ef89f023700210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e0640420f0000000000000000006a9900000000000000000000000000
@@ -276,7 +272,7 @@ Output:
 
 this is the deposit txid
 
-#### Now claim the tokenized KMD using `gatewaysclaim`
+#### Now claim the tokenized KMD using [gatewaysclaim](../../../basic-docs/antara/antara-api/gateways.html#gatewaysclaim)
 
 Usage `gatewaysclaim bindtxid coin deposittxid destpub amount`
 
@@ -407,7 +403,7 @@ Output:
 8f18ab623cb91c94ea27b16c455d98df1e057dd120341e54b453090a2c9c9adf
 ```
 
-#### Examine the account's history using the `pegsaccounthistory` call
+#### Examine the account's history using the [pegsaccounthistory](../../../basic-docs/antara/antara-api/pegs.html#pegsaccounthistory) call
 
 ```bash
 ./komodo-cli -ac_name=USDKTEST pegsaccounthistory a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7
@@ -458,11 +454,11 @@ Output:
 
 If you see duplicate entries in the above call, it is a known bug and will be fixed.
 
-You can use `getbalance`/`listunspent` to verify that you have received the USDKTEST coins. This is the step in which a regular user will use the USDKTEST coins for things such as trading for other cryptocurrencies, selling for fiat, betting in a prices module etc.,
+You can use [getbalance](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#getbalance)/[listunspent](../../../basic-docs/smart-chains/smart-chain-setup/nspv.html#listunspent) to verify that you have received the USDKTEST coins. This is the step in which a regular user will use the USDKTEST coins for things such as trading for other cryptocurrencies, selling for fiat, betting in a prices module etc.,
 
 Once that is done, and the user needs his KMD back, the user can send the same amount of USDKTEST coins to the pegs module to receive the KMD tokens
 
-### Redeem the tokenized KMD using the `pegsredeem` command
+### Redeem the tokenized KMD using the [pegsredeem](../../../basic-docs/antara/antara-api/pegs.html#pegsredeem) command
 
 ```bash
 ./komodo-cli -ac_name=USDKTEST pegsredeem a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7 1a459712f1e79a544efdf55cfb3e111c5df3300a4da4d16cb3b963bbb50aebf1
@@ -508,7 +504,7 @@ Output:
 
 ### Send the tokenized KMD back to the Gateway to receive the KMD coins in the KMD chain
 
-#### Send the KMD tokens to the Gateways module using the `gatewayswithdraw` command
+#### Send the KMD tokens to the Gateways module using the [gatewayswithdraw](../../../basic-docs/antara/antara-api/gateways.html#gatewayswithdraw) command
 
 Usage: `gatewayswithdraw bindtxid coin withdrawpub amount`
 
@@ -534,7 +530,7 @@ Output:
 }
 ```
 
-Use `sendrawtransaction` to broadcast this txn
+Use [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) to broadcast this txn
 
 ```bash
 ./komodo-cli -ac_name=USDKTEST sendrawtransaction 0400008085202f89020012559aaf7b951b3cd33a29051dc1a185018ba8f1ad8a3f7778b48fa4dff8e9000000004847304402202b5a8c854de0d17a7fa47c8afa1b2d52c306eda1b5e0bb97fae59365351a9ecf02202d0468c2692036444d00a8312b866fe90af502a7235b7ee6bfa027dca50dcee401ffffffff8a34ee498afb5d89c5f67db35c35deb879b2757e1be660f44817550d0fe795ff020000007b4c79a276a072a26ba067a56580210217a6aa6c0fe017f9e469c3c00de5b3aa164ca410e632d1c04169fd7040e20e06814054a28d2f23721da7e5406db542178cc451c1232a2ee485cb429b3638cac5bc5b0bc61f242371fec25746d599f5186e6c24f21da4389391439a785e3c83ac15afa100af038001f2a10001ffffffff031027000000000000302ea22c802091abda62a548f9c7f5beb19d16f01714ae3d4e526f3266fc8d347d6123f3d77b8103120c008203000401cc40420f0000000000302ea22c8020bed294e15cd2e327d2f1e6bcf55e2ebe571b7bc2e672363950ca680c8b89226381032210008203000401cc00000000000000009a6a4c97f2741a459712f1e79a544efdf55cfb3e111c5df3300a4da4d16cb3b963bbb50aebf1012103ea9c062b9652d8eff34879b504eda0717895d27597aaeb60347d65eed96ccb401350f157b2adb5302a3058325c06b102d88671016fc550147fb6e0d80869bd68764e3850034b4d442103fa41b540b99161257c3a51e7c1598666361b739dce6a171d2d426255c92fb0e140420f000000000000000000cc9f00000000000000000000000000
@@ -547,3 +543,9 @@ Output:
 ```
 
 Check the Address corresponding to the withdrawpub on the KMD chain after sometime and it should have received the coins.
+
+### Liquidation
+
+A user who doesn't have a Pegs account yet, i.e., didn't use the [pegsfund](../../../basic-docs/antara/antara-api/pegs.html#pegsfund) method, can use the [pegsexchange](../../../basic-docs/antara/antara-api/pegs.html#pegsexchange) method to exchange the Smart Chain's coins for the deposited tokens of another user's account whose debt ratio is in the "yellow zone" (`80%` to `90%`)
+
+The [pegsworstaccounts](../../../basic-docs/antara/antara-api/pegs.html#pegsworstaccounts) method can be used to get a list of all the accounts that are in the "red zone" (debt ratio exceeds `90%` at the current price) and the [pegsliquidate](../../../basic-docs/antara/antara-api/pegs.html#pegsliquidate) method can be used to liquidate them by repaying the Smart Chain's coins for a `5%` profit
