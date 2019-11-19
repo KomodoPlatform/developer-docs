@@ -22,18 +22,18 @@ On the `TESTUSDK` chain:
 
 After this, the reader may follow the [user tutorial](./pegs-module-user-tutorial.html) and replace the `KMD` and `USDKTEST` chains in it with the `KMDTEST` and `TESTUSDK` chains respectively to test the system setup using the current tutorial.
 
-### Installation (Only for Testing, do not use in Production)
+## Installation (Only for Testing, do not use in Production)
 
 Do not follow these instructions yet. Proceed to the next section and based on your selection there, carry on the installation in the required environment.
 
-#### Dependencies
+### Dependencies
 
 ```bash
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libgtest-dev libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate software-properties-common curl clang libcurl4-gnutls-dev cmake clang libsodium-dev -y
 ```
 
-#### Optional
+### Optional
 
 Create a swap partition if you are using a VPS with low amount of RAM. The following commands create a 4GB SWAP file. You can create 8GB if you have the required free storage and want it.
 
@@ -56,7 +56,7 @@ sudo nano /etc/sysctl.conf
 vm.swappiness=10
 ```
 
-### Build the Komodo daemon
+## Build the Komodo daemon
 
 ```bash
 git clone https://github.com/Mixa84/komodo
@@ -68,7 +68,7 @@ export CONFIGURE_FLAGS='CPPFLAGS=-DTESTMODE'
 cd src
 ```
 
-### Launch the test Smart Chain - `KMDTEST`
+## Launch the test Smart Chain - `KMDTEST`
 
 Launch parameters:
 
@@ -80,7 +80,7 @@ Launch a Smart Chain with the above parameters. The Komodo daemon (`komodod`) us
 
 After launching the Smart Chain, start mining it with a Single thread (`setgenerate true 1`) and leave it be. You will be using this Smart Chain as a representation of the real KMD Chain when testing the Pegs Setup using the [user tutorial](./pegs-module-user-tutorial.html)
 
-### Launch the test Smart Chain - `TESTUSDK`
+## Launch the test Smart Chain - `TESTUSDK`
 
 Launch parameters:
 
@@ -102,7 +102,7 @@ Recall also that a user must have a `pubkey` enabled when interacting with an An
 
 **In the rest of this walkthrough, we will be using the `TESTUSDK` Chain.**
 
-### Create a token to represent the `KMDTEST` coins
+## Create a token to represent the `KMDTEST` coins
 
 To create the tokens, execute the following command:
 
@@ -180,7 +180,7 @@ We can check the balance of our `pubkey` using [tokenbalance:](../../../basic-do
 ./komodo-cli -ac_name=TESTUSDK tokenbalance insert_tokenid insert_pubkey
 ```
 
-### Create an Oracle
+## Create an Oracle
 
 We use the [Oracles](../../../basic-docs/antara/antara-api/oracles.html#introduction) Module to add external data to the blockchain.
 
@@ -344,7 +344,7 @@ Verify the oracle information to ensure it is properly established:
 
 </collapse-text>
 
-### Bind the Token and Oracle to a Gateway
+## Bind the Token and Oracle to a Gateway
 
 We now create a gateway and bind our information to it, using the [gatewaysbind](../../../basic-docs/antara/antara-api/gateways.html#gatewaysbind) method.
 
@@ -401,7 +401,7 @@ Assuming everything is properly created and executed, we may now review our new 
 
 Use the returned information to verify that the `tokenid` and `oracleid` match the information in our text editor.
 
-### Start the `oraclefeed` dApp
+## Start the `oraclefeed` dApp
 
 The `oraclefeed` dApp instance automates the transfer of merkleroot data from the `KMDTEST` chain to our Oracle on the `TESTUSDK` chain.
 
@@ -448,7 +448,7 @@ KMDTEST ht.19 <- 13000000f1fea637bf33149d161bd5a1d20e0ad8911a3710cf941a318b68fa9
 
 </collapse-text>
 
-### Creating the Peg
+## Creating the Peg
 
 We can finally create a Peg that will create `TESTUSDK` coins pegged to USD and backed by `KMDTEST` (whose price we assume to be equal to `KMD` for the sake of this tutorial) using the [pegscreate](../../../basic-docs/antara/antara-api/pegs.html#pegscreate)
 
@@ -481,5 +481,7 @@ The Komodo daemon acceps adding `-earlytxid` to the launch parameters only befor
 :::
 
 Any new node joining the `TESTUSDK` network must use the new launch parameters with the `-earlytxid` included.
+
+## Test the Setup
 
 We recommend the reader to follow the [user tutorial](./pegs-module-user-tutorial.html) and replace the `KMD` and `USDKTEST` chains in it with the `KMDTEST` and `TESTUSDK` chains respectively to test the system setup from the current tutorial.
