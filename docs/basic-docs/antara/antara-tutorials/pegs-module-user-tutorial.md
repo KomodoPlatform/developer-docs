@@ -15,7 +15,7 @@ To that effect, we will go through the following steps:
 - Redeem the tokenized KMD using the pegsredeem command
 - Send the tokenized KMD back to the Gateway to receive the KMD coins in the KMD chain
 
-## Installation
+## Installation (Only for Testing, do not use in Production)
 
 ### Dependencies
 

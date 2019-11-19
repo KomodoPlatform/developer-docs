@@ -101,7 +101,7 @@ If this Smart Chain were receiving full dPoW security services, at this point it
 
 On this educational Smart Chain, however, we can continue without waiting for notarization.
 
-We can check to see that our token is successfully created on the chain using [tokeninfo:](../../../basic-docs/antara/antara-api/tokens.html#tokeninfo)
+We can check to see that our token is successfully created on the chain using [tokeninfo](../../../basic-docs/antara/antara-api/tokens.html#tokeninfo)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD tokeninfo insert_token_id
@@ -275,7 +275,7 @@ This method returns a hex value (not shown for brevity), which we now broadcast:
 
 The broadcast returns a transaction id, also called the `bindtxid`. Copy this information into the text editor.
 
-Assuming all is properly created and executed, we may now review our new gateway using [gatewaysinfo:](../../../basic-docs/antara/antara-api/gateways.html#gatewaysinfo)
+Assuming everything is properly created and executed, we may now review our new gateway using [gatewaysinfo:](../../../basic-docs/antara/antara-api/gateways.html#gatewaysinfo)
 
 ```bash
 ./komodo-cli -ac_name=HELLOWORLD gatewaysinfo insert_bindtxid
