@@ -317,7 +317,7 @@ var sidebar = [{
           ],
           [
             "/basic-docs/antara/antara-tutorials/pegs-module-creator-tutorial.md",
-            "Module Tutorial — Pegs - creator"
+            "Module Tutorial — Pegs - Creator"
           ],
         ],
       },
