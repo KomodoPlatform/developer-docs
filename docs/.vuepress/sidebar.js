@@ -311,6 +311,14 @@ var sidebar = [{
                         "/basic-docs/antara/antara-tutorials/rogue-module-tutorial.md",
                         "Module Tutorial — Rogue"
                     ],
+                    [
+                        "/basic-docs/antara/antara-tutorials/pegs-module-user-tutorial.md",
+                        "Module Tutorial — Pegs - User"
+                    ],
+                    [
+                        "/basic-docs/antara/antara-tutorials/pegs-module-creator-tutorial.md",
+                        "Module Tutorial — Pegs - Creator"
+                    ],
                 ],
             },
             {
@@ -356,6 +364,10 @@ var sidebar = [{
                     [
                         "/basic-docs/antara/antara-api/payments.md",
                         "Payments"
+                    ],
+                    [
+                        "/basic-docs/antara/antara-api/pegs.md",
+                        "Pegs"
                     ],
                     [
                         "/basic-docs/antara/antara-api/rewards.md",

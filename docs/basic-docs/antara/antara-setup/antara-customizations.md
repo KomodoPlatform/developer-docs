@@ -82,11 +82,40 @@ The `ac_cbmaturity` parameter allows the `COINBASE_MATURITY` value to be changed
 
 The `COINBASE_MATURITY` value is the number of blocks that must be confirmed between the creation of a coin (in a coinbase transaction) and the moment the coin can be spent.
 
-This allows the developers of a Smart Chain to require that miners and stakers on a blockchain network wait for an arbitrary amount of time after mining new coins.
+This allows the developers of a Smart Chain to require that miners and stakers on a blockchain network wait for an arbitrary amount of time after mining new coins to spend them..
 
-For example, if a Smart Chain is set to `ac_cbmaturity=10`, newly mined coins must wait for 10 confirmations on the network before the coins can be spent.
+For example, if a Smart Chain is set to `ac_cbmaturity=10`, newly mined coins must wait for 10 confirmations on the network before they can be spent.
 
 By default, this value is set to `1` on Smart Chains without [ac_eras](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-eras) and set to `100` on Smart Chains with [ac_eras](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-eras).
+
+## ac_cbopret
+
+(In Development)
+
+The `ac_cbopret` parameter allows the Decentralised Trustless Oracle mechanism to be enabled on a Smart Chain.
+
+::: tip Fact
+
+The [Prices Antara module](../../../basic-docs/antara/antara-api/prices.md) required the existence of a completely trustless and decentralized price feed Oracle (a DTO). The DTO was implemented by [piggybacking on the timestamp consensus rules](https://medium.com/@jameslee777/decentralized-trustless-oracles-dto-by-piggybacking-on-timestamp-consensus-rules-2adce34d67b6). It works by requiring the miners of the Smart Chain to include the required off-chain data as a part of OP_RETURN of the coinbase transaction (The transaction that pays the block reward to the miner). The validation of the off-chain data is part of the consensus rules and if the data is false, the block will be rejected by the network, which incentivizes the miner to be truthful. To achieve consensus, all nodes allow an error of about 1% in the reported data.
+
+:::
+
+The value of the parameter is a 4 bit binary number converted to decimal. Each bit of the binary number has a specific meaning as explained below:
+
+Let the 4 bit binary number be `wxyz`
+
+w,x,y,z are bit4, bit3, bit2 and bit1 respectively
+
+if z = 1 : DTO is enabled and miners are required to add some data to the coinbase transaction's [OP_RETURN](../../../basic-docs/antara/antara-tutorials/advanced-series-3.html#response-annotated)
+if y = 1 : the data miners will write is prices of BTC vs fiat pairs viz., BTC_USD, BTC_GBP, BTC_EUR and Major fiat vs USD pairs
+if x = 1 : the data miners will write is prices of Cryptocurrencies included in the [-ac_prices](#ac-prices) parameter
+if w = 1 : the data miners will write is prices of Stocks included in the [-ac_stocks](#ac-stocks) parameter
+
+### Examples
+
+- If we only want the prices for BTC vs fiat pairs and fiat vs USD pairs, we have (w=0,x=0,y=1,z=1) i.e., `0011` -> converted to decimal is `3`; the value for the `ac_cbopret` parameter is `3`
+- If we want the pairs from the above example and prices of the Cryptocurrencies included in the [-ac_prices](#ac-prices) parameter, we have (w=0,x=1,y=1,z=1) i.e., `0111` -> converted to decimal is `7`; the value for the `ac_cbopret` parameter is `7`
+- If we just want the prices of the Stocks included in the [-ac_stocks](#ac-stocks) parameter, we have (w=1,x=0,y=0,z=1) i.e., `1001` -> converted to decimal is `9`; the value for the `ac_cbopret` parameter is `9`
 
 ## ac_cc
 
@@ -415,7 +444,7 @@ The `ac_founders_rewards` value is entirely independent of the `ac_reward` value
 
 Consider the following combination of parameters, for example.
 
-```
+```bash
 -ac_reward=1000000000 -ac_perc=10000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f
 ```
 
@@ -423,7 +452,7 @@ This combination pays the pubkey address 10 coins every 10 blocks.
 
 Compare the above to the following combination.
 
-```
+```bash
 ac_reward=1000000000 -ac_founders_reward=100000000 -ac_founders=10 -ac_pubkey=034916536402c0c4cf53b05e3b5d948aacafede47df640b33cb89bd28179cd2d3f
 ```
 
@@ -566,6 +595,24 @@ A private-only Smart Chain.
 </collapse-text>
 
 -->
+
+## ac_prices
+
+(In Development)
+
+The `ac_prices` parameter has to be used along with the [ac_cbopret](#ac-cbopret) parameter to supply TICKERS of the Cryptocurrencies whose BTC prices are to be included in the DTO.
+
+#### :pushpin: Examples
+
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
+
+A Smart Chain with a DTO that brings prices of various Cryptocurrencies vs BTC on-chain.
+
+```bash
+./komodod -ac_cbopret=5 -ac_name=HELLOWORLD -ac_cbopret=5 -ac_prices="ETH, LTC, BNB, NEO, LRC, QTUM, OMG, ZRX, STRAT, IOTA, XVG, KMD, EOS, ZEC, DASH, XRP, STORJ, XMR, BAT, BTS, LSK, ADA, WAVES, STEEM, RVN, DCR, XEM, ICX, HOT, ENJ" -ac_cc=10797 -ac_reward=3000000000 -ac_supply=120000000 -ac_pubkey=02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567 -ac_perc=77777 -ac_blocktime=120 &
+```
+
+</collapse-text>
 
 ## ac_pubkey
 
@@ -833,6 +880,24 @@ A 777777-coin pre-mine, a 1000-coin block reward, the block reward decreases by 
 
 ```bash
 ./komodod -ac_name=HELLOWORLD -ac_supply=777777 -ac_reward=100000000000 -ac_halving=100000 -ac_decay=75000000 -ac_end=1000000 -ac_perc=500000 -ac_pubkey=DO_NOT_USE_5efca96674b45e9fda18df069d040b9fd9ff32c35df56005e330392 -ac_staked=1 &
+```
+
+</collapse-text>
+
+## ac_stocks
+
+(In development)
+
+The `ac_stocks` parameter has to be used along with the [ac_cbopret](#ac-cbopret) parameter to supply TICKERS of the Stocks (available at [https://api.iextrading.com/1.0/tops/last](https://api.iextrading.com/1.0/tops/last)) whose USD prices are to be included in the DTO.
+
+#### :pushpin: Examples
+
+<collapse-text hidden="true" style="margin-top: 1rem;" title="Example">
+
+A Smart Chain with a DTO that brings prices of various Stocks vs USD on-chain.
+
+```bash
+./komodod -ac_cbopret=9 -ac_name=HELLOWORLD -ac_cbopret=9 -ac_stocks="AAPL,ADBE,ADSK,AKAM,AMD,AMZN,ATVI,BB,CDW,CRM,CSCO,CYBR,DBX,EA,FB,GDDY,GOOG,GRMN,GSAT,HPQ,IBM,INFY,INTC,INTU,JNPR,MSFT,MSI,MU,MXL,NATI,NCR,NFLX,NTAP,NVDA,ORCL,PANW,PYPL,QCOM,RHT,S,SHOP,SNAP,SPOT,SYMC,SYNA,T,TRIP,TWTR,TXN,VMW,VOD,VRSN,VZ,WDC,XRX,YELP,YNDX,ZEN,BRK.A" -ac_cc=10797 -ac_reward=3000000000 -ac_supply=120000000 -ac_pubkey=02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567 -ac_perc=77777 -ac_blocktime=120 &
 ```
 
 </collapse-text>
