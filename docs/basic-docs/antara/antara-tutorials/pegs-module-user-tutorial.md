@@ -10,6 +10,7 @@ To that effect, we will go through the following steps:
 
 - Connect to the test Chain - USDKTEST
 - Deposit KMD coins in the multisig address that belongs to the Gateway on the USDKTEST chain
+- Wait for the above transaction to be mined and submitted to the Oracle
 - Claim the tokenized KMD on the USDKTEST chain
 - Lock the tokenized KMD in the Pegs module and get the USDK coins
 - Redeem the tokenized KMD using the pegsredeem command
@@ -192,6 +193,48 @@ Output:
   }
 ]
 ```
+
+## Wait for the deposit transaction on the `KMD` chain to be mined and submitted to the Oracle
+
+To check if the transaction is mined, either search the transaction id in a [KMD explorer](https://kmdexplorer.io) or use the [getrawmempool](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#getrawmempool) method and verify that it is no longer present in the mempool.
+
+```bash
+./komodo-cli getrawmempool
+```
+
+Once it is mined, use the [getrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#getrawtransaction) method to find the block height.
+
+```bash
+./komodo-cli getrawtransaction "<deposit txid here>" 1
+```
+
+Replace the text `<deposit txid here>` with your deposit transacion id. Take note of the `height` key in the response. This is the height of the block in which the transaction was mined.
+
+Now, to check whether this block's header has been submitted to the Oracle on the `USDKTEST` chain, first find the Pubkey of the publisher who has setup the Token, Gateway and Peg. Use [tokeninfo]() for that.
+
+```bash
+./komodo-cli -ac_name=USDKTEST tokeninfo 1a459712f1e79a544efdf55cfb3e111c5df3300a4da4d16cb3b963bbb50aebf1
+```
+
+Take note of the value for the key, `owner` in the response. This is the Pubkey of the publisher we are interested in.
+
+Then use the [oraclesinfo]() method to fing the baton address for this publiser.
+
+```bash
+./komodo-cli -ac_name=USDKTEST oraclesinfo a6a59fbdc0ba8b138a4d14ff334a533f0358144091aa999ef45fd7498ab4189a
+```
+
+Among the registered publishers in the response, notice that there is a publisher whose pubkey matches the one we took note from the `tokeninfo` call. The value of the key named `baton` is needed to get the past samples published by this publisher.
+
+```bash
+./komodo-cli -ac_name=USDKTEST oraclessamples a6a59fbdc0ba8b138a4d14ff334a533f0358144091aa999ef45fd7498ab4189a <baton here> 5
+```
+
+Replace the text `<baton here>` with the `baton` we took note of in the previous step.
+
+The above command gives the `5` latest data points published by the publisher whoo setup the Peg system.
+
+When the highest block height in the data points is greater or equal to the block height of the deposit transaction on the KMD chain, we can proceed to the next step as the block header data has been transferred cross chain already.
 
 ### Make the Gateways module on the USDKTEST chain aware of the deposit and claim the tokenized KMD
 
