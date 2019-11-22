@@ -39,7 +39,7 @@ If an owner of an Heir Antara address seeking to add funds to their account avoi
 
 ## heiradd
 
-**heiradd txfee amount fundingtxid**
+**heiradd amount fundingtxid**
 
 The `heiradd` method adds more funds to the Heir plan.
 
@@ -57,7 +57,6 @@ Use the [<b>heirlist</b>](../../../basic-docs/antara/antara-api/heir.html#heirli
 
 | Name        | Type     | Description                                                                                                                                                                                  |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
 | amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
 | fundingtxid | (string) | the transaction id returned from the original [heirfund](../../../basic-docs/antara/antara-api/heir.html#heirfund) transaction                                                               |
 
@@ -460,7 +459,7 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ## heirclaim
 
-**heirclaim txfee amount fundingtxid**
+**heirclaim amount fundingtxid**
 
 The `heirclaim` method allows the owner to claim funds from the plan.
 
@@ -474,7 +473,6 @@ Use the [<b>heirlist</b>](../../../basic-docs/antara/antara-api/heir.html#heirli
 
 | Name        | Type     | Description                                                                                                                                                                                  |
 | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| txfee       | (number) | the transaction fee (in satoshis); when set to `0`, the default value is 10000 satoshis                                                                                                      |
 | amount      | (number) | the amount of funds to be added; this amount will be withdrawn from the contributor's coins or tokens, as determined by the `tokenid` parameter used when the `heirfund` method was executed |
 | fundingtxid | (string) | the transaction id returned from the original [heirfund](../../../basic-docs/antara/antara-api/heir.html#heirfund) transaction                                                               |
 
@@ -563,7 +561,7 @@ curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curlte
 
 ## heirfund
 
-**heirfund txfee amount name heirpubkey inactivitytime memo ( tokenid )**
+**heirfund amount name heirpubkey inactivitytime memo ( tokenid )**
 
 The `heirfund` method creates a new Heir funding plan.
 
@@ -573,7 +571,6 @@ The method returns a hex value which must then be broadcast using the [sendrawtr
 
 | Name           | Type               | Description                                                                                                                                      |
 | -------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| txfee          | (number)           | the transaction fee in satoshis, defaults to 10000 satoshis when set to `0`                                                                      |
 | amount         | (number)           | the initial funding amount, in coins or tokens (this parameter is considered to be the amount of tokens if the (tokenid) parameter is present)   |
 | name           | (string)           | the name of the heir funding plan (arbitrary)                                                                                                    |
 | heirpubkey     | (string)           | the heir's public key (in hexademical)                                                                                                           |

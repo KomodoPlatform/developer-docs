@@ -4,27 +4,22 @@
 
 ## Tutorial
 
-In this tutorial, we will launch two new Smart Chains named `TESTUSDK` and `KMDTEST` and follow a walkthrough of the flow a creator of the Pegs module will experience.
+In this tutorial, we will launch a new Smart Chain named `TESTUSDK` and follow a walkthrough of the flow a creator of the Pegs module will experience.
 
 To that effect, we will go through the following steps:
 
-- Launch a new test Smart Chain (`TESTUSDK`) to activate the Pegs module and its coin will be pegged to USD
-- Launch a new test Smart Chain (`KMDTEST`) to represent the external Cryptocurrency (KMD)
-
-On the `TESTUSDK` chain:
-
-- Create Tokens to represent the `KMDTEST` coins
+- Launch a new test Smart Chain (`TESTUSDK`) to activate the Pegs module and its coin will be pegged to `USD` and backed by `KMD`
+- Create Tokens to represent the `KMD` coins
 - Create an Oracle and register as a publisher on it and subscribe to it
 - Create a Gateway and bind the previously created Token and Oracle to it
-- Start the `oraclefeed` dApp to bring the `blockheader` data from the `KMDTEST` Chain to the `TESTUSDK` Chain
-  through the previously created Oracle
-- Create a Peg by attaching the the previously created Gateway to it
+- Start the `oraclefeed` dApp to bring the `blockheader` data from the `KMD` Chain to the `TESTUSDK` Chain through the previously created Oracle
+- Create a Peg by attaching the previously created Gateway to it
 
-After this, the reader may follow the [user tutorial](./pegs-module-user-tutorial.html) and replace the `KMD` and `USDKTEST` chains in it with the `KMDTEST` and `TESTUSDK` chains respectively to test the system setup using the current tutorial.
+After this, the reader may follow the [user tutorial](./pegs-module-user-tutorial.html) and replace the `USDKTEST` chain in it with the `TESTUSDK` chain to test the system setup using the current tutorial.
 
 ## Installation (Only for Testing, do not use in Production)
 
-Do not follow these instructions yet. Proceed to the next section and based on your selection there, carry on the installation in the required environment.
+Do not follow these instructions yet. Proceed to the next section and based on your selection there, execute the installation steps in the required environment.
 
 ### Dependencies
 
@@ -62,35 +57,23 @@ vm.swappiness=10
 git clone https://github.com/Mixa84/komodo
 cd komodo
 git checkout pegsCC
-export CONFIGURE_FLAGS='CPPFLAGS=-DTESTMODE'
+export CONFIGURE_FLAGS='CPPFLAGS=-DTESTMODE' # Tweaks some settings to make it easy for testing
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh -j$(nproc)
 cd src
 ```
 
-## Launch the test Smart Chain - `KMDTEST`
-
-Launch parameters:
-
-```bash
-./komodod -ac_supply=21000000 -ac_reward=300000000 -ac_name=KMDTEST
-```
-
-Launch a Smart Chain with the above parameters. The Komodo daemon (`komodod`) used to launch the Smart Chain should be compiled using the instructions in the previous [installation section](#installation) .If you have access to two VPS, follow [this guide](../../../basic-docs/smart-chains/smart-chain-tutorials/create-a-default-smart-chain.html). If you want to launch this Smart Chain in your Personal Computer or using a single VPS, follow [this guide](../../../basic-docs/smart-chains/smart-chain-tutorials/creating-a-smart-chain-on-a-single-node.html)
-
-After launching the Smart Chain, start mining it with a Single thread (`setgenerate true 1`) and leave it be. You will be using this Smart Chain as a representation of the real KMD Chain when testing the Pegs Setup using the [user tutorial](./pegs-module-user-tutorial.html)
-
 ## Launch the test Smart Chain - `TESTUSDK`
 
 Launch parameters:
 
-- `-ac_import=PEGSCC` alows the Pegs Antara module o create new Smart Chain coins.
+- `-ac_import=PEGSCC` alows the Pegs Antara module to create new Smart Chain coins.
 - `-ac_end=1` ensures that, after block 1, there is no block reward and the only incentive to mine is transaction fees.
 - `-debug` and `-printoconsole` are debug parameters that print miscellaneous
   information to the komodo daemon output, that are useful for testing and debugging.
 - the amount of intial coin supply `-ac_supply=1000000` used here is somewhat arbitrary. We recommend the user to calculate all the requirements for the initial supply and use that number and be transparent regarding its usage with their community. Some of the uses of the initial supply include: funding an on-chain Faucet, creating Tokens, transaction fees related to Oracle subscription and publishing, transaction fees related to maintaining Gateways, creation of Pegs etc.,
 
-Consult the [Antara Customizations](../../../basic-docs/antara/antara-setup/antara-customizations.html) doc for explanations on rest of the parameters used.
+Consult the [Antara Customizations](../../../basic-docs/antara/antara-setup/antara-customizations.html) doc for explanations of the other parameters used.
 
 ```bash
 ./komodod -ac_supply=1000000 -ac_reward=10000 -ac_name=TESTUSDK -ac_cc=2 -ac_import=PEGSCC -ac_end=1 -ac_perc=0 -ac_cbopret=5 -debug=pegscc-2 -debug=importcoin -debug=cctokens -debug=gatewayscc -printtoconsole=1
@@ -102,23 +85,21 @@ Recall also that a user must have a `pubkey` enabled when interacting with an An
 
 **In the rest of this walkthrough, we will be using the `TESTUSDK` Chain.**
 
-## Create a token to represent the `KMDTEST` coins
+## Create a token to represent the `KMD` coins
 
 To create the tokens, execute the following command:
 
 ```bash
-./komodo-cli -ac_name=TESTUSDK tokencreate KMDTEST 100000 "KMD_BTC,BTC_USD,*,1"
+./komodo-cli -ac_name=TESTUSDK tokencreate KMD 100000 "KMD_BTC,BTC_USD,*,1"
 ```
 
-This creates a total of `100000 * 10^8` tokens named `KMDTEST` on the `TESTUSDK` chain, where each token will represent a single satoshi of the external coin `KMDTEST`.
+This creates a total of `100000 * 10^8` tokens named `KMD` on the `TESTUSDK` chain, where each token will represent a single satoshi of the external coin `KMD`.
 
-So, all these tokens together allow representation of upto `100000` `KMDTEST` coins on the `TESTUSDK` chain.
+So, all these tokens together allow representation of upto `100000` `KMD` coins on the `TESTUSDK` chain.
 
 The description of the token, `"KMD_BTC,BTC_USD,*,1"` specifies the synthetic price to be used by the Peg that we will associate with it.
 
-`"KMD_BTC,BTC_USD,*,1"` means `(KMD/BTC) * (BTC/KMD) * 1` which gives `KMD/USD` or `KMD_USD` which is the price we need for the `TESTUSDK` coin to be pegged to the `USD` and backed by `KMDTEST`
-
-Here, we are assuming that the `KMDTEST` coins have the same value as `KMD` for the sake of this tutorial.
+`"KMD_BTC,BTC_USD,*,1"` means `(KMD/BTC) * (BTC/KMD) * 1` which gives `KMD/USD` or `KMD_USD` which is the price we need for the `TESTUSDK` coin to be pegged to the `USD` and backed by `KMD`
 
 The command returns a hex value as a response:
 
@@ -166,7 +147,7 @@ We can check to see that our token is successfully created on the chain using [t
   "result": "success",
   "tokenid": "0946d12135cca0757a12931944ff930657f21fd676966c12d66d5750848ea712",
   "owner": "02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567",
-  "name": "KMDTEST",
+  "name": "KMD",
   "supply": 10000000000000,
   "description": "KMD_BTC,BTC_USD,*,1"
 }
@@ -184,12 +165,12 @@ We can check the balance of our `pubkey` using [tokenbalance:](../../../basic-do
 
 We use the [Oracles](../../../basic-docs/antara/antara-api/oracles.html#introduction) Module to add external data to the blockchain.
 
-The name of our oracle should be identical to the name of our tokens, `KMDTEST`, and the data format must start with `Ihh` (height, blockhash, merkleroot)
+The name of our oracle should be identical to the name of our tokens, `KMD`, and the data format must start with `Ihh` (height, blockhash, merkleroot)
 
 Create the oracle using [oraclescreate:](../../../basic-docs/antara/antara-api/oracles.html#oraclescreate)
 
 ```bash
-./komodo-cli -ac_name=TESTUSDK oraclescreate KMDTEST blockheaders Ihh
+./komodo-cli -ac_name=TESTUSDK oraclescreate KMD blockheaders Ihh
 ```
 
 This returns a hex value:
@@ -274,7 +255,7 @@ Retrieve the data publisher's `pubkey` using [oraclesinfo:](../../../basic-docs/
 {
   "result": "success",
   "txid": "ee684674d3671daf596395a9ca6c409381d1cf6c2c7ff05c65c6bb5c16967a0e",
-  "name": "KMDTEST",
+  "name": "KMD",
   "description": "blockheaders",
   "format": "Ihh",
   "marker": "RKbG81CYx6Qtxnu59edtQS6isycKbbFB1o",
@@ -325,7 +306,7 @@ Verify the oracle information to ensure it is properly established:
 {
   "result": "success",
   "txid": "ee684674d3671daf596395a9ca6c409381d1cf6c2c7ff05c65c6bb5c16967a0e",
-  "name": "KMDTEST",
+  "name": "KMD",
   "description": "blockheaders",
   "format": "Ihh",
   "marker": "RKbG81CYx6Qtxnu59edtQS6isycKbbFB1o",
@@ -355,7 +336,7 @@ For our educational example, we may set both `N` and `M` equal to `1`, for simpl
 As a part of this command we will need to indicate the `pubtype`, `p2shtype`, and `wiftype` values for our chosen coin. For Smart Chains, these values are `60`, `85` and `188` respectively.
 
 ```bash
-./komodo-cli -ac_name=TESTUSDK gatewaysbind insert_tokenid insert_oracleid KMDTEST insert_tokensupply 1 1 insert_gatewayspubkey 60 85 188
+./komodo-cli -ac_name=TESTUSDK gatewaysbind insert_tokenid insert_oracleid KMD insert_tokensupply 1 1 insert_gatewayspubkey 60 85 188
 ```
 
 This method returns a hex value (not shown for brevity), which we now broadcast:
@@ -383,7 +364,7 @@ Assuming everything is properly created and executed, we may now review our new 
   "pubkeys": [
     "02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567"
   ],
-  "coin": "KMDTEST",
+  "coin": "KMD",
   "oracletxid": "ee684674d3671daf596395a9ca6c409381d1cf6c2c7ff05c65c6bb5c16967a0e",
   "taddr": 0,
   "prefix": 60,
@@ -403,7 +384,7 @@ Use the returned information to verify that the `tokenid` and `oracleid` match t
 
 ## Start the `oraclefeed` dApp
 
-The `oraclefeed` dApp instance automates the transfer of merkleroot data from the `KMDTEST` chain to our Oracle on the `TESTUSDK` chain.
+The `oraclefeed` dApp instance automates the transfer of merkleroot data from the `KMD` chain to our Oracle on the `TESTUSDK` chain.
 
 Change into the directory where `komodod` and `komodo-cli` are compiled bt default (this command assumes we installed Komodo in the default directory):
 
@@ -420,13 +401,13 @@ gcc cc/dapps/oraclefeed.c -lm -o oraclefeed
 Run the instance:
 
 ```bash
-./oraclefeed TESTUSDK insert_oracleid insert_mypubkey Ihh insert_bindtxid "cli command to access te external coin(KMDTEST)"
+./oraclefeed TESTUSDK insert_oracleid insert_mypubkey Ihh insert_bindtxid "cli command to access te external coin(KMD)"
 ```
 
 Inserting the vaues:
 
 ```bash
-./oraclefeed TESTUSDK ee684674d3671daf596395a9ca6c409381d1cf6c2c7ff05c65c6bb5c16967a0e 02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567 Ihh 0b5716554e523aa4678112a8ac3d15039e0aae6f4812b9d4c631cc9cfbf48786 "./komodo-cli -ac_name=KMDTEST"
+./oraclefeed TESTUSDK ee684674d3671daf596395a9ca6c409381d1cf6c2c7ff05c65c6bb5c16967a0e 02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567 Ihh 0b5716554e523aa4678112a8ac3d15039e0aae6f4812b9d4c631cc9cfbf48786 "./komodo-cli"
 ```
 
 <collapse-text hidden title="Response">
@@ -435,26 +416,26 @@ Inserting the vaues:
 BTC/USD 8469.7417
 Powered by CoinDesk (https://www.coindesk.com/price/) 8469.74170000
 must supply reference coin
-set refcoin RN727JeeiZ6NXic7PUKTCiHT1HvuBN4RDa <- KMDTEST [./komodo-cli -ac_name=KMDTEST] M.1 of N.1
+set refcoin RN727JeeiZ6NXic7PUKTCiHT1HvuBN4RDa <- KMD [./komodo-cli] M.1 of N.1
 broadcast TESTUSDK txid.(13bb4ba78686ae65894c79e67e346e8f8c0bde96dda8d041d4653ce203423b17)
-KMDTEST ht.16 <- 10000000f7a5a84d008a6c4107c3bbad442a879355bd7f951e4bf5ac48b8458afa6a1600bbf054d5a9219e8034990f764106c719f9bfc278b1d909be4486ff52d8523ca6
+KMD ht.16 <- 10000000f7a5a84d008a6c4107c3bbad442a879355bd7f951e4bf5ac48b8458afa6a1600bbf054d5a9219e8034990f764106c719f9bfc278b1d909be4486ff52d8523ca6
 broadcast TESTUSDK txid.(2eaef55baf9895b4a5b45f0450cc8b4b8e6f95563bc4c0d95086b3ff0d4d394a)
-KMDTEST ht.17 <- 1100000010da30ab6d70443dc881c8ee85b02869b3520d016fcd076e4a1e67543a3a9c0714d4bad1c68f74d6d65b7e26ed821fc38aed36f03c101d117440e094823fb2fa
+KMD ht.17 <- 1100000010da30ab6d70443dc881c8ee85b02869b3520d016fcd076e4a1e67543a3a9c0714d4bad1c68f74d6d65b7e26ed821fc38aed36f03c101d117440e094823fb2fa
 broadcast TESTUSDK txid.(eff38402e9669ffe7521ab98368e114e44fa8c5ec7a98d57bf600d6ba1cac45d)
-KMDTEST ht.18 <- 1200000018d4169fde5fc716b9ebc44da85fa3cfe5d64adf94d4bee09d97bbbebaaeb80e098c0417881230d51281346f29d2566cd164b7ef0e6a6c08332f969f690e10c9
+KMD ht.18 <- 1200000018d4169fde5fc716b9ebc44da85fa3cfe5d64adf94d4bee09d97bbbebaaeb80e098c0417881230d51281346f29d2566cd164b7ef0e6a6c08332f969f690e10c9
 broadcast TESTUSDK txid.(388c23187083cdc789483d9b8af90c4a4ce3ecaf856785b86f00bf37db900ede)
-KMDTEST ht.19 <- 13000000f1fea637bf33149d161bd5a1d20e0ad8911a3710cf941a318b68fa973d4d9403bb5521d6171bcb1d65d6cadff6916e96814b46ae2487d100987820367b702c2f
+KMD ht.19 <- 13000000f1fea637bf33149d161bd5a1d20e0ad8911a3710cf941a318b68fa973d4d9403bb5521d6171bcb1d65d6cadff6916e96814b46ae2487d100987820367b702c2f
 ```
 
 </collapse-text>
 
 ## Creating the Peg
 
-We can finally create a Peg that will create `TESTUSDK` coins pegged to USD and backed by `KMDTEST` (whose price we assume to be equal to `KMD` for the sake of this tutorial) using the [pegscreate](../../../basic-docs/antara/antara-api/pegs.html#pegscreate)
+We can finally create a Peg that will create `TESTUSDK` coins pegged to USD and backed by `KMD` using the [pegscreate](../../../basic-docs/antara/antara-api/pegs.html#pegscreate)
 
 This method allows us to create a Peg that is backed by more than 1 external coin. To achieve this, we can add more than 1 `bindtxid` to the `pegscreate` command. Each of these Gateways have to prepared properly by binding Tokens, Oracles and running the `oraclefeed` dApps as previously described in this Tutorial.
 
-For the sake of simplicity, we will simply use 1 Gateway which will tokenize the `KMDTEST` coins.
+For the sake of simplicity, we will simply use 1 Gateway which will tokenize the `KMD` coins.
 
 ```bash
 ./komodo-cli -ac_name=TESTUSDK pegscreate 100000 1 0b5716554e523aa4678112a8ac3d15039e0aae6f4812b9d4c631cc9cfbf48786
@@ -484,4 +465,4 @@ Any new node joining the `TESTUSDK` network must use the new launch parameters w
 
 ## Test the Setup
 
-We recommend the reader to follow the [user tutorial](./pegs-module-user-tutorial.html) and replace the `KMD` and `USDKTEST` chains in it with the `KMDTEST` and `TESTUSDK` chains respectively to test the system setup from the current tutorial.
+We recommend the reader to follow the [user tutorial](./pegs-module-user-tutorial.html) and replace the `USDKTEST` chain in it with the `TESTUSDK` chain to test the system setup from the current tutorial.
