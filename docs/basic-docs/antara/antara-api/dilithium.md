@@ -151,7 +151,7 @@ If no `hexseed` is provided, the module uses the user's pubkey seed for entropy 
 | Name    | Type     | Description                                                                                                                                                      |
 | ------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | status  | (string) | the quality of the seed used                                                                                                                                     |
-| seed    | (string) | either the seed provided by the user or (if no seed was provided of the provided seed does not satisfy the requirements) this value is a randomly generated seed |
+| seed    | (string) | either the seed provided by the user or (if no seed was provided or the provided seed does not satisfy the requirements) this value is a randomly generated seed |
 | pubkey  | (string) | the Dilithium pubkey generated                                                                                                                                   |
 | privkey | (string) | the Dilithium private key generated                                                                                                                              |
 | pkaddr  | (string) | the hashed representation of the Dilithium pubkey                                                                                                                |
