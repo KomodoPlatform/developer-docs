@@ -74,7 +74,7 @@ The Dilithium walkthrough agenda is as follows.
 - Send coins to this handle
 - Send coins from this handle
 - Show code examples for implementing Dilithium into a user interface (UI)
-  - A terminal user interface (TUI) with Dilithium functionality can me found [here](https://github.com/KMDLabs/pos64staker/tree/restart/)
+  - A terminal user interface (TUI) with Dilithium functionality can be found [here](https://github.com/KMDLabs/pos64staker/tree/restart/)
 
 #### Understand the Comparison Between Q Transactions and Z Transactions
 
