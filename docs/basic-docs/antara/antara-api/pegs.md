@@ -12,7 +12,7 @@ The Pegs Antara Module is a mechanism for creating a decentralized [stablecoin.]
 
 A stablecoin is a cryptocurrency that has a financial value that is "pegged" to another asset. Stablecoins can be used in a Smart Chain environment to allow users to buy, sell, and trade with on-chain assets that mimic off-chain prices.
 
-For example, a stablecoin can be pegged to a common fiat currency, such as USD or EUR. The stablecoin can also mimic stocks, external cryptocurrencies, and other assets, so long as reliable price-data for the asset can be accessed through an online application programming interface (API).
+For example, a stablecoin can be pegged to a common fiat currency, such as USD or EUR. The stablecoin can also mimic stocks, external cryptocurrencies, and other assets, so long as reliable price-data can be accessed through an online application programming interface (API).
 
 
 #### Module Methodology
@@ -46,23 +46,45 @@ The first aspect relies on three different Antara Modules: [Gateways,](./gateway
 
 Once the funds are locked, the three modules together automatically make available to the user an equiavlent number of tokens on the Pegs Smart Chain. These tokens represent the locked funds on a `1:1` ratio. As these tokens are `1:1` representations of the locked funds, the value of these tokens does not change in respect to the associated funds. However, the cryptocurrency represented may not be stable. 
 
-The second aspect relies on the [Prices](./prices.html) Antara Module, and, once again, on the [Oracles](./oracles.html) Antara Module. Before the user can exchange their tokens for a stablecoin, the Smart Chain must be able to determine the stablecoin's projected market value, assuming the stablecoin's value is pegged according to an external asset value, such as USD. Using data provided by a wide range of online application programming interfaces (APIs), which can be manually determined by a developer, these two modules create a stable rate of exchange between the user's tokens and the pegged stablecoin.
+The second aspect relies on the [Prices](./prices.html) Antara Module, and, once again, on the [Oracles](./oracles.html) Antara Module. Before the user can exchange their tokens for a stablecoin, the Smart Chain must be able to determine the stablecoin's projected market value (such as the market value of `USD`). Using data provided by a wide range of online application programming interfaces (APIs), which can be manually determined by a developer, these two modules create a stable rate of exchange between the user's tokens and the pegged stablecoin.
 
-With these two elements, the user's tokens and a rate of exchange, the <b>Pegs Antara Module</b> is now able to offer a stablecoin. The user sends their tokens (such as `KMD`) to the Pegs Module, which locks the tokens against further spending. Once the funds are locked, the Pegs Module makes available to the user native coins from the Pegs-related Smart Chain. The exchange rate between the user's deposited tokens and the native Smart Chain coins is determined by the data-driven rate of exchange. In this manner, the native Smart Chain coins become the intended stablecoin.
+With these two elements (the user's tokens and a rate of exchange) the <b>Pegs Antara Module</b> is now able to offer a stablecoin. The user sends their tokens (such as tokenized `KMD`) to the Pegs Module, which locks the tokens against further spending for the duration of Pegs usage. Once the funds are locked, the Pegs Module makes available to the user native coins from the Pegs-related Smart Chain. The exchange rate between the user's deposited tokens and the native Smart Chain coins is determined by the data-driven rate of exchange. In this manner, the native Smart Chain coins become the intended stablecoin.
 
 ##### Managing Price Volatility
 
-As time progress, the difference in price between the user's tokenized cryptocurrency and the stablecoin will change. Consider for example that the user is using `KMD` as the deposited cryptocurrency to access a stablecoin that mimics the `USD` fiat currency. The stablecoin in this example is named `USDK`.
+As time progresses, the difference in price between the user's tokenized cryptocurrency and the stablecoin will change. Consider for example that the user is using `KMD` as the deposited cryptocurrency to access a stablecoin that mimics the `USD` fiat currency. The stablecoin in this example is named `USDK`.
+
+###### Value of Backing Cryptocurrency Increases
 
 If the value of `KMD` increases relative to `USD`, the user may withdraw additional `USDK` coins from their account with the Pegs Module, until the total withdrawn `USDK` amount is again equal to `80%` of the total value of the deposited `KMD` tokens. 
+
+###### Value of Backing Cryptocurrency Decreases
 
 On the other hand, if the value of `KMD` decreases relative to `USD`, the remaining amount of `KMD` tokens in the user’s account are subject to liquidation.
 
 There are two stages to account liquidation: "yellow zone" and "red zone."
 
-The yellow zone applies to accounts where the user has withdrawn a value of `USDK` (also called "debt") that, due to price volatility, has now exceeded the `80%` withdrawal limit, but has not yet reach `90%`. In this circumstance, a third-party user on the Pegs-related Smart Chain may deposit `USDK` coins on behalf of the indebted user's acccount, and receive the equivalent value of `KMD` tokens, withdrawn from the indebted user's account. These `USDK` coins are burned, <!-- Sidd: is that statement accurate? --> thus preserving the ratio of withdrawn `USDK` coins in sync with the total value of `KMD` tokens deposited across the entire Pegs-related Smart Chain.
+###### Yellow Zone
 
-Should the debt of a user's account surpass the `90%` threshold, the account enters the red zone. Here, a third party user can gain an immediate `5%` rate of return by sending `USDK` coins to the Pegs Module on behalf of the indebted user's account. The third-party user must deposit enough `USDK` to cover `10%` of the debt of the user's account, according to current prices. In return, the third-party user receives `15%` of the user's deposited `KMD` tokens, netting the third-party user an immediate `5%` rate of return. The `USDK` coins sent by the third-party user are burned. The remaining `5%` of the indebted user's `KMD` tokens are donated to the Pegs Antara Module, where they continue to support the maintenance of a healthy stablecoin and of the `KMD:USDK` ratio balance. 
+The yellow zone applies to accounts where the user has withdrawn a value of `USDK` (also called "debt") that, due to price volatility, has now exceeded the `80%` withdrawal limit, but has not yet reach `90%`.
+
+In this circumstance, a third-party user on the Pegs-related Smart Chain may deposit `USDK` coins on behalf of the indebted user's acccount, and receive the equivalent value of `KMD` tokens, withdrawn from the indebted user's account. 
+
+These `USDK` coins are burned, <!-- Sidd: is that statement accurate? --> thus preserving the ratio of withdrawn `USDK` coins in sync with the total value of `KMD` tokens deposited across the entire Pegs-related Smart Chain.
+
+###### Red Zone
+
+Should the debt of a user's account surpass the `90%` threshold, the account enters the red zone. 
+
+Here, a third party user can gain an immediate `5%` rate of return by sending `USDK` coins to the Pegs Module on behalf of the indebted user's account. The third-party user must deposit enough `USDK` to cover `10%` of the debt of the user's account, according to current prices. 
+
+In return, the third-party user receives `15%` of the user's deposited `KMD` tokens, netting the third-party user an immediate `5%` rate of return. 
+
+The `USDK` coins sent by the third-party user are burned. 
+
+The remaining `5%` of the indebted user's `KMD` tokens are donated to the Pegs Antara Module, where they continue to support the maintenance of a healthy stablecoin and `KMD:USDK` ratio balance. 
+
+###### Preventing Account Liquidation
 
 To prevent account liquiditation, when the depositor detects that their account is approaching the `90%` debt-ratio threshold, the depositor can either return the full value of the `USDK` coins they have withdrawn <!-- does this mean there is no penalty for the price slipage of KMD in this scenario? --> or deposit more tokenized `KMD` at the current prices until the user's debt/loan ratio is well below the `80%` threshold.
 
