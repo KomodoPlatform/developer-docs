@@ -54,7 +54,7 @@ vm.swappiness=10
 git clone https://github.com/Mixa84/komodo
 cd komodo
 git checkout pegsCC
-export CONFIGURE_FLAGS='CPPFLAGS=-DTESTMODE'
+export CONFIGURE_FLAGS='CPPFLAGS=-DTESTMODE' # Tweaks some settings to make it easy for testing
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh -j$(nproc)
 cd src
