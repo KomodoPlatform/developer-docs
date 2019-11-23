@@ -21,6 +21,8 @@ For example, a stablecoin can be pegged to a common fiat currency, such as USD o
 
 The Pegs Antara Module requires interactivity with several additional Antara Modules, including the following:
 
+<!-- Mihailo: Note for below: You cna use any chain that is on Bitcoin protocol. Basically you are depositing funds on external multisig address and then make a deposit tx on Komodo Smart chain with the proof of that deposit and then you claim the tokens. This is how gateways works. So the external chain does not have anything to do with Komodo and does not need to have CC or any Komodo mechanism. -->
+
 - The [Gateways](./gateways.html) Module
   - This module acts as a bridge between the Smart Chain where Pegs is active and an external cryptocurrency
     - The external cryptocurrency must be a Komodo-related Smart Chain
@@ -34,21 +36,39 @@ The Pegs Antara Module requires interactivity with several additional Antara Mod
 - The [Oracles](./oracles.html) Module
   - This module uses an [oraclefeed](https://github.com/KomodoPlatform/komodo/blob/master/src/cc/dapps/oraclefeed.c) app to provide information to the Gateways Module about tokens a user deposits
 - The [Prices](./prices.html) Module
-  - The Prices Module works in combination with the Oracles Module to create a decentralized and trustless oracle (DTO) that receives data from a range of external sources (defined by a developer) and makes this information available on the Pegs Smart Chain
-  - This module is responsible for tracking the value of an external asset (including assets external to the Komodo ecosystem) for on-chain value mimicry
+  - The Prices Module works in combination with the Oracles Module to create a decentralized and trustless oracle (DTO) that receives data from a range of external sources (defined by a developer) and make this information available on the Pegs Smart Chain
+  - This module is responsible for tracking the value of an external asset (including assets external to the Komodo ecosystem) for on-chain value price mimicry
   - Data from the Prices module becomes available for Smart Chain activity after a twenty-four hour delay
 
 ##### A Brief Explanation of Pegs Functionality
 
 There are several technical elements involved in the Pegs Antara Module that collaborate to create a stablecoin. 
 
+###### Creating a Tokenized Currency to Back the Stablecoin
+
 The first aspect relies on three different Antara Modules: [Gateways,](./gateways.html) [Tokens,](./tokens.html) and [Oracles.](./oracles.html) On a Komodo-related Smart Chain, such as `KMD`, using the chain's native currency, users lock funds to the Gateways Module. 
 
-Once the funds are locked, the three modules together automatically make available to the user an equiavlent number of tokens on the Pegs Smart Chain. These tokens represent the locked funds on a `1:1` ratio. As these tokens are `1:1` representations of the locked funds, the value of these tokens does not change in respect to the associated funds. However, the cryptocurrency represented may not be stable. 
+Once the funds are locked, the three modules together automatically make available to the user an equiavlent number of tokens on the Pegs Smart Chain. These tokens represent the locked funds on a `1:1` ratio. 
 
-The second aspect relies on the [Prices](./prices.html) Antara Module, and, once again, on the [Oracles](./oracles.html) Antara Module. Before the user can exchange their tokens for a stablecoin, the Smart Chain must be able to determine the stablecoin's projected market value (such as the market value of `USD`). Using data provided by a wide range of online application programming interfaces (APIs), which can be manually determined by a developer, these two modules create a stable rate of exchange between the user's tokens and the pegged stablecoin.
+As these tokens are `1:1` representations of the locked funds, the value of these tokens does not change in respect to the associated funds. However, the cryptocurrency represented may not be stable. 
 
-With these two elements (the user's tokens and a rate of exchange) the <b>Pegs Antara Module</b> is now able to offer a stablecoin. The user sends their tokens (such as tokenized `KMD`) to the Pegs Module, which locks the tokens against further spending for the duration of Pegs usage. Once the funds are locked, the Pegs Module makes available to the user native coins from the Pegs-related Smart Chain. The exchange rate between the user's deposited tokens and the native Smart Chain coins is determined by the data-driven rate of exchange. In this manner, the native Smart Chain coins become the intended stablecoin.
+###### Creating a Reliable Rate of Exchange Between the Stablecoin and the Backing Cryptocurrency
+
+The second aspect relies on the [Prices](./prices.html) Antara Module, and, once again, on the [Oracles](./oracles.html) Antara Module. 
+
+Before the user can exchange their tokens for a stablecoin, the Smart Chain must be able to determine the stablecoin's projected market value (such as the market value of `USD`). 
+
+Using data provided by a wide range of online application programming interfaces (APIs), which can be manually determined by a developer, these two modules create a stable rate of exchange between the user's tokens and the pegged stablecoin.
+
+###### Offering the Exchange Between Stablecoin and Backing Cryptocurrency
+
+With these two elements (the user's tokens and a rate of exchange) the <b>Pegs Antara Module</b> is now able to offer a stablecoin. 
+
+The user sends their tokens (such as tokenized `KMD`) to the Pegs Module, which locks the tokens against further spending for the duration of Pegs usage. 
+
+Once the funds are locked, the Pegs Module makes available to the user native coins from the Pegs-related Smart Chain. The exchange rate between the user's deposited tokens and the native Smart Chain coins is determined by the data-driven rate of exchange. 
+
+In this manner, the native Smart Chain coins become the intended stablecoin.
 
 ##### Managing Price Volatility
 
@@ -56,7 +76,7 @@ As time progresses, the difference in price between the user's tokenized cryptoc
 
 ###### Value of Backing Cryptocurrency Increases
 
-If the value of `KMD` increases relative to `USD`, the user may withdraw additional `USDK` coins from their account with the Pegs Module, until the total withdrawn `USDK` amount is again equal to `80%` of the total value of the deposited `KMD` tokens. 
+If the value of `KMD` increases relative to `USD`, the user may withdraw additional `USDK` coins from their Pegs account, until the total withdrawn `USDK` amount is again equal to `80%` of the total value of the deposited `KMD` tokens. 
 
 ###### Value of Backing Cryptocurrency Decreases
 
@@ -66,7 +86,7 @@ There are two stages to account liquidation: "yellow zone" and "red zone."
 
 ###### Yellow Zone
 
-The yellow zone applies to accounts where the user has withdrawn a value of `USDK` (also called "debt") that, due to price volatility, has now exceeded the `80%` withdrawal limit, but has not yet reach `90%`.
+The yellow zone applies to accounts where the user has withdrawn a value of `USDK` (also called "debt") that, due to price volatility, has now exceeded the `80%` withdrawal limit, but has not yet reached `90%`.
 
 In this circumstance, a third-party user on the Pegs-related Smart Chain may deposit `USDK` coins on behalf of the indebted user's acccount, and receive the equivalent value of `KMD` tokens, withdrawn from the indebted user's account. 
 
@@ -86,7 +106,13 @@ The remaining `5%` of the indebted user's `KMD` tokens are donated to the Pegs A
 
 ###### Preventing Account Liquidation
 
-To prevent account liquiditation, when the depositor detects that their account is approaching the `90%` debt-ratio threshold, the depositor can either return the full value of the `USDK` coins they have withdrawn <!-- does this mean there is no penalty for the price slipage of KMD in this scenario? --> or deposit more tokenized `KMD` at the current prices until the user's debt/loan ratio is well below the `80%` threshold.
+<!-- Use of the word "depositor" here is new; should have been introduced earlier -->
+
+To prevent account liquiditation, when the depositor detects that their account is approaching the `90%` debt-ratio threshold, the depositor has two options available.
+
+The depositor can return an amount of `USDK` coins that satisfies `100%` of the outstanding balance of their collateralized loan at current prices. <!-- does this mean there is no penalty for the price slipage of KMD in this scenario? -->
+
+Alternatively, the depositor can deposit more tokenized `KMD` to their account at current prices until the user's debt/loan ratio is safely below the `80%` threshold.
 
 ## Pegs Antara Module Flow
 
@@ -341,9 +367,9 @@ Command:
 
 **pegscreate amount N bindtxid1 [bindtxid2 ...]**
 
-The `pegscreate` method creates an on-chain Peg, associating the value of the underlying Smart Chain's coin with the value of a foreign asset. 
+The `pegscreate` method creates an on-chain Peg, associating the value of the Smart Chain's pegged stablecoin with the value of a foreign asset. 
 
-The creation of this peg requires a supporting tokenized cryptocurrency, such as `KMD`, or `BTC`. There can be more than one such supporting cryptocurrency. 
+The creation of this peg requires a tokenized backing cryptocurrency. Any cryptocurrency that is based on the Bitcoin protocol can fulfill this role, including `BTC` and `KMD`. There can be more than one such supporting cryptocurrency on any stablecoin Smart Chain. 
 
 The `amount` parameter is the number of coins to be added <!-- From what supply? From the global supply? From the premine? From miners? From the creator's personal account? --> to the Pegs module. The coins will be used for transaction fees <!-- What transaction fees? Does the creator of the Peg have to pay for transactions that users on the chain make? --> and markers <!-- What does "markers" mean here? --> for Pegs transactions <!-- Whose Pegs transactions? -->.
 
@@ -524,7 +550,7 @@ The above string is the `accounttxid` of the user.
 
 **pegsget pegstxid tokenid amount**
 
-The `pegsget` method allows a user to withdraw (also called "assume a debt") in native coins up to 80% of the value of the locked tokens in their account (also called "collateral").
+The `pegsget` method allows a user to withdraw (also called "assume a debt") in native coins up to `80%` of the value of the locked tokens (also called "collateral") in their account.
 
 The exchange of value from tokens to native coins is calculated according to the current price data available on the Smart Chain at the time of the transaction.
 
@@ -566,7 +592,7 @@ Command:
 
 **pegsinfo pegstxid**
 
-The `pegsinfo` method returns the current information about the given Peg.
+The `pegsinfo` method returns the current information about the indicated `pegstxid` Peg.
 
 ### Arguments
 
