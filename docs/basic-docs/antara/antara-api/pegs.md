@@ -118,7 +118,7 @@ Here, a third-party user can gain an immediate `5%` rate of return by sending `U
 
 In return, the third-party user receives `15%` of the user's deposited `KMD` tokens, netting the third-party user an immediate `5%` rate of return.
 
-<!--gcharang: "The third-party user must deposit enough `USDK` to cover `10%` of the debt of the user's account, according to current prices." -> "The third-party user must deposit `USDK` to cover the user's whole debt (which is 90% of the KMD tokens) according to current prices and will receive 95% of the KMD tokens which can be redeemed on the KMD chain and sold in an exchange for Profit" -->
+<!--gcharang: "The third-party user must deposit enough `USDK` to cover `10%` of the debt of the user's account, according to current prices." -> "The third-party user must deposit `USDK` to cover the user's whole debt (which is valued at 90% of the KMD tokens) according to current prices and will receive 95% of the KMD tokens which can be redeemed on the KMD chain and sold in an exchange for Profit" -->
 
 The `USDK` coins sent by the third-party user are burned.
 
