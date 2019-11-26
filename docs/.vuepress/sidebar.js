@@ -313,11 +313,11 @@ var sidebar = [{
                     ],
                     [
                         "/basic-docs/antara/antara-tutorials/pegs-module-user-tutorial.md",
-                        "Module Tutorial — Pegs - User"
+                        "Module Tutorial — Pegs | User"
                     ],
                     [
                         "/basic-docs/antara/antara-tutorials/pegs-module-creator-tutorial.md",
-                        "Module Tutorial — Pegs - Creator"
+                        "Module Tutorial — Pegs | Creator"
                     ],
                 ],
             },

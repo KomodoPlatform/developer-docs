@@ -1,64 +1,172 @@
-# Pegs (In development)
+# Pegs 
+
+::: tip
+
+The Pegs Antara Module is in the final stages of production. Please reach out to the Komodo team for consultation before attempting to use this module in a production environment.
+
+:::
 
 ## Introduction
 
-The Pegs Antara modules is a mechanism for creating a decentralized stable coin, pegged to any asset (fiat currency, stock, crypto that has a reliable price source). To achieve this, users are allowed to lock tokenized external Cryptocurrencies and withdraw upto `80%` of their value in the form of the Smart Chain’s coin (a collateralized "deposit and loan" system).
+The Pegs Antara Module is a mechanism for creating a decentralized [stablecoin.](https://en.wikipedia.org/wiki/Stablecoin) 
 
-For example, if we need a Smart Chain named `USDK` whose coins are pegged to the `USD` and backed by `KMD`, we lock tokenized `KMD` in the Pegs module and withdraw upto `80%` of its value in `USD` at current price as `USDK` coins. i.e., if the current price is `KMD/USD = 1` , locking `100 KMD` lets a user withdraw `80 USDK` coins. These `USDK` coins can be used as a replacement for the USD in the open market to either buy other coins or trade for fiat or can be redeemed for the originally deposited KMD tokens used to create them.
+A stablecoin is a cryptocurrency that has a financial value that is "pegged" to another asset. Stablecoins can be used in a Smart Chain environment to allow users to buy, sell, and trade with on-chain assets that mimic off-chain prices.
 
-Now, let us consider what happens when the price changes. If `KMD/USD` increases, this allows the user who locked the `KMD` initially to withdraw more `USDK` till they have redeemed `80%` of the new value. If `KMD/USD` decreases, the user’s account is subject to liquidation when the debt ratio exceeds `90%`. In this event, a third party can gain a `5%` return by paying the debt of the account (returning the `USDK` coins, which will be burned). The remainder will be added to the Pegs module on the chain, to improve the global debt ratio and prevent the underlying assets(tokenized `KMD`) of the chain falling below the value of total `USDK` coins issued. To prevent their deposit from being liquidated, the user can either return some of the `USDK` coins or deposit more tokenized `KMD` to maintain a good debt ratio.
+For example, a stablecoin can be pegged to a common fiat currency, such as USD or EUR. The stablecoin can also mimic stocks, external cryptocurrencies, and other assets, so long as reliable price-data can be accessed through an online application programming interface (API).
 
-The Pegs module utilizes many of the existing Antara modules like [Tokens](./tokens.html), [Gateways](./gateways.html), [Prices](./prices.html) and [Oracles](./oracles.html):
 
-- The [Gateways](./gateways.html) module is used to lock coins of an external chain and create an equivalent amount as [Tokens](./tokens.html) on the Smart Chain where Pegs is to be used.
-- [Oracles](./oracles.html) communicate the information about tokens deposited via the Gateway using an [oraclefeed](https://github.com/KomodoPlatform/komodo/blob/master/src/cc/dapps/oraclefeed.c) app, run by the Gateway/Chain creator(s) (and potentially notary nodes).
-- The DTO from the [Prices](./prices.html) module adds the required prices data to the Smart Chain in a trustless manner from a range of external sources, and it is used with a 24 hr delay.
+#### Module Methodology
+
+##### Associated Modules
+
+The Pegs Antara Module requires interactivity with several additional Antara Modules, including the following:
+
+<!-- Mihailo: Note for below: You cna use any chain that is on Bitcoin protocol. Basically you are depositing funds on external multisig address and then make a deposit tx on Komodo Smart chain with the proof of that deposit and then you claim the tokens. This is how gateways works. So the external chain does not have anything to do with Komodo and does not need to have CC or any Komodo mechanism. -->
+
+- The [Gateways](./gateways.html) Module
+  - This module acts as a bridge between the Smart Chain where Pegs is active and an external cryptocurrency
+    - The external cryptocurrency must be based on the Bitcoin protocol
+    - Typically, this external Smart Chain features a coin, such as KMD, that is tradeable in many venues across the cryptocurrency industry
+  - On the external Smart Chain, a user sends cryptocurrency coins to the Gateways Module, which locks the coins against further spending for the duration of the usage of the Pegs Module
+  - On the Pegs-related Smart Chain, the Gateways Module then issues to the user [tokens](./tokens.html) that represent the value of the user's locked funds
+- The [Tokens](./tokens.html) Module
+  - This module provides the functionality necessary to create (and burn) tokens in coordination with the Gateways Module
+  - These tokens represent the (now locked) value of the external Bitcoin-protocol or Komodo-protocol based cryptocurrency 
+  - These tokens can be spent and traded as actual cryptocurrency; the user who returns them to the Gateways Module at a later time will unlock and receive the associated external funds
+- The [Oracles](./oracles.html) Module
+  - This module uses an [oraclefeed](https://github.com/KomodoPlatform/komodo/blob/master/src/cc/dapps/oraclefeed.c) app to provide information to the Gateways Module about tokens a user deposits
+- The [Prices](./prices.html) Module
+  - The Prices Module works in combination with the Oracles Module to create a decentralized and trustless oracle (DTO) that receives data from a range of external sources (defined by a developer) and make this information available on the Pegs Smart Chain
+  - This module is responsible for tracking the value of an external asset (including assets external to the Komodo ecosystem) for on-chain value price mimicry
+  - Data from the Prices module becomes available for Smart Chain activity after a twenty-four hour delay
+
+##### A Brief Explanation of Pegs Functionality
+
+There are several technical elements involved in the Pegs Antara Module that collaborate to create a stablecoin. 
+
+###### Creating a Tokenized Cryptocurrency to Back the Stablecoin
+
+The first aspect relies on three different Antara Modules: [Gateways,](./gateways.html) [Tokens,](./tokens.html) and [Oracles.](./oracles.html) 
+
+On any cryptocurrency blockchain that is built on the Bitcoin protocol, such as `KMD`, users send funds to a Komodo-based Gateways Module that is active on this chain. The Gateways Module locks these funds against further spending at this time. 
+
+Once the funds are locked, the three modules together automatically make available to the user an equiavlent number of tokens on the Pegs-related Smart Chain. These tokens represent the locked funds on a `1:1` ratio. 
+
+As these tokens are `1:1` representations of the locked funds, the value of these tokens does not change in respect to the associated funds. However, the cryptocurrency represented may not have a stable value. 
+
+###### Creating a Reliable Rate of Exchange Between the Stablecoin and the Backing Cryptocurrency
+
+The second aspect relies on the [Prices](./prices.html) Antara Module, and, once again, on the [Oracles](./oracles.html) Antara Module. 
+
+Before the user can exchange their tokens for a stablecoin, the Smart Chain must be able to determine the stablecoin's projected market value (such as the market value of `USD`). 
+
+Using data provided by a wide range of online application programming interfaces (APIs), which can be manually determined by a developer, these two modules create a stable rate of exchange between the user's tokens and the pegged stablecoin.
+
+###### Offering the Exchange Between Stablecoin and Backing Cryptocurrency
+
+With these two elements (the user's tokens and a rate of exchange) the <b>Pegs Antara Module</b> is now able to offer a stablecoin. 
+
+The user sends their tokens (such as tokenized `KMD`) to the Pegs Module, which locks the tokens against further spending for the duration of Pegs usage. 
+
+Once the funds are locked, the Pegs Module makes available to the user native coins from the Pegs-related Smart Chain. The exchange rate between the user's deposited tokens and the native Smart Chain coins is determined by the data-driven rate of exchange. 
+
+The user may only withdraw up to `80%` of the financial value of the locked external cryptocurrency funds. The other `20%` is held as a collateralized loan, available to assist in maintaining the stablecoin's value, if necessary.
+
+In this manner, the native Smart Chain coins become the intended stablecoin.
+
+##### Managing Price Volatility
+
+As time progresses, the difference in price between the user's tokenized cryptocurrency and the stablecoin will change. Consider for example that the user is using `KMD` as the deposited cryptocurrency to access a stablecoin that mimics the `USD` fiat currency. The stablecoin in this example is named `USDK`.
+
+###### Value of Backing Cryptocurrency Increases
+
+If the value of `KMD` increases relative to `USD`, the user may withdraw additional `USDK` coins from their Pegs account, until the total withdrawn `USDK` amount is again equal to `80%` of the total value of the deposited `KMD` tokens. 
+
+###### Value of Backing Cryptocurrency Decreases
+
+On the other hand, if the value of `KMD` decreases relative to `USD`, the remaining amount of `KMD` tokens in the user’s account are subject to liquidation.
+
+There are two stages to account liquidation: "yellow zone" and "red zone."
+
+###### Yellow Zone
+
+The yellow zone applies to accounts where the user has withdrawn a value of `USDK` (also called "debt") that, due to price volatility, now exceeds the `80%` withdrawal limit, but is not yet at a level of `90%`.
+
+In this circumstance, a third-party user on the Pegs-related Smart Chain may deposit `USDK` coins on behalf of the indebted user's acccount, and receive the equivalent value of `KMD` tokens. These tokens are withdrawn from the indebted user's account. 
+
+The `USDK` coins are burned, <!-- Sidd: is that statement accurate? --> thus preserving the ratio of withdrawn `USDK` coins in sync with the global total value of `KMD` tokens deposited on the Pegs-related Smart Chain.
+
+###### Red Zone
+
+Should the debt of a user's account surpass the `90%` threshold, the account enters the red zone. 
+
+Here, a third-party user can gain an immediate `5%` rate of return by sending `USDK` coins to the Pegs Module on behalf of the indebted user's account. The third-party user must deposit enough `USDK` to cover `10%` of the debt of the user's account, according to current prices. 
+
+In return, the third-party user receives `15%` of the user's deposited `KMD` tokens, netting the third-party user an immediate `5%` rate of return. 
+
+The `USDK` coins sent by the third-party user are burned. 
+
+The remaining `5%` of the indebted user's `KMD` tokens are donated to the Pegs Antara Module, where they continue to support the maintenance of a healthy stablecoin and `KMD:USDK` ratio balance. 
+
+###### Preventing Account Liquidation
+
+<!-- Use of the word "depositor" here is new; should have been introduced earlier -->
+
+To prevent account liquiditation, when the depositor detects that their account is approaching the `90%` debt-ratio threshold, the depositor has two options available.
+
+The depositor can return an amount of `USDK` coins that satisfies `100%` of the outstanding balance of their collateralized loan at current prices. <!-- does this mean there is no penalty for the price slipage of KMD in this scenario? -->
+
+Alternatively, the depositor can deposit more tokenized `KMD` to their account at current prices until the user's debt/loan ratio is safely below the `80%` threshold.
 
 ## Pegs Antara Module Flow
 
-- The Smart Chain creator(s) creates an instance of the Pegs module called the Peg using [pegscreate](#pegscreate) and adds it to the launch parameters using the `-earlytxid` parameter
-- A user locks tokenized external Cryptocurrency in the Pegs module using [pegsfund](#pegsfund)
-- The same user can withdraw upto `80%` value of the locked tokens in the Smart Chain's coins using [pegsget](#pegsget)
-- The same user can redeem the locked tokenized external Cryptocurrency by repaying the Smart Cahin's coins using [pegsredeem](#pegsredeem)
-- A user can get the current information about their Pegs account using [pegsaccountinfo](#pegsaccountinfo)
-- A user can get all the past actions related to their Pegs account using [pegsaccounthistory](#pegsaccounthistory)
-- A user can get the current information about the Peg using [pegsinfo](#pegsinfo)
-- A user without an account can exchange the Smart Chain's coins for the deposited tokens of another user's account whose debt ratio is in the "yellow zone" (`80%` to `90%`) using [pegsexchange](#pegsexchange)
-- A user can get the information on the accounts that can be liquidated (Accounts whose debt ratio is in the "red zone" i.e., exceeds `90%`) based on the current prices [pegsworstaccounts](#pegsworstaccounts)
-- A user can liquidate the account of another user whose debt ratio is in the "red zone" (greater than "90%") with a profit of `5%` using [pegsliquidate](#pegsliquidate)
+- The Smart Chain creator creates an instance of the Pegs Antara Module, called a "Peg", using the [pegscreate](#pegscreate) API method. 
+  - Once created, the creator add this new Peg to the Smart Chain's launch parameters using the <!-- Where is this earlytxid parameter in the docs? Need to document the parameter, and then insert a hyperlink here --> `-earlytxid` parameter
+- With the Peg active on the Smart Chain, a user locks tokenized external cryptocurrency to the Pegs Module using [pegsfund](#pegsfund)
+- The user can withdraw up to `80%` of the value of their locked tokens in the form of the Smart Chain's coins using [pegsget](#pegsget)
+- At anytime, the user can redeem the locked tokenized external cryptocurrency by repaying the Smart Chain's coins using [pegsredeem](#pegsredeem)
+- A user can retrieve the current information about their Pegs account using [pegsaccountinfo](#pegsaccountinfo)
+- A user can retrieve all past actions related to their Pegs account using [pegsaccounthistory](#pegsaccounthistory)
+- A user can retrieve current information about the Peg using [pegsinfo](#pegsinfo)
+- A user that has not yet created an account can exchange native coins of the Smart Chain for deposited tokens belonging to another user's account where the debt ratio is in the "yellow zone", `80%` to `90%`, using [pegsexchange](#pegsexchange)
+- A user can retrieve information about accounts that have a debt ratio in the "red zone", `+90%`, using [pegsworstaccounts](#pegsworstaccounts)
+- A user can liquidate the "red zone" account of another user, receiving `KMD` tokens in return according to the current price, as well as a `5%` additional profit, using [pegsliquidate](#pegsliquidate)
 
 ## Tutorial Availability
 
-The Antara Tutorials section features a full walkthrough for the user side of the Pegs module.
+The Antara Tutorials section features full walkthroughs for the Pegs Module.
 
 [<b>Link to the user side of the Pegs Module Tutorial</b>](../../../basic-docs/antara/antara-tutorials/pegs-module-user-tutorial.html)
+
 [<b>Link to the creator side of the Pegs Module Tutorial</b>](../../../basic-docs/antara/antara-tutorials/pegs-module-creator-tutorial.html)
 
 ## pegsaccounthistory
 
 **pegsaccounthistory pegstxid**
 
-The `pegsaccounthistory` method returns all the past actions related to the Pegs account that belongs to the owner of the pubkey used to launch the daemon.
+The `pegsaccounthistory` method returns all the past actions related to the Pegs account of the user who executes the method. 
+
+The method relies on [the pubkey address provided by the user when launching the daemon](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey) to determine the Pegs account for which the method will retrieve data.
 
 ### Arguments
 
 | Name     | Type     | Description                                                                                    |
 | -------- | -------- | ---------------------------------------------------------------------------------------------- |
-| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transction used to create the on-chain Peg |
+| pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
 
 ### Response
 
 | Name              | Type            | Description                                                                                                                                           |
 | ----------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "result"          | (string)        | whether the command executed successfully                                                                                                             |
-| "name"            | (string)        | name of the method                                                                                                                                    |
-| "account history" | (array of json) | an array containing json that describe the past actions related to the Pegs account that belongs to the owner of the pubkey used to launch the daemon |
-| "action"          | (string)        | name of the past action                                                                                                                               |
+| "name"            | (string)        | the name of the method                                                                                                                                    |
+| "account history" | (array of json) | an array containing json data that describe the past actions related to the user's Pegs account |
+| "action"          | (string)        | the name of the past action                                                                                                                               |
 | "amount"          | (number)        | the amount of satoshis involved                                                                                                                       |
-| "accounttxid"     | (string)        | transaction id of the action                                                                                                                          |
-| "token"           | (string)        | name of the token involved                                                                                                                            |
+| "accounttxid"     | (string)        | the transaction id of the action                                                                                                                          |
+| "token"           | (string)        | the name of the token involved                                                                                                                            |
 | "deposit"         | (number)        | the amount of initial satoshis deposited                                                                                                              |
-| "debt"            | (string)        | total amount of debt after this action                                                                                                                |
+| "debt"            | (string)        | the total amount of debt after the associated action                                                                                                                |
 
 #### :pushpin: Examples
 
@@ -125,24 +233,26 @@ Command:
 
 **pegsaccountinfo pegstxid**
 
-The `pegsaccountinfo` method returns the current information the Pegs account that belongs to the owner of the pubkey used to launch the daemon.
+The `pegsaccountinfo` method returns the current information of the Pegs account belonging to the user who executes the method. 
+
+The method relies on [the pubkey provided by the user when launching the daemon](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey) to determine the account for which the method will retrieve data.
 
 ### Arguments
 
 | Name     | Type     | Description                                                                                    |
 | -------- | -------- | ---------------------------------------------------------------------------------------------- |
-| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transction used to create the on-chain Peg |
+| pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
 
 ### Response
 
 | Name           | Type            | Description                                                                                                                                       |
 | -------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "result"       | (string)        | whether the command executed successfully                                                                                                         |
-| "name"         | (string)        | name of the method                                                                                                                                |
-| "account info" | (array of json) | an array containing a json that describes the current state of the Pegs account that belongs to the owner of the pubkey used to launch the daemon |
-| "token"        | (string)        | name of the token involved                                                                                                                        |
+| "name"         | (string)        | the name of the method                                                                                                                                |
+| "account info" | (array of json) | an array containing json data that describe the user's Pegs account |
+| "token"        | (string)        | the name of the token involved                                                                                                                        |
 | "deposit"      | (number)        | the amount of initial satoshis deposited                                                                                                          |
-| "debt"         | (string)        | total amount of current debt                                                                                                                      |
+| "debt"         | (string)        | the total amount of current debt                                                                                                                      |
 | "ratio"        | (string)        | the debt ratio based on the current price                                                                                                         |
 
 #### :pushpin: Examples
@@ -176,13 +286,15 @@ Command:
 
 **pegsaddress [pubkey]**
 
-The `pegsaddress` method returns information about the Pegs module and associated addresses. Optionally, if a pubkey is supplied, this method also gives the Pegs CC address and its balance corresponding to the pubkey.
+The `pegsaddress` method returns information about the Pegs module and associated addresses.
+
+Optionally, if a pubkey is supplied, this method also returns the corresponding Pegs CC Address and balance.
 
 ### Arguments
 
 | Name   | Type              | Description                           |
 | ------ | ----------------- | ------------------------------------- |
-| pubkey | (string,optional) | pubkey of another user on the network |
+| pubkey | (string, optional) | the pubkey of another user on the network |
 
 ### Response
 
@@ -192,14 +304,14 @@ The `pegsaddress` method returns information about the Pegs module and associate
 | "PegsCCAddress"         | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
 | "PegsCCBalance"         | (number) | the amount of funds in the `PegsCCAddress`                                                                           |
 | "PegsNormalAddress"     | (string) | the unmodified public address generated from the contract's privkey                                                  |
-| "PegsNormalBalance"     | (number) | the amount of funds in the `PegsNormalBalance`                                                                       |
+| "PegsNormalBalance"     | (number) | the amount of funds in the `PegsNormalBalance` <!-- Sidd: What is the "normal balance"? Need more info here -->                                                                       |
 | "PegsCCTokensAddress"   | (string) | the public address where Tokens are locked in the Pegs module                                                        |
 | "PubkeyCCaddress(Pegs)" | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey supplied as an argument      |
-| "PubkeyCCbalance(Pegs)" | (number) | the amount of funds in the `PubkeyCCaddress(Pegs)`                                                                   |
+| "PubkeyCCbalance(Pegs)" | (number) | the amount of funds in the `PubkeyCCaddress(Pegs)` <!-- Is this the global address of the Pubkey CC ? -->                                                                   |
 | "myCCAddress(Pegs)"     | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                  |
-| "myCCbalance(Pegs)"     | (number) | the amount of funds in the `myCCAddress(Pegs)`                                                                       |
+| "myCCbalance(Pegs)"     | (number) | the amount of funds in the `myCCAddress(Pegs)` <!-- Sidd: What is the myCCAdddress(Pegs) thing? need more info here-->                                                                       |
 | "myaddress"             | (string) | the public address of the pubkey used to launch the chain                                                            |
-| "mybalance"             | (number) | the amount of funds in the `myaddress`                                                                               |
+| "mybalance"             | (number) | the amount of funds in the `myaddress` <!-- What is the "myaddress" thing? Need more info -->                                                                               |
 
 #### :pushpin: Examples
 
@@ -259,30 +371,40 @@ Command:
 
 **pegscreate amount N bindtxid1 [bindtxid2 ...]**
 
-The `pegscreate` method allows the creation of a an on-chain Peg where the Smart Chain's coin is pegged to a real world asset like USD and backed by tokenized Cryptocurrencies like KMD,BTC etc., The pegged asset created can be backed by more than one Cryptocurrency at once.
+The `pegscreate` method creates an on-chain Peg, associating the value of the Smart Chain's pegged stablecoin with the value of a foreign asset. 
 
-The `amount` parameter is the number of coins to be added to the Pegs module. The coins will be used for transaction fees and markers for Pegs transactions.
+The creation of this peg requires a tokenized backing cryptocurrency. Any cryptocurrency that is based on the Bitcoin protocol can fulfill this role, including `BTC` and `KMD`. There can be more than one such supporting cryptocurrency on any stablecoin Smart Chain. 
 
-The `N` parameter is the number of gateways we are associating with the Pegs module. We need as many Gateways as there are the assets that back the Peg.
+The `amount` parameter is the number of coins to be added <!-- From what supply? From the global supply? From the premine? From miners? From the creator's personal account? --> to the Pegs module. The coins will be used for transaction fees <!-- What transaction fees? Does the creator of the Peg have to pay for transactions that users on the chain make? --> and markers <!-- What does "markers" mean here? --> for Pegs transactions <!-- Whose Pegs transactions? -->.
 
-The `bindtxidN` parameter is the `bindtxid` of a gateway we are using to tokenize external cryptocurrencies.
+The `N` parameter is the number of gateways to associate with the Pegs module. Each cryptocurrency asset that backs the Peg's stablecoin needs a unique gateway.
 
-The transction id of the `pegscreate` transaction is called the `pegstxid`. Once it is confirmed, the Smart Chain daemon should be stopped and started again with the parameter `-earlytxid=pegstxid` added to the launch command. This ensures that it is the only Peg active on the Smart Chain. The `-earlytxid` parameter can be added to the launch parameters only before the 100th block.
+The `bindtxidN` parameter is the `bindtxid` of a gateway used to tokenize external cryptocurrencies.
+
+The transction id of the `pegscreate` transaction is called the `pegstxid`. 
+
+Once the `pegstxid` transaction is confirmed, the Smart Chain daemon should be stopped and started again with the parameter `-earlytxid=pegstxid` added to the launch command. This ensures that it is the only Peg active on the Smart Chain. 
+
+The `-earlytxid` parameter can be added to the launch parameters only before the 100th block.
+
+For more information, see the following linked tutorial.
+
+[<b>Link to the creator side of the Pegs Module Tutorial</b>](../../../basic-docs/antara/antara-tutorials/pegs-module-creator-tutorial.html)
 
 ### Arguments
 
 | Name            | Type                | Description                                                                                  |
 | --------------- | ------------------- | -------------------------------------------------------------------------------------------- |
 | amount          | (number)            | the number of coins to be added                                                              |
-| N               | (number)            | the number of gateways we are associating with the Pegs module                               |
-| bindtxid1       | (string)            | the `bindtxid` of a gateway we are using to tokenize external cryptocurrencies               |
-| [bindtxid2 ...] | (strings, optional) | same as above; used when more than one external cryptocurrency is being used to back the Peg |
+| N               | (number)            | the number of gateways to associate with the Pegs module                               |
+| bindtxid1       | (string)            | the `bindtxid` of a gateway used to tokenize external cryptocurrencies               |
+| [bindtxid2 ...] | (strings, optional) | same as above; used when more than one external cryptocurrency backs the Peg |
 
 ### Response
 
 | Name     | Type     | Description                               |
 | -------- | -------- | ----------------------------------------- |
-| "hex"    | (string) | the hex to be broadcasted                 |
+| "hex"    | (string) | the hex value to be broadcast                 |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
@@ -326,21 +448,26 @@ The above string is the `pegstxid` that represents the Peg.
 
 **pegsexchange pegstxid tokenid amount**
 
-The `pegsexchange` method allows the exchange of a given amount of the Smart Chain's coins for the deposited tokens. This method is used when the user does not have an account, but wants to exchange the Smart Chain's coins for the tokenized Cryptocurrencies. This method repays the debt of another user whose account is in the "yellow zone" (debt ratio is about `80%` to `90%` based on current prices) and improves their debt ratio and prevent their account from being liquidated.
+The `pegsexchange` method exchanges native coins for deposited tokens. This method is intended for users that do not have a Pegs account associated with the pubkey used to launch their daemon. 
+
+<!-- If you do have a pubkey and associated Pegs account, which method should you use? We should link to that here -->
+
+
+To supply the user that executes the method with tokens, this method sends the user's coins to pay the debt of another user whose account is in the "yellow zone" (a debt ratio between `80%` and `90%` based on current prices). This improves the debt ratio of the indebted user, thus forestalling liquidation of the indebted user's account.
 
 ### Arguments
 
 | Name     | Type     | Description                                                                          |
 | -------- | -------- | ------------------------------------------------------------------------------------ |
-| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transaction that created the Peg |
-| tokenid  | (string) | the tokenid of the tokenized Cryptocurrency backing the peg                          |
+| pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
+| tokenid  | (string) | the tokenid of the tokenized cryptocurrency backing the peg                          |
 | amount   | (amount) | the amount of coins to exchange                                                      |
 
 ### Response
 
 | Name     | Type     | Description                               |
 | -------- | -------- | ----------------------------------------- |
-| "hex"    | (string) | the hex to be broadcasted                 |
+| "hex"    | (string) | the hex value to be broadcast                 |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
@@ -369,21 +496,21 @@ add response
 
 **pegsfund pegstxid tokenid amount**
 
-The `pegsfund` method allows a user to lock the given `amount` of a tokenized Cryptocurrency in the Pegs module.
+The `pegsfund` method allows a user to lock the given `amount` of a tokenized cryptocurrency in the Pegs module.
 
 ### Arguments
 
 | Name     | Type     | Description                                                                          |
 | -------- | -------- | ------------------------------------------------------------------------------------ |
-| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transaction that created the Peg |
-| tokenid  | (string) | the tokenid of the tokenized Cryptocurrency backing the peg                          |
-| amount   | (amount) | the amount of the tokenized Cryptocurrency to be locked in the Pegs account          |
+| pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
+| tokenid  | (string) | the tokenid of the tokenized cryptocurrency backing the peg                          |
+| amount   | (amount) | the amount of the tokenized cryptocurrency to be locked in the Pegs account          |
 
 ### Response
 
 | Name     | Type     | Description                               |
 | -------- | -------- | ----------------------------------------- |
-| "hex"    | (string) | the hex to be broadcasted                 |
+| "hex"    | (string) | the hex value to be broadcast                 |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
@@ -427,21 +554,23 @@ The above string is the `accounttxid` of the user.
 
 **pegsget pegstxid tokenid amount**
 
-The `pegsget` method allows a user to take a debt of upto 80% value(based on the current price) of the locked(collateral) tokenized Cryptocurrency in the form of the Smart chain's coins.
+The `pegsget` method allows a user to withdraw (also called "assume a debt") in native coins up to `80%` of the value of the locked tokens (also called "collateral") in their account.
+
+The exchange of value from tokens to native coins is calculated according to the current price data available on the Smart Chain at the time of the transaction.
 
 ### Arguments
 
 | Name     | Type     | Description                                                                          |
 | -------- | -------- | ------------------------------------------------------------------------------------ |
-| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transaction that created the Peg |
-| tokenid  | (string) | the tokenid of the tokenized Cryptocurrency backing the peg                          |
-| amount   | (amount) | the amount of the SmartChain coins to receive from the Pegs module                   |
+| pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
+| tokenid  | (string) | the tokenid of the tokenized cryptocurrency backing the peg                          |
+| amount   | (amount) | the amount of the native coins to receive from the Pegs module                   |
 
 ### Response
 
 | Name     | Type     | Description                               |
 | -------- | -------- | ----------------------------------------- |
-| "hex"    | (string) | the hex to be broadcasted                 |
+| "hex"    | (string) | the hex value to be broadcast                 |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
@@ -467,26 +596,26 @@ Command:
 
 **pegsinfo pegstxid**
 
-The `pegsinfo` method returns the current information about the given Peg.
+The `pegsinfo` method returns the current information about the indicated `pegstxid` Peg.
 
 ### Arguments
 
 | Name     | Type     | Description                                                                          |
 | -------- | -------- | ------------------------------------------------------------------------------------ |
-| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transaction that created the Peg |
+| pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
 
 ### Response
 
 | Name            | Type         | Description                                                      |
 | --------------- | ------------ | ---------------------------------------------------------------- |
 | "result"        | (string)     | whether the command executed successfully                        |
-| "name"          | (string)     | name of the method                                               |
+| "name"          | (string)     | the name of the method                                               |
 | "info"          | (json array) | the current information about the given Peg                      |
-| "token"         | (string)     | name of the token                                                |
-| "total deposit" | (amount)     | total number of tokens deposited                                 |
-| "total debt"    | (amount)     | total number of satoshis of Smart Chain's coin withdrawn         |
-| "total ratio"   | (string)     | total debt ratio for the above token based on the current price  |
-| "global ratio"  | (string)     | global debt ratio for all the tokens based on the current prices |
+| "token"         | (string)     | the name of the token                                                |
+| "total deposit" | (amount)     | the total number of tokens deposited                                 |
+| "total debt"    | (amount)     | the total number of satoshis of the native coin withdrawn         |
+| "total ratio"   | (string)     | the total debt ratio for the above token based on the current price  |
+| "global ratio"  | (string)     | the global debt ratio for all tokens based on the current prices <!-- Does this include all types of tokens, or is it only for tokens associated with the tokenid above? --> |
 
 #### :pushpin: Examples
 
@@ -520,21 +649,25 @@ Command:
 
 **pegsliquidate pegstxid tokenid accounttxid**
 
-The `pegsliquidate` method allows a user to liquidate the account of another user if their debt ratio is in "red zone" (greater than "90%") for a given token specified by the `tokenid` by repaying the Smart Chain's coins for a profit of `5%`
+The `pegsliquidate` method allows a user to liquidate the account of another user if their debt ratio is in "red zone" (greater than `90%`) for the given `tokenid` token. 
+
+In return, the liquidating user can receive an immediate profit of `5%`, in tokens, taken from the liquidated user's remaining balance. 
+
+Any remaining value in the liquidated user's account is immediately distributed to the Pegs Antara Module for global stablecoin price and supply management.
 
 ### Arguments
 
 | Name        | Type     | Description                                                                          |
 | ----------- | -------- | ------------------------------------------------------------------------------------ |
-| pegstxid    | (string) | the transaction id of the [pegscreate](#pegscreate) transaction that created the Peg |
-| tokenid     | (string) | the tokenid of the tokenized Cryptocurrency backing the peg                          |
+| pegstxid    | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
+| tokenid     | (string) | the tokenid of the tokenized cryptocurrency backing the peg                          |
 | accounttxid | (string) | the `accounttxid` of another user whose account is in the "red zone"                 |
 
 ### Response
 
 | Name     | Type     | Description                               |
 | -------- | -------- | ----------------------------------------- |
-| "hex"    | (string) | the hex to be broadcasted                 |
+| "hex"    | (string) | the hex value to be broadcast                 |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
@@ -561,20 +694,22 @@ Command:
 
 **pegsredeem pegstxid tokenid**
 
-The `pegsredeem` method allows a user to withdraw their deposited tokenized Cryptocurrency by repaying the whole debt in the Smart Cahin's coins.
+The `pegsredeem` method allows a user to withdraw their deposited tokenized cryptocurrency by repaying their entire debt. 
+
+The user provides payment in the native coin of the Smart Chain.
 
 ### Arguments
 
 | Name     | Type     | Description                                                                          |
 | -------- | -------- | ------------------------------------------------------------------------------------ |
-| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transaction that created the Peg |
-| tokenid  | (string) | the tokenid of the tokenized Cryptocurrency backing the peg                          |
+| pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
+| tokenid  | (string) | the tokenid of the tokenized cryptocurrency backing the peg                          |
 
 ### Response
 
 | Name     | Type     | Description                               |
 | -------- | -------- | ----------------------------------------- |
-| "hex"    | (string) | the hex to be broadcasted                 |
+| "hex"    | (string) | the hex value to be broadcast                 |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
@@ -600,13 +735,13 @@ Command:
 
 **pegsworstaccounts pegstxid**
 
-The `pegsworstaccounts` method returns the information on the accounts that can be liquidated based on the current prices (Accounts whose debt ratio is in the red zone i.e., exceeds `90%`).
+The `pegsworstaccounts` method returns the information on the accounts that currently can be liquidated. An account can be liquidated if the account holder's total debt balance exceeds `90%` of the account value.
 
 ### Arguments
 
 | Name     | Type     | Description                                                                          |
 | -------- | -------- | ------------------------------------------------------------------------------------ |
-| pegstxid | (string) | the transaction id of the [pegscreate](#pegscreate) transaction that created the Peg |
+| pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
 
 <!-- FIXME
 
