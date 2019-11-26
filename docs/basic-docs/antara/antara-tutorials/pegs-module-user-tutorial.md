@@ -91,8 +91,6 @@ Execute the following launch parameters.
 
 In the following command, replace the text, `<user pubkey>`, with the appropriate pubkey. [To learn more about setting a proper pubkey, please read this linked article from the Komodo documentation.](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html)
 
-Take note of the `earlytxid` value in the command below. This value is necessary later in the process of claiming funds.
-
 ```bash
 ./komodod -ac_supply=1000000 -ac_reward=10000 -ac_name=USDKTEST -ac_cc=2 -ac_import=PEGSCC -ac_end=1 -ac_perc=0 -ac_cbopret=5 -debug=pegscc-2 -debug=importcoin -debug=cctokens -debug=gatewayscc -printtoconsole=1 -addnode=116.203.17.140 -addnode=116.203.17.141 -earlytxid=a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7 -pubkey=<user pubkey> &
 ```
@@ -394,7 +392,7 @@ Method structure:
 #### Details
 
 - `gatewaysclaim` — The name of the method, executed as-is
-- `bindtxid` — This is the `earlytxid` value that is used to launch the Pegs-related Smart Chain, as noted at the beginning of this tutorial; this value is also called the "importgateway identifier"
+- `bindtxid` — This is the creation txid of the Gateway; supplied at the beginning of the tutorial
 - `coin` — Ticker of the `coin` deposited
 - `deposittxid` — The `txid` returned from the `gatewaysdeposit` transaction
 - `destpubkey` — The user pubkey used to launch the `USDKTEST` daemon
