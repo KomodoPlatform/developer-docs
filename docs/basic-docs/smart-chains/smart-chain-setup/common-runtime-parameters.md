@@ -4,7 +4,7 @@
 
 The following is an abbreviated list of runtime parameters and settings that can be initiated in a [Smart Chain's .conf file.](../../../basic-docs/smart-chains/smart-chain-setup/interacting-with-smart-chains.html#location-of-conf-file)
 
-These commands largely derive from the upstream Bitcoin software, `bitcoind`. 
+These commands largely derive from the upstream Bitcoin software, `bitcoind`.
 
 Komodo is a fork of Zcash, and Zcash is a privacy-centric fork of Bitcoin. Therefore, essentially all runtime parameters and API commands available in both Bitcoin and Zcash are available in Komodo.
 
@@ -126,9 +126,9 @@ komodod -conf=/home/username/coinConfs/DEX.conf
 
 ## datadir
 
-`datadir` allows the user to indicate an alternative blockchain-data directory for the Smart Chain daemon. The `datadir` parameter requires an absolute path. For example, `home/user/mydirectory/MYCOIN/MYCOINDATA`. Once this parameter is activated, the daemon will ignore the default data directory. 
+`datadir` allows the user to indicate an alternative blockchain-data directory for the Smart Chain daemon. The `datadir` parameter requires an absolute path. For example, `home/user/mydirectory/MYCOIN/MYCOINDATA`. Once this parameter is activated, the daemon will ignore the default data directory.
 
-The name of the alternative directory must match the value provided to the [ac_name](../../../basic-docs/antara/antara-setup/antara-customizations.html) parameter.
+The name of the alternative directory must match the value provided to the [ac_name](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-name) parameter.
 
 #### :pushpin: Examples:
 
@@ -277,7 +277,6 @@ DEPRECATED
 ## port
 
 `port` tells the daemon to listen for p2p connections on the indicated TCP port, overwriting the default. The default p2pport for the Komodo(KMD) blockchain is 7770. The default p2p port of a Smart Chain is solely dependant on the `-ac_` [Antara customization parameters](../../antara/antara-setup/antara-customizations.html) and values used to launch it.
-
 
 #### :pushpin: Examples:
 
@@ -535,10 +534,9 @@ Using stopat as a runtime parameter:
 komodod -stopat=1000000
 ```
 
-
 ## testnode
 
-The `testnode` parameter allows the daemon to mine without being connected to any other peers. This is useful for debugging and testing. 
+The `testnode` parameter allows the daemon to mine without being connected to any other peers. This is useful for debugging and testing.
 
 If this parameter is not set, the daemon will not attempt to mine blocks unless it has at least one other peer.
 
@@ -555,7 +553,6 @@ Using testnode as a default value in the Smart Chain's `.conf` file:
 ```bash
 testnode=1
 ```
-
 
 ## timestampindex
 
@@ -610,4 +607,3 @@ Using whitebind as a default value in the Smart Chain's `.conf` file:
 ```bash
 whitebind=127.0.0.1:9050
 ```
-

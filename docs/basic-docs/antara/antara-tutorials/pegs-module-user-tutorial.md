@@ -318,7 +318,7 @@ Structure of the command to be executed:
 - `destpub` — The user's `pubkey` used to launch the `USDKTEST` Smart Chain
 - `amount` — The `amount` of coin (`KMD`) deposited
 
-The following commands retrieving the missing information.
+The following commands retrieve the missing information.
 
 #### deposithex
 
