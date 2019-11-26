@@ -25,14 +25,14 @@ The Pegs Antara Module requires interactivity with several additional Antara Mod
 
 - The [Gateways](./gateways.html) Module
   - This module acts as a bridge between the Smart Chain where Pegs is active and an external cryptocurrency
-    - The external cryptocurrency must be a Komodo-related Smart Chain
+    - The external cryptocurrency must be based on the Bitcoin protocol
     - Typically, this external Smart Chain features a coin, such as KMD, that is tradeable in many venues across the cryptocurrency industry
-  - On the external Smart Chain, a user sends cryptocurrency coins to the Gateways Module, which locks the coins against further spending for the duration of the usage of the Pegs Antara Module
-  - On the Pegs-related Smart Chain, the Gateways Module then issues to the user [tokens](./tokens.html) that represent the value of the external cryptocurrency
+  - On the external Smart Chain, a user sends cryptocurrency coins to the Gateways Module, which locks the coins against further spending for the duration of the usage of the Pegs Module
+  - On the Pegs-related Smart Chain, the Gateways Module then issues to the user [tokens](./tokens.html) that represent the value of the user's locked funds
 - The [Tokens](./tokens.html) Module
   - This module provides the functionality necessary to create (and burn) tokens in coordination with the Gateways Module
-  - These tokens represent the (now locked) value of the external Komodo-based cryptocurrency 
-  - (The holder of these tokens may later return them in exchange for the original currency)
+  - These tokens represent the (now locked) value of the external Bitcoin-protocol or Komodo-protocol based cryptocurrency 
+  - These tokens can be spent and traded as actual cryptocurrency; the user who returns them to the Gateways Module at a later time will unlock and receive the associated external funds
 - The [Oracles](./oracles.html) Module
   - This module uses an [oraclefeed](https://github.com/KomodoPlatform/komodo/blob/master/src/cc/dapps/oraclefeed.c) app to provide information to the Gateways Module about tokens a user deposits
 - The [Prices](./prices.html) Module
@@ -44,13 +44,15 @@ The Pegs Antara Module requires interactivity with several additional Antara Mod
 
 There are several technical elements involved in the Pegs Antara Module that collaborate to create a stablecoin. 
 
-###### Creating a Tokenized Currency to Back the Stablecoin
+###### Creating a Tokenized Cryptocurrency to Back the Stablecoin
 
-The first aspect relies on three different Antara Modules: [Gateways,](./gateways.html) [Tokens,](./tokens.html) and [Oracles.](./oracles.html) On a Komodo-related Smart Chain, such as `KMD`, using the chain's native currency, users lock funds to the Gateways Module. 
+The first aspect relies on three different Antara Modules: [Gateways,](./gateways.html) [Tokens,](./tokens.html) and [Oracles.](./oracles.html) 
 
-Once the funds are locked, the three modules together automatically make available to the user an equiavlent number of tokens on the Pegs Smart Chain. These tokens represent the locked funds on a `1:1` ratio. 
+On any cryptocurrency blockchain that is built on the Bitcoin protocol, such as `KMD`, users send funds to a Komodo-based Gateways Module that is active on this chain. The Gateways Module locks these funds against further spending at this time. 
 
-As these tokens are `1:1` representations of the locked funds, the value of these tokens does not change in respect to the associated funds. However, the cryptocurrency represented may not be stable. 
+Once the funds are locked, the three modules together automatically make available to the user an equiavlent number of tokens on the Pegs-related Smart Chain. These tokens represent the locked funds on a `1:1` ratio. 
+
+As these tokens are `1:1` representations of the locked funds, the value of these tokens does not change in respect to the associated funds. However, the cryptocurrency represented may not have a stable value. 
 
 ###### Creating a Reliable Rate of Exchange Between the Stablecoin and the Backing Cryptocurrency
 
@@ -67,6 +69,8 @@ With these two elements (the user's tokens and a rate of exchange) the <b>Pegs A
 The user sends their tokens (such as tokenized `KMD`) to the Pegs Module, which locks the tokens against further spending for the duration of Pegs usage. 
 
 Once the funds are locked, the Pegs Module makes available to the user native coins from the Pegs-related Smart Chain. The exchange rate between the user's deposited tokens and the native Smart Chain coins is determined by the data-driven rate of exchange. 
+
+The user may only withdraw up to `80%` of the financial value of the locked external cryptocurrency funds. The other `20%` is held as a collateralized loan, available to assist in maintaining the stablecoin's value, if necessary.
 
 In this manner, the native Smart Chain coins become the intended stablecoin.
 
@@ -86,17 +90,17 @@ There are two stages to account liquidation: "yellow zone" and "red zone."
 
 ###### Yellow Zone
 
-The yellow zone applies to accounts where the user has withdrawn a value of `USDK` (also called "debt") that, due to price volatility, has now exceeded the `80%` withdrawal limit, but has not yet reached `90%`.
+The yellow zone applies to accounts where the user has withdrawn a value of `USDK` (also called "debt") that, due to price volatility, now exceeds the `80%` withdrawal limit, but is not yet at a level of `90%`.
 
-In this circumstance, a third-party user on the Pegs-related Smart Chain may deposit `USDK` coins on behalf of the indebted user's acccount, and receive the equivalent value of `KMD` tokens, withdrawn from the indebted user's account. 
+In this circumstance, a third-party user on the Pegs-related Smart Chain may deposit `USDK` coins on behalf of the indebted user's acccount, and receive the equivalent value of `KMD` tokens. These tokens are withdrawn from the indebted user's account. 
 
-These `USDK` coins are burned, <!-- Sidd: is that statement accurate? --> thus preserving the ratio of withdrawn `USDK` coins in sync with the total value of `KMD` tokens deposited across the entire Pegs-related Smart Chain.
+The `USDK` coins are burned, <!-- Sidd: is that statement accurate? --> thus preserving the ratio of withdrawn `USDK` coins in sync with the global total value of `KMD` tokens deposited on the Pegs-related Smart Chain.
 
 ###### Red Zone
 
 Should the debt of a user's account surpass the `90%` threshold, the account enters the red zone. 
 
-Here, a third party user can gain an immediate `5%` rate of return by sending `USDK` coins to the Pegs Module on behalf of the indebted user's account. The third-party user must deposit enough `USDK` to cover `10%` of the debt of the user's account, according to current prices. 
+Here, a third-party user can gain an immediate `5%` rate of return by sending `USDK` coins to the Pegs Module on behalf of the indebted user's account. The third-party user must deposit enough `USDK` to cover `10%` of the debt of the user's account, according to current prices. 
 
 In return, the third-party user receives `15%` of the user's deposited `KMD` tokens, netting the third-party user an immediate `5%` rate of return. 
 
