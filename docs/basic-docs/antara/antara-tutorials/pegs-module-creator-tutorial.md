@@ -1,27 +1,36 @@
 # Pegs Module Creator Tutorial
 
-**The guide here has been tested to work on Ubuntu/(debian). The system is being constantly updated based on specifications, bugfixes or other improvements. Please let us know in the #cc-pegs channel of [Komodo Discord](https://komodoplatform.com/discord) if you find any issues or incorrect information. Also use the same channel for test reports and feedback.**
+::: tip
 
-## Tutorial
+The Pegs Module is in the final stages of production.
 
-In this tutorial, we will launch a new Smart Chain named `TESTUSDK` and follow a walkthrough of the flow a creator of the Pegs module will experience.
+The following tutorial is currently only compatible with computer-hardware setups that are running Linux OS's Ubuntu/Debian-based distributions.
 
-To that effect, we will go through the following steps:
+For questions and assistance, please reach out to the Komodo team using the `#cc-pegs` channel on the [Komodo Discord](https://komodoplatform.com/discord) live-chat server. Thank you.
 
-- Launch a new test Smart Chain (`TESTUSDK`) to activate the Pegs module and its coin will be pegged to `USD` and backed by `KMD`
-- Create Tokens to represent the `KMD` coins
-- Create an Oracle and register as a publisher on it and subscribe to it
-- Create a Gateway and bind the previously created Token and Oracle to it
-- Start the `oraclefeed` dApp to bring the `blockheader` data from the `KMD` Chain to the `TESTUSDK` Chain through the previously created Oracle
-- Create a Peg by attaching the previously created Gateway to it
+:::
 
-After this, the reader may follow the [user tutorial](./pegs-module-user-tutorial.html) and replace the `USDKTEST` chain in it with the `TESTUSDK` chain to test the system setup using the current tutorial.
+## Tutorial Overview
+
+This tutorial assists the reader in discovering the process of creating a new Smart Chain with an active stablecoin using the [Pegs Antara Module.](./pegs.html)
+
+#### Tutorial Outline
+
+- Launch a new test Smart Chain (`TESTUSDK`) to activate the Pegs Module
+- Peg the test chain's coins to `USD` and create a pathway for users to back the stablecoin with `KMD`
+- Create tokens to represent the `KMD` coins
+- Create an oracle, register as a publisher, and subscribe to it
+- Create a gateway and bind the previously created token and oracle to it
+- Start the `oraclefeed` software to bring the `blockheader` data from the `KMD` chain to the `TESTUSDK` chain through the previously created oracle
+- Create a peg by attaching the previously created gateway to it
+
+Upon completion of this tutorial, the reader may follow the [user tutorial](./pegs-module-user-tutorial.html) and use the Smart Chain they have created for testing purposes.
 
 ## Installation (Only for Testing, do not use in Production)
 
-Do not follow these instructions yet. Proceed to the next section and based on your selection there, execute the installation steps in the required environment.
+Please read the following installation instructions, but do not yet execute them. Instead, read until  Do not follow these instructions yet. Proceed to the next section and based on your selection there, execute the installation steps in the required environment.
 
-### Dependencies
+#### Dependencies
 
 ```bash
 sudo apt-get update && sudo apt-get upgrade -y
@@ -382,9 +391,9 @@ Assuming everything is properly created and executed, we may now review our new 
 
 Use the returned information to verify that the `tokenid` and `oracleid` match the information in our text editor.
 
-## Start the `oraclefeed` dApp
+## Start the oraclefeed software
 
-The `oraclefeed` dApp instance automates the transfer of merkleroot data from the `KMD` chain to our Oracle on the `TESTUSDK` chain.
+The `oraclefeed` software instance automates the transfer of merkleroot data from the `KMD` chain to our Oracle on the `TESTUSDK` chain.
 
 Change into the directory where `komodod` and `komodo-cli` are compiled bt default (this command assumes we installed Komodo in the default directory):
 
@@ -433,7 +442,7 @@ KMD ht.19 <- 13000000f1fea637bf33149d161bd5a1d20e0ad8911a3710cf941a318b68fa973d4
 
 We can finally create a Peg that will create `TESTUSDK` coins pegged to USD and backed by `KMD` using the [pegscreate](../../../basic-docs/antara/antara-api/pegs.html#pegscreate)
 
-This method allows us to create a Peg that is backed by more than 1 external coin. To achieve this, we can add more than 1 `bindtxid` to the `pegscreate` command. Each of these Gateways have to prepared properly by binding Tokens, Oracles and running the `oraclefeed` dApps as previously described in this Tutorial.
+This method allows us to create a Peg that is backed by more than 1 external coin. To achieve this, we can add more than 1 `bindtxid` to the `pegscreate` command. Each of these Gateways have to prepared properly by binding Tokens, Oracles and running the `oraclefeed` software as previously described in this Tutorial.
 
 For the sake of simplicity, we will simply use 1 Gateway which will tokenize the `KMD` coins.
 
