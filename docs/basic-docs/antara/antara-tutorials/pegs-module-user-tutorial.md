@@ -670,7 +670,7 @@ The user will now receive the requested `KMD` coins in the address of the chosen
 
 ### Liquidation
 
-A user that does not yet have a Pegs account (obtained via the [pegsfund](../../../basic-docs/antara/antara-api/pegs.html#pegsfund) and [pegsexchange](../../../basic-docs/antara/antara-api/pegs.html#pegsexchange) methods) can exchange the Pegs-related Smart Chain's coins for deposited tokens of another user's account whose debt ratio is in the "yellow zone" (`80%` to `90%`).
+A user that does not yet have a pegs account (obtained via the [pegsfund](../../../basic-docs/antara/antara-api/pegs.html#pegsfund) and [pegsexchange](../../../basic-docs/antara/antara-api/pegs.html#pegsexchange) methods) can exchange the Pegs-related Smart Chain's coins for deposited tokens of another user's account whose debt ratio is in the "yellow zone" (`80%` to `90%`).
 
 The [pegsworstaccounts](../../../basic-docs/antara/antara-api/pegs.html#pegsworstaccounts) method can be used to retrieve a list of all accounts that are in the "red zone" (where the debt ratio exceeds `90%`).
 
