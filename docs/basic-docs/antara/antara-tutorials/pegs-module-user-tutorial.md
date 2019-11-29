@@ -31,6 +31,8 @@ The Pegs Antara Module is in the final testing stages. Please reach out to the K
 
 :::
 
+<!--gcharang: my comment: "(Only for Testing, do not use in Production)" was because the installation instructions create a komodod that should definitely not be used for anything other than testing. the command "export CONFIGURE_FLAGS='CPPFLAGS=-DTESTMODE'" makes the daemon insecure and sometimes out of consensus with a regular daemon-->
+
 ### Dependencies
 
 Execute the following commands in the Unix terminal.
@@ -42,7 +44,7 @@ sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoco
 
 #### Create a Swap Partition (Optional)
 
-For tutorial users using a VPS with a low amount of RAM, create a swap partition. 
+For tutorial users using a VPS with a low amount of RAM, create a swap partition.
 
 On the VPS, execute the following commands to create a 4GB SWAP file. (If sufficient space is available, consider creating an 8GB swap file instead, as this can facilitate better software performance.)
 
@@ -71,7 +73,7 @@ vm.swappiness=10
 git clone https://github.com/Mixa84/komodo
 cd komodo
 git checkout pegsCC
-export CONFIGURE_FLAGS='CPPFLAGS=-DTESTMODE'
+export CONFIGURE_FLAGS='CPPFLAGS=-DTESTMODE' # Tweaks some settings to make it easy for testing
 ./zcutil/fetch-params.sh
 ./zcutil/build.sh -j$(nproc)
 cd src
@@ -89,8 +91,6 @@ Execute the following launch parameters.
 
 In the following command, replace the text, `<user pubkey>`, with the appropriate pubkey. [To learn more about setting a proper pubkey, please read this linked article from the Komodo documentation.](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html)
 
-Take note of the `earlytxid` value in the command below. This value is necessary later in the process of claiming funds.
-
 ```bash
 ./komodod -ac_supply=1000000 -ac_reward=10000 -ac_name=USDKTEST -ac_cc=2 -ac_import=PEGSCC -ac_end=1 -ac_perc=0 -ac_cbopret=5 -debug=pegscc-2 -debug=importcoin -debug=cctokens -debug=gatewayscc -printtoconsole=1 -addnode=116.203.17.140 -addnode=116.203.17.141 -earlytxid=a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7 -pubkey=<user pubkey> &
 ```
@@ -101,9 +101,9 @@ Import the private key corresponding to the pubkey used to start the `USDKTEST` 
 ./komodo-cli -ac_name=USDKTEST importprivkey <user privkey>
 ```
 
-Allow the chain to sync. 
+Allow the chain to sync.
 
-Check the sync status using the [getinfo](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo) method. When the keys `blocks` and `longestchain` have the same value, the chain is synced. Once the chain is synced, begin mining the `USDKTEST` chain. 
+Check the sync status using the [getinfo](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo) method. When the keys `blocks` and `longestchain` have the same value, the chain is synced. Once the chain is synced, begin mining the `USDKTEST` chain.
 
 Mine until the balance returned from the [getinfo](../../../basic-docs/smart-chains/smart-chain-api/control.html#getinfo) method is at least `30k` satoshis. This requires mining approximately `3` blocks.
 
@@ -141,7 +141,7 @@ The following key information is used throughout this tutorial. Refer back to th
 
 ::: tip
 
-The types of transactions performed in this tutorial require at least one confirmation from the network before the user should proceed to the next step in the outline. 
+The types of transactions performed in this tutorial require at least one confirmation from the network before the user should proceed to the next step in the outline.
 
 When performing cross-chain operations, the user may need to wait for two or three confirmations on the source chain before any related activity will appear on the destination chain.
 
@@ -183,9 +183,9 @@ Response:
 
 The `deposit` address is `bPFkXSYYYDWBLbp8AxfY5KKGgxt5RPfN9p`.
 
-Go to the `KMD` chain and execute one transaction that sends a few `KMD` coins to two addresses. 
+Go to the `KMD` chain and execute one transaction that sends a few `KMD` coins to two addresses.
 
-The first address is the address above, and this should receive the majority of the `KMD` sent in this transaction. 
+The first address is the address above, and this should receive the majority of the `KMD` sent in this transaction.
 
 The second address is the address corresponding to the tutorial user's `pubkey` used to launch the `USDKTEST` Smart Chain. This second address requires only a small amount of `KMD` (a few satoshis); this part of the transaction creates a marker that indicates to the Gateways Module the owner of the `KMD` funds.
 
@@ -203,7 +203,7 @@ Observe the following example.
 
 #### Obtain the txid of the Deposit Transaction
 
-The [z_sendmany](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-sendmany) returns an operation id, `opid`. Use this `opid` to obtain the `txid` of the transaction. 
+The [z_sendmany](../../../basic-docs/smart-chains/smart-chain-api/wallet.html#z-sendmany) returns an operation id, `opid`. Use this `opid` to obtain the `txid` of the transaction.
 
 (Alternatively, check the website [explorer](https://kmdexplorer.io/) for the `txid` by searching for any of the addresses associated with the transaction and searching for the most recent transaction.)
 
@@ -259,7 +259,7 @@ Use the [getrawmempool](../../../basic-docs/smart-chains/smart-chain-api/rawtran
 
 Once the transaction is mined, use the [getrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#getrawtransaction) method to find the block height at which the transaction was mined.
 
-In the following command, replace the text `<deposit txid here>` with the deposit `txid` retrieved earlier. 
+In the following command, replace the text `<deposit txid here>` with the deposit `txid` retrieved earlier.
 
 ```bash
 ./komodo-cli getrawtransaction "<deposit txid here>" 1
@@ -269,7 +269,7 @@ From the response, take note of the value associated with the `height` key. The 
 
 #### Observe the txid Reach the Oracle
 
-Check whether the block header associated with the `KMD` block of height `height` has been submitted to the Oracle on the `USDKTEST` chain. 
+Check whether the block header associated with the `KMD` block of height `height` has been submitted to the Oracle on the `USDKTEST` chain.
 
 Find the pubkey of the publisher associated with the Token, Gateway, and Peg using the [tokeninfo](../../../basic-docs/antara/antara-api/tokens.html#tokeninfo) method.
 
@@ -318,7 +318,7 @@ Structure of the command to be executed:
 - `destpub` — The user's `pubkey` used to launch the `USDKTEST` Smart Chain
 - `amount` — The `amount` of coin (`KMD`) deposited
 
-The following commands retrieving the missing information.
+The following commands retrieve the missing information.
 
 #### deposithex
 
@@ -341,7 +341,6 @@ Use the [gettxoutproof](../../../basic-docs/smart-chains/smart-chain-api/blockch
 ```bash
 ./komodo-cli gettxoutproof '["5569e66859a8269b3b7a512ac66a42b1a4d375bb404fc73abaf2faf3080ec4af"]'
 ```
-
 
 Response:
 
@@ -383,6 +382,7 @@ Output:
 This is the deposit `txid`.
 
 #### Claim the Tokenized KMD
+
 Use the [gatewaysclaim](../../../basic-docs/antara/antara-api/gateways.html#gatewaysclaim) method to claim the tokenized `KMD` on the `USDKTEST` Smart Chain.
 
 Method structure:
@@ -392,7 +392,7 @@ Method structure:
 #### Details
 
 - `gatewaysclaim` — The name of the method, executed as-is
-- `bindtxid` — This is the `earlytxid` value that is used to launch the Pegs-related Smart Chain, as noted at the beginning of this tutorial; this value is also called the "importgateway identifier"
+- `bindtxid` — This is the creation txid of the Gateway; supplied at the beginning of the tutorial
 - `coin` — Ticker of the `coin` deposited
 - `deposittxid` — The `txid` returned from the `gatewaysdeposit` transaction
 - `destpubkey` — The user pubkey used to launch the `USDKTEST` daemon
@@ -446,7 +446,7 @@ Output:
 }
 ```
 
-The description `"KMD_BTC,BTC_USD,*,1"` indicates to the Pegs modules the price to be considered. <!-- Sidd: I don't understand what this means specifically. Can we please get more information here? -->
+The description `"KMD_BTC,BTC_USD,*,1"` indicates to the Pegs modules the price to be considered. <!-- Sidd: I don't understand what this means specifically. Can we please get more information here? gcharang: it is an artifact from the Prices module, "KMD_BTC,BTC_USD,*,1" is a synthetic price; it means (KMD/BTC)*(BTC/USD) which is equal to KMD/USD this system should be clear once I add the prices doc-->
 
 ```bash
 ./komodo-cli -ac_name=USDKTEST tokenbalance 1a459712f1e79a544efdf55cfb3e111c5df3300a4da4d16cb3b963bbb50aebf1
@@ -493,7 +493,6 @@ Output:
 ```
 
 Use the [pegsget](../../../basic-docs/antara/antara-api/pegs.html#pegsget) method to retrieve the `USDK` coins.
-
 
 ```bash
 ./komodo-cli -ac_name=USDKTEST pegsget a9539ec8db34ee44ff213cda59f412a02795821cf05844b0bc184660711371f7 1a459712f1e79a544efdf55cfb3e111c5df3300a4da4d16cb3b963bbb50aebf1 0.001
@@ -674,4 +673,4 @@ A user that does not yet have a pegs account (obtained via the [pegsfund](../../
 
 The [pegsworstaccounts](../../../basic-docs/antara/antara-api/pegs.html#pegsworstaccounts) method can be used to retrieve a list of all accounts that are in the "red zone" (where the debt ratio exceeds `90%`).
 
-The [pegsliquidate](../../../basic-docs/antara/antara-api/pegs.html#pegsliquidate) method can be used to liquidate any of these accounts by repaying the account's outstanding debt using the Pegs-related Smart Chain's coins. This gives the executor of the method an immediate `5%` profit. <!-- Sidd: are we sure on the math here? If the executor sends 10% of the coins necessary to pay off the full debt, and receives 5% of the user's account's KMD, then that's a 50% profit. If the executor sends 90% of the coins necessary to pay off the full debt and receives 5% of the remaining coins in the KMD account, then that's a (5/90)% profit, which is heigher than 5% -->  The remaining amount in the indebted user's account is disbursed to the Pegs Module for stablecoin price maintenance.
+The [pegsliquidate](../../../basic-docs/antara/antara-api/pegs.html#pegsliquidate) method can be used to liquidate any of these accounts by repaying the account's outstanding debt using the Pegs-related Smart Chain's coins. This gives the executor of the method an immediate `5%` profit. <!-- Sidd: are we sure on the math here? If the executor sends 10% of the coins necessary to pay off the full debt, and receives 5% of the user's account's KMD, then that's a 50% profit. If the executor sends 90% of the coins necessary to pay off the full debt and receives 5% of the remaining coins in the KMD account, then that's a (5/90)% profit, which is heigher than 5% gcharang: similar comment in the Pegs doc; "The third-party user must deposit `USDK` to cover the user's whole debt (which is valued at 90% of the KMD tokens) according to current prices and will receive 95% of the KMD tokens which can be redeemed on the KMD chain and sold in an exchange for Profit" --> The remaining amount in the indebted user's account is disbursed to the Pegs Module for stablecoin price maintenance.

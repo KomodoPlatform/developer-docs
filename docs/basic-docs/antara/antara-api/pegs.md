@@ -1,4 +1,4 @@
-# Pegs 
+# Pegs
 
 ::: tip
 
@@ -8,12 +8,11 @@ The Pegs Antara Module is in the final stages of production. Please reach out to
 
 ## Introduction
 
-The Pegs Antara Module is a mechanism for creating a decentralized [stablecoin.](https://en.wikipedia.org/wiki/Stablecoin) 
+The Pegs Antara Module is a mechanism for creating a decentralized [stablecoin.](https://en.wikipedia.org/wiki/Stablecoin)
 
 A stablecoin is a cryptocurrency that has a financial value that is "pegged" to another asset. Stablecoins can be used in a Smart Chain environment to allow users to buy, sell, and trade with on-chain assets that mimic off-chain prices.
 
 For example, a stablecoin can be pegged to a common fiat currency, such as USD or EUR. The stablecoin can also mimic stocks, external cryptocurrencies, and other assets, so long as reliable price-data can be accessed through an online application programming interface (API).
-
 
 #### Module Methodology
 
@@ -28,47 +27,60 @@ The Pegs Antara Module requires interactivity with several additional Antara Mod
     - The external cryptocurrency must be based on the Bitcoin protocol
     - Typically, this external Smart Chain features a coin, such as KMD, that is tradeable in many venues across the cryptocurrency industry
   - On the external Smart Chain, a user sends cryptocurrency coins to the Gateways Module, which locks the coins against further spending for the duration of the usage of the Pegs Module
+    <!-- gcharang: "On the external Smart Chain, a user sends cryptocurrency coins to the Gateways Module, which locks the coins against further spending for the duration of the usage of the Pegs Module" should be "On the external cryptocurrency's blockchain, a user sends coins to a multisig address related to(controlled by) the Gateways Module, which locks the coins against further spending for the duration of the usage of the Pegs Module" -->
   - On the Pegs-related Smart Chain, the Gateways Module then issues to the user [tokens](./tokens.html) that represent the value of the user's locked funds
 - The [Tokens](./tokens.html) Module
   - This module provides the functionality necessary to create (and burn) tokens in coordination with the Gateways Module
-  - These tokens represent the (now locked) value of the external Bitcoin-protocol or Komodo-protocol based cryptocurrency 
+    <!-- gcharang: "This module provides the functionality necessary to create (and burn) tokens in coordination with the Gateways Module" -> Pegs doesn't provide any functionality re: create/burn of tokens. It just uses the tokens that can already be created/burned using Gateways. Pegs verifies if the token's name matches the ticker in the Price being used and the name of the Oracle
+    -->
+  - These tokens represent the (now locked) value of the external Bitcoin-protocol or Komodo-protocol based cryptocurrency
   - These tokens can be spent and traded as actual cryptocurrency; the user who returns them to the Gateways Module at a later time will unlock and receive the associated external funds
 - The [Oracles](./oracles.html) Module
   - This module uses an [oraclefeed](https://github.com/KomodoPlatform/komodo/blob/master/src/cc/dapps/oraclefeed.c) app to provide information to the Gateways Module about tokens a user deposits
 - The [Prices](./prices.html) Module
   - The Prices Module works in combination with the Oracles Module to create a decentralized and trustless oracle (DTO) that receives data from a range of external sources (defined by a developer) and make this information available on the Pegs Smart Chain
+    <!-- gcharang: "works in combination with the Oracles Module to create a decentralized and trustless oracle (DTO)" -> the Oracles module is not being used for this at all. The DTO works similar to how all the nodes on the Network come to a consensus on the timestamp of a block. https://medium.com/@jameslee777/decentralized-trustless-oracles-dto-by-piggybacking-on-timestamp-consensus-rules-2adce34d67b6
+    -->
   - This module is responsible for tracking the value of an external asset (including assets external to the Komodo ecosystem) for on-chain value price mimicry
   - Data from the Prices module becomes available for Smart Chain activity after a twenty-four hour delay
 
 ##### A Brief Explanation of Pegs Functionality
 
-There are several technical elements involved in the Pegs Antara Module that collaborate to create a stablecoin. 
+There are several technical elements involved in the Pegs Antara Module that collaborate to create a stablecoin.
 
 ###### Creating a Tokenized Cryptocurrency to Back the Stablecoin
 
-The first aspect relies on three different Antara Modules: [Gateways,](./gateways.html) [Tokens,](./tokens.html) and [Oracles.](./oracles.html) 
+The first aspect relies on three different Antara Modules: [Gateways,](./gateways.html) [Tokens,](./tokens.html) and [Oracles.](./oracles.html)
 
-On any cryptocurrency blockchain that is built on the Bitcoin protocol, such as `KMD`, users send funds to a Komodo-based Gateways Module that is active on this chain. The Gateways Module locks these funds against further spending at this time. 
+On any cryptocurrency blockchain that is built on the Bitcoin protocol, such as `KMD`, users send funds to a Komodo-based Gateways Module that is active on this chain. The Gateways Module locks these funds against further spending at this time.
 
-Once the funds are locked, the three modules together automatically make available to the user an equiavlent number of tokens on the Pegs-related Smart Chain. These tokens represent the locked funds on a `1:1` ratio. 
+<!--gcharang: user sends coins to a multisig address related to(controlled by) the Gateways Module-->
 
-As these tokens are `1:1` representations of the locked funds, the value of these tokens does not change in respect to the associated funds. However, the cryptocurrency represented may not have a stable value. 
+Once the funds are locked, the three modules together automatically make available to the user an equivalent number of tokens on the Pegs-related Smart Chain. These tokens represent the locked funds on a `1:1` ratio.
+
+<!--gcharang: it is `1:1` at the satoshi level. Each token represents 1 satoshi of the external coin -->
+
+As these tokens are `1:1` representations of the locked funds, the value of these tokens does not change in respect to the associated funds. However, the cryptocurrency represented may not have a stable value.
 
 ###### Creating a Reliable Rate of Exchange Between the Stablecoin and the Backing Cryptocurrency
 
-The second aspect relies on the [Prices](./prices.html) Antara Module, and, once again, on the [Oracles](./oracles.html) Antara Module. 
+The second aspect relies on the [Prices](./prices.html) Antara Module, and, once again, on the [Oracles](./oracles.html) Antara Module.
 
-Before the user can exchange their tokens for a stablecoin, the Smart Chain must be able to determine the stablecoin's projected market value (such as the market value of `USD`). 
+<!--gcharang: only the Prices module-->
+
+Before the user can exchange their tokens for a stablecoin, the Smart Chain must be able to determine the stablecoin's projected market value (such as the market value of `USD`).
 
 Using data provided by a wide range of online application programming interfaces (APIs), which can be manually determined by a developer, these two modules create a stable rate of exchange between the user's tokens and the pegged stablecoin.
 
 ###### Offering the Exchange Between Stablecoin and Backing Cryptocurrency
 
-With these two elements (the user's tokens and a rate of exchange) the <b>Pegs Antara Module</b> is now able to offer a stablecoin. 
+With these two elements (the user's tokens and a rate of exchange) the <b>Pegs Antara Module</b> is now able to offer a stablecoin.
 
-The user sends their tokens (such as tokenized `KMD`) to the Pegs Module, which locks the tokens against further spending for the duration of Pegs usage. 
+The user sends their tokens (such as tokenized `KMD`) to the Pegs Module, which locks the tokens against further spending for the duration of Pegs usage.
 
-Once the funds are locked, the Pegs Module makes available to the user native coins from the Pegs-related Smart Chain. The exchange rate between the user's deposited tokens and the native Smart Chain coins is determined by the data-driven rate of exchange. 
+Once the funds are locked, the Pegs Module makes available to the user native coins from the Pegs-related Smart Chain. The exchange rate between the user's deposited tokens and the native Smart Chain coins is determined by the data-driven rate of exchange.
+
+<!--gcharang: the Pegs module creates  the Smart Chain coins needed out of thin air-->
 
 The user may only withdraw up to `80%` of the financial value of the locked external cryptocurrency funds. The other `20%` is held as a collateralized loan, available to assist in maintaining the stablecoin's value, if necessary.
 
@@ -80,7 +92,7 @@ As time progresses, the difference in price between the user's tokenized cryptoc
 
 ###### Value of Backing Cryptocurrency Increases
 
-If the value of `KMD` increases relative to `USD`, the user may withdraw additional `USDK` coins from their Pegs account, until the total withdrawn `USDK` amount is again equal to `80%` of the total value of the deposited `KMD` tokens. 
+If the value of `KMD` increases relative to `USD`, the user may withdraw additional `USDK` coins from their Pegs account, until the total withdrawn `USDK` amount is again equal to `80%` of the total value of the deposited `KMD` tokens.
 
 ###### Value of Backing Cryptocurrency Decreases
 
@@ -92,21 +104,25 @@ There are two stages to account liquidation: "yellow zone" and "red zone."
 
 The yellow zone applies to accounts where the user has withdrawn a value of `USDK` (also called "debt") that, due to price volatility, now exceeds the `80%` withdrawal limit, but is not yet at a level of `90%`.
 
-In this circumstance, a third-party user on the Pegs-related Smart Chain may deposit `USDK` coins on behalf of the indebted user's acccount, and receive the equivalent value of `KMD` tokens. These tokens are withdrawn from the indebted user's account. 
+In this circumstance, a third-party user on the Pegs-related Smart Chain may deposit `USDK` coins on behalf of the indebted user's acccount, and receive the equivalent value of `KMD` tokens. These tokens are withdrawn from the indebted user's account.
 
-The `USDK` coins are burned, <!-- Sidd: is that statement accurate? --> thus preserving the ratio of withdrawn `USDK` coins in sync with the global total value of `KMD` tokens deposited on the Pegs-related Smart Chain.
+The `USDK` coins are burned, <!-- Sidd: is that statement accurate? gcharang: yes --> thus preserving the ratio of withdrawn `USDK` coins in sync with the global total value of `KMD` tokens deposited on the Pegs-related Smart Chain.
 
 ###### Red Zone
 
-Should the debt of a user's account surpass the `90%` threshold, the account enters the red zone. 
+Should the debt of a user's account surpass the `90%` threshold, the account enters the red zone.
 
-Here, a third-party user can gain an immediate `5%` rate of return by sending `USDK` coins to the Pegs Module on behalf of the indebted user's account. The third-party user must deposit enough `USDK` to cover `10%` of the debt of the user's account, according to current prices. 
+Here, a third-party user can gain an immediate `5%` rate of return by sending `USDK` coins to the Pegs Module on behalf of the indebted user's account. The third-party user must deposit enough `USDK` to cover `10%` of the debt of the user's account, according to current prices.
 
-In return, the third-party user receives `15%` of the user's deposited `KMD` tokens, netting the third-party user an immediate `5%` rate of return. 
+<!--gcharang: "immediate `5%` rate of return by sending `USDK` coins to the Pegs Module on behalf of the indebted user's account" -> "immediate `5%` rate of return by sending `USDK` coins to the Pegs Module to liquidate the indebted user's account" -->
 
-The `USDK` coins sent by the third-party user are burned. 
+In return, the third-party user receives `15%` of the user's deposited `KMD` tokens, netting the third-party user an immediate `5%` rate of return.
 
-The remaining `5%` of the indebted user's `KMD` tokens are donated to the Pegs Antara Module, where they continue to support the maintenance of a healthy stablecoin and `KMD:USDK` ratio balance. 
+<!--gcharang: "The third-party user must deposit enough `USDK` to cover `10%` of the debt of the user's account, according to current prices." -> "The third-party user must deposit `USDK` to cover the user's whole debt (which is valued at 90% of the KMD tokens) according to current prices and will receive 95% of the KMD tokens which can be redeemed on the KMD chain and sold in an exchange for Profit" -->
+
+The `USDK` coins sent by the third-party user are burned.
+
+The remaining `5%` of the indebted user's `KMD` tokens are donated to the Pegs Antara Module, where they continue to support the maintenance of a healthy stablecoin and `KMD:USDK` ratio balance.
 
 ###### Preventing Account Liquidation
 
@@ -114,14 +130,14 @@ The remaining `5%` of the indebted user's `KMD` tokens are donated to the Pegs A
 
 To prevent account liquiditation, when the depositor detects that their account is approaching the `90%` debt-ratio threshold, the depositor has two options available.
 
-The depositor can return an amount of `USDK` coins that satisfies `100%` of the outstanding balance of their collateralized loan at current prices. <!-- does this mean there is no penalty for the price slipage of KMD in this scenario? -->
+The depositor can return an amount of `USDK` coins that satisfies `100%` of the outstanding balance of their collateralized loan at current prices. <!-- does this mean there is no penalty for the price slipage of KMD in this scenario?   -->
 
 Alternatively, the depositor can deposit more tokenized `KMD` to their account at current prices until the user's debt/loan ratio is safely below the `80%` threshold.
 
 ## Pegs Antara Module Flow
 
-- The Smart Chain creator creates an instance of the Pegs Antara Module, called a "Peg", using the [pegscreate](#pegscreate) API method. 
-  - Once created, the creator add this new Peg to the Smart Chain's launch parameters using the <!-- Where is this earlytxid parameter in the docs? Need to document the parameter, and then insert a hyperlink here --> `-earlytxid` parameter
+- The Smart Chain creator creates an instance of the Pegs Antara Module, called a "Peg", using the [pegscreate](#pegscreate) API method.
+  - Once created, the creator adds this new Peg creation's transaction id called the `pegstxid` to the Smart Chain's launch parameters using the <!-- Where is this earlytxid parameter in the docs? Need to document the parameter, and then insert a hyperlink here gcharang: it isn't documented yet, it is in my to-do list --> `-earlytxid` parameter
 - With the Peg active on the Smart Chain, a user locks tokenized external cryptocurrency to the Pegs Module using [pegsfund](#pegsfund)
 - The user can withdraw up to `80%` of the value of their locked tokens in the form of the Smart Chain's coins using [pegsget](#pegsget)
 - At anytime, the user can redeem the locked tokenized external cryptocurrency by repaying the Smart Chain's coins using [pegsredeem](#pegsredeem)
@@ -144,29 +160,29 @@ The Antara Tutorials section features full walkthroughs for the Pegs Module.
 
 **pegsaccounthistory pegstxid**
 
-The `pegsaccounthistory` method returns all the past actions related to the Pegs account of the user who executes the method. 
+The `pegsaccounthistory` method returns all the past actions related to the Pegs account of the user who executes the method.
 
 The method relies on [the pubkey address provided by the user when launching the daemon](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey) to determine the Pegs account for which the method will retrieve data.
 
 ### Arguments
 
-| Name     | Type     | Description                                                                                    |
-| -------- | -------- | ---------------------------------------------------------------------------------------------- |
+| Name     | Type     | Description                                                                                                        |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
 | pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
 
 ### Response
 
-| Name              | Type            | Description                                                                                                                                           |
-| ----------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "result"          | (string)        | whether the command executed successfully                                                                                                             |
-| "name"            | (string)        | the name of the method                                                                                                                                    |
+| Name              | Type            | Description                                                                                     |
+| ----------------- | --------------- | ----------------------------------------------------------------------------------------------- |
+| "result"          | (string)        | whether the command executed successfully                                                       |
+| "name"            | (string)        | the name of the method                                                                          |
 | "account history" | (array of json) | an array containing json data that describe the past actions related to the user's Pegs account |
-| "action"          | (string)        | the name of the past action                                                                                                                               |
-| "amount"          | (number)        | the amount of satoshis involved                                                                                                                       |
-| "accounttxid"     | (string)        | the transaction id of the action                                                                                                                          |
-| "token"           | (string)        | the name of the token involved                                                                                                                            |
-| "deposit"         | (number)        | the amount of initial satoshis deposited                                                                                                              |
-| "debt"            | (string)        | the total amount of debt after the associated action                                                                                                                |
+| "action"          | (string)        | the name of the past action                                                                     |
+| "amount"          | (number)        | the amount of satoshis involved                                                                 |
+| "accounttxid"     | (string)        | the transaction id of the action                                                                |
+| "token"           | (string)        | the name of the token involved                                                                  |
+| "deposit"         | (number)        | the amount of initial satoshis deposited                                                        |
+| "debt"            | (string)        | the total amount of debt after the associated action                                            |
 
 #### :pushpin: Examples
 
@@ -233,27 +249,27 @@ Command:
 
 **pegsaccountinfo pegstxid**
 
-The `pegsaccountinfo` method returns the current information of the Pegs account belonging to the user who executes the method. 
+The `pegsaccountinfo` method returns the current information of the Pegs account belonging to the user who executes the method.
 
 The method relies on [the pubkey provided by the user when launching the daemon](../../../basic-docs/antara/antara-tutorials/understanding-antara-addresses.html#creating-and-launching-with-a-pubkey) to determine the account for which the method will retrieve data.
 
 ### Arguments
 
-| Name     | Type     | Description                                                                                    |
-| -------- | -------- | ---------------------------------------------------------------------------------------------- |
+| Name     | Type     | Description                                                                                                        |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
 | pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
 
 ### Response
 
-| Name           | Type            | Description                                                                                                                                       |
-| -------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "result"       | (string)        | whether the command executed successfully                                                                                                         |
-| "name"         | (string)        | the name of the method                                                                                                                                |
+| Name           | Type            | Description                                                         |
+| -------------- | --------------- | ------------------------------------------------------------------- |
+| "result"       | (string)        | whether the command executed successfully                           |
+| "name"         | (string)        | the name of the method                                              |
 | "account info" | (array of json) | an array containing json data that describe the user's Pegs account |
-| "token"        | (string)        | the name of the token involved                                                                                                                        |
-| "deposit"      | (number)        | the amount of initial satoshis deposited                                                                                                          |
-| "debt"         | (string)        | the total amount of current debt                                                                                                                      |
-| "ratio"        | (string)        | the debt ratio based on the current price                                                                                                         |
+| "token"        | (string)        | the name of the token involved                                      |
+| "deposit"      | (number)        | the amount of initial satoshis deposited                            |
+| "debt"         | (string)        | the total amount of current debt                                    |
+| "ratio"        | (string)        | the debt ratio based on the current price                           |
 
 #### :pushpin: Examples
 
@@ -292,26 +308,26 @@ Optionally, if a pubkey is supplied, this method also returns the corresponding 
 
 ### Arguments
 
-| Name   | Type              | Description                           |
-| ------ | ----------------- | ------------------------------------- |
+| Name   | Type               | Description                               |
+| ------ | ------------------ | ----------------------------------------- |
 | pubkey | (string, optional) | the pubkey of another user on the network |
 
 ### Response
 
-| Name                    | Type     | Description                                                                                                          |
-| ----------------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
-| "result"                | (string) | whether the command executed successfully                                                                            |
-| "PegsCCAddress"         | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey |
-| "PegsCCBalance"         | (number) | the amount of funds in the `PegsCCAddress`                                                                           |
-| "PegsNormalAddress"     | (string) | the unmodified public address generated from the contract's privkey                                                  |
-| "PegsNormalBalance"     | (number) | the amount of funds in the `PegsNormalBalance` <!-- Sidd: What is the "normal balance"? Need more info here -->                                                                       |
-| "PegsCCTokensAddress"   | (string) | the public address where Tokens are locked in the Pegs module                                                        |
-| "PubkeyCCaddress(Pegs)" | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey supplied as an argument      |
-| "PubkeyCCbalance(Pegs)" | (number) | the amount of funds in the `PubkeyCCaddress(Pegs)` <!-- Is this the global address of the Pubkey CC ? -->                                                                   |
-| "myCCAddress(Pegs)"     | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                  |
-| "myCCbalance(Pegs)"     | (number) | the amount of funds in the `myCCAddress(Pegs)` <!-- Sidd: What is the myCCAdddress(Pegs) thing? need more info here-->                                                                       |
-| "myaddress"             | (string) | the public address of the pubkey used to launch the chain                                                            |
-| "mybalance"             | (number) | the amount of funds in the `myaddress` <!-- What is the "myaddress" thing? Need more info -->                                                                               |
+| Name                    | Type     | Description                                                                                                                                                 |
+| ----------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "result"                | (string) | whether the command executed successfully                                                                                                                   |
+| "PegsCCAddress"         | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                        |
+| "PegsCCBalance"         | (number) | the amount of funds in the `PegsCCAddress`                                                                                                                  |
+| "PegsNormalAddress"     | (string) | the unmodified public address generated from the contract's privkey                                                                                         |
+| "PegsNormalBalance"     | (number) | the amount of funds in the `PegsNormalAddress` <!-- Sidd: What is the "normal balance"? Need more info here gcharang: explained in the above row-->         |
+| "PegsCCTokensAddress"   | (string) | the public address where Tokens are locked in the Pegs module                                                                                               |
+| "PubkeyCCaddress(Pegs)" | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey supplied as an argument                                             |
+| "PubkeyCCbalance(Pegs)" | (number) | the amount of funds in the `PubkeyCCaddress(Pegs)` <!-- Is this the global address of the Pubkey CC ? gcharang: explained in the above row -->              |
+| "myCCAddress(Pegs)"     | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                                                         |
+| "myCCbalance(Pegs)"     | (number) | the amount of funds in the `myCCAddress(Pegs)` <!-- Sidd: What is the myCCAdddress(Pegs) thing? need more info here gcharang: explained in the above row--> |
+| "myaddress"             | (string) | the public address of the pubkey used to launch the chain                                                                                                   |
+| "mybalance"             | (number) | the amount of funds in the `myaddress` <!-- What is the "myaddress" thing? Need more info gcharang: explained in the above row -->                          |
 
 #### :pushpin: Examples
 
@@ -371,19 +387,19 @@ Command:
 
 **pegscreate amount N bindtxid1 [bindtxid2 ...]**
 
-The `pegscreate` method creates an on-chain Peg, associating the value of the Smart Chain's pegged stablecoin with the value of a foreign asset. 
+The `pegscreate` method creates an on-chain Peg, associating the value of the Smart Chain's pegged stablecoin with the value of a foreign asset.
 
-The creation of this peg requires a tokenized backing cryptocurrency. Any cryptocurrency that is based on the Bitcoin protocol can fulfill this role, including `BTC` and `KMD`. There can be more than one such supporting cryptocurrency on any stablecoin Smart Chain. 
+The creation of this peg requires a tokenized backing cryptocurrency. Any cryptocurrency that is based on the Bitcoin protocol can fulfill this role, including `BTC` and `KMD`. There can be more than one such supporting cryptocurrency on any stablecoin Smart Chain.
 
-The `amount` parameter is the number of coins to be added <!-- From what supply? From the global supply? From the premine? From miners? From the creator's personal account? --> to the Pegs module. The coins will be used for transaction fees <!-- What transaction fees? Does the creator of the Peg have to pay for transactions that users on the chain make? --> and markers <!-- What does "markers" mean here? --> for Pegs transactions <!-- Whose Pegs transactions? -->.
+The `amount` parameter is the number of coins to be added <!-- From what supply? From the global supply? From the premine? From miners? From the creator's personal account? gcharang: from the address of the person creating the Peg; in most cases, it will be the same person who launched the chain so it will be from the premined coins --> to the Pegs module. The coins will be used for transaction fees <!-- What transaction fees? Does the creator of the Peg have to pay for transactions that users on the chain make? gcharang: the transaction fees for txns done by the Pegs module itself; more accurately the transactions that are done by other users/miners on behalf of the Pegs module--> and markers <!-- What does "markers" mean here? gcharang: markers are dust amounts sent in certain transactions by the Pegs module to be used later like bookmarks, they help in easier search of past transactions  --> for Pegs transactions <!-- Whose Pegs transactions? gcharang: done by the Pegs module itself -->.
 
 The `N` parameter is the number of gateways to associate with the Pegs module. Each cryptocurrency asset that backs the Peg's stablecoin needs a unique gateway.
 
 The `bindtxidN` parameter is the `bindtxid` of a gateway used to tokenize external cryptocurrencies.
 
-The transction id of the `pegscreate` transaction is called the `pegstxid`. 
+The transction id of the `pegscreate` transaction is called the `pegstxid`.
 
-Once the `pegstxid` transaction is confirmed, the Smart Chain daemon should be stopped and started again with the parameter `-earlytxid=pegstxid` added to the launch command. This ensures that it is the only Peg active on the Smart Chain. 
+Once the `pegstxid` transaction is confirmed, the Smart Chain daemon should be stopped and started again with the parameter `-earlytxid=pegstxid` added to the launch command. This ensures that it is the only Peg active on the Smart Chain.
 
 The `-earlytxid` parameter can be added to the launch parameters only before the 100th block.
 
@@ -393,18 +409,18 @@ For more information, see the following linked tutorial.
 
 ### Arguments
 
-| Name            | Type                | Description                                                                                  |
-| --------------- | ------------------- | -------------------------------------------------------------------------------------------- |
-| amount          | (number)            | the number of coins to be added                                                              |
-| N               | (number)            | the number of gateways to associate with the Pegs module                               |
-| bindtxid1       | (string)            | the `bindtxid` of a gateway used to tokenize external cryptocurrencies               |
+| Name            | Type                | Description                                                                  |
+| --------------- | ------------------- | ---------------------------------------------------------------------------- |
+| amount          | (number)            | the number of coins to be added                                              |
+| N               | (number)            | the number of gateways to associate with the Pegs module                     |
+| bindtxid1       | (string)            | the `bindtxid` of a gateway used to tokenize external cryptocurrencies       |
 | [bindtxid2 ...] | (strings, optional) | same as above; used when more than one external cryptocurrency backs the Peg |
 
 ### Response
 
 | Name     | Type     | Description                               |
 | -------- | -------- | ----------------------------------------- |
-| "hex"    | (string) | the hex value to be broadcast                 |
+| "hex"    | (string) | the hex value to be broadcast             |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
@@ -431,7 +447,7 @@ Broadcast the hex:
 Command:
 
 ```bash
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f890197c74ae1999260bb3c7342dd25f3f68a0991d4b50a40f4a6e37838b6e3ca112e02000000484730440220466a45514b5eb24a3a14886dbca204997db498e1509928700a3e0ac63645be3402204164ce5c8f8eb82785158b1f79000721be4db45bb3726fb8043fb089aa19886601ffffffff669ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc2f96465cc2480000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac0000000000000000256a23ee43018687f4fb9ccc31c6d4b912486fae0a9e03153daca8128167a43a524e5516570b000000005f01000000000000000000000000000400008085202f890197c74ae1999260bb3c7342dd25f3f68a0991d4b50a40f4a6e37838b6e3ca112e02000000484730440220466a45514b5eb24a3a14886dbca204997db498e1509928700a3e0ac63645be3402204164ce5c8f8eb82785158b1f79000721be4db45bb3726fb8043fb089aa19886601ffffffff669ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc2f96465cc2480000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac0000000000000000256a23ee43018687f4fb9ccc31c6d4b912486fae0a9e03153daca8128167a43a524e5516570b000000005f0100000000000000000000000000
+./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 0400008085202f890197c74ae1999260bb3c7342dd25f3f68a0991d4b50a40f4a6e37838b6e3ca112e02000000484730440220466a45514b5eb24a3a14886dbca204997db498e1509928700a3e0ac63645be3402204164ce5c8f8eb82785158b1f79000721be4db45bb3726fb8043fb089aa19886601ffffffff669ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc9ce7764817000000302ea22c802039452b774825750cd9390c3f05c96e486ecf2f21779466efbcd214220a7f288a8103120c008203000401cc2f96465cc2480000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac0000000000000000256a23ee43018687f4fb9ccc31c6d4b912486fae0a9e03153daca8128167a43a524e5516570b000000005f0100000000000000000000000000
 ```
 
 <collapse-text hidden title="Response">
@@ -448,26 +464,25 @@ The above string is the `pegstxid` that represents the Peg.
 
 **pegsexchange pegstxid tokenid amount**
 
-The `pegsexchange` method exchanges native coins for deposited tokens. This method is intended for users that do not have a Pegs account associated with the pubkey used to launch their daemon. 
+The `pegsexchange` method exchanges native coins for deposited tokens. This method is intended for users that do not have a Pegs account associated with the pubkey used to launch their daemon.
 
-<!-- If you do have a pubkey and associated Pegs account, which method should you use? We should link to that here -->
-
+<!-- If you do have a pubkey and associated Pegs account, which method should you use? We should link to that here gcharang: the closest equivalent is the pegsliquidate; but the usecase is diffeernt  -->
 
 To supply the user that executes the method with tokens, this method sends the user's coins to pay the debt of another user whose account is in the "yellow zone" (a debt ratio between `80%` and `90%` based on current prices). This improves the debt ratio of the indebted user, thus forestalling liquidation of the indebted user's account.
 
 ### Arguments
 
-| Name     | Type     | Description                                                                          |
-| -------- | -------- | ------------------------------------------------------------------------------------ |
+| Name     | Type     | Description                                                                                                        |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
 | pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
-| tokenid  | (string) | the tokenid of the tokenized cryptocurrency backing the peg                          |
-| amount   | (amount) | the amount of coins to exchange                                                      |
+| tokenid  | (string) | the tokenid of the tokenized cryptocurrency backing the peg                                                        |
+| amount   | (amount) | the amount of coins to exchange                                                                                    |
 
 ### Response
 
 | Name     | Type     | Description                               |
 | -------- | -------- | ----------------------------------------- |
-| "hex"    | (string) | the hex value to be broadcast                 |
+| "hex"    | (string) | the hex value to be broadcast             |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
@@ -496,21 +511,21 @@ add response
 
 **pegsfund pegstxid tokenid amount**
 
-The `pegsfund` method allows a user to lock the given `amount` of a tokenized cryptocurrency in the Pegs module.
+The `pegsfund` method allows a user to lock the given `amount` of a tokenized cryptocurrency in the Pegs module. The action of locking the tokenized cryptocurrency creates a Pegs account for this user.
 
 ### Arguments
 
-| Name     | Type     | Description                                                                          |
-| -------- | -------- | ------------------------------------------------------------------------------------ |
+| Name     | Type     | Description                                                                                                        |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
 | pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
-| tokenid  | (string) | the tokenid of the tokenized cryptocurrency backing the peg                          |
-| amount   | (amount) | the amount of the tokenized cryptocurrency to be locked in the Pegs account          |
+| tokenid  | (string) | the tokenid of the tokenized cryptocurrency backing the peg                                                        |
+| amount   | (amount) | the amount of the tokenized cryptocurrency to be locked in the Pegs account                                        |
 
 ### Response
 
 | Name     | Type     | Description                               |
 | -------- | -------- | ----------------------------------------- |
-| "hex"    | (string) | the hex value to be broadcast                 |
+| "hex"    | (string) | the hex value to be broadcast             |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
@@ -560,17 +575,17 @@ The exchange of value from tokens to native coins is calculated according to the
 
 ### Arguments
 
-| Name     | Type     | Description                                                                          |
-| -------- | -------- | ------------------------------------------------------------------------------------ |
+| Name     | Type     | Description                                                                                                        |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
 | pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
-| tokenid  | (string) | the tokenid of the tokenized cryptocurrency backing the peg                          |
-| amount   | (amount) | the amount of the native coins to receive from the Pegs module                   |
+| tokenid  | (string) | the tokenid of the tokenized cryptocurrency backing the peg                                                        |
+| amount   | (amount) | the amount of the native coins to receive from the Pegs module                                                     |
 
 ### Response
 
 | Name     | Type     | Description                               |
 | -------- | -------- | ----------------------------------------- |
-| "hex"    | (string) | the hex value to be broadcast                 |
+| "hex"    | (string) | the hex value to be broadcast             |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
@@ -600,22 +615,22 @@ The `pegsinfo` method returns the current information about the indicated `pegst
 
 ### Arguments
 
-| Name     | Type     | Description                                                                          |
-| -------- | -------- | ------------------------------------------------------------------------------------ |
+| Name     | Type     | Description                                                                                                        |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
 | pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
 
 ### Response
 
-| Name            | Type         | Description                                                      |
-| --------------- | ------------ | ---------------------------------------------------------------- |
-| "result"        | (string)     | whether the command executed successfully                        |
-| "name"          | (string)     | the name of the method                                               |
-| "info"          | (json array) | the current information about the given Peg                      |
-| "token"         | (string)     | the name of the token                                                |
-| "total deposit" | (amount)     | the total number of tokens deposited                                 |
-| "total debt"    | (amount)     | the total number of satoshis of the native coin withdrawn         |
-| "total ratio"   | (string)     | the total debt ratio for the above token based on the current price  |
-| "global ratio"  | (string)     | the global debt ratio for all tokens based on the current prices <!-- Does this include all types of tokens, or is it only for tokens associated with the tokenid above? --> |
+| Name            | Type         | Description                                                                                                                                                                                                                                                                                                                                                                                                            |
+| --------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "result"        | (string)     | whether the command executed successfully                                                                                                                                                                                                                                                                                                                                                                              |
+| "name"          | (string)     | the name of the method                                                                                                                                                                                                                                                                                                                                                                                                 |
+| "info"          | (json array) | the current information about the given Peg                                                                                                                                                                                                                                                                                                                                                                            |
+| "token"         | (string)     | the name of the token                                                                                                                                                                                                                                                                                                                                                                                                  |
+| "total deposit" | (amount)     | the total number of tokens deposited                                                                                                                                                                                                                                                                                                                                                                                   |
+| "total debt"    | (amount)     | the total number of satoshis of the native coin withdrawn                                                                                                                                                                                                                                                                                                                                                              |
+| "total ratio"   | (string)     | the total debt ratio for the above token based on the current price                                                                                                                                                                                                                                                                                                                                                    |
+| "global ratio"  | (string)     | the global debt ratio for all tokens backing the Peg based on the current prices <!-- Does this include all types of tokens, or is it only for tokens associated with the tokenid above? gcharang: in the response, there is only one json in the array named "info"; if there were more external cryptos backing the peg, there would be more jsons; "global ratio" is the total ratio that considers all of them --> |
 
 #### :pushpin: Examples
 
@@ -649,25 +664,25 @@ Command:
 
 **pegsliquidate pegstxid tokenid accounttxid**
 
-The `pegsliquidate` method allows a user to liquidate the account of another user if their debt ratio is in "red zone" (greater than `90%`) for the given `tokenid` token. 
+The `pegsliquidate` method allows a user to liquidate the account of another user if their debt ratio is in "red zone" (greater than `90%`) for the given `tokenid` token.
 
-In return, the liquidating user can receive an immediate profit of `5%`, in tokens, taken from the liquidated user's remaining balance. 
+In return, the liquidating user can receive an immediate profit of `5%`, in tokens, taken from the liquidated user's remaining balance.
 
 Any remaining value in the liquidated user's account is immediately distributed to the Pegs Antara Module for global stablecoin price and supply management.
 
 ### Arguments
 
-| Name        | Type     | Description                                                                          |
-| ----------- | -------- | ------------------------------------------------------------------------------------ |
+| Name        | Type     | Description                                                                                                        |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
 | pegstxid    | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
-| tokenid     | (string) | the tokenid of the tokenized cryptocurrency backing the peg                          |
-| accounttxid | (string) | the `accounttxid` of another user whose account is in the "red zone"                 |
+| tokenid     | (string) | the tokenid of the tokenized cryptocurrency backing the peg                                                        |
+| accounttxid | (string) | the `accounttxid` of another user whose account is in the "red zone"                                               |
 
 ### Response
 
 | Name     | Type     | Description                               |
 | -------- | -------- | ----------------------------------------- |
-| "hex"    | (string) | the hex value to be broadcast                 |
+| "hex"    | (string) | the hex value to be broadcast             |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
@@ -694,22 +709,22 @@ Command:
 
 **pegsredeem pegstxid tokenid**
 
-The `pegsredeem` method allows a user to withdraw their deposited tokenized cryptocurrency by repaying their entire debt. 
+The `pegsredeem` method allows a user to withdraw their deposited tokenized cryptocurrency by repaying their entire debt.
 
 The user provides payment in the native coin of the Smart Chain.
 
 ### Arguments
 
-| Name     | Type     | Description                                                                          |
-| -------- | -------- | ------------------------------------------------------------------------------------ |
+| Name     | Type     | Description                                                                                                        |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
 | pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
-| tokenid  | (string) | the tokenid of the tokenized cryptocurrency backing the peg                          |
+| tokenid  | (string) | the tokenid of the tokenized cryptocurrency backing the peg                                                        |
 
 ### Response
 
 | Name     | Type     | Description                               |
 | -------- | -------- | ----------------------------------------- |
-| "hex"    | (string) | the hex value to be broadcast                 |
+| "hex"    | (string) | the hex value to be broadcast             |
 | "result" | (string) | whether the command executed successfully |
 
 #### :pushpin: Examples
@@ -739,8 +754,8 @@ The `pegsworstaccounts` method returns the information on the accounts that curr
 
 ### Arguments
 
-| Name     | Type     | Description                                                                          |
-| -------- | -------- | ------------------------------------------------------------------------------------ |
+| Name     | Type     | Description                                                                                                        |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
 | pegstxid | (string) | the transaction id returned previously by the [pegscreate](#pegscreate) method at the creation of the on-chain Peg |
 
 <!-- FIXME
