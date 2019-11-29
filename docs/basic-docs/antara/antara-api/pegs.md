@@ -20,28 +20,23 @@ For example, a stablecoin can be pegged to a common fiat currency, such as USD o
 
 The Pegs Antara Module requires interactivity with several additional Antara Modules, including the following:
 
-<!-- Mihailo: Note for below: You cna use any chain that is on Bitcoin protocol. Basically you are depositing funds on external multisig address and then make a deposit tx on Komodo Smart chain with the proof of that deposit and then you claim the tokens. This is how gateways works. So the external chain does not have anything to do with Komodo and does not need to have CC or any Komodo mechanism. -->
-
 - The [Gateways](./gateways.html) Module
   - This module acts as a bridge between the Smart Chain where Pegs is active and an external cryptocurrency
     - The external cryptocurrency must be based on the Bitcoin protocol
     - Typically, this external Smart Chain features a coin, such as KMD, that is tradeable in many venues across the cryptocurrency industry
-  - On the external Smart Chain, a user sends cryptocurrency coins to the Gateways Module, which locks the coins against further spending for the duration of the usage of the Pegs Module
-    <!-- gcharang: "On the external Smart Chain, a user sends cryptocurrency coins to the Gateways Module, which locks the coins against further spending for the duration of the usage of the Pegs Module" should be "On the external cryptocurrency's blockchain, a user sends coins to a multisig address related to(controlled by) the Gateways Module, which locks the coins against further spending for the duration of the usage of the Pegs Module" -->
+  - On the external cryptocurrency blockchain, a user sends cryptocurrency coins to a multisignature address that is controlled by the Gateways Module, which locks the coins against further spending for the duration of the usage of the Pegs Module
   - On the Pegs-related Smart Chain, the Gateways Module then issues to the user [tokens](./tokens.html) that represent the value of the user's locked funds
 - The [Tokens](./tokens.html) Module
-  - This module provides the functionality necessary to create (and burn) tokens in coordination with the Gateways Module
-    <!-- gcharang: "This module provides the functionality necessary to create (and burn) tokens in coordination with the Gateways Module" -> Pegs doesn't provide any functionality re: create/burn of tokens. It just uses the tokens that can already be created/burned using Gateways. Pegs verifies if the token's name matches the ticker in the Price being used and the name of the Oracle
-    -->
+  - This module provides the functionality necessary to manage a cryptocurrency-based token system in coordination with the Gateways Module
   - These tokens represent the (now locked) value of the external Bitcoin-protocol or Komodo-protocol based cryptocurrency
   - These tokens can be spent and traded as actual cryptocurrency; the user who returns them to the Gateways Module at a later time will unlock and receive the associated external funds
 - The [Oracles](./oracles.html) Module
   - This module uses an [oraclefeed](https://github.com/KomodoPlatform/komodo/blob/master/src/cc/dapps/oraclefeed.c) app to provide information to the Gateways Module about tokens a user deposits
-- The [Prices](./prices.html) Module
-  - The Prices Module works in combination with the Oracles Module to create a decentralized and trustless oracle (DTO) that receives data from a range of external sources (defined by a developer) and make this information available on the Pegs Smart Chain
-    <!-- gcharang: "works in combination with the Oracles Module to create a decentralized and trustless oracle (DTO)" -> the Oracles module is not being used for this at all. The DTO works similar to how all the nodes on the Network come to a consensus on the timestamp of a block. https://medium.com/@jameslee777/decentralized-trustless-oracles-dto-by-piggybacking-on-timestamp-consensus-rules-2adce34d67b6
-    -->
-  - This module is responsible for tracking the value of an external asset (including assets external to the Komodo ecosystem) for on-chain value price mimicry
+- The Prices Module
+  - (Documentation for this module is coming soon)
+  - The Prices Module obtains data from a range of external sources (defined by a developer) and makes this information available on the Pegs Smart Chain
+  - This module utilizes functionality from the Oracles Module to transfer the obtained data from the real world into the digital world
+  - The Prices Module is responsible for tracking the value of an external asset (including assets external to the Komodo ecosystem) for on-chain price mimicry
   - Data from the Prices module becomes available for Smart Chain activity after a twenty-four hour delay
 
 ##### A Brief Explanation of Pegs Functionality
@@ -52,21 +47,15 @@ There are several technical elements involved in the Pegs Antara Module that col
 
 The first aspect relies on three different Antara Modules: [Gateways,](./gateways.html) [Tokens,](./tokens.html) and [Oracles.](./oracles.html)
 
-On any cryptocurrency blockchain that is built on the Bitcoin protocol, such as `KMD`, users send funds to a Komodo-based Gateways Module that is active on this chain. The Gateways Module locks these funds against further spending at this time.
+On any cryptocurrency blockchain that is built on the Bitcoin protocol, such as `KMD`, users send funds to a multisignature address that is controlled by the Komodo-based Gateways Module that is active on this chain. The Gateways Module locks these funds against further spending at this time.
 
-<!--gcharang: user sends coins to a multisig address related to(controlled by) the Gateways Module-->
-
-Once the funds are locked, the three modules together automatically make available to the user an equivalent number of tokens on the Pegs-related Smart Chain. These tokens represent the locked funds on a `1:1` ratio.
-
-<!--gcharang: it is `1:1` at the satoshi level. Each token represents 1 satoshi of the external coin -->
+Once the funds are locked, the three modules together automatically make available to the user an equivalent number of tokens on the Pegs-related Smart Chain. These tokens represent the locked funds on a `1:1` ratio at the satoshi level (each token represents one satoshi of the external coin).
 
 As these tokens are `1:1` representations of the locked funds, the value of these tokens does not change in respect to the associated funds. However, the cryptocurrency represented may not have a stable value.
 
 ###### Creating a Reliable Rate of Exchange Between the Stablecoin and the Backing Cryptocurrency
 
-The second aspect relies on the [Prices](./prices.html) Antara Module, and, once again, on the [Oracles](./oracles.html) Antara Module.
-
-<!--gcharang: only the Prices module-->
+The second aspect relies on the [Prices](./prices.html) Antara Module.
 
 Before the user can exchange their tokens for a stablecoin, the Smart Chain must be able to determine the stablecoin's projected market value (such as the market value of `USD`).
 
@@ -78,9 +67,7 @@ With these two elements (the user's tokens and a rate of exchange) the <b>Pegs A
 
 The user sends their tokens (such as tokenized `KMD`) to the Pegs Module, which locks the tokens against further spending for the duration of Pegs usage.
 
-Once the funds are locked, the Pegs Module makes available to the user native coins from the Pegs-related Smart Chain. The exchange rate between the user's deposited tokens and the native Smart Chain coins is determined by the data-driven rate of exchange.
-
-<!--gcharang: the Pegs module creates  the Smart Chain coins needed out of thin air-->
+Once the funds are locked, the Pegs Module creates native coins on the Pegs-related Smart Chain and issues these new coins to the user. The exchange rate between the user's deposited tokens and the native Smart Chain coins is determined by the data-driven rate of exchange.
 
 The user may only withdraw up to `80%` of the financial value of the locked external cryptocurrency funds. The other `20%` is held as a collateralized loan, available to assist in maintaining the stablecoin's value, if necessary.
 
@@ -106,19 +93,17 @@ The yellow zone applies to accounts where the user has withdrawn a value of `USD
 
 In this circumstance, a third-party user on the Pegs-related Smart Chain may deposit `USDK` coins on behalf of the indebted user's acccount, and receive the equivalent value of `KMD` tokens. These tokens are withdrawn from the indebted user's account.
 
-The `USDK` coins are burned, <!-- Sidd: is that statement accurate? gcharang: yes --> thus preserving the ratio of withdrawn `USDK` coins in sync with the global total value of `KMD` tokens deposited on the Pegs-related Smart Chain.
+The `USDK` coins are burned, thus preserving the ratio of withdrawn `USDK` coins in sync with the global total value of `KMD` tokens deposited on the Pegs-related Smart Chain.
 
 ###### Red Zone
 
 Should the debt of a user's account surpass the `90%` threshold, the account enters the red zone.
 
-Here, a third-party user can gain an immediate `5%` rate of return by sending `USDK` coins to the Pegs Module on behalf of the indebted user's account. The third-party user must deposit enough `USDK` to cover `10%` of the debt of the user's account, according to current prices.
+Here, a third-party user can gain an immediate `5%` rate of return by sending `USDK` coins to the Pegs Module to liquidate the indebted user's account. The third-party user must deposit `USDK` to cover the user's whole debt, valued at 90% of the indebted account's `KMD` tokens, according to current prices. 
 
-<!--gcharang: "immediate `5%` rate of return by sending `USDK` coins to the Pegs Module on behalf of the indebted user's account" -> "immediate `5%` rate of return by sending `USDK` coins to the Pegs Module to liquidate the indebted user's account" -->
+In return, the liquidating user receives 95% of the `KMD` tokens in the indebted user's account. These `KMD` tokens can be redeemed on the `KMD` chain and held as profit.
 
 In return, the third-party user receives `15%` of the user's deposited `KMD` tokens, netting the third-party user an immediate `5%` rate of return.
-
-<!--gcharang: "The third-party user must deposit enough `USDK` to cover `10%` of the debt of the user's account, according to current prices." -> "The third-party user must deposit `USDK` to cover the user's whole debt (which is valued at 90% of the KMD tokens) according to current prices and will receive 95% of the KMD tokens which can be redeemed on the KMD chain and sold in an exchange for Profit" -->
 
 The `USDK` coins sent by the third-party user are burned.
 
@@ -126,18 +111,16 @@ The remaining `5%` of the indebted user's `KMD` tokens are donated to the Pegs A
 
 ###### Preventing Account Liquidation
 
-<!-- Use of the word "depositor" here is new; should have been introduced earlier -->
+To prevent account liquiditation, when the user who created the account detects that their account is approaching the `90%` debt-ratio threshold, they have two options available.
 
-To prevent account liquiditation, when the depositor detects that their account is approaching the `90%` debt-ratio threshold, the depositor has two options available.
-
-The depositor can return an amount of `USDK` coins that satisfies `100%` of the outstanding balance of their collateralized loan at current prices. <!-- does this mean there is no penalty for the price slipage of KMD in this scenario?   -->
+The depositor can return an amount of `USDK` coins that satisfies `100%` of the outstanding balance of their collateralized loan at current prices. 
 
 Alternatively, the depositor can deposit more tokenized `KMD` to their account at current prices until the user's debt/loan ratio is safely below the `80%` threshold.
 
 ## Pegs Antara Module Flow
 
 - The Smart Chain creator creates an instance of the Pegs Antara Module, called a "Peg", using the [pegscreate](#pegscreate) API method.
-  - Once created, the creator adds this new Peg creation's transaction id called the `pegstxid` to the Smart Chain's launch parameters using the <!-- Where is this earlytxid parameter in the docs? Need to document the parameter, and then insert a hyperlink here gcharang: it isn't documented yet, it is in my to-do list --> `-earlytxid` parameter
+  - Once created, the creator adds this new Peg creation's transaction id called the `pegstxid` to the Smart Chain's launch parameters using the `-earlytxid` parameter
 - With the Peg active on the Smart Chain, a user locks tokenized external cryptocurrency to the Pegs Module using [pegsfund](#pegsfund)
 - The user can withdraw up to `80%` of the value of their locked tokens in the form of the Smart Chain's coins using [pegsget](#pegsget)
 - At anytime, the user can redeem the locked tokenized external cryptocurrency by repaying the Smart Chain's coins using [pegsredeem](#pegsredeem)
@@ -320,14 +303,14 @@ Optionally, if a pubkey is supplied, this method also returns the corresponding 
 | "PegsCCAddress"         | (string) | taking the contract's EVAL code as a modifier, this is the public address that corresponds to the contract's privkey                                        |
 | "PegsCCBalance"         | (number) | the amount of funds in the `PegsCCAddress`                                                                                                                  |
 | "PegsNormalAddress"     | (string) | the unmodified public address generated from the contract's privkey                                                                                         |
-| "PegsNormalBalance"     | (number) | the amount of funds in the `PegsNormalAddress` <!-- Sidd: What is the "normal balance"? Need more info here gcharang: explained in the above row-->         |
+| "PegsNormalBalance"     | (number) | the amount of funds in the `PegsNormalAddress`          |
 | "PegsCCTokensAddress"   | (string) | the public address where Tokens are locked in the Pegs module                                                                                               |
 | "PubkeyCCaddress(Pegs)" | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey supplied as an argument                                             |
-| "PubkeyCCbalance(Pegs)" | (number) | the amount of funds in the `PubkeyCCaddress(Pegs)` <!-- Is this the global address of the Pubkey CC ? gcharang: explained in the above row -->              |
+| "PubkeyCCbalance(Pegs)" | (number) | the amount of funds in the `PubkeyCCaddress(Pegs)`               |
 | "myCCAddress(Pegs)"     | (string) | taking the module's EVAL code as a modifier, this is the Antara address from the pubkey of the user                                                         |
-| "myCCbalance(Pegs)"     | (number) | the amount of funds in the `myCCAddress(Pegs)` <!-- Sidd: What is the myCCAdddress(Pegs) thing? need more info here gcharang: explained in the above row--> |
+| "myCCbalance(Pegs)"     | (number) | the amount of funds in the `myCCAddress(Pegs)`  |
 | "myaddress"             | (string) | the public address of the pubkey used to launch the chain                                                                                                   |
-| "mybalance"             | (number) | the amount of funds in the `myaddress` <!-- What is the "myaddress" thing? Need more info gcharang: explained in the above row -->                          |
+| "mybalance"             | (number) | the amount of funds in the `myaddress`                           |
 
 #### :pushpin: Examples
 
@@ -391,7 +374,7 @@ The `pegscreate` method creates an on-chain Peg, associating the value of the Sm
 
 The creation of this peg requires a tokenized backing cryptocurrency. Any cryptocurrency that is based on the Bitcoin protocol can fulfill this role, including `BTC` and `KMD`. There can be more than one such supporting cryptocurrency on any stablecoin Smart Chain.
 
-The `amount` parameter is the number of coins to be added <!-- From what supply? From the global supply? From the premine? From miners? From the creator's personal account? gcharang: from the address of the person creating the Peg; in most cases, it will be the same person who launched the chain so it will be from the premined coins --> to the Pegs module. The coins will be used for transaction fees <!-- What transaction fees? Does the creator of the Peg have to pay for transactions that users on the chain make? gcharang: the transaction fees for txns done by the Pegs module itself; more accurately the transactions that are done by other users/miners on behalf of the Pegs module--> and markers <!-- What does "markers" mean here? gcharang: markers are dust amounts sent in certain transactions by the Pegs module to be used later like bookmarks, they help in easier search of past transactions  --> for Pegs transactions <!-- Whose Pegs transactions? gcharang: done by the Pegs module itself -->.
+The `amount` parameter is the number of coins to be added to the Pegs Module from the available balance in the wallet of the user who is creating the peg. Often, this is the same user who created the Smart Chain, and therefore this balance can be extracted from the Smart Chain's premined coins. The coins will be used for the transaction fees that the Pegs Module performs through automated behavior.  The coins are also used for markers, which are transactions that send a very small amount of funds to a global address on the Pegs Module for record keeping purposes.
 
 The `N` parameter is the number of gateways to associate with the Pegs module. Each cryptocurrency asset that backs the Peg's stablecoin needs a unique gateway.
 
@@ -466,7 +449,7 @@ The above string is the `pegstxid` that represents the Peg.
 
 The `pegsexchange` method exchanges native coins for deposited tokens. This method is intended for users that do not have a Pegs account associated with the pubkey used to launch their daemon.
 
-<!-- If you do have a pubkey and associated Pegs account, which method should you use? We should link to that here gcharang: the closest equivalent is the pegsliquidate; but the usecase is diffeernt  -->
+Users that have an account may use the [<b>pegsliquidate</b>](../../../basic-docs/antara/antara-api/pegs.html#pegsliquidate) method.
 
 To supply the user that executes the method with tokens, this method sends the user's coins to pay the debt of another user whose account is in the "yellow zone" (a debt ratio between `80%` and `90%` based on current prices). This improves the debt ratio of the indebted user, thus forestalling liquidation of the indebted user's account.
 
@@ -630,7 +613,7 @@ The `pegsinfo` method returns the current information about the indicated `pegst
 | "total deposit" | (amount)     | the total number of tokens deposited                                                                                                                                                                                                                                                                                                                                                                                   |
 | "total debt"    | (amount)     | the total number of satoshis of the native coin withdrawn                                                                                                                                                                                                                                                                                                                                                              |
 | "total ratio"   | (string)     | the total debt ratio for the above token based on the current price                                                                                                                                                                                                                                                                                                                                                    |
-| "global ratio"  | (string)     | the global debt ratio for all tokens backing the Peg based on the current prices <!-- Does this include all types of tokens, or is it only for tokens associated with the tokenid above? gcharang: in the response, there is only one json in the array named "info"; if there were more external cryptos backing the peg, there would be more jsons; "global ratio" is the total ratio that considers all of them --> |
+| "global ratio"  | (string)     | the global debt ratio for all tokens backing the Peg, based on the current prices  |
 
 #### :pushpin: Examples
 
