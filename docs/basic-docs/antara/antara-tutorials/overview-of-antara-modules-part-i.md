@@ -86,7 +86,7 @@ Moreover, gas prevents an accidental infinite loop from wreaking havoc on the ne
 
 An important benefit the gas-based platform brought to the world is that it broke the barrier for allowing developers to decentralize software execution in a p2p environment.
 
-For example, in a non-decentralized p2p software application, users typically must rely on a centralized server or other impersonal third-party to maintain sanity in the execution of software instructions. Decentralized applications, "dApps", allow users to interact with software while relying not on a centralized server, but on the decentralized blockchain.
+For example, in a non-decentralized p2p software application, users typically must rely on a centralized server or other impersonal third-party to maintain sanity in the execution of software instructions. Decentralized applications allow users to interact with software while relying not on a centralized server, but on the decentralized blockchain.
 
 ## The Problem with the Gas-based Model
 
