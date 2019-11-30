@@ -28,6 +28,12 @@ Upon completion of this tutorial, the reader may follow the [user tutorial](./pe
 
 ## Installation
 
+::: warning
+
+The following installation procedure creates a version of the Komodo software daemon that should not be used for any purpose other than testing. Several of the customizations active on this particular version of the daemon are intended for testing purposes only.
+
+:::
+
 #### Dependencies
 
 Execute the following commands to install the necessary dependencies.
