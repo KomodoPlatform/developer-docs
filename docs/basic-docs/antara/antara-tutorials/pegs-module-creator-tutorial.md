@@ -16,12 +16,12 @@ This tutorial assists the reader in discovering the process of creating a new Sm
 
 #### Tutorial Outline
 
-- Launch a new test Smart Chain (`USDKTEST`) to activate the Pegs Module
+- Launch a new test Smart Chain (`CREATORUSDK`) to activate the Pegs Module
 - Peg the test chain's coins to `USD` and create a pathway for users to back the stablecoin with `KMD`
 - Create tokens to represent the `KMD` coins
 - Create an oracle, register as a publisher, and subscribe to it
 - Create a gateway and bind the previously created token and oracle to it
-- Start the `oraclefeed` software to bring the `blockheader` data from the `KMD` chain to the `USDKTEST` chain through the oracle
+- Start the `oraclefeed` software to bring the `blockheader` data from the `KMD` chain to the `CREATORUSDK` chain through the oracle
 - Create a peg by attaching the gateway to it
 
 Upon completion of this tutorial, the reader may follow the [user tutorial](./pegs-module-user-tutorial.html) and use the Smart Chain created here to discover the possibilities of the Pegs Module.
@@ -88,7 +88,7 @@ The command below creates and launches a new Smart Chain.
 
 The following list explains a few of the Smart Chain customizations that are necessary and desirable for a Smart Chain designed for testing purposes.
 
-  - `-ac_name=USDKTEST` — the name of this Smart Chain is set to `USDKTEST`
+  - `-ac_name=CREATORUSDK` — the name of this Smart Chain is set to `CREATORUSDK`
   - `-ac_import=PEGSCC` — the key customization that activated the Pegs Antara Module on the new Smart Chain
   - `-ac_end=1` — sets the mining block reward to zero (after the first block)
   - `-debug` — a debug parameter that instructs the daemon to track various information for console output
@@ -98,7 +98,7 @@ The following list explains a few of the Smart Chain customizations that are nec
 Consult the [Antara Customizations](../../../basic-docs/antara/antara-setup/antara-customizations.html) documentation for explanations of the other parameters in the command.
 
 ```bash
-./komodod -ac_supply=1000000 -ac_reward=10000 -ac_name=USDKTEST -ac_cc=2 -ac_import=PEGSCC -ac_end=1 -ac_perc=0 -ac_cbopret=5 -debug=pegscc-2 -debug=importcoin -debug=cctokens -debug=gatewayscc -printtoconsole=1
+./komodod -ac_supply=1000000 -ac_reward=10000 -ac_name=CREATORUSDK -ac_cc=2 -ac_import=PEGSCC -ac_end=1 -ac_perc=0 -ac_cbopret=5 -debug=pegscc-2 -debug=importcoin -debug=cctokens -debug=gatewayscc -printtoconsole=1
 ```
 
 ## Create a Token to Represent KMD Coins
@@ -106,16 +106,16 @@ Consult the [Antara Customizations](../../../basic-docs/antara/antara-setup/anta
 To create tokens that are capable of representing `KMD` (although the tokens are not yet tied to actual `KMD`), execute the following command on the test chain.
 
 ```bash
-./komodo-cli -ac_name=USDKTEST tokencreate KMD 100000 "KMD_BTC,BTC_USD,*,1"
+./komodo-cli -ac_name=CREATORUSDK tokencreate KMD 100000 "KMD_BTC,BTC_USD,*,1"
 ```
 
-This creates a total of `100000 * 10^8` tokens named `KMD` on the `USDKTEST` chain. Each token is capable of representing a single satoshi of the external coin `KMD`.
+This creates a total of `100000 * 10^8` tokens named `KMD` on the `CREATORUSDK` chain. Each token is capable of representing a single satoshi of the external coin `KMD`.
 
-All the tokens combined allow up to `100000` `KMD` coins on the `USDKTEST` chain.
+All the tokens combined allow up to `100000` `KMD` coins on the `CREATORUSDK` chain.
 
 The description of the token, `"KMD_BTC,BTC_USD,*,1"` specifies the synthetic price to be used by a peg (not yet created). 
 
-`"KMD_BTC,BTC_USD,*,1"` means `(KMD/BTC) * (BTC/USD) * 1`. This simplifies to `KMD/USD`, which provides an exchange price between the two currencies. This provides the necessary information to peg the `USDKTEST` stablecoin to `USD` and to back the coin using `KMD`.
+`"KMD_BTC,BTC_USD,*,1"` means `(KMD/BTC) * (BTC/USD) * 1`. This simplifies to `KMD/USD`, which provides an exchange price between the two currencies. This provides the necessary information to peg the `CREATORUSDK` stablecoin to `USD` and to back the coin using `KMD`.
 
 The command returns a hex value as a response.
 
@@ -131,7 +131,7 @@ Select the hex value (`0100000001c05c55f5183a412750a...`) and copy it using (CTR
 Broadcast this value using [sendrawtransaction.](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction)
 
 ```bash
-./komodo-cli -ac_name=USDKTEST sendrawtransaction insert_hex
+./komodo-cli -ac_name=CREATORUSDK sendrawtransaction insert_hex
 ```
 
 The value of the response is called the `tokenid`.
@@ -145,7 +145,7 @@ Copy the `tokenid` into a text editor and keep it available for future use.
 Watch the mempool using [getrawmempool](../../../basic-docs/smart-chains/smart-chain-api/blockchain.html#getrawmempool) to verify that the `tokenid` is successfully mined.
 
 ```bash
-./komodo-cli -ac_name=USDKTEST getrawmempool
+./komodo-cli -ac_name=CREATORUSDK getrawmempool
 ```
 
 Once the `tokenid` disappears from the mempool the transaction is mined.
@@ -153,7 +153,7 @@ Once the `tokenid` disappears from the mempool the transaction is mined.
 Use [tokeninfo](../../../basic-docs/antara/antara-api/tokens.html#tokeninfo) to check that the token is successfully created.
 
 ```bash
-./komodo-cli -ac_name=USDKTEST tokeninfo 0946d12135cca0757a12931944ff930657f21fd676966c12d66d5750848ea712
+./komodo-cli -ac_name=CREATORUSDK tokeninfo 0946d12135cca0757a12931944ff930657f21fd676966c12d66d5750848ea712
 ```
 
 <collapse-text hidden title="Response">
@@ -174,7 +174,7 @@ Use [tokeninfo](../../../basic-docs/antara/antara-api/tokens.html#tokeninfo) to 
 The tutorial reader may now check the balance of the `pubkey` used to launch the daemon using [tokenbalance](../../../basic-docs/antara/antara-api/tokens.html#tokenbalance).
 
 ```bash
-./komodo-cli -ac_name=USDKTEST tokenbalance insert_tokenid insert_pubkey
+./komodo-cli -ac_name=CREATORUSDK tokenbalance insert_tokenid insert_pubkey
 ```
 
 ## Create an Oracle
@@ -186,7 +186,7 @@ When creating a new oracle, the name of the oracle is identical to the name of t
 Create the oracle using [oraclescreate](../../../basic-docs/antara/antara-api/oracles.html#oraclescreate).
 
 ```bash
-./komodo-cli -ac_name=USDKTEST oraclescreate KMD blockheaders Ihh
+./komodo-cli -ac_name=CREATORUSDK oraclescreate KMD blockheaders Ihh
 ```
 
 The response is a hex value.
@@ -201,7 +201,7 @@ The response is a hex value.
 Broadcast the returned hex value using [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction).
 
 ```bash
-./komodo-cli -ac_name=USDKTEST sendrawtransaction insert_hex_data
+./komodo-cli -ac_name=CREATORUSDK sendrawtransaction insert_hex_data
 ```
 
 The response is a transaction id, called the `oracleid`.
@@ -215,7 +215,7 @@ Record this value in the text editor.
 Execute the `oraclesfund` method to fund the oracle.
 
 ```bash
-./komodo-cli -ac_name=USDKTEST oraclesfund ee684674d3671daf596395a9ca6c409381d1cf6c2c7ff05c65c6bb5c16967a0e
+./komodo-cli -ac_name=CREATORUSDK oraclesfund ee684674d3671daf596395a9ca6c409381d1cf6c2c7ff05c65c6bb5c16967a0e
 ```
 
 <collapse-text hidden title="Response">
@@ -232,7 +232,7 @@ Execute the `oraclesfund` method to fund the oracle.
 Send the raw transaction by broadcasting the hex value.
 
 ```bash
-./komodo-cli -ac_name=USDKTEST sendrawtransaction 0400008085202f89010e7a96165cbbc6655cf07f2c6ccfd18193406ccaa9956359af1d67d3744668ee01000000494830450221008f3db99deddacc6cf6c39260faac62aa00395a808715923e0301d6063a23618d022044565a478e2fbf316f843ac96c2921f267da71701f51fd0c244aff1aedb00ed101ffffffff031027000000000000302ea22c8020de1ac583c081d079fd4118ec0c29fe975121739d8fba70103e5fb45614913cbe8103120c008203000401ccdf6792c2da510000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac00000000000000004f6a4c4cec460e7a96165cbbc6655cf07f2c6ccfd18193406ccaa9956359af1d67d3744668ee2102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567102700000000000000000000290100000000000000000000000000
+./komodo-cli -ac_name=CREATORUSDK sendrawtransaction 0400008085202f89010e7a96165cbbc6655cf07f2c6ccfd18193406ccaa9956359af1d67d3744668ee01000000494830450221008f3db99deddacc6cf6c39260faac62aa00395a808715923e0301d6063a23618d022044565a478e2fbf316f843ac96c2921f267da71701f51fd0c244aff1aedb00ed101ffffffff031027000000000000302ea22c8020de1ac583c081d079fd4118ec0c29fe975121739d8fba70103e5fb45614913cbe8103120c008203000401ccdf6792c2da510000232102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567ac00000000000000004f6a4c4cec460e7a96165cbbc6655cf07f2c6ccfd18193406ccaa9956359af1d67d3744668ee2102d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567102700000000000000000000290100000000000000000000000000
 ```
 
 Response:
@@ -250,19 +250,19 @@ Optionally use the [getrawmempool](../../../basic-docs/smart-chains/smart-chain-
 To prepare for the oraclefeed instance, use [oraclesregister](../../../basic-docs/antara/antara-api/oracles.html#oraclesregister) to register as a publisher for the oracle. This command must be executed on a node which can post `KMD` block headers and which can execute withdrawal transactions.
 
 ```bash
-./komodo-cli -ac_name=USDKTEST oraclesregister insert_oracleid data_fee_in_satoshis`
+./komodo-cli -ac_name=CREATORUSDK oraclesregister insert_oracleid data_fee_in_satoshis`
 ```
 
 This returns a hex value which must be broadcast using [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction). (Not shown for brevity)
 
 ```bash
-./komodo-cli -ac_name=USDKTEST sendrawtransaction insert_hex_value
+./komodo-cli -ac_name=CREATORUSDK sendrawtransaction insert_hex_value
 ```
 
 Retrieve the data publisher's `pubkey` using [oraclesinfo](../../../basic-docs/antara/antara-api/oracles.html#oraclesinfo).
 
 ```bash
-./komodo-cli -ac_name=USDKTEST oraclesinfo insert_oracleid
+./komodo-cli -ac_name=CREATORUSDK oraclesinfo insert_oracleid
 ```
 
 <collapse-text hidden title="Response">
@@ -299,13 +299,13 @@ The frequency of data-publishing transactions that can be included in a block is
 Subscribe to the oracle using the following command.
 
 ```bash
-./komodo-cli -ac_name=USDKTEST oraclessubscribe insert_oracleid insert_publisherpubkey insert_amount_of_funds_to_add
+./komodo-cli -ac_name=CREATORUSDK oraclessubscribe insert_oracleid insert_publisherpubkey insert_amount_of_funds_to_add
 ```
 
 This returns a hex value that must be broadcast using <b>sendrawtransaction</b> (not shown for brevity).
 
 ```bash
-./komodo-cli -ac_name=USDKTEST sendrawtransaction insert_hex_value
+./komodo-cli -ac_name=CREATORUSDK sendrawtransaction insert_hex_value
 ```
 
 In this tutorial example, the tutorial reader needs to be able to publish data more than once per block. Therefore, execute the <b>oraclessubscribe</b> and <b>sendrawtransaction</b> methods several times and with the same amount. 
@@ -313,7 +313,7 @@ In this tutorial example, the tutorial reader needs to be able to publish data m
 Verify the oracle information to ensure it is properly established.
 
 ```bash
-./komodo-cli -ac_name=USDKTEST oraclesinfo insert_oracleid
+./komodo-cli -ac_name=CREATORUSDK oraclesinfo insert_oracleid
 ```
 
 <collapse-text hidden title="Response">
@@ -352,13 +352,13 @@ For this tutorial, the reader may set both `N` and `M` equal to `1` for simplici
 The <b>gatewaysbind</b> command requires that the user indicate the `pubtype`, `p2shtype`, and `wiftype` values for the chosen coin.  For Smart Chains, these values are `60`, `85` and `188` respectively.
 
 ```bash
-./komodo-cli -ac_name=USDKTEST gatewaysbind insert_tokenid insert_oracleid KMD insert_tokensupply 1 1 insert_gatewayspubkey 60 85 188
+./komodo-cli -ac_name=CREATORUSDK gatewaysbind insert_tokenid insert_oracleid KMD insert_tokensupply 1 1 insert_gatewayspubkey 60 85 188
 ```
 
 This method returns a hex value that must be broadcast using <b>sendrawtransaction</b> (not shown for brevity).
 
 ```bash
-./komodo-cli -ac_name=USDKTEST sendrawtransaction insert_hex_value
+./komodo-cli -ac_name=CREATORUSDK sendrawtransaction insert_hex_value
 ```
 
 The broadcast returns a transaction id, also called the `bindtxid`. Copy this information to the text editor.
@@ -400,7 +400,7 @@ Use the returned information to verify that the `tokenid` and `oracleid` match t
 
 ## Start the oraclefeed software
 
-The `oraclefeed` software instance automates the transfer of merkleroot data from the `KMD` chain to the oracle on the `USDKTEST` chain.
+The `oraclefeed` software instance automates the transfer of merkleroot data from the `KMD` chain to the oracle on the `CREATORUSDK` chain.
 
 Change into the directory where `komodod` and `komodo-cli` are compiled.
 
@@ -417,13 +417,13 @@ gcc cc/dapps/oraclefeed.c -lm -o oraclefeed
 Initiate the instance.
 
 ```bash
-./oraclefeed USDKTEST insert_oracleid insert_mypubkey Ihh insert_bindtxid "cli command to access te external coin(KMD)"
+./oraclefeed CREATORUSDK insert_oracleid insert_mypubkey Ihh insert_bindtxid "cli command to access te external coin(KMD)"
 ```
 
 Inserting the values.
 
 ```bash
-./oraclefeed USDKTEST ee684674d3671daf596395a9ca6c409381d1cf6c2c7ff05c65c6bb5c16967a0e 02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567 Ihh 0b5716554e523aa4678112a8ac3d15039e0aae6f4812b9d4c631cc9cfbf48786 "./komodo-cli"
+./oraclefeed CREATORUSDK ee684674d3671daf596395a9ca6c409381d1cf6c2c7ff05c65c6bb5c16967a0e 02d3431950c2f0f9654217b6ce3d44468d3a9ca7255741767fdeee7c5ec6b47567 Ihh 0b5716554e523aa4678112a8ac3d15039e0aae6f4812b9d4c631cc9cfbf48786 "./komodo-cli"
 ```
 
 <collapse-text hidden title="Response">
@@ -433,13 +433,13 @@ BTC/USD 8469.7417
 Powered by CoinDesk (https://www.coindesk.com/price/) 8469.74170000
 must supply reference coin
 set refcoin RN727JeeiZ6NXic7PUKTCiHT1HvuBN4RDa <- KMD [./komodo-cli] M.1 of N.1
-broadcast USDKTEST txid.(13bb4ba78686ae65894c79e67e346e8f8c0bde96dda8d041d4653ce203423b17)
+broadcast CREATORUSDK txid.(13bb4ba78686ae65894c79e67e346e8f8c0bde96dda8d041d4653ce203423b17)
 KMD ht.16 <- 10000000f7a5a84d008a6c4107c3bbad442a879355bd7f951e4bf5ac48b8458afa6a1600bbf054d5a9219e8034990f764106c719f9bfc278b1d909be4486ff52d8523ca6
-broadcast USDKTEST txid.(2eaef55baf9895b4a5b45f0450cc8b4b8e6f95563bc4c0d95086b3ff0d4d394a)
+broadcast CREATORUSDK txid.(2eaef55baf9895b4a5b45f0450cc8b4b8e6f95563bc4c0d95086b3ff0d4d394a)
 KMD ht.17 <- 1100000010da30ab6d70443dc881c8ee85b02869b3520d016fcd076e4a1e67543a3a9c0714d4bad1c68f74d6d65b7e26ed821fc38aed36f03c101d117440e094823fb2fa
-broadcast USDKTEST txid.(eff38402e9669ffe7521ab98368e114e44fa8c5ec7a98d57bf600d6ba1cac45d)
+broadcast CREATORUSDK txid.(eff38402e9669ffe7521ab98368e114e44fa8c5ec7a98d57bf600d6ba1cac45d)
 KMD ht.18 <- 1200000018d4169fde5fc716b9ebc44da85fa3cfe5d64adf94d4bee09d97bbbebaaeb80e098c0417881230d51281346f29d2566cd164b7ef0e6a6c08332f969f690e10c9
-broadcast USDKTEST txid.(388c23187083cdc789483d9b8af90c4a4ce3ecaf856785b86f00bf37db900ede)
+broadcast CREATORUSDK txid.(388c23187083cdc789483d9b8af90c4a4ce3ecaf856785b86f00bf37db900ede)
 KMD ht.19 <- 13000000f1fea637bf33149d161bd5a1d20e0ad8911a3710cf941a318b68fa973d4d9403bb5521d6171bcb1d65d6cadff6916e96814b46ae2487d100987820367b702c2f
 ```
 
@@ -447,7 +447,7 @@ KMD ht.19 <- 13000000f1fea637bf33149d161bd5a1d20e0ad8911a3710cf941a318b68fa973d4
 
 ## Create the Peg
 
-Create a peg that will create `USDKTEST` coins pegged to USD and backed by `KMD` using the [pegscreate](../../../basic-docs/antara/antara-api/pegs.html#pegscreate) method.
+Create a peg that will create `CREATORUSDK` coins pegged to USD and backed by `KMD` using the [pegscreate](../../../basic-docs/antara/antara-api/pegs.html#pegscreate) method.
 
 The <b>pegscreate</b> method is capable of creating a peg that is backed by more than one external coin. This is accomplished by adding more than one `bindtxid` to the `pegscreate` command.
 
@@ -456,23 +456,23 @@ Each associated gateway requires a unique token, oracle, and a running instance 
 For the sake of simplicity, this tutorial utilizes only one gateway (bound to `KMD` coins).
 
 ```bash
-./komodo-cli -ac_name=USDKTEST pegscreate 100000 1 0b5716554e523aa4678112a8ac3d15039e0aae6f4812b9d4c631cc9cfbf48786
+./komodo-cli -ac_name=CREATORUSDK pegscreate 100000 1 0b5716554e523aa4678112a8ac3d15039e0aae6f4812b9d4c631cc9cfbf48786
 ```
 
 This method returns a hex value that must be broadcast using <b>sendrawtransaction</b> (not shown for brevity).
 
 ```bash
-./komodo-cli -ac_name=USDKTEST sendrawtransaction insert_hex_value
+./komodo-cli -ac_name=CREATORUSDK sendrawtransaction insert_hex_value
 ```
 
 The broadcast returns a transaction id, also called the `pegstxid`. Copy this information to the text editor.
 
-The `pegstxid` is the reference to the peg created in this tutorial. To make sure all the nodes running the `USDKTEST` chain are aware of the correct pegs contract, after the `pegstxid` transaction is mined the reader must shutdown any daemons running the chain. The tutorial reader then restarts the nodes, but with a slightly modified version of the launch parameters. The parameters now include `-earlytxid`, and this parameter is set equal to the value of `pegstxid`.
+The `pegstxid` is the reference to the peg created in this tutorial. To make sure all the nodes running the `CREATORUSDK` chain are aware of the correct pegs contract, after the `pegstxid` transaction is mined the reader must shutdown any daemons running the chain. The tutorial reader then restarts the nodes, but with a slightly modified version of the launch parameters. The parameters now include `-earlytxid`, and this parameter is set equal to the value of `pegstxid`.
 
 In the following command, replace the text `<pegstxid>` with the `pegstxid` from this tutorial.
 
 ```bash
-./komodod -ac_supply=1000000 -ac_reward=10000 -ac_name=USDKTEST -ac_cc=2 -ac_import=PEGSCC -ac_end=1 -ac_perc=0 -ac_cbopret=5 -debug=pegscc-2 -debug=importcoin -debug=cctokens -debug=gatewayscc -printtoconsole=1 -earkytxid=<pegstxid>
+./komodod -ac_supply=1000000 -ac_reward=10000 -ac_name=CREATORUSDK -ac_cc=2 -ac_import=PEGSCC -ac_end=1 -ac_perc=0 -ac_cbopret=5 -debug=pegscc-2 -debug=importcoin -debug=cctokens -debug=gatewayscc -printtoconsole=1 -earkytxid=<pegstxid>
 ```
 
 
@@ -482,7 +482,7 @@ For any Smart Chain, the `-earlytxid` must be added to the launch parameters bef
 
 :::
 
-Any new node joining the `USDKTEST` network must use the new launch parameters with the `-earlytxid` included.
+Any new node joining the `CREATORUSDK` network must use the new launch parameters with the `-earlytxid` included.
 
 ## Test the Setup
 
