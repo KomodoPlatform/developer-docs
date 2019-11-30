@@ -25,13 +25,11 @@ This tutorial uses the `USDKTEST` test and development Smart Chain to introduce 
 
 ## Installation
 
-::: warning Reminder
+::: warning
 
-The Pegs Antara Module is in the final testing stages. Please reach out to the Komodo team before attempting to use Pegs in a production environment.
+The following installation procedure creates a version of the Komodo software daemon that should not be used for any purpose other than testing. Several of the customizations active on this particular version of the daemon are intended for testing purposes only.
 
 :::
-
-<!--gcharang: my comment: "(Only for Testing, do not use in Production)" was because the installation instructions create a komodod that should definitely not be used for anything other than testing. the command "export CONFIGURE_FLAGS='CPPFLAGS=-DTESTMODE'" makes the daemon insecure and sometimes out of consensus with a regular daemon-->
 
 ### Dependencies
 
