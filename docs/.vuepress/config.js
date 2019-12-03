@@ -32,34 +32,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     [
       "meta",
       {
-        name: "twitter:site",
-        content: "@komodoplatform"
-      }
-    ],
-    [
-      "meta",
-      {
-        name: "twitter:title",
-        content: "Komodo Documentation"
-      }
-    ],
-    [
-      "meta",
-      {
-        name: "twitter:description",
-        content: "Documentation for developers building on the Komodo Platform"
-      }
-    ],
-    [
-      "meta",
-      {
-        name: "twitter:image",
-        content: "https://docs.komodoplatform.com/Dev_Docs_Introduction_small.png"
-      }
-    ],
-    [
-      "meta",
-      {
         name: "twitter:card",
         content: "summary_large_image"
       }
