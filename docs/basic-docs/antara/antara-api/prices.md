@@ -75,9 +75,74 @@ As the Prices data on the Smart Chain is made available using a Decentralized Tr
 
 Example: Suppose the DTO for the Smart Chain doesn't supply the Price data for the pair `AMZN/KMD`; but it does supply the Price data for the pairs `AMZN/USD`, `USD/BTC` and `BTC/KMD`
 
-We can get the Synthetic Price of `AMZN/KMD` by multiplying all the Prices of the three pairs.
+We can get the Synthetic Price of `AMZN/KMD` by multiplying the Prices of all the three pairs.
 
-To calculate Synthetic Prices and use their value on the Smart Chain, a simple [Forth](https://en.wikipedia.org/wiki/Forth_(programming_language)) like syntax was implemented. It is a Stack based language and supports the usage of Prices of up to 3 pairs and the operations: invert(`!`), multiply(`*`), divide(`/`) and negative(`-`) along with integers. The integers allow the calculation of Synthetic prices for baskets of assets or indexes.
+To calculate Synthetic Prices and use their value on the Smart Chain, a simple [Forth](https://en.wikipedia.org/wiki/Forth_(programming_language)) like syntax was implemented. It is a Stack based language and supports the usage of Prices of up to 3 pairs and the operations: invert(`!`), multiply(`*`), divide(`/`)  along with positive and negative integers. The integers allow the calculation of Synthetic prices for baskets of assets or indexes. The negative integers can be used to short a Price.
+
+Example: The synthetic price of a  basket with `3/4`parts BTC and `1/4` parts BCH can be calculated.
+
+#### Usage
+
+Let us start with the most basic component: The price feed from the DTO. Each price feed will be represented by a key that looks like `ABC_DEF` ( will be refered to as `price`). This means, the price given is for the asset `ABC` in terms of another asset `DEF`. For example, the price of BTC in terms of USD is denoted by `BTC_USD`
+
+The assets can be cryptocurrencies, fiat currencies, stocks etc.,
+
+It is essential to understand what a stack is to use the syntax for calculating Synthetic prices.
+
+::: tip On Stacks
+
+Stacks are dynamic data structures that follow the **Last In First Out (LIFO)** principle. The last item to be inserted into a stack is the first one to be deleted from it.
+
+For example, you have a stack of trays on a table. The tray at the top of the stack is the first item to be moved if you require a tray from that stack.
+
+**Inserting and deleting elements**
+
+Stacks have restrictions on the insertion and deletion of elements. Elements can be inserted or deleted only from one end of the stack i.e. from the **top** . The element at the top is called the **top** element. The operations of inserting and deleting elements are called **push** and **pop**  respectively.
+
+When the top element of a stack is deleted, if the stack remains non-empty, then the element just below the previous top element becomes the new top element of the stack.
+
+For example, in the stack of trays, if you take the tray on the top and do not replace it, then the second tray automatically becomes the top element (tray) of that stack.
+
+Source: [https://www.hackerearth.com/practice/data-structures/stacks/basics-of-stacks/tutorial/](https://www.hackerearth.com/practice/data-structures/stacks/basics-of-stacks/tutorial/)
+
+:::
+
+The allowed symbols in our syntax are:
+
+- the prices
+- operations: invert(`!`), multiply(`*`), divide(`/`) 
+- positive and negative integers
+
+The interpretation of the symbols in all the possible cases is described in the subsequent sections.
+
+We limit the depth of the Stack to 3 as it appears to be sufficient to calculate all the possible synthetics from the available prices.
+
+A Synthetic price is calculated by adding the results of stacks with integers as `weights`. The `weight` can be any positive or negative integer whose absolute value is less than `2048`. There should be only one element in the stack when the integer is encountered in the syntax.
 
  
-A simple language with a forth like syntax was implemented to calculate synthetic prices. It supports derivation of a synthetic price from upto 3 available prices through the operations of multiplication and division. It also supports weights to calculate arbitrary baskets/indexes. Example: A synthetic price for a basket with `¼ BCH/USD` and `¾ BTC/USD` in it can be calculated and margin traded against.
+
+##### Operations involving 1 price
+
+|Operator|Function|
+|--------|--------|
+|!|pops the top stack element, inverts it and pushes it back on to the stack|
+
+##### Operations involving 2 prices
+
+|Operator|Function|
+|--------|--------|
+|*|pops two elements from the top of the stack, multiplies them and pushes the result back on to the stack|
+|/|pops two elements from the top of the stack, divides them with first element as the denominator and the second element as the numerator and pushes the result back on to the stack|
+
+##### Operations involving 3 prices
+
+|Operator|Function|
+|--------|--------|
+|`*//`|pops the top stack element, inverts it and pushes it back on to the stack|
+|`**/`|pops two elements from the top of the stack, multiplies them and pushes the result back on to the stack|
+|`***`|pops two elements from the top of the stack, divides them with first element as the denominator and the second element as the numerator and pushes the result back on to the stack|
+|`///`|pops two elements from the top of the stack, divides them with first element as the denominator and the second element as the numerator and pushes the result back on to the stack|
+
+
+
+ 
