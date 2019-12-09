@@ -77,6 +77,12 @@ In this manner, the native Smart Chain coins become the intended stablecoin.
 
 As time progresses, the difference in price between the user's tokenized cryptocurrency and the stablecoin will change. Consider for example that the user is using `KMD` as the deposited cryptocurrency to access a stablecoin that mimics the `USD` fiat currency. The stablecoin in this example is named `USDK`.
 
+:::tip Note
+
+The below rules of liquidation are only applicable when the Global debt ratio (the ratio of all the users' deposits and debts at current prices) is more than `60%`. If the Global debt ratio is lower than `60%`, no account is in danger of liquidation regardless of their individual debt ratio.  
+
+:::
+
 ###### Value of Backing Cryptocurrency Increases
 
 If the value of `KMD` increases relative to `USD`, the user may withdraw additional `USDK` coins from their Pegs account, until the total withdrawn `USDK` amount is again equal to `80%` of the total value of the deposited `KMD` tokens.
