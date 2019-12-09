@@ -134,7 +134,7 @@ Compile the source code:
 ```bash
 cargo build --features native -vv
 ```
-
+<!--- 
 #### MacOS
 
 If the above command results in an error, use the following command
@@ -149,7 +149,7 @@ or
 or linking libcrypto permanently to /usr/local/lib
 ln -s /usr/local/opt/openssl/lib/libcrypto.a /usr/local/lib
 ```
-
+--->
 If everything installs successfully you will see something similar:
 
 ```
