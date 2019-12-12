@@ -272,9 +272,9 @@ The call will return a similar result:
 
 This is the current orderbook.
 
-Now, you'll notice that the output isn't easily readable. Here's where we should start using `jq`.
+Now, you'll notice that the output isn't easily readable in your Terminal. Here's where we should start using `jq`.
 
-You may remember that we installed software called `jq` during the setup process. `jq` is optional, but it is recommended as it makes reading the output in the terminal easier.
+You may remember that we installed a software called `jq` during the setup process. `jq` is optional, but it is recommended as it makes reading the output in the terminal easier.
 
 To activate `jq`, simply add the following to the end of any command: `| jq`.
 
@@ -300,7 +300,7 @@ Here's the response:
     {
       "coin": "RICK",
       "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
-      "price": 1,
+      "price": 2,
       "numutxos": 0,
       "avevolume": 0,
       "maxvolume": 10855.85028615,
@@ -332,10 +332,10 @@ They are willing to give up RICK for MORTY.
 "rel": "MORTY",
 ```
 
-They are asking for `1` MORTY for every 1 RICK.
+They are asking `2` MORTY for every `1` RICK.
 
 ```
-"price": 1,
+"price": 2,
 ```
 
 They have a total of `10855.85028615` available to trade.
@@ -349,7 +349,7 @@ They have a total of `10855.85028615` available to trade.
 Let's create a RICK/MORTY `buy` order
 
 ```bash
-curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"RICK\",\"rel\":\"MORTY\",\"volume\":\"1\",\"price\":\"1\"}" | jq
+curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"buy\",\"base\":\"RICK\",\"rel\":\"MORTY\",\"volume\":\"1\",\"price\":\"2\"}" | jq
 ```
 
 You should receive a similar response:
@@ -363,7 +363,7 @@ You should receive a similar response:
     "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
     "method": "request",
     "rel": "MORTY",
-    "rel_amount": "1",
+    "rel_amount": "2",
     "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
     "uuid": "288743e2-92a5-471e-92d5-bb828a2303c3"
   }
