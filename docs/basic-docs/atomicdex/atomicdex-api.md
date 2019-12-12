@@ -2566,7 +2566,7 @@ The `orderbook` method requests from the network the currently available orders 
 | maxvolume      | string (decimal) | the maximum amount of `base` coin the offer provider is willing to sell       |
 | max_volume_rat | rational         | the max volume in rational representation                                     |
 | pubkey         | string           | the pubkey of the offer provider                                              |
-| age            | number           | the age of the offer                                                          |
+| age            | number           | the age of the offer (in seconds)                                             |
 | zcredits       | number           | the zeroconf deposit amount                                                   |
 | numasks        | number           | the total number of asks                                                      |
 | askdepth       | number           | the depth of the ask requests                                                 |
