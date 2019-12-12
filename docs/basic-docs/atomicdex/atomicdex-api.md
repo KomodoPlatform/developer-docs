@@ -7,18 +7,21 @@ MM2 now offers the [num-rational crate](https://crates.io/crates/num-rational) f
 Komodo highly recommends that the developer use the rational number type when calculating an order's price and volume. This avoids rounding and precision errors when calculating numbers such as `1/3`, as these cannot be represented as a finite decimal.
 
 The MM2 API typically will return both the rational number type as well as the decimal representation, but the decimal representation should be considered only a convenience feature for readability.
-    
-The number is represented in JSON as follows: 
+
+The number is represented in JSON as follows:
 
 ```json
-[[1,[0,1]],[1,[1]]]
+[
+  [1, [0, 1]],
+  [1, [1]]
+]
 ```
 
-The first item, `[1,[0,1]]`, is the `numerator`. 
+The first item, `[1,[0,1]]`, is the `numerator`.
 
 The second item, `[1,[1]]`, is the `denominator`.
 
-The `numerator` and `denominator` are BigInteger numbers represented as a sign and uint32 array (where numbers are 32 bit parts of big integer in little endian order). 
+The `numerator` and `denominator` are BigInteger numbers represented as a sign and uint32 array (where numbers are 32 bit parts of big integer in little endian order).
 
 `[1,[0,1]]` represents `+0000000000000000000000000000000010000000000000000000000000000000` = `4294967296`
 
@@ -97,12 +100,18 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "action": "Buy",
     "base": "HELLO",
     "base_amount": "1",
-    "base_amount_rat": [[1,[1]],[1,[1]]],
+    "base_amount_rat": [
+      [1, [1]],
+      [1, [1]]
+    ],
     "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
     "method": "request",
     "rel": "WORLD",
     "rel_amount": "1",
-    "rel_amount_rat": [[1,[1]],[1,[1]]],
+    "rel_amount_rat": [
+      [1, [1]],
+      [1, [1]]
+    ],
     "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
     "uuid": "288743e2-92a5-471e-92d5-bb828a2303c3"
   }
@@ -121,7 +130,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "error":"rpc:275] lp_ordermatch:665] The WORLD amount 40000/3 is larger than available 47.60450107, balance: 47.60450107, locked by swaps: 0.00000000"
+  "error": "rpc:275] lp_ordermatch:665] The WORLD amount 40000/3 is larger than available 47.60450107, balance: 47.60450107, locked by swaps: 0.00000000"
 }
 ```
 
@@ -129,7 +138,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## cancel\_all\_orders
+## cancel_all_orders
 
 **cancel_order cancel_by**
 
@@ -137,14 +146,14 @@ The `cancel_all_orders` cancels the active orders created by the MM2 node by spe
 
 #### Arguments
 
-| Structure            | Type   | Description                                                                       |
-| -------------------- | ------ | --------------------------------------------------------------------------------- |
-| cancel_by            | object | orders matching this condition are cancelled                                  |
-| cancel_by.type       | string | `All` to cancel all orders; `Pair` to cancel all orders for specific coin pairs; `Coin` to cancel all orders for a specific coin |
-| cancel_by.data       | object | additional data the cancel condition; present with `Pair` and `Coin` types           |
-| cancel_by.data.base  | string | base coin of the pair; `Pair` type only                                           |
-| cancel_by.data.rel   | string | rel coin of the pair; `Pair` type only                                            |
-| cancel_by.data.ticker| string | order will be cancelled if it uses `ticker` as base or rel; `Coin` type only      |
+| Structure             | Type   | Description                                                                                                                      |
+| --------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| cancel_by             | object | orders matching this condition are cancelled                                                                                     |
+| cancel_by.type        | string | `All` to cancel all orders; `Pair` to cancel all orders for specific coin pairs; `Coin` to cancel all orders for a specific coin |
+| cancel_by.data        | object | additional data the cancel condition; present with `Pair` and `Coin` types                                                       |
+| cancel_by.data.base   | string | base coin of the pair; `Pair` type only                                                                                          |
+| cancel_by.data.rel    | string | rel coin of the pair; `Pair` type only                                                                                           |
+| cancel_by.data.ticker | string | order will be cancelled if it uses `ticker` as base or rel; `Coin` type only                                                     |
 
 #### Response
 
@@ -204,7 +213,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## cancel\_order
+## cancel_order
 
 **cancel_order uuid**
 
@@ -250,7 +259,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## coins\_needed\_for\_kick\_start
+## coins_needed_for_kick_start
 
 **coins_needed_for_kick_start()**
 
@@ -296,11 +305,12 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## disable\_coin
+## disable_coin
 
 **disable_coin coin**
 
 The `disable_coin` method deactivates the previously enabled coin. MM2 also cancels all active orders that use the selected coin. The method will return an error in the following cases:
+
 - The coin is not enabled
 - The coin is used by active swaps
 - The coin is used by a currently matching order. In this case, other orders might still be cancelled
@@ -313,13 +323,13 @@ The `disable_coin` method deactivates the previously enabled coin. MM2 also canc
 
 #### Response
 
-| Structure                  | Type             | Description                                                                        |
-| -------------------------- | ---------------- | ---------------------------------------------------------------------------------- |
-| result.coin                | string           | the ticker of deactivated coin                                                     |
-| result.cancelled_orders    | array of strings | uuids of cancelled orders                                                          |
-| swaps                      | array of strings | uuids of active swaps that use the selected coin; present only in error cases    |
-| orders.matching            | array of strings | uuids of matching orders that use the selected coin; present only in error cases |
-| orders.cancelled           | array of strings | uuids of orders that were successfully cancelled despite the error                 |
+| Structure               | Type             | Description                                                                      |
+| ----------------------- | ---------------- | -------------------------------------------------------------------------------- |
+| result.coin             | string           | the ticker of deactivated coin                                                   |
+| result.cancelled_orders | array of strings | uuids of cancelled orders                                                        |
+| swaps                   | array of strings | uuids of active swaps that use the selected coin; present only in error cases    |
+| orders.matching         | array of strings | uuids of matching orders that use the selected coin; present only in error cases |
+| orders.cancelled        | array of strings | uuids of orders that were successfully cancelled despite the error               |
 
 #### :pushpin: Examples
 
@@ -338,8 +348,8 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 ```json
 {
   "result": {
-    "cancelled_orders":["e5fc7c81-7574-4d3f-b64a-47227455d62a"],
-    "coin":"RICK"
+    "cancelled_orders": ["e5fc7c81-7574-4d3f-b64a-47227455d62a"],
+    "coin": "RICK"
   }
 }
 ```
@@ -365,7 +375,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "error":"There're currently matching orders using RICK",
+  "error": "There're currently matching orders using RICK",
   "orders": {
     "matching": ["d88d0a0e-f8bd-40ab-8edd-fe20801ef349"],
     "cancelled": ["c88d0a0e-f8bd-40ab-8edd-fe20801ef349"]
@@ -440,14 +450,14 @@ For terminal interface examples, see the examples section below.
 
 #### Response
 
-| Structure              | Type             | Description                                                                                              |
-| ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
-| address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
-| balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
+| Structure              | Type             | Description                                                                                                                                                                                                                                              |
+| ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                                                                                                                                                                  |
+| balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                                                                                                                                                                      |
 | locked_by_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
-| coin                   | string           | the ticker of the enabled coin                                                                             |
-| required_confirmations | number           | MM2 will wait for the this number of transaction confirmations during the swap                  |
-| result                 | string           | the result of the request; this value either indicates `success`, or an error, or another type of failure |
+| coin                   | string           | the ticker of the enabled coin                                                                                                                                                                                                                           |
+| required_confirmations | number           | MM2 will wait for the this number of transaction confirmations during the swap                                                                                                                                                                           |
+| result                 | string           | the result of the request; this value either indicates `success`, or an error, or another type of failure                                                                                                                                                |
 
 #### :pushpin: Examples
 
@@ -469,7 +479,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
   "locked_by_swaps": "0",
-  "required_confirmations":1,
+  "required_confirmations": 1,
   "result": "success"
 }
 ```
@@ -565,14 +575,14 @@ To use AtomicDEX software on another Ethereum-based network, such as the Kovan t
 
 #### Response
 
-| Structure              | Type             | Description                                                                                              |
-| ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
-| address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                  |
-| balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                      |
+| Structure              | Type             | Description                                                                                                                                                                                                                                              |
+| ---------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| address                | string           | the address of the user's `coin` wallet, based on the user's passphrase                                                                                                                                                                                  |
+| balance                | string (numeric) | the amount of `coin` the user holds in their wallet                                                                                                                                                                                                      |
 | locked_by_swaps        | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
-| coin                   | string           | the ticker of enabled coin                                                                             |
-| required_confirmations | number           | MM2 will wait for the this number of coin's transaction confirmations during the swap                  |
-| result                 | string           | the result of the request; this value either indicates `success`, or an error or other type of failure |
+| coin                   | string           | the ticker of enabled coin                                                                                                                                                                                                                               |
+| required_confirmations | number           | MM2 will wait for the this number of coin's transaction confirmations during the swap                                                                                                                                                                    |
+| result                 | string           | the result of the request; this value either indicates `success`, or an error or other type of failure                                                                                                                                                   |
 
 #### :pushpin: Examples
 
@@ -594,7 +604,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "RQNUR7qLgPUgZxYbvU9x5Kw93f6LU898CQ",
   "balance": "10",
   "locked_by_swaps": "0",
-  "required_confirmations":1,
+  "required_confirmations": 1,
   "result": "success"
 }
 ```
@@ -621,7 +631,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": "50",
   "locked_by_swaps": "0",
-  "required_confirmations":1,
+  "required_confirmations": 1,
   "result": "success"
 }
 ```
@@ -630,7 +640,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-#### Command (for Ethereum and ERC20-based blockchains with gas\_station\_url)
+#### Command (for Ethereum and ERC20-based blockchains with gas_station_url)
 
 ```bash
 curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\":\"enable\",\"coin\":\"ETH\",\"urls\":[\"http://195.201.0.6:8545\"],\"swap_contract_address\":\"0x7Bc1bBDD6A0a722fC9bffC49c921B685ECB84b94\",\"gas_station_url\":\"https://ethgasstation.info/json/ethgasAPI.json\"}"
@@ -648,7 +658,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
   "address": "0x3c7aad7b693e94f13b61d4be4abaeaf802b2e3b5",
   "balance": "50",
   "locked_by_swaps": "0",
-  "required_confirmations":1,
+  "required_confirmations": 1,
   "result": "success"
 }
 ```
@@ -691,7 +701,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## get\_enabled\_coins
+## get_enabled_coins
 
 **get_enabled_coins**
 
@@ -764,7 +774,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## get\_trade\_fee
+## get_trade_fee
 
 **get_trade_fee coin**
 
@@ -897,10 +907,10 @@ Use this method in combination with `my_swap_status` or `my_recent_swaps` to cop
 
 #### Response
 
-| Structure        | Type                | Description                                                  |
-| ---------------- | ------------------- | ------------------------------------------------------------ |
-| result.imported  | array of strings    | uuids of swaps that were successfully imported               |
-| result.imported  | map                 | uuids of swaps that failed to import; includes error message |
+| Structure       | Type             | Description                                                  |
+| --------------- | ---------------- | ------------------------------------------------------------ |
+| result.imported | array of strings | uuids of swaps that were successfully imported               |
+| result.imported | map              | uuids of swaps that failed to import; includes error message |
 
 #### :pushpin: Examples
 
@@ -918,12 +928,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result":{
-    "imported":[
-      "07ce08bf-3db9-4dd8-a671-854affc1b7a3"
-    ],
-    "skipped":{
-      "1af6bb5e-e131-4b06-b235-36fae8daab0a":"lp_swap:424] File already exists"
+  "result": {
+    "imported": ["07ce08bf-3db9-4dd8-a671-854affc1b7a3"],
+    "skipped": {
+      "1af6bb5e-e131-4b06-b235-36fae8daab0a": "lp_swap:424] File already exists"
     }
   }
 }
@@ -933,7 +941,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my\_balance
+## my_balance
 
 **my_balance coin**
 
@@ -947,12 +955,12 @@ The `my_balance` method returns the current balance of the specified `coin`.
 
 #### Response
 
-| Structure       | Type             | Description                        |
-| --------------- | ---------------- | ---------------------------------- |
-| address         | string           | the address that holds the coins   |
-| balance         | string (numeric) | the number of coins in the address |
+| Structure       | Type             | Description                                                                                                                                                                                                                                              |
+| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| address         | string           | the address that holds the coins                                                                                                                                                                                                                         |
+| balance         | string (numeric) | the number of coins in the address                                                                                                                                                                                                                       |
 | locked_by_swaps | string (numeric) | the number of coins locked by ongoing swaps. There is a time gap between the start of the swap and the sending of the actual swap transaction (MM2 locks the coins virtually to prevent the user from using the same funds across several ongoing swaps) |
-| coin            | string           | the name of the coin               |
+| coin            | string           | the name of the coin                                                                                                                                                                                                                                     |
 
 #### :pushpin: Examples
 
@@ -970,10 +978,10 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "address":"R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
-  "balance":"60.00253836",
-  "coin":"HELLOWORLD",
-  "locked_by_swaps":"0"
+  "address": "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
+  "balance": "60.00253836",
+  "coin": "HELLOWORLD",
+  "locked_by_swaps": "0"
 }
 ```
 
@@ -981,7 +989,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my\_orders
+## my_orders
 
 **my_orders()**
 
@@ -1016,113 +1024,126 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result":{
-    "maker_orders":{
-      "ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c":{
-        "available_amount":"1",
-        "base":"BEER",
-        "cancellable":true,
-        "created_at":1568808684710,
-        "matches":{
-          "60aaacca-ed31-4633-9326-c9757ea4cf78":{
-            "connect":{
-              "dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-              "maker_order_uuid":"fedd5261-a57e-4cbf-80ac-b3507045e140",
-              "method":"connect",
-              "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "taker_order_uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
+  "result": {
+    "maker_orders": {
+      "ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c": {
+        "available_amount": "1",
+        "base": "BEER",
+        "cancellable": true,
+        "created_at": 1568808684710,
+        "matches": {
+          "60aaacca-ed31-4633-9326-c9757ea4cf78": {
+            "connect": {
+              "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+              "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
+              "method": "connect",
+              "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
             },
-            "connected":{
-              "dest_pub_key":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "maker_order_uuid":"fedd5261-a57e-4cbf-80ac-b3507045e140",
-              "method":"connected",
-              "sender_pubkey":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-              "taker_order_uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
+            "connected": {
+              "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
+              "method": "connected",
+              "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+              "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
             },
-            "last_updated":1560529572571,
-            "request":{
-              "action":"Buy",
-              "base":"BEER",
-              "base_amount":"1",
-              "dest_pub_key":"0000000000000000000000000000000000000000000000000000000000000000",
-              "method":"request",
-              "rel":"PIZZA",
-              "rel_amount":"1",
-              "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
+            "last_updated": 1560529572571,
+            "request": {
+              "action": "Buy",
+              "base": "BEER",
+              "base_amount": "1",
+              "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+              "method": "request",
+              "rel": "PIZZA",
+              "rel_amount": "1",
+              "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
             },
-            "reserved":{
-              "base":"BEER",
-              "base_amount":"1",
-              "dest_pub_key":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "maker_order_uuid":"fedd5261-a57e-4cbf-80ac-b3507045e140",
-              "method":"reserved",
-              "rel":"PIZZA",
-              "rel_amount":"1",
-              "sender_pubkey":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-              "taker_order_uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
+            "reserved": {
+              "base": "BEER",
+              "base_amount": "1",
+              "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
+              "method": "reserved",
+              "rel": "PIZZA",
+              "rel_amount": "1",
+              "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+              "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
             }
           }
         },
-        "max_base_vol":"1",
-        "max_base_vol_rat":[[1,[1]],[1,[1]]],
-        "min_base_vol":"0",
-        "min_base_vol_rat":[[0,[]],[1,[1]]],
-        "price":"1",
-        "price_rat":[[1,[1]],[1,[1]]],
-        "rel":"ETOMIC",
-        "started_swaps":[
-          "60aaacca-ed31-4633-9326-c9757ea4cf78"
+        "max_base_vol": "1",
+        "max_base_vol_rat": [
+          [1, [1]],
+          [1, [1]]
         ],
-        "uuid":"ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c"
+        "min_base_vol": "0",
+        "min_base_vol_rat": [
+          [0, []],
+          [1, [1]]
+        ],
+        "price": "1",
+        "price_rat": [
+          [1, [1]],
+          [1, [1]]
+        ],
+        "rel": "ETOMIC",
+        "started_swaps": ["60aaacca-ed31-4633-9326-c9757ea4cf78"],
+        "uuid": "ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c"
       }
     },
-    "taker_orders":{
-      "ea199ac4-b216-4a04-9f08-ac73aa06ae37":{
-        "cancellable":true,
-        "created_at":1568811351456,
-        "matches":{
-          "15922925-cc46-4219-8cbd-613802e17797":{
-            "connect":{
-              "dest_pub_key":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "maker_order_uuid":"15922925-cc46-4219-8cbd-613802e17797",
-              "method":"connect",
-              "sender_pubkey":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-              "taker_order_uuid":"45252de5-ea9f-44ae-8b48-85092a0c99ed"
+    "taker_orders": {
+      "ea199ac4-b216-4a04-9f08-ac73aa06ae37": {
+        "cancellable": true,
+        "created_at": 1568811351456,
+        "matches": {
+          "15922925-cc46-4219-8cbd-613802e17797": {
+            "connect": {
+              "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
+              "method": "connect",
+              "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+              "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
             },
-            "connected":{
-              "dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-              "maker_order_uuid":"15922925-cc46-4219-8cbd-613802e17797",
-              "method":"connected",
-              "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "taker_order_uuid":"45252de5-ea9f-44ae-8b48-85092a0c99ed"
+            "connected": {
+              "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+              "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
+              "method": "connected",
+              "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
             },
-            "last_updated":1560529049477,
-            "reserved":{
-              "base":"BEER",
-              "base_amount":"1",
-              "dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-              "maker_order_uuid":"15922925-cc46-4219-8cbd-613802e17797",
-              "method":"reserved",
-              "rel":"ETOMIC",
-              "rel_amount":"1",
-              "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-              "taker_order_uuid":"45252de5-ea9f-44ae-8b48-85092a0c99ed"
+            "last_updated": 1560529049477,
+            "reserved": {
+              "base": "BEER",
+              "base_amount": "1",
+              "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+              "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
+              "method": "reserved",
+              "rel": "ETOMIC",
+              "rel_amount": "1",
+              "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+              "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
             }
           }
         },
-        "request":{
-          "action":"Buy",
-          "base":"BEER",
-          "base_amount":"1",
-          "base_amount_rat":[[1,[1]],[1,[1]]],
-          "dest_pub_key":"0000000000000000000000000000000000000000000000000000000000000000",
-          "method":"request",
-          "rel":"ETOMIC",
-          "rel_amount":"1",
-          "rel_amount_rat":[[1,[1]],[1,[1]]],
-          "sender_pubkey":"031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
-          "uuid":"ea199ac4-b216-4a04-9f08-ac73aa06ae37"
+        "request": {
+          "action": "Buy",
+          "base": "BEER",
+          "base_amount": "1",
+          "base_amount_rat": [
+            [1, [1]],
+            [1, [1]]
+          ],
+          "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+          "method": "request",
+          "rel": "ETOMIC",
+          "rel_amount": "1",
+          "rel_amount_rat": [
+            [1, [1]],
+            [1, [1]]
+          ],
+          "sender_pubkey": "031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
+          "uuid": "ea199ac4-b216-4a04-9f08-ac73aa06ae37"
         }
       }
     }
@@ -1134,7 +1155,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## my\_recent\_swaps
+## my_recent_swaps
 
 **(from_uuid limit=10)**
 
@@ -1356,7 +1377,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "taker_coin": "PIZZA",
         "taker_amount": "1",
         "gui": null,
-        "mm_version": "unknown", 
+        "mm_version": "unknown",
         "success_events": [
           "Started",
           "Negotiated",
@@ -1577,7 +1598,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
         "taker_coin": "BCH",
         "taker_amount": "0.01",
         "gui": null,
-        "mm_version": "unknown", 
+        "mm_version": "unknown",
         "success_events": [
           "Started",
           "Negotiated",
@@ -1611,7 +1632,7 @@ Response (error)
 
 </div>
 
-## my\_swap\_status
+## my_swap_status
 
 **uuid**
 
@@ -1625,21 +1646,21 @@ The `my_swap_status` method returns the data of an atomic swap executed on a MM2
 
 #### Response
 
-| Structure      | Type                      | Description                                                                                                                                |
-| -------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| events         | array of objects          | the events that occurred during the swap                                                                                                   |
-| success_events | array of strings          | a list of events that gained a `success` swap state; the contents are listed in the order in which they should occur in the `events` array |
-| error_events   | array of strings          | a list of events that fell into an `error` swap state; if at least 1 of the events happens, the swap is considered a failure               |
-| type           | string                    | whether the node acted as a market `Maker` or `Taker`                                                                                      |
-| uuid           | string                    | swap uuid                                                                                                                                  |
-| gui            | string (optional)         | information about gui; copied from MM2 configuration                                                                                       |
-| mm_version     | string (optional)         | MM2 version                                                                                                                                |
-| maker_coin     | string (optional)         | ticker of maker coin                                                                                                                       |
-| taker_coin     | string (optional)         | ticker of taker coin                                                                                                                       |
-| maker_amount   | string (numeric, optional)| the amount of coins to be swapped by maker                                                                                                 |
-| taker_amount   | string (numeric, optional)| the amount of coins to be swapped by taker                                                                                                 |
-| my_info        | object (optional)         | this object maps event data to make displaying swap data in a GUI simpler (`my_coin`, `my_amount`, etc.)                                   |
-| recoverable    | bool                      | whether the swap can be recovered using the `recover_funds_of_swap` API command. Important note: MM2 does not record the state regarding whether the swap was recovered or not. MM2 allows as many calls to the `recover_funds_of_swap` method as necessary, in case of errors |
+| Structure      | Type                       | Description                                                                                                                                                                                                                                                                    |
+| -------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| events         | array of objects           | the events that occurred during the swap                                                                                                                                                                                                                                       |
+| success_events | array of strings           | a list of events that gained a `success` swap state; the contents are listed in the order in which they should occur in the `events` array                                                                                                                                     |
+| error_events   | array of strings           | a list of events that fell into an `error` swap state; if at least 1 of the events happens, the swap is considered a failure                                                                                                                                                   |
+| type           | string                     | whether the node acted as a market `Maker` or `Taker`                                                                                                                                                                                                                          |
+| uuid           | string                     | swap uuid                                                                                                                                                                                                                                                                      |
+| gui            | string (optional)          | information about gui; copied from MM2 configuration                                                                                                                                                                                                                           |
+| mm_version     | string (optional)          | MM2 version                                                                                                                                                                                                                                                                    |
+| maker_coin     | string (optional)          | ticker of maker coin                                                                                                                                                                                                                                                           |
+| taker_coin     | string (optional)          | ticker of taker coin                                                                                                                                                                                                                                                           |
+| maker_amount   | string (numeric, optional) | the amount of coins to be swapped by maker                                                                                                                                                                                                                                     |
+| taker_amount   | string (numeric, optional) | the amount of coins to be swapped by taker                                                                                                                                                                                                                                     |
+| my_info        | object (optional)          | this object maps event data to make displaying swap data in a GUI simpler (`my_coin`, `my_amount`, etc.)                                                                                                                                                                       |
+| recoverable    | bool                       | whether the swap can be recovered using the `recover_funds_of_swap` API command. Important note: MM2 does not record the state regarding whether the swap was recovered or not. MM2 allows as many calls to the `recover_funds_of_swap` method as necessary, in case of errors |
 
 #### :pushpin: Examples
 
@@ -1863,7 +1884,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
     "taker_coin": "BCH",
     "taker_amount": "0.01",
     "gui": null,
-    "mm_version": "unknown", 
+    "mm_version": "unknown",
     "recoverable": false,
     "success_events": [
       "Started",
@@ -2065,7 +2086,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
     "taker_coin": "PIZZA",
     "taker_amount": "1",
     "gui": "AtomicDEX 1.0",
-    "mm_version": "unknown", 
+    "mm_version": "unknown",
     "recoverable": false,
     "success_events": [
       "Started",
@@ -2096,7 +2117,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"my_swap_status\",\"para
 
 </div>
 
-## my\_tx\_history
+## my_tx_history
 
 **(from_id limit=10)**
 
@@ -2144,41 +2165,39 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result":{
-    "current_block":172418,
-    "from_id":null,
-    "limit":1,
-    "skipped":0,
-    "sync_status":{
-      "additional_info":{
-        "transactions_left":126
+  "result": {
+    "current_block": 172418,
+    "from_id": null,
+    "limit": 1,
+    "skipped": 0,
+    "sync_status": {
+      "additional_info": {
+        "transactions_left": 126
       },
-      "state":"InProgress"
+      "state": "InProgress"
     },
-    "total":5915,
-    "transactions":[
+    "total": 5915,
+    "transactions": [
       {
-        "block_height":172409,
-        "coin":"ETOMIC",
-        "confirmations":10,
-        "fee_details":{
-          "amount":"0.00001"
+        "block_height": 172409,
+        "coin": "ETOMIC",
+        "confirmations": 10,
+        "fee_details": {
+          "amount": "0.00001"
         },
-        "from":[
-          "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"
-        ],
-        "internal_id":"903e5d71b8717205314a71055fe8bbb868e7b76d001fbe813a34bd71ff131e93",
-        "my_balance_change":"-0.10001",
-        "received_by_me":"0.8998513",
-        "spent_by_me":"0.9998613",
-        "timestamp":1566539526,
-        "to":[
+        "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+        "internal_id": "903e5d71b8717205314a71055fe8bbb868e7b76d001fbe813a34bd71ff131e93",
+        "my_balance_change": "-0.10001",
+        "received_by_me": "0.8998513",
+        "spent_by_me": "0.9998613",
+        "timestamp": 1566539526,
+        "to": [
           "R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW",
           "bJrMTiiRiLHJHc6RKQgesKTg1o9VVuKwT5"
         ],
-        "total_amount":"0.9998613",
-        "tx_hash":"903e5d71b8717205314a71055fe8bbb868e7b76d001fbe813a34bd71ff131e93",
-        "tx_hex":"0400008085202f8901a242dc691de64c732e823ed0a4d8cfa6a230f8e31bc9bd21499009f1a90b855a010000006b483045022100d83113119004ac0504f812a853a831039dfc4b0bc1cb863d2c7a94c0670f07e902206af87b846b18c0d5e38bd874d43918e0400e4b6b838ab0793f5976843daa20cd012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff02809698000000000017a9144327a5516b28f66249576c18d15debf6dfbd1124876a105d05000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac047f5f5d000000000000000000000000000000"
+        "total_amount": "0.9998613",
+        "tx_hash": "903e5d71b8717205314a71055fe8bbb868e7b76d001fbe813a34bd71ff131e93",
+        "tx_hex": "0400008085202f8901a242dc691de64c732e823ed0a4d8cfa6a230f8e31bc9bd21499009f1a90b855a010000006b483045022100d83113119004ac0504f812a853a831039dfc4b0bc1cb863d2c7a94c0670f07e902206af87b846b18c0d5e38bd874d43918e0400e4b6b838ab0793f5976843daa20cd012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff02809698000000000017a9144327a5516b28f66249576c18d15debf6dfbd1124876a105d05000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac047f5f5d000000000000000000000000000000"
       }
     ]
   }
@@ -2257,11 +2276,93 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 }
 ```
 
+#### Response (Successful result in case of ETH/ERC20 coins)
+
+```json
+{
+  "result": {
+    "current_block": 9071551,
+    "from_id": null,
+    "limit": 3,
+    "skipped": 0,
+    "sync_status": {
+      "state": "Finished"
+    },
+    "total": 41,
+    "transactions": [
+      {
+        "block_height": 8980257,
+        "coin": "ETH",
+        "confirmations": 91295,
+        "fee_details": {
+          "coin": "ETH",
+          "gas": 57196,
+          "gas_price": "0.000000027",
+          "total_fee": "0.001544292"
+        },
+        "from": ["0xE4406Af4CA1dcB05AFE384eBfF3c1F233dCA176A"],
+        "internal_id": "3978545ce08ca4c7f4b92e10b6c61efc6ce436f35f8a23f4e6a2e74f309cfd0a",
+        "my_balance_change": "-0.010193732",
+        "received_by_me": "0",
+        "spent_by_me": "0.010193732",
+        "timestamp": 1574423598,
+        "to": ["0x8500AFc0bc5214728082163326C2FF0C73f4a871"],
+        "total_amount": "0.00864944",
+        "tx_hash": "e578a719896ec5f1475c273e02fbdd3cf283d9808c20db336f110e4b4faef10c",
+        "tx_hex": "f8f11b850649534e00830249f0948500afc0bc5214728082163326c2ff0c73f4a871871eba9eaeb4c000b884152cf3af1b065716fc0c8254828abed3061c181f73a3c698cf1bc0fc8620e158448988050000000000000000000000007296a0cbae6ccfa5cddff9130569731a3b7da419d068b8936743ace66f192407debdcfc38445674e000000000000000000000000000000000000000000000000000000000000000000000000000000005dd808491ba0c78ad466381e0db9fb01f103d9e5c9d9c0c9cb28ee02bf990dc6371313c71bc3a0624e653559cfb19141a67e567e2e1fd4ca1ccd73f40d8b3672d14bd37072dad1"
+      },
+      {
+        "block_height": 8953592,
+        "coin": "ETH",
+        "confirmations": 117960,
+        "fee_details": {
+          "coin": "ETH",
+          "gas": 57196,
+          "gas_price": "0.00000001",
+          "total_fee": "0.00057196"
+        },
+        "from": ["0xE4406Af4CA1dcB05AFE384eBfF3c1F233dCA176A"],
+        "internal_id": "15a3891932876cae74933b66bbfc2bba95b3e09c025152dd8b8d8023ad9a5fbd",
+        "my_balance_change": "-0.31519846",
+        "received_by_me": "0",
+        "spent_by_me": "0.31519846",
+        "timestamp": 1574038246,
+        "to": ["0x8500AFc0bc5214728082163326C2FF0C73f4a871"],
+        "total_amount": "0.3146265",
+        "tx_hash": "235be0e6ac3860a637ec0c1d0ec2c364e85ab5cd54659c6987c37b2ba3378ffb",
+        "tx_hex": "f8f21a8502540be400830249f0948500afc0bc5214728082163326c2ff0c73f4a87188045dc722816ca800b884152cf3af84519291dc1e8ea4efe055a1c27e6d33a74137164f5799352c1e10798e7a403c000000000000000000000000ee4398a7ab0a610daab82fef97affae44a5ce1464fd4d66db1e00256442acacc546a8a67433217de000000000000000000000000000000000000000000000000000000000000000000000000000000005dd226fb1ca030a665aeb07080e959e8027663d8f6af4069477c1ec8c712566108a9525b9629a052123cb075c404ff14d5281bd48232185590464de034bc6c86a818e699e4e288"
+      },
+      {
+        "block_height": 8952273,
+        "coin": "ETH",
+        "confirmations": 119279,
+        "fee_details": {
+          "coin": "ETH",
+          "gas": 49472,
+          "gas_price": "0.00000001",
+          "total_fee": "0.00049472"
+        },
+        "from": ["0x8500AFc0bc5214728082163326C2FF0C73f4a871"],
+        "internal_id": "8796cee96c32121cd2ca9fef9d23affb4c173cf719a08e03436cf92e6ae90668",
+        "my_balance_change": "0.29278494869327806",
+        "received_by_me": "0.29278494869327806",
+        "spent_by_me": "0",
+        "timestamp": 1574019481,
+        "to": ["0xE4406Af4CA1dcB05AFE384eBfF3c1F233dCA176A"],
+        "total_amount": "0.29278494869327806",
+        "tx_hash": "4d02298575e9abf0d18ea2abb4d7f02ddba9266019fe4952eb6fa90f90775850",
+        "tx_hex": "f9010a198502540be400830249f0948500afc0bc5214728082163326c2ff0c73f4a87180b8a402ed292b0b6ed2b0bbdc333949f4847ffe567064a2a9c2239bcef95abd7f8408321dba3d00000000000000000000000000000000000000000000000004102e5c0e719d6cad1841132d7f23ffedb0e036ae85a80a337dface71b2d494893c16603686073500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f2b27558e45a3f44853e78b3c4bd05217723f841ba007650709e390395e659776b2ec390d951e2ab82ebcd7c540ce73dc6d352bc399a00d727f58ab77970c62bd92a356d057738b88f36fa4948c57b9b50de0815a951f"
+      }
+    ]
+  }
+}
+```
+
 </collapse-text>
 
 </div>
 
-## order\_status
+## order_status
 
 **order_status uuid**
 
@@ -2296,65 +2397,72 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "order":{
-    "available_amount":"1",
-    "base":"BEER",
-    "cancellable":true,
-    "created_at":1568808684710,
-    "matches":{
-      "60aaacca-ed31-4633-9326-c9757ea4cf78":{
-        "connect":{
-          "dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "maker_order_uuid":"fedd5261-a57e-4cbf-80ac-b3507045e140",
-          "method":"connect",
-          "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "taker_order_uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
+  "order": {
+    "available_amount": "1",
+    "base": "BEER",
+    "cancellable": true,
+    "created_at": 1568808684710,
+    "matches": {
+      "60aaacca-ed31-4633-9326-c9757ea4cf78": {
+        "connect": {
+          "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
+          "method": "connect",
+          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
         },
-        "connected":{
-          "dest_pub_key":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "maker_order_uuid":"fedd5261-a57e-4cbf-80ac-b3507045e140",
-          "method":"connected",
-          "sender_pubkey":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "taker_order_uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
+        "connected": {
+          "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
+          "method": "connected",
+          "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
         },
-        "last_updated":1560529572571,
-        "request":{
-          "action":"Buy",
-          "base":"BEER",
-          "base_amount":"1",
-          "dest_pub_key":"0000000000000000000000000000000000000000000000000000000000000000",
-          "method":"request",
-          "rel":"PIZZA",
-          "rel_amount":"1",
-          "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
+        "last_updated": 1560529572571,
+        "request": {
+          "action": "Buy",
+          "base": "BEER",
+          "base_amount": "1",
+          "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+          "method": "request",
+          "rel": "PIZZA",
+          "rel_amount": "1",
+          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
         },
-        "reserved":{
-          "base":"BEER",
-          "base_amount":"1",
-          "dest_pub_key":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "maker_order_uuid":"fedd5261-a57e-4cbf-80ac-b3507045e140",
-          "method":"reserved",
-          "rel":"PIZZA",
-          "rel_amount":"1",
-          "sender_pubkey":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "taker_order_uuid":"60aaacca-ed31-4633-9326-c9757ea4cf78"
+        "reserved": {
+          "base": "BEER",
+          "base_amount": "1",
+          "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "maker_order_uuid": "fedd5261-a57e-4cbf-80ac-b3507045e140",
+          "method": "reserved",
+          "rel": "PIZZA",
+          "rel_amount": "1",
+          "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "taker_order_uuid": "60aaacca-ed31-4633-9326-c9757ea4cf78"
         }
       }
     },
-    "max_base_vol":"1",
-    "max_base_vol_rat":[[1,[1]],[1,[1]]],
-    "min_base_vol":"0",
-    "min_base_vol_rat":[[0,[]],[1,[1]]],
-    "price":"1",
-    "price_rat":[[1,[1]],[1,[1]]],
-    "rel":"ETOMIC",
-    "started_swaps":[
-      "60aaacca-ed31-4633-9326-c9757ea4cf78"
+    "max_base_vol": "1",
+    "max_base_vol_rat": [
+      [1, [1]],
+      [1, [1]]
     ],
-    "uuid":"ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c"
+    "min_base_vol": "0",
+    "min_base_vol_rat": [
+      [0, []],
+      [1, [1]]
+    ],
+    "price": "1",
+    "price_rat": [
+      [1, [1]],
+      [1, [1]]
+    ],
+    "rel": "ETOMIC",
+    "started_swaps": ["60aaacca-ed31-4633-9326-c9757ea4cf78"],
+    "uuid": "ea77dcc3-a711-4c3d-ac36-d45fc5e1ee0c"
   },
-  "type":"Maker"
+  "type": "Maker"
 }
 ```
 
@@ -2362,54 +2470,60 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "order":{
-    "cancellable":true,
-    "created_at":1568811351456,
-    "matches":{
-      "15922925-cc46-4219-8cbd-613802e17797":{
-        "connect":{
-          "dest_pub_key":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "maker_order_uuid":"15922925-cc46-4219-8cbd-613802e17797",
-          "method":"connect",
-          "sender_pubkey":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "taker_order_uuid":"45252de5-ea9f-44ae-8b48-85092a0c99ed"
+  "order": {
+    "cancellable": true,
+    "created_at": 1568811351456,
+    "matches": {
+      "15922925-cc46-4219-8cbd-613802e17797": {
+        "connect": {
+          "dest_pub_key": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
+          "method": "connect",
+          "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
         },
-        "connected":{
-          "dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "maker_order_uuid":"15922925-cc46-4219-8cbd-613802e17797",
-          "method":"connected",
-          "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "taker_order_uuid":"45252de5-ea9f-44ae-8b48-85092a0c99ed"
+        "connected": {
+          "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
+          "method": "connected",
+          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
         },
-        "last_updated":1560529049477,
-        "reserved":{
-          "base":"BEER",
-          "base_amount":"1",
-          "dest_pub_key":"c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
-          "maker_order_uuid":"15922925-cc46-4219-8cbd-613802e17797",
-          "method":"reserved",
-          "rel":"ETOMIC",
-          "rel_amount":"1",
-          "sender_pubkey":"5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
-          "taker_order_uuid":"45252de5-ea9f-44ae-8b48-85092a0c99ed"
+        "last_updated": 1560529049477,
+        "reserved": {
+          "base": "BEER",
+          "base_amount": "1",
+          "dest_pub_key": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
+          "maker_order_uuid": "15922925-cc46-4219-8cbd-613802e17797",
+          "method": "reserved",
+          "rel": "ETOMIC",
+          "rel_amount": "1",
+          "sender_pubkey": "5a2f1c468b7083c4f7649bf68a50612ffe7c38b1d62e1ece3829ca88e7e7fd12",
+          "taker_order_uuid": "45252de5-ea9f-44ae-8b48-85092a0c99ed"
         }
       }
     },
-    "request":{
-      "action":"Buy",
-      "base":"BEER",
-      "base_amount":"1",
-      "base_amount_rat":[[1,[1]],[1,[1]]],
-      "dest_pub_key":"0000000000000000000000000000000000000000000000000000000000000000",
-      "method":"request",
-      "rel":"ETOMIC",
-      "rel_amount":"1",
-      "rel_amount_rat":[[1,[1]],[1,[1]]],
-      "sender_pubkey":"031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
-      "uuid":"ea199ac4-b216-4a04-9f08-ac73aa06ae37"
+    "request": {
+      "action": "Buy",
+      "base": "BEER",
+      "base_amount": "1",
+      "base_amount_rat": [
+        [1, [1]],
+        [1, [1]]
+      ],
+      "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
+      "method": "request",
+      "rel": "ETOMIC",
+      "rel_amount": "1",
+      "rel_amount_rat": [
+        [1, [1]],
+        [1, [1]]
+      ],
+      "sender_pubkey": "031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3",
+      "uuid": "ea199ac4-b216-4a04-9f08-ac73aa06ae37"
     }
   },
-  "type":"Taker"
+  "type": "Taker"
 }
 ```
 
@@ -2449,7 +2563,7 @@ The `orderbook` method requests from the network the currently available orders 
 | address        | string           | the address offering the trade                                                |
 | price          | string (decimal) | the price in `rel` the user is willing to pay per one unit of the `base` coin |
 | price_rat      | rational         | the price in rational representation                                          |
-| maxvolume      | string (decimal) | the maximum amount of `base` coin the offer provider is willing to sell      |
+| maxvolume      | string (decimal) | the maximum amount of `base` coin the offer provider is willing to sell       |
 | max_volume_rat | rational         | the max volume in rational representation                                     |
 | pubkey         | string           | the pubkey of the offer provider                                              |
 | age            | number           | the age of the offer                                                          |
@@ -2477,28 +2591,34 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "askdepth":0,
-  "asks":[
+  "askdepth": 0,
+  "asks": [
     {
       "coin": "HELLO",
       "address": "RJTYiYeJ8eVvJ53n2YbrVmxWNNMVZjDGLh",
       "price": "1.33333333",
-      "price_rat":[[1,[4]],[1,[3]]],
-      "maxvolume":997.0,
-      "max_volume_rat":[[1,[997]],[1,[1]]],
-      "pubkey":"631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
-      "age":1,
-      "zcredits":0
+      "price_rat": [
+        [1, [4]],
+        [1, [3]]
+      ],
+      "maxvolume": 997.0,
+      "max_volume_rat": [
+        [1, [997]],
+        [1, [1]]
+      ],
+      "pubkey": "631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640",
+      "age": 1,
+      "zcredits": 0
     }
   ],
-  "base":"HELLO",
-  "biddepth":0,
-  "bids":[],
-  "netid":9999,
-  "numasks":1,
-  "numbids":0,
-  "rel":"WORLD",
-  "timestamp":1568807329
+  "base": "HELLO",
+  "biddepth": 0,
+  "bids": [],
+  "netid": 9999,
+  "numasks": 1,
+  "numbids": 0,
+  "rel": "WORLD",
+  "timestamp": 1568807329
 }
 ```
 
@@ -2506,7 +2626,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## recover\_funds\_of\_swap
+## recover_funds_of_swap
 
 **recover_funds_of_swap uuid**
 
@@ -2518,18 +2638,18 @@ In this scenario, the `recover_funds_of_swap` method instructs the MM2 software 
 
 #### Arguments
 
-| Structure | Type   | Description                                                                         |
-| --------- | ------ | ----------------------------------------------------------------------------------- |
-| params.uuid | string | uuid of the swap to recover the funds                                             |
+| Structure   | Type   | Description                           |
+| ----------- | ------ | ------------------------------------- |
+| params.uuid | string | uuid of the swap to recover the funds |
 
 #### Response
 
-| Structure | Type             | Description |
-| --------- | ---------------- | ----------- |
-| result.action | string       | the action executed to unlock the funds. Can be either `SpentOtherPayment` or `RefundedMyPayment` |
-| result.coin   | string       | the balance of this coin will be unstuck by the recovering transaction |
-| result.tx_hash| string       | the hash of the recovering transaction |
-| result.tx_hex | string       | raw bytes of the recovering transaction in hexadecimal representation |
+| Structure      | Type   | Description                                                                                       |
+| -------------- | ------ | ------------------------------------------------------------------------------------------------- |
+| result.action  | string | the action executed to unlock the funds. Can be either `SpentOtherPayment` or `RefundedMyPayment` |
+| result.coin    | string | the balance of this coin will be unstuck by the recovering transaction                            |
+| result.tx_hash | string | the hash of the recovering transaction                                                            |
+| result.tx_hex  | string | raw bytes of the recovering transaction in hexadecimal representation                             |
 
 #### :pushpin: Examples
 
@@ -2547,11 +2667,11 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result":{
-    "action":"SpentOtherPayment",
-    "coin":"HELLO",
-    "tx_hash":"696571d032976876df94d4b9994ee98faa870b44fbbb4941847e25fb7c49b85d",
-    "tx_hex":"0400008085202f890113591b1feb52878f8aea53b658cf9948ba89b0cb27ad0cf30b59b5d3ef6d8ef700000000d8483045022100eda93472c1f6aa18aacb085e456bc47b75ce88527ed01c279ee1a955e85691b702201adf552cfc85cecf588536d5b8257d4969044dde86897f2780e8c122e3a705e40120576fa34d308f39b7a704616656cc124232143565ca7cf1c8c60d95859af8f22d004c6b63042555555db1752102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac6782012088a9146e602d4affeb86e4ee208802901b8fd43be2e2a4882102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac68ffffffff0198929800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac0238555d000000000000000000000000000000"
+  "result": {
+    "action": "SpentOtherPayment",
+    "coin": "HELLO",
+    "tx_hash": "696571d032976876df94d4b9994ee98faa870b44fbbb4941847e25fb7c49b85d",
+    "tx_hex": "0400008085202f890113591b1feb52878f8aea53b658cf9948ba89b0cb27ad0cf30b59b5d3ef6d8ef700000000d8483045022100eda93472c1f6aa18aacb085e456bc47b75ce88527ed01c279ee1a955e85691b702201adf552cfc85cecf588536d5b8257d4969044dde86897f2780e8c122e3a705e40120576fa34d308f39b7a704616656cc124232143565ca7cf1c8c60d95859af8f22d004c6b63042555555db1752102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac6782012088a9146e602d4affeb86e4ee208802901b8fd43be2e2a4882102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac68ffffffff0198929800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac0238555d000000000000000000000000000000"
   }
 }
 ```
@@ -2560,11 +2680,11 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "result":{
-    "action":"RefundedMyPayment",
-    "coin":"HELLO",
-    "tx_hash":"696571d032976876df94d4b9994ee98faa870b44fbbb4941847e25fb7c49b85d",
-    "tx_hex":"0400008085202f890113591b1feb52878f8aea53b658cf9948ba89b0cb27ad0cf30b59b5d3ef6d8ef700000000d8483045022100eda93472c1f6aa18aacb085e456bc47b75ce88527ed01c279ee1a955e85691b702201adf552cfc85cecf588536d5b8257d4969044dde86897f2780e8c122e3a705e40120576fa34d308f39b7a704616656cc124232143565ca7cf1c8c60d95859af8f22d004c6b63042555555db1752102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac6782012088a9146e602d4affeb86e4ee208802901b8fd43be2e2a4882102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac68ffffffff0198929800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac0238555d000000000000000000000000000000"
+  "result": {
+    "action": "RefundedMyPayment",
+    "coin": "HELLO",
+    "tx_hash": "696571d032976876df94d4b9994ee98faa870b44fbbb4941847e25fb7c49b85d",
+    "tx_hex": "0400008085202f890113591b1feb52878f8aea53b658cf9948ba89b0cb27ad0cf30b59b5d3ef6d8ef700000000d8483045022100eda93472c1f6aa18aacb085e456bc47b75ce88527ed01c279ee1a955e85691b702201adf552cfc85cecf588536d5b8257d4969044dde86897f2780e8c122e3a705e40120576fa34d308f39b7a704616656cc124232143565ca7cf1c8c60d95859af8f22d004c6b63042555555db1752102631dcf1d4b1b693aa8c2751afc68e4794b1e5996566cfc701a663f8b7bbbe640ac6782012088a9146e602d4affeb86e4ee208802901b8fd43be2e2a4882102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ac68ffffffff0198929800000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac0238555d000000000000000000000000000000"
   }
 }
 ```
@@ -2572,13 +2692,17 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 #### Response (error - maker payment was already spent)
 
 ```json
-{"error":"lp_swap:702] lp_swap:412] taker_swap:890] Maker payment is spent, swap is not recoverable"}
+{
+  "error": "lp_swap:702] lp_swap:412] taker_swap:890] Maker payment is spent, swap is not recoverable"
+}
 ```
 
 #### Response (error - swap is not finished yet)
 
 ```json
-{"error":"lp_swap:702] lp_swap:412] taker_swap:886] Swap must be finished before recover funds attempt"}
+{
+  "error": "lp_swap:702] lp_swap:412] taker_swap:886] Swap must be finished before recover funds attempt"
+}
 ```
 
 </collapse-text>
@@ -2649,12 +2773,18 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "action": "Sell",
     "base": "BASE",
     "base_amount": "1",
-    "base_amount_rat": [[1,[1]],[1,[1]]],
+    "base_amount_rat": [
+      [1, [1]],
+      [1, [1]]
+    ],
     "dest_pub_key": "0000000000000000000000000000000000000000000000000000000000000000",
     "method": "request",
     "rel": "REL",
     "rel_amount": "1",
-    "rel_amount_rat": [[1,[1]],[1,[1]]],
+    "rel_amount_rat": [
+      [1, [1]],
+      [1, [1]]
+    ],
     "sender_pubkey": "c213230771ebff769c58ade63e8debac1b75062ead66796c8d793594005f3920",
     "uuid": "d14452bb-e82d-44a0-86b0-10d4cdcb8b24"
   }
@@ -2673,7 +2803,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## send\_raw\_transaction
+## send_raw_transaction
 
 **send_raw_transaction coin tx_hex**
 
@@ -2737,21 +2867,21 @@ The `setprice` order is always considered a `sell`, for internal implementation 
 
 #### Response
 
-| Structure               | Type             | Description                                                                                                                                          |
-| ----------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| result                  | object           | the resulting order object                                                                                                                           |
-| result.base             | string           | the base coin of the order                                                                                                                           |
-| result.rel              | string           | the rel coin of the order                                                                                                                            |
-| result.price            | string (numeric) | the expected amount of `rel` coin to be received per 1 unit of `base` coin; decimal representation                                                   |
-| result.price_rat        | rational         | the expected amount of `rel` coin to be received per 1 unit of `base` coin; rational representation                                                  |
-| result.max_base_vol     | string (numeric) | the maximum volume of base coin available to trade; decimal representation                                                                           |
-| result.max_base_vol_rat | rational         | the maximum volume of base coin available to trade; rational representation                                                                          |
-| result.min_base_vol     | string (numeric) | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; decimal representation                                             |
-| result.min_base_vol_rat | rational         | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; rational representation                                            |
-| result.created_at       | number           | unix timestamp in milliseconds, indicating the order creation time                                                                                   |
-| result.matches          | object           | contains the map of ongoing matches with other orders, empty as the order was recently created                                                       |
-| result.started_swaps    | array of strings | uuids of swaps that were initiated by the order                                                                                                      |
-| result.uuid             | string           | uuid of the created order                                                                                                                            |
+| Structure               | Type             | Description                                                                                               |
+| ----------------------- | ---------------- | --------------------------------------------------------------------------------------------------------- |
+| result                  | object           | the resulting order object                                                                                |
+| result.base             | string           | the base coin of the order                                                                                |
+| result.rel              | string           | the rel coin of the order                                                                                 |
+| result.price            | string (numeric) | the expected amount of `rel` coin to be received per 1 unit of `base` coin; decimal representation        |
+| result.price_rat        | rational         | the expected amount of `rel` coin to be received per 1 unit of `base` coin; rational representation       |
+| result.max_base_vol     | string (numeric) | the maximum volume of base coin available to trade; decimal representation                                |
+| result.max_base_vol_rat | rational         | the maximum volume of base coin available to trade; rational representation                               |
+| result.min_base_vol     | string (numeric) | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; decimal representation  |
+| result.min_base_vol_rat | rational         | MM2 won't match with other orders that attempt to trade less than `min_base_vol`; rational representation |
+| result.created_at       | number           | unix timestamp in milliseconds, indicating the order creation time                                        |
+| result.matches          | object           | contains the map of ongoing matches with other orders, empty as the order was recently created            |
+| result.started_swaps    | array of strings | uuids of swaps that were initiated by the order                                                           |
+| result.uuid             | string           | uuid of the created order                                                                                 |
 
 #### :pushpin: Examples
 
@@ -2779,13 +2909,22 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
     "base": "BASE",
     "rel": "REL",
     "max_base_vol": "1",
-    "max_base_vol_rat": [[1,[1]],[1,[1]]],
+    "max_base_vol_rat": [
+      [1, [1]],
+      [1, [1]]
+    ],
     "min_base_vol": "0",
-    "min_base_vol": [[0,[]],[1,[1]]],
+    "min_base_vol": [
+      [0, []],
+      [1, [1]]
+    ],
     "created_at": 1559052299258,
     "matches": {},
     "price": "1",
-    "price_rat": [[1,[1]],[1,[1]]],
+    "price_rat": [
+      [1, [1]],
+      [1, [1]]
+    ],
     "started_swaps": [],
     "uuid": "6a242691-6c05-474a-85c1-5b3f42278f41"
   }
@@ -2802,7 +2941,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 </div>
 
-## set\_required\_confirmations
+## set_required_confirmations
 
 **set_required_confirmations coin confirmations**
 
@@ -2816,17 +2955,17 @@ Please note that this setting is _**not**_ persistent. The value must be reset i
 
 #### Arguments
 
-| Structure       | Type             | Description                                                                                                              |
-| --------------- | ---------------- | ------------------------------------------------------------- |
-| coin            | string           | the ticker of the selected coin                               |
-| confirmations   | number           | the number of confirmations to require                        |
+| Structure     | Type   | Description                            |
+| ------------- | ------ | -------------------------------------- |
+| coin          | string | the ticker of the selected coin        |
+| confirmations | number | the number of confirmations to require |
 
 #### Response
 
-| Structure            | Type             | Description                                                                                                                                          |
-| -------------------- | ---------------- | -------------------------------------------------------- |
-| result.coin          | string           | the coin selected in the request                         |
-| result.confirmations | number           | the number of confirmations in the request               |
+| Structure            | Type   | Description                                |
+| -------------------- | ------ | ------------------------------------------ |
+| result.coin          | string | the coin selected in the request           |
+| result.confirmations | number | the number of confirmations in the request |
 
 #### :pushpin: Examples
 
@@ -2925,16 +3064,16 @@ This method generates a raw transaction which should then be broadcast using [se
 
 #### Arguments
 
-| Structure     | Type             | Description                                                      |
-| ---------     | ---------------- | ---------------------------------------------------------------- |
-| coin          | string           | the name of the coin the user desires to withdraw                |
-| to            | string           | coins will be withdrawn to this address                          |
-| amount        | string (numeric) | the amount the user desires to withdraw, ignored when `max=true` |
-| max           | bool             | withdraw the maximum available amount                            |
-| fee.type      | string           | type of transaction fee; possible values: `UtxoFixed`, `UtxoPerKbyte`, `EthGas` |
+| Structure     | Type             | Description                                                                                                                               |
+| ------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| coin          | string           | the name of the coin the user desires to withdraw                                                                                         |
+| to            | string           | coins will be withdrawn to this address                                                                                                   |
+| amount        | string (numeric) | the amount the user desires to withdraw, ignored when `max=true`                                                                          |
+| max           | bool             | withdraw the maximum available amount                                                                                                     |
+| fee.type      | string           | type of transaction fee; possible values: `UtxoFixed`, `UtxoPerKbyte`, `EthGas`                                                           |
 | fee.amount    | string (numeric) | fee amount in coin units, used only when type is `UtxoFixed` (fixed amount not depending on tx size) or `UtxoPerKbyte` (amount per Kbyte) |
-| fee.gas_price | string (numeric) | used only when fee type is EthGas; sets the gas price in `gwei` units |
-| fee.gas       | number (integer) | used only when fee type is EthGas; sets the gas limit for transaction |
+| fee.gas_price | string (numeric) | used only when fee type is EthGas; sets the gas price in `gwei` units                                                                     |
+| fee.gas       | number (integer) | used only when fee type is EthGas; sets the gas limit for transaction                                                                     |
 
 #### Response
 
@@ -2942,7 +3081,7 @@ This method generates a raw transaction which should then be broadcast using [se
 | ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | from              | array of strings | coins will be withdrawn from this address; the array contains a single element, but transactions may be sent from several addresses (UTXO coins)                              |
 | to                | array of strings | coins will be withdrawn to this address; this may contain the `my_address` address, where change from UTXO coins is sent                                                      |
-| my_balance_change | string (numeric) | the expected balance of change in `my_address` after the transaction broadcasts                                                                                                              |
+| my_balance_change | string (numeric) | the expected balance of change in `my_address` after the transaction broadcasts                                                                                               |
 | received_by_me    | string (numeric) | the amount of coins received by `my_address` after the transaction broadcasts; the value may be above zero when the transaction requires that MM2 send change to `my_address` |
 | spent_by_me       | string (numeric) | the amount of coins spent by `my_address`; this value differ from the request amount, as the transaction fee is added here                                                    |
 | total_amount      | string (numeric) | the total amount of coins transferred                                                                                                                                         |
@@ -3000,28 +3139,28 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"R
 
 ```json
 {
-  "tx_hex":"0400008085202f8901ef25b1b7417fe7693097918ff90e90bba1351fff1f3a24cb51a9b45c5636e57e010000006b483045022100b05c870fcd149513d07b156e150a22e3e47fab4bb4776b5c2c1b9fc034a80b8f022038b1bf5b6dad923e4fb1c96e2c7345765ff09984de12bbb40b999b88b628c0f9012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac8cbaae5f010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ace87a5e5d000000000000000000000000000000",
-  "tx_hash":"1ab3bc9308695960bc728fa427ac00d1812c4ae89aaa714c7618cb96d111be58",
-  "from":["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
-  "to":["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
-  "total_amount":"60.10253836",
-  "spent_by_me":"60.10253836",
-  "received_by_me":"60.00253836",
-  "my_balance_change":"-0.1",
-  "block_height":0,
-  "timestamp":1566472936,
-  "fee_details":{
-    "amount":"0.1"
+  "tx_hex": "0400008085202f8901ef25b1b7417fe7693097918ff90e90bba1351fff1f3a24cb51a9b45c5636e57e010000006b483045022100b05c870fcd149513d07b156e150a22e3e47fab4bb4776b5c2c1b9fc034a80b8f022038b1bf5b6dad923e4fb1c96e2c7345765ff09984de12bbb40b999b88b628c0f9012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ac8cbaae5f010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788ace87a5e5d000000000000000000000000000000",
+  "tx_hash": "1ab3bc9308695960bc728fa427ac00d1812c4ae89aaa714c7618cb96d111be58",
+  "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+  "to": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+  "total_amount": "60.10253836",
+  "spent_by_me": "60.10253836",
+  "received_by_me": "60.00253836",
+  "my_balance_change": "-0.1",
+  "block_height": 0,
+  "timestamp": 1566472936,
+  "fee_details": {
+    "amount": "0.1"
   },
-  "coin":"RICK",
-  "internal_id":""
+  "coin": "RICK",
+  "internal_id": ""
 }
 ```
 
 #### Response (error - attempt to use EthGas for UTXO coin)
 
 ```json
-{"error":"utxo:1295] Unsupported input fee type"}
+{ "error": "utxo:1295] Unsupported input fee type" }
 ```
 
 </collapse-text>
@@ -3042,28 +3181,28 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"R
 
 ```json
 {
-  "tx_hex":"0400008085202f890258be11d196cb18764c71aa9ae84a2c81d100ac27a48f72bc6059690893bcb31a000000006b483045022100ef11280e981be280ca5d24c947842ca6a8689d992b73e3a7eb9ff21070b0442b02203e458a2bbb1f2bf8448fc47c51485015904a5271bb17e14be5afa6625d67b1e8012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff58be11d196cb18764c71aa9ae84a2c81d100ac27a48f72bc6059690893bcb31a010000006b483045022100daaa10b09e7abf9d4f596fc5ac1f2542b8ecfab9bb9f2b02201644944ddc0280022067aa1b91ec821aa48f1d06d34cd26fb69a9f27d59d5eecdd451006940d9e83db012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788acf31c655d010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788accd7c5e5d000000000000000000000000000000",
-  "tx_hash":"fd115190feec8c0c14df2696969295c59c674886344e5072d64000379101b78c",
-  "from":["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
-  "to":["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
-  "total_amount":"60.00253836",
-  "spent_by_me":"60.00253836",
-  "received_by_me":"59.61874931",
-  "my_balance_change":"-0.38378905",
-  "block_height":0,
-  "timestamp":1566473421,
-  "fee_details":{
-    "amount":"0.38378905"
+  "tx_hex": "0400008085202f890258be11d196cb18764c71aa9ae84a2c81d100ac27a48f72bc6059690893bcb31a000000006b483045022100ef11280e981be280ca5d24c947842ca6a8689d992b73e3a7eb9ff21070b0442b02203e458a2bbb1f2bf8448fc47c51485015904a5271bb17e14be5afa6625d67b1e8012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff58be11d196cb18764c71aa9ae84a2c81d100ac27a48f72bc6059690893bcb31a010000006b483045022100daaa10b09e7abf9d4f596fc5ac1f2542b8ecfab9bb9f2b02201644944ddc0280022067aa1b91ec821aa48f1d06d34cd26fb69a9f27d59d5eecdd451006940d9e83db012102031d4256c4bc9f99ac88bf3dba21773132281f65f9bf23a59928bce08961e2f3ffffffff0200e1f505000000001976a91405aab5342166f8594baf17a7d9bef5d56744332788acf31c655d010000001976a91405aab5342166f8594baf17a7d9bef5d56744332788accd7c5e5d000000000000000000000000000000",
+  "tx_hash": "fd115190feec8c0c14df2696969295c59c674886344e5072d64000379101b78c",
+  "from": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+  "to": ["R9o9xTocqr6CeEDGDH6mEYpwLoMz6jNjMW"],
+  "total_amount": "60.00253836",
+  "spent_by_me": "60.00253836",
+  "received_by_me": "59.61874931",
+  "my_balance_change": "-0.38378905",
+  "block_height": 0,
+  "timestamp": 1566473421,
+  "fee_details": {
+    "amount": "0.38378905"
   },
-  "coin":"RICK",
-  "internal_id":""
+  "coin": "RICK",
+  "internal_id": ""
 }
 ```
 
 #### Response (error - attempt to use EthGas for UTXO coin)
 
 ```json
-{"error":"utxo:1295] Unsupported input fee type"}
+{ "error": "utxo:1295] Unsupported input fee type" }
 ```
 
 </collapse-text>
@@ -3093,7 +3232,7 @@ curl --url "http://127.0.0.1:7783" --data "{\"method\":\"withdraw\",\"coin\":\"E
     "total_fee": "0.000021"
   },
   "from": ["0xbab36286672fbdc7b250804bf6d14be0df69fa29"],
-  "my_balance_change": ",-10.000021",
+  "my_balance_change": "-10.000021",
   "received_by_me": "0",
   "spent_by_me": "10.000021",
   "to": ["0xbab36286672fbdc7b250804bf6d14be0df69fa28"],
@@ -3121,31 +3260,31 @@ curl --url "http://127.0.0.1:7783" --data "{\"userpass\":\"$userpass\",\"method\
 
 ```json
 {
-  "tx_hex":"f86d820b2884d09dc30082d6d894bab36286672fbdc7b250804bf6d14be0df69fa29888ac7230489e80000801ca0ef0167b0e53ed50d87b6fd630925f2bce6ee72e9b5fdb51c6499a7caaecaed96a062e5cb954e503ff83f2d6ce082649fdcdf8a77c8d37c7d26d46d3f736b228d10",
-  "tx_hash":"a26c4dcacf63c04e385dd973ca7e7ca1465a3b904a0893bcadb7e37681d38c95",
-  "from":["0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29"],
-  "to":["0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29"],
-  "total_amount":"10",
-  "spent_by_me":"10.0001925",
-  "received_by_me":"10",
-  "my_balance_change":"-0.0001925",
-  "block_height":0,
-  "timestamp":1566474670,
-  "fee_details":{
-    "coin":"ETH",
-    "gas":55000,
-    "gas_price":"0.0000000035",
-    "total_fee":"0.0001925"
+  "tx_hex": "f86d820b2884d09dc30082d6d894bab36286672fbdc7b250804bf6d14be0df69fa29888ac7230489e80000801ca0ef0167b0e53ed50d87b6fd630925f2bce6ee72e9b5fdb51c6499a7caaecaed96a062e5cb954e503ff83f2d6ce082649fdcdf8a77c8d37c7d26d46d3f736b228d10",
+  "tx_hash": "a26c4dcacf63c04e385dd973ca7e7ca1465a3b904a0893bcadb7e37681d38c95",
+  "from": ["0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29"],
+  "to": ["0xbAB36286672fbdc7B250804bf6D14Be0dF69fa29"],
+  "total_amount": "10",
+  "spent_by_me": "10.0001925",
+  "received_by_me": "10",
+  "my_balance_change": "-0.0001925",
+  "block_height": 0,
+  "timestamp": 1566474670,
+  "fee_details": {
+    "coin": "ETH",
+    "gas": 55000,
+    "gas_price": "0.0000000035",
+    "total_fee": "0.0001925"
   },
-  "coin":"ETH",
-  "internal_id":""
+  "coin": "ETH",
+  "internal_id": ""
 }
 ```
 
 #### Response (error - attempt to use UtxoFixed or UtxoPerKbyte for ETH coin)
 
 ```json
-{"error":"eth:369] Unsupported input fee type"}
+{ "error": "eth:369] Unsupported input fee type" }
 ```
 
 </collapse-text>
