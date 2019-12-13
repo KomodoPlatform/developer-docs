@@ -101,9 +101,7 @@ Should the debt of a user's account surpass the `90%` threshold, the account ent
 
 Here, a third-party user can gain an immediate `5%` rate of return by sending `USDK` coins to the Pegs Module to liquidate the indebted user's account. The third-party user must deposit `USDK` to cover the user's whole debt, valued at 90% of the indebted account's `KMD` tokens, according to current prices. 
 
-In return, the liquidating user receives 95% of the `KMD` tokens in the indebted user's account. These `KMD` tokens can be redeemed on the `KMD` chain and held as profit.
-
-In return, the third-party user receives `15%` of the user's deposited `KMD` tokens, netting the third-party user an immediate `5%` rate of return.
+In return, the third-party user receives 95% of the `KMD` tokens in the indebted user's account. These `KMD` tokens can be redeemed on the `KMD` chain and held as profit.
 
 The `USDK` coins sent by the third-party user are burned.
 
