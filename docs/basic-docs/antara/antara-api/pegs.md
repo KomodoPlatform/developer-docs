@@ -103,11 +103,11 @@ Here, a third-party user can gain an immediate `5%` rate of return by sending `U
 
 In return, the third-party user receives 95% of the `KMD` tokens in the indebted user's account. These `KMD` tokens can be redeemed on the `KMD` chain and held as profit.
 
-The liquidated user still holds his USDK coins and can exchange them for KMD tokens from some account in yellow zone.
-
-The `USDK` coins sent by the third-party user are burned.
+The `USDK` coins sent by the third-party user are burned.  
 
 The remaining of the indebted user's `KMD` tokens are donated to the Pegs Antara Module, where they continue to support the maintenance of a healthy stablecoin and `KMD:USDK` ratio balance. In case the account debt was 90% exact at the moment of liquidation the remaining will be `5%`. 
+
+The liquidated user still holds their USDK coins and can exchange them for KMD tokens from another account that is in the yellow zone.
 
 ###### Preventing Account Liquidation
 
