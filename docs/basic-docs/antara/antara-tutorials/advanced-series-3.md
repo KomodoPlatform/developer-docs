@@ -228,7 +228,7 @@ In the above example data structure, note how the value for the key, `asm`, begi
 
 Taking the value in the fully encoded key-value pair, `hex`, here is an approximate breakdown of the data.
 
-| Translation | Hex Value |
+| Hex Value | Translation |
 | ----------- | --------- |
 | 6a | OP_RETURN |
 | 4c85 | Encoded length of the following data. This value is not a string, the value is encoded in the Smart Bitcoin variable length format, and the value is not directly readable. | 

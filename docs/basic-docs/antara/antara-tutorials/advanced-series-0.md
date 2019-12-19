@@ -56,17 +56,21 @@ Through Antara, the developer receives a powerful tool for creating and executin
 
 #### Building an Antara Module is Harder Than Creating a Balance-Based Smart Contract 
 
-Antara Modules are fundamentally different than the "smart contracts" that are familiar on other blockchain platforms. The key difference is that Antara Modules directly rely on ["unspent transactions,"](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept) which are called "utxos" for brevity. Balance-based smart contracts, on the other hand, rely on the total balance of funds held within an address. 
+Antara Modules are fundamentally different than the "smart contracts" that are familiar on other blockchain platforms. The key difference is that Antara Modules directly rely on ["unspent transactions,"](../../../basic-docs/start-here/core-technology-discussions/miscellaneous.html#the-utxo-an-elusive-yet-fundamental-concept) which are called "utxos" for brevity. Balance-based smart contracts, on the other hand, rely on the total balance of funds held within an address.
 
-Utxo-based modules are harder to create than balance-based smart contracts. However, utxo-based modules result in dramatically more powerful and secure functionality, as they leverage the existing Bitcoin-utxo system. 
+Utxo-based modules are harder to create than balance-based smart contracts. However, because utxo-based modules leverage the existing Bitcoin-utxo system, they result in more powerful functionality that can even be more secure than a smart contract.
 
-For example, with balance-based smart contracts, a bug in the smart-contract language can result in terrible events, such as the malicious printing of new coins in a smart contract, or the draining of all funds within a shared contract. Events such as these can happen even when the smart-contract author is a competent developer.
+For example, within balance-based smart contracts transactions do not have to pass a full review by the consensus mechanism of the underlying blockchain. Instead, most of the transaction verification happens within [a decentralized virtual machine](https://bitcoin.eu/top-8-blockchain-virtual-machines-for-decentralized-applications/) that executes code written by a developer.
 
-In a utxo-based module, the risk of such events is exponentially reduced. One reason utxo-based modules are more secure is that every update of the blockchain's state must be executed as a transaction, and therefore the data must pass the normal rules of consensus. 
+In this situation, all developers involved in a smart contract must maintain a high level of programming awareness to avoid disasters, such as those seen in [the Parity Attack.](http://hackingdistributed.com/2017/07/22/deep-dive-parity-bug/) Furthermore, a typical smart contract has access to the full balance held in the wallets of all users who are actively engaged with the contract. If a developer makes a mistake in their code, the full balance associated with the smart contract is vulnerable.
 
-Komodo is based on the Bitcoin protocol, and therefore Komodo's Smart Chain consensus mechanism is built on the most rigorously tested and heavily supported software in the industry. Balance-based smart contracts cannot compare to this level of security.
+In a utxo-based module these risks are reduced. One reason utxo-based modules are more secure is that every update of the blockchain's state must be executed as a Bitcoin-protocol based transaction — as opposed to using a virtual-machine with a developer-created transaction. Creating a transaction that passes the Bitcoin protocol's security checks, while more challenging, grants a higher level of security to the final code.
 
-As the developer engages with Antara Module development, they can learn how utxo-based modules allow for increased speed in achieving consensus, greater simplicity in software architecture, more flexible functionality between Smart Chains, and many more superior features. 
+Furthermore, any mistakes that a developer does make in a utxo-based module risk only those funds that are held in utxos that are committed to the Antara Module — as opposed to the entire balance of the wallet associated with a smart contract.
+
+Balance-based smart contracts that use the popular virtual-machine model cannot compare to the security measures offered by the Bitcoin-protocol's consensus mechanism that is featured in a Komodo Smart Chain.
+
+As the developer engages with Antara Module development, they can learn how utxo-based modules allow for increased speed in achieving consensus, greater simplicity in software architecture, more flexible functionality between Smart Chains, and many more superior features.
 
 #### A Brief Look at an Antara Module Template
 

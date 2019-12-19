@@ -50,7 +50,7 @@ To spend a CC output of a transaction, a node on the network sends a spending tr
 
 For our example above of an electronic signature, the consensus mechanism runs the logical conditions and fulfillments of the CryptoCondition to verify the electronic signature with the provided pubkey. Then the validation logic calculates the fingerprint of the pubkey and checks it against the condition.
 
-In adding Cryptoconditions to the Antara framework, Komodo extended the original CC protocol by adding an additional aspect beyond the inputs and outputs. This additional part is called the <b>EVAL</b> CryptoCondition, or eval code.
+In adding CryptoConditions to the Antara framework, Komodo extended the original CC protocol by adding an additional aspect beyond the inputs and outputs. This additional part is called the <b>EVAL</b> CryptoCondition, or eval code.
 
 Each Antara Module has its own unique eval code. The eval code is a number between 0 and 255, and it identifies the specific Antara Module that is associated with a CC transaction. When the consensus validation logic encounters the Antara Module's eval code in a transaction input, the validation logic calls the module's validation function.
 
@@ -167,7 +167,7 @@ Include other RPC implementations as desired.
 
 #### Antara Module Validation Code
 
-The main purpose of Antara Module validation code is two-fold. First, it ensures that the structure of the sequence of an Antara Module related transactions and their data is accurate. Second, the validation code prevents inappropriate Antara-related transactions from entering the chain. In other words, module validation code should protect against malicious transactions, and this is the code's most important task.
+The main purpose of Antara Module validation code is two-fold. First, it ensures that the structure of the sequence of Antara Module related transactions and their data is accurate. Second, the validation code prevents inappropriate Antara-related transactions from entering the chain. In other words, module validation code should protect against malicious transactions, and this is the code's most important task.
 
 Antara Module Validation code is triggered anytime a node attempts to add a CC spending-transaction to the chain.
 
