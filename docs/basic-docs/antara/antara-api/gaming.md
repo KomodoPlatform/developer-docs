@@ -1,598 +1,294 @@
 ---
-sidebarDepth: 2
+sidebarDepth: 3
 ---
 
 # Gaming
 
 ## Introduction
 
-The Faucet Antara Module enables anyone to fund an on-chain faucet on any chain where modules are [enabled.](../../../basic-docs/antara/antara-setup/antara-customizations.html#ac-cc) A Smart Chain may have only one on-chain `faucet`.
+Welcome to the Antara Gaming SDK documentation. This module-based software is programmed in C++ 17 and is designed for high-speed runtime execution.
 
-To receive funds from a `faucet`, the [faucetget](../../../basic-docs/antara/antara-api/faucet.html#faucetget) method can be executed by anyone on the Smart Chain, as long as their public address satisfies a few constraints. Their daemon's pubkey (corresponding to the address) must have no history of funds or transactions, and an address can claim faucet funds only once on a chain. The call also requires the node to perform a small PoW calculation; this deters leeching.
+::: tip
 
-When `faucetget` is executed, the on-chain `faucet` sends 0.1 coins to the address that corresponds to the node's pubkey. This requires about 30 seconds of CPU time.
+The modules of the Antara Gaming SDK rely on other modules, such as [Oracles](./oracles.html)
 
-## faucetaddress
+:::
 
-**faucetaddress [pubkey]**
+## antara::gaming::config
 
-The `faucetaddress` method returns the Antara address information for the specified pubkey. If no pubkey is provided, the method returns information for the pubkey used to launch the daemon.
+The `antara::gaming::config` class provides a function to load customized configuration settings for the Antara Gaming SDK.
 
-### Arguments
+### load\_configuration
 
-| Name   | Type               | Description                                                                                       |
-| ------ | ------------------ | ------------------------------------------------------------------------------------------------- |
-| pubkey | (string, optional) | the desired pubkey; the method uses the pubkey used to launch the daemon if no pubkey is provided |
+The `load_configuration` function loads customizable configuration settings from a path and filename. 
+
+- If the parameter path does not exist the function attempts to create the directories of the given path
+- If the configuration does not exist, the function creates a default configuration
+- If the path and the name of the file exists, the function loads the configuration contents 
+
+#### Usage Pattern
+
+```
+template<typename TConfig>
+
+TConfig antara::gaming::config::load_configuration(std::filesystem::path &&config_path, std::string filename)
+```
+
+#### Template Parameters
+
+| Name    | Type | Description                                                                                       |
+| ------- | ---- | ------------------------------------------------------------------------------------------------- |
+| TConfig | typename | the type of template to load                                                                      |
+
+#### Function Parameters
+
+| Name   | Type | Description                                                                                        |
+| ------ | ---- |  ------------------------------------------------------------------------------------------------- |
+| config\_path | std::filesystem::path | the path to the directory in which the configuration file is located        |
+| filename | std::string | the name of the configuration file                                                        |
+
+#### Response
+
+| Name            | Type     | Description                                                                                                                      |
+| --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| TConfig          |template | the template                                                             |
+
+#### :pushpin: Example
+
+```c
+auto cfg = config::load_configuration<my_game::config>(std::filesystem::current_path() / "assets/config", "my_game.config.json");
+``` 
+
+## antara::gaming::core
+
+The `antara::gaming::core` class provides functions and information relevant to
+the core Antara Gaming SDK library.
+
+### version
+
+The `version` function returns the current version of the Antara Gaming SDK.
+
+::: tip
+
+The result of this function can be deduced at compile time.
+
+:::
+
+#### Usage Pattern
+
+```
+#include <antara/gaming/core/version.hpp>
+
+constexpr const char *antara::gaming::version()
+```
+
+### Function Parameters
+
+| Name   | Type | Description                                                                                       |
+| ------ | ---- | ------------------------------------------------------------------------------------------------- |
+| (none) | |  |
 
 ### Response
 
 | Name            | Type     | Description                                                                                                                      |
 | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| FaucetCCaddress | (string) | taking the faucet module's `EVAL` code as a modifier, this is the public address that corresponds to the faucet module's privkey |
-| Faucetmarker    | (string) | the internal address (not related to usage of faucet)                                                                            |
-| FaucetCCassets  | (string) | the internal address (not related to usage of faucet)                                                                            |
-| GatewaysPubkey  | (string) | the global pubkey for this Gateways module                                                                                       |
-| CCaddress       | (string) | taking the faucet module's `EVAL` code as a modifier, this is the Antara address from the pubkey of the user                     |
-| myCCaddress     | (string) | taking the faucet module's `EVAL` code as a modifier, this is the Antara address from the pubkey of the user                     |
-| myaddress       | (string) | the unmodified public address of the pubkey used to launch the chain                                                             |
+| current version          | const char * | the current version of the Antara Gaming SDK                                                              |
 
-#### :pushpin: Examples
+#### :pushpin: Example
 
-Command:
+```c
+#include <iostream>
+#include <antara/gaming/core/version.hpp>
 
-```bash
-./komodo-cli -ac_name=HELLOWORLD faucetaddress 03336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "result": "success",
-  "FaucetCCAddress": "R9zHrofhRbub7ER77B7NrVch3A63R39GuC",
-  "FaucetCCBalance": 0.0,
-  "FaucetNormalAddress": "RKQV4oYs4rvxAWx1J43VnT73rSTVtUeckk",
-  "FaucetNormalBalance": 0.0,
-  "FaucetCCTokensAddress": "RKaT8VfRSsu4qWL2kfW3PCzejrzJxi1TcJ",
-  "PubkeyCCaddress(Faucet)": "RReGLfH2MTrkeLSepkVy5vnQPE29g7KofS",
-  "PubkeyCCbalance(Faucet)": 0.0,
-  "myCCAddress(Faucet)": "RTedsYkavdn39m2jrQcKjCnq4MvikGCiZS",
-  "myCCbalance(Faucet)": 0.0,
-  "myaddress": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
-  "mybalance": 0.0
+void print_version() {
+    std::cout << antara::gaming::version() << std::endl;
 }
+``` 
+
+## antara::gaming::ecs::system\_manager
+
+The `antara::gaming::ecs::system_manager` class provides methods to perform tasks such as the manipulation of systems, the addition, deletion, and update of systems, and the deactivation of a system.
+
+### Public Functions
+
+#### system\_manager
+
+The primary constructor function.
+
+##### Usage Pattern
+
+```
+#include <antara/gaming/ecs/system.manager.hpp>
+
+system_manager(entt::registry &registry, bool subscribe_to_internal_events = true)
 ```
 
-</collapse-text>
+##### Destructor
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
-
-Command:
-
-```bash
-curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"faucetaddress", "params":["03336ca9db27cb6e882830e20dc525884e27dc94d557a5e68b972a5cbf9e8c62a8"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
+```
+~system_manager()
 ```
 
-<collapse-text hidden title="Response">
+##### Function Parameters
 
-```json
+| Name   | Type | Description                                                                                       |
+| ------ | ---- | ------------------------------------------------------------------------------------------------- |
+| registry | entt::registry | an entity\_registry object |
+| subscribe\_to\_internal\_events | bool | whether to subscribe to default system\_manager events |
+
+##### Response
+
+| Name            | Type     | Description                                                                                                                      |
+| --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| (none)          | void  |                                                               |
+
+##### :pushpin: Example
+
+```c
+#include <entt/entity/registry.hpp>
+#include <entt/dispatcher/dispatcher.hpp>
+#include <antara/gaming/ecs/system.manager.hpp>
+
+int main()
 {
-  "result": {
-    "result": "success",
-    "FaucetCCAddress": "R9zHrofhRbub7ER77B7NrVch3A63R39GuC",
-    "FaucetCCBalance": 0.0,
-    "FaucetNormalAddress": "RKQV4oYs4rvxAWx1J43VnT73rSTVtUeckk",
-    "FaucetNormalBalance": 0.0,
-    "FaucetCCTokensAddress": "RKaT8VfRSsu4qWL2kfW3PCzejrzJxi1TcJ",
-    "PubkeyCCaddress(Faucet)": "RReGLfH2MTrkeLSepkVy5vnQPE29g7KofS",
-    "PubkeyCCbalance(Faucet)": 0.0,
-    "myCCAddress(Faucet)": "RTedsYkavdn39m2jrQcKjCnq4MvikGCiZS",
-    "myCCbalance(Faucet)": 0.0,
-    "myaddress": "RPCeZmqW4Aam52DFLmMraWtu5CuXPxqk92",
-    "mybalance": 0.0
-  },
-  "error": null,
-  "id": "curltest"
+    entt::registry entity_registry;
+    entt::dispatcher& dispatcher{registry.set<entt::dispatcher>()};
+    antara::gaming::ecs::system_manager mgr{entity_registry};
 }
+``` 
+
+#### receive\_add\_base\_system
+
+Public member functions.
+
+<!-- The description in the documentation was unclear to me. Can you please provide more information about what "Public member functions" means here? Thx -->
+
+##### Usage Pattern
+
+```
+void receive_add_base_system(const ecs::event::add_base_system &evt)
 ```
 
-</collapse-text>
+##### Function Parameters
 
-## faucetfund
+| Name   | Type | Description                                                                                       |
+| ------ | ---- | ------------------------------------------------------------------------------------------------- |
+| evt | ecs::event::add\_base\_system& | <!-- need a description here --> |
 
-**faucetfund amount**
+##### Response
 
-The `faucetfund` method funds the on-chain faucet.
+| Name            | Type     | Description                                                                                                                      |
+| --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| (none)          | void  |                                                               |
 
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
+##### :pushpin: Example
 
-### Arguments
+<!-- needs an example -->
 
-| Name   | Type     | Description                                                            |
-| ------ | -------- | ---------------------------------------------------------------------- |
-| amount | (number) | the amount to add to the faucet, taken from the user's available funds |
+```c
 
-### Response
+``` 
 
-| Name   | Type     | Description                                                                                                               |
-| ------ | -------- | ------------------------------------------------------------------------------------------------------------------------- |
-| result | (string) | whether the command executed successfully                                                                                 |
-| hex    | (string) | the data in hex-encoded format; you must broadcast this hex using the`sendrawtransaction` RPC for the command to complete |
+#### start
 
-#### :pushpin: Examples
+The `start` function informs the system manager instance that the developer's game is initiated and spinning.
 
-Step 1: Specify faucet amount and get the raw transaction HEX value
+::: tip
 
-```bash
-./komodo-cli -ac_name=HELLOWORLD faucetfund 100
+This function allows for the execution of actions at the end of each frame. For example, an action could be the deletion of a sytem, or the addition of a new system which will continue to receive iterations and updates.
+
+:::
+
+##### Usage Pattern
+
+```
+#include <antara/gaming/ecs/system.manager.hpp>
+
+system_manager_instance.start();
 ```
 
-<collapse-text hidden title="Response">
+##### Function Parameters
 
-```json
+| Name   | Type | Description                                                                                       |
+| ------ | ---- | ------------------------------------------------------------------------------------------------- |
+| (none) |  |  |
+
+##### Response
+
+| Name            | Type     | Description                                                                                                                      |
+| --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| (none)          | void  |                                                               |
+
+<!-- Does this return something such as a bool value, for successful execution, by chance? -->
+
+##### :pushpin: Example
+
+```c
+#include <entt/entity/registry.hpp>
+#include <entt/dispatcher/dispatcher.hpp>
+#include <antara/gaming/ecs/system.manager.hpp>
+
+int main()
 {
-  "result": "success",
-  "hex": "01000000013c34d14c6a32219f4b633a1fe01f5826b3bd7b4cbe01c20cfc0c29138d9c99720100000049483045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf4885259501ffffffff0200e40b5402000000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cce06d66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000"
+    entt::registry entity_registry;
+    entt::dispatcher& dispatcher{registry.set<entt::dispatcher>()};
+    antara::gaming::ecs::system_manager system_manager{entity_registry};
+    system_manager.start();
+    return 0;
 }
+``` 
+
+#### update
+
+The `update` function updates a system-manager instance.
+
+::: tip
+
+The logic of the function is designed to automatically manage the correct order of updates for the different types of systems the developer has added to their system-manager instance.
+
+:::
+
+##### Usage Pattern
+
+```
+#include <antara/gaming/ecs/system.manager.hpp>
+
+std::size\_t nb\_systems\_updated = system\_manager.update();
 ```
 
-</collapse-text>
+##### Function Parameters
 
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
+| Name   | Type | Description                                                                                       |
+| ------ | ---- | ------------------------------------------------------------------------------------------------- |
+| (none) |  |  |
 
-Command:
+##### Response
 
-```bash
-curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"faucetfund", "params":["100"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
-```
+| Name            | Type     | Description                                                                                                                      |
+| --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| (none)          | void  |                                                               |
 
-<collapse-text hidden title="Response">
+<!-- Does this return something such as a bool value, for successful execution, by chance? -->
 
-```json
+##### :pushpin: Example
+
+```c
+#include <entt/entity/registry.hpp>
+#include <entt/dispatcher/dispatcher.hpp>
+#include <antara/gaming/ecs/system.manager.hpp>
+
+int main()
 {
-  "result": {
-    "result": "success",
-    "hex": "01000000013c34d14c6a32219f4b633a1fe01f5826b3bd7b4cbe01c20cfc0c29138d9c99720100000049483045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf4885259501ffffffff0200e40b5402000000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cce06d66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000"
-  },
-  "error": null,
-  "id": "curltest"
-}
-```
-
-</collapse-text>
-
-Step 2: Broadcast/send raw transaction
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000013c34d14c6a32219f4b633a1fe01f5826b3bd7b4cbe01c20cfc0c29138d9c99720100000049483045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf4885259501ffffffff0200e40b5402000000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cce06d66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000
-```
-
-<collapse-text hidden title="Response">
-
-```bash
-f2baf8d9a1eaf42bb1a85462b5699ffc0f04e8c54aafc4661767df96be9022b7
-```
-
-</collapse-text>
-
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
-
-Command:
-
-```bash
-curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["01000000013c34d14c6a32219f4b633a1fe01f5826b3bd7b4cbe01c20cfc0c29138d9c99720100000049483045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf4885259501ffffffff0200e40b5402000000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cce06d66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "result": "f2baf8d9a1eaf42bb1a85462b5699ffc0f04e8c54aafc4661767df96be9022b7",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-</collapse-text>
-
-Step 3: Decode raw transaction (optional to check if the values are sane)
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 01000000013c34d14c6a32219f4b633a1fe01f5826b3bd7b4cbe01c20cfc0c29138d9c99720100000049483045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf4885259501ffffffff0200e40b5402000000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cce06d66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "txid": "f2baf8d9a1eaf42bb1a85462b5699ffc0f04e8c54aafc4661767df96be9022b7",
-  "size": 225,
-  "version": 1,
-  "locktime": 0,
-  "vin": [
-    {
-      "txid": "72999c8d13290cfc0cc201be4c7bbdb326581fe01f3a634b9f21326a4cd1343c",
-      "vout": 1,
-      "scriptSig": {
-        "asm": "3045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf4885259501",
-        "hex": "483045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf4885259501"
-      },
-      "sequence": 4294967295
+    entt::registry entity_registry;
+    entt::dispatcher& dispatcher{registry.set<entt::dispatcher>()};
+    antara::gaming::ecs::system_manager system_manager{entity_registry};
+    system_manager.start();
+    // ... add 5 differents systems here
+    std::size_t nb_systems_updated = system_manager.update();
+    if (nb_systems_updated != 5) {
+        std::cerr << "Expect 5 system updates from system_manager.update(), but received only " << nb_systems_updated << std::endl;
     }
-  ],
-  "vout": [
-    {
-      "value": 100.0,
-      "valueSat": 10000000000,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "a22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401 OP_CHECKCRYPTOCONDITION",
-        "hex": "2ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc",
-        "reqSigs": 1,
-        "type": "condition",
-        "addresses": ["R9zHrofhRbub7ER77B7NrVch3A63R39GuC"]
-      }
-    },
-    {
-      "value": 99899.9998,
-      "valueSat": 9989999980000,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
-        "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
-        "reqSigs": 1,
-        "type": "pubkey",
-        "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
-      }
-    }
-  ]
+    return 0;
 }
-```
+``` 
 
-</collapse-text>
-
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
-
-Command:
-
-```bash
-curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"decoderawtransaction", "params":["01000000013c34d14c6a32219f4b633a1fe01f5826b3bd7b4cbe01c20cfc0c29138d9c99720100000049483045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf4885259501ffffffff0200e40b5402000000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cce06d66fa15090000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "result": {
-    "txid": "f2baf8d9a1eaf42bb1a85462b5699ffc0f04e8c54aafc4661767df96be9022b7",
-    "overwintered": false,
-    "version": 1,
-    "locktime": 0,
-    "vin": [
-      {
-        "txid": "72999c8d13290cfc0cc201be4c7bbdb326581fe01f3a634b9f21326a4cd1343c",
-        "vout": 1,
-        "scriptSig": {
-          "asm": "3045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf48852595[ALL]",
-          "hex": "483045022100b265993f541d580f10e8820f9986bdd479859fdcb2e636dd1ee1b23506eebeac02202234a6e5141345459c4b4959e921aa85b9fa616f4c44ea15e53d08bf4885259501"
-        },
-        "sequence": 4294967295
-      }
-    ],
-    "vout": [
-      {
-        "value": 100.0,
-        "valueZat": 10000000000,
-        "n": 0,
-        "scriptPubKey": {
-          "asm": "a22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401 OP_CHECKCRYPTOCONDITION",
-          "hex": "2ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc",
-          "reqSigs": 1,
-          "type": "cryptocondition",
-          "addresses": ["R9zHrofhRbub7ER77B7NrVch3A63R39GuC"]
-        }
-      },
-      {
-        "value": 99899.9998,
-        "valueZat": 9989999980000,
-        "n": 1,
-        "scriptPubKey": {
-          "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
-          "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
-          "reqSigs": 1,
-          "type": "pubkey",
-          "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
-        }
-      }
-    ],
-    "vjoinsplit": []
-  },
-  "error": null,
-  "id": "curltest"
-}
-```
-
-</collapse-text>
-
-## faucetget
-
-**faucetget**
-
-The `faucetget` method requests the `faucet` module to send coins.
-
-The method returns a hex value which must then be broadcast using the [sendrawtransaction](../../../basic-docs/smart-chains/smart-chain-api/rawtransactions.html#sendrawtransaction) method.
-
-The `faucetget` command yields 0.1 coins and requires about 30 seconds of CPU time to execute.
-
-### Arguments
-
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
-
-### Response
-
-| Name   | Type     | Description                                                                                                      |
-| ------ | -------- | ---------------------------------------------------------------------------------------------------------------- |
-| result | (string) | whether the command executed successfully                                                                        |
-| hex    | (string) | the data in hex-encoded format; you must broadcast this hex using sendrawtransaction for the command to complete |
-
-#### :pushpin: Examples
-
-Step 1: Use faucetget and get the raw HEX value
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD faucetget
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "result": "success",
-  "hex": "01000000010941cea65a560aeae02f0d49770965490bd99eeac4185f25075685da58e99d40000000007b4c79a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001ffffffff02b077a43018090000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc00e1f50500000000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000"
-}
-```
-
-</collapse-text>
-
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
-
-Command:
-
-```bash
-curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"faucetget", "params":[]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "result": {
-    "result": "success",
-    "hex": "01000000010941cea65a560aeae02f0d49770965490bd99eeac4185f25075685da58e99d40000000007b4c79a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001ffffffff02b077a43018090000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc00e1f50500000000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000"
-  },
-  "error": null,
-  "id": "curltest"
-}
-```
-
-</collapse-text>
-
-Step 2: Broadcast/send the raw transaction
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD sendrawtransaction 01000000010941cea65a560aeae02f0d49770965490bd99eeac4185f25075685da58e99d40000000007b4c79a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001ffffffff02b077a43018090000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc00e1f50500000000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000
-```
-
-<collapse-text hidden title="Response">
-
-```bash
-faucetget validated
-64760e66c49df97eea14896ecdd505d2d78ea214eb583c8a6a0ac863b2b989b3
-```
-
-</collapse-text>
-
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
-
-Command:
-
-```bash
-curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"sendrawtransaction", "params":["01000000010941cea65a560aeae02f0d49770965490bd99eeac4185f25075685da58e99d40000000007b4c79a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001ffffffff02b077a43018090000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc00e1f50500000000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "result": "64760e66c49df97eea14896ecdd505d2d78ea214eb583c8a6a0ac863b2b989b3",
-  "error": null,
-  "id": "curltest"
-}
-```
-
-</collapse-text>
-
-Step 3: Decode the raw transaction (optional to check if the values are sane)
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD decoderawtransaction 01000000010941cea65a560aeae02f0d49770965490bd99eeac4185f25075685da58e99d40000000007b4c79a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001ffffffff02b077a43018090000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc00e1f50500000000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "txid": "64760e66c49df97eea14896ecdd505d2d78ea214eb583c8a6a0ac863b2b989b3",
-  "size": 275,
-  "version": 1,
-  "locktime": 0,
-  "vin": [
-    {
-      "txid": "409de958da855607255f18c4ea9ed90b49650977490d2fe0ea0a565aa6ce4109",
-      "vout": 0,
-      "scriptSig": {
-        "asm": "a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001",
-        "hex": "4c79a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001"
-      },
-      "sequence": 4294967295
-    }
-  ],
-  "vout": [
-    {
-      "value": 99994.9995,
-      "valueSat": 9999499950000,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "a22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401 OP_CHECKCRYPTOCONDITION",
-        "hex": "2ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc",
-        "reqSigs": 1,
-        "type": "condition",
-        "addresses": ["R9zHrofhRbub7ER77B7NrVch3A63R39GuC"]
-      }
-    },
-    {
-      "value": 1.0,
-      "valueSat": 100000000,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
-        "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
-        "reqSigs": 1,
-        "type": "pubkey",
-        "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
-      }
-    }
-  ]
-}
-```
-
-</collapse-text>
-
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
-
-Command:
-
-```bash
-curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"decoderawtransaction", "params":["01000000010941cea65a560aeae02f0d49770965490bd99eeac4185f25075685da58e99d40000000007b4c79a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001ffffffff02b077a43018090000302ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc00e1f50500000000232103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac00000000"]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "result": {
-    "txid": "64760e66c49df97eea14896ecdd505d2d78ea214eb583c8a6a0ac863b2b989b3",
-    "overwintered": false,
-    "version": 1,
-    "locktime": 0,
-    "vin": [
-      {
-        "txid": "409de958da855607255f18c4ea9ed90b49650977490d2fe0ea0a565aa6ce4109",
-        "vout": 0,
-        "scriptSig": {
-          "asm": "a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001",
-          "hex": "4c79a276a072a26ba067a565802103682b255c40d0cde8faee381a1a50bbb89980ff24539cb8518e294d3a63cefe128140150ad95012ad8fae990096787d75d563977cef914e812e9dc8b6236243ac5f0050b3af4f2675ad433dcff4be16d113fb9a46357ee60682ed5d76c60f9ccffe8ea100af038001e4a10001"
-        },
-        "sequence": 4294967295
-      }
-    ],
-    "vout": [
-      {
-        "value": 99994.9995,
-        "valueZat": 9999499950000,
-        "n": 0,
-        "scriptPubKey": {
-          "asm": "a22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401 OP_CHECKCRYPTOCONDITION",
-          "hex": "2ea22c8020e029c511da55523565835887e412e5a0c9b920801b007000df45e545f25028248103120c008203000401cc",
-          "reqSigs": 1,
-          "type": "cryptocondition",
-          "addresses": ["R9zHrofhRbub7ER77B7NrVch3A63R39GuC"]
-        }
-      },
-      {
-        "value": 1.0,
-        "valueZat": 100000000,
-        "n": 1,
-        "scriptPubKey": {
-          "asm": "03fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abc OP_CHECKSIG",
-          "hex": "2103fe754763c176e1339a3f62ee6b9484720e17ee4646b65a119e9f6370c7004abcac",
-          "reqSigs": 1,
-          "type": "pubkey",
-          "addresses": ["RANyPgfZZLhSjQB9jrzztSw66zMMYDZuxQ"]
-        }
-      }
-    ],
-    "vjoinsplit": []
-  },
-  "error": null,
-  "id": "curltest"
-}
-```
-
-</collapse-text>
-
-## faucetinfo
-
-**faucetinfo**
-
-The `faucetinfo` method displays the balance of funds in the chain's faucet.
-
-### Arguments
-
-| Name   | Type | Description |
-| ------ | ---- | ----------- |
-| (none) |      |
-
-### Response
-
-| Name    | Type     | Description                                 |
-| ------- | -------- | ------------------------------------------- |
-| result  | (string) | whether the command executed successfully   |
-| name    | (string) | the name of the faucet module               |
-| funding | (number) | the amount of funds available in the faucet |
-
-#### :pushpin: Examples
-
-Command:
-
-```bash
-./komodo-cli -ac_name=HELLOWORLD faucetinfo
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "result": "success",
-  "name": "Faucet",
-  "funding": "200207.99860023"
-}
-```
-
-</collapse-text>
-
-You can find your `rpcuser`, `rpcpassword`, and `rpcport` in the coin's .conf file.
-
-Command:
-
-```bash
-curl --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method":"faucetinfo", "params":[]}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/
-```
-
-<collapse-text hidden title="Response">
-
-```json
-{
-  "result": {
-    "result": "success",
-    "name": "Faucet",
-    "funding": "200207.99860023"
-  },
-  "error": null,
-  "id": "curltest"
-}
-```
-
-</collapse-text>

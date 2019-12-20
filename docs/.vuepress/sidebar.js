@@ -350,6 +350,10 @@ var sidebar = [{
                         "Faucet"
                     ],
                     [
+                        "/basic-docs/antara/antara-api/gaming.md",
+                        "Gaming SDK"
+                    ],
+                    [
                         "/basic-docs/antara/antara-api/gateways.md",
                         "Gateways"
                     ],
