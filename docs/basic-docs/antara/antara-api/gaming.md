@@ -1374,7 +1374,7 @@ Private Member Functions
 
 Private data members
 
-## event
+## event::key*
 
 The `antara::gaming::event` class contains functions and other elements that are common in gaming.
 
@@ -1662,4 +1662,94 @@ constexpr const event::invoker_dispatcher<quit_game, int> invoker = {}
 ```
 
     Static fields.
+
+
+## sfml
+
+The `antara::gaming::sfml` class provides functions and other elements for SFML-related (Simple and Fast Multimedia Library) logic purposes.
+
+### sfml::audio\_system
+
+The `antara::gaming::sfml::audio_system` class provides audio-related functions and other elements.
+
+###### Usage Pattern
+
+```
+class audio_system : public antara::gaming::ecs::system<audio_system>
+```
+
+#### Public Functions
+
+##### audio\_system
+
+<!-- Need a description -->
+
+###### Usage Pattern
+
+```
+audio_system(entt::registry &registry)
+```
+
+###### Function Parameters 
+
+| Name   | Type | Description                                                                                       |
+| ------ | ---- | ------------------------------------------------------------------------------------------------- |
+| registry  | ent::registry  | the entity\_registry |
+
+###### Response
+
+| Name            | Type     | Description                                                                                                                      |
+| --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| return\_value  | int  | the return value of the program when leaving the game    |
+
+###### :pushpin: Example
+
+<!-- Need an example -->
+
+```c
+
+```
+
+##### update
+
+The `update` function destroys and clears the sounds when they are finished. 
+
+###### Usage Pattern
+
+```
+void update()
+```
+
+###### Function Parameters 
+
+| Name   | Type | Description                                                                                       |
+| ------ | ---- | ------------------------------------------------------------------------------------------------- |
+| (none)  |   |  |
+
+###### Response
+
+| Name            | Type     | Description                                                                                                                      |
+| --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| (none)  | void  |  |
+
+###### :pushpin: Example
+
+<!-- Need an example -->
+
+```c
+
+```
+
+### sfml::component\_sound
+
+The `antara::gaming::sfml::component_sound` struct contains sound and the sound's attributes (such as volume).
+
+#### Public Members
+
+##### sound
+
+The `sf::Sound sound` object is the SFML Sound instance and contains the sound data.
+
+<!-- Any other information here? -->
+
 
