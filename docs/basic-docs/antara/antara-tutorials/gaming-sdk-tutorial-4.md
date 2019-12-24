@@ -1,405 +1,5312 @@
-# Tutorial: Getting Started
+# Tutorial: Flappy Bird
 
-# antara-gaming-sdk
+Before starting the tutorial, make sure that you have installed the required dependencies and your program compiles with the build commands available in the tutorial getting started.
 
-Antara Gaming Software Development Kit
+This tutorial is divided into multiple steps to make it easier to follow.
 
-## Prerequisites
+## Step 1: Setup the executable, window and the game scene
 
-Below is the list of prerequisites to use the `antara-gaming-sdk` on your machine:
+First, create a folder called `flappy-bird` for your project, and create a subfolder called `assets` inside.
+Within the `assets` folder create a `textures` subfolder (for storing the `player.png` image)
+Also within the `assets folder, create another subfolder called \`\`data`, and within this, create two subfolders: `linux` and `osx` to store utility files required to install the game on targeted systems.
 
-
-* [CMake](https://cmake.org/download/) 3.14 minimum
-
-
-* **clang-8** minimum (Windows/Linux/Osx) (clang and clang-cl both supported on Windows)
+In the `Linux` folder we need three files:
 
 
-* **Optional** emscripten latest (Web)
+* komodo_icon.png (Icons of our game)
 
 
-* **Optional** Visual Studio 2019
+* org.antara.gaming.sfml.flappybird.appdata.xml (xml definition for our game)
 
 
-* **Optional** Clang VS Toolset (installable through visual studio installer)
+* org.antara.gaming.sfml.flappybird.desktop (desktop file for Linux)
 
-## Getting Started
+Here is the icon of the game that we will use for the tutorials:
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-See deployment for notes on how to deploy the project on a live system.
 
-### Build
+![image](./../../../tutorials/flappy-bird/step_1/data/linux/komodo_icon.png)
 
-To build the project please follow the instructions below:
+Here is the xml file:
 
 ```
-mkdir build ## bash or powershell
-cd build ## bash or powershell
-
-## Release or Debug are available
-cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=your_path_to_your_clang++ ../ #Linux / Osx
-cmake -DCMAKE_BUILD_TYPE=Debug -G "Visual Studio 16 2019" -A x64 -T "ClangCl" -DCMAKE_CXX_COMPILER="C:/Program Files/LLVM/bin/clang-cl.exe" ../ #Windows
-
-## We can even use Ninja for Windows / Linux / OSX
-## On Windows you may want to open x64 Visual Studio Terminal Prompt for using Ninja
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=path_to_clang++ -DCMAKE_C_COMPILER=path_to_clang ../
-
-## Build (Debug / Release available)
-cmake --build . --config Debug
+<component type="desktop-application">
+    <id>org.antara.gaming.sfml.flappybird.desktop</id>
+    <metadata_license>MIT</metadata_license>
+    <project_license>MIT</project_license>
+    <name>flappy-bird</name>
+    <summary>flappy-bird tutorial antara gaming sdk</summary>
+    <description>
+        <p>Written in c++17</p>
+    </description>
+    <launchable type="desktop-id">org.antara.gaming.sfml.flappybird.desktop</launchable>
+    <url type="homepage">https://github.com/KomodoPlatform/antara-gaming-sdk</url>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://www.freedesktop.org/software/appstream/docs/images/scr-examples/geany-good.png</image>
+        </screenshot>
+    </screenshots>
+    <provides>
+        <id>org.antara.gaming.sfml.flappybird.desktop</id>
+    </provides>
+</component>
 ```
 
-There are also additional options with the CMake that allows to activate certain features of the SDK:
+Here is the desktop file:
+
+```
+[Desktop Entry]
+Type=Application
+Name=flappy-bird
+Exec=flappy-bird
+Icon=komodo_icon
+Categories=Game;
+```
+
+In the `OSX` folder we need four files:
+
+
+* kmd_logo.icns (icon osx format of our game)
+
+
+* Packaging_CMakeDMGBackground.tif (dmg image background)
+
+
+* Packaging_CMakeDMGSetup.scpt (OSX Apple script for the packaging)
+
+
+* sfml_flappybird_install.cmake (CMake script for the bundling)
+
+Click `here` to download kmd_logo.icns.
+
+Click `here` to download Packaging_CMakeDMGBackground.tif.
+
+Here is the AppleScript:
+
+```
+on run argv
+  set image_name to item 1 of argv
+
+  tell application "Finder"
+  tell disk image_name
+
+    -- wait for the image to finish mounting
+    set open_attempts to 0
+    repeat while open_attempts < 4
+      try
+        open
+          delay 1
+          set open_attempts to 5
+        close
+      on error errStr number errorNumber
+        set open_attempts to open_attempts + 1
+        delay 10
+      end try
+    end repeat
+    delay 5
+
+    -- open the image the first time and save a DS_Store with just
+    -- background and icon setup
+    open
+      set current view of container window to icon view
+      set theViewOptions to the icon view options of container window
+      set background picture of theViewOptions to file ".background:background.tif"
+      set arrangement of theViewOptions to not arranged
+      set icon size of theViewOptions to 128
+      delay 5
+    close
+
+    -- next setup the position of the app and Applications symlink
+    -- plus hide all the window decorationPackaging_CMakeDMGBackground.tif
+    open
+      update without registering applications
+      tell container window
+        set sidebar width to 0
+        set statusbar visible to false
+        set toolbar visible to false
+        set the bounds to { 400, 100, 900, 465 }
+        set position of item "flappy-bird.app" to { 133, 200 }
+        set position of item "Applications" to { 378, 200 }
+      end tell
+      update without registering applications
+      delay 5
+    close
+
+    -- one last open and close so you can see everything looks correct
+    open
+      delay 5
+    close
+
+  end tell
+  delay 1
+end tell
+end run
+```
+
+And the CMake script:
+
+```
+if (APPLE)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+            MACOSX_BUNDLE_BUNDLE_NAME "${PROJECT_NAME}"
+            RESOURCE data/osx/${PROJECT_NAME}.icns
+            MACOSX_BUNDLE_ICON_FILE ${PROJECT_NAME}
+            MACOSX_BUNDLE_SHORT_VERSION_STRING 0.0.1
+            MACOSX_BUNDLE_LONG_VERSION_STRING 0.0.1
+            MACOSX_BUNDLE_INFO_PLIST "${PROJECT_SOURCE_DIR}/cmake/MacOSXBundleInfo.plist.in")
+    add_custom_command(TARGET ${PROJECT_NAME}
+            POST_BUILD COMMAND
+            ${CMAKE_INSTALL_NAME_TOOL} -add_rpath "@executable_path/../Frameworks/"
+            $<TARGET_FILE:${PROJECT_NAME}>)
+endif ()
+
+if (APPLE)
+    install(TARGETS ${PROJECT_NAME}
+            BUNDLE DESTINATION . COMPONENT Runtime
+            RUNTIME DESTINATION bin COMPONENT Runtime
+            )
+
+    # Note Mac specific extension .app
+    set(APPS "\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")
+
+    # Directories to look for dependencies
+    set(DIRS ${CMAKE_BINARY_DIR})
+
+    install(CODE "include(BundleUtilities)
+    fixup_bundle(\"${APPS}\" \"\" \"${DIRS}\")")
+
+    set(CPACK_GENERATOR "DRAGNDROP")
+    set(CPACK_DMG_DS_STORE_SETUP_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/data/osx/Packaging_CMakeDMGSetup.scpt")
+    set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_CURRENT_SOURCE_DIR}/data/osx/Packaging_CMakeDMGBackground.tif")
+    set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
+    include(CPack)
+endif ()
+```
+
+Now create a text file and save it as `CMakeLists.txt`.
+
+In this `CMakeLists.txt` file we will have: name of the project, creation of the executable, link with the SDK, moving of the assets, C++ standard that will be used, and any extra modules that we need.
+
+Below is the `CMakeLists.txt` file:
+
+```
+if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
+    message(FATAL_ERROR "Prevented in-tree build. Please create a build directory outside of the source code and call cmake from there")
+endif ()
+
+##! Minimum version of the CMake.
+cmake_minimum_required(VERSION 3.14)
+
+##! C++ Standard needed by the SDK is 17
+set(CMAKE_CXX_STANDARD 17)
+
+##! Our Project title, here flappy-bird.
+project(flappy-bird DESCRIPTION "An awesome flappy-bird" LANGUAGES CXX VERSION 1.0.0)
+
+##! The SDK need's clang as main compiler.
+if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
+        message(FATAL_ERROR "Only Clang is supported (minimum LLVM 8.0)")
+    endif()
+endif ()
+
+##! We will let know the SDK if our on Linux
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+    set(LINUX TRUE)
+endif ()
+
+##! We include the module from CMake for fetching dependencies
+include(FetchContent)
+
+##! We declare information about the dependance that we want to fetch.
+FetchContent_Declare(
+        antara-gaming-sdk
+        URL https://github.com/KomodoPlatform/antara-gaming-sdk/archive/master.zip
+)
+
+##! We set extras modules from the SDK that we want to use, here we will use the SFML module.
+set(USE_SFML_ANTARA_WRAPPER ON)
+
+##! We fetch our dependence
+FetchContent_MakeAvailable(antara-gaming-sdk)
+
+##! Calling this macros provided by the sdk will if you are on Apple init the environment for this OS (std::filesystem).
+init_antara_env()
+
+##! Get basis assets (default fonts, etc)
+get_resources_basics_assets(${CMAKE_CURRENT_SOURCE_DIR})
+
+##! Osx bundle icon
+set(ICON)
+configure_icon_osx(data/osx/kmd_logo.icns ICON kmd_logo.icns)
+
+##! We create the executable with the project name
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${ICON} flappy-bird.cpp)
+
+##! Linux assets
+magic_game_app_image_generation("${CMAKE_CURRENT_SOURCE_DIR}/data/linux"
+        "org.antara.gaming.sfml.flappybird.desktop"
+        "org.antara.gaming.sfml.flappybirds.appdata.xml"
+        "komodo_icon.png"
+        flappy-bird
+        AntaraFlappyBirdAppDir
+        ${CMAKE_CURRENT_SOURCE_DIR}/assets
+        )
+
+##! Setting output directory
+set_target_properties(${PROJECT_NAME}
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/"
+        )
+
+##! We link the SDK modules that we want to use to our executable
+target_link_libraries(${PROJECT_NAME} PUBLIC antara::world antara::sfml antara::collisions)
+
+##! Move assets
+if (WIN32)
+    file(COPY assets DESTINATION ${CMAKE_BINARY_DIR}/bin/)
+    ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory "${SFML_BINARY_DIR}/lib" "${CMAKE_BINARY_DIR}/bin/"
+            COMMENT "copying dlls …"
+            $<TARGET_FILE_DIR:${PROJECT_NAME}>
+            )
+
+    ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy "${SFML_SOURCE_DIR}/extlibs/bin/x64/openal32.dll" "${CMAKE_BINARY_DIR}/bin/openal32.dll"
+            COMMENT "copying dlls …"
+            $<TARGET_FILE_DIR:${PROJECT_NAME}>
+            )
+endif ()
+
+if (APPLE)
+    file(COPY assets DESTINATION ${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME}.app/Contents/Resources)
+endif()
+```
+
+Now we can create our input file for the application containing an empty main function (as below) and save it as `flappy-bird.cpp`.:
+
+```
+int main() {
+    return 0;
+}
+```
+
+You should now have the following tree:
+
+```
+./flappy-bird
+├── assets
+│  ├── config
+│  │  └── game.config.maker.json
+│  └── textures
+│     └── player.png
+│  └── fonts
+│     └── sansation.ttf
+├── CMakeLists.txt
+├── data
+│  ├── linux
+│  │  ├── komodo_icon.png
+│  │  ├── org.antara.gaming.sfml.flappybird.appdata.xml
+│  │  └── org.antara.gaming.sfml.flappybird.desktop
+│  └── osx
+│     ├── kmd_logo.icns
+│     ├── Packaging_CMakeDMGBackground.tif
+│     ├── Packaging_CMakeDMGSetup.scpt
+│     └── sfml_flappybird_install.cmake
+└── flappy-bird.cpp
+```
+
+Now we need a world representing the world of our game, to do this we use the following header file: `#include <antara/gaming/world/world.app.hpp>`
+
+And a basic structure that we name `flappy_bird_world`. It will inherit from `antara::gaming::world::app` class.
+
+And use the namespace `antara::gaming` and `std::string_literals` to make things easier.
+
+Finally, we declare our new object in the body of the main function, and we replace its return value with the return value of our game (returned by the `run` function of the `class world::app`).
+
+It gives us the following result:
+
+```
+#include <antara/gaming/world/world.hpp>
+
+// For convenience
+using namespace antara::gaming;
+using namespace std::string_literals;
+
+struct flappy_bird_world : world::app {
+    // Game entry point
+    flappy_bird_world() noexcept = default;
+};
+
+int main() {
+    // Declare the world
+    flappy_bird_world game;
+
+    // Run the game
+    return game.run();
+}
+```
+
+If you compile now and run your executable, you have an infinite loop and nothing will happen.
+
+The last stage of this step one is to add the graphics side of the application, for that we will need two modules: `antara::gaming::sfml::graphic_system` and `antara::gaming::sfml::input::system` which have these following headers, respectively: `#include <antara/gaming/sfml/graphic.system.hpp>` and `#include <antara/gaming/sfml/input.system.hpp>`.
+
+Now in the body of the constructor of our class `flappy_bird_world` we will load the graphic system, then initialize the input system with the window from the graphic system.
+
+```
+// Game entry point
+flappy_bird_world() noexcept {
+    // Load the graphical system
+    auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+    // Load the input system with the window from the graphical system
+    system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+}
+```
+
+If you compile and run now, you should see a black window open. You can close by pressing the close button of the window:
+
+
+
+![image](./../../assets/black_window.png)
+
+And now, the setup part is over. We have a `CMakeLists.txt` to be able to compile our program into a basic executable which can create the game window.
+
+Next we create a game scene using the scene manager. To do so we need to include the header file `#include <antara/gaming/scenes/scene.manager.hpp>` and load the scenes manager system into the system manager.
+
+```
+// Game entry point
+struct flappy_bird_world : world::app {
+    //! Our game entry point
+    flappy_bird_world() noexcept {
+        // Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        // Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        // Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+    }
+};
+```
+
+Now we create the `game_scene` class that inherits from the `base_scene` class. This class will be the entry point of our game scene.
+
+The concrete class must override several functions such as update, `scene_name`.
+Flappy Bird is a game that needs an update for each tick, so we will fill the update function later.
+For the `scene_name` function we’ll just return the name of the scene.
+
+```
+// Game Scene
+class game_scene final : public scenes::base_scene {
+public:
+    game_scene(entt::registry &registry) noexcept : base_scene(registry) {
+    }
+
+    // Scene name
+    std::string scene_name() noexcept final {
+        return "game_scene";
+    }
+
+private:
+    // Update the game every tick
+    void update() noexcept final {
+    }
+};
+```
+
+Now we load our game scene into the `scene_manager` using the `change_scene` member function.
+
+```
+struct flappy_bird_world : world::app
+{
+    //! Our game entry point
+    flappy_bird_world() noexcept
+    {
+        //! Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        //! Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        //! Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        // Change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_), true);
+    }
+};
+```
+
+We will also use a sprite for the bird, so we need the `sfml::resources_system` by including the header file `#include <antara/gaming/sfml/resources.manager.hpp>` and loading it in the world constructor.
+
+```
+// Game world
+struct flappy_bird_world : world::app {
+    // Game entry point
+    flappy_bird_world() noexcept {
+        // Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        // Load the resources system
+        entity_registry_.set<sfml::resources_system>(entity_registry_);
+
+        // Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        // Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        // Change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_), true);
+    }
+};
+```
+
+If you compile now you should still see the black window from the previous step, but we are now in our game scene.
+
+
+
+![image](./../../assets/black_window.png)
+
+**NOTE**: The scene system is very handy to organize multiple screens of the game: **introduction scene**, **game scene**, **end-of-game scene**, etc.
+
+Step 1 is complete, here is the full code.
+
+```
+#include <random>
+#include <antara/gaming/scenes/scene.manager.hpp>
+#include <antara/gaming/sfml/graphic.system.hpp>
+#include <antara/gaming/sfml/input.system.hpp>
+#include <antara/gaming/sfml/resources.manager.hpp>
+#include <antara/gaming/world/world.app.hpp>
+
+// For convenience
+using namespace antara::gaming;
+using namespace std::string_literals;
+
+// Game Scene
+class game_scene final : public scenes::base_scene {
+public:
+    game_scene(entt::registry &registry) noexcept : base_scene(registry) {
+    }
+
+    // Scene name
+    std::string scene_name() noexcept final {
+        return "game_scene";
+    }
+
+private:
+    // Update the game every tick
+    void update() noexcept final {
+    }
+};
+
+// Game world
+struct flappy_bird_world : world::app {
+    // Game entry point
+    flappy_bird_world() noexcept {
+        // Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        // Load the resources system
+        entity_registry_.set<sfml::resources_system>(entity_registry_);
+
+        // Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        // Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        // Change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_), true);
+    }
+};
+
+int main() {
+    // Declare the world
+    flappy_bird_world game;
+
+    // Run the game
+    return game.run();
+}
+```
+
+## Step 2: Creation of Pipes
+
+During this step, we will add the pipes which kill Flappy Bird when it touches them. In the image below, you’ll see two pipes with a gap between them. We will call this a `column`.
+
+
+
+![image](./../../assets/fb_column.png)
+
+Let’s start with the constant values that we will use. We will keep them in a struct. There are many of them:
+
+```
+// Constants
+struct flappy_bird_constants {
+    // Pipes
+    const float gap_height{265.f};
+    const float column_start_distance{700.f};
+    const float column_min{0.2f};
+    const float column_max{0.8f};
+    const float column_thickness{100.f};
+    const float column_distance{400.f};
+    const std::size_t column_count{6};
+    const float pipe_cap_extra_width{10.f};
+    const float pipe_cap_height{50.f};
+    const graphics::color pipe_color{92, 181, 61};
+    const graphics::outline_color pipe_outline_color{2.0f, graphics::color{76, 47, 61}};
+};
+```
+
+Then we will add this to the `registry` in the `game_scene` constructor.
+
+```
+// Game Scene
+class game_scene final : public scenes::base_scene {
+public:
+    game_scene(entt::registry &registry) noexcept : base_scene(registry) {
+        // Set the constants that will be used in the program
+        registry.set<flappy_bird_constants>();
+    }
+```
+
+Now we’ll make a struct which will represent a single `pipe`. Instead of using a sprite, we will make graphics with basic shapes. For example, a pipe has two parts as you see in the image above: `body` and `cap`. The body is the long part of the pipe with a cap sitting at the tip. Both will be green rectangle entities but with different sizes. We also prepare a `destroy` function which will destroy `body` and `cap` entities.
+
+```
+// A Flappy Bird column which has two pipes
+struct pipe {
+    entt::entity body{entt::null};
+    entt::entity cap{entt::null};
+
+    // Destroy pipe
+    void destroy(entt::registry &registry) {
+        registry.destroy(body);
+        registry.destroy(cap);
+    }
+};
+```
+
+As mentioned before, two of these pipes will be called a `column`. Here we make another struct which uses the `struct pipe`. One is `top_pipe`, another one is `bottom_pipe`. Again, we have the `destroy` function, but this time the `destroy` function also has an entity parameter which will be the `column` entity itself.
+
+```
+// Column is made of two pipes
+struct column {
+    // Entities representing the Flappy Bird pipes
+    pipe top_pipe{entt::null};
+    pipe bottom_pipe{entt::null};
+
+    // Destroy pipes and this column
+    void destroy(entt::registry &registry, entt::entity entity) {
+        top_pipe.destroy(registry);
+        bottom_pipe.destroy(registry);
+        registry.destroy(entity);
+    }
+};
+```
+
+We will need some functions for creation of the pipes. First one is a function which returns a random number, we will use this to randomly position the gap between the pipes. We will use `std::random_device`, `std::mt19937`  and `std::uniform_real_distribution<float>` for this.
+
+```
+// Random number generator
+namespace {
+    std::random_device rd;  // Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+    float random_float(float lower, float higher) {
+        std::uniform_real_distribution<float> dist(lower, higher);
+        return dist(gen);
+    }
+}
+```
+
+We will have many entities, so we need to tag them with `game_scene` name. Dynamic entities will have a `dynamic` tag, so we can easily query the dynamic ones to destroy them at game reset. Since this tagging will be repeated a lot, we will create a function for it. It is also a good idea to have these kind of helper functions in a namespace.
+
+```
+namespace {
+    void tag_game_scene(entt::registry &registry, entt::entity entity, bool dynamic = false) {
+        // Tag game scene
+        registry.assign<entt::tag<"game_scene"_hs>>(entity);
+
+        // Tag dynamic
+        if(dynamic) registry.assign<entt::tag<"dynamic"_hs>>(entity);
+    }
+}
+```
+
+During the creation of the pipes we will need another function, to get a random starting position of the gap. That’s how we will know where to start and end the top pipe, have a gap, then start and end the bottom pipe.
+
+This function will also use some constants, such as `column_min` and `column_max`. `column_min` is for the top limit, `0.2` of the canvas height. And `column_max` is for the bottom limit, `0.8` of the canvas height. Though we also need to subtract `gap_height` from the `bottom_limit` because this will be the starting position (or top position) of the gap. When the limits are set, function returns a random float value between those two, using the random function we defined earlier. We will add this function into the same namespace.
+
+```
+// Returns a random gap start position Y
+float get_random_gap_start_pos(const entt::registry &registry) {
+    // Retrieve constants
+    const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+    const auto constants = registry.ctx<flappy_bird_constants>();
+
+    float top_limit = canvas_height * constants.column_min;
+    float bottom_limit = canvas_height * constants.column_max - constants.gap_height;
+
+    return random_float(top_limit, bottom_limit);
+}
+```
+
+Now we can start constructing a pipe. There will be some math here about position and size.
+
+`create_pipe` function will have `bool is_top, float pos_x, float gap_start_pos_y` parameters. `is_top` indicates if it’s the top pipe or the bottom. `pos_x` is the horizontal position of the pipe. `gap_start_pos_y` is the vertical start position of the gap, for example, the bottom edge of the top pipe.
+
+To start with, we retrieve `canvas_height` and the constants.
+
+```
+// Retrieve constants
+const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+const auto constants = registry.ctx<flappy_bird_constants>();
+```
+
+Remember that pipe is made of two parts: body and cap. Let’s construct the body first. It will be a rectangle so we will need center position and size. Just to avoid more complicated math, we can have center of the rectangle at the screen edge. Half of the pipe will be out of the view but it for a basic example we can ignore that visual optimization.
+
+X will be `pos_x`, and the Y will be top of the screen if it’s the top pipe, which is 0. If it’s a bottom one, then Y will be bottom edge of the screen, which is `canvas_height`.
+
+```
+// PIPE BODY
+// Top pipe is at Y: 0 and bottom pipe is at canvas_height, bottom of the canvas
+transform::position_2d body_pos{pos_x, is_top ? 0.f : canvas_height};
+```
+
+Body size however, is a little tricky. Size X will be the column thickness, that’s easy. But the Size Y changes depending on if it’s the top pipe or the bottom.
+
+If it’s the top pipe, start of the gap `gap_start_pos_y` should be bottom of the rectangle. So half size should be `gap_start_pos_y` since the center of the rectangle is at 0. Full size will be `gap_start_pos_y \* 2.0f`.
+
+If it’s the bottom pipe, top of the rectangle will be the end of the gap, `gap_start_pos_y + gap_height`. So half size should be `canvas_height - (gap_start_pos_y + gap_height)`. And we need to double it for the full size. That makes `(canvas_height - (gap_start_pos_y + constants.gap_height)) \* 2.0f`.
+
+```
+// Size X is the column thickness,
+// Size Y is the important part.
+// If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
+//  So half size should be gap_start_pos_y since center of the rectangle is at 0.
+// If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
+//  So half size should be canvas_height - (gap_start_pos_y + gap_height)
+// Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+math::vec2f body_size{constants.column_thickness,
+                        is_top ?
+                        gap_start_pos_y * 2.0f :
+                        (canvas_height - (gap_start_pos_y + constants.gap_height)) * 2.0f};
+```
+
+To construct the rectangle entity, we can use blueprint function `geometry::blueprint_rectangle`. We will also feed `pipe_color` and `pipe_outline_color` (which includes line thickness information).
+
+```
+auto body = geometry::blueprint_rectangle(registry, body_size, constants.pipe_color, body_pos, constants.pipe_outline_color);
+```
+
+That’s it for the body! Now we need to construct the cap of the pipe.
+
+Size of the cap will be `column_thickness` plus `pipe_cap_extra_width` because we want the cap to look like the mario pipe, so the cap needs to be a little bit wider. The height is pre-defined `pipe_cap_height`. Easy!
+
+```
+// PIPE CAP
+// Let's prepare the pipe cap
+// Size of the cap is defined in constants
+math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
+```
+
+Cap position is a bit trickier, X position will be same as the body, `body_pos.x()` since it’s centered. But the Y position changes depending on if it’s a top one or bottom.
+
+If it’s the top cap, bottom line of the cap is alligned with bottom of the body or start of the gap which is the same line. We will use start of the gap here, minus half of the cap height, because position is the center of the rectangle. It makes `gap_start_pos_y - constants.pipe_cap_height \* 0.5f`.
+
+If it’s the bottom cap, bottom of the gap will be the same line as top of the cap. Bottom of the gap is gap start position plus the gap height, `gap_start_pos_y + constants.gap_height`. Then we need to add half of the pipe height again because we want the shift a little bit down since the position we define is the center of the cap and we want the top to be alligned with top of the body.
+
+```
+// Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
+// or start of the gap, we will use start of the gap here, minus half of the cap height
+transform::position_2d cap_pos{body_pos.x(),
+                                is_top ?
+                                gap_start_pos_y - constants.pipe_cap_height * 0.5f :
+                                gap_start_pos_y + constants.gap_height + constants.pipe_cap_height * 0.5f
+};
+```
+
+To construct the rectangle entity, we can use blueprint function `geometry::blueprint_rectangle`. We will also feed `pipe_color` and `pipe_outline_color` again, with color set to the same as the body.
+
+```
+auto cap = geometry::blueprint_rectangle(registry, cap_size, constants.pipe_color, cap_pos, constants.pipe_outline_color);
+```
+
+To make the cap appear in front of the body, we need to define the draw order. We will use `graphics::layer` for that. Higher is front, lower is back. We set `cap` as `layer<4>` and `body` as `layer<3>`.
+
+```
+// Set layers, cap should be in front of body
+registry.assign<graphics::layer<4>>(cap);
+registry.assign<graphics::layer<3>>(body);
+```
+
+Now tag both entities as `game_scene` and `dynamic` with the `tag_game_scene` function we defined earlier, then return both inside `{ }` to automatically construct a `struct pipe`.
+
+```
+tag_game_scene(registry, cap, true);
+tag_game_scene(registry, body, true);
+
+// Construct a pipe with body and cap and return it
+return {body, cap};
+```
+
+The completed function looks like this:
+
+```
+// Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
+    // Retrieve constants
+    const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+    const auto constants = registry.ctx<flappy_bird_constants>();
+
+    // PIPE BODY
+    // Top pipe is at Y: 0 and bottom pipe is at canvas_height, bottom of the canvas
+    transform::position_2d body_pos{pos_x, is_top ? 0.f : canvas_height};
+
+    // Size X is the column thickness,
+    // Size Y is the important part.
+    // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
+    //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
+    // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
+    //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
+    // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+    math::vec2f body_size{constants.column_thickness,
+                          is_top ?
+                          gap_start_pos_y * 2.0f :
+                          (canvas_height - (gap_start_pos_y + constants.gap_height)) * 2.0f};
+
+    auto body = geometry::blueprint_rectangle(registry, body_size, constants.pipe_color, body_pos,
+                                              constants.pipe_outline_color);
+
+    // PIPE CAP
+    // Let's prepare the pipe cap
+    // Size of the cap is defined in constants
+    math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
+
+    // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
+    // or start of the gap, we will use start of the gap here, minus half of the cap height
+    transform::position_2d cap_pos{body_pos.x(),
+                                   is_top ?
+                                   gap_start_pos_y - constants.pipe_cap_height * 0.5f :
+                                   gap_start_pos_y + constants.gap_height + constants.pipe_cap_height * 0.5f
+    };
+
+    // Construct the cap
+    auto cap = geometry::blueprint_rectangle(registry, cap_size, constants.pipe_color, cap_pos,
+                                             constants.pipe_outline_color);
+
+    // Set layers, cap should be in front of body
+    registry.assign<graphics::layer<4>>(cap);
+    registry.assign<graphics::layer<3>>(body);
+    tag_game_scene(registry, cap, true);
+    tag_game_scene(registry, body, true);
+
+    // Construct a pipe with body and cap and return it
+    return {body, cap};
+}
+```
+
+Since we are able to make a single pipe now, we can use it to build a full column which (two pipes and a gap).
+
+Let’s make the function `void create_column(entt::registry &registry, float pos_x)`, with a single parameter `pos_x` for the X position of the column.
+
+We start with creating an empty entity.
+
+```
+// Create a fresh entity for a new column
+auto entity_column = registry.create();
+```
+
+Then we get a random vertical position for start of the gap with the function we created earlier, `get_random_gap_start_pos`.
+
+```
+// Get a random gap start position Y, between pipes
+float gap_start_pos_y = get_random_gap_start_pos(registry);
+```
+
+Create `top_pipe` and `bottom_pipe` with the `create_pipe` function. The only parameter that varies between the two being `is_top` boolean is true for the `top_pipe`, and false for `bottom_pipe`.
+
+```
+// Create pipes, is_top variable is false for bottom one
+auto top_pipe = create_pipe(registry, true, pos_x, gap_start_pos_y);
+auto bottom_pipe = create_pipe(registry, false, pos_x, gap_start_pos_y);
+```
+
+Now we can construct a `struct column` with these two, tag it with `column` name, then use the `tag_game_scene` function to tag it with `game_scene` and `dynamic`.
+
+```
+// Make a column from these two pipes and mark it as "column"
+registry.assign<column>(entity_column, top_pipe, bottom_pipe);
+registry.assign<entt::tag<"column"_hs>>(entity_column);
+tag_game_scene(registry, entity_column, true);
+```
+
+The completed function looks like this:
+
+```
+// Factory to create single column
+void create_column(entt::registry &registry, float pos_x) noexcept {
+    // Create a fresh entity for a new column
+    auto entity_column = registry.create();
+
+    // Get a random gap start position Y, between pipes
+    float gap_start_pos_y = get_random_gap_start_pos(registry);
+
+    // Create pipes, is_top variable is false for bottom one
+    auto top_pipe = create_pipe(registry, true, pos_x, gap_start_pos_y);
+    auto bottom_pipe = create_pipe(registry, false, pos_x, gap_start_pos_y);
+
+    // Make a column from these two pipes and mark it as "column"
+    registry.assign<column>(entity_column, top_pipe, bottom_pipe);
+    registry.assign<entt::tag<"column"_hs>>(entity_column);
+    tag_game_scene(registry, entity_column, true);
+}
+```
+
+We want many of these columns, which we can do with a `create_columns` function.
+
+To start, we will need constants again, so we retrieve them.
+
+```
+// Retrieve constants
+const auto constants = registry.ctx<flappy_bird_constants>();
+```
+
+Columns move towards Flappy Bird start from a distance, so we have `column_start_distance` to add that offset, and an additional `constants.column_thickness \* 2.0f` to make sure they are out of the screen if `column_start_distance` is set as `canvas_width`.
+
+```
+// Spawn columns far away
+const float column_pos_offset = constants.column_start_distance + constants.column_thickness * 2.0f;
+```
+
+Using the `create_column` function in a `for loop` we can easily create more columns. For count, we use `column_count` constant, and to add distance between every column, we can use the counter `i` which increments by one, multiplying `i` with `column_distance` puts each column further than the previous one. Finally, add the `column_pos_offset` offset and the loop will look like this:
+
+```
+// Create the columns
+for (std::size_t i = 0; i < constants.column_count; ++i) {
+    // Horizontal position (X) increases for every column, keeping the distance
+    float pos_x = column_pos_offset + i * constants.column_distance;
+
+    create_column(registry, pos_x);
+}
+```
+
+The completed function looks like this:
+
+```
+// Factory for creating a Flappy Bird columns
+void create_columns(entt::registry &registry) noexcept {
+    // Retrieve constants
+    const auto constants = registry.ctx<flappy_bird_constants>();
+
+    // Spawn columns out of the screen, out of the canvas
+    const float column_pos_offset = constants.column_start_distance + constants.column_thickness * 2.0f;
+
+    // Create the columns
+    for (std::size_t i = 0; i < constants.column_count; ++i) {
+        // Horizontal position (X) increases for every column, keeping the distance
+        float pos_x = column_pos_offset + i * constants.column_distance;
+
+        create_column(registry, pos_x);
+    }
+}
+```
+
+We will call this `create_columns` function at initialization. Let’s make an initialization function for dynamic objects.
+
+```
+// Initialize dynamic objects, this function is called at start and resets
+void init_dynamic_objects(entt::registry &registry) {
+    create_columns(registry);
+}
+```
+
+And call it in the `game_scene` constructor:
+
+```
+game_scene(entt::registry &registry) noexcept : base_scene(registry) {
+    // Set the constants that will be used in the program
+    registry.set<flappy_bird_constants>();
+
+    // Create everything
+    init_dynamic_objects(registry);
+}
+```
+
+That’s it! Now we have many columns being drawn:
+
+
+
+![image](./../../assets/fb_columns.png)
+
+Step 2 is complete, here is the full code.
+
+```
+#include <random>
+#include <antara/gaming/graphics/component.layer.hpp>
+#include <antara/gaming/graphics/component.canvas.hpp>
+#include <antara/gaming/math/vector.hpp>
+#include <antara/gaming/scenes/scene.manager.hpp>
+#include <antara/gaming/sfml/graphic.system.hpp>
+#include <antara/gaming/sfml/input.system.hpp>
+#include <antara/gaming/sfml/resources.manager.hpp>
+#include <antara/gaming/world/world.app.hpp>
+#include <antara/gaming/graphics/component.sprite.hpp>
+
+// For convenience
+using namespace antara::gaming;
+using namespace std::string_literals;
+
+// Constants
+struct flappy_bird_constants {
+    // Pipes
+    const float gap_height{265.f};
+    const float column_start_distance{700.f};
+    const float column_min{0.2f};
+    const float column_max{0.8f};
+    const float column_thickness{100.f};
+    const float column_distance{400.f};
+    const std::size_t column_count{6};
+    const float pipe_cap_extra_width{10.f};
+    const float pipe_cap_height{50.f};
+    const graphics::color pipe_color{92, 181, 61};
+    const graphics::outline_color pipe_outline_color{2.0f, graphics::color{76, 47, 61}};
+};
+
+// Random number generator
+namespace {
+    std::random_device rd;  // Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+    float random_float(float lower, float higher) {
+        std::uniform_real_distribution<float> dist(lower, higher);
+        return dist(gen);
+    }
+}
+
+// A Flappy Bird column which has two pipes
+struct pipe {
+    entt::entity body{entt::null};
+    entt::entity cap{entt::null};
+
+    // Destroy pipe
+    void destroy(entt::registry &registry) {
+        registry.destroy(body);
+        registry.destroy(cap);
+    }
+};
+
+// Column is made of two pipes
+struct column {
+    // Entities representing the Flappy Bird pipes
+    pipe top_pipe{entt::null};
+    pipe bottom_pipe{entt::null};
+
+    // Destroy pipes and this column
+    void destroy(entt::registry &registry, entt::entity entity) {
+        top_pipe.destroy(registry);
+        bottom_pipe.destroy(registry);
+        registry.destroy(entity);
+    }
+};
+
+// Logic functions
+namespace {
+    void tag_game_scene(entt::registry &registry, entt::entity entity, bool dynamic = false) {
+        // Tag game scene
+        registry.assign<entt::tag<"game_scene"_hs>>(entity);
+
+        // Tag dynamic
+        if(dynamic) registry.assign<entt::tag<"dynamic"_hs>>(entity);
+    }
+
+    // Returns a random gap start position Y
+    float get_random_gap_start_pos(const entt::registry &registry) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        float top_limit = canvas_height * constants.column_min;
+        float bottom_limit = canvas_height * constants.column_max - constants.gap_height;
+
+        return random_float(top_limit, bottom_limit);
+    }
+}
+
+// Factory functions
+namespace {
+    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // PIPE BODY
+        // Top pipe is at Y: 0 and bottom pipe is at canvas_height, bottom of the canvas
+        transform::position_2d body_pos{pos_x, is_top ? 0.f : canvas_height};
+
+        // Size X is the column thickness,
+        // Size Y is the important part.
+        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
+        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
+        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
+        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        math::vec2f body_size{constants.column_thickness,
+                              is_top ?
+                              gap_start_pos_y * 2.0f :
+                              (canvas_height - (gap_start_pos_y + constants.gap_height)) * 2.0f};
+
+        auto body = geometry::blueprint_rectangle(registry, body_size, constants.pipe_color, body_pos,
+                                                  constants.pipe_outline_color);
+
+        // PIPE CAP
+        // Let's prepare the pipe cap
+        // Size of the cap is defined in constants
+        math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
+
+        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
+        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        transform::position_2d cap_pos{body_pos.x(),
+                                       is_top ?
+                                       gap_start_pos_y - constants.pipe_cap_height * 0.5f :
+                                       gap_start_pos_y + constants.gap_height + constants.pipe_cap_height * 0.5f
+        };
+
+        // Construct the cap
+        auto cap = geometry::blueprint_rectangle(registry, cap_size, constants.pipe_color, cap_pos,
+                                                 constants.pipe_outline_color);
+
+        // Set layers, cap should be in front of body
+        registry.assign<graphics::layer<4>>(cap);
+        registry.assign<graphics::layer<3>>(body);
+        tag_game_scene(registry, cap, true);
+        tag_game_scene(registry, body, true);
+
+        // Construct a pipe with body and cap and return it
+        return {body, cap};
+    }
+
+    // Factory to create single column
+    void create_column(entt::registry &registry, float pos_x) noexcept {
+        // Create a fresh entity for a new column
+        auto entity_column = registry.create();
+
+        // Get a random gap start position Y, between pipes
+        float gap_start_pos_y = get_random_gap_start_pos(registry);
+
+        // Create pipes, is_top variable is false for bottom one
+        auto top_pipe = create_pipe(registry, true, pos_x, gap_start_pos_y);
+        auto bottom_pipe = create_pipe(registry, false, pos_x, gap_start_pos_y);
+
+        // Make a column from these two pipes and mark it as "column"
+        registry.assign<column>(entity_column, top_pipe, bottom_pipe);
+        registry.assign<entt::tag<"column"_hs>>(entity_column);
+        tag_game_scene(registry, entity_column, true);
+    }
+
+    // Factory for creating a Flappy Bird columns
+    void create_columns(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Spawn columns out of the screen, out of the canvas
+        const float column_pos_offset = constants.column_start_distance + constants.column_thickness * 2.0f;
+
+        // Create the columns
+        for (std::size_t i = 0; i < constants.column_count; ++i) {
+            // Horizontal position (X) increases for every column, keeping the distance
+            float pos_x = column_pos_offset + i * constants.column_distance;
+
+            create_column(registry, pos_x);
+        }
+    }
+}
+
+// Game Scene
+class game_scene final : public scenes::base_scene {
+public:
+    game_scene(entt::registry &registry) noexcept : base_scene(registry) {
+        // Set the constants that will be used in the program
+        registry.set<flappy_bird_constants>();
+
+        // Create everything
+        init_dynamic_objects(registry);
+    }
+
+    // Scene name
+    std::string scene_name() noexcept final {
+        return "game_scene";
+    }
+
+private:
+    // Update the game every tick
+    void update() noexcept final {
+    }
+
+    // Initialize dynamic objects, this function is called at start and resets
+    void init_dynamic_objects(entt::registry &registry) {
+        create_columns(registry);
+    }
+};
+
+// Game world
+struct flappy_bird_world : world::app {
+    // Game entry point
+    flappy_bird_world() noexcept {
+        // Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        // Load the resources system
+        entity_registry_.set<sfml::resources_system>(entity_registry_);
+
+        // Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        // Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        // Change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_), true);
+    }
+};
+
+int main() {
+    // Declare the world
+    flappy_bird_world game;
+
+    // Run the game
+    return game.run();
+}
+```
+
+## Step 3: Creation of the background
+
+Now it is time to maker the black background prettier by adding sky, ground and grass. This is how we want it to look like:
+
+
+
+![image](./../../assets/fb_background.png)
+
+Let’s add the constants to `struct flappy_bird_constants`: thickness and colors.
+
+```
+// Background
+const float ground_thickness{100.0f};
+const float grass_thickness{20.0f};
+const graphics::color background_color{82, 189, 199};
+const graphics::color ground_color{220, 209, 143};
+const graphics::color grass_color{132, 227, 90};
+const graphics::outline_color grass_outline_color{2.0f, graphics::color{76, 47, 61}};
+```
+
+Now we make a function called `create_background`.
+
+First retrieve the constants and canvas size:
+
+```
+// Retrieve constants
+const auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+const auto constants = registry.ctx<flappy_bird_constants>();
+```
+
+Let’s create the sky next, a simple blue rectangle.
+
+Position is center of the canvas.
+
+```
+// Sky is whole canvas so position is middle of it
+transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
+```
+
+Set the size to whole canvas (other visual elements will appear in the foreground).
+
+```
+// And the size is full canvas
+math::vec2f size{canvas_width, canvas_height};
+```
+
+Use the `geometry::blueprint_rectangle` again and use `background_color` from defined constants.
+
+```
+auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
+```
+
+Set it to appear at `layer<1>` and tag `game_scene`:
+
+```
+registry.assign<graphics::layer<1>>(sky);
+tag_game_scene(registry, sky);
+```
+
+Here is how the whole sky creation snippet looks like:
+
+```
+// Create Sky
+{
+    // Sky is whole canvas so position is middle of it
+    transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
+
+    // And the size is full canvas
+    math::vec2f size{canvas_width, canvas_height};
+
+    auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
+    registry.assign<graphics::layer<1>>(sky);
+    tag_game_scene(registry, sky);
+}
+```
+
+Now we do the same thing, but for grass. X position is middle of the canvas, Y position is canvas height minus ground thickness because grass grows above the ground!
+
+```
+// Ground expands to whole canvas width so position is middle of it,
+// But position Y is at top of the ground, so it's canvas height minus ground thickness
+transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
+```
+
+Size Y is constant `grass_thickness` and Size X is full `canvas_width` plus the outline thickness because we don’t wanna see the left and right edges, by making it bigger edges will be out of the canvas.
+
+```
+// Size X is full canvas but the height is defined in constants
+// We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
+```
+
+We use `geometry::blueprint_rectangle` again, and assign `layer<3>`, then tag it.
+
+```
+auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos, constants.grass_outline_color);
+registry.assign<graphics::layer<3>>(grass);
+tag_game_scene(registry, grass);
+```
+
+Here is the completed grass creation snippet looks:
+
+```
+// Create Grass
+{
+    // Ground expands to whole canvas width so position is middle of it,
+    // But position Y is at top of the ground, so it's canvas height minus ground thickness
+    transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
+
+    // Size X is full canvas but the height is defined in constants
+    // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+    math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
+
+    auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos, constants.grass_outline_color);
+    registry.assign<graphics::layer<3>>(grass);
+    tag_game_scene(registry, grass);
+}
+```
+
+Now we create the ground, it’s easy.
+
+X position is middle of canvas, height is canvas height minus half of the ground thickness (because position is center of the rectangle).
+
+Size X is canvas width, Size Y is ground thickness.
+
+```
+// Create Ground
+{
+    // Ground expands to whole canvas width so position is middle of it,
+    // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+    transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
+
+    // Size X is full canvas but the height is defined in constants
+    math::vec2f size{canvas_width, constants.ground_thickness};
+
+    auto ground = geometry::blueprint_rectangle(registry, size, constants.ground_color, pos);
+    registry.assign<graphics::layer<3>>(ground);
+    tag_game_scene(registry, ground);
+}
+```
+
+Notice that we didn’t tag any of these `dynamic`. They will be static and permanent.
+
+Now the background is complete, the whole function looks like this:
+
+```
+// Factory for creating a Flappy Bird background
+void create_background(entt::registry &registry) noexcept {
+    // Retrieve constants
+    const auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+    const auto constants = registry.ctx<flappy_bird_constants>();
+
+    // Create Sky
+    {
+        // Sky is whole canvas so position is middle of it
+        transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
+
+        // And the size is full canvas
+        math::vec2f size{canvas_width, canvas_height};
+
+        auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
+        registry.assign<graphics::layer<1>>(sky);
+        tag_game_scene(registry, sky);
+    }
+
+    // Create Grass
+    {
+        // Ground expands to whole canvas width so position is middle of it,
+        // But position Y is at top of the ground, so it's canvas height minus ground thickness
+        transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
+
+        // Size X is full canvas but the height is defined in constants
+        // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+        math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
+
+        auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
+                                                   constants.grass_outline_color);
+        registry.assign<graphics::layer<3>>(grass);
+        tag_game_scene(registry, grass);
+    }
+
+    // Create Ground
+    {
+        // Ground expands to whole canvas width so position is middle of it,
+        // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+        transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
+
+        // Size X is full canvas but the height is defined in constants
+        math::vec2f size{canvas_width, constants.ground_thickness};
+
+        auto ground = geometry::blueprint_rectangle(registry, size, constants.ground_color, pos);
+        registry.assign<graphics::layer<3>>(ground);
+        tag_game_scene(registry, ground);
+    }
+}
+```
+
+Let’s call it inside the `game_scene` constructor.
+
+```
+game_scene(entt::registry &registry) noexcept : base_scene(registry) {
+    // Set the constants that will be used in the program
+    registry.set<flappy_bird_constants>();
+
+    // Create everything
+    create_background(registry);
+    init_dynamic_objects(registry);
+}
+```
+
+Now we have a pretty background, at least as pretty as it can get with three rectangles!
+
+
+
+![image](./../../assets/fb_background.png)
+
+Step 3 is complete, full code below.
+
+```
+#include <random>
+#include <antara/gaming/graphics/component.layer.hpp>
+#include <antara/gaming/graphics/component.canvas.hpp>
+#include <antara/gaming/math/vector.hpp>
+#include <antara/gaming/scenes/scene.manager.hpp>
+#include <antara/gaming/sfml/graphic.system.hpp>
+#include <antara/gaming/sfml/input.system.hpp>
+#include <antara/gaming/sfml/resources.manager.hpp>
+#include <antara/gaming/world/world.app.hpp>
+#include <antara/gaming/graphics/component.sprite.hpp>
+
+// For convenience
+using namespace antara::gaming;
+using namespace std::string_literals;
+
+// Constants
+struct flappy_bird_constants {
+    // Pipes
+    const float gap_height{265.f};
+    const float column_start_distance{700.f};
+    const float column_min{0.2f};
+    const float column_max{0.8f};
+    const float column_thickness{100.f};
+    const float column_distance{400.f};
+    const std::size_t column_count{6};
+    const float pipe_cap_extra_width{10.f};
+    const float pipe_cap_height{50.f};
+    const graphics::color pipe_color{92, 181, 61};
+    const graphics::outline_color pipe_outline_color{2.0f, graphics::color{76, 47, 61}};
+
+    // Background
+    const float ground_thickness{100.0f};
+    const float grass_thickness{20.0f};
+    const graphics::color background_color{82, 189, 199};
+    const graphics::color ground_color{220, 209, 143};
+    const graphics::color grass_color{132, 227, 90};
+    const graphics::outline_color grass_outline_color{2.0f, graphics::color{76, 47, 61}};
+};
+
+// Random number generator
+namespace {
+    std::random_device rd;  // Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+    float random_float(float lower, float higher) {
+        std::uniform_real_distribution<float> dist(lower, higher);
+        return dist(gen);
+    }
+}
+
+// A Flappy Bird column which has two pipes
+struct pipe {
+    entt::entity body{entt::null};
+    entt::entity cap{entt::null};
+
+    // Destroy pipe
+    void destroy(entt::registry &registry) {
+        registry.destroy(body);
+        registry.destroy(cap);
+    }
+};
+
+// Column is made of two pipes
+struct column {
+    // Entities representing the Flappy Bird pipes
+    pipe top_pipe{entt::null};
+    pipe bottom_pipe{entt::null};
+
+    // Destroy pipes and this column
+    void destroy(entt::registry &registry, entt::entity entity) {
+        top_pipe.destroy(registry);
+        bottom_pipe.destroy(registry);
+        registry.destroy(entity);
+    }
+};
+
+// Logic functions
+namespace {
+    void tag_game_scene(entt::registry &registry, entt::entity entity, bool dynamic = false) {
+        // Tag game scene
+        registry.assign<entt::tag<"game_scene"_hs>>(entity);
+
+        // Tag dynamic
+        if(dynamic) registry.assign<entt::tag<"dynamic"_hs>>(entity);
+    }
+
+    // Returns a random gap start position Y
+    float get_random_gap_start_pos(const entt::registry &registry) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        float top_limit = canvas_height * constants.column_min;
+        float bottom_limit = canvas_height * constants.column_max - constants.gap_height;
+
+        return random_float(top_limit, bottom_limit);
+    }
+}
+
+// Factory functions
+namespace {
+    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // PIPE BODY
+        // Top pipe is at Y: 0 and bottom pipe is at canvas_height, bottom of the canvas
+        transform::position_2d body_pos{pos_x, is_top ? 0.f : canvas_height};
+
+        // Size X is the column thickness,
+        // Size Y is the important part.
+        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
+        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
+        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
+        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        math::vec2f body_size{constants.column_thickness,
+                              is_top ?
+                              gap_start_pos_y * 2.0f :
+                              (canvas_height - (gap_start_pos_y + constants.gap_height)) * 2.0f};
+
+        auto body = geometry::blueprint_rectangle(registry, body_size, constants.pipe_color, body_pos,
+                                                  constants.pipe_outline_color);
+
+        // PIPE CAP
+        // Let's prepare the pipe cap
+        // Size of the cap is defined in constants
+        math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
+
+        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
+        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        transform::position_2d cap_pos{body_pos.x(),
+                                       is_top ?
+                                       gap_start_pos_y - constants.pipe_cap_height * 0.5f :
+                                       gap_start_pos_y + constants.gap_height + constants.pipe_cap_height * 0.5f
+        };
+
+        // Construct the cap
+        auto cap = geometry::blueprint_rectangle(registry, cap_size, constants.pipe_color, cap_pos,
+                                                 constants.pipe_outline_color);
+
+        // Set layers, cap should be in front of body
+        registry.assign<graphics::layer<4>>(cap);
+        registry.assign<graphics::layer<3>>(body);
+        tag_game_scene(registry, cap, true);
+        tag_game_scene(registry, body, true);
+
+        // Construct a pipe with body and cap and return it
+        return {body, cap};
+    }
+
+    // Factory to create single column
+    void create_column(entt::registry &registry, float pos_x) noexcept {
+        // Create a fresh entity for a new column
+        auto entity_column = registry.create();
+
+        // Get a random gap start position Y, between pipes
+        float gap_start_pos_y = get_random_gap_start_pos(registry);
+
+        // Create pipes, is_top variable is false for bottom one
+        auto top_pipe = create_pipe(registry, true, pos_x, gap_start_pos_y);
+        auto bottom_pipe = create_pipe(registry, false, pos_x, gap_start_pos_y);
+
+        // Make a column from these two pipes and mark it as "column"
+        registry.assign<column>(entity_column, top_pipe, bottom_pipe);
+        registry.assign<entt::tag<"column"_hs>>(entity_column);
+        tag_game_scene(registry, entity_column, true);
+    }
+
+    // Factory for creating a Flappy Bird columns
+    void create_columns(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Spawn columns out of the screen, out of the canvas
+        const float column_pos_offset = constants.column_start_distance + constants.column_thickness * 2.0f;
+
+        // Create the columns
+        for (std::size_t i = 0; i < constants.column_count; ++i) {
+            // Horizontal position (X) increases for every column, keeping the distance
+            float pos_x = column_pos_offset + i * constants.column_distance;
+
+            create_column(registry, pos_x);
+        }
+    }
+
+    // Factory for creating a Flappy Bird background
+    void create_background(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Create Sky
+        {
+            // Sky is whole canvas so position is middle of it
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
+
+            // And the size is full canvas
+            math::vec2f size{canvas_width, canvas_height};
+
+            auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
+            registry.assign<graphics::layer<1>>(sky);
+            tag_game_scene(registry, sky);
+        }
+
+        // Create Grass
+        {
+            // Ground expands to whole canvas width so position is middle of it,
+            // But position Y is at top of the ground, so it's canvas height minus ground thickness
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
+
+            // Size X is full canvas but the height is defined in constants
+            // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+            math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
+
+            auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
+                                                       constants.grass_outline_color);
+            registry.assign<graphics::layer<3>>(grass);
+            tag_game_scene(registry, grass);
+        }
+
+        // Create Ground
+        {
+            // Ground expands to whole canvas width so position is middle of it,
+            // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
+
+            // Size X is full canvas but the height is defined in constants
+            math::vec2f size{canvas_width, constants.ground_thickness};
+
+            auto ground = geometry::blueprint_rectangle(registry, size, constants.ground_color, pos);
+            registry.assign<graphics::layer<3>>(ground);
+            tag_game_scene(registry, ground);
+        }
+    }
+}
+
+// Game Scene
+class game_scene final : public scenes::base_scene {
+public:
+    game_scene(entt::registry &registry) noexcept : base_scene(registry) {
+        // Set the constants that will be used in the program
+        registry.set<flappy_bird_constants>();
+
+        // Create everything
+        create_background(registry);
+        init_dynamic_objects(registry);
+    }
+
+    // Scene name
+    std::string scene_name() noexcept final {
+        return "game_scene";
+    }
+
+private:
+    // Update the game every tick
+    void update() noexcept final {
+    }
+
+    // Initialize dynamic objects, this function is called at start and resets
+    void init_dynamic_objects(entt::registry &registry) {
+        create_columns(registry);
+    }
+};
+
+// Game world
+struct flappy_bird_world : world::app {
+    // Game entry point
+    flappy_bird_world() noexcept {
+        // Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        // Load the resources system
+        entity_registry_.set<sfml::resources_system>(entity_registry_);
+
+        // Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        // Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        // Change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_), true);
+    }
+};
+
+int main() {
+    // Declare the world
+    flappy_bird_world game;
+
+    // Run the game
+    return game.run();
+}
+```
+
+## Step 4: Move, destroy and respawn pipes
+
+To create the illusion of movement, Flappy Bird will stay still and pipes will move to left. That way, we don’t need to make a camera which follows Flappy Bird.
+
+Let’s define a constant into `flappy_bird_constants` named `scroll_speed`, which will be the movement speed of pipes moving left (towards Flappy bird).
+
+```
+const float scroll_speed{200.f};
+```
+
+Smooth movement requires a position update at every tick. So we need a `ecs::logic_update_system`, let’s call it `column_logic`.
+
+```
+// Column Logic System
+class column_logic final : public ecs::logic_update_system<column_logic> {
+public:
+    explicit column_logic(entt::registry &registry) noexcept : system(registry) {
+        disable();
+    }
+```
+
+Next we make a `move_pipe` function, with a parameter of `struct pipe` reference. We’ll also retrieve constants, to access the scroll speed.
+
+```
+// Move the pipe and return the x position
+float move_pipe(entt::registry &registry, pipe &pipe) {
+    // Retrieve constants
+    const auto constants = registry.ctx<flappy_bird_constants>();
+```
+
+To move the pipe, first we need to know its current position. We retrieve the body position of the pipe (cap is also the same so body will be enough). Pipes move only along the X axis, horizontally. So we are only interested in their X position.
+
+```
+// Get current position of the pipe
+auto pos = registry.get<transform::position_2d>(pipe.body);
+```
+
+Now we calculate the new position X, by adding `scroll_speed`, but we use `-` because a lower position value moves to the left side. So we’re actually subtracting from the X position value to make the pipe move to left side. We also multiply `scroll_speed` with delta time `timer::time_step::get_fixed_delta_time()`, so the movement will be spread over time, and the frame changes will look smoother. `scroll_speed` is actually amount of pixels the object will move in `1 second`.
+
+```
+// Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
+// Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
+```
+
+Update both body and cap positions by replacing entity’s `transform::position_2d`.
+
+```
+// Set the new position value
+registry.replace<transform::position_2d>(pipe.body, new_pos_x, pos.y());
+
+// Set cap position too
+auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
+registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
+```
+
+And finally, return the new position (we will use this later).
+
+```
+// Return the info about if this pipe is out of the screen
+return new_pos_x;
+```
+
+The completed function now looks like this:
+
+```
+// Move the pipe and return the x position
+float move_pipe(entt::registry &registry, pipe &pipe) {
+    // Retrieve constants
+    const auto constants = registry.ctx<flappy_bird_constants>();
+
+    // Get current position of the pipe
+    auto pos = registry.get<transform::position_2d>(pipe.body);
+
+    // Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
+    // Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+    auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
+
+    // Set the new position value
+    registry.replace<transform::position_2d>(pipe.body, new_pos_x, pos.y());
+
+    // Set cap position too
+    auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
+    registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
+
+    // Return the info about if this pipe is out of the screen
+    return new_pos_x;
+}
+```
+
+In the update function, we will move all the columns every tick, and those exiting the screen on the left will be destroyed. A new column will be spawned coming in from the right side, the column furthest away from Flappy bird. Let’s make a very basic function which will return the X position of the furthest pipe.
+
+This basic function simply loops over all columns and check if the column’s X position is higher than the previous maximum.
+
+```
+// Find the furthest pipe's position X
+float furthest_pipe_position(entt::registry &registry) {
+    float furthest = 0.f;
+
+    for (auto entity : registry.view<column>()) {
+        auto &col = registry.get<column>(entity);
+        float x = entity_registry_.get<transform::position_2d>(col.top_pipe.body).x();
+        if (x > furthest) furthest = x;
+    }
+
+    return furthest;
+}
+```
+
+Now we can make the update function which will be called every single tick.
+
+It will retrieve constants and all columns, then loop all the columns.
+
+```
+// Update, this will be called every tick
+void update() noexcept final {
+    auto &registry = entity_registry_;
+
+    // Retrieve constants
+    const auto constants = registry.ctx<flappy_bird_constants>();
+
+    // Loop all columns
+    for (auto entity : registry.view<column>()) {
+```
+
+Inside the loop, we get the `struct column` from the column `entt::entity`.
+
+```
+auto &col = registry.get<column>(entity);
+```
+
+Then call the `move_pipe` function twice, one for top pipe, one for the bottom one. They are at the same X position, so to know the column position, we save the return value of one of them into `column_pos_x`.
+
+```
+// Move pipes, and retrieve column position x
+float column_pos_x = move_pipe(registry, col.top_pipe);
+move_pipe(registry, col.bottom_pipe);
+```
+
+Now we know the column position. As we said before, we need to destroy it if it’s out of the screen. Position of left side of the screen is `0`. To make sure column is out of the screen, we can use the `column_distance` value, but negative. For example, it will be `-400`. We can compare the column’s X position against this value to know if it’s outside the screen.
+
+```
+// If column is out of the screen
+if (column_pos_x < -constants.column_distance) {
+```
+
+If it is, we destroy the column, then create a new column on the right using the `create_column` function. As the new column position, we use the `furthest_pipe_position` then add `column_distance` so it will spawn a little bit further than the last column.
+
+```
+// If column is out of the screen
+if (column_pos_x < -constants.column_distance) {
+    // Remove this column
+    col.destroy(registry, entity);
+
+    // Create a new column at far end
+    create_column(registry, furthest_pipe_position(registry) + constants.column_distance);
+}
+```
+
+That’s it - the complete `update` function looks like this:
+
+```
+// Update, this will be called every tick
+void update() noexcept final {
+    auto &registry = entity_registry_;
+
+    // Retrieve constants
+    const auto constants = registry.ctx<flappy_bird_constants>();
+
+    // Loop all columns
+    for (auto entity : registry.view<column>()) {
+        auto &col = registry.get<column>(entity);
+
+        // Move pipes, and retrieve column position x
+        float column_pos_x = move_pipe(registry, col.top_pipe);
+        move_pipe(registry, col.bottom_pipe);
+
+        // If column is out of the screen
+        if (column_pos_x < -constants.column_distance) {
+            // Remove this column
+            col.destroy(registry, entity);
+
+            // Create a new column at far end
+            create_column(registry, furthest_pipe_position(registry) + constants.column_distance);
+        }
+    }
+}
+```
+
+Now we name this logic system, after the class.
+
+```
+// Name this system
+REFL_AUTO (type(column_logic));
+```
+
+`column_logic` class is fully ready.
+
+To create a logic system, we need to access `ecs::system_manager` inside the `game_scene`.
+
+We add a member variable to store the reference inside the `game_scene`.
+
+```
+// System manager reference
+ecs::system_manager &system_manager_;
+```
+
+Then add a parameter to the constructor which sets this reference.
+
+```
+game_scene(entt::registry &registry, ecs::system_manager &system_manager) noexcept : base_scene(registry), system_manager_(system_manager) {
+```
+
+Now we will make a function which will create logic systems, inside we use the `system_manager_`.
+
+```
+// Create logic systems
+void create_logic_systems() {
+    system_manager_.create_system_rt<column_logic>();
+}
+```
+
+And finally call this in the `init_dynamic_objects` function.
+
+```
+// Initialize dynamic objects, this function is called at start and resets
+void init_dynamic_objects(entt::registry &registry) {
+    create_columns(registry);
+
+    // Create logic systems
+    create_logic_systems();
+}
+```
+
+Step 4 is now complete, here is the full code.
+
+```
+#include <random>
+#include <antara/gaming/graphics/component.layer.hpp>
+#include <antara/gaming/graphics/component.canvas.hpp>
+#include <antara/gaming/math/vector.hpp>
+#include <antara/gaming/scenes/scene.manager.hpp>
+#include <antara/gaming/sfml/graphic.system.hpp>
+#include <antara/gaming/sfml/input.system.hpp>
+#include <antara/gaming/sfml/resources.manager.hpp>
+#include <antara/gaming/world/world.app.hpp>
+#include <antara/gaming/graphics/component.sprite.hpp>
+
+// For convenience
+using namespace antara::gaming;
+using namespace std::string_literals;
+
+// Constants
+struct flappy_bird_constants {
+    // Pipes
+    const float gap_height{265.f};
+    const float column_start_distance{700.f};
+    const float column_min{0.2f};
+    const float column_max{0.8f};
+    const float column_thickness{100.f};
+    const float column_distance{400.f};
+    const std::size_t column_count{6};
+    const float pipe_cap_extra_width{10.f};
+    const float pipe_cap_height{50.f};
+    const graphics::color pipe_color{92, 181, 61};
+    const graphics::outline_color pipe_outline_color{2.0f, graphics::color{76, 47, 61}};
+    const float scroll_speed{200.f};
+
+    // Background
+    const float ground_thickness{100.0f};
+    const float grass_thickness{20.0f};
+    const graphics::color background_color{82, 189, 199};
+    const graphics::color ground_color{220, 209, 143};
+    const graphics::color grass_color{132, 227, 90};
+    const graphics::outline_color grass_outline_color{2.0f, graphics::color{76, 47, 61}};
+};
+
+// Random number generator
+namespace {
+    std::random_device rd;  // Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+    float random_float(float lower, float higher) {
+        std::uniform_real_distribution<float> dist(lower, higher);
+        return dist(gen);
+    }
+}
+
+// A Flappy Bird column which has two pipes
+struct pipe {
+    entt::entity body{entt::null};
+    entt::entity cap{entt::null};
+
+    // Destroy pipe
+    void destroy(entt::registry &registry) {
+        registry.destroy(body);
+        registry.destroy(cap);
+    }
+};
+
+// Column is made of two pipes
+struct column {
+    // Entities representing the Flappy Bird pipes
+    pipe top_pipe{entt::null};
+    pipe bottom_pipe{entt::null};
+
+    // Destroy pipes and this column
+    void destroy(entt::registry &registry, entt::entity entity) {
+        top_pipe.destroy(registry);
+        bottom_pipe.destroy(registry);
+        registry.destroy(entity);
+    }
+};
+
+// Logic functions
+namespace {
+    void tag_game_scene(entt::registry &registry, entt::entity entity, bool dynamic = false) {
+        // Tag game scene
+        registry.assign<entt::tag<"game_scene"_hs>>(entity);
+
+        // Tag dynamic
+        if(dynamic) registry.assign<entt::tag<"dynamic"_hs>>(entity);
+    }
+
+    // Returns a random gap start position Y
+    float get_random_gap_start_pos(const entt::registry &registry) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        float top_limit = canvas_height * constants.column_min;
+        float bottom_limit = canvas_height * constants.column_max - constants.gap_height;
+
+        return random_float(top_limit, bottom_limit);
+    }
+}
+
+// Factory functions
+namespace {
+    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // PIPE BODY
+        // Top pipe is at Y: 0 and bottom pipe is at canvas_height, bottom of the canvas
+        transform::position_2d body_pos{pos_x, is_top ? 0.f : canvas_height};
+
+        // Size X is the column thickness,
+        // Size Y is the important part.
+        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
+        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
+        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
+        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        math::vec2f body_size{constants.column_thickness,
+                              is_top ?
+                              gap_start_pos_y * 2.0f :
+                              (canvas_height - (gap_start_pos_y + constants.gap_height)) * 2.0f};
+
+        auto body = geometry::blueprint_rectangle(registry, body_size, constants.pipe_color, body_pos,
+                                                  constants.pipe_outline_color);
+
+        // PIPE CAP
+        // Let's prepare the pipe cap
+        // Size of the cap is defined in constants
+        math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
+
+        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
+        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        transform::position_2d cap_pos{body_pos.x(),
+                                       is_top ?
+                                       gap_start_pos_y - constants.pipe_cap_height * 0.5f :
+                                       gap_start_pos_y + constants.gap_height + constants.pipe_cap_height * 0.5f
+        };
+
+        // Construct the cap
+        auto cap = geometry::blueprint_rectangle(registry, cap_size, constants.pipe_color, cap_pos,
+                                                 constants.pipe_outline_color);
+
+        // Set layers, cap should be in front of body
+        registry.assign<graphics::layer<4>>(cap);
+        registry.assign<graphics::layer<3>>(body);
+        tag_game_scene(registry, cap, true);
+        tag_game_scene(registry, body, true);
+
+        // Construct a pipe with body and cap and return it
+        return {body, cap};
+    }
+
+    // Factory to create single column
+    void create_column(entt::registry &registry, float pos_x) noexcept {
+        // Create a fresh entity for a new column
+        auto entity_column = registry.create();
+
+        // Get a random gap start position Y, between pipes
+        float gap_start_pos_y = get_random_gap_start_pos(registry);
+
+        // Create pipes, is_top variable is false for bottom one
+        auto top_pipe = create_pipe(registry, true, pos_x, gap_start_pos_y);
+        auto bottom_pipe = create_pipe(registry, false, pos_x, gap_start_pos_y);
+
+        // Make a column from these two pipes and mark it as "column"
+        registry.assign<column>(entity_column, top_pipe, bottom_pipe);
+        registry.assign<entt::tag<"column"_hs>>(entity_column);
+        tag_game_scene(registry, entity_column, true);
+    }
+
+    // Factory for creating a Flappy Bird columns
+    void create_columns(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Spawn columns out of the screen, out of the canvas
+        const float column_pos_offset = constants.column_start_distance + constants.column_thickness * 2.0f;
+
+        // Create the columns
+        for (std::size_t i = 0; i < constants.column_count; ++i) {
+            // Horizontal position (X) increases for every column, keeping the distance
+            float pos_x = column_pos_offset + i * constants.column_distance;
+
+            create_column(registry, pos_x);
+        }
+    }
+
+    // Factory for creating a Flappy Bird background
+    void create_background(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Create Sky
+        {
+            // Sky is whole canvas so position is middle of it
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
+
+            // And the size is full canvas
+            math::vec2f size{canvas_width, canvas_height};
+
+            auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
+            registry.assign<graphics::layer<1>>(sky);
+            tag_game_scene(registry, sky);
+        }
+
+        // Create Grass
+        {
+            // Ground expands to whole canvas width so position is middle of it,
+            // But position Y is at top of the ground, so it's canvas height minus ground thickness
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
+
+            // Size X is full canvas but the height is defined in constants
+            // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+            math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
+
+            auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
+                                                       constants.grass_outline_color);
+            registry.assign<graphics::layer<3>>(grass);
+            tag_game_scene(registry, grass);
+        }
+
+        // Create Ground
+        {
+            // Ground expands to whole canvas width so position is middle of it,
+            // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
+
+            // Size X is full canvas but the height is defined in constants
+            math::vec2f size{canvas_width, constants.ground_thickness};
+
+            auto ground = geometry::blueprint_rectangle(registry, size, constants.ground_color, pos);
+            registry.assign<graphics::layer<3>>(ground);
+            tag_game_scene(registry, ground);
+        }
+    }
+}
+
+// Column Logic System
+class column_logic final : public ecs::logic_update_system<column_logic> {
+public:
+    explicit column_logic(entt::registry &registry) noexcept : system(registry) {
+        disable();
+    }
+
+    // Update, this will be called every tick
+    void update() noexcept final {
+        auto &registry = entity_registry_;
+
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Loop all columns
+        for (auto entity : registry.view<column>()) {
+            auto &col = registry.get<column>(entity);
+
+            // Move pipes, and retrieve column position x
+            float column_pos_x = move_pipe(registry, col.top_pipe);
+            move_pipe(registry, col.bottom_pipe);
+
+            // If column is out of the screen
+            if (column_pos_x < -constants.column_distance) {
+                // Remove this column
+                col.destroy(registry, entity);
+
+                // Create a new column at far end
+                create_column(registry, furthest_pipe_position(registry) + constants.column_distance);
+            }
+        }
+    }
+
+private:
+    // Find the furthest pipe's position X
+    float furthest_pipe_position(entt::registry &registry) {
+        float furthest = 0.f;
+
+        for (auto entity : registry.view<column>()) {
+            auto &col = registry.get<column>(entity);
+            float x = entity_registry_.get<transform::position_2d>(col.top_pipe.body).x();
+            if (x > furthest) furthest = x;
+        }
+
+        return furthest;
+    }
+
+    // Move the pipe and return the x position
+    float move_pipe(entt::registry &registry, pipe &pipe) {
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Get current position of the pipe
+        auto pos = registry.get<transform::position_2d>(pipe.body);
+
+        // Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
+        // Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+        auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
+
+        // Set the new position value
+        registry.replace<transform::position_2d>(pipe.body, new_pos_x, pos.y());
+
+        // Set cap position too
+        auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
+        registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
+
+        // Return the info about if this pipe is out of the screen
+        return new_pos_x;
+    }
+};
+
+// Name this system
+REFL_AUTO (type(column_logic));
+
+// Game Scene
+class game_scene final : public scenes::base_scene {
+public:
+    game_scene(entt::registry &registry, ecs::system_manager &system_manager) noexcept : base_scene(registry), system_manager_(system_manager) {
+        // Set the constants that will be used in the program
+        registry.set<flappy_bird_constants>();
+
+        // Create everything
+        create_background(registry);
+        init_dynamic_objects(registry);
+    }
+
+    // Scene name
+    std::string scene_name() noexcept final {
+        return "game_scene";
+    }
+
+private:
+    // Update the game every tick
+    void update() noexcept final {
+    }
+
+    // Initialize dynamic objects, this function is called at start and resets
+    void init_dynamic_objects(entt::registry &registry) {
+        create_columns(registry);
+
+        // Create logic systems
+        create_logic_systems();
+    }
+
+    // Create logic systems
+    void create_logic_systems() {
+        system_manager_.create_system_rt<column_logic>();
+    }
+
+    // System manager reference
+    ecs::system_manager &system_manager_;
+};
+
+// Game world
+struct flappy_bird_world : world::app {
+    // Game entry point
+    flappy_bird_world() noexcept {
+        // Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        // Load the resources system
+        entity_registry_.set<sfml::resources_system>(entity_registry_);
+
+        // Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        // Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        // Change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_, system_manager_), true);
+    }
+};
+
+int main() {
+    // Declare the world
+    flappy_bird_world game;
+
+    // Run the game
+    return game.run();
+}
+```
+
+## Step 5: Creation of Flappy Bird
+
+Now we will create the Flappy Bird. Instead of using a rectangle as a character, we will use an image file. This is called a `character sprite`. We will call Flappy Bird “player” from now on.
+
+We need two constants, one for the player position, and another one for the image file name.
+
+```
+struct flappy_bird_constants {
+    // Player
+    const std::string player_image_name{"player.png"};
+    const float player_pos_x{400.0f};
+```
+
+Let’s make a `create_player` function which will construct the player entity and return it.
+
+We retrieve the constants as always.
+
+```
+// Factory for creating the player
+entt::entity create_player(entt::registry &registry) {
+    // Retrieve constants
+    const auto[_, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+    const auto constants = registry.ctx<flappy_bird_constants>();
+```
+
+Then we use the `graphics::blueprint_sprite` which is really easy to use. It requires two parameters, `graphics::sprite` and `transform::position_2d`.
+`graphics::sprite` gets the image path, and `transform::position_2d` gets the `player_pos_x` constant as X position, half of the canvas height as Y position.
+
+```
+auto entity = graphics::blueprint_sprite(registry,
+                                            graphics::sprite{constants.player_image_name.c_str()},
+                                            transform::position_2d{constants.player_pos_x, canvas_height * 0.5f});
+```
+
+We assign `layer<5>` for draw order, tag `player`, `game_scene` and `dynamic`. Then return the entity.
+
+```
+registry.assign<antara::gaming::graphics::layer<5>>(entity);
+registry.assign<entt::tag<"player"_hs>>(entity);
+tag_game_scene(registry, entity, true);
+
+return entity;
+```
+
+The completed `create_player` function looks like this:
+
+```
+// Factory for creating the player
+entt::entity create_player(entt::registry &registry) {
+    // Retrieve constants
+    const auto[_, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+    const auto constants = registry.ctx<flappy_bird_constants>();
+
+    auto entity = graphics::blueprint_sprite(registry,
+                                             graphics::sprite{constants.player_image_name.c_str()},
+                                             transform::position_2d{constants.player_pos_x, canvas_height * 0.5f});
+    registry.assign<antara::gaming::graphics::layer<5>>(entity);
+    registry.assign<entt::tag<"player"_hs>>(entity);
+    tag_game_scene(registry, entity, true);
+
+    return entity;
+}
+```
+
+Finally we call this function inside `init_dynamic_objects`.
+
+```
+// Initialize dynamic objects, this function is called at start and resets
+void init_dynamic_objects(entt::registry &registry) {
+    create_columns(registry);
+
+    // Create player
+    create_player(registry);
+
+    // Create logic systems
+    create_logic_systems();
+}
+```
+
+Now you should be able to see the character and moving pipes.
+
+
+
+![image](./../../assets/fb_player_creation.png)
+
+Step 5 is complete, here is the full code.
+
+```
+#include <random>
+#include <antara/gaming/graphics/component.layer.hpp>
+#include <antara/gaming/graphics/component.canvas.hpp>
+#include <antara/gaming/math/vector.hpp>
+#include <antara/gaming/scenes/scene.manager.hpp>
+#include <antara/gaming/sfml/graphic.system.hpp>
+#include <antara/gaming/sfml/input.system.hpp>
+#include <antara/gaming/sfml/resources.manager.hpp>
+#include <antara/gaming/world/world.app.hpp>
+#include <antara/gaming/graphics/component.sprite.hpp>
+
+// For convenience
+using namespace antara::gaming;
+using namespace std::string_literals;
+
+// Constants
+struct flappy_bird_constants {
+    // Player
+    const std::string player_image_name{"player.png"};
+    const float player_pos_x{400.0f};
+
+    // Pipes
+    const float gap_height{265.f};
+    const float column_start_distance{700.f};
+    const float column_min{0.2f};
+    const float column_max{0.8f};
+    const float column_thickness{100.f};
+    const float column_distance{400.f};
+    const std::size_t column_count{6};
+    const float pipe_cap_extra_width{10.f};
+    const float pipe_cap_height{50.f};
+    const graphics::color pipe_color{92, 181, 61};
+    const graphics::outline_color pipe_outline_color{2.0f, graphics::color{76, 47, 61}};
+    const float scroll_speed{200.f};
+
+    // Background
+    const float ground_thickness{100.0f};
+    const float grass_thickness{20.0f};
+    const graphics::color background_color{82, 189, 199};
+    const graphics::color ground_color{220, 209, 143};
+    const graphics::color grass_color{132, 227, 90};
+    const graphics::outline_color grass_outline_color{2.0f, graphics::color{76, 47, 61}};
+};
+
+// Random number generator
+namespace {
+    std::random_device rd;  // Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+    float random_float(float lower, float higher) {
+        std::uniform_real_distribution<float> dist(lower, higher);
+        return dist(gen);
+    }
+}
+
+// A Flappy Bird column which has two pipes
+struct pipe {
+    entt::entity body{entt::null};
+    entt::entity cap{entt::null};
+
+    // Destroy pipe
+    void destroy(entt::registry &registry) {
+        registry.destroy(body);
+        registry.destroy(cap);
+    }
+};
+
+// Column is made of two pipes
+struct column {
+    // Entities representing the Flappy Bird pipes
+    pipe top_pipe{entt::null};
+    pipe bottom_pipe{entt::null};
+
+    // Destroy pipes and this column
+    void destroy(entt::registry &registry, entt::entity entity) {
+        top_pipe.destroy(registry);
+        bottom_pipe.destroy(registry);
+        registry.destroy(entity);
+    }
+};
+
+// Logic functions
+namespace {
+    void tag_game_scene(entt::registry &registry, entt::entity entity, bool dynamic = false) {
+        // Tag game scene
+        registry.assign<entt::tag<"game_scene"_hs>>(entity);
+
+        // Tag dynamic
+        if(dynamic) registry.assign<entt::tag<"dynamic"_hs>>(entity);
+    }
+
+    // Returns a random gap start position Y
+    float get_random_gap_start_pos(const entt::registry &registry) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        float top_limit = canvas_height * constants.column_min;
+        float bottom_limit = canvas_height * constants.column_max - constants.gap_height;
+
+        return random_float(top_limit, bottom_limit);
+    }
+}
+
+// Factory functions
+namespace {
+    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // PIPE BODY
+        // Top pipe is at Y: 0 and bottom pipe is at canvas_height, bottom of the canvas
+        transform::position_2d body_pos{pos_x, is_top ? 0.f : canvas_height};
+
+        // Size X is the column thickness,
+        // Size Y is the important part.
+        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
+        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
+        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
+        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        math::vec2f body_size{constants.column_thickness,
+                              is_top ?
+                              gap_start_pos_y * 2.0f :
+                              (canvas_height - (gap_start_pos_y + constants.gap_height)) * 2.0f};
+
+        auto body = geometry::blueprint_rectangle(registry, body_size, constants.pipe_color, body_pos,
+                                                  constants.pipe_outline_color);
+
+        // PIPE CAP
+        // Let's prepare the pipe cap
+        // Size of the cap is defined in constants
+        math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
+
+        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
+        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        transform::position_2d cap_pos{body_pos.x(),
+                                       is_top ?
+                                       gap_start_pos_y - constants.pipe_cap_height * 0.5f :
+                                       gap_start_pos_y + constants.gap_height + constants.pipe_cap_height * 0.5f
+        };
+
+        // Construct the cap
+        auto cap = geometry::blueprint_rectangle(registry, cap_size, constants.pipe_color, cap_pos,
+                                                 constants.pipe_outline_color);
+
+        // Set layers, cap should be in front of body
+        registry.assign<graphics::layer<4>>(cap);
+        registry.assign<graphics::layer<3>>(body);
+        tag_game_scene(registry, cap, true);
+        tag_game_scene(registry, body, true);
+
+        // Construct a pipe with body and cap and return it
+        return {body, cap};
+    }
+
+    // Factory to create single column
+    void create_column(entt::registry &registry, float pos_x) noexcept {
+        // Create a fresh entity for a new column
+        auto entity_column = registry.create();
+
+        // Get a random gap start position Y, between pipes
+        float gap_start_pos_y = get_random_gap_start_pos(registry);
+
+        // Create pipes, is_top variable is false for bottom one
+        auto top_pipe = create_pipe(registry, true, pos_x, gap_start_pos_y);
+        auto bottom_pipe = create_pipe(registry, false, pos_x, gap_start_pos_y);
+
+        // Make a column from these two pipes and mark it as "column"
+        registry.assign<column>(entity_column, top_pipe, bottom_pipe);
+        registry.assign<entt::tag<"column"_hs>>(entity_column);
+        tag_game_scene(registry, entity_column, true);
+    }
+
+    // Factory for creating a Flappy Bird columns
+    void create_columns(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Spawn columns out of the screen, out of the canvas
+        const float column_pos_offset = constants.column_start_distance + constants.column_thickness * 2.0f;
+
+        // Create the columns
+        for (std::size_t i = 0; i < constants.column_count; ++i) {
+            // Horizontal position (X) increases for every column, keeping the distance
+            float pos_x = column_pos_offset + i * constants.column_distance;
+
+            create_column(registry, pos_x);
+        }
+    }
+
+    // Factory for creating a Flappy Bird background
+    void create_background(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Create Sky
+        {
+            // Sky is whole canvas so position is middle of it
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
+
+            // And the size is full canvas
+            math::vec2f size{canvas_width, canvas_height};
+
+            auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
+            registry.assign<graphics::layer<1>>(sky);
+            tag_game_scene(registry, sky);
+        }
+
+        // Create Grass
+        {
+            // Ground expands to whole canvas width so position is middle of it,
+            // But position Y is at top of the ground, so it's canvas height minus ground thickness
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
+
+            // Size X is full canvas but the height is defined in constants
+            // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+            math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
+
+            auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
+                                                       constants.grass_outline_color);
+            registry.assign<graphics::layer<3>>(grass);
+            tag_game_scene(registry, grass);
+        }
+
+        // Create Ground
+        {
+            // Ground expands to whole canvas width so position is middle of it,
+            // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
+
+            // Size X is full canvas but the height is defined in constants
+            math::vec2f size{canvas_width, constants.ground_thickness};
+
+            auto ground = geometry::blueprint_rectangle(registry, size, constants.ground_color, pos);
+            registry.assign<graphics::layer<3>>(ground);
+            tag_game_scene(registry, ground);
+        }
+    }
+
+    // Factory for creating the player
+    entt::entity create_player(entt::registry &registry) {
+        // Retrieve constants
+        const auto[_, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        auto entity = graphics::blueprint_sprite(registry,
+                                                 graphics::sprite{constants.player_image_name.c_str()},
+                                                 transform::position_2d{constants.player_pos_x, canvas_height * 0.5f});
+        registry.assign<antara::gaming::graphics::layer<5>>(entity);
+        registry.assign<entt::tag<"player"_hs>>(entity);
+        tag_game_scene(registry, entity, true);
+
+        return entity;
+    }
+}
+
+// Column Logic System
+class column_logic final : public ecs::logic_update_system<column_logic> {
+public:
+    explicit column_logic(entt::registry &registry) noexcept : system(registry) {
+        disable();
+    }
+
+    // Update, this will be called every tick
+    void update() noexcept final {
+        auto &registry = entity_registry_;
+
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Loop all columns
+        for (auto entity : registry.view<column>()) {
+            auto &col = registry.get<column>(entity);
+
+            // Move pipes, and retrieve column position x
+            float column_pos_x = move_pipe(registry, col.top_pipe);
+            move_pipe(registry, col.bottom_pipe);
+
+            // If column is out of the screen
+            if (column_pos_x < -constants.column_distance) {
+                // Remove this column
+                col.destroy(registry, entity);
+
+                // Create a new column at far end
+                create_column(registry, furthest_pipe_position(registry) + constants.column_distance);
+            }
+        }
+    }
+
+private:
+    // Find the furthest pipe's position X
+    float furthest_pipe_position(entt::registry &registry) {
+        float furthest = 0.f;
+
+        for (auto entity : registry.view<column>()) {
+            auto &col = registry.get<column>(entity);
+            float x = entity_registry_.get<transform::position_2d>(col.top_pipe.body).x();
+            if (x > furthest) furthest = x;
+        }
+
+        return furthest;
+    }
+
+    // Move the pipe and return the x position
+    float move_pipe(entt::registry &registry, pipe &pipe) {
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Get current position of the pipe
+        auto pos = registry.get<transform::position_2d>(pipe.body);
+
+        // Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
+        // Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+        auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
+
+        // Set the new position value
+        registry.replace<transform::position_2d>(pipe.body, new_pos_x, pos.y());
+
+        // Set cap position too
+        auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
+        registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
+
+        // Return the info about if this pipe is out of the screen
+        return new_pos_x;
+    }
+};
+
+// Name this system
+REFL_AUTO (type(column_logic));
+
+// Game Scene
+class game_scene final : public scenes::base_scene {
+public:
+    game_scene(entt::registry &registry, ecs::system_manager &system_manager) noexcept : base_scene(registry), system_manager_(system_manager) {
+        // Set the constants that will be used in the program
+        registry.set<flappy_bird_constants>();
+
+        // Create everything
+        create_background(registry);
+        init_dynamic_objects(registry);
+    }
+
+    // Scene name
+    std::string scene_name() noexcept final {
+        return "game_scene";
+    }
+
+private:
+    // Update the game every tick
+    void update() noexcept final {
+    }
+
+    // Initialize dynamic objects, this function is called at start and resets
+    void init_dynamic_objects(entt::registry &registry) {
+        create_columns(registry);
+
+        // Create player
+        create_player(registry);
+
+        // Create logic systems
+        create_logic_systems();
+    }
+
+    // Create logic systems
+    void create_logic_systems() {
+        system_manager_.create_system_rt<column_logic>();
+    }
+
+    // System manager reference
+    ecs::system_manager &system_manager_;
+};
+
+// Game world
+struct flappy_bird_world : world::app {
+    // Game entry point
+    flappy_bird_world() noexcept {
+        // Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        // Load the resources system
+        entity_registry_.set<sfml::resources_system>(entity_registry_);
+
+        // Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        // Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        // Change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_, system_manager_), true);
+    }
+};
+
+int main() {
+    // Declare the world
+    flappy_bird_world game;
+
+    // Run the game
+    return game.run();
+}
+```
+
+## Step 6: Player input and character physics
+
+In this step, we will read user input and apply physics to the character.
+
+We need to include two headers for input, `<antara/gaming/input/virtual.hpp>` and `<antara/gaming/ecs/virtual.input.system.hpp>`.
+
+We will also need some constants for physics. `gravity` is the force which will pull Flappy Bird down. `jump_force` will be the force which will be applied instantly when user presses the jump button. `rotate_speed` is for the rotating animation, and `max_angle` is the rotation limit.
+
+```
+const float gravity{2000.f};
+const float jump_force{650.f};
+const float rotate_speed{100.f};
+const float max_angle{60.f};
+```
+
+Let’s initialize the virtual input system and add a `jump` action. Keyboard keys will be: `space`, `w`, `up`; mouse buttons will be `left` and `right`.
+
+```
+// Create virtual input system
+system_manager_.create_system<ecs::virtual_input_system>();
+
+// Define the buttons for the jump action
+input::virtual_input::create("jump",
+                                {input::key::space, input::key::w, input::key::up},
+                                {input::mouse_button::left, input::mouse_button::right});
+```
+
+Now we will make another `ecs::logic_update_system` like `column_logic`, but this time for player.
+
+```
+// Player Logic System
+class player_logic final : public ecs::logic_update_system<player_logic> {
+public:
+    player_logic(entt::registry &registry, entt::entity player_) noexcept : system(registry), player_(player_) {
+        disable();
+    }
+```
+
+As you see in the constructor, we will keep the player entity as a member. Also we want a 2D vector for movement speed, `math::vec2f`.
+
+```
+private:
+    entt::entity player_;
+    math::vec2f movement_speed_{0.f, 0.f};
+```
+
+Now we can make the update function which will be called every tick.
+
+```
+// Update, this will be called every tick
+void update() noexcept final {
+    auto &registry = entity_registry_;
+
+    // Retrieve constants
+    const auto constants = registry.ctx<flappy_bird_constants>();
+
+    // Get current position of the player
+    auto pos = registry.get<transform::position_2d>(player_);
+```
+
+Adding gravity is really easy. As you know, gravity is acceleration, so instead of adding it to the position, we add it to the movement speed. We multiply it with delta time to spread it over time.
+
+Updating Y of `movement_speed_` with Y plus gravity.
+
+```
+// Add gravity to movement speed, multiply with delta time to apply it over time
+movement_speed_.set_y(movement_speed_.y() + constants.gravity * timer::time_step::get_fixed_delta_time());
+```
+
+For jump, we check if jump button is tapped.
+
+```
+// Check if jump key is tapped
+bool jump_key_tapped = input::virtual_input::is_tapped("jump");
+```
+
+If jump is tapped, we set Y of `movement_speed_` as negative `jump_force`. Negative because low values are up and high values are down, negative is being up.
+
+Here we do a direct set instead of adding it on top of the previous value because we don’t want player to spam jump button and infinitely speed up. Another problem could be movement speed Y is 900 and player presses jump button, adding -650, player still will have 250 movement speed Y, which is going down. We definitely do not want this, that’s why we set instead of add.
+
+```
+// If jump is tapped, jump by adding jump force to the movement speed Y
+if (jump_key_tapped) movement_speed_.set_y(-constants.jump_force);
+```
+
+Movement speed is ready. Now we move the position with the movement speed. Multiplying it with delta time as always to spread it over time.
+
+```
+// Add movement speed to position to make the character move, but apply over time with delta time
+pos += movement_speed_ * timer::time_step::get_fixed_delta_time();
+```
+
+Player can keep jumping and go out of the screen, so we need to limit the character position to stay inside.
+
+If position Y is equal or lower than zero, we reset both position and speed Y to 0. That will keep the player inside no matter how many times jump is pressed.
+
+```
+// Do not let player to go out of the screen to top
+if (pos.y() <= 0.f) {
+    pos.set_y(0.f);
+    movement_speed_.set_y(0.f);
+}
+```
+
+Then set the modified position to the player entity.
+
+```
+// Set the new position value
+registry.replace<transform::position_2d>(player_, pos);
+```
+
+Now player can jump, falls down with gravity, and is forced to stay inside the screen.
+
+```
+// Set the new position value
+registry.replace<transform::position_2d>(player_, pos);
+```
+
+So far so good, but we still need to apply rotation to Flappy Bird, so he is looking down when falling.
+
+To do this, retrieve the properties of the player, then add `rotate_speed` to the `props.rotation`, also apply delta time.
+
+```
+// ROTATION
+// Retrieve props of the player
+auto &props = registry.get<transform::properties>(player_);
+
+// Increase the rotation a little by applying delta time
+float new_rotation = props.rotation + constants.rotate_speed * timer::time_step::get_fixed_delta_time();
+```
+
+When player jumps, we need to reset the rotation so character will be straight again before rotating back down. Also we don’t want character to rotate forever, so we’ll apply a `max_angle` limit.
+
+```
+// If jump button is tapped, reset rotation,
+// If rotation is higher than the max angle, set it to max angle
+if (jump_key_tapped)
+    new_rotation = 0.f;
+else if (props.rotation > constants.max_angle)
+    new_rotation = constants.max_angle;
+```
+
+Finally, set the `transform::properties` to apply the rotation change.
+
+```
+// Set the properties
+registry.replace<transform::properties>(player_, transform::properties{.rotation = new_rotation});
+```
+
+Update function is complete, this is how it looks like:
+
+```
+// Update, this will be called every tick
+void update() noexcept final {
+    auto &registry = entity_registry_;
+
+    // Retrieve constants
+    const auto constants = registry.ctx<flappy_bird_constants>();
+
+    // Get current position of the player
+    auto pos = registry.get<transform::position_2d>(player_);
+
+    // Add gravity to movement speed, multiply with delta time to apply it over time
+    movement_speed_.set_y(movement_speed_.y() + constants.gravity * timer::time_step::get_fixed_delta_time());
+
+    // Check if jump key is tapped
+    bool jump_key_tapped = input::virtual_input::is_tapped("jump");
+
+    // If jump is tapped, jump by adding jump force to the movement speed Y
+    if (jump_key_tapped) movement_speed_.set_y(-constants.jump_force);
+
+    // Add movement speed to position to make the character move, but apply over time with delta time
+    pos += movement_speed_ * timer::time_step::get_fixed_delta_time();
+
+    // Do not let player to go out of the screen to top
+    if (pos.y() <= 0.f) {
+        pos.set_y(0.f);
+        movement_speed_.set_y(0.f);
+    }
+
+    // Set the new position value
+    registry.replace<transform::position_2d>(player_, pos);
+
+    // ROTATION
+    // Retrieve props of the player
+    auto &props = registry.get<transform::properties>(player_);
+
+    // Increase the rotation a little by applying delta time
+    float new_rotation = props.rotation + constants.rotate_speed * timer::time_step::get_fixed_delta_time();
+
+    // If jump button is tapped, reset rotation,
+    // If rotation is higher than the max angle, set it to max angle
+    if (jump_key_tapped)
+        new_rotation = 0.f;
+    else if (props.rotation > constants.max_angle)
+        new_rotation = constants.max_angle;
+
+    // Set the properties
+    registry.replace<transform::properties>(player_, transform::properties{.rotation = new_rotation});
+}
+```
+
+Now we’ll name this logic system, after the class.
+
+```
+// Name this system
+REFL_AUTO (type(player_logic));
+```
+
+`player_logic` is now ready. Let’s use it in `game_scene`.
+
+We made a function earlier called `create_logic_systems`, now we will create `player_logic` in it. Though `player_logic` requires `player` entity as argument. Modify the function like as below:
+
+```
+// Create logic systems
+void create_logic_systems(entt::entity player) {
+    system_manager_.create_system_rt<column_logic>();
+    system_manager_.create_system_rt<player_logic>(player);
+}
+```
+
+When we launch the game, we want physics in a paused state so we don’t start the game until we press the jump button.
+
+To do so, we’ll make two functions which enable and disable both logic functions we made.
+
+```
+// Pause physics
+void pause_physics() {
+    system_manager_.disable_systems<column_logic, player_logic>();
+}
+
+// Resume physics
+void resume_physics() {
+    system_manager_.enable_systems<column_logic, player_logic>();
+}
+```
+
+We’ll use a boolean to indicate if player started playing.
+
+```
+// States
+bool started_playing_{false};
+```
+
+And a function which resets this state value.
+
+```
+// Reset state values
+void reset_state_variables() {
+    started_playing_ = false;
+}
+```
+
+In the `init_dynamic_objects` function, we feed `player` entity to the `create_logic_systems` function, pause physics, and reset state variables.
+
+```
+// Initialize dynamic objects, this function is called at start and resets
+void init_dynamic_objects(entt::registry &registry) {
+    create_columns(registry);
+
+    // Create player
+    auto player = create_player(registry);
+
+    // Create logic systems
+    create_logic_systems(player);
+
+    // Reset state variables
+    reset_state_variables();
+}
+```
+
+Final thing we need to do is, to check for a jump button press which will start the game. We do this check only if player hasn’t already started playing.
+
+```
+// Check if start game is requested at the pause state
+void check_start_game_request() {
+    // If game is not started yet and jump key is tapped
+    if (!started_playing_ && input::virtual_input::is_tapped("jump")) {
+        // Game starts, player started playing
+        started_playing_ = true;
+        resume_physics();
+    }
+}
+```
+
+Then call this function in the update function which gets called every tick.
+
+```
+// Update the game every tick
+void update() noexcept final {
+    // Check if player requested to start the game
+    check_start_game_request();
+}
+```
+
+Step 6 is complete, here is the full code.
+
+```
+#include <random>
+#include <antara/gaming/ecs/virtual.input.system.hpp>
+#include <antara/gaming/graphics/component.layer.hpp>
+#include <antara/gaming/graphics/component.canvas.hpp>
+#include <antara/gaming/math/vector.hpp>
+#include <antara/gaming/scenes/scene.manager.hpp>
+#include <antara/gaming/sfml/graphic.system.hpp>
+#include <antara/gaming/sfml/input.system.hpp>
+#include <antara/gaming/sfml/resources.manager.hpp>
+#include <antara/gaming/world/world.app.hpp>
+#include <antara/gaming/graphics/component.sprite.hpp>
+#include <antara/gaming/input/virtual.hpp>
+
+// For convenience
+using namespace antara::gaming;
+using namespace std::string_literals;
+
+// Constants
+struct flappy_bird_constants {
+    // Player
+    const std::string player_image_name{"player.png"};
+    const float player_pos_x{400.0f};
+    const float gravity{2000.f};
+    const float jump_force{650.f};
+    const float rotate_speed{100.f};
+    const float max_angle{60.f};
+
+    // Pipes
+    const float gap_height{265.f};
+    const float column_start_distance{700.f};
+    const float column_min{0.2f};
+    const float column_max{0.8f};
+    const float column_thickness{100.f};
+    const float column_distance{400.f};
+    const std::size_t column_count{6};
+    const float pipe_cap_extra_width{10.f};
+    const float pipe_cap_height{50.f};
+    const graphics::color pipe_color{92, 181, 61};
+    const graphics::outline_color pipe_outline_color{2.0f, graphics::color{76, 47, 61}};
+    const float scroll_speed{200.f};
+
+    // Background
+    const float ground_thickness{100.0f};
+    const float grass_thickness{20.0f};
+    const graphics::color background_color{82, 189, 199};
+    const graphics::color ground_color{220, 209, 143};
+    const graphics::color grass_color{132, 227, 90};
+    const graphics::outline_color grass_outline_color{2.0f, graphics::color{76, 47, 61}};
+};
+
+// Random number generator
+namespace {
+    std::random_device rd;  // Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+    float random_float(float lower, float higher) {
+        std::uniform_real_distribution<float> dist(lower, higher);
+        return dist(gen);
+    }
+}
+
+// A Flappy Bird column which has two pipes
+struct pipe {
+    entt::entity body{entt::null};
+    entt::entity cap{entt::null};
+
+    // Destroy pipe
+    void destroy(entt::registry &registry) {
+        registry.destroy(body);
+        registry.destroy(cap);
+    }
+};
+
+// Column is made of two pipes
+struct column {
+    // Entities representing the Flappy Bird pipes
+    pipe top_pipe{entt::null};
+    pipe bottom_pipe{entt::null};
+
+    // Destroy pipes and this column
+    void destroy(entt::registry &registry, entt::entity entity) {
+        top_pipe.destroy(registry);
+        bottom_pipe.destroy(registry);
+        registry.destroy(entity);
+    }
+};
+
+// Logic functions
+namespace {
+    void tag_game_scene(entt::registry &registry, entt::entity entity, bool dynamic = false) {
+        // Tag game scene
+        registry.assign<entt::tag<"game_scene"_hs>>(entity);
+
+        // Tag dynamic
+        if(dynamic) registry.assign<entt::tag<"dynamic"_hs>>(entity);
+    }
+
+    // Returns a random gap start position Y
+    float get_random_gap_start_pos(const entt::registry &registry) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        float top_limit = canvas_height * constants.column_min;
+        float bottom_limit = canvas_height * constants.column_max - constants.gap_height;
+
+        return random_float(top_limit, bottom_limit);
+    }
+}
+
+// Factory functions
+namespace {
+    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // PIPE BODY
+        // Top pipe is at Y: 0 and bottom pipe is at canvas_height, bottom of the canvas
+        transform::position_2d body_pos{pos_x, is_top ? 0.f : canvas_height};
+
+        // Size X is the column thickness,
+        // Size Y is the important part.
+        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
+        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
+        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
+        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        math::vec2f body_size{constants.column_thickness,
+                              is_top ?
+                              gap_start_pos_y * 2.0f :
+                              (canvas_height - (gap_start_pos_y + constants.gap_height)) * 2.0f};
+
+        auto body = geometry::blueprint_rectangle(registry, body_size, constants.pipe_color, body_pos,
+                                                  constants.pipe_outline_color);
+
+        // PIPE CAP
+        // Let's prepare the pipe cap
+        // Size of the cap is defined in constants
+        math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
+
+        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
+        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        transform::position_2d cap_pos{body_pos.x(),
+                                       is_top ?
+                                       gap_start_pos_y - constants.pipe_cap_height * 0.5f :
+                                       gap_start_pos_y + constants.gap_height + constants.pipe_cap_height * 0.5f
+        };
+
+        // Construct the cap
+        auto cap = geometry::blueprint_rectangle(registry, cap_size, constants.pipe_color, cap_pos,
+                                                 constants.pipe_outline_color);
+
+        // Set layers, cap should be in front of body
+        registry.assign<graphics::layer<4>>(cap);
+        registry.assign<graphics::layer<3>>(body);
+        tag_game_scene(registry, cap, true);
+        tag_game_scene(registry, body, true);
+
+        // Construct a pipe with body and cap and return it
+        return {body, cap};
+    }
+
+    // Factory to create single column
+    void create_column(entt::registry &registry, float pos_x) noexcept {
+        // Create a fresh entity for a new column
+        auto entity_column = registry.create();
+
+        // Get a random gap start position Y, between pipes
+        float gap_start_pos_y = get_random_gap_start_pos(registry);
+
+        // Create pipes, is_top variable is false for bottom one
+        auto top_pipe = create_pipe(registry, true, pos_x, gap_start_pos_y);
+        auto bottom_pipe = create_pipe(registry, false, pos_x, gap_start_pos_y);
+
+        // Make a column from these two pipes and mark it as "column"
+        registry.assign<column>(entity_column, top_pipe, bottom_pipe);
+        registry.assign<entt::tag<"column"_hs>>(entity_column);
+        tag_game_scene(registry, entity_column, true);
+    }
+
+    // Factory for creating a Flappy Bird columns
+    void create_columns(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Spawn columns out of the screen, out of the canvas
+        const float column_pos_offset = constants.column_start_distance + constants.column_thickness * 2.0f;
+
+        // Create the columns
+        for (std::size_t i = 0; i < constants.column_count; ++i) {
+            // Horizontal position (X) increases for every column, keeping the distance
+            float pos_x = column_pos_offset + i * constants.column_distance;
+
+            create_column(registry, pos_x);
+        }
+    }
+
+    // Factory for creating a Flappy Bird background
+    void create_background(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Create Sky
+        {
+            // Sky is whole canvas so position is middle of it
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
+
+            // And the size is full canvas
+            math::vec2f size{canvas_width, canvas_height};
+
+            auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
+            registry.assign<graphics::layer<1>>(sky);
+            tag_game_scene(registry, sky);
+        }
+
+        // Create Grass
+        {
+            // Ground expands to whole canvas width so position is middle of it,
+            // But position Y is at top of the ground, so it's canvas height minus ground thickness
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
+
+            // Size X is full canvas but the height is defined in constants
+            // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+            math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
+
+            auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
+                                                       constants.grass_outline_color);
+            registry.assign<graphics::layer<3>>(grass);
+            tag_game_scene(registry, grass);
+        }
+
+        // Create Ground
+        {
+            // Ground expands to whole canvas width so position is middle of it,
+            // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
+
+            // Size X is full canvas but the height is defined in constants
+            math::vec2f size{canvas_width, constants.ground_thickness};
+
+            auto ground = geometry::blueprint_rectangle(registry, size, constants.ground_color, pos);
+            registry.assign<graphics::layer<3>>(ground);
+            tag_game_scene(registry, ground);
+        }
+    }
+
+    // Factory for creating the player
+    entt::entity create_player(entt::registry &registry) {
+        // Retrieve constants
+        const auto[_, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        auto entity = graphics::blueprint_sprite(registry,
+                                                 graphics::sprite{constants.player_image_name.c_str()},
+                                                 transform::position_2d{constants.player_pos_x, canvas_height * 0.5f});
+        registry.assign<antara::gaming::graphics::layer<5>>(entity);
+        registry.assign<entt::tag<"player"_hs>>(entity);
+        tag_game_scene(registry, entity, true);
+
+        return entity;
+    }
+}
+
+// Column Logic System
+class column_logic final : public ecs::logic_update_system<column_logic> {
+public:
+    explicit column_logic(entt::registry &registry) noexcept : system(registry) {
+        disable();
+    }
+
+    // Update, this will be called every tick
+    void update() noexcept final {
+        auto &registry = entity_registry_;
+
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Loop all columns
+        for (auto entity : registry.view<column>()) {
+            auto &col = registry.get<column>(entity);
+
+            // Move pipes, and retrieve column position x
+            float column_pos_x = move_pipe(registry, col.top_pipe);
+            move_pipe(registry, col.bottom_pipe);
+
+            // If column is out of the screen
+            if (column_pos_x < -constants.column_distance) {
+                // Remove this column
+                col.destroy(registry, entity);
+
+                // Create a new column at far end
+                create_column(registry, furthest_pipe_position(registry) + constants.column_distance);
+            }
+        }
+    }
+
+private:
+    // Find the furthest pipe's position X
+    float furthest_pipe_position(entt::registry &registry) {
+        float furthest = 0.f;
+
+        for (auto entity : registry.view<column>()) {
+            auto &col = registry.get<column>(entity);
+            float x = entity_registry_.get<transform::position_2d>(col.top_pipe.body).x();
+            if (x > furthest) furthest = x;
+        }
+
+        return furthest;
+    }
+
+    // Move the pipe and return the x position
+    float move_pipe(entt::registry &registry, pipe &pipe) {
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Get current position of the pipe
+        auto pos = registry.get<transform::position_2d>(pipe.body);
+
+        // Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
+        // Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+        auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
+
+        // Set the new position value
+        registry.replace<transform::position_2d>(pipe.body, new_pos_x, pos.y());
+
+        // Set cap position too
+        auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
+        registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
+
+        // Return the info about if this pipe is out of the screen
+        return new_pos_x;
+    }
+};
+
+// Name this system
+REFL_AUTO (type(column_logic));
+
+// Player Logic System
+class player_logic final : public ecs::logic_update_system<player_logic> {
+public:
+    player_logic(entt::registry &registry, entt::entity player) noexcept : system(registry), player_(player) {
+        disable();
+    }
+
+    // Update, this will be called every tick
+    void update() noexcept final {
+        auto &registry = entity_registry_;
+
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Get current position of the player
+        auto pos = registry.get<transform::position_2d>(player_);
+
+        // Add gravity to movement speed, multiply with delta time to apply it over time
+        movement_speed_.set_y(movement_speed_.y() + constants.gravity * timer::time_step::get_fixed_delta_time());
+
+        // Check if jump key is tapped
+        bool jump_key_tapped = input::virtual_input::is_tapped("jump");
+
+        // If jump is tapped, jump by adding jump force to the movement speed Y
+        if (jump_key_tapped) movement_speed_.set_y(-constants.jump_force);
+
+        // Add movement speed to position to make the character move, but apply over time with delta time
+        pos += movement_speed_ * timer::time_step::get_fixed_delta_time();
+
+        // Do not let player to go out of the screen to top
+        if (pos.y() <= 0.f) {
+            pos.set_y(0.f);
+            movement_speed_.set_y(0.f);
+        }
+
+        // Set the new position value
+        registry.replace<transform::position_2d>(player_, pos);
+
+        // ROTATION
+        // Retrieve props of the player
+        auto &props = registry.get<transform::properties>(player_);
+
+        // Increase the rotation a little by applying delta time
+        float new_rotation = props.rotation + constants.rotate_speed * timer::time_step::get_fixed_delta_time();
+
+        // If jump button is tapped, reset rotation,
+        // If rotation is higher than the max angle, set it to max angle
+        if (jump_key_tapped)
+            new_rotation = 0.f;
+        else if (props.rotation > constants.max_angle)
+            new_rotation = constants.max_angle;
+
+        // Set the properties
+        registry.replace<transform::properties>(player_, transform::properties{.rotation = new_rotation});
+    }
+
+private:
+    entt::entity player_;
+    math::vec2f movement_speed_{0.f, 0.f};
+};
+
+// Name this system
+REFL_AUTO (type(player_logic));
+
+// Game Scene
+class game_scene final : public scenes::base_scene {
+public:
+    game_scene(entt::registry &registry, ecs::system_manager &system_manager) noexcept : base_scene(registry), system_manager_(system_manager) {
+        // Set the constants that will be used in the program
+        registry.set<flappy_bird_constants>();
+
+        // Create everything
+        create_background(registry);
+        init_dynamic_objects(registry);
+    }
+
+    // Scene name
+    std::string scene_name() noexcept final {
+        return "game_scene";
+    }
+
+private:
+    // Update the game every tick
+    void update() noexcept final {
+        // Check if player requested to start the game
+        check_start_game_request();
+    }
+
+    // Check if start game is requested at the pause state
+    void check_start_game_request() {
+        // If game is not started yet and jump key is tapped
+        if (!started_playing_ && input::virtual_input::is_tapped("jump")) {
+            // Game starts, player started playing
+            started_playing_ = true;
+            resume_physics();
+        }
+    }
+
+    // Initialize dynamic objects, this function is called at start and resets
+    void init_dynamic_objects(entt::registry &registry) {
+        create_columns(registry);
+
+        // Create player
+        auto player = create_player(registry);
+
+        // Create logic systems
+        create_logic_systems(player);
+
+        // Reset state variables
+        reset_state_variables();
+    }
+
+    // Create logic systems
+    void create_logic_systems(entt::entity player) {
+        system_manager_.create_system_rt<column_logic>();
+        system_manager_.create_system_rt<player_logic>(player);
+    }
+
+    // Reset state values
+    void reset_state_variables() {
+        started_playing_ = false;
+    }
+
+    // Pause physics
+    void pause_physics() {
+        system_manager_.disable_systems<column_logic, player_logic>();
+    }
+
+    // Resume physics
+    void resume_physics() {
+        system_manager_.enable_systems<column_logic, player_logic>();
+    }
+
+    // System manager reference
+    ecs::system_manager &system_manager_;
+
+    // States
+    bool started_playing_{false};
+};
+
+// Game world
+struct flappy_bird_world : world::app {
+    // Game entry point
+    flappy_bird_world() noexcept {
+        // Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        // Load the resources system
+        entity_registry_.set<sfml::resources_system>(entity_registry_);
+
+        // Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        // Create virtual input system
+        system_manager_.create_system<ecs::virtual_input_system>();
+
+        // Define the buttons for the jump action
+        input::virtual_input::create("jump",
+                                     {input::key::space, input::key::w, input::key::up},
+                                     {input::mouse_button::left, input::mouse_button::right});
+
+        // Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        // Change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_, system_manager_), true);
+    }
+};
+
+int main() {
+    // Declare the world
+    flappy_bird_world game;
+
+    // Run the game
+    return game.run();
+}
+```
+
+## Step 7: Collision between player and columns, death and reset game
+
+Game ends when Flappy bird flies into the columns and dies. To set this up, we’ll start with adding the collision system header `<antara/gaming/collisions/basic.collision.system.hpp>`.
+
+Then make another logic system, `collision_logic`. Constructor gets the player entity and a reference of `player_dead` variable, so we can report back the collision result.
+
+We store both in the class like this:
+
+```
+entt::entity player_;
+bool &player_died_;
+```
+
+Then create the class and constructor:
+
+```
+// Collision Logic System
+class collision_logic final : public ecs::logic_update_system<collision_logic> {
+public:
+    collision_logic(entt::registry &registry, entt::entity player_, bool &player_died_) noexcept : system(registry),
+                                                                                                player_(player_),
+                                                                                                player_died_(player_died_) {}
+```
+
+Now add a function to check collision between player and the pipes, `check_player_pipe_collision`.
+
+Remember that we put columns to `layer<3>`. We can now retrieve them all by using `view` function, `registry.view<graphics::layer<3>>()`.
+
+Then use `collisions::basic_collision_system::query_rect` function with `player_` and `entity` which is the pipe. If a collision is detected, we mark `player_died_` as `true`.
+
+```
+// Loop all columns to check collisions between player and the pipes
+void check_player_pipe_collision(entt::registry &registry) {
+    for (auto entity : registry.view<graphics::layer<3>>()) {
+        // Check collision between player and a collidable object
+        if (collisions::basic_collision_system::query_rect(registry, player_, entity)) {
+            // Mark player died as true
+            player_died_ = true;
+        }
+    }
+}
+```
+
+We’ll call this function in the `update` function which is called every tick. But if `player_died_` is `true`, then no need to check for collision, we simply stop the function.
+
+```
+// Update, this will be called every tick
+void update() noexcept final {
+    auto &registry = entity_registry_;
+
+    // Do not check anything if player is already dead
+    if (player_died_) return;
+
+    // Check collision
+    check_player_pipe_collision(registry);
+}
+```
+
+As we did earlier, we name this system, out of the class.
+
+```
+// Name this system
+REFL_AUTO (type(collision_logic));
+```
+
+The completed class looks like this:
+
+```
+// Collision Logic System
+class collision_logic final : public ecs::logic_update_system<collision_logic> {
+public:
+    collision_logic(entt::registry &registry, entt::entity player_, bool &player_died_) noexcept : system(registry),
+                                                                                                player_(player_),
+                                                                                                player_died_(player_died_) {}
+    // Update, this will be called every tick
+    void update() noexcept final {
+        auto &registry = entity_registry_;
+
+        // Do not check anything if player is already dead
+        if (player_died_) return;
+
+        // Check collision
+        check_player_pipe_collision(registry);
+    }
+
+private:
+    // Loop all columns to check collisions between player and the pipes
+    void check_player_pipe_collision(entt::registry &registry) {
+        for (auto entity : registry.view<graphics::layer<3>>()) {
+            // Check collision between player and a collidable object
+            if (collisions::basic_collision_system::query_rect(registry, player_, entity)) {
+                // Mark player died as true
+                player_died_ = true;
+            }
+        }
+    }
+
+    entt::entity player_;
+    bool &player_died_;
+};
+
+// Name this system
+REFL_AUTO (type(collision_logic));
+```
+
+Now let’s use this class in `game_scene`:
+
+```
+// Create logic systems
+void create_logic_systems(entt::entity player) {
+    system_manager_.create_system_rt<column_logic>();
+    system_manager_.create_system_rt<player_logic>(player);
+    system_manager_.create_system_rt<collision_logic>(player, player_died_);
+}
+```
+
+Then some more state variables for player death, game over, and reset query:
+
+```
+// States
+bool started_playing_{false};
+bool player_died_{false};
+bool game_over_{false};
+bool need_reset_{false};
+```
+
+Finally, add the needed values for game restart to `reset_state_variables`:
+
+```
+// Reset state values
+void reset_state_variables() {
+    started_playing_ = false;
+    player_died_ = false;
+    game_over_ = false;
+}
+```
+
+Since `player_died_` will be filled by `collision_logic`, we can read it in this class. When it’s `true`, we will mark `game_over_` as `true` and pause physics because we want the game to stop when player dies. We’ll also mark `player_died_` to `false` so these won’t be triggered again.
+
+```
+// Check if player died
+void check_death() {
+    // If player died, game over, and pause physics
+    if (player_died_) {
+        player_died_ = false;
+        game_over_ = true;
+        pause_physics();
+    }
+}
+```
+
+Another function will check for a jump button press after the game is over. When jump button is pressed, game will restart.
+
+```
+// Check if reset is requested at game over state
+void check_reset_request() {
+    // If game is over, and jump key is pressed, reset game
+    if (game_over_ && input::virtual_input::is_tapped("jump")) reset_game();
+}
+```
+
+Let’s call these two in the `update` function:
+
+```
+// Update the game every tick
+void update() noexcept final {
+    // Check if player requested to start the game
+    check_start_game_request();
+
+    // Check if player died
+    check_death();
+
+    // Check if player requested reset after death
+    check_reset_request();
+}
+```
+
+As you saw in `check_reset_request`, we use `reset_game` function, so let’s define that:
+
+```
+// Reset game
+void reset_game() {
+    // Destroy all dynamic objects
+    destroy_dynamic_objects();
+
+    // Queue reset to reinitialize
+    this->need_reset_ = true;
+}
+```
+
+In `reset_game` we want to destroy dynamic objects. To do that, we retrieve all the dynamic entities with `dynamic` tag that we set before, then destroy them all using the registry.
+
+For logic system deletions, we need to mark items for deletion, with the function below:
+
+```
+// Destroy dynamic objects
+void destroy_dynamic_objects() {
+    // Retrieve the collection of entities from the game scene
+    auto view = entity_registry_.view<entt::tag<"dynamic"_hs>>();
+
+    // Iterate the collection and destroy each entities
+    entity_registry_.destroy(view.begin(), view.end());
+
+    // Delete systems
+    system_manager_.mark_systems<player_logic, collision_logic>();
+}
+```
+
+Those systems get deleted after the whole update tick is completed, so we don’t want to reinitialize them in `reset_game`. Instead, queue the reset by setting `need_reset_` true, and do reinitialization in `post_update` like this:
+
+```
+// Post update
+void post_update() noexcept final {
+    // If reset is requested
+    if (need_reset_) {
+        // Reinitialize all these
+        init_dynamic_objects(entity_registry_);
+        need_reset_ = false;
+    }
+}
+```
+
+That’s it! Flappy bird now collides with pipes, dies, and enters the “game over” state. Afterwards, by pressing jump button, all the dynamic entities and logic systems are destroyed, then reinitialized.
+
+Step 7 is complete, here is the full code.
+
+```
+#include <random>
+#include <antara/gaming/ecs/virtual.input.system.hpp>
+#include <antara/gaming/collisions/basic.collision.system.hpp>
+#include <antara/gaming/graphics/component.layer.hpp>
+#include <antara/gaming/graphics/component.canvas.hpp>
+#include <antara/gaming/math/vector.hpp>
+#include <antara/gaming/scenes/scene.manager.hpp>
+#include <antara/gaming/sfml/graphic.system.hpp>
+#include <antara/gaming/sfml/input.system.hpp>
+#include <antara/gaming/sfml/resources.manager.hpp>
+#include <antara/gaming/world/world.app.hpp>
+#include <antara/gaming/graphics/component.sprite.hpp>
+#include <antara/gaming/input/virtual.hpp>
+
+// For convenience
+using namespace antara::gaming;
+using namespace std::string_literals;
+
+// Constants
+struct flappy_bird_constants {
+    // Player
+    const std::string player_image_name{"player.png"};
+    const float player_pos_x{400.0f};
+    const float gravity{2000.f};
+    const float jump_force{650.f};
+    const float rotate_speed{100.f};
+    const float max_angle{60.f};
+
+    // Pipes
+    const float gap_height{265.f};
+    const float column_start_distance{700.f};
+    const float column_min{0.2f};
+    const float column_max{0.8f};
+    const float column_thickness{100.f};
+    const float column_distance{400.f};
+    const std::size_t column_count{6};
+    const float pipe_cap_extra_width{10.f};
+    const float pipe_cap_height{50.f};
+    const graphics::color pipe_color{92, 181, 61};
+    const graphics::outline_color pipe_outline_color{2.0f, graphics::color{76, 47, 61}};
+    const float scroll_speed{200.f};
+
+    // Background
+    const float ground_thickness{100.0f};
+    const float grass_thickness{20.0f};
+    const graphics::color background_color{82, 189, 199};
+    const graphics::color ground_color{220, 209, 143};
+    const graphics::color grass_color{132, 227, 90};
+    const graphics::outline_color grass_outline_color{2.0f, graphics::color{76, 47, 61}};
+};
+
+// Random number generator
+namespace {
+    std::random_device rd;  // Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+    float random_float(float lower, float higher) {
+        std::uniform_real_distribution<float> dist(lower, higher);
+        return dist(gen);
+    }
+}
+
+// A Flappy Bird column which has two pipes
+struct pipe {
+    entt::entity body{entt::null};
+    entt::entity cap{entt::null};
+
+    // Destroy pipe
+    void destroy(entt::registry &registry) {
+        registry.destroy(body);
+        registry.destroy(cap);
+    }
+};
+
+// Column is made of two pipes
+struct column {
+    // Entities representing the Flappy Bird pipes
+    pipe top_pipe{entt::null};
+    pipe bottom_pipe{entt::null};
+
+    // Destroy pipes and this column
+    void destroy(entt::registry &registry, entt::entity entity) {
+        top_pipe.destroy(registry);
+        bottom_pipe.destroy(registry);
+        registry.destroy(entity);
+    }
+};
+
+// Logic functions
+namespace {
+    void tag_game_scene(entt::registry &registry, entt::entity entity, bool dynamic = false) {
+        // Tag game scene
+        registry.assign<entt::tag<"game_scene"_hs>>(entity);
+
+        // Tag dynamic
+        if(dynamic) registry.assign<entt::tag<"dynamic"_hs>>(entity);
+    }
+
+    // Returns a random gap start position Y
+    float get_random_gap_start_pos(const entt::registry &registry) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        float top_limit = canvas_height * constants.column_min;
+        float bottom_limit = canvas_height * constants.column_max - constants.gap_height;
+
+        return random_float(top_limit, bottom_limit);
+    }
+}
+
+// Factory functions
+namespace {
+    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // PIPE BODY
+        // Top pipe is at Y: 0 and bottom pipe is at canvas_height, bottom of the canvas
+        transform::position_2d body_pos{pos_x, is_top ? 0.f : canvas_height};
+
+        // Size X is the column thickness,
+        // Size Y is the important part.
+        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
+        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
+        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
+        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        math::vec2f body_size{constants.column_thickness,
+                              is_top ?
+                              gap_start_pos_y * 2.0f :
+                              (canvas_height - (gap_start_pos_y + constants.gap_height)) * 2.0f};
+
+        auto body = geometry::blueprint_rectangle(registry, body_size, constants.pipe_color, body_pos,
+                                                  constants.pipe_outline_color);
+
+        // PIPE CAP
+        // Let's prepare the pipe cap
+        // Size of the cap is defined in constants
+        math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
+
+        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
+        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        transform::position_2d cap_pos{body_pos.x(),
+                                       is_top ?
+                                       gap_start_pos_y - constants.pipe_cap_height * 0.5f :
+                                       gap_start_pos_y + constants.gap_height + constants.pipe_cap_height * 0.5f
+        };
+
+        // Construct the cap
+        auto cap = geometry::blueprint_rectangle(registry, cap_size, constants.pipe_color, cap_pos,
+                                                 constants.pipe_outline_color);
+
+        // Set layers, cap should be in front of body
+        registry.assign<graphics::layer<4>>(cap);
+        registry.assign<graphics::layer<3>>(body);
+        tag_game_scene(registry, cap, true);
+        tag_game_scene(registry, body, true);
+
+        // Construct a pipe with body and cap and return it
+        return {body, cap};
+    }
+
+    // Factory to create single column
+    void create_column(entt::registry &registry, float pos_x) noexcept {
+        // Create a fresh entity for a new column
+        auto entity_column = registry.create();
+
+        // Get a random gap start position Y, between pipes
+        float gap_start_pos_y = get_random_gap_start_pos(registry);
+
+        // Create pipes, is_top variable is false for bottom one
+        auto top_pipe = create_pipe(registry, true, pos_x, gap_start_pos_y);
+        auto bottom_pipe = create_pipe(registry, false, pos_x, gap_start_pos_y);
+
+        // Make a column from these two pipes and mark it as "column"
+        registry.assign<column>(entity_column, top_pipe, bottom_pipe);
+        registry.assign<entt::tag<"column"_hs>>(entity_column);
+        tag_game_scene(registry, entity_column, true);
+    }
+
+    // Factory for creating a Flappy Bird columns
+    void create_columns(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Spawn columns out of the screen, out of the canvas
+        const float column_pos_offset = constants.column_start_distance + constants.column_thickness * 2.0f;
+
+        // Create the columns
+        for (std::size_t i = 0; i < constants.column_count; ++i) {
+            // Horizontal position (X) increases for every column, keeping the distance
+            float pos_x = column_pos_offset + i * constants.column_distance;
+
+            create_column(registry, pos_x);
+        }
+    }
+
+    // Factory for creating a Flappy Bird background
+    void create_background(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Create Sky
+        {
+            // Sky is whole canvas so position is middle of it
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
+
+            // And the size is full canvas
+            math::vec2f size{canvas_width, canvas_height};
+
+            auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
+            registry.assign<graphics::layer<1>>(sky);
+            tag_game_scene(registry, sky);
+        }
+
+        // Create Grass
+        {
+            // Ground expands to whole canvas width so position is middle of it,
+            // But position Y is at top of the ground, so it's canvas height minus ground thickness
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
+
+            // Size X is full canvas but the height is defined in constants
+            // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+            math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
+
+            auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
+                                                       constants.grass_outline_color);
+            registry.assign<graphics::layer<3>>(grass);
+            tag_game_scene(registry, grass);
+        }
+
+        // Create Ground
+        {
+            // Ground expands to whole canvas width so position is middle of it,
+            // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
+
+            // Size X is full canvas but the height is defined in constants
+            math::vec2f size{canvas_width, constants.ground_thickness};
+
+            auto ground = geometry::blueprint_rectangle(registry, size, constants.ground_color, pos);
+            registry.assign<graphics::layer<3>>(ground);
+            tag_game_scene(registry, ground);
+        }
+    }
+
+    // Factory for creating the player
+    entt::entity create_player(entt::registry &registry) {
+        // Retrieve constants
+        const auto[_, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        auto entity = graphics::blueprint_sprite(registry,
+                                                 graphics::sprite{constants.player_image_name.c_str()},
+                                                 transform::position_2d{constants.player_pos_x, canvas_height * 0.5f});
+        registry.assign<antara::gaming::graphics::layer<5>>(entity);
+        registry.assign<entt::tag<"player"_hs>>(entity);
+        tag_game_scene(registry, entity, true);
+
+        return entity;
+    }
+}
+
+// Column Logic System
+class column_logic final : public ecs::logic_update_system<column_logic> {
+public:
+    explicit column_logic(entt::registry &registry) noexcept : system(registry) {
+        disable();
+    }
+
+    // Update, this will be called every tick
+    void update() noexcept final {
+        auto &registry = entity_registry_;
+
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Loop all columns
+        for (auto entity : registry.view<column>()) {
+            auto &col = registry.get<column>(entity);
+
+            // Move pipes, and retrieve column position x
+            float column_pos_x = move_pipe(registry, col.top_pipe);
+            move_pipe(registry, col.bottom_pipe);
+
+            // If column is out of the screen
+            if (column_pos_x < -constants.column_distance) {
+                // Remove this column
+                col.destroy(registry, entity);
+
+                // Create a new column at far end
+                create_column(registry, furthest_pipe_position(registry) + constants.column_distance);
+            }
+        }
+    }
+
+private:
+    // Find the furthest pipe's position X
+    float furthest_pipe_position(entt::registry &registry) {
+        float furthest = 0.f;
+
+        for (auto entity : registry.view<column>()) {
+            auto &col = registry.get<column>(entity);
+            float x = entity_registry_.get<transform::position_2d>(col.top_pipe.body).x();
+            if (x > furthest) furthest = x;
+        }
+
+        return furthest;
+    }
+
+    // Move the pipe and return the x position
+    float move_pipe(entt::registry &registry, pipe &pipe) {
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Get current position of the pipe
+        auto pos = registry.get<transform::position_2d>(pipe.body);
+
+        // Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
+        // Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+        auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
+
+        // Set the new position value
+        registry.replace<transform::position_2d>(pipe.body, new_pos_x, pos.y());
+
+        // Set cap position too
+        auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
+        registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
+
+        // Return the info about if this pipe is out of the screen
+        return new_pos_x;
+    }
+};
+
+// Name this system
+REFL_AUTO (type(column_logic));
+
+// Player Logic System
+class player_logic final : public ecs::logic_update_system<player_logic> {
+public:
+    player_logic(entt::registry &registry, entt::entity player) noexcept : system(registry), player_(player) {
+        disable();
+    }
+
+    // Update, this will be called every tick
+    void update() noexcept final {
+        auto &registry = entity_registry_;
+
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Get current position of the player
+        auto pos = registry.get<transform::position_2d>(player_);
+
+        // Add gravity to movement speed, multiply with delta time to apply it over time
+        movement_speed_.set_y(movement_speed_.y() + constants.gravity * timer::time_step::get_fixed_delta_time());
+
+        // Check if jump key is tapped
+        bool jump_key_tapped = input::virtual_input::is_tapped("jump");
+
+        // If jump is tapped, jump by adding jump force to the movement speed Y
+        if (jump_key_tapped) movement_speed_.set_y(-constants.jump_force);
+
+        // Add movement speed to position to make the character move, but apply over time with delta time
+        pos += movement_speed_ * timer::time_step::get_fixed_delta_time();
+
+        // Do not let player to go out of the screen to top
+        if (pos.y() <= 0.f) {
+            pos.set_y(0.f);
+            movement_speed_.set_y(0.f);
+        }
+
+        // Set the new position value
+        registry.replace<transform::position_2d>(player_, pos);
+
+        // ROTATION
+        // Retrieve props of the player
+        auto &props = registry.get<transform::properties>(player_);
+
+        // Increase the rotation a little by applying delta time
+        float new_rotation = props.rotation + constants.rotate_speed * timer::time_step::get_fixed_delta_time();
+
+        // If jump button is tapped, reset rotation,
+        // If rotation is higher than the max angle, set it to max angle
+        if (jump_key_tapped)
+            new_rotation = 0.f;
+        else if (props.rotation > constants.max_angle)
+            new_rotation = constants.max_angle;
+
+        // Set the properties
+        registry.replace<transform::properties>(player_, transform::properties{.rotation = new_rotation});
+    }
+
+private:
+    entt::entity player_;
+    math::vec2f movement_speed_{0.f, 0.f};
+};
+
+// Name this system
+REFL_AUTO (type(player_logic));
+
+// Collision Logic System
+class collision_logic final : public ecs::logic_update_system<collision_logic> {
+public:
+    collision_logic(entt::registry &registry, entt::entity player, bool &player_died) noexcept : system(registry),
+                                                                                                   player_(player),
+                                                                                                   player_died_(player_died) {}
+    // Update, this will be called every tick
+    void update() noexcept final {
+        auto &registry = entity_registry_;
+
+        // Do not check anything if player is already dead
+        if (player_died_) return;
+
+        // Check collision
+        check_player_pipe_collision(registry);
+    }
+
+private:
+    // Loop all columns to check collisions between player and the pipes
+    void check_player_pipe_collision(entt::registry &registry) {
+        for (auto entity : registry.view<graphics::layer<3>>()) {
+            // Check collision between player and a collidable object
+            if (collisions::basic_collision_system::query_rect(registry, player_, entity)) {
+                // Mark player died as true
+                player_died_ = true;
+            }
+        }
+    }
+
+    entt::entity player_;
+    bool &player_died_;
+};
+
+// Name this system
+REFL_AUTO (type(collision_logic));
+
+// Game Scene
+class game_scene final : public scenes::base_scene {
+public:
+    game_scene(entt::registry &registry, ecs::system_manager &system_manager) noexcept : base_scene(registry),
+                                                                                          system_manager_(system_manager) {
+        // Set the constants that will be used in the program
+        registry.set<flappy_bird_constants>();
+
+        // Create everything
+        create_background(registry);
+        init_dynamic_objects(registry);
+    }
+
+    // Scene name
+    std::string scene_name() noexcept final {
+        return "game_scene";
+    }
+
+private:
+    // Update the game every tick
+    void update() noexcept final {
+        // Check if player requested to start the game
+        check_start_game_request();
+
+        // Check if player died
+        check_death();
+
+        // Check if player requested reset after death
+        check_reset_request();
+    }
+
+    // Check if start game is requested at the pause state
+    void check_start_game_request() {
+        // If game is not started yet and jump key is tapped
+        if (!started_playing_ && input::virtual_input::is_tapped("jump")) {
+            // Game starts, player started playing
+            started_playing_ = true;
+            resume_physics();
+        }
+    }
+
+    // Check if player died
+    void check_death() {
+        // If player died, game over, and pause physics
+        if (player_died_) {
+            player_died_ = false;
+            game_over_ = true;
+            pause_physics();
+        }
+    }
+
+    // Check if reset is requested at game over state
+    void check_reset_request() {
+        // If game is over, and jump key is pressed, reset game
+        if (game_over_ && input::virtual_input::is_tapped("jump")) reset_game();
+    }
+
+    // Initialize dynamic objects, this function is called at start and resets
+    void init_dynamic_objects(entt::registry &registry) {
+        create_columns(registry);
+
+        // Create player
+        auto player = create_player(registry);
+
+        // Create logic systems
+        create_logic_systems(player);
+
+        // Reset state variables
+        reset_state_variables();
+    }
+
+    // Create logic systems
+    void create_logic_systems(entt::entity player) {
+        system_manager_.create_system_rt<column_logic>();
+        system_manager_.create_system_rt<player_logic>(player);
+        system_manager_.create_system_rt<collision_logic>(player, player_died_);
+    }
+
+    // Reset state values
+    void reset_state_variables() {
+        started_playing_ = false;
+        player_died_ = false;
+        game_over_ = false;
+    }
+
+    // Pause physics
+    void pause_physics() {
+        system_manager_.disable_systems<column_logic, player_logic>();
+    }
+
+    // Resume physics
+    void resume_physics() {
+        system_manager_.enable_systems<column_logic, player_logic>();
+    }
+
+    // Destroy dynamic objects
+    void destroy_dynamic_objects() {
+        // Retrieve the collection of entities from the game scene
+        auto view = entity_registry_.view<entt::tag<"dynamic"_hs>>();
+
+        // Iterate the collection and destroy each entities
+        entity_registry_.destroy(view.begin(), view.end());
+
+        // Delete systems
+        system_manager_.mark_systems<player_logic, collision_logic>();
+    }
+
+    // Reset game
+    void reset_game() {
+        // Destroy all dynamic objects
+        destroy_dynamic_objects();
+
+        // Queue reset to reinitialize
+        this->need_reset_ = true;
+    }
+
+    // Post update
+    void post_update() noexcept final {
+        // If reset is requested
+        if (need_reset_) {
+            // Reinitialize all these
+            init_dynamic_objects(entity_registry_);
+            need_reset_ = false;
+        }
+    }
+
+    // System manager reference
+    ecs::system_manager &system_manager_;
+
+    // States
+    bool started_playing_{false};
+    bool player_died_{false};
+    bool game_over_{false};
+    bool need_reset_{false};
+};
+
+// Game world
+struct flappy_bird_world : world::app {
+    // Game entry point
+    flappy_bird_world() noexcept {
+        // Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        // Load the resources system
+        entity_registry_.set<sfml::resources_system>(entity_registry_);
+
+        // Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        // Create virtual input system
+        system_manager_.create_system<ecs::virtual_input_system>();
+
+        // Define the buttons for the jump action
+        input::virtual_input::create("jump",
+                                     {input::key::space, input::key::w, input::key::up},
+                                     {input::mouse_button::left, input::mouse_button::right});
+
+        // Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        // Change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_, system_manager_), true);
+    }
+};
+
+int main() {
+    // Declare the world
+    flappy_bird_world game;
+
+    // Run the game
+    return game.run();
+}
+```
+
+## Step 8: Score and UI
+
+Without scores there is no measure of achievement, and no motivation to play again to see if your skills have improved (or are better than your friends!). So we will count scores and display it on the screen.
+
+Only one constant is needed here, `font_size`.
+
+```
+struct flappy_bird_constants {
+    // UI
+    const unsigned long long font_size{32ull};
+```
+
+We will get one score from each column player passes, so we need to mark the column as `scored`. Let’s put a variable into the `struct column`.
+
+```
+// Is score taken from this column
+bool scored{false};
+```
+
+Then we define a score struct, it will have the current score, max score and UI text.
+
+```
+// Score struct, has current value, max record, and the UI text
+struct score {
+    int value;
+    int max_score;
+    entt::entity text;
+};
+```
+
+Now make a function which constructs the UI text, and put it under Logic functions `namespace`:
+
+```
+// Create the UI string
+std::string score_ui_text(int score = 0, int best_score = 0) {
+    return "Score: "s + std::to_string(score) +
+           "\nBest: "s + std::to_string(best_score) +
+           "\n\nW / UP / Space / Mouse to FLAP"s;
+}
+```
+
+Next we can make the `create_score` function which will make an entity.
+
+Retrieve constants and canvas size:
+
+```
+// Factory to create score entity
+entt::entity create_score(entt::registry &registry) {
+    // Retrieve constants
+    const auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+    const auto constants = registry.ctx<flappy_bird_constants>();
+```
+
+Then, create `text_entity` using `graphics::blueprint_text` function, feed the text `score_ui_text` and `font_size` from `constants`.
+
+```
+// Create text
+auto text_entity = graphics::blueprint_text(registry, graphics::text{score_ui_text(), constants.font_size},
+    transform::position_2d{canvas_width * 0.03f, canvas_height * 0.03f}, graphics::white);
+```
+
+Set it ot `layer<9>` because we want the text to be in front of everything, and tag it as `game_scene`.
+
+```
+registry.assign<graphics::layer<9>>(text_entity);
+tag_game_scene(registry, text_entity);
+```
+
+Now we create a fresh entity, assign `struct score` to it with 0 score and max record values, and `text_entity` we just created. Tag it as `high_score` and `game_scene`, then return it.
+
+```
+// Create a fresh entity
+auto entity = registry.create();
+
+// Create score
+registry.assign<score>(entity, 0, 0, text_entity);
+registry.assign<entt::tag<"high_score"_hs>>(entity);
+tag_game_scene(registry, entity);
+
+return entity;
+```
+
+Add a member for it in `game_scene`:
+
+```
+entt::entity score_entity_;
+```
+
+Then create it inside `game_scene` constructor using the `create_score` function:
+
+```
+game_scene(entt::registry &registry, ecs::system_manager &system_manager) noexcept : base_scene(registry),
+                                                                                      system_manager_(system_manager) {
+    // Set the constants that will be used in the program
+    registry.set<flappy_bird_constants>();
+
+    // Create everything
+    score_entity_ = create_score(registry);
+    create_background(registry);
+    init_dynamic_objects(registry);
+}
+```
+
+Now let’s make the function which will update the score. This function will be able to do two things: increment score by one, and reset the score when game is being reset.
+
+We simply have a parameter `reset` to know about the reset situation.
+
+First we retrieve the `struct score` from the entity, then if reset is requested, we simply set the `value` to zero.
+
+If reset is not requested, then it will increment `value` by one, check if it’s higher than the `max_score`, and update `max_score` if `value` it is.
+
+```
+void update_score(entt::registry &registry, entt::entity entity, bool reset = false) {
+    score &sc = registry.get<score>(entity);
+
+    // If reset is asked, set score to 0
+    if (reset) sc.value = 0;
+        // Else, increase the score,
+        // Compare it with the max score, and update max score if it's greater
+    else if (++sc.value > sc.max_score) sc.max_score = sc.value;
+```
+
+Next, update the `struct score` inside the score entity.
+
+```
+// Update the score entity
+registry.replace<score>(entity, sc);
+```
+
+Then then update the contents of `graphics::text` with the `score_ui_text` using the new values.
+
+```
+// Update the UI text entity with the current values
+auto &text = registry.get<graphics::text>(sc.text);
+text.contents = score_ui_text(sc.value, sc.max_score);
+registry.replace<graphics::text>(sc.text, text);
+```
+
+The completed function looks like this:
+
+```
+// Update score
+void update_score(entt::registry &registry, entt::entity entity, bool reset = false) {
+    score &sc = registry.get<score>(entity);
+
+    // If reset is asked, set score to 0
+    if (reset) sc.value = 0;
+        // Else, increase the score,
+        // Compare it with the max score, and update max score if it's greater
+    else if (++sc.value > sc.max_score) sc.max_score = sc.value;
+
+    // Update the score entity
+    registry.replace<score>(entity, sc);
+
+    // Update the UI text entity with the current values
+    auto &text = registry.get<graphics::text>(sc.text);
+    text.contents = score_ui_text(sc.value, sc.max_score);
+    registry.replace<graphics::text>(sc.text, text);
+}
+```
+
+We have the function to update the score now, and it needs to be called when player passes a column. This function needs the score entity so we will pass it to `column_logic` with the constructor.
+
+First, have a class member for entity.
+
+```
+entt::entity score_entity_;
+```
+
+Then fill it with the constructor.
+
+```
+// Column Logic System
+class column_logic final : public ecs::logic_update_system<column_logic> {
+public:
+    explicit column_logic(entt::registry &registry, entt::entity score) noexcept : system(registry),
+                                                                                score_entity_(score) {
+        disable();
+    }
+```
+
+We need to update the creation line too, feeding the score entity.
+
+```
+void create_logic_systems(entt::entity player) {
+    system_manager_.create_system_rt<column_logic>(score_entity_);
+```
+
+Now we go back to the `update` function of this class, and inside the for loop which loops all columns, we add the check for score.
+
+At first, column should be new, with `score` field being false. Once the column position is to the left side of the player position (after Flappy bird passes), use a simple `<` comparison of the column and Flappy bird’s position on the X axis.
+
+Inside, we call the `update_score` function, and mark the column `scored` as `true`.
+
+```
+// If this column is not scored, and player passed this column
+if (!col.scored && column_pos_x < constants.player_pos_x) {
+    // Increase the score
+    update_score(registry, score_entity_);
+
+    // Set column as scored
+    col.scored = true;
+}
+```
+
+Great, score is being counted now.
+
+Next thing we want is to reset this score value when game is over and `reset_game` is called. We use `update_score` function to do this, but this time we set the last parameter, `reset` as `true`.
+
+```
+// Reset game
+void reset_game() {
+    // Destroy all dynamic objects
+    destroy_dynamic_objects();
+
+    // Queue reset to reinitialize
+    this->need_reset_ = true;
+
+    // Reset current score, but keep the max score
+    update_score(entity_registry_, score_entity_, true);
+}
+```
+
+That’s it, now if you run the game, you’ll see the UI which shows current score, max score and button instructions, and as you play, you’ll see score and max score increasing, and see the score return to zero when you die and reset the game.
+
+
+
+![image](./../../assets/fb_score.png)
+
+Step 8 is complete, here is the full code.
+
+```
+#include <random>
+#include <antara/gaming/ecs/virtual.input.system.hpp>
+#include <antara/gaming/collisions/basic.collision.system.hpp>
+#include <antara/gaming/graphics/component.layer.hpp>
+#include <antara/gaming/graphics/component.canvas.hpp>
+#include <antara/gaming/math/vector.hpp>
+#include <antara/gaming/scenes/scene.manager.hpp>
+#include <antara/gaming/sfml/graphic.system.hpp>
+#include <antara/gaming/sfml/input.system.hpp>
+#include <antara/gaming/sfml/resources.manager.hpp>
+#include <antara/gaming/world/world.app.hpp>
+#include <antara/gaming/graphics/component.sprite.hpp>
+#include <antara/gaming/input/virtual.hpp>
+
+// For convenience
+using namespace antara::gaming;
+using namespace std::string_literals;
+
+// Constants
+struct flappy_bird_constants {
+    // Player
+    const std::string player_image_name{"player.png"};
+    const float player_pos_x{400.0f};
+    const float gravity{2000.f};
+    const float jump_force{650.f};
+    const float rotate_speed{100.f};
+    const float max_angle{60.f};
+
+    // Pipes
+    const float gap_height{265.f};
+    const float column_start_distance{700.f};
+    const float column_min{0.2f};
+    const float column_max{0.8f};
+    const float column_thickness{100.f};
+    const float column_distance{400.f};
+    const std::size_t column_count{6};
+    const float pipe_cap_extra_width{10.f};
+    const float pipe_cap_height{50.f};
+    const graphics::color pipe_color{92, 181, 61};
+    const graphics::outline_color pipe_outline_color{2.0f, graphics::color{76, 47, 61}};
+    const float scroll_speed{200.f};
+
+    // Background
+    const float ground_thickness{100.0f};
+    const float grass_thickness{20.0f};
+    const graphics::color background_color{82, 189, 199};
+    const graphics::color ground_color{220, 209, 143};
+    const graphics::color grass_color{132, 227, 90};
+    const graphics::outline_color grass_outline_color{2.0f, graphics::color{76, 47, 61}};
+};
+
+// Random number generator
+namespace {
+    std::random_device rd;  // Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+    float random_float(float lower, float higher) {
+        std::uniform_real_distribution<float> dist(lower, higher);
+        return dist(gen);
+    }
+}
+
+// A Flappy Bird column which has two pipes
+struct pipe {
+    entt::entity body{entt::null};
+    entt::entity cap{entt::null};
+
+    // Destroy pipe
+    void destroy(entt::registry &registry) {
+        registry.destroy(body);
+        registry.destroy(cap);
+    }
+};
+
+// Column is made of two pipes
+struct column {
+    // Entities representing the Flappy Bird pipes
+    pipe top_pipe{entt::null};
+    pipe bottom_pipe{entt::null};
+
+    // Destroy pipes and this column
+    void destroy(entt::registry &registry, entt::entity entity) {
+        top_pipe.destroy(registry);
+        bottom_pipe.destroy(registry);
+        registry.destroy(entity);
+    }
+};
+
+// Logic functions
+namespace {
+    void tag_game_scene(entt::registry &registry, entt::entity entity, bool dynamic = false) {
+        // Tag game scene
+        registry.assign<entt::tag<"game_scene"_hs>>(entity);
+
+        // Tag dynamic
+        if(dynamic) registry.assign<entt::tag<"dynamic"_hs>>(entity);
+    }
+
+    // Returns a random gap start position Y
+    float get_random_gap_start_pos(const entt::registry &registry) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        float top_limit = canvas_height * constants.column_min;
+        float bottom_limit = canvas_height * constants.column_max - constants.gap_height;
+
+        return random_float(top_limit, bottom_limit);
+    }
+}
+
+// Factory functions
+namespace {
+    // Factory for pipes, requires to know if it's a top one, position x of the column, and the gap starting position Y
+    pipe create_pipe(entt::registry &registry, bool is_top, float pos_x, float gap_start_pos_y) {
+        // Retrieve constants
+        const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // PIPE BODY
+        // Top pipe is at Y: 0 and bottom pipe is at canvas_height, bottom of the canvas
+        transform::position_2d body_pos{pos_x, is_top ? 0.f : canvas_height};
+
+        // Size X is the column thickness,
+        // Size Y is the important part.
+        // If it's a top pipe, gap_start_pos_y should be bottom of the rectangle
+        //  So half size should be gap_start_pos_y since center of the rectangle is at 0.
+        // If it's the bottom pipe, top of the rectangle will be at gap_start_pos_y + gap_height
+        //  So half size should be canvas_height - (gap_start_pos_y + gap_height)
+        // Since these are half-sizes, and the position is at the screen border, we multiply these sizes by two
+        math::vec2f body_size{constants.column_thickness,
+                              is_top ?
+                              gap_start_pos_y * 2.0f :
+                              (canvas_height - (gap_start_pos_y + constants.gap_height)) * 2.0f};
+
+        auto body = geometry::blueprint_rectangle(registry, body_size, constants.pipe_color, body_pos,
+                                                  constants.pipe_outline_color);
+
+        // PIPE CAP
+        // Let's prepare the pipe cap
+        // Size of the cap is defined in constants
+        math::vec2f cap_size{constants.column_thickness + constants.pipe_cap_extra_width, constants.pipe_cap_height};
+
+        // Position, X is same as the body. Bottom of the cap is aligned with bottom of the body,
+        // or start of the gap, we will use start of the gap here, minus half of the cap height
+        transform::position_2d cap_pos{body_pos.x(),
+                                       is_top ?
+                                       gap_start_pos_y - constants.pipe_cap_height * 0.5f :
+                                       gap_start_pos_y + constants.gap_height + constants.pipe_cap_height * 0.5f
+        };
+
+        // Construct the cap
+        auto cap = geometry::blueprint_rectangle(registry, cap_size, constants.pipe_color, cap_pos,
+                                                 constants.pipe_outline_color);
+
+        // Set layers, cap should be in front of body
+        registry.assign<graphics::layer<4>>(cap);
+        registry.assign<graphics::layer<3>>(body);
+        tag_game_scene(registry, cap, true);
+        tag_game_scene(registry, body, true);
+
+        // Construct a pipe with body and cap and return it
+        return {body, cap};
+    }
+
+    // Factory to create single column
+    void create_column(entt::registry &registry, float pos_x) noexcept {
+        // Create a fresh entity for a new column
+        auto entity_column = registry.create();
+
+        // Get a random gap start position Y, between pipes
+        float gap_start_pos_y = get_random_gap_start_pos(registry);
+
+        // Create pipes, is_top variable is false for bottom one
+        auto top_pipe = create_pipe(registry, true, pos_x, gap_start_pos_y);
+        auto bottom_pipe = create_pipe(registry, false, pos_x, gap_start_pos_y);
+
+        // Make a column from these two pipes and mark it as "column"
+        registry.assign<column>(entity_column, top_pipe, bottom_pipe);
+        registry.assign<entt::tag<"column"_hs>>(entity_column);
+        tag_game_scene(registry, entity_column, true);
+    }
+
+    // Factory for creating a Flappy Bird columns
+    void create_columns(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Spawn columns out of the screen, out of the canvas
+        const float column_pos_offset = constants.column_start_distance + constants.column_thickness * 2.0f;
+
+        // Create the columns
+        for (std::size_t i = 0; i < constants.column_count; ++i) {
+            // Horizontal position (X) increases for every column, keeping the distance
+            float pos_x = column_pos_offset + i * constants.column_distance;
+
+            create_column(registry, pos_x);
+        }
+    }
+
+    // Factory for creating a Flappy Bird background
+    void create_background(entt::registry &registry) noexcept {
+        // Retrieve constants
+        const auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Create Sky
+        {
+            // Sky is whole canvas so position is middle of it
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height * 0.5f};
+
+            // And the size is full canvas
+            math::vec2f size{canvas_width, canvas_height};
+
+            auto sky = geometry::blueprint_rectangle(registry, size, constants.background_color, pos);
+            registry.assign<graphics::layer<1>>(sky);
+            tag_game_scene(registry, sky);
+        }
+
+        // Create Grass
+        {
+            // Ground expands to whole canvas width so position is middle of it,
+            // But position Y is at top of the ground, so it's canvas height minus ground thickness
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness};
+
+            // Size X is full canvas but the height is defined in constants
+            // We also make it a bit longer by adding the thickness of the outline to hide the outline at sides
+            math::vec2f size{canvas_width + constants.grass_outline_color.thickness * 2.0f, constants.grass_thickness};
+
+            auto grass = geometry::blueprint_rectangle(registry, size, constants.grass_color, pos,
+                                                       constants.grass_outline_color);
+            registry.assign<graphics::layer<3>>(grass);
+            tag_game_scene(registry, grass);
+        }
+
+        // Create Ground
+        {
+            // Ground expands to whole canvas width so position is middle of it,
+            // But position Y is at bottom of the screen so it's full canvas_height minus half of the ground thickness
+            transform::position_2d pos{canvas_width * 0.5f, canvas_height - constants.ground_thickness * 0.5f};
+
+            // Size X is full canvas but the height is defined in constants
+            math::vec2f size{canvas_width, constants.ground_thickness};
+
+            auto ground = geometry::blueprint_rectangle(registry, size, constants.ground_color, pos);
+            registry.assign<graphics::layer<3>>(ground);
+            tag_game_scene(registry, ground);
+        }
+    }
+
+    // Factory for creating the player
+    entt::entity create_player(entt::registry &registry) {
+        // Retrieve constants
+        const auto[_, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        auto entity = graphics::blueprint_sprite(registry,
+                                                 graphics::sprite{constants.player_image_name.c_str()},
+                                                 transform::position_2d{constants.player_pos_x, canvas_height * 0.5f});
+        registry.assign<antara::gaming::graphics::layer<5>>(entity);
+        registry.assign<entt::tag<"player"_hs>>(entity);
+        tag_game_scene(registry, entity, true);
+
+        return entity;
+    }
+}
+
+// Column Logic System
+class column_logic final : public ecs::logic_update_system<column_logic> {
+public:
+    explicit column_logic(entt::registry &registry) noexcept : system(registry) {
+        disable();
+    }
+
+    // Update, this will be called every tick
+    void update() noexcept final {
+        auto &registry = entity_registry_;
+
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Loop all columns
+        for (auto entity : registry.view<column>()) {
+            auto &col = registry.get<column>(entity);
+
+            // Move pipes, and retrieve column position x
+            float column_pos_x = move_pipe(registry, col.top_pipe);
+            move_pipe(registry, col.bottom_pipe);
+
+            // If column is out of the screen
+            if (column_pos_x < -constants.column_distance) {
+                // Remove this column
+                col.destroy(registry, entity);
+
+                // Create a new column at far end
+                create_column(registry, furthest_pipe_position(registry) + constants.column_distance);
+            }
+        }
+    }
+
+private:
+    // Find the furthest pipe's position X
+    float furthest_pipe_position(entt::registry &registry) {
+        float furthest = 0.f;
+
+        for (auto entity : registry.view<column>()) {
+            auto &col = registry.get<column>(entity);
+            float x = entity_registry_.get<transform::position_2d>(col.top_pipe.body).x();
+            if (x > furthest) furthest = x;
+        }
+
+        return furthest;
+    }
+
+    // Move the pipe and return the x position
+    float move_pipe(entt::registry &registry, pipe &pipe) {
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Get current position of the pipe
+        auto pos = registry.get<transform::position_2d>(pipe.body);
+
+        // Shift pos X to left by scroll_speed but multiplying with dt because we do this so many times a second,
+        // Delta time makes sure that it's applying over time, so in one second it will move scroll_speed pixels
+        auto new_pos_x = pos.x() - constants.scroll_speed * timer::time_step::get_fixed_delta_time();
+
+        // Set the new position value
+        registry.replace<transform::position_2d>(pipe.body, new_pos_x, pos.y());
+
+        // Set cap position too
+        auto cap_pos = registry.get<transform::position_2d>(pipe.cap);
+        registry.replace<transform::position_2d>(pipe.cap, new_pos_x, cap_pos.y());
+
+        // Return the info about if this pipe is out of the screen
+        return new_pos_x;
+    }
+};
+
+// Name this system
+REFL_AUTO (type(column_logic));
+
+// Player Logic System
+class player_logic final : public ecs::logic_update_system<player_logic> {
+public:
+    player_logic(entt::registry &registry, entt::entity player) noexcept : system(registry), player_(player) {
+        disable();
+    }
+
+    // Update, this will be called every tick
+    void update() noexcept final {
+        auto &registry = entity_registry_;
+
+        // Retrieve constants
+        const auto constants = registry.ctx<flappy_bird_constants>();
+
+        // Get current position of the player
+        auto pos = registry.get<transform::position_2d>(player_);
+
+        // Add gravity to movement speed, multiply with delta time to apply it over time
+        movement_speed_.set_y(movement_speed_.y() + constants.gravity * timer::time_step::get_fixed_delta_time());
+
+        // Check if jump key is tapped
+        bool jump_key_tapped = input::virtual_input::is_tapped("jump");
+
+        // If jump is tapped, jump by adding jump force to the movement speed Y
+        if (jump_key_tapped) movement_speed_.set_y(-constants.jump_force);
+
+        // Add movement speed to position to make the character move, but apply over time with delta time
+        pos += movement_speed_ * timer::time_step::get_fixed_delta_time();
+
+        // Do not let player to go out of the screen to top
+        if (pos.y() <= 0.f) {
+            pos.set_y(0.f);
+            movement_speed_.set_y(0.f);
+        }
+
+        // Set the new position value
+        registry.replace<transform::position_2d>(player_, pos);
+
+        // ROTATION
+        // Retrieve props of the player
+        auto &props = registry.get<transform::properties>(player_);
+
+        // Increase the rotation a little by applying delta time
+        float new_rotation = props.rotation + constants.rotate_speed * timer::time_step::get_fixed_delta_time();
+
+        // If jump button is tapped, reset rotation,
+        // If rotation is higher than the max angle, set it to max angle
+        if (jump_key_tapped)
+            new_rotation = 0.f;
+        else if (props.rotation > constants.max_angle)
+            new_rotation = constants.max_angle;
+
+        // Set the properties
+        registry.replace<transform::properties>(player_, transform::properties{.rotation = new_rotation});
+    }
+
+private:
+    entt::entity player_;
+    math::vec2f movement_speed_{0.f, 0.f};
+};
+
+// Name this system
+REFL_AUTO (type(player_logic));
+
+// Collision Logic System
+class collision_logic final : public ecs::logic_update_system<collision_logic> {
+public:
+    collision_logic(entt::registry &registry, entt::entity player, bool &player_died) noexcept : system(registry),
+                                                                                                   player_(player),
+                                                                                                   player_died_(player_died) {}
+    // Update, this will be called every tick
+    void update() noexcept final {
+        auto &registry = entity_registry_;
+
+        // Do not check anything if player is already dead
+        if (player_died_) return;
+
+        // Check collision
+        check_player_pipe_collision(registry);
+    }
+
+private:
+    // Loop all columns to check collisions between player and the pipes
+    void check_player_pipe_collision(entt::registry &registry) {
+        for (auto entity : registry.view<graphics::layer<3>>()) {
+            // Check collision between player and a collidable object
+            if (collisions::basic_collision_system::query_rect(registry, player_, entity)) {
+                // Mark player died as true
+                player_died_ = true;
+            }
+        }
+    }
+
+    entt::entity player_;
+    bool &player_died_;
+};
+
+// Name this system
+REFL_AUTO (type(collision_logic));
+
+// Game Scene
+class game_scene final : public scenes::base_scene {
+public:
+    game_scene(entt::registry &registry, ecs::system_manager &system_manager) noexcept : base_scene(registry),
+                                                                                          system_manager_(system_manager) {
+        // Set the constants that will be used in the program
+        registry.set<flappy_bird_constants>();
+
+        // Create everything
+        create_background(registry);
+        init_dynamic_objects(registry);
+    }
+
+    // Scene name
+    std::string scene_name() noexcept final {
+        return "game_scene";
+    }
+
+private:
+    // Update the game every tick
+    void update() noexcept final {
+        // Check if player requested to start the game
+        check_start_game_request();
+
+        // Check if player died
+        check_death();
+
+        // Check if player requested reset after death
+        check_reset_request();
+    }
+
+    // Check if start game is requested at the pause state
+    void check_start_game_request() {
+        // If game is not started yet and jump key is tapped
+        if (!started_playing_ && input::virtual_input::is_tapped("jump")) {
+            // Game starts, player started playing
+            started_playing_ = true;
+            resume_physics();
+        }
+    }
+
+    // Check if player died
+    void check_death() {
+        // If player died, game over, and pause physics
+        if (player_died_) {
+            player_died_ = false;
+            game_over_ = true;
+            pause_physics();
+        }
+    }
+
+    // Check if reset is requested at game over state
+    void check_reset_request() {
+        // If game is over, and jump key is pressed, reset game
+        if (game_over_ && input::virtual_input::is_tapped("jump")) reset_game();
+    }
+
+    // Initialize dynamic objects, this function is called at start and resets
+    void init_dynamic_objects(entt::registry &registry) {
+        create_columns(registry);
+
+        // Create player
+        auto player = create_player(registry);
+
+        // Create logic systems
+        create_logic_systems(player);
+
+        // Reset state variables
+        reset_state_variables();
+    }
+
+    // Create logic systems
+    void create_logic_systems(entt::entity player) {
+        system_manager_.create_system_rt<column_logic>();
+        system_manager_.create_system_rt<player_logic>(player);
+        system_manager_.create_system_rt<collision_logic>(player, player_died_);
+    }
+
+    // Reset state values
+    void reset_state_variables() {
+        started_playing_ = false;
+        player_died_ = false;
+        game_over_ = false;
+    }
+
+    // Pause physics
+    void pause_physics() {
+        system_manager_.disable_systems<column_logic, player_logic>();
+    }
+
+    // Resume physics
+    void resume_physics() {
+        system_manager_.enable_systems<column_logic, player_logic>();
+    }
+
+    // Destroy dynamic objects
+    void destroy_dynamic_objects() {
+        // Retrieve the collection of entities from the game scene
+        auto view = entity_registry_.view<entt::tag<"dynamic"_hs>>();
+
+        // Iterate the collection and destroy each entities
+        entity_registry_.destroy(view.begin(), view.end());
+
+        // Delete systems
+        system_manager_.mark_systems<player_logic, collision_logic>();
+    }
+
+    // Reset game
+    void reset_game() {
+        // Destroy all dynamic objects
+        destroy_dynamic_objects();
+
+        // Queue reset to reinitialize
+        this->need_reset_ = true;
+    }
+
+    // Post update
+    void post_update() noexcept final {
+        // If reset is requested
+        if (need_reset_) {
+            // Reinitialize all these
+            init_dynamic_objects(entity_registry_);
+            need_reset_ = false;
+        }
+    }
+
+    // System manager reference
+    ecs::system_manager &system_manager_;
+
+    // States
+    bool started_playing_{false};
+    bool player_died_{false};
+    bool game_over_{false};
+    bool need_reset_{false};
+};
+
+// Game world
+struct flappy_bird_world : world::app {
+    // Game entry point
+    flappy_bird_world() noexcept {
+        // Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        // Load the resources system
+        entity_registry_.set<sfml::resources_system>(entity_registry_);
+
+        // Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        // Create virtual input system
+        system_manager_.create_system<ecs::virtual_input_system>();
+
+        // Define the buttons for the jump action
+        input::virtual_input::create("jump",
+                                     {input::key::space, input::key::w, input::key::up},
+                                     {input::mouse_button::left, input::mouse_button::right});
+
+        // Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        // Change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_, system_manager_), true);
+    }
+};
+
+int main() {
+    // Declare the world
+    flappy_bird_world game;
+
+    // Run the game
+    return game.run();
+}
+```
 
-### CMake Options
-
-| Name
-
- | Description
-
- | How to enable it
-
- | Notes
-
- |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------- | --------------- | ------------------------- | ------------ |  |  |  |  |  |  |
-| `USE_SFML_ANTARA_WRAPPER`
-
- | Enable the SFML module of the SDK
-
- | `-DUSE_SFML_ANTARA_WRAPPER=ON`
-
-  | Requires SFML dependencies on Linux
-
- |
-| `USE_IMGUI_ANTARA_WRAPPER`
-
- | Enable the IMGUI Support for the SDK
-
-  | `-DUSE_IMGUI_ANTARA_WRAPPER=ON`
-
- | |
-| `ENABLE_BLOCKCHAIN_MODULES`
-
- | Enable the Blockchain modules for the SDK (need additional dependencies)
-
-  | `-DENABLE_BLOCKCHAIN_MODULES=ON`
-
-| |
-| `ANTARA_BUILD_DOCS`
-
- | Enable the build of the documentation for the SDK
-
- | `-DANTARA_BUILD_DOCS=ON`
-
-| Require Sphinx And Doxygen
-
-  |
-| `USE_LUA_ANTARA_WRAPPER`
-
-| Enable the lua module for the SDK
-
- | `-DUSE_LUA_ANTARA_WRAPPER=ON`
-
-   | |
-| `USE_ASAN`
-
-  | Enable the Address Sanitizer for the Unit tests of the SDK
-
-| `-DUSE_ASAN=ON`
-
- | Cannot be mixed with `USE_TSAN` and `USE_UBSAN`
-
- |
-| `USE_UBSAN`
-
- | Enable the Undefined Behavior Sanitizer for the Unit tests of the SDK
-
- | `-DUSE_UBSAN=ON`
-
-| Cannot be mixed with `USE_TSAN` and `USE_ASAN`
-
-  |
-| `USE_TSAN`
-
-  | Enable the Undefined Behavior Sanitizer for the Unit tests of the SDK
-
- | `-DUSE_TSAN=ON`
-
- | Cannot be mixed with `USE_UBSAN` and `USE_ASAN`
-
- |
-| `BUILD_WITH_APPIMAGE`
-
-   | Enable the AppImage auto-generation on Linux for bundle an executable builded with the SDK
-
-| `-DBUILD_WITH_APPIMAGE=ON`
-
-  | Work’s only on `Linux`.
-
-   |
-| `ENABLE_HTML_COMPILATION`
-
-   | Enable the HTML Compilation on Emscripten for an executable builded with the SDK
-
-  | `-DENABLE_HTML_COMPILATION=ON`
-
-  | Work’s only on `Emscripten`.
-
-  |
-| `COVERAGE_CLION_TOOLS`
-
-  | Enable the Coverage inside CLion IDE.
-
- | `-DCOVERAGE_CLION_TOOLS=ON`
-
- | Work’s only with CLion IDE and Require `ENABLE_COVERAGE`
-
- |
-| `ANTARA_BUILD_EXAMPLES`
-
- | Enable the example of the SDK.
-
-| `-DANTARA_BUILD_EXAMPLES=ON`
-
-| Some examples need mix of options such as `USE_SFML_ANTARA_WRAPPER` + `ANTARA_BUILD_EXAMPLES`
-
- |
-| `ANTARA_BUILD_UNIT_TESTS`
-
-   | Enable the unit tests of the SDK.
-
- | `-DANTARA_BUILD_UNIT_TESTS=ON`
-
-  | Some examples need mix of options such as `USE_LUA_ANTARA_WRAPPER` + `ANTARA_BUILD_UNIT_TESTS`
-
- |
-| `USE_BOX2D_ANTARA_WRAPPER`
-
-  | Enable the Box2D modules of the SDK.
-
-  | `-DUSE_BOX2D_ANTARA_WRAPPER=ON`
-
- ||
-| `ENABLE_COVERAGE`
-
-   | Enable the coverage macros for the SDK.
-
-   | `-DENABLE_COVERAGE=ON`
-
-  ||
-### Installing
-
-You do not need to install the gaming sdk, just use the CMake fetch_content command to use the project
-
-## Running the tests
-
-Once you have compiled the sdk gaming with the option to enable unit tests.
-
-They are located in the `bin/unit_tests` (Linux/Osx) or `bin/unit_tests/%CMAKE_BUILD_TYPE%` (Windows) folder
-
-## Deployment
-
-
-* **construction**
-
-
-## Built With
-
-
-* [doctest](https://github.com/onqtam/doctest) - The fastest feature-rich C++11/14/17/20 single-header testing framework for unit tests and TDD [http://bit.ly/doctest-docs](http://bit.ly/doctest-docs) (MIT)
-
-
-* [doom-st](https://github.com/doom/strong_type) - C++ implementation of strong types (MIT)
-
-
-* [doom-meta](https://github.com/doom/meta) - Just a few metaprogramming utilities in C++ (MIT)
-
-
-* [loguru](https://github.com/emilk/loguru) - A lightweight C++ logging library (Public Domain)
-
-
-* [fmt](https://github.com/fmtlib/fmt) - A modern formatting library [https://fmt.dev](https://fmt.dev) (MIT)
-
-
-* [nlohmann-json](https://github.com/nlohmann/json) - JSON for Modern C++ [https://nlohmann.github.io/json/](https://nlohmann.github.io/json/) (MIT)
-
-
-* [EnTT](https://github.com/skypjack/entt) - Gaming meets modern C++ - a fast and reliable entity-component system (ECS). (MIT)
-
-
-* [refl-cpp](https://github.com/veselink1/refl-cpp) - A compile-time reflection library for modern C++ 🔥 (MIT)
-
-
-* [range-v3](https://github.com/ericniebler/range-v3) - Range library for C++14/17/20, basis for C++20’s std::ranges (Boost Software License)
-
-
-* [expected](https://github.com/TartanLlama/expected) - C++11/14/17 std::expected with functional-style extensions https://tl.tartanllama.xyz (CC0 1.0 Universal)
-
-
-* (optional)[ImGui](https://github.com/ocornut/imgui) - Dear ImGui: Bloat-free Immediate Mode Graphical User interface for C++ with minimal dependencies (MIT)
-
-
-* (optional)[ImGui-SFML](https://github.com/eliasdaler/imgui-sfml) - ImGui binding for use with SFML (MIT)
-
-
-* (optional)[SFML](https://github.com/SFML/SFML) - Simple and Fast Multimedia Library [http://www.sfml-dev.org/](http://www.sfml-dev.org/)
-
-
-* (optional)[reproc](https://github.com/DaanDeMeyer/reproc) - Cross-platform (C99/C++11) process library (MIT)
-
-
-* (optional)[lua](https://github.com/lua/lua) - The Lua repo, as seen by the Lua team. (MIT)
-
-
-* (optional)[sol2](https://github.com/ThePhD/sol2) - Sol3 (sol2 v3.0) - a C++ <-> Lua API wrapper with advanced features and top notch performance - is here, and it’s great! Documentation: [http://sol2.rtfd.io/](http://sol2.rtfd.io/) (MIT)
-
-
-* (optional)[restclient-cpp](https://github.com/mrtazz/restclient-cpp) - C++ client for making HTTP/REST requests [http://code.mrtazz.com/restclient-cpp/](http://code.mrtazz.com/restclient-cpp/) (MIT)
-
-
-* (optional)[box2D](https://github.com/erincatto/Box2D) - Box2D is a 2D physics engine for games [http://box2d.org](http://box2d.org) (ZLib)
-
-## Code of Conduct
-
-Before any contribution please read our [CODE OF CONDUCT](./CODE-OF-CONDUCT.md).
-
-## Contributing
-
-Please read [CONTRIBUTING.md](./CONTRIBUTING.md), contain the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/KomodoPlatform/antara-gaming-sdk/tags).
-
-## Authors
-
-
-* **Roman Sztergbaum** - *Co-Creator* & *Lead Dev* - [Milerius](https://github.com/Milerius)
-
-
-* **Tolga Ay** - *Co-Creator* - [naezith](https://github.com/Naezith)
-
-See also the list of [contributors](./CONTRIBUTORS.md) who participated in this project.
-
-## Contributors
-
-Please read [CONTRIBUTORS.md](./CONTRIBUTORS.md), contains the list of contributors.
-
-## Acknowledgments
-
-
-* Viktor Kirilov [onqtam](https://github.com/onqtam) for the awesome `doctest` framework.
-
-
-* Michele Caini  [skypjack](https://github.com/skypjack) for the awesome `EnTT` framework and his help.
-
-## Gallery
-
-
-
-![image](./docs/assets/gallery/wolf.gif)
-
-
-
-![image](./docs/assets/gallery/wolf-ig2.png)
-
-
-
-![image](./docs/assets/gallery/flappy.png)
-
-
-
-![image](./docs/assets/gallery/flappy-bird.gif)
-
-
-
-![image](./docs/assets/gallery/tictactoe-gif.gif)
-
-
-
-![image](./docs/assets/gallery/tictactoe-x-win.png)
-
-## Badges
-
-| Apps
-
-  | Badges
-
-|
-| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Github Actions CI (Windows/Osx/Linux)
-
- | [
-
-![image](https://github.com/KomodoPlatform/antara-gaming-sdk/workflows/CI/badge.svg)
-
-](https://github.com/KomodoPlatform/antara-gaming-sdk/actions)  |
-| License
-
-   | <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>. **Our team is working on a more open license.**
-
- |
-| LGTM (Security C++) Alerts
-
-| [
-
-![image](https://img.shields.io/lgtm/alerts/g/KomodoPlatform/antara-gaming-sdk.svg?logo=lgtm&logoWidth=18)
-
-](https://lgtm.com/projects/g/KomodoPlatform/antara-gaming-sdk/alerts/)  |
-| LGTM (Security C++) Quality
-
-   | [
-
-![image](https://img.shields.io/lgtm/grade/cpp/g/KomodoPlatform/antara-gaming-sdk.svg?logo=lgtm&logoWidth=18)
-
-](https://lgtm.com/projects/g/KomodoPlatform/antara-gaming-sdk/context:cpp) |
-| Issues
-
-| [
-
-![image](https://img.shields.io/github/issues/KomodoPlatform/antara-gaming-sdk)
-
-](https://img.shields.io/github/issues/KomodoPlatform/antara-gaming-sdk) |
-| Report CI (Linux/Osx/Windows/Emscripten)
-
- | [
-
-![image](https://report.ci/status/KomodoPlatform/antara-gaming-sdk/badge.svg?branch=master)
-
-](https://report.ci/status/KomodoPlatform/antara-gaming-sdk?branch=master) |
-| Coverage (Codecov)
-
-   | [
-
-![image](https://codecov.io/gh/KomodoPlatform/antara-gaming-sdk/branch/master/graph/badge.svg)
-
-](https://codecov.io/gh/KomodoPlatform/antara-gaming-sdk)   |
-| Docs
-
- | [
-
-![image](https://readthedocs.org/projects/antara-gaming-sdk/badge/?version=latest)
-
-](https://antara-gaming-sdk.readthedocs.io/en/latest/?badge=latest)  |
-| HitCount
-
- | [
-
-![image](http://hits.dwyl.io/KomodoPlatform/antara-gaming-sdk.svg)
-
-](http://hits.dwyl.io/KomodoPlatform/antara-gaming-sdk)  |
-| Line Of Code
-
- | [
-
-![image](https://tokei.rs/b1/github/KomodoPlatform/antara-gaming-sdk)
-
-](https://github.com/KomodoPlatform/antara-gaming-sdk)  |
-| Conventional Commit
-
-  | [
-
-![image](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)
-
-](https://conventionalcommits.org)  |

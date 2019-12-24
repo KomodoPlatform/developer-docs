@@ -1,405 +1,2058 @@
-# Tutorial: Getting Started
+# Tutorial: How to do a Tic-Tac-Toe in less than 15 minutes with the gaming SDK ?
 
-# antara-gaming-sdk
+If you have not read the getting started part yet, Please read it before reading this one.
 
-Antara Gaming Software Development Kit
+This tutorial is divided into multiple steps to make it easier to follow.
 
-## Prerequisites
+## Step 1: Setup the executable and the window
 
-Below is the list of prerequisites to use the `antara-gaming-sdk` on your machine:
+First, create a folder called `tic-tac-toe` for your project, then create a text file and save it as `CMakeLists.txt` to create and compile the executable.
 
+In this `CMakeLists.txt` file we will have: name of the project, creation of the executable, link with the SDK, C++ standard that will be used and extra modules that we want to use - in our case it will be the module  antara::sfml provided by the **SDK**.
 
-* [CMake](https://cmake.org/download/) 3.14 minimum
-
-
-* **clang-8** minimum (Windows/Linux/Osx) (clang and clang-cl both supported on Windows)
-
-
-* **Optional** emscripten latest (Web)
-
-
-* **Optional** Visual Studio 2019
-
-
-* **Optional** Clang VS Toolset (installable through visual studio installer)
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-See deployment for notes on how to deploy the project on a live system.
-
-### Build
-
-To build the project please follow the instructions below:
+Below is the `CMakeLists.txt` file:
 
 ```
-mkdir build ## bash or powershell
-cd build ## bash or powershell
+if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
+    message(FATAL_ERROR "Prevented in-tree build. Please create a build directory outside of the source code and call cmake from there")
+endif ()
 
-## Release or Debug are available
-cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=your_path_to_your_clang++ ../ #Linux / Osx
-cmake -DCMAKE_BUILD_TYPE=Debug -G "Visual Studio 16 2019" -A x64 -T "ClangCl" -DCMAKE_CXX_COMPILER="C:/Program Files/LLVM/bin/clang-cl.exe" ../ #Windows
+##! Minimum version of the CMake.
+cmake_minimum_required(VERSION 3.14)
 
-## We can even use Ninja for Windows / Linux / OSX
-## On Windows you may want to open x64 Visual Studio Terminal Prompt for using Ninja
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=path_to_clang++ -DCMAKE_C_COMPILER=path_to_clang ../
+##! C++ Standard needed by the SDK is 17
+set(CMAKE_CXX_STANDARD 17)
 
-## Build (Debug / Release available)
-cmake --build . --config Debug
+##! Our Project title, here tic-tac-toe.
+project(tic-tac-toe DESCRIPTION "An awesome tic-tac-toe" LANGUAGES CXX)
+
+##! The SDK need's clang as main compiler.
+if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
+        message(FATAL_ERROR "Only Clang is supported (minimum LLVM 8.0)")
+    endif()
+endif ()
+
+##! We will let know the SDK if our on Linux
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+    set(LINUX TRUE)
+endif ()
+
+##! We include the module from CMake for fetching dependencies
+include(FetchContent)
+
+##! We declare information about the dependance that we want to fetch.
+FetchContent_Declare(
+        antara-gaming-sdk
+        URL https://github.com/KomodoPlatform/antara-gaming-sdk/archive/master.zip
+)
+
+##! We set extras modules from the SDK that we want to use, here we will use the SFML module.
+set(USE_SFML_ANTARA_WRAPPER ON)
+
+##! We fetch our dependence
+FetchContent_MakeAvailable(antara-gaming-sdk)
+
+##! Calling this macros provided by the sdk will if you are on Apple init the environment for this OS (std::filesystem).
+init_apple_env()
+
+##! We create the executable with the project name
+add_executable(${PROJECT_NAME} tic-tac-toe.cpp)
+
+##! Setting output directory
+set_target_properties(${PROJECT_NAME}
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/"
+        )
+
+##! We link the SDK modules that we want to use to our executable
+target_link_libraries(${PROJECT_NAME} PUBLIC antara::world antara::sfml)
+
+##! Move DLL
+if (WIN32)
+    ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory "${SFML_BINARY_DIR}/lib" "${CMAKE_BINARY_DIR}/bin/"
+            COMMENT "copying dlls …"
+            $<TARGET_FILE_DIR:${PROJECT_NAME}>
+            )
+
+    ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy "${SFML_SOURCE_DIR}/extlibs/bin/x64/openal32.dll" "${CMAKE_BINARY_DIR}/bin/openal32.dll"
+            COMMENT "copying dlls …"
+            $<TARGET_FILE_DIR:${PROJECT_NAME}>
+            )
+endif ()
 ```
 
-There are also additional options with the CMake that allows to activate certain features of the SDK:
+Then we create our input file for the application and call it `tic-tac-toe.cpp`.
 
-### CMake Options
+We add an empty main function:
 
-| Name
+```
+int main()
+{
+    return 0;
+}
+```
 
- | Description
+If you did everything correctly so far, you should have the following tree:
 
- | How to enable it
+```
+./tic-tac-toe
+├── CMakeLists.txt
+└── tic-tac-toe.cpp
+```
 
- | Notes
+Before continuing the tutorial, make sure that you have installed the required dependencies and your program compiles with the build commands available in the tutorial getting started. If needed, help is available in the Komodo [Discord](https://discord.gg/VRtwmR2)
 
- |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------- | --------------- | ------------------------- | ------------ |  |  |  |  |  |  |
-| `USE_SFML_ANTARA_WRAPPER`
+Now we need a world representing the world of our game, to do this we use the following header file: `#include <antara/gaming/world/world.app.hpp>`
 
- | Enable the SFML module of the SDK
+And a basic structure that we name `tic_tac_toe_world`. It will inherit from `antara::gaming::world::app` class.
 
- | `-DUSE_SFML_ANTARA_WRAPPER=ON`
+And use the namespace `antara::gaming` to make naming easier.
 
-  | Requires SFML dependencies on Linux
+Finally, we declare our new object in the body of the main function and we replace the return value with the return value of our game returned by the `run` function of the `class world::app`.
 
- |
-| `USE_IMGUI_ANTARA_WRAPPER`
+It gives us the following result:
 
- | Enable the IMGUI Support for the SDK
+```
+#include <antara/gaming/world/world.hpp>
 
-  | `-DUSE_IMGUI_ANTARA_WRAPPER=ON`
+using namespace antara::gaming;
 
- | |
-| `ENABLE_BLOCKCHAIN_MODULES`
+struct tic_tac_toe_world : world::app
+{
+    //! Our game entry point
+    tic_tac_toe_world() noexcept = default;
+};
 
- | Enable the Blockchain modules for the SDK (need additional dependencies)
+int main()
+{
+    tic_tac_toe_world game;
+    return game.run();
+}
+```
 
-  | `-DENABLE_BLOCKCHAIN_MODULES=ON`
+If you compile now and run your executable, you have an infinite loop and nothing will happen.
 
-| |
-| `ANTARA_BUILD_DOCS`
+The last stage of this step one is to add the graphics side of the application, for that we will need two modules: `antara::gaming::sfml::graphic_system` and `antara::gaming::sfml::input::system` which have these following headers, respectively: `#include <antara/gaming/sfml/graphic.system.hpp>` and `#include <antara/gaming/sfml/input.system.hpp>`.
 
- | Enable the build of the documentation for the SDK
+Now in the body of the constructor of our class `tic_tac_toe_world` we will load the graphic system, then we will initialize input system with the window coming from the loaded graphic system.
 
- | `-DANTARA_BUILD_DOCS=ON`
+```
+#include <antara/gaming/world/world.app.hpp>
+#include <antara/gaming/sfml/graphic.system.hpp>
+#include <antara/gaming/sfml/input.system.hpp>
 
-| Require Sphinx And Doxygen
+//! For convenience
+using namespace antara::gaming;
 
-  |
-| `USE_LUA_ANTARA_WRAPPER`
+//! Our game world
+struct tic_tac_toe_world : world::app
+{
+    //! Our game entry point
+    tic_tac_toe_world() noexcept
+    {
+        //! Here we load our graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
 
-| Enable the lua module for the SDK
+        //! Here we load our input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+    }
+};
 
- | `-DUSE_LUA_ANTARA_WRAPPER=ON`
+int main()
+{
+    //! Here we declare our world
+    tic_tac_toe_world game;
 
-   | |
-| `USE_ASAN`
+    //! Here we run the game
+    return game.run();
+}
+```
 
-  | Enable the Address Sanitizer for the Unit tests of the SDK
+If you compile and run now, you should see a black window open. You can close by pressing the close button of the window:
 
-| `-DUSE_ASAN=ON`
 
- | Cannot be mixed with `USE_TSAN` and `USE_UBSAN`
 
- |
-| `USE_UBSAN`
+![image](./../../assets/black_window.png)
 
- | Enable the Undefined Behavior Sanitizer for the Unit tests of the SDK
+And now, the first step is over. We have a `CMakeLists.txt` to be able to compile our program into a basic executable which can create the game window.
 
- | `-DUSE_UBSAN=ON`
+## Step 2: The Game Scene, The Grid, Game constants
 
-| Cannot be mixed with `USE_TSAN` and `USE_ASAN`
+For the second step, our goal is to draw the grid of Tic-Tac-Toe.
 
-  |
-| `USE_TSAN`
+The grid will look like this:
 
-  | Enable the Undefined Behavior Sanitizer for the Unit tests of the SDK
 
- | `-DUSE_TSAN=ON`
 
- | Cannot be mixed with `USE_UBSAN` and `USE_ASAN`
+![image](./../../assets/tictactoe.grid.jpg)
 
- |
-| `BUILD_WITH_APPIMAGE`
+To do this we will create a game scene using the scene manager. In order to do so we need to include the header file `#include <antara/gaming/scenes/scene.manager.hpp>` and load the scenes manager system into the system manager.
 
-   | Enable the AppImage auto-generation on Linux for bundle an executable builded with the SDK
+```
+struct tic_tac_toe_world : world::app
+{
+    //! Our game entry point
+    tic_tac_toe_world() noexcept
+    {
+        //! Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
 
-| `-DBUILD_WITH_APPIMAGE=ON`
+        //! Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
 
-  | Work’s only on `Linux`.
+        //! Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+    }
+};
+```
 
-   |
-| `ENABLE_HTML_COMPILATION`
+Now we are going to create the `game_scene` class that inherits from the `base_scene` class. This class will be the entry point of our game scene.
 
-   | Enable the HTML Compilation on Emscripten for an executable builded with the SDK
+The concrete class must override several functions such as update, scene_name, and the destructor.
+We will not use the update function because the Tic-Tac-Toe is not a game that needs an update for each frame, so we will leave the function empty.
+For the scene_name function we’ll just return the name of the scene.
 
-  | `-DENABLE_HTML_COMPILATION=ON`
+```
+class game_scene final : public scenes::base_scene
+{
+public:
+    game_scene(entt::registry &entity_registry) noexcept : base_scene(entity_registry)
+    {}
 
-  | Work’s only on `Emscripten`.
+    //! This function will not be used, because Tic-Tac-Toe doesn't need an update every frame.
+    void update() noexcept final
+    {}
 
-  |
-| `COVERAGE_CLION_TOOLS`
+    //! our scene name
+    std::string scene_name() noexcept final
+    {
+        return "game_scene";
+    }
 
-  | Enable the Coverage inside CLion IDE.
+    ~game_scene() noexcept final
+    {}
+private:
+};
+```
+
+Now we are going to load our game scene into the `scene_manager` using the `change_scene` member function
+
+```
+struct tic_tac_toe_world : world::app
+{
+    //! Our game entry point
+    tic_tac_toe_world() noexcept
+    {
+        //! Load the graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        //! Load the input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        //! Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        //! Change scene to game_scene
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_), true);
+    }
+};
+```
+
+If you compile now you should still see the black window from the previous step, but we are now in our game scene.
+
+
+
+![image](./../../assets/black_window.png)
+
+**NOTE**: The scene system is very handy to organize multiple screens of the game: **introduction scene**, **game scene**, **end-of-game scene**, etc.
+
+Now we need several constants that are essential. For Tic-Tac-Toe they are: width and height of a cell, number of cells per line and thickness of the grid.
+
+For the size of the cells we will use the current size of our canvas divided by the number of cells per line to obtain the size of a cell.
+
+Now create a structure `tic_tac_toe_constants` that will contain these different information, then save it in the entity registry to be able to access from anywhere in the program.
 
- | `-DCOVERAGE_CLION_TOOLS=ON`
+```
+struct tic_tac_toe_constants
+{
+    tic_tac_toe_constants(std::size_t nb_cells_per_axis_, std::size_t width_, std::size_t height_) noexcept :
+            nb_cells_per_axis(nb_cells_per_axis_),
+            cell_width(width_ / nb_cells_per_axis),
+            cell_height(height_ / nb_cells_per_axis)
+    {
+    }
 
- | Work’s only with CLion IDE and Require `ENABLE_COVERAGE`
+    const std::size_t nb_cells_per_axis;
+    const std::size_t cell_width;
+    const std::size_t cell_height;
+    const float grid_thickness{20.0f};
+};
+```
 
- |
-| `ANTARA_BUILD_EXAMPLES`
+In the constructor of the gaming scene:
 
- | Enable the example of the SDK.
+```
+game_scene(entt::registry &entity_registry) noexcept : base_scene(entity_registry)
+{
+    //! Retrieve canvas information
+    auto[canvas_width, canvas_height] = entity_registry_.ctx<graphics::canvas_2d>().canvas.size.to<math::vec2u>();
 
-| `-DANTARA_BUILD_EXAMPLES=ON`
+    //! Set the constants that will be used in the program
+    entity_registry_.set<tic_tac_toe_constants>(3ull, canvas_width, canvas_height);
+}
+```
 
-| Some examples need mix of options such as `USE_SFML_ANTARA_WRAPPER` + `ANTARA_BUILD_EXAMPLES`
+Now we will go to the creation of our entity representing our grid, so we will add in private member of our game_scene class the `grid_entity_` field which is of type `entt::entity` which will have the initial value `entt::null`.
 
- |
-| `ANTARA_BUILD_UNIT_TESTS`
+```
+class game_scene final : public scenes::base_scene
+{
+public:
+    game_scene(entt::registry &entity_registry) noexcept : base_scene(entity_registry)
+    {
+        //! Retrieve canvas information
+        auto[canvas_width, canvas_height] = entity_registry_.ctx<graphics::canvas_2d>().canvas.size.to<math::vec2u>();
 
-   | Enable the unit tests of the SDK.
+        //! Set the constants that will be used in the program
+        entity_registry_.set<tic_tac_toe_constants>(3ull, canvas_width, canvas_height);
+    }
 
- | `-DANTARA_BUILD_UNIT_TESTS=ON`
+    //! This function won't be used, because Tic-Tac-Toe doesn't need to update every frame.
+    void update() noexcept final
+    {}
 
-  | Some examples need mix of options such as `USE_LUA_ANTARA_WRAPPER` + `ANTARA_BUILD_UNIT_TESTS`
+    //! Return the scene name
+    std::string scene_name() noexcept final
+    {
+        return "game_scene";
+    }
 
- |
-| `USE_BOX2D_ANTARA_WRAPPER`
+    ~game_scene() noexcept final
+    {}
+private:
+    //! The entity which represents the Tic-Tac-Toe grid
+    entt::entity grid_entity_{entt::null};
+};
+```
 
-  | Enable the Box2D modules of the SDK.
+Then, we will have to initialize this entity. To do this we create an anonymous namespace with a function `create_grid` which returns an `entt::entity` and take in parameter `entity registry`.
 
-  | `-DUSE_BOX2D_ANTARA_WRAPPER=ON`
+```
+//! Contains all functions which will be used for logic and factory
+namespace
+{
+    //! Factory for creating a Tic-Tac-Toe grid
+    entt::entity create_grid(entt::registry &registry) noexcept
+    {
+        return entt::null;
+    }
+}
+```
 
- ||
-| `ENABLE_COVERAGE`
+Now, we call the function from the game scene constructor and we assign the return value to the field `grid_entity_`:
 
-   | Enable the coverage macros for the SDK.
+```
+game_scene(entt::registry &entity_registry) noexcept : base_scene(entity_registry)
+{
+    //! Retrieve canvas information
+    auto[canvas_width, canvas_height] = entity_registry_.ctx<graphics::canvas_2d>().canvas.size.to<math::vec2u>();
 
-   | `-DENABLE_COVERAGE=ON`
+    //! Set the constants that will be used in the program
+    entity_registry_.set<tic_tac_toe_constants>(3ull, canvas_width, canvas_height);
 
-  ||
-### Installing
+    //! Create the grid of the Tic-Tac-Toe
+    grid_entity_ = create_grid(entity_registry_);
+}
+```
 
-You do not need to install the gaming sdk, just use the CMake fetch_content command to use the project
+Only two things left to do now:
 
-## Running the tests
 
-Once you have compiled the sdk gaming with the option to enable unit tests.
+* code the logic of the `create_grid` function
 
-They are located in the `bin/unit_tests` (Linux/Osx) or `bin/unit_tests/%CMAKE_BUILD_TYPE%` (Windows) folder
 
-## Deployment
+* manage the destruction of the entities of our game scene when leaving the program
 
+Let’s start by coding the logic of the `create_grid` function.
 
-* **construction**
+First we get the canvas size, because that will define the size of our grid.
 
+```
+//! Retrieve canvas information
+auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+```
 
-## Built With
+Second, we create a new entity named grid.
 
+```
+//! Entity creation
+auto grid_entity = registry.create();
+```
 
-* [doctest](https://github.com/onqtam/doctest) - The fastest feature-rich C++11/14/17/20 single-header testing framework for unit tests and TDD [http://bit.ly/doctest-docs](http://bit.ly/doctest-docs) (MIT)
+A line is represented by joining two dots that we call vertices. Each vertex has a X position and a Y position. Connection of two vertices makes a line. Though that line thickness then would be `1 px`. `1 px` is not very visible if the image gets smaller because of scaling etc. So we want a thick line, like `20px`.
 
 
-* [doom-st](https://github.com/doom/strong_type) - C++ implementation of strong types (MIT)
 
+![image](./../../assets/grid_lines.png)
 
-* [doom-meta](https://github.com/doom/meta) - Just a few metaprogramming utilities in C++ (MIT)
+A thick line is basically a rectangle, right? For a rectangle, we need 4 vertices because of 4 corners. For a Tic-Tac-Toe grid, we need `4 vertical lines` (2 in middle and 2 at screen borders) and `4 horizontal lines`. That makes `8 lines`, and each line is `4 vertices`, so we need `8 \* 4 = 32` vertices.
 
+```
+//! Our vertices
+std::vector<geometry::vertex> lines{8 * 4};
+```
 
-* [loguru](https://github.com/emilk/loguru) - A lightweight C++ logging library (Public Domain)
+We also need information about the grid, such as -
 
+`nb_cells` = Number of cells in one axis (3 in this case).
 
-* [fmt](https://github.com/fmtlib/fmt) - A modern formatting library [https://fmt.dev](https://fmt.dev) (MIT)
+`cell_width, cell_height` = Width and height of a cell.
 
+`grid_thickness` = Thickness of the line.
 
-* [nlohmann-json](https://github.com/nlohmann/json) - JSON for Modern C++ [https://nlohmann.github.io/json/](https://nlohmann.github.io/json/) (MIT)
+We retrieve them from the defined constants:
 
+```
+//! Retrieve constants information
+auto[nb_cells, cell_width, cell_height, grid_thickness] = registry.ctx<tic_tac_toe_constants>();
+```
 
-* [EnTT](https://github.com/skypjack/entt) - Gaming meets modern C++ - a fast and reliable entity-component system (ECS). (MIT)
+In calculations we will use half of the thickness for internal lines, and full thickness for the outer border. We can prepare for that with another constant for reuse and clarity.
 
+```
+const auto half_thickness = grid_thickness * 0.5f;
+```
 
-* [refl-cpp](https://github.com/veselink1/refl-cpp) - A compile-time reflection library for modern C++ 🔥 (MIT)
+Our loop looks complicated but it actually isn’t. At each loop we will define one vertical and one horizontal line. We have 4 lines in each axis so we need to loop 4 times, that is `nb_cells + 1`. Though we need to start from `0` because that will be used for the starting coordinate. We also have a variable `counter` which will count the vertex indexes, it will increase by `4 vertices \* 2 lines = 8 vertices` at each iteration.
 
+```
+//! Our loop to create the grid
+for (std::size_t counter = 0, i = 0; i <= nb_cells; ++i, counter += 4 * 2) {
+```
 
-* [range-v3](https://github.com/ericniebler/range-v3) - Range library for C++14/17/20, basis for C++20’s std::ranges (Boost Software License)
+Most important information is this: `Order of the vertices are always like this: Top Left, Top Right, Bottom Right, Bottom Left. So next neighbour is always the clockwise neighbour.`
 
 
-* [expected](https://github.com/TartanLlama/expected) - C++11/14/17 std::expected with functional-style extensions https://tl.tartanllama.xyz (CC0 1.0 Universal)
 
+![image](./../../assets/vertex_order.png)
 
-* (optional)[ImGui](https://github.com/ocornut/imgui) - Dear ImGui: Bloat-free Immediate Mode Graphical User interface for C++ with minimal dependencies (MIT)
+Let’s draw the vertical line first. Remember the order, we start with Top Left vertex. A vertical line is from top to bottom and `X` position will be same for top and bottom, but `Y` will change.
 
+We calculate `X` first. `idx` is currently `0`, if we multiply that with `cell_width`, let’s say `cell_width` is `300`, in `4` iterations these will be the values: `0, 300, 600, 900`.
 
-* (optional)[ImGui-SFML](https://github.com/eliasdaler/imgui-sfml) - ImGui binding for use with SFML (MIT)
+Then we will do `- half_thickness` to offset it to a bit left because left and right vertices of a thick vertical line needs to be separate.
 
+And the Y will be 0 because it’s top of the screen. X axis grows from left to right, Y axis grows from top to down.
 
-* (optional)[SFML](https://github.com/SFML/SFML) - Simple and Fast Multimedia Library [http://www.sfml-dev.org/](http://www.sfml-dev.org/)
+```
+lines[counter + 0].pos = {idx * cell_width - half_thickness, 0.f};
+```
 
+Now, the Top Right vertex, it is same but it is `+ half_thickness` to offset in the opposite direction. Y is still `0` because it’s top of the screen.
 
-* (optional)[reproc](https://github.com/DaanDeMeyer/reproc) - Cross-platform (C99/C++11) process library (MIT)
+```
+lines[counter + 1].pos = {idx * cell_width + half_thickness, 0.f};
+```
 
+Now, the Bottom Right vertex, `X` is same with Top Right, but `Y` is now canvas_height which is bottom of the screen.
 
-* (optional)[lua](https://github.com/lua/lua) - The Lua repo, as seen by the Lua team. (MIT)
+```
+lines[counter + 2].pos = {idx * cell_width + half_thickness, canvas_height};
+```
 
+Now, the last one, Bottom Left vertex, `Y` is same as Bottom Right, `X` is doing `- half_thickness` because it needs to be aligned to the left.
 
-* (optional)[sol2](https://github.com/ThePhD/sol2) - Sol3 (sol2 v3.0) - a C++ <-> Lua API wrapper with advanced features and top notch performance - is here, and it’s great! Documentation: [http://sol2.rtfd.io/](http://sol2.rtfd.io/) (MIT)
+```
+lines[counter + 3].pos = {idx * cell_width - half_thickness, canvas_height};
+```
 
+We completed the vertical line! Now we will do horizontal line. Again, always imagine these lines as rectangles. We will fill next 4 vertices now.
 
-* (optional)[restclient-cpp](https://github.com/mrtazz/restclient-cpp) - C++ client for making HTTP/REST requests [http://code.mrtazz.com/restclient-cpp/](http://code.mrtazz.com/restclient-cpp/) (MIT)
+Starting at Top Left again, since line will be from left to right, `x` of left is `0`. And `Y` will change like `X` did in vertical line, 4 horizontal lines will have `Y` values as: `0, 300, 600, 900`.
 
+Then we do `- half_thickness` to Y because Top Left needs to be at Top, we shift it a little bit to top to create the thickness.
 
-* (optional)[box2D](https://github.com/erincatto/Box2D) - Box2D is a 2D physics engine for games [http://box2d.org](http://box2d.org) (ZLib)
+```
+lines[counter + 4].pos = {0, idx * cell_height - half_thickness};
+```
 
-## Code of Conduct
+Then Top Right vertex, is at far right side, `canvas_width` pixels away. And `Y` is same as Top Left.
 
-Before any contribution please read our [CODE OF CONDUCT](./CODE-OF-CONDUCT.md).
+```
+lines[counter + 5].pos = {canvas_width, idx * cell_height - half_thickness};
+```
 
-## Contributing
+Then Bottom Right vertex, `X` stays the same, and this time we add thickness to shift it to bottom, to create the thickness.
 
-Please read [CONTRIBUTING.md](./CONTRIBUTING.md), contain the process for submitting pull requests to us.
+```
+lines[counter + 6].pos = {canvas_width, idx * cell_height + half_thickness};
+```
 
-## Versioning
+Then the last one, Bottom Left, is at far left, `0`. We shift `Y` to a bit bottom by adding thickness again.
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/KomodoPlatform/antara-gaming-sdk/tags).
+```
+lines[counter + 7].pos = {0, idx * cell_height + half_thickness};
+```
 
-## Authors
+Voilà ! Both vertical and horizontal lines are ready. Loop ends here.
 
+After the loop, we turn these vertices to a `geometry::vertex_array` of quads, which are rectangles. And assign it to the `grid_entity`.
 
-* **Roman Sztergbaum** - *Co-Creator* & *Lead Dev* - [Milerius](https://github.com/Milerius)
+```
+//! Assign the vertex array to the grid entity
+registry.assign<geometry::vertex_array>(grid_entity, lines, geometry::vertex_geometry_type::quads);
+```
 
+We tag the grid as `game_scene`
 
-* **Tolga Ay** - *Co-Creator* - [naezith](https://github.com/Naezith)
+```
+//! Assign the game_scene tag to the grid_entity (_hs means hashed_string)
+registry.assign<entt::tag<"game_scene"_hs>>(grid_entity);
+```
 
-See also the list of [contributors](./CONTRIBUTORS.md) who participated in this project.
+Set it to appear at `layer 0`, and return the prepared grid!
 
-## Contributors
+```
+//! We want to draw the grid on the most deep layer, here 0.
+registry.assign<graphics::layer<0>>(grid_entity);
 
-Please read [CONTRIBUTORS.md](./CONTRIBUTORS.md), contains the list of contributors.
+//! We give back our fresh entity
+return grid_entity;
+```
 
-## Acknowledgments
+This will work and look really good. Though maybe you realized, we always add and substract `half_thickness`. So the top border and left border of the screen are at coordinate `0`, so subtracting `half_thickness` will make half of it to appear out of the screen. Same with bottom border and right border, they are at `canvas_width` and `canvas_height` which are and of the screen. Adding `half_thickness` makes the half of it appear out of the screen again. If you are perfectionist, you don’t want that to happen.
 
 
-* Viktor Kirilov [onqtam](https://github.com/onqtam) for the awesome `doctest` framework.
 
+![image](./../../assets/border_problem.png)
 
-* Michele Caini  [skypjack](https://github.com/skypjack) for the awesome `EnTT` framework and his help.
+To solve this, we need to treat the first and last lines in a special way. We need to push top border a bit down, left border to a bit right, bottom border to a bit up and right border to a bit left to keep them fully inside the screen. We can call that shift `offset`, we go back to our loop and define it at start.
 
-## Gallery
+There is no offset by default, so we set them to `0`.
 
+```
+auto offset_x = 0.0f;
+auto offset_y = 0.0f;
+```
 
+If it’s the first ones, we add `half_thickness` to push them inside. And if it’s last ones, we subtract `half_thickness` to pull them inside.
 
-![image](./docs/assets/gallery/wolf.gif)
+```
+if (i == 0) {
+    offset_x += half_thickness;
+    offset_y += half_thickness;
+}
+else if (i == nb_cells) {
+    offset_x -= half_thickness;
+    offset_y -= half_thickness;
+}
+```
 
+Now let’s use the offsets we set.
 
+For the vertical line, we use the `offset X` to push them left and right.
 
-![image](./docs/assets/gallery/wolf-ig2.png)
+```
+//! Vertical
+lines[counter + 0].pos = {offset_x + idx * cell_width - half_thickness, 0.f};
+lines[counter + 1].pos = {offset_x + idx * cell_width + half_thickness, 0.f};
+lines[counter + 2].pos = {offset_x + idx * cell_width + half_thickness, canvas_height};
+lines[counter + 3].pos = {offset_x + idx * cell_width - half_thickness, canvas_height};
+```
 
+For the horizontal line, we use the `offset Y` to push them up and down.
 
+```
+//! Horizontal
+lines[counter + 4].pos = {offset_x + 0,            offset_y + idx * cell_height - half_thickness};
+lines[counter + 5].pos = {offset_x + canvas_width, offset_y + idx * cell_height - half_thickness};
+lines[counter + 6].pos = {offset_x + canvas_width, offset_y + idx * cell_height + half_thickness};
+lines[counter + 7].pos = {offset_x + 0,            offset_y + idx * cell_height + half_thickness};
+```
 
-![image](./docs/assets/gallery/flappy.png)
+Now our grid must be looking absolutely perfect. You can edit `grid_thickness` constant to change the thickness of the lines.
 
+Below the complete function:
 
+```
+//! Contains all the function that will be used for logic and factory
+namespace
+{
+    //! Factory for creating a Tic-Tac-Toe grid
+    entt::entity create_grid(entt::registry &registry) noexcept
+    {
+        //! Retrieve canvas information
+        auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
 
-![image](./docs/assets/gallery/flappy-bird.gif)
+        //! Entity creation
+        auto grid_entity = registry.create();
 
+        //! Our vertices
+        std::vector<geometry::vertex> lines{8 * 4};
 
+        //! Retrieve constants information
+        auto[nb_cells, cell_width, cell_height, grid_thickness] = registry.ctx<tic_tac_toe_constants>();
+        const auto half_thickness = grid_thickness * 0.5f;
 
-![image](./docs/assets/gallery/tictactoe-gif.gif)
+        //! Our loop to create the grid
+        for (std::size_t counter = 0, i = 0; i <= nb_cells; ++i, counter += 4 * 2) {
 
+            //! To avoid narrowing conversion
+            auto idx = static_cast<float>(i);
 
+            //! First and last ones should be a bit inside, otherwise half of it is out of the screen
+            auto offset_x = 0.0f;
+            auto offset_y = 0.0f;
 
-![image](./docs/assets/gallery/tictactoe-x-win.png)
+            if (i == 0) {
+                offset_x += half_thickness;
+                offset_y += half_thickness;
+            } else if (i == nb_cells) {
+                offset_x -= half_thickness;
+                offset_y -= half_thickness;
+            }
 
-## Badges
+            //! Prepare lines
 
-| Apps
+            //! Vertical
+            lines[counter + 0].pos = {offset_x + idx * cell_width - half_thickness, 0.f};
+            lines[counter + 1].pos = {offset_x + idx * cell_width + half_thickness, 0.f};
+            lines[counter + 2].pos = {offset_x + idx * cell_width + half_thickness, canvas_height};
+            lines[counter + 3].pos = {offset_x + idx * cell_width - half_thickness, canvas_height};
 
-  | Badges
+            //! Horizontal
+            lines[counter + 4].pos = {offset_x + 0, offset_y + idx * cell_height - half_thickness};
+            lines[counter + 5].pos = {offset_x + canvas_width, offset_y + idx * cell_height - half_thickness};
+            lines[counter + 6].pos = {offset_x + canvas_width, offset_y + idx * cell_height + half_thickness};
+            lines[counter + 7].pos = {offset_x + 0, offset_y + idx * cell_height + half_thickness};
+        }
 
-|
-| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Github Actions CI (Windows/Osx/Linux)
+        //! Assign the vertex array to the grid entity
+        registry.assign<geometry::vertex_array>(grid_entity, lines, geometry::vertex_geometry_type::quads);
 
- | [
+        //! Assign the game_scene tag to the grid_entity (_hs means hashed_string)
+        registry.assign<entt::tag<"game_scene"_hs>>(grid_entity);
 
-![image](https://github.com/KomodoPlatform/antara-gaming-sdk/workflows/CI/badge.svg)
+        //! We want to draw the grid on the most deep layer, here 0.
+        registry.assign<graphics::layer<0>>(grid_entity);
 
-](https://github.com/KomodoPlatform/antara-gaming-sdk/actions)  |
-| License
+        //! We give back our fresh entity
+        return grid_entity;
+    }
+}
+```
 
-   | <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>. **Our team is working on a more open license.**
+The last thing to do is the destruction of the entities in the destructor, we will need it at the time of reset the game.
 
- |
-| LGTM (Security C++) Alerts
+In the destructor, we iterate over all the entities that have the tag of the game scene, and destroy each of them.
 
-| [
+```
+~game_scene() noexcept final
+{
+    //! Retrieve the collection of entities from the game scene
+    auto view = entity_registry_.view<entt::tag<"game_scene"_hs>>();
 
-![image](https://img.shields.io/lgtm/alerts/g/KomodoPlatform/antara-gaming-sdk.svg?logo=lgtm&logoWidth=18)
+    //! Iterate the collection and destroy each entities
+    entity_registry_.destroy(view.begin(), view.end());
 
-](https://lgtm.com/projects/g/KomodoPlatform/antara-gaming-sdk/alerts/)  |
-| LGTM (Security C++) Quality
+    //! Unset the Tic-Tac-Toe constants
+    entity_registry_.unset<tic_tac_toe_constants>();
+}
+```
 
-   | [
+Now if you compile and run your program you should have the following result:
 
-![image](https://img.shields.io/lgtm/grade/cpp/g/KomodoPlatform/antara-gaming-sdk.svg?logo=lgtm&logoWidth=18)
 
-](https://lgtm.com/projects/g/KomodoPlatform/antara-gaming-sdk/context:cpp) |
-| Issues
 
-| [
+![image](./../../assets/tictactoe_real_grid.png)
 
-![image](https://img.shields.io/github/issues/KomodoPlatform/antara-gaming-sdk)
+Here is the complete code of the second step:
 
-](https://img.shields.io/github/issues/KomodoPlatform/antara-gaming-sdk) |
-| Report CI (Linux/Osx/Windows/Emscripten)
+```
+#include <antara/gaming/world/world.app.hpp>
+#include <antara/gaming/sfml/graphic.system.hpp>
+#include <antara/gaming/sfml/input.system.hpp>
+#include <antara/gaming/scenes/scene.manager.hpp>
+#include <antara/gaming/math/vector.hpp>
+#include <antara/gaming/graphics/component.canvas.hpp>
+#include <antara/gaming/graphics/component.layer.hpp>
 
- | [
+//! For convenience
+using namespace antara::gaming;
 
-![image](https://report.ci/status/KomodoPlatform/antara-gaming-sdk/badge.svg?branch=master)
+struct tic_tac_toe_constants
+{
+    tic_tac_toe_constants(std::size_t nb_cells_per_axis_, std::size_t width_, std::size_t height_) noexcept :
+            nb_cells_per_axis(nb_cells_per_axis_),
+            cell_width(width_ / nb_cells_per_axis),
+            cell_height(height_ / nb_cells_per_axis)
+    {
+    }
 
-](https://report.ci/status/KomodoPlatform/antara-gaming-sdk?branch=master) |
-| Coverage (Codecov)
+    const std::size_t nb_cells_per_axis;
+    const std::size_t cell_width;
+    const std::size_t cell_height;
+    const float grid_thickness{20.0f};
+};
 
-   | [
+//! Contains all the function that will be used for logic  and factory
+namespace
+{
+    //! Factory for creating a tic-tac-toe grid
+    entt::entity create_grid(entt::registry &registry) noexcept
+    {
+        //! retrieve canvas information
+        auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
 
-![image](https://codecov.io/gh/KomodoPlatform/antara-gaming-sdk/branch/master/graph/badge.svg)
+        //! entity creation
+        auto grid_entity = registry.create();
 
-](https://codecov.io/gh/KomodoPlatform/antara-gaming-sdk)   |
-| Docs
+        //! our vertices
+        std::vector<geometry::vertex> lines{8 * 4};
 
- | [
+        //! retrieve constants information
+        auto[nb_cells, cell_width, cell_height, grid_thickness] = registry.ctx<tic_tac_toe_constants>();
+        const auto half_thickness = grid_thickness * 0.5f;
 
-![image](https://readthedocs.org/projects/antara-gaming-sdk/badge/?version=latest)
+        //! our loop to create the grid
+        for (std::size_t counter = 0, i = 0; i <= nb_cells; ++i, counter += 4 * 2) {
 
-](https://antara-gaming-sdk.readthedocs.io/en/latest/?badge=latest)  |
-| HitCount
+            //! to avoid narrowing conversion
+            auto idx = static_cast<float>(i);
 
- | [
+            //! first and last ones should be a bit inside, otherwise half of it is out of the screen
+            auto offset_x = 0.0f;
+            auto offset_y = 0.0f;
 
-![image](http://hits.dwyl.io/KomodoPlatform/antara-gaming-sdk.svg)
+            if (i == 0) {
+                offset_x += half_thickness;
+                offset_y += half_thickness;
+            } else if (i == nb_cells) {
+                offset_x -= half_thickness;
+                offset_y -= half_thickness;
+            }
 
-](http://hits.dwyl.io/KomodoPlatform/antara-gaming-sdk)  |
-| Line Of Code
+            //! prepare lines
 
- | [
+            //! vertical
+            lines[counter + 0].pos = {offset_x + idx * cell_width - half_thickness, 0.f};
+            lines[counter + 1].pos = {offset_x + idx * cell_width + half_thickness, 0.f};
+            lines[counter + 2].pos = {offset_x + idx * cell_width + half_thickness, canvas_height};
+            lines[counter + 3].pos = {offset_x + idx * cell_width - half_thickness, canvas_height};
 
-![image](https://tokei.rs/b1/github/KomodoPlatform/antara-gaming-sdk)
+            //! horizontal
+            lines[counter + 4].pos = {offset_x + 0, offset_y + idx * cell_height - half_thickness};
+            lines[counter + 5].pos = {offset_x + canvas_width, offset_y + idx * cell_height - half_thickness};
+            lines[counter + 6].pos = {offset_x + canvas_width, offset_y + idx * cell_height + half_thickness};
+            lines[counter + 7].pos = {offset_x + 0, offset_y + idx * cell_height + half_thickness};
+        }
 
-](https://github.com/KomodoPlatform/antara-gaming-sdk)  |
-| Conventional Commit
+        //! assign the vertex array to the grid entity
+        registry.assign<geometry::vertex_array>(grid_entity, lines, geometry::vertex_geometry_type::quads);
 
-  | [
+        //! assign the game_scene tag to the grid_entity (_hs means hashed_string)
+        registry.assign<entt::tag<"game_scene"_hs>>(grid_entity);
 
-![image](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)
+        //! We want to draw the grid on the most deep layer, here 0.
+        registry.assign<graphics::layer<0>>(grid_entity);
 
-](https://conventionalcommits.org)  |
+        //! we give back our fresh entity
+        return grid_entity;
+    }
+}
+
+class game_scene final : public scenes::base_scene
+{
+public:
+    game_scene(entt::registry &entity_registry) noexcept : base_scene(entity_registry)
+    {
+        //! Here we retrieve canvas information
+        auto[canvas_width, canvas_height] = entity_registry_.ctx<graphics::canvas_2d>().canvas.size.to<math::vec2u>();
+
+        //! Here i set the constants that will be used in the program
+        entity_registry_.set<tic_tac_toe_constants>(3ull, canvas_width, canvas_height);
+
+        //! Here i create the grid of the tic tac toe
+        grid_entity_ = create_grid(entity_registry_);
+    }
+
+    //! This function will not be used, because tic tac toe doesn't need an update every frame.
+    void update() noexcept final
+    {}
+
+    //! our scene name
+    std::string scene_name() noexcept final
+    {
+        return "game_scene";
+    }
+
+    ~game_scene() noexcept final
+    {
+        //! Here we retrieve the collection of entities from the game scene
+        auto view = entity_registry_.view<entt::tag<"game_scene"_hs>>();
+
+        //! Here we iterate the collection and destroy each entities
+        entity_registry_.destroy(view.begin(), view.end());
+
+        //! Here we unset the tic tac toe constants
+        entity_registry_.unset<tic_tac_toe_constants>();
+    }
+
+private:
+    //! Our entity representing the tic-tac-toe grid
+    entt::entity grid_entity_{entt::null};
+};
+
+//! Our game world
+struct tic_tac_toe_world : world::app
+{
+    //! Our game entry point
+    tic_tac_toe_world() noexcept
+    {
+        //! Here we load our graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        //! Here we load our input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        //! Here we load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        //! Here we change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_), true);
+    }
+};
+
+int main()
+{
+    //! Here we declare our world
+    tic_tac_toe_world game;
+
+    //! Here we run the game
+    return game.run();
+}
+```
+
+## Step 3: Create Board and X O, Game Logic
+
+First we need `cell_state` to tell if the cell is empty, marked x or y. It’s good to name these with `enum`.
+
+```
+enum cell_state
+{
+    empty,
+    player_x = 1,
+    player_y = 2
+};
+```
+
+Now we will create the board which is `3x3`. We store value `3` in `nb_cells_per_axis` so we will use that. Board is a `vector` of 9 `cell_state` instances and all of them are marked as empty.
+
+```
+std::vector<cell_state> create_board(std::size_t nb_cells_per_axis)
+{
+    std::vector<cell_state> board(nb_cells_per_axis * nb_cells_per_axis, cell_state::empty);
+    return board;
+}
+```
+
+We also need to display X and O, let’s prepare X first. Function will have `row` and `column` parameters.
+
+```
+void create_x(entt::registry &entity_registry, std::size_t row, std::size_t column) noexcept
+```
+
+Now we get the constants like `nb_cells`, `cell_width`, `cell_height` and `grid_thickness`. Then create other helpful constants as `half_box_side`, `center_x`, `center_y` which is the center position of that specific cell.
+
+```
+auto[nb_cells, cell_width, cell_height, grid_thickness] = entity_registry.ctx<tic_tac_toe_constants>();
+const auto half_box_side = static_cast<float>(std::fmin(cell_width, cell_height) * 0.25f);
+const auto center_x = static_cast<float>(cell_width * 0.5 + column * cell_width);
+const auto center_y = static_cast<float>(cell_height * 0.5 + row * cell_height);
+```
+
+We can make a X with two lines. Just like in Step 2, every line is a quad which has 4 vertices.
+
+```
+auto x_entity = entity_registry.create();
+std::vector<geometry::vertex> lines{2 * 4};
+```
+
+X will have magenta color. We need to set every vertex color for it.
+
+```
+for (auto &&current_vertex: lines) current_vertex.pixel_color = graphics::magenta;
+```
+
+Again, just like in Step 2, we set the position of every single vertex. Order is Top Left, Top Right, Bottom Left, Bottom Right.
+
+```
+// Top-left to Bottom-right
+lines[0].pos = {center_x - half_box_side - half_thickness, center_y - half_box_side};
+lines[1].pos = {center_x - half_box_side + half_thickness, center_y - half_box_side};
+lines[2].pos = {center_x + half_box_side + half_thickness, center_y + half_box_side};
+lines[3].pos = {center_x + half_box_side - half_thickness, center_y + half_box_side};
+
+
+// Top-right to Bottom-left
+lines[4].pos = {center_x + half_box_side - half_thickness, center_y - half_box_side};
+lines[5].pos = {center_x + half_box_side + half_thickness, center_y - half_box_side};
+lines[6].pos = {center_x - half_box_side + half_thickness, center_y + half_box_side};
+lines[7].pos = {center_x - half_box_side - half_thickness, center_y + half_box_side};
+```
+
+Create a `geometry::vertex_array` out of it.
+
+```
+entity_registry.assign<geometry::vertex_array>(x_entity, lines, geometry::vertex_geometry_type::quads);
+```
+
+Assign this X entity as `player_x` and `game_scene`. Then set layer 1, because layer 0 is the background. X and O needs to render in front.
+
+```
+entity_registry.assign<entt::tag<"game_scene"_hs>>(x_entity);
+entity_registry.assign<entt::tag<"player_x"_hs>>(x_entity);
+entity_registry.assign<graphics::layer<1>>(x_entity);
+```
+
+Now X is complete and it’s turn of O. First part is same as X.
+
+```
+void create_o(entt::registry &entity_registry, std::size_t row, std::size_t column) noexcept
+{
+    auto constants = entity_registry.ctx<tic_tac_toe_constants>();
+    const auto half_box_side = static_cast<float>(std::fmin(constants.cell_width, constants.cell_height) * 0.25f);
+    const auto center_x = static_cast<float>(constants.cell_width * 0.5 + column * constants.cell_width);
+    const auto center_y = static_cast<float>(constants.cell_height * 0.5 + row * constants.cell_height);
+```
+
+To create the O, we create an entity first. Then assign it as a Circle, `geometry::circle`. After that, set the `fill_color` and `outline_color`. And finally set the entity position to center of the cell.
+
+```
+auto o_entity = geometry::blueprint_circle(entity_registry, half_box_side, graphics::transparent,
+        transform::position_2d(center_x, center_y),
+        graphics::outline_color(constants.grid_thickness, graphics::cyan));
+```
+
+Last part is same as X, assigning to `game_scene` and set layer 1.
+
+```
+entity_registry.assign<entt::tag<"game_scene"_hs>>(o_entity);
+entity_registry.assign<graphics::layer<1>>(o_entity);
+```
+
+Now the last part, we need to create a ecs::logic_update_system, we call it `tic_tac_toe_logic`.
+
+```
+class tic_tac_toe_logic final : public ecs::logic_update_system<tic_tac_toe_logic>
+{
+public:
+    ~tic_tac_toe_logic() noexcept final = default;
+
+    void update() noexcept final
+    {}
+```
+
+As you see above, we don’t do anything in update function because Tic-Tac-Toe is a passive game. We need to update only when mouse is clicked. But first let’s define the `play_turn` function.
+
+```
+//! Game logic
+void play_turn(std::size_t row, std::size_t column) noexcept
+```
+
+We turn row and column to index.
+
+```
+//! Retrieve constants
+auto constants = entity_registry_.ctx<tic_tac_toe_constants>();
+
+//! Which cell is clicked ?
+std::size_t index = row * constants.nb_cells_per_axis + column;
+```
+
+Then we make sure that index is inside the board and the clicked cell is empty. If so, we set the board as the current `player_turn_`. If it’s X, we call `create_x` else we call `create_o` for that specific cell. Then change the turn to the other player.
+
+```
+    //! Cell is available ?
+    if (index < board_.size() && board_[index] == cell_state::empty) {
+
+        //! Change state of the cell to the current player
+        board_[index] = static_cast<cell_state>(player_turn_);
+
+        //! Create x or o based on the current player
+        player_turn_ == x ? create_x(entity_registry_, row, column) : create_o(entity_registry_, row, column);
+
+        //! Switch player
+        player_turn_ = (player_turn_ == player::x) ? player::o : player::x;
+    }
+}
+```
+
+We call `play_turn` with the position of the mouse click.
+
+```
+void on_mouse_button_pressed(const event::mouse_button_pressed &evt) noexcept
+ {
+     if (current_game_state_ == running) {
+         //! Retrieve game constants.
+         auto constants = entity_registry_.ctx<tic_tac_toe_constants>();
+
+         //! Play one turn of the Tic-Tac-Toe
+         play_turn(evt.y / constants.cell_height, evt.x / constants.cell_width);
+     } else {
+         //! Here we reset the game
+     }
+ }
+```
+
+Now we assign the `on_mouse_button_pressed` event to the mouse click in the constructor.
+
+```
+tic_tac_toe_logic(entt::registry &registry, entt::entity grid_entity, std::vector<cell_state> board) noexcept
+        : system(registry), grid_entity_(grid_entity), board_(std::move(board))
+{
+    //! stateless system
+    this->disable();
+
+    //! subscribe to mouse_button event
+    this->dispatcher_.sink<event::mouse_button_pressed>().connect<&tic_tac_toe_logic::on_mouse_button_pressed>(
+            *this);
+}
+```
+
+In the same class, we have enums `game_state` and `player` too.
+
+```
+//! Private enums
+enum game_state
+{
+    running,
+    player_x_won = 1,
+    player_y_won = 2,
+    tie,
+    quit
+};
+
+enum player
+{
+    x = 1,
+    o = 2
+};
+```
+
+And the other member variables we used such as grid, state board, game state and player turn.
+
+```
+//! Private members variable
+entt::entity grid_entity_{entt::null};
+std::vector<cell_state> board_;
+game_state current_game_state_{game_state::running};
+player player_turn_{player::x};
+```
+
+After the class definition, we give a name to our system, out of the class scope.
+
+```
+//! Give a name to our system
+REFL_AUTO(type(tic_tac_toe_logic));
+```
+
+In the constructor of the game_scene we defined before, we create the board and the logic system.
+
+```
+//! Create the board of the tic tac toe
+auto board = create_board(tictactoe_constants.nb_cells_per_axis);
+
+//! Create our logic game system and give the fresh grid entity and the fresh board.
+this->system_manager_.create_system<tic_tac_toe_logic>(grid_entity, board);
+```
+
+Game logic, board and XO, all of them are now complete.
+
+
+
+![image](./../../assets/tictactoe_board.png)
+
+Here is the complete code of the third step:
+
+```
+#include <vector>
+#include <antara/gaming/world/world.app.hpp>
+#include <antara/gaming/sfml/graphic.system.hpp>
+#include <antara/gaming/sfml/input.system.hpp>
+#include <antara/gaming/scenes/scene.manager.hpp>
+#include <antara/gaming/math/vector.hpp>
+#include <antara/gaming/graphics/component.canvas.hpp>
+#include <antara/gaming/graphics/component.layer.hpp>
+
+//! For convenience
+using namespace antara::gaming;
+
+struct tic_tac_toe_constants
+{
+    tic_tac_toe_constants(std::size_t nb_cells_per_axis_, std::size_t width_, std::size_t height_) noexcept :
+            nb_cells_per_axis(nb_cells_per_axis_),
+            cell_width(width_ / nb_cells_per_axis),
+            cell_height(height_ / nb_cells_per_axis)
+    {
+    }
+
+    const std::size_t nb_cells_per_axis;
+    const std::size_t cell_width;
+    const std::size_t cell_height;
+    const float grid_thickness{20.0f};
+};
+
+enum cell_state
+{
+    empty,
+    player_x = 1,
+    player_y = 2
+};
+
+//! Contains all the function that will be used for logic  and factory
+namespace
+{
+    //! Factory for creating a tic-tac-toe grid
+    entt::entity create_grid(entt::registry &registry) noexcept
+    {
+        //! retrieve canvas information
+        auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+
+        //! entity creation
+        auto grid_entity = registry.create();
+
+        //! our vertices
+        std::vector<geometry::vertex> lines{8 * 4};
+
+        //! retrieve constants information
+        auto[nb_cells, cell_width, cell_height, grid_thickness] = registry.ctx<tic_tac_toe_constants>();
+        const auto half_thickness = grid_thickness * 0.5f;
+
+        //! our loop to create the grid
+        for (std::size_t counter = 0, i = 0; i <= nb_cells; ++i, counter += 4 * 2) {
+
+            //! to avoid narrowing conversion
+            auto idx = static_cast<float>(i);
+
+            //! first and last ones should be a bit inside, otherwise half of it is out of the screen
+            auto offset_x = 0.0f;
+            auto offset_y = 0.0f;
+
+            if (i == 0) {
+                offset_x += half_thickness;
+                offset_y += half_thickness;
+            } else if (i == nb_cells) {
+                offset_x -= half_thickness;
+                offset_y -= half_thickness;
+            }
+
+            //! prepare lines
+
+            //! vertical
+            lines[counter + 0].pos = {offset_x + idx * cell_width - half_thickness, 0.f};
+            lines[counter + 1].pos = {offset_x + idx * cell_width + half_thickness, 0.f};
+            lines[counter + 2].pos = {offset_x + idx * cell_width + half_thickness, canvas_height};
+            lines[counter + 3].pos = {offset_x + idx * cell_width - half_thickness, canvas_height};
+
+            //! horizontal
+            lines[counter + 4].pos = {offset_x + 0, offset_y + idx * cell_height - half_thickness};
+            lines[counter + 5].pos = {offset_x + canvas_width, offset_y + idx * cell_height - half_thickness};
+            lines[counter + 6].pos = {offset_x + canvas_width, offset_y + idx * cell_height + half_thickness};
+            lines[counter + 7].pos = {offset_x + 0, offset_y + idx * cell_height + half_thickness};
+        }
+
+        //! assign the vertex array to the grid entity
+        registry.assign<geometry::vertex_array>(grid_entity, lines, geometry::vertex_geometry_type::quads);
+
+        //! assign the game_scene tag to the grid_entity (_hs means hashed_string)
+        registry.assign<entt::tag<"game_scene"_hs>>(grid_entity);
+
+        //! We want to draw the grid on the most deep layer, here 0.
+        registry.assign<graphics::layer<0>>(grid_entity);
+
+        //! we give back our fresh entity
+        return grid_entity;
+    }
+
+    std::vector<cell_state> create_board(std::size_t nb_cells_per_axis)
+    {
+        std::vector<cell_state> board(nb_cells_per_axis * nb_cells_per_axis, cell_state::empty);
+        return board;
+    }
+
+    void create_x(entt::registry &entity_registry, std::size_t row, std::size_t column) noexcept
+    {
+        auto[nb_cells, cell_width, cell_height, grid_thickness] = entity_registry.ctx<tic_tac_toe_constants>();
+        const auto half_box_side = static_cast<float>(std::fmin(cell_width, cell_height) * 0.25f);
+        const auto center_x = static_cast<float>(cell_width * 0.5 + column * cell_width);
+        const auto center_y = static_cast<float>(cell_height * 0.5 + row * cell_height);
+
+        auto x_entity = entity_registry.create();
+        std::vector<geometry::vertex> lines{2 * 4};
+
+        for (auto &&current_vertex: lines) current_vertex.pixel_color = graphics::magenta;
+
+        const auto half_thickness = grid_thickness * 0.5f;
+
+        // Top-left to Bottom-right
+        lines[0].pos = {center_x - half_box_side - half_thickness, center_y - half_box_side};
+        lines[1].pos = {center_x - half_box_side + half_thickness, center_y - half_box_side};
+        lines[2].pos = {center_x + half_box_side + half_thickness, center_y + half_box_side};
+        lines[3].pos = {center_x + half_box_side - half_thickness, center_y + half_box_side};
+
+
+        // Top-right to Bottom-left
+        lines[4].pos = {center_x + half_box_side - half_thickness, center_y - half_box_side};
+        lines[5].pos = {center_x + half_box_side + half_thickness, center_y - half_box_side};
+        lines[6].pos = {center_x - half_box_side + half_thickness, center_y + half_box_side};
+        lines[7].pos = {center_x - half_box_side - half_thickness, center_y + half_box_side};
+
+        entity_registry.assign<geometry::vertex_array>(x_entity, lines, geometry::vertex_geometry_type::quads);
+        entity_registry.assign<entt::tag<"game_scene"_hs>>(x_entity);
+        entity_registry.assign<entt::tag<"player_x"_hs>>(x_entity);
+        entity_registry.assign<graphics::layer<1>>(x_entity);
+    }
+
+    void create_o(entt::registry &entity_registry, std::size_t row, std::size_t column) noexcept
+    {
+        auto constants = entity_registry.ctx<tic_tac_toe_constants>();
+        const auto half_box_side = static_cast<float>(std::fmin(constants.cell_width, constants.cell_height) * 0.25f);
+        const auto center_x = static_cast<float>(constants.cell_width * 0.5 + column * constants.cell_width);
+        const auto center_y = static_cast<float>(constants.cell_height * 0.5 + row * constants.cell_height);
+
+        auto o_entity = geometry::blueprint_circle(entity_registry, half_box_side, graphics::transparent,
+                transform::position_2d(center_x, center_y),
+                graphics::outline_color(constants.grid_thickness, graphics::cyan));
+
+        entity_registry.assign<entt::tag<"game_scene"_hs>>(o_entity);
+        entity_registry.assign<graphics::layer<1>>(o_entity);
+    }
+}
+
+class tic_tac_toe_logic final : public ecs::logic_update_system<tic_tac_toe_logic>
+{
+public:
+    ~tic_tac_toe_logic() noexcept final = default;
+
+    void update() noexcept final
+    {}
+
+    void on_mouse_button_pressed(const event::mouse_button_pressed &evt) noexcept
+    {
+        if (current_game_state_ == running) {
+            //! Retrieve game constants.
+            auto constants = entity_registry_.ctx<tic_tac_toe_constants>();
+
+            //! Play one turn of the Tic-Tac-Toe
+            play_turn(evt.y / constants.cell_height, evt.x / constants.cell_width);
+        } else {
+            //! Reset the game
+        }
+    }
+
+    tic_tac_toe_logic(entt::registry &registry, entt::entity grid_entity, std::vector<cell_state> board) noexcept
+            : system(registry), grid_entity_(grid_entity), board_(std::move(board))
+    {
+        //! stateless system
+        this->disable();
+
+        //! subscribe to mouse_button event
+        this->dispatcher_.sink<event::mouse_button_pressed>().connect<&tic_tac_toe_logic::on_mouse_button_pressed>(
+                *this);
+    }
+
+private:
+    //! Game logic
+    void play_turn(std::size_t row, std::size_t column) noexcept
+    {
+        //! Retrieve constants
+        auto constants = entity_registry_.ctx<tic_tac_toe_constants>();
+
+        //! Which cell is clicked ?
+        std::size_t index = row * constants.nb_cells_per_axis + column;
+
+        //! Cell is available ?
+        if (index < board_.size() && board_[index] == cell_state::empty) {
+
+            //! change state of the cell to the current player
+            board_[index] = static_cast<cell_state>(player_turn_);
+
+            //! create x or o based on the current player
+            player_turn_ == x ? create_x(entity_registry_, row, column) : create_o(entity_registry_, row, column);
+
+            //! switch player
+            player_turn_ = (player_turn_ == player::x) ? player::o : player::x;
+        }
+    }
+
+private:
+    //! Private enums
+    enum game_state
+    {
+        running,
+        player_x_won = 1,
+        player_y_won = 2,
+        tie,
+        quit
+    };
+
+    enum player
+    {
+        x = 1,
+        o = 2
+    };
+
+private:
+    //! Private members variable
+    entt::entity grid_entity_{entt::null};
+    std::vector<cell_state> board_;
+    game_state current_game_state_{game_state::running};
+    player player_turn_{player::x};
+};
+
+//! Give a name to our system
+REFL_AUTO(type(tic_tac_toe_logic));
+
+class game_scene final : public scenes::base_scene
+{
+public:
+    game_scene(entt::registry &entity_registry) noexcept : base_scene(entity_registry)
+    {
+        //! Retrieve canvas information
+        auto[canvas_width, canvas_height] = entity_registry_.ctx<graphics::canvas_2d>().canvas.size.to<math::vec2u>();
+
+        //! Set the constants that will be used in the program
+        auto &tictactoe_constants = entity_registry_.set<tic_tac_toe_constants>(3ull, canvas_width, canvas_height);
+
+        //! Create the grid of the tic tac toe
+        auto grid_entity = create_grid(entity_registry_);
+
+        //! Create the board of the tic tac toe
+        auto board = create_board(tictactoe_constants.nb_cells_per_axis);
+
+        //! Create our logic game system and give the fresh grid entity and the fresh board.
+        this->system_manager_.create_system<tic_tac_toe_logic>(grid_entity, board);
+    }
+
+    //! This function will not be used, because tic tac toe doesn't need an update every frame.
+    void update() noexcept final
+    {}
+
+
+    //! our scene name
+    std::string scene_name() noexcept final
+    {
+        return "game_scene";
+    }
+
+    ~game_scene() noexcept final
+    {
+        //! Retrieve the collection of entities from the game scene
+        auto view = entity_registry_.view<entt::tag<"game_scene"_hs>>();
+
+        //! Iterate the collection and destroy each entities
+        entity_registry_.destroy(view.begin(), view.end());
+
+        //! Unset the tic tac toe constants
+        entity_registry_.unset<tic_tac_toe_constants>();
+    }
+
+private:
+    ecs::system_manager system_manager_{entity_registry_};
+};
+
+//! Our game world
+struct tic_tac_toe_world : world::app
+{
+    //! Our game entry point
+    tic_tac_toe_world() noexcept
+    {
+        //! Load our graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        //! Load our input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        //! Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        //! Change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_), true);
+    }
+};
+
+int main()
+{
+    //! Declare our world
+    tic_tac_toe_world game;
+
+    //! Run the game
+    return game.run();
+}
+```
+
+## Step 4: Win, Tie conditions and reset game
+
+At this final step, for this program to become a real game, we need to add win, tie conditions and the reset game functionality.
+
+Let’s create a blank `reset_event`.
+
+```
+struct reset_event
+{
+
+};
+```
+
+And define the reset event callback, it will call the destructor and call the constructor again.
+
+```
+//! Callback
+void on_reset_event(const reset_event &) noexcept
+{
+    entt::registry &registry = this->entity_registry_;
+    this->~game_scene();
+    new(this) game_scene(registry);
+}
+```
+
+We subscribe to this reset event in `game_scene` constructor.
+
+```
+class game_scene final : public scenes::base_scene
+{
+public:
+    game_scene(entt::registry &entity_registry) noexcept : base_scene(entity_registry)
+    {
+        //! Subscribe to reset event
+        this->dispatcher_.sink<reset_event>().connect<&game_scene::on_reset_event>(*this);
+```
+
+And we remove this event in the class destructor.
+
+```
+~tic_tac_toe_logic() noexcept final
+{
+    this->dispatcher_.sink<event::mouse_button_pressed>().disconnect(*this);
+}
+```
+
+Then we trigger this when mouse button is pressed and game state isn’t `running`.
+
+```
+this->dispatcher_.trigger<reset_event>();
+
+---------
+
+void on_mouse_button_pressed(const event::mouse_button_pressed &evt) noexcept
+{
+    if (current_game_state_ == running) {
+        //! Retrieve game constants.
+        auto constants = entity_registry_.ctx<tic_tac_toe_constants>();
+
+        //! Play one turn of the Tic-Tac-Toe
+        play_turn(evt.y / constants.cell_height, evt.x / constants.cell_width);
+    } else {
+        //! Reset the game
+        this->dispatcher_.trigger<reset_event>();
+    }
+}
+```
+
+We nicely set-up the reset game functionality.
+
+Now we need to define the checks for win and tie conditions. Let’s start with the winning condition. It’s enough to check only the current player’s win situation. In this function we check every cell and count how many of them are marked as current player, separately in two variables `row_count` and `column_count`. If any of these two reached to `nb_cells` which is `3`, it’s a win, we return true. Then we count both diagonal lines and check the same thing. If none of these match 3, it’s not a win yet, returning false.
+
+```
+[[nodiscard]] bool did_current_player_win_the_game() const noexcept
+{
+    std::size_t row_count{0u}, column_count{0u}, diag1_count{0u}, diag2_count{0u};
+    auto[nb_cells, cell_width, cell_height, _] = entity_registry_.ctx<tic_tac_toe_constants>();
+    for (std::size_t i = 0; i < nb_cells; ++i) {
+        for (std::size_t j = 0; j < nb_cells; ++j) {
+            //! Check rows
+            if (board_[i * nb_cells + j] == static_cast<cell_state>(player_turn_))
+                row_count++;
+
+            //! Check columns
+            if (board_[j * nb_cells + i] == static_cast<cell_state>(player_turn_))
+                column_count++;
+        }
+
+        //! Check condition
+        if (row_count >= nb_cells || column_count >= nb_cells) {
+            return true;
+        }
+
+        //! Reset rows and columns
+        row_count = 0u, column_count = 0u;
+
+        //! Diag1 count
+        if (board_[i * nb_cells + i] == static_cast<cell_state>(player_turn_))
+            diag1_count++;
+
+        //! Second diag count
+        if (board_[i * nb_cells + nb_cells - i - 1] == static_cast<cell_state>(player_turn_))
+            diag2_count++;
+    }
+
+    //! Condition
+    return diag1_count >= nb_cells || diag2_count >= nb_cells;
+}
+```
+
+So we will check the winning condition first. If it’s not a win, and if all cells are filled, then it’s a tie. So tie implementation is really easy.
+
+```
+[[nodiscard]] bool is_tie() const noexcept
+{
+    return std::count(begin(board_), end(board_), cell_state::empty) == 0;
+}
+```
+
+Now we will use these two condition check functions in a bigger function which will be called later.
+
+```
+void check_winning_condition() noexcept
+```
+
+Inside it, we define a functor `make_screen` inside, which sets the color of the grid.
+
+```
+auto make_screen = [this](graphics::color clr_winner,
+                            entt::entity entity) {
+    auto &array_cmp = this->entity_registry_.get<geometry::vertex_array>(entity);
+    for (auto &v : array_cmp.vertices) v.pixel_color = clr_winner;
+    entity_registry_.replace<geometry::vertex_array>(entity, array_cmp.vertices, array_cmp.geometry_type);
+};
+```
+
+Using this functor, we make another one `make_player_win_screen` which gives the winner’s color as an argument.
+
+```
+auto make_player_win_screen = [this, make_screen](entt::entity entity) {
+    auto winning_color = player_turn_ == player::x ? graphics::magenta : graphics::cyan;
+    make_screen(winning_color, entity);
+};
+```
+
+Same way, another one which feeds another color when it’s tie.
+
+```
+auto make_tie_screen = [make_screen](entt::entity entity) {
+    make_screen(graphics::yellow, entity);
+};
+```
+
+Now let’s use these two. First, we need to check if current player won the game, if not, we check if it isn a tie. Depending on that, we set the game state and call the proper functor we defined earlier.
+
+```
+if (did_current_player_win_the_game()) {
+    current_game_state_ = static_cast<game_state>(player_turn_);
+    make_player_win_screen(grid_entity_);
+} else if (is_tie()) {
+    current_game_state_ = game_state::tie;
+    make_tie_screen(grid_entity_);
+}
+```
+
+This function `check_winning_condition` looks like this when we sum it up:
+
+```
+void check_winning_condition() noexcept
+{
+    auto make_screen = [this](graphics::color clr_winner,
+                              entt::entity entity) {
+        auto &array_cmp = this->entity_registry_.get<geometry::vertex_array>(entity);
+        for (auto &v : array_cmp.vertices) v.pixel_color = clr_winner;
+        entity_registry_.replace<geometry::vertex_array>(entity, array_cmp.vertices, array_cmp.geometry_type);
+    };
+
+    auto make_player_win_screen = [this, make_screen](entt::entity entity) {
+        auto winning_color = player_turn_ == player::x ? graphics::magenta : graphics::cyan;
+        make_screen(winning_color, entity);
+    };
+
+    auto make_tie_screen = [make_screen](entt::entity entity) {
+        make_screen(graphics::yellow, entity);
+    };
+
+    if (did_current_player_win_the_game()) {
+        current_game_state_ = static_cast<game_state>(player_turn_);
+        make_player_win_screen(grid_entity_);
+    } else if (is_tie()) {
+        current_game_state_ = game_state::tie;
+        make_tie_screen(grid_entity_);
+    }
+}
+```
+
+And finally we call this function in the end of `play_turn`.
+
+```
+void play_turn(std::size_t row, std::size_t column) noexcept
+{
+    //! Retrieve constants
+    auto constants = entity_registry_.ctx<tic_tac_toe_constants>();
+
+    //! Which cell is clicked ?
+    std::size_t index = row * constants.nb_cells_per_axis + column;
+
+    //! Cell is available ?
+    if (index < board_.size() && board_[index] == cell_state::empty) {
+
+        //! Change state of the cell to the current player
+        board_[index] = static_cast<cell_state>(player_turn_);
+
+        //! Create x or o based on the current player
+        player_turn_ == x ? create_x(entity_registry_, row, column) : create_o(entity_registry_, row, column);
+
+        //! Check winning condition
+        check_winning_condition();
+
+        //! Switch player
+        player_turn_ = (player_turn_ == player::x) ? player::o : player::x;
+    }
+}
+```
+
+That’s it! Here are the screenshots:
+
+During the match:
+
+
+
+![image](./../../assets/gallery/tictactoe-playing.png)
+
+When Player X wins:
+
+
+
+![image](./../../assets/gallery/tictactoe-x-win.png)
+
+When Player O wins:
+
+
+
+![image](./../../assets/gallery/tictactoe-o-win.png)
+
+When it’s a tie!
+
+
+
+![image](./../../assets/gallery/tictactoe-tie.png)
+
+Here is the complete code of the last step:
+
+```
+#include <vector>
+#include <antara/gaming/world/world.app.hpp>
+#include <antara/gaming/sfml/graphic.system.hpp>
+#include <antara/gaming/sfml/input.system.hpp>
+#include <antara/gaming/scenes/scene.manager.hpp>
+#include <antara/gaming/math/vector.hpp>
+#include <antara/gaming/graphics/component.canvas.hpp>
+#include <antara/gaming/graphics/component.layer.hpp>
+
+//! For convenience
+using namespace antara::gaming;
+
+struct tic_tac_toe_constants
+{
+    tic_tac_toe_constants(std::size_t nb_cells_per_axis_, std::size_t width_, std::size_t height_) noexcept :
+            nb_cells_per_axis(nb_cells_per_axis_),
+            cell_width(width_ / nb_cells_per_axis),
+            cell_height(height_ / nb_cells_per_axis)
+    {
+    }
+
+    const std::size_t nb_cells_per_axis;
+    const std::size_t cell_width;
+    const std::size_t cell_height;
+    const float grid_thickness{20.0f};
+};
+
+enum cell_state
+{
+    empty,
+    player_x = 1,
+    player_y = 2
+};
+
+struct reset_event
+{
+
+};
+
+//! Contains all the function that will be used for logic  and factory
+namespace
+{
+    //! Factory for creating a tic-tac-toe grid
+    entt::entity create_grid(entt::registry &registry) noexcept
+    {
+        //! Retrieve canvas information
+        auto[canvas_width, canvas_height] = registry.ctx<graphics::canvas_2d>().canvas.size;
+
+        //! Entity creation
+        auto grid_entity = registry.create();
+
+        //! Our vertices
+        std::vector<geometry::vertex> lines{8 * 4};
+
+        //! Retrieve constants information
+        auto[nb_cells, cell_width, cell_height, grid_thickness] = registry.ctx<tic_tac_toe_constants>();
+        const auto half_thickness = grid_thickness * 0.5f;
+
+        //! Our loop to create the grid
+        for (std::size_t counter = 0, i = 0; i <= nb_cells; ++i, counter += 4 * 2) {
+
+            //! To avoid narrowing conversion
+            auto idx = static_cast<float>(i);
+
+            //! First and last ones should be a bit inside, otherwise half of it is out of the screen
+            auto offset_x = 0.0f;
+            auto offset_y = 0.0f;
+
+            if (i == 0) {
+                offset_x += half_thickness;
+                offset_y += half_thickness;
+            } else if (i == nb_cells) {
+                offset_x -= half_thickness;
+                offset_y -= half_thickness;
+            }
+
+            //! Prepare lines
+
+            //! Vertical
+            lines[counter + 0].pos = {offset_x + idx * cell_width - half_thickness, 0.f};
+            lines[counter + 1].pos = {offset_x + idx * cell_width + half_thickness, 0.f};
+            lines[counter + 2].pos = {offset_x + idx * cell_width + half_thickness, canvas_height};
+            lines[counter + 3].pos = {offset_x + idx * cell_width - half_thickness, canvas_height};
+
+            //! Horizontal
+            lines[counter + 4].pos = {offset_x + 0, offset_y + idx * cell_height - half_thickness};
+            lines[counter + 5].pos = {offset_x + canvas_width, offset_y + idx * cell_height - half_thickness};
+            lines[counter + 6].pos = {offset_x + canvas_width, offset_y + idx * cell_height + half_thickness};
+            lines[counter + 7].pos = {offset_x + 0, offset_y + idx * cell_height + half_thickness};
+        }
+
+        //! Assign the vertex array to the grid entity
+        registry.assign<geometry::vertex_array>(grid_entity, lines, geometry::vertex_geometry_type::quads);
+
+        //! Assign the game_scene tag to the grid_entity (_hs means hashed_string)
+        registry.assign<entt::tag<"game_scene"_hs>>(grid_entity);
+
+        //! We want to draw the grid on the most deep layer, here 0.
+        registry.assign<graphics::layer<0>>(grid_entity);
+
+        //! We give back our fresh entity
+        return grid_entity;
+    }
+
+    std::vector<cell_state> create_board(std::size_t nb_cells_per_axis)
+    {
+        std::vector<cell_state> board(nb_cells_per_axis * nb_cells_per_axis, cell_state::empty);
+        return board;
+    }
+
+    void create_x(entt::registry &entity_registry, std::size_t row, std::size_t column) noexcept
+    {
+        auto[_, cell_width, cell_height, grid_thickness] = entity_registry.ctx<tic_tac_toe_constants>();
+        const auto half_box_side = static_cast<float>(std::fmin(cell_width, cell_height) * 0.25f);
+        const auto center_x = static_cast<float>(cell_width * 0.5 + column * cell_width);
+        const auto center_y = static_cast<float>(cell_height * 0.5 + row * cell_height);
+
+        auto x_entity = entity_registry.create();
+        std::vector<geometry::vertex> lines{2 * 4};
+
+        for (auto &&current_vertex: lines) current_vertex.pixel_color = graphics::magenta;
+
+        const auto half_thickness = grid_thickness * 0.5f;
+
+        // Top-left to Bottom-right
+        lines[0].pos = {center_x - half_box_side - half_thickness, center_y - half_box_side};
+        lines[1].pos = {center_x - half_box_side + half_thickness, center_y - half_box_side};
+        lines[2].pos = {center_x + half_box_side + half_thickness, center_y + half_box_side};
+        lines[3].pos = {center_x + half_box_side - half_thickness, center_y + half_box_side};
+
+
+        // Top-right to Bottom-left
+        lines[4].pos = {center_x + half_box_side - half_thickness, center_y - half_box_side};
+        lines[5].pos = {center_x + half_box_side + half_thickness, center_y - half_box_side};
+        lines[6].pos = {center_x - half_box_side + half_thickness, center_y + half_box_side};
+        lines[7].pos = {center_x - half_box_side - half_thickness, center_y + half_box_side};
+
+        entity_registry.assign<geometry::vertex_array>(x_entity, lines, geometry::vertex_geometry_type::quads);
+        entity_registry.assign<entt::tag<"game_scene"_hs>>(x_entity);
+        entity_registry.assign<entt::tag<"player_x"_hs>>(x_entity);
+        entity_registry.assign<graphics::layer<1>>(x_entity);
+    }
+
+    void create_o(entt::registry &entity_registry, std::size_t row, std::size_t column) noexcept
+    {
+        auto constants = entity_registry.ctx<tic_tac_toe_constants>();
+        const auto half_box_side = static_cast<float>(std::fmin(constants.cell_width, constants.cell_height) * 0.25f);
+        const auto center_x = static_cast<float>(constants.cell_width * 0.5 + column * constants.cell_width);
+        const auto center_y = static_cast<float>(constants.cell_height * 0.5 + row * constants.cell_height);
+
+        auto o_entity = geometry::blueprint_circle(entity_registry, half_box_side, graphics::transparent,
+                                                   transform::position_2d(center_x, center_y),
+                                                   graphics::outline_color(constants.grid_thickness, graphics::cyan));
+
+        entity_registry.assign<entt::tag<"game_scene"_hs>>(o_entity);
+        entity_registry.assign<graphics::layer<1>>(o_entity);
+    }
+}
+
+class tic_tac_toe_logic final : public ecs::logic_update_system<tic_tac_toe_logic>
+{
+public:
+
+    void update() noexcept final
+    {}
+
+    void on_mouse_button_pressed(const event::mouse_button_pressed &evt) noexcept
+    {
+        if (current_game_state_ == running) {
+            //! Retrieve game constants.
+            auto constants = entity_registry_.ctx<tic_tac_toe_constants>();
+
+            //! Play one turn of the Tic-Tac-Toe
+            play_turn(evt.y / constants.cell_height, evt.x / constants.cell_width);
+        } else {
+            //! Reset the game
+            this->dispatcher_.trigger<reset_event>();
+        }
+    }
+
+    tic_tac_toe_logic(entt::registry &registry, entt::entity grid_entity, std::vector<cell_state> board) noexcept
+            : system(registry), grid_entity_(grid_entity), board_(std::move(board))
+    {
+        //! Stateless system
+        this->disable();
+
+        //! Subscribe to mouse_button event
+        this->dispatcher_.sink<event::mouse_button_pressed>().connect<&tic_tac_toe_logic::on_mouse_button_pressed>(
+                *this);
+    }
+
+    ~tic_tac_toe_logic() noexcept final
+    {
+        this->dispatcher_.sink<event::mouse_button_pressed>().disconnect(*this);
+    }
+
+private:
+    //! Game logic
+    [[nodiscard]] bool did_current_player_win_the_game() const noexcept
+    {
+        std::size_t row_count{0u}, column_count{0u}, diag1_count{0u}, diag2_count{0u};
+        auto[nb_cells, cell_width, cell_height, _] = entity_registry_.ctx<tic_tac_toe_constants>();
+        for (std::size_t i = 0; i < nb_cells; ++i) {
+            for (std::size_t j = 0; j < nb_cells; ++j) {
+                //! Check rows
+                if (board_[i * nb_cells + j] == static_cast<cell_state>(player_turn_))
+                    row_count++;
+
+                //! Check columns
+                if (board_[j * nb_cells + i] == static_cast<cell_state>(player_turn_))
+                    column_count++;
+            }
+
+            //! Check condition
+            if (row_count >= nb_cells || column_count >= nb_cells) {
+                return true;
+            }
+
+            //! Reset rows and columns
+            row_count = 0u, column_count = 0u;
+
+            //! Diag1 count
+            if (board_[i * nb_cells + i] == static_cast<cell_state>(player_turn_))
+                diag1_count++;
+
+            //! Second diag count
+            if (board_[i * nb_cells + nb_cells - i - 1] == static_cast<cell_state>(player_turn_))
+                diag2_count++;
+        }
+
+        //! Condition
+        return diag1_count >= nb_cells || diag2_count >= nb_cells;
+    }
+
+    [[nodiscard]] bool is_tie() const noexcept
+    {
+        return std::count(begin(board_), end(board_), cell_state::empty) == 0;
+    }
+
+    void check_winning_condition() noexcept
+    {
+        auto make_screen = [this](graphics::color clr_winner,
+                                  entt::entity entity) {
+            auto &array_cmp = this->entity_registry_.get<geometry::vertex_array>(entity);
+            for (auto &v : array_cmp.vertices) v.pixel_color = clr_winner;
+            entity_registry_.replace<geometry::vertex_array>(entity, array_cmp.vertices, array_cmp.geometry_type);
+        };
+
+        auto make_player_win_screen = [this, make_screen](entt::entity entity) {
+            auto winning_color = player_turn_ == player::x ? graphics::magenta : graphics::cyan;
+            make_screen(winning_color, entity);
+        };
+
+        auto make_tie_screen = [make_screen](entt::entity entity) {
+            make_screen(graphics::yellow, entity);
+        };
+
+        if (did_current_player_win_the_game()) {
+            current_game_state_ = static_cast<game_state>(player_turn_);
+            make_player_win_screen(grid_entity_);
+        } else if (is_tie()) {
+            current_game_state_ = game_state::tie;
+            make_tie_screen(grid_entity_);
+        }
+    }
+
+    void play_turn(std::size_t row, std::size_t column) noexcept
+    {
+        //! Retrieve constants
+        auto constants = entity_registry_.ctx<tic_tac_toe_constants>();
+
+        //! Which cell is clicked ?
+        std::size_t index = row * constants.nb_cells_per_axis + column;
+
+        //! Cell is available ?
+        if (index < board_.size() && board_[index] == cell_state::empty) {
+
+            //! Change state of the cell to the current player
+            board_[index] = static_cast<cell_state>(player_turn_);
+
+            //! Create x or o based on the current player
+            player_turn_ == x ? create_x(entity_registry_, row, column) : create_o(entity_registry_, row, column);
+
+            //! Check winning condition
+            check_winning_condition();
+
+            //! Switch player
+            player_turn_ = (player_turn_ == player::x) ? player::o : player::x;
+        }
+    }
+
+private:
+    //! Private enums
+    enum game_state
+    {
+        running,
+        player_x_won = 1,
+        player_y_won = 2,
+        tie,
+        quit
+    };
+
+    enum player
+    {
+        x = 1,
+        o = 2
+    };
+
+private:
+    //! Private members variable
+    entt::entity grid_entity_{entt::null};
+    std::vector<cell_state> board_;
+    game_state current_game_state_{game_state::running};
+    player player_turn_{player::x};
+};
+
+//! Give a name to our system
+REFL_AUTO(type(tic_tac_toe_logic));
+
+class game_scene final : public scenes::base_scene
+{
+public:
+    game_scene(entt::registry &entity_registry) noexcept : base_scene(entity_registry)
+    {
+        //! Subscribe to reset event
+        this->dispatcher_.sink<reset_event>().connect<&game_scene::on_reset_event>(*this);
+        //! Retrieve canvas information
+        auto[canvas_width, canvas_height] = entity_registry_.ctx<graphics::canvas_2d>().canvas.size.to<math::vec2u>();
+
+        //! Set the constants that will be used in the program
+        auto &tictactoe_constants = entity_registry_.set<tic_tac_toe_constants>(3ull, canvas_width, canvas_height);
+
+        //! Create the grid of the tic tac toe
+        auto grid_entity = create_grid(entity_registry_);
+
+        //! Create the board of the tic tac toe
+        auto board = create_board(tictactoe_constants.nb_cells_per_axis);
+
+        //! Create our logic game system and give the fresh grid entity and the fresh board.
+        this->system_manager_.create_system<tic_tac_toe_logic>(grid_entity, board);
+    }
+
+    //! This function will not be used, because tic tac toe doesn't need an update every frame.
+    void update() noexcept final
+    {}
+
+
+    //! Our scene name
+    std::string scene_name() noexcept final
+    {
+        return "game_scene";
+    }
+
+    ~game_scene() noexcept final
+    {
+        //! Retrieve the collection of entities from the game scene
+        auto view = entity_registry_.view<entt::tag<"game_scene"_hs>>();
+
+        //! Iterate the collection and destroy each entities
+        entity_registry_.destroy(view.begin(), view.end());
+
+        //! Unset the tic tac toe constants
+        entity_registry_.unset<tic_tac_toe_constants>();
+    }
+
+    //! Callback
+    void on_reset_event(const reset_event &) noexcept
+    {
+        entt::registry &registry = this->entity_registry_;
+        this->~game_scene();
+        new(this) game_scene(registry);
+    }
+
+private:
+    ecs::system_manager system_manager_{entity_registry_};
+};
+
+//! Our game world
+struct tic_tac_toe_world : world::app
+{
+    //! Our game entry point
+    tic_tac_toe_world() noexcept
+    {
+        //! Load our graphical system
+        auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
+
+        //! Load our input system with the window from the graphical system
+        system_manager_.create_system<sfml::input_system>(graphic_system.get_window());
+
+        //! Load the scenes manager
+        auto &scene_manager = system_manager_.create_system<scenes::manager>();
+
+        //! Change the current_scene to "game_scene" by pushing it.
+        scene_manager.change_scene(std::make_unique<game_scene>(entity_registry_), true);
+    }
+};
+
+int main()
+{
+    //! Declare our world
+    tic_tac_toe_world game;
+
+    //! Run the game
+    return game.run();
+}
+```
+
