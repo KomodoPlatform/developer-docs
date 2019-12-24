@@ -1,27 +1,21 @@
 # Tutorial: Getting Started
 
-# antara-gaming-sdk
+## Introduction
 
-Antara Gaming Software Development Kit
+This tutorial covers the installation and initiation of the Antara Gaming Software Development Kit (SDK).
 
-## Prerequisites
-
-Below is the list of prerequisites to use the `antara-gaming-sdk` on your machine:
+#### Prerequisites
 
 
-* [CMake](https://cmake.org/download/) 3.14 minimum
-
-
-* **clang-8** minimum (Windows/Linux/Osx) (clang and clang-cl both supported on Windows)
-
-
-* **Optional** emscripten latest (Web)
-
-
-* **Optional** Visual Studio 2019
-
-
-* **Optional** Clang VS Toolset (installable through visual studio installer)
+- [CMake](https://cmake.org/download/) 
+  - Requires at least version 3.14 or greater 
+- [clang-8 or higher](https://clang.llvm.org/get_started.html)
+  - Windows Antara Gaming SDK supports both clang and clang-cl 
+- (optional) [Emscripten](https://emscripten.org/docs/getting_started/downloads.html)
+  - (Install the latest web version) 
+- (optional) [Visual Studio 2019](https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2019) 
+- (optional) [Clang VS Toolset](https://docs.microsoft.com/en-us/cpp/build/clang-support-msbuild?view=vs-2019)
+  - (installable through Visual Studio installer)
 
 ## Getting Started
 
@@ -50,6 +44,8 @@ cmake --build . --config Debug
 ```
 
 There are also additional options with the CMake that allows to activate certain features of the SDK:
+
+<!--
 
 ### CMake Options
 
@@ -403,3 +399,5 @@ Please read [CONTRIBUTORS.md](./CONTRIBUTORS.md), contains the list of contribut
 ![image](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)
 
 ](https://conventionalcommits.org)  |
+
+-->
