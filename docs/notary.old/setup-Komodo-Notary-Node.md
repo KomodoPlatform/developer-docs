@@ -1,18 +1,18 @@
 # Setup Komodo Notary Node
 
-## Note
+::: tip Disclaimer
+This guide is still in _BETA_ phase. It is here is to give a general understanding on building a Komodo Notary Node server. It is possible that some instructions could be deprecated by the time you are reading it. It will give guidance on how to build the two required notary node servers: Mainnet and third party(3P).
+:::
 
-This guide is still in _BETA_ phase. It is here is to give you a good understanding on building your Komodo Notary Node servers. It is possible that some commands could be deprecated by the time you read it. It is intended to give guidance on how to build your two notary node servers from a fresh install.
+Note that, whenever the "Main Server" is referenced, it is referring to the server that is used to notarise Komodo and Smart Chains to Bitcoin. Whenever "3rd Party server" is referenced, it is referring to the server that is used to notarise any 3rd party coin to Komodo.
 
-For simplicity, whenever "Main Server" is referenced, it is referring to the server that is used to notarise Komodo & it's assetchains to Bitcoin. Whenever 3rd Party server is referenced, it is referencing the server used to notarise any 3rd party coin to Komodo.
+This guide will explain how to setup your Main Server, then go through how to setup the 3rd Party Server seperately. After that there are instructions on how to create your Notary Node `pubkeys`, import them to your servers and then, create a basic start script for each server. Having a second server (or VM) is now a requirement for Komodo Notary Nodes. There are ways to have a single server and then creating separate virtual machines on it, instead of having two separate servers. This guide won't touch on how to do that.
 
-This guide will explain how to setup your Main Server, then go through how to setup the 3rd Party Server seperately. Below that describes how to create your NN pubkeys, import them and create a basic start script for each server. Having a second server (or VM) is now a requirement of Komodo Notary Nodes. There are methods of having a single server and creating seperate virtual machines, instead of having two seperate servers, but this guide won't touch on how to do that.
-
-If you have any problems, please join `#notarynode` on the [Komodo Discord](https://komodoplatform.com/discord)
+If you face problems, please join the `#notarynode` channel on the [Komodo Discord Server](https://komodoplatform.com/discord)
 
 ## NN Repo Quick Reference
 
-Below are the current list of repo's NN's are to use. It will be kept up-to-date as possible, but if you see something you're not expecting, jump on the discord and let us know.
+Below are the current list of repositories Notary Nodes are to use. It will be kept as up-to-date as possible, but if you see something unexpected, jump to the [Komodo Discord Server](https://komodoplatform.com/discord) and let us know.
 
 ### Both Servers
 
@@ -46,7 +46,7 @@ Below are the current list of repo's NN's are to use. It will be kept up-to-date
 
 #### Main Server
 
-Komodo Notary Node currently only works on Linux. To setup Komodo Notary Node be sure you have a good solid server with the following minimum requirements:
+Komodo Notary Node currently only works on Linux. To setup Komodo Notary Node be sure you have a solid server with the following minimum requirements:
 
 - CPU: A good CPU (Xeon/i7)
 
