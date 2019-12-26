@@ -75,7 +75,7 @@ sudo apt-get install build-essential
 Install the following additional dependencies using the terminal.
 
 ```bash
-sudo apt-get install -y build-essential git llvm-3.9-dev libclang-3.9-dev clang-3.9 libssl-dev pkg-config
+sudo apt-get install -y git llvm-3.9-dev libclang-3.9-dev clang-3.9 libssl-dev pkg-config
 ```
 
 #### Install Additional Rust Components
@@ -100,7 +100,7 @@ rustup component add rustfmt-preview
 
 ##### Linux:
 
-```
+```bash
 sudo apt-get install jq
 ```
 
@@ -110,7 +110,7 @@ Download the appropriate file from [this link.](https://stedolan.github.io/jq/do
 
 In your terminal, make the file executable by changing into the directory where the file downloaded and executing:
 
-```
+```bash
 chmod +x jq
 ```
 
@@ -135,7 +135,21 @@ Compile the source code:
 cargo build --features native -vv
 ```
 
-If everything installs successfully you will see something similar:
+#### MacOS
+
+If the above command results in an error, use the following command
+
+```bash
+LIBRARY_PATH=/usr/local/opt/openssl/lib cargo build --features native -vv
+```
+
+or you may link `libcrypto` permanently to `/usr/local/lib`
+
+```bash
+ln -s /usr/local/opt/openssl/lib/libcrypto.a /usr/local/lib
+```
+
+If everything installed successfully you should see something similar:
 
 ```
 “Finished dev [optimized + debuginfo] target(s) in 3m 33s”
