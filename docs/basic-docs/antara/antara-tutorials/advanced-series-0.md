@@ -36,7 +36,7 @@ Our implementation uses many of the key ideas put forth by the Interledger team,
 
 ##### A Brief Description of Komodo Enhancements
 
-At the simplest level, CryptoConditions operate with electronic signatures and hashes. The Komodo team enhanced CryptoCondition technology beyond the original specifications. Our implementation allows for a Smart Chain's consensus mechanism to evaluate the results of arbitrary code and to update state in the blockchain's data in a decentralized and secure fashion.
+At the simplest level, CryptoConditions operates with electronic signatures and hashes. The Komodo team enhanced CryptoCondition technology beyond the original specifications. Our implementation allows for a Smart Chain's consensus mechanism to evaluate the results of arbitrary code and to update state in the blockchain's data in a decentralized and secure fashion.
 
 The important takeaway is that the Antara Framework encompasses several underlying technologies, one of which is CryptoConditions (CC). This technology allows a developer to add several enhancements to their Smart Chain. These enhancements include complex logical conditions and fulfillments, and arbitrary code. The enhancements rely on the consensus mechanism to ensure state integrity in a decentralized environment.
 

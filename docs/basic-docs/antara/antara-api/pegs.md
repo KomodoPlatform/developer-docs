@@ -111,7 +111,9 @@ In return, the liquidating user receives `95%` of the `KMD` tokens in the indebt
 
 The `USDK` coins sent by the liquidating user are burned.
 
-The remaining `5%` of the indebted user's `KMD` tokens are donated to the Pegs Antara Module, where they continue to support the maintenance of a healthy stablecoin and `KMD:USDK` ratio balance.
+The remaining indebted user's `KMD` tokens are donated to the Pegs Antara Module, where they continue to support the maintenance of a healthy backing coin vs stablecoin ratio (`KMD:USDK`). In case the account debt was exactly 90% at the moment of liquidation, the remaining will be `5%`.
+
+The liquidated user still holds their USDK coins and can exchange them for KMD tokens from another account that is in the yellow zone.
 
 ###### Preventing Account Liquidation
 
@@ -453,7 +455,7 @@ The above string is the `pegstxid` that represents the Peg.
 
 The `pegsexchange` method exchanges native coins for deposited tokens. This method is intended for users that do not have a Pegs account associated with the pubkey used to launch their daemon.
 
-Users that have an account may use the [<b>pegsliquidate</b>](../../../basic-docs/antara/antara-api/pegs.html#pegsliquidate) method.
+Users that have an account may use the [<b>pegsreedem</b>](../../../basic-docs/antara/antara-api/pegs.html#pegsredeem) method to exchange coins for tokens.
 
 To supply the user that executes the method with tokens, this method sends the user's coins to pay the debt of another user whose account is in the "yellow zone" (a debt ratio between `80%` and `90%` based on current prices). This improves the debt ratio of the indebted user, thus forestalling liquidation of the indebted user's account.
 
