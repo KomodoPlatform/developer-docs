@@ -75,7 +75,7 @@ sudo apt-get install build-essential
 Install the following additional dependencies using the terminal.
 
 ```bash
-sudo apt-get install -y build-essential git llvm-3.9-dev libclang-3.9-dev clang-3.9 libssl-dev pkg-config
+sudo apt-get install -y git llvm-3.9-dev libclang-3.9-dev clang-3.9 libssl-dev pkg-config
 ```
 
 #### Install Additional Rust Components

@@ -1,6 +1,6 @@
 # DEX Walkthrough
 
-Now that you have MarketMaker 2.0 (MM2) installed you are ready for your first atomic swap!
+Now that you have MarketMaker 2.0 (MM2) [installed](../atomicdex-setup/get-started-atomicdex.md) you are ready for your first atomic swap!
 
 Since we're testing MM2 as a back end, we're going to be doing a few things that a normal user will not be expected to do once we have a GUI or TUI/CLI available. We are working with Ideas By Nature, a user-experience and user-interface design firm, to facilitate this.
 
