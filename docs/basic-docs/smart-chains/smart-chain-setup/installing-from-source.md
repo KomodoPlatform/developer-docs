@@ -70,7 +70,7 @@ This action takes some time, depending on your Internet connection. Let the proc
 Once completed, follow the steps below to install Komodo.
 
 ::: tip Note
-At some point during the installation process, you will see a warning, "libgmp headers missing". This can safely be ignored.
+At some point during the installation process, you may see a warning, "libgmp headers missing". This can safely be ignored.
 :::
 
 #### Clone the Komodo Repository
