@@ -1,16 +1,20 @@
 # Tutorial: Antara Gaming Systems
 
-If you have not read the getting started part yet, I invite you to do it now for the rest of this tutorial.
+## Introduction
 
-If you have not read the ecs module documentation yet, I invite you to do it now to understand what we are doing in this tutorial series.
+This tutorial presents the process of creating a gaming system using the Antara Gaming SDK.
 
-## How to create your own system step by step ?
+This tutorial assumes that the reader desires to create a system for a project that has a root directory outside of the Antara Gaming SDK directory. (An "external game project.")
 
-### Setup
+## Prerequisites
 
-In this tutorial I will assume that you want to write a system for a project outside the gaming SDK. (An External Game Project)
+Please read the [Getting Started](./gaming-sdk-tutorial-0.html) tutorial before beginning this tutorial.
 
-Firstly we will need a **CMakeLists.txt**:
+Please also review the [ecs documentation](./gaming.html) section of the API documentation, to gain a brief introduction to the essential concepts of this tutorial.
+
+## Create Initial Files
+
+Create a `CMakeLists.txt` file.
 
 ```
 if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
@@ -45,7 +49,7 @@ add_executable(${PROJECT_NAME} my_example_system.cpp)
 target_link_libraries(${PROJECT_NAME} PUBLIC antara::world)
 ```
 
-As the `CMakeLists.txt` suggests we also need a **C++** files named `my_example_system.cpp` with the following contents:
+As indicated in the `CMakeLists.txt` file, the project also needs a `C++` file named `my_example_system.cpp` with the following contents.
 
 ```
 #include <antara/gaming/world/world.app.hpp>
@@ -68,15 +72,23 @@ int main()
 }
 ```
 
-And now we can successfully build the setup project that we just made:
+## Build the Project
 
-> **WARNING**: The project is build on OSX in the following video, if you want to build for your platform please refer to the getting started tutorial
+The project is now ready for the `build` process.
+
+::: tip
+
+In the following video, the actions are performed on an OSX setup. Please refer to the [Getting Started Tutorial](./gaming.html) for more information about other operating systems. 
+
+:::
 
 <embed>
     <script id="asciicast-RuOAzT29eEl51cOrsnX1yEFyo" src="https://asciinema.org/a/RuOAzT29eEl51cOrsnX1yEFyo.js" async data-speed="3" data-size="small"></script>
-</embed>### Create a system
+</embed>
 
-Let’s create between the `using namespace` statement and the definition of the class `my_world` a system class who will be a `pre_update_system`
+## Create a System
+
+Between the `using namespace` statement and the definition of the class `my_world`, create a system class that is defined as a `pre_update_system`.
 
 ```
 class pre_concrete_system final : public ecs::pre_update_system<pre_concrete_system>
@@ -97,32 +109,34 @@ public:
 };
 ```
 
-Now we can load this system into our world. Place yourself at the body of the constructor of the class `my_world`.
+Place the cursor at the body of the constructor of the class `my_world`.
 
-In order to load the system we will use the function `create_system` of the `system_manager` class.
+In order to load the system, use the function [create_system](../../../basic-docs/antara/antara-api/gaming.html#create-system) of the `system_manager` class.
 
 ```
 my_world() noexcept
 {
-    //! Here we don't need to add any parameters for the constructor
+    //! Here there is no need to add any parameters for the constructor
     //! because the mandatory parameters are forwarded by default
     this->system_manager_.create_system<pre_concrete_system>();
 }
 ```
 
-Now, if you compile your program and start it, you will realize that you are in an infinite loop, that’s simply mean your system is running inside the game loop.
+## Add a Quit Game Event
 
-But do not panic we have a way to stop our system thanks to the [dispatcher](https://github.com/skypjack/entt/wiki/Crash-Course:-events,-signals-and-everything-in-between#event-dispatcher).
+Currently, the source code creates in an infinite loop, as the system is running inside the game loop.
 
-We will make sure that after a number of iterations from our system, we will emit a `quit_game event` that will be catched by the world and stop the gaming loop.
+Use the [dispatcher](https://github.com/skypjack/entt/wiki/Crash-Course:-events,-signals-and-everything-in-between#event-dispatcher) to stop the system.
 
-To do this we will create a counter as a private field of our system and increment it each time the update function is called, arrived at 10 iterations we will emit an event to leave the game
+Add source code that emits a `quit_game event` that the game world will catch and stop the gaming loop.
+
+Create a `counter` as a private field of the system and increment the counter each time the update function is called. At `10` iterations, emit an event to leave the game.
 
 ```
 class pre_concrete_system final : public antara::gaming::ecs::pre_update_system<pre_concrete_system>
 {
 public:
-    //! Here the constructor can take other additional arguments but the first two are mandatory
+    //! Here the constructor can take other additional arguments, but the first two are mandatory
     pre_concrete_system(entt::registry &registry) noexcept : system(registry)
     {
 
@@ -144,11 +158,17 @@ private:
 REFL_AUTO(type(pre_concrete_system)) //! This line is very important, it's give a static reflection name function to your system, otherwise you will not compile.
 ```
 
-**WARNING**: Let’s not forget the inclusion of [iostream](https://en.cppreference.com/w/cpp/header/iostream) header at the top of the file.
+::: tip
 
-Now, if you compile your program and start it you will quit your game after 10 iterations.
+Don't forget to add `#include <iostream>` at the top of the file.
 
-Below all the code of this tutorial:
+:::
+
+## Test the Gaming System
+
+The game should now compile, and when executed, iterate `10` times and close.
+
+#### Full Code Sample
 
 ```
 #include <iostream>
@@ -185,7 +205,7 @@ class my_world : public world::app
 public:
     my_world() noexcept
     {
-        //! Here we don't need to add any parameters for the constructor
+        //! Here there is no need to add any parameters for the constructor
         //! because the mandatory parameters are forwarded by default
         this->system_manager_.create_system<pre_concrete_system>();
     }
@@ -196,7 +216,4 @@ int main()
     my_world world;
     return world.run();
 }
-```
-
-**Congratulations, you have managed to create your own system and add it to your game world !**
-
+``` 
