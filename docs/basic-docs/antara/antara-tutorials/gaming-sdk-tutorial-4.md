@@ -339,7 +339,7 @@ Use the namespace `antara::gaming` and `std::string_literals` for convenience.
 
 Declare the new object in the body of the main function. Replace its return value with the return value of the game, as returned by the `run` function of the `class world::app`.
 
-Observe the result.
+The following is the result.
 
 ```
 #include <antara/gaming/world/world.hpp>
@@ -389,14 +389,14 @@ Compiling and running now creates a black window, which can be closed by pressin
 
 </div>
 
-And now, the setup part is over. We have a `CMakeLists.txt` to be able to compile our program into a basic executable which can create the game window.
+#### Create a Game Scene
 
-Next we create a game scene using the scene manager. To do so we need to include the header file `#include <antara/gaming/scenes/scene.manager.hpp>` and load the scenes manager system into the system manager.
+To create a game scene using the scene manager include the header file `#include <antara/gaming/scenes/scene.manager.hpp>` and load the scene's manager system into the system manager.
 
 ```
 // Game entry point
 struct flappy_bird_world : world::app {
-    //! Our game entry point
+    //! the game entry point
     flappy_bird_world() noexcept {
         // Load the graphical system
         auto &graphic_system = system_manager_.create_system<sfml::graphic_system>();
@@ -410,11 +410,13 @@ struct flappy_bird_world : world::app {
 };
 ```
 
-Now we create the `game_scene` class that inherits from the `base_scene` class. This class will be the entry point of our game scene.
+Create the `game_scene` class that inherits from the `base_scene` class. This class is the entry point of the game scene.
 
-The concrete class must override several functions such as update, `scene_name`.
-Flappy Bird is a game that needs an update for each tick, so we will fill the update function later.
-For the `scene_name` function we’ll just return the name of the scene.
+The concrete class must override several functions such as `update`, and `scene_name`.
+
+Leave the `update` function empty for the time being.
+
+The `scene_name` function returns the name of the scene.
 
 ```
 // Game Scene
@@ -435,13 +437,12 @@ private:
 };
 ```
 
-<!--
-Now we load our game scene into the `scene_manager` using the `change_scene` member function.
+Load the game scene into the `scene_manager` using the `change_scene` member function.
 
 ```
 struct flappy_bird_world : world::app
 {
-    //! Our game entry point
+    //! The game entry point
     flappy_bird_world() noexcept
     {
         //! Load the graphical system
@@ -459,7 +460,7 @@ struct flappy_bird_world : world::app
 };
 ```
 
-We will also use a sprite for the bird, so we need the `sfml::resources_system` by including the header file `#include <antara/gaming/sfml/resources.manager.hpp>` and loading it in the world constructor.
+The sprite for the bird requires the `sfml::resources_system`. Include the header file `#include <antara/gaming/sfml/resources.manager.hpp>` and load this in the world constructor.
 
 ```
 // Game world
@@ -484,7 +485,7 @@ struct flappy_bird_world : world::app {
 };
 ```
 
-If you compile now you should still see the black window from the previous step, but we are now in our game scene.
+Compiling the game at this time still produces a black window, but this is now the game scene.
 
 <div>
 
@@ -492,9 +493,13 @@ If you compile now you should still see the black window from the previous step,
 
 </div>
 
-**NOTE**: The scene system is very handy to organize multiple screens of the game: **introduction scene**, **game scene**, **end-of-game scene**, etc.
+::: tip Note 
 
-Step 1 is complete, here is the full code.
+The scene system is a useful method to organize multiple screens of the game: **introduction scene**, **game scene**, **end-of-game scene**, etc.
+
+:::
+
+Here is the code at this stage of the tutorial.
 
 ```
 #include <random>
@@ -555,7 +560,7 @@ int main() {
 }
 ```
 
-## Step 2: Creation of Pipes
+## Create the Pipes
 
 During this step, we will add the pipes which kill Flappy Bird when it touches them. In the image below, you’ll see two pipes with a gap between them. We will call this a `column`.
 
@@ -681,6 +686,7 @@ Now we can start constructing a pipe. There will be some math here about positio
 
 `create_pipe` function will have `bool is_top, float pos_x, float gap_start_pos_y` parameters. `is_top` indicates if it’s the top pipe or the bottom. `pos_x` is the horizontal position of the pipe. `gap_start_pos_y` is the vertical start position of the gap, for example, the bottom edge of the top pipe.
 
+<!--
 To start with, we retrieve `canvas_height` and the constants.
 
 ```
