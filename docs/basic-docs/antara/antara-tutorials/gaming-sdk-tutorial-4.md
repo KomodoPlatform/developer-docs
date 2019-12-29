@@ -1,31 +1,37 @@
 # Tutorial: Flappy Bird
 
-Before starting the tutorial, make sure that you have installed the required dependencies and your program compiles with the build commands available in the tutorial getting started.
+Please become familiar with the [Getting Started](../../../basic-docs/antara/antara-tutorials/gaming-sdk-tutorial-0.html) tutorial before beginning this tutorial.
 
-This tutorial is divided into multiple steps to make it easier to follow.
+## Introduction
 
-## Step 1: Setup the executable, window and the game scene
+This tutorial guides the reader in creating a simple game of Flappy Bird in relation to Komodo technology.
 
-First, create a folder called `flappy-bird` for your project, and create a subfolder called `assets` inside.
-Within the `assets` folder create a `textures` subfolder (for storing the `player.png` image)
-Also within the `assets folder, create another subfolder called \`\`data`, and within this, create two subfolders: `linux` and `osx` to store utility files required to install the game on targeted systems.
+## Set Up the Executable, Window, and Game Scene
 
-In the `Linux` folder we need three files:
+Create a folder called `flappy-bird` for the project, and create a subfolder called `assets` inside.
 
+Within the `assets` folder create a `textures` subfolder for storing the `player.png` image.
 
-* komodo_icon.png (Icons of our game)
+Also in the `assets folder, create another subfolder called `data`, and within this, create two subfolders: `linux` and `osx` to store utility files required to install the game on targeted systems.
 
+#### The Linux Folder
 
-* org.antara.gaming.sfml.flappybird.appdata.xml (xml definition for our game)
+In the `Linux` folder three files are required.  
 
+- komodo_icon.png 
+  - (these are the icons of the game) 
+- org.antara.gaming.sfml.flappybird.appdata.xml
+  - (xml definition for the game) 
+- org.antara.gaming.sfml.flappybird.desktop 
+  - (desktop file for Linux)
 
-* org.antara.gaming.sfml.flappybird.desktop (desktop file for Linux)
+Here is the icon of the game for the tutorials:
 
-Here is the icon of the game that we will use for the tutorials:
+<div>
 
+<img src="/flappy-bird-tutorial/komodo_icon.png">
 
-
-![image](./../../../tutorials/flappy-bird/step_1/data/linux/komodo_icon.png)
+</div>
 
 Here is the xml file:
 
@@ -63,25 +69,24 @@ Icon=komodo_icon
 Categories=Game;
 ```
 
-In the `OSX` folder we need four files:
+#### The OSX Folder
 
+The `OSX` folder requires four files.
 
-* kmd_logo.icns (icon osx format of our game)
+- kmd_logo.icns
+  - (icon osx format of the game) 
+- Packaging_CMakeDMGBackground.tif
+  - (dmg image background) 
+- Packaging_CMakeDMGSetup.scpt
+  - (OSX Apple script for the packaging) 
+- sfml_flappybird_install.cmake
+  - (CMake script for the bundling)
 
+[Click here](/flappy-bird-tutorial/kmd_logo.icns) to download kmd_logo.icns.
 
-* Packaging_CMakeDMGBackground.tif (dmg image background)
+[Click here](/flappy-bird-tutorial/Packaging_CMakeDMGBackground.tif) to download Packaging_CMakeDMGBackground.tif.
 
-
-* Packaging_CMakeDMGSetup.scpt (OSX Apple script for the packaging)
-
-
-* sfml_flappybird_install.cmake (CMake script for the bundling)
-
-Click `here` to download kmd_logo.icns.
-
-Click `here` to download Packaging_CMakeDMGBackground.tif.
-
-Here is the AppleScript:
+The AppleScript:
 
 ```
 on run argv
@@ -132,7 +137,7 @@ on run argv
       delay 5
     close
 
-    -- one last open and close so you can see everything looks correct
+    -- one last open and close to verify that everything looks correct
     open
       delay 5
     close
@@ -143,7 +148,7 @@ end tell
 end run
 ```
 
-And the CMake script:
+The CMake script:
 
 ```
 if (APPLE)
@@ -183,11 +188,13 @@ if (APPLE)
 endif ()
 ```
 
-Now create a text file and save it as `CMakeLists.txt`.
+#### Other Build Files
 
-In this `CMakeLists.txt` file we will have: name of the project, creation of the executable, link with the SDK, moving of the assets, C++ standard that will be used, and any extra modules that we need.
+In the `flappy-bird` directory, create a text file and save it as `CMakeLists.txt`.
 
-Below is the `CMakeLists.txt` file:
+This file has the following items: the name of the project, the creation of the executable, a link to the SDK, moving of the assets, the C++ standard that will be used, and any extra modules required.
+
+Below is the `CMakeLists.txt` file.
 
 ```
 if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
@@ -200,7 +207,7 @@ cmake_minimum_required(VERSION 3.14)
 ##! C++ Standard needed by the SDK is 17
 set(CMAKE_CXX_STANDARD 17)
 
-##! Our Project title, here flappy-bird.
+##! The Project title -- flappy-bird.
 project(flappy-bird DESCRIPTION "An awesome flappy-bird" LANGUAGES CXX VERSION 1.0.0)
 
 ##! The SDK need's clang as main compiler.
@@ -210,27 +217,27 @@ if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     endif()
 endif ()
 
-##! We will let know the SDK if our on Linux
+##! Inform the SDK if the machine is on Linux
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     set(LINUX TRUE)
 endif ()
 
-##! We include the module from CMake for fetching dependencies
+##! Include the module from CMake for fetching dependencies
 include(FetchContent)
 
-##! We declare information about the dependance that we want to fetch.
+##! Declare information about the dependance to fetch.
 FetchContent_Declare(
         antara-gaming-sdk
         URL https://github.com/KomodoPlatform/antara-gaming-sdk/archive/master.zip
 )
 
-##! We set extras modules from the SDK that we want to use, here we will use the SFML module.
+##! Set extra modules from the SDK to use -- the SFML module here
 set(USE_SFML_ANTARA_WRAPPER ON)
 
-##! We fetch our dependence
+##! Fetch the dependence
 FetchContent_MakeAvailable(antara-gaming-sdk)
 
-##! Calling this macros provided by the sdk will if you are on Apple init the environment for this OS (std::filesystem).
+##! Calling this macros provided by the sdk will, if the local machine runs Apple, init the environment for this OS (std::filesystem).
 init_antara_env()
 
 ##! Get basis assets (default fonts, etc)
@@ -240,7 +247,7 @@ get_resources_basics_assets(${CMAKE_CURRENT_SOURCE_DIR})
 set(ICON)
 configure_icon_osx(data/osx/kmd_logo.icns ICON kmd_logo.icns)
 
-##! We create the executable with the project name
+##! Create the executable with the project name
 add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${ICON} flappy-bird.cpp)
 
 ##! Linux assets
@@ -259,10 +266,10 @@ set_target_properties(${PROJECT_NAME}
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/"
         )
 
-##! We link the SDK modules that we want to use to our executable
+##! Link the SDK modules to use to the executable
 target_link_libraries(${PROJECT_NAME} PUBLIC antara::world antara::sfml antara::collisions)
 
-##! Move assets
+##! Move the assets
 if (WIN32)
     file(COPY assets DESTINATION ${CMAKE_BINARY_DIR}/bin/)
     ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD
@@ -283,7 +290,7 @@ if (APPLE)
 endif()
 ```
 
-Now we can create our input file for the application containing an empty main function (as below) and save it as `flappy-bird.cpp`.:
+Create the input file for the application containing an empty main function (as below) and save the file as `flappy-bird.cpp`.
 
 ```
 int main() {
@@ -291,7 +298,7 @@ int main() {
 }
 ```
 
-You should now have the following tree:
+The project tree should now be as follows. 
 
 ```
 ./flappy-bird
@@ -316,15 +323,23 @@ You should now have the following tree:
 └── flappy-bird.cpp
 ```
 
-Now we need a world representing the world of our game, to do this we use the following header file: `#include <antara/gaming/world/world.app.hpp>`
+## Create a Game World
 
-And a basic structure that we name `flappy_bird_world`. It will inherit from `antara::gaming::world::app` class.
+To create a world representing the world of the game, start by including the following header file.
 
-And use the namespace `antara::gaming` and `std::string_literals` to make things easier.
+```
+#include <antara/gaming/world/world.app.hpp>
+```
 
-Finally, we declare our new object in the body of the main function, and we replace its return value with the return value of our game (returned by the `run` function of the `class world::app`).
+Add a basic structure named `flappy_bird_world`.
 
-It gives us the following result:
+This inherits from the `antara::gaming::world::app` class.
+
+Use the namespace `antara::gaming` and `std::string_literals` for convenience.
+
+Declare the new object in the body of the main function. Replace its return value with the return value of the game, as returned by the `run` function of the `class world::app`.
+
+Observe the result.
 
 ```
 #include <antara/gaming/world/world.hpp>
@@ -347,11 +362,13 @@ int main() {
 }
 ```
 
-If you compile now and run your executable, you have an infinite loop and nothing will happen.
+#### Initiating the Graphics 
 
-The last stage of this step one is to add the graphics side of the application, for that we will need two modules: `antara::gaming::sfml::graphic_system` and `antara::gaming::sfml::input::system` which have these following headers, respectively: `#include <antara/gaming/sfml/graphic.system.hpp>` and `#include <antara/gaming/sfml/input.system.hpp>`.
+To compile and execute the program at this point would result only in an infinite loop.
 
-Now in the body of the constructor of our class `flappy_bird_world` we will load the graphic system, then initialize the input system with the window from the graphic system.
+Adding the graphics side of the application requires two modules: `antara::gaming::sfml::graphic_system` and `antara::gaming::sfml::input::system`. These have the following headers, respectively: `#include <antara/gaming/sfml/graphic.system.hpp>` and `#include <antara/gaming/sfml/input.system.hpp>`.
+
+In the body of the constructor of the class `flappy_bird_world` load the graphic system and initialize the input system with the window from the graphic system.
 
 ```
 // Game entry point
@@ -364,11 +381,13 @@ flappy_bird_world() noexcept {
 }
 ```
 
-If you compile and run now, you should see a black window open. You can close by pressing the close button of the window:
+Compiling and running now creates a black window, which can be closed by pressing the close button on the window bar.
 
+<div>
 
+<img src="/flappy-bird-tutorial/black_window.png">
 
-![image](./../../assets/black_window.png)
+</div>
 
 And now, the setup part is over. We have a `CMakeLists.txt` to be able to compile our program into a basic executable which can create the game window.
 
@@ -416,6 +435,7 @@ private:
 };
 ```
 
+<!--
 Now we load our game scene into the `scene_manager` using the `change_scene` member function.
 
 ```
@@ -466,9 +486,11 @@ struct flappy_bird_world : world::app {
 
 If you compile now you should still see the black window from the previous step, but we are now in our game scene.
 
+<div>
 
+<img src="/flappy-bird-tutorial/black_window.png">
 
-![image](./../../assets/black_window.png)
+</div>
 
 **NOTE**: The scene system is very handy to organize multiple screens of the game: **introduction scene**, **game scene**, **end-of-game scene**, etc.
 
@@ -537,9 +559,11 @@ int main() {
 
 During this step, we will add the pipes which kill Flappy Bird when it touches them. In the image below, you’ll see two pipes with a gap between them. We will call this a `column`.
 
+<div>
 
+<img src="/flappy-bird-tutorial/fb_column.png">
 
-![image](./../../assets/fb_column.png)
+</div>
 
 Let’s start with the constant values that we will use. We will keep them in a struct. There are many of them:
 
@@ -937,9 +961,11 @@ game_scene(entt::registry &registry) noexcept : base_scene(registry) {
 
 That’s it! Now we have many columns being drawn:
 
+<div>
 
+<img src="/flappy-bird-tutorial/fb_column.png">
 
-![image](./../../assets/fb_columns.png)
+</div>
 
 Step 2 is complete, here is the full code.
 
@@ -1185,9 +1211,11 @@ int main() {
 
 Now it is time to maker the black background prettier by adding sky, ground and grass. This is how we want it to look like:
 
+<div>
 
+<img src="/flappy-bird-tutorial/fb_background.png">
 
-![image](./../../assets/fb_background.png)
+</div>
 
 Let’s add the constants to `struct flappy_bird_constants`: thickness and colors.
 
@@ -1393,9 +1421,11 @@ game_scene(entt::registry &registry) noexcept : base_scene(registry) {
 
 Now we have a pretty background, at least as pretty as it can get with three rectangles!
 
+<div>
 
+<img src="/flappy-bird-tutorial/fb_background.png">
 
-![image](./../../assets/fb_background.png)
+</div>
 
 Step 3 is complete, full code below.
 
@@ -2396,9 +2426,11 @@ void init_dynamic_objects(entt::registry &registry) {
 
 Now you should be able to see the character and moving pipes.
 
+<div>
 
+<img src="/flappy-bird-tutorial/fb_player_creation.png">
 
-![image](./../../assets/fb_player_creation.png)
+</div>
 
 Step 5 is complete, here is the full code.
 
@@ -4689,9 +4721,11 @@ void reset_game() {
 
 That’s it, now if you run the game, you’ll see the UI which shows current score, max score and button instructions, and as you play, you’ll see score and max score increasing, and see the score return to zero when you die and reset the game.
 
+<div>
 
+<img src="/flappy-bird-tutorial/fb_score.png">
 
-![image](./../../assets/fb_score.png)
+</div>
 
 Step 8 is complete, here is the full code.
 
@@ -5309,4 +5343,4 @@ int main() {
     return game.run();
 }
 ```
-
+-->

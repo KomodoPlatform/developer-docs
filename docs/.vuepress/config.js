@@ -58,7 +58,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         name: "twitter:image",
         content: "https://developers.komodoplatform.com/start-here-pics/Dev_Docs_Introduction_small.png"
       }
-    ]
+    ],
   ],
   title: "Komodo Documentation",
   base: "/",
