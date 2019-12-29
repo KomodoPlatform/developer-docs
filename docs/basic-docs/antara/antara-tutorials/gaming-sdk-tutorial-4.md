@@ -562,7 +562,7 @@ int main() {
 
 ## Create the Pipes
 
-During this step, we will add the pipes which kill Flappy Bird when it touches them. In the image below, you’ll see two pipes with a gap between them. We will call this a `column`.
+The following steps add the pipes that kill the Flappy Bird whenenver they touch each other. In the image below, note the two pipes that have a gap between them. This is a `column`.
 
 <div>
 
@@ -570,7 +570,11 @@ During this step, we will add the pipes which kill Flappy Bird when it touches t
 
 </div>
 
-Let’s start with the constant values that we will use. We will keep them in a struct. There are many of them:
+#### Create the Structs
+
+Begin by developing the constant values. Keep these in a struct.
+
+Observe the following example.
 
 ```
 // Constants
@@ -590,7 +594,7 @@ struct flappy_bird_constants {
 };
 ```
 
-Then we will add this to the `registry` in the `game_scene` constructor.
+Add this to the `registry` in the `game_scene` constructor.
 
 ```
 // Game Scene
@@ -602,7 +606,11 @@ public:
     }
 ```
 
-Now we’ll make a struct which will represent a single `pipe`. Instead of using a sprite, we will make graphics with basic shapes. For example, a pipe has two parts as you see in the image above: `body` and `cap`. The body is the long part of the pipe with a cap sitting at the tip. Both will be green rectangle entities but with different sizes. We also prepare a `destroy` function which will destroy `body` and `cap` entities.
+Create a struct to represent a single `pipe`. Instead of using a sprite, create graphics with basic shapes.
+
+For example, a pipe has two parts: the `body` and the `cap`. The body is the long part of the pipe with a cap sitting at the tip. Both are green-rectangle entities, but with different sizes. 
+
+Also, prepare a `destroy` function to destroy `body` and `cap` entities.
 
 ```
 // A Flappy Bird column which has two pipes
@@ -618,7 +626,13 @@ struct pipe {
 };
 ```
 
-As mentioned before, two of these pipes will be called a `column`. Here we make another struct which uses the `struct pipe`. One is `top_pipe`, another one is `bottom_pipe`. Again, we have the `destroy` function, but this time the `destroy` function also has an entity parameter which will be the `column` entity itself.
+Two of these pipes together are called a `column`. 
+
+Make another struct which uses the `struct pipe`. 
+
+In this struct, one instance of the `pipe` is the `top_pipe`, the other is the `bottom_pipe`.
+
+Call the `destroy` function again, but this time the `destroy` function also has an entity parameter which will be the `column` entity itself.
 
 ```
 // Column is made of two pipes
@@ -636,7 +650,9 @@ struct column {
 };
 ```
 
-We will need some functions for creation of the pipes. First one is a function which returns a random number, we will use this to randomly position the gap between the pipes. We will use `std::random_device`, `std::mt19937`  and `std::uniform_real_distribution<float>` for this.
+#### Create the Pipe Functions
+
+The first function returns a random number. This randomly positions the gap between the pipes. Use `std::random_device`, `std::mt19937`,  and `std::uniform_real_distribution<float>` to this effect.
 
 ```
 // Random number generator
@@ -650,7 +666,11 @@ namespace {
 }
 ```
 
-We will have many entities, so we need to tag them with `game_scene` name. Dynamic entities will have a `dynamic` tag, so we can easily query the dynamic ones to destroy them at game reset. Since this tagging will be repeated a lot, we will create a function for it. It is also a good idea to have these kind of helper functions in a namespace.
+Tag each entity with the `game_scene` name.
+
+Dynamic entities require a `dynamic` tag. This makes queries to dynamic entities easier when destroying entities at game reset. 
+
+Since the tagging is repeated frequently, create a function to manage the tagging process. Adding this helper function to a namespace is convenient.
 
 ```
 namespace {
@@ -664,9 +684,17 @@ namespace {
 }
 ```
 
-During the creation of the pipes we will need another function, to get a random starting position of the gap. That’s how we will know where to start and end the top pipe, have a gap, then start and end the bottom pipe.
+The creation of the pipes requires another function to obtain a random starting position for the gap. This informs the logic of the place to start and end the top pipe, to include the gap, and then start and end the bottom pipe.
 
-This function will also use some constants, such as `column_min` and `column_max`. `column_min` is for the top limit, `0.2` of the canvas height. And `column_max` is for the bottom limit, `0.8` of the canvas height. Though we also need to subtract `gap_height` from the `bottom_limit` because this will be the starting position (or top position) of the gap. When the limits are set, function returns a random float value between those two, using the random function we defined earlier. We will add this function into the same namespace.
+This function uses a few constants, such as `column_min` and `column_max`. 
+
+`column_min` is for the top limit, `0.2` of the canvas height. 
+
+`column_max` is for the bottom limit, `0.8` of the canvas height. Subtract `gap_height` from the `bottom_limit`, as this is the starting position (top position) of the gap. 
+
+Once the limits are established, the function returns a random float value between the limits, using the random function defined previously. 
+
+Add this function to the same namespace.
 
 ```
 // Returns a random gap start position Y
@@ -682,12 +710,17 @@ float get_random_gap_start_pos(const entt::registry &registry) {
 }
 ```
 
-Now we can start constructing a pipe. There will be some math here about position and size.
+#### Construct the Pipes
 
-`create_pipe` function will have `bool is_top, float pos_x, float gap_start_pos_y` parameters. `is_top` indicates if it’s the top pipe or the bottom. `pos_x` is the horizontal position of the pipe. `gap_start_pos_y` is the vertical start position of the gap, for example, the bottom edge of the top pipe.
+The `create_pipe` function has `bool is_top, float pos_x, float gap_start_pos_y` parameters. 
 
-<!--
-To start with, we retrieve `canvas_height` and the constants.
+`is_top` indicates if this is the top pipe or the bottom. 
+
+`pos_x` is the horizontal position of the pipe.
+
+`gap_start_pos_y` is the vertical start position of the gap, for example, the bottom edge of the top pipe.
+
+Retrieve `canvas_height` and the constants.
 
 ```
 // Retrieve constants
@@ -695,9 +728,17 @@ const auto canvas_height = registry.ctx<graphics::canvas_2d>().canvas.size.y();
 const auto constants = registry.ctx<flappy_bird_constants>();
 ```
 
-Remember that pipe is made of two parts: body and cap. Let’s construct the body first. It will be a rectangle so we will need center position and size. Just to avoid more complicated math, we can have center of the rectangle at the screen edge. Half of the pipe will be out of the view but it for a basic example we can ignore that visual optimization.
+Recall that the pipe is comprised of two parts: the body and the cap. 
 
-X will be `pos_x`, and the Y will be top of the screen if it’s the top pipe, which is 0. If it’s a bottom one, then Y will be bottom edge of the screen, which is `canvas_height`.
+Construct the body first. This is a rectangle, and therefore needs a center position and size.
+
+To avoid complicated math, set the center of the rectangle at the screen edge.
+
+Half of the pipe will be out of the view, but this visual optimization may be ignored for the purposes of this example tutorial.
+
+The `X` value is `pos_x`, and the `Y` value is at the top of the screen, `0`, for the top pipe.
+
+For the bottom pipe, the `Y` value is at the bottom edge of the screen, which is `canvas_height`.
 
 ```
 // PIPE BODY
@@ -705,7 +746,7 @@ X will be `pos_x`, and the Y will be top of the screen if it’s the top pipe, w
 transform::position_2d body_pos{pos_x, is_top ? 0.f : canvas_height};
 ```
 
-Body size however, is a little tricky. Size X will be the column thickness, that’s easy. But the Size Y changes depending on if it’s the top pipe or the bottom.
+Body size however, is trickier. Size `X` is the column thickness, but size `Y` is different depending on whether the pipe in question is at the top or bottom of the screen.
 
 If it’s the top pipe, start of the gap `gap_start_pos_y` should be bottom of the rectangle. So half size should be `gap_start_pos_y` since the center of the rectangle is at 0. Full size will be `gap_start_pos_y \* 2.0f`.
 
